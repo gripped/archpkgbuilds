@@ -4,7 +4,7 @@
 
 pkgname=cmake
 pkgver=4.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A cross-platform open-source make system'
 arch=('x86_64')
 url="https://www.cmake.org/"
@@ -38,7 +38,8 @@ validpgpkeys=(CBA23971357C2E6590D9EFD3EC8FEF3A7BFB4EDA) # Brad King <brad.king@k
 
 prepare() {
   cd $pkgname
-
+  git cherry-pick -n 39cc425791394dd8c48e132fb8789ccea8249500 # Unbreak meson
+ 
   rm -fr .git # Avoid dirty version number
 }
 
