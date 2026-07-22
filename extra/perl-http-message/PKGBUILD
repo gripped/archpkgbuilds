@@ -3,7 +3,7 @@
 # Generator : pbjam 0.01
 
 pkgname=perl-http-message
-pkgver=7.02
+pkgver=7.03
 pkgrel=1
 pkgdesc="HTTP style messages"
 arch=(any)
@@ -15,7 +15,7 @@ depends=(perl perl-clone perl-encode-locale perl-http-date perl-io-html
 checkdepends=(perl-io-compress-brotli perl-test-needs perl-try-tiny)
 conflicts=('perl-libwww<6')
 source=("https://github.com/libwww-perl/HTTP-Message/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c7f02dcb1ee6a679981345c70a41903059e4ddd1266191cfb287a957b3be7011f5d423ee1019d22c01f7eb79516ef9d41be4e3a34b67f097c34f8c6e6e655e06')
+sha512sums=('121643cf3e28e11c2acc626e0d7da37a5b36215dc6fc82478d863ba7ab1dfe2cb3d5b28df20d0f431d7202c2b84a7fefcd052832b6f7f3544d12b847f4696387')
 
 build() {
   cd HTTP-Message-$pkgver
