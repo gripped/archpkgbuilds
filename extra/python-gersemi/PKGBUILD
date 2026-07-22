@@ -2,7 +2,7 @@
 
 _name=gersemi
 pkgname=python-$_name
-pkgver=0.27.7
+pkgver=0.28.0
 pkgrel=1
 pkgdesc="A formatter to make your CMake code the real treasure"
 arch=(x86_64)
@@ -12,10 +12,8 @@ depends=(
   glibc
   libgcc
   python
-  python-colorama
-  python-ignore
-  python-platformdirs
   python-yaml
+  sqlite
 )
 makedepends=(
   python-build
@@ -31,11 +29,15 @@ checkdepends=(
   python-lark-parser
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-b2sums=('f0a775786400020f03cc2805cfc6a2ae36a14a8fe8fadd22948a3e239b70a9c1bc44ce866309fed7b326f30de479d034731fb405ec2308cfb2f55506ea38190c')
+b2sums=('eee2d682790b09670a7718ef0775a7c8b28f9002f6de7621642d1fc5fd435e2cbcf88a6bd43e6dc1248896ef0377fe30421f5fd75ba7b5dd8b823c71702385e3')
 
 build() {
   cd $_name-$pkgver
+
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+
   python -m build --wheel --no-isolation
+
 }
 
 check() {
