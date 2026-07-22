@@ -1,12 +1,13 @@
 pkgbase = foot
 	pkgdesc = Fast, lightweight, and minimalistic Wayland terminal emulator
 	pkgver = 1.27.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://codeberg.org/dnkl/foot
 	arch = x86_64
 	license = MIT
 	makedepends = fcft
 	makedepends = fontconfig
+	makedepends = git
 	makedepends = libutf8proc
 	makedepends = libxkbcommon
 	makedepends = llvm
@@ -22,8 +23,8 @@ pkgbase = foot
 	makedepends = wayland-protocols
 	optdepends = libutempter: utmp logging
 	backup = etc/xdg/foot/foot.ini
-	source = foot-1.27.0.tar.gz::https://codeberg.org/dnkl/foot/archive/1.27.0.tar.gz
-	sha256sums = 4e6131cc859ec6a36569f1978cf3617cc3836a681d13d228ded1b4885dab7770
+	source = foot::git+https://codeberg.org/dnkl/foot.git#tag=1.27.0
+	sha256sums = cce2ba627e49615fb022b6d5ecf85a4cf0bb4d0a3ee1e128d99fa61ac767f547
 
 pkgname = foot
 	depends = fcft
