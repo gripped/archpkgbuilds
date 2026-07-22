@@ -1,4 +1,4 @@
-From 234c0d4044e9da71aef8e62e1edf1bcc37021c95 Mon Sep 17 00:00:00 2001
+From 5e31535609f2c9f6a6ce0147010f12c0484abb21 Mon Sep 17 00:00:00 2001
 From: David Runge <dave@sleepmap.de>
 Date: Thu, 11 Jun 2020 11:45:32 +0200
 Subject: [PATCH] Make configuration file-hierarchy compliant
@@ -10,7 +10,7 @@ Use syslog by default.
  1 file changed, 25 insertions(+), 25 deletions(-)
 
 diff --git a/dnscrypt-proxy/example-dnscrypt-proxy.toml b/dnscrypt-proxy/example-dnscrypt-proxy.toml
-index 7c273c40..3e20040e 100644
+index 8d53a795..6b069c2b 100644
 --- a/dnscrypt-proxy/example-dnscrypt-proxy.toml
 +++ b/dnscrypt-proxy/example-dnscrypt-proxy.toml
 @@ -228,7 +228,7 @@ keepalive = 30
@@ -141,7 +141,7 @@ index 7c273c40..3e20040e 100644
  
  
  ## Optional log format: tsv or ltsv (default: tsv)
-@@ -697,12 +697,12 @@ format = 'tsv'
+@@ -695,12 +695,12 @@ format = 'tsv'
  
  ## Path to the file of allowed ip rules (absolute, or relative to the same directory as the config file)
  
@@ -156,7 +156,7 @@ index 7c273c40..3e20040e 100644
  
  ## Optional log format: tsv or ltsv (default: tsv)
  
-@@ -779,7 +779,7 @@ urls = [
+@@ -777,7 +777,7 @@ urls = [
    'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md',
    'https://cdn.jsdelivr.net/gh/DNSCrypt/dnscrypt-resolvers@master/v3/public-resolvers.md'
  ]
@@ -165,7 +165,7 @@ index 7c273c40..3e20040e 100644
  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
  refresh_delay = 73
  prefix = ''
-@@ -792,7 +792,7 @@ urls = [
+@@ -790,7 +790,7 @@ urls = [
    'https://download.dnscrypt.info/resolvers-list/v3/relays.md',
    'https://cdn.jsdelivr.net/gh/DNSCrypt/dnscrypt-resolvers@master/v3/relays.md'
  ]
@@ -174,7 +174,7 @@ index 7c273c40..3e20040e 100644
  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
  refresh_delay = 73
  prefix = ''
-@@ -801,13 +801,13 @@ prefix = ''
+@@ -799,13 +799,13 @@ prefix = ''
  
  # [sources.odoh-servers]
  #   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/odoh-servers.md', 'https://download.dnscrypt.info/resolvers-list/v3/odoh-servers.md', 'https://cdn.jsdelivr.net/gh/DNSCrypt/dnscrypt-resolvers@master/v3/odoh-servers.md']
@@ -190,7 +190,7 @@ index 7c273c40..3e20040e 100644
  #   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
  #   refresh_delay = 73
  #   prefix = ''
-@@ -817,7 +817,7 @@ prefix = ''
+@@ -815,7 +815,7 @@ prefix = ''
  # [sources.quad9-resolvers]
  #   urls = ['https://quad9.net/dnscrypt/quad9-resolvers.md']
  #   minisign_key = 'RWQBphd2+f6eiAqBsvDZEBXBGHQBJfeG6G+wJPPKxCZMoEQYpmoysKUN'
@@ -199,7 +199,7 @@ index 7c273c40..3e20040e 100644
  #   prefix = 'quad9-'
  
  ### Another example source, with resolvers censoring some websites not appropriate for children
-@@ -825,7 +825,7 @@ prefix = ''
+@@ -823,7 +823,7 @@ prefix = ''
  
  # [sources.parental-control]
  #   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/parental-control.md', 'https://download.dnscrypt.info/resolvers-list/v3/parental-control.md', 'https://cdn.jsdelivr.net/gh/DNSCrypt/dnscrypt-resolvers@master/v3/parental-control.md']
@@ -208,7 +208,7 @@ index 7c273c40..3e20040e 100644
  #   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
  
  ### dnscry.pt servers - See https://www.dnscry.pt
-@@ -833,7 +833,7 @@ prefix = ''
+@@ -831,7 +831,7 @@ prefix = ''
  #  [sources.dnscry-pt-resolvers]
  #    urls = ["https://www.dnscry.pt/resolvers.md"]
  #    minisign_key = "RWQM31Nwkqh01x88SvrBL8djp1NH56Rb4mKLHz16K7qsXgEomnDv6ziQ"
