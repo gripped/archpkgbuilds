@@ -9,7 +9,7 @@ pkgname=('virtualbox'
          'virtualbox-guest-utils-nox'
          'virtualbox-host-dkms'
          'virtualbox-sdk')
-pkgver=7.2.12
+pkgver=7.2.14
 _tarver=${pkgver}
 pkgrel=1
 arch=('x86_64')
@@ -71,7 +71,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_tarv
         '0013-support-building-from-dkms.patch'
         '0018-upate-xclient-script.patch'
         '0020-python-3-12.patch')
-sha256sums=('64a4843677e42010e7799e951883fbbefc56bf2bc162e4970edea04f142f8b25'
+sha256sums=('384f293184c52fd51bc941c17d753b4019446f53a6b07c828adfb3e61fe0a500'
             'f753501352054576c510aa81e83f4935079ea620e601057784b02b4d4d1eeb04'
             '2101ebb58233bbfadf3aa74381f22f7e7e508559d2b46387114bc2d8e308554c'
             'da4c49f6ca94e047e196cdbcba2c321199f4760056ea66e0fbc659353e128c9e'
@@ -165,8 +165,8 @@ package_virtualbox() {
                 'virtualbox-ext-vnc: VNC server support'
                 'virtualbox-sdk: Developer kit')
     backup=('etc/vbox/vbox.cfg')
-    replaces=('virtualbox-ose')
     conflicts=('virtualbox-ose')
+    replaces=('virtualbox-ose')
 
     source "VirtualBox-${pkgver}/env.sh"
     cd "VirtualBox-${pkgver}/out/linux.${BUILD_PLATFORM_ARCH}/release/bin"
@@ -196,12 +196,6 @@ package_virtualbox() {
     install -m0755 components/* -t "${pkgdir}/usr/lib/virtualbox/components"
 
     # extensions packs
-    ## as virtualbox install itself stuff in this directory, move it to /var and
-    ## trick it with a symlink
-    ## FIXME: trick is disabled for now
-    #install -d -m0755 "${pkgdir}/var/lib/virtualbox/extensions"
-    #install -d -m0755 "${pkgdir}/usr/share/virtualbox/extensions"
-    #ln -s ../../../var/lib/virtualbox/extensions "${pkgdir}/usr/lib/virtualbox/ExtensionPacks"
     install -d -m0755 "${pkgdir}/usr/lib/virtualbox/ExtensionPacks"
 
     # languages
@@ -255,11 +249,11 @@ package_virtualbox-ext-vnc() {
     depends=('virtualbox'
              'libvncserver')
     optdepends=('tigervnc: vnc client')
-    install=virtualbox-ext-vnc.install
 
     source "VirtualBox-${pkgver}/env.sh"
-    cd "VirtualBox-${pkgver}/out/linux.${BUILD_PLATFORM_ARCH}/release/packages"
-    install -D -m0644 VNC-*.vbox-extpack "${pkgdir}/usr/share/virtualbox/extensions/VNC-${pkgver}.vbox-extpack"
+    tar --no-same-owner --one-top-level="${pkgdir}/usr/lib/virtualbox/ExtensionPacks/VNC/" \
+        -xzf "VirtualBox-${pkgver}/out/linux.${BUILD_PLATFORM_ARCH}/release/packages"/VNC-*.vbox-extpack
+
     # licence
     install -D -m0644 "${srcdir}/VirtualBox-${pkgver}/COPYING" \
         "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
@@ -283,13 +277,13 @@ package_virtualbox-guest-utils() {
              'xorg-xrandr'
              # virtual:
              'VIRTUALBOX-GUEST-MODULES')
-    replaces=('virtualbox-archlinux-additions'
-              'virtualbox-guest-additions'
-              'virtualbox-guest-dkms')
     conflicts=('virtualbox-archlinux-additions'
                'virtualbox-guest-additions'
                'virtualbox-guest-utils-nox'
                'virtualbox-guest-dkms')
+    replaces=('virtualbox-archlinux-additions'
+              'virtualbox-guest-additions'
+              'virtualbox-guest-dkms')
 
     source "VirtualBox-${pkgver}/env.sh"
     pushd "VirtualBox-${pkgver}/out/linux.${BUILD_PLATFORM_ARCH}/release/bin/additions"
@@ -317,9 +311,9 @@ package_virtualbox-guest-utils-nox() {
              'zlib' 'libz.so'
              # virtual:
              'VIRTUALBOX-GUEST-MODULES')
-    replaces=('virtualbox-guest-dkms')
     conflicts=('virtualbox-guest-utils'
                'virtualbox-guest-dkms')
+    replaces=('virtualbox-guest-dkms')
 
     source "VirtualBox-${pkgver}/env.sh"
     pushd "VirtualBox-${pkgver}/out/linux.${BUILD_PLATFORM_ARCH}/release/bin/additions"
@@ -343,9 +337,14 @@ package_virtualbox-host-dkms() {
     depends=('dkms'
              'gcc'
              'make')
-    replaces=('virtualbox-source'
-              'virtualbox-host-source')
-    conflicts=('virtualbox-source' 'virtualbox-host-source')
+    conflicts=('virtualbox-host-modules-arch'
+               'virtualbox-host-modules-lts'
+               'virtualbox-host-source'
+               'virtualbox-source')
+    replaces=('virtualbox-host-modules-arch'
+              'virtualbox-host-modules-lts'
+              'virtualbox-host-source'
+              'virtualbox-source')
     provides=('VIRTUALBOX-HOST-MODULES')
 
     install -d -m0755 "${pkgdir}/usr/src"
