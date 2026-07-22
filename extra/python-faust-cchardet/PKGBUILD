@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=python-faust-cchardet
-pkgver=2.2.1
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Fork of the original cChardet"
 url="https://github.com/faust-streaming/cChardet"
@@ -25,16 +25,16 @@ provides=("python-cchardet=$pkgver")
 conflicts=(python-cchardet)
 source=(
   "faust-cchardet::git+$url#tag=v$pkgver"
-  "pyyoshi-uchardet::git+https://github.com/PyYoshi/uchardet"
+  "git+https://gitlab.freedesktop.org/uchardet/uchardet.git"
 )
-b2sums=('f4eb3481a9776f8e11d61bad7754aa9cee30dc5fdecf4a4419424ca2b85ab405e932e770d7afc2bd7ed34ffe1c87284483a82273add4d3c88393895c4a9f176e'
+b2sums=('fef41471e37ba6df1b0e608d01b492e0cbf9236706f47686ea4dd42b5c8de7d8cd32779663e1aecff22bcf09946cc7d2f76de263c64e72c105a23c59103c0b87'
         'SKIP')
 
 prepare() {
   cd faust-cchardet
 
   git submodule init
-  git submodule set-url src/ext/uchardet "$srcdir/pyyoshi-uchardet"
+  git submodule set-url src/ext/uchardet "$srcdir/uchardet"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
 }
 
