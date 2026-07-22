@@ -7,7 +7,7 @@ pkgname=syslinux
 pkgver=6.04.pre3.r3.g05ac953c
 #_tag=syslinux-$pkgver
 _commit='05ac953c23f90b2328d393f7eecde96e41aed067'
-pkgrel=4
+pkgrel=5
 pkgdesc='Collection of boot loaders that boot from FAT, ext2/3/4 and btrfs filesystems, from CDs and via PXE'
 url='https://www.syslinux.org/'
 arch=(x86_64)
@@ -30,6 +30,7 @@ optdepends=('perl-crypt-passwdmd5: For md5pass'
 # Script not yet updated for syslinux-efi
 source=(git+https://repo.or.cz/syslinux.git#commit=$_commit
         syslinux.cfg
+        syslinux.hook
         syslinux-install_update
         0002-gfxboot-menu-label.patch
         0005-gnu-efi-version-compatibility.patch
@@ -45,6 +46,7 @@ source=(git+https://repo.or.cz/syslinux.git#commit=$_commit
 )
 sha256sums=('deec61086a2cb73163d50e150d1ef32bd56c8a3faa1fc4322d11080ba0cbe63a'
             'b9692be0cce43811c1b04053072ac50dd7b39bbc2ba7bcbe0e4387668af8df08'
+            '1d6a21bf2751d7522637f4fa9712d7efc376b59a7777ddeca7503932d6523365'
             '9fc416a8ac86edaae58bc55513c4425e7887da20c7d5fdb6f7cfd527d4da13f5'
             'd1fe9084ce2526619f94b8a07b89fb0194e874beef9f202f8b974879d77f2e1a'
             '8610959df6c01568ff478ca1eb4aac301f3ba1f5bd4739daaec072865e8be2d7'
@@ -114,5 +116,6 @@ package() {
   mv "$pkgdir"/usr/lib/syslinux/{*.bin,*.c32,*.0,memdisk} "$pkgdir"/usr/lib/syslinux/bios 
 
   install -D -m0644 ../syslinux.cfg "$pkgdir"/usr/share/syslinux/syslinux.cfg
+  install -D -m0644 ../syslinux.hook "$pkgdir"/usr/share/libalpm/hooks/90-syslinux.hook
   install -D -m0755 ../syslinux-install_update "$pkgdir"/usr/bin/syslinux-install_update
 }
