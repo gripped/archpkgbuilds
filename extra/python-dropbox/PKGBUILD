@@ -3,7 +3,7 @@
 # Contributor: Tim Diels <tim@timdiels.be>
 
 pkgname=python-dropbox
-pkgver=12.2.0
+pkgver=12.2.1
 pkgrel=1
 pkgdesc="Python SDK for Dropbox Core APIs"
 url="https://github.com/dropbox/dropbox-sdk-python"
@@ -28,12 +28,19 @@ checkdepends=(
   python-pytest
   python-pytest-mock
 )
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('53d4469f90473b079e0d8043dd4b98321fbe157e858cf74eb08da4aa6047f961d6292c3a72298d79de0828d8a10c4031b411a1b23ea47bac42777da513c3d73f')
-b2sums=('b8c5420771dc407fb60182c0632cc3ee952432136ef648e7d7dc9a2d2c37b08cfd651202fe438821ac047b92cc674e6976757af29987a7b13e7a2f0faba70463')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  remove-version-constraints.patch
+)
+sha512sums=('5b2cee4cad1793925ff27ae8b81160c4a44091fc2f7a0b86a71624f0080baba6740e00e1cd4d9d3132ca2f2f6b46f517c041bbb3d628e0076c487fb3e0c1445b'
+            '9ce73f78183bc1817aab5fb97bb848a460f571d36cfe2611bc7363950ad1327c7eaf6abb563929222827a674168513387048e593a7fbe23038c96c6d6d25225b')
+b2sums=('5f55d8e3229d3e9c4a36ff256adba65f0bb24a011bfe332401bc0f217e509bdcdd00a1fc6768be418d78b859dc3763c75dfbabb105b6e1e4620200263bba0ffb'
+        '983543ce8a8d892dc236f60f74df7650758ad6127633a421acfa2a9a66e5bd8293d4925b5f7cea53421d0ff6e7ec9490534a6c41dab5c416b20b34a1ec9687c0')
 
 prepare() {
   cd "$pkgname"
+
+  patch -p1 -i "$srcdir/remove-version-constraints.patch"
 
   # don't use mock
   sed -e 's/import mock/from unittest import mock/' -i test/unit/test_dropbox_unit.py
@@ -44,6 +51,8 @@ prepare() {
 
 build() {
   cd "$pkgname"
+
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
   python -m build --wheel --no-isolation
 }
