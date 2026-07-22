@@ -1,8 +1,8 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=vector
-pkgver=0.55.0
-pkgrel=2
+pkgver=0.57.0
+pkgrel=1
 pkgdesc="A high-performance observability data pipeline"
 arch=("x86_64")
 url="https://vector.dev"
@@ -12,7 +12,10 @@ backup=(
     "etc/vector/vector.yaml"
     "etc/default/vector"
 )
-depends=("gcc-libs" "zlib")
+depends=(
+  "libgcc"
+  "zlib"
+)
 # https://github.com/vectordotdev/vector/blob/master/docs/DEVELOPING.md#bring-your-own-toolbox
 makedepends=(
     "rust"
@@ -25,17 +28,16 @@ makedepends=(
 )
 checkdepends=(
     "cargo-nextest"
+    "tcl"
 )
 source=(
     "git+https://github.com/vectordotdev/vector#tag=v${pkgver}"
     "${pkgname}.sysusers"
     "${pkgname}.tmpfiles"
-    "mergeable-merge-unstable-name-collision.patch::https://github.com/hashworks/vector/commit/334d975c35c5395bfc79fa09e24b7e31a4a0b18e.patch"
 )
-sha512sums=('e8d2eb4a18e12dcc32f416e6cf48db09e3e909b37603c4d320946eb5c5534a2ce5c67951a62d5027f60b1714379b329b68c0dd44168a52cb073fb366c9bab3db'
+sha512sums=('134022d652357762cb2704fbfa411859f238e41d80d58b1da9bdfb481d97b9169f7f10b507e33d41f739e31a3eb431f96b1510e9d5fffdb821a544186e5d4010'
             '9179cf571762819773d8f14ce457d20a54e5a7dcaf24ea88a11723af63c31775a3b59fc17fca41de547fc0cc3a72bf7501a8abfb4a95558f1e8789b12b951733'
-            'c192492df09d131f9174d2acbb7f265c280eb6d678589b8c93bacc47ae55c51573a5477d715897f8580ced420730992fb68bee78b374f1cc042888ea6b5512fd'
-            '83694137c9db63e95bdcca86fbfc1856f1ae0bbfb05c7d35a18ba758ab62366a0b6b7558e19708af4f6c41b55b5d912240943210b3ca6581b0170a13d1ef9e7a')
+            'c192492df09d131f9174d2acbb7f265c280eb6d678589b8c93bacc47ae55c51573a5477d715897f8580ced420730992fb68bee78b374f1cc042888ea6b5512fd')
 
 pkgver() {
     cd "${pkgname}"
@@ -44,8 +46,6 @@ pkgver() {
 
 prepare() {
     cd "${pkgname}"
-
-    patch -Np1 < "$srcdir/mergeable-merge-unstable-name-collision.patch"
 
     cargo fetch \
         --locked
@@ -85,7 +85,7 @@ check() {
         --release \
         --locked \
         --no-default-features \
-        --features "target-unix" \
+        --features "target-base" \
         --target host-tuple \
         -- \
         --skip sources::socket::test::multicast_udp_message \
