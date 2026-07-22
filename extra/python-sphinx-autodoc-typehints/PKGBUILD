@@ -1,9 +1,9 @@
-# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
-# Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Levente Polyak <anthraxx[at]archlinux[dot]org>
+# Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-sphinx-autodoc-typehints
-_pyname=${pkgname/python-/}
-pkgver=3.12.1
+pkgver=3.13.0
 pkgrel=1
 pkgdesc='Type hints support for the Sphinx autodoc extension'
 arch=(any)
@@ -25,28 +25,32 @@ checkdepends=(
   python-sphobjinv
   python-typing_extensions
 )
-source=("git+$url.git#tag=$pkgver")
-b2sums=('b9ec92ab55b1c1b30066b080d86f862cd37cb54154bb401fb699490297ae31ad352c001e2ff06717cb7106e37fb0c638d2840fb0bccebf00a0402f365bf68d78')
+source=("$pkgname::git+$url.git#tag=$pkgver")
+sha512sums=('19c13aa5b40d55fe43669096534a125cbbf92ce255031184a381919aa587ecc7639b177ff4ebd02e308613d7acf2c27e0db88e928a432a87a73972e8af914ae9')
+b2sums=('54a8ed8b7df185796be77b8957c6c18792d0ad5dd3b90f2da2d0b8377a09eef65d71dd2a79557daaa203eeafbbb9e6b15cbcbbf7bd2a0d42e87b277dc519b00c')
 
 build() {
-  cd "$_pyname"
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_pyname"
+  cd "$pkgname"
+
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -v
 }
 
 package() {
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -d "$pkgdir/usr/share/licenses/$pkgname"
-  ln -s "$site_packages/${_pyname//-/_}-$pkgver.dist-info/licenses/LICENSE" \
-    "$pkgdir/usr/share/licenses/$pkgname"
+  cd "$pkgname"
 
-  cd "$_pyname"
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
