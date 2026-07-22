@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=parla
-pkgver=0.6.6
-pkgrel=1
+pkgver=0.7.2
+pkgrel=2
 pkgdesc="Native Gnome DeltaChat client"
 arch=(x86_64)
 url="https://github.com/trufae/parla"
@@ -22,9 +22,12 @@ makedepends=(
   meson
   vala
 )
+optdepends=(
+  'python-openai-whisper: for voice message transcribing'
+)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('82a3480772c6e0b898d7e9d1d5b516719101c85ae4d932357201bd1aef757c817821e062687e008cfef39714edd4252aaae42519376497cb4e59273bd6e9d5cb')
-b2sums=('92fd02666f6128ffb2b8744f90dcf97a301e1162f184a21f52dc0743dc2c5bf4a86e57a9a13ce9dbd19879e50e6d8afd4893f90267d22382f12698bc1600d289')
+sha512sums=('f7ee53731e01b69f29a2edeb217c13b687b16f5cc3f6f24962e640de2c7d521a00c5a5625a349c4e3dfe7dd087f12549aa72d4db32e021f0541cc6a44fd8250c')
+b2sums=('6b22bfcd58931c0f273dfd8629c517453bdebe27d0d8c06928cbbf942ad2daa5a0b1c5056109e88be91f0c6eef140dfb7f6978f7c272555e26d3965ef4fcd5cc')
 
 build() {
   arch-meson build $pkgname-$pkgver
