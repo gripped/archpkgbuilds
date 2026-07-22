@@ -2,7 +2,7 @@
 
 pkgname=reapack
 pkgver=1.2.6
-pkgrel=2
+pkgrel=3
 pkgdesc='Package manager for the Reaper DAW'
 arch=(x86_64)
 url='https://reapack.com'
@@ -30,7 +30,7 @@ makedepends=(
   catch2
 )
 source=(
-  "$pkgname::git+https://github.com/cfillion/reapack#tag=v$pkgver"
+  "$pkgname::git+https://codeberg.org/cfillion/reapack#tag=v$pkgver"
   'github.com-justinfrankel-wdl::git+https://github.com/justinfrankel/WDL'
   'github.com-justinfrankel-reaper-sdk::git+https://github.com/justinfrankel/reaper-sdk'
   $pkgname-1.2.4.5-system_wide.patch
@@ -64,6 +64,7 @@ build() {
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D CMAKE_CXX_STANDARD=17
     # out-of-tree build is broken: https://github.com/cfillion/reapack/issues/79
     -S .
     -W no-dev
