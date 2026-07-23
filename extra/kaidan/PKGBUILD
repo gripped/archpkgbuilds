@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kaidan
-pkgver=0.15.0
-pkgrel=5
+pkgver=0.16.0
+pkgrel=1
 pkgdesc='A user-friendly XMPP client for every device'
 arch=(x86_64)
 url='https://www.kaidan.im/'
@@ -19,6 +19,7 @@ depends=(glib2
          kio
          kirigami-addons
          kirigami
+         kitemmodels
          knotifications
          kquickimageeditor
          kwindowsystem
@@ -38,7 +39,7 @@ depends=(glib2
 makedepends=(extra-cmake-modules
              qt6-tools)
 source=(https://download.kde.org/unstable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('cdc2d6afa8f8ed4572e2421224219cfc7fdfab6da4fb77eb4ff099285da4e485'
+sha256sums=('b38a64c7b7524a32dffe08eeda034f76d3597a84d8f7afd25c658dab43fb074d'
             'SKIP')
 validpgpkeys=(AE08C590A7D112C1979D068B04EFAD0F7A4D9724) # Melvin Keskin <melvo@olomono.de>
 
