@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-http
-pkgver=0.95.1
+pkgver=0.96.0
 pkgrel=1
 pkgdesc='A HTTP client and server library'
 arch=(any)
@@ -13,12 +13,10 @@ depends=(
   ruby-async-pool
   ruby-io-endpoint
   ruby-io-stream
-  ruby-metrics
   ruby-protocol-http
   ruby-protocol-http1
   ruby-protocol-http2
   ruby-protocol-url
-  ruby-traces
 )
 makedepends=(
   git
@@ -33,17 +31,19 @@ checkdepends=(
   ruby-covered
   ruby-decode
   ruby-localhost
+  ruby-metrics
   ruby-rack-test
   ruby-sus
   ruby-sus-fixtures-async
   ruby-sus-fixtures-async-http
   ruby-sus-fixtures-benchmark
   ruby-sus-fixtures-openssl
+  ruby-traces
 )
 options=(!emptydirs)
 source=(git+https://github.com/socketry/async-http.git#tag=v$pkgver)
-sha512sums=('d2a79f5a3f961c3bf9124787e0a373e4c106301dd077a6872ffa17e3466dadbf5ee212bd1a6a1b828006e488d4d2b3dd2e5dea6a5eeaca49cec4704af6647297')
-b2sums=('6cfe962685fcaebbac7639bbba454747355b9535a4d4fa8f0ecb585a24dd8a178a27964fc8d11618e3de2b5ca9b477217de9a4ea6da6d02bcb2d4e4432a0b0d3')
+sha512sums=('d160406d413d8438842770c465253c0ddf5a4827b5b3526176def5182c8f73648ef70a79520604eba7fb19715fe02f0abd07da756a8a345a190fdaf78767a91f')
+b2sums=('756d8278101cc86bf4773c4509738101ef65b51255b42a534973661f6e50f7a76f7da32dfa2e653c6711c7e75e5a14bad92590a2cce783ccb84be1a4beabc06a')
 
 prepare() {
   cd async-http
