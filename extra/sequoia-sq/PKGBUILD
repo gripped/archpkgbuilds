@@ -2,8 +2,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-sq
-pkgver=1.3.1
-pkgrel=3
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='Command-line frontends for Sequoia'
 url='https://sequoia-pgp.org/'
 arch=(x86_64)
@@ -14,21 +14,20 @@ depends=(
   glibc
   gmp
   libgcc
-  openssl
   sqlite
 )
 makedepends=(
-  bzip2
   capnproto
   cargo
   clang
   git
   nettle3
+  openssl
 )
 options=(!lto)
 source=(git+https://gitlab.com/sequoia-pgp/sequoia-sq.git?signed#tag=v$pkgver)
-sha512sums=('3eb0fbdab0a34f5732e8b0c1ee40f65427d09d15db83f3728ebc103e9085050d5436e546e1a4a73667620ba63fb7f557ddd14dd5785663e6314c573f9d2d1350')
-b2sums=('e2409db64a5d3ffe15e5d1bc0367942212c036b89603643b8d266bf341fec5f31a418ea44dc84ed5c57ef531b98c584d6659618bf17da26d80cc246aadc8dc5d')
+sha512sums=('e05d2de72e2954c299ce6c5db379eaa6c815a45b15e43f6bfb3ededb3eaa36cfce4049829d745804aafcf3eb6779b43d971287acdea7da00e8a0baceabcf7f97')
+b2sums=('cef82d4e4135d3bd0afbbedcead4bdebb480740d73ec5318b64ea8698fcbfb32241669355564c766b52099d2ec11d78b5c64c21d686211bd03518e95f1acb6a7')
 validpgpkeys=(
   CBCD8F030588653EEDD7E2659B7DD433F254904A  # Justus Winter <justus@sequoia-pgp.org>
   8F17777118A33DDA9BA48E62AACB3243630052D9  # Neal H. Walfield <neal@sequoia-pgp.org>
@@ -41,11 +40,6 @@ pkgver() {
 
 prepare() {
   cd $pkgname
-# Update nettle-sys to fix build with clang 22
-  cargo update -p nettle-sys --precise 2.3.2
-  # Fix various issues in sequoia-openpgp: https://gitlab.com/sequoia-pgp/sequoia-sq/-/work_items/653
-  cargo update -p sequoia-openpgp --precise 2.3.0
-  cargo update -p sequoia-policy-config --precise 0.8.1
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
@@ -53,26 +47,23 @@ build() {
   cd $pkgname
   export CARGO_TARGET_DIR=../target
   export ASSET_OUT_DIR=../target
+  export PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig
+  export RUSTFLAGS+=" -L/usr/lib/nettle3"
   # NOTE: we select specific (default) features, as there are multiple crypto backends
-  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
-  RUSTFLAGS+=" -L/usr/lib/nettle3" \
   cargo build --release --frozen --features default
 }
 
 check() {
   cd $pkgname
-  # NOTE: we use a different target dir, as otherwise cargo test --release alters the sq binary
-  # https://gitlab.com/sequoia-pgp/sequoia-sq/-/issues/96
-  export CARGO_TARGET_DIR=../target-test
-  PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig \
-  RUSTFLAGS+=" -L/usr/lib/nettle3" \
-  cargo test --release --frozen --features default
+  export PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig
+  export RUSTFLAGS+=" -L/usr/lib/nettle3"
+  cargo test --frozen --features default
 }
 
 package() {
   depends+=(
-    bzip2 libbz2.so
     nettle3 libnettle.so libhogweed.so
+    openssl libcrypto.so libssl.so
   )
 
   install -vDm 755 target/release/sq -t "$pkgdir/usr/bin"
