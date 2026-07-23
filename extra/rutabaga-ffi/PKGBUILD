@@ -3,16 +3,21 @@
 # Contributor: David Garfias <dgarfiasme at gmail dot com>
 # shellcheck shell=bash disable=SC2034,SC2154
 pkgname=rutabaga-ffi
-pkgver=0.1.75
+pkgver=0.1.80
 pkgrel=1
 pkgdesc="Cross-platform, open-source, Rust-based GPU paravirtualization"
 arch=("x86_64")
 url="https://github.com/magma-gpu/rutabaga_gfx"
 license=(BSD-3-Clause)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/magma-gpu/rutabaga_gfx/archive/refs/tags/v${pkgver}.tar.gz")
-depends=(glibc gcc-libs virglrenderer gfxstream)
+depends=(
+  glibc
+  libgcc
+  virglrenderer
+  gfxstream
+)
 makedepends=(rust meson git cmake rust-bindgen)
-sha256sums=('361a433d3a0f7ad1fbde922882fd4dd91483915e20c7e89980feabf65ed5e51f')
+sha256sums=('43ee23d2c7678c3884f3e097790b7724c08432bed32ecebf6b32b1683546197b')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
