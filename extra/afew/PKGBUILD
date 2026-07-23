@@ -1,11 +1,11 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Daurnimator <daurnimator@archlinux.org>
 # Contributor: Lucas Hoffmann
 # Contributor: Giancarlo Razzolini <grazzolini@archlinux.org>
 # Contributor: Kazuo Teramoto <kaz.rag at gmail.com>
 
 pkgname=afew
-_commit=23b5aeaa43572a59e95fb00732292087b091d4a1
-pkgver=3.0.1.r82.g23b5aea
+pkgver=4.0.2
 pkgrel=1
 pkgdesc='Initial tagging script for notmuch mail'
 arch=(any)
@@ -28,13 +28,8 @@ makedepends=(
 )
 optdepends=('python-pyinotify: for --watch')
 checkdepends=(python-freezegun)
-source=("git+$url.git#commit=$_commit")
-b2sums=('d119e461d5975ce1770f47355558d8f15ff4b66cb2f55b3b7a99f1f6a7dca3f0d159bc482534259bce58044a8599d0d6ed7b20a6d73b070c4a8f81bb97c218aa')
-
-pkgver() {
-  cd $pkgname
-  git describe --long --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g'
-}
+source=("git+$url.git#commit=$pkgver")
+b2sums=('248eed0eb8fa530b4acec996e61572b4f6675d2cb3e9940195f5a78f5fdd25b57c84fc5db43705a351902cd1ce7b48eee5a484cb45e27b31a694597ed1bfe0de')
 
 build() {
   cd $pkgname
