@@ -2,8 +2,8 @@
 # Contributor: cubercsl <2014cais01 at gmail dot com>
 
 pkgname=dae
-pkgver=1.1.0
-pkgrel=4
+pkgver=2.0.0
+pkgrel=1
 pkgdesc="A high-performance transparent proxy solution based on eBPF"
 arch=('x86_64')
 url="https://github.com/daeuniverse/${pkgname}"
@@ -13,17 +13,11 @@ makedepends=('clang' 'go')
 backup=("etc/${pkgname}/config.${pkgname}")
 source=("${pkgname}-${pkgver}.tar.xz::${url}/releases/download/v${pkgver}/${pkgname}-full-src.tar.xz")
 install="${pkgname}.install"
-sha256sums=('2a8236f24fc1e60ca350d5e23e94b91fba1746bfc6b6856bb4d8690eff6f9530')
+sha256sums=('51e5fe169a36c03503d74f3cb93a00a4547e41b5a8bd957599bfac0094639061')
 options=('!lto')
 
 prepare() {
 	sed -i '/^BUILD_ARGS :=/d' Makefile
-
-	# Fix utls v1.8.2 compatibility
-	export GOMODCACHE="${PWD}/go-mod"
-	go get github.com/daeuniverse/outbound@cfd9e39fd5e024fe62c7ad68ffd09bb452b10df4
-	go mod tidy
-	go mod download -modcacherw
 }
 
 build() {
@@ -42,6 +36,7 @@ build() {
 	export CGO_CXXFLAGS="${CXXFLAGS}"
 	export CGO_LDFLAGS="${LDFLAGS}"
 	export GOPATH="${srcdir}"
+	export GOEXPERIMENT=nodwarf5
 
 	local _ldflags=(
 		"-compressdwarf=false"
