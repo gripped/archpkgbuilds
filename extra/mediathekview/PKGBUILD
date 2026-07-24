@@ -3,7 +3,7 @@
 _name=MediathekView
 pkgname=mediathekview
 pkgver=14.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Access the Mediathek of many German TV stations"
 arch=(any)
 url="https://github.com/mediathekview/mediathekview"
@@ -81,7 +81,7 @@ package() {
   for _size in 16 32 48 128; do
     install -vDm 644 target/${_name}@x$_size.png "$pkgdir/usr/share/icons/hicolor/${_size}x$_size/apps/$pkgname.png"
   done
-  install -vDm 644 res/${_name}_256x256.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/$pkgname.svg"
+  install -vDm 644 res/${_name}_256x256.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/$pkgname.png"
   install -vDm 644 res/$_name.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/$pkgname.svg"
   # docs
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
