@@ -6,7 +6,7 @@ pkgbase=appstream
 pkgname=(appstream
          appstream-qt)
 pkgver=1.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides a standard for creating app stores across distributions'
 arch=(x86_64)
 url='https://distributions.freedesktop.org/wiki/AppStream'
@@ -46,7 +46,7 @@ sha256sums=('445e541f679bb0106a872f3817804339922c6efda2d7395767b28aa7e4329f49'
 validpgpkeys=(D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB) # Matthias Klumpp <matthias@tenstral.net>
 
 prepare() {
-  git -C appstream cherry-pick -n 510ec119e36a660d10db64be0bdadd2909434e53 # Fix build with freetype 2.18
+  git -C appstream cherry-pick -n 28cb9d3401086614412508d8a67d64752df8e37e # Restore ABI
 }
 
 build() {
