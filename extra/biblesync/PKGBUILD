@@ -1,10 +1,10 @@
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
-# Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Caleb Maclennan <caleb@alerque.com>
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=biblesync
-pkgver=2.1.0
-pkgrel=6
+pkgver=2.2.0
+pkgrel=1
 pkgdesc='multicast shared co-navigation library for Bible programs'
 arch=('x86_64')
 url="https://github.com/karlkleinpaste/biblesync"
@@ -13,10 +13,11 @@ makedepends=('cmake' 'git')
 depends=('glibc' 'libgcc' 'libstdc++' 'util-linux-libs')
 provides=('libbiblesync.so')
 source=("git+https://github.com/karlkleinpaste/biblesync.git#tag=${pkgver}")
-sha256sums=('867f86996a63e2bac48507b1ca3e8f4498d64691f67f14e3c3610d497e5bfb4a')
+sha256sums=('b30f12206d36a42f245e95f4c80da704501372add4d57501f1f813fe279a4b32')
 
 build() {
   cmake -B build -S "$pkgname" \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DBUILD_SHARED_LIBS=TRUE \
     -DLIBDIR=/usr/lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
