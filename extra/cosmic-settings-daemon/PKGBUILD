@@ -3,8 +3,8 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings-daemon
-pkgver=1.3.0
-pkgrel=1
+pkgver=1.4.0
+pkgrel=2
 epoch=1
 pkgdesc='Cosmic settings daemon'
 arch=(x86_64)
@@ -23,7 +23,7 @@ depends=(
   libpulse
   libpipewire
   playerctl
-  pop-sound-theme
+  cosmic-sound-theme
   qt6ct
   systemd-libs
   wireplumber
@@ -44,7 +44,7 @@ source=(
   git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=epoch-${pkgver}
   cosmic-settings-daemon-lto.patch
 )
-b2sums=('89e9b1ab237f0c32f39b5c8da1ce0cef1b26b9832df097dc1d808365b1804316213fcbca785939691fcac29337c49b389f4191d27d7557252a7a16226c7ba878'
+b2sums=('aa1226a5506f51a7e3ec28b8026d605d3fa32d976a94f94d5599277ee53e947fe6ea82cf35530490fefab313caec390c54e079ae4f64c6e6fff78b6d64e47bc0'
         '935604b934c6fb805fdef20a716838373c1c9463ddc215af9c9bd162ebacc422181f1c227f37b59bc617496a60b88f8b16132fac001f61a2c777179abd8c634a')
 
 prepare() {
