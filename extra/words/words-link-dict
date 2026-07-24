@@ -1,0 +1,42 @@
+#!/usr/bin/bash
+#
+# This script examines the system-wide `locale` setting for `LANG` and links a word collection to /usr/share/dict/words accordingly.
+set -euo pipefail
+
+lang="$(locale | sed -n 's/^LANG=\([^.]*\)\(\..*\)\?$/\1/p')"
+readonly lang="$lang"
+
+# The default word collection.
+words='american-english'
+
+case "$lang" in
+  en_GB|en_NZ|gb|british)
+    words='british'
+    ;;
+  ca_*|ca|catalan)
+    words='catalan'
+    ;;
+  fi_*|fi|finnish)
+    words='finnish'
+    ;;
+  fr_*|fr|french)
+    words='french'
+    ;;
+  it_*|it|italian)
+    words='italian'
+    ;;
+  de_*|de|deutsch)
+    words='ngerman'
+    ;;
+  es_*|es|spanish)
+    words='spanish'
+    ;;
+  en_*|en|english|POSIX|C)
+    ;;
+  *)
+    printf 'Unable to determine locale, defaulting to "%s" for word collection.\n' "$words"
+    ;;
+esac
+
+printf 'Setting /usr/share/dict/words to /usr/share/dict/%s.\n' "$words"
+ln --force --symbolic "$words" /usr/share/dict/words

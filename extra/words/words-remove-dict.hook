@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Remove
+Target = words
+Type = Package
+
+[Action]
+Depends = coreutils
+Description = Removing word collection...
+Exec = /usr/bin/rm --force /usr/share/dict/words
+When = PreTransaction

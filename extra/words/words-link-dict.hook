@@ -1,0 +1,13 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Target = words
+Type = Package
+
+[Action]
+Depends = bash
+Depends = coreutils
+Depends = glibc
+Description = Choosing a word collection...
+Exec = /usr/share/libalpm/scripts/words-link-dict
+When = PostTransaction

@@ -5,7 +5,7 @@
 
 pkgname=words
 pkgver=2.1
-pkgrel=8
+pkgrel=9
 pkgdesc="A collection of International 'words' files for /usr/share/dict"
 arch=(any)
 _url='https://ftp.gnu.org/gnu/aspell/dict'
@@ -13,7 +13,6 @@ url="$_url/0index.html"
 license=(GPL-2.0-only LicenseRef-Ispell LicenseRef-SCOWL)
 makedepends=(aspell
              glibc)
-install=words.install
 source=("$_url/en/aspell6-en-2020.12.07-0.tar.bz2"{,.sig}
         "$_url/ca/aspell6-ca-2.1.5-1.tar.bz2"{,.sig}
         "$_url/fi/aspell6-fi-0.7-0.tar.bz2"{,.sig}
@@ -21,7 +20,10 @@ source=("$_url/en/aspell6-en-2020.12.07-0.tar.bz2"{,.sig}
         "$_url/de-alt/aspell6-de-alt-2.1-1.tar.bz2"{,.sig}
         "$_url/it/aspell6-it-2.2_20050523-0.tar.bz2"{,.sig}
         "$_url/de/aspell-de-0.50-2.tar.bz2"
-        "$_url/es/aspell6-es-1.11-2.tar.bz2"{,.sig})
+        "$_url/es/aspell6-es-1.11-2.tar.bz2"{,.sig}
+        words-link-dict
+        words-link-dict.hook
+        words-remove-dict.hook)
 sha256sums=('4c8f734a28a088b88bb6481fcf972d0b2c3dc8da944f7673283ce487eac49fb3'
             'SKIP'
             'ebdae47edf87357a4df137dd754737e6417452540cb1ed34b545ccfd66f165b9'
@@ -35,7 +37,10 @@ sha256sums=('4c8f734a28a088b88bb6481fcf972d0b2c3dc8da944f7673283ce487eac49fb3'
             'SKIP'
             'f1b6f23d694fc12da193de5d5d2232797e87aecf684d8aa5872d83176eeb84ba'
             'ad367fa1e7069c72eb7ae37e4d39c30a44d32a6aa73cedccbd0d06a69018afcc'
-            'SKIP')
+            'SKIP'
+            '67ed80eccf8259aa413dbd3eed47388e865aef80bb71d95b47b3d72ecf685750'
+            '5ef8b67ee9e71c2246765f07e0d4644fe29c4d64c484d512b240acac9afbbdc5'
+            '77b6f9a213cc7af36ec32b57c25b3dacb06b8fbadb2dbe62bac6c142b9674391')
 validpgpkeys=("78DEC3DB0AEA763951322BBF71C636695B147849"
               "31A768B0808E4BA619B48F81B6D9D0CC38B327D7")
 
@@ -88,4 +93,7 @@ package() {
 
     install -d "$pkgdir/usr/share/licenses/$pkgname/"
     cp copy/*  "$pkgdir/usr/share/licenses/$pkgname/"
+
+    install -vDm 755 ../words-link-dict -t "$pkgdir/usr/share/libalpm/scripts/"
+    install -vDm 644 ../words-{link,remove}-dict.hook -t "$pkgdir/usr/share/libalpm/hooks/"
 }
