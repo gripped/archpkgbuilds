@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-store
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic App Store'
@@ -32,7 +32,7 @@ source=(
   git+https://github.com/pop-os/cosmic-store.git#tag=epoch-${pkgver}
   cosmic-store-lto.patch
 )
-b2sums=('56f9c0e555a848a631073d8a6810b4e1318d174fe4759bd8d3cb86b01975c13daf7eee62e81b3a8c19b5cc11c5edbcf7d8af41efccfd1c468bb718cc21ce1334'
+b2sums=('43eeb88b69d0d8fa7da87172bdfb659bb48d73a0e051481c555b16aec77d98686f733082108af0bd4a51c6ca209b9d8eb945f743ba8f485c3a27a3a4ffcb677a'
         'ed4089dd1ded4a87307c50f38af03ff3742bfc54053a668416f713c9b27eb591e608166ce14f2f50f8303aaf06533963fd821d00522b77e7f965827035a7ff11')
 
 prepare() {
