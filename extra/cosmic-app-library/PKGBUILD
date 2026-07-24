@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-app-library
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic App Library'
