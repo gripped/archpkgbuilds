@@ -1,6 +1,6 @@
 pkgbase = dropbear
 	pkgdesc = Lightweight SSH server
-	pkgver = 2026.91
+	pkgver = 2026.93
 	pkgrel = 1
 	url = https://github.com/mkj/dropbear
 	arch = x86_64
@@ -8,11 +8,13 @@ pkgbase = dropbear
 	makedepends = git
 	depends = glibc
 	options = emptydirs
-	source = git+https://github.com/mkj/dropbear#tag=DROPBEAR_2026.91
+	source = git+https://github.com/mkj/dropbear#tag=DROPBEAR_2026.93
+	source = scp_fix.patch::https://github.com/mkj/dropbear/commit/5ae1e29a2e86ae567bc3c301555f7341b2d37249.patch
 	source = dropbear.service
 	source = localoptions.h
 	validpgpkeys = F7347EF2EE2E07A267628CA944931494F29C6773
-	b2sums = ea70dc07a5e8bc20b77935897bf15e2bb91ab3900109d75542f686ec813291668fde25418b40239774973b950dc19f150083a87a0a1ccb923eef2a481c46192d
+	b2sums = 009628ed99bd5981bfca3c2876df929af14420731caf78ad628f865034f569c41beac7e39fdf58f8e8978febf485943b6fce0a6ba8dfde498234860516e7e6c6
+	b2sums = 2198007776f50c46ab4c6c4920ef8b02ea3249e0ffef147403d8d5e019ca18dadf2a12675dbea72520975f275b42ff17dba47b867afe28ba4f5a53fa1b61df18
 	b2sums = e3481447cac72e416a1d332ddb4bc2fbc78b2e558f929449469e05c269e27482e13357d467b8a11c9b7bf6fdecdd6e57717c8008247922adfc545c36e5775217
 	b2sums = 49628bbce0d26eb33598de276ede705bd592a38b7892c9db0ceebfb0598a1ee6e7e84ed03dbf255ee1adcad0c5214d38dc03e6c04176a405f59a19765cb28388
 
