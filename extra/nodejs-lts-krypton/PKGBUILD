@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs-lts-krypton
-pkgver=24.16.0
+pkgver=24.18.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Active LTS" release: Krypton)'
 arch=('x86_64')
@@ -44,9 +44,8 @@ provides=(
   nodejs-lts
 )
 conflicts=(nodejs)
-options=('!lto')
 source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed")
-b2sums=('f6e4146e7215000af18c315822515e5f9900783c810d276a8c717685ab68852949daaab30b33371fff9a21ca235381979e0831edfa4136deaf25e1f45be13d1f')
+b2sums=('54a0797a848463a3fc3fb82ecbbe9148702abccc89611fba23af25737230e594ae6e8c3e1cbb5c77f8f8f84ac611e50cef68b58adb7354927fcf40f07bc4ff6a')
 validpgpkeys=(
   '8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600' # Michaël Zasso (Targos) <targos@protonmail.com>
   '890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4' # RafaelGSS <rafael.nunu@hotmail.com>
@@ -69,6 +68,7 @@ build() {
 
   ./configure \
     --ninja \
+    --enable-lto \
     --prefix=/usr \
     --with-intl=system-icu \
     --without-corepack \
