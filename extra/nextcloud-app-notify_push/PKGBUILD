@@ -3,7 +3,7 @@
 
 pkgname=nextcloud-app-notify_push
 _pkgname="${pkgname##*-}"
-pkgver=1.3.4
+pkgver=1.3.5
 pkgrel=1
 pkgdesc='Update notifications for nextcloud clients'
 arch=(x86_64)
@@ -21,9 +21,9 @@ optdepends=('valkey: use a local valkey instance')
 install="$pkgname.install"
 source=("$pkgname::git+$url#tag=v$pkgver"
         systemd.service)
-sha512sums=('99fe7895134cc2e8e64f7b5c9a4b44ab2536cd0e6698b07f846ae9480c66544fdba809672327bba6ca9f593812a56ba9d0b5fe9699e32849ce275308cb55d431'
+sha512sums=('b7c6f2b825110c61f0fee54a6ceb86fbe20af88d8dc740d578e7c1ac62cec2977009448ad74f7645a2c9bddee8a661eef0c1f6587d7be6677982dd93dfa1cc39'
             '52bcde17885c52419cbcbe88176614284dbc991642130080661ef560467df7b02bcdec9d6eca373cfea0b385e7aed5eacb72d9cde4274bf71660a112683ed5bf')
-b2sums=('b7af48f1127a3b9050da2bac9c5ca970c4052a9949e3a443d47c544c7e85e0281f738f2cf5d2f344c2ebf38b02cefe9fbecece5315f40648c4d89dfce9f1a5cf'
+b2sums=('96ab55efe644b8222143d5693071a0a3da91bf35372bd5f32a871640d97066567874c873784acc6873d34338b0c8e7e90e242d0d9f2cb21680ae97351a288b61'
         '0aedfdb4b78e278a45fc1e30efc36725daf5bbbab0b083df85ccd57a78a060fc3fcd5527e9a018a079ea20780518396225ce8e6b01d56f479fc071b6d38427a3')
 
 # BEGIN boilerplate nextcloud app version clamping, see also other packages in group
