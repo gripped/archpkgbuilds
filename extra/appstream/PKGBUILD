@@ -5,8 +5,8 @@
 pkgbase=appstream
 pkgname=(appstream
          appstream-qt)
-pkgver=1.1.4
-pkgrel=2
+pkgver=1.1.5
+pkgrel=1
 pkgdesc='Provides a standard for creating app stores across distributions'
 arch=(x86_64)
 url='https://distributions.freedesktop.org/wiki/AppStream'
@@ -41,13 +41,9 @@ makedepends=(bash-completion
              xmlto)
 source=(git+https://github.com/ximion/appstream#tag=v$pkgver?signed
         update-appstream-cache.hook)
-sha256sums=('445e541f679bb0106a872f3817804339922c6efda2d7395767b28aa7e4329f49'
+sha256sums=('717c4a5aaddc8decc61ae365ff53f98c25f3e0bcd4f0564c93b80a3f0d37be78'
             'edc632e4a76ebe5efc76a56fe5f797e5c981cca6f2f0111c7ce0170d1330c788')
 validpgpkeys=(D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB) # Matthias Klumpp <matthias@tenstral.net>
-
-prepare() {
-  git -C appstream cherry-pick -n 28cb9d3401086614412508d8a67d64752df8e37e # Restore ABI
-}
 
 build() {
   meson build appstream \
