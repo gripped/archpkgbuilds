@@ -2,23 +2,25 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=treeland
-pkgver=0.8.15
+pkgver=0.8.16
 pkgrel=1
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/treeland"
-license=('Apache-2.0' 'LGPL-3.0-only' 'GPL-2.0-only' 'GPL-3.0-only')
+license=('Apache-2.0' 'LGPL-3.0-only' 'GPL-2.0-only' 'GPL-3.0-only' 'MIT')
 # xwayland is needed for XWayland support (not optional)
-depends=('bash' 'ddm' 'dtk6core' 'dtk6declarative' 'dtk6systemsettings' 'glibc' 'libgcc' 'libstdc++'
-         'libdrm' 'libgl' 'libinput' 'libxau' 'libxcb' 'mpv' 'pam' 'pixman' 'qt6-base' 'qt6-declarative'
-         'qt6-remoteobjects' 'systemd-libs' 'wayland' 'wlroots0.19' 'xorg-xwayland' 'deepin-session')
-makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'wayland-protocols' 'wlr-protocols'
+depends=('bash' 'ddm' 'dtk6core' 'dtk6declarative' 'dtk6systemsettings' 'glibc' 'libdisplay-info'
+         'libdrm' 'libgcc' 'libgl' 'libinput' 'libliftoff' 'libstdc++' 'libxau' 'libxcb' 'libxkbcommon'
+         'lcms2' 'mesa' 'mpv' 'pam' 'pixman' 'qt6-base' 'qt6-declarative' 'qt6-remoteobjects' 'seatd'
+         'systemd-libs' 'vulkan-icd-loader' 'wayland' 'xcb-util-errors' 'xcb-util-renderutil' 'xcb-util-wm'
+         'xorg-xwayland' 'deepin-session')
+makedepends=('git' 'cmake' 'ninja' 'glslang' 'hwdata' 'qt6-tools' 'wayland-protocols' 'wlr-protocols'
              'treeland-protocols' 'vulkan-headers')
 groups=('deepin')
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
 source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
-sha256sums=('74ba48a5bc99eec3e4cc29771b54f05d3ee6eeae240c71d344e7178f3abfe18d')
+sha256sums=('8722ddc577e88d9a191faa128f45783c1b752e1bf249177baa505b7d5da12fc4')
 
 prepare() {
   cd treeland
@@ -43,4 +45,5 @@ build() {
 package() {
   cd treeland
   DESTDIR="$pkgdir" ninja -C build install
+  install -Dm644 3rdparty/wlroots/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
