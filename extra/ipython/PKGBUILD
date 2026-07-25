@@ -7,7 +7,7 @@
 
 pkgname=ipython
 pkgver=9.15.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Enhanced Interactive Python shell'
 arch=(any)
 url=https://ipython.org
@@ -19,6 +19,7 @@ depends=(
   python-matplotlib-inline
   python-pexpect
   python-prompt_toolkit
+  python-psutil
   python-pygments
   python-stack-data
   python-traitlets
