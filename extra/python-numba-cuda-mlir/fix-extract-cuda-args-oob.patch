@@ -1,0 +1,54 @@
+From 7966cd0f154175b92a6e357b725864f5feea2a37 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jakub=20Klinkovsk=C3=BD?=
+ <1289205+lahwaacz@users.noreply.github.com>
+Date: Fri, 24 Jul 2026 22:37:45 +0200
+Subject: [PATCH] Fix out-of-bounds read in extract_cuda_args for flattened
+ tuple args
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Tuple/list arguments are flattened by `_flatten_arg` in `descriptor.py`
+before reaching the C++ launcher, so the number of flat args can exceed
+the number of kernel parameters. `constant_arg_flags` is sized to the
+original parameter count, so indexing it with the flat arg index goes
+out of bounds on `std::vector<bool>`.
+
+The fast path (`PythonArgProfile::maybe_init_fast_path`) already guards
+with a bounds check. Add the same guard to `extract_cuda_args`.
+
+Without this fix, any kernel launch that passes a tuple argument
+alongside a device array aborts when the extension is built with
+`_GLIBCXX_ASSERTIONS` (as Linux distribution packages typically are).
+The pip wheel is unaffected because it is built without assertions, so
+the out-of-bounds read silently returns garbage.
+
+Assisted-by: Opencode:glm-5.2
+
+Signed-off-by: Jakub Klinkovský <1289205+lahwaacz@users.noreply.github.com>
+---
+ cext/launcher/kernel.cpp | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/cext/launcher/kernel.cpp b/cext/launcher/kernel.cpp
+index cc59bd8..16fb5bf 100644
+--- a/cext/launcher/kernel.cpp
++++ b/cext/launcher/kernel.cpp
+@@ -1415,7 +1415,13 @@ Status extract_cuda_args(PyObject* const* pyargs, size_t num_pyargs,
+     helper.cuda_context = nullptr;
+     for (size_t i = 0; i < num_pyargs; ++i) {
+         PyObject* pyobj = pyargs[i];
+-        bool is_constant = constant_arg_flags[i];
++        // constant_arg_flags is sized to the number of Python-level kernel
++        // parameters, but pyargs may contain more entries because tuple/list
++        // arguments are flattened before reaching the C++ launcher (see
++        // _flatten_arg in descriptor.py).  Flags beyond the original parameter
++        // count default to false (non-constant), matching the behaviour of
++        // PythonArgProfile::maybe_init_fast_path above.
++        bool is_constant = i < constant_arg_flags.size() && constant_arg_flags[i];
+ 
+         switch (arg_kinds[i]) {
+         case PythonArgKind::TorchTensorDlpack:
+-- 
+2.55.0
+
