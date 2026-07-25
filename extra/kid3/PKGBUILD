@@ -3,7 +3,7 @@
 
 pkgbase=kid3
 pkgname=('kid3-common' 'kid3-qt' 'kid3')
-pkgver=3.10.0
+pkgver=3.10.1
 pkgrel=1
 pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('cmake' 'extra-cmake-modules' 'chromaprint' 'id3lib' 'python' 'tagl
 changelog=$pkgbase.changelog
 source=(https://prdownloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz{,.sig})
 validpgpkeys=('7D09794C2812F62194B081C14CAD34426E354DD2') # Urs Fleisch
-sha256sums=('e6c21e40bbd9336d15e81b4ff8c4f730bcdfd6f7f000b903ad352d78388558d5'
+sha256sums=('688a04bb0f484260c9aa4822d9387885e5805b9021d83a9db45cb486597ea498'
             'SKIP')
 
 build() {
