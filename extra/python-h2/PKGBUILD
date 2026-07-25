@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-h2
-pkgver=4.3.0
-pkgrel=3
+pkgver=4.4.0
+pkgrel=1
 pkgdesc="HTTP/2 State-Machine based protocol implementation"
 arch=('any')
 license=('MIT')
@@ -11,7 +11,7 @@ depends=('python-hpack' 'python-hyperframe')
 makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-hypothesis')
 source=("git+https://github.com/python-hyper/h2.git#tag=v$pkgver")
-sha512sums=('8d2ae5ec4b96cc60def583cc879f40717e611df1520fea01c1912f2b1bfd457b8c794e7c0708d365fa77348cea30eb8591352f3c27135d2d4a5c243c727695f4')
+sha512sums=('8f91735ab8773698013b99748c9b08d8fb0e7f850d1bc2751224819b3bf4c79b62236a970b3dc60edcc1e223c2a86406c7cfbef65cdc017b2ba8c669173276c8')
 
 build() {
   cd h2
