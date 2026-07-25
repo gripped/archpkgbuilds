@@ -4,7 +4,7 @@
 # Contributor: Panagiotis Papadopoulos
 
 pkgname=wildmidi
-pkgver=0.4.6
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='Simple software MIDI player which has a core softsynth library'
 arch=(x86_64)
@@ -20,7 +20,7 @@ makedepends=(
   ninja
 )
 source=("git+https://github.com/Mindwerks/wildmidi.git#tag=$pkgname-$pkgver")
-b2sums=(33100dfb9a7df1ee516083f90d7a2600e1c79117093dba568df540fd602da408cfe8373bea7363efbc893b1db943c681887e44b00f0861c1b29ac037d4b019f7)
+b2sums=(db172f73d1132696249ffa892ff844c55e245320f9ef6c3cce50a27ff4ec86e35d39c6f9962c8c9b9ff23b07ac9cf1012807f35f77a60267cd46ccb0ed580e47)
 
 build() {
   cmake -S $pkgname -B build -G Ninja \
