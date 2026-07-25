@@ -13,7 +13,6 @@ services_needing_restart() {
 
 post_common() {
   systemd-sysusers
-  journalctl --update-catalog
 
   if ! grep -qe '^/usr/bin/systemd-home-fallback-shell$' etc/shells; then
     echo '/usr/bin/systemd-home-fallback-shell' >> etc/shells
@@ -52,7 +51,7 @@ post_upgrade() {
     done
 
     # update the bootloader
-    if bootctl is-installed --quiet; then
+    if bootctl is-installed --quiet 2>/dev/null; then
       systemctl set-property --runtime systemd-boot-update.service Markers=needs-restart
     fi
   fi
