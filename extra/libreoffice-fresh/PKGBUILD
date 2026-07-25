@@ -10,9 +10,9 @@ _google_default_client_secret=0ZChLK6AxeA3Isu96MkwqDR4
 
 pkgbase=libreoffice-fresh
 pkgname=('libreoffice-fresh-sdk' 'libreoffice-fresh')
-_LOver=26.2.4.2
-pkgver=26.2.4
-pkgrel=4
+_LOver=26.2.5.2
+pkgver=26.2.5
+pkgrel=1
 arch=('x86_64')
 license=('MPL-2.0' 'LGPL-3.0-or-later')
 url="https://www.libreoffice.org/"
@@ -63,8 +63,7 @@ source=(${_mirror}/libreoffice{,-help,-translations}-${_LOver}.tar.xz{,.asc}
     ${_additional_source_url2}/odfvalidator-1.2.0-incubating-SNAPSHOT-jar-with-dependencies-971c54fd38a968f5860014b44301872706f9e540.jar # for test suite
     ${_additional_source_url2}/f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
     soffice-template.desktop.in
-    libreoffice-fresh.sh libreoffice-fresh.csh
-    https://github.com/LibreOffice/core/commit/b08afae7e41fd5ca3a4101de07366783b17b3887.patch)
+    libreoffice-fresh.sh libreoffice-fresh.csh)
 noextract=(a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
            0168229624cfac409e766913506961a8-ucpp-1.3.2.tar.gz
            language-subtag-registry-2021-03-05.tar.bz2
@@ -89,11 +88,11 @@ noextract=(a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
            f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140-opens___.ttf
 )
 validpgpkeys=('C2839ECAD9408FBE9531C3E9F434A1EFAFEEAEA3') # LibreOffice Build Team (CODE SIGNING KEY) <build@documentfoundation.org>
-sha256sums=('b9f9655442432998af2cd1034aeee802641aba4d0be6b6ce4fc10bec78ce4b9b'
+sha256sums=('8ec785ee1fd1a1d9b9d8eba1c8ff7556695ca8f02e1f7a26bef8cd540f669fea'
             'SKIP'
-            '491dbc6333a24a1856fe1690e4db981f83d451c6c850d84f7d0f2475317825f5'
+            '73fbe02eb53408e11121da9a170bc4a9c2250b5baaa8851c65b3f70e88841703'
             'SKIP'
-            'b9fd1c2f21333f5b444c91abfec201bc7cf23854acef345133df78ca6ce094e0'
+            '44f1dbdefe0dab21293297cacb8af8d6a7bece4ce95ded7f25c24837bd067fb7'
             'SKIP'
             '75823776fb51a9c526af904f1503a7afaaab900fba83eda64f8a41073724c870'
             '983941d31ee8d366085cadf28db75eb1f5cb03ba1e5853b98f12f7f51c63b776'
@@ -119,15 +118,11 @@ sha256sums=('b9f9655442432998af2cd1034aeee802641aba4d0be6b6ce4fc10bec78ce4b9b'
             'f543e6e2d7275557a839a164941c0a86e5f2c3f2a0042bfc434c88c6dde9e140'
             'd0be8099cbee3c9dfda694a828149b881c345b204ab68826f317580aafb50879'
             'd7aae12edf82a2a20192ef153ca5132450ae0c6cb9df829b271a2c489c700641'
-            'e1d7887e815970f3d21e07f58a7a3a4efc823768a1628307c516f14a506ae7dc'
-            '75b5ff2fea8ffa8a36ce8f713f2f8c899972cfd8f21d62bfa0552e42888dfa7e')
+            'e1d7887e815970f3d21e07f58a7a3a4efc823768a1628307c516f14a506ae7dc')
 
 prepare() {
 
     cd libreoffice-$_LOver
-
-    # fix build with poppler 26.06
-    patch -p1 -i ../b08afae7e41fd5ca3a4101de07366783b17b3887.patch
 
     # move external sources into place
     mkdir "${srcdir}"/ext_sources && pushd "${srcdir}"/ext_sources
