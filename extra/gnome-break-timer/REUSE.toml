@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,6 +26,8 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
+    "gnome-break-timer-appstreamcli.patch",
+    "gnome-break-timer-create-window.patch",
     "gnome-break-timer-onlyshowin-gnome.patch",
     "gnome-break-timer-window-icon.patch",
 ]

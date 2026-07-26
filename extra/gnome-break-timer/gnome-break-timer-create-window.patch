@@ -1,0 +1,60 @@
+From 8492094a0e006d16664e457d281edddc2e9c7868 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 26 Jul 2026 00:28:15 +0200
+Subject: [PATCH] Don't create window in startup phase
+
+This fixes the problem that the process does not exit after timeout when
+running as GApplication service.
+---
+ src/settings/Application.vala | 28 +++++++++++++++-------------
+ 1 file changed, 15 insertions(+), 13 deletions(-)
+
+diff --git a/src/settings/Application.vala b/src/settings/Application.vala
+index 8f0d909..ec1c63b 100644
+--- a/src/settings/Application.vala
++++ b/src/settings/Application.vala
+@@ -35,6 +35,21 @@ public class Application : Adw.Application {
+     public override void activate () {
+         base.activate ();
+ 
++        if (this.main_window == null) {
++            this.main_window = new MainWindow (this, this.break_manager);
++            try {
++                this.main_window.init (null);
++            } catch (GLib.Error error) {
++                GLib.error ("Error initializing main_window: %s", error.message);
++            }
++
++            if (Config.BUILD_PROFILE == "development") {
++                this.main_window.add_css_class ("devel");
++            }
++
++            this.main_window.notify["is-active"].connect(this.on_main_window_is_active_changed);
++        }
++
+         if (this.break_manager.is_working ()) {
+             this.main_window.present ();
+         } else {
+@@ -65,19 +80,6 @@ public class Application : Adw.Application {
+         } catch (GLib.Error error) {
+             GLib.error ("Error initializing break_manager: %s", error.message);
+         }
+-
+-        this.main_window = new MainWindow (this, this.break_manager);
+-        try {
+-            this.main_window.init (null);
+-        } catch (GLib.Error error) {
+-            GLib.error ("Error initializing main_window: %s", error.message);
+-        }
+-
+-        if (Config.BUILD_PROFILE == "development") {
+-            this.main_window.add_css_class ("devel");
+-        }
+-
+-        this.main_window.notify["is-active"].connect(this.on_main_window_is_active_changed);
+     }
+ 
+     private void on_main_window_is_active_changed () {
+-- 
+GitLab
+

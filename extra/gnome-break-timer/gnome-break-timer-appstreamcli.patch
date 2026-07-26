@@ -1,0 +1,40 @@
+From cd7da17d4f7631311d55ae55a986feae65bfea40 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 26 Sep 2024 03:04:12 +0000
+Subject: [PATCH] build: Use appstream for metainfo validation test
+
+appstream-glib is under heavy maintenance mode and recommends using
+appstream instead.
+---
+ data/metainfo/meson.build | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/data/metainfo/meson.build b/data/metainfo/meson.build
+index 4c5dcf5..ba94edd 100644
+--- a/data/metainfo/meson.build
++++ b/data/metainfo/meson.build
+@@ -1,6 +1,6 @@
+ metainfo_dir = join_paths(datadir, 'metainfo')
+ 
+-appstream_util = find_program('appstream-util', required: false)
++appstreamcli = find_program('appstreamcli', required: false)
+ 
+ metainfo_file = i18n.merge_file(
+     input: configure_file(
+@@ -15,10 +15,10 @@ metainfo_file = i18n.merge_file(
+     install_dir: metainfo_dir
+ )
+ 
+-if appstream_util.found()
++if appstreamcli.found()
+     test(
+         'Validate org.gnome.BreakTimer.metainfo.xml',
+-        appstream_util,
+-        args: ['validate-relax', '--nonet', metainfo_file]
++        appstreamcli,
++        args: ['validate', '--no-net', '--explain', metainfo_file]
+     )
+ endif
+-- 
+GitLab
+
