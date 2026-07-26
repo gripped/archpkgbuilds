@@ -1,10 +1,11 @@
 pkgbase = vaultwarden
 	pkgdesc = Unofficial Bitwarden compatible server written in Rust
-	pkgver = 1.36.0
+	pkgver = 1.37.0
 	pkgrel = 1
 	url = https://github.com/dani-garcia/vaultwarden
 	install = vaultwarden.install
 	arch = x86_64
+	arch = aarch64
 	license = AGPL-3.0-only
 	makedepends = git
 	makedepends = rust
@@ -13,25 +14,24 @@ pkgbase = vaultwarden
 	depends = openssl
 	depends = sqlite
 	depends = zstd
+	depends = postgresql-libs
 	optdepends = vaultwarden-web: for the web app
 	options = !lto
 	backup = etc/vaultwarden.env
-	source = git+https://github.com/dani-garcia/vaultwarden.git#tag=1.36.0
+	source = git+https://github.com/dani-garcia/vaultwarden.git#tag=1.37.0
 	source = systemd.service
 	source = sysusers.conf
 	source = tmpfiles.conf
 	source = env-overrides.patch
-	sha512sums = 0028157d6c3e600f57e36879844210cfdd41ed6c5cbb7e4b5230176ed23e0ac5b3689db679e56605482c4a3050917339841608f82fd2fcd98ab3cb8f38108c77
+	sha512sums = 4f99e4f5cf9a2e1833993b079ee3eeeabd26f75656ec589795e6f20f6634d94f684125c217c927b6f95019b056d2e533981bc7ad71317fc20125a8bca4fa750b
 	sha512sums = a12e993bbb568370b9a19f1634085eceda33c1f6bc98ea2c4fa2686a91676f3e9aafc681ab83450bf90b52e553770aabec871c311746faf2098e589cb67c7436
 	sha512sums = d133aec7f75cc5653e847e81bd11c36374eb20da62b2e197bbdcd306ef9c5d4d1de9fc41b7afe88645bebecc1397f64089bfd57c22eb2c9fb83b1da7b44c23aa
 	sha512sums = efbe316f8d22f14c88b5020ea163b58a42e9a0de1028d04af6e439276a55eefc7f7631dd9c4aee5cf5ca2fb642e4fa5b31eedef4370d6d785e106474c0940afe
-	sha512sums = 0094aeea62c204080b6ba6f476840ef8b40a8d799d4dce1cfe025cce03a145d91468aade7140af7764c00cde5d5bc418aef3a79ef507531e5a0b8695dcc8c639
-	b2sums = f2dc1732246bdcfff36f43f27e34f5a9d513ed333bde53a6e4ce9b818d0a9b158de3ffeb267aba83948634caf37612b37862f47f409bbe885470ef1a3187564f
+	sha512sums = d4cf485df835139d90b0afa32cf7cc1d5f7db3b6748d6dcdc347cc40b40ac9afa54e723a818c63d1adbd9bcac37b8c47610c66d0622cdabf5796c56ca230fa9f
+	b2sums = cbb724d09e9c01b82d015fade3c542f977b1005ac1b51eccc019ca6528b83b30c8088e3849218cdc0384043d2b53634fb7f0fb83a868a4247f2a5a57551a8366
 	b2sums = ff8e896f820b88f079d3d4f4c2eb394362569c921f53693e25d3badaf9fdca841e4d7665862e09d22421f544802f3a64014696fd92d7f0b923faf41f8d99e472
 	b2sums = bfda155679ece4df7fa364eaa0d8dbe2f08701a83f5e438282ec7e6ab56afe741c9820ae6fe2da5c9d7691c647fb4c862c4bed588eee248f0de943cec155f392
 	b2sums = 9cdcd6c997c884eb3c1ad0c9b8cd91e68ec6762a27f9b80a7eb6c0cb1ffa4e500a654da6f17e9f985cc67add154efe737761f74e4e5f72892fc0e9d457314973
-	b2sums = dff624472c0a64485bdece7cc2997919b145f556cbb40766df001495bafe64ae0a23b541c563ff6f395ae777ab934341a86e2c77cd7953793cc15d065df2794a
-	depends_x86_64 = mariadb-libs
-	depends_x86_64 = postgresql-libs
+	b2sums = 70df10f36eb2e95366ce0cf343ca5a2aa98a6d363820172b5e452b9441931a21e9e6acbc08d68215c37cec1bed53707885e4216692309c601c8791a24131b9a0
 
 pkgname = vaultwarden
