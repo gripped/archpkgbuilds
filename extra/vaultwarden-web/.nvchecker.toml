@@ -1,6 +1,9 @@
+# nvchecker's source=git does not differentiate between
+# pre release or latest release, please manually verify
+# tags against the two repositories mentioned in
+# PKGBUILD
 [vaultwarden-web]
-source = 'git'
-git = 'https://github.com/vaultwarden/vw_web_builds.git'
+source = 'github'
+github = 'dani-garcia/bw_web_builds'
+use_latest_release = true
 prefix = 'v'
-from_pattern = '\+'
-to_pattern = 'p'

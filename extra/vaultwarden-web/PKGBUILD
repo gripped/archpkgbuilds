@@ -3,7 +3,9 @@
 # Contributor: Markus Richter <mqus at disroot dot org>
 
 pkgname=vaultwarden-web
-pkgver=2026.4.1p0
+# note: upstream has build scripts in dani-garcia/bw_web_builds, and
+# keeps all code in vaultwarden/vw_web_builds
+pkgver=2026.6.4
 pkgrel=1
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=(any)
@@ -16,15 +18,17 @@ makedepends=(
   npm
 )
 install=$pkgname.install
-source=("$pkgname::git+$url#tag=v${pkgver//p/+}")
-sha512sums=('2c56317ec445270e87e8b19f75a1c6a60193ce079674aad8ddb433d54c83acbe052ef2c8565f70a419aadd4e9831e4c88697ff8f57ca81178de1b4c3b03bc481')
-b2sums=('573481d070d3d794b0dd861ae40b5d50aa9ac6c7c8528f23a2999a1bc4f987f2213a6e158e60b3542a5ad1221b6bc0fd7255e0b1bb893bcec26ec8ad25ebd3b8')
+source=("$pkgname::git+$url#tag=v${pkgver}+0")
+sha512sums=('0fda0a278d098ccfe417b1e95610b63d4bd6a27fdd5800a135e966e69ca97faa71c7a23fa0919319aa48659315f9f7b8db7e90dddbeb1b1c9cdef10860a97552')
+b2sums=('de96cf32d8aade684dae5d15521ee594605c57f6e139e5db640b6989c63c257a3bc3c884c28a2b8ad979cbd835b0ba9384bc84bebba1b93c96fd71e3b66fc835')
 
 prepare() {
   cd "$pkgname"
 
+  # https://www.electronjs.org/docs/latest/api/environment-variables#electron_skip_binary_download
   export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 
+  # upstream does not keep lockfiles in sync
   npm install
 
   npm ci
