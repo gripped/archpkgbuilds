@@ -2,8 +2,8 @@
 
 pkgbase=ols
 pkgname=(odinfmt ols)
-pkgver=dev_2026_05
-pkgrel=2
+pkgver=dev_2026_06
+pkgrel=1
 pkgdesc='Language server and source code formatter for Odin'
 arch=(x86_64)
 url='https://github.com/DanielGavin/ols'
@@ -11,12 +11,13 @@ license=(MIT)
 depends=(glibc)
 makedepends=(git odin)
 source=("git+$url#tag=${pkgver//_/-}")
-b2sums=('39c5bebbff89a49250bbad5a21ec24f8c28e74e702ad8c9cbcb838d2c53fa8c6758dd3c61254250cfe3600d1c6f85c9e12861c6fca22952138d52a68e5242394')
+b2sums=('1a564a0ff67f64b22e19181ae8d4f6790db2219b493cef9e29d913d94f17d27bd2502d21f4cf20bc824637edbab7419d7a7a7ee24385327fdbfc0b54b026e7eb')
 
 prepare() {
+  sed -i '/\.Haiku/d' ols/src/server/build.odin
+
   # Thanks @jfch
   sed -i 's/microarch:native/microarch:x86-64/g' ols/build.sh
-  sed -i '/\.Haiku/d' ols/src/server/build.odin
 }
 
 build() {
