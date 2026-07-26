@@ -1,7 +1,7 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgbase=linux-lts
-pkgver=6.18.39
+pkgver=6.18.40
 pkgrel=1
 pkgdesc='LTS Linux'
 url='https://www.kernel.org'
@@ -53,18 +53,18 @@ validpgpkeys=(
   ABAF11C65A2970B130ABE3C479BE3E4300411886  # Linus Torvalds
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman
 )
-sha256sums=('a7a7e3d2ae9d95e74197223a8d4eb5f6be7aac21b6e6de27e9685d001c1f8cb0'
+sha256sums=('3712fc1ec839e4daac981176c8518912e8f452650aaedfe4381da4419613a431'
             'SKIP'
             '0bb3b4cda53db35c10e0a34defb5f52f3c91895d7b4a9f93b3f40f5401a71e02'
             '70d54dfde13e52ea1109c4222a987a29ada68feec35dca9ce4afd6f7977e8740'
             '44caa7c6a79055539f16ab118bece58934cdf93557643a50017634366c864b91')
-sha256sums_x86_64=('43c6f44895e18a97929f12c9af6a5539c34d04d15e56c65c6fafcf3090640074')
-b2sums=('25822062c71a43756482b976a0249d6bcecfd858cf9ba2feabb3f20eb0285fb5970fa66186288283e5716cc6e38562a811d83796a2d2c4545cd63f06fa2bfc44'
+sha256sums_x86_64=('2cb0dd2017ca74008d724362c96439403124644ff0f17d6b70d19c79e8c1aee8')
+b2sums=('5f4df983b95be46dfb2e9912474cec7fb420e75e24b6b11ec492ad5f72e2ff8080f3ff4060757de1050da8509fbe14f6c678072d6a4e2d80fbf65ff8507ece97'
         'SKIP'
         'f98f4a2e714f7c9e05740caaad2bf014065ec950c096df74a3dee8b2ce6549f034adf6f87a76168f513aa68eb738edbdb6fe1a3f1b3a5104201c65199b5b931e'
         '6ca246df80fa85f9c21d090f87ee31e33acb02f3c1147944750e0896ebf199bc0cf427a164dacbdd9baa26dbdbce2fabd89ebdb6a8ce5dae83fc455b27a56cc8'
         'a612d5ea58485eeaa5cce0b30074ab3188f4321c4759448780de2f3f656821356d640df433e31bd4e8f2c9719c8e275374ddea29b9504335ed0981be5ac7bf7b')
-b2sums_x86_64=('2da201989c58a2e90fd6a0850166a2571228050bdd23dcef87f707a040411a41894b7f2c9238318d5fa67efc36b9ee8a68f2a877ac7be113a0a0437414187b19')
+b2sums_x86_64=('a4891a11e75dc7a1f4fd81390da18822c09d8bdb45b5ffe42c145db035503529e7b5d25e03e69bd248377b77d4802a9861cc3bcc0103ba31da7b10d48ccbc51e')
 
 # https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
 
@@ -93,7 +93,7 @@ prepare() {
   cp ../config.$CARCH .config
   make olddefconfig
   diff -u ../config.$CARCH .config || :
-
+  
   make -s kernelrelease > version
   echo "Prepared $pkgbase version $(<version)"
 }
