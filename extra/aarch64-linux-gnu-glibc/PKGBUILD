@@ -3,7 +3,7 @@
 
 _target=aarch64-linux-gnu
 pkgname=$_target-glibc
-pkgver=2.43
+pkgver=2.44
 pkgrel=1
 pkgdesc="GNU C Library ARM64 target"
 arch=(any)
@@ -13,7 +13,7 @@ depends=($_target-gcc $_target-linux-api-headers)
 makedepends=(python)
 options=(!buildflags !strip staticlibs)
 source=(https://ftpmirror.gnu.org/gnu/libc/glibc-$pkgver.tar.xz{,.sig})
-sha256sums=('d9c86c6b5dbddb43a3e08270c5844fc5177d19442cf5b8df4be7c07cd5fa3831'
+sha256sums=('37f600f2bef3c5e8300147059568b2a2e40a7ad6ccc65ce942556d49429cc667'
             'SKIP')
 validpgpkeys=(7273542B39962DF7B299931416792B4EA25340F8  # "Carlos O'Donell <carlos@systemhalted.org>"
               BC7C7372637EC10C57D7AA6579C43DFBF1CF2187  # Siddhesh Poyarekar
