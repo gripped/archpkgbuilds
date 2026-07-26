@@ -1,36 +1,60 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=loadtracker
-pkgver=1.0.0
+pkgver=1.99.2
 pkgrel=1
 pkgdesc='A modernised fork of GoatTracker2'
 arch=(x86_64)
 url='https://github.com/libsidplayfp/loadtracker'
 license=(GPL-2.0-only)
+depends=(
+  glibc
+  libgcc libgcc_s.so
+  libstdc++ libstdc++.so
+  libexsid libexsid.so
+  libresidfp libresidfp.so
+  jack libjack.so
+  rtmidi librtmidi.so
+  sdl3
+)
 makedepends=(
   git
-  sdl3
-  jack
-  alsa-lib
-  libexsid
-  libresidfp
   cmake
   ninja
 )
-optdepends=(
-  'alsa-lib: ALSA audio driver'
-  'jack: JACK audio driver'
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  use-system-rtmidi.patch
+  fix-cmake-regex.patch
 )
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('d0c4ceefdbe49156cddc0a73105d656b071f4d91e353198252f086c7a162d507d5727d131d04befb0047b6378908197110f434b0c38d5fe6766a95d18a3386cd')
-b2sums=('e10e331c81cb131fb351eb34b58f2e9d3f7a8691246a3bec3a24511c8c51179767593e906755cae83bbe1855a3acf7c26550c20717f9a5327b41665ca422da2d')
+sha512sums=('faec00478917ad654f5f3662397216f83e2159d2bf902cc5d6bf8482c7b7cf0af117552a03c2a58c62808b042df019d74bd7c81dba5c6cc9b2cdcf5492422a73'
+            '70cd66430368f355bc74d184e92a06d57a7562acf787325cf44cf56f0b3d26c5a6227115090aeaee8e7e0a8c76d7fa3f53d83afde27e6253fe5163b0f0a7688a'
+            'b28a347d645d6b010721f37a1536c9425cee608b8cda2ee948f3c463f6edcf591eeabb39851b6dff3f720ead32a44cb4dccbd51ac06a5fe6f5b7e9cac4fb7566')
+b2sums=('374bf56286d1e623803ebf901311b8617655d407f1653cf4fadda08d5fd7ad41f5eb6dfccd57a57158a2199351900e1c54c6681c26d57133bf8801c27d3e095e'
+        'e8f268a91a633ee970c2feeaffac5f92663969346b31ea3cfda1fafe223df9ff12f89644bc8f23a98cc836cf775779d6aa492a59de43d3fbddf1ed88294a0211'
+        '724e7fdf0b178afc6a697bca991e4b46455a2daaac96709ba0e3889f67531c7712dd36d04034c8ecb054c9efb8d22785f852b9ea22591d5569404fb1aefb305f')
+
+prepare() {
+  cd "$pkgname"
+
+  # fix manpage installation
+  # https://github.com/libsidplayfp/loadtracker/pull/18
+  git cherry-pick --no-commit 2e14cee16beee89c54eeae214c631ad13279b8a9
+
+  # link to system rtmidi
+  patch -p1 -i "$srcdir/use-system-rtmidi.patch"
+  rm -rf src/rtmidi
+
+  # fix incorrect inclusion of empty directory
+  patch -p1 -i "$srcdir/fix-cmake-regex.patch"
+}
 
 build() {
   local cmake_options=(
     -B build
     -S "$pkgname"
     -G Ninja
-    -W no-dev
+    -W no-author
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
   )
@@ -41,20 +65,5 @@ build() {
 }
 
 package() {
-  depends+=(
-    glibc
-    libgcc libgcc_s.so
-    libstdc++ libstdc++.so
-    libexsid libexsid.so
-    libresidfp libresidfp.so
-    sdl3
-  )
-
   DESTDIR="$pkgdir" cmake --install build
-
-  cd "$pkgname"
-
-  # documentation
-  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
-  cp -vr src "$pkgdir/usr/share/doc/$pkgname"
 }
