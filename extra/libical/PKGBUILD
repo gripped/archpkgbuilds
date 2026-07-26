@@ -5,8 +5,8 @@
 pkgbase=libical
 pkgname=(libical
          libical-docs)
-pkgver=4.0.3
-pkgrel=3
+pkgver=4.0.4
+pkgrel=1
 pkgdesc="An open source reference implementation of the icalendar data type and serialization format"
 arch=(x86_64)
 url='https://github.com/libical/libical'
@@ -26,7 +26,7 @@ makedepends=(cmake
              vala)
 checkdepends=(python-gobject)
 source=(git+https://github.com/libical/libical#tag=v$pkgver)
-sha512sums=('520d4104b7e2fb3ca1d41cf7918dc5e6237d3651cb6f201207f64957fe42fe9cd0adbcd22b1e15c6acd0826c93d26de29dc1121c3ede5093bbc2725013b80b9a')
+sha512sums=('fc33b72da9e2ba66f440dd538b25629c72b9812f3bfa7d7a1533b32c003b3fae9e211612912d81bf284c9ecb9207d88e231b2d6ae77e04839dd32e3dc98c28c8')
 
 build() {
   cmake -S $pkgname -B build \
