@@ -2,7 +2,7 @@
 
 pkgname=endeavour
 pkgver=43.0
-pkgrel=8
+pkgrel=9
 pkgdesc="Personal task manager (Formerly GNOME Todo)"
 url="https://wiki.gnome.org/Apps/Todo"
 arch=(x86_64)
@@ -62,6 +62,9 @@ check() (
 
 package() {
   meson install -C build --destdir "$pkgdir"
+
+  # Remove icons that already present in GResource
+  rm -r "$pkgdir/usr/share/icons/hicolor/symbolic/actions/"
 }
 
 # vim:set sw=2 sts=-1 et:
