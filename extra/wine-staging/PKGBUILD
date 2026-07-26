@@ -6,8 +6,8 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=wine-staging
-pkgver=11.13
-pkgrel=1
+pkgver=11.14
+pkgrel=2
 
 _pkgbasever=${pkgver/rc/-rc}
 _winever=$_pkgbasever
@@ -16,13 +16,11 @@ _winever=$_pkgbasever
 source=("git+https://gitlab.winehq.org/wine/wine.git?signed#tag=wine-$_pkgbasever"
         "git+https://gitlab.winehq.org/wine/wine-staging.git#tag=v$_pkgbasever"
         30-win32-aliases.conf
-        wine-binfmt.conf
-        ntsync.conf)
-sha512sums=('b1f56db9d477f59f8c9e5fdfefb6347955839c60be0ea8dbe999cfcf4d289a1c9fd0876cae7fa09c17bae23e3aba2ece690fcd408166eeceeb2d99375bac7436'
-            '0522200070744e123bd384c62e768752cd5523ae1046a6ec27197b8029d44562d7799d3b4f475ecb1f0bc5dbc99693cc81ece375f30fd1baad495e8dcbb8f72a'
+        wine-binfmt.conf)
+sha512sums=('a8cfc9c6c3575199823f632b86da566b379659281aa4e69907b0c9704e8fe00415590a54705323b03f0a56647c73d164c7428bf86b0681d421ffa0b6f2d3c4d5'
+            '21de03b2de0218665575daf9b5f7b13e1407b286d149d067fec446ed3df43b281655a9acf6ffa0a6062abb98dea765fe423421f7037f647d496ba0bf5a63ece7'
             '6e54ece7ec7022b3c9d94ad64bdf1017338da16c618966e8baf398e6f18f80f7b0576edf1d1da47ed77b96d577e4cbb2bb0156b0b11c183a0accf22654b0a2bb'
-            'bdde7ae015d8a98ba55e84b86dc05aca1d4f8de85be7e4bd6187054bfe4ac83b5a20538945b63fb073caab78022141e9545685e4e3698c97ff173cf30859e285'
-            'ac2bd634838ffe6b90f2637e229013f0993fc1013271dbeefd216dc262a8bb79e4a5ce15a75cbfcb0c3b521d32f4ebe1ed25a6b066b99cc327b60bd6d7212e6f')
+            'bdde7ae015d8a98ba55e84b86dc05aca1d4f8de85be7e4bd6187054bfe4ac83b5a20538945b63fb073caab78022141e9545685e4e3698c97ff173cf30859e285')
 validpgpkeys=(5AC1A08B03BD7A313E0A955AF5E6E9EEB9461DD7
               DA23579A74D4AD9AF9D3F945CEFAC8EAAF17519D)
 
@@ -46,6 +44,7 @@ depends=(
   libxi
   libxrandr
   wayland
+  ntsync-autoload
 )
 makedepends=(
   alsa-lib
@@ -153,9 +152,6 @@ package() {
   install -m644 "$srcdir/30-win32-aliases.conf" "$pkgdir/usr/share/fontconfig/conf.avail"
   ln -s ../conf.avail/30-win32-aliases.conf "$pkgdir/usr/share/fontconfig/conf.default/30-win32-aliases.conf"
   install -Dm 644 "$srcdir/wine-binfmt.conf" "$pkgdir/usr/lib/binfmt.d/wine.conf"
-
-  # Load ntsync module
-  install -Dm644 "$srcdir/ntsync.conf" "$pkgdir/usr/lib/modules-load.d/10-ntsync.conf"
 }
 
 # vim:set ts=8 sts=2 sw=2 et:
