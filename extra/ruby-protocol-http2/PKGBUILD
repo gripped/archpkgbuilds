@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-http2
-pkgver=0.26.1
+pkgver=0.26.2
 pkgrel=1
 pkgdesc='A low level implementation of the HTTP/2 protocol'
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('a394b256e6327b5b98a76ea1d312e5474f801ebd6424b34ae591022b4efb776b')
+sha256sums=('7265d6d94779e65cf70b86376931c622f07644ac4c068ad973b45f20115344ca')
 
 prepare() {
   cd protocol-http2
