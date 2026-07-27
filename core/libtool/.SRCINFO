@@ -1,7 +1,7 @@
 pkgbase = libtool
 	pkgdesc = A generic library support script
 	pkgver = 2.6.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.gnu.org/software/libtool
 	arch = aarch64
 	arch = x86_64
@@ -10,8 +10,6 @@ pkgbase = libtool
 	makedepends = gcc>=16
 	makedepends = git
 	makedepends = glibc
-	makedepends = lib32-gcc-libs
-	makedepends = lib32-glibc
 	makedepends = help2man
 	depends = sh
 	depends = tar
@@ -21,6 +19,8 @@ pkgbase = libtool
 	b2sums = feab7320948202806bb4fa96b3a8724faf24f4033cc4fc34fe6342f31e1f93edca04980138e9bbd2d21c7d412cbd7ac276fb28f0423e138df3bc889657264a0d
 	b2sums = SKIP
 	b2sums = SKIP
+	makedepends_x86_64 = lib32-gcc-libs
+	makedepends_x86_64 = lib32-glibc
 
 pkgname = libtool
 	depends = sh

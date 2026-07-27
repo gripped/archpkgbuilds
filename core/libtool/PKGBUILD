@@ -10,7 +10,7 @@ pkgbase=libtool
 pkgname=(libtool lib32-libltdl)
 pkgver=2.6.2
 _commit=309bb53a8adfb22c6e5869cc8da049bf123e5438
-pkgrel=1
+pkgrel=2
 _gccver=16
 pkgdesc='A generic library support script'
 arch=(aarch64 x86_64)
@@ -24,9 +24,11 @@ makedepends=(
   "gcc>=$_gccver"
   git
   glibc
+  help2man
+)
+makedepends_x86_64=(
   lib32-gcc-libs
   lib32-glibc
-  help2man
 )
 checkdepends=(
   gcc-fortran
