@@ -2,16 +2,17 @@
 # Contributor: Nogweii <me@nogweii.net>
 
 pkgname=zk
-pkgver=0.15.5
+pkgver=0.15.6
 pkgrel=1
 pkgdesc='A command-line tool helping you to maintain a Zettelkasten or personal wiki'
 arch=(x86_64)
 url='https://github.com/zk-org/zk'
 license=(GPL-3.0-only)
+depends=(sqlite)
 makedepends=(git go)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('ff219ba8136436669e5b0deedb615341a4b485b2dd3242e8473d109aa7fb54838503598e15a143938bed51d88afbfe31dbf65f4f029d3f7d09fd333cf60d347b')
-b2sums=('be13d4eef230d49c0959752d862c1e8aa7848f164a62415b5273362e9a84ccc7de2842577f8fea9a95dcaf91e55e1c34073792ed50183142ff0771bbd02bd83c')
+sha512sums=('cc3f8baf726d1e6fc7cea3e65068e9f93effbc20974bc89e2ed191fb5f988d480f07b47f82017dec7dd49e75fcebb75bd109ef21ad9cc9107a8bc7e33bfb2c96')
+b2sums=('d5eb78e23666da040f071642942e09b7b7b5144cb0e307d7f4d98be2f48d12404e4f75d99f0c8a03fc1b17c5feeb7d9a3a7efdf52566534a31c72b36574985e5')
 
 prepare() {
   cd "$pkgname"
@@ -41,14 +42,14 @@ build() {
     -extldflags '${LDFLAGS}' \
     -X main.Version=$(git describe --tags HEAD) \
     -X main.Build=$(git rev-parse --short HEAD)" \
-    -tags "fts5" \
+    -tags "fts5 libsqlite3" \
     -o build \
     .
 }
 
 check() {
   cd "$pkgname"
-  go test -v -race -tags "fts5" ./...
+  go test -v -race -tags "fts5 libsqlite3" ./...
 }
 
 package() {
