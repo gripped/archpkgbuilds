@@ -6,7 +6,7 @@
 pkgname=plan9port
 _commit=337c6acbfed51d8d9f08598c6cd398f53abcca7d # master, 2026-07-11
 pkgver=20260711
-pkgrel=1
+pkgrel=2
 pkgdesc='Ports of applications from Plan 9'
 arch=(x86_64)
 url='https://9fans.github.io/plan9port/'
@@ -26,6 +26,7 @@ b2sums=('3cbc7fcde42f322f13721ef4646d2cef0c49e0c2a02ffe7deebb1f681db91daf62ece78
 
 pkgver() {
  cd $pkgname
+
  git log -n1 --pretty='format:%cd' --date=format:'%Y%m%d' $_commit
 }
 
@@ -52,12 +53,14 @@ prepare() {
 
 build() {
   cd $pkgname
+
   export CFLAGS+=' -ffat-lto-objects -w'
   ./INSTALL -b
 }
 
 package() {
   cd $pkgname
+
   install -Dm755 ../plan9.sh "$pkgdir/etc/profile.d/plan9.sh"
   d=usr/lib
   install -d "$pkgdir/$d"
@@ -70,7 +73,7 @@ package() {
   # Clean up
   rm -rf .hg/
   rm -f .hgignore .hgtags INSTALL LICENSE Makefile config configure install.log install.sum install.txt
-  find . -name '.cvsignore' -delete
+  find . -name .cvsignore -delete
 
   # Package text files
   for i in CHANGES CONTRIBUTING.md CONTRIBUTORS README.md; do
