@@ -3,7 +3,7 @@
 
 pkgname=iagno
 pkgver=50.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Dominate the board in a classic version of Reversi"
 url="https://wiki.gnome.org/Apps/Reversi"
 arch=(x86_64)
@@ -25,6 +25,7 @@ makedepends=(
   vala
   yelp-tools
 )
+groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/iagno.git#tag=${pkgver/[a-z]/.&}")
 b2sums=('e844f4223f15cdd4ac519ac47729a5369be75f841c66557b947d3df4689666614ff65241e8cd9415d86798c613e9467270f151e85ad1d49d08f46df0929c1c85')
 
