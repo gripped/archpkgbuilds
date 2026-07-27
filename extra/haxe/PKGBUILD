@@ -8,7 +8,7 @@
 
 pkgname=haxe
 pkgver=4.3.7
-pkgrel=4
+pkgrel=5
 # The haxelib git submodule commit hash can be found here:
 # https://github.com/HaxeFoundation/haxe/tree/4.3.7/extra
 _haxelib_commit=4000137b822989eacb1e1c370470ee1c9ecdf4b8
@@ -20,7 +20,7 @@ arch=(x86_64)
 url='https://haxe.org/'
 license=(GPL-2.0-or-later MIT)
 depends=(mbedtls neko)
-makedepends=(camlp5 git neko ocaml opam ocaml-ptmap perl-ipc-system-simple perl-string-shellquote zlib)
+makedepends=(camlp5 git ocaml opam ocaml-ptmap perl-ipc-system-simple perl-string-shellquote)
 optdepends=(java-environment mono php python)
 source=("haxelib_src::git+https://github.com/HaxeFoundation/haxelib#commit=$_haxelib_commit"
         "hx3compat::git+https://github.com/HaxeFoundation/hx3compat#commit=$_hx3compat_commit"
