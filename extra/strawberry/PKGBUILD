@@ -2,7 +2,7 @@
 # Contributor: Fabio 'Lolix' Loli <lolix@disroot.org> -> https://github.com/FabioLolix
 
 pkgname=strawberry
-pkgver=1.2.24
+pkgver=1.2.25
 pkgrel=1
 pkgdesc='A music player aimed at audio enthusiasts and music collectors'
 arch=(x86_64)
@@ -42,7 +42,7 @@ optdepends=('gst-libav: additional codecs'
             'gst-plugins-bad: additional codecs'
             'gst-plugins-ugly: additional codecs')
 source=(git+https://github.com/strawberrymusicplayer/strawberry#tag=$pkgver)
-sha256sums=('88a6e3b48ddb8f10a67304109c7ad281ba4f5fe91a365c690f1582c16f1e71de')
+sha256sums=('ea119f5ea7f9ac8edb9f1c2da9f1ab7ab7c0ea150848c2987a8b4d378267d642')
 
 build() {
   cmake -B build -S $pkgname \
