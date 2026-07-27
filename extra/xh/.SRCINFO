@@ -1,17 +1,21 @@
 pkgbase = xh
 	pkgdesc = Friendly and fast tool for sending HTTP requests
-	pkgver = 0.26.1
+	pkgver = 0.26.2
 	pkgrel = 1
 	url = https://github.com/ducaale/xh
 	arch = x86_64
 	license = MIT
 	makedepends = cargo
-	depends = gcc-libs
+	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
 	depends = openssl
+	depends = libcrypto.so
+	depends = libssl.so
 	depends = oniguruma
 	replaces = ht-rs
 	replaces = ht
-	source = xh-0.26.1.tar.gz::https://github.com/ducaale/xh/archive/v0.26.1.tar.gz
-	sha256sums = 6c4822374d3b9bacfc50719ffb5653a32fd84344e50fd88b499ed8fc9e52198b
+	source = xh-0.26.2.tar.gz::https://github.com/ducaale/xh/archive/v0.26.2.tar.gz
+	sha256sums = 61a88a5b3beac225b75a11d6ed32659af78db7ff29c825def0ab7f4a2906cbd7
 
 pkgname = xh

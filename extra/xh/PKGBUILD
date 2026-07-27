@@ -3,32 +3,46 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=xh
-pkgver=0.26.1
+pkgver=0.26.2
 pkgrel=1
 pkgdesc="Friendly and fast tool for sending HTTP requests"
 arch=('x86_64')
 url="https://github.com/ducaale/xh"
 license=('MIT')
-depends=('gcc-libs' 'openssl' 'oniguruma')
+depends=(glibc # libc.so
+         libgcc libgcc_s.so
+         openssl libcrypto.so libssl.so
+         oniguruma) # libonig.so
 makedepends=('cargo')
 replaces=('ht-rs' 'ht')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('6c4822374d3b9bacfc50719ffb5653a32fd84344e50fd88b499ed8fc9e52198b')
+sha256sums=('61a88a5b3beac225b75a11d6ed32659af78db7ff29c825def0ab7f4a2906cbd7')
+
+_srcenv() {
+  cd "$pkgname-$pkgver"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+  CFLAGS+=' -ffat-lto-objects'
+  export OPENSSL_NO_VENDOR=true
+  export RUSTONIG_DYNAMIC_LIBONIG=1
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  _srcenv
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  CFLAGS+=' -ffat-lto-objects'
-  export RUSTONIG_DYNAMIC_LIBONIG=1
+  _srcenv
   cargo build --frozen --release --features native-tls
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  _srcenv
   cargo test --frozen --features native-tls
 }
 
