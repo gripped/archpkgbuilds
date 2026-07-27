@@ -5,8 +5,8 @@
 
 pkgname=python-pypresence
 _name=${pkgname#python-}
-pkgver=4.6.1
-pkgrel=3
+pkgver=4.6.2
+pkgrel=1
 pkgdesc='Discord RPC and Rich Presence wrapper library'
 url='https://github.com/qwertyquerty/pypresence'
 arch=(any)
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=(python-pytest python-pytest-asyncio)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('04673899211c651b7cff674378a37af1e21675576184afb96f2abdd6426d404fed0e25008eb1da5d32f4dbf7ea2aed57852afee1d37ee05eda3ab57ace6da6ae')
+b2sums=('994a1628b2bca4474f82ba3911c028ca1fdf05eca9eaed7ebdfa38e53c432c3ece240369479ca138ddb51dd35ada710c37f76ed77969740dc822c3d17cd3361c')
 
 check() {
   cd $_name-$pkgver
