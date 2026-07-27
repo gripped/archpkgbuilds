@@ -5,7 +5,7 @@
 # Contributor: MatejSpindler <spindler.matej@gmail.com>
 
 pkgname=esptool
-pkgver=5.3.0
+pkgver=5.3.1
 pkgrel=1
 pkgdesc='Espressif SoC serial bootloader utility'
 arch=(any)
@@ -27,7 +27,7 @@ depends=(
 )
 optdepends=('python-python-pkcs11: Support for HSM devices')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('2d9bb688fbff5ed13c3b6c069f81c86b473844d9db9ead566c70916de46461f5d717e0b10722de4097bae1263e3900fb3ff3e52e4d33c9feef883e3ddf370ee3')
+b2sums=('c3392231858e55b2fd8010cd0fb96a03a0766506a69b1474136dc30e649d8e7b45429825f18f8462368b140413bc158861a4b67f824211fc1d761d2d7c1d98e2')
 
 build() {
   cd $pkgname
