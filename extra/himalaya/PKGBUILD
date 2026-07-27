@@ -2,52 +2,75 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=himalaya
-pkgver=1.2.0
+pkgver=2.0.0
 pkgrel=1
-pkgdesc="A CLI email client"
-arch=('x86_64')
+pkgdesc='A CLI email client'
+arch=(x86_64)
 url="https://github.com/soywod/himalaya"
-license=('MIT')
-depends=('gcc-libs' 'glibc' 'gpgme' 'notmuch' 'openssl')
-makedepends=('cargo')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3103b0adf17abc19513801078ac9eb5433d9f87649399eb8f0baad9ee3efc4ba4ff465dbfd8575961a33627e99adddf00b18c20c3620574f904320ba9dbcee6c')
+license=(MIT Apache-2.0)
+depends=(glibc # libc.so
+         gpgme
+         libgcc libgcc_s.so
+         notmuch
+         openssl)
+makedepends=(cargo)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
+sha256sums=('0f58a5761490c2a96105073358487fa6032c79c0f07e962a65f6e8aeef782fd9')
 
-_features='notmuch,pgp-gpg'
+_features='maildir'
+
+_srcenv() {
+	cd "$_archive"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+	CFLAGS+=" -ffat-lto-objects"
+	export OPENSSL_NO_VENDOR=true
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
-  mkdir -p {completions,man}
+	_srcenv
+	cargo fetch --locked --target host-tuple
+	mkdir -p {completions,man}
+}
+	
+_compgen() {
+    target/release/$pkgname completion $1
+}
+
+_mangen() {
+    target/release/$pkgname man $1
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  CFLAGS+=" -ffat-lto-objects"
-  cargo build --frozen --release --features "$_features"
-  local _completion="target/release/$pkgname completion"
-  $_completion bash > "completions/$pkgname"
-  $_completion fish > "completions/$pkgname.fish"
-  $_completion zsh  > "completions/_$pkgname"
-  local _mangen="target/release/$pkgname man"
-  $_mangen man
+	_srcenv
+	cargo build --frozen --release --features "$_features"
+	_compgen bash > "completions/$pkgname"
+	_compgen fish > "completions/$pkgname.fish"
+	_compgen zsh  > "completions/_$pkgname"
+	_mangen man
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  cargo test --frozen --features "$_features" -- --skip 'test_imap_backend'
+	_srcenv
+	local skipped=(
+		test_imap_backend
+	)
+	cargo test --frozen --features "$_features" -- ${skipped[@]/#/--skip }
 }
 
-package_himalaya() {
-  cd "$pkgname-$pkgver"
-  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
-  install -Dm 664 "completions/$pkgname" -t "$pkgdir/usr/share/bash-completion/completions/"
-  install -Dm 664 "completions/$pkgname.fish" -t "$pkgdir/usr/share/fish/vendor_completions.d/"
-  install -Dm 664 "completions/_$pkgname" -t "$pkgdir/usr/share/zsh/site-functions/"
-  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
-  install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
-  install -Dm 644 "assets/$pkgname.desktop" -t "$pkgdir/usr/share/applications"
-  find man/ -type f -exec install -Dm 644 -t "$pkgdir/usr/share/man/man1" {} \;
+package() {
+	cd "$pkgname-$pkgver"
+	install -Dm 755 -t "$pkgdir/usr/bin" "target/release/$pkgname"
+	install -Dm 664 -t "$pkgdir/usr/share/bash-completion/completions/" "completions/$pkgname"
+	install -Dm 664 -t "$pkgdir/usr/share/fish/vendor_completions.d/" "completions/$pkgname.fish"
+	install -Dm 664 -t "$pkgdir/usr/share/zsh/site-functions/" "completions/_$pkgname"
+	install -Dm 644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
+	install -Dm 644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE-*
+	install -Dm 644 -t "$pkgdir/usr/share/applications/" "assets/$pkgname.desktop"
+	install -Dm 644 -t "$pkgdir/usr/share/man/man1/" man/*.1
 }
-
-# vim:set ts=2 sw=2 et:
