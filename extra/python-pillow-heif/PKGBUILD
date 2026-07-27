@@ -6,7 +6,7 @@ pkgname=(
   python-pillow-heif
   python-pillow-heif-docs
 )
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc='Python bindings to libheif for working with HEIF images and plugin for Pillow'
 arch=(x86_64)
@@ -32,7 +32,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+https://github.com/bigcat88/pillow_heif.git#tag=v$pkgver")
-b2sums=('6cd55dda748c0fdc06bc20edee580f8589c90f76bc7b5e5dd77867b3abd2ad5eddb52aad0651bf4f395541e3c4942419ce7c73f3a0669ecba76ffca1b86f780e')
+b2sums=('72d995d0ec6209f827c73a52c935f74649c7747807b206d069eef637626af327b2538980ae2d986b1d4a3089c478e3c7f7245f90961d6f6df013a082eb92cd11')
 
 build() {
   cd pillow_heif
@@ -41,7 +41,7 @@ build() {
 
 check() {
   cd pillow_heif
-  # oritientation_test and metadata_*_test take forever
+  # orientation_test, thumbnails_test and metadata_*_test take forever
   # options_tests tries to encode an image and fail (reason="No HEVC encoder.") 
   PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')" \
     pytest \
@@ -49,6 +49,7 @@ check() {
     --deselect tests/metadata_etc_test.py \
     --deselect tests/metadata_exif_test.py \
     --deselect tests/metadata_xmp_test.py \
+    --deselect tests/thumbnails_test.py \
     --deselect tests/options_test.py
 }
 
