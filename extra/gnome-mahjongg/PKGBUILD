@@ -3,7 +3,7 @@
 
 pkgname=gnome-mahjongg
 pkgver=49.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Disassemble a pile of tiles by removing matching pairs"
 url="https://apps.gnome.org/Mahjongg/"
 arch=(x86_64)
@@ -27,7 +27,7 @@ makedepends=(
   vala
   yelp-tools
 )
-groups=(gnome-extra)
+groups=(gnome-circle)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-mahjongg.git?signed#tag=${pkgver/[a-z]/.&}")
 b2sums=('04a0844e36f514642e100e35fd25fae5cba490ff3bdb487d771d47f17980dead92d792ffb26fc9bb03232edd6bf592c4a89a9d5862c1e77c31ff148bf20d5ed2')
 validpgpkeys=(
