@@ -7,7 +7,7 @@
 # Contributor: Anders Bergh <anders1@gmail.com>
 
 pkgname=luajit
-pkgver=2.1.1784902473+346ab58
+pkgver=2.1.1785005726+a471ab7
 _commit=${pkgver##*+}
 pkgrel=1
 pkgdesc='Just-in-time compiler and drop-in replacement for Lua 5.1'
@@ -16,8 +16,8 @@ url='https://luajit.org/'
 license=('MIT')
 depends=('glibc' 'libgcc')
 source=("LuaJIT-${_commit}.tar.gz::https://github.com/LuaJIT/LuaJIT/archive/${_commit}.tar.gz")
-sha256sums=('a59e9540e1d516b27192153437a2cf69677337a20e64edeba221663f5ebc92c8')
-b2sums=('03ce659bbd5cc134b7996338feb4b5be6c01a3060d2a8439d41b910fe0fd6cb257ea587fe8b9c7810627a3eb6ac9d5fff45540ec69ef4a1b3bd6c7e2bddeff8d')
+sha256sums=('a3b123cdaaf765f9dc7c0622c1e24b1f978d1c970d375bad93c95a2c65d274cc')
+b2sums=('c11bfe0cebdda2c415194b03c91ed608acf8f7e5de60a511140ce3e3f0af6027dba50f82a6fd26e0429ffe5ad7341d59bc81dbb67827ce93d0b31c5cea19f29d')
 
 build() {
   cd "LuaJIT-${_commit}"*/
