@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-comrak
-pkgver=0.0.12
+pkgver=0.0.15
 pkgrel=1
 pkgdesc='Python bindings for the Comrak Rust library, a fast CommonMark/GFM parser'
 arch=(x86_64)
@@ -21,8 +21,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=py-$pkgver")
-sha512sums=('9d132174d8ce1f8e98e11af1f274cd56f7a4024321023de3919e534793ee218f31f261f76e52627da26d9da0e62ce440b1cca21627a3305003a2be3fa5f8552f')
-b2sums=('7a3cb15c1b746264fba1053cc6e9fa954b39a51ac47e3de2e5275739f4bb645999e93a5841b7736296bd4f968d01e2eca9b4e66851863685be884fa3a46ac564')
+sha512sums=('5fff5b360bac9c4abc49c57da95ce57c9a7a0747fcb85d195e506a33a47677d266a48f6838f38124523aaefc0ef2bcb172e32dba23f753aaa018b21747cc00f4')
+b2sums=('9298b594536019b12c31659f1d8f4c6ddeed8730c4bdbb4221559b7e66960b7ef977980bed643311bb9774537b69a2fcbc0edd90951a89b7da1b9e282c053616')
 
 prepare() {
   cd "$pkgname"
