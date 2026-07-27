@@ -3,7 +3,7 @@
 
 pkgname=irker
 pkgver=2.25
-pkgrel=1
+pkgrel=2
 pkgdesc="An IRC client that runs as a daemon accepting notification requests"
 arch=(any)
 url="https://gitlab.com/esr/irker"
@@ -46,11 +46,11 @@ prepare() {
 }
 
 build() {
-  make -C $pkgname-$pkgver
+  make -C $pkgname-$pkgver PREFIX=usr
 }
 
 package() {
-  make DESTDIR="$pkgdir/" install -C $pkgname-$pkgver
+  make DESTDIR="$pkgdir/" install -C $pkgname-$pkgver PREFIX=usr
   install -vDm 755 $pkgname-$pkgver/{irk,irkerhook.py} -t "$pkgdir/usr/bin"
   install -vDm 644 $pkgname-$pkgver/COPYING -t "$pkgdir/usr/share/licenses/$pkgname"
   install -vDm 644 $pkgname-$pkgver/{NEWS,README.adoc,{hacking,security}.adoc} -t "$pkgdir/usr/share/doc/$pkgname/"
