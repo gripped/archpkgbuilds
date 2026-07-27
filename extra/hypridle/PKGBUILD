@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hypridle
-pkgver=0.1.7
-pkgrel=10
+pkgver=0.1.8
+pkgrel=1
 pkgdesc='hyprland’s idle daemon'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -19,7 +19,7 @@ makedepends=(cmake
              hyprland-protocols)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('c4ef2e2894fc2082cfdabe7db086b1f246e3f0de571f7f2c6b26d7c0d9a5f8f3')
+sha256sums=('08703613cc33cc796c2179bcaa6076e8618113f67b938daaf7535f90c7d39595')
 
 build() {
 	cd "$_archive"
