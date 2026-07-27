@@ -2,7 +2,7 @@
 
 pkgname="rubocop"
 pkgver=1.82.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Ruby code style checking and code formatting tool'
 arch=('any')
 url='https://rubocop.org/'
@@ -78,36 +78,8 @@ build() {
     --local \
     --verbose \
     --ignore-dependencies \
-    --no-user-install \
-    --install-dir "tmp_install/${_gemdir}" \
-    --bindir "tmp_install/usr/bin" \
+    --build-root "tmp_install" \
     "${pkgname}-${pkgver}.gem"
-
-  # remove unrepreducible files
-  rm --force --recursive --verbose \
-    "tmp_install/${_gemdir}/cache/" \
-    "tmp_install/${_gemdir}/gems/${pkgname}-${pkgver}/vendor/" \
-    "tmp_install/${_gemdir}/doc/${pkgname}-${pkgver}/ri/ext/"
-
-  find "tmp_install/${_gemdir}/gems/" \
-    -type f \
-    \( \
-      -iname "*.o" -o \
-      -iname "*.c" -o \
-      -iname "*.so" -o \
-      -iname "*.time" -o \
-      -iname "gem.build_complete" -o \
-      -iname "Makefile" \
-    \) \
-    -delete
-
-  find "tmp_install/${_gemdir}/extensions/" \
-    -type f \
-    \( \
-      -iname "mkmf.log" -o \
-      -iname "gem_make.out" \
-    \) \
-    -delete
 }
 
 check() {
