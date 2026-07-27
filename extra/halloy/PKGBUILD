@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=halloy
-pkgver=2026.7.2
+pkgver=2026.8
 pkgrel=1
 pkgdesc='An open-source IRC client'
 arch=(x86_64)
@@ -15,6 +15,7 @@ depends=(
   openssl
   libxcb
   sqlite
+  zstd
 )
 makedepends=(
   git
@@ -22,8 +23,8 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+https://github.com/squidowl/halloy#tag=$pkgver")
-sha512sums=('7806b4382d9667a9af019f4805b70676b173b9fe54f9d949bc157c2a0f676b2fa9940a69e488602c3dad4b96e7f7f56aab9a4d90487a8db81c9dc25d06cf52c0')
-b2sums=('194b46c796ab97482db1e0ade18123b904b782b3cf12f5e0c7b0263b1f6ec81c77a6274e6ddef73e1e22c911d6b3c7337ed68dd90ad75569c8ceb91dd501aa25')
+sha512sums=('7a85ac0b3547e93b16034541b1fee851ece9cd28cf4a39910031e00fa5d35b1891fc53ad659343e3581fc8e4af14a4e810fc0cdac87ce75f47151d277d9fe7dc')
+b2sums=('5fbeb567a4eacff934617b5a129d0814547a56c1d8d9ab072185c808d5fddd85242fcdbda8500f337861c1d02d430e27a243b01f6b64670e7830eba972d5a7e6')
 
 prepare() {
   cd "$pkgname"
@@ -35,13 +36,17 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo build --locked --profile packaging --all-features
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
+  cargo build --locked --profile packaging --all-features
 }
 
 check() {
   cd "$pkgname"
 
-  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 cargo test --locked --profile packaging --all-features
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
+  cargo test --locked --profile packaging --all-features
 }
 
 package() {
