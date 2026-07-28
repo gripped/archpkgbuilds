@@ -10,7 +10,7 @@
 
 pkgname=nix
 pkgver=2.35.1
-pkgrel=2
+pkgrel=3
 pkgdesc='A purely functional package manager'
 arch=(x86_64)
 url='https://nixos.org/nix'
@@ -34,7 +34,6 @@ depends=(
   libseccomp
   libsodium
   lowdown
-  mimalloc
   nix-busybox
   nlohmann-json
   openssl
@@ -99,6 +98,7 @@ build() {
   local meson_opts=(
     libstore:sandbox-shell=/usr/lib/nix/busybox
     nix:profile-dir=/etc/profile.d
+    nix:mimalloc=disabled
     doc-gen=false
     unit-tests=false
     functional-tests=false
