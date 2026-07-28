@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=fooyin
-pkgver=0.11.1
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='A customisable music player'
 arch=(x86_64)
@@ -49,14 +49,14 @@ optdepends=(
     'soundtouch: For the SoundTouch-based DSP plugin'
 )
 source=("$pkgname::git+https://github.com/fooyin/fooyin#tag=v$pkgver")
-sha512sums=('33e09969c6016ad4928aed8db605fad07bab334ceda2d8014272d968d736fbd113209bf9af7302e84ad31a80dacbd23b43c2edcb9210266028eed258bae9b43b')
-b2sums=('f10fbb62bf0668801e88a41ba5c44cc81900c665e763fcefd551eebeffa060469c747c85f8d22c7c98045ae5df8c5ce540a62096e4df7137ad982a3c33725e31')
+sha512sums=('c269788e2d63a1e0f98c73c436f18f38de2cc941ca1fedcee1e86637c386c677c61dd1f619976f935e2c1637a84e79c6114b997a67a76a4b41c0d9d810102211')
+b2sums=('a60c2176e04eaa3ac2fd198ed942cde693bc0bdb89f3d323a195d7c0684d9944a4dbe5f91c2c0646024a9c343d5429273f7bec59abecff43d5fcf11267ba26eb')
 
 build() {
   local cmake_options=(
     -B build
     -S "$pkgname"
-    -W no-dev
+    -W no-author
     -G Ninja
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
