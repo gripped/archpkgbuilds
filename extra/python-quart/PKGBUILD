@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-quart
-pkgver=0.20.0
-pkgrel=3
+pkgver=0.21.0
+pkgrel=1
 pkgdesc='A Python ASGI web microframework with the same API as Flask'
 url=https://github.com/pallets/quart
 arch=(any)
@@ -34,17 +34,13 @@ checkdepends=(
   python-pytest-asyncio
 )
 optdepends=('python-dotenv: support for .env files')
-_tag=22aa3859884ee3d670c68e48d1945bc65af51a1a
-source=(git+https://github.com/pallets/quart.git#tag=${_tag})
-sha256sums=('3995aecbf78b1a8ee25bc1c2c086cd971c599e31b5114d69ef4404fb3a50b3fa')
+source=(git+https://github.com/pallets/quart.git#tag=${pkgver})
+b2sums=('152371886f74ca1ea83ed01ed5a6866aa69736f1b94986830082f9a26233a89155f5ca0db2f066f9d535e6c99d250af12d3aa249940ebbdf59fde644d9dde613')
 
 prepare() {
-  sed 's/name = "Quart"/name = "quart"/' -i quart/pyproject.toml
-}
-
-pkgver() {
   cd quart
-  git describe --tags
+  sed 's/name = "Quart"/name = "quart"/' -i pyproject.toml
+  sed 's/flit-core<4/flit-core/' -i pyproject.toml
 }
 
 build() {
@@ -60,8 +56,9 @@ check() {
 }
 
 package() {
-  python -m installer --destdir="${pkgdir}" quart/dist/*.whl
-  install -Dm 644 quart/LICENSE.txt -t "${pkgdir}"/usr/share/licenses/python-quart/
+  cd quart
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+  install -Dm 644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 # vim: ts=2 sw=2 et:
