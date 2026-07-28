@@ -2,8 +2,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gpac
-pkgver=26.02.0
-pkgrel=3
+pkgver=26.07.0
+pkgrel=1
 epoch=1
 pkgdesc='A multimedia framework based on the MPEG-4 Systems standard'
 arch=(x86_64)
@@ -43,7 +43,7 @@ optdepends=(
 )
 provides=(libgpac.so)
 source=(git+https://github.com/gpac/gpac.git#tag=v${pkgver})
-b2sums=('b99568781f2ae5ef25e5ebed5372dcfe8896d10673d5e7e9ecb6a8ae39e69a15c9677841f3dbd8a7899051758b9e188a8741e8c3f7b0e4d3bc81f9bf9f6fb410')
+b2sums=('1e40e4658bbda7734b7526e788b4375b4145680f050bda7b3780b05df56fdd8096786cb101b933565e5844a3448de33d0be7102ee6c480cef8a92db3f7697cdc')
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"
