@@ -4,7 +4,7 @@
 # Contributor: Garrett Figueroa <djspacewhale@4d2.org>
 
 pkgname=beets
-pkgver=2.12.0
+pkgver=2.13.0
 pkgrel=1
 pkgdesc='Flexible music library manager and tagger'
 arch=(any)
@@ -30,7 +30,7 @@ makedepends=(
   git
   python-build
   python-installer
-  python-poetry-core
+  python-hatchling
   python-sphinx
   python-wheel
 )
@@ -89,18 +89,20 @@ source=(
   "$pkgname::git+https://github.com/beetbox/beets.git#tag=v$pkgver"
   beet
 )
-sha512sums=('065c5c2dc3858c4dfa019891be5f6e6bfecba718f184aae565d5f9509338d4c71a72b30a761ff398095928883eee7f5389b7e727e8aa50c8ef5bc6393fb9192b'
+sha512sums=('6497d1afa20720e4e3401d9fdf2b68268dcb7d42f51ae278f784a925b6fea4ac53e2d14e890b60f3646a8c7665562c4c8bb05b850acef1a95a64b0641c0b2e3a'
             '8f51ebcc253b0cf698adffae4d2d1a0ff29dcd2d503d0c5d284e9c5cd5981b0ffd190fce154b112ac3cbb419fc0813f2ccbd7e67e3abbdce043c0f6a967274ad')
-b2sums=('8657a34126870edad26bf1f3c5b58d8cc3f4a009f653c09ac8b477788b4058be7b9fb9bb91fcf78d29e2280c122b2f333d9442a682f39d8980ad6a22c8f4cc6f'
+b2sums=('855feb9c6ee50f8d271a087bcf4b11d3e1658394ceb9a0082b71e24572ec4c05513d801611708e7552e7bc516ff977bc4e00031090805bd96d50d53f68957fee'
         '1b36ba07d85f0fbcae0a3d8253ce2e5d7ecf8a17c6f0bb946579663de546d53cd4fe5da84ee8d880d7f95f48e66ef6010232a995d86d0c52b52218cd991a7782')
 
 build() {
-  cd beets
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd beets
+  cd "$pkgname"
+
   local pytest_args=(
     --override-ini="addopts="
     --ignore=test/plugins/test_player.py
@@ -117,10 +119,16 @@ check() {
 }
 
 package() {
-  python -m installer --destdir="$pkgdir" beets/dist/*.whl
-  install -Dm 644 beet -t "${pkgdir}"/usr/share/bash-completion/completions/
-  install -Dm 644 beets/extra/_beet -t "${pkgdir}"/usr/share/zsh/site-functions/
-  install -Dm 644 beets/LICENSE -t "${pkgdir}"/usr/share/licenses/beets/
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # shell completions
+  install -Dm 644 "$srcdir/beet" -t "${pkgdir}"/usr/share/bash-completion/completions/
+  install -Dm 644 extra/_beet -t "${pkgdir}"/usr/share/zsh/site-functions/
+
+  # license
+  install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/beets/
 }
 
 # vim: ts=2 sw=2 et:
