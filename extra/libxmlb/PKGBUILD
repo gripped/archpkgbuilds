@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=libxmlb
-pkgver=0.3.28
+pkgver=0.3.29
 pkgrel=1
 pkgdesc="Library to help create and query binary XML blobs"
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(git
              meson)
 checkdepends=(shared-mime-info)
 source=(git+https://github.com/hughsie/libxmlb#tag=$pkgver?signed)
-sha256sums=('e699d860bb1747db17af5932bd6f15fce15bae009243642a35f9d28d93f10076')
+sha256sums=('5d40444befbcc3c938bed35413eb9a76c5446ee38887a76a2cf25b3ac935b684')
 validpgpkeys=(163EB50119225DB3DF8F49EA17ACBA8DFA970E17) # Richard Hughes <richard@hughsie.com>
 
 build() {
