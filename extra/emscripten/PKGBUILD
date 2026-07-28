@@ -10,8 +10,8 @@ _llvm_project_revision=592953beff733a1e28f6c6e5e39f948fb035a329
 # Sadly, upstream currently suggests bundling a binaryen version for the time being:
 # https://github.com/emscripten-core/emscripten/issues/12252
 # I'm obviously unhappy about that but it appears to be the only practical solution for the time being.
-pkgver=6.0.3
-pkgrel=2
+pkgver=6.0.4
+pkgrel=1
 pkgdesc="Compile C and C++ into highly-optimizable JavaScript for the web"
 arch=('x86_64')
 url="https://emscripten.org"
@@ -30,7 +30,7 @@ source=("git+https://github.com/kripken/emscripten#tag=$pkgver"
         git+https://github.com/WebAssembly/binaryen.git#commit=$_binaryen_revision
         "emscripten.sh"
         emscripten-config)
-sha512sums=('41dd28f9c0b2460c04d90c02926cdfbd98cd05bbf5e1df8abeee734d92565182fcb42c154bb5da7c9c520c057da9439eebbed8557ba8062c0d876ac4200bacd0'
+sha512sums=('ff739942ef21e65359fbf87546ade7bc8c3a92fc2e0721973e809a0eccc147d6fef5e9d303be4883702ad434027f4ba4119bd14ec39e1b667ea21ac36facc507'
             '2252426b69c2bc548dedc9f7e141b84619a88b782d28eee47c778e0284266439c4f010be904b1da277692a9bf7c6e7f7e59ad465b7dd4ff26de42ba98c2ab8ab'
             '94ac65c07dc4244606a4f3a99ac3498786a7ad59fe12e91917b608ffc0edf64ac6edeb13197f494d366e839ca435b67ac7ec3a620a2eb6e7d4f84b2ff191fb32'
             'fbe9b95b8d18e7d0c6ec5fded6f11b72fbe4ddd0391e5704b281ba79c479f3563e82423b790ddf3f0554a23d659193ca898a81fe3db509f16c30c7188b790e4d'
