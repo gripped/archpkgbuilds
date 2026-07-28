@@ -5,7 +5,7 @@ pkgbase=level-zero
 pkgname=(
     'level-zero-headers'
     'level-zero-loader')
-pkgver=1.28.6
+pkgver=1.32.0
 pkgrel=1
 pkgdesc='API for accessing low level interfaces in oneAPI platform devices'
 arch=('x86_64')
@@ -14,10 +14,9 @@ license=('MIT')
 makedepends=(
     'cmake'
     'git'
-    'opencl-headers'
-    'spdlog')
+    'opencl-headers')
 source=("https://github.com/oneapi-src/level-zero/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz")
-sha256sums=('02b26cc37181e792a39cef5c962e9732550fa767737b9932f6f1da137e1c2ac4')
+sha256sums=('b658d3be89b2ea3c5e6b3214592acb58a4875e738184b1a4cc7e9cf878b5f7b9')
 
 prepare() {
     printf '%s\n' "${pkgver##*.}" > "${pkgbase}-${pkgver}/VERSION_PATCH"
@@ -28,7 +27,6 @@ build() {
         -G 'Unix Makefiles' \
         -DCMAKE_BUILD_TYPE='None' \
         -DCMAKE_INSTALL_PREFIX='/usr' \
-        -DSYSTEM_SPDLOG:BOOL='ON' \
         -Wno-dev
     cmake --build build
 }
@@ -51,8 +49,7 @@ package_level-zero-loader() {
     depends=(
         'glibc'
         'libgcc'
-        'libstdc++'
-        'spdlog')
+        'libstdc++')
     
     mv loader "${pkgdir}/usr"
     install -D -m644 "${pkgbase}-${pkgver}/LICENSE" -t "${pkgdir}/usr/share/licenses/${pkgname}"
