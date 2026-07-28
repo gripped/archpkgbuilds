@@ -1,7 +1,7 @@
 pkgbase = py3status
 	pkgdesc = An extensible i3status replacement/wrapper written in python
 	pkgver = 3.64
-	pkgrel = 1
+	pkgrel = 2
 	url = https://ultrabug.github.io/py3status/
 	arch = any
 	license = BSD-3-Clause
@@ -23,6 +23,7 @@ pkgbase = py3status
 	optdepends = python-dbus: for modules that rely on D-Bus
 	optdepends = python-pytz: for the clock module
 	optdepends = python-tzlocal: for the clock module
+	optdepends = python-google-auth-oauthlib: for the google_calendar module
 	optdepends = pacman-contrib: for the arch_updates module
 	source = py3status-3.64.tar.gz::https://github.com/ultrabug/py3status/archive/refs/tags/3.64.tar.gz
 	source = py3status-refresh-arch_updates.hook
