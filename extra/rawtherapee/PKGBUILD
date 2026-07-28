@@ -6,8 +6,8 @@
 
 pkgname=rawtherapee
 epoch=1
-pkgver=5.12
-pkgrel=3
+pkgver=5.13
+pkgrel=1
 pkgdesc='A powerful cross-platform raw image processing program'
 arch=('x86_64')
 url='https://www.rawtherapee.com/'
@@ -41,21 +41,8 @@ depends=('atkmm' 'libatkmm-1.6.so'
          'pangomm' 'libpangomm-1.4.so'
          'zlib' 'libz.so')
 makedepends=('cmake' 'git')
-source=("git+https://github.com/Beep6581/RawTherapee.git#tag=${pkgver}"
-        '0001-Fix-static-init-order-fiasco-crashes.patch'
-        '0001-Fix-typos.patch')
-sha256sums=('4b8ee717fe3ccc29c59a95b1e690617203b2696de517332e0ccc2c43e0c3a604'
-            '6bc05f0677890d1a673ce730cd2251aaade47252898722ed573b27dacee66d44'
-            '8d1f933db531025ee91a5ebdc17cdb69829d70e9a1e53f65c91d7e28f6e7b3bc')
-
-prepare() {
-  cd RawTherapee
-
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/rawtherapee/-/work_items/5
-  # https://src.fedoraproject.org/rpms/rawtherapee/tree/rawhide
-  patch -Np1 < ../0001-Fix-static-init-order-fiasco-crashes.patch
-  patch -Np1 < ../0001-Fix-typos.patch
-}
+source=("git+https://github.com/Beep6581/RawTherapee.git#tag=${pkgver}")
+sha256sums=('52edf54be647856d1237083c998025c187fddfcb21bcc963bd0d294e72945f80')
 
 build() {
   cmake -B build -S RawTherapee \
