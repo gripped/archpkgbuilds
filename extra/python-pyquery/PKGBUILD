@@ -3,8 +3,8 @@
 # Contributor: Arnau Sanchez <tokland {at} gmail {dot} com>
 
 pkgname=python-pyquery
-pkgver=2.0.1
-pkgrel=3
+pkgver=2.0.2
+pkgrel=1
 pkgdesc="A jquery-like library for python."
 arch=('any')
 url="https://github.com/gawel/pyquery/"
@@ -14,7 +14,7 @@ optdepends=('python-webob: query wsgi app')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-requests' 'python-webob' 'python-pytest' 'python-webtest')
 source=("git+https://github.com/gawel/pyquery.git#tag=$pkgver")
-sha512sums=('7c496fac61e2ae0d0755bd49f5e129cf8739fcd013e932c3363feaf5c22463452dc034bc1ed6d5beae4056405ae2613a5c4be5f7ede9eeeb3b401cc0e0361792')
+sha512sums=('d92be6cfefea3944c65dd413a7721154cb1aa25132c0e6afe7d6a217149e06e6efde76d1eea8bb5231c3cebb9b270b993c6d2df4b5f80f36b959e6172c21b8eb')
 
 build() {
   cd pyquery
@@ -23,16 +23,7 @@ build() {
 
 check() {
   cd pyquery
-  # Test removed upstream
-  pytest -k 'not test_selector_html' \
-    --deselect tests/test_pyquery.py::TestManipulating::test_val_for_textarea \
-    --deselect tests/test_pyquery.py::TestHTMLParser::test_replaceWith \
-    --deselect tests/test_pyquery.py::TestHTMLParser::test_replaceWith_with_function \
-    --deselect tests/test_pyquery.py::TestWebScrapping::test_get \
-    --deselect tests/test_pyquery.py::TestWebScrapping::test_post \
-    --deselect tests/test_pyquery.py::TestWebScrapping::test_session \
-    --deselect tests/test_pyquery.py::TestWebScrappingEncoding::test_get
-  # https://github.com/gawel/pyquery/issues/257 - Fail with libxml2 2.14
+  pytest
 }
 
 package() {
