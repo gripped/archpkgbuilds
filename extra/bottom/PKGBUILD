@@ -3,7 +3,7 @@
 # Contributor: Clement Tsang (xoronth) <cjhtsang@uwaterloo.ca>
 
 pkgname=bottom
-pkgver=0.14.6
+pkgver=0.14.7
 pkgrel=1
 pkgdesc='A graphical process/system monitor'
 arch=(x86_64)
@@ -14,25 +14,37 @@ depends=(glibc # libc.so libm.so
 makedepends=(git
              rust)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('2f81e4a5b56d25044e842dc3fd258534edae3ab72403708db273b6b7c9edf6b144f0ec45763601b67ff3d845b494d92b2a4f4a5069b7bf03567de601046d7a5d')
-b2sums=('ecf1a4bb3f5711c05edd616fa0d26cb1558127bf8856431da3188bc301574b0d822321c7d8f6107dca76d0374852ee3e96357ebc43a65f328ba6366bcaf6080a')
+sha512sums=('4ec039ea1d94c19d2d93538fa9b9d1ef7f0a2f64084237d3ac52e087ac3c9087563a42f74e6b2fdc7b1a991d749ac0b8e505a2141e2dec27d572400c329d599f')
+b2sums=('b5537601bbec724a75bb975865c8f8f4372676cf16a154c4e894019c9496f9afb04bfa610840e8c8b3a258633712f990f16d6f809b5180d9be4b7850aa343aef')
+
+_srcenv() {
+  cd "$pkgname"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
 
 prepare() {
-  cd "$pkgname"
+  _srcenv
 
   cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname"
+  _srcenv
 
-  BTM_GENERATE=true cargo build --locked --release --features deploy
+  export BTM_GENERATE=true
+  cargo build --locked --release --features deploy
 }
 
 check() {
-  cd "$pkgname"
+  _srcenv
 
-  CARGO_HUSKY_DONT_INSTALL_HOOKS=true cargo test --locked --features deploy
+  export CARGO_HUSKY_DONT_INSTALL_HOOKS=true
+  cargo test --locked --features deploy
 }
 
 package() {
