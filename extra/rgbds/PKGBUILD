@@ -2,8 +2,8 @@
 # Contributor: Vaporeon <vaporeon@vaporeon.io>
 
 pkgname=rgbds
-pkgver=1.0.1
-pkgrel=1
+pkgver=1.0.2+hotfix
+pkgrel=2
 pkgdesc='Rednex GameBoy Development System'
 arch=(x86_64)
 url=https://github.com/gbdev/rgbds
@@ -11,21 +11,15 @@ license=(MIT)
 depends=(
   glibc
   libpng
+  libstdc++
 )
 makedepends=(
   cmake
   git
   ninja
 )
-_tag=92bfe5d930c07dd4672b148f811305aa294d6e6f
-source=(git+https://github.com/gbdev/rgbds.git#tag=${_tag})
-b2sums=('ac63915be2c2a82645de90c78926f7b587c92db5ccdb8766f0478c56e7ff169ba51c6ad37c856b556342b6f30b205a5a8a606d348079178388dbacb3f9286cbe')
-
-pkgver() {
-  cd rgbds
-
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/gbdev/rgbds.git#tag=v${pkgver})
+b2sums=('0fd8bd09c6cfd7f9bda22fb70a6dd15c623d763bacdbd86d55d8fef611e5b852f4e4fd5d6d5785a0ffd5b69b4942e3de01a7ff508f820f3fd7949b27dd87dd76')
 
 build() {
   cmake -S rgbds -B build -G Ninja \
