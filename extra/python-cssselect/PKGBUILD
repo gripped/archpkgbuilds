@@ -2,30 +2,30 @@
 # Contributor: Simon Sapin <simon dot sapin at exyr dot org>
 
 pkgname=python-cssselect
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 license=('BSD-3-Clause')
 arch=('any')
 url="https://pypi.python.org/pypi/cssselect"
 pkgdesc="A Python3 library that parses CSS3 Selectors and translates them to XPath 1.0"
 depends=('python')
-makedepends=('python-hatchling' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-hatchling' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-lxml')
-source=("https://github.com/scrapy/cssselect/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('37f1822a741269b95588b01d1b7fd1f6255138ab0c082a8035a91cd54f8feb2a79d278efa18e343c4ae063c6ae8469b1a210c9297f5e3ba1952898170daccf4f')
+source=("git+https://github.com/scrapy/cssselect.git#tag=v$pkgver")
+sha512sums=('e50d1b905df5b6d08550c6758ae9005370fdaca74f56f0e59fdc8522a9038f5a320a7a42ef9e7695834c46b36df94252db4405bb92ee57548b20fad9a451edad')
 
 build() {
-  cd cssselect-$pkgver
+  cd cssselect
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd cssselect-$pkgver
+  cd cssselect
   pytest
 }
 
 package() {
-  cd cssselect-$pkgver
+  cd cssselect
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
