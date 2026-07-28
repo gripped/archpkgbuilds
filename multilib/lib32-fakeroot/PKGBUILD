@@ -7,17 +7,16 @@ _pkgbasename=fakeroot
 pkgname=lib32-${_pkgbasename}
 epoch=1
 pkgver=1.37.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Tool for simulating superuser privileges (32-bit)'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 url="https://tracker.debian.org/pkg/fakeroot"
-install=fakeroot.install
 depends=('lib32-glibc' "$_pkgbasename")
 makedepends=('git' 'po4a')
 # Build from my mirror with original commit and historical tags
 # unter upstream manages to do a proper release...
-source=("fakeroot-archive::git+https://github.com/eworm-de/fakeroot.git#tag=upstream/${pkgver}-2026-01-17")
+source=("fakeroot-archive::git+https://github.com/eworm-de/fakeroot.git#tag=upstream/${pkgver}-2026-01-17-8d7bc2eb")
 sha256sums=('46f44681cc939dd3f127761717830c0bfa72e1568191d4df071ae297013591e3')
 
 prepare() {
