@@ -4,18 +4,21 @@
 
 pkgname=spice
 pkgver=0.16.0
-pkgrel=2
+pkgrel=3
 pkgdesc="SPICE server"
 arch=('x86_64')
 url="https://www.spice-space.org"
 license=('LGPL-2.1-or-later')
-depends=('pixman' 'opus' 'libjpeg-turbo' 'glib2' 'libsasl' 'lz4' 'spice-protocol' 'libcacard')
+depends=('pixman' 'opus' 'libjpeg-turbo' 'glib2' 'libsasl' 'lz4' 'spice-protocol' 'libcacard' 'zlib' 'libstdc++'
+         'glibc' 'libgcc' 'openssl')
 makedepends=('meson' 'python-pyparsing' 'glib2-devel')
 checkdepends=('gdk-pixbuf2' 'glib-networking')
 provides=('libspice-server.so')
-source=("https://www.spice-space.org/download/releases/spice-server/$pkgname-$pkgver.tar.bz2"{,.sig})
+source=("https://www.spice-space.org/download/releases/spice-server/$pkgname-$pkgver.tar.bz2"{,.sig}
+        "https://src.fedoraproject.org/rpms/spice/raw/rawhide/f/0001-test-display-base-Fix-C-designated-initializer-for-a.patch")
 sha256sums=('0a6ec9528f05371261bbb2d46ff35e7b5c45ff89bb975a99af95a5f20ff4717d'
-            'SKIP')
+            'SKIP'
+            '3804c14f9ff32a6ab28dc7af35005a529f2cdcb86d8e6d30c85d0dfeb64cc5de')
 validpgpkeys=('206D3B352F566F3B0E6572E997D9123DE37A484F') # Victor Toso <victortoso@redhat.com>
 
 prepare() {
@@ -23,6 +26,8 @@ prepare() {
   sed -i "s/if not version_info.contains('git')/if version_info.length() >= 4/" server/meson.build
 
   sed -i "/meson-dist/d" meson.build
+
+  patch -Np1 -i "$srcdir"/0001-test-display-base-Fix-C-designated-initializer-for-a.patch
 }
 
 build() {
