@@ -3,8 +3,8 @@
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 
 pkgname=python-reactivex
-pkgver=4.1.0
-pkgrel=3
+pkgver=5.1.0
+pkgrel=1
 pkgdesc='Reactive Extensions for Python'
 arch=(any)
 url=https://reactivex.io
@@ -16,20 +16,18 @@ depends=(
 makedepends=(
   git
   python-build
+  python-hatchling
   python-installer
-  python-poetry-core
 )
 checkdepends=(
   python-pytest
   python-pytest-asyncio
 )
 source=(git+https://github.com/ReactiveX/RxPY.git#tag=v${pkgver})
-b2sums=('57c85f61138790a7a2614d7e9520dc7ea3891a39c0f548fe3141fe4bce57c1a6e45cb62808b1723c904a68e4d5adb2b7131cc78576558775c98cff89f6f6884a')
+b2sums=('d41379725b5375f5298c93f38cac87d0112890f401057a317cf0a9a32cc8a1c2429fdd3781f7501a1def4233bc253173ff2b92943acda2dffb32796cdcfdf278')
 
 prepare() {
   cd "${srcdir}/RxPY"
-  # Python 3.14 support
-  git cherry-pick -n 78f4a594ca2b0e27ad93ec0e1b1c0d56d5d6540d
 }
 
 build() {
