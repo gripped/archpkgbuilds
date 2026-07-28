@@ -5,9 +5,9 @@ pkgbase=lua-std-normalize
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 _pkgname=normalize
-pkgver=2.0.3
+pkgver=2.0.4
 _rockrel=1
-pkgrel=8
+pkgrel=1
 pkgdesc='Lua-stdlib project’s normalized lua functions library'
 arch=(any)
 url="https://github.com/lua-stdlib/$_pkgname"
@@ -22,7 +22,7 @@ makedepends=(lua
 # checkdepends=(specl)
 _archive="${_rockname#std-}-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('2038c38da542cf274b0b7512928e5b649c90a34f36c8919fbbbc2524b4ef716d')
+sha256sums=('8e3a1691b0aa36cf9f17cee6298343513230d58e5c6ddb8e225cd09bef15ea78')
 
 _package() {
 	cd "$_archive"
