@@ -3,12 +3,12 @@
 
 pkgname=lib32-ocl-icd
 _pkgname=ocl-icd
-pkgver=2.3.3
+pkgver=2.3.5
 pkgrel=1
 pkgdesc="OpenCL ICD Bindings (32-bit)"
 arch=('x86_64')
 url="https://github.com/OCL-dev/ocl-icd"
-license=('BSD')
+license=('BSD-2-Clause')
 depends=('lib32-glibc')
 makedepends=('ruby' 'lib32-mesa' 'opencl-headers>=2.1' 'gcc-multilib')
 checkdepends=()
@@ -17,7 +17,7 @@ conflicts=('lib32-libcl')
 replaces=('lib32-libcl')
 optdepends=('lib32-opencl-driver: packaged opencl driver')
 source=("ocl-icd-${pkgver}.tar.gz::https://github.com/OCL-dev/${_pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('8cd8e8e129db3081a64090fc1252bec39dc88cdb7b3f929315e014b75069bd9d')
+sha256sums=('cdd7984425fa92d37273eee4180b5f57b047eda6dd8fd623e58498f844b09b75')
 
 prepare() {
   cd "$srcdir/$_pkgname-$pkgver"
@@ -38,11 +38,13 @@ build() {
 
 check() {
   cd "$srcdir/$_pkgname-$pkgver"
+
   make -k check
 }
 
 package() {
   cd "$srcdir/$_pkgname-$pkgver"
+
   make DESTDIR="$pkgdir/" install
 
   rm -rf "$pkgdir"/usr/{share,include,bin}
