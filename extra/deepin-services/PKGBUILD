@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-services
-pkgver=1.0.34
+pkgver=1.0.35
 pkgrel=1
 pkgdesc='Manage DBus service on Deepin'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=(glibc libgcc libstdc++ systemd-libs qt6-base qt6-wayland dtk6core dtk6g
 makedepends=(git cmake ninja qt6-tools treeland-protocols wayland-protocols wlr-protocols)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-services.git#tag=$pkgver)
-sha512sums=('1009e5e057fbcd9642e539b1ea15b527ad1e4738b95f50b2ae1dd8b5516bfcfc870b6cc7960d4ffe0cde869a793b54a9aa05b3176d7169c3e34e15de97093134')
+sha512sums=('70bdffc4e83155c5250a01c88b4ddeb172994fe1e548e76f0f7a401ccf327e100e0c2f3817f8402d5ebf9591f39226c244ed6eb0e279d0246b27668ed9d3647e')
 
 build() {
   cd dde-services
