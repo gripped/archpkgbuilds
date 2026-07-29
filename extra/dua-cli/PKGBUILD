@@ -4,7 +4,7 @@
 # Contributor: mexus <gilaldpellaeon@gmail.com>
 
 pkgname=dua-cli
-pkgver=2.38.1
+pkgver=2.39.0
 pkgrel=1
 pkgdesc="A tool to conveniently learn about the disk usage of directories, fast!"
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(glibc # libc.so libm.so
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha512sums=('7973ba0beeffffba617a8a0fa9034932d8eecab5ef88fd44ae203746f28e82774eb396232b9f94739267218f81ee7e7a7311325aa5f0950e5c6f92b520d17e81')
+sha512sums=('70d0d88cd49fbfc4fa39d2390ad9a60623d4beba2695c7a4ccc09cfb63fe6d92aa1a3385e8bb7ed85faa426632f64851efc586462d7cadc1505c9264d08eed7d')
 
 _srcenv() {
 	cd "$_archive"
