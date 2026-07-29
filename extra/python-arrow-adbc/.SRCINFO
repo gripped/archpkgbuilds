@@ -1,6 +1,6 @@
 pkgbase = python-arrow-adbc
 	pkgdesc = Database connectivity API for Apache Arrow
-	pkgver = 23
+	pkgver = 24
 	pkgrel = 1
 	url = https://arrow.apache.org/adbc/current/index.html
 	arch = x86_64
@@ -15,9 +15,9 @@ pkgbase = python-arrow-adbc
 	makedepends = ninja
 	makedepends = go
 	makedepends = postgresql-libs
-	source = python-arrow-adbc::git+https://github.com/apache/arrow-adbc#tag=apache-arrow-adbc-23
-	sha512sums = c6be025efc966ed792fba1f6933fea75a6d157559ded68e14f3d53fa78d62cdc61ebccc3a5eca01a7e281e481ca43803baf6212369d6bc54594b3ba773bdabee
-	b2sums = e3a776155dedfcb02156e33569e01082134a51f57cf580a0b5024d52e1396719663d4f968a4c4b31d0fb41b329bce8721c80e77ec165841448ba1bb28afc6e3c
+	source = python-arrow-adbc::git+https://github.com/apache/arrow-adbc#tag=apache-arrow-adbc-24
+	sha512sums = a733afbf6c85a4562662dfd90ad03ab7f19f05af6650b83d591f61a869b4855a8d6ef4f251715456f876d8deaaf46eb332b9c54f6dc1a8bb45eab36dbe5a01ce
+	b2sums = 7f77e0b76d641cdc667b7b41cd4ef7b8a62280da60a6da69d44a89ec1b7e8ad7f8f024d381c824767fa8b855b5baaa767bfe841dcc1d39481f745db2212bdf5d
 
 pkgname = python-arrow-adbc
 	depends = glibc
@@ -27,18 +27,9 @@ pkgname = python-arrow-adbc
 	depends = python-typing_extensions
 	depends = python-pandas
 	depends = python-pyarrow
-	optdepends = python-arrow-adbc-driver-bigquery: BigQuery driver
 	optdepends = python-arrow-adbc-driver-flightsql: Flight SQL driver
 	optdepends = python-arrow-adbc-driver-postgresql: PostgreSQL driver
 	optdepends = python-arrow-adbc-driver-sqlite: SQLite driver
-	optdepends = python-arrow-adbc-driver-snowflake: Snowflake driver
-
-pkgname = python-arrow-adbc-driver-bigquery
-	pkgdesc = Database connectivity API for Apache Arrow - BigQuery driver
-	depends = glibc
-	depends = python
-	depends = python-arrow-adbc
-	depends = python-importlib_resources
 
 pkgname = python-arrow-adbc-driver-flightsql
 	pkgdesc = Database connectivity API for Apache Arrow - Flight SQL driver
@@ -66,10 +57,3 @@ pkgname = python-arrow-adbc-driver-sqlite
 	depends = python-arrow-adbc
 	depends = python-importlib_resources
 	depends = sqlite
-
-pkgname = python-arrow-adbc-driver-snowflake
-	pkgdesc = Database connectivity API for Apache Arrow - Snowflake driver
-	depends = glibc
-	depends = python
-	depends = python-arrow-adbc
-	depends = python-importlib_resources
