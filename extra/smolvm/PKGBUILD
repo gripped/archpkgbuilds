@@ -1,13 +1,13 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Anas Elgarhy <anas.elgarhy.dev@gmail.com>
 pkgname=smolvm
-pkgver=1.7.0
+pkgver=1.7.1
 pkgrel=1
 pkgdesc='Tool to build & run portable, lightweight, self-contained virtual machines'
 arch=('x86_64')
 url='https://github.com/smol-machines/smolvm'
 license=('Apache-2.0')
-depends=('seatd' 'crun' 'jq' 'e2fsprogs' 'util-linux' 'libcap' 'gzip' 'tar' 'libgcc' 'zlib' 'oniguruma' 'sqlite')
+depends=('seatd' 'crun' 'jq' 'e2fsprogs' 'util-linux' 'libcap' 'gzip' 'tar' 'libgcc' 'zlib' 'oniguruma' 'sqlite' 'zstd')
 makedepends=('git' 'rust' 'rust-musl' 'cargo-make' 'bc' 'python-pyelftools' 'libepoxy' 'virglrenderer'
              'clang')
 provides=('smolvm')
@@ -16,7 +16,7 @@ source=("git+https://github.com/smol-machines/smolvm#tag=v${pkgver}"
         "git+https://github.com/smol-machines/libkrunfw"
         "git+https://github.com/smol-machines/smolvm-sdk"
         'smolvm-fix-agent-build.patch')
-sha256sums=('fe0519e657346598b9671cc510485808055cd5e14c63346cf73d48b68f54d9b2'
+sha256sums=('e4dbc28c3723033fed21de37078cdaff78b3bc0005d049292d98246f3724ac03'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -41,6 +41,7 @@ build() {
   cd "$pkgname"
   export CFLAGS+=' -ffat-lto-objects'
   export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+  export ZSTD_SYS_USE_PKG_CONFIG=1
 
   cargo make build-libkrunfw
   cargo make build-libkrun
