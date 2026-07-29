@@ -6,16 +6,23 @@
 
 pkgname=libp11
 pkgver=0.4.19
-pkgrel=1
+pkgrel=2
 pkgdesc="A library implementing a small layer on top of the PKCS11 API"
 arch=('x86_64')
 url="https://github.com/OpenSC/libp11/wiki"
 license=('LGPL-2.1-or-later')
 depends=('openssl')
-source=("https://github.com/OpenSC/${pkgname}/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc})
+source=("https://github.com/OpenSC/${pkgname}/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc}
+        libp11-0.4.19-install-libp11-headers.patch)
 sha256sums=('a344ca201ffa71822881e45e86457ab9a0115d07d03da0d69c7e5a7268255a35'
-            'SKIP')
+            'SKIP'
+            'c7a53056bb7e2451f80903f0b77469a7231238fc83360d2e9d059de4d0c97757')
 validpgpkeys=('AC915EA30645D9D3D4DAE4FEB1048932DD3AAAA3')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  patch -Np1 < ../libp11-0.4.19-install-libp11-headers.patch
+}
 
 build() {
   cd "$pkgname-$pkgver"
