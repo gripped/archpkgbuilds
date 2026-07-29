@@ -1,7 +1,7 @@
 # Maintainer: Frederik Schwan <freswa at archlinux.org>
 
 pkgname=wasm-pkg-tools
-pkgver=0.15.1
+pkgver=0.16.0
 pkgrel=1
 pkgdesc="Tools to package up Wasm Components"
 url="https://github.com/bytecodealliance/wasm-pkg-tools"
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/bytecodealliance/wasm-pkg-tools.git#tag=v${pkgver}")
-sha256sums=('1383a57cc388d71d96ce8988f56ec8b4edd752c16b610e11c712f331435f0d4c')
-b2sums=('6765521d4be383ea4cff299c05489f426c9646225a986ae5bad83109e62d95c10d7c03fc559c07a3927ca18a5120e77c1654ae75443c85fa1a82bfcc66655819')
+sha256sums=('d748e9f1a8c6b5deb384c065df18504d04beadcefd26a25d66aed1596d3a7a4c')
+b2sums=('9e97d3acc3f9283c2f0f1be83d71f412b0894a1de1073927b675dfa3c7151c072c566d6cadbcf27427880992175cd82e28ec4b5d57af377e611eb2cc3b04d4a6')
 
 prepare() {
   cd ${pkgname}
