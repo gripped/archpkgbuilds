@@ -4,7 +4,7 @@
 
 pkgbase=atuin
 pkgname=(atuin atuin-server)
-pkgver=18.18.0
+pkgver=18.18.1
 pkgrel=1
 pkgdesc='Magical shell history'
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=(glibc # libc.so libm.so
 makedepends=(cargo)
 _archive="$pkgbase-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('aac9137b11a31d0defde8c902f8ca686eba5876056219c096ae57bfd9353ab23')
+sha256sums=('4f5a7d01a7670279cec7dbfe2b48fb141ab2b01431b113a31c4aec12b93fbb67')
 
 _srcenv () {
 	cd "$_archive"
