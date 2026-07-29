@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-ruby_memcheck
-pkgver=2.2.0
+pkgver=2.2.1
 pkgrel=1
 pkgdesc='Use Valgrind memcheck without going crazy'
 arch=(any)
@@ -25,13 +25,13 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/Shopify/ruby_memcheck.git#tag=$pkgver)
-sha256sums=('09831540e30546ace446c5fb66b5fec2d5143dba3c682cb3bec01a2488a94f42')
+sha256sums=('feaca9cac8f53e3e4a53f559936fa6738d9568425fb61aca34974dda15875fd5')
 
 prepare() {
   cd ruby_memcheck
   # Backport Ruby 3.4 Valgrind fixes without the Ruby-free-at-exit-only mode:
   # https://github.com/Shopify/ruby_memcheck/commit/72e957cb038668e025b6c7210430d2e8d761fcd8
-  git cherry-pick -n 6c4e169 72e957c 5b16f38 8f88ed6 98d7949 988312b
+  git cherry-pick -n 72e957c 5b16f38 8f88ed6 98d7949 988312b
 }
 
 build() {
