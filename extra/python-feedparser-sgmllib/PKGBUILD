@@ -1,0 +1,46 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-feedparser-sgmllib
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='Provides sgmllib from Python 2'
+arch=(any)
+url='https://github.com/python-syndication/feedparser-sgmllib'
+license=(PSF-2.0)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-poetry-core
+)
+checkdepends=(python-pytest)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('20d72eb46fe88f17a7e98d42be260727a06ec91f10512ecec13ab016d73a535a3bffb84b74b1e8726d1119f114f9bae40201dae40630e790c9427627433ebee3')
+b2sums=('1ebafb9b57910cf2627a9487b2728ea4d75565a745302b88ed841c22b0e60664eface2f137ac7ef502dd23c1f5f862cbe9d2e4d865eb5f92bf726bee8fe93761')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  local pytest_options=(
+    -vv
+  )
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
