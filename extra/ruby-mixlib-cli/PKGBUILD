@@ -3,7 +3,7 @@
 
 pkgname=ruby-mixlib-cli
 _pkgname="${pkgname#ruby-}"
-pkgver=2.2.3
+pkgver=2.2.4
 pkgrel=1
 pkgdesc='A simple mixin for CLI interfaces, including option parsing'
 arch=(any)
@@ -13,8 +13,8 @@ depends=(ruby)
 makedepends=(git ruby-rake ruby-rdoc ruby-bundler)
 options=(!emptydirs)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('81db4b40ad90e9419b48ef358e33fd1cb0cec9448a66c3f1e706672b66f9297cdb604c14c1cc99de064672910cfc24693e3044befdcbab3a1e703a7c17cfeee9')
-b2sums=('2e67379567dda6676431eff4b614c6fe8ceed494c439c37ce2690444e1c99d22e277d14ad3bf03d0c59b251f3b2b1894dfc3a85abf54b83b64e549699993f041')
+sha512sums=('06193ee8f3428ec2c731dd5bdf82118ad6e8315959cc7f5b89e3f0f6966cf32a2e40890723c03826a3aa5ced0ed7b64877bc4f5964ed5a3e9659b2d6ed679e6e')
+b2sums=('62bb0b7ea5510374b0e029e723653d7a8d2be13ff2bb308fec73ef65d02c60124a95bac0b90afd747077c951910e193912e87610f2423f5fb78f5c8b9ff1c2e7')
 
 build() {
   cd "$pkgname"
