@@ -2,22 +2,16 @@
 
 _hkgname=ixset-typed
 pkgname=haskell-ixset-typed
-pkgver=0.5.1.0
-pkgrel=366
+pkgver=0.5.1.1
+pkgrel=1
 pkgdesc="Efficient relational queries on Haskell sets"
 url="https://hackage.haskell.org/package/${_hkgname}"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-safecopy' 'haskell-syb')
-makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('af14bad6b5e6dad55390cf8f70653279cdbb4ec909d0a0812e54bec72678acb2deb7ba9a1c26afbea199ddf1d9c36b739e83e0ca96bdbfbf33a18136428b3ca4')
-
-prepare(){
-  cd $_hkgname-$pkgver
-  uusi -u template-haskell
-}
+sha512sums=('35188d9ac17647755690149f6988c65d3b4f931195854c9b87d405f239bb758a0dd55d846c9703d3cced6c635ab43af66025ffc28896e98a1d9104516688b263')
 
 build() {
     cd $_hkgname-$pkgver
