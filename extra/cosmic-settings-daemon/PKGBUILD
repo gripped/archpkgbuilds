@@ -3,8 +3,8 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings-daemon
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.5.0
+pkgrel=1
 epoch=1
 pkgdesc='Cosmic settings daemon'
 arch=(x86_64)
@@ -44,7 +44,7 @@ source=(
   git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=epoch-${pkgver}
   cosmic-settings-daemon-lto.patch
 )
-b2sums=('aa1226a5506f51a7e3ec28b8026d605d3fa32d976a94f94d5599277ee53e947fe6ea82cf35530490fefab313caec390c54e079ae4f64c6e6fff78b6d64e47bc0'
+b2sums=('38ceea25175bfb5acaa7d355a7ed46ef3dd80d2e8173df5960f57a052369e4ddb3d114d0c6645ff7bfefb3f7cc5af6de4fc36321ef175940d02f2c9732ca8c47'
         '935604b934c6fb805fdef20a716838373c1c9463ddc215af9c9bd162ebacc422181f1c227f37b59bc617496a60b88f8b16132fac001f61a2c777179abd8c634a')
 
 prepare() {
