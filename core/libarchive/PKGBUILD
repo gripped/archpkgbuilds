@@ -2,37 +2,44 @@
 # Maintainer: Dan McGee <dan@archlinux.org>
 
 pkgname=libarchive
-pkgver=3.8.8
-pkgrel=2
+pkgver=3.8.9
+pkgrel=1
 pkgdesc='Multi-format archive and compression library'
 arch=('x86_64')
 url='https://libarchive.org/'
-license=('BSD-2-Clause')
-depends=('acl' 'libacl.so'
-         'bzip2' 'libbz2.so'
+license=(
+  BSD-2-Clause
+  BSD-4-Clause-UC
+  'Apache-2.0 OR CC0-1.0 OR OpenSSL'
+)
+depends=('acl'
+         'bzip2'
          'glibc'
-         'libxml2' 'libxml2.so'
+         'libxml2'
          'lz4'
-         'openssl' 'libcrypto.so'
-         'xz' 'liblzma.so'
-         'zlib' 'libz.so'
-         'zstd' 'libzstd.so')
+         'openssl'
+         'xz'
+         'zlib'
+         'zstd')
 makedepends=('git')
 provides=('libarchive.so')
 validpgpkeys=('DB2C7CF1B4C265FAEF56E3FC5848A18B8F14184B'  # Martin Matuska <martin@matuska.org>
               '659C84C0E23EA1FA97E0B58CC040B508D63D2B36') # Martin Matuska <mm@FreeBSD.org>
 source=("git+https://github.com/${pkgname}/${pkgname}.git?signed#tag=v${pkgver}")
-sha256sums=('188b50a8533d6ef46d1fe3b974c660ffe0ce7ef6daa35089010e7a9fe9ddc571')
+sha256sums=('033f8b22a755d01f87a79a5723ce4faed4d3772ab703f739c26ce32c6b1da0fd')
 
 _backports=(
-  # read_data_into_fd: Fix spurious "Seek error" for trailing holes
-  '91c146e87d61e952c629e2f8a8f9f2a9267c13ff'
 )
 
 _reverts=(
 )
 
 prepare() {
+  # extract licenses
+  # NOTE: some license files are missing: https://github.com/libarchive/libarchive/issues/2385
+  sed -n '43,65p' $pkgname/COPYING > BSD-2-Clause.txt
+  sed -n '33,62p' $pkgname/$pkgname/archive_read_support_filter_compress.c > BSD-4-Clause-UC.txt
+
   cd "${pkgname}"
 
   local _c _l
@@ -67,8 +74,15 @@ check() {
 }
 
 package() {
-  cd "${pkgname}"
+  depends+=(
+    'libacl.so'
+    'libbz2.so'
+    'libxml2.so'
+    'libcrypto.so'
+    'liblzma.so'
+    'libz.so'
+    'libzstd.so')
 
-  make DESTDIR="$pkgdir" install
-  install -Dm0644 COPYING "$pkgdir/usr/share/licenses/libarchive/COPYING"
+  make DESTDIR="$pkgdir" install -C "$pkgname"
+  install -vDm 644 ./*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
