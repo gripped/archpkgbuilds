@@ -15,9 +15,9 @@ pkgname=(
   "python-${pkgbase}-rocm"
   "python-${pkgbase}-opt-rocm"
 )
-pkgver=1.27.1
+pkgver=1.28.0
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=2
+pkgrel=1
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -46,7 +46,7 @@ _tensorboard_ver=373eb09e4c5d2b3cc2493f0949dc4be6b6a45e81
 _re2_ver=2024-07-02
 _flatbuffers_ver=23.5.26
 _cutlass_ver=4.4.2
-_onnx_ver=1.21.0
+_onnx_ver=1.22.0
 source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         "${pkgbase}-abseil-cpp-${_abseil_ver}.tar.gz::https://github.com/abseil/abseil-cpp/archive/refs/tags/${_abseil_ver}.tar.gz"
         "${pkgbase}-tensorboard-${_tensorboard_ver}.tar.gz::https://github.com/tensorflow/tensorboard/archive/${_tensorboard_ver}.tar.gz"
@@ -60,26 +60,22 @@ source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         "${pkgbase}-remove-pkg_resources.patch"
         fix-thrust-api.patch
         use-system-boost-mp11.patch
-        onnxruntime-abseil-cuda13-member-template.patch
-        onnxruntime-cuda13-cccl-header-fix.patch
         onnxruntime-cutlass-4.4.2.patch
         onnxruntime-cuda-softmax-stream.patch
         onnxruntime-drop-sharded-moe.patch)
-b2sums=('cf4b741a87d8406e45e9fdf8e6b453c6a7aa728af00ac66130119b869f7cd9981ab09a10a76ed0c64eec54b4eef7ce096b83f696194938a8ac4232a9a16ad804'
+b2sums=('ac2026e61498bd74d4c0ef2bc105400035470989b8fbb0b5e27b4a063f7d82c9a5da3b4941ff97fe3580b3421c2b260de7debd9d2820a36d8f59e328addc75bb'
         'f60f3604215f64f33fad902637360050061ec62cfa6413cafc4cd3794a1898c7ee67f7b6edf78e5cb7c6b0ed86b8d80338ad4abee3f2664e391c2cfae5997220'
         'eb527f92bfce897a0dba4757ebe6be11020e172b9b219aec5089645a37f9b0e5bd7a977222b20db193c11d834f6dd46a09ca3633039a4f6a84528d9b0ecce057'
         '86b915dc0b8e68b35fd0ed20bedd5e9c5781826442f332d115166a9a70f34b7e9b4ef60206264035b82652230d42a3c6aa2b91a774fca3b1e415ce65ace2ae96'
         '147425e7c018072f4ae4cdb3e034a4f434362d88d5e27b09375965993c279acfbed36064014c8f4fbe3fb81175ac0aa9b07629675e2c7ad33d59a9c85f2c3bb8'
         'd542daa5a809b1dc8cca81319b9b45437ad9965aba4d6b4fbf7a6d6477f241f0b9aa94045834977dcd16924ed88cde2c2da5795affb02290cb2247de25f0ec3e'
-        '1ddd7389135700e1112cfdd82a07482b989f819675e980daeb3225543e84eb40d80f4cd7a3281eaf8c4b34533767b183602b6478321c8e7decb920a0beb5c742'
+        '2d7c040511bd5bd4bb186c420b561b443a86be0fd38e7c2ffd3e7cfc4794c34ffb283ee0012326608abe0aadba65297c80af372ed09a6429182485d3b2dfddba'
         'af5a5524dd9b5fe0052d2d0da232de7f219d4abffb37a7a321145b428d06fcb2901ab4e76b6754440146c223fc761bcbdfeee230167d33aa4434b82a1ebad5c0'
         '619775050c51633a5431fd7ed433097241a399b6c183eeef1753b9e6eca0f741237840fc6e6268073f51b4b5744a7578266cc38901eefd004170840271a5359c'
         '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837'
         'dfa9e70fdcd0f2c2fafec7f1961e66fa9661a03b8dba08c7d2329d018d8ebd4481337c0ddc6de393d7f4a032bd6011ccfad28d89aa0142ce9e01ead0bafcf079'
         'b0b58e2eb42a38956ef9e86b853d413c2fd002737d37721962dd9e1fc5c39c1ef4594325c6f6081f2b4cdce39a14907dbebc156645fa25ff3f2bbbce6417cd14'
         '2f63abb217ef0f63d2f5d9985be217ad1e3b581a75ed3396b8c986b6004ce94fd116a8b5aa4f0bcfc62637004881950027bbbc57c5ccaec3bdbb7a2b529a113c'
-        'dd835a301a0ba2cdc6a685c568d9490d652dabcf9dfee0294e765c308bdf7852cf4586f592c0df569d72c2e53e3d413b8020d46de1e2467cfd5b8834a15f1f24'
-        'ea0929ba3bae146ad4a0f670f24162fba0f3f6978c1409f542aaae4565e0377744c9eb6079bc62229be5525f6b22b2923b757bfd8a2f6bba8ef69377fe342486'
         'dce07bc1fd5b69bd34396dcebccb022d4ae73278dbe6def23006c5ef7ce690dd7af370dcd5efbbdc9a28c7871cc2b7755d44e5171973fc0219aa80f0900962ff'
         '40cbcec058f8198c0462139eb5c4bfa251f9c58e9215fc3ce3124796717a36e13cf4197d8ee6f34e2b2b51549649d70a7c3b9214bc3504bfcb2dff043bce1510'
         '0e8bb447e6e9dcfa29b47986fc6e7585c4c1320ecdf9e3e9a3a6acb628a6892f0ae9b3d6d523e984380cb0365572aa7839ae682ba327e534d9bdc3dc896e9251')
@@ -111,11 +107,6 @@ prepare() {
   # Use mp11 from system boost
   patch -p1 -i "${srcdir}/use-system-boost-mp11.patch"
 
-  # Work around the CUDA 13.3 cudafe++ regression that mis-parses CCCL's
-  # global-qualified partial specializations. Backported from upstream commit
-  # 40b76e7ba36 ("Fix Linux CUDA 13.3 build (abseil + CCCL parse errors)").
-  patch -p1 -i "${srcdir}/${pkgbase}-cuda13-cccl-header-fix.patch"
-
   # Remove pkg_resources use
   patch -p1 -i "${srcdir}/${pkgbase}-remove-pkg_resources.patch"
 
@@ -132,10 +123,12 @@ prepare() {
 
   # Fix abseil member alias template parse/instantiation errors with the
   # CUDA 13.3 host front-end and recent GCC. Hoists IfRRef<...>::AddPtr<...>
-  # to a top-level IfRRefAddPtr<...> alias template. Backported from upstream
-  # commit 40b76e7ba36; see https://github.com/abseil/abseil-cpp/issues/2075
+  # to a top-level IfRRefAddPtr<...> alias template; see
+  # https://github.com/abseil/abseil-cpp/issues/2075. Since v1.28.0 onnxruntime
+  # ships this patch itself and applies it via abseil's PATCH_COMMAND, which is
+  # skipped when FETCHCONTENT_SOURCE_DIR is set, so apply it here.
   cd "${srcdir}/abseil-cpp-${_abseil_ver}"
-  patch -p1 -i "${srcdir}/${pkgbase}-abseil-cuda13-member-template.patch"
+  patch -p1 -i "${srcdir}/${pkgbase}/cmake/vcpkg-ports/abseil/absl_cuda13_member_template.patch"
 
   # onnxruntime consumes the cutlass source tree (include + examples + tools)
   # directly via FetchContent, so the binary cutlass-headers package cannot
