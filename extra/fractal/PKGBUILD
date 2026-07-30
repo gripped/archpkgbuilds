@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=fractal
-pkgver=14
+pkgver=14.1
 pkgrel=1
 pkgdesc="Matrix group messaging app"
 arch=(x86_64)
@@ -51,8 +51,8 @@ optdepends=(
 source=(
   $url/-/archive/$pkgver/$pkgname-$pkgver.tar.gz
 )
-sha512sums=('2b0cf2d94f6b0ddb6bea2246a52332130fdf954a165471c1fbb120223808692ca8aa7982b92ae6c3ee91f22179800387d8780998330a3b41a27170929551c1b8')
-b2sums=('2a9411166975d5247f8b771ece1d0b6549da6fa57bf1725ad6f1705de6bfb489c36d2bbbb1766d7ac043b21e3b77bcd36e0903e1334127055ffc99ac6c984a82')
+sha512sums=('50193d45efb9b63dd02d16035d7a22d3bc6947e459379926ce4a99924a2798318ac9bb6e5597786e01d9bd718edae530b4485c9930e5d37b6029935943e4a876')
+b2sums=('97a976bb88a5df5a050e7949e3d44c4a5231f15aa419a4e8bf0894a1f4e25dbbfc105484907f25fc71e52caa7e773c2f628811c65c463ad93b95b5a4308054a8')
 
 prepare() {
   # NOTE: usptream uses a custom CARGO_HOME from within meson
