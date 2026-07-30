@@ -2,8 +2,8 @@
 
 _hkgname=rio
 pkgname=haskell-rio
-pkgver=0.1.24.0
-pkgrel=44
+pkgver=0.1.25.0
+pkgrel=1
 pkgdesc="A standard library for Haskell"
 url="https://github.com/commercialhaskell/rio"
 license=('MIT')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-hashable' 'haskell-microlens' 'haskell-microlens-mt
          'haskell-unordered-containers' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('f4d39708605551083df2b82628941da91126253e357b08e019a27311f3197abfe9805a504ecedcadb3a0f960adf82a26de442db38c0916ade34f0738d36b0641')
+sha512sums=('b2af14d08da646ed7e947fac4fcec4b6c33e313041d4c257d3fedf28b00c4a1c5add1cca7d946526507ae0a69ce37ae023e18843f1c2627a718ab94a890d8ff9')
 
 prepare() {
     cd $_hkgname-$pkgver
