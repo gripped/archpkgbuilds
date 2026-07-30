@@ -3,7 +3,7 @@
 
 pkgname=sequoia-sq
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Command-line frontends for Sequoia'
 url='https://sequoia-pgp.org/'
 arch=(x86_64)
