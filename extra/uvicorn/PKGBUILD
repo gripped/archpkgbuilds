@@ -2,7 +2,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=uvicorn
-pkgver=0.51.0
+pkgver=0.52.0
 pkgrel=1
 pkgdesc='The lightning-fast ASGI server'
 arch=(any)
@@ -34,7 +34,7 @@ makedepends=(
   python-installer
 )
 source=(git+https://github.com/encode/uvicorn#tag=${pkgver})
-b2sums=('ef96c0c3deaf07fb208fd32ea8ce4ff77ea2b793b9d31c1098e06928aa097d31aa7b666de68da2d57479aeff527c0f3430417a7c0a5ff24aaab479bada511935')
+b2sums=('45efe7ce74d3740838fb2b636f000e149b205737b9b8a511c376e3e8c3c8a355c1fa9e2309970454f51a01b9ca461d5cf3e49a2027672f3b32fca1d5ea0244fe')
 
 
 
@@ -47,5 +47,3 @@ package() {
   python -m installer --destdir="${pkgdir}" uvicorn/dist/*.whl
   install -Dm 644 uvicorn/LICENSE.md -t "${pkgdir}"/usr/share/licenses/uvicorn/
 }
-
-# vim:set ts=2 sw=2 et:
