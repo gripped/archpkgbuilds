@@ -5,8 +5,8 @@
 # Contributor: Severen Redwood <severen@shrike.me>
 
 pkgname=capnproto
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.5.0
+pkgrel=1
 pkgdesc="Cap'n Proto serialization/RPC system"
 arch=(x86_64)
 url="https://capnproto.org/"
@@ -32,8 +32,8 @@ provides=(
   libkj.so
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/$pkgname/$pkgname/archive/v$pkgver.tar.gz)
-sha512sums=('6f31294ffe613b28ee891a7e7465d35781697dc7ed51f806b7c707c8fc94ead01099ab356041646e382320ff922f40c393b4b58f3106bbc3fb547386d7c0ed1a')
-b2sums=('7194f5cce53fa0e4e24a724da019c31b536860388417e2500fcb23c4a7c9e933d88b626b5f3632b050b33172217652cd890f328a87f331eeb409ef665aaf7167')
+sha512sums=('d3072f590212d40010fa7946e000ac9fe927c9058fcda518c14275c7a217207db644d44a124398873d3875bb5f1f8e52dbeccfbc4b4c003e8e35fd83486fc343')
+b2sums=('2e2170f7610069c5044cb00bf047784b2c8da8b32ee189c2e3f46606c3f11e7318bf1c833a3627f78a186238aa9f36cc5240cf991f97fb4c675ee472f877288b')
 
 build() {
   # Coroutine support requires C++20
