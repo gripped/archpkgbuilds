@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=dmtcp
-pkgver=4.1.1
-pkgrel=2
+pkgver=4.2.0
+pkgrel=1
 pkgdesc='Distributed MultiThreaded CheckPointing'
 url='https://dmtcp.sourceforge.io'
 arch=('x86_64')
@@ -10,15 +10,15 @@ license=('LGPL-3.0-or-later')
 depends=('bash' 'glibc' 'libgcc' 'libstdc++')
 makedepends=('git' 'dash' 'emacs' 'gdb' 'java-environment' 'openmpi' 'procps-ng'
 'python' 'screen' 'strace' 'tcsh' 'vim' 'zsh')
-source=("git+https://github.com/dmtcp/dmtcp.git#tag=$pkgver")
-sha256sums=('b79793765a005410782b740e3a452442556236726ff0f7f3fe04e1c0c3cfa9b7')
-b2sums=('01038363961c2d4689492d1d59a5d1c7e2cdd656d6111c3f319e77e36b9d4368c9de6741d1dca4fffe4029697ecd70ba3b8afef0825893cabc3a5fbde8e97be5')
+source=("git+https://github.com/dmtcp/dmtcp.git#tag=v$pkgver")
+sha256sums=('328338570b7112fab3582a72d3d28b96379c8259b2f117c4050f2698fb392c9f')
+b2sums=('ebd9072844075295cddb0e1f291dfc6279c41f603470242650032f5de1b382034bb238c7f5a269b49231a73399b31a2dfd20b1381849d08da35911aa6d884f48')
 
 prepare() {
   cd $pkgname
   # Install version.h under /usr/include/dmtcp instead of /usr/include.
   # https://github.com/dmtcp/dmtcp/pull/1269
-  git cherry-pick -n b7c5f2ffda84df9c849c83bd079e44513f581988
+  git show 9f464015 -- src/Makefile.am | git apply -3
   ./autogen.sh
 }
 
