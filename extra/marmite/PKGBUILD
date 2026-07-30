@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=marmite
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc='Markdown makes sites - A Static Site Generator for Blogs'
 arch=(x86_64)
@@ -14,7 +14,7 @@ makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/refs/tags/$pkgver/$_archive.tar.gz")
-sha256sums=('70b842f5495ea7e233308e97f82ea82db91287b54ad2eace749fa67737c74012')
+sha256sums=('e92669708373bc96be893770e87c6edd0b7e016b3b6685f14e396f27c3de90fd')
 
 _srcenv() {
 	cd "$_archive"
