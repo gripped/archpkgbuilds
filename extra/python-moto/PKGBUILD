@@ -3,7 +3,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-moto
-pkgver=5.1.22
+pkgver=5.2.2
 pkgrel=1
 pkgdesc='Moto is a library to mock out the boto library.'
 arch=(any)
@@ -50,6 +50,7 @@ checkdepends=(
   python-pytest
   python-pytest-order
   python-yaml
+  python-pyotp
 )
 optdepends=(
   'python-yaml: for apigatewayv2, cloudformation, s3 and ssm'
@@ -73,7 +74,7 @@ optdepends=(
   'python-jsonschema: for quicksight'
 )
 source=("git+https://github.com/getmoto/moto#tag=$pkgver")
-b2sums=('2815fbb5c1cc3d0f3d7257d3090938658eb6dc556638df9d76bcb24f34b44bdc085a4adaadb38d31bb8b82724e8d3cfabbfa2bfaf486655be57b4283ef1d8f81')
+b2sums=('a29b2f54e29a496fe4255adde5c42aa388d97a10910728de023ee96b48fc295946622676f05cc323ca20025aacbffd7e07832828808638a93863cd8d79a5713c')
 
 prepare() {
   cd ${pkgname#python-}
