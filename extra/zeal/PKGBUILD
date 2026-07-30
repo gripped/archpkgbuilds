@@ -4,7 +4,7 @@
 # Contributor: Thomas Weißschuh <thomas t-8ch de>
 
 pkgname=zeal
-pkgver=0.8.1
+pkgver=0.9.1
 pkgrel=1
 pkgdesc='Offline API documentation browser'
 arch=(x86_64)
@@ -16,31 +16,37 @@ depends=(
   qt6-webengine
   qt6-base
   qt6-webchannel
+  qt6-svg
   sqlite
   libarchive
   libgcc
   libstdc++
   libxcb
   libx11
+  libxkbcommon
+  tomlplusplus
   xcb-util-keysyms
+  zlib
 )
 makedepends=(
   cmake
   extra-cmake-modules
+  ninja
   git
+  vulkan-headers
 )
 source=("$pkgname::git+https://github.com/zealdocs/zeal#tag=v$pkgver")
-sha512sums=('fa39176f33c9a871ee0e713270d1cf9f8c6f2c6b10f995e115c909f72cc1e2e61127a8f2aaa94e6f6cd0e1909f03caec349c42aa00dbfa90bec0f8f943883ba9')
-b2sums=('8b02d0bd67d3132586d36b10061b22461fa53df52d09747442b44521aab5e52b329acdd652a480d7309226903335661c9798af5c7ea5a9509d882201883c196f')
+sha512sums=('f76ba3b0ac5fa6c22f5fa96601ccc766c1af483dfb63287e9239ca08b34149dbcadb73d2a303502e7cf91e0691c4c212150950f46a2900dfb858e8ebf85eebd2')
+b2sums=('31a8afb8ecf03a4b93731c7026badccbf349a5115021b34c35fbace5c60fbd44c75ad8e59e45f4b35fdfd722b726953bf5c0c708607df9d5238718bc516aaef8')
 
 build() {
   local cmake_options=(
     -B build
     -S "$pkgname"
-    -W no-dev
+    -G Ninja
+    -W no-author
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/usr
-    -D ZEAL_RELEASE_BUILD=ON
   )
 
   cmake "${cmake_options[@]}"
