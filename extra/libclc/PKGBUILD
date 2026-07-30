@@ -2,16 +2,18 @@
 
 pkgname=libclc
 pkgver=22.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Library requirements of the OpenCL C programming language"
 arch=('any')
 url="https://libclc.llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
 makedepends=('cmake' 'ninja' 'clang' 'llvm' 'python' 'spirv-llvm-translator')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
-source=($_source_base/llvm-project-$pkgver.src.tar.xz{,.sig})
+source=($_source_base/llvm-project-$pkgver.src.tar.xz{,.sig}
+        0001-libclc-mark-clc-flush-denormal-if-not-supported-as-s.patch)
 sha256sums=('922f1817a0df7b1489272d18134ee0087a8b068828f87ac63b9861b1a9965888'
-            'SKIP')
+            'SKIP'
+            'a4f8dee6d2d9ee35576b6f05b93e673b524e366d0115c1e051c7e809a7a0ffff')
 validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstellar@redhat.com>
               'D574BD5D1D0E98895E3BF90044F2485E45D59042'  # Tobias Hieta <tobias@hieta.se>
               'FFB3368980F3E6BB5737145A316C56D064CACBA5'  # Douglas Yung <douglas.yung@sony.com>
@@ -21,11 +23,14 @@ validpgpkeys=('474E22316ABF4785A88C6E8EA2C794A986419D8A'  # Tom Stellard <tstell
 prepare() {
   cd llvm-project-$pkgver.src/libclc
   mkdir build
+
+  # https://github.com/darktable-org/darktable/issues/21662
+  # https://github.com/llvm/llvm-project/pull/207264
+  patch -Np2 < "$srcdir/0001-libclc-mark-clc-flush-denormal-if-not-supported-as-s.patch"
 }
 
 build() {
   cd llvm-project-$pkgver.src/libclc/build
-
 
   local cmake_args=(
     -G Ninja
