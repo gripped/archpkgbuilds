@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=xdg-desktop-portal-cosmic
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 epoch=1
 pkgdesc='A backend implementation for xdg-desktop-portal for the COSMIC desktop environment'
@@ -32,7 +32,7 @@ provides=(xdg-desktop-portal-impl)
 source=(
   git+https://github.com/pop-os/xdg-desktop-portal-cosmic.git#tag=epoch-${pkgver}
 )
-b2sums=('58fc6979319ff1ef0804b01bb3e95f70e1f31bca0034b7ac19e12d6890117a91d9f8bc9dfeaafab1754c1bb5981462f65fe9a5a1d220efc3f799da559d5e8caa')
+b2sums=('53751c6f12ce72e6bba94a20a2279a64174ddb057b006b6528782c2af39a2459303b4dfbce47d959d94539af6553e1167f0b391490e333db2c3841336282cbd4')
 
 prepare() {
   cd xdg-desktop-portal-cosmic
