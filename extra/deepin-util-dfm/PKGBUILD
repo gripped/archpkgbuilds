@@ -2,28 +2,20 @@
 
 pkgname=deepin-util-dfm
 epoch=1
-pkgver=1.2.32
+pkgver=1.2.33
 pkgrel=1
 pkgdesc='Utilities of deepin file manager'
 arch=('x86_64')
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
 url="https://github.com/linuxdeepin/util-dfm"
-depends=('dtkcore' 'glib2' 'glibc' 'libgcc' 'libisoburn' 'libmediainfo' 'libsecret'
-         'libstdc++' 'lucene++' 'qt5-base' 'udisks2' 'util-linux-libs')
+depends=('dtk6core' 'glib2' 'glibc' 'libgcc' 'libisoburn' 'libmediainfo' 'libsecret'
+         'libstdc++' 'lucene++' 'qt6-base' 'udisks2' 'util-linux-libs')
 makedepends=('boost' 'git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/util-dfm.git#tag=$pkgver")
-sha512sums=('925e32e54689e47abc60d28bd2be58858a812d802c7dae095246aaff18917eac0f326169e714af4cada2b960a94c3acbedd7b1ebeee13d9246c5318d0065b6e3')
-
-prepare() {
-  cd util-dfm
-
-  # Boost.System is header-only in Boost 1.90, so there is no boost_system library/component to find on Arch
-  sed -i '/find_package(Boost REQUIRED COMPONENTS system)/d' src/dfm-search/dfm-search-lib/dfm-search.cmake
-  sed -i 's/\s*Boost::system//' src/dfm-search/dfm-search-lib/dfm-search.cmake
-}
+sha512sums=('1861bb4e1e9a22fbc889f4f09a37fed0241277aa6237807d79f95421e126cec01d0e448b7dadf640e7174d44791f6253d0a58f1d4c4fadca478aa004c6b388b0')
 
 build() {
-  cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+  cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib
   cmake --build build
 }
 
