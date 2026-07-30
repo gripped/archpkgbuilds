@@ -4,7 +4,7 @@
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-notifications
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 epoch=1
 pkgdesc='Layer Shell notifications daemon which integrates with COSMIC'
@@ -37,6 +37,8 @@ prepare() {
 
 build() {
   cd cosmic-notifications
+  # Fix LLVM crash
+  export RUST_MIN_STACK=33554432
   just build-release --frozen
 }
 
