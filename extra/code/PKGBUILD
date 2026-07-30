@@ -9,7 +9,7 @@ pkgdesc='The Open Source build of Visual Studio Code (vscode) editor'
 # Important: Remember to check https://github.com/microsoft/vscode/wiki/How-to-Contribute#prerequisites for target node version
 _electron=electron42
 pkgver=1.130.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/microsoft/vscode'
 license=('MIT')
@@ -167,7 +167,7 @@ package() {
   find "$pkgdir" -name rg -print0 | xargs --null --replace ln -s -vsf /usr/bin/rg {}
 
   # Remove bundled onnxruntime and rely on system version
-  rm --verbose "$pkgdir"/usr/lib/code/node_modules.asar.unpacked/onnxruntime-node/bin/napi-v6/linux/x64/libonnxruntime*
+  rm --verbose "$pkgdir"/usr/lib/code/node_modules.asar.unpacked/onnxruntime-node/bin/napi-v6/linux/$_vscode_arch/libonnxruntime*
 
   # Install binary
   install -Dm 755 code.sh "$pkgdir"/usr/bin/code-oss
