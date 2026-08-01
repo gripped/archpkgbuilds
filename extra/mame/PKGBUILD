@@ -6,7 +6,7 @@
 pkgbase=mame
 pkgname=(mame
          mame-tools)
-pkgver=0.288
+pkgver=0.289
 pkgrel=1
 pkgdesc='Port of the popular Multiple Arcade Machine Emulator using SDL with OpenGL support'
 url='https://mamedev.org/'
@@ -41,7 +41,7 @@ source=(git+https://github.com/mamedev/mame#tag=mame${pkgver/./}?signed
         mame.sh
         mame.svg
         lua-5.5.patch)
-sha256sums=('83c0c5ef9b3f1bd2078e924036a900542690390d90801898893786ec9d01e960'
+sha256sums=('92f5b9678f48a491ed1ca17914fb77327cc98e082d442c3c6114f70c4e80098a'
             '0e5e93f84673c2d17a1bf7a6b256cfa54ef89a086a828df19bc054c12776d821'
             'ee1c59bafc5e5441e99fa4c58108a3e18048e60672f34de865c8a5a976094dba'
             '17c442c933d764175e4ce1de50a80c0c2ddd5d733caf09c3cd5e6ba697ac43f4'
