@@ -5,7 +5,7 @@ pkgbase=pcp
 pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bind2 pcp-pmda-bpftrace pcp-pmda-libvirt
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
          pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp pcp-pmda-json)
-pkgver=7.1.5
+pkgver=7.2.0
 pkgrel=1
 arch=('x86_64')
 url="https://pcp.io"
@@ -32,11 +32,13 @@ makedepends=('avahi' 'procps-ng' 'which' 'libuv'
 source=("https://github.com/performancecopilot/pcp/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         "sysuser.conf"
         "tmpfile.conf"
+        "pcp-rebuild-pmns.hook"
         "check-lto.patch"
         "setuptools.patch")
-sha256sums=('54218701c53cbfddd043e50fd2244ab0c04d4cc58742cffdb460b32ea0adaa8c'
+sha256sums=('2d9d693d77fbb19985cd5d9b1a43b41831284e92efd91fb971f096e193cd96ec'
             '85fe78e3c481d89017a0ab6e7925308b6649d0356a7ebaa017240901e039fb9d'
             '0166ffea180527de5a48a8e8f145cc80860b93e8f44bc5f96836c3d1cb4b01a2'
+            '35247948c8f1787d2b2cd08895149ec10b8a2f903550832ead9958a55978ddbe'
             'd0de05ebb577c5ee67ebd583ea8a0febcfad6a74b33afd9aa5b8a7a38a8096bf'
             'b76db42b08c1cc5e2a61cc0b3371aee2508667ac544eeba40dfcc2b895f9587d')
 
@@ -88,11 +90,30 @@ _package_module() {
 
 package_pcp() {
   pkgdesc='System performance analysis toolkit'
-  depends=('python' 'perl' 'avahi' 'procps-ng' 'which' 'libuv' 'inetutils')
+  depends=(
+    avahi
+    bash
+    device-mapper
+    glibc
+    inetutils
+    libdrm
+    libelf
+    libsasl
+    libuv
+    ncurses
+    openssl
+    perl
+    procps-ng
+    python
+    readline
+    systemd-libs
+    which
+    xz
+    zlib
+  )
   optdepends=('perl-xml-tokeparser: sar2pcp'
               'perl-date-parse: sar2pcp'
               'python-openpyxl: pcp2xlsx')
-  install=pcp.install
   backup=(
     etc/pcp.conf
     etc/pcp.env
@@ -433,11 +454,20 @@ package_pcp() {
 
   install -D -m644 "$srcdir"/sysuser.conf "$pkgdir"/usr/lib/sysusers.d/pcp.conf
   install -D -m644 "$srcdir"/tmpfile.conf "$pkgdir"/usr/lib/tmpfiles.d/pcp.conf
+  install -vDm 644 ../pcp-rebuild-pmns.hook -t "$pkgdir/usr/share/libalpm/hooks/"
 }
 
 package_pcp-gui() {
   pkgdesc='Visualization tools for the Performance Co-Pilot toolkit'
-  depends=('pcp' 'qt5-svg')
+  depends=(
+    bash
+    glibc
+    libgcc
+    libstdc++
+    pcp
+    qt5-base
+    qt5-svg
+  )
   backup=(
     etc/pcp/pmchart/Apache
     etc/pcp/pmchart/ApacheServer
@@ -491,14 +521,24 @@ package_pcp-gui() {
 
 package_pcp-pmda-activemq() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from ActiveMQ'
-  depends=('pcp' 'perl-libwww')
+  depends=(
+    bash
+    pcp
+    perl-libwww
+  )
 
   _package_module activemq
 }
 
 package_pcp-pmda-bind2() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from BIND via its REST interface'
-  depends=('pcp' 'perl-libwww' 'perl-xml-libxml' 'perl-file-slurp')
+  depends=(
+    bash
+    pcp
+    perl-libwww
+    perl-xml-libxml
+    perl-file-slurp
+  )
   backup=(
     etc/pcp/bind2/bind2.conf
   )
@@ -508,7 +548,12 @@ package_pcp-pmda-bind2() {
 
 package_pcp-pmda-bpftrace() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from bpftrace scripts'
-  depends=('pcp' 'bpftrace')
+  depends=(
+    bash
+    bpftrace
+    pcp
+    python
+  )
   backup=(
     etc/pcp/bpftrace/bpftrace.conf
   )
@@ -518,7 +563,12 @@ package_pcp-pmda-bpftrace() {
 
 package_pcp-pmda-libvirt() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from libvirt virtual machines'
-  depends=('pcp' 'libvirt-python' 'python-lxml')
+  depends=(
+    bash
+    libvirt-python
+    pcp
+    python-lxml
+  )
   backup=(
     etc/pcp/libvirt/libvirt.conf
   )
@@ -528,14 +578,22 @@ package_pcp-pmda-libvirt() {
 
 package_pcp-pmda-json() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from JSON data'
-  depends=('pcp' 'python-jsonpointer')
+  depends=(
+    bash
+    pcp
+    python-jsonpointer
+  )
 
   _package_module json
 }
 
 package_pcp-pmda-nginx() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from Nginx'
-  depends=('pcp' 'perl-libwww')
+  depends=(
+    bash
+    pcp
+    perl-libwww
+  )
   backup=(
     etc/pcp/nginx/nginx.conf
   )
@@ -545,14 +603,23 @@ package_pcp-pmda-nginx() {
 
 package_pcp-pmda-mysql() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from MySQL'
-  depends=('pcp' 'perl-dbd-mysql')
+  depends=(
+    bash
+    pcp
+    perl-dbd-mysql
+  )
 
   _package_module mysql
 }
 
 package_pcp-pmda-nutcracker() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from NutCracker (TwemCache)'
-  depends=('pcp' 'perl-yaml-libyaml' 'perl-json')
+  depends=(
+    bash
+    pcp
+    perl-yaml-libyaml
+    perl-json
+  )
   backup=(
     etc/pcp/nutcracker/nutcracker.conf
   )
@@ -562,7 +629,11 @@ package_pcp-pmda-nutcracker() {
 
 package_pcp-pmda-openmetrics() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from OpenMetrics endpoints'
-  depends=('pcp' 'python-requests')
+  depends=(
+    bash
+    pcp
+    python-requests
+  )
   backup=(
     etc/pcp/openmetrics/collectd.url
     etc/pcp/openmetrics/etcd.url
@@ -577,14 +648,23 @@ package_pcp-pmda-openmetrics() {
 
 package_pcp-pmda-podman() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from podman'
-  depends=('pcp' 'libvarlink')
+  depends=(
+    bash
+    glibc
+    libvarlink
+    pcp
+  )
 
   _package_module podman
 }
 
 package_pcp-pmda-postgresql() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from PostgreSQL'
-  depends=('pcp' 'python-psycopg2')
+  depends=(
+    bash
+    pcp
+    python-psycopg2
+  )
   backup=(
     etc/pcp/postgresql/pmdapostgresql.conf
   )
@@ -594,7 +674,10 @@ package_pcp-pmda-postgresql() {
 
 package_pcp-pmda-snmp() {
   pkgdesc='PCP Performance Metrics Domain Agent (PMDA) for collecting metrics from SNMP'
-  depends=('pcp' 'perl-net-snmp')
+  depends=(
+    bash
+    pcp perl-net-snmp
+  )
   backup=(
     etc/pcp/snmp/snmp.conf
   )
