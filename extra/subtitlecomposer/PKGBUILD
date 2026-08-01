@@ -2,7 +2,7 @@
 
 pkgname=subtitlecomposer
 pkgver=0.8.2
-pkgrel=4
+pkgrel=5
 pkgdesc='Video subtitle editor'
 arch=(x86_64)
 url='https://subtitlecomposer.kde.org/'
@@ -48,6 +48,9 @@ prepare() {
 
   # Fix build with Qt 6.10
   git cherry-pick -n 1e11d53565ab6df3ba8329072e7b4b12f9f88d72
+
+  # Fix build with gcc 16
+  git cherry-pick -n 866d496bf7db586de3594aa9ce6d551b7e42d39c
 }
 
 build() {
