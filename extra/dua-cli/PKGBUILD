@@ -4,7 +4,7 @@
 # Contributor: mexus <gilaldpellaeon@gmail.com>
 
 pkgname=dua-cli
-pkgver=2.39.0
+pkgver=2.40.0
 pkgrel=1
 pkgdesc="A tool to conveniently learn about the disk usage of directories, fast!"
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(glibc # libc.so libm.so
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha512sums=('70d0d88cd49fbfc4fa39d2390ad9a60623d4beba2695c7a4ccc09cfb63fe6d92aa1a3385e8bb7ed85faa426632f64851efc586462d7cadc1505c9264d08eed7d')
+sha512sums=('a8e9cf17baa1bb41a3ea383c3df6078b8a4c41a7c96e544b5d43276e7d37c4911f146e578e72aa2a7a73241e874ada612e0d4cc83018ffb7d706f75c82d7dd5a')
 
 _srcenv() {
 	cd "$_archive"
@@ -28,23 +28,26 @@ _srcenv() {
 }
 
 prepare() {
-  _srcenv
-  cargo fetch --locked --target host-tuple
+	_srcenv
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
-  _srcenv
-  cargo build --release --frozen
+	_srcenv
+	cargo build --release --frozen
 }
 
 check() {
-  _srcenv
-  cargo test --frozen -- --skip "interactive"
+	_srcenv
+	local skipped=(
+		interactive
+	)
+	cargo test --frozen -- ${skipped[@]/#/--skip }
 }
 
 package() {
-  cd "$_archive"
-  install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
-  install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
-  install -Dm0755 -t "$pkgdir/usr/bin/" target/release/dua
+	cd "$_archive"
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
+	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
+	install -Dm0755 -t "$pkgdir/usr/bin/" target/release/dua
 }
