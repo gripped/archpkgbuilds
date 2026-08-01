@@ -5,8 +5,8 @@
 # Contributor: Ivan Sichmann Freitas
 
 pkgname=partclone
-pkgver=0.3.47
-pkgrel=3
+pkgver=0.3.48
+pkgrel=1
 pkgdesc='Utilities to save and restore used blocks on a partition'
 arch=('x86_64')
 url='https://partclone.org'
@@ -14,14 +14,10 @@ license=('GPL-2.0-or-later')
 depends=('e2fsprogs' 'glibc' 'liburcu' 'ncurses' 'nilfs-utils' 'ntfs-3g' 'openssl' 'util-linux-libs' 'xxhash')
 makedepends=('git' 'docbook-xsl')
 source=("git+https://github.com/Thomas-Tsai/partclone#tag=${pkgver}")
-sha256sums=('dcae1ea77828a3724615d38e000f3689f4f690669fc43e6205efd70f5da38627')
+sha256sums=('f194b15637de60dd77e264024147b2ba25f6650cc318d446a0e7e373841fe1d0')
 
 prepare() {
   cd "$pkgname"
-
-  # Fix compatibility with nilfs-utils 2.3
-  git cherry-pick -n \
-    '01bbe56ce51d49a4cf05bbaafdf19936b39aee0d'
 
   sed -i \
     -e '/^XSLTPROC=/c XSLTPROC=xsltproc --nonet' \
