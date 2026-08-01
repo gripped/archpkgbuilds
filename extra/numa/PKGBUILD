@@ -2,7 +2,7 @@
 # Contributor: razvandimescu <razvan@dimescu.com>
 
 pkgname=numa
-pkgver=0.21.0
+pkgver=0.22.0
 pkgrel=1
 pkgdesc="Portable DNS resolver with ODoH support"
 url='https://github.com/razvandimescu/numa'
@@ -17,8 +17,8 @@ makedepends=(
 )
 backup=('etc/numa.toml')
 source=(https://github.com/razvandimescu/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('3eedd3cc3fa8642d636ecc3c0faeca9686d87392c20984b71e8b7c7e7ef23a6b')
-b2sums=('7b6b378a38e147af9bcb6a14b26169e41b21837a13730768b518a906af5fe73ab87c0e2900c9a03569957eb6562270a5f627c4cf5bafc85018d593cc99c22fde')
+sha256sums=('da4723acac0d36d7d7771d3d18b4387a809692ddae0b3af1de6e3a39eb4072c3')
+b2sums=('33023ae692717513a0476d0c59afc6ca1063d051313506d304b82ae8f807c463684a17c88942d9a2b716f961ee49b8d39d9243539dddd62b518d645d39751356')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
