@@ -9,7 +9,7 @@
 pkgbase=qtcreator
 pkgname=(qtcreator
          qtcreator-devel)
-pkgver=20.0.0
+pkgver=20.0.1
 pkgrel=1
 pkgdesc='Lightweight, cross-platform integrated development environment'
 arch=(x86_64)
@@ -23,7 +23,7 @@ depends=(clang
          libelf
          libgcc
          libstdc++
-         litehtml0.9
+         litehtml
          llvm-libs
          python
          qt6-base
@@ -57,7 +57,7 @@ optdepends=('qt6-doc: integrated Qt documentation'
 source=(git+https://code.qt.io/qt-creator/qt-creator#tag=v$pkgver
         git+https://code.qt.io/qt-creator/perfparser
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('22c9cb5ee0d2a17b3aa536bf16f83d199b5084625447bb40a46e41786ecb660c'
+sha256sums=('d35956f1854a927e119e40f971c47316ddcd16c319c52a93cbd8aa1c03c377ef'
             'SKIP'
             'SKIP')
 options=(docs)
@@ -70,8 +70,9 @@ prepare() {
 
 # Fix doc build with system litehtml
   rm src/libs/qlitehtml/src/3rdparty/qt_attribution.json
-# Drop unneeded litehtml include
-  sed -e '/litehtml\/types.h/d' -i src/libs/qlitehtml/src/container_qpainter_p.h
+# Support litehtml 0.10
+  cd src/libs/qlitehtml
+  git checkout 1f56cfe0a8e9a8a99072e0d325632bd8dc0e20d3
 }
 
 build() {
@@ -82,8 +83,7 @@ build() {
     -DBUILD_DEVELOPER_DOCS=ON \
     -DQTC_CLANG_BUILDMODE_MATCH=ON \
     -DCLANGTOOLING_LINK_CLANG_DYLIB=ON \
-    -DQLITEHTML_USE_SYSTEM_LITEHTML=ON \
-    -Dlitehtml_DIR=/usr/lib/cmake/litehtml0.9
+    -DQLITEHTML_USE_SYSTEM_LITEHTML=ON
   cmake --build build
   cmake --build build --target docs
 }
