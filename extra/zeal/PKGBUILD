@@ -5,7 +5,7 @@
 
 pkgname=zeal
 pkgver=0.9.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Offline API documentation browser'
 arch=(x86_64)
 url='https://zealdocs.org'
@@ -47,11 +47,17 @@ build() {
     -W no-author
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D ZEAL_FEATURE_UPDATE_CHECK=OFF
+    -D BUILD_TESTING=ON
   )
 
   cmake "${cmake_options[@]}"
 
   cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
