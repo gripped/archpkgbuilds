@@ -2,8 +2,8 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=wayfire
-pkgver=0.10.1
-pkgrel=5
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='3D Wayland compositor, inspired by Compiz and based on wlroots'
 arch=(x86_64)
 url='https://wayfire.org/'
@@ -24,11 +24,11 @@ depends=(
   libxkbcommon
   pango
   pixman
+  python
   systemd-libs
-  vulkan-icd-loader
   wayland
   "wf-config>=${pkgver%.*}.0"
-  wlroots0.19
+  wlroots0.20
   yyjson
 )
 makedepends=(
@@ -39,14 +39,19 @@ makedepends=(
   vulkan-headers
   wayland-protocols
 )
+checkdepends=(xorg-xwayland)
 source=(
   "git+https://github.com/WayfireWM/wayfire.git#tag=v$pkgver"
   git+https://github.com/WayfireWM/wf-config.git
   git+https://github.com/WayfireWM/wf-utils.git
   git+https://github.com/WayfireWM/wf-touch.git
+  git+https://github.com/WayfireWM/wf-json.git
+  wlroots-vkfx::git+https://gitlab.freedesktop.org/ammen99/wlroots.git
 )
 b2sums=(
-  6c64d6edc5b8226875c9f4adb9a1f0f07f952fb7aa274809d23feb2f3c01f8431ce2a24673b4752aef3a3c45554186995817e1663817b2ef7f0a713c81f2a4b0
+  e647a8c659fdcad29dfdc3fdbf0041607030c79ba176e6eea6fcdca533feb56411ec7d86b12cc1372849c594e416b9a162d0466a553013827e3cfffa06db2e33
+  SKIP
+  SKIP
   SKIP
   SKIP
   SKIP
@@ -60,7 +65,11 @@ prepare() {
   git submodule set-url subprojects/wf-config "$srcdir/wf-config"
   git submodule set-url subprojects/wf-utils "$srcdir/wf-utils"
   git submodule set-url subprojects/wf-touch "$srcdir/wf-touch"
+  git submodule set-url subprojects/wf-json "$srcdir/wf-json"
+  git submodule set-url subprojects/wlroots-vkfx "$srcdir/wlroots-vkfx"
   git -c protocol.file.allow=always submodule update
+
+  sed -i 's|/usr/libexec/xdg-desktop-portal|/usr/lib/xdg-desktop-portal|' wayfire.ini
 }
 
 build() {
