@@ -1,4 +1,4 @@
-From 783e32bb7ddd90eedbca9526d3e93ea363eca030 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sat, 26 Apr 2025 09:28:42 +0200
 Subject: [PATCH] Raise existing window instead of opening new one on
@@ -10,7 +10,7 @@ Multiple main windows are not supported.
  1 file changed, 9 insertions(+), 13 deletions(-)
 
 diff --git a/src/disks/gduapplication.c b/src/disks/gduapplication.c
-index 70b70076b..15ed4edd4 100644
+index 70b70076b725..15ed4edd4349 100644
 --- a/src/disks/gduapplication.c
 +++ b/src/disks/gduapplication.c
 @@ -238,15 +238,7 @@ gdu_application_command_line (GApplication            *_app,
@@ -49,6 +49,3 @@ index 70b70076b..15ed4edd4 100644
  }
  
  /* ---------------------------------------------------------------------------------------------------- */
--- 
-GitLab
-
