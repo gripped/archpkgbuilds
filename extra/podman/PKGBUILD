@@ -5,7 +5,7 @@
 pkgbase=podman
 pkgname=(podman podman-docker)
 pkgver=6.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='A tool for managing OCI containers and pods.'
 arch=(x86_64)
 url='https://github.com/podman-container-tools/podman'
