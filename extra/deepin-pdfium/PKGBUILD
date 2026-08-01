@@ -1,25 +1,41 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-pdfium
-pkgver=1.0.2
-pkgrel=6
+pkgver=1.5.0
+pkgrel=1
 pkgdesc='Development library for pdf on Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-pdfium"
 license=('LGPL-3.0-or-later')
-depends=('qt5-base' 'openjpeg2' 'libchardet' 'lcms2' 'libjpeg-turbo' 'icu' 'zlib' 'glibc' 'libgcc' 'libstdc++'
-         'freetype2')
-makedepends=('qt5-tools')
-source=("https://github.com/linuxdeepin/deepin-pdfium/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('c3677b863c0225969c8b7897c88f4642607c79485f0facb29f6cb695597cd9568683b817e6670b19274b1d6642e15091baf6aa98c802c9f78272d5c19566fe37')
+depends=('qt6-base' 'openjpeg2' 'libchardet' 'lcms2' 'libjpeg-turbo' 'libpng' 'icu' 'zlib'
+         'glibc' 'libgcc' 'libstdc++' 'freetype2')
+makedepends=('git' 'cmake')
+source=("git+https://github.com/linuxdeepin/deepin-pdfium.git#tag=$pkgver")
+sha512sums=('b5c37b993a44b1abdcebb79d5425294538a46e218d663d314dd34d9dc01ed4d0986a75f2748713901de9acd1a5a50daa59db8cf70e686fbb7aafd1a3b31b15fe')
+
+prepare() {
+  cd deepin-pdfium
+
+  # Fix Qt 6 pkg-config metadata for the CMake port:
+  # https://github.com/linuxdeepin/deepin-pdfium/commit/2b93569d299f41fae9abc03a1d64eda3886fd638
+  git cherry-pick -n 2b93569d299f41fae9abc03a1d64eda3886fd638
+
+  # Fix CMake AUTOMOC and install metadata added after 1.5.0:
+  # https://github.com/linuxdeepin/deepin-pdfium/commit/921980132a4b4be00a749fe5646e033f7ca8aa84
+  git cherry-pick -n 921980132a4b4be00a749fe5646e033f7ca8aa84
+}
 
 build() {
-  cd deepin-pdfium-$pkgver
-  qmake-qt5 PREFIX=/usr deepin-pdfium.pro 
-  CXXFLAGS+=' -include cstdint' make
+  export CXXFLAGS+=" -include cstdint"
+
+  cmake -B build -S deepin-pdfium \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DVERSION="$pkgver"
+  cmake --build build
 }
 
 package() {
-  cd deepin-pdfium-$pkgver
-  make INSTALL_ROOT="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
