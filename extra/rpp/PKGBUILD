@@ -3,12 +3,12 @@
 
 pkgname=rpp
 pkgver=7.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="AMD ROCm Performance Primitives"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/rpp/en/latest/"
 license=('MIT')
-depends=('rocm-core' 'hip-runtime-amd' 'opencv' 'openmp' 'libgcc' 'glibc')
+depends=('rocm-core' 'hip-runtime-amd' 'opencv' 'rocm-openmp' 'libgcc' 'glibc')
 makedepends=('cmake' 'rocm-cmake' 'half')
 _git='https://github.com/ROCm/rpp'
 source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
