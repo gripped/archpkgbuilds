@@ -1,7 +1,7 @@
 # Maintainer: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=grml-zsh-config
-pkgver=0.19.28
+pkgver=0.20.0
 pkgrel=1
 pkgdesc="grml's zsh setup"
 arch=('any')
@@ -12,8 +12,8 @@ depends=('zsh' 'coreutils' 'grep' 'sed' 'procps')
 makedepends=('git' 'asciidoctor')
 validpgpkeys=('7D1ACFFAD9E0806C9C4CD3925C13D6DB93052E03'  # Christian Hofstaedtler <christian@hofstaedtler.name>
               '33CCB136401AFEC843A3876396A87872B7EA3737') # Michael Prokop <mail@michael-prokop.at>
-source=("git+https://github.com/grml/grml-etc-core.git#tag=v${pkgver}?signed")
-sha256sums=('6088595c3ee739e27bf60e460ce6ffee2702a1e60222100579c097e40c83c3ba')
+source=("git+https://github.com/grml/grml-etc-core.git?signed#tag=v${pkgver}")
+sha256sums=('d6e832c3bf2226ec69162de844ac4808fe6d1a29ffd311028ba449c38b230724')
 
 build() {
 	cd "${srcdir}/grml-etc-core/doc"
