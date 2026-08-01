@@ -1,0 +1,467 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 528059b1..e9d32952 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.1)
+ 
+ #玲珑构建依赖目录
+ include_directories(${CMAKE_INSTALL_PREFIX}/include)
+-include_directories(${CMAKE_INSTALL_PREFIX}/include/deepin-ocr-plugin-manager)
+ 
+ set(APP_BIN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/bin/)
+ set(BIN_NAME ${CMAKE_PROJECT_NAME})
+@@ -18,16 +17,17 @@ file(GLOB_RECURSE SRCS
+     ./src/*.h
+     ./src/*.cpp
+     )
++list(FILTER SRCS EXCLUDE REGEX ".*/src/ocr/.*")
+ 
+ file(GLOB_RECURSE QMLSRC
+     ./*.qml
+     )
++list(FILTER QMLSRC EXCLUDE REGEX ".*/qml/Live.*")
+ 
+ # Find the Qt5Quick library
+ find_package(Qt5Quick CONFIG REQUIRED)
+ find_package(Qt5QuickCompiler REQUIRED)
+ find_package(Qt5DBus CONFIG REQUIRED)
+-find_package(Qt5Concurrent CONFIG REQUIRED)
+ find_package(Qt5Svg CONFIG REQUIRED)
+ find_package(Qt5PrintSupport CONFIG REQUIRED)
+ find_package(Qt5LinguistTools CONFIG REQUIRED)
+@@ -39,9 +39,6 @@ pkg_check_modules(3rd_lib REQUIRED
+     dtkwidget
+     )
+ 
+-# OCR
+-pkg_search_module(OCR_PLUGIN REQUIRED deepin-ocr-plugin-manager)
+-include_directories(${OCR_PLUGIN_INCLUDE_DIRS})
+ 
+ # 保证 src 目录下头文件全局可见
+ include_directories(src)
+@@ -70,10 +67,9 @@ add_executable(${BIN_NAME}
+ target_include_directories(${BIN_NAME} PUBLIC ${3rd_lib_INCLUDE_DIRS})
+ target_link_libraries(${BIN_NAME}
+     ${DtkDeclarative_LIBRARIES}
+-    Qt5::Quick Qt5::PrintSupport Qt5::Gui Qt5::Qml Qt5::Core Qt5::DBus Qt5::Concurrent Qt5::Svg
++    Qt5::Quick Qt5::PrintSupport Qt5::Gui Qt5::Qml Qt5::Core Qt5::DBus Qt5::Svg
+     GL pthread
+     ${3rd_lib_LIBRARIES}
+-    ${OCR_PLUGIN_LIBRARIES}
+     )
+ 
+ if (${CMAKE_BUILD_TYPE} MATCHES "Debug")
+diff --git a/src/deepin-image-viewer.qrc b/src/deepin-image-viewer.qrc
+index b8bd29d5..16602226 100644
+--- a/src/deepin-image-viewer.qrc
++++ b/src/deepin-image-viewer.qrc
+@@ -23,9 +23,5 @@
+         <file>qml/RightMenuItem.qml</file>
+         <file>qml/ViewTopTitle.qml</file>
+         <file>qml/MultiImageListView.qml</file>
+-        <file>qml/LiveBlock.qml</file>
+-        <file>qml/LiveBlockController.js</file>
+-        <file>qml/LiveBlockRubberBand.qml</file>
+-        <file>qml/LiveTextWidget.qml</file>
+     </qresource>
+ </RCC>
+diff --git a/src/main.cpp b/src/main.cpp
+index 677e8fa8..ce62aaf3 100644
+--- a/src/main.cpp
++++ b/src/main.cpp
+@@ -6,7 +6,6 @@
+ #include "src/filecontrol.h"
+ #include "src/thumbnailload.h"
+ #include "src/cursortool.h"
+-#include "src/ocr/livetextanalyzer.h"
+ #include "config.h"
+ 
+ #include <DApplication>
+@@ -65,11 +64,6 @@ int main(int argc, char *argv[])
+     // 光标位置查询工具
+     CursorTool *cursorTool = new CursorTool();
+     engine.rootContext()->setContextProperty("cursorTool", cursorTool);
+-    // OCR分析工具
+-    auto liveTextAnalyzer = new LiveTextAnalyzer;
+-    engine.rootContext()->setContextProperty("liveTextAnalyzer", liveTextAnalyzer);
+-    engine.addImageProvider(QLatin1String("liveTextAnalyzer"), liveTextAnalyzer);
+-
+     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
+     if (engine.rootObjects().isEmpty())
+         return -1;
+diff --git a/src/qml/ImageViewer.qml b/src/qml/ImageViewer.qml
+index 2467caf8..90c24be1 100644
+--- a/src/qml/ImageViewer.qml
++++ b/src/qml/ImageViewer.qml
+@@ -156,8 +156,6 @@ Rectangle {
+     }
+ 
+     function startLiveText() {
+-        console.debug("function startLiveText()")
+-        view.startLiveTextAnalyze()
+     }
+ 
+     function exitLiveText() {
+@@ -608,18 +606,6 @@ Rectangle {
+                         onImageReady()
+                     }
+                 }
+-
+-                Rectangle {
+-                    //live text高亮阴影
+-                    color: "#000000"
+-                    opacity: 0.5
+-                    visible: highlightTextButton.checked && highlightTextButton.visible
+-
+-                    //阴影需要和图片重合
+-                    width: showImg.paintedWidth
+-                    height: showImg.paintedHeight
+-                    anchors.centerIn: parent
+-                }
+             }
+ 
+             // svg image
+@@ -646,18 +632,6 @@ Rectangle {
+                         onImageReady()
+                     }
+                 }
+-
+-                Rectangle {
+-                    //live text高亮阴影
+-                    color: "#000000"
+-                    opacity: 0.5
+-                    visible: highlightTextButton.checked && highlightTextButton.visible
+-
+-                    //阴影需要和图片重合
+-                    width: showSvgImg.paintedWidth
+-                    height: showSvgImg.paintedHeight
+-                    anchors.centerIn: parent
+-                }
+             }
+ 
+             // dynamic image
+@@ -1334,7 +1308,6 @@ Rectangle {
+ 
+         Component.onCompleted: {
+             contentItem.highlightMoveDuration = 0
+-            liveTextAnalyzer.analyzeFinished.connect(runLiveText)
+         }
+ 
+         onCurrentIndexChanged: {
+@@ -1359,35 +1332,19 @@ Rectangle {
+         //live text分析函数
+         //缩放和切换需要重新执行此函数
+         function liveTextAnalyze() {
+-            console.debug("Live Text analyze start")
+-            view.currentItem.grabToImage(function(result) { //截取当前控件显示
+-                liveTextAnalyzer.setImage(result.image) //设置分析图片
+-                liveTextAnalyzer.analyze(currentIndex) //执行分析（异步执行，函数会立即返回）
+-                //result.saveToFile("/home/wzyforuos/Desktop/viewer.png") //保存截取的图片，debug用
+-            })
+         }
+ 
+         //live text执行函数
+         function runLiveText(resultCanUse, token) {
+-            console.debug("function runLiveText", token, currentIndex)
+-            if(resultCanUse && token == currentIndex) { //这里无视警告，就是需要js的==来进行自动类型转换
+-                console.debug("run live start")
+-                ltw.drawRect(liveTextAnalyzer.liveBlock())
+-                ltw.visible = true
+-            }
+         }
+ 
+         //live text退出函数
+         function exitLiveText() {
+-            console.debug("live exit")
+-            liveTextAnalyzer.breakAnalyze()
+-            ltw.clearLive()
+             liveTextTimer.stop()
+         }
+ 
+         //live text分析启动控制
+         function startLiveTextAnalyze() {
+-            liveTextTimer.restart()
+         }
+ 
+         //live text分析启动延迟
+@@ -1397,46 +1354,11 @@ Rectangle {
+             running: false
+             repeat: false
+             onTriggered: {
+-                if(fileControl.isCanSupportOcr(source) && !CodeImage.imageIsNull(source)) { //执行条件和OCR按钮使能条件一致
+-                    view.liveTextAnalyze()
+-                    running = false
+-                }
++                running = false
+             }
+         }
+     }
+ 
+-    LiveTextWidget {
+-        //live text主控件
+-        id: ltw
+-        anchors.fill: imageViewerArea
+-        parent: imageViewerArea
+-    }
+-
+-    FloatingButton {
+-        id: highlightTextButton
+-        width: 50
+-        height: 50
+-        visible: false
+-        parent: mainView
+-        anchors.right: parent.right
+-        anchors.rightMargin: 100
+-        anchors.bottom: parent.bottom
+-        anchors.bottomMargin: thumbnailViewBackGround.height + 20
+-
+-        checked: isHighlight
+-
+-        property bool isHighlight: false
+-
+-        icon {
+-            width: 45
+-            height: 45
+-            name: "icon_recognition_highlight"
+-        }
+-
+-        onClicked: {
+-            isHighlight = !isHighlight
+-        }
+-    }
+ 
+     //rename窗口
+     ReName {
+diff --git a/src/qml/ThumbnailListView.qml b/src/qml/ThumbnailListView.qml
+index 279e7bc3..63e9b204 100644
+--- a/src/qml/ThumbnailListView.qml
++++ b/src/qml/ThumbnailListView.qml
+@@ -367,32 +367,14 @@ Item {
+ 
+     Row {
+         id: rightRowLayout
++        visible: false
++        width: 0
++        height: 0
+ 
+         anchors {
+             right: deleteButton.left
+             verticalCenter: parent.verticalCenter
+         }
+-
+-        spacing: 10
+-        leftPadding: 20
+-        rightPadding: 20
+-
+-        IconButton {
+-            id: ocrButton
+-
+-            width: 50
+-            height: 50
+-            icon.name: "icon_character_recognition"
+-            enabled: fileControl.isCanSupportOcr(source)
+-                     && !CodeImage.imageIsNull(source)
+-            onClicked: {
+-                fileControl.ocrImage(source, imageViewer.frameIndex)
+-            }
+-            ToolTip.delay: 500
+-            ToolTip.timeout: 5000
+-            ToolTip.visible: hovered
+-            ToolTip.text: qsTr("Extract text")
+-        }
+     }
+ 
+     IconButton {
+diff --git a/src/qml/ViewRightMenu.qml b/src/qml/ViewRightMenu.qml
+index 6bb18ed5..3831ce89 100644
+--- a/src/qml/ViewRightMenu.qml
++++ b/src/qml/ViewRightMenu.qml
+@@ -50,24 +50,6 @@ Menu {
+         }
+     }
+ 
+-    RightMenuItem {
+-        text: qsTr("Extract text")
+-        visible: fileControl.isCanSupportOcr(source) && !CodeImage.imageIsNull(source)
+-        onTriggered: {
+-            fileControl.ocrImage(source, imageViewer.frameIndex)
+-        }
+-        Shortcut {
+-            sequence: "Alt+O"
+-            enabled: fileControl.isCanSupportOcr(source) && !CodeImage.imageIsNull(source)
+-            onActivated: {
+-                if (parent.visible && stackView.currentWidgetIndex == 1)
+-                {
+-                    fileControl.ocrImage(source, imageViewer.frameIndex)
+-                }
+-            }
+-        }
+-    }
+-
+     RightMenuItem {
+ 
+         text: qsTr("Slide show")
+@@ -103,7 +85,7 @@ Menu {
+         }
+         Shortcut {
+             sequence: "Ctrl+C"
+-            enabled: fileControl.isCanReadable(source) //&& ltw.haveSelect()
++            enabled: fileControl.isCanReadable(source)
+             onActivated: {
+                 if (parent.visible && stackView.currentWidgetIndex == 1)
+                 {
+diff --git a/src/src/filecontrol.cpp b/src/src/filecontrol.cpp
+index bb68b0c0..aaff78ee 100644
+--- a/src/src/filecontrol.cpp
++++ b/src/src/filecontrol.cpp
+@@ -6,12 +6,15 @@
+ #include "unionimage/unionimage_global.h"
+ #include "unionimage/unionimage.h"
+ #include "printdialog/printhelper.h"
+-#include "ocr/ocrinterface.h"
+ 
+ #include <DSysInfo>
+ 
+ #include <QFileInfo>
+ #include <QDir>
++#include <QJsonArray>
++#include <QJsonDocument>
++#include <QJsonObject>
++#include <QMimeData>
+ #include <QMimeDatabase>
+ #include <QCollator>
+ #include <QUrl>
+@@ -82,8 +85,6 @@ QUrl UrlInfo(QString path)
+ 
+ FileControl::FileControl(QObject *parent) : QObject(parent)
+ {
+-    m_ocrInterface = new OcrInterface("com.deepin.Ocr", "/com/deepin/Ocr", QDBusConnection::sessionBus(), this);
+-
+     m_shortcutViewProcess = new QProcess(this);
+ 
+     m_config = LibConfigSetter::instance();
+@@ -378,22 +379,6 @@ bool FileControl::isFile(const QString &path)
+     return QFileInfo(localPath).isFile();
+ }
+ 
+-void FileControl::ocrImage(const QString &path, int index)
+-{
+-    slotRotatePixCurrent();
+-
+-    if(!isMultiImage(path)) { //非多页图使用路径直接进行识别
+-        QString localPath = QUrl(path).toLocalFile();
+-        m_ocrInterface->openFile(localPath);
+-    } else { //多页图需要确定识别哪一页
+-        m_currentReader->jumpToImage(index);
+-        auto image = m_currentReader->read();
+-        auto tempFileName = QStandardPaths::writableLocation(QStandardPaths::AppConfigLocation) + QDir::separator() + "rec.png";
+-        image.save(tempFileName);
+-        m_ocrInterface->openFile(tempFileName);
+-    }
+-}
+-
+ QString FileControl::parseCommandlineGetPath(const QString &path)
+ {
+     Q_UNUSED(path)
+@@ -825,18 +810,6 @@ bool FileControl::isCheckOnly()
+     return true;
+ }
+ 
+-bool FileControl::isCanSupportOcr(const QString &path)
+-{
+-    bool bRet = false;
+-    QString localPath = QUrl(path).toLocalFile();
+-    QFileInfo info(localPath);
+-    imageViewerSpace::ImageType type = LibUnionImage_NameSpace::getImageType(localPath);
+-    if (imageViewerSpace::ImageTypeDynamic != type && info.isReadable()) {
+-        bRet = true;
+-    }
+-    return bRet;
+-}
+-
+ bool FileControl::isCanRename(const QString &path)
+ {
+     bool bRet = false;
+@@ -1042,9 +1015,6 @@ QString FileControl::createShortcutString()
+     shortcut2.insert("name", tr("Exit fullscreen"));
+     shortcut2.insert("value", "Esc");
+ 
+-    QJsonObject shortcut3;
+-    shortcut3.insert("name", tr("Extract text"));
+-    shortcut3.insert("value", "Alt + O");
+ 
+     QJsonObject shortcut4;
+     shortcut4.insert("name", tr("Slide show"));
+@@ -1109,7 +1079,6 @@ QString FileControl::createShortcutString()
+     QJsonArray shortcutArray1;
+     shortcutArray1.append(shortcut1);
+     shortcutArray1.append(shortcut2);
+-    shortcutArray1.append(shortcut3);
+     shortcutArray1.append(shortcut4);
+     shortcutArray1.append(shortcut5);
+     shortcutArray1.append(shortcut6);
+@@ -1146,25 +1115,9 @@ QString FileControl::createShortcutString()
+     shortcut_group2.insert("groupName", tr("Settings"));
+     shortcut_group2.insert("groupItems", shortcutArray2);
+ 
+-    QJsonObject shortcut21;
+-    shortcut21.insert("name", tr("Copy"));
+-    shortcut21.insert("value", "Ctrl + C");
+-
+-    QJsonObject shortcut22;
+-    shortcut22.insert("name", tr("Select all"));
+-    shortcut22.insert("value", "Ctrl + A");
+-
+-    QJsonArray shortcutArray3;
+-    shortcutArray3.append(shortcut21);
+-    shortcutArray3.append(shortcut22);
+-
+-    QJsonObject shortcut_group3;
+-    shortcut_group3.insert("groupName", tr("Live Text"));
+-    shortcut_group3.insert("groupItems", shortcutArray3);
+ 
+     QJsonArray shortcutArrayall;
+     shortcutArrayall.append(shortcut_group1);
+-    shortcutArrayall.append(shortcut_group3);
+     shortcutArrayall.append(shortcut_group2);
+ 
+     QJsonObject main_shortcut;
+diff --git a/src/src/filecontrol.h b/src/src/filecontrol.h
+index 2e893b4f..ee252c69 100644
+--- a/src/src/filecontrol.h
++++ b/src/src/filecontrol.h
+@@ -15,7 +15,6 @@
+ #include <QMap>
+ #include <QFileSystemWatcher>
+ 
+-class OcrInterface;
+ class QProcess;
+ 
+ class FileControl : public QObject
+@@ -64,9 +63,6 @@ public:
+     //是否是文件
+     Q_INVOKABLE bool isFile(const QString &path);
+ 
+-    //进行ocr识别
+-    Q_INVOKABLE void ocrImage(const QString &path, int index);
+-
+ //    Q_INVOKABLE double fitImage(int imgWidth, int windowWidth);
+ 
+     //解析命令行
+@@ -158,8 +154,6 @@ public:
+ 
+     Q_INVOKABLE bool isCheckOnly();
+ 
+-    Q_INVOKABLE bool isCanSupportOcr(const QString &path);
+-
+     Q_INVOKABLE bool isCanRename(const QString &path);
+ 
+     Q_INVOKABLE bool isCanReadable(const QString &path);
+@@ -201,7 +195,6 @@ private:
+     QString createShortcutString();
+ 
+ private :
+-    OcrInterface *m_ocrInterface;
+     QString m_currentPath;                      // 当前操作的旋转图片路径
+     QString m_shortcutString;                   // 快捷键字符串，将采用懒加载模式，需要通过createShortcutString()函数使用
+     QProcess *m_shortcutViewProcess;            // 快捷键面板进程

@@ -1,24 +1,39 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-image-viewer
-pkgver=5.9.20
-pkgrel=4
+pkgver=6.0.0
+pkgrel=1
 pkgdesc='An image viewing tool with fashion interface and smooth performance'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-image-viewer"
 license=('GPL-3.0-or-later')
-depends=('deepin-qt5integration' 'qt5-base' 'dtkcore' 'dtkgui' 'dtkwidget' 'deepin-image-editor'
-         'glibc' 'libgcc' 'libstdc++' 'libraw' 'dtkdeclarative' 'hicolor-icon-theme')
+depends=('deepin-qt5integration' 'qt5-base' 'qt5-declarative' 'qt5-graphicaleffects'
+         'qt5-imageformats' 'qt5-quickcontrols2' 'qt5-svg' 'dtkcore' 'dtkgui' 'dtkwidget'
+         'dtkdeclarative' 'glibc' 'libgcc' 'libstdc++'
+         'libgl' 'libraw' 'hicolor-icon-theme')
 makedepends=('git' 'cmake' 'ninja' 'qt5-tools')
 optdepends=('deepin-manual: for help manual'
             'deepin-shortcut-viewer: for shortcut display')
 groups=('deepin')
-source=("git+https://github.com/linuxdeepin/deepin-image-viewer.git#tag=$pkgver")
-sha512sums=('fba0c3a98a18903fd45b0b2aeded8fef97a4c0f6039fda7a0aa2fa9a7e37738ed3bd9b229dc0cf062826fd8f2f49a61dae17464d3fa4e51a49611ccc89712ff4')
+source=("git+https://github.com/linuxdeepin/deepin-image-viewer.git#tag=$pkgver"
+        "$pkgname-6.0.0-drop-freeimage.patch"
+        "$pkgname-6.0.0-disable-ocr-plugin-manager.patch")
+sha512sums=('c48a34ea788080b0e5597480741c536d25bca3d572c7fd05c3bf472960dab41e1236d6d4d31073493dd6ddd9cc7fb6b96362a7143d34d4f9b5748406f7e05eb6'
+            '24325f93f30b895bb29a118f6e1eaec785fe365a6adaeb4918588ef32357465e6edcfd54c350f33e62e49ce7eff9aca8d446d8baa9274d5fa7d92621095ae781'
+            '154b3f62f2922d3c6f0c713b87d4665e46e8faf2063a5da3b78b4ee601970e698060a39c8824c042286dacdc32dce7626e03fe4552a110b02ec8853e14ca405c')
 
 prepare() {
   cd deepin-image-viewer
-  sed -i -e 's|qt5/plugins|qt/plugins|' -e 's|${Qt5Core_DIR}|/usr/lib/cmake/Qt5Core|' qimage-plugins/libraw/CMakeLists.txt
+  # Fix build with libraw >= 0.21:
+  # https://github.com/linuxdeepin/deepin-image-viewer/commit/88b0f2c6a6ff4ddf73b05bc6887f963568f6ea8d
+  git cherry-pick -n 88b0f2c6a6ff4ddf73b05bc6887f963568f6ea8d
+  # Backport upstream's FreeImage removal:
+  # https://github.com/linuxdeepin/deepin-image-viewer/commit/a5db064de70ecefe5a0b307822bd4bf702bc26b6
+  git apply ../$pkgname-6.0.0-drop-freeimage.patch
+  # deepin-ocr-plugin-manager is not packaged, so disable OCR integration and UI.
+  git apply ../$pkgname-6.0.0-disable-ocr-plugin-manager.patch
+  # Install the raw plugin to Arch's Qt 5 plugin path instead of /usr/plugins.
+  sed -i 's|${CMAKE_INSTALL_PREFIX}/plugins|${CMAKE_INSTALL_LIBDIR}/qt/plugins|' qimage-plugins/libraw/CMakeLists.txt
 }
 
 build() {
