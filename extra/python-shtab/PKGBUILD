@@ -2,7 +2,7 @@
 # Contributor: SZanko, szanko at protonmail dot com
 
 pkgname=python-shtab
-pkgver=1.8.1
+pkgver=1.9.2
 pkgrel=1
 pkgdesc='Automagic shell tab completion for Python CLI applications'
 arch=(any)
@@ -20,20 +20,9 @@ checkdepends=(
   python-pytest
   python-pytest-timeout
 )
-source=(
-  "$pkgname::git+$url#tag=v$pkgver"
-  remove-cov.patch
-)
-sha512sums=('fdaaefc105e60a0c4d9f6dc1236fb4d5765f6c5b60595a4d0484e73383028f8e7d922c230efbc063c45900f8690a489b7f5a87317f45cacf5f8d2fe171815e76'
-            '3882aa428baf71962a07a78b7f4093bd72f132ac925c9df1b762a2c9039f897a9351f0ee63e0d7c3a5dbb483eeea3061f4eae40c81f61968d03cf1717e9cbd95')
-b2sums=('c0d31b2aff2035afbb404dab619004fc526058ff93353c8495c64f1b8dfd44fdf8da55601af5b67adf78167b6a48938283cbb19190b7bf6d892b805755bc9dcf'
-        '34be5c86be092fbdf124f011f8179b637c815af89b21d0ea5bab72fbddffe907dc30f91435c5f1d889dea4ea13c3554e7d63bcd73e36eab6cf205f6815e214c0')
-
-prepare() {
-  cd "$pkgname"
-
-  patch -p1 -i "$srcdir/remove-cov.patch"
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('8e2ae441bb7503279c93eeeb77a509e6aed260cf82828ed6c8429285b0ddee608116de51d608e08085c1dc57f52e24eaeea52f84128eb4960d004cf468da60d0')
+b2sums=('e6c63a3ad256d6486f98d05a807877d5bf2ab51bc46061616097bc886b5d1acd262275e33f0b69920b26cc298759ca4ad208325deeb8c0373e18acd085ce2d0a')
 
 build() {
   cd "$pkgname"
@@ -54,7 +43,7 @@ build() {
 check() {
   cd "$pkgname"
 
-  pytest -v
+  pytest -v --override-ini="addopts="
 }
 
 package() {
