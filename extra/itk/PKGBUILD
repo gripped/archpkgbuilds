@@ -3,7 +3,7 @@
 
 pkgbase=itk
 pkgname=(itk python-itk)
-pkgver=5.4.6
+pkgver=5.4.7
 pkgrel=1
 pkgdesc="An open-source toolkit for multidimensional image analysis"
 arch=(x86_64)
@@ -36,7 +36,7 @@ makedepends=(
 source=(
   ${pkgbase^^}-$pkgver.tar.gz::https://github.com/InsightSoftwareConsortium/ITK/archive/refs/tags/v$pkgver.tar.gz
 )
-b2sums=('883167dc906e33e2d77a35cee7d4f63ba1ddb3386efc310bc299e3bfb1f67adc7f0f42b316711071b0c63e1d8fd323ec76b3ed3c4ea9f9c53f0b15b8641fbcef')
+b2sums=('4316b3a594ee1502cb64d74b3f260af5040891c8cc4ef61ad1bc4aedfd5f59f5e1e5c24ae56218b90b1b2b671b8ad245d0b8df3b2c4b8054a506a288638dc1b3')
 
 _pick() {
   local p="$1" f d; shift
