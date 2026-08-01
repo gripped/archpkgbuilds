@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.19.2
+pkgver=0.19.3
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,8 +29,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('4124e26bc96d3571f11193884deeeb7ebdd0ec3bbe4c8391e4464b57e85d1aa3')
-b2sums=('45286c4515d985a2b81cea2dc64dc3c316b78fe58ea9ea775cf54f6733a5a88423bbd9ab7def6534ef603fa01e0590947f333d634764f90c7c25771b89f0ff60')
+sha256sums=('284c1f21ec9ef7b3bc9c17665588f162e8680a10bd00ea7a31823194dfde3110')
+b2sums=('42da216311e6fbe522f4e0c4d1509574af4a4490936ebd0696c6c6515e238f6f52dd8c7b9e85d8a3314bad78589049e42fbead7223591733702292a8c96f776a')
 
 prepare() {
   cd $pkgname
@@ -47,6 +47,8 @@ build() {
   npm run bundle
   local bundled=$(jq '.dependencies + .optionalDependencies | keys' package.json)
   npm pkg set --json bundledDependencies="$bundled"
+  # npm refuses to pack bundled modules while overrides target bundled deps.
+  npm pkg delete overrides
   npm pack --ignore-scripts
 }
 
