@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=5.0.0
+pkgver=5.0.1
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -61,7 +61,7 @@ optdepends=(
   'python-trimesh: for decoding meshes'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('1dab53d140996dc344d12b4ddffdeebd3b70fd14e6068ccef00f5f237e0090cfe58a3069c1120e747899f815847cc607e1e47243c03e1d6fa6b3cea9386d8a39')
+b2sums=('2cab1279486876120f0cd03a17c471d8c7d0d752add5084d3f932b5a9e4aa9d42320419867b6b9f0e567df9237569aa07fc226ec006293cf56864ec70bb1d06c')
 
 prepare() {
   cd $_name-$pkgver
