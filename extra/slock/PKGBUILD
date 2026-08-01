@@ -3,7 +3,7 @@
 # Contributor: Sebastian A. Liem <sebastian at liem dot se>
 
 pkgname=slock
-pkgver=1.6
+pkgver=1.7
 pkgrel=1
 pkgdesc="A simple screen locker for X"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('MIT')
 makedepends=('git')
 depends=('libxext' 'libxrandr')
 source=("git+https://git.suckless.org/slock#tag=${pkgver}")
-sha256sums=('a389473b5166d3cb3ecc04fdc4e954b9b0adcdd979af9a2ecbfb6f062c674ce6')
+sha256sums=('8f65a5d2ef546e2823349ae3ed6a632ad876b060c6ba2c27eb0a6ff0034429fd')
 
 prepare() {
   cd $pkgname
