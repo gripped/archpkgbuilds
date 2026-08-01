@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-testrunner
-pkgver=8.2
+pkgver=8.3
 pkgrel=1
 pkgdesc="Zope testrunner script"
 arch=('any')
@@ -10,7 +10,6 @@ url="https://github.com/zopefoundation/zope.testrunner"
 license=('ZPL-2.1')
 depends=(
   'python'
-  'python-setuptools'
   'python-zope-exceptions'
   'python-zope-interface'
 )
@@ -18,13 +17,14 @@ makedepends=(
   'git'
   'python-build'
   'python-installer'
+  'python-setuptools'
   'python-wheel'
 )
 # NOTE: Causes circular dependency as python-zope-testing depends on this
 # package.
 checkdepends=('python-zope-testing')
 source=("$pkgname::git+$url.git#tag=$pkgver")
-b2sums=('07894afb1b751a43629ae8f2ab124d79acd592c383ee1aaba4f3f547b5daced02cb23b7898622b0d08d0374e3f2983652f364472393c261f714522eae7970359')
+b2sums=('1e87cb410b3bfe2d5ec871916e3203adfbc7cb3148d77c09601971d686fee5e12d3319fecb3ca7640ff7f0a9ef166cad5c84836b0226904d0e8acae89add22d5')
 
 prepare() {
   cd $pkgname
