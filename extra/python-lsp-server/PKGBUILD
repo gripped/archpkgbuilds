@@ -3,8 +3,8 @@
 # Contributor: Platon Pronko <platon7pronko@gmail.com>
 
 pkgname=python-lsp-server
-pkgver=1.14.0
-pkgrel=2
+pkgver=1.15.0
+pkgrel=1
 pkgdesc="Fork of the python-language-server project, maintained by the Spyder IDE team and the community"
 arch=(any)
 url="https://github.com/python-lsp/python-lsp-server"
@@ -57,7 +57,7 @@ checkdepends=(
     python-appdirs
 )
 source=(https://github.com/python-lsp/python-lsp-server/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('3a741ba70e6bddc6f8052d0c76343e756874e284cdcdcc3ff0c48fb6302c5e4b2ef47fa0b1a6bd4f85d1972cd3740dc87c3af711419ea0fb50239d53565d829c')
+b2sums=('262a90a8618125a746b904aa97491f0469324343257135bbadc4a4fe6d07fd34cce4cacbf6c4920dbb419223b20de15dbcaeea79ea78c1dd5c3e3b95eb2a8c1b')
 
 prepare() {
   cd $pkgname-$pkgver
