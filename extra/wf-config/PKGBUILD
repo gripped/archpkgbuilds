@@ -2,8 +2,8 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=wf-config
-pkgver=0.10.0
-pkgrel=2
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='Library for managing configuration files, written for Wayfire'
 arch=(x86_64)
 url='https://github.com/WayfireWM/wf-config'
@@ -22,7 +22,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/WayfireWM/wf-config.git#tag=v$pkgver")
-b2sums=(b3003af078672b2e0f45e06fd202192e3ddbceb20bd3bcade22de29ed99531bf71782eef4d5f494d6fbcdfe65a3b3f696d019da6493421d9e4465d3d1b5cb1c5)
+b2sums=(d74cf44a8a33bd8225f2c6342e6536a4996aa55d3d2d6935f8d133b51b420294c6e8f7ab583dbc8f7c9536afb159ad885a543aba2ab8f413325edf771e5aae58)
 
 build() {
   arch-meson $pkgname build
