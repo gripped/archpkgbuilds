@@ -1,20 +1,25 @@
 pkgbase = deepin-image-editor
 	pkgdesc = Public library for deepin-image-viewer and deepin-album
-	pkgver = 1.0.47
-	pkgrel = 2
+	pkgver = 6.5.0
+	pkgrel = 1
 	url = https://github.com/linuxdeepin/image-editor
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = git
 	makedepends = cmake
-	makedepends = expac
 	makedepends = ninja
 	makedepends = qt5-tools
+	makedepends = qt6-tools
 	depends = dtkcore
 	depends = dtkgui
 	depends = dtkwidget
+	depends = dtk6core
+	depends = dtk6gui
+	depends = dtk6widget
 	depends = qt5-base
 	depends = qt5-svg
+	depends = qt6-base
+	depends = qt6-svg
 	depends = libtiff
 	depends = ffmpegthumbnailer
 	depends = libmediainfo
@@ -22,9 +27,9 @@ pkgbase = deepin-image-editor
 	depends = libgcc
 	depends = libstdc++
 	depends = deepin-util-dfm
-	source = git+https://github.com/linuxdeepin/image-editor.git#tag=1.0.47
+	source = git+https://github.com/linuxdeepin/image-editor.git#tag=6.5.0
 	source = remove-broken-flags.patch
-	sha512sums = a03a1b7a16f2b56a146cba9ab91e9498a91dfd9a36de83b1ffbbaa7910aec7aa11be04ed5f19e0f3fe70122a7208aa2b70151b088423872040747227b4ddab3c
-	sha512sums = bc72e7732ae045a10129336a770d04827c487fb57938c4711e57aeeccde369fca207913477a695cddffc7d0fb6d77add1f75b9b5ca784d0285b8f4f56c2376ad
+	sha512sums = 3b3631dec438cfbecc9fa9c71500c14e5baa9e3fa4b918885cd66daafd75860829339d15176dcdc83f89f1ff50bfa2eda60bdf434833be81eb19ecfeef42f45c
+	sha512sums = a1d6edcc2878a533c00f8a2d99ed291c336e3e0504a529f9615125deb25b0600caea055e71997611e726c0f28f055b2199e3bfee3ea8d6aaa62175fa50337dd0
 
 pkgname = deepin-image-editor
