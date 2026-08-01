@@ -6,7 +6,7 @@ pkgname=(
   python-graph-tool
   python-graph-tool-opt
 )
-pkgver=3.1
+pkgver=3.5
 pkgrel=1
 pkgdesc='A Python module for manipulation and statistical analysis of graphs'
 arch=(x86_64)
@@ -39,7 +39,7 @@ optdepends=(
   'python-matplotlib: graph drawing'
 )
 source=("https://downloads.skewed.de/graph-tool/graph-tool-$pkgver.tar.bz2")
-b2sums=('4db7b6654778c09ef88d2ffa2e45a502025871e829c54ff94365d7eac76e1dd2ecfdd2a2b97a148134682ad5c9d84f53cd52ffeff4316c71b8e90d15d6938cdb')
+b2sums=('5d2d42b4c1089df846fa1ab9b064326c0fc56eae3aa532cdfa7ccb002ad7173ca5c80a914f5de9042231e0dcd9d3ed2f7167de9b094eea6a60bfd1c3faf2d0fe')
 
 # -flto needs to be set via MOD_CXXFLAGS below, not globally, since it must be
 # overridden in specific compilation units to prevent performance degradation
