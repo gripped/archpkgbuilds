@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=nemo-qml-plugin-notifications
-pkgver=1.2.21
+pkgver=1.2.22
 pkgrel=1
 pkgdesc="Notifications plugin for Nemo Mobile"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('BSD-3-Clause')
 depends=('qt5-declarative')
 makedepends=('git')
 source=("git+https://github.com/sailfishos/nemo-qml-plugin-notifications.git#tag=$pkgver")
-sha512sums=('3f352d8aa4f91ef87da579379513eddbf271ecf61f3df728b793b6fc4cd12c02a14675879f1c4d48f5f9c0cddff64e2624e4a9dc6f8a4fecf34f450eeaa3963e')
+sha512sums=('9d88f4bdd1dd637df11e7771e623d70bec071543a9121dc254a932586fe6ce53a043e2fb7593f1ca6959e77c53e2ca33123ab200a73a6496f505300268c8f7be')
 
 prepare() {
   cd nemo-qml-plugin-notifications
