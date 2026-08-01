@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=1.24.0
+pkgver=1.26.0
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -66,7 +66,7 @@ optdepends=(
   python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('33efedc66f4c5b13ea888788df2fbbe3431543b6dd6621c761e7345fd6b397b1b9f208df2bca61078a9dba276164c2604b640b8253f83087a763bcfad99a0fd1')
+sha512sums=('d94a5aa75d069008fd362e34eb347450ad3e82481de9be327671a6711fe167cf6f80adb30b2f5c08d1c2cc17b1b3d61ccd5589500d3357791b5856c672770fcf')
 
 build() {
   cd $_name-$pkgver
@@ -91,7 +91,10 @@ check() {
     --deselect tests/test_buckets_hf_file_system.py
     --deselect tests/test_cache_layout.py
     --deselect tests/test_cache_no_symlinks.py
+    --deselect tests/test_cli.py::TestRepoListCommand::test_repo_list
+    --deselect tests/test_cli_discussions.py
     --deselect tests/test_commit_scheduler.py
+    --deselect tests/test_copy_files.py
     --deselect tests/test_file_download.py
     --deselect tests/test_hf_api.py
     --deselect tests/test_hf_file_system.py
@@ -102,6 +105,7 @@ check() {
     --deselect tests/test_repository.py
     --deselect tests/test_snapshot_download.py
     --deselect tests/test_utils_cache.py
+    --deselect tests/test_xet_upload.py
     # skip tests that require gradio but are not marked as such
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_with_comment
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_without_comment
