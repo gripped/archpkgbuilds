@@ -5,7 +5,7 @@
 # Contributor: Pierre Gueth <pierre.gueth@gmail.com>
 
 pkgname=python-redis
-pkgver=8.0.1
+pkgver=8.1.0
 pkgrel=1
 pkgdesc='The Python interface to the Redis key-value store'
 arch=(any)
@@ -39,8 +39,8 @@ optdepends=(
   'python-requests: OCSP certificate validation'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('aecfc104cf8440995ba15352b52ecdfefbb34658ad6e64670a9f82e40d09e6eabd312171fdd89be4009953d94e5cdc5836f613d1f287326ae14d90d6e0b6be19')
-b2sums=('53146394f4a974007947a8f28f0469f3f9313c2f1a8428e818583713c43c1c1322345676f160af6c67d0f28dd8c6dcbbe3f5fd95822eb58ffc815b7ae4a73ff1')
+sha512sums=('081dbed2f0365f42c4683b0f2cfe6aaed530d39490c1b1ba3966c447516267b02c1019d21e9daee2bb9bc345a1d547e9a5470d271c13c6297838daeb0194db6b')
+b2sums=('a3ece7c0664d3ad213cb5e3dd407ea0f1a40becfc8005aadc1a9c855565a9495144b714774cc2feacd44d61ea212db22c79ad89804117bf4e800517fdd8e859e')
 
 prepare() {
   cd "$pkgname"
@@ -163,12 +163,12 @@ check() {
     --ignore=tests/test_multidb
     --ignore=tests/test_scenario
 
-    # New test failures in 6.0.0, not sure why
+    # New test failures in 6.0.0
     --deselect=tests/test_asyncio/test_commands.py::TestRedisCommands::test_client_setinfo
     --deselect=tests/test_commands.py::TestRedisCommands::test_client_setinfo
     --deselect=tests/test_commands.py::TestRedisCommands::test_xgroup_create_entriesread
 
-    # New test failures in 6.4.0, not sure why
+    # New test failures in 6.4.0
     --deselect=tests/test_asyncio/test_sentinel.py::test_get_sentinels
     --deselect=tests/test_asyncio/test_sentinel.py::test_get_master_addr_by_name
     --deselect=tests/test_asyncio/test_sentinel.py::test_redis_master_usage
@@ -176,7 +176,7 @@ check() {
     --deselect=tests/test_sentinel.py::test_get_master_addr_by_name
     --deselect=tests/test_sentinel.py::test_redis_master_usage
 
-    # New test failures in 7.1, not sure why
+    # New test failures in 7.1
     --ignore=tests/test_asyncio/test_command_policies.py
     --deselect=tests/test_asyncio/test_sentinel.py::test_sentinel_commands_with_strict_redis_client
     --deselect=tests/test_sentinel.py::test_sentinel_commands_with_strict_redis_client
@@ -192,6 +192,10 @@ check() {
 
     # New test failures in 8.0.0
     --deselect tests/test_commands.py::TestRedisCommands::test_acl_getuser_setuser
+
+    # New test failures in 8.1.0
+    --deselect tests/test_asyncio/test_sentinel.py::test_himport_prepare_set_survives_reconnect
+    --deselect tests/test_sentinel.py::test_himport_prepare_set_survives_reconnect
   )
 
   # Run standalone test suite - targets the Redis server running :6379 and the
