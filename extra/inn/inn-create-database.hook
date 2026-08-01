@@ -1,0 +1,9 @@
+[Trigger]
+Type = Package
+Operation = Install
+Target = inn
+
+[Action]
+Description = Creating relevant files and databases for INN...
+When = PostTransaction
+Exec = /usr/share/libalpm/scripts/inn-first-run

@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+#
+# Creates database files and data directories.
+# The functionality implemented here is similar to the one in the update target of https://github.com/InterNetNews/inn/blob/b741771176d0a08312d5709f9d693aad9e96fcab/site/Makefile and should only be run on first installation of the package.
+#
+# NOTE: At the time of calling this script, it is expected that
+# - sysusers.d integration created the news user and group
+# - tmpfiles.d integration created the directory /var/db/inn/
+
+set -euo pipefail
+
+# Create relevant files.
+touch /var/db/inn/{active{,.times},history,newsgroups}
+chmod 0664 /var/db/inn/{active{,.times},history,newsgroups}
+chown news:news /var/db/inn/{active{,.times},history,newsgroups}
+
+# Rebuild the dbz file.
+runuser --user news --group news -- makedbz -i -o

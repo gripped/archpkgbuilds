@@ -1,1 +1,24 @@
+# Adjust group ownership of sensitive config files.
+z /etc/inn/incoming.conf 0640 root news - -
+z /etc/inn/inn-radius.conf 0640 root news - -
+z /etc/inn/inn-secrets.conf 0640 root news - -
+z /etc/inn/innfeed.conf 0640 root news - -
+z /etc/inn/passwd.nntp 0640 root news - -
+
+# Set setuid for innbind, but do not make it available for all users.
+z /usr/bin/innbind 5755 root root - -
+
+# Create relevant runtime directories.
 d /run/inn 0755 news news -
+d /var/db/inn 0750 news news -
+d /var/log/inn/OLD 0755 news news -
+d /var/log/inn 0750 news news -
+d /var/spool/inn/archive 0755 news news -
+d /var/spool/inn/articles 0755 news news -
+d /var/spool/inn/incoming/bad 0755 news news -
+d /var/spool/inn/incoming 0755 news news -
+d /var/spool/inn/innfeed 0755 news news -
+d /var/spool/inn/outgoing 0755 news news -
+d /var/spool/inn/overview 0755 news news -
+d /var/spool/inn/tmp 0755 news news -
+d /var/spool/inn 0750 news news -
