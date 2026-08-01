@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=editorconfig-checker
-pkgver=3.8.0
+pkgver=3.9.0
 pkgrel=1
 pkgdesc='A tool to verify that your files are in harmony with your .editorconfig'
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=(go)
 provides=(ec)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('bc0001cf4d3fede6fc1010c25e7603b5c6f36dc6882e6de89aad1612ef4447c9')
+sha256sums=('64b813bc0c50b09a6a3f754cca6bcda9c1c8fe6b0d6391e25f43856f1ec72ca5')
 
 build() {
 	cd "$_archive"
