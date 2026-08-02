@@ -1,22 +1,19 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index ee2fd0e..5f2d465 100644
+index 2a3d968..fabe720 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -39,13 +39,15 @@ add_subdirectory(scripts)
- set(MERGE_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_file.py)
+@@ -43,11 +43,12 @@ set(MERGE_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_file.py)
  set(SOLUTION_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_solution.py)
- 
+ set(PROFILES_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/profiles.py)
+
 +find_package(PkgConfig REQUIRED)
-+
+ find_package(Python3 REQUIRED COMPONENTS Interpreter)
  find_package(VulkanHeaders REQUIRED CONFIG QUIET)
- 
  find_package(VulkanUtilityLibraries REQUIRED CONFIG QUIET)
- 
  find_package(valijson REQUIRED CONFIG)
- 
 -find_package(jsoncpp REQUIRED CONFIG)
 +pkg_check_modules(jsoncpp REQUIRED jsoncpp)
- 
+
  option(BUILD_TESTS "Build the tests")
  if (BUILD_TESTS)
 diff --git a/layer/CMakeLists.txt b/layer/CMakeLists.txt
