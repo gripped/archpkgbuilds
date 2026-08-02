@@ -3,7 +3,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-hstspreload
-pkgver=2026.7.1
+pkgver=2026.8.1
 pkgrel=1
 pkgdesc='Chromium HSTS Preload list as a Python package'
 arch=(any)
@@ -21,8 +21,8 @@ checkdepends=(
   python-urllib3
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('3b453dfe0f4c5a1b10f23c372d90f5a791762618fdb8cb72fcff314e34689d85c4aa941db2f62c1c73035d7cda3dd646211c62d694cefcd4761824b368c3bc3a')
-b2sums=('84fd98260932238c2f0e9544241f7ee958ae8c9aa2c1fb3f167a604d1db72662c491d81d0bf780c5c0a86ecda0abfda320cd24c1ee8d66ca3f4ac11e522f048f')
+sha512sums=('9b00893e947d6f478f30c555d182290a3fcd03e63ffe04b07373fc1b926cd70a6743d5fb58b17f7e08dd3a61b470ba22c07b1c28c1abdeefdd0d477d08dcb822')
+b2sums=('3d952b9ca79746cd94da6cf5026c041d06c3a398f8511e2e9a773a685ea1a11b0d5d2f58a983b75cd2631aac5b4d0135478d8a5ff37723e83712f260b4b95175')
 
 build() {
   cd "$pkgname"
