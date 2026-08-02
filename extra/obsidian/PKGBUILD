@@ -3,13 +3,13 @@
 # Contributor: Xuanwo <xuanwo@archlinuxcn.org>
 
 pkgname=obsidian
-pkgver=1.12.7
-pkgrel=3
+pkgver=1.13.4
+pkgrel=1
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 arch=('x86_64' 'aarch64')
 url="https://obsidian.md"
 license=('LicenseRef-Obsidian')
-depends=('fontconfig' 'bash' 'zlib' 'hicolor-icon-theme' 'electron39')
+depends=('fontconfig' 'bash' 'zlib' 'hicolor-icon-theme' 'electron43')
 install=obsidian.install
 options=(!strip)
 source=("obsidian.sh"
@@ -17,11 +17,11 @@ source=("obsidian.sh"
         "LICENSE-Obsidian")
 source_x86_64=("https://github.com/obsidianmd/obsidian-releases/releases/download/v${pkgver}/obsidian-${pkgver}.tar.gz")
 source_aarch64=("https://github.com/obsidianmd/obsidian-releases/releases/download/v${pkgver}/obsidian-${pkgver}-arm64.tar.gz")
-sha256sums=('56cc879afe1ccd207f8e5146afdce16226db17dba1784b1176ee20678faece33'
+sha256sums=('0df6f2b28187a84917eaf33e089abe980a407fd4b195d69eab1f2a70ad2234ca'
             'be67713e873a5935d910efc6f6005c104b35c7b3a002dfcb5643fd185d1b0056'
             'd9fdc14f9c2fb95bb38310281268fdad413c1b49fa93213df3184f9b0ca1175c')
-sha256sums_x86_64=('fcbe08b111d9c1fdb09b9c08952b06e1c829c62163eba2584c4b4ec859be079d')
-sha256sums_aarch64=('6bc8727bfdbb6d731d5af9a06f51d6de7061c68c908c8ae8b43a9ed379a20260')
+sha256sums_x86_64=('ebac249f949b6894819fbb4bc5657ec8892f006cefed955d34a6c1ffe262f16b')
+sha256sums_aarch64=('e2d44d26369bd035e1ad58f63113073fb791b52f4c26cce22ced63b492a7136e')
 
 package() {
     if [[ $CARCH == "aarch64" ]]; then
