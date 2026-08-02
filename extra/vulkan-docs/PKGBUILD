@@ -4,7 +4,7 @@
 
 pkgbase=vulkan-docs
 pkgname=(vulkan-html-docs)
-pkgver=1.4.350
+pkgver=1.4.357
 pkgrel=1
 epoch=1
 pkgdesc="Vulkan and Vulkan SC API Documentation"
@@ -33,7 +33,7 @@ makedepends=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/Vulkan-Docs#tag=v$pkgver")
-b2sums=('f472e00591f81a4218c498edf7bae62820b04cfe667606979b6a351add933c77bade5db607a9dce587310ae0582f162604d3686438094807189a481ddea8c01f')
+b2sums=('59ad3bac7108a7c1b70cae9411cfd617b21304d585b766249dfbbed8eecd8d2d91b2c3609e7fcd7d738406f6916b78120119c20b3819c2437db739a10594ae15')
 
 prepare() {
   local gems=(
@@ -59,7 +59,7 @@ build() {
 
   cd Vulkan-Docs
   PATH="$gemdir:$PATH" NODE_PATH="$HOME/node_modules" \
-    ./makeAllExts html chunked manhtmlpages styleguide registry
+    ./makeAllExts html manhtmlpages styleguide registry
 }
 
 package_vulkan-html-docs() {
