@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-guessit
-pkgver=4.3.0
+pkgver=4.4.0
 pkgrel=1
 pkgdesc='A Python module that extracts as much information as possible from a video filename'
 arch=(any)
@@ -25,8 +25,8 @@ checkdepends=(
   python-pyyaml
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('c9a334bc34e831459b6eefaacaa2378d201748aaf66d57563c7aa024c4701f42c6746084b0f22db177c62d5597d1d6733f3fcccc71a2e719c45c093a875565f5')
-b2sums=('8df82966eb4412fd77daecd41189716110d7d0edea36273c3a948c15c73f9e6b8a5a7b31019b40cd581a1d3b12022c4dc23c80f6373b1e1d8472dff94a0a3e08')
+sha512sums=('28ef37caa9ae83d71b409f161a9d19c2b2a971728f32aced26cf43bda453a53d60deff274125e0f984f40f99cb4335ab1dab841e8fb59676be78e4580bb7c57a')
+b2sums=('865af6356e9f2ac8916a4b82410149a1f2c687e70d0ec244ba97dea633b325bc892acdf0b003abdef3df62dd0b82ca41f87a1d702260259e3c099ba2b3b458b4')
 
 build() {
   cd "$pkgname"
