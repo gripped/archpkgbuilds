@@ -7,7 +7,7 @@
 # Contributor: ninja_pt
 
 pkgname=hwinfo
-pkgver=25.4
+pkgver=25.5
 pkgrel=1
 pkgdesc='Hardware detection tool from openSUSE'
 arch=(x86_64)
@@ -18,7 +18,7 @@ makedepends=(flex git sysfsutils)
 options=(!emptydirs)
 source=("git+$url#tag=$pkgver"
         custom_ioctl.patch)
-b2sums=('d5da77756a03e94696a42dc7cf686d75fddebb227508b25d1b9b389b512b3e6876745f71c52a346f3fd7c46733aac34a1dad0254efafff3c064c159ff70561db'
+b2sums=('260ab366da1eca6df7acae32e64511efea63c8d3f2f33856dfe68d969f7dcd0745fea3b60fe702a9d94bd79bf516781439070d72a3a8715a73b329f9f5073a41'
         '2b1bd3b53bbfc1e545e1a70ffd6cca08f704639a104928b2c02ccca3e82000f07a470fbdf129566ece6dfb2b98fdad0e82f18cc5c2016ebfeed043b4edb295b4')
 
 prepare() {
