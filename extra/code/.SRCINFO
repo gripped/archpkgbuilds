@@ -1,7 +1,7 @@
 pkgbase = code
 	pkgdesc = The Open Source build of Visual Studio Code (vscode) editor
-	pkgver = 1.130.0
-	pkgrel = 2
+	pkgver = 1.131.0
+	pkgrel = 1
 	url = https://github.com/microsoft/vscode
 	arch = x86_64
 	license = MIT
@@ -16,7 +16,6 @@ pkgbase = code
 	depends = libsecret
 	depends = libx11
 	depends = libxkbfile
-	depends = onnxruntime
 	depends = ripgrep
 	optdepends = bash-completion: Bash completions
 	optdepends = zsh-completions: ZSH completitons
@@ -24,13 +23,13 @@ pkgbase = code
 	provides = vscode
 	options = !strip
 	options = !debug
-	source = vscode::git+https://github.com/microsoft/vscode.git#tag=1.130.0
+	source = vscode::git+https://github.com/microsoft/vscode.git#tag=1.131.0
 	source = code.mjs
 	source = code.sh
 	source = product_json.diff
 	source = clipath.patch
 	source = 0009-openvsx-extension-signature.patch
-	sha512sums = 912a369205afbf98b11a3dea1993020dbaf78c2be7cfbc8bf8ce56340f25c7370b82267d332c29f206b37bc8d837924b60866e87ab0fe09b5f31eb36ef54757b
+	sha512sums = dbddc8c5352c05c4ac5cc0e40e894550efea9e1941882bc4728eb1e49acb4647a36a39d439390fd97a210be1df7f2b09b553dee147ea16e5328232894acb0403
 	sha512sums = 793f9ff6306e3992ac89802d98110cba288ea1181a901467333293b7d76182ef9792c2a39ff49d9347a18a174b1f42bc58862091dff583f4146c2704eea28033
 	sha512sums = 937299c6cb6be2f8d25f7dbc95cf77423875c5f8353b8bd6cd7cc8e5603cbf8405b14dbf8bd615db2e3b36ed680fc8e1909410815f7f8587b7267a699e00ab37
 	sha512sums = b1aa0d7c5b3e3e8ba1172822d75ea38e90efc431b270e0b4ca9e45bf9c0be0f60922c8618969ef071b5b6dbd9ac9f030294f1bf49bcc28c187b46d113dca63a7
