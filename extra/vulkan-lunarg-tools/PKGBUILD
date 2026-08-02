@@ -7,7 +7,7 @@ pkgname=(
   vulkan-extra-tools
   vulkan-extra-layers
 )
-pkgver=1.4.350.1
+pkgver=1.4.357.0
 pkgrel=1
 pkgdesc="LunarG's Vulkan tools and utilities"
 url="https://www.lunarg.com/"
@@ -34,7 +34,7 @@ groups=(vulkan-devel)
 source=(
   "LunarG-VulkanTools::git+https://github.com/LunarG/VulkanTools#tag=vulkan-sdk-$pkgver"
 )
-b2sums=('e1b8b3906ed25f998062a8ad769990cda8e3f5cf80e8b3ab7f78129cb228437abf7f3357d46fa03a31eb4580da931ebf2b8ce91b5bb79bb38313f104e992f6ef')
+b2sums=('08d00ece47bfe235d305c699fa10f5f4c7af9df34cd22006aeff59b75e74e6624415e75364120b432f124246225b10b0920425f252a7f7051b17e60f90783ff4')
 
 build() {
   local cmake_options=(
