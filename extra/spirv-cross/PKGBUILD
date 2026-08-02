@@ -1,11 +1,11 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=spirv-cross
-pkgver=1.4.350.1
+pkgver=1.4.357.0
 pkgrel=1
 # for enabling tests and making them to pass (fails if symlinking system glslang and spirv-tools binaries):
-# https://github.com/KhronosGroup/SPIRV-Cross/blob/vulkan-sdk-1.4.350.1/CMakeLists.txt#L508
-# https://github.com/KhronosGroup/SPIRV-Cross/blob/vulkan-sdk-1.4.350.1/checkout_glslang_spirv_tools.sh#L5-L7
+# https://github.com/KhronosGroup/SPIRV-Cross/blob/vulkan-sdk-1.4.357.0/CMakeLists.txt#L508
+# https://github.com/KhronosGroup/SPIRV-Cross/blob/vulkan-sdk-1.4.357.0/checkout_glslang_spirv_tools.sh#L5-L7
 _glslang_commit=a3a83d095e358aae4d63ece088dcca71828e2de0
 _spirv_tools_commit=7f586c9b065d76341ba9477f374daf1836a464e5
 _spirv_headers_commit=ad9184e76a66b1001c29db9b0a3e87f646c64de0
@@ -25,7 +25,7 @@ source=("git+https://github.com/KhronosGroup/SPIRV-Cross.git#tag=vulkan-sdk-${pk
         "git+https://github.com/KhronosGroup/glslang.git#commit=${_glslang_commit}"
         "git+https://github.com/KhronosGroup/SPIRV-Tools.git#commit=${_spirv_tools_commit}"
         "git+https://github.com/KhronosGroup/SPIRV-Headers.git#commit=${_spirv_headers_commit}")
-sha256sums=('c7b024fd9d99e49c6af671cf6c2d94e6a99c88394b818491c5071d7d75786c67'
+sha256sums=('529e6a9f91ea8b5de2d581b718c9b465b35a6e5a647f5a09d25572b32a8b2be7'
             '9f5498e6a86420087c9b3375a064dd17b1750851478671232c0d8562bb86230d'
             '572cf40196d2a0bb530a5096f5f2bf7df038064f97c058fb4fa95bd206c72b62'
             'e7e30faa53dab14980cc5c1b551f15cc4c98b946030159210e97e12925dbc7a5')
@@ -43,7 +43,7 @@ build() {
     local -a _common_opts=(
         '-GUnix Makefiles'
         '-DCMAKE_BUILD_TYPE:STRING=Release'
-        '-Wno-dev')
+        '-Wno-author')
     
     export CFLAGS+=' -ffat-lto-objects'
     export CXXFLAGS+=' -ffat-lto-objects'
@@ -74,7 +74,8 @@ build() {
 }
 
 check() {
-    ctest --test-dir build-SPIRV-Cross --output-on-failure
+    # hlsl tests fails to pass with error 'Could not find FXC', as it seems they require fxc.exe from the Windows SDK
+    ctest --test-dir build-SPIRV-Cross --output-on-failure --exclude-regex 'spirv-cross-test-hlsl(|-opt)'
 }
 
 package() {
