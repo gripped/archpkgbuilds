@@ -6,7 +6,7 @@
 # Contributor: Aurelien Foret <orelien@chez.com>
 
 pkgname=zsnes
-pkgver=2.2.2
+pkgver=2.2.3
 pkgrel=1
 pkgdesc='Super Nintendo emulator'
 url='https://github.com/xyproto/zsnes'
@@ -15,7 +15,7 @@ license=(GPL-2.0-only)
 depends=(hicolor-icon-theme lib32-libpng lib32-opengl-driver lib32-pipewire lib32-sdl3)
 makedepends=(git mesa nasm python)
 source=("git+$url#tag=$pkgver")
-b2sums=('7b23588cc2953c44e8c01c0bb4e62ad7189cd1268123fb9e3268c631b1999299354fccfdc6bd5d7249860781eeb218c98d11ea3728f4bde0aadecde7e95b61df')
+b2sums=('e1b7a13c281b3d0d22e67db02c06b0dab2af9640d8c5cfd11941b3432a8b43654d4883bc24d81285ed5030e6842d08541a9c19d28435e652377f463adb835bf7')
 
 build() {
   # ZSNES is an old 32-bit x86 binary with hand-written Assembly
