@@ -1,0 +1,10 @@
+--- a/usr/lib/node_modules/@mermaid-js/mermaid-cli/src/index.js
++++ b/usr/lib/node_modules/@mermaid-js/mermaid-cli/src/index.js
+@@ -353,6 +353,7 @@
+      * which is much faster than the regular headless mode.
+      */
+     headless: "shell",
++    executablePath: '/usr/bin/chromium',
+   });
+   if (puppeteerConfigFile) {
+     checkConfigFile(puppeteerConfigFile);
