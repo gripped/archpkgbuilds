@@ -1,24 +1,28 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=5.5.10
-pkgrel=1
+pkgver=5.5.11
+pkgrel=2
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-grand-search"
 license=('GPL-3.0-or-later')
 # deepin-application-manager: org.deepin.dde.Application1.Manager :/
-depends=(deepin-anything deepin-application-manager deepin-service-manager taglib ffmpeg icu deepin-pdfium ffmpegthumbnailer lucene++ poppler-qt5
-         deepin-qt-dbus-factory dtkgui dtkwidget)
-makedepends=(git cmake deepin-tray-loader ninja qt5-tools boost poppler-qt5)
+depends=(deepin-anything deepin-application-manager deepin-service-manager taglib ffmpeg icu deepin-pdfium ffmpegthumbnailer lucene++
+         deepin-qt-dbus-factory dtk6core dtk6gui dtk6widget qt6-base qt6-5compat)
+makedepends=(git cmake deepin-tray-loader ninja qt6-tools boost)
 groups=(deepin-extra)
 source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
          taglib-2.patch)
-sha512sums=('8327d68591e4f0df64da5bcc5a8df4e91622ad234247069c55133cf0b63eda44fbca6f8cf98572fea296d2abea8d777af8eb34c3de91440d8da967ad82ea2598'
+sha512sums=('63d545cb6cc16711e212d47efdbdb8618fbce6c6a7661877e4d10cd71752835ee27b7ffa83a708b0e2d4177a99766a7e3388f82cc49e1334cc10a2c275244354'
             '8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0')
 
 prepare() {
   cd dde-grand-search
+
+  # Backport upstream 5.5.12 Qt 6 support so deepin-pdfium's Qt 6 API is used:
+  # https://github.com/linuxdeepin/dde-grand-search/commit/24260b1c6afd405dd29ac581ece78ab656cd5f9b
+  git cherry-pick -n c6c745c1b79323f7baccfff8458c5bf6914fc7c0^..24260b1c6afd405dd29ac581ece78ab656cd5f9b
 
   # https://github.com/linuxdeepin/dde-grand-search/pull/65
   sed -i 's/-fPIE -pie//g' src/*/CMakeLists.txt
@@ -37,7 +41,7 @@ prepare() {
 
 build() {
   cd dde-grand-search
-  cmake -GNinja .
+  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr
   ninja
 }
 
