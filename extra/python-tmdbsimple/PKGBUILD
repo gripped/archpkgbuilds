@@ -5,7 +5,7 @@
 
 pkgname=python-tmdbsimple
 _name=${pkgname#python-}
-pkgver=2.9.7
+pkgver=2.9.8
 pkgrel=1
 pkgdesc="A wrapper for The Movie Database API v3"
 arch=('any')
@@ -22,7 +22,7 @@ makedepends=(
             'python-wheel'
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('7ffbddeb4da75e38bb367cd6af99e8824d594880ce47d995547bd95ab8ca49c1')
+sha256sums=('e2aea13f7126805622a5b1ad1dbd914b1202f3f39037d19e7afa816251a9fb08')
 
 build() {
   cd "$_name-$pkgver"
