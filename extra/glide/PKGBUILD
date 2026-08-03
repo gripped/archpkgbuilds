@@ -1,28 +1,67 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=glide
-pkgver=0.6.5
+pkgver=0.6.7
 pkgrel=1
 pkgdesc='Simple and minimalistic media player based on GStreamer and GTK'
-arch=('x86_64')
-url='https://github.com/philn/glide'
-license=('MIT')
-depends=('gst-plugins-bad' 'gst-plugins-base' 'gst-plugins-good' 'gtk4' 'libadwaita')
-makedepends=('meson' 'rust')
-optdepends=('gst-libav: Extra media codecs'
-            'gst-plugins-ugly: Extra media codecs')
-replaces=('glide-player')
-source=("https://github.com/philn/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz")
-sha256sums=('d987391efff91b07f4968f0dc929c9a885b3dc8034bd19f445abcef5a8d83117')
+arch=(x86_64)
+url='https://philn.github.io/glide/'
+license=(MIT)
+depends=(
+  glib2
+  glibc
+  graphene
+  gst-plugins-bad
+  gst-plugins-bad-libs
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libgcc
+)
+makedepends=(
+  git
+  meson
+  rust
+)
+optdepends=(
+  'gst-libav: Extra media codecs'
+  'gst-plugins-ugly: Extra media codecs'
+)
+source=("git+https://github.com/philn/glide.git?signed#tag=$pkgver")
+b2sums=(9439675ede1ae6a01304875f6d8ff061ec3751cfccfa1903fc9b6f9d7df707e68b1d3ac6419d77b23bb3020ef7e5e693694bb7fcdc97469a86b9930f57a14eb0)
+validpgpkeys=(814AB0089155A90597F4EB0ADB1624C7A2F2A94B) # Philippe Normand <phil@base-art.net>
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Present window on activation
+  # https://github.com/philn/glide/pull/141
+  git cherry-pick -n 756ac0bbe6b2a74ef440fa69d19a768b8487714e
+
+  # Set application for the window
+  # https://github.com/philn/glide/pull/142
+  git cherry-pick -n bd660a816b96c09920ddb10e270ad39ba66c06d8
+}
 
 build() {
-  cd $pkgname-$pkgver
-  arch-meson . build
-  meson compile -C build
+  arch-meson $pkgname build
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
 }
 
 package() {
-  cd $pkgname-$pkgver
   meson install -C build --destdir "$pkgdir"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" $pkgname/LICENSE
 }

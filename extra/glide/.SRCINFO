@@ -1,21 +1,30 @@
 pkgbase = glide
 	pkgdesc = Simple and minimalistic media player based on GStreamer and GTK
-	pkgver = 0.6.5
+	pkgver = 0.6.7
 	pkgrel = 1
-	url = https://github.com/philn/glide
+	url = https://philn.github.io/glide/
 	arch = x86_64
 	license = MIT
+	makedepends = git
 	makedepends = meson
 	makedepends = rust
+	depends = glib2
+	depends = glibc
+	depends = graphene
 	depends = gst-plugins-bad
+	depends = gst-plugins-bad-libs
 	depends = gst-plugins-base
+	depends = gst-plugins-base-libs
 	depends = gst-plugins-good
+	depends = gstreamer
 	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libadwaita
+	depends = libgcc
 	optdepends = gst-libav: Extra media codecs
 	optdepends = gst-plugins-ugly: Extra media codecs
-	replaces = glide-player
-	source = https://github.com/philn/glide/releases/download/0.6.5/glide-0.6.5.tar.xz
-	sha256sums = d987391efff91b07f4968f0dc929c9a885b3dc8034bd19f445abcef5a8d83117
+	source = git+https://github.com/philn/glide.git?signed#tag=0.6.7
+	validpgpkeys = 814AB0089155A90597F4EB0ADB1624C7A2F2A94B
+	b2sums = 9439675ede1ae6a01304875f6d8ff061ec3751cfccfa1903fc9b6f9d7df707e68b1d3ac6419d77b23bb3020ef7e5e693694bb7fcdc97469a86b9930f57a14eb0
 
 pkgname = glide
