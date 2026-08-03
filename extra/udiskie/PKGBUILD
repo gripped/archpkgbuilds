@@ -5,28 +5,28 @@
 # Contributor: Byron Clark <byron@theclarkfamily.name>
 
 pkgname=udiskie
-pkgver=2.6.2
+pkgver=2.7.0
 pkgrel=1
 pkgdesc="Removable disk automounter using udisks"
 arch=("any")
 url="https://pypi.python.org/pypi/udiskie"
 license=("MIT")
 depends=("udisks2" "python" "python-gobject" "python-yaml" "python-docopt" "gtk3" "libnotify" "python-keyutils")
-makedepends=("asciidoc" "python-setuptools")
+makedepends=("asciidoc" "python-build" "python-installer" "python-setuptools" "python-wheel")
 optdepends=("libappindicator-gtk3: --appindicator support")
 source=("$pkgname-$pkgver.tar.gz::https://codeload.github.com/coldfix/$pkgname/tar.gz/v$pkgver")
-sha256sums=('9d758efd4e3706ce824e693708cce1e0a840dae9aa5b130e3592d3588da8279c')
+sha256sums=('eb8c173e84050db01556aad68e75cfb45fee57d880b368a395459ee5e815ce8b')
 
 build(){
 	cd "$pkgname-$pkgver"
-	python setup.py build
+	python -m build --wheel --no-isolation
 	make -C doc
 }
 
 package() {
 	cd "$pkgname-$pkgver"
 
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	python -m installer --destdir="$pkgdir" dist/*.whl
 	install -m 0644 -D "doc/$pkgname.8" "$pkgdir/usr/share/man/man8/$pkgname.8"
 	install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 	install -dm755 "$pkgdir/usr/share/zsh/site-functions"
