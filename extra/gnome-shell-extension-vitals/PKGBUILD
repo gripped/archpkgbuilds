@@ -2,7 +2,7 @@
 
 pkgname=gnome-shell-extension-vitals
 _uuid=Vitals@CoreCoding.com
-pkgver=80.0.0
+pkgver=81.0.2
 pkgrel=1
 pkgdesc="GNOME Shell extension to display computer's temperature, voltage, fan speed, memory usage, processor load, system resources, network speed and storage stats"
 arch=(any)
@@ -12,7 +12,7 @@ depends=(gnome-shell)
 makedepends=(git)
 optdepends=('libgtop: Show storage stats')
 source=("git+https://github.com/corecoding/Vitals.git#tag=v$pkgver")
-b2sums=(a4bf2fcc9dd651908470513655437311a8c2a0f0ed9984d3b85ac9abd22882d5fa1a7ca3e5aceefd2a22a918b7ef843821bf824b72872d155d348a580a325f06)
+b2sums=(11b041d321a6fe81f74e001869e5f9f8ecf80cd92dd0fc786fb817dc78761aa2dc3366253ee8ec1aedb58fa865746fb612acf7165d08e116f74cd6561ccd72c0)
 
 build() {
   cd Vitals
