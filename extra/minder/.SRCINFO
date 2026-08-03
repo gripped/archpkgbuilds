@@ -1,17 +1,31 @@
 pkgbase = minder
-	pkgdesc = Mind-mapping application designed for Pantheon
+	pkgdesc = Mind-mapping application to create, develop and visualize your ideas
 	pkgver = 2.0.9
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/phase1geo/Minder
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = discount
+	makedepends = git
 	makedepends = meson
 	makedepends = vala
-	depends = discount
+	depends = cairo
+	depends = dconf
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = glibc
 	depends = granite7
+	depends = graphene
+	depends = gtk4
 	depends = gtksourceview5
+	depends = hicolor-icon-theme
+	depends = json-glib
 	depends = libarchive
-	source = https://github.com/phase1geo/Minder/archive/2.0.9/Minder-2.0.9.tar.gz
-	sha256sums = 20443dacbcf13d04640fcbd170286ff1294f308984008e8633872c2cf5ac7c5e
+	depends = libgee
+	depends = libwebp
+	depends = libxml2
+	depends = pango
+	source = git+https://github.com/phase1geo/Minder.git#tag=2.0.9
+	b2sums = 1d6c5ff2ea25e2c558dfacc85962acc616587537e6139d1e4a090731bcf8c7dc15f55e972317212c3a9b627bf3e369d148e9367af53c0753299503aa998cdfc7
 
 pkgname = minder
