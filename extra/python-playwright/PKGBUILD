@@ -4,7 +4,7 @@
 
 _name=playwright-python
 pkgname=python-playwright
-pkgver=1.61.0
+pkgver=1.62.0
 pkgrel=1
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
 arch=(any)
@@ -20,7 +20,8 @@ makedepends=(git
              python-build
              python-installer
              python-setuptools-scm
-             python-wheel)
+             python-wheel
+             zip)
 checkdepends=(python-autobahn
               python-flaky
               python-objgraph
@@ -30,12 +31,13 @@ checkdepends=(python-autobahn
               python-pytest-playwright
               python-requests)
 source=(git+https://github.com/microsoft/$_name#tag=v$pkgver
-        https://playwright.azureedge.net/builds/driver/playwright-$pkgver-linux.zip)
-noextract=(playwright-$pkgver-linux.zip)
-sha256sums=('a2e0f3ba295c643e81a9b8afcd4634b17b8c67e2a15a68f7dfffd586e8559c39'
-            '6c4b332ce60511eb9c601d65385a3f0cc10cb656bf8c6c71a6c8da1b650239e5')
+        https://registry.npmjs.org/playwright-core/-/playwright-core-$pkgver.tgz)
+sha256sums=('86f6f2506fe9df78b2f81eb8ff9d49c10b0708ee7d52224a050ef8f287816dbc'
+            '257b0e29fb807039d3d67fe7c9188a2b9696403c57821b10cb6c8d635e39789a')
 
 prepare() {
+  zip -qr playwright-$pkgver-linux.zip package
+
   cd $_name
   sed -e 's|==.*\"|"|' -i pyproject.toml # Drop dependency version constraints
   sed -e "s|driver_version = \".*\"|driver_version = \"$pkgver\"|" -i setup.py
@@ -60,6 +62,5 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 
 # Replace bundled node with system one
-  rm "$pkgdir"/usr/lib/python*/site-packages/playwright/driver/node
   ln -s /usr/bin/node -t "$pkgdir"/usr/lib/python*/site-packages/playwright/driver/
 }
