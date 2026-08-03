@@ -3,7 +3,7 @@
 # Contributor: Bruno Pagani <archange@archlinux.org>
 
 pkgname=lib32-spirv-llvm-translator
-pkgver=22.1.2
+pkgver=22.1.5
 pkgrel=1
 pkgdesc="LLVM <-> SPIR-V converter for compilers targeting SPIR-V (32-bit)"
 url="https://www.khronos.org/spirv/"
@@ -30,16 +30,20 @@ checkdepends=(
 source=(
   git+https://github.com/KhronosGroup/SPIRV-LLVM-Translator#tag=v$pkgver
 )
-b2sums=('f39f5248a7a66b4cc27f03bbfab9a94fbf93b55c7154f6151deef89e55622e7c25463ba1d9e71e2f3ca337811eba699c7a79c51efac8d3ece45ab28f69dadf6b')
+b2sums=('c572483f95701cf6748fb4b60b4a296e585e7af292c925f654a53ee3286e4ba8afd14900b93ffaa1ea47570cc0761054d0a1d795e4f9e2aca7d8fb5d3103a269')
 
 prepare() {
   cd SPIRV-LLVM-Translator
 
   # Fix tests
-  # https://github.com/KhronosGroup/SPIRV-LLVM-Translator/pull/3301
-  # https://github.com/KhronosGroup/SPIRV-LLVM-Translator/issues/3580
-  git cherry-pick -n fc5873ee760c333738c9e8e8d8c2eb906f0c40f5
   git cherry-pick -n 30258ee35493b5355a5c6df0655f91eff4217685
+  git cherry-pick -n 8189551551d2bdb2946a69a6dfb3fa199c7dedc8
+  git cherry-pick -n 13f1c79e6272d49b163dc983601d7fe9c0d3022f
+  git cherry-pick -n bf469923a25d484620bcadd9bf2abeceaeae1980
+  git cherry-pick -n 7de094bda017e2aa88d347a8d58ea5a1200e1bc1
+  git cherry-pick -n 28cfd130468a0727816e856305f3abfdaeb5cd97
+  git cherry-pick -n 38a315ed3cc0d9148f2b65198bf159e3f4fe155a
+  git cherry-pick -n ce41b712b88b468044d5e6f2e48a898eb8a2a660
 }
 
 build() {
