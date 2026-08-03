@@ -3,7 +3,7 @@
 
 pkgname=apk-tools
 pkgver=3.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Alpine Package Keeper - package manager for alpine"
 url="https://gitlab.alpinelinux.org/alpine/apk-tools"
 arch=('x86_64')
@@ -18,8 +18,6 @@ makedepends=(
   'lua53'
   'lua53-zlib'
   'scdoc'
-)
-checkdepends=(
   'cmocka'
 )
 source=("https://gitlab.alpinelinux.org/alpine/${pkgname}/-/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
