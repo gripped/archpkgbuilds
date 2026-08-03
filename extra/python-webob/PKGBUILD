@@ -4,27 +4,27 @@
 
 pkgbase='python-webob'
 pkgname=('python-webob' 'python-webob-docs')
-pkgver=1.8.10
-pkgrel=2
+pkgver=1.8.11
+pkgrel=1
 pkgdesc="WSGI request and response object"
 arch=('any')
 url="https://webob.org/"
 license=('MIT')
 depends=('python' 'python-legacy-cgi')
-makedepends=('python-setuptools' 'python-sphinx' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-setuptools' 'python-sphinx' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 optdepends=('python-webob-docs: documentation')
-source=("https://files.pythonhosted.org/packages/source/w/webob/webob-$pkgver.tar.gz")
-sha512sums=('a37333d95763b24cd6d435e4dd59a18a8cb3c10c23075d6c79114654c84f38b9e41b36d868e4e3200fba93774529f6f4506b29a04411acaa90a2d14cc668a7ed')
+source=("git+https://github.com/Pylons/webob.git#tag=$pkgver")
+sha512sums=('544ab2cff72ce467243eb86dfe09d5e97f1dca35e4853d860b05eb35fe027a59d122bc6c6391581a30fcd91aaa0709a8be49e2395df03106ca469f95ae00463e')
 
 prepare() {
-  cp -a webob-$pkgver webob-docs
+  cp -a webob webob-docs
   sed -i -e "s/pkg_resources.get_distribution('webob').version/'$pkgver'/" \
     -e '/import pkg_resources/d' webob-docs/docs/conf.py
 }
 
 build() {
-  cd "$srcdir"/webob-$pkgver
+  cd "$srcdir"/webob
   python -m build --wheel --no-isolation
 
   cd "$srcdir"/webob-docs
@@ -32,7 +32,7 @@ build() {
 }
 
 check() {
-  cd webob-$pkgver
+  cd webob
   # Deselected test fails under Python 3.14 due to DisconnectionError being
   # raised before IOError.
   PYTHONPATH="$PWD/src" pytest --ignore=docs \
@@ -40,7 +40,7 @@ check() {
 }
 
 package_python-webob() {
-  cd webob-$pkgver
+  cd webob
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -D -m644 "docs/license.txt" \
                    "$pkgdir"/usr/share/licenses/$pkgname/license.txt

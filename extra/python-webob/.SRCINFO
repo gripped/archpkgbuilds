@@ -1,11 +1,12 @@
 pkgbase = python-webob
 	pkgdesc = WSGI request and response object
-	pkgver = 1.8.10
-	pkgrel = 2
+	pkgver = 1.8.11
+	pkgrel = 1
 	url = https://webob.org/
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-setuptools
 	makedepends = python-sphinx
 	makedepends = python-build
@@ -14,8 +15,8 @@ pkgbase = python-webob
 	depends = python
 	depends = python-legacy-cgi
 	optdepends = python-webob-docs: documentation
-	source = https://files.pythonhosted.org/packages/source/w/webob/webob-1.8.10.tar.gz
-	sha512sums = a37333d95763b24cd6d435e4dd59a18a8cb3c10c23075d6c79114654c84f38b9e41b36d868e4e3200fba93774529f6f4506b29a04411acaa90a2d14cc668a7ed
+	source = git+https://github.com/Pylons/webob.git#tag=1.8.11
+	sha512sums = 544ab2cff72ce467243eb86dfe09d5e97f1dca35e4853d860b05eb35fe027a59d122bc6c6391581a30fcd91aaa0709a8be49e2395df03106ca469f95ae00463e
 
 pkgname = python-webob
 
