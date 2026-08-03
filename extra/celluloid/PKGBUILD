@@ -3,20 +3,40 @@
 
 pkgname=celluloid
 pkgver=0.30
-pkgrel=1
-pkgdesc='Simple GTK+ frontend for mpv'
-arch=('x86_64')
+pkgrel=2
+pkgdesc='Simple media player, a GTK frontend for mpv'
+arch=(x86_64)
 url='https://celluloid-player.github.io/'
-license=('GPL3')
-depends=('gtk4' 'mpv' 'libadwaita')
-makedepends=('appstream-glib' 'meson' 'glib2-devel')
-replaces=('gnome-mpv')
-source=("https://github.com/celluloid-player/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.xz")
-#validpgpkeys=('4BA23A4D2F798D926C7A0E0D0F9039A19BE2326C') # gnome-mpv
-sha256sums=('7fef96431842c24e5ae78a9c42bc6523818a6c45213f23ceb146d037d6ec8559')
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libepoxy
+  mpv
+)
+makedepends=(
+  git
+  glib2-devel
+  meson
+)
+source=("git+https://github.com/celluloid-player/celluloid.git#tag=v$pkgver")
+b2sums=(779e4a5d12e66d81ca74eb2ea56edf9b4f0952d3ff5279a4ca9d91619b3a2bc9fcfe1aa1d9415c714d3db609ef5a306d84a2b262c891220759059bbac1004d33)
+
+prepare() {
+  cd $pkgname
+
+  # Present window on activation
+  # https://github.com/celluloid-player/celluloid/pull/1132
+  git cherry-pick -n fabafcb426dda196d271d2fb56fcd5cbed6bae6b
+}
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson $pkgname build
   meson compile -C build
 }
 
