@@ -3,8 +3,8 @@
 # Contributor: Ninez <triplesquarednine@gmail.com>
 
 pkgname=tuna
-pkgver=0.20
-pkgrel=2
+pkgver=0.21
+pkgrel=1
 epoch=1
 pkgdesc="Thread and IRQ affinity setting GUI and cmd line tool"
 arch=(any)
@@ -31,17 +31,15 @@ optdepends=(
 )
 backup=(etc/$pkgname.conf)
 source=(https://git.kernel.org/pub/scm/utils/$pkgname/$pkgname.git/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('0ff5fe03d0c74f6de9f5a45393249dec0261bb387af9d1ed25fcc4cca0c1c05ff94718806f169ae12833aeab7249117f7713ec66fa561437c8df0305409f0739')
-b2sums=('b3f4b40ce412d8f07b806d0d7a9e21b83a473c6711bf3bedae24989c7715f86ae856deae25cf441870768dc13369fc41d474b81b82c63020c748e8623ba2ccb2')
+sha512sums=('0f9968a47d2596706f633d4a2f666a84665af3233475bfa2c7ac07ee82f9504e8f4973633deb4e5d4d0eca627661d722e565a0954c41d46cc1ab910bbd249b0c')
+b2sums=('f11d60058936f8f1cd4987fc1ba99d20c54a4f99c5478d695e3a555467317b45780591251e21787cfcdf6bd2dad974d27d0a9d6558913816ec383de53d110bae')
 
 build() {
   cd $pkgname-$pkgver
-  python -m build --wheel --no-isolation
+  PYTHONPATH="$PWD" python -m build --wheel --no-isolation
 }
 
 package() {
-  local _language _translation
-
   cd $pkgname-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
 
@@ -57,11 +55,5 @@ package() {
   install -vDm 644 help/kthreads/* -t "$pkgdir/usr/share/$pkgname/help/kthreads"
   install -vDm 644 org.$pkgname.policy -t "$pkgdir/usr/share/polkit-1/actions/"
   install -vDm 644 docs/$pkgname.8 -t "$pkgdir/usr/share/man/man8/"
-
-  # translations
-  while read _language; do
-    install -vdm 755 "$pkgdir/usr/share/locale/$_language/LC_MESSAGES"
-    msgfmt po/$_language.po -o "$pkgdir/usr/share/locale/$_language/LC_MESSAGES/$pkgname.mo"
-  done < po/LINGUAS
 }
 # vim:set ts=2 sw=2 et:
