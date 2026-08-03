@@ -3,7 +3,7 @@
 pkgname=deepin-util-dfm
 epoch=1
 pkgver=1.3.0
-pkgrel=1
+pkgrel=5
 pkgdesc='Utilities of deepin file manager'
 arch=('x86_64')
 license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
@@ -14,8 +14,32 @@ makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/util-dfm.git#tag=$pkgver")
 sha512sums=('cf1de085e1262d4709658c91596f2d8f1dc711d023ed72736b81fa81d8c3823343efe1d1d7f1f4180285c18b08ad76e933077b43280dac69728064d2d67f7b55')
 
+prepare() {
+  cd util-dfm
+
+  # Restore the DProtocolDevice API used by dde-file-manager:
+  # https://github.com/linuxdeepin/util-dfm/commit/4e23c2dcb27f3c835301d72655aa566df0fa2a07
+  git cherry-pick -n 4e23c2dcb27f3c835301d72655aa566df0fa2a07
+
+  # Add the Qt selection option needed to build Qt6 artifacts:
+  # https://github.com/linuxdeepin/util-dfm/commit/6000a1d11b3be32f40cf18df23f2cc718d7fd72c
+  git cherry-pick -n 6000a1d11b3be32f40cf18df23f2cc718d7fd72c
+
+  # Restore the DFM_IO_ERROR_HOST_IS_DOWN error code used by dde-file-manager:
+  # https://github.com/linuxdeepin/util-dfm/commit/448a8ee9e9e420dc2a9bfc533e819a533c610c0e
+  git cherry-pick -n 448a8ee9e9e420dc2a9bfc533e819a533c610c0e
+
+  # Restore the dfm6-* CMake/package names required by dde-file-manager:
+  # https://github.com/linuxdeepin/util-dfm/commit/1651f92e08e41d475ea003f8972985cbba3e8ff8
+  git cherry-pick -n 1651f92e08e41d475ea003f8972985cbba3e8ff8
+
+  # Restore the DEnumerator API used by dde-file-manager:
+  # https://github.com/linuxdeepin/util-dfm/commit/d2317bbef74e80ebb0616ed2b6d57c4d028d98f8
+  git cherry-pick -n d2317bbef74e80ebb0616ed2b6d57c4d028d98f8
+}
+
 build() {
-  cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+  cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DOPT_ENABLE_QT6=ON
   cmake --build build
 }
 
