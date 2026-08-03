@@ -3,7 +3,7 @@
 # Contributor: Felix Bühler <account at buehler dot rocks>
 
 pkgname=newsflash
-pkgver=5.2.4
+pkgver=5.2.5
 pkgrel=1
 pkgdesc='Feed reader application designed to complement an already existing web-based RSS reader account'
 arch=(x86_64)
@@ -41,7 +41,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.$pkgver")
-b2sums=(14830665674827cf93bf4e70641ed33c035f45818774bf860c03c806ff212a1d7e8273614b5d3cab61c6308e9b25db2c3d3fa77dce1c798467999f511cbf7d0b)
+b2sums=(a5210be3ca251e0d7c4e94a7288f851e11609daffcd506cbb0609c1bec680e4895d6a3173487a70a906ac74afe4e972aaad30f2d1f7ff651b9c4b0f973588dea)
 
 prepare() {
   cd news_flash_gtk
