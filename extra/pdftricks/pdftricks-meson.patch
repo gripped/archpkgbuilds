@@ -1,0 +1,29 @@
+From 6121091c0bf82cdf9aa1a12ca91b5fd605a65f69 Mon Sep 17 00:00:00 2001
+From: Maxime <max.mbeded@gmail.com>
+Date: Fri, 18 Aug 2023 13:36:12 +0200
+Subject: [PATCH] fix issue #63 #69
+
+---
+ data/meson.build | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/data/meson.build b/data/meson.build
+index fc8331e..6ddcddc 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -29,7 +29,6 @@ foreach i : icon_sizes
+ endforeach
+ 
+ i18n.merge_file (
+-    'desktop',
+     input: meson.project_name() + '.desktop.in',
+     output: meson.project_name() + '.desktop',
+     install: true,
+@@ -40,7 +39,6 @@ i18n.merge_file (
+ 
+ 
+ i18n.merge_file (
+-    'appdata',
+     input: meson.project_name() + '.appdata.xml.in',
+     output: meson.project_name() + '.appdata.xml',
+     install: true,
