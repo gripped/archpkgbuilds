@@ -4,18 +4,20 @@
 
 _hkgname=brick
 pkgname=haskell-brick
-pkgver=2.6
-pkgrel=6
+pkgver=2.12
+pkgrel=2
 pkgdesc="A declarative terminal user interface library"
 url="https://github.com/jtdaugherty/brick"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-bimap' 'haskell-config-ini' 'haskell-data-clist' 'haskell-microlens'
-         'haskell-microlens-mtl' 'haskell-microlens-th' 'haskell-text-zipper' 'haskell-unix-compat'
-         'haskell-vector' 'haskell-vty' 'haskell-vty-crossplatform' 'haskell-word-wrap')
+depends=('ghc-libs' 'haskell-bimap' 'haskell-config-ini' 'haskell-data-clist'
+         'haskell-hashable' 'haskell-microlens' 'haskell-microlens-mtl'
+         'haskell-microlens-th' 'haskell-text-zipper' 'haskell-unix-compat'
+         'haskell-unordered-containers' 'haskell-vector' 'haskell-vty' 'haskell-vty-crossplatform'
+         'haskell-word-wrap')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('caf585fc649d2853e80e592aa5a5d331626acf98c5bfd08b01cd0ffefb27647cb997304f05262b3b7cdb3652d9a04976c0d58ddd230df901cc590bb887414ae6')
+sha512sums=('717676fd9616347e1d0f3156bac413b4ddf435ba74c0a22f8a55fd55f7367ddac1a61f44f2b00003f85da952755aca7456efa866f933d5b793ab262955cf4aea')
 
 build() {
     cd $_hkgname-$pkgver
