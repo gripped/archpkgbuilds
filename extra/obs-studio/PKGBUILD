@@ -6,16 +6,16 @@
 
 pkgbase=obs-studio
 pkgname=('obs-studio' 'obs-studio-plugin-browser')
-pkgver=32.1.2
-pkgrel=7
+pkgver=32.2.1
+pkgrel=3
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
 url="https://obsproject.com"
 license=('GPL-2.0-only')
 depends=('ffmpeg' 'jansson' 'libxinerama' 'libxkbcommon-x11' 'mbedtls' 'rnnoise' 'pciutils'
          'qt6-svg' 'curl' 'jack' 'gtk-update-icon-cache' 'pipewire' 'libxcomposite'
-         'libdatachannel' 'uthash' 'simde' 'qrcodegencpp-cmake' 'python')
-makedepends=('cef' 'cmake' 'libfdk-aac' 'x264' 'swig' 'luajit' 'sndio' 'nlohmann-json'
+         'libdatachannel' 'uthash' 'simde' 'qrcodegencpp-cmake' 'python' 'luajit')
+makedepends=('cef' 'cmake' 'libfdk-aac' 'x264' 'swig' 'sndio' 'nlohmann-json'
              'ffnvcodec-headers' 'websocketpp' 'asio' 'extra-cmake-modules'
              'git')
 source=(
@@ -26,12 +26,12 @@ source=(
   "obs-browser-Update-to-C-20.patch"
   "obs-browser-enable-support-for-CEF-6613+.patch"
 )
-sha256sums=('5d515107c68006319c91d24a3a661f6fc4c1a619ebbac85a567fb6f5fec1e2c4'
+sha256sums=('5b11ccf5468654d19537db108443812db12767084eba295ee532d81c4834492a'
             'SKIP'
             'SKIP'
             'SKIP'
-            '474832a156d29224eabc77bc78ca33b0e6116cb00dc2786b5869744bae8f72c3'
-            '6ae679a3dfc3ab36ed03dcbc89de02f8075de26a0f01ea0176aa5aa8fbf499cd')
+            '3f40b66cdde76f4ecd62fa852663b556e07b2be98f4d3e3293019547e260d2fb'
+            '3b1d89c7a43e198985407dc9b8cc0e2625fb3879614ccce05c337791793e7f28')
 
 prepare() {
   cd $pkgname
@@ -68,6 +68,12 @@ build() {
     -B build
     -S $pkgname
     -DCMAKE_INSTALL_PREFIX="/usr"
+    # mbedtls 4 not supported yet
+    # https://github.com/obsproject/obs-studio/issues/13601
+    -DMbedTLS_INCLUDE_DIR="/usr/include/mbedtls3"
+    -DMbedtls_LIBRARY="/usr/lib/mbedtls3/libmbedtls.so"
+    -DMbedcrypto_LIBRARY="/usr/lib/mbedtls3/libmbedcrypto.so"
+    -DMbedx509_LIBRARY="/usr/lib/mbedtls3/libmbedx509.so"
     -DENABLE_BROWSER=ON
     -DCEF_API_VERSION=$_cef_api_version
     -DENABLE_VST=ON
@@ -91,7 +97,6 @@ package_obs-studio() {
               'libva-intel-driver: hardware encoding for older Intel GPUs'
               'intel-media-driver: hardware encoding for recent Intel GPUs'
               'libva-mesa-driver: hardware encoding'
-              'luajit: scripting support'
               'sndio: Sndio input client'
               'v4l2loopback-dkms: virtual camera support'
               'xdg-desktop-portal-impl: Wayland window/screen capture'

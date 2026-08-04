@@ -1,7 +1,7 @@
-From 6087ad441c5e853780e47c0f140eafdc7562629c Mon Sep 17 00:00:00 2001
+From 5f29355da479192368a0a7a9c468819837f84c50 Mon Sep 17 00:00:00 2001
 From: Matt Gajownik <matt@obsproject.com>
 Date: Thu, 1 Aug 2024 23:54:18 +1000
-Subject: [PATCH] Enable support for CEF 6613+ and Chrome Runtime
+Subject: [PATCH 1/2] Enable support for CEF 6613+ and Chrome Runtime
 
 Add a dummy Browser Client to introduce limitations into the Chrome UI
 windows that can be opened in uncontrolled edge cases. Chrome UI windows
@@ -25,6 +25,7 @@ Also blocks
  - CalculateNativeWinOcclusion, which lowers FPS for hidden pages
  - LiveCaption, which provides automatic captions
  - DocumentPictureInPictureAPI, which provides PiP widgets (YouTube)
+ - StorageNotificationService, when approaching low cache space
 
 A data migration function is included. It moves some directories into a
 new 'Default' profile subdirectory, and performs the necessary renaming
@@ -37,21 +38,21 @@ setup. cache_path *must* be a direct child of the root_cache_path.
 Invalid cache_path_ is silently treated as Incognito Mode and cookies
 are not stored.
 ---
- CMakeLists.txt                 |  2 +
- browser-app.cpp                | 58 +++++++++++++++++++++
- browser-app.hpp                |  7 +++
- browser-client.cpp             | 11 ++++
- browser-client.hpp             |  4 ++
- browser-dummy-client.cpp       | 71 +++++++++++++++++++++++++
- browser-dummy-client.hpp       | 47 +++++++++++++++++
- cmake/os-linux.cmake           |  3 +-
- cmake/os-macos.cmake           |  3 +-
- cmake/os-windows.cmake         |  4 +-
- obs-browser-plugin.cpp         | 95 ++++++++++++++++++++++++++++++++++
- panel/browser-panel-client.cpp | 18 ++++++-
- panel/browser-panel-client.hpp | 12 +++++
- panel/browser-panel.cpp        | 22 +++++++-
- 14 files changed, 350 insertions(+), 7 deletions(-)
+ CMakeLists.txt                 |   2 +
+ browser-app.cpp                |  70 +++++++++++++++++++
+ browser-app.hpp                |   7 ++
+ browser-client.cpp             |  11 +++
+ browser-client.hpp             |   4 ++
+ browser-dummy-client.cpp       |  71 +++++++++++++++++++
+ browser-dummy-client.hpp       |  47 +++++++++++++
+ cmake/os-linux.cmake           |   3 +-
+ cmake/os-macos.cmake           |   3 +-
+ cmake/os-windows.cmake         |   4 +-
+ obs-browser-plugin.cpp         | 120 +++++++++++++++++++++++++++++++++
+ panel/browser-panel-client.cpp |  17 ++++-
+ panel/browser-panel-client.hpp |  12 ++++
+ panel/browser-panel.cpp        |  35 +++++++++-
+ 14 files changed, 399 insertions(+), 7 deletions(-)
  create mode 100644 browser-dummy-client.cpp
  create mode 100644 browser-dummy-client.hpp
 
@@ -69,10 +70,10 @@ index 0853ac0c2..16abf4ca3 100644
            browser-scheme.hpp
            browser-version.h
 diff --git a/browser-app.cpp b/browser-app.cpp
-index 5d2c4dc76..2ebb2483a 100644
+index 5d2c4dc76..9c6d34b0c 100644
 --- a/browser-app.cpp
 +++ b/browser-app.cpp
-@@ -48,11 +48,53 @@ CefRefPtr<CefBrowserProcessHandler> BrowserApp::GetBrowserProcessHandler()
+@@ -48,11 +48,62 @@ CefRefPtr<CefBrowserProcessHandler> BrowserApp::GetBrowserProcessHandler()
  	return this;
  }
  
@@ -88,51 +89,62 @@ index 5d2c4dc76..2ebb2483a 100644
  
 +void BrowserApp::OnContextInitialized()
 +{
++	// Without a default client, CefBrowser is unmanaged, allowing full-blown Chromium windows outside of our control
++	// We don't actually want those, so define a dummy client which will automatically close any such windows
 +	dummy = new BrowserDummyClient();
 +
-+	CefRefPtr<CefRequestContext> rc = CefRequestContext::GetGlobalContext();
-+	CefString err;
-+	CefRefPtr<CefValue> off = CefValue::Create();
-+	off->SetBool(false);
-+	std::string opts[20] = {"autofill.credit_card_enabled",
-+				"autofill.enabled",
-+				"autofill.iban_enabled",
-+				"autofill.payment_card_benefits",
-+				"autofill.payment_cvc_storage",
-+				"autofill.profile_enabled",
-+				"autologin.enabled",
-+				"browser_labs_enabled",
-+				"credentials_enable_autosignin",
-+				"credentials_enable_service",
-+				"payments.can_make_payment_enabled",
-+				"printing.enabled",
-+				"search.suggest_enabled",
-+				"shopping_list_enabled",
-+				"side_panel.google_search_side_panel_enabled",
-+				"side_search.enabled",
-+				"signin.allowed",
-+				"signin.allowed_on_next_startup",
-+				"translate",
-+				"url_keyed_anonymized_data_collection.enabled"};
++	CefRefPtr<CefRequestContext> requestContext = CefRequestContext::GetGlobalContext();
++	CefString errorMessage;
++	CefRefPtr<CefValue> optionValue = CefValue::Create();
 +
-+	for (std::string opt : opts) {
-+		rc->SetPreference(opt, off.get(), err);
++	constexpr std::array<std::string_view, 20> kBrowserFeaturesToDisable{
++		"autofill.credit_card_enabled",
++		"autofill.enabled",
++		"autofill.iban_enabled",
++		"autofill.payment_card_benefits",
++		"autofill.payment_cvc_storage",
++		"autofill.profile_enabled",
++		"autologin.enabled",
++		"browser_labs_enabled",
++		"credentials_enable_autosignin",
++		"credentials_enable_service",
++		"payments.can_make_payment_enabled",
++		"printing.enabled",
++		"search.suggest_enabled",
++		"shopping_list_enabled",
++		"side_panel.google_search_side_panel_enabled",
++		"side_search.enabled",
++		"signin.allowed",
++		"signin.allowed_on_next_startup",
++		"translate",
++		"url_keyed_anonymized_data_collection.enabled"};
++
++	constexpr std::array<std::string_view, 2> kBrowserFeaturesToEnable{"extensions.block_external_extensions",
++									   "extensions.disabled"};
++
++	optionValue->SetBool(false);
++	for (std::string_view feature : kBrowserFeaturesToDisable) {
++		requestContext->SetPreference(feature.data(), optionValue.get(), errorMessage);
 +	}
-+	off->SetBool(true);
-+	rc->SetPreference("extensions.block_external_extensions", off.get(), err);
-+	rc->SetPreference("extensions.disabled", off.get(), err);
++
++	optionValue->SetBool(true);
++	for (std::string_view feature : kBrowserFeaturesToEnable) {
++		requestContext->SetPreference(feature.data(), optionValue.get(), errorMessage);
++	}
 +}
 +
  void BrowserApp::OnBeforeChildProcessLaunch(CefRefPtr<CefCommandLine> command_line)
  {
  #ifdef _WIN32
-@@ -82,16 +124,32 @@ void BrowserApp::OnBeforeCommandLineProcessing(const CefString &, CefRefPtr<CefC
+@@ -82,16 +133,35 @@ void BrowserApp::OnBeforeCommandLineProcessing(const CefString &, CefRefPtr<CefC
  		disableFeatures += ",EnableWindowsGamingInputDataFetcher";
  #endif
  		disableFeatures += ",WebBluetooth";
 +		disableFeatures += ",MediaRouter";
 +		disableFeatures += ",CalculateNativeWinOcclusion";
 +		disableFeatures += ",LiveCaption";
++		// https://github.com/chromiumembedded/cef/issues/3966
++		disableFeatures += ",StorageNotificationService";
  		command_line->AppendSwitchWithValue("disable-features", disableFeatures);
  	} else {
  		command_line->AppendSwitchWithValue("disable-features", "WebBluetooth,"
@@ -142,6 +154,7 @@ index 5d2c4dc76..2ebb2483a 100644
 +									"MediaRouter,"
 +									"CalculateNativeWinOcclusion,"
 +									"LiveCaption,"
++									"StorageNotificationService,"
  									"HardwareMediaKeyHandling");
  	}
  
@@ -160,7 +173,7 @@ index 5d2c4dc76..2ebb2483a 100644
  	command_line->AppendSwitch("use-mock-keychain");
  #elif !defined(_WIN32)
 diff --git a/browser-app.hpp b/browser-app.hpp
-index b25d9accd..17266f201 100644
+index b25d9accd..0694d0c8e 100644
 --- a/browser-app.hpp
 +++ b/browser-app.hpp
 @@ -22,6 +22,7 @@
@@ -186,26 +199,26 @@ index b25d9accd..17266f201 100644
  
 +	CefRefPtr<BrowserDummyClient> dummy = nullptr;
 +
-+	BrowserDummyClient *const GetDummy() { return dummy.get(); };
++	BrowserDummyClient *GetDummy() const { return dummy.get(); };
 +
  	IMPLEMENT_REFCOUNTING(BrowserApp);
  };
 diff --git a/browser-client.cpp b/browser-client.cpp
-index bf7baada9..0c8f16391 100644
+index bf7baada9..bfe7135d1 100644
 --- a/browser-client.cpp
 +++ b/browser-client.cpp
 @@ -626,6 +626,17 @@ void BrowserClient::OnLoadEnd(CefRefPtr<CefBrowser>, CefRefPtr<CefFrame> frame,
  	}
  }
  
-+void BrowserClient::OnLoadError(CefRefPtr<CefBrowser>, CefRefPtr<CefFrame> frame, CefLoadHandler::ErrorCode,
-+				const CefString &, const CefString &)
++void BrowserClient::OnLoadError(CefRefPtr<CefBrowser>, [[maybe_unused]] CefRefPtr<CefFrame> frame,
++				CefLoadHandler::ErrorCode, const CefString &, const CefString &)
 +{
 +#if CHROME_VERSION_BUILD > 6533
-+	// https://github.com/chromiumembedded/cef/issues/3852
++	// CEF doesn't currently provide a way to properly disable/override the default Chrome error page
++	// https://github.com/obsproject/obs-studio/issues/13499
++	// FIXME: https://github.com/chromiumembedded/cef/issues/3852
 +	frame->LoadURL("about:blank");
-+#else
-+	UNUSED_PARAMETER(frame);
 +#endif
 +}
 +
@@ -385,10 +398,10 @@ index 6d6dc51c8..00476ed13 100644
    target_compile_definitions(${target_name} PRIVATE ENABLE_BROWSER_SHARED_TEXTURE)
  
 diff --git a/cmake/os-windows.cmake b/cmake/os-windows.cmake
-index 1484ea7d7..a39bd12d1 100644
+index 43f9d8558..b0250738f 100644
 --- a/cmake/os-windows.cmake
 +++ b/cmake/os-windows.cmake
-@@ -10,8 +10,8 @@ add_executable(OBS::browser-helper ALIAS obs-browser-helper)
+@@ -13,8 +13,8 @@ add_executable(OBS::browser-helper ALIAS obs-browser-helper)
  target_sources(
    obs-browser-helper
    PRIVATE # cmake-format: sortable
@@ -397,17 +410,17 @@ index 1484ea7d7..a39bd12d1 100644
 +          browser-app.cpp browser-app.hpp browser-dummy-client.hpp browser-dummy-client.cpp
 +          cef-headers.hpp obs-browser-page.manifest obs-browser-page/obs-browser-page-main.cpp)
  
- target_include_directories(obs-browser-helper PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/deps"
-                                                       "${CMAKE_CURRENT_SOURCE_DIR}/obs-browser-page")
+ configure_file(cmake/windows/obs-module-helper.rc.in obs-browser-page.rc)
+ target_sources(obs-browser-helper PRIVATE obs-browser-page.rc)
 diff --git a/obs-browser-plugin.cpp b/obs-browser-plugin.cpp
-index 95a168c6b..be8488940 100644
+index 95a168c6b..65d655195 100644
 --- a/obs-browser-plugin.cpp
 +++ b/obs-browser-plugin.cpp
 @@ -293,6 +293,9 @@ static void BrowserInit(void)
  	CefString(&settings.log_file) = log_path_abs;
  	settings.windowless_rendering_enabled = true;
  	settings.no_sandbox = true;
-+#if CHROME_VERSION_BUILD > 6533 && CHROME_VERSION_BUILD < 7103
++#if CHROME_VERSION_BUILD > 6533 && CHROME_VERSION_BUILD <= 6613
 +	settings.chrome_runtime = true;
 +#endif
  
@@ -423,90 +436,115 @@ index 95a168c6b..be8488940 100644
  #if !defined(__APPLE__) || defined(ENABLE_BROWSER_LEGACY)
  	char *abs_path = os_get_abs_path_ptr(path.c_str());
  	CefString(&settings.browser_subprocess_path) = abs_path;
-@@ -714,8 +720,97 @@ static void check_hwaccel_support(void)
+@@ -714,8 +720,122 @@ static void check_hwaccel_support(void)
  #endif
  #endif
  
 +#if CHROME_VERSION_BUILD > 6533
 +static void MigrateProfileConfigDir(std::string oldDir, std::string newDir, bool makeDirs)
 +{
-+	BPtr<char> path = obs_module_config_path(oldDir.c_str());
-+	BPtr<char> path_abs = os_get_abs_path_ptr(path);
++	namespace fs = std::filesystem;
 +
-+	BPtr<char> new_path = obs_module_config_path(newDir.c_str());
-+	BPtr<char> new_path_abs = os_get_abs_path_ptr(new_path);
++	BPtr<char> configPath = obs_module_config_path(".");
++	fs::path rootPath{configPath.Get()};
 +
-+	if (makeDirs) {
-+		os_mkdirs(new_path.Get());
-+	}
++	fs::path oldPath = rootPath / fs::path(oldDir);
++	fs::path newPath = rootPath / fs::path(newDir);
 +
-+	const std::filesystem::path old_path = std::filesystem::u8path(path_abs.Get());
-+	if (!std::filesystem::exists(old_path)) {
++	if (!fs::exists(oldPath)) {
 +		return;
 +	}
 +
 +	try {
-+		const auto copyOptions = std::filesystem::copy_options::recursive;
-+		std::filesystem::copy(old_path, std::string(new_path_abs.Get()), copyOptions);
-+	} catch (const std::filesystem::filesystem_error &error) {
-+		blog(LOG_WARNING, "[obs-browser]: Error migrating '%s': %s", path_abs.Get(), error.what());
++		if (makeDirs && !fs::exists(newPath)) {
++			fs::create_directories(newPath);
++		}
++		const auto copyOptions = fs::copy_options::recursive;
++		fs::copy(oldPath, newPath, copyOptions);
++	} catch (const fs::filesystem_error &error) {
++		blog(LOG_WARNING, "[obs-browser]: Error migrating cookies for '%s': %s", oldPath.c_str(), error.what());
 +	}
 +}
 +
 +static void MigrateDefaultProfileSubdirs(std::string parent, bool makeDirs)
 +{
-+	std::string dirs[3] = {"Local Storage", "Session Storage", "Network"};
++	constexpr std::array<std::string_view, 3> kMigrationDirectories{
++		"Local Storage",
++		"Session Storage",
++		"Network",
++	};
++	constexpr std::string_view kDefaultDirectoryPrefix{"Default/"};
 +
-+	for (std::string oldDir : dirs) {
-+		std::string newDir("Default/" + oldDir);
-+		MigrateProfileConfigDir(parent + oldDir, parent + newDir, makeDirs);
++	for (std::string_view directory : kMigrationDirectories) {
++		std::string oldDirectory{parent};
++		oldDirectory.append(directory);
++		std::string newDirectory{parent};
++		newDirectory.append(kDefaultDirectoryPrefix);
++		newDirectory.append(directory);
++
++		MigrateProfileConfigDir(oldDirectory, newDirectory, makeDirs);
 +	}
 +}
 +
 +static void MigrateToChromeRuntime()
 +{
-+	BPtr<char> defaultProfile = obs_module_config_path("Default");
++	namespace fs = std::filesystem;
++	BPtr<char> defaultConfigPath = obs_module_config_path("Default");
++	fs::path defaultPath{defaultConfigPath.Get()};
 +	// User has already previously launched with Chrome Runtime
-+	if (os_file_exists(defaultProfile.Get())) {
++	if (fs::exists(defaultPath)) {
 +		blog(LOG_INFO, "[obs-browser]: Chrome Runtime Default profile detected. No migration necessary.");
 +		return;
 +	}
 +
-+	BPtr<char> localPrefs = obs_module_config_path("LocalPrefs.json");
++	BPtr<char> localPrefsConfigPath = obs_module_config_path("LocalPrefs.json");
++	fs::path localPrefs{localPrefsConfigPath.Get()};
 +	// User has never launched old OBS Browser before
-+	if (!os_file_exists(localPrefs.Get())) {
++	if (!fs::exists(localPrefs)) {
 +		blog(LOG_DEBUG, "[obs-browser]: Alloy Runtime preferences not found. No migration necessary.");
 +		return;
 +	}
 +
 +	blog(LOG_INFO, "[obs-browser]: Migrating files to Chrome Runtime..");
 +
-+	os_mkdir(defaultProfile.Get());
++	try {
++		fs::create_directories(defaultPath);
++	} catch (const fs::filesystem_error &error) {
++		blog(LOG_WARNING, "[obs-browser]: Error creating Default profile: %s", error.what());
++	}
 +
 +	MigrateDefaultProfileSubdirs("", false);
 +
-+	BPtr<char> newLocalPrefs = obs_module_config_path("Local State");
-+	os_copyfile(localPrefs.Get(), newLocalPrefs.Get());
++	BPtr<char> newLocalPrefsConfigPath = obs_module_config_path("Local State");
++	fs::path newLocalPrefs{newLocalPrefsConfigPath.Get()};
++	try {
++		fs::copy(localPrefs, newLocalPrefs);
++	} catch (const fs::filesystem_error &error) {
++		blog(LOG_WARNING, "[obs-browser]: Error migrating preferences: %s", error.what());
++	}
 +
-+	string prefix = "obs_profile_cookies";
++	constexpr std::string_view prefix = "obs_profile_cookies";
 +
-+	BPtr<char> serviceProfiles = obs_module_config_path(prefix.c_str());
-+	if (os_file_exists(serviceProfiles.Get())) {
-+		os_dir_t *dir = os_opendir(serviceProfiles.Get());
-+		struct os_dirent *ent;
++	BPtr<char> serviceProfilesPath = obs_module_config_path(prefix.data());
++	fs::path serviceProfiles{serviceProfilesPath.Get()};
++	if (fs::exists(serviceProfiles)) {
 +		// User has service integration cookies that also must be copied
-+		while ((ent = os_readdir(dir)) != NULL) {
-+			string name = ent->d_name;
-+			if (!ent->directory || name[0] == '.')
++		for (auto const &dir_entry : std::filesystem::directory_iterator{serviceProfiles}) {
++			if (!dir_entry.is_directory()) {
 +				continue;
-+			std::string oldDir(prefix + "/" + name);
-+			std::string newDir(prefix + "_" + name);
++			}
++			std::string name{dir_entry.path().filename().string()};
++			std::string oldDir{prefix};
++			oldDir.append("/");
++			oldDir.append(name);
++
++			std::string newDir{prefix};
++			newDir.append("_");
++			newDir.append(name);
 +			MigrateProfileConfigDir(oldDir, newDir, true);
-+			// Subdirectories do not need to be migrated because it is not the Default profile
 +
 +			blog(LOG_INFO, "[obs-browser]: Migrated cookies for %s.", name.c_str());
 +		}
-+		os_closedir(dir);
 +	}
 +
 +	blog(LOG_INFO, "[obs-browser]: Migration of browser cookies and session completed.");
@@ -522,7 +560,7 @@ index 95a168c6b..be8488940 100644
  	qRegisterMetaType<MessageTask>("MessageTask");
  #endif
 diff --git a/panel/browser-panel-client.cpp b/panel/browser-panel-client.cpp
-index 868f01b62..82df98ecf 100644
+index 91b4ee0b7..fba926b0c 100644
 --- a/panel/browser-panel-client.cpp
 +++ b/panel/browser-panel-client.cpp
 @@ -38,6 +38,13 @@ CefRefPtr<CefDisplayHandler> QCefBrowserClient::GetDisplayHandler()
@@ -539,14 +577,13 @@ index 868f01b62..82df98ecf 100644
  CefRefPtr<CefRequestHandler> QCefBrowserClient::GetRequestHandler()
  {
  	return this;
-@@ -68,10 +75,19 @@ CefRefPtr<CefJSDialogHandler> QCefBrowserClient::GetJSDialogHandler()
+@@ -68,10 +75,18 @@ CefRefPtr<CefJSDialogHandler> QCefBrowserClient::GetJSDialogHandler()
  	return this;
  }
  
 +/* CefCommandHandler */
 +#if CHROME_VERSION_BUILD >= 6533
-+bool QCefBrowserClient::OnChromeCommand(CefRefPtr<CefBrowser> browser, int command_id,
-+					cef_window_open_disposition_t disposition)
++bool QCefBrowserClient::OnChromeCommand(CefRefPtr<CefBrowser>, int, cef_window_open_disposition_t)
 +{
 +	return true;
 +}
@@ -598,22 +635,46 @@ index 417021fa9..ea44000b0 100644
  	virtual void OnTitleChange(CefRefPtr<CefBrowser> browser, const CefString &title) override;
  
 diff --git a/panel/browser-panel.cpp b/panel/browser-panel.cpp
-index b3fbe289d..dc426619f 100644
+index b3fbe289d..2f4193212 100644
 --- a/panel/browser-panel.cpp
 +++ b/panel/browser-panel.cpp
-@@ -552,8 +552,18 @@ QCefWidget *QCefInternal::create_widget(QWidget *parent, const std::string &url,
+@@ -368,6 +368,10 @@ void QCefWidgetInternal::resizeEvent(QResizeEvent *event)
  
+ void QCefWidgetInternal::Resize()
+ {
++	if (os_event_try(cef_started_event) != 0) {
++		return;
++	}
++
+ 	QSize size = this->size() * devicePixelRatioF();
+ 
+ 	bool success = QueueCEFTask([this, size]() {
+@@ -550,10 +554,31 @@ QCefWidget *QCefInternal::create_widget(QWidget *parent, const std::string &url,
+ 	return new QCefWidgetInternal(parent, url, cmi ? cmi->rc : nullptr);
+ }
+ 
++namespace {
++std::string getUpdatedCookiePath(std::string storagePath)
++{
++	constexpr std::string_view searchToken{"obs_profile_cookies/"};
++	constexpr std::string_view replaceToken{"obs_profile_cookies_"};
++
++	size_t pos = storagePath.find(searchToken);
++	if (pos != std::string::npos) {
++		storagePath.replace(pos, searchToken.length(), replaceToken);
++	}
++
++	return storagePath;
++}
++} // namespace
++
  QCefCookieManager *QCefInternal::create_cookie_manager(const std::string &storage_path, bool persist_session_cookies)
  {
 +	std::string path = storage_path;
 +#if CHROME_VERSION_BUILD > 6533
-+	// This code may be temporary, ideally the change should be in OBS Studio itself,
-+	// but to make this PR self-contained, we have this code.
-+	std::string legacy = "obs_profile_cookies/";
-+	size_t pos = storage_path.find(legacy);
-+	if (pos != std::string::npos) {
-+		path.replace(pos, legacy.length(), "obs_profile_cookies_");
-+	}
++	// TODO: Update obs-studio to use the new path structure due to subdirectories not being supported by CEF
++	// https://github.com/obsproject/obs-studio/issues/13498
++	path = getUpdatedCookiePath(storage_path);
 +#endif
  	try {
 -		return new QCefCookieManagerInternal(storage_path, persist_session_cookies);
@@ -621,20 +682,94 @@ index b3fbe289d..dc426619f 100644
  	} catch (const char *error) {
  		blog(LOG_ERROR, "Failed to create cookie manager: %s", error);
  		return nullptr;
-@@ -562,7 +572,15 @@ QCefCookieManager *QCefInternal::create_cookie_manager(const std::string &storag
+@@ -562,7 +587,13 @@ QCefCookieManager *QCefInternal::create_cookie_manager(const std::string &storag
  
  BPtr<char> QCefInternal::get_cookie_path(const std::string &storage_path)
  {
 -	BPtr<char> rpath = obs_module_config_path(storage_path.c_str());
 +	std::string path = storage_path;
 +#if CHROME_VERSION_BUILD > 6533
-+	std::string legacy = "obs_profile_cookies/";
-+	size_t pos = storage_path.find(legacy);
-+	if (pos != std::string::npos) {
-+		path.replace(pos, legacy.length(), "obs_profile_cookies_");
-+	}
++	// TODO: Update obs-studio to use the new path structure due to subdirectories not being supported by CEF
++	// https://github.com/obsproject/obs-studio/issues/13498
++	path = getUpdatedCookiePath(storage_path);
 +#endif
 +	BPtr<char> rpath = obs_module_config_path(path.c_str());
  	return os_get_abs_path_ptr(rpath.Get());
  }
  
+
+From 738d9d0e767ec1e5582aa7b9b5e6a56b3664f3b1 Mon Sep 17 00:00:00 2001
+From: Matt Gajownik <matt@obsproject.com>
+Date: Sun, 28 Jun 2026 13:46:41 +1000
+Subject: [PATCH 2/2] Use constexpr for disabled command line features
+
+---
+ browser-app.cpp | 46 ++++++++++++++++++++++++----------------------
+ 1 file changed, 24 insertions(+), 22 deletions(-)
+
+diff --git a/browser-app.cpp b/browser-app.cpp
+index 9c6d34b0c..9e3de83a8 100644
+--- a/browser-app.cpp
++++ b/browser-app.cpp
+@@ -38,6 +38,12 @@
+ 	}
+ #endif
+ 
++#ifdef _WIN32
++constexpr bool kIsPlatformWindows = true;
++#else
++constexpr bool kIsPlatformWindows = false;
++#endif
++
+ CefRefPtr<CefRenderProcessHandler> BrowserApp::GetRenderProcessHandler()
+ {
+ 	return this;
+@@ -125,30 +131,26 @@ void BrowserApp::OnBeforeCommandLineProcessing(const CefString &, CefRefPtr<CefC
+ 		}
+ 	}
+ 
++	// See https://github.com/chromiumembedded/cef/issues/3966 for 'StorageNotificationService' requirement
++	constexpr std::string_view kDefaultDisabledFeatures{
++		"HardwareMediaKeyHandling,WebBluetooth,MediaRouter,"
++		"CalculateNativeWinOcclusion,LiveCaption,StorageNotificationService,"
++		"EnableWindowsGamingInputDataFetcher"};
++
++	std::string disableFeatures{};
++
++	if constexpr (kIsPlatformWindows) {
++		disableFeatures.append(kDefaultDisabledFeatures);
++	} else {
++		constexpr std::string_view kWindowsFeature{",EnableWindowsGamingInputDataFetcher"};
++		constexpr size_t kNonWindowsLength = kDefaultDisabledFeatures.size() - kWindowsFeature.size();
++		disableFeatures.append(kDefaultDisabledFeatures.substr(0, kNonWindowsLength));
++	}
++
+ 	if (command_line->HasSwitch("disable-features")) {
+ 		// Don't override existing, as this can break OSR
+-		std::string disableFeatures = command_line->GetSwitchValue("disable-features");
+-		disableFeatures += ",HardwareMediaKeyHandling";
+-#ifdef _WIN32
+-		disableFeatures += ",EnableWindowsGamingInputDataFetcher";
+-#endif
+-		disableFeatures += ",WebBluetooth";
+-		disableFeatures += ",MediaRouter";
+-		disableFeatures += ",CalculateNativeWinOcclusion";
+-		disableFeatures += ",LiveCaption";
+-		// https://github.com/chromiumembedded/cef/issues/3966
+-		disableFeatures += ",StorageNotificationService";
+-		command_line->AppendSwitchWithValue("disable-features", disableFeatures);
+-	} else {
+-		command_line->AppendSwitchWithValue("disable-features", "WebBluetooth,"
+-#ifdef _WIN32
+-									"EnableWindowsGamingInputDataFetcher,"
+-#endif
+-									"MediaRouter,"
+-									"CalculateNativeWinOcclusion,"
+-									"LiveCaption,"
+-									"StorageNotificationService,"
+-									"HardwareMediaKeyHandling");
++		disableFeatures.append(",");
++		disableFeatures.append(command_line->GetSwitchValue("disable_features"));
+ 	}
+ 
+ 	if (command_line->HasSwitch("disable-blink-features")) {
