@@ -4,7 +4,7 @@
 
 pkgname=hledger-ui
 pkgver=1.52.1
-pkgrel=52
+pkgrel=53
 pkgdesc="Curses-style terminal interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -17,6 +17,11 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-ansi-terminal' 'has
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('40de53b02b97af80a443dc77dcdcf2ea59c2b3fec78090cd4431a74e3ca2638ed5c8d8243918853dc6ec1b48b0cb87c18383fa917307f8cdc65d3cadf4756b04')
+
+prepare() {
+    cd $pkgname-$pkgver
+    sed -i 's/brick >=2.1.1 && <2.3.2 || >2.3.2 && <2.11/brick >=2.1.1 \&\& <2.3.2 || >2.3.2 \&\& <3/' hledger-ui.cabal
+}
 
 build() {
     cd $pkgname-$pkgver
