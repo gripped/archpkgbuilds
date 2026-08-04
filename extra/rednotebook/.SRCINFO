@@ -1,19 +1,28 @@
 pkgbase = rednotebook
 	pkgdesc = Modern desktop diary and personal journaling tool that lets you format, tag and search your entries
 	pkgver = 2.42
-	pkgrel = 1
+	pkgrel = 3
 	url = https://rednotebook.sourceforge.io/
 	arch = any
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
-	depends = gtksourceview3
+	makedepends = python-wheel
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = gtk3
+	depends = gtksourceview4
+	depends = hicolor-icon-theme
+	depends = libgirepository
+	depends = pango
+	depends = python
 	depends = python-gobject
 	depends = python-pyenchant
 	depends = python-yaml
 	depends = webkit2gtk-4.1
-	source = https://github.com/jendrikseipp/rednotebook/archive/v2.42/rednotebook-2.42.tar.gz
-	sha256sums = f0eddb338a74c5819000a6be16ef24b2821f9e60f86b3505f93f9a5bd2e3e9b2
+	source = git+https://github.com/jendrikseipp/rednotebook.git#tag=v2.42
+	b2sums = b1b64aa2938aaedc3d7fd8108a85b12b2519fc8c89fb95c9b0dbe0f8244f64395277adcdb3033e0113471bc86a131212fc38182c1ffde929e6b2c493d43bba81
 
 pkgname = rednotebook
