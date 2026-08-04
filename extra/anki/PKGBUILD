@@ -10,7 +10,7 @@
 # Contributor: Dave Pretty <david dot pretty at gmail dot com>
 
 pkgname=anki
-pkgver=26.05
+pkgver=26.08
 pkgrel=1
 pkgdesc="A smart spaced repetition flashcard program"
 arch=('x86_64')
@@ -67,7 +67,7 @@ source=(
   "no-corepack.patch"
   "reproducible-sveltekit.patch"
 )
-b2sums=('eb3845c02014d408823a76e4316ff7c7bc6251f8b6f111e4dce2a850c0f2752b2a1370588545a7a6c0c4033cdd71007bd644bac7c1f67931cf97cb9d3624499e'
+b2sums=('08dc5de27d318cc804098740fe37c121e2d2b3c813716e60ded179e94ba33667c343648732017bbddf9bdb2ba3440ef1b6529a436023b2fbec08d211755b363c'
         'SKIP'
         'SKIP'
         '0f3ce855e9eaea67ef461668c296ae08cad0d31a7a2bf9ea7006220b44c2cb2e132dfb656140828141fbf21dde2b686a4a3248b92bb3fa46217f1a987425ffa3'
@@ -129,8 +129,8 @@ package() {
     python -m installer --destdir="$pkgdir" "$file"
   done
 
-  install -vDm644 -t "$pkgdir/usr/share/applications" qt/launcher/lin/anki.desktop
-  install -vDm644 -t "$pkgdir/usr/share/pixmaps" qt/launcher/lin/anki.png qt/launcher/lin/anki.xpm
-  install -vDm644 -t "$pkgdir/usr/share/man/man1" qt/launcher/lin/anki.1
-  install -vDm644 -t "$pkgdir/usr/share/mime/packages" qt/launcher/lin/anki.xml
+  install -vDm644 -t "$pkgdir/usr/share/applications" "qt/installer/linux-template/{{ cookiecutter.format }}/{{ cookiecutter.app_name }}/anki.desktop"
+  install -vDm644 -t "$pkgdir/usr/share/pixmaps" "qt/installer/linux-template/{{ cookiecutter.format }}/{{ cookiecutter.app_name }}/anki.png" "qt/installer/linux-template/{{ cookiecutter.format }}/{{ cookiecutter.app_name }}/anki.xpm"
+  install -vDm644 -t "$pkgdir/usr/share/man/man1" "qt/installer/linux-template/{{ cookiecutter.format }}/{{ cookiecutter.app_name }}/anki.1"
+  install -vDm644 -t "$pkgdir/usr/share/mime/packages" "qt/installer/linux-template/{{ cookiecutter.format }}/{{ cookiecutter.app_name }}/anki.xml"
 }
