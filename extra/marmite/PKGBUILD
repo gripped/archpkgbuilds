@@ -2,14 +2,15 @@
 
 pkgname=marmite
 pkgver=0.4.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Markdown makes sites - A Static Site Generator for Blogs'
 arch=(x86_64)
 url="https://$pkgname.blog"
 _url="https://github.com/rochacbruno/$pkgname"
 license=(AGPL-3.0-or-later)
 depends=(glibc # libc.so libm.so
-         libgcc libgcc_s.so)
+         libgcc libgcc_s.so
+         zstd libzstd.so)
 makedepends=(cargo)
 replaces=("$pkgname-bin")
 _archive="$pkgname-$pkgver"
@@ -24,6 +25,7 @@ _srcenv() {
 	export CARGO_PROFILE_RELEASE_LTO=true
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+	export ZSTD_SYS_USE_PKG_CONFIG=1
 	CFLAGS+=' -ffat-lto-objects'
 }
 
