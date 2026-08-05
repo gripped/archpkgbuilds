@@ -2,33 +2,39 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=wf-shell
-pkgver=0.10.0
-pkgrel=4
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='GTK-based panel for Wayfire'
 arch=(x86_64)
 url='https://github.com/WayfireWM/wf-shell'
 license=(MIT)
 depends=(
   alsa-lib
-  atkmm
-  cairo
-  cairomm
+  cairomm-1.16
+  ddcutil
   glib2
   glibc
-  glibmm
-  gtk-layer-shell
-  gtk3
-  gtkmm3
+  glibmm-2.68
+  gtk4
+  gtk4-layer-shell
+  gtkmm-4.0
   hicolor-icon-theme
-  libdbusmenu-gtk3
+  libdbusmenu-glib
+  libdrm
+  libepoxy
   libgcc
   libpulse
-  libsigc++
+  libsigc++-3.0
   libstdc++
-  pangomm
+  libwireplumber
+  libxkbcommon
+  mesa
+  openssl
+  pam
   "wayfire>=${pkgver%.*}.0"
   wayland
   "wf-config>=${pkgver%.*}.0"
+  yyjson
 )
 makedepends=(
   git
@@ -39,12 +45,14 @@ makedepends=(
 )
 source=(
   "git+https://github.com/WayfireWM/wf-shell.git#tag=v$pkgver"
-  git+https://github.com/wmww/gtk-layer-shell.git
   git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
   git+https://github.com/soreau/wayland-logout.git
+  git+https://github.com/wmww/gtk4-layer-shell.git
+  git+https://github.com/WayfireWM/wf-json.git
 )
 b2sums=(
-  aa5f67f70235a40e3a58252da79396930643765db32e5cbd36c5b4c6353e528442e9b43380e22de49a8738b57726967dacb8ba0043cdf18d652c2e7d45e3eb78
+  f863d60a7e4b944addc969a2e6b3f5cd0de1607042b657c341bcfb44193e89a3fc31bfe78b8a2fef869a5a8d5aa0cce49178f0f4c46922612509543ed5308aba
+  SKIP
   SKIP
   SKIP
   SKIP
@@ -55,9 +63,10 @@ prepare() {
 
   git submodule init
   git config submodule.subprojects/wlroots.update none
-  git submodule set-url subprojects/gtk-layer-shell "$srcdir/gtk-layer-shell"
   git submodule set-url subprojects/gvc "$srcdir/libgnome-volume-control"
   git submodule set-url subprojects/wayland-logout "$srcdir/wayland-logout"
+  git submodule set-url subprojects/gtk4-layer-shell "$srcdir/gtk4-layer-shell"
+  git submodule set-url subprojects/wf-json "$srcdir/wf-json"
   git -c protocol.file.allow=always submodule update
 }
 
