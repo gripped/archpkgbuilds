@@ -1,0 +1,25 @@
+--- a/debian/wrappers/openbve
++++ b/debian/wrappers/openbve
+@@ -1,2 +1,2 @@
+-#!/bin/sh
+-exec /usr/bin/cli /usr/lib/openbve/OpenBve.exe /filesystem=/etc/openbve/filesystem.cfg "$@"
++#!/usr/bin/env sh
++mono /usr/lib/openbve/OpenBve.exe /filesystem=/etc/openbve/filesystem.cfg "$@"
+diff --git a/debian/wrappers/openbve-objectviewer b/debian/wrappers/openbve-objectviewer
+index 5f6f3b85f..7e4479669 100644
+--- a/debian/wrappers/openbve-objectviewer
++++ b/debian/wrappers/openbve-objectviewer
+@@ -1,2 +1,2 @@
+-#!/bin/sh
+-exec /usr/bin/cli /usr/lib/openbve/ObjectViewer.exe "$@"
++#!/usr/bin/env sh
++mono /usr/lib/openbve/ObjectViewer.exe "$@"
+diff --git a/debian/wrappers/openbve-routeviewer b/debian/wrappers/openbve-routeviewer
+index f97f11962..e2ce63d1e 100644
+--- a/debian/wrappers/openbve-routeviewer
++++ b/debian/wrappers/openbve-routeviewer
+@@ -1,2 +1,2 @@
+-#!/bin/sh
+-exec /usr/bin/cli /usr/lib/openbve/RouteViewer.exe "$@"
++#!/usr/bin/env sh
++mono /usr/lib/openbve/RouteViewer.exe "$@"

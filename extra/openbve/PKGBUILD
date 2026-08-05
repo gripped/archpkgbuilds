@@ -1,14 +1,15 @@
-# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=openbve
-_pkgname=OpenBVE
-pkgver=1.14.0.1
+pkgver=1.14.0.2
 pkgrel=1
 pkgdesc='3D cab based train simulator'
 arch=(any)
 url='https://openbve-project.net/'
 license=(BSD-2-Clause)
 depends=(
+  sh
   hicolor-icon-theme
   libglvnd
   mono
@@ -21,45 +22,61 @@ makedepends=(
   nuget
 )
 source=(
-  "git+https://github.com/leezer3/$_pkgname.git#tag=${pkgver}"
-  "$pkgname.sh"
+  "$pkgname::git+https://github.com/leezer3/OpenBVE.git#tag=${pkgver}"
+  simplify-wrapper-scripts.patch
+  update-restart-cfg.patch
+  use-uaccess-for-udev.patch
 )
-b2sums=(
-  d9761681cb35548d797c979f5147842635769982b8ad8cbe86ccbd52043a7176543a934634698916289f0b788ab2b11873c54565a36d55d12ab56a5e45f75efb
-  715304d258cdd3fbc06e62ca0b1eb204c33a8a09131f4249092f09c46e8b52a47e162e34dda955ed380a55abcc0a43ca0193672ccbed0837184da2af6ca5ae1e
-)
+sha512sums=('daadf009ab5aa16a47dfa34b4611188836fe68d29d7e7d2e8e26df368e22f241637fbc302da717f8006ab0289f14a50512573515e9af1643c92ab63a2cf3021e'
+            'f31fa1a96e842fb0575baaa3c4e5e04a43b401911fa34265c75748f64f402f86cabae412ae41e9a2439413a5cbe0bcfef0361d9356c25f06beae5e8663d43439'
+            '0829176b993db01fc40033eeb8c7300a45a67e693ef6dd61cfef8090ab6485c93be49394e78071f8630dc005a93d853b3bf36b82c4d0c8c977a5e5d1f4857841'
+            '2c75f959a8b9098b5b8ad2180e756eb44bb16ec3c6ee4011f23a86ab213d88f1d25c1584356069c19cfcff3999433b670386a54c634dc7533b62ee75b699933f')
+b2sums=('6624d8067b2d26eba29bcdb8e607cbcd4a7220407007b9e1d5a9f43f159b607778e5fd920fa645d2279291246102b6b6ba22e56a2cf83c8cb6c646adf53ae0b3'
+        '50fb16cd4fd58e4c2e658478d66551b35d1d1b20e0ea7849cd625dd43de4c89b4b93f6e136bfd144c6b1bb78682e67edc55a83cead1aa36b1c452d677cef7ca0'
+        '6ec1b611563efd731f8aaa0d8b4cae4df188b8f589f044f677363dccddf2283e1bd267b8ae96ea96de39d23178cf340180385be9a1ec4c7c391f3ce6744face2'
+        '3e0587752504cb6bbdfd58eb5886a700db8ee86ebe459aea3bd15ec4c498e56bc3621ab9b138db57d9055084844c60fdc5348bdb851dd84983ac0d65c13fa483')
 
 prepare() {
-  cd $_pkgname
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/simplify-wrapper-scripts.patch"
+  patch -p1 -i "$srcdir/update-restart-cfg.patch"
+  patch -p1 -i "$srcdir/use-uaccess-for-udev.patch"
+
   nuget restore OpenBVE.sln
-  sed -i 's/net.openbve_project.OpenBVE.desktop/openbve.desktop/' net.openbve_project.OpenBVE.metainfo.xml
 }
 
 build() {
-  cd $_pkgname
+  cd "$pkgname"
+
   msbuild /p:Configuration=Release OpenBVE.sln
+
+  # this is Windows only, so can be removed
+  rm bin_release/AtsPluginProxy.*
 }
 
 package() {
-  cd $_pkgname
+  cd "$pkgname"
 
-  # Binaries
-  install -dm755 "$pkgdir/usr/lib/$pkgname/"
-  cp -r bin_release/* "$pkgdir/usr/lib/$pkgname/"
+  # package
+  install -vd "$pkgdir/usr/lib/$pkgname"
+  cp -r bin_release/* "$pkgdir/usr/lib/$pkgname"
 
-  # Data
-  install -dm755 "$pkgdir/usr/share/games/$pkgname/"
-  mv "$pkgdir/usr/lib/$pkgname/Data" "$pkgdir/usr/share/games/$pkgname/"
-  ln -s ../../share/games/$pkgname/Data "$pkgdir/usr/lib/$pkgname/Data"
+  # udev rules + config
+  install -vDm644 -t "$pkgdir/usr/lib/udev/rules.d" installers/debian/etc/udev/rules.d/99-ps2-train-controllers.rules
+  install -vDm644 -t "$pkgdir/etc/openbve" installers/debian/etc/openbve/filesystem.cfg
 
-  # Executable
-  install -Dm755 ../$pkgname.sh "$pkgdir/usr/bin/$pkgname"
+  # wrapper scripts
+  install -vDm755 -t "$pkgdir/usr/bin" debian/wrappers/*
 
-  # Desktop file and icon
-  install -Dm644 -t "$pkgdir/usr/share/icons/hicolor/128x128/apps/" debian/$pkgname.png
-  install -Dm644 -t "$pkgdir/usr/share/applications" debian/$pkgname.desktop
-  install -Dm644 -t "$pkgdir/usr/share/metainfo" net.openbve_project.OpenBVE.metainfo.xml
+  # man pages
+  install -vDm644 -t "$pkgdir/usr/share/man/man6" debian/*.6
 
-  # License
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" licenses/* Readme.md
+  # desktop file and icon
+  install -vDm644 debian/$pkgname.desktop "$pkgdir/usr/share/applications/net.openbve_project.OpenBVE.desktop"
+  install -vDm644 -t "$pkgdir/usr/share/icons/hicolor/128x128/apps" debian/$pkgname.png
+  install -vDm644 -t "$pkgdir/usr/share/metainfo" net.openbve_project.OpenBVE.metainfo.xml
+
+  # licenses
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" licenses/* Readme.md
 }
