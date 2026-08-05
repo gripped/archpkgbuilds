@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-bigscreen
-pkgver=6.7.3
+pkgver=6.7.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma shell for TVs'
@@ -54,7 +54,7 @@ makedepends=(extra-cmake-modules
 optdepends=('libcec: support for CEC devices (ex. TV Remotes)')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('db213defa3a3a8271a54da30760c2df012fa6ee9143b90fb2af060ad1fa1ae0e'
+sha256sums=('5fb76e3777ce03bd4ded119fb169efeb308a38f43dec009197158abec134441c'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
