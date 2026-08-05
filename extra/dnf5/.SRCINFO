@@ -1,7 +1,7 @@
 pkgbase = dnf5
 	pkgdesc = Next-generation RPM package management system
-	pkgver = 5.2.17.0
-	pkgrel = 6
+	pkgver = 5.4.2.1
+	pkgrel = 1
 	url = https://github.com/rpm-software-management/dnf5
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -35,6 +35,7 @@ pkgbase = dnf5
 	depends = systemd-libs
 	depends = util-linux-libs
 	depends = zlib
+	depends = libpkgmanifest
 	optdepends = appstream: dnf appstream plugin support
 	conflicts = dnf
 	replaces = dnf
@@ -43,7 +44,7 @@ pkgbase = dnf5
 	backup = etc/dnf/libdnf5-plugins/actions.conf
 	backup = etc/dnf/libdnf5-plugins/appstream.conf
 	backup = etc/dnf/libdnf5-plugins/expired-pgp-keys.conf
-	source = https://github.com/rpm-software-management/dnf5/archive/5.2.17.0/dnf5-5.2.17.0.tar.gz
-	sha256sums = 80d140eef6a6bc4a1d8c3769b29662d03caeb6400f66a06f2b326bcbdc36706e
+	source = https://github.com/rpm-software-management/dnf5/archive/5.4.2.1/dnf5-5.4.2.1.tar.gz
+	sha256sums = 6b3f23275a99c66c4b416d4d312f22da779e90f29c881be73eabfc459fca4fef
 
 pkgname = dnf5

@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=dnf5
-pkgver=5.2.17.0
-pkgrel=6
+pkgver=5.4.2.1
+pkgrel=1
 pkgdesc="Next-generation RPM package management system"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgname"
@@ -10,7 +10,7 @@ license=('GPL-2.0-or-later')
 depends=('curl' 'fmt' 'glib2' 'json-c'
          'libmodulemd' 'librepo' 'libsolv' 'libxml2'
          'rpm-tools' 'sdbus-cpp' 'sqlite' 'systemd-libs'
-         'util-linux-libs' 'zlib')
+         'util-linux-libs' 'zlib' 'libpkgmanifest')
 makedepends=('appstream' 'bash-completion' 'cmake' 'doxygen' 'gettext' 'perl'
              'python' 'python-breathe' 'python-sphinx' 'python-sphinx_rtd_theme'
              'toml11' 'swig' 'systemd')
@@ -24,7 +24,7 @@ options=('!emptydirs')
 conflicts=(dnf)
 replaces=(dnf)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('80d140eef6a6bc4a1d8c3769b29662d03caeb6400f66a06f2b326bcbdc36706e')
+sha256sums=('6b3f23275a99c66c4b416d4d312f22da779e90f29c881be73eabfc459fca4fef')
 
 prepare() {
   cd "$pkgname-$pkgver"
