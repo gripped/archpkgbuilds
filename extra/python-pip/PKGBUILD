@@ -7,7 +7,7 @@
 
 _name=pip
 pkgname=python-pip
-pkgver=26.2
+pkgver=26.2.1
 pkgrel=1
 pkgdesc="The PyPA recommended tool for installing Python packages"
 url="https://pip.pypa.io/"
@@ -48,9 +48,9 @@ source=(
   https://github.com/pypa/$_name/archive/$pkgver/$_name-$pkgver.tar.gz
   remove-version-constraint.patch
         )
-sha512sums=('83c8ee08e9768dcf3e77557487b0f21c0120803af5c2432ac30712ef65666406519bcd79c3b64da170a5bfc167680b3607929aaa32a70fbad6eca3e0b8aacfb0'
+sha512sums=('03a00bdc4387a4e7e4e54672e9198893500d279912ece4cd144f015c568c974ecc2c3c7bd6abf108df852302ddd49468ef0bc514ca4323ee037d754e2fbfaee0'
             'c6d3a3819540c93417ad650d4e4fe87b811b4698bc0d9faf2628c8afbde6bbba65e489c9db4393b01f143724173a81c2e2d754f813b124a2a6d47a1d6c54abf0')
-b2sums=('5a1636c8f2344e07a75dc0cba976c30f7972018951f1eb2bede22a244130d165d01d185df32a71c4ffa3b563689723cea4e16c21b900c534f0e31353dc19e1f1'
+b2sums=('eb7b929de0e99c84c9b1257f1bf737f524eb6de01075d40b36519b082d8a49e107dbd0eded9a8bf737ce8f7d452c5e5cffb853b000d6ac2936b5b84dd607c770'
         'e2ab7e085e0dae925b93711fac7a0460e14ff6b92d079c6b93da9eb0afc6890654fb2a10d4828e96c0695d1a0435cb697702eb274f9b1dd51b37c2a24e4ec543')
 
 prepare() {
