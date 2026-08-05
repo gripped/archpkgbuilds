@@ -1,0 +1,102 @@
+From 845c2e787d2bb2fd054ef3dd653339bfdbe1f5d5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 9 Apr 2026 00:46:22 +0200
+Subject: [PATCH] Make the app to have a single window only
+
+Multiple files can be added in a single window, and users only need to
+delete the metadata and then close the application. Having multiple
+windows is a bit excessive.
+---
+ data/gtk/shortcuts-dialog.ui |  7 -------
+ data/ui/MenuButton.ui        |  5 -----
+ src/app.py                   | 19 +++++++++----------
+ 3 files changed, 9 insertions(+), 22 deletions(-)
+
+diff --git a/data/gtk/shortcuts-dialog.ui b/data/gtk/shortcuts-dialog.ui
+index 149769c9..27ef8624 100644
+--- a/data/gtk/shortcuts-dialog.ui
++++ b/data/gtk/shortcuts-dialog.ui
+@@ -9,13 +9,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
+       <object class="AdwShortcutsSection">
+         <!-- translators: keyboard shortcut section title. "General shortcuts" -->
+         <property name="title" translatable="yes">General</property>
+-        <child>
+-          <object class="AdwShortcutsItem">
+-            <!-- translators: keyboard shortcut title. Opens a new window -->
+-            <property name="title" translatable="yes">New window</property>
+-            <property name="action-name">app.new-window</property>
+-          </object>
+-        </child>
+         <child>
+           <object class="AdwShortcutsItem">
+             <!-- translators: keyboard shortcut title. Opens the keyboard shortcut dialog -->
+diff --git a/data/ui/MenuButton.ui b/data/ui/MenuButton.ui
+index 0e9e4e62..8ed643e5 100644
+--- a/data/ui/MenuButton.ui
++++ b/data/ui/MenuButton.ui
+@@ -6,11 +6,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
+ <interface>
+   <menu id="app-menu">
+     <section>
+-      <item>
+-        <!-- translators: headerbar main menu item -->
+-        <attribute name="label" translatable="yes">_New Window</attribute>
+-        <attribute name="action">app.new-window</attribute>
+-      </item>
+       <item>
+         <!-- translators: headerbar main menu item. This one clears the file list, it will remove all files from the list. Please make sure it's clear that this will NOT delete the files on disk or clean the files' metadata, it will only remove them from the list. -->
+         <attribute name="label" translatable="yes">Clea_r List of Files</attribute>
+diff --git a/src/app.py b/src/app.py
+index 1793f27a..22d247d4 100644
+--- a/src/app.py
++++ b/src/app.py
+@@ -38,7 +38,10 @@ class MetadataCleaner(Adw.Application):
+ 
+     def do_activate(self) -> None:
+         """Run on application activation."""
+-        self.new_window()
++        if window := self.get_active_window():
++            window.present()
++        else:
++            self.new_window()
+ 
+     def do_startup(self) -> None:
+         """Run on application startup."""
+@@ -48,7 +51,11 @@ class MetadataCleaner(Adw.Application):
+ 
+     def do_open(self, gfiles: list[Gio.File], n_files: int, hint: str) -> None:
+         """Run when files are passed to the command line."""
+-        self.new_window(gfiles=gfiles)
++        if window := self.get_active_window():
++            window.present()
++            window.file_store.add_gfiles(gfiles)
++        else:
++            self.new_window(gfiles=gfiles)
+ 
+     # SETUP #
+ 
+@@ -67,13 +74,6 @@ class MetadataCleaner(Adw.Application):
+         show_window.connect("activate", on_show_window)
+         self.add_action(show_window)
+ 
+-        def on_new_window(action: Gio.Action, parameters: None) -> None:
+-            self.new_window()
+-
+-        new_window = Gio.SimpleAction.new("new-window", None)
+-        new_window.connect("activate", on_new_window)
+-        self.add_action(new_window)
+-
+         def on_quit_app(action: Gio.Action, parameters: None) -> None:
+             for window in self.get_windows():
+                 self.withdraw_notification(f"done{window.get_id()}")
+@@ -86,7 +86,6 @@ class MetadataCleaner(Adw.Application):
+         self.add_action(self.settings.create_action("lightweight-cleaning"))
+ 
+     def _setup_accels(self) -> None:
+-        self.set_accels_for_action("app.new-window", ["<Control>n"])
+         self.set_accels_for_action("app.quit", ["<Control>q"])
+         self.set_accels_for_action("win.add-files", ["<Control>o"])
+         self.set_accels_for_action("win.add-folders", ["<Control><Shift>o"])
+-- 
+GitLab
+
