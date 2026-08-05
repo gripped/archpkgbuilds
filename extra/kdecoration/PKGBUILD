@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdecoration
-pkgver=6.7.3
+pkgver=6.7.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plugin based library to create window decorations'
@@ -17,7 +17,7 @@ depends=(glibc
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('69690713d2216323dae96d61d74e087bd9e5e5b3effcf1c54f7a3e823672d0e7'
+sha256sums=('af366baba8694e16226844a94b4772a63a7e8d8d43e4c1950215eb163b4ca590'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
