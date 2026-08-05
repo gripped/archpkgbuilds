@@ -2,7 +2,7 @@
 # Contributor: Tyler Langlois <ty |at| tjll |dot| net>
 # Contributor: Tim Meusel <tim@bastelfreak.de>
 pkgname=consul-template
-pkgver=0.42.0
+pkgver=0.42.1
 pkgrel=1
 pkgdesc='Template rendering, notifier, and supervisor for HashiCorp Consul and Vault data'
 arch=('x86_64')
@@ -16,7 +16,7 @@ optdepends=('consul: interpolate values from a distributed key/value store'
 source=("git+${url}#tag=v${pkgver}"
         "${pkgname}.service"
         "${pkgname}.hcl")
-sha512sums=('5b557bb66ef893d5fcdf520791130c5e7007129e8f4375c641822df0fefe5539e6142e4e7f91ee7d26a36e11f42d2f677b1cda1c00309c3b811f4c2825166802'
+sha512sums=('6885b5e53a2352fd2efd7e5475455af6e830c661770ec58dd170df4acd497ccf2207adb64064375a4aa16fee9cd545e088c12f925a2ce37b87f9f4abf4c79330'
             '227b5ed1afc291c9664666872a993f1325ba42edbaaf8b9c7d81e5d4d352a940ee3bf198d4ff4533e4c942070e175d1eed8e411dd79d52f82a9bf6123fdabdcf'
             'c9d9f555c3c82c88878b797e54d0de85efd38fafeeb40d87683a715cd1cb2e45ca382a2a89e04be84647c1555e67afebf3ba3035435dcd627c153db96ec9f9e2')
 options=(!lto)
