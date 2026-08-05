@@ -2,7 +2,7 @@
 
 pkgname=audiobookshelf
 pkgver=2.36.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Self-hosted audiobook and podcast server'
 arch=(x86_64)
 url='https://www.audiobookshelf.org/'
@@ -37,6 +37,10 @@ b2sums=('d6824c299f0ce814638279c4a05cf5a33479e984511d5db458d0d3f541943d1c880ee45
 
 prepare() {
   cd "$pkgname"
+
+  # fix npm >= 12 compatability
+  # https://github.com/advplyr/audiobookshelf/pull/5429
+  git cherry-pick --no-commit d511612f21a37795c7ee219b9942e33e49f77167
 
   # download dependencies
   npm install
