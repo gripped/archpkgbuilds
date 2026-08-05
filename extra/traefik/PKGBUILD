@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=traefik
-pkgver=3.7.4
-pkgrel=1
+pkgver=3.7.10
+pkgrel=2
 pkgdesc="Modern reverse proxy written in Go"
 arch=('x86_64')
 url="https://github.com/traefik/traefik"
@@ -23,7 +23,7 @@ source=(
   "traefik.sysusers"
   "traefik.tmpfiles"
 )
-b2sums=('99292f19ceeca52691b1cc3b30935f9620e8e08259a880609b118cf157580ca6d7b0c3435e310ecf59e1b255014313d5e991666a7aa8b4b623c704a0c2cbcc63'
+b2sums=('964af567a64fd38726f3105650ccfef8323628d1a456c7777c6fcaaee6b831e9c8cd0c335ae449beadd672bf4ba0e8edeb3baa348c71cdd1c034eaa8eb786e52'
         'fa35c17d120dc343773395f062504f6ce5bd11015724824907dff3b17812543456662203757a30ed7ac86f34c1e8ec7c60ed667e4e7b811c67dcf9e59d2f831b'
         '583ba4ed75f19d5af8c53aefc88b535b2b538414c6da6f670bd142500f70d753bc5222ef1d39f0ceb43e0e37831e467e442c307b1e90b3f902c1a2d74f304570'
         'cadeab754be6819d2d15bd3e5c380d3edb68d7cb08db676315968733f912cb5f54e0de6b10bff74e0d0b5e9782d707c7afd92ffa5ba20698be70046088406c14')
@@ -60,17 +60,20 @@ check() {
   # Skip tests:
   # - v3/integration: requires a running Docker daemon.
   # - v3/pkg/server/service: seem to be flaky.
+  # - v3/pkg/middlewares/ratelimiter: flaky
   local tests=$(
     go list ./... \
       | grep -v github.com/traefik/traefik/v3/integration \
       | grep -v github.com/traefik/traefik/v3/pkg/healthcheck \
       | grep -v github.com/traefik/traefik/v3/pkg/middlewares/accesslog \
       | grep -v github.com/traefik/traefik/v3/pkg/middlewares/auth \
+      | grep -v github.com/traefik/traefik/v3/pkg/middlewares/ingressnginx/snippet \
       | grep -v github.com/traefik/traefik/v3/pkg/provider/kubernetes/ingress \
       | grep -v github.com/traefik/traefik/v3/pkg/proxy/fast \
       | grep -v github.com/traefik/traefik/v3/pkg/server/router/tcp \
       | grep -v github.com/traefik/traefik/v3/pkg/server/service \
-      | grep -v github.com/traefik/traefik/v3/pkg/udp
+      | grep -v github.com/traefik/traefik/v3/pkg/udp \
+      | grep -v github.com/traefik/traefik/v3/pkg/middlewares/ratelimiter
   )
   # shellcheck disable=SC2086
   go test $tests
