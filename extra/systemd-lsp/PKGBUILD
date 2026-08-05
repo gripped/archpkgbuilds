@@ -2,7 +2,7 @@
 # Contributor: repsac-by <huff-lurch-preset@duck.com>
 
 pkgname=systemd-lsp
-pkgver=2026.04.21
+pkgver=2026.08.03
 pkgrel=1
 pkgdesc='A language server implementation for systemd unit files made in rust'
 url=https://github.com/JFryy/systemd-lsp
@@ -12,7 +12,7 @@ depends=(glibc libgcc)
 makedepends=(git cargo)
 replaces=("${pkgname}-bin") # Previous AUR package
 source=("git+$url.git#tag=v${pkgver}")
-sha256sums=('927080e22112f2de15ac7e018d7fa325142443c7c8ee18da665af7b862024e84')
+sha256sums=('4f7f616121e5b1ecec129d4179e2e90bea75fabcbb0664dbf32f9cd9281ef4eb')
 
 prepare() {
 	cd "${pkgname}"
