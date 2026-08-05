@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=python-faust-cchardet
-pkgver=3.0.0
+pkgver=3.1.0
 pkgrel=1
 pkgdesc="Fork of the original cChardet"
 url="https://github.com/faust-streaming/cChardet"
@@ -27,7 +27,7 @@ source=(
   "faust-cchardet::git+$url#tag=v$pkgver"
   "git+https://gitlab.freedesktop.org/uchardet/uchardet.git"
 )
-b2sums=('fef41471e37ba6df1b0e608d01b492e0cbf9236706f47686ea4dd42b5c8de7d8cd32779663e1aecff22bcf09946cc7d2f76de263c64e72c105a23c59103c0b87'
+b2sums=('1b6c871fabe39812a3799504418521bed46c1f7dac34956b7838df5b705a12bc01bc595e3152d3a797d6d75e60279d64a5ebbf4125e89bde33b144b2872586f5'
         'SKIP')
 
 prepare() {
