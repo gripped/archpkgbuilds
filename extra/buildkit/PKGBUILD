@@ -3,19 +3,24 @@
 # Contributor: Kenneth Endfinger <kaendfinger@gmail.com>
 
 pkgname=buildkit
-pkgver=0.32.1
+pkgver=0.32.2
 pkgrel=1
 pkgdesc='A toolkit for converting source code to build artifacts in a repeatable manner'
 arch=(x86_64)
-url="https://github.com/moby/$pkgname"
+url='https://github.com/moby/buildkit'
 license=(Apache-2.0)
-depends=(glibc # libc.so libresolve.so
-         runc)
-makedepends=(git go)
+depends=(
+  glibc
+  runc
+)
+makedepends=(
+  git
+  go
+)
 optdepends=('containerd: containerd worker')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('f3e784745f445b4d57eb7bd960a50bb0ec8c994937bf24023c453904edd1ffcc71b198ab6be01d23a6679d91a099a7ab2019d14032324fb80ee2a09c5a168aa7')
-b2sums=('b80b98c1c7356833ebf52621c69d634cc48185b37f3ba679158ef81a4b4fa590e021e885329f958c8bdca1a81c968499f81dbaaa821dd1f880e609841b30ec49')
+sha512sums=('c9538c12c3b0d69fe420c0dc523ce0acfedb0b06120233a4bb96343d000e99eefb9db3cd158e4e49e5742ad5f55527f6d5578f2ef2c5b90ce1fe2e017c7750e1')
+b2sums=('6cfe7e8d3cbb84fac21f7c796b187fd3b2dbf2251630cf609f7973dc027c862f5e2321ab7e70616e59633f3a164d5fc89e7687ef13e2327d3a404b6f93e5b6cd')
 
 prepare() {
   cd "$pkgname"
@@ -41,7 +46,7 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export GOPATH="${srcdir}"
 
-  local package='github.com/moby/buildkit'
+  local package="${url#https://}"
 
   local _commit="$(git rev-list -1 HEAD)"
 
