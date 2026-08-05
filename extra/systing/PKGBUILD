@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=systing
-pkgver=1.11.36
+pkgver=1.11.38
 pkgrel=1
 pkgdesc="A libbpf based tracer to help figure out what an application is doing"
 arch=(x86_64)
@@ -28,8 +28,8 @@ license=(MIT)
 source=(
   "${pkgname}::git+https://github.com/josefbacik/systing.git#tag=v$pkgver"
 )
-sha512sums=('865346314822258daa280655d92478c9bca2ca6f6c4093a96df87f9614a1ba703af3d3c2de8377499d2bc3dbd4c9541cb0040bcf50e2bef2368a789c4baf2f4a')
-b2sums=('8a67c86f2e51a8bc3d8a946db34769c82ff2a14f4c8a2491881fb06c0c7baae399493c480204e8d0fe4a1bad9aeb6eaf10b931ad416da24e1f911570ae318598')
+sha512sums=('a122d1acf635cb89f74b55951c723c40d05a4e9bcb158f601cdd7ea9d94188793a9aee31bcb2fa0b5850ed29feac45a16c7f60524664bd7bc6026b00d0b6c436')
+b2sums=('9e4ffd15b9370cb948265513804ce64a2492f62bfe74168237183ccce5463686974bd398a5d602551cfad7c68ca4a2bf4ce639d3c60510d5b70bff485c22fd29')
 
 # needed to workaround linking error with BPF lib
 options=(!lto)
@@ -42,6 +42,8 @@ prepare() {
 
 build() {
   cd $pkgname
+  # TODO: drop once the ICF issue is fixed in devtools
+  export RUSTFLAGS="-C force-frame-pointers=yes"
 
   for binary in systing{,-util,-analyze}; do
       cargo build --release --bin $binary
