@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-jiter
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc="Fast iterable JSON parser"
 arch=(x86_64)
@@ -24,7 +24,7 @@ checkdepends=(
   python-pytest
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('1711be5e79c0f3ac4958aa19d74a11a9b941040914879d232ae8f65ceb30d4829cee8eddc1d69f89204c6ac4b93c64fb94be15b66d9d543d4ec82b83ecdc3b48')
+b2sums=('0dca62900f9364ca985ec320b5bbd1f51c0224e3e60409754799159554e2578d8f3077b5d35d5f9d32cb62823b28b0c0d8fa1abc3d4e56a76be786e35a40d9f0')
 
 build() {
   cd "${pkgname#python-}-$pkgver/crates/jiter-python"
