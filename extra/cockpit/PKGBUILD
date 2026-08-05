@@ -6,7 +6,7 @@
 pkgbase=cockpit
 pkgname=(cockpit cockpit-packagekit cockpit-storaged)
 pkgver=365
-pkgrel=1
+pkgrel=2
 pkgdesc='A systemd web based user interface for Linux servers'
 arch=('x86_64')
 url='https://cockpit-project.org/'
@@ -107,6 +107,7 @@ package_cockpit-storaged() {
 package_cockpit-packagekit() {
   pkgdesc='Cockpit user interface for packages'
   depends=(cockpit polkit packagekit python)
+  optdepends=("archlinux-appstream-data: archlinux package management")
   _do_package_component
   _do_package_component apps
 }
