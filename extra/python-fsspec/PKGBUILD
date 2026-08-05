@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-fsspec
-pkgver=2026.6.0
+pkgver=2026.7.0
 pkgrel=1
 pkgdesc='Specification that python filesystems should adhere to'
 arch=(any)
@@ -60,8 +60,8 @@ optdepends=(
   'python-tqdm: progress bar support'
 )
 source=("$pkgname::git+$url.git#tag=$pkgver")
-sha512sums=('e34cbdf86d5d5281dd534c09326e1ed714b652685259c505ca9158708725ad1bbe89065679033676a288b1726c2aa1ab21c8420313c690d392694242f0ce2a95')
-b2sums=('8690f796c3a7b59f88ca1fd4ad3733abc643398723daa9ab4a97dce551556942d4e4b0392f9d85559fccc40a6e5ed36aef27e991781064aa8f0e1facb30bcf56')
+sha512sums=('8b8f61af4cbbc96a108ecc1408abc268a8e98bcddc6692e20bfbb67e4c6fc714efef25614e649d82731ebfd3199d73ef6968f6eff470e1e0ce254c6712ed01c7')
+b2sums=('7723723170e9d6d93e5fb02da1cae8acebc49938c9d128e4e7fba34e2a3e9254b48c3c98374a64a3c76088fb14a8c00fd1c39af9191f617f7e1a994565f39535')
 
 build() {
   cd $pkgname
