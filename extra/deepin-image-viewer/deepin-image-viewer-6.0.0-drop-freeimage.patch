@@ -1,8 +1,8 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index add22eec..528059b1 100644
+index 15d428a..900fa39 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -71,7 +71,7 @@ target_include_directories(${BIN_NAME} PUBLIC ${3rd_lib_INCLUDE_DIRS})
+@@ -73,7 +73,7 @@ target_include_directories(${BIN_NAME} PUBLIC ${3rd_lib_INCLUDE_DIRS})
  target_link_libraries(${BIN_NAME}
      ${DtkDeclarative_LIBRARIES}
      Qt5::Quick Qt5::PrintSupport Qt5::Gui Qt5::Qml Qt5::Core Qt5::DBus Qt5::Concurrent Qt5::Svg
@@ -12,17 +12,10 @@ index add22eec..528059b1 100644
      ${OCR_PLUGIN_LIBRARIES}
      )
 diff --git a/src/src/unionimage/baseutils.cpp b/src/src/unionimage/baseutils.cpp
-index d1e75db6..ca423007 100755
+index 1b59f86..ca42300 100755
 --- a/src/src/unionimage/baseutils.cpp
 +++ b/src/src/unionimage/baseutils.cpp
-@@ -1,5 +1,4 @@
--// Copyright (C) 2020 ~ 2021 Uniontech Software Technology Co., Ltd.
--// SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
-+// SPDX-FileCopyrightText: 2020 - 2023 UnionTech Software Technology Co., Ltd.
- //
- // SPDX-License-Identifier: GPL-3.0-or-later
- 
-@@ -15,9 +14,6 @@
+@@ -14,9 +14,6 @@
  #include <QCryptographicHash>
  #include <QDateTime>
  #include <QDesktopServices>
@@ -32,7 +25,7 @@ index d1e75db6..ca423007 100755
  #include <QDir>
  #include <QFontMetrics>
  #include <QFileInfo>
-@@ -30,7 +26,7 @@
+@@ -29,7 +26,7 @@
  #include <QTextStream>
  #include <QtMath>
  #include <QImageReader>
@@ -41,7 +34,7 @@ index d1e75db6..ca423007 100755
  #include <QDesktopServices>
  
  
-@@ -46,15 +42,19 @@ const QString DATETIME_FORMAT_EXIF = "yyyy:MM:dd HH:mm:ss";
+@@ -45,15 +42,19 @@ const QString DATETIME_FORMAT_EXIF = "yyyy:MM:dd HH:mm:ss";
  
  QPixmap renderSVG(const QString &filePath, const QSize &size)
  {
@@ -69,7 +62,7 @@ index d1e75db6..ca423007 100755
  
      return pixmap;
  }
-@@ -367,12 +367,12 @@ bool trashFile(const QString &file)
+@@ -366,12 +367,12 @@ bool trashFile(const QString &file)
  QString SpliteText(const QString &text, const QFont &font, int nLabelSize, bool bReturn)
  {
      QFontMetrics fm(font);
@@ -85,17 +78,10 @@ index d1e75db6..ca423007 100755
                  nPos = i;
                  break;
 diff --git a/src/src/unionimage/imageutils.cpp b/src/src/unionimage/imageutils.cpp
-index 7a1cb457..a8c80f08 100755
+index d61ef0b..a8c80f0 100755
 --- a/src/src/unionimage/imageutils.cpp
 +++ b/src/src/unionimage/imageutils.cpp
-@@ -1,5 +1,4 @@
--// Copyright (C) 2020 ~ 2021 Uniontech Software Technology Co., Ltd.
--// SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
-+// SPDX-FileCopyrightText: 2020 - 2023 UnionTech Software Technology Co., Ltd.
- //
- // SPDX-License-Identifier: GPL-3.0-or-later
- 
-@@ -16,6 +15,7 @@
+@@ -15,6 +15,7 @@
  #include <QFileInfo>
  #include <QImage>
  #include <QImageReader>
@@ -103,7 +89,7 @@ index 7a1cb457..a8c80f08 100755
  #include <QMimeDatabase>
  #include <QMutexLocker>
  #include <QPixmapCache>
-@@ -33,21 +33,40 @@ const QImage scaleImage(const QString &path, const QSize &size)
+@@ -32,21 +33,40 @@ const QImage scaleImage(const QString &path, const QSize &size)
      if (!imageSupportRead(path)) {
          return QImage();
      }
@@ -157,7 +143,7 @@ index 7a1cb457..a8c80f08 100755
  }
  
  const QDateTime getCreateDateTime(const QString &path)
-@@ -83,17 +102,16 @@ const QDateTime getCreateDateTime(const QString &path)
+@@ -82,17 +102,16 @@ const QDateTime getCreateDateTime(const QString &path)
  
  bool imageSupportRead(const QString &path)
  {
@@ -180,7 +166,7 @@ index 7a1cb457..a8c80f08 100755
  }
  
  bool imageSupportSave(const QString &path)
-@@ -102,16 +120,6 @@ bool imageSupportSave(const QString &path)
+@@ -101,16 +120,6 @@ bool imageSupportSave(const QString &path)
      return LibUnionImage_NameSpace::canSave(path);
  }
  
@@ -197,7 +183,7 @@ index 7a1cb457..a8c80f08 100755
  bool rotate(const QString &path, int degree)
  {
      /*lmh0724使用USE_UNIONIMAGE*/
-@@ -219,22 +227,82 @@ int getOrientation(const QString &path)
+@@ -218,22 +227,82 @@ int getOrientation(const QString &path)
   */
  const QImage getRotatedImage(const QString &path)
  {
@@ -289,7 +275,7 @@ index 7a1cb457..a8c80f08 100755
  }
  
  const QPixmap cachePixmap(const QString &path)
-@@ -268,7 +336,7 @@ QMap<QString, QString> thumbnailAttribute(const QUrl  &url)
+@@ -267,7 +336,7 @@ QMap<QString, QString> thumbnailAttribute(const QUrl  &url)
          set.insert("Thumb::Mimetype", QMimeDatabase().mimeTypeForFile(path).name());
          set.insert("Thumb::Size", QString::number(info.size()));
          set.insert("Thumb::URI", url.toString());
@@ -298,7 +284,7 @@ index 7a1cb457..a8c80f08 100755
          set.insert("Software", "Deepin Image Viewer");
  
          QImageReader reader(path);
-@@ -460,9 +528,6 @@ QStringList supportedImageFormats()
+@@ -459,9 +528,6 @@ QStringList supportedImageFormats()
  
  }
  
@@ -308,7 +294,7 @@ index 7a1cb457..a8c80f08 100755
  bool imageSupportWallPaper(const QString &path)
  {
      bool iRet = false;
-@@ -545,7 +610,7 @@ bool isVaultFile(const QString &path)
+@@ -544,7 +610,7 @@ bool isVaultFile(const QString &path)
  {
      bool bVaultFile = false;
      QString rootPath = makeVaultLocalPath("", "");
@@ -318,24 +304,26 @@ index 7a1cb457..a8c80f08 100755
      }
  
 diff --git a/src/src/unionimage/unionimage.cpp b/src/src/unionimage/unionimage.cpp
-index f3e9beac..bec4259a 100644
+index 74e0a13..9b04ebb 100644
 --- a/src/src/unionimage/unionimage.cpp
 +++ b/src/src/unionimage/unionimage.cpp
-@@ -1,11 +1,8 @@
--// Copyright (C) 2020 ~ 2021 Uniontech Software Technology Co., Ltd.
--// SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
-+// SPDX-FileCopyrightText: 2020 - 2023 UnionTech Software Technology Co., Ltd.
- //
+@@ -3,9 +3,6 @@
  // SPDX-License-Identifier: GPL-3.0-or-later
  
  #include "unionimage.h"
 -#include <FreeImage.h>
 -//#include "giflib/cmanagerattributeservice.h"
- 
+-
  #include <QObject>
  #include <QMutex>
-@@ -34,168 +31,94 @@ const QString DATETIME_FORMAT_EXIF = "yyyy:MM:dd HH:mm";
+ #include <QMutexLocker>
+@@ -31,173 +28,96 @@
+ const QString DATETIME_FORMAT_NORMAL = "yyyy.MM.dd";
+ const QString DATETIME_FORMAT_EXIF = "yyyy:MM:dd HH:mm";
  
+-// 提供用于非线程安全函数 FreeImage_TagToString() 访问限制的锁
+-Q_GLOBAL_STATIC(QMutex, g_freeImageTagToStringMutex);
+-
  namespace LibUnionImage_NameSpace {
  
 -//    enum SupportFormat {
@@ -572,7 +560,7 @@ index f3e9beac..bec4259a 100644
      QHash<QString, int> m_movie_formats;
      QStringList m_canSave;
      QStringList m_qtrotate;
-@@ -203,8 +126,6 @@ public:
+@@ -205,8 +125,6 @@ public:
  
  static UnionImage_Private union_image_private;
  
@@ -581,7 +569,7 @@ index f3e9beac..bec4259a 100644
  /**
   * @brief noneQImage
   * @return QImage
-@@ -220,20 +141,15 @@ UNIONIMAGESHARED_EXPORT const QStringList unionImageSupportFormat()
+@@ -222,20 +140,15 @@ UNIONIMAGESHARED_EXPORT const QStringList unionImageSupportFormat()
  {
      static QStringList res;
      if (res.empty()) {
@@ -604,7 +592,7 @@ index f3e9beac..bec4259a 100644
  }
  
  UNIONIMAGESHARED_EXPORT const QStringList supportMovieFormat()
-@@ -292,307 +208,18 @@ UNIONIMAGESHARED_EXPORT const QString getFileFormat(const QString &path)
+@@ -294,315 +207,18 @@ UNIONIMAGESHARED_EXPORT const QString getFileFormat(const QString &path)
      return suffix;
  }
  
@@ -644,8 +632,16 @@ index f3e9beac..bec4259a 100644
 -        mdhandle = FreeImage_FindFirstMetadata(model, dib, &tag);
 -        if (mdhandle) {
 -            do {
--                mdMap.insert(FreeImage_GetTagKey(tag),
--                             FreeImage_TagToString(model, tag));
+-                QString value;
+-                // FreeImage_TagToString非线程安全，使用前加锁保护
+-                QMutex *mutex = g_freeImageTagToStringMutex;
+-                if (mutex) {
+-                    mutex->lock();
+-                    value = QString(FreeImage_TagToString(model, tag));
+-                    mutex->unlock();
+-                }
+-
+-                mdMap.insert(FreeImage_GetTagKey(tag), value);
 -            } while (FreeImage_FindNextMetadata(mdhandle, &tag));
 -            FreeImage_FindCloseMetadata(mdhandle);
 -        }
@@ -912,7 +908,7 @@ index f3e9beac..bec4259a 100644
  UNIONIMAGESHARED_EXPORT QString unionImageVersion()
  {
      QString ver;
-@@ -602,17 +229,6 @@ UNIONIMAGESHARED_EXPORT QString unionImageVersion()
+@@ -612,17 +228,6 @@ UNIONIMAGESHARED_EXPORT QString unionImageVersion()
      return ver;
  }
  
@@ -930,7 +926,7 @@ index f3e9beac..bec4259a 100644
  QString PrivateDetectImageFormat(const QString &filepath);
  UNIONIMAGESHARED_EXPORT bool loadStaticImageFromFile(const QString &path, QImage &res, QString &errorMsg, const QString &format_bar)
  {
-@@ -627,23 +243,8 @@ UNIONIMAGESHARED_EXPORT bool loadStaticImageFromFile(const QString &path, QImage
+@@ -637,23 +242,8 @@ UNIONIMAGESHARED_EXPORT bool loadStaticImageFromFile(const QString &path, QImage
  
      QByteArray temp_path;
      temp_path.append(path.toUtf8());
@@ -955,7 +951,7 @@ index f3e9beac..bec4259a 100644
          QImageReader reader;
          QImage res_qt;
          reader.setFileName(path);
-@@ -683,254 +284,102 @@ UNIONIMAGESHARED_EXPORT bool loadStaticImageFromFile(const QString &path, QImage
+@@ -693,254 +283,102 @@ UNIONIMAGESHARED_EXPORT bool loadStaticImageFromFile(const QString &path, QImage
              return false;
          }
          return true;
@@ -1050,12 +1046,12 @@ index f3e9beac..bec4259a 100644
 -        if (data.startsWith("\x8a\x4d\x4e\x47\x0d\x0a\x1a\x0a")) {
 -            return "MNG";
 -        }
--
+ 
 -        // Check net pbm file (BitMap).
 -        if (data.startsWith("P1") || data.startsWith("P4")) {
 -            return "PBM";
 -        }
- 
+-
 -        // Check pgm file (GrayMap).
 -        if (data.startsWith("P2") || data.startsWith("P5")) {
 -            return "PGM";
@@ -1131,10 +1127,10 @@ index f3e9beac..bec4259a 100644
 -        if (!file.open(QIODevice::ReadOnly)) {
 -            return FIF_UNKNOWN;
 -        }
--
+ 
 -        //    const QByteArray data = file.read(1024);
 -        const QByteArray data = file.read(64);
- 
+-
 -        // Check bmp file.
 -        if (data.startsWith("BM")) {
 -            return FIF_BMP;
@@ -1278,7 +1274,7 @@ index f3e9beac..bec4259a 100644
  }
  
  UNIONIMAGESHARED_EXPORT bool isNoneQImage(const QImage &qi)
-@@ -997,12 +446,16 @@ QImage adjustImageToRealPosition(const QImage &image, int orientation)
+@@ -1007,12 +445,16 @@ QImage adjustImageToRealPosition(const QImage &image, int orientation)
      return result;
  }
  
@@ -1296,7 +1292,7 @@ index f3e9beac..bec4259a 100644
      QString format = detectImageFormat(path);
      if (format == "SVG") {
          QImage image_copy;
-@@ -1011,12 +464,12 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIle(int angel, const QString &path, QSt
+@@ -1021,12 +463,12 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIle(int angel, const QString &path, QSt
              return false;
          }
          QSvgGenerator generator;
@@ -1311,7 +1307,7 @@ index f3e9beac..bec4259a 100644
          int realangel = angel / 90;
          if (realangel > 0) {
              for (int i = 0; i < qAbs(realangel); i++) {
-@@ -1034,64 +487,25 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIle(int angel, const QString &path, QSt
+@@ -1044,64 +486,25 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIle(int angel, const QString &path, QSt
          generator.setSize(QSize(image_copy.width(), image_copy.height()));
          rotatePainter.end();
          return true;
@@ -1381,7 +1377,7 @@ index f3e9beac..bec4259a 100644
  }
  
  UNIONIMAGESHARED_EXPORT bool rotateImageFIleWithImage(int angel, QImage &img, const QString &path, QString &erroMsg)
-@@ -1112,7 +526,7 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIleWithImage(int angel, QImage &img, co
+@@ -1122,7 +525,7 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIleWithImage(int angel, QImage &img, co
          QPainter rotatePainter;
          rotatePainter.begin(&generator);
          rotatePainter.resetTransform();
@@ -1390,7 +1386,7 @@ index f3e9beac..bec4259a 100644
          int realangel = angel / 90;
          if (realangel > 0) {
              for (int i = 0; i < qAbs(realangel); i++) {
-@@ -1140,56 +554,12 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIleWithImage(int angel, QImage &img, co
+@@ -1150,56 +553,12 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIleWithImage(int angel, QImage &img, co
              return true;
          }
      }
@@ -1448,7 +1444,7 @@ index f3e9beac..bec4259a 100644
      //移除秒　　2020/6/5 DJH
      //需要转义才能读出：或者/　　2020/8/21 DJH
      QFileInfo info(path);
-@@ -1204,9 +574,7 @@ UNIONIMAGESHARED_EXPORT QMap<QString, QString> getAllMetaData(const QString &pat
+@@ -1214,9 +573,7 @@ UNIONIMAGESHARED_EXPORT QMap<QString, QString> getAllMetaData(const QString &pat
      // The value of width and height might incorrect
      QImageReader reader(path);
      int w = reader.size().width();
@@ -1458,7 +1454,7 @@ index f3e9beac..bec4259a 100644
      admMap.insert("Dimension", QString::number(w) + "x" + QString::number(h));
      // 记录图片宽高
      admMap.insert("Width", QString::number(w));
-@@ -1216,7 +584,6 @@ UNIONIMAGESHARED_EXPORT QMap<QString, QString> getAllMetaData(const QString &pat
+@@ -1226,23 +583,14 @@ UNIONIMAGESHARED_EXPORT QMap<QString, QString> getAllMetaData(const QString &pat
      //应该使用qfileinfo的格式
      admMap.insert("FileFormat", getFileFormat(path));
      admMap.insert("FileSize", size2Human(info.size()));
@@ -1466,7 +1462,25 @@ index f3e9beac..bec4259a 100644
  
      return admMap;
  }
-@@ -1226,189 +593,24 @@ UNIONIMAGESHARED_EXPORT bool isImageSupportRotate(const QString &path)
+ 
+ UNIONIMAGESHARED_EXPORT QSize getImageSize(const QString &imagepath)
+ {
+-    QSize size;
+-    FIBITMAP *dib = readFile2FIBITMAP(imagepath, FIF_LOAD_NOPIXELS);
+-    if (dib) {
+-        size.setWidth(static_cast<int>(FreeImage_GetWidth(dib)));
+-        size.setHeight(static_cast<int>(FreeImage_GetHeight(dib)));
+-
+-        FreeImage_Unload(dib);
+-    }
+-
+-    return size;
++    QImageReader reader(imagepath);
++    return reader.size();
+ }
+ 
+ UNIONIMAGESHARED_EXPORT bool isImageSupportRotate(const QString &path)
+@@ -1250,189 +598,24 @@ UNIONIMAGESHARED_EXPORT bool isImageSupportRotate(const QString &path)
      return canSave(path) ;
  }
  
@@ -1666,30 +1680,11 @@ index f3e9beac..bec4259a 100644
  
  imageViewerSpace::ImageType getImageType(const QString &imagepath)
  {
-@@ -1428,9 +630,9 @@ imageViewerSpace::ImageType getImageType(const QString &imagepath)
-         QMimeType mt1 = db.mimeTypeForFile(imagepath, QMimeDatabase::MatchExtension);
-         QString path1 = mt.name();
-         QString path2 = mt1.name();
--        int nSize = -1;
-+
-         QImageReader imgreader(imagepath);
--        nSize = imgreader.imageCount();
-+        int nSize = imgreader.imageCount();
-         //
-         if (strType == "svg" && QSvgRenderer().load(imagepath)) {
-             type = imageViewerSpace::ImageTypeSvg;
 diff --git a/src/src/unionimage/unionimage.h b/src/src/unionimage/unionimage.h
-index bf87f060..f09a29a1 100644
+index 6373d4e..f53364f 100644
 --- a/src/src/unionimage/unionimage.h
 +++ b/src/src/unionimage/unionimage.h
-@@ -1,5 +1,4 @@
--// Copyright (C) 2020 ~ 2021 Uniontech Software Technology Co., Ltd.
--// SPDX-FileCopyrightText: 2023 UnionTech Software Technology Co., Ltd.
-+// SPDX-FileCopyrightText: 2020 - 2023 UnionTech Software Technology Co., Ltd.
- //
- // SPDX-License-Identifier: GPL-3.0-or-later
- 
-@@ -114,16 +113,17 @@ UNIONIMAGESHARED_EXPORT bool rotateImage(int angel, QImage &image);
+@@ -113,16 +113,17 @@ UNIONIMAGESHARED_EXPORT bool rotateImage(int angel, QImage &image);
  
  /**
   * @brief rotateImageFIle
@@ -1711,27 +1706,10 @@ index bf87f060..f09a29a1 100644
  
  /**
   * @brief rotateImageFIle
-@@ -148,6 +148,13 @@ UNIONIMAGESHARED_EXPORT bool rotateImageFIleWithImage(int angel, QImage &img, co
-  */
- UNIONIMAGESHARED_EXPORT QMap<QString, QString> getAllMetaData(const QString &path);
- 
-+/**
-+   @brief 读取文件数据取得文件大小
-+   @param imagepath 文件路径
-+   @return 文件大小
-+ */
-+UNIONIMAGESHARED_EXPORT QSize getImageSize(const QString &imagepath);
-+
- /**
-  * @brief isImageSupportRotate
-  * @param path
-@@ -193,40 +200,6 @@ UNIONIMAGESHARED_EXPORT imageViewerSpace::ImageType getImageType(const QString &
-  * 获得路径类型
+@@ -200,37 +201,6 @@ UNIONIMAGESHARED_EXPORT imageViewerSpace::ImageType getImageType(const QString &
   */
  UNIONIMAGESHARED_EXPORT imageViewerSpace::PathType getPathType(const QString &imagepath);
--
--
--
+ 
 -QT_BEGIN_NAMESPACE
 -
 -class UnionMovieImagePrivate;
