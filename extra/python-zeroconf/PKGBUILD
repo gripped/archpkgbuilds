@@ -2,7 +2,7 @@
 # Contributor: Maxim Andersson <thesilentboatman@gmail.com>
 
 pkgname=python-zeroconf
-pkgver=0.149.1
+pkgver=0.149.16
 pkgrel=1
 pkgdesc="A pure python implementation of multicast DNS service discovery"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('python-setuptools' 'python-build' 'python-installer'
              'python-wheel' 'python-poetry-core' 'cython')
 checkdepends=('python-pytest' 'python-pytest-asyncio')
 source=($pkgname-$pkgver.tar.gz::https://github.com/jstasiak/${pkgname}/archive/${pkgver}.tar.gz)
-sha256sums=('5a71b927c70b8a3fd83e64fdb97f62642a6c4c562891aa5e02dd96ab80a7901b')
+sha256sums=('e4a72f87938ca4cc573ca7f3b6ff02562fb04f0261740f2e05f3efd2759206f0')
 
 build() {
   cd "${pkgbase}-${pkgver}"
