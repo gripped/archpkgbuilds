@@ -1,0 +1,31 @@
+From 9476f68da8d1688ff388f370ff9f800a3594bdf9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 20 Jul 2026 11:32:06 +0200
+Subject: [PATCH] Set window title and icon
+
+- g_set_application_name() is needed to have a proper window title
+
+- g_set_prgname() is needed for Wayland compositors to match the window
+with the desktop file.
+
+- gtk_window_set_default_icon_name() is needed for taskbars and window
+managers on X11 to have window icon.
+---
+ src/marker.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/marker.c b/src/marker.c
+index fda87375f..df9af63ca 100644
+--- a/src/marker.c
++++ b/src/marker.c
+@@ -72,6 +72,10 @@ marker_init(GtkApplication* app)
+ {
+   marker_prefs_load();
+ 
++  g_set_application_name ("Marker");
++  g_set_prgname ("com.github.fabiocolacio.marker");
++  gtk_window_set_default_icon_name ("com.github.fabiocolacio.marker");
++
+   const gchar *quit_accels[] = { "<Ctrl>q", NULL };
+   gtk_application_set_accels_for_action (app, "app.quit", quit_accels);
+ 

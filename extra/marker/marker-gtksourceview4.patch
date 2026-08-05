@@ -1,0 +1,67 @@
+From daabfdf33932a7897bafe96d63fe260939ee503c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 4 Aug 2026 23:42:30 +0200
+Subject: [PATCH] Port to gtksourceview-4
+
+---
+ meson.build         | 2 +-
+ src/marker-editor.c | 4 ++--
+ src/marker.c        | 4 ++++
+ 3 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 5e66db8ad..6a0e93622 100644
+--- a/meson.build
++++ b/meson.build
+@@ -81,7 +81,7 @@ hoedown_sources = [
+ deps = [
+   dependency('gtk+-3.0', version : '>=3.20'),
+   dependency('glib-2.0'),
+-  dependency('gtksourceview-3.0'),
++  dependency('gtksourceview-4'),
+   dependency('webkit2gtk-4.1'),
+   dependency('gtkspell3-3.0')
+ ]
+diff --git a/src/marker-editor.c b/src/marker-editor.c
+index 1f3104a87..b418a2d97 100644
+--- a/src/marker-editor.c
++++ b/src/marker-editor.c
+@@ -184,7 +184,7 @@ search_next     (GtkEntry         *entry,
+   gtk_text_buffer_get_start_iter(buffer, &start);
+   gtk_text_buffer_get_start_iter(buffer, &end);
+ 
+-  gtk_source_search_context_forward2(context, iter, &start, &end, NULL);
++  gtk_source_search_context_forward(context, iter, &start, &end, NULL);
+ 
+   if (gtk_text_iter_compare(&start, &end) != 0){
+     gtk_text_buffer_select_range(buffer, &start, &end);
+@@ -229,7 +229,7 @@ search_previous     (GtkEntry         *entry,
+   gtk_text_buffer_get_start_iter(buffer, &start);
+   gtk_text_buffer_get_start_iter(buffer, &end);
+ 
+-  gtk_source_search_context_backward2(context, iter, &start, &end, NULL);
++  gtk_source_search_context_backward(context, iter, &start, &end, NULL);
+ 
+   if (gtk_text_iter_compare(&start, &end) != 0){
+     gtk_text_buffer_select_range(buffer, &start, &end);
+diff --git a/src/marker.c b/src/marker.c
+index fda87375f..dc479447b 100644
+--- a/src/marker.c
++++ b/src/marker.c
+@@ -318,6 +318,8 @@ main(int    argc,
+   bind_textdomain_codeset ("marker", "UTF-8");
+   textdomain ("marker");
+ 
++  gtk_source_init();
++
+   app = gtk_application_new("com.github.fabiocolacio.marker",
+                             G_APPLICATION_HANDLES_OPEN);
+   g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
+@@ -328,5 +330,7 @@ main(int    argc,
+   int status = g_application_run(G_APPLICATION(app), argc, argv);
+   g_object_unref(app);
+ 
++  gtk_source_finalize();
++
+   return status;
+ }
