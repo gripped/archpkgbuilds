@@ -2,7 +2,7 @@
 # Contributor: SZanko, szanko at protonmail dot com
 
 pkgname=python-shtab
-pkgver=1.9.2
+pkgver=1.9.3
 pkgrel=1
 pkgdesc='Automagic shell tab completion for Python CLI applications'
 arch=(any)
@@ -21,8 +21,8 @@ checkdepends=(
   python-pytest-timeout
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('8e2ae441bb7503279c93eeeb77a509e6aed260cf82828ed6c8429285b0ddee608116de51d608e08085c1dc57f52e24eaeea52f84128eb4960d004cf468da60d0')
-b2sums=('e6c63a3ad256d6486f98d05a807877d5bf2ab51bc46061616097bc886b5d1acd262275e33f0b69920b26cc298759ca4ad208325deeb8c0373e18acd085ce2d0a')
+sha512sums=('834ce9cd0267358b71591b194ce363825dba88f6165a5fcb12c485476692f0841bb8899493ba52a709d973de68d3c1bcc598d8d1f0c9a61e23900ec8142d0432')
+b2sums=('1e0ba8fdedfd52fa4c86fa2a0a85e0c8aa4f90c1bc4d77f73a5543cbcdaca98321251116624a389362c199d3e6a481690a7d3d1cca4c2d882ff06c83885284b8')
 
 build() {
   cd "$pkgname"
