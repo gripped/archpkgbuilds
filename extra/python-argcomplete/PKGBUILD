@@ -4,7 +4,7 @@
 
 pkgname=python-argcomplete
 _pyname=argcomplete
-pkgver=3.7.0
+pkgver=3.7.1
 pkgrel=1
 pkgdesc='Easy, extensible command line tab completion of arguments for your Python script'
 url='https://github.com/kislyuk/argcomplete'
@@ -12,9 +12,9 @@ arch=('any')
 license=('Apache-2.0')
 depends=('python')
 makedepends=('git' 'python-build' 'python-hatch-vcs' 'python-hatchling' 'python-installer' 'python-wheel')
-checkdepends=('fish' 'python-pexpect' 'python-pip' 'tcsh' 'zsh')
+checkdepends=('fish' 'python-pexpect' 'python-pip' 'python-setuptools' 'tcsh' 'zsh')
 source=(${_pyname}::"git+$url#tag=v$pkgver")
-sha512sums=('0e4daa0cb6d9a3d0fa87c38991d8f58da33e832b479621b64a5ad88a5616fc3aa93b12b30caec0c5761c05e6b8ebbadc300c5a19b47ab00763c1a2c48cf90cc9')
+sha512sums=('ae572331b959ebe9be4090fa7d1d1d4ee7f79775d07c2e49f8170094ef31e9b48efa2c0583ad8dd0f61a3a77b9e1aa53bf1c6b7347d1ca943816c094b7467832')
 validpgpkeys=('29BCBADB4ECAAAC2382699388AFAFCD242818A52') # Andrey Kislyuk <kislyuk@gmail.com>
 
 build() {
@@ -26,10 +26,9 @@ check() {
   cd ${_pyname}
   python -m venv --system-site-packages test-venv
   test-venv/bin/python -m installer dist/*.whl
-  # zsh 5.9.0.3 regresses upstream's global python completion tests:
-  # https://github.com/kislyuk/argcomplete/issues/544
-  PATH="$PWD/test-venv/bin/:$PATH" test-venv/bin/python test/test.py -v \
-    TestArgcomplete TestArgcompleteREPL TestSplitLine TestCheckModule TestBash TestZsh TestBashGlobal Warn
+  # Keep nested test-package installs offline and out of build isolation.
+  sed -i 's/pip install {}/pip install --no-build-isolation --no-index {}/' test/test.py
+  PATH="$PWD/test-venv/bin/:$PATH" test-venv/bin/python test/test.py -v
 }
 
 package() {
