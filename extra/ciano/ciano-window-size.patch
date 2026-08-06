@@ -1,0 +1,53 @@
+From 182366274eb63e8bdceb900780fb09cdafb40392 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 6 Aug 2026 00:20:42 +0200
+Subject: [PATCH] Reduce window size
+
+This allows to window to fit into smaller screen. Also, set ellipse for
+long labels on the conversation window.
+---
+ src/Views/ConverterView.vala   | 4 ++--
+ src/Widgets/RowConversion.vala | 8 +++-----
+ 2 files changed, 5 insertions(+), 7 deletions(-)
+
+diff --git a/src/Views/ConverterView.vala b/src/Views/ConverterView.vala
+index 7073f5a..bc7e00d 100644
+--- a/src/Views/ConverterView.vala
++++ b/src/Views/ConverterView.vala
+@@ -49,8 +49,8 @@ namespace Ciano.Views {
+          */
+         public ConverterView (Gtk.ApplicationWindow app) {
+             this.app = app;
+-            this.app.set_default_size (1050, 700);
+-            this.app.set_size_request (1050, 700);
++            this.app.set_default_size (800, 600);
++            this.app.set_size_request (640, 480);
+             this.app.deletable = true;
+             this.app.resizable = true;
+             this.app.get_style_context ().add_class ("window-background-color");
+diff --git a/src/Widgets/RowConversion.vala b/src/Widgets/RowConversion.vala
+index 5a95aae..46a5108 100644
+--- a/src/Widgets/RowConversion.vala
++++ b/src/Widgets/RowConversion.vala
+@@ -60,11 +60,8 @@ namespace Ciano.Widgets {
+             var icone = new Gtk.Image.from_icon_name (icon, Gtk.IconSize.DIALOG);
+             this.box_name_progress = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+ 
+-            if (name.length > 85) {
+-               this.name_video = new Gtk.Label (name.slice (0, 85) + "...");
+-            } else {
+-                this.name_video = new Gtk.Label (name);
+-            }
++            this.name_video = new Gtk.Label (name);
++            this.name_video.ellipsize = Pango.EllipsizeMode.MIDDLE;
+             this.name_video.halign = Gtk.Align.START;
+ 
+             this.progress_bar = new Gtk.ProgressBar ();
+@@ -75,6 +72,7 @@ namespace Ciano.Widgets {
+             this.convert_to.set_use_markup (true);
+ 
+             this.status = new Gtk.Label (Properties.TEXT_STARTING);
++            this.status.ellipsize = Pango.EllipsizeMode.END;
+             this.status.halign = Gtk.Align.START;
+ 
+             this.button_cancel = new Gtk.Button.with_label (Properties.TEXT_CANCEL);

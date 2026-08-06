@@ -1,0 +1,34 @@
+From 5d64f8bced1e6b54048bb2b3beb8cde46e57f057 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 20 Jul 2026 17:58:40 +0200
+Subject: [PATCH] Present the window on activation
+
+This ensures that the window brings to the front if already open.
+---
+ src/Application.vala | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/src/Application.vala b/src/Application.vala
+index 510e037..47de587 100644
+--- a/src/Application.vala
++++ b/src/Application.vala
+@@ -52,12 +52,15 @@ namespace Ciano {
+          * @return {@code void}
+          */
+         public override void activate () {
+-            if (window == null) {
+-                window = new Window (this);
+-                add_window (window);
+-                window.show_all ();
++            if (window != null) {
++                window.present ();
++                return;
+             }
+ 
++            window = new Window (this);
++            add_window (window);
++            window.show_all ();
++
+             var quit_action = new SimpleAction ("quit", null);
+             quit_action.activate.connect (() => {
+                 if (window != null) {

@@ -2,45 +2,80 @@
 
 pkgname=ciano
 pkgver=0.2.4
-pkgrel=6
+pkgrel=7
 pkgdesc='Multimedia file converter focused on simplicity'
-arch=('x86_64')
+arch=(x86_64)
 url='https://robertsanseries.github.io/ciano/'
-license=('GPL3')
-depends=('ffmpeg' 'granite' 'imagemagick')
-makedepends=('meson' 'vala')
-source=("https://github.com/robertsanseries/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        '0001-Handle-GIF-with-ImageMagick.patch'
-        '0001-Create-output-directory-if-not-exist.patch'
-        '0001-Use-standard-icon-names.patch'
-        '0001-Add-support-for-conversion-and-selection-of-OPUS-aud.patch'
-        '0001-Add-support-for-conversion-and-selection-of-WEBP-ima.patch')
-sha256sums=('cdb7f77f10e4b7a64520d618472de97955ce897d26468055666291672db58754'
-            '8b44b7df58f82d0ff38572b773724b6f42e085fc1a1aa098776c794eb117b49d'
-            'f682329bc9cbed2d0605b31e1cc4915c9a7e188bb398fed88001e892f44c50bb'
-            'fb99403b4f6707454eef3f8552cded3e48e230dd4a118c7ada6e78e1a52fa3a4'
-            '6b24642ba9fb78256eb2e25185ad33db1e175abeff766bf425a3d505d9d7257b'
-            '792c95739e89a6db241934230ecf6692dab8811da37439256321924793a2b732')
+license=(GPL-3.0-or-later)
+depends=(
+  dconf
+  ffmpeg
+  glib2
+  glibc
+  granite
+  gtk3
+  hicolor-icon-theme
+  imagemagick
+  libgee
+  pango
+)
+makedepends=(
+  git
+  meson
+  vala
+)
+source=(
+  "git+https://github.com/robertsanseries/ciano.git#tag=$pkgver"
+  ciano-fix-gif.patch
+  ciano-activate-window.patch
+  ciano-window-size.patch
+)
+b2sums=(
+  504ed12c734210683f7e57e22a44c6cc3fb72afe78dc3f4dacbef9ebd44781122563e3ce0e2878cf66b4f157480539850e01b970511bfbca4c94e073f45e0a9a
+  c84896398151769bcb56a5d0a6c388926a396b4537cbe35de3946ad011679d8bc617b6130e676f7b30350d4f05774178a30ec26fc0e14343842ff30b83caea33
+  ade378631b01479ef918307f74fb205e388fbb8cf0e011d677f9e5d7b289cd86b455518f8730beb4ed875148eb0f4405ea95a13a3db95dd83d19ec3e6e98a400
+  53a413d2e1addd4679db2f82a63654cd67373ccf77d13bd778bbbc2e404ada45d8ecd76c095d6b9044d1b1e68831d0162e49ef0074b59839512b312893169455
+)
 
 prepare() {
-  cd $pkgname-$pkgver
-
-  # Handle GIF with ImageMagick
-  patch -Np1 -i ../0001-Handle-GIF-with-ImageMagick.patch
+  cd $pkgname
 
   # Create output directory if not exist
-  patch -Np1 -i ../0001-Create-output-directory-if-not-exist.patch
+  # https://github.com/robertsanseries/ciano/pull/107
+  git cherry-pick -n -m 1 07bac8e73f7093b6b2544c603f955f920a5809aa
+  git cherry-pick -n 07859b177edd0f44cd4ded54287c466f483b879d
 
   # Use standard icon names
-  patch -Np1 -i ../0001-Use-standard-icon-names.patch
+  # https://github.com/robertsanseries/ciano/pull/108
+  git cherry-pick -n -m 1 4e6e2429520134312d675d24c22779a11413ddd0
 
-  # Add support for more formats
-  patch -Np1 -i ../0001-Add-support-for-conversion-and-selection-of-OPUS-aud.patch
-  patch -Np1 -i ../0001-Add-support-for-conversion-and-selection-of-WEBP-ima.patch
+  # Add support for conversion and selection of OPUS audios
+  # https://github.com/robertsanseries/ciano/pull/109
+  git cherry-pick -n -m 1 9403e239e4382dda8f531a7713ae84d7bf65c005
+
+  # Add support for conversion and selection of WEBP images
+  # https://github.com/robertsanseries/ciano/pull/112
+  git cherry-pick -n -m 1 5084593303049ae471323d3a1b2180326f42b290
+
+  # Fix adding files
+  # https://github.com/robertsanseries/ciano/pull/149
+  git cherry-pick -n 3f94c32c8ec6a08ee93f1c94ba3693ca204d36ba
+
+  # Handle GIF with ImageMagick
+  # https://github.com/robertsanseries/ciano/pull/111
+  git apply -3 ../ciano-fix-gif.patch
+
+  # Present the window on activation
+  # https://github.com/robertsanseries/ciano/pull/153
+  git apply -3 ../ciano-activate-window.patch
+
+  # Reduce window size
+  # https://github.com/robertsanseries/ciano/pull/154
+  git apply -3 ../ciano-window-size.patch
 }
 
 build() {
-  arch-meson $pkgname-$pkgver build
+  arch-meson $pkgname build
   meson compile -C build
 }
 
