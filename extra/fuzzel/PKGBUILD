@@ -3,7 +3,7 @@
 
 pkgname=fuzzel
 pkgver=1.14.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Application launcher for wlroots based Wayland compositors'
 url="https://codeberg.org/dnkl/$pkgname"
 arch=(x86_64)
@@ -23,10 +23,15 @@ makedepends=(meson
              wayland-protocols)
 backup=('etc/xdg/fuzzel/fuzzel.ini')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('c6416786c3a0600b8ad91ed951c43c002a639870c3823b4a60c910442f4ae097')
+sha256sums=('4b8a914d7a065e34da7db4cc6ae4f02c773445e41b724b28b8b7385636b449ee')
 
 build() {
 	cd "$pkgname"
+	# Between meson-1.10.1 and 1.11.2 the header finder stopped finding resvg.h in
+	# the place it has always been which made this package unreproducible (even
+	# accounting for the checksum change that happened at the same time thanks to
+	# Codeberg's gzip backend change).
+	CFLAGS+=' -I/usr/include/resvg'
 	arch-meson \
 		-Denable-cairo=enabled \
 		-Dpng-backend=libpng \
