@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-font-manager
-pkgver=6.5.13
+pkgver=6.5.14
 pkgrel=1
 pkgdesc='A font management tool for Deepin desktop'
 arch=('x86_64')
@@ -12,13 +12,10 @@ makedepends=('git' 'cmake' 'deepin-file-manager' 'ninja' 'qt6-tools' 'clang')
 optdepends=('deepin-file-manager: font preview in file manager')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-font-manager.git#tag=$pkgver")
-sha512sums=('1d554408f45196a4651f00564def14c2d7ed9fa74c07bd5f9068d43103479368f7b1120afd1a9985066a55f1e776cfbc023d37e6fa91c7f7ef41b70b324cd833')
+sha512sums=('b1b3655feafa94dd08c30dc189a7980cbc336464a414c27510c1e3d81320855ea7b575697a490530685de6330171eea18e4a9f95ddc8b4da369fe9717981591b')
 
 prepare() {
   cd deepin-font-manager
-
-  # Fix linker flags
-  sed -i 's/CMAKE_EXE_LINKER_FLAGS "-pie"/CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie"/' deepin-font-manager/CMakeLists.txt
 
   # Fix stale dfm-base references after upstream switched the lookup to dfm6-base.
   sed -i \
