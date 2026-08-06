@@ -3,7 +3,7 @@
 pkgname=python-hidraw-pure
 _pkgname=python-hidraw
 pkgver=1.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Pythonic binding for Linux's hidraw ioctls"
 url="https://github.com/vpelletier/python-hidraw"
 arch=(any)
@@ -17,6 +17,8 @@ makedepends=(
 	"python-installer"
 	"python-setuptools"
 )
+# TODO(Martin): while hidapi on Arch does not provide hidraw, some apps use hidraw when they see it - https://github.com/vpelletier/python-hidraw/issues/8
+conflicts=("python-hidapi")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/vpelletier/python-hidraw/archive/v${pkgver}.tar.gz")
 sha256sums=('8816005707343a32592d22693fcfdd6c2a6e820662b57f0d0a752f59e5a678a1')
 
