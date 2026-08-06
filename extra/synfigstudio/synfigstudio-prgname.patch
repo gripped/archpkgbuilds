@@ -1,0 +1,33 @@
+From b7d81efa660dbb9ff0207f311a0effb0c099e9b0 Mon Sep 17 00:00:00 2001
+From: Integral <integral@member.fsf.org>
+Date: Sun, 20 Apr 2025 21:01:01 +0800
+Subject: [PATCH] fix(ui): fix missing window icon in Wayland (#3561)
+
+---
+ synfig-studio/src/gui/main.cpp | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/synfig-studio/src/gui/main.cpp b/synfig-studio/src/gui/main.cpp
+index 471410676..3d4c86ec0 100644
+--- a/synfig-studio/src/gui/main.cpp
++++ b/synfig-studio/src/gui/main.cpp
+@@ -31,6 +31,7 @@
+ #endif
+ 
+ #include <synfig/general.h>
++#include <glibmm/miscutils.h>
+ 
+ #include "app.h"
+ #include <iostream>
+@@ -131,6 +132,8 @@ int main(int argc, char **argv)
+ 	cout << endl;
+ 	cout << "   " << _("synfig studio -- starting up application...") << endl << endl;
+ 
++	Glib::set_prgname("org.synfig.SynfigStudio");
++
+ 	SYNFIG_EXCEPTION_GUARD_BEGIN()
+ 	studio::App app(etl::dirname(binary_path), &argc, &argv);
+ 
+-- 
+2.55.0
+
