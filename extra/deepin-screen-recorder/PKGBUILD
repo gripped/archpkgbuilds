@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-screen-recorder
-pkgver=6.5.3
+pkgver=6.5.4
 pkgrel=1
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
@@ -20,19 +20,26 @@ conflicts=('deepin-screenshot')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=$pkgver"
          libv4l-1.30.patch)
-sha512sums=('f5c4c2c1082ca9b9b38759c0b88629bf1a8d098f556cdc42440fa5968ff1b0d116ed260e5661d9beff8ed8ec790ac6d18e2a21d2a306d9b3efe4bcab5b0397af'
+sha512sums=('e5a5c677232b408fc6671457a7ed8beace6d5fa0235623804dee2c228bf03f6b8bfc934c8698fdcdb80cd3a6edb5355e5bbfead1f00a7a41a0e25eaa32fc0d5c'
             'b8527bbf18b78b530507ed7725218db88f3ae4ed6abb700f6430903421e188456d7f0695f680461376d403c9227bc0234578d909f29399a4072a13a042d524cb')
 
 prepare() {
   cd deepin-screen-recorder
   # Revert opencv -> opencv-mobile change, because opencv-mobile is not available in Arch
-  sed -i 's|opencv_mobile|opencv4|;s|-lopencv_small|-lopencv_core -lopencv_imgproc|' src/src.pro
+  sed -i 's|opencv_mobile|opencv5|;s|-lopencv_small|-lopencv_core -lopencv_imgproc|' src/src.pro
+  # OpenCV 5 removed these old C API compatibility aliases/helpers.
+  sed -i -e '/opencv2\/imgproc\/types_c.h/d' \
+         -e 's|CV_BGR2GRAY|cv::COLOR_BGR2GRAY|g' \
+         -e 's|CV_TM_CCOEFF_NORMED|cv::TM_CCOEFF_NORMED|g' \
+         -e 's|CV_THRESH_TOZERO|cv::THRESH_TOZERO|g' \
+         -e 's|cvSize(|cv::Size(|g' \
+         src/utils/pixmergethread.cpp
+
+  # Arch intentionally ships only deepin-image-editor's Qt6 visual result library.
+  sed -i 's|libimagevisualresult/visualresult.h|libimagevisualresult6/visualresult.h|;s|-limagevisualresult\>|-limagevisualresult6|' src/camera/majorimageprocessingthread.cpp src/src.pro
 
   # https://github.com/linuxdeepin/developer-center/issues/3035
   sed -i "s|/etc/os-version|/etc/uos-version|" src/src.pro
-
-  # OpenCV 4 compatibility
-  sed -i '/#include<opencv2/i #include <opencv2/imgproc/types_c.h>' src/utils/pixmergethread.h
 
   # Remove non-existent resources.qrc reference
   sed -i '/..\/resources.qrc/d' src/src.pro
