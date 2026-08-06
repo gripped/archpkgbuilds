@@ -2,15 +2,15 @@
 
 pkgname=deepin-image-editor
 pkgver=6.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Public library for deepin-image-viewer and deepin-album'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/image-editor"
 license=('GPL-3.0-or-later')
-depends=('dtkcore' 'dtkgui' 'dtkwidget' 'dtk6core' 'dtk6gui' 'dtk6widget'
-         'qt5-base' 'qt5-svg' 'qt6-base' 'qt6-svg' 'libtiff' 'ffmpegthumbnailer'
+depends=('dtk6core' 'dtk6gui' 'dtk6widget'
+         'qt6-base' 'qt6-svg' 'libtiff' 'ffmpegthumbnailer'
          'libmediainfo' 'glibc' 'libgcc' 'libstdc++' 'deepin-util-dfm')
-makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 source=("git+https://github.com/linuxdeepin/image-editor.git#tag=$pkgver"
         remove-broken-flags.patch)
 sha512sums=('3b3631dec438cfbecc9fa9c71500c14e5baa9e3fa4b918885cd66daafd75860829339d15176dcdc83f89f1ff50bfa2eda60bdf434833be81eb19ecfeef42f45c'
@@ -21,6 +21,10 @@ prepare() {
 
   # Keep Arch's CFLAGS/LDFLAGS; upstream appends its own optimization/linker flags.
   patch -Np1 < ../remove-broken-flags.patch
+
+  # Arch only needs the Qt6 libraries now; skip the legacy Qt5 targets.
+  sed -i '/include(libimageviewer-qt5.cmake)/d' libimageviewer/CMakeLists.txt
+  sed -i '/include(libimagevisualresult-qt5.cmake)/d' libimagevisualresult/CMakeLists.txt
 }
 
 build() {
