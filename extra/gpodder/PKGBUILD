@@ -3,40 +3,66 @@
 
 pkgname=gpodder
 pkgver=3.11.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Podcast client written in Python using GTK'
-arch=('any')
+arch=(any)
 url='https://gpodder.github.io/'
-license=('GPL3')
-depends=('gtk3' 'python-cairo' 'dbus-python' 'python-gobject' 'python-mygpoclient'
-         'python-podcastparser' 'python-requests')
-makedepends=('intltool' 'python-build' 'python-installer' 'python-setuptools')
-optdepends=('libnotify: Gtk+ Desktop Notifications extension'
-            'python-mutagen: Tag downloaded files, Remove cover art from OGG files extensions'
-            'webkit2gtk-4.1: HTML show notes'
-            'yt-dlp: Youtube-dl extension'
-            'python-pysocks: SOCKS proxy support')
-source=("https://github.com/gpodder/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        "Try-importing-WebKit2-4.1-first-then-4.0.patch::https://github.com/gpodder/gpodder/commit/9910aeed49b286287534cdafcab7f9e7e2b04d51.patch?full_index=1")
-sha256sums=('c09de56290589f5d66592d79acdfb8b70e76deab6df590715e4556c6d2d2068c'
-            'd6ffeeb6971d5de363fba904776aa659560b7d78b8b7029761543f37054dfe39')
+license=(GPL-3.0-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  gtk3
+  hicolor-icon-theme
+  pango
+  python
+  python-cairo
+  python-dbus
+  python-gobject
+  python-mygpoclient
+  python-podcastparser
+  python-requests
+  python-urllib3
+  xdg-utils
+)
+makedepends=(
+  git
+  intltool
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+optdepends=(
+  'libappindicator: App Indicator extension'
+  'libnotify: Desktop Notifications extension'
+  'python-html5lib: Clickable links in show notes'
+  'python-mutagen: Tag downloaded files, Remove cover art from OGG files extensions'
+  'python-pysocks: SOCKS proxy support'
+  'webkit2gtk-4.1: HTML show notes'
+  'yt-dlp: Youtube-dl extension'
+)
+source=("git+https://github.com/gpodder/gpodder.git#tag=$pkgver")
+b2sums=(632ab0b95f7602cdf1e8bf054221edefc0ba6ce331a2b0c5c64d168889b507d4eea2b274f92571bbe0ff9bf26f560d6f00985903dc888b4f0770fc4882eabd9f)
 
 prepare() {
-  cd $pkgname-$pkgver
-  patch -Np1 -i ../Try-importing-WebKit2-4.1-first-then-4.0.patch
-  # Use gio open directly instead of xdg-open
-  sed -i "s/\['xdg-open', filename\]/['gio', 'open', filename]/" src/gpodder/util.py
+  cd $pkgname
+
+  # Support webkit2gtk-4.1
+  # https://github.com/gpodder/gpodder/pull/1747
+  git cherry-pick -n 9910aeed49b286287534cdafcab7f9e7e2b04d51
+  git cherry-pick -n 7c1d67ef2f942bf8b00bbc3ec76bf0b1a82fa489
 
   # Fix launchable ID in metainfo file
   sed -i 's/org.gpodder.gpodder.desktop/gpodder.desktop/' share/metainfo/org.gpodder.gpodder.appdata.xml
 }
 
 build() {
-  cd $pkgname-$pkgver
-  make messages
+  cd $pkgname
+  make build
+  python -m build --wheel --no-isolation
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir" install
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }

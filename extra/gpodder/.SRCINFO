@@ -1,29 +1,38 @@
 pkgbase = gpodder
 	pkgdesc = Podcast client written in Python using GTK
 	pkgver = 3.11.5
-	pkgrel = 4
+	pkgrel = 5
 	url = https://gpodder.github.io/
 	arch = any
-	license = GPL3
+	license = GPL-3.0-or-later
+	makedepends = git
 	makedepends = intltool
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = gdk-pixbuf2
+	depends = glib2
 	depends = gtk3
+	depends = hicolor-icon-theme
+	depends = pango
+	depends = python
 	depends = python-cairo
-	depends = dbus-python
+	depends = python-dbus
 	depends = python-gobject
 	depends = python-mygpoclient
 	depends = python-podcastparser
 	depends = python-requests
-	optdepends = libnotify: Gtk+ Desktop Notifications extension
+	depends = python-urllib3
+	depends = xdg-utils
+	optdepends = libappindicator: App Indicator extension
+	optdepends = libnotify: Desktop Notifications extension
+	optdepends = python-html5lib: Clickable links in show notes
 	optdepends = python-mutagen: Tag downloaded files, Remove cover art from OGG files extensions
+	optdepends = python-pysocks: SOCKS proxy support
 	optdepends = webkit2gtk-4.1: HTML show notes
 	optdepends = yt-dlp: Youtube-dl extension
-	optdepends = python-pysocks: SOCKS proxy support
-	source = https://github.com/gpodder/gpodder/archive/3.11.5/gpodder-3.11.5.tar.gz
-	source = Try-importing-WebKit2-4.1-first-then-4.0.patch::https://github.com/gpodder/gpodder/commit/9910aeed49b286287534cdafcab7f9e7e2b04d51.patch?full_index=1
-	sha256sums = c09de56290589f5d66592d79acdfb8b70e76deab6df590715e4556c6d2d2068c
-	sha256sums = d6ffeeb6971d5de363fba904776aa659560b7d78b8b7029761543f37054dfe39
+	source = git+https://github.com/gpodder/gpodder.git#tag=3.11.5
+	b2sums = 632ab0b95f7602cdf1e8bf054221edefc0ba6ce331a2b0c5c64d168889b507d4eea2b274f92571bbe0ff9bf26f560d6f00985903dc888b4f0770fc4882eabd9f
 
 pkgname = gpodder
