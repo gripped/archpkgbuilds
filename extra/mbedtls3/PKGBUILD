@@ -4,7 +4,7 @@
 # Contributor: carstene1ns <arch carsten-teibes.de>
 
 pkgname=mbedtls3
-pkgver=3.6.6
+pkgver=3.6.7
 pkgrel=1
 pkgdesc='An open source, portable, easy to use, readable and flexible TLS library'
 arch=(x86_64)
@@ -31,7 +31,7 @@ source=(
   git+https://github.com/Mbed-TLS/mbedtls.git#tag=mbedtls-${pkgver}
   git+https://github.com/Mbed-TLS/mbedtls-framework.git
 )
-b2sums=('647eadc869e588d9bb44399fa1e24177793075e5ab8131c9672812aaca431702266165d6615338e13c1e343bc1c80a8eed078d489649b38034ad95aa335ccea5'
+b2sums=('956c7be3afb1db2c699f430810e29de1c80d906371243de6fab45cd7b6042ed24af7bb80c975483c76215c92f9eca1ea548d6434c0068c5f522abfebf45a684e'
         'SKIP')
 
 prepare() {
@@ -49,6 +49,8 @@ build() {
   cmake -S mbedtls -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_INCLUDEDIR=include/mbedtls3 \
+    -DCMAKE_INSTALL_LIBDIR=lib/mbedtls3 \
     -DCMAKE_SKIP_RPATH=ON \
     -DUSE_SHARED_MBEDTLS_LIBRARY=ON \
     -DUSE_STATIC_MBEDTLS_LIBRARY=ON \
@@ -63,14 +65,6 @@ check() {
 package() {
   DESTDIR="${pkgdir}" cmake --install build
 
-  # namespace includes
-  install -dm 755 "${pkgdir}"/usr/include/mbedtls3
-  mv "${pkgdir}"/usr/include/{everest,mbedtls,psa} "${pkgdir}"/usr/include/mbedtls3/
-
-  # namespace libs
-  install -dm 755 "${pkgdir}"/usr/lib/mbedtls3
-  mv "${pkgdir}"/usr/lib/{cmake,lib*.a,lib*.so*,pkgconfig} "${pkgdir}"/usr/lib/mbedtls3/
-
   # rename generic utils
   local _prog _baseprog
   for _prog in "${pkgdir}"/usr/bin/*; do
@@ -83,7 +77,7 @@ package() {
 
   # create symlinks for shared libs
   for _lib in "${pkgdir}"/usr/lib/mbedtls3/lib*.so.*; do
-    ln -sf ../mbedtls3/"$(basename "$_lib")" "${pkgdir}/usr/lib/$(basename "$_lib")"
+    ln -sf mbedtls3/"$(basename "$_lib")" "${pkgdir}/usr/lib/$(basename "$_lib")"
   done
 }
 
