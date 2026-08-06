@@ -1,0 +1,37 @@
+[Unit]
+Description=SRS realtime media server
+Documentation=https://ossrs.io/lts/en-us/docs/v6/doc/getting-started
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/srs -c /etc/srs/srs.conf
+Restart=on-failure
+RestartSec=2s
+
+DynamicUser=yes
+CapabilityBoundingSet=~CAP_SETUID CAP_SETGID CAP_SETPCAP CAP_SYS_ADMIN CAP_SYS_PTRACE CAP_CHOWN CAP_FSETID CAP_SETFCAP CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_FOWNER CAP_IPC_OWNER CAP_NET_ADMIN CAP_SYS_TIME CAP_AUDIT_CONTROL CAP_AUDIT_READ CAP_AUDIT_WRIT>
+LockPersonality=true
+NoNewPrivileges=true
+DevicePolicy=closed
+PrivateDevices=true
+PrivateTmp=true
+PrivateUsers=true
+ProtectClock=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectHostname=true
+ProtectKernelTunables=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectSystem=strict
+RemoveIPC=true
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@resources @privileged
+UMask=177
+
+[Install]
+WantedBy=multi-user.target
