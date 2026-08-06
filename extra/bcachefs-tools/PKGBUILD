@@ -5,7 +5,7 @@ pkgbase=bcachefs-tools
 pkgname=(bcachefs-tools bcachefs-dkms)
 epoch=3
 pkgver=1.39.0
-pkgrel=1
+pkgrel=2
 pkgdesc='BCacheFS filesystem utilities'
 arch=('x86_64')
 url='https://bcachefs.org/'
@@ -40,8 +40,15 @@ makedepends=(
 options=(!lto)
 source=(
   git+https://github.com/koverstreet/bcachefs-tools.git#tag=v${pkgver}
+  0001-do-not-load-binary-modules-for-dkms-package.patch
 )
-b2sums=('fe338be6a7b2937bf711541984145dc902ab3c8b33111d79fb1985e753c8077d7cdf5a0739c650ca8e259524cac412a0fdfcba3067b9f2f9b1a005fe54cf5ed5')
+b2sums=('fe338be6a7b2937bf711541984145dc902ab3c8b33111d79fb1985e753c8077d7cdf5a0739c650ca8e259524cac412a0fdfcba3067b9f2f9b1a005fe54cf5ed5'
+        '55cc2148c23a18f1d286fb77941a03b41ee4b3748728e517e5af06ec88fab41262c67b603907b0da8319bc5f08ff1667edc1480284bd4d3aca72c5412cb68e9f')
+
+prepare() {
+  cd ${pkgname}
+  patch -Np1 < ../0001-do-not-load-binary-modules-for-dkms-package.patch
+}
 
 build() {
   cd ${pkgname}
