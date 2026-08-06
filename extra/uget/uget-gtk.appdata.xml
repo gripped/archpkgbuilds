@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>com.ugetdm.uget-gtk</id>
-  <launchable type="desktop-id">uget-gtk.desktop</launchable>
+  <id>com.ugetdm.uGet</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>LGPL-2.1-or-later</project_license>
   <name>uGet</name>
-  <summary>Download multiple URLs and apply it to one of setting/queue</summary>
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LGPL-2.1</project_license>
+  <summary>Download manager</summary>
   <description>
-    <p>uGet is a download manager that combines lightweight resource usage with a very powerful feature set:</p>
+    <p>uGet is a lightweight yet powerful Open Source download manager.</p>
+    <p>Some highlights of uGet:</p>
     <ul>
       <li>Multi-connection downloads</li>
       <li>Browser integration</li>
@@ -16,21 +16,49 @@
       <li>Batch downloads</li>
       <li>Downloads queue</li>
       <li>Advanced download categories</li>
+      <li>Translated into multiple languages</li>
+      <li>Pause/resume downloads</li>
+      <li>Scheduler</li>
+      <li>After completion actions</li>
+      <li>Multiple mirrors/sources</li>
+      <li>Multiple protocols</li>
+      <li>Command-line / terminal</li>
+      <li>Quiet mode</li>
+      <li>Keyboard shortcuts</li>
+      <li>Download history</li>
+      <li>FTP login and anonymous FTP</li>
+      <li>Folder auto-creation</li>
     </ul>
   </description>
+  <developer_name>uGet Team</developer_name>
+  <url type="homepage">https://sourceforge.net/p/urlget</url>
+  <url type="vcs-browser">https://sourceforge.net/p/urlget/uget2/</url>
+  <kudos>
+    <kudo>ModernToolkit</kudo>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>HighContrast</kudo>
+  </kudos>
   <screenshots>
     <screenshot type="default">
-      <image>https://ugetdm.com/wp-content/uploads/2018/01/2015-uget-ubuntu-1504.png</image>
+      <caption>Main window</caption>
+      <image>https://a.fsdn.com/con/app/proj/urlget/screenshots/289971.jpg</image>
     </screenshot>
     <screenshot>
-      <image>https://ugetdm.com/wp-content/uploads/2018/01/uget-sparky-linux-5-lxqt.jpg</image>
+      <caption>New download</caption>
+      <image>https://a.fsdn.com/con/app/proj/urlget/screenshots/289973.jpg</image>
     </screenshot>
     <screenshot>
-      <image>https://ugetdm.com/wp-content/uploads/2018/01/uGet-2.0.7-Running-in-Ubuntu.png</image>
+      <caption>Batch download</caption>
+      <image>https://a.fsdn.com/con/app/proj/urlget/screenshots/289975.jpg</image>
     </screenshot>
     <screenshot>
-      <image>https://ugetdm.com/wp-content/uploads/2018/01/2014-uget-fedora-adwaita-gnome.png</image>
+      <caption>New from clipboard</caption>
+      <image>https://a.fsdn.com/con/app/proj/urlget/screenshots/289977.jpg</image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://ugetdm.com/</url>
+  <provides>
+    <binary>uget-gtk</binary>
+  </provides>
+  <launchable type="desktop-id">uget-gtk.desktop</launchable>
+  <content_rating type="oars-1.1" />
 </component>

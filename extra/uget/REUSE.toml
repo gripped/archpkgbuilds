@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -17,14 +20,17 @@ path = [
     "*.timer",
     "*.desktop",
     "*.hook",
+    "*.appdata.xml",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "disable-rss.patch",
-    "gcc10.patch",
+    "uget-disable-rss.patch",
+    "uget-download-dir.patch",
+    "uget-gcc10.patch",
+    "uget-gcc16.patch",
 ]
 SPDX-FileCopyrightText = "uget contributors"
-SPDX-License-Identifier = "TODO-Choose-a-license"
+SPDX-License-Identifier = "LGPL-2.1-or-later"
