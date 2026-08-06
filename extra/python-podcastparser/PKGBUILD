@@ -3,30 +3,36 @@
 
 _pkgname=podcastparser
 pkgname=python-podcastparser
-pkgver=0.6.10
-pkgrel=7
+pkgver=0.6.11
+pkgrel=1
 pkgdesc='Simplified, fast RSS parsing library in Python'
-arch=('any')
+arch=(any)
 url='https://github.com/gpodder/podcastparser'
-license=('ISC')
-depends=('python')
-makedepends=('python-setuptools')
-checkdepends=('python-pytest')
-source=("https://github.com/gpodder/$_pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('b407c0b40f788e9b49e3f7f1eb1f514d452f241ec3b1020ae207d5329fec1526')
+license=(ISC)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(python-pytest)
+source=("git+https://github.com/gpodder/podcastparser.git#tag=$pkgver")
+b2sums=(277895db6f2082451a5b886299fc9b04dc45e292cc5e3a296471cb1a6af4762aa7f94b092d59f3719533876f6de44307ef205317671fd73d6896040360bdeb1b)
 
 build() {
-  cd $_pkgname-$pkgver
-  python setup.py build
+  cd $_pkgname
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   PYTHONPATH=. pytest -o addopts=''
 }
 
 package() {
-  cd $_pkgname-$pkgver
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  cd $_pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
