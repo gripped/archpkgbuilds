@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=zola
-pkgver=0.22.1
-pkgrel=2
+pkgver=0.23.1
+pkgrel=1
 pkgdesc="An opinionated static site generator"
 arch=('x86_64')
 url="https://github.com/getzola/zola"
@@ -11,11 +11,11 @@ depends=('libgcc' 'glibc' 'oniguruma')
 makedepends=('cargo')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/getzola/zola/archive/v${pkgver}.tar.gz")
-sha256sums=('0f59479e05bce79e8d5860dc7e807ea818986094469ed8bf0bb46588ade95982')
+sha256sums=('331240b037bbef0a15e6c1db5a2eb572097f12a362deb075a331dbb849928f83')
 
 prepare() {
   cd zola-$pkgver
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
