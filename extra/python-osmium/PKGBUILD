@@ -2,19 +2,19 @@
 # Contributor: Simon Legner <Simon.Legner@gmail.com>
 
 pkgname=python-osmium
-pkgver=4.0.2
-pkgrel=3
+pkgver=4.3.1
+pkgrel=1
 pkgdesc="Python bindings for libosmium, the data processing library for OSM data"
 url="https://osmcode.org/pyosmium"
 depends=('python' 'libosmium' 'pybind11' 'python-requests' 'python-urllib3' 'bzip2' 'zlib' 'lz4' 'expat' 'glibc')
-makedepends=('python-build' 'python-wheel' 'python-installer' 'python-setuptools' 'cmake' 'protozero')
+makedepends=('python-build' 'python-installer' 'python-scikit-build-core' 'cmake' 'protozero')
 checkdepends=('python-pytest' 'python-pytest-httpserver' 'python-shapely' 'python-numpy')
 replaces=('pyosmium')
 provides=('python-pyosmium' 'pyosmium')
 license=('BSD-2-Clause')
 arch=('x86_64')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/osmcode/pyosmium/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('23c64f0217fe0c69fa51bd039f3b3a963a9c9fd254df1bdd3a766b2f51ec8de6')
+sha256sums=('864a3b5a0b4fc2cf2d2eb309d5bc5bd9f133f00f140111d0d954cfd5b1ad1a96')
 
 build() {
     cd "pyosmium-${pkgver}"
@@ -24,7 +24,8 @@ build() {
 
 check() {
     cd "pyosmium-${pkgver}"
-
+    python -m installer --destdir=check_dir dist/*.whl
+    export PYTHONPATH="$(echo check_dir/usr/lib/python3*/site-packages)"
     python -m pytest test
 }
 
