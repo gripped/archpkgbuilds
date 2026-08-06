@@ -2,8 +2,8 @@
 # Contributor: Ivan Shapovalov <intelfx@intelfx.name>
 
 pkgname=radicle
-pkgver=1.9.1
-pkgrel=3
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="open source, peer-to-peer code collaboration stack built on Git"
 url="https://radicle.dev"
 arch=('x86_64')
@@ -24,8 +24,8 @@ replaces=('radicle-node' 'radicle-cli')
 source=(
   "radicle::git+https://seed.radicle.dev/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git#tag=releases/${pkgver}"
 )
-sha256sums=('6fac84aeac26580f2a2fd2b774ff72293d01a9a8c4b0e0c81005f706ca640780')
-b2sums=('2ea2084fd8e100063519e69cfa9bdb5f0521344734b29ead53cbc26de5b113f9b3cbd650fc539291ab02af07ba262030da21e896f266b4c3789fd1b9c7ab50bc')
+sha256sums=('d5d62fe6bc1ff40c5be23ac9698fcb6f19645fe26d5ed1efe17c2a8badffc57d')
+b2sums=('719941c8933f77d35c6a9e523f70dfe4da106e65010312fd71dea0e398687e97021ca0b7119e2be129e8276c50081184e90c46b81b9503923d4135840555e7bd')
 
 prepare() {
   cd "${pkgname}"
