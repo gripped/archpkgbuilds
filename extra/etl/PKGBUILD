@@ -4,22 +4,33 @@
 
 pkgname=etl
 pkgver=1.4.5
-pkgrel=1
+pkgrel=2
 pkgdesc='VoriaETL: C++ STL complementory multiplatform template library'
-arch=('any')
+arch=(any)
 url='https://www.synfig.org/'
-license=('GPL3')
-makedepends=('glibmm')
-source=("https://downloads.sourceforge.net/synfig/ETL-$pkgver.tar.gz")
-sha256sums=('fbd0328296bfe12f52d53389740c0f3fea5005152b9da43f52ac1f5ab6e22c73')
+license=(GPL-2.0-or-later)
+makedepends=(
+  git
+  glibmm
+)
+source=("git+https://github.com/synfig/synfig.git#tag=v$pkgver")
+b2sums=(c7347ece20992063ef15f72b22b1e42a129dbf36c53b4188032482239f4d7939376463cf086da7c48c19a61b397ef15984a0bf2ea073848c78eb1bd0248c7250)
+
+prepare() {
+  cd synfig/ETL
+  autoreconf -fiv
+}
 
 build() {
-  cd ETL-$pkgver
-  ./configure --prefix=/usr
+  cd synfig/ETL
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 package() {
-  cd ETL-$pkgver
+  cd synfig/ETL
   make DESTDIR="$pkgdir" install
 }
