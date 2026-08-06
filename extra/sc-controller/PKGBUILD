@@ -1,8 +1,8 @@
 # Maintainer: Martin Rys <https://rys.rs/contact>
 
 pkgname=sc-controller
-pkgver=0.6.3
-pkgrel=1
+pkgver=0.6.4
+pkgrel=2
 pkgdesc="User-mode driver, mapper and GTK3 based GUI for Steam Controller, DS4 and similar controllers"
 arch=("x86_64") # "aarch64"
 url="https://github.com/C0rn3j/sc-controller"
@@ -14,7 +14,7 @@ depends=(
 	"python-cairo"
 	"python-evdev"
 	"python-gobject"
-	"python-hidraw-pure"
+	#"python-hidraw-pure" TODO(Martin): Disabled until this issue is resolved: https://github.com/vpelletier/python-hidraw/issues/8
 	"python-libusb1"
 	"python-pylibacl"
 	"python-setuptools"
@@ -28,7 +28,7 @@ makedepends=(
 )
 conflicts=("scc")
 source=("${pkgname}-${pkgver}::git+https://github.com/C0rn3j/sc-controller.git#tag=v${pkgver}")
-sha256sums=('cf92e74da64cd52b2ceb81df0377279a286d81b508adeb268e928c6542399de7')
+sha256sums=('ef0525517065af9ad78a137ca2f97ecd4e30bd56960332cb90fa6fc7bf27ba57')
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
