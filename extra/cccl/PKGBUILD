@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz@archlinux.org>
 
 pkgname=cccl
-pkgver=3.4.1
+pkgver=3.4.2
 pkgrel=1
 pkgdesc="CUDA Core Compute Libraries"
 arch=(any)
@@ -9,7 +9,7 @@ url="https://github.com/NVIDIA/cccl"
 license=(Apache-2.0)
 makedepends=(cmake)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('c2eaa065e703ab5ca51b30c348285d29bec606e4f4bba8e8656b526eb7b923652183fd4b6c5aa5201b0d41a8fd8b7870f7d2db7f14c543fd07b711e9c0a07caf')
+b2sums=('19b6467c6b8d03b13fc26e7a27f47a28d745a9c6852e0df5158c85e3d53fc4f54b9236b9344a5097f7a7a87d48720aa5c736140e7ddfd00314cbcc808cf063ea')
 
 build() {
   local cmake_options=(
