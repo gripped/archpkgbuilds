@@ -4,7 +4,7 @@
 
 pkgname=gram
 pkgver=3.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A code editor for humanoid apes and grumpy toads'
 arch=(x86_64)
 url=https://gram-editor.com
@@ -48,7 +48,7 @@ _srcenv() {
 	export CARGO_HOME="$srcdir"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
 	export CARGO_PROFILE_RELEASE_STRIP=false
-	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 	CFLAGS+=' -ffat-lto-objects'
