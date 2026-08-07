@@ -5,7 +5,7 @@
 
 pkgname=zim
 pkgver=0.77.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A WYSIWYG text editor that aims at bringing the concept of a wiki to the desktop'
 arch=(any)
 license=(GPL-2.0-or-later)
@@ -13,7 +13,7 @@ url=https://zim-wiki.org/
 depends=(gtk3
          python
          python-gobject
-         python-xdg
+         python-pyxdg
          ttf-font)
 makedepends=(python-{build,installer,wheel}
              python-setuptools)
@@ -23,9 +23,9 @@ optdepends=('breezy: Version Control plugin'
             'git: Version Control plugin'
             'gnuplot: Insert Gnuplot plugin'
             'graphviz: Insert Diagram plugin'
-            'gtksourceview3: Source View plugin'
+            'gtksourceview4: Source View plugin'
             'gtkspell3: Spell Checker plugin'
-            'libappindicator-gtk3: StatusNotifierItem support'
+            'libappindicator: StatusNotifierItem support'
             'lilypond: Insert Score plugin'
             'mercurial: Version Control plugin'
             'r: Insert GNU R Plot plugin'
