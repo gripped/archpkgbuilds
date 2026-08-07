@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 22 Jul 2026 16:07:31 +0200
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ gramps/gui/grampsgui.py | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/gramps/gui/grampsgui.py b/gramps/gui/grampsgui.py
+index 595fb2825..daa85b1f3 100644
+--- a/gramps/gui/grampsgui.py
++++ b/gramps/gui/grampsgui.py
+@@ -580,6 +580,8 @@ class Gramps:
+         from .tipofday import TipOfDay
+         import gettext
+ 
++        GLib.set_prgname("org.gramps_project.Gramps")
++
+         # Append image directory to the theme search path
+         theme = Gtk.IconTheme.get_default()
+         theme.append_search_path(IMAGE_DIR)
