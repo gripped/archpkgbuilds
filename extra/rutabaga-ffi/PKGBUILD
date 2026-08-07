@@ -3,7 +3,7 @@
 # Contributor: David Garfias <dgarfiasme at gmail dot com>
 # shellcheck shell=bash disable=SC2034,SC2154
 pkgname=rutabaga-ffi
-pkgver=0.1.80
+pkgver=0.1.85
 pkgrel=1
 pkgdesc="Cross-platform, open-source, Rust-based GPU paravirtualization"
 arch=("x86_64")
@@ -17,7 +17,7 @@ depends=(
   gfxstream
 )
 makedepends=(rust meson git cmake rust-bindgen)
-sha256sums=('43ee23d2c7678c3884f3e097790b7724c08432bed32ecebf6b32b1683546197b')
+sha256sums=('ad71947f028786eb33f3248ea91a427b2b0a2e5f539182e03b690abf939a64ab')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
