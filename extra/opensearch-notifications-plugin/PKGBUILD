@@ -1,9 +1,9 @@
 # Maintainer: Justin Kronotificationsinger <hashworks@archlinux.org>
 
 pkgname=opensearch-notifications-plugin
-pkgver=3.7.0.0
+pkgver=3.8.0.0
 pkgrel=1
-_opensearchver=3.7.0
+_opensearchver=3.8.0
 _jdkver=21
 pkgdesc="OpenSearch Notifications Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/notifications/archive/${pkgver}.tar.gz"
 )
-sha256sums=('23f0543bfd5c90c8b03cd305dfdff79bd66ab567c27b24e3923c3c26006138d9')
+sha256sums=('c954f419121a906b7cc628dd53efcddfed042b63827ad5d026cc0cd24d70d147')
 
 build() {
   cd "notifications-${pkgver}/notifications"
