@@ -11,8 +11,8 @@
 # c.f. https://gitlab.archlinux.org/archlinux/packaging/packages/swig/-/issues/2
 
 pkgname=swig
-pkgver=4.4.1
-pkgrel=2
+pkgver=4.5.0
+pkgrel=1
 pkgdesc="Generate scripting interfaces to C/C++ code"
 arch=('x86_64')
 url="https://www.swig.org/"
@@ -32,21 +32,12 @@ depends=(
 checkdepends=('ruby' 'python' 'java-environment' 'tcl' 'php' 'lua' 'r' 'go' 'boost')
 makedepends=('git')
 source=(git+https://github.com/swig/swig#tag=v$pkgver)
-sha512sums=('faa8e527e384a320b6151cca8fcab962e1c9c7a4be41dc4075ac7e385c841247521c37c2d8d485725bb036c0c9e82002d01c91f6025f6abf1de23a178eac7992')
+sha512sums=('847b78883be86688237f5f50725a490b23ac334a22cf05a01dc9809f6ef2354bd41e54414a6149d22391458afd20151c4b82dcfd6df8a5fcf08280dcf83d66b7')
 
 prepare() {
   sed -n '5,32p' $pkgname/LICENSE-UNIVERSITIES > LicenseRef-BSD-Utah-California.txt
   sed -n '37,64p' $pkgname/LICENSE-UNIVERSITIES > LicenseRef-BSD-Chicago.txt
   sed -n '69,94p' $pkgname/LICENSE-UNIVERSITIES > LicenseRef-BSD-Arizona.txt
-
-  # https://github.com/swig/swig/issues/2858
-  sed '/stl_no_default_constructor/d' -i $pkgname/Examples/test-suite/common.mk
-
-  # https://github.com/swig/swig/issues/2859
-  sed '/li_std_list/d' -i $pkgname/Examples/test-suite/java/Makefile.in
-
-  # Fix compilation with R 4.6.0 which removed non-API macros
-  git -C $pkgname cherry-pick -n 0601b9ca9401aed5bcf1b018be922b15a8cee92a || true # ignore conflict in CHANGES.current
 
   cd $pkgname
   ./autogen.sh
