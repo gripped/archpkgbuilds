@@ -1,0 +1,80 @@
+From 3c6e796cf5f7dd1c46f60cf61b03cbec2668d4e6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 6 Aug 2026 15:18:23 +0200
+Subject: [PATCH] Port to gtksourceview-4
+
+---
+ .github/workflows/build.yml | 2 +-
+ configure.ac                | 4 ++--
+ src/Makefile                | 2 +-
+ src/main.c                  | 3 +++
+ 4 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
+index 1253b49c..cb689c3c 100644
+--- a/.github/workflows/build.yml
++++ b/.github/workflows/build.yml
+@@ -14,7 +14,7 @@ jobs:
+     steps:
+     - uses: actions/checkout@v3
+     - name: install dependencies
+-      run: sudo apt install intltool libglib2.0-dev libgtk-3-dev libgtksourceview-3.0-dev libpoppler-glib-dev libgtkspell3-3-dev libsynctex-dev -y
++      run: sudo apt install intltool libglib2.0-dev libgtk-3-dev libgtksourceview-4-dev libpoppler-glib-dev libgtkspell3-3-dev libsynctex-dev -y
+     - name: autogen
+       run: ./autogen.sh
+     - name: configure
+diff --git a/configure.ac b/configure.ac
+index 10ec0f3c..677f849f 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -38,8 +38,8 @@ AM_PATH_GTK_3_0([3.20.0], [
+ 	 GUI_LIBS="$GUI_LIBS $GTK_LIBS"
+ 	], [AC_MSG_ERROR([You need Gtk+ >= 3.20.0 to build $PACKAGE])])
+ 
+-PKG_CHECK_MODULES(gtksourceview, [gtksourceview-3.0 >= 3.4.0],,
+-	[AC_MSG_ERROR([You need gtksourceview3 >= 3.4.0 to build $PACKAGE])])
++PKG_CHECK_MODULES(gtksourceview, [gtksourceview-4 >= 4.0.0],,
++	[AC_MSG_ERROR([You need gtksourceview4 >= 4.0.0 to build $PACKAGE])])
+ GUI_CFLAGS="$GUI_CFLAGS $gtksourceview_CFLAGS"
+ GUI_LIBS="$GUI_LIBS $gtksourceview_LIBS"
+ 
+diff --git a/src/Makefile b/src/Makefile
+index 930b1ed7..85d2f53d 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -7,7 +7,7 @@ TARGET=gummi
+ OBJS = main.o gui/gui-main.o gui/gui-prefs.o gui/gui-menu.o gui/gui-search.o gui/gui-import.o gui/gui-preview.o gui/gui-tabmanager.o gui/gui-project.o gui/gui-snippets.o gui/gui-infoscreen.o compile/texlive.o compile/rubber.o compile/latexmk.o motion.o external.o latex.o editor.o utils.o configfile.o iofunctions.o environment.o project.o importer.o tabmanager.o template.o biblio.o snippets.o signals.o
+ 
+ 
+-CFLAGS=-g -Wall -Wno-deprecated-declarations -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE -export-dynamic -I. `pkg-config --cflags --libs gtk+-3.0 gthread-2.0 gtksourceview-3.0 cairo poppler-glib gtkspell3-3.0 synctex zlib` -lm -DUSE_SYNCTEX2 -DGUMMI_LOCALES="\"/usr/share/locale\"" -DGUMMI_DATA="\"$$PWD/../data\"" -DGUMMI_LIBS="\"$$PWD/../lib\""
++CFLAGS=-g -Wall -Wno-deprecated-declarations -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE -export-dynamic -I. `pkg-config --cflags --libs gtk+-3.0 gthread-2.0 gtksourceview-4 cairo poppler-glib gtkspell3-3.0 synctex zlib` -lm -DUSE_SYNCTEX2 -DGUMMI_LOCALES="\"/usr/share/locale\"" -DGUMMI_DATA="\"$$PWD/../data\"" -DGUMMI_LIBS="\"$$PWD/../lib\""
+ 
+ gummi: $(OBJS)
+ 	$(CC) -o $(TARGET) $(OBJS) $(CFLAGS)
+diff --git a/src/main.c b/src/main.c
+index ca7407b2..20376b4d 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -30,6 +30,7 @@
+ #include <glib.h>
+ #include <glib/gstdio.h>
+ #include <gtk/gtk.h>
++#include <gtksourceview/gtksource.h>
+ #include <locale.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+@@ -83,6 +84,7 @@ int main (int argc, char *argv[]) {
+     // Initialize GTK
+     gdk_threads_init ();
+     gtk_init (&argc, &argv);
++    gtk_source_init();
+ 
+     GError* ui_error = NULL;
+     GtkBuilder* builder = gtk_builder_new ();
+@@ -166,5 +168,6 @@ int main (int argc, char *argv[]) {
+ 
+     gui_main (builder);
+     config_save ();
++    gtk_source_finalize();
+     return 0;
+ }
