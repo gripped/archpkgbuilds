@@ -6,7 +6,7 @@
 pkgbase=ruff
 pkgname=("$pkgbase" "python-$pkgbase")
 pkgver=0.16.1
-pkgrel=1
+pkgrel=2
 pkgdesc='An extremely fast Python linter, written in Rust'
 arch=(x86_64)
 url=https://github.com/astral-sh/$pkgbase
@@ -30,7 +30,7 @@ _srcenv() {
   export CARGO_HOME="$srcdir"
   export CARGO_PROFILE_RELEASE_DEBUG=2
   export CARGO_PROFILE_RELEASE_STRIP=false
-  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
   CFLAGS+=' -ffat-lto-objects'
