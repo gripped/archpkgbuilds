@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-pdfium
-pkgver=1.5.3
+pkgver=1.5.4
 pkgrel=1
 pkgdesc='Development library for pdf on Deepin'
 arch=('x86_64')
@@ -11,11 +11,9 @@ depends=('qt6-base' 'openjpeg2' 'libchardet' 'lcms2' 'libjpeg-turbo' 'libpng' 'i
          'glibc' 'libgcc' 'libstdc++' 'freetype2')
 makedepends=('git' 'cmake')
 source=("git+https://github.com/linuxdeepin/deepin-pdfium.git#tag=$pkgver")
-sha512sums=('c948d647a0c099649d485fe9086710cd62a382680e0b4e04cd2421f1d65c2afba39c4cd144bb94d1fea88b24b10465ecedbacff6fcad7b84d4ee7e3cb6ee02e1')
+sha512sums=('a9779659f2e45c74ff1055c0fdccdb1994b387a091801f6271a80f6f1250a9c35ce611e893b06d5a148ed27dc39d0acddbd116d85d694e3137d5b69c0ad8e39c')
 
 build() {
-  export CXXFLAGS+=" -include cstdint"
-
   cmake -B build -S deepin-pdfium \
     -DCMAKE_BUILD_TYPE=None \
     -DCMAKE_INSTALL_PREFIX=/usr \
