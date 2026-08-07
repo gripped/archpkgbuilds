@@ -6,12 +6,12 @@
 _base=textual
 pkgname=python-${_base}
 pkgver=8.2.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern Text User Interface framework"
 arch=(any)
 url="https://github.com/Textualize/${_base}"
 license=(MIT)
-depends=(python python-rich python-markdown-it-py python-linkify-it-py python-typing_extensions python-platformdirs)
+depends=(python python-rich python-markdown-it-py python-linkify-it-py python-typing_extensions python-platformdirs python-mdit_py_plugins)
 makedepends=(python-build python-installer python-poetry-core)
 checkdepends=(python-pytest-asyncio python-time-machine python-pytest-xdist python-pytest-textual-snapshot)
 source=(${_base}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz)
