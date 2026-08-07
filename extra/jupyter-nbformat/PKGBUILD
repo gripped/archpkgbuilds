@@ -2,8 +2,8 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=jupyter-nbformat
-pkgver=5.10.4
-pkgrel=4
+pkgver=5.11.0
+pkgrel=1
 pkgdesc='The base implementation of the Jupyter Notebook format and Python APIs for working with notebooks'
 arch=(any)
 url='https://pypi.python.org/pypi/nbformat'
@@ -13,29 +13,29 @@ depends=(python
          python-jsonschema
          python-jupyter-core
          python-traitlets)
-makedepends=(python-build
+makedepends=(git
+             python-build
              python-installer
              python-hatch-nodejs-version)
-checkdepends=(python-pep440
-              python-pytest
+checkdepends=(python-pytest
               python-testpath)
-source=(https://github.com/jupyter/nbformat/archive/v$pkgver/nbformat-$pkgver.tar.gz)
-sha256sums=('90dc0d2a26fb04093647e20e47708fe1ba4b7cafa086a1bf86052a1dceb6ffc2')
+source=(git+https://github.com/jupyter/nbformat#tag=v$pkgver)
+sha256sums=('67e4787379fe6c98fe32cc2aff4779705c78f61d7c3aac0addbab5f7d88d3a28')
 
 build() {
-  cd nbformat-$pkgver
+  cd nbformat
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd nbformat-$pkgver
+  cd nbformat
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m pytest -v -W ignore::Warning
 }
 
 package() {
-  cd nbformat-$pkgver
+  cd nbformat
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
 }
