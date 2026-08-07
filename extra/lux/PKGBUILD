@@ -3,7 +3,7 @@
 pkgbase=lux
 pkgname=(lux-cli lua-lux lua54-lux lua53-lux lua52-lux lua51-lux)
 pkgver=0.40.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A luxurious package manager for Lua'
 arch=(x86_64 aarch64)
 url=https://lux.lumen-labs.org
@@ -30,7 +30,7 @@ _srcenv() {
   export CARGO_HOME="$srcdir"
   export CARGO_PROFILE_RELEASE_DEBUG=2
   export CARGO_PROFILE_RELEASE_STRIP=false
-  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
   CFLAGS+=' -ffat-lto-objects'
