@@ -2,15 +2,15 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-wayland-protocols
-pkgver=1.10.0.31
+pkgver=1.10.0.32
 pkgrel=1
 pkgdesc='deepin Specific Protocols for Wayland'
 url="https://github.com/linuxdeepin/deepin-wayland-protocols"
 arch=(any)
-license=(LGPL)
+license=(LGPL-2.1-or-later BSD-3-Clause MIT-CMU MIT Apache-2.0)
 makedepends=(git extra-cmake-modules ninja qt5-base)
 source=("git+https://github.com/linuxdeepin/deepin-wayland-protocols.git#tag=$pkgver")
-sha256sums=('2d0b0e2e5c3b1770f14d78d4994d3e1e805e25ba90bf21f1119ab16d828894a5')
+sha256sums=('57ce074d5f8557e7c6e04cff6f3ef54283001a267587f14e06d3d0423b7e53cd')
 
 build() {
   cmake -GNinja -B build -S $pkgname
