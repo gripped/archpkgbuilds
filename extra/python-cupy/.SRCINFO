@@ -1,7 +1,7 @@
 pkgbase = python-cupy
 	pkgdesc = NumPy/SciPy-compatible array library for GPU-accelerated computing with Python
 	pkgver = 14.1.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/cupy/cupy
 	arch = x86_64
 	license = MIT
@@ -38,11 +38,15 @@ pkgbase = python-cupy
 	source = python-cupy-dlpack::git+https://github.com/dmlc/dlpack.git
 	source = python-cupy-jitify::git+https://github.com/NVIDIA/jitify.git
 	source = python-cupy-xsf::git+https://github.com/scipy/xsf.git
+	source = cuda_wrappers.diff
+	source = cusparse_spgeam.diff::https://github.com/cupy/cupy/pull/10064.diff
 	b2sums = 7e314f5887edab4fd1eca9ee07c9af3934d8072c317ab8b03cebad8a4918c6c49e2a31270b2832fa9abe95f892274aef34aa59e35354a2c15baaf5fef5f87927
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
+	b2sums = 3239021ef7e7706a1df28abf6d4744e847ee38fe803ea46bf38dbe9bb0c95648efb3c926d8b7477e1b124806adb61e9df8e2b23f1b19bc1833ddb8a8db4dec86
+	b2sums = 6a5031b73feb39922fbf1b54f0c0aafb94c37d569bf1f534f02bdb193b95b3c7a89c474e9259bd0ba56bbf038c05014c46cb5635cfcb5cb131b9ecbda5abff52
 
 pkgname = python-cupy
 	pkgdesc = NumPy/SciPy-compatible array library for GPU-accelerated computing with Python (CUDA version)

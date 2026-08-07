@@ -1,0 +1,21 @@
+--- a/cupy/_environment.py	2026-07-21 11:10:48.599695791 +0200
++++ b/cupy/_environment.py	2026-07-21 11:10:48.619166753 +0200
+@@ -617,9 +617,16 @@
+ 
+     include_paths = matches.group(1).splitlines()
+ 
++    # Clang's CUDA wrapper headers must not be forwarded as -I. hipRTC's
++    # in-process driver adds its own copy of that directory through
++    # -internal-isystem; two copies on the include search path break the
++    # #include_next chain in cuda_wrappers/bits/c++config.h (the second
++    # copy is a no-op because of its include guard), so the real
++    # libstdc++ bits/c++config.h is never included.
+     return tuple(
+-        include_path.strip()
+-        for include_path in include_paths if include_path.strip()
++        path
++        for path in (p.strip() for p in include_paths)
++        if path and os.path.basename(path.rstrip('/')) != 'cuda_wrappers'
+     )
+
+

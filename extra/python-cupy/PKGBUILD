@@ -5,7 +5,7 @@
 pkgbase=python-cupy
 pkgname=(python-cupy python-cupy-rocm-gfx9 python-cupy-rocm-gfx10 python-cupy-rocm-gfx11 python-cupy-rocm-gfx12)
 pkgver=14.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="NumPy/SciPy-compatible array library for GPU-accelerated computing with Python"
 arch=(x86_64)
 url="https://github.com/cupy/cupy"
@@ -53,13 +53,17 @@ source=(
   "$pkgbase-dlpack::git+https://github.com/dmlc/dlpack.git"
   "$pkgbase-jitify::git+https://github.com/NVIDIA/jitify.git"
   "$pkgbase-xsf::git+https://github.com/scipy/xsf.git"
+  "cuda_wrappers.diff"
+  "cusparse_spgeam.diff::https://github.com/cupy/cupy/pull/10064.diff"
 )
 
 b2sums=('7e314f5887edab4fd1eca9ee07c9af3934d8072c317ab8b03cebad8a4918c6c49e2a31270b2832fa9abe95f892274aef34aa59e35354a2c15baaf5fef5f87927'
         'SKIP'
         'SKIP'
         'SKIP'
-        'SKIP')
+        'SKIP'
+        '3239021ef7e7706a1df28abf6d4744e847ee38fe803ea46bf38dbe9bb0c95648efb3c926d8b7477e1b124806adb61e9df8e2b23f1b19bc1833ddb8a8db4dec86'
+        '6a5031b73feb39922fbf1b54f0c0aafb94c37d569bf1f534f02bdb193b95b3c7a89c474e9259bd0ba56bbf038c05014c46cb5635cfcb5cb131b9ecbda5abff52')
 
 # Building with over 16 arches fails in linking. Split them to separate packages.
 _rocm_gfx9_targets="gfx900,gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx942,gfx950"
@@ -97,6 +101,16 @@ prepare() {
 
   # release version constraints for Cython
   sed -i 's|Cython>=[0-9.]\+,<[0-9.]\+|Cython|' pyproject.toml
+  # v14.1.0 regression, cross-referencing #9622 / #9820 / #9718 / #9944
+  patch -Np1 -i ../cuda_wrappers.diff
+  # cuSPARSE >= 13.0 (CUDA 13.3+) ships cusparseSpGEAM natively, which
+  # conflicts with cupy's own opaque forward-decl stub for it; fixed
+  # upstream in cupy/cupy#10064. That PR was branched after v14.1.1, so
+  # main has since drifted from this tag; -F3 lets the relevant hunks
+  # fuzz-match past the drift. Its two test-file hunks no longer match at
+  # all against this older tag and are expected to fail (harmlessly, we
+  # don't run cupy's test suite here) -- hence the trailing "|| true".
+  patch -Np1 -F3 -i ../cusparse_spgeam.diff || true
 
   # copy the source tree for the ROCm build
   # (most artifacts end up in the build/ directory but .cpp files get generated
