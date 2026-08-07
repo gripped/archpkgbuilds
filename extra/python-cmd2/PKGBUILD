@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-cmd2
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="A tool for building interactive command line apps"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-pyperclip' 'python-rich' 'python-rich-argparse')
 makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-mock' 'vi')
 source=("git+https://github.com/python-cmd2/cmd2.git#tag=$pkgver")
-sha512sums=('6dffe562a995ee25dd6610a687dde36d02985bab91a2879277790b69aaa1fa96999c9fb0d12e2506c0a99b8795718d65a0dd095cbf1eb522d8afdaf190237363')
+sha512sums=('07dc8a07906ea8ef6571cebc1f24165face76f4058054388ab5e95cdd58546ff705c9aff7d1be11b44e612f9ec9817e593fce0acbc55e202fe2e488e276ba7aa')
 
 prepare() {
   cd cmd2
