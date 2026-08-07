@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ty
-pkgver=0.0.67
+pkgver=0.0.69
 pkgrel=1
 pkgdesc='Extremely fast Python type checker and language server, written in Rust'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(git
 checkdepends=(uv)
 source=("git+$url.git#tag=$pkgver"
         git+https://github.com/astral-sh/ruff.git)
-b2sums=('1d449e82b8058836fcea05bf247e5f39e400b0f2bf4c88fb23d700c09b22f5ee112c78f52a4f1d8fff7c852a21f00a2fa83dd7bf84d6f2195b38d9e33036b2ad'
+b2sums=('11dda4c6dc1bb6debc8f3e1a9623100afe75d760fee29643d6e7d1833cf30899cdeb14bf4fb119e12fe4774bca91d973a26ff5793c7146f81736b4520c3b834b'
         'SKIP')
 
 _srcenv() {
@@ -25,7 +25,7 @@ _srcenv() {
   export CARGO_HOME="$srcdir"
   export CARGO_PROFILE_RELEASE_DEBUG=2
   export CARGO_PROFILE_RELEASE_STRIP=false
-  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
   CFLAGS+=' -ffat-lto-objects'
