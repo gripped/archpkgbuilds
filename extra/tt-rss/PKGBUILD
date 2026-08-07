@@ -7,7 +7,7 @@
 
 pkgname=tt-rss
 # Check https://github.com/tt-rss/tt-rss/discussions/categories/announcements when updating pkgver
-pkgver=r12952.7c755e8b7
+pkgver=r12953.f0d6de8c0
 pkgrel=1
 epoch=2
 pkgdesc='Web-based news feed (RSS/Atom) aggregator'
@@ -22,15 +22,15 @@ install=tt-rss.install
 optdepends=('postgresql'
             'php-gd-interpreter: for coloured feed badges')
 makedepends=('git')
-_commit=7c755e8b73e72cb960a5aef117f4c51c7bb596be
+_commit=f0d6de8c0be610583993e3c1e75a40bbb6fc6ffa
 # periodic releases are over https://web.archive.org/web/20230809132536/https://srv.tt-rss.org/oldforum/viewtopic.php@f=10&t=3262.html
 source=(git+https://github.com/tt-rss/tt-rss.git#commit=$_commit
        tt-rss.service
        config.php)
-sha1sums=('1c782ff6e2259da92be6427c90094560fe28d54a'
+sha1sums=('488a9b86588b295faa60d6ff9e56e75246740e4e'
           'd764e22065f8e0104b4f1d5dcf41cce01cd7bec5'
           '9fa41afcd4e9ee280875c793ae67bf584abb2cdd')
-sha512sums=('57037c89998f42771ad48338fff30c4a64488c24ac069c1a1bbb4fe364e12e7679f405e45c6ff164850f263b3ea65a9ad0d8803b09b82448ff050be4a146d7e0'
+sha512sums=('bc6415769d094bfab3125a327c71eaf177c0bf150143c9eeacbeb68884c172504f265325efeded8999a9c1f68bd0829058327597b5b9d0f4bbe9b6af1f3b0ad1'
             'ffc4316d8f332b75932b36e9e0a18fb346a62a8f83094d3ca510b06b0d9ae0478bdc05e23bca4fe5e6dfcfc8a8c57ab1654b7c6d16a007f151afbcad31e359a5'
             '6ad6bc1864e55b54b9ddbcc0c26d9b2f41e502261c9294e2d21a8d38d3b66f4dd9f42d5de36a58bc0425ad62722a2331f1ae012e8b07c261eb2e51f070181386')
 
