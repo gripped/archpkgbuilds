@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=doggo
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc="Command-line DNS Client for Humans"
 arch=('x86_64')
@@ -15,8 +15,8 @@ makedepends=(
 )
 options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mr-karan/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('327340db86c901aa63bcfb1d44dd888829de3ea0eb3da0e54f1ea6266f58d4dd8d5360642a4978c842111369f7c75ca1a401a9b2cba77296bee39e630822b57e')
-b2sums=('aadf18cf9dbe83dcd493821d22349503a6e9ce89fe4bbf2d47aff5dcbe854426bb4f1908de69233e39c1336b86549257451287668dfc280fdc38e3c872ac669f')
+sha512sums=('f89849d6dee8a0115140ca61f5ea73ef29369c7c5c84490bc3fb610f6261e905471ef90fc3b7c16aee3e136451082b1680e038a249820cd3721c07d1dd2cd1ff')
+b2sums=('d275def3378581bdc0a590d358be1a63eef9bba8ed6181bfd183f77edab1347e35b0604417eeab3b50e424fe232e30565b37696d0399d77e64dc56399e048727')
 
 build() {
   cd "${pkgname}-${pkgver}"
