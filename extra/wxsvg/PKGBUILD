@@ -7,7 +7,7 @@
 
 pkgname=wxsvg
 pkgver=1.5.25
-pkgrel=6
+pkgrel=7
 pkgdesc='C++ library to create, manipulate and render SVG files'
 arch=(x86_64)
 url='http://wxsvg.sourceforge.net/'
