@@ -4,15 +4,16 @@
 # Contributor: Shinlun Hsieh <yngwiexx@yahoo.com.tw>
 
 pkgname=linuxsampler
-pkgver=2.4.2
-pkgrel=2
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="Professional-grade audio sampler alternative to Gigasampler"
 arch=(x86_64)
 url="https://www.linuxsampler.org/"
 license=(LicenseRef-LinuxSampler-Non-Commercial)
 groups=(pro-audio)
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   sqlite
 )
@@ -34,8 +35,8 @@ provides=(liblinuxsampler.so)
 source=(
   https://download.linuxsampler.org/packages/$pkgname-$pkgver.tar.bz2
 )
-sha512sums=('9bbb8d85fcf10d7720f9b30872d1222f64c59bb16ea726379585864e20e888ff191dbdc77e87ef7e522d29b37ff129ef8abd0a643a749ba52ad5ee12ad615b77')
-b2sums=('39bbf327ad81638ca60085b9016855b175987eb5ccd3754d4c56345e4c36566cfe0b91be563bcd69aeb2035ef2cdceb6c81dd91dfcdb9f7959c2fda3466f9d16')
+sha512sums=('bafa1f1e61a5ed67aba94ccad3a13597fce7fbade371e4071511a99f5cf5e3d02ed0357273e82cf8df8e869005a54a79083b76a2024c34761664f3744a301773')
+b2sums=('12f0ad7aaf0c2cde68f39566a5dcf5409c6e515fccad9cea290bccebd04faf3da3dba9bb31cf27943da81c69463e3370a97a289df3d051f562d8b9b8297bf7e0')
 
 prepare(){
   # extract custom license exception
