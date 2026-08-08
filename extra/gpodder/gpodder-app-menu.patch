@@ -1,0 +1,23 @@
+From f2776112469b3a17f92c4cb6e37b847be94c2806 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 7 Aug 2026 05:36:48 +0200
+Subject: [PATCH] Don't use deprecated app menu
+
+This ensures that the menu is visible when using client-side decoration.
+---
+ src/gpodder/gtkui/app.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/gpodder/gtkui/app.py b/src/gpodder/gtkui/app.py
+index f43d112f2..0f88663dd 100644
+--- a/src/gpodder/gtkui/app.py
++++ b/src/gpodder/gtkui/app.py
+@@ -178,7 +178,7 @@ def do_startup(self):
+                 self.add_accelerator(accel, action, None)
+ 
+         else:
+-            self.set_app_menu(self.app_menu)
++            menubar.prepend_submenu(_("_Application"), self.app_menu)
+ 
+         Gtk.Window.set_default_icon_name('gpodder')
+ 

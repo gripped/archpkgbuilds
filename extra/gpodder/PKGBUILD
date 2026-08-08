@@ -3,7 +3,7 @@
 
 pkgname=gpodder
 pkgver=3.11.5
-pkgrel=5
+pkgrel=6
 pkgdesc='Podcast client written in Python using GTK'
 arch=(any)
 url='https://gpodder.github.io/'
@@ -41,8 +41,14 @@ optdepends=(
   'webkit2gtk-4.1: HTML show notes'
   'yt-dlp: Youtube-dl extension'
 )
-source=("git+https://github.com/gpodder/gpodder.git#tag=$pkgver")
-b2sums=(632ab0b95f7602cdf1e8bf054221edefc0ba6ce331a2b0c5c64d168889b507d4eea2b274f92571bbe0ff9bf26f560d6f00985903dc888b4f0770fc4882eabd9f)
+source=(
+  "git+https://github.com/gpodder/gpodder.git#tag=$pkgver"
+  gpodder-app-menu.patch
+)
+b2sums=(
+  632ab0b95f7602cdf1e8bf054221edefc0ba6ce331a2b0c5c64d168889b507d4eea2b274f92571bbe0ff9bf26f560d6f00985903dc888b4f0770fc4882eabd9f
+  763aa795952d5f0242e5ba94f9845af10d156e253d9a2610ddb3f02a5cb5683ea9d79e3d3e12483ef9deb53be53a7bec5acd31efbd5a5bd4443f3229bae58526
+)
 
 prepare() {
   cd $pkgname
@@ -51,6 +57,10 @@ prepare() {
   # https://github.com/gpodder/gpodder/pull/1747
   git cherry-pick -n 9910aeed49b286287534cdafcab7f9e7e2b04d51
   git cherry-pick -n 7c1d67ef2f942bf8b00bbc3ec76bf0b1a82fa489
+
+  # Don't use deprecated app menu
+  # https://github.com/gpodder/gpodder/pull/1874
+  git apply -3 ../gpodder-app-menu.patch
 
   # Fix launchable ID in metainfo file
   sed -i 's/org.gpodder.gpodder.desktop/gpodder.desktop/' share/metainfo/org.gpodder.gpodder.appdata.xml
