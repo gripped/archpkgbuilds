@@ -8,7 +8,7 @@
 
 pkgbase=uv
 pkgname=("$pkgbase" "python-$pkgbase"{,-build})
-pkgver=0.12.2
+pkgver=0.12.3
 pkgrel=1
 pkgdesc='An extremely fast Python package installer and resolver written in Rust'
 arch=('x86_64')
@@ -27,14 +27,14 @@ makedepends=(bzip2
              xz
              zstd)
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('bb5404ddfebc298e18c10ed264fe49bcfe894faf444d940966f13e91b41de19c')
+sha256sums=('9f3962e85a58767019992c8e3fa7422e025e5dbef746572c568180d93a34d362')
 
 _srcenv() {
   cd "$pkgbase"
   export CARGO_HOME="$srcdir"
   export CARGO_PROFILE_RELEASE_DEBUG=2
   export CARGO_PROFILE_RELEASE_STRIP=false
-  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
   CFLAGS+=' -ffat-lto-objects'
