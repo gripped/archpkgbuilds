@@ -6,7 +6,7 @@
 pkgname=mpv
 epoch=1
 pkgver=0.41.0
-pkgrel=3
+pkgrel=4
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
@@ -24,7 +24,7 @@ optdepends=('yt-dlp: for video-sharing websites playback')
 provides=('libmpv.so')
 options=('!emptydirs')
 validpgpkeys=('145077D82501AA20152CACCE8D769208D5E31419') # sfan5 <sfan5@live.de>
-source=("git+https://github.com/mpv-player/mpv.git#tag=v${pkgver}?signed")
+source=("git+https://github.com/mpv-player/mpv.git?signed#tag=v${pkgver}")
 sha256sums=('6d591780b86f20397697d8847e30b9bf864798b62615fa995395b7ce03a1e4f2')
 
 build() {
@@ -63,7 +63,7 @@ package() {
 
   meson install -C build --destdir "${pkgdir}"
 
-  # delete private entries only required for static linking 
+  # delete private entries only required for static linking
   sed -i -e '/Requires.private/d' -e '/Libs.private/d' "${pkgdir}"/usr/lib/pkgconfig/mpv.pc
 
   install -m0644 "${pkgname}"/DOCS/{encoding.rst,tech-overview.txt} \
