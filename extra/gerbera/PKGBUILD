@@ -4,7 +4,7 @@
 
 pkgname=gerbera
 pkgver=3.2.1
-pkgrel=3
+pkgrel=4
 pkgdesc="UPnP Media Server (Based on MediaTomb)"
 arch=(x86_64)
 url="https://github.com/gerbera/gerbera"
@@ -17,10 +17,19 @@ install=gerbera.install
 options=('emptydirs')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gerbera/gerbera/archive/v$pkgver.tar.gz"
 	gerbera.sysusers
-	gerbera.tmpfiles)
+	gerbera.tmpfiles
+        https://github.com/gerbera/gerbera/commit/95077061.patch
+        https://github.com/gerbera/gerbera/commit/7caa9ae9.patch)
 sha256sums=('6b89d0c416b6d98e34634e5b1121f340315d60b088e9e6b2fca423488760030f'
             'be1ec625fb2f69b7194a3a5523db5d5e560084050427ad4a8f386863b541e104'
-            '452f5d4b5661e0262cb4a48d62a54f5f26d53c6d3aebf502cde072214a8b30d8')
+            '452f5d4b5661e0262cb4a48d62a54f5f26d53c6d3aebf502cde072214a8b30d8'
+            '5ddea0588bbb1b688d83f9cb46cb49d6925bc6b213639e250b4df5c8855bf7ab'
+            'f2e4bc5608e46f870640d91b0c016dfbfed85715ce38e40ae2b1d750e5380b44')
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 95077061.patch # Fix build with fmt 12
+  patch -d $pkgname-$pkgver -p1 < 7caa9ae9.patch # Fix build with gcc 16
+}
 
 build() {
 	local cmake_options=(
