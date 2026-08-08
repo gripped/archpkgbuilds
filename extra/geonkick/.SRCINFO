@@ -1,19 +1,20 @@
 pkgbase = geonkick
 	pkgdesc = A free software percussion synthesizer
 	pkgver = 3.7.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://geonkick.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
 	checkdepends = lv2lint
 	makedepends = cairo
 	makedepends = cmake
-	makedepends = gcc-libs
 	makedepends = glibc
 	makedepends = gtkmm3
 	makedepends = hicolor-icon-theme
 	makedepends = jack
+	makedepends = libgcc
 	makedepends = libsndfile
+	makedepends = libstdc++
 	makedepends = libx11
 	makedepends = libxkbcommon
 	makedepends = libxkbcommon-x11
@@ -41,10 +42,11 @@ pkgname = geonkick-lv2
 	groups = lv2-plugins
 	groups = pro-audio
 	depends = cairo
-	depends = gcc-libs
 	depends = geonkick-common=3.7.0
 	depends = glibc
+	depends = libgcc
 	depends = libsndfile
+	depends = libstdc++
 	depends = libx11
 	depends = lv2-host
 
@@ -52,12 +54,13 @@ pkgname = geonkick-standalone
 	pkgdesc = A free software percussion synthesizer - JACK standalone
 	groups = pro-audio
 	depends = cairo
-	depends = gcc-libs
 	depends = geonkick-common=3.7.0
 	depends = glibc
 	depends = hicolor-icon-theme
 	depends = jack
+	depends = libgcc
 	depends = libsndfile
+	depends = libstdc++
 	depends = libx11
 
 pkgname = geonkick-vst3
@@ -65,8 +68,9 @@ pkgname = geonkick-vst3
 	groups = pro-audio
 	groups = vst3-plugins
 	depends = cairo
-	depends = gcc-libs
 	depends = geonkick-common=3.7.0
 	depends = glibc
+	depends = libgcc
 	depends = libsndfile
+	depends = libstdc++
 	depends = vst3-host

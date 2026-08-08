@@ -3,7 +3,7 @@
 pkgbase=geonkick
 pkgname=(geonkick geonkick-{common,lv2,standalone,vst3})
 pkgver=3.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A free software percussion synthesizer"
 arch=(x86_64)
 url="https://geonkick.org/"
@@ -12,12 +12,13 @@ license=(GPL-3.0-or-later)
 makedepends=(
   cairo
   cmake
-  gcc-libs
   glibc
   gtkmm3
   hicolor-icon-theme
   jack
+  libgcc
   libsndfile
+  libstdc++
   libx11
   libxkbcommon
   libxkbcommon-x11
@@ -112,10 +113,11 @@ package_geonkick-lv2() {
   )
   depends=(
     cairo
-    gcc-libs
     geonkick-common=$pkgver
     glibc
+    libgcc
     libsndfile
+    libstdc++
     libx11
     lv2-host
   )
@@ -128,12 +130,13 @@ package_geonkick-standalone() {
   groups=(pro-audio)
   depends=(
     cairo
-    gcc-libs
     geonkick-common=$pkgver
     glibc
     hicolor-icon-theme
     jack
+    libgcc
     libsndfile
+    libstdc++
     libx11
   )
 
@@ -148,10 +151,11 @@ package_geonkick-vst3() {
   )
   depends=(
     cairo
-    gcc-libs
     geonkick-common=$pkgver
     glibc
+    libgcc
     libsndfile
+    libstdc++
     vst3-host
   )
   
