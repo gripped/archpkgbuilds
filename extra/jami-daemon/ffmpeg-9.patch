@@ -1,0 +1,18 @@
+diff --git a/src/media/libav_utils.cpp b/src/media/libav_utils.cpp
+index f32f88461..2cafda23b 100644
+--- a/src/media/libav_utils.cpp
++++ b/src/media/libav_utils.cpp
+@@ -48,9 +48,11 @@ namespace libav_utils {
+ AVSampleFormat
+ choose_sample_fmt(const AVCodec* codec, const AVSampleFormat* preferred_formats, int preferred_formats_count)
+ {
+-    if (codec->sample_fmts)
++    const AVSampleFormat *codec_sample_fmts = nullptr;
++    avcodec_get_supported_config(nullptr, codec, AV_CODEC_CONFIG_SAMPLE_FORMAT, 0, (const void**)&codec_sample_fmts, nullptr);
++    if (codec_sample_fmts)
+         for (int i = 0; i < preferred_formats_count; ++i) {
+-            for (const auto* it = codec->sample_fmts; *it != -1; ++it) {
++            for (const auto* it = codec_sample_fmts; *it != -1; ++it) {
+                 if (*it == preferred_formats[i])
+                     return preferred_formats[i];
+             }
