@@ -4,8 +4,8 @@
 
 pkgbase=python-cairo
 pkgname=(python-cairo python-cairo-docs)
-pkgver=1.29.0
-pkgrel=2
+pkgver=1.29.1
+pkgrel=1
 pkgdesc="Python bindings for the cairo graphics library"
 url="https://pycairo.readthedocs.io/en/latest/"
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(cairo python)
 makedepends=(meson python-sphinx python-sphinx_rtd_theme)
 checkdepends=(python-pytest)
 source=(https://github.com/pygobject/pycairo/releases/download/v$pkgver/pycairo-$pkgver.tar.gz{,.sig})
-sha256sums=('f3f7fde97325cae80224c09f12564ef58d0d0f655da0e3b040f5807bd5bd3142'
+sha256sums=('4fbd26b4af24c9787d84cf5448e34eb8dca064b732479aaecd03109520eebd5f'
             'SKIP')
 validpgpkeys=(0EBF782C5D53F7E5FB02A66746BD761F7A49B0EC) # Christoph Reiter <reiter.christoph@gmail.com>
 
