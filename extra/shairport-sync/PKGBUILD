@@ -3,7 +3,7 @@
 
 pkgname=shairport-sync
 pkgver=5.0.4
-pkgrel=2
+pkgrel=3
 pkgdesc='AirPlay and AirPlay 2 audio player'
 url='https://github.com/mikebrady/shairport-sync'
 arch=(x86_64)
