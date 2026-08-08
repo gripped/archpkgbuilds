@@ -4,11 +4,11 @@
 
 pkgname=gogglesmm
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Music Manager and Player"
 arch=('x86_64')
 url="https://gogglesmm.github.io/"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('libepoxy'
          'glu'
          'libsm'
@@ -19,33 +19,37 @@ depends=('libepoxy'
          'libvorbis'
          'libwebp'
          'libjpeg-turbo'
+         'sndio'
+         'libtiff'
+         'openjpeg2'
          'openssl'
          'libmad'
          'flac'
          'faad2'
          'opus'
-         'taglib>=1.9.0'
+         'taglib'
          'sqlite'
          'dbus'
          'hicolor-icon-theme')
 optdepends=('libpulse: PulseAudio Output'
             'alsa-lib: ALSA Output')
 makedepends=('cmake'
-             'pkgconfig'
              'alsa-lib'
              'libpulse')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/gogglesmm/gogglesmm/releases/download/$pkgver/gogglesmm-full-$pkgver.tar.gz")
 sha512sums=('4e3f9156677f01a3645bc05e188bf49f548a0514db501d7e7f41b46a231489d1c94bfa0308ac7586bf54e23331b20a0cfe11ab4778b4a99a481c36964d5e14c9')
 
 build() {
-  cd "${pkgname}-full-${pkgver}"
-  cmake . \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-  make
+  local cmake_options=(
+    -B build
+    -S "${pkgname}-full-${pkgver}"
+    -DCMAKE_BUILD_TYPE=None
+    -DCMAKE_INSTALL_PREFIX=/usr
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build
 }
 
 package() {
-  cd "${pkgname}-full-${pkgver}"
-  make DESTDIR="$pkgdir" install
+  DESTDIR="${pkgdir}" cmake --install build
 }
