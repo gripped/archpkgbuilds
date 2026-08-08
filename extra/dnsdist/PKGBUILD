@@ -1,6 +1,6 @@
 # Maintainer: Remi Gacogne <rgacogne at archlinux dot org>
 pkgname=dnsdist
-pkgver=2.1.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc='Highly DNS-, DoS- and abuse-aware loadbalancer'
 arch=('x86_64')
@@ -8,10 +8,11 @@ url='https://dnsdist.org/'
 license=('GPL-2.0-only')
 source=(https://downloads.powerdns.com/releases/${pkgname}-${pkgver}.tar.xz{,.asc}
         sysusers.conf)
-sha512sums=('862d3bc0b01e2222dea63e48756ef5eff3d7f22a5c5dc38412f11f7937eeb5ae754bb1ae402d581ea72be9d9ef95ae381ed8d2d9d6588631a0aa895067135b45'
+sha512sums=('597057c587959dd1b5cf98c7e146e1b3188ae4298c4b319b26712ee846248a70a34b8f22d39c8b97c92e4d3bf51a0d14c450342e0b334b8e5ed98ebd132eff2d'
             'SKIP'
             'd55ccd612cbe08b353815027d30a3b0f0ec7bf6b0d74a0a634939be53ce6e6b41d23e54c2328946f00738c03e9f306ce4f2dabe5e4b11d9fb28d0abf49917893')
-validpgpkeys=('D6300CABCBF469BBE392E503A208ED4F8AF58446')  # Remi Gacogne <remi.gacogne@powerdns.com>
+validpgpkeys=('D6300CABCBF469BBE392E503A208ED4F8AF58446'  # Remi Gacogne <remi.gacogne@powerdns.com>
+              'FBAE0323821C7706A5CA151BDCF513FA7EED19F3') # van Dijk, Peter <peter.van.dijk@powerdns.com>
 makedepends=('boost' 'boost-libs' 'cargo' 'clang' 'meson' 'lld' 'python-yaml' 'systemd') # remove 'boost-libs' once https://github.com/mesonbuild/meson/issues/15470 has been fixed
 depends=('fstrm' 'gnutls' 'libbpf' 'libcap' 'libedit' 'libgcc' 'libnghttp2' 'libsodium' 'libstdc++' 'libsystemd' 'libxdp' 'lmdb' 'luajit' 'net-snmp' 'openssl' 'quiche>=0.20.1' 're2' 'tinycdb')
 # We are actually enabling LTO via meson, but the -flto=auto option set up by makepkg conflicts with our -flto=thin
