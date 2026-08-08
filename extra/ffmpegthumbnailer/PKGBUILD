@@ -1,28 +1,35 @@
-# Maintainer:
+# Maintainer: George Hu <integral@archlinux.org>
 # Contributor: Ronald van Haren <ronald.archlinux.org>
 # Contributor: boromil@gmail.com
 
 pkgname=ffmpegthumbnailer
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight video thumbnailer that can be used by file managers"
 url="https://github.com/dirkvdb/ffmpegthumbnailer"
 license=('GPL-2.0-or-later')
 arch=('x86_64')
 depends=('ffmpeg' 'libjpeg-turbo' 'libpng')
-makedepends=('cmake' 'git')
+makedepends=('cmake')
 optdepends=('gvfs: support for gio uris')
-source=(git+https://github.com/dirkvdb/ffmpegthumbnailer#tag=v$pkgver)
-sha256sums=('36790613cfbc8dc0dbd125c9cd4ce9813925c1c9b5c88a1aa735f63bf13b8240')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
+sha256sums=('ddf561e294385f07d0bd5a28d0aab9de79b8dbaed29b576f206d58f3df79b508')
 
 build() {
-  cmake -B build -S $pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DENABLE_GIO=ON \
-    -DENABLE_THUMBNAILER=ON
-  cmake --build build
+	cmake -B build \
+		-S "${pkgname}-${pkgver}" \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D ENABLE_GIO=ON \
+		-D ENABLE_THUMBNAILER=ON \
+		-D ENABLE_AUDIO_THUMBNAILER=ON
+
+	cmake --build build
+}
+
+check() {
+	ctest --test-dir build --output-on-failure
 }
 
 package() {
-  DESTDIR="${pkgdir}" cmake --install build
+	DESTDIR="${pkgdir}" cmake --install build
 }
