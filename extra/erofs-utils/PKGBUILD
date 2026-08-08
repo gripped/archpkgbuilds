@@ -2,7 +2,7 @@
 
 pkgbase=erofs-utils
 pkgname=(erofs-utils erofsfuse)
-pkgver=1.9.2
+pkgver=1.9.3
 pkgrel=1
 pkgdesc="Userspace utilities for linux-erofs file system"
 arch=(x86_64)
@@ -25,8 +25,8 @@ makedepends=(
   zstd
 )
 source=($url/snapshot/$pkgname-$pkgver.tar.gz)
-sha512sums=('53e30341013ec50f30ea39630482bd3f2e80304f3cb4db16bccf90432c2c9ac9e5bd59d01fc5d34042e62270cb15aadf7c2637fab2959ee27844290d9f33b5b9')
-b2sums=('ce4caa3ea622f1122c076b71265570bc0b43aae4388efaa2c1b0f3b678e00b0b50e7de81c3339458a8722ac938ed37ebe5d2f258dc5ca92e81668279cc5cdaf5')
+sha512sums=('f100becbe592c0706a440851a24f10655f46a3158b35f632541b1a5862c624a06da26e59d7655c2f660b3e320057dffe3fd8636cebc0f88366f045ff284b6fad')
+b2sums=('d4cfb6420bce14be4ba6f6d099d834ac0ffaba8f0d8b84b4763705550799c29cd6d9ba76872f6246e16ca68ecc57419f3e37e7d7e9d015a7704dbca9175ac15b')
 
 prepare() {
   cd $pkgname-$pkgver
