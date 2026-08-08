@@ -8,7 +8,7 @@
 
 pkgname=mlt
 pkgver=7.40.0
-pkgrel=2
+pkgrel=3
 pkgdesc='An open source multimedia framework'
 arch=(x86_64)
 url='https://www.mltframework.org'
@@ -75,16 +75,20 @@ makedepends=(cmake
              vid.stab)
 source=(git+https://github.com/mltframework/mlt#tag=v$pkgver
         git+https://invent.kde.org/graphics/glaxnimate.git
-        git+https://github.com/mbasaglia/thorvg.git)
+        git+https://github.com/mbasaglia/thorvg.git
+        ffmpeg-9.patch)
 sha256sums=('99f6370263714259200af2cdc381205610247767ca6eb0ef5d1d2ebba2901a4f'
             'SKIP'
-            'SKIP')
+            'SKIP'
+            'b1b1710b9978dd502fcc0ba06db7ede63a737df06508f82d42c9f67a6d82f6cd')
 
 prepare() {
   cd $pkgname
   git submodule init
   git submodule set-url src/modules/glaxnimate/glaxnimate "$srcdir"/glaxnimate
   git -c protocol.file.allow=always submodule update
+
+  patch -p1 < ../ffmpeg-9.patch # Fix build with FFmpeg 9
 
   cd src/modules/glaxnimate/glaxnimate
   git submodule init
