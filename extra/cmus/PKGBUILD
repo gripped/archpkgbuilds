@@ -6,7 +6,7 @@
 
 pkgname=cmus
 pkgver=2.12.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Feature-rich ncurses-based music player'
 arch=(x86_64)
 url='https://cmus.github.io/'
