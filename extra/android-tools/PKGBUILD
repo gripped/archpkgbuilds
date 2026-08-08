@@ -6,12 +6,12 @@
 pkgname=android-tools
 pkgver=37.0.0
 _tag=${pkgver} # https://github.com/nmeum/android-tools sometimes carries extra patch version on top of the upstream versioning
-pkgrel=1
+pkgrel=2
 pkgdesc='Android platform tools'
 arch=(x86_64)
 url='https://developer.android.com/tools'
 license=('Apache-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND libselinux-1.0')
-depends=(abseil-cpp brotli fmt glibc libgcc libstdc++ libudev.so libusb lz4 pcre2 protobuf zlib zstd)
+depends=(abseil-cpp brotli fmt glibc libgcc libstdc++ libusb lz4 pcre2 protobuf zlib zstd)
 makedepends=(cmake git go gtest ninja)
 optdepends=('python: {mk,unpack_,repack_}bootimg and mkdtboimg support'
 	    'android-udev: optional additional device udev rules')
