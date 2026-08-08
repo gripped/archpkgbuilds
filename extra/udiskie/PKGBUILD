@@ -6,12 +6,12 @@
 
 pkgname=udiskie
 pkgver=2.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Removable disk automounter using udisks"
 arch=("any")
 url="https://pypi.python.org/pypi/udiskie"
 license=("MIT")
-depends=("udisks2" "python" "python-gobject" "python-yaml" "python-docopt" "gtk3" "libnotify" "python-keyutils")
+depends=("udisks2" "python" "python-gobject" "python-yaml" "python-docopt" "gtk3" "libnotify")
 makedepends=("asciidoc" "python-build" "python-installer" "python-setuptools" "python-wheel")
 optdepends=("libappindicator-gtk3: --appindicator support")
 source=("$pkgname-$pkgver.tar.gz::https://codeload.github.com/coldfix/$pkgname/tar.gz/v$pkgver")
