@@ -2,8 +2,8 @@
 # Contributor: Francois Boulogne <devel at sciunto dot org>
 
 pkgname=mat2
-pkgver=0.14.0
-pkgrel=2
+pkgver=0.15.0
+pkgrel=1
 pkgdesc='Metadata removal tool, supporting a wide range of commonly used file formats'
 url='https://github.com/jvoisin/mat2'
 arch=('any')
@@ -19,6 +19,7 @@ depends=(
   'python-cairo'
   'python-gobject'
   'python-mutagen'
+  'zenity'
 )
 makedepends=(
   'python-build'
@@ -36,21 +37,13 @@ checkdepends=(
   'python-pytest'
 )
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/jvoisin/${pkgname}/archive/refs/tags/${pkgver}.tar.gz
-        ${pkgname}-${pkgver}.tar.gz.asc::https://github.com/jvoisin/${pkgname}/releases/download/${pkgver}/${pkgver}.tar.gz.asc
-        issue-26.patch::https://github.com/jvoisin/mat2/commit/690e01d475117a4e0c85f26154b26ef332f036be.diff)
-sha512sums=('7b1f2bab7879e0ac3e60d07c3003ce8b7565c927bb658a7f34c062ee45b2a67f2830a55b518c77e953c80ca2296fed2567b70660c7c0394386616de2d0bc82cc'
-            'SKIP'
-            'e7564c9ad76d3a9512149ebcc31248f5908688225527475f4e442278d25858f05deea2beffca1cdab43da47b1965b025249b95ca6d249f39a69a3ed9c1a70c54')
-b2sums=('dd209912f659ee95c1d26051003152c09dc97d45680c608dd73b0b3a001411ace437745ce3c465d55461c47cf13e30cfdba533fdf9bdb4e749b8db666616c589'
-        'SKIP'
-        '877716268c5dba627e9f76d7be7916e28479bc8fe4ea39e1f995ecd2ee3ef268242c96ae065f09c4754705606f13d2b2cbf13a24ef9f3271ddce519c88c5a1e4')
+        ${pkgname}-${pkgver}.tar.gz.asc::https://github.com/jvoisin/${pkgname}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
+sha512sums=('b15d06e62438bd0909066af8b0a13772113670eeeefb9be59123a700ac9357b44ab59f79b45340d1122dcdab86334de44ea84abb4dc1968cdd9362413c6c44b9'
+            'SKIP')
+b2sums=('a2aeb62e8eb12ed88886352a6aa339b1505928ec4af6dceabdbf50925978e0fe976c8080580cb5faf109efefd3257f1a5c31c6f6a0087c600304df3facf15f13'
+        'SKIP')
 
 validpgpkeys=('9FCDEE9E1A381F311EA62A7404D041E8171901CC') # Julien (jvoisin) Voisin
-
-prepare() {
-  cd ${pkgname}-${pkgver}
-  patch -Np1 -i ../issue-26.patch
-}
 
 build() {
   cd ${pkgname}-${pkgver}
@@ -67,9 +60,10 @@ check() {
 package() {
   cd ${pkgname}-${pkgver}
   python -m installer --destdir="${pkgdir}" dist/*.whl
-  install -Dm 644 dolphin/mat2.desktop -t "${pkgdir}/usr/share/kio/servicemenus"
-  install -Dm 644 data/mat2.svg -t "${pkgdir}/usr/share/icons/hicolor/scalable/apps"
-  install -Dm 644 doc/*.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 dolphin/mat2.desktop -t "${pkgdir}/usr/share/kio/servicemenus"
+  install -vDm 644 nemo/mat2.nemo_action -t "${pkgdir}/usr/share/nemo/actions"
+  install -vDm 644 data/mat2.svg -t "${pkgdir}/usr/share/icons/hicolor/scalable/apps"
+  install -vDm 644 doc/*.md -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
