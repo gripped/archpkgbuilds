@@ -2,8 +2,8 @@
 # Contributor: Maikel Wever <maikelwever@gmail.com>
 
 pkgname=python-ldap
-pkgver=3.4.4
-pkgrel=4
+pkgver=3.4.7
+pkgrel=1
 pkgdesc="LDAP client API for Python"
 url="https://python-ldap.readthedocs.io/"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('python-pyasn1' 'python-pyasn1-modules' 'libldap')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('openldap' 'python-pyasn1' 'python-pyasn1-modules' 'python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/python-ldap/python-ldap/archive/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('98c03c14724636351964606a307bf946fa6248630c2d6b89938a6911b6b84c99')
+sha256sums=('7eac2514a54a88420bc968e333e76a5df8c29eb4f666cea0047da1b88faaebec')
 
 prepare() {
   cd "$pkgbase-$pkgbase-$pkgver"
