@@ -4,8 +4,8 @@
 # Contributor: Wesley Moore <wes@wezm.net>
 
 pkgname=difftastic
-pkgver=0.69.0
-pkgrel=1
+pkgver=0.70.0
+pkgrel=2
 pkgdesc='An experimental diff tool that compares files based on their syntax'
 arch=(x86_64)
 url='https://difftastic.wilfred.me.uk'
@@ -24,21 +24,29 @@ makedepends=(
 source=(
   "git+https://github.com/Wilfred/difftastic.git#tag=$pkgver"
 )
-sha512sums=('623cca98d11bac4fc07e36838a1b5c10cba312a60e23e70f5890d4a5b424e69c8619834309369456b96b4737989029d1ef12ef830d3684adbded4e7623fc9bc4')
-b2sums=('8e01e7bb44394be8cd470b2b3575b7bd5122c7ae28ffd0c20b04e092d564749e0a037090eadaa6a75a49ae4ec069e3e258b63fa18d9ced0c2ceb3c905a002de3')
-#LTO cause undefined symbols
-options=(!lto)
+sha512sums=('812abfcc11d519b866f87ad1dd4e9ce5daf309b0c4965fb14ff6c9c158de645f64137d1199495fe52c9a1b7d938e29fd51aea718c824116479b0ac66eee3579d')
+b2sums=('1c5f46c02298113ed5d4ce7196466d2ed455b4d8a0a53df290743e6129c3d4f9bee405ea72540797d907469e09ba626076c4c2207364840fd3bd0e4849c569dc')
+
+_srcenv() {
+  cd "$pkgname"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=thin
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+  CFLAGS+=' -ffat-lto-objects'
+}
 
 prepare() {
-  cd "$pkgname"
+  _srcenv
 
   # download dependencies
   cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname"
-  export CFLAGS+=" -ffat-lto-objects"
+  _srcenv
 
   # binary
   cargo build --frozen --release
@@ -50,7 +58,7 @@ build() {
 }
 
 check() {
-  cd "$pkgname"
+  _srcenv
 
   # Skip tests that expect to detect interactive terminal
   # Run ignored tests that *are* expected to work if MIME database present
