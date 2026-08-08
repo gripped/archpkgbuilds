@@ -317,3 +317,59 @@ index f7d62f8..61e895c 100644
  #include <QGraphicsPixmapItem>
  #include <QVBoxLayout>
  #include <QThread>
+diff --git a/libcam/libcam_encoder/encoder.c b/libcam/libcam_encoder/encoder.c
+--- a/libcam/libcam_encoder/encoder.c
++++ b/libcam/libcam_encoder/encoder.c
+@@ -309,0 +310,13 @@
++#if LIBAVCODEC_VER_AT_LEAST(63, 0)
++    const void *configs = NULL;
++    const enum AVSampleFormat *p;
++
++    if (!getLoadLibsInstance()->m_avcodec_get_supported_config ||
++        getLoadLibsInstance()->m_avcodec_get_supported_config(
++            NULL, codec, AV_CODEC_CONFIG_SAMPLE_FORMAT, 0, &configs, NULL) < 0)
++        return 0;
++
++    p = configs;
++    if (!p)
++        return 1;
++#else
+@@ -310,0 +324 @@
++#endif
+@@ -334,0 +349,12 @@
++#if LIBAVCODEC_VER_AT_LEAST(63, 0)
++    const void *configs = NULL;
++
++    if (!getLoadLibsInstance()->m_avcodec_get_supported_config ||
++        getLoadLibsInstance()->m_avcodec_get_supported_config(
++            NULL, codec, AV_CODEC_CONFIG_SAMPLE_RATE, 0, &configs, NULL) < 0)
++        return sample_rate;
++
++    p = configs;
++    if (!p)
++        return sample_rate;
++#else
+@@ -338,0 +365 @@
++#endif
+diff --git a/src/src/basepub/load_libs.c b/src/src/basepub/load_libs.c
+--- a/src/src/basepub/load_libs.c
++++ b/src/src/basepub/load_libs.c
+@@ -131,0 +132,4 @@
++#if LIBAVCODEC_VERSION_MAJOR >= 63
++    pLibs->m_avcodec_get_supported_config = (uos_avcodec_get_supported_config)dlsym(handle, "avcodec_get_supported_config");
++    PrintError();
++#endif
+diff --git a/src/src/basepub/load_libs.h b/src/src/basepub/load_libs.h
+--- a/src/src/basepub/load_libs.h
++++ b/src/src/basepub/load_libs.h
+@@ -55,0 +56,3 @@
++#if LIBAVCODEC_VERSION_MAJOR >= 63
++typedef int (*uos_avcodec_get_supported_config)(const AVCodecContext *avctx, const AVCodec *codec, enum AVCodecConfig config, unsigned flags, const void **out_configs, int *out_num_configs);
++#endif
+@@ -80 +83 @@
+-typedef int (*uos_av_codec_is_encoder)( AVCodec *codec);
++typedef int (*uos_av_codec_is_encoder)(const AVCodec *codec);
+@@ -134,0 +138,3 @@
++#if LIBAVCODEC_VERSION_MAJOR >= 63
++    uos_avcodec_get_supported_config m_avcodec_get_supported_config;
++#endif
