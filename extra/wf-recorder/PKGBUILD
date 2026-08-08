@@ -3,7 +3,7 @@
 
 pkgname=wf-recorder
 pkgver=0.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Screen recorder for wlroots-based compositors such as sway"
 arch=("x86_64")
 url="https://github.com/ammen99/wf-recorder"
@@ -28,8 +28,14 @@ optdepends=(
 )
 source=(
 	"$pkgname-$pkgver.tar.gz::https://github.com/ammen99/wf-recorder/archive/v$pkgver.tar.gz"
+	ffmpeg-9.patch
 )
-sha256sums=('52d2c952506d63708f9a8f1aacd4d6ca176287caf3507c8ff2882fa0390cb391')
+sha256sums=('52d2c952506d63708f9a8f1aacd4d6ca176287caf3507c8ff2882fa0390cb391'
+            'd151f6163ee2839df0edf5bcafd82f41b88832cae66ddb6673ce54d7b8f680c6')
+
+prepare() {
+	patch -d $pkgname-$pkgver -p1 < ffmpeg-9.patch
+}
 
 build() {
 	meson "$pkgname-$pkgver" build \
