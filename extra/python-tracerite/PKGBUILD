@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-tracerite
-pkgver=2.5.1
+pkgver=2.5.2
 pkgrel=1
 pkgdesc='Pythonic HTML generation/templating (no template files)'
 arch=("any")
@@ -10,7 +10,7 @@ license=('Unlicense')
 depends=(python python-html5tagger)
 makedepends=(git python-build python-installer python-hatchling python-hatch-vcs)
 source=("git+https://github.com/sanic-org/tracerite.git#tag=v$pkgver")
-sha256sums=('b8bdcc4fb7b2e7e4c12843db1f1e0b67c0e7c3295c5a891153cda8f2f0a6f264')
+sha256sums=('f3057537dbce42e4bfb0059f0c503040a2546a69a886297261918e46ea1790e7')
 
 build() {
     cd tracerite
