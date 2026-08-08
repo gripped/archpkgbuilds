@@ -3,7 +3,7 @@
 
 pkgname=gpac
 pkgver=26.07.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='A multimedia framework based on the MPEG-4 Systems standard'
 arch=(x86_64)
@@ -42,8 +42,14 @@ optdepends=(
   'python-setuptools: python bindings'
 )
 provides=(libgpac.so)
-source=(git+https://github.com/gpac/gpac.git#tag=v${pkgver})
-b2sums=('1e40e4658bbda7734b7526e788b4375b4145680f050bda7b3780b05df56fdd8096786cb101b933565e5844a3448de33d0be7102ee6c480cef8a92db3f7697cdc')
+source=(git+https://github.com/gpac/gpac.git#tag=v${pkgver}
+        ffmpeg-9.patch)
+b2sums=('1e40e4658bbda7734b7526e788b4375b4145680f050bda7b3780b05df56fdd8096786cb101b933565e5844a3448de33d0be7102ee6c480cef8a92db3f7697cdc'
+        '50148b2b97b3a5128a72d9a3483a0727e687c8bd498f8e1f25bf8300db1bfddb28962a79083efb3adf7bde12cdea941dd52d4a56a702e624e541d90685c7acea')
+
+prepare() {
+  patch -d gpac -p1 < ffmpeg-9.patch
+}
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"
