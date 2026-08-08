@@ -1,48 +1,45 @@
-From 0b54668d3d4dfd5531f4a4569a440a869f658bdf Mon Sep 17 00:00:00 2001
+From 2046618f6f989f148baa254404cb4d4437fb8a18 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
-Date: Mon, 21 Oct 2024 17:06:18 +0200
+Date: Fri, 7 Aug 2026 12:53:12 +0200
 Subject: [PATCH] Clear temporary files on close
 
-Without this, all temporary files remain on the system for each opened images.
+Without this, all temporary files remain on the system for each pasted image.
 ---
- src/main.py    | 13 +++++++++++++
+ src/main.py    | 10 ++++++++++
  src/pasting.py |  7 +++++++
- src/window.py  | 11 ++++++++++-
- 3 files changed, 30 insertions(+), 1 deletion(-)
+ src/window.py  |  7 +++++++
+ 3 files changed, 24 insertions(+)
 
 diff --git a/src/main.py b/src/main.py
-index 6f9bd0e..d5ca002 100644
+index d396f89..1734f9f 100644
 --- a/src/main.py
 +++ b/src/main.py
-@@ -89,6 +89,8 @@ class LetterpressApplication(Adw.Application):
+@@ -72,6 +72,7 @@ class LetterpressApplication(Adw.Application):
              "open-output", self.__open_output, param=GLib.VariantType("s")
          )
          self.file = None
-+        self.pasted_tmpfile = None
-+        self.converted_tmpfile = None
++        self.tmpfile = None
  
      def do_activate(self):
          """Called when the application is activated.
-@@ -107,6 +109,17 @@ class LetterpressApplication(Adw.Application):
-         self.file = files[0].get_path()
+@@ -143,6 +144,15 @@ class LetterpressApplication(Adw.Application):
          self.activate()
+         return 0
  
 +    def do_shutdown(self):
-+        self.converted_tmpfile = None
-+
-+        if self.pasted_tmpfile:
++        if self.tmpfile:
 +            try:
-+                self.pasted_tmpfile.delete()
++                self.tmpfile.delete()
 +            except GLib.Error:
 +                pass
 +
 +        Gtk.Application.do_shutdown(self)
 +
-     def __paste_image(self, *args):
-         win = self.get_active_window()
-         Paster().paste_image(win, win.check_is_image)
+     def __on_about_action(self, *args):
+         """Callback for the app.about action."""
+         about = Adw.AboutDialog.new_from_appdata(
 diff --git a/src/pasting.py b/src/pasting.py
-index 36c9122..7909f9b 100644
+index 36c9122..57cc0de 100644
 --- a/src/pasting.py
 +++ b/src/pasting.py
 @@ -42,6 +42,13 @@ class Paster:
@@ -50,44 +47,33 @@ index 36c9122..7909f9b 100644
              paste_as_texture = clipboard.read_texture_finish(result)
              file = texture_to_file.to_file(paste_as_texture)
 +            app = self.parent_window.get_application()
-+            if app.pasted_tmpfile:
++            if app.tmpfile:
 +                try:
-+                    app.pasted_tmpfile.delete()
++                    app.tmpfile.delete()
 +                except GLib.Error:
 +                    pass
-+            app.pasted_tmpfile = file
++            app.tmpfile = file
              self.callback(file)
  
          except:
 diff --git a/src/window.py b/src/window.py
-index ca0081d..c1d7748 100644
+index 30245dd..5aab3ef 100644
 --- a/src/window.py
 +++ b/src/window.py
-@@ -110,7 +110,9 @@ class LetterpressWindow(Adw.ApplicationWindow):
-                 self.main_stack.set_visible_child_name("spinner-page")
-                 print(f"Input file: {filepath}")
- 
--                self.filepath = NamedTemporaryFile(suffix=".png").name
-+                app = self.get_application()
-+                app.converted_tmpfile = NamedTemporaryFile(suffix=".png")
-+                self.filepath = app.converted_tmpfile.name
- 
-                 shrunken_img = ImageOps.cover(img, (500, 500))
-                 exif_rotated_img = ImageOps.exif_transpose(shrunken_img)
-@@ -222,6 +224,13 @@ class LetterpressWindow(Adw.ApplicationWindow):
+@@ -137,6 +137,13 @@ class LetterpressWindow(Adw.ApplicationWindow):
  
          try:
              file = texture_to_file.to_file(drop)
 +            app = self.get_application()
-+            if app.pasted_tmpfile:
++            if app.tmpfile:
 +                try:
-+                    app.pasted_tmpfile.delete()
++                    app.tmpfile.delete()
 +                except GLib.Error:
 +                    pass
-+            app.pasted_tmpfile = file
-             self.check_is_image(file)
++            app.tmpfile = file
+             self.convert_image(file)
          except:
              toast = Adw.Toast.new(_("Dropped item is not a valid image"))
 -- 
-2.47.0
+2.55.0
 

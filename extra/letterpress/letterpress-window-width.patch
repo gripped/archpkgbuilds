@@ -1,0 +1,31 @@
+From 27803e2a22cd7d70bff3c92033a585ef0508fba3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 7 Aug 2026 09:50:41 +0000
+Subject: [PATCH] Reduce output width
+
+This allows the text to fit to the window without requesting maximized
+window by default.
+---
+ data/io.gitlab.gregorni.Letterpress.gschema.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/data/io.gitlab.gregorni.Letterpress.gschema.xml b/data/io.gitlab.gregorni.Letterpress.gschema.xml
+index aee99ad..3ebbd68 100644
+--- a/data/io.gitlab.gregorni.Letterpress.gschema.xml
++++ b/data/io.gitlab.gregorni.Letterpress.gschema.xml
+@@ -8,10 +8,10 @@
+       <default>600</default>
+     </key>
+     <key name="window-is-maximized" type="b">
+-      <default>true</default>
++      <default>false</default>
+     </key>
+ 	  <key name="output-width" type="i">
+-      <default>100</default>
++      <default>80</default>
+     </key>
+ 	</schema>
+ </schemalist>
+-- 
+GitLab
+

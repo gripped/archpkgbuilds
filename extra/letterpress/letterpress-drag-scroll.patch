@@ -1,0 +1,69 @@
+From d5b89de9504b041d4aa1f72a344200bffb02c1f0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 7 Aug 2026 10:22:56 +0200
+Subject: [PATCH] window: Allow dragging to scroll the output view
+
+Add a GtkGestureDrag controller to the output scrolled window so the
+content can be panned with the primary mouse button. This makes it
+easier to navigate large outputs without relying on the scrollbars.
+---
+ src/gtk/window.blp |  4 +---
+ src/window.py      | 16 ++++++++++++++++
+ 2 files changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/src/gtk/window.blp b/src/gtk/window.blp
+index 68e23ab..25c83b0 100644
+--- a/src/gtk/window.blp
++++ b/src/gtk/window.blp
+@@ -7,8 +7,7 @@ template $LetterpressWindow: Adw.ApplicationWindow {
+   height-request: 294;
+ 
+   content: Adw.ToastOverlay toast_overlay {
+-    child: WindowHandle {
+-      Adw.ToolbarView {
++    child: Adw.ToolbarView {
+         [top]
+         Adw.HeaderBar {
+           [start]
+@@ -184,7 +183,6 @@ template $LetterpressWindow: Adw.ApplicationWindow {
+             }
+           };
+         }
+-      }
+     };
+   };
+ }
+diff --git a/src/window.py b/src/window.py
+index 2b06016..14b30d6 100644
+--- a/src/window.py
++++ b/src/window.py
+@@ -75,6 +75,12 @@ class LetterpressWindow(Adw.ApplicationWindow):
+         self.previous_stack = "welcome"
+         self.filepath = None
+ 
++        gesture = Gtk.GestureDrag.new()
++        gesture.set_button(Gdk.BUTTON_PRIMARY)
++        gesture.connect("drag-begin", self.__on_drag_begin)
++        gesture.connect("drag-update", self.__on_drag_update)
++        self.output_scrolled_window.add_controller(gesture)
++
+     def on_open_file(self):
+         self.main_stack.set_visible_child_name("spinner-page")
+         FileChooser.open_file(self, self.previous_stack)
+@@ -174,3 +180,13 @@ class LetterpressWindow(Adw.ApplicationWindow):
+         except:
+             toast = Adw.Toast.new(_("Dropped item is not a valid image"))
+             self.toast_overlay.add_toast(toast)
++
++    def __on_drag_begin(self, gesture, x, y):
++        gesture.hadj = self.output_scrolled_window.get_hadjustment()
++        gesture.vadj = self.output_scrolled_window.get_vadjustment()
++        gesture.start_h = gesture.hadj.get_value()
++        gesture.start_v = gesture.vadj.get_value()
++
++    def __on_drag_update(self, gesture, dx, dy):
++        gesture.hadj.set_value(gesture.start_h - dx)
++        gesture.vadj.set_value(gesture.start_v - dy)
+-- 
+GitLab
+

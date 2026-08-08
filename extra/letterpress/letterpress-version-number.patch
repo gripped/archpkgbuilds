@@ -1,0 +1,37 @@
+From 5853aed72f001bd92708c857a33deae1b4b648af Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 7 Aug 2026 15:32:36 +0200
+Subject: [PATCH] Bump version number
+
+---
+ meson.build | 2 +-
+ src/main.py | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index b86830b..92cced4 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,5 +1,5 @@
+ project('letterpress',
+-          version: '2.1',
++          version: '2.2',
+     meson_version: '>= 0.59.0',
+           license: 'GPL3',
+   default_options: [ 'warning_level=2', 'werror=false', ],
+diff --git a/src/main.py b/src/main.py
+index d77553d..30a6e2b 100644
+--- a/src/main.py
++++ b/src/main.py
+@@ -146,7 +146,7 @@ class LetterpressApplication(Adw.Application):
+     def __on_about_action(self, *args):
+         """Callback for the app.about action."""
+         about = Adw.AboutDialog.new_from_appdata(
+-            "/io/gitlab/gregorni/Letterpress/metainfo.xml", "2.1"
++            "/io/gitlab/gregorni/Letterpress/metainfo.xml", "2.2"
+         )
+         about.set_artists(
+             [
+-- 
+2.55.0
+

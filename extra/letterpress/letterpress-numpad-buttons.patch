@@ -1,0 +1,32 @@
+From 4b7c62dd26448f8ad9f148c04b1a1b5a6d6f68f0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 7 Aug 2026 09:30:09 +0000
+Subject: [PATCH] Add KP_Add and KP_Subtract support for setting output width
+
+This allows to set the output width with the + and - buttons from numpad.
+---
+ src/main.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/main.py b/src/main.py
+index d77553d..7e35570 100644
+--- a/src/main.py
++++ b/src/main.py
+@@ -54,12 +54,12 @@ class LetterpressApplication(Adw.Application):
+         self.__create_action(
+             "increase-output-width",
+             lambda *args: self.__change_output_width(False),
+-            ["<primary>plus"],
++            ["<primary>plus", "<primary>KP_Add"],
+         )
+         self.__create_action(
+             "decrease-output-width",
+             lambda *args: self.__change_output_width(True),
+-            ["<primary>minus"],
++            ["<primary>minus", "<primary>KP_Subtract"],
+         )
+         self.__create_action("paste-image", self.__paste_image, ["<primary>v"])
+         self.__create_action(
+-- 
+GitLab
+

@@ -1,0 +1,33 @@
+From d9936ec11cbefa24203da489ad2cba69fa6c85ee Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 31 Oct 2024 15:38:22 +0100
+Subject: [PATCH] Add more mime types supported by Artem
+
+---
+ data/io.gitlab.gregorni.Letterpress.desktop.in.in | 2 +-
+ src/supported_formats.py                          | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/data/io.gitlab.gregorni.Letterpress.desktop.in.in b/data/io.gitlab.gregorni.Letterpress.desktop.in.in
+index b66835b..45f41c3 100644
+--- a/data/io.gitlab.gregorni.Letterpress.desktop.in.in
++++ b/data/io.gitlab.gregorni.Letterpress.desktop.in.in
+@@ -13,4 +13,4 @@ Categories=GTK;GNOME;TextTools;Graphics;ImageProcessing;
+ Keywords=image;ascii;convert;conversion;text;
+ StartupNotify=true
+ X-Purism-FormFactor=Workstation;Mobile;
+-MimeType=image/png;image/jpeg;image/webp;
++MimeType=image/bmp;image/x-dds;image/gif;image/x-hdr;image/vnd.microsoft.icon;image/jpeg;image/x-exr;image/png;image/x-portable-anymap;image/qoi;image/x-tga;image/tiff;image/webp;
+diff --git a/src/supported_formats.py b/src/supported_formats.py
+index 2fced5e..b401363 100644
+--- a/src/supported_formats.py
++++ b/src/supported_formats.py
+@@ -17,4 +17,4 @@
+ #
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ 
+-formats = ["jpeg", "png", "webp", "gif"]
++formats = ["bmp", "x-dds", "gif", "x-hdr", "vnd.microsoft.icon", "jpeg", "x-exr", "png", "x-portable-anymap", "qoi", "x-tga", "tiff", "webp"]
+-- 
+GitLab
+

@@ -1,0 +1,234 @@
+From e1666639cdeaa60a1394ec7998fd1d1cb46bf58c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 31 Oct 2024 14:38:24 +0100
+Subject: [PATCH] Remove usage of Pillow
+
+Now Artem supports rotating images based on EXIF data, so processing with
+Pillow is no longer needed.
+---
+ src/file_chooser.py    |  2 +-
+ src/main.py            | 10 ++---
+ src/texture_to_file.py |  2 +-
+ src/window.py          | 90 ++++++++++++++++--------------------------
+ 4 files changed, 41 insertions(+), 63 deletions(-)
+
+diff --git a/src/file_chooser.py b/src/file_chooser.py
+index 2c2cc1f..0c3ca27 100644
+--- a/src/file_chooser.py
++++ b/src/file_chooser.py
+@@ -30,7 +30,7 @@ class FileChooser:
+         def __on_response(_dialog, result):
+             """Run if the user selects a file."""
+             try:
+-                parent.check_is_image(_dialog.open_finish(result))
++                parent.convert_image(_dialog.open_finish(result))
+             except GLib.GError:
+                 parent.main_stack.set_visible_child_name(last_view_page)
+ 
+diff --git a/src/main.py b/src/main.py
+index d77553d..d396f89 100644
+--- a/src/main.py
++++ b/src/main.py
+@@ -88,21 +88,21 @@ class LetterpressApplication(Adw.Application):
+             win.add_css_class("devel")
+ 
+         if self.file != None:
+-            win.check_is_image(Gio.File.new_for_path(self.file))
++            win.convert_image(Gio.File.new_for_path(self.file))
+ 
+     def __paste_image(self, *args):
+         win = self.get_active_window()
+-        Paster().paste_image(win, win.check_is_image)
++        Paster().paste_image(win, win.convert_image)
+ 
+     def __change_output_width(self, down):
+         win = self.get_active_window()
+-        if win.filepath != None:
++        if win.file != None:
+             spin_btn = win.width_spin
+             spin_btn.set_value(spin_btn.get_value() + (-10 if down else 10))
+ 
+     def __copy_output_to_clipboard(self, *args):
+         win = self.get_active_window()
+-        if win.filepath is None:
++        if win.file is None:
+             return
+         output_text = win.output_label.get_label()
+         Gdk.Display.get_default().get_clipboard().set(output_text)
+@@ -110,7 +110,7 @@ class LetterpressApplication(Adw.Application):
+ 
+     def __save_output_to_file(self, *args):
+         win = self.get_active_window()
+-        if win.filepath is None:
++        if win.file is None:
+             return
+         FileChooser.save_file(win)
+ 
+diff --git a/src/texture_to_file.py b/src/texture_to_file.py
+index f2fae3f..d027cb8 100644
+--- a/src/texture_to_file.py
++++ b/src/texture_to_file.py
+@@ -21,7 +21,7 @@ from gi.repository import Gio
+ 
+ 
+ def to_file(texture):
+-    save_file = Gio.File.new_tmp()[0]
++    save_file = Gio.File.new_tmp("XXXXXX.png")[0]
+     save_path = save_file.get_path()
+     texture.save_to_png(save_path)
+ 
+diff --git a/src/window.py b/src/window.py
+index 2b06016..3f67ae2 100644
+--- a/src/window.py
++++ b/src/window.py
+@@ -18,12 +18,10 @@
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ 
+ import subprocess
+-from tempfile import NamedTemporaryFile
+ 
+ from gi.repository import Adw, Gdk, Gio, Gtk
+-from PIL import Image, ImageChops, ImageOps
+ 
+-from . import texture_to_file, supported_formats
++from . import texture_to_file
+ from .file_chooser import FileChooser
+ 
+ 
+@@ -73,13 +71,13 @@ class LetterpressWindow(Adw.ApplicationWindow):
+         self.width_spin.connect("value-changed", self.__on_spin_value_changed)
+ 
+         self.previous_stack = "welcome"
+-        self.filepath = None
++        self.file = None
+ 
+     def on_open_file(self):
+         self.main_stack.set_visible_child_name("spinner-page")
+         FileChooser.open_file(self, self.previous_stack)
+ 
+-    def check_is_image(self, file):
++    def convert_image(self, file):
+         filepath = file.get_path()
+ 
+         def __wrong_image_type():
+@@ -91,68 +89,39 @@ class LetterpressWindow(Adw.ApplicationWindow):
+             self.toast_overlay.add_toast(Adw.Toast.new(toast_text))
+             self.main_stack.set_visible_child_name(self.previous_stack)
+ 
+-        try:
+-            with Image.open(filepath) as img:
+-                if self.filepath and file:
+-                    with Image.open(self.filepath) as old_img:
+-                        same_image = not ImageChops.difference(
+-                            old_img.convert("RGB"), img.convert("RGB")
+-                        ).getbbox()
+-                        if same_image:
+-                            self.main_stack.set_visible_child_name(self.previous_stack)
+-                            return
+-
+-                self.main_stack.set_visible_child_name("spinner-page")
+-                print(f"Input file: {filepath}")
+-
+-                img_format = img.format
+-                uppercase_formats = list(
+-                    map(lambda x: x.upper(), supported_formats.formats)
+-                )
+-                if img_format not in uppercase_formats:
+-                    __wrong_image_type()
+-                    return
+-
+-                self.filepath = NamedTemporaryFile(suffix=f".{img_format}").name
+-
+-                shrunken_img = ImageOps.cover(img, (500, 500))
+-                exif_rotated_img = ImageOps.exif_transpose(shrunken_img)
+-                exif_rotated_img.save(self.filepath, format=img_format)
+-
+-                self.__convert_image(self.filepath)
+-        except Image.DecompressionBombError:
+-            print("Warning! Image is HUGE!!")
+-            self.__convert_image(filepath)
+-        except IOError:
+-            __wrong_image_type()
+-
+-    def __convert_image(self, filepath):
+         self.main_stack.set_visible_child_name("spinner-page")
++        print(f"Input file: {filepath}")
+ 
+         arguments = ["artem", f"--size={int(self.width_spin.get_value())}", filepath]
+         if not self.style_manager.get_dark():
+             arguments.append("--invert")
+ 
+-        output = subprocess.Popen(
+-            arguments,
+-            stdout=subprocess.PIPE,
+-            universal_newlines=True,
+-        ).stdout.readline
++        try:
++            result = subprocess.run(
++                arguments,
++                stdout=subprocess.PIPE,
++                stderr=subprocess.PIPE,
++                text=True,
++                check=True,
++            )
++        except subprocess.CalledProcessError as e:
++            print(e.stderr)
++            __wrong_image_type()
++            return
+ 
+-        joint_output = "".join(line for line in iter(output, ""))
+-        self.output_label.set_label(joint_output)
++        self.file = file
++        self.output_label.set_label(result.stdout)
+ 
+         self.toolbox.set_reveal_child(True)
+         self.previous_stack = "view-page"
+         self.main_stack.set_visible_child_name(self.previous_stack)
+ 
+     def __set_color_scheme(self, *args):
+-        if self.filepath != None:
+-            self.__convert_image(self.filepath)
++        if self.file != None:
++            self.convert_image(self.file)
+ 
+     def __on_spin_value_changed(self, spin_button):
+-        self.main_stack.set_visible_child_name("spinner-page")
+-        self.__convert_image(self.filepath)
++        self.convert_image(self.file)
+ 
+     def __on_enter(self, *args):
+         self.drag_revealer.set_reveal_child(True)
+@@ -160,9 +129,18 @@ class LetterpressWindow(Adw.ApplicationWindow):
+ 
+     def __on_drop(self, widget, drop, *args):
+         failed_as_file = False
+-        try:
+-            self.check_is_image(drop)
+-        except:
++
++        if isinstance(drop, Gio.File):
++            if drop.get_path() is None:
++                toast = Adw.Toast.new(_("Dropped item is not a valid image"))
++                self.toast_overlay.add_toast(toast)
++                return
++
++            try:
++                self.convert_image(drop)
++            except:
++                failed_as_file = True
++        else:
+             failed_as_file = True
+ 
+         if not failed_as_file:
+@@ -170,7 +148,7 @@ class LetterpressWindow(Adw.ApplicationWindow):
+ 
+         try:
+             file = texture_to_file.to_file(drop)
+-            self.check_is_image(file)
++            self.convert_image(file)
+         except:
+             toast = Adw.Toast.new(_("Dropped item is not a valid image"))
+             self.toast_overlay.add_toast(toast)
+-- 
+GitLab
+
