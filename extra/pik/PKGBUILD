@@ -1,16 +1,18 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=pik
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="Process interactive kill"
 arch=('x86_64')
 url="https://github.com/jacek-kurlit/pik"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('233feb3dfc332d64fa57bfbfdfb60fe6dc8a3799aa99b903d81a57a145308515eaca446ee7bad3fab09b4e2b5024b454bb662b624f254d636358e9e3ad1ffa36')
+sha512sums=('27db8a4b4e8a04e9786ade695be7b28c429d4feccab89ff81006ace70ba4299436f791ef75499636a2467ecf46b7f55b24036187e50d5c6feea349974d68af4c')
 
 prepare() {
   cd "$pkgname-$pkgver"
