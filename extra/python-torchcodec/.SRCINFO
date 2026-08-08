@@ -1,7 +1,7 @@
 pkgbase = python-torchcodec
 	pkgdesc = PyTorch media decoding and encoding
 	pkgver = 0.15.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/pytorch/torchcodec
 	arch = x86_64
 	license = BSD-3-Clause
@@ -10,6 +10,7 @@ pkgbase = python-torchcodec
 	checkdepends = python-pytest
 	checkdepends = python-torchvision
 	makedepends = cmake
+	makedepends = fmt
 	makedepends = pkg-config
 	makedepends = python-build
 	makedepends = python-installer
@@ -22,6 +23,8 @@ pkgbase = python-torchcodec
 	depends = python
 	depends = python-pytorch
 	source = torchcodec-0.15.0.tar.gz::https://github.com/pytorch/torchcodec/archive/refs/tags/v0.15.0.tar.gz
+	source = https://github.com/meta-pytorch/torchcodec/commit/a87fcd5570845b10b917ca1cd97b938fd68734a0.patch
 	b2sums = b1e908ccac29f09b29f4b07dccfcaba50c939686fae825db7b73f0c7772ed99f0d9c02f6bcd461abc610075a90e2fcd3ecdf1dbf6fa344105005c48445915573
+	b2sums = 59c25317ddc662a786df10ab6e2e18f4a580e94603a10d432db1bb762ba6513c5f4f7a2a4ec38e72ba2cfcd5f8e735dea2fbac31726db014ce06d9ae20f8138f
 
 pkgname = python-torchcodec
