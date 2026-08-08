@@ -2,28 +2,17 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-cmd2
-pkgver=3.5.1
+pkgver=4.0.0
 pkgrel=1
 pkgdesc="A tool for building interactive command line apps"
 arch=('any')
 url="https://github.com/python-cmd2/cmd2"
 license=('MIT')
-depends=('python-pyperclip' 'python-rich' 'python-rich-argparse')
+depends=('python-prompt_toolkit' 'python-pyperclip' 'python-rich' 'python-rich-argparse')
 makedepends=('git' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest' 'python-pytest-mock' 'vi')
 source=("git+https://github.com/python-cmd2/cmd2.git#tag=$pkgver")
-sha512sums=('07dc8a07906ea8ef6571cebc1f24165face76f4058054388ab5e95cdd58546ff705c9aff7d1be11b44e612f9ec9817e593fce0acbc55e202fe2e488e276ba7aa')
-
-prepare() {
-  cd cmd2
-
-  # Keep CompletionItem deepcopy-safe; upstream fixed the refactored code in PR #1642.
-  sed -e '/        self._orig_value = value/a\
-\
-    def __deepcopy__(self, memo: dict[int, Any]) -> "CompletionItem":\
-        return self\
-' -i cmd2/argparse_custom.py
-}
+sha512sums=('8e3cfc0b7425e44c42ad65f80db66481ad2d9375112f7347ce00b74c3db08e7ed64d12fb95f283bd03f82c767164fc367cdb8db156e083662f0823592d40069c')
 
 build() {
   cd cmd2
@@ -32,7 +21,7 @@ build() {
 
 check() {
   cd cmd2
-  PYTHONPATH="$PWD/cmd2" pytest --override-ini="addopts="
+  PYTHONPATH="$PWD" pytest --override-ini="addopts="
 }
 
 package() {
