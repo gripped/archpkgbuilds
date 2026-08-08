@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 pkgbase=cudnn-frontend
 pkgname=(${pkgbase} python-${pkgbase})
-pkgver=1.25.0
+pkgver=1.27.0
 pkgrel=1
 pkgdesc="Modern, open-source entry point to the cuDNN library"
 arch=("x86_64")
@@ -21,13 +21,15 @@ makedepends=(
 	python-wheel
 	python-setuptools
 )
-source=("$pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('22a1f2cdb790314785fac7b0fc0c5d619185c13296022617bec7858ef3702a50')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v${pkgver}.tar.gz"
+	pyproject.patch)
+sha256sums=('7a3386b516fc8c0ba047b912272ecbbd3185e66154c512f8f635072a9c9611de'
+            '4910a5be87991be35d779b23cf3a52bbf6b204cef5560db279a5bb07a8b976a8')
 
 prepare() {
 	cd ${pkgname}-${pkgver}
-	# We bring our own packages
-	sed -i -E 's/,? *" *(cmake|ninja|pybind11)[^"]*"//g' pyproject.toml
+	# Drop cmake, ninja, and pybind11 dependencies from pyproject.toml
+	patch -p1 < ../pyproject.patch
 }
 
 build() {
