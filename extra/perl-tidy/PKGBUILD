@@ -3,7 +3,7 @@
 # Contributor: Firmicus <francois.archlinux.org>
 
 pkgname=perl-tidy
-pkgver=20260705
+pkgver=20260808
 pkgrel=1
 pkgdesc="Parses and beautifies perl source"
 arch=('any')
@@ -12,7 +12,7 @@ license=('GPL' 'PerlArtistic')
 depends=('perl>=5.10.0')
 options=('!emptydirs')
 source=(https://www.cpan.org/authors/id/S/SH/SHANCOCK/Perl-Tidy-$pkgver.tar.gz)
-sha256sums=('f766fa146041912aff48945d35e23bac39baf8051ec28e430ec25d532ca4e372')
+sha256sums=('038277b43eddd2cb702e8058ca3ff685b3d64e6662361e7ad2158ccfd07291be')
 
 build() {
   cd  "${srcdir}"/Perl-Tidy-$pkgver
