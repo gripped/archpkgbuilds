@@ -7,7 +7,7 @@ pkgname=(qt6-multimedia
          qt6-multimedia-gstreamer)
 _pkgver=6.11.1
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -15,9 +15,10 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='Classes for audio, video, radio and camera functionality'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libgcc
          libpulse
+         libstdc++
          pipewire
          qt6-base)
 makedepends=(cmake
@@ -66,8 +67,7 @@ package_qt6-multimedia() {
 
 package_qt6-multimedia-gstreamer() {
   pkgdesc='Gstreamer backend for qt6-multimedia'
-  depends=(gcc-libs
-           glib2
+  depends=(glib2
            glibc
            gst-libav
            gst-plugins-bad-libs
@@ -76,6 +76,7 @@ package_qt6-multimedia-gstreamer() {
            gstreamer
            libglvnd
            libpulse
+           libstdc++
            qt6-base
            qt6-multimedia)
   provides=(qt6-multimedia-backend)
@@ -89,9 +90,11 @@ package_qt6-multimedia-gstreamer() {
 package_qt6-multimedia-ffmpeg() {
   pkgdesc='FFMpeg backend for qt6-multimedia'
   depends=(ffmpeg
-           gcc-libs
            glibc
+           libgcc
            libglvnd
+           libstdc++
+           libva
            libx11
            libxext
            libxrandr
