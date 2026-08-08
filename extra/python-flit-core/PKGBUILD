@@ -5,7 +5,7 @@ _bootstrap_version=3.14.0
 _parent_name=flit
 _name=flit_core
 pkgname=python-flit-core
-pkgver=4.0.0
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="A PEP 517 build backend for packages using Flit"
 arch=(any)
@@ -42,8 +42,8 @@ else
     python-setuptools::git+https://github.com/pypa/setuptools.git
   )
 fi
-sha512sums=('1de9358fa33d0924355679ab6bccf5933f2f154257a875dfec7bf88bb569fce487129ff2d7ea13df16287acaedf9da49ce5f9baccd160ebfb6fd33e831e9c9cb')
-b2sums=('f60a29e5779236175ff5792745b8e2d1333e3ef8ccec639634d5b31cdc8c5811908a98c420bf0e5eeb488260287532a506f5b24dd6b95e6c328fe0220088a9e0')
+sha512sums=('10086861c59047fad5b02b39b527f3e805bf93ea21d66879ce67743ab04fca4021b491963d89590821806c3747baccdc697f953a27ef50f0608eb0519f8a6909')
+b2sums=('3b4311285053abb6202bc9664cf03a5486dbc1318bde6817074c895b680f2cb8ebdad79b3990a3a40e834e496ecb67144ed8e92116a3b2441e65928016becee2')
 
 prepare() {
   if (( _bootstrap == 0 )); then
