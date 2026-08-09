@@ -1,6 +1,6 @@
 pkgbase = lvm2
 	pkgdesc = Device mapper and Logical Volume Manager
-	pkgver = 2.03.41
+	pkgver = 2.03.42
 	pkgrel = 1
 	url = https://sourceware.org/lvm2/
 	arch = x86_64
@@ -10,18 +10,16 @@ pkgbase = lvm2
 	makedepends = systemd
 	makedepends = libaio
 	makedepends = thin-provisioning-tools
-	source = git+https://gitlab.com/lvmteam/lvm2.git#tag=v2_03_41?signed
-	source = 0001-libdm-Makefile-add-an-empty-target-install_lvm2.patch
+	source = git+https://gitlab.com/lvmteam/lvm2.git?signed#tag=v2_03_42
 	validpgpkeys = 88437EF5C077BD113D3B7224228191C1567E2C17
 	validpgpkeys = D501A478440AE2FD130A1BE8B9112431E509039F
-	sha256sums = 7ad3899acacc53697fcc6bf9e8f93e0017f22cddeea0db60c77fcab6ddc5959e
-	sha256sums = 867a9ea522754144cd33d203a9400013bb9209925db9ef033b07dd586eda69dd
+	sha256sums = 5b53f000244e1acb28c94526546f39f172f2b4396238a5bc4d6b86036f1cbb08
 
 pkgname = lvm2
 	pkgdesc = Logical Volume Manager 2 utilities
 	url = https://sourceware.org/lvm2/
 	depends = bash
-	depends = device-mapper>=2.03.41
+	depends = device-mapper>=2.03.42
 	depends = glibc
 	depends = libaio
 	depends = libaio.so
