@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=curl-impersonate
-pkgver=1.5.6
+pkgver=2.0.0
 pkgrel=1
 pkgdesc='A build of curl that impersonates four major browsers: Chrome, Edge, Safari & Firefox'
 arch=(x86_64)
@@ -9,8 +9,8 @@ url='https://github.com/lexiforest/curl-impersonate'
 license=(MIT)
 depends=(
   glibc
-  libgcc
-  libstdc++
+  libgcc libgcc_s.so
+  libstdc++ libstdc++.so
   bash
 )
 makedepends=(
@@ -22,14 +22,13 @@ makedepends=(
   chrpath
 )
 _brotli_version=1.2.0
-_boringssl_commit=673e61fc215b178a90c0e67858bbf162c8158993
+_boringssl_commit=156c7b75ae9b8c3b3f847acf264f17594c3859fb
 _nghttp2_version=1.63.0
 _ngtcp2_version=1.20.0
 _nghttp3_version=1.15.0
-_curl_version=curl-8_15_0
+_curl_version=curl-8_21_0
 _zlib_version=1.3.1
-_zstd_version=1.5.6
-_libunistring_version=1.1
+_zstd_version=1.5.7
 _libidn2_version=2.3.7
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
@@ -41,68 +40,80 @@ source=(
   "${_curl_version}.tar.gz::https://github.com/curl/curl/archive/${_curl_version}.tar.gz"
   "zlib-${_zlib_version}.tar.gz::https://github.com/madler/zlib/releases/download/v${_zlib_version}/zlib-${_zlib_version}.tar.gz"
   "zstd-${_zstd_version}.tar.gz::https://github.com/facebook/zstd/releases/download/v${_zstd_version}/zstd-${_zstd_version}.tar.gz"
-  "libunistring-${_libunistring_version}.tar.gz::https://ftp.gnu.org/gnu/libunistring/libunistring-${_libunistring_version}.tar.gz"
   "libidn2-${_libidn2_version}.tar.gz::https://ftp.gnu.org/gnu/libidn/libidn2-${_libidn2_version}.tar.gz"
   no-download.patch
 )
-sha512sums=('6b625c1eb73c98d8afecd40b19c61ca956c3c3ed2a5e9c720ea86da42380713a2e3ad7e2383f3b52fe100e3543004de4e85d29ca6c9c9370eba33f52fe34c6b7'
+noextract=(
+  "brotli-${_brotli_version}.tar.gz"
+  "boringssl-${_boringssl_commit}.zip"
+  "nghttp2-${_nghttp2_version}.tar.bz2"
+  "ngtcp2-${_ngtcp2_version}.tar.bz2"
+  "nghttp3-${_nghttp3_version}.tar.bz2"
+  "${_curl_version}.tar.gz"
+  "zlib-${_zlib_version}.tar.gz"
+  "zstd-${_zstd_version}.tar.gz"
+  "libidn2-${_libidn2_version}.tar.gz"
+)
+sha512sums=('a6d89efca3a9903b1e97b260b0b1285f748bff84dc684c51c97cca6cd0a61d4c760e191e30613faed53381027afa98fe2645d18b6b840b8f3c4f63103286d7e7'
             'f94542afd2ecd96cc41fd21a805a3da314281ae558c10650f3e6d9ca732b8425bba8fde312823f0a564c7de3993bdaab5b43378edab65ebb798cefb6fd702256'
-            'cb542c349ab6f51451de6fbe20483690965bdb36eb315970b3d1faf3d64968863e5fb59fb6cd2fc945126668fd526f4976077b13b03590ac32b1ca100ed1ee35'
+            '1bd18f7344d6b30ff58f7e4319d7932ba915f235ee7552a997fc59977a863fc66ab3bbcc5020584cf0ef0b17af0bc2bcc87e083c7cd71993c9fc78e5af469767'
             'a328b4642c6ca4395adfcaaf4e6eb6dbd39fa7bd86f872a76260af59a5a830e0ff5ad015865d6bc00e0baa8e4d0d9a67b4b97e9d78e5e05d1c53522364e5e235'
             'fead05300f91fe79bbacb1f57ca7f5e390ec0af5f847bcf2800434e0fa9a895851b71cc9774b0ac04cdd4d660bb1c02ddfa88cb08287649f57ce327a434b4262'
             'e2de0402f3b75f081f421052e8fc72d7a679fbab67b8b1ba383bbfc61c90e7ff58e475c563747712a680e367af237c47f3f890326a55440bfdd2e51d0ea1fb6c'
-            'd4a560e225d0110133f44ed57cf5394c1710530c5fec395d02baafaac9ea2186dd543047ae27fd7542894b8744070760516ae611602105b1b40605abbf84e684'
+            '0ab6c99c3d5b86fb65c526db517c3159b11db2f8d82552d635c4887059c0602288603c93b754ce0ec543ea2f275122ccec2c8dcd866c2611b5b949c728ee72df'
             '580677aad97093829090d4b605ac81c50327e74a6c2de0b85dd2e8525553f3ddde17556ea46f8f007f89e435493c9a20bc997d1ef1c1c2c23274528e3c46b94f'
-            '54a578f2484da0520a6e9a24f501b9540a3fe3806785d6bc9db79fc095b7c142a7c121387c7eecd460ca71446603584ef1ba4d29a33ca90873338c9ffbd04f14'
-            '9cb1acc8b39096f30e77ad2f4c6127c3ff01588dbf41389ff294e9b89616d54d6a76cad5748f8dcb70b78ec28100fc1272d4eb9e6527b52e89a1ecac25b43647'
+            'b4de208f179b68d4c6454139ca60d66ed3ef3893a560d6159a056640f83d3ee67cdf6ffb88971cdba35449dba4b597eaa8b4ae908127ef7fd58c89f40bf9a705'
             'eab5702bc0baed45492f8dde43a4d2ea3560ad80645e5f9e0cfa8d3b57bccd7fd782d04638e000ba07924a5d9f85e760095b55189188c4017b94705bef9b4a66'
-            'eb96764d478fe619112c30008ab948a085fb32b6ef89e2eb64a82f97bd7a4cde5dd43823f643948832d9f609394670c34ce0712d2238fcb87d500efe85f26dfd')
-b2sums=('8ecce88b86e4d8a8e01d143e69a028cbe1c8beca299c00f29b35aa257eda58c31da7108f245e4f1137816ddfc04d956643962bc0231556e03fe1681cdb38f819'
+            'bc4cf3aa0a1be6bde148489756d495a92b3d079494d214b0a7905bbd5fecd58710f507cd43685be6900a1d622d4ad34825d73494496b05c6ca024af36f414406')
+b2sums=('07a7bfdc77544638dd622a987d8588d8d897ac974f74ec27bcdf5cedde55f30f3f6226f7320e54d2f43b6812c8f1fc00a024993d040c5aaea359c6c50cf8db34'
         'e38ea35f4abe47b2113ccc0778bb7b0be77dcf4d26ce248347ecc4cfdea7ba40d17e0b175cad6f82055d07b1ec9976ffea649f59065866db2c36116c77e59824'
-        'e31b039f0161bb2ad50b62ea588c319b4cbb7bf3cab59dafcf40f88defc2f27d42744edb88b04e2ce97789a81fefd6657601024811bf38e3ed1170f4920247a1'
+        '65a466046a3e24e36d810afc18c700e6e41bbf1f683be858cf973e85a48126ec1562cfd9f7f91dba50f4c78591bdfc0af823587c30d75bc79d9bd2991a3d2999'
         '8caab3602d79abe03f0b266feba07edbdcc95288824d41b39c672a74a9ef9c97e9421138eba4fc04c87aaaa0f26a7ce3779831825629f421f293481fa9f315e3'
         'cb5fa78f07c8fe1dfe5890894e1f7811ae5750f7afc77bd6ff83b7086cd0654882f6acc58f2611af2a69827125a6f58d6e11721958a1d2ebd7b4fd092ba6a5eb'
         '95064a8c9025822937af77da74b6f9b3bb6bef012678d20a2daf20c16b9f242c0a637f2dac009da82addb359200a72614efa1e2cbb2b464ae164d58c4d6f3f02'
-        '5f2d2e5f498495744e3b28ea375596f3e4213f32b5eb45ea9942c0339ad1541d0d98b1d4a774bfa4ce431fe23d81f860f4c150f325610d61286f2aea0a93f770'
+        '3e4df97e213a5aa56ef144cdfd085ea51b2902cf09d6006315e8036156eded548814a43983cd2eea9a653d635219675a8223682f2c98ce4379a8d6f5cd14f63c'
         '872ef9cc41ba57e9809ab5714ffa15cc9d3ef6c4a948c57107f800fc373bcfe2475136407203cb9aa33b189994336f36f2757b7a582e065ad477bfd49260184b'
-        'fe17cf0950f8ee2cc07bfa2b41e97f36a1832e396386cb94a55bede975dc974920578cf147b39eecbc5b53ff06fe0dc1fe781a4cab9bc9f767ea28c0e786422e'
-        'c15e996aff5eb19f5f9f5c2358a4b86edb27f119c7bd40da78736ba05c971aca403fd8126a75449f0cb006bb7301dd22c442f254633a15368c5e1656a3f69ad4'
+        'ef6bcf13bbb79edce2de21ef4860b01dcb4d2dd47ebd03657d5331c3bb1a207ef128e99ed907a32e787dca7bb51df225ebd8abb2097d03d02c003ca713e1e271'
         '40fde88e6be1e4665738855608a65c949834728463a3fb466192403f1076e99f7d399b9631308ff6776a28915251a0136ddfe6a67e8e010c7ccdb7fc64125d39'
-        'ad6478073229835a9d87bcc209b866be2d0ee9e0b719a5635858ca54c6ca0dc4a977f85b5b9a75099e97ae75580beaa5aa61e8face2cedaa4fe973d5cdd0e2ae')
+        '074ef882f97baec253c7aee9db9af483018f9331a8734fa9088081ee88fe983b7b9fe18eabf1b451ceddb842834eb12ca0a0c2385a872fc44752a9a324a5babe')
 
 prepare() {
   cd "$pkgname"
 
+  # backport fix for cmake files being installed
+  # https://github.com/lexiforest/curl-impersonate/issues/289
+  git cherry-pick --no-commit a0bdfdd8ec4a8c87013a0fd014746d0447ee2910
+
+  mkdir -p build/deps/downloads
+  mv "$srcdir"/*.{tar*,zip} build/deps/downloads
+
   # do not download dependencies
   patch -p1 -i "$srcdir/no-download.patch"
-
-  # shuffle around dependencies to match folder structure expected in Makefile
-  mv "$srcdir/brotli-${_brotli_version}" .
-  mv "$srcdir/boringssl-${_boringssl_commit}" .
-  mv "$srcdir/nghttp2-${_nghttp2_version}" .
-  mv "$srcdir/ngtcp2-${_ngtcp2_version}" .
-  mv "$srcdir/nghttp3-${_nghttp3_version}" .
-  mv "$srcdir/curl-${_curl_version}" "${_curl_version}"
-  mv "${srcdir}/zlib-${_zlib_version}" .
-  mv "${srcdir}/zstd-${_zstd_version}" .
-  mv "${srcdir}/libunistring-${_libunistring_version}" .
-  mv "${srcdir}/libidn2-${_libidn2_version}" .
-
-  autoreconf -vfi
 }
 
 build() {
   cd "$pkgname"
 
-  ./configure --prefix=/usr
+  make prepare-libidn2
 
-  make build -j1
+  local cmake_options=(
+    -B build
+    -S .
+    -G Ninja
+    -W no-author
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+  )
+  
+  cmake "${cmake_options[@]}"
+  
+  cmake --build build
 }
 
 package() {
   cd "$pkgname"
 
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 
   # remove unnecessary files
   rm -rf "$pkgdir/usr/include"
