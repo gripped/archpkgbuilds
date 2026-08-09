@@ -2,7 +2,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libultrahdr
-pkgver=1.5.1
+pkgver=2.0.0
 pkgrel=1
 pkgdesc='The reference codec for the Ultra HDR format'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(glibc
 makedepends=(cmake
              git)
 source=(git+https://github.com/google/libultrahdr#tag=v$pkgver)
-sha256sums=('f3e0294b8b6136acdd911e91b97e78b76e03e7f34afcc92b9cd3053cea3c2116')
+sha256sums=('88da9628a492d4289ff37d5ed28d651f8acc05b842c7c9f92569a31f4e6613a5')
 
 build() {
   cmake -B build -S $pkgname \
