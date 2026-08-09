@@ -2,7 +2,7 @@
 # Contributor: Michael Straube <straubem@gmx.de>
 
 pkgname=doomretro
-pkgver=6.2
+pkgver=6.3
 pkgrel=1
 pkgdesc='The classic, refined DOOM source port'
 arch=(x86_64)
@@ -18,8 +18,8 @@ depends=(
 makedepends=(git cmake icoutils)
 optdepends=('timidity++: for music playback')
 source=("$pkgname::git+https://github.com/bradharding/doomretro.git#tag=v$pkgver")
-sha512sums=('038b6d79d1fbec1b4bffbe4afe1ff95bbade2f77d84389cc6d7619fa244096daf572b02ea3865dad1944e6716568e5d01f3210928e71992742f76dd3dcca1658')
-b2sums=('58c0b426925d6d8d7f774b20c98f3c37ddd0c9b849157872956a2c221bfd69d4770457d017381b9b42285d0f5b0182ea6633d8216791ae8bf247808d89fd3e54')
+sha512sums=('1577f014ed86f11477e84c95fc849286cb230b32c4e4594bbe08224a4f86779df79a8747af89e68142c441adf865415d08e13ecf10701d86ff7c962a3e90528c')
+b2sums=('c7ccc26e1440bb55962c31469db4a95ea72874ea08816276e145b37f098de76dc32cc71d760bc16327f88e79d1402a84250ffd485dd5219535482f167594ffbc')
 
 prepare() {
   cd "$pkgname"
@@ -32,7 +32,7 @@ build() {
   local cmake_options=(
     -B build
     -S "$pkgname"
-    -W no-dev
+    -W no-author
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
   )
