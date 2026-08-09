@@ -1,11 +1,11 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=llama-cpp
-pkgver=b10221
+pkgver=b10330
 pkgrel=1
 pkgdesc='LLM inference in C/C++'
 arch=(x86_64)
-url=https://github.com/ggerganov/llama.cpp
+url=https://github.com/ggml-org/llama.cpp
 license=(MIT)
 depends=(
   ggml
@@ -26,8 +26,12 @@ makedepends=(
   ninja
   npm
 )
-source=(git+https://github.com/ggml-org/llama.cpp.git#tag=${pkgver})
-b2sums=('de05b07f723296e67f013b9c1ba055ed13c8857b3787b3ba06c6f6026726dc47cc43c0f0e327782935ec79112510949c6a69d1baa60824d9a0cff1dfb43c1151')
+source=(git+https://github.com/ggml-org/llama.cpp.git#tag=${pkgver}
+        llama-server-system.service
+        llama-server-user.service)
+b2sums=('6adf1e9499fcf9ad1dcd8b857f4f69d4b730b3c4288e75502dd864adc2b63e43bf36aa3804ecef4af05ce5e766686ae4fbad1a957e3367b04f4f38325852beca'
+        '192893e9886bae2befb140ffdf4f2d752492e20822febc1b4f1bd4581ab87a0babbd50b2c32f98f7f10c1e0e2d88f2422582d56962eecd83729061718785c6e1'
+        '2571b9e27537c11620524341c52503617d9c494474c62f72ca0250b965106711b650da2ed6557aa479010132046416bdf79e689e66dd0714d1d1bb96d4f3d995')
 
 build() {
   pushd "./llama.cpp/tools/ui"
@@ -51,4 +55,8 @@ build() {
 package() {
   DESTDIR="${pkgdir}" cmake --install build
   install -Dm 644 llama.cpp/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -Dm 644 llama-server-system.service "${pkgdir}"/usr/lib/systemd/system/llama-server.service
+  install -Dm 644 llama-server-user.service "${pkgdir}"/usr/lib/systemd/user/llama-server.service
+  sed -i "s/%PKGVER%/$pkgver/g" "${pkgdir}"/usr/lib/systemd/*/llama-server.service
+  mkdir -p "${pkgdir}"/usr/share/llama/models
 }
