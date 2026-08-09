@@ -2,12 +2,12 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=jrnl
-pkgver=4.3
+pkgver=4.6
 pkgrel=1
 pkgdesc="Collect your thoughts and notes without leaving the command line"
 arch=('any')
 url="https://jrnl.sh/"
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-only')
 depends=(
   'python'
   'python-colorama'
@@ -30,11 +30,10 @@ checkdepends=(
   'python-pytest'
   'python-pytest-bdd'
   'python-pytest-xdist'
-  'python-toml'
 )
 _url=https://github.com/jrnl-org/jrnl
 source=("git+$_url#tag=v$pkgver")
-b2sums=('d5d1fce780510e714b18e4784e8c9855bb13eba3f91a02509a569969e37ec69cf89411b61f17482f1579dc273945a498a6eb54eefdd754a6036dbee913fc4935')
+b2sums=('ba07f30925dcbdbbf96b16e3edbddec95d3a45b55baa148bf878646bde05ad7c357764652e3d77892bd0a9da7d14f025693c1aa3e25e44b555eab4d0e0310b90')
 
 build() {
   cd $pkgname
@@ -43,16 +42,7 @@ build() {
 
 check() {
   cd $pkgname
-  # Deselected tests fail due to v-prefixed version mismatch:
-  # https://github.com/jrnl-org/jrnl/issues/2065
-  pytest \
-    --deselect tests/bdd/test_features.py::test_displaying_the_version_number \
-    --deselect tests/bdd/test_features.py::test_install_jrnl_with_custom_expanded_default_journal_path \
-    --deselect tests/bdd/test_features.py::test_install_jrnl_with_custom_relative_default_journal_path \
-    --deselect tests/bdd/test_features.py::test_install_jrnl_with_default_options \
-    --deselect tests/bdd/test_features.py::test_install_jrnl_with_encrypted_default_journal \
-    --deselect tests/bdd/test_features.py::test_install_jrnl_with_encrypted_default_journal_with_no_entries \
-    --deselect tests/bdd/test_features.py::test_update_version_number_in_config_file_when_running_newer_version
+  pytest
 }
 
 package() {
