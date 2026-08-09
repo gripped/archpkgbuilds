@@ -1,0 +1,80 @@
+diff --git a/cdk/foundation/connection_openssl.cc b/cdk/foundation/connection_openssl.cc
+index bd525af..7cdb390 100644
+--- a/cdk/foundation/connection_openssl.cc
++++ b/cdk/foundation/connection_openssl.cc
+@@ -721,7 +721,7 @@ public:
+   }
+ };
+ 
+-const unsigned char * get_cn(ASN1_STRING *cn_asn1)
++const unsigned char * get_cn(const ASN1_STRING *cn_asn1)
+ {
+   const unsigned char *cn = NULL;
+ #if OPENSSL_VERSION_NUMBER > 0x10100000L
+@@ -741,9 +741,9 @@ bool matches_common_name(const std::string &host_name, const X509 *server_cert)
+ {
+   const unsigned char *cn = NULL;
+   int cn_loc = -1;
+-  ASN1_STRING *cn_asn1 = NULL;
+-  X509_NAME_ENTRY *cn_entry = NULL;
+-  X509_NAME *subject = NULL;
++  const ASN1_STRING *cn_asn1 = NULL;
++  const X509_NAME_ENTRY *cn_entry = NULL;
++  const X509_NAME *subject = NULL;
+ 
+   subject = X509_get_subject_name((X509 *)server_cert);
+   // Find the CN location in the subject
+@@ -793,7 +793,7 @@ bool matches_alt_name(const std::string &host_name, const X509 *server_cert)
+ 
+   // Extract names from Subject Alternative Name extension (SAN)
+   alt_names = (STACK_OF(GENERAL_NAME)*)
+-                X509_get_ext_d2i((X509*)server_cert,
++                X509_get_ext_d2i(server_cert,
+                                  NID_subject_alt_name,
+                                  NULL, NULL);
+   if (alt_names == NULL)
+@@ -803,24 +803,30 @@ bool matches_alt_name(const std::string &host_name, const X509 *server_cert)
+   for (i = 0; i < alt_names_num; ++i)
+   {
+     GENERAL_NAME *gen_name = sk_GENERAL_NAME_value(alt_names, i);
+-    if (gen_name->type == GEN_DNS)
+-    {
+-      const unsigned char* dns_name;
++    int name_type = 0;
+ 
+-      dns_name = get_cn(gen_name->d.dNSName);
++    const ASN1_STRING *dns_name =
++      static_cast<const ASN1_STRING *>(GENERAL_NAME_get0_value(gen_name, &name_type));
+ 
+-      // There should not be any NULL embedded in the CN
+-      if (dns_name == NULL)
+-      {
+-        result = false; // Exit the loop, wrong length
+-        break;
+-      }
++    if (name_type == GEN_DNS && dns_name != nullptr)
++    {
++      const unsigned char *data_ptr = ASN1_STRING_get0_data(dns_name);
++
++      int data_len = ASN1_STRING_length(dns_name);
+ 
+-      std::string s_dns_name = reinterpret_cast<const char*>(dns_name);
+-      if (host_name == s_dns_name)
++      if (data_ptr != nullptr && data_len > 0)
+       {
+-        result = true;
+-        break;
++        std::string s_dns_name(reinterpret_cast<const char*>(data_ptr), data_len);
++
++        if (s_dns_name.length() == static_cast<size_t>(data_len) &&
++          s_dns_name.find('\0') == std::string::npos)
++        {
++          if (host_name == s_dns_name)
++          {
++            result = true;
++            break;
++          }
++        }
+       }
+     }
+   }
