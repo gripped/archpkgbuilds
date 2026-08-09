@@ -1,11 +1,11 @@
 --- a/Makefile
 +++ b/Makefile
-@@ -2,29 +2,13 @@
- SHELL := bash
+@@ -5,29 +5,13 @@ PYTHON ?= python3
+ PIP ?= $(PYTHON) -m pip
  
  # this is the upstream libcurl-impersonate version
--VERSION := 1.5.2
--CURL_VERSION := curl-8_15_0
+-VERSION := 2.0.0
+-CURL_VERSION := curl-8_21_0
 +VERSION := @CURL_IMPERSONATE_VERSION@
 +CURL_VERSION := @CURL_VERSION@
  
@@ -34,7 +34,7 @@
  	# Re-generate the configure script
  	autoreconf -fi
  	mkdir -p ../include/curl
-@@ -33,17 +17,6 @@ curl-impersonate-$(VERSION)/patches: $(CURL_VERSION)
+@@ -36,17 +20,6 @@ curl-impersonate-$(VERSION)/patches: $(CURL_VERSION)
  	cd ..
  	touch .preprocessed
  
@@ -50,5 +50,5 @@
 -	touch .preprocessed
 -
  gen-const:
- 	python3 scripts/generate_consts.py $(CURL_VERSION)
+ 	$(PYTHON) scripts/generate_consts.py $(CURL_VERSION)
  
