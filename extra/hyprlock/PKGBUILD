@@ -2,7 +2,7 @@
 
 pkgname=hyprlock
 pkgver=0.9.6
-pkgrel=1
+pkgrel=2
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -10,18 +10,16 @@ license=(BSD-3-Clause)
 depends=(cairo # libcairo.so
          libgcc # libgcc_s.so
          'libstdc++' # libstdc++.so
-         glib2 libgobject-2.0.so libglib-2.0.so
          glibc # libc.so libm.so
          hyprgraphics libhyprgraphics.so
          hyprlang libhyprlang.so
          hyprutils libhyprutils.so
          hyprwayland-scanner
          libdrm # libdrm.so
-         libglvnd libOpenGL.so libEGL.so
+         libglvnd libEGL.so
          libxkbcommon libxkbcommon.so
          mesa # libgbm.so
          pam libpam.so
-         pango libpango-1.0.so libpangocairo-1.0.so
          sdbus-cpp libsdbus-c++.so
          wayland libwayland-client.so libwayland-egl.so
          wayland-protocols)
