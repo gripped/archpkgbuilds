@@ -1,23 +1,24 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
 # Contributor: ohfp/lsf <@ohfp:matrix.org>
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=librewolf
 pkgver=153.0.3_1
 _fixedfirefoxver="${pkgver%_*}" # Version of Firefox this LibreWolf version is based on, but the Firefox patch number is always included
 _librewolfver="${pkgver#*_}"
 _firefoxver="${_fixedfirefoxver%.0}" # Removes ".0" from the end. For "136.0.0" this will result in "136.0" but for "136.0.1" won't do anything.
-pkgrel=1
+pkgrel=4
 pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and freedom"
 url="https://librewolf.net/"
 arch=(x86_64 aarch64)
 license=(MPL-2.0)
-
 depends=(
-  dbus
   alsa-lib
   at-spi2-core
   bash
   cairo
+  dbus
   ffmpeg
   fontconfig
   freetype2
@@ -45,13 +46,11 @@ depends=(
   ttf-font
 )
 makedepends=(
-  binutils
   cbindgen
   clang
   diffutils
   git
   imake
-  inetutils
   jack
   jq
   lld
@@ -59,15 +58,15 @@ makedepends=(
   mesa
   nasm
   nodejs
-  pciutils
+  onnxruntime
   python
-  python-setuptools
   rust
   unzip
   wasi-compiler-rt
+  wasi-libc
   wasi-libc++
   wasi-libc++abi
-  wasi-libc
+  xorg-server-xvfb
   yasm
   zip
 )
@@ -80,7 +79,6 @@ optdepends=(
 )
 
 options=(
-  !debug
   !emptydirs
   !lto
   !makeflags
@@ -89,11 +87,16 @@ options=(
 source=(
   https://codeberg.org/api/packages/librewolf/generic/librewolf-source/$_firefoxver-$_librewolfver/librewolf-$_firefoxver-$_librewolfver.source.tar.gz{,.sig}
   $pkgname.desktop
+
+  # Support FFmpeg 9
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/firefox/-/work_items/34
+  https://gitlab.archlinux.org/archlinux/packaging/packages/firefox/-/raw/153.0.3-2/0002-Bug-2057577-DOM-Media-Add-FFmpeg-63-support.-r-alwu-.patch
 )
 
 sha256sums=('ab4283ce8eb6765e9df0f4586b2f4fb0a05de186398f2b944f6f5c791541321f'
             'SKIP'
-            '3d6ac59ae9d5ba4c9fe15f95c1338fa68214dec6119f8432336403e3be50f8ae')
+            '3d6ac59ae9d5ba4c9fe15f95c1338fa68214dec6119f8432336403e3be50f8ae'
+            '55aeec4d098990e91f881de32126ea91576b0d185e322b561241c513ea5b9fcd')
 
 validpgpkeys=('662E3CDD6FE329002D0CA5BB40339DD82B12EF16') # https://rpm.librewolf.net/pubkey.gpg
 
@@ -102,25 +105,36 @@ prepare() {
   mkdir -p mozbuild
   cd librewolf-$_firefoxver-$_librewolfver
 
+  local src
+  for src in "${source[@]}"; do
+    src="${src%%::*}"
+    src="${src##*/}"
+    src="${src%.zst}"
+    [[ $src = *.patch ]] || continue
+    echo "Applying patch $src..."
+    patch -Np1 < "../$src"
+  done
+
   mv mozconfig ../mozconfig
 
   cat >>../mozconfig <<END
-
-ac_add_options --enable-linker=lld
+mk_add_options MOZ_OBJDIR=${PWD@Q}/obj
 
 ac_add_options --prefix=/usr
-
+ac_add_options --enable-release
+ac_add_options --enable-hardening
+ac_add_options --enable-optimize
+ac_add_options --enable-rust-simd
+ac_add_options --enable-linker=lld
+ac_add_options --disable-install-strip
 ac_add_options --disable-bootstrap
-
-export CC='clang'
-export CXX='clang++'
+ac_add_options --with-wasi-sysroot=/usr/share/wasi-sysroot
 
 # Branding
 ac_add_options --with-app-name=${pkgname}
-
 export MOZ_APP_REMOTINGNAME=${pkgname}
 
-# Langauge packs
+# Language packs
 ac_add_options --with-l10n-base=$PWD/lw/l10n
 
 # System libraries
@@ -132,41 +146,8 @@ ac_add_options --with-system-nss
 ac_add_options --enable-alsa
 ac_add_options --enable-jack
 ac_add_options --enable-pulseaudio
-
-# wasi
-ac_add_options --with-wasi-sysroot=/usr/share/wasi-sysroot
-
-# options for ci / weaker build systems
-# mk_add_options MOZ_MAKE_FLAGS="-j4"
-# ac_add_options --enable-linker=gold
-
-# optimizations
-ac_add_options OPT_LEVEL="2"
-ac_add_options RUSTC_OPT_LEVEL="2"
+ac_add_options --disable-updater
 END
-
-if [[ "${CARCH}" == "aarch64" ]]; then
-  cat >>../mozconfig <<END
-# TODO: re-evaluate (is used by ALARM, but why?)
-ac_add_options --enable-optimize="-g0 -O2"
-
-ac_add_options --enable-lto
-END
-
-  export MOZ_DEBUG_FLAGS=" "
-  export CFLAGS+=" -g0"
-  export CXXFLAGS+=" -g0"
-  export RUSTFLAGS="-Cdebuginfo=0"
-
-else
-
-  cat >>../mozconfig <<END
-# Arch upstream has it in their PKGBUILD, ALARM does not for aarch64:
-ac_add_options --disable-elf-hack
-
-ac_add_options --enable-lto=cross
-END
-fi
 
   # reduce chance of builds failung during linking due to running out of memory
   export LDFLAGS+=" -Wl,--no-keep-memory"
@@ -192,7 +173,46 @@ build() {
   CFLAGS="${CFLAGS/-fexceptions/}"
   CXXFLAGS="${CXXFLAGS/-fexceptions/}"
 
-  cp ../mozconfig .mozconfig
+  # LTO needs more open files
+  ulimit -n 4096
+
+  # temporarily disable ublock-origin, interferes with profiling
+  cp "lw/policies.json" "$srcdir/policies.json"
+  jq 'del(.policies.Extensions.Install)' "$srcdir/policies.json" > "lw/policies.json"
+
+  # Do 3-tier PGO
+  echo "Building instrumented browser..."
+  cat >.mozconfig ../mozconfig - <<END
+ac_add_options --enable-profile-generate=cross
+END
+  ./mach build --priority normal
+
+  echo "Profiling instrumented browser..."
+  ./mach package
+  LLVM_PROFDATA=llvm-profdata JARLOG_FILE="$PWD/jarlog" \
+    dbus-run-session \
+    xvfb-run -s "-screen 0 1920x1080x24 -nolisten local" \
+    ./mach python build/pgo/profileserver.py
+
+  stat -c "Profile data found (%s bytes)" merged.profdata
+  test -s merged.profdata
+
+  stat -c "Jar log found (%s bytes)" jarlog
+  test -s jarlog
+
+  echo "Removing instrumented browser..."
+  ./mach clobber objdir
+
+  # reenable ublock-origin
+  cp "$srcdir/policies.json" "lw/policies.json"
+
+  echo "Building optimized browser..."
+  cat >.mozconfig ../mozconfig - <<END
+ac_add_options --enable-lto=cross
+ac_add_options --enable-profile-use=cross
+ac_add_options --with-pgo-profile-path=${PWD@Q}/merged.profdata
+ac_add_options --with-pgo-jarlog=${PWD@Q}/jarlog
+END
   ./mach build --priority normal
 }
 
