@@ -3,7 +3,7 @@
 pkgname=('python-zstandard')
 _pkgname='zstandard'
 pkgver=0.25.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Python bindings to the Zstandard (zstd) compression library"
 url="https://github.com/indygreg/python-zstandard"
 depends=(
@@ -18,6 +18,7 @@ makedepends=(
 )
 checkdepends=(
     'python-hypothesis'
+    'python-pytest'
 )
 optdepends=(
     'python-cffi'
@@ -35,8 +36,8 @@ build() {
 
 check() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-    python setup.py build_ext --inplace
-    python -m unittest discover -vs .
+    cp build/"lib.linux-${CARCH}-cpython-"*/zstandard/backend_c.* zstandard/
+    pytest
 }
 
 package() {
