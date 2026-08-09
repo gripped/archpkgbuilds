@@ -1,7 +1,7 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=rrdtool
-pkgver=1.10.3
+pkgver=1.11.0
 pkgrel=1
 pkgdesc="Data logging and graphing application"
 arch=('x86_64')
@@ -16,13 +16,10 @@ optdepends=('perl: to use corresponding binding'
             'lua51: to use corresponding binding')
 options=('!emptydirs' '!makeflags')
 source=("git+https://github.com/oetiker/rrdtool-1.x.git#tag=v$pkgver")
-sha256sums=('6e0162ff2d4248d7dcf40197aa8d7350983cef660d080c862250b89c96f690d2')
+sha256sums=('54588fd00b28bc6592ad757f03a942db948aeb340dc854f11ea0b8de617ed41c')
 
 prepare() {
   cd rrdtool-1.x
-
-  # https://github.com/oetiker/rrdtool-1.x/pull/1332
-  git show --format= bbb85a157261e896a4964ff826674dd2035632c5 -- src/rrd_graph_helper.c | git apply -3
 
   # Use Arch's Python install scheme instead of upstream's fixed /usr/lib/python3 target.
   sed -i \
