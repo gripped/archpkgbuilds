@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-ruby_memcheck
-pkgver=3.0.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc='Use Valgrind memcheck without going crazy'
 arch=(any)
@@ -25,18 +25,10 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/Shopify/ruby_memcheck.git#tag=$pkgver)
-sha256sums=('16bbffdb6f83f99e4b8f558457356a773d2841ab3a902859a12d042fa8078c6f')
+sha256sums=('7c4775e81c5e48f572e2973518bceee549ba28bd10d3689de6b945eaa43e4b1f')
 
 prepare() {
   cd ruby_memcheck
-  # Backport file descriptor limit workaround for Valgrind 3.21+:
-  # https://github.com/Shopify/ruby_memcheck/pull/63
-  git cherry-pick -n 98d79499263d77d49ad774be03a78d2a5e56e376
-
-  # Backport Ruby 3.4 rb_vm_exec suppression:
-  # https://github.com/Shopify/ruby_memcheck/pull/69
-  git cherry-pick -n 988312b8e192220f1089e28a31c8a8ca3714788b
-
   # Ruby 3.4's free-at-exit mode intentionally reports native Init_* leaks;
   # remove the artificial test fixture leaks so unrelated checks remain useful.
   sed -i '/Memory leaks in the Init functions should be ignored\./,+1d' \
