@@ -4,7 +4,7 @@
 # Contributor: Achilleas Pipinellis <axilleas at archlinux dot gr>
 
 pkgname=vale
-pkgver=3.17.0
+pkgver=3.17.1
 pkgrel=1
 pkgdesc="A markup-aware linter for prose built with speed and extensibility in mind"
 url="https://vale.sh"
@@ -14,7 +14,7 @@ depends=('glibc' 'libgcc' 'libstdc++')
 makedepends=('go')
 options=(!lto)
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/errata-ai/vale/archive/v${pkgver}.tar.gz")
-sha256sums=('c3f19654f140a59cacd35205d88fb52367f77e13f3c95472ee371199477fe076')
+sha256sums=('4074a365518200d15f517fba83d97eeabd9d5127a80287089fddcb8fd50e3ff1')
 
 prepare(){
 	cd "${pkgname}-${pkgver}"
