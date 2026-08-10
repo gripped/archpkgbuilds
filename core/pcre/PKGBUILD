@@ -5,12 +5,20 @@
 
 pkgname=pcre
 pkgver=8.45
-pkgrel=4
+pkgrel=5
 pkgdesc='A deprecated library that implements Perl 5-style regular expressions'
 arch=('x86_64')
 url='https://www.pcre.org/'
 license=('BSD')
-depends=('glibc' 'gcc-libs' 'readline' 'zlib' 'bzip2' 'bash')
+depends=(
+  'glibc'
+  'libgcc'
+  'libstdc++'
+  'readline'
+  'zlib'
+  'bzip2'
+  'bash'
+)
 provides=(libpcre{,16,32,posix,cpp}.so)
 source=("https://sourceforge.net/projects/pcre/files/$pkgname/$pkgver/$pkgname-$pkgver.tar.bz2"{,.sig}
         '0001-pcre-JIT-compiler-update-for-Intel-CET.patch'

@@ -1,12 +1,13 @@
 pkgbase = pcre
 	pkgdesc = A deprecated library that implements Perl 5-style regular expressions
 	pkgver = 8.45
-	pkgrel = 4
+	pkgrel = 5
 	url = https://www.pcre.org/
 	arch = x86_64
 	license = BSD
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = readline
 	depends = zlib
 	depends = bzip2
