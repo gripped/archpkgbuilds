@@ -1,6 +1,6 @@
 pkgbase = pcp
 	pkgver = 7.2.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://pcp.io
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -393,6 +393,7 @@ pkgname = pcp
 	backup = etc/sysconfig/pmlogger_farm
 	backup = etc/sysconfig/pmlogger_timers
 	backup = etc/sysconfig/pmproxy
+	backup = etc/sysconfig/pmproxy_timers
 	backup = etc/zabbix/zabbix_agentd.d/zbxpcp.conf
 
 pkgname = pcp-gui
@@ -536,3 +537,9 @@ pkgname = pcp-pmda-json
 	depends = bash
 	depends = pcp
 	depends = python-jsonpointer
+
+pkgname = pcp-atop
+	pkgdesc = PCP version of the atop system and process monitor, providing detailed analysis of system resources and process activity using PCP metrics.
+	provides = atop
+	conflicts = atop
+	backup = etc/sysconfig/atop

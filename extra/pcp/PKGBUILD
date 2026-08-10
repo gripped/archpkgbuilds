@@ -4,9 +4,9 @@
 pkgbase=pcp
 pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bind2 pcp-pmda-bpftrace pcp-pmda-libvirt
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
-         pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp pcp-pmda-json)
+         pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp pcp-pmda-json pcp-atop)
 pkgver=7.2.0
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url="https://pcp.io"
 license=(GPL-2.0-or-later LGPL-2.1-or-later CC-BY-3.0)
@@ -441,6 +441,7 @@ package_pcp() {
     etc/sysconfig/pmlogger_farm
     etc/sysconfig/pmlogger_timers
     etc/sysconfig/pmproxy
+    etc/sysconfig/pmproxy_timers
     etc/zabbix/zabbix_agentd.d/zbxpcp.conf
   )
 
@@ -449,6 +450,12 @@ package_pcp() {
     {/etc/pcp,/var/lib/pcp/config/pmlogconf,/{usr,var}/lib/pcp/pmdas}/{activemq,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp} \
     /usr/share/man/man1/pmda{activemq,bind2,bpftrace,libvirt,json,mysql,nginx,nutcracker,openmetrics,podman,postgresql,snmp}.1.gz \
     /usr/lib/sysusers.d/pcp-testsuite.conf \
+    /etc/sysconfig/atop \
+    /usr/bin/atop\* \
+    /usr/lib/pcp/bin/{pcp-,}atop\* \
+    /usr/lib/systemd/system/atop\*.{timer,service} \
+    /usr/share/man/man*/{pcp-,}atop\*.gz \
+    /var/log/atop \
       | sed -r 's/ +/\n/g' \
   ) "$srcdir"/installskel/ "$pkgdir"/
 
@@ -683,4 +690,18 @@ package_pcp-pmda-snmp() {
   )
 
   _package_module snmp
+}
+
+package_pcp-atop() {
+  pkgdesc='PCP version of the atop system and process monitor, providing detailed analysis of system resources and process activity using PCP metrics.'
+  provides=(atop)
+  conflicts=(atop)
+  backup=(etc/sysconfig/atop)
+
+  install -Dm0644 "$srcdir"/installskel/etc/sysconfig/atop "$pkgdir/etc/sysconfig/atop"
+  install -Dm0755 -t "$pkgdir/usr/bin" "$srcdir"/installskel/usr/bin/atop*
+  install -Dm0755 -t "$pkgdir/usr/lib/systemd/system" "$srcdir"/installskel/usr/lib/systemd/system/atop*.{timer,service}
+  install -Dm0644 -t "$pkgdir/usr/share/man/man1" "$srcdir"/installskel/usr/share/man/man1/{pcp-,}atop*.gz
+  install -Dm0644 -t "$pkgdir/usr/share/man/man5" "$srcdir"/installskel/usr/share/man/man5/pcp-atop*.gz
+  install -dm0755 "$pkgdir/var/log/atop"
 }
