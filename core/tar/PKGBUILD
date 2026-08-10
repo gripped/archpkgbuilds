@@ -4,7 +4,7 @@
 
 pkgname=tar
 pkgver=1.35
-pkgrel=2
+pkgrel=3
 pkgdesc='Utility used to store, backup, and transport files'
 arch=('x86_64')
 url='https://www.gnu.org/software/tar/'
@@ -13,22 +13,14 @@ depends=('glibc' 'acl')
 checkdepends=('attr')
 options=('!emptydirs')
 validpgpkeys=('325F650C4C2B6AD58807327A3602B07F55D0C732') # Sergey Poznyakoff
-source=("https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig})
+source=("https://ftp.gnu.org/gnu/$pkgname/$pkgname-$pkgver.tar.xz"{,.sig}
+        "fix-libacl-conflicts.patch")
 sha256sums=('4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16'
-            'SKIP')
+            'SKIP'
+            '07c20fc924001f15e93e779588de8113a2ce683ce5b18431e797f7c242eaa33a')
 
 prepare() {
-  cd $pkgname-$pkgver
-  # apply patch from the source array (should be a pacman feature)
-  local src
-  for src in "${source[@]}"; do
-    src="${src%%::*}"
-    src="${src##*/}"
-    [[ $src = *.patch ]] || continue
-    msg2 "Applying patch $src..."
-    patch -Np1 < "../$src"
-  done
-  :
+  patch -d "${pkgname}-${pkgver}" -Np1 -i ../fix-libacl-conflicts.patch
 }
 
 build() {
