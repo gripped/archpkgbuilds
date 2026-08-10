@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=5.5.11
-pkgrel=3
+pkgver=5.5.12
+pkgrel=1
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-grand-search"
@@ -14,15 +14,11 @@ makedepends=(git cmake deepin-tray-loader ninja qt6-tools boost)
 groups=(deepin-extra)
 source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
          taglib-2.patch)
-sha512sums=('63d545cb6cc16711e212d47efdbdb8618fbce6c6a7661877e4d10cd71752835ee27b7ffa83a708b0e2d4177a99766a7e3388f82cc49e1334cc10a2c275244354'
+sha512sums=('c45cf9bfc2647afa8abd8148d01d0f7f542497f3505d508fb5dfc780e61c18112b5076df7616e8dd1ce3a2f7b76547794e7cd1110b5805c92da6c25458e14d44'
             '8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0')
 
 prepare() {
   cd dde-grand-search
-
-  # Backport upstream 5.5.12 Qt 6 support so deepin-pdfium's Qt 6 API is used:
-  # https://github.com/linuxdeepin/dde-grand-search/commit/24260b1c6afd405dd29ac581ece78ab656cd5f9b
-  git cherry-pick -n c6c745c1b79323f7baccfff8458c5bf6914fc7c0^..24260b1c6afd405dd29ac581ece78ab656cd5f9b
 
   # https://github.com/linuxdeepin/dde-grand-search/pull/65
   sed -i 's/-fPIE -pie//g' src/*/CMakeLists.txt
