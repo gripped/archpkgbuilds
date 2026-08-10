@@ -3,7 +3,7 @@
 _name=torchcodec
 pkgname=python-$_name
 pkgver=0.15.0
-pkgrel=2
+pkgrel=3
 license=(BSD-3-Clause)
 pkgdesc="PyTorch media decoding and encoding"
 arch=(x86_64)
@@ -63,6 +63,9 @@ check() {
   local pytest_options=(
     -vv
     -W ignore::DeprecationWarning
+    # Disable tests broken with ffmpeg 9; for details, see
+    # https://github.com/meta-pytorch/torchcodec/issues/1600#issuecomment-5210622376.
+    -k "not (test_audio_against_cli and flac)"
   )
 
   cd $_name-$pkgver
