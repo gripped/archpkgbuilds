@@ -2,7 +2,7 @@
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 
 pkgname=xournalpp
-pkgver=1.3.6
+pkgver=1.3.7
 pkgrel=1
 pkgdesc='Handwriting notetaking software with PDF annotation support'
 url='https://github.com/xournalpp/xournalpp'
@@ -16,7 +16,7 @@ depends=('gtk3' 'poppler-glib' 'libxml2' 'portaudio' 'libsndfile' 'lua'
 optdepends=('texlive-latexextra: LaTeX package')
 makedepends=('git' 'cmake' 'ninja' 'help2man' 'gtest')
 source=("git+https://github.com/xournalpp/xournalpp.git#tag=v${pkgver}")
-sha256sums=('d063d3a94573f56a328bc5c5f1d6f06789aad99358a5003ab8bc2f5f0bb35c66')
+sha256sums=('4752438a96198882c9ffd098ff8dbe862558c397a6ebadeec315076faa47589f')
 
 # https://github.com/xournalpp/xournalpp/blob/v1.3.0/readme/Compile.md
 
