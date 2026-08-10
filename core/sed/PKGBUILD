@@ -4,7 +4,7 @@
 
 pkgname=sed
 pkgver=4.10
-pkgrel=1
+pkgrel=2
 pkgdesc='GNU stream editor'
 arch=('x86_64')
 url='https://www.gnu.org/software/sed/'
@@ -15,19 +15,6 @@ source=("https://ftp.gnu.org/pub/gnu/sed/$pkgname-$pkgver.tar.xz"{,.sig})
 validpgpkeys=('155D3FC500C834486D1EEA677FD9FCCB000BEEEE') #Jim Meyering <jim@meyering.net>
 sha256sums=('b8e72182b2ec96a3574e2998c47b7aaa64cc20ce000d8e9ac313cc07cecf28c7'
             'SKIP')
-
-prepare() {
-  cd $pkgname-$pkgver
-  # apply patch from the source array (should be a pacman feature)
-  local src
-  for src in "${source[@]}"; do
-    src="${src%%::*}"
-    src="${src##*/}"
-    [[ $src = *.patch ]] || continue
-    echo "Applying patch $src..."
-    patch -Np1 < "../$src"
-  done
-}
 
 build() {
   cd $pkgname-$pkgver
