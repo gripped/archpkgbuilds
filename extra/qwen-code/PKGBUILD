@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.19.5
+pkgver=0.19.6
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,8 +29,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('7328e43dba4e24b8a7a6efcf339a94fffb7f1078401aec842d68fc4126d4b037')
-b2sums=('b91542bda477edd14c1d7d6ca9f06741596a4ac6c7c565ec5b3893922f9c261dc1447f7a520bce848b9492a269e20db5ff214b0b4c4daf7fca37048c245beb2d')
+sha256sums=('9025c10afdd4ba96f2afcac8fe109a48207e9298f8a71dac948ffa5dd3703677')
+b2sums=('706c8745d10e09c56c7f2e838c99bfeb8599465ffb78fd2756e777afd169aed0270b3b61476a0e43369142bfee3170598d8ea539628544a2d8471de182a9fd20')
 
 prepare() {
   cd $pkgname
@@ -41,6 +41,10 @@ prepare() {
   git show --format= --no-ext-diff d454d0e7440218ae3619815f60ae819a566c9a66 -- \
     packages/cli/src/ui/hooks/useStatusLine.test.ts \
     packages/cli/src/ui/voice/voice-keyterms-race.test.ts | git apply
+  # Upstream removes a dynamic import that hangs the acp-bridge redaction test.
+  # https://github.com/QwenLM/qwen-code/pull/6361
+  git show --format= --no-ext-diff fde18828ae51986033962fcc1474664ba66926d7 -- \
+    packages/acp-bridge/src/logRedaction.test.ts | git apply
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
@@ -72,7 +76,20 @@ check() {
   local test_exclude='**/{qwenConnectionHandler,useAtCompletion,pid-descendants,'
   test_exclude+='serve/acp-http/transport,i18n/index,ui/auth/AuthDialog,'
   test_exclude+='ui/utils/clipboardUtils}.test.*'
-  npm run test --workspaces --if-present -- --exclude="$test_exclude"
+  # yargs 17.7.3 fixes c8's require('yargs/yargs') on Node 26.
+  # https://github.com/yargs/yargs/pull/2514
+  cp node_modules/yargs/yargs node_modules/yargs/yargs.cjs
+  jq '.exports["./yargs"][0].require = "./yargs.cjs" |
+      .exports["./yargs"][1] = "./yargs.cjs"' \
+    node_modules/yargs/package.json > yargs-package.json
+  mv yargs-package.json node_modules/yargs/package.json
+  # mobile-mcp tests run from the workspace source tree, so point them at npm's
+  # hoisted mobilecli binary instead of the package-local path used after install.
+  export MOBILECLI_PATH="$PWD/node_modules/mobilecli/bin/mobilecli-linux-amd64"
+  npm run test --workspace=@qwen-code/mobile-mcp
+  # mobile-mcp uses Playwright; run it above without passing Vitest-only flags.
+  npm pkg set 'workspaces[]=!packages/mobile-mcp'
+  npm run test --workspaces --if-present -- --testTimeout=30000 --exclude="$test_exclude"
 }
 
 package() {
