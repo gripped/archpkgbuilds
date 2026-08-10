@@ -2,7 +2,7 @@
 
 pkgname=aquamarine
 pkgver=0.14.0
-pkgrel=1
+pkgrel=2
 pkgdesc='a very light linux rendering backend library'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -14,12 +14,11 @@ depends=(libgcc
          hyprwayland-scanner
          libdisplay-info libdisplay-info.so
          libdrm # libdrm.so
-         libglvnd libEGL.so libGLESv2.so
+         libglvnd libEGL.so
          libinput # libinput.so
          mesa # libgbm.so
          opengl-driver
          pixman
-         pugixml
          seatd libseat.so
          systemd-libs libudev.so
          wayland libwayland-client.so
