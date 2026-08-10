@@ -3,13 +3,13 @@
 
 pkgname=wasm-pack
 pkgver=0.15.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Your favorite rust -> wasm workflow tool!"
 arch=('x86_64')
 url="https://github.com/rustwasm/wasm-pack"
-license=('MIT' 'Apache')
-depends=('bzip2' 'curl')
-makedepends=('cargo' 'cmake')
+license=('MIT' 'Apache-2.0')
+depends=('bzip2' 'glibc' 'libgcc' 'xz' 'zstd')
+makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha384sums=('297859652721b439d04bd6cfcfc5920c9be19eb825c73123511739869308445776b1b95e2f6c2efd6b62e15c2d819afb')
 options=('!lto')
@@ -21,7 +21,7 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --frozen --release
+  ZSTD_SYS_USE_PKG_CONFIG=1 cargo build --frozen --release
 }
 
 package() {
