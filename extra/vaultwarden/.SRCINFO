@@ -1,7 +1,7 @@
 pkgbase = vaultwarden
 	pkgdesc = Unofficial Bitwarden compatible server written in Rust
 	pkgver = 1.37.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/dani-garcia/vaultwarden
 	install = vaultwarden.install
 	arch = x86_64
@@ -14,7 +14,6 @@ pkgbase = vaultwarden
 	depends = openssl
 	depends = sqlite
 	depends = zstd
-	depends = postgresql-libs
 	optdepends = vaultwarden-web: for the web app
 	options = !lto
 	backup = etc/vaultwarden.env
@@ -33,5 +32,7 @@ pkgbase = vaultwarden
 	b2sums = bfda155679ece4df7fa364eaa0d8dbe2f08701a83f5e438282ec7e6ab56afe741c9820ae6fe2da5c9d7691c647fb4c862c4bed588eee248f0de943cec155f392
 	b2sums = 9cdcd6c997c884eb3c1ad0c9b8cd91e68ec6762a27f9b80a7eb6c0cb1ffa4e500a654da6f17e9f985cc67add154efe737761f74e4e5f72892fc0e9d457314973
 	b2sums = 70df10f36eb2e95366ce0cf343ca5a2aa98a6d363820172b5e452b9441931a21e9e6acbc08d68215c37cec1bed53707885e4216692309c601c8791a24131b9a0
+	depends_x86_64 = postgresql-libs
+	depends_aarch64 = postgresql-libs
 
 pkgname = vaultwarden

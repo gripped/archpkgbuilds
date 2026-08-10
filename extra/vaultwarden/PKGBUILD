@@ -5,7 +5,7 @@
 
 pkgname=vaultwarden
 pkgver=1.37.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Unofficial Bitwarden compatible server written in Rust'
 arch=(x86_64 aarch64)
 url=https://github.com/dani-garcia/vaultwarden
@@ -16,8 +16,9 @@ depends=(
   openssl
   sqlite
   zstd
-  postgresql-libs
 )
+depends_aarch64=(postgresql-libs)
+depends_x86_64=(postgresql-libs)
 makedepends=(
   git
   rust
