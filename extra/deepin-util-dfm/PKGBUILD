@@ -2,8 +2,8 @@
 
 pkgname=deepin-util-dfm
 epoch=1
-pkgver=1.3.3
-pkgrel=1
+pkgver=1.3.4
+pkgrel=2
 pkgdesc='Utilities of deepin file manager'
 arch=('x86_64')
 license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
@@ -12,10 +12,21 @@ depends=('glib2' 'glibc' 'libgcc' 'libisoburn' 'libmediainfo' 'libsecret'
          'libstdc++' 'qt6-base' 'udisks2' 'util-linux-libs')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/util-dfm.git#tag=$pkgver")
-sha512sums=('4a58031d02adf378ed5eec70f340a2ed28966b7a24418deb0a986c9f86e47ceb19c1b191fba1368b31826ea7fe52372d1df02d7f415e7c3543e5f4976727d901')
+sha512sums=('129de4a6c78f0164aaab23e3f32951ad839c5c9efb785d3ef5efa43ccfeb6f7cb92699a2a774987104c373e488c09195a247061e4470d44421a05c5cb82bf0bc')
+
+prepare() {
+  cd util-dfm
+  # Fix dfm6-* CMake/pkg-config include dirs so consumers find installed headers:
+  # https://github.com/linuxdeepin/util-dfm/commit/2d2b2daed49cc760f17dcaa6136c66b21db7ad60
+  git cherry-pick -n 2d2b2daed49cc760f17dcaa6136c66b21db7ad60
+
+  # Backport upstream's Qt6-only CMake cleanup so the package does not require Qt5:
+  # https://github.com/linuxdeepin/util-dfm/commit/1415a2557ea42b057fedf6b62ed1a1991e09bc12
+  git cherry-pick -n 1415a2557ea42b057fedf6b62ed1a1991e09bc12
+}
 
 build() {
-  cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DOPT_ENABLE_QT6=ON
+  cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
