@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=yelp
-pkgver=49.1
+pkgver=49.2
 pkgrel=1
 pkgdesc="Get help with GNOME"
 url="https://apps.gnome.org/Yelp"
@@ -35,7 +35,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/yelp.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('1adba81b0de5154b00b563ecc14a1802a822c8f256f4f948d1366069aa540a2541670a04c8c83e0e1416befe0ee78fc14be1c72b53364bab5bada3b3be45dca7')
+b2sums=('797f50c2210b88db0d192e0fd2822551e0017b91ebf9c0ad511580a04b453ed30ac095c4b26f7aabca320e000d0c8c67e983264c020dc862bdfb389408f7f3b2')
 
 prepare() {
   cd yelp
