@@ -6,7 +6,7 @@
 
 pkgname=dunst
 pkgver=1.13.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Customizable and lightweight notification-daemon"
 url="https://dunst-project.org/"
 arch=('x86_64')
