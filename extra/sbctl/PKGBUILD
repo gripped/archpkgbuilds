@@ -1,28 +1,28 @@
-# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=sbctl
 pkgver=0.18
-pkgrel=1
+pkgrel=2
 pkgdesc="Secure Boot key manager"
-arch=("x86_64" "aarch64")
 url="https://github.com/Foxboron/sbctl"
-license=("MIT")
-depends=("binutils" "util-linux" "pcsclite")
-makedepends=("go" "git" "asciidoc")
-source=("https://github.com/Foxboron/sbctl/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.sig})
+arch=('x86_64')
+license=('MIT')
+depends=('binutils' 'util-linux' 'pcsclite')
+makedepends=('go' 'git' 'asciidoc')
+source=("git+${url}.git#tag=${pkgver}?signed")
 validpgpkeys=("C100346676634E80C940FB9E9C02FF419FECBE16")
-sha256sums=('d274451b145b0aaecfdf2d01ad45473b61ab40f3f58e4735cee50aa7573c584d'
-            'SKIP')
+sha256sums=('b40f21c8137a908f3f9aba14a7b94234e84587f02b503a09e0bbcf09e4ad14a3')
 
 build(){
-    cd "${pkgname}-${pkgver}"
-    export GOFLAGS="-buildmode=pie -trimpath -modcacherw"
-    make
+	cd "${pkgname}"
+	export GOFLAGS="-buildmode=pie -trimpath -modcacherw"
+	make
 }
 
 package(){
-    cd "${pkgname}-${pkgver}"
-    make PREFIX="$pkgdir/usr" install
-    install -Dm644 ./contrib/pacman/ZZ-sbctl.hook "${pkgdir}/usr/share/libalpm/hooks/zz-sbctl.hook"
-    install -Dm755 ./contrib/mkinitcpio/sbctl "${pkgdir}/usr/lib/initcpio/post/sbctl"
+	cd "${pkgname}"
+	make PREFIX="${pkgdir}/usr" install
+	install -Dm 644 contrib/pacman/ZZ-sbctl.hook "${pkgdir}/usr/share/libalpm/hooks/zz-sbctl.hook"
+	install -Dm 755 contrib/mkinitcpio/sbctl "${pkgdir}/usr/lib/initcpio/post/sbctl"
 }
