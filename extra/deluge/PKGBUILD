@@ -8,7 +8,7 @@ pkgname=(
   deluge-gtk
 )
 pkgver=2.2.0
-pkgrel=5
+pkgrel=6
 epoch=1
 pkgdesc="BitTorrent client with multiple user interfaces in a client/server model"
 url="https://deluge-torrent.org/"
@@ -68,7 +68,7 @@ makedepends=(
 )
 source=(
   "git+https://github.com/deluge-torrent/deluge?signed#tag=deluge-$pkgver"
-  "libtorrent-rasterbar::git+https://github.com/arvidn/libtorrent.git#tag=v2.0.13"
+  "libtorrent-rasterbar::git+https://github.com/arvidn/libtorrent.git#tag=v2.0.14"
   git+https://github.com/arvidn/libsimulator.git
   git+https://github.com/arvidn/try_signal.git
   git+https://github.com/paullouisageneau/boost-asio-gnutls.git
@@ -81,7 +81,7 @@ source=(
   0006-replace-deprecated-calls-in-certificate-generation.patch
 )
 b2sums=('2dad4c8e05e1b0d7f3b1ece0ea2d184a8d584b1bae377d3aee8a19003829f204516125cc5d17acf6f1c33b099190ff606ee2f352374897214498e6311815a854'
-        '5d320b7072ecfb019abeb3b9d5cffc2d412ebed4093eae2d3eb0626577bbf1dcd7fe15c915d4ef754ea2b5b8bd5112143bd85793001e333adba44db116b9e883'
+        '0065780556d8925d41b1b7dc794293944e9746758eb56931cb7f5a3a9ce1e820982f644afc0ee29415adada5f83f0f9bd199bab99512bfecb0406c0ff244236a'
         'SKIP'
         'SKIP'
         'SKIP'
