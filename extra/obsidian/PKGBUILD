@@ -3,8 +3,8 @@
 # Contributor: Xuanwo <xuanwo@archlinuxcn.org>
 
 pkgname=obsidian
-pkgver=1.13.4
-pkgrel=2
+pkgver=1.13.6
+pkgrel=1
 pkgdesc="A powerful knowledge base that works on top of a local folder of plain text Markdown files"
 arch=('x86_64' 'aarch64')
 url="https://obsidian.md"
@@ -20,8 +20,8 @@ source_aarch64=("https://github.com/obsidianmd/obsidian-releases/releases/downlo
 sha256sums=('0df6f2b28187a84917eaf33e089abe980a407fd4b195d69eab1f2a70ad2234ca'
             'def820b4bbedd91306124b1b66745503d64f8add1625e4c9d68f59b00b23fa2f'
             'd9fdc14f9c2fb95bb38310281268fdad413c1b49fa93213df3184f9b0ca1175c')
-sha256sums_x86_64=('ebac249f949b6894819fbb4bc5657ec8892f006cefed955d34a6c1ffe262f16b')
-sha256sums_aarch64=('e2d44d26369bd035e1ad58f63113073fb791b52f4c26cce22ced63b492a7136e')
+sha256sums_x86_64=('325cb381c649ba62b4475627b416dc3929dc913d839e4bba766307863f63f8a5')
+sha256sums_aarch64=('96ff3e5a48431d20333c369866dcab2a31dde566adef8e7f6059e6c4ea3acb21')
 
 package() {
     if [[ $CARCH == "aarch64" ]]; then
