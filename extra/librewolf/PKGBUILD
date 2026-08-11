@@ -8,7 +8,7 @@ pkgver=153.0.3_1
 _fixedfirefoxver="${pkgver%_*}" # Version of Firefox this LibreWolf version is based on, but the Firefox patch number is always included
 _librewolfver="${pkgver#*_}"
 _firefoxver="${_fixedfirefoxver%.0}" # Removes ".0" from the end. For "136.0.0" this will result in "136.0" but for "136.0.1" won't do anything.
-pkgrel=4
+pkgrel=5
 pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and freedom"
 url="https://librewolf.net/"
 arch=(x86_64 aarch64)
@@ -214,13 +214,20 @@ ac_add_options --with-pgo-profile-path=${PWD@Q}/merged.profdata
 ac_add_options --with-pgo-jarlog=${PWD@Q}/jarlog
 END
   ./mach build --priority normal
+
+  # Re-package built sources including language packs
+  xargs ./mach package-multi-locale --locales < browser/locales/shipped-locales
 }
 
 package() {
   cd librewolf-$_firefoxver-$_librewolfver
-  DESTDIR="$pkgdir" ./mach install
 
+  # The `install` target doesn't install the language packs generated with the `package-multi-locale` target
+  # We are therefore "manually" copying the packaged browser to the relevant directory in `$pkgdir` instead
+  #DESTDIR="$pkgdir" ./mach install
   local appdir="$pkgdir/usr/lib/$pkgname"
+  install -dvm755 "$appdir/"
+  cp -a obj/dist/librewolf/. "$appdir/"
   touch "$appdir/is-packaged-app"
 
   install -Dvm644 /dev/stdin "$appdir/browser/defaults/preferences/vendor.js" <<END
