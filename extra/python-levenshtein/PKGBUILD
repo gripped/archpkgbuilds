@@ -5,8 +5,8 @@
 # Contributor: scj <scj archlinux us>
 
 pkgname=python-levenshtein
-pkgver=0.27.3
-pkgrel=3
+pkgver=0.27.4
+pkgrel=1
 pkgdesc='Python extension for computing string edit distances and similarities'
 arch=(x86_64)
 url='https://github.com/rapidfuzz/Levenshtein'
@@ -32,10 +32,10 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   remove-version-constraints.patch
 )
-sha512sums=('ec7b2a247df8848d3eb7a4a6add7ee037ca4c6dc9cedecb70a71d7b833bc22393e96235dc675f32abea5b5736162d2f4476c2996d748771763fa57f7de829ef8'
-            'ec38b47cdb885d007e24d27aeb787b41749aff523fecc7863919fe6a5cd747bbe787419ea19d6bb9f0d4f69e00200d3eb965aea638c833675bd4cb004b568b06')
-b2sums=('699c78707f2f1c5837def6a150c8695f513e4f03ac3a4c26450f73730da8a7096577b96848b47281e2dbcf2fafbdde8ac51a69e1f12331c6e055cdab57c8f1a8'
-        '6ac4bc86024509df167330cb36dea7e2a43cdf69092ccc8ade7ed2e44636e7dd204789b39a823e6e5fd1eeac8bbaf2c787ece708807f9e31bbdf7f0e07f33d5f')
+sha512sums=('1b7bc8b6d9216b589c5d959dac3efc78c254df0d48835507b18d9d812a496eb4d1fab46cb2f5441d5f7bd9cee7ec4b57e23226e25e4f7e3708c26519f2c2c2c9'
+            '717cb36ec2e0b66303820dccd771b423cedfd5b30a57b52914cb5f1c2fa84cd064832cacaca5b81350eb83370f0f997e5012fa3c187f0f0b5b16b3d798e5e5b1')
+b2sums=('89ee6295a927ed9291db6185fa7d2fe4ecf3fba9ff2bf51c6d3debf5265d7b73e149ec558845baec158915289d3c18bbf0b1517dec95ac6ed1c0de7118c59d23'
+        '27e5d506d31becb2a1150b69e4b1fd683431f1a15ef9964cf09f4a5d4fa955202875a2a34925215b5fa595ec288b90971c01a62f4c4dacbc864b2f36beab3413')
 
 prepare() {
   cd "$pkgname"
