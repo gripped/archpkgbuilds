@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,8 +26,7 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "0001-linux-prefer-GCC-provided-atomics-to-asssembly-imple.patch",
-    "0002-configure.in-Remove-assembly-files-from-build.patch",
+    "*.patch",
 ]
-SPDX-FileCopyrightText = "lib32-nspr contributors"
+SPDX-FileCopyrightText = "nspr contributors"
 SPDX-License-Identifier = "MPL-2.0"
