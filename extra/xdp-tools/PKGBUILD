@@ -4,7 +4,7 @@
 pkgbase=xdp-tools
 pkgname=(xdp-tools libxdp)
 pkgver=1.6.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Utilities and example programs for use with XDP'
 url='https://github.com/xdp-project/xdp-tools'
 license=('GPL' 'LGPL' 'BSD2')
