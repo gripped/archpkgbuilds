@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=libresidfp
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc='Cycle exact SID emulation'
 arch=(x86_64)
@@ -10,8 +10,8 @@ license=(GPL-2.0-only)
 makedepends=(git)
 provides=(libresidfp.so)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('befad11eb91a7efadba39a961c64898c1adf0ac12a726affc43e9a7b801da0d0631341212f21849f9a90753e13d84974bebd239166a47b0e07bf0fb558d154d6')
-b2sums=('015b2556a218be768b45d38ccfaf9684197795eb588d93dfd4fc874e5e4b3c125a256611df682dbb8221b50b61b63d1427b3efa22f291a9b2463acae457d44af')
+sha512sums=('6357be53cad9268ed09a7f1b83b21038578f82a9faa5b3631b9a8f79d88992bf722a18e7c004fbf55aed13e89007b0e72d062e3792bf0638ebfaa93f7f8def02')
+b2sums=('aaa90568961d7b93a8a49342d1ec6d488a6bdede3598f5d91bef5c1d4fe7d67508627b83565f5b39954e16c0230f7a247dbcf0af81b7b93aa9c70c23a3d69b2c')
 
 prepare() {
   cd "$pkgname"
