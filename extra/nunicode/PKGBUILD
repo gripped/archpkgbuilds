@@ -5,7 +5,7 @@ pkgname=(
   libnu
   libnusqlite3
 )
-pkgver=1.11.1
+pkgver=1.12
 pkgrel=1
 pkgdesc='A i18n library implementing Unicode 13.0'
 arch=(x86_64)
@@ -17,16 +17,17 @@ makedepends=(
   sqlite
 )
 source=("$pkgbase::git+$url#tag=$pkgver")
-sha512sums=('4e2d4dd664b2a43776eee60011d13118908dc62f6aaa9cda1b59b4c7ed800aabb86346d0e7636861888a605b50d9e4f74eef347f05b80168d27a6bf08cd45dde')
-b2sums=('edf8de659828e8611fe0e6b578aa4cc2a8914583b196ddd1a77e318f990d29aa206b703047a0adb58cdd773f610bd6b95378feebb808e4e85a2d6c10b4501a06')
+sha512sums=('c15af4b8f8dc7fbdb7bfd93eb823a750feefb5c2d362c3f23c3123d00c59c8ff60a3809a632dfc83e07604a4cb1ec37ae6a743d8ccc0c133de1402cf89ad5808')
+b2sums=('c108e7151966776aa3e96b6a7e3741adf7a2a07e09ceff32e02c3449be8bcb5fdb5db8958f784443e7e6694fac631931a4745563dae0b0fa3fc5eb81d61d8e2f')
 
 build() {
   local cmake_options=(
     -B build
     -S "$pkgbase"
-    -W no-dev
+    -W no-author
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    -D NU_BUILD_SQLITE3_EXT=ON
   )
 
   cmake "${cmake_options[@]}"
