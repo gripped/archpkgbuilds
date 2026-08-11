@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=epiphany
-pkgver=50.4
-pkgrel=2
+pkgver=50.5
+pkgrel=1
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 url="https://apps.gnome.org/Epiphany"
 arch=(x86_64)
@@ -52,11 +52,12 @@ checkdepends=(
   hunspell
   libvoikko
   nuspell
+  xdg-desktop-portal-gtk
   xorg-server-xvfb
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/epiphany.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('39c0ca75fa61936235a82b270efb61a2443d4fd67b1aae94cb680fa2f62e88aaba3e4f4ff050d444d861c2b74be87641485f184e294ed89ecaa0a1c1cc55f0a5')
+b2sums=('a32c41935cc93329bbf1deef1de7cbe15fd2ec3fc6ee10cb444c0635c6c914793f06e1127daeb222e0be0b1c0b65696de0168a596222830d1e4c0e5f1460edfe')
 
 prepare() {
   cd epiphany
@@ -75,7 +76,7 @@ check() (
   export LIBGL_ALWAYS_SOFTWARE=1
   export WEBKIT_DISABLE_SANDBOX_THIS_IS_DANGEROUS=1
 
-  dbus-run-session xvfb-run -s '-nolisten local' \
+  xvfb-run -s '-nolisten local' dbus-run-session \
     meson test -C build --print-errorlogs
 )
 
