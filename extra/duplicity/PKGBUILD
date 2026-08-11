@@ -4,15 +4,17 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=duplicity
-pkgver=3.1.0
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='A utility for encrypted, bandwidth-efficient backups using the rsync algorithm'
 arch=(x86_64)
 url='https://duplicity.gitlab.io/'
 license=(GPL-2.0-only)
 depends=(
+  glibc
   gnupg
   librsync
+  python
   python-fasteners
   python-pexpect
 )
@@ -44,12 +46,12 @@ source=(
   fix-documentation-directory.patch
   no-pip.patch
 )
-sha512sums=('07f11709fa59c720a60c423912a8cf692f44a1abda30a4f73a3a115c8e0595b5dfe36a1475a2fa9db3c0d60c4d0da0ef15a75f27fee6fa2ce7f076011f5c0cd3'
-            'fac5f64001f91f65f4b7d8edd5b3dd667ffaf73ceb06102a93f7c4c4bcf898695d62d143ebaf5173fe2a1a797109ecde9cfc8b3779ad1d234d3abb0f1334644e'
-            'c7b94e6c9a5d9ffe57c69ff2db90a278936c6187c0342762c0589616ee35745495bce14bc4b8da903f1ef1baf329a71f6839e826f25a813cfa8eb91a87fecafc')
-b2sums=('24c39f4c46ec49e2b1d64c6a19e6a9565dbda0b622889c1204946dec394f4df000b7e5a2755675e7de63b8424e958fa1ddd0ff0dc795d1eb2c72b00249c1f726'
-        '04dad8ce369f4fb78e2b3239e30d63410d8e8c33b5e05717b5b62ba54c624c2e931220b950bad507deab60a07086c434949f0766bc3ae2eb771d62e1919cbecd'
-        'cc40b852f4546b945fdc7687d900a49187597f8eaf5a843e0ac1556039f9e9daba83443297aca47eb8dce95b54d0e052b07cec31cc0e9982324ce892af3f0c20')
+sha512sums=('87ed3b225c947d11dbf7008883285e0365dd0bbdba647f2430c306725d049c509f6b6bddd480af084d44aa40d31b50f7ff456c6e64ca8e06a1699556a85be4f8'
+            'c157fc0b5a3eff6e5743721adbc9567c89638ce8f5adf33b4f976e6a86adbcf16dd3f8b38b2482e4570ae728a4f99b813600efc5ac6e3996b6881ccf1a04fa22'
+            'b380db3036442966e4fa39d3759b6a554254fc03955666c93b80ecdfb9ae2d57de8d4c08a94bcffb950858106a08967f7741afb4385a68bc6bc4890d0e33aa10')
+b2sums=('b18e675c7086fb21a0028972c1aed221ebb03d30d898ec5485845437dc55faba47a151cb361e100c34f2d5ae3c7a7d62c4850b953b98b80670c5383990e6b119'
+        '727029fc3e8dbafea089b976be112631ea3d580dab251f1346594ade5fb6ca7cd87640b80fda11cafc87f13312712da3c8fe5e2a2c497093ad31dfce6c866560'
+        '40b4e6aeec2fbda0036bde6921e987e6f77e36878ae08ee6e59acb07a94564522224245f04f17a3aa7566af4e355fb4fac940df633487aeb2949789a6bec52e8')
 
 prepare() {
   cd "$pkgname"
