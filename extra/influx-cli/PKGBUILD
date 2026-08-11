@@ -1,4 +1,5 @@
-# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Morten Linderud <foxboron@archlinux.org>
 # Contributor: Nicolas Leclercq <nicolas.private@gmail.com>
 # Contributor: Adam S Levy <adam@aslevy.com>
 # Contributor: Charles B. Johnson <mail@cbjohnson.info>
@@ -6,9 +7,9 @@
 # Contributor: Ben Alex <ben.alex@acegi.com.au>
 
 pkgname=influx-cli
-pkgver=2.7.3
+pkgver=2.8.0
 _commit_sha=8b962c7
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI for managing resources in InfluxDB'
 arch=('x86_64')
 url='https://github.com/InfluxData/influx-cli'
@@ -17,7 +18,12 @@ makedepends=('go' 'go-tools' 'git')
 options=('!lto')
 backup=('etc/influxdb/influxdb.conf')
 source=("git+https://github.com/influxdata/influx-cli.git#tag=v${pkgver}")
-sha256sums=('SKIP')
+sha256sums=('e1feb0788d3871059f252b9efe382a5d0c5b218ca7aa0e2154981e82ee613dc7')
+
+prepare() {
+  cd "$pkgname"
+  mkdir -p build
+}
 
 build(){
   cd "$pkgname"
@@ -25,21 +31,22 @@ build(){
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
-  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  export LDFLAGS="-linkmode external"
-  PATH="$(go env GOPATH)/bin:$PATH" make VERSION=$pkgver COMMIT=$_commit_sha
+  export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw -ldflags=-linkmode=external"
+  export CGO_ENABLED=1
+  export GOPATH="${srcdir}"
+  go build -o build ./cmd/influx
 }
 
 check(){
   cd "$pkgname"
-  PATH="$(go env GOPATH)/bin:$PATH" make test
+  PATH="$(go env GOPATH)/bin:$PATH" go test ./...
 }
 
 package(){
   cd "$pkgname"
-  install -Dm755 bin/linux/amd64/influx -t "$pkgdir/usr/bin"
+  install -Dm755 build/influx -t "$pkgdir/usr/bin"
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/${pkgname}"
-  bin/linux/influx completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/influx-cli"
-  bin/linux/influx completion zsh | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_influx-cli"
-  #bin/linux/influx completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/influx-cli.fish"
+  build/influx completion bash | install -Dm644 /dev/stdin "$pkgdir/usr/share/bash-completion/completions/influx-cli"
+  build/influx completion zsh | install -Dm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_influx-cli"
+  # build/influx completion fish | install -Dm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/influx-cli.fish"
 }
