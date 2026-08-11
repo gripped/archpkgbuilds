@@ -4,8 +4,8 @@
 # Contributor: Hugo Doria <hugo@archlinux.org>
 
 pkgname=libtorrent-rasterbar
-pkgver=2.1.0
-pkgrel=3
+pkgver=2.1.1
+pkgrel=1
 epoch=1
 pkgdesc='An efficient and feature complete C++ BitTorrent library implementation'
 url='https://www.rasterbar.com/products/libtorrent/'
@@ -35,7 +35,7 @@ source=('libtorrent-rasterbar'::"git+https://github.com/arvidn/libtorrent.git#ta
         'git+https://github.com/nlohmann/json.git'
         'git+https://github.com/cisco/libsrtp.git'
         '010-libtorrent-rasterbar-fix-for-fortify-source-3.patch')
-sha512sums=('04fadaf23bc70833347416ab149a77720d38ab889d3388e4d74a8c749664144e56f088fc96e3ade60f9995eb4c00706891bcae28dc425906a2558e5f16c35719'
+sha512sums=('617501711b24394e5f0faea9365218159b6d3c212ecb6aef9989157847400743438f4bc044ad496f8d24eb1cf721b74f1dff54ebd66137ce264df2ec744ec7eb'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -67,13 +67,6 @@ prepare() {
     # https://github.com/arvidn/libtorrent/issues/7519
     # remove usage of malloc_usable_size() for _FORTIFY_SOURCE=3 compatibility
     patch -d libtorrent-rasterbar -Np1 -i "${srcdir}/010-libtorrent-rasterbar-fix-for-fortify-source-3.patch"
-    
-    # https://github.com/arvidn/libtorrent/issues/8571
-    # https://github.com/arvidn/libtorrent/pull/8573
-    # fix installation of undesired files
-    git -C libtorrent-rasterbar cherry-pick --no-commit e090fe5cfdc3a111cd8e4267f5911405bc26fdd1
-    git -C libtorrent-rasterbar cherry-pick --no-commit 6144c049b0d81d2d5e5645aecf3d4a7b5bde43e6
-    git -C libtorrent-rasterbar cherry-pick --no-commit 92ab8491d87e453402248f9bb04722f277732c2d
 }
 
 build() {
@@ -87,7 +80,7 @@ build() {
         -Dpython-bindings:BOOL='ON' \
         -Dpython-egg-info:BOOL='ON' \
         -Dpython-install-system-dir:BOOL='ON' \
-        -Wno-dev
+        -Wno-author
     cmake --build build
 }
 
