@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain-core
-pkgver=1.5.3
+pkgver=1.5.4
 pkgrel=1
 pkgdesc="Building applications with LLMs through composability"
 arch=('any')
@@ -44,5 +44,5 @@ build() {
 package() {
   cd langchain/libs/core
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 ../../LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
