@@ -6,10 +6,10 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=pycharm-community-edition
-pkgver=2026.1.4
-_build=261.26222.68
-_jrever=17
-_jdkver=17
+pkgver=2026.2
+_build=262.8665.309
+_jrever=21
+_jdkver=21
 pkgrel=1
 pkgdesc='Python IDE for Professional Developers'
 arch=(x86_64)
@@ -38,8 +38,8 @@ source=(
   pycharm.desktop
   pycharm.sh
 )
-sha256sums=('5a8e463ae0f9212da9d896b5cd273f68ca9a37ae93fa25c6382abaf8ddad632c'
-            'bc77750b4170318cc1fc03ea76c4e139a18f7175d540d03700b9065d4d57be21'
+sha256sums=('66c32179bb076dd3a23ea4308de661d0d2d72432d6509ef0a96983d592359687'
+            '81479bee3fc045a54e72a8dae36d8ff1ba54958a324d976f869b4414566c2c91'
             '70ae8df10243db2dbc454c0d8e273235707ecb1821a9e8a2e70669a1739fc1af'
             '0dbec010e5c5412ba1f1fd8fc07fcfe373ad174cd54537d125643ef5ef51c8f7')
 
@@ -61,13 +61,13 @@ build() {
   export PATH="/usr/lib/jvm/java-${_jdkver}-openjdk/bin:$PATH"
   export MAVEN_REPOSITORY=/build/.m2/repository
 
-  ./python/installers.cmd -Dintellij.build.use.compiled.classes=false -Dintellij.build.target.os=linux -Dbuild.number="${_build}"
+  ./python/installers.cmd -Dintellij.build.use.compiled.classes=false -Dintellij.build.target.os=linux -Dintellij.build.target.arch=x64 -Dbuild.number="${_build}"
 
   tar -xf out/pycharm-ce/artifacts/pycharmPC-${_build}.tar.gz -C "${srcdir}"
 }
 
 package() {
-  cd pycharm-community-${pkgver}
+  cd pycharm-oss
 
   # workaround FS#40934
   sed -i 's/lcd/on/' bin/*.vmoptions
