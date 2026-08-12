@@ -1,0 +1,30 @@
+diff --git a/halo/_utils.py b/halo/_utils.py
+index 999a95b..4d25373 100644
+--- a/halo/_utils.py
++++ b/halo/_utils.py
+@@ -3,7 +3,6 @@
+ """
+ import codecs
+ import platform
+-import six
+ try:
+     from shutil import get_terminal_size
+ except ImportError:
+@@ -90,7 +89,7 @@ def is_text_type(text):
+     bool
+         Whether parameter is a string or not
+     """
+-    if isinstance(text, six.text_type) or isinstance(text, six.string_types):
++    if isinstance(text, str):
+         return True
+ 
+     return False
+diff --git a/requirements.txt b/requirements.txt
+index f314c34..b49a173 100644
+--- a/requirements.txt
++++ b/requirements.txt
+@@ -3,4 +3,3 @@ log_symbols>=0.0.14
+ spinners>=0.0.24
+ termcolor>=1.1.0
+ colorama>=0.3.9
+-six>=1.12.0
