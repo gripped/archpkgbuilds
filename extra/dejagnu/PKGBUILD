@@ -4,7 +4,7 @@
 
 pkgname=dejagnu
 pkgver=1.6.3
-pkgrel=19
+pkgrel=21
 pkgdesc='Framework for testing other programs'
 arch=(any)
 url='https://www.gnu.org/software/dejagnu/'
