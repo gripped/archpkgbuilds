@@ -2,7 +2,7 @@
 
 pkgname=fooyin
 pkgver=0.12.2
-pkgrel=2
+pkgrel=3
 pkgdesc='A customisable music player'
 arch=(x86_64)
 url='https://fooyin.org/'
@@ -64,12 +64,17 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D BUILD_PCH=ON
+    -D BUILD_TESTING=ON
     -D INSTALL_HEADERS=ON
   )
 
   cmake "${cmake_options[@]}"
 
   cmake --build build
+}
+
+check() {
+  ctest --test-dir build/tests --output-on-failure
 }
 
 package() {
