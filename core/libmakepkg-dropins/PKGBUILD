@@ -1,6 +1,6 @@
 pkgname=libmakepkg-dropins
 pkgver=20
-pkgrel=1
+pkgrel=2
 pkgdesc="Features that can be dropped into libmakepkg to extend the functionality of makepkg"
 url="https://gitlab.archlinux.org/pacman/libmakepkg-dropins"
 arch=(any)
