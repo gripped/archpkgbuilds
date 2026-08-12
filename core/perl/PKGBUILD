@@ -7,7 +7,7 @@
 pkgname=perl
 pkgver=5.42.2
 _baseversion="${pkgver%.*}"
-pkgrel=1
+pkgrel=2
 pkgdesc="A highly capable, feature-rich programming language"
 arch=(x86_64)
 license=('Artistic-1.0-Perl' 'GPL-1.0-or-later')
@@ -152,6 +152,14 @@ sha512sums=('b89078c5015923d572b4a08c01dd65c84bd0eb6f9389bdd164161e163d8c97d2ac8
 prepare() {
   cd ${pkgname}
 
+  # Fix regex super-linear cache countdown before the 64-bit cleanup:
+  # https://github.com/Perl/perl5/commit/568e6fd238867bb9e99fa3f47cba3169009239e0
+  git cherry-pick -n 568e6fd238867bb9e99fa3f47cba3169009239e0
+
+  # Fix potential regex super-linear cache OOB access on very large matches:
+  # https://github.com/Perl/perl5/commit/54cf3d44cbbedd17d774e9a37921963e8fd5d0cb
+  git cherry-pick -n 54cf3d44cbbedd17d774e9a37921963e8fd5d0cb
+
   # reproducible patchlevel_date
   [ -n "${SOURCE_DATE_EPOCH}" ] && touch -h -d @$SOURCE_DATE_EPOCH patchlevel.h
 }
@@ -184,7 +192,7 @@ build() {
 check() {
   cd ${pkgname}
 #  TEST_JOBS=$(echo "$MAKEFLAGS" | sed 's/.*-j\([0-9][0-9]*\).*/\1/') make test_harness
-  make test
+  PERL_BUILD_PACKAGING=1 make test
 }
 
 package() {
