@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-forked
-pkgver=1.7.2
+pkgver=1.7.3
 pkgrel=1
 pkgdesc='run tests in isolated forked subprocesses'
 arch=('any')
@@ -10,7 +10,7 @@ url='https://github.com/pytest-dev/pytest-forked'
 depends=('python-pytest')
 makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'python-installer')
 source=("git+https://github.com/pytest-dev/pytest-forked.git#tag=v$pkgver")
-sha512sums=('6a471e6ce8c25d2434363e67e911776030d7f92cd42002e2b00c6ff717672b229d710bbd5dc0669dcf849165d6617bb0774161f2bb3c8037ca7cd0bcc5e6f33d')
+sha512sums=('01d269ff71f761ae121071439665487a3ee222ea559333f88a78566897ff7c52b4cd9964aba56e43e54a5822c62c2ad5702d9e538e84d6fc31ca87e1be03dd8c')
 
 build() {
   cd pytest-forked
