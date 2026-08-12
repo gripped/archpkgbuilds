@@ -1,35 +1,32 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
-# Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=forgejo-cli
 pkgver=0.6.0
-pkgrel=2
+pkgrel=5
 pkgdesc='CLI application for interacting with Forgejo'
 arch=(x86_64)
 url='https://codeberg.org/forgejo-contrib/forgejo-cli'
 license=('Apache-2.0 OR MIT')
-depends=(glibc # libc.so libm.so ld-linux-x86-64
-         libgcc libgcc_s.so
-         libssh2 libssh2.so
-         libgit2 libgit2.so
-         openssl libcrypto.so libssl.so)
+depends=(glibc # libc.so libm.so ld-linux-x86-64.so
+         libgcc
+         libssh2
+         libgit2
+         openssl)
 makedepends=(cargo
              git)
 source=("$pkgname::git+$url#tag=v$pkgver")
 sha512sums=('a3b6e595c5297529fbace8eb5091fed611d33e472b81d34596e7dc1f703ecd687bf9cd26a15f7b1e11c44cac702dbfea5657e99760435271110b9044eff85e51')
 b2sums=('d9f33c2f320c34bd04da4ebc50b58969bd81607329f3e7ce74ed956220a6fa0ad81973794e768947d536f5a53fffb8f7387eb092bb3551bf37acdb5eebe23225')
 
-
-
 _srcenv() {
 	cd "$pkgname"
 	export CARGO_HOME="$srcdir"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
 	export CARGO_PROFILE_RELEASE_STRIP=false
-	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
-	CFLAGS+=' -ffat-lto-objects'
+	CFLAGS+=' -fno-lto'
 	export LIBGIT2_NO_VENDOR=1
 	export LIBSSH2_SYS_USE_PKG_CONFIG=1
 	export OPENSSL_NO_VENDOR=true
@@ -55,6 +52,10 @@ _compgen() {
 }
 
 package() {
+	depends+=(libgcc_s.so
+	          libgit2.so
+	          libssh2.so
+	          libssl.so)
 	cd "$pkgname"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/fj"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/forgejo-cli/" LICENSE-APACHE LICENSE-MIT
