@@ -3,7 +3,7 @@
 
 pkgname=openfpgaloader
 pkgver=1.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Universal utility for programming FPGA'
 arch=(x86_64)
 url='https://github.com/trabucayre/openFPGALoader'
@@ -11,14 +11,13 @@ license=(Apache-2.0)
 depends=(
   libftdi
   libftdi-compat
-  libhidapi-hidraw.so
-  libhidapi-libusb.so
-  libudev.so
+  hidapi libhidapi-libusb.so
+  systemd-libs libudev.so
   libusb
   zlib
   glibc
-  libgcc
-  libstdc++
+  libgcc libgcc_s.so
+  libstdc++ libstdc++.so
 )
 makedepends=(
   git
