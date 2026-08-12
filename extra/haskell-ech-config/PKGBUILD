@@ -3,7 +3,7 @@
 _hkgname=ech-config
 pkgname=haskell-ech-config
 pkgver=0.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Config for TLS Encrypted Client Hello'
 url='https://github.com/haskell-tls/hs-tls'
 license=("BSD-3-Clause")
@@ -28,7 +28,7 @@ build() {
     --ghc-option='-pie' \
     -f-devel
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -37,7 +37,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
