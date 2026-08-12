@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=zola
-pkgver=0.23.2
+pkgver=0.23.3
 pkgrel=1
 pkgdesc="An opinionated static site generator"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('libgcc' 'glibc' 'oniguruma' 'zstd')
 makedepends=('cargo')
 license=('MIT')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/getzola/zola/archive/v${pkgver}.tar.gz")
-sha256sums=('f46f911079913845e76f3c446eb99d3b27546a3c302a1c411c6995fef498eaff')
+sha256sums=('2028bb1608b9625f78634c75b62654583fa3214fadac7e5f448a6b59b68912ec')
 
 _srcenv() {
   cd zola-$pkgver
@@ -21,7 +21,7 @@ _srcenv() {
   export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
-  CFLAGS+=' -ffat-lto-objects'
+  CFLAGS+=' -fno-lto'
   export RUSTONIG_DYNAMIC_LIBONIG=1
   export ZSTD_SYS_USE_PKG_CONFIG=1
 }
