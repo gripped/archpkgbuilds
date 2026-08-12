@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.19.6
+pkgver=0.19.7
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,8 +29,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('9025c10afdd4ba96f2afcac8fe109a48207e9298f8a71dac948ffa5dd3703677')
-b2sums=('706c8745d10e09c56c7f2e838c99bfeb8599465ffb78fd2756e777afd169aed0270b3b61476a0e43369142bfee3170598d8ea539628544a2d8471de182a9fd20')
+sha256sums=('a59a2d06a83ae7fcd0534bf5c041f3290f9bf2081558f2acc7df025293db4169')
+b2sums=('a8add81ad2a7b666e8af6458ecbf97ee5f933c1a165a7c478c0b46fd3cbbb30a057d9c7bb1905e7a48b174e4d2f57d68542496766041cc17180eb261c5bb2f35')
 
 prepare() {
   cd $pkgname
@@ -41,10 +41,6 @@ prepare() {
   git show --format= --no-ext-diff d454d0e7440218ae3619815f60ae819a566c9a66 -- \
     packages/cli/src/ui/hooks/useStatusLine.test.ts \
     packages/cli/src/ui/voice/voice-keyterms-race.test.ts | git apply
-  # Upstream removes a dynamic import that hangs the acp-bridge redaction test.
-  # https://github.com/QwenLM/qwen-code/pull/6361
-  git show --format= --no-ext-diff fde18828ae51986033962fcc1474664ba66926d7 -- \
-    packages/acp-bridge/src/logRedaction.test.ts | git apply
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
