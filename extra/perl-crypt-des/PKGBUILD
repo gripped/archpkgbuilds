@@ -1,15 +1,15 @@
 # Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
 #Contributor: Pete Morris <pete dot morris at gmail dot com>
 pkgname=perl-crypt-des
-pkgver=2.07
-pkgrel=16
+pkgver=2.09
+pkgrel=1
 pkgdesc="Perl DES encryption module"
 arch=('x86_64')
 url="https://search.cpan.org/~dparis/Crypt-DES"
 license=("GPL" "PerlArtistic")
 depends=('glibc')
-source=("https://www.cpan.org/authors/id/D/DP/DPARIS/Crypt-DES-$pkgver.tar.gz")
-sha256sums=('2db1ebb5837b4cb20051c0ee5b733b4453e3137df0a92306034c867621edd7e7')
+source=("https://www.cpan.org/authors/id/T/TI/TIMLEGGE/Crypt-DES-$pkgver.tar.gz")
+sha256sums=('149cdc0a14e944b4cc5eefb7560c78d8cb25254f9f9774547c880355a7e9f40c')
 
 build() {
   cd "$srcdir"/Crypt-DES-$pkgver
@@ -21,6 +21,4 @@ build() {
 package() {
   cd "$srcdir"/Crypt-DES-$pkgver
   make pure_install doc_install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
