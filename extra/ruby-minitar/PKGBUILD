@@ -1,11 +1,12 @@
 # Maintainer: Tim Meusel <tim@bastelfreak.de>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 # Contributor: Artem Vorotnikov <artem@vorotnikov.me>
 # Contributor: Tim Meusel <tim@bastelfreak.de>
 # Contributor: Mario Finelli <mario at finel dot li>
 
 _gemname='minitar'
 pkgname="ruby-${_gemname}"
-pkgver=0.12
+pkgver=1.0.2
 pkgrel=1
 pkgdesc='A pure-Ruby library that provides the ability to deal with POSIX tar(1) archive files'
 arch=('any')
@@ -15,7 +16,7 @@ makedepends=('ruby-rdoc' 'ruby-rake' 'ruby-hoe' 'ruby-minitest' 'ruby-base64')
 depends=(ruby)
 source=("https://github.com/halostatue/minitar/archive/v${pkgver}/${pkgname}-v${pkgver}.tar.gz")
 options=("!emptydirs")
-sha512sums=('33ffc428fb9425cd5cd835c45bffc81d407c08c2052f44dc1322df06a6d5b810ab28e49f22b0b9363bc59e4f28f5de7db3833d2ad04bc993076f8ff9c3cfc575')
+sha512sums=('7426b9aa122a5e1826abdf1d1025054afaab5afaf96b2986c70612e8b8d52924b88c4afbd1c28d5c94e543944b0febb83b7fedcd40dae3e173d9547206096c71')
 
 # update the gemspec to allow newer versions of rake
 # remove references to cloud CI pipelines (they require more gems and don't bring any value)
