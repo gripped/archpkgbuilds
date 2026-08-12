@@ -3,7 +3,7 @@
 _hkgname=http-download
 pkgname=haskell-http-download
 pkgver=0.2.1.0
-pkgrel=398
+pkgrel=399
 pkgdesc="Verified downloads with retries"
 url="https://github.com/commercialhaskell/http-download"
 license=('MIT')
@@ -19,6 +19,11 @@ sha512sums=('75a208684bf4f116746a1015870a6bb2afbdd1a4b4c268b88f142b189e0e31c59b8
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+
+    # Upstream PR: https://github.com/commercialhaskell/http-download/pull/11
+    # download.fpcomplete.com test fixture now returns 401; use Hackage's copy.
+    sed -i 's|http://download.fpcomplete.com/stackage-cli/linux64/cabal-install-1.22.4.0.tar.gz|https://hackage.haskell.org/package/cabal-install-1.22.4.0/cabal-install-1.22.4.0.tar.gz|' \
+        test/Network/HTTP/Download/VerifiedSpec.hs
 }
 
 build() {
