@@ -1,6 +1,6 @@
-diff -ura autobahn-python.orig/autobahn/nvx/_compile_args.py autobahn-python.new/autobahn/nvx/_compile_args.py
---- autobahn-python.orig/autobahn/nvx/_compile_args.py	2026-01-10 16:30:20.721405588 +0100
-+++ autobahn-python.new/autobahn/nvx/_compile_args.py	2026-01-10 16:44:55.784630451 +0100
+diff -ura autobahn-python.orig/src/autobahn/nvx/_compile_args.py autobahn-python.new/src/autobahn/nvx/_compile_args.py
+--- autobahn-python.orig/src/autobahn/nvx/_compile_args.py	2026-01-10 16:30:20.721405588 +0100
++++ autobahn-python.new/src/autobahn/nvx/_compile_args.py	2026-01-10 16:44:55.784630451 +0100
 @@ -251,12 +251,13 @@
      -------
      str or None
@@ -19,3 +19,16 @@ diff -ura autobahn-python.orig/autobahn/nvx/_compile_args.py autobahn-python.new
  
      elif machine in ("aarch64", "arm64"):
          # ARM64: Use ARMv8-A baseline (all 64-bit ARM)
+diff --git a/src/autobahn/nvx/test/test_compile_args.py b/src/autobahn/nvx/test/test_compile_args.py
+index e103f966..94d3c2cf 100644
+--- a/src/autobahn/nvx/test/test_compile_args.py
++++ b/src/autobahn/nvx/test/test_compile_args.py
+@@ -42,7 +42,7 @@ class TestSafeMarchFlag(unittest.TestCase):
+ 
+     def test_x86_64_variants(self):
+         for machine in ("x86_64", "amd64", "x64"):
+-            self.assertEqual(_get_safe_march_flag(machine), "-march=x86-64-v2")
++            self.assertEqual(_get_safe_march_flag(machine), None)
+ 
+     def test_arm64_variants(self):
+         for machine in ("aarch64", "arm64"):

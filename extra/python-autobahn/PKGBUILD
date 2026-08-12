@@ -1,11 +1,12 @@
-# Maintainer: Morten Linderud <foxboron@archlinux.org>
-# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
-# Maintainer: Anatol Pomozov
+# Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Contributor: Morten Linderud <foxboron@archlinux.org>
+# Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
+# Contributor: Anatol Pomozov
 
 pkgname=python-autobahn
 # https://github.com/crossbario/autobahn-python/blob/master/docs/changelog.rst
-pkgver=25.10.2
-pkgrel=4
+pkgver=26.7.1
+pkgrel=1
 pkgdesc='Real-time framework for Web, Mobile & Internet of Things'
 arch=(x86_64)
 url='https://github.com/crossbario/autobahn-python/'
@@ -17,7 +18,7 @@ makedepends=(git python-build python-installer python-setuptools python-wheel
              python-msgpack python-passlib python-pynacl python-pytrie
              python-ubjson
              python-u-msgpack python-ujson python-qrcode python-pyopenssl python-ecdsa
-             python-snappy python-click python-txtorcon)
+             python-snappy python-click python-txtorcon python-hatchling)
 checkdepends=(python-pytest python-pytest-asyncio)
 optdepends=(
   'python-cbor2: CBOR serializer support'
@@ -39,13 +40,16 @@ optdepends=(
 )
 
 source=("git+https://github.com/crossbario/autobahn-python.git#tag=v$pkgver"
-        'remove-march-flags-for-safe-builds.patch')
-sha256sums=('68e263cf4c8210dafd0368485ea6831620fea9dba2ae62a417638cdd12fa9e9a'
-            '292450d9ee4b5be7b62ff5767380f42fa31854f1a1890cdaafed0cd3f4b71ed4')
+        'remove-march-flags-for-safe-builds.patch'
+        'fix-max-message-size-test.patch')
+sha256sums=('6b21f854f40496cf2ab328c7ecf8dfa6f3c346e4ca5f9b1fbaf6f460a45ccc22'
+            'a27e5bb67aee427a2bd038a9d1bc0d2d2d34a90521fed1a5288a3cec5bfc9f7c'
+            '62f54753720289c14055822067d4b08fe37450572e0d3dd723a9e0bf42409405')
 
 prepare() {
   cd "$srcdir/autobahn-python"
   patch -Np1 -i ../remove-march-flags-for-safe-builds.patch
+  patch -Np1 -i ../fix-max-message-size-test.patch
 }
 
 build() {
@@ -55,13 +59,19 @@ build() {
 
 check() {
   cd "$srcdir/autobahn-python"
-  pyver=$(python -c "import sys; print('{}{}'.format(*sys.version_info[:2]))")
+
+  local pyver=$(python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')
+  local tmpdir="$srcdir/test_dir/"
+  python -m installer --destdir="$tmpdir" dist/*.whl
+
+  export PYTHONPATH="$tmpdir/usr/lib/python${pyver}/site-packages:$PYTHONPATH"
+
   # "autobahn on asyncio is tested using pytest, while for twisted we are using twisted trial"
   # https://github.com/crossbario/autobahn-python/issues/1235#issuecomment-522440810
-  USE_TWISTED=1 PYTHONPATH=.:build/lib.linux-$CARCH-cpython-$pyver trial autobahn
+  USE_TWISTED=1 trial autobahn
   # pytest configurations are not well organized in upstream repo. Here I ignore everything and pick needed options from
   # https://github.com/crossbario/autobahn-python/blob/v24.4.2/tox.ini#L104
-  USE_ASYNCIO=1 PYTHONPATH=.:build/lib.linux-$CARCH-cpython-$pyver pytest autobahn --config-file=/dev/null --rootdir "$PWD" --ignore autobahn/twisted
+  USE_ASYNCIO=1 pytest src/autobahn --ignore src/autobahn/twisted --import-mode=importlib
 }
 
 package() {
