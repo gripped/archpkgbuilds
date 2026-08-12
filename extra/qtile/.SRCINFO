@@ -1,6 +1,6 @@
 pkgbase = qtile
 	pkgdesc = A full-featured, pure-Python tiling window manager
-	pkgver = 0.36.0
+	pkgver = 0.37.0
 	pkgrel = 1
 	url = https://qtile.org/
 	install = qtile.install
@@ -47,7 +47,7 @@ pkgbase = qtile
 	depends = python-gobject
 	depends = python-xcffib
 	depends = wayland
-	depends = wlroots0.19
+	depends = wlroots0.20
 	optdepends = alsa-utils: for volume widget
 	optdepends = canto-daemon: for canto widget
 	optdepends = jupyter_console: for interaction with qtile via Jupyter
@@ -67,11 +67,14 @@ pkgbase = qtile
 	optdepends = python-setproctitle: change process name to qtile
 	optdepends = python-xdg: launchbar widget
 	optdepends = xorg-xwayland: for XWayland support
-	source = git+https://github.com/qtile/qtile?signed#tag=v0.36.0
+	source = git+https://github.com/qtile/qtile?signed#tag=v0.37.0
+	source = qtile-0.37.0-user-unit-exec.patch
 	validpgpkeys = 3CCAB226289DE0160C61BDB418D18F1BC464DCA3
 	validpgpkeys = 35D92E7CC7357A81173EA1C974F9FDD20984FBEC
 	validpgpkeys = A6BAA1E17D2664ADB97B2C6F58A9AA7C86727DF7
-	sha512sums = 140c596cc669abef73e42d5cfe729e4b1d777ddfc803767ffb463b1d7c9614a0190844d05794fc89e0d8a82984e6d748dbeba94fdf31687622e461e2a8c9ebc9
-	b2sums = 7bf3414de9c1404e7996c424eab73dd5ccafee8e4046b17105a85532978b2397d79a8437a27c2a1c95ad426dadcd00711b7bf49ace87e4359e5fa1c1f5718c7e
+	sha512sums = d66dece818c9e3353a209316d2df3219e050bcd137c4387e7485126fcf632659af9cf20ac3bd9aa32dab170ce6ef3027c3ad654f58a3bb27738c230466d8e4dd
+	sha512sums = 3b386246bffb54a1f441ac798c79ccca0c29123d4b3cc12dbcc18cd668dc9fe03af96fd38f9bb50b3f2da3e542a6e952c0a1bb5bc0f6750c9b32fbb74564e059
+	b2sums = a00ae552f1b64d5896e1fd849e4f9fedae3fbf477007e8e06b8735c36fb35e66138947b7d93408cfface57772c5d687e17701e9fdb93989be0976a92c21ca933
+	b2sums = 870ed53a8354e2774f76881aa1b4092b7ae9918bf207d19096ea95d558a5d8b1ec1bd03dc581d98d54300dceba3fb25d26bf9828000af772d4de354b38f08fed
 
 pkgname = qtile
