@@ -2,7 +2,7 @@
 
 pkgname=python-django-allauth
 _name=${pkgname#python-}
-pkgver=65.18.0
+pkgver=65.19.0
 pkgrel=1
 pkgdesc="Authentication, registration, account management and 3rd party account authentication"
 arch=(any)
@@ -56,8 +56,8 @@ optdepends=(
   'python-saml: for SAML support'
 )
 source=("$pkgname::git+https://codeberg.org/allauth/django-allauth.git#tag=${pkgver}")
-sha512sums=('d5475802e057195afc00fdabd8bbb7b73c89dcf4e1b5285737377f2c1deec34d088b66587970cfaa728ea62b6cc253ff7ba258f3203a97d2e267227c0f96cf40')
-b2sums=('61b121d76bbdb4d325f77dcc99f30efcd97cca84113b4a536f4343e614a6c050eb8703e66a7821fe8c6754551ded91b374c41076d9c91d052a29977e0002dbb4')
+sha512sums=('c02a581937b0af0fb147f3d09e07bb749e18804387a27170e1bb794e789740941d3e2aa2526ba90dd78d988d0b84258125fcec3ba5b9f88363c29d7e4c876d13')
+b2sums=('5e1d12a4068a701e3e2b231d8967f7ab8de3a7c52ee3e86de9beaa1cdb9080ce2dc769744a54a133abbe759f46aea23efab910a7f51bcf9429f710db56c5e173')
 
 build() {
   cd $pkgname
