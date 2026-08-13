@@ -3,7 +3,7 @@
 _hkgname=gi-gtk-layer-shell
 pkgname=haskell-gi-gtk-layer-shell
 pkgver=0.1.7
-pkgrel=2
+pkgrel=3
 pkgdesc='gtk-layer-shell bindings'
 url='https://github.com/haskell-gi/haskell-gi'
 license=("LGPL-2.1-only")
@@ -12,11 +12,6 @@ depends=('ghc-libs' 'haskell-gi' 'haskell-gi-base' 'haskell-gi-gdk3' 'haskell-gi
 makedepends=('ghc' 'gobject-introspection' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('eb5e6dad55c29153bbef901d6848313e2ac67ee52ab3ad45fc5efa6d204dc71c')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -rgi-gdk3:gi-gdk -rgi-gtk3:gi-gtk
-}
 
 build() {
   cd $_hkgname-$pkgver
