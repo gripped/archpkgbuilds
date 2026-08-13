@@ -1,35 +1,43 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=taffybar
-pkgver=4.1.0
-pkgrel=103
+pkgver=7.2.7
+pkgrel=2
 pkgdesc="A desktop bar similar to xmobar, but with more GUI"
 url="https://github.com/taffybar/taffybar"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-hstringtemplate' 'haskell-quickcheck' 'haskell-x11' 'haskell-aeson'
-         'haskell-ansi-terminal' 'haskell-attoparsec' 'haskell-conduit' 'haskell-data-default'
-         'haskell-dbus' 'haskell-dbus-hslogger' 'haskell-dyre' 'haskell-either'
-         'haskell-enclosed-exceptions' 'haskell-extra' 'haskell-fsnotify'
+depends=('ghc-libs' 'dhall' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-attoparsec'
+         'haskell-conduit' 'haskell-data-default' 'haskell-dbus' 'haskell-dbus-hslogger'
+         'haskell-dbus-menu' 'haskell-disk-free-space' 'haskell-dyre' 'haskell-either'
+         'haskell-enclosed-exceptions' 'haskell-extra' 'haskell-fsnotify' 'haskell-gi-base'
          'haskell-gi-cairo-connector' 'haskell-gi-cairo-render' 'haskell-gi-gdk3'
-         'haskell-gi-gdkpixbuf' 'haskell-gi-gdk3x11' 'haskell-gi-glib' 'haskell-gi-gtk3'
-         'haskell-gi-gtk-hs' 'haskell-gi-pango' 'haskell-gtk-sni-tray' 'haskell-gtk-strut'
-         'haskell-gi-base' 'haskell-hslogger' 'haskell-hspec' 'haskell-http-client'
-         'haskell-http-client-tls' 'haskell-http-conduit' 'haskell-http-types' 'haskell-multimap'
-         'haskell-optparse-applicative' 'haskell-rate-limit' 'haskell-regex-compat' 'haskell-safe'
-         'haskell-scotty' 'haskell-split' 'haskell-status-notifier-item'
+         'haskell-gi-gdkpixbuf' 'haskell-gi-gdk3x11' 'haskell-gi-glib' 'haskell-gi-gobject'
+         'haskell-gi-gtk-hs' 'haskell-gi-gtk-layer-shell' 'haskell-gi-gtk3' 'haskell-gi-pango'
+         'haskell-gi-wireplumber' 'haskell-gtk-scaling-image' 'haskell-gtk-sni-tray'
+         'haskell-gtk-strut' 'haskell-hslogger' 'haskell-hspec' 'haskell-hstringtemplate'
+         'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-conduit'
+         'haskell-http-types' 'haskell-juicypixels' 'haskell-monad-control' 'haskell-multimap'
+         'haskell-network' 'haskell-optparse-applicative' 'haskell-quickcheck' 'haskell-rate-limit'
+         'haskell-regex-compat' 'haskell-safe' 'haskell-split' 'haskell-status-notifier-item'
          'haskell-time-locale-compat' 'haskell-time-units' 'haskell-tuple' 'haskell-typed-process'
-         'haskell-unliftio' 'haskell-unliftio-core' 'haskell-utf8-string' 'haskell-xdg-basedir'
-         'haskell-xdg-desktop-entry' 'haskell-xml' 'haskell-xml-helpers' 'xmonad' 'gtk3')
-makedepends=('ghc' 'uusi' 'haskell-hspec-core' 'haskell-hspec-discover' 'haskell-hspec-golden')
+         'haskell-unliftio' 'haskell-unliftio-core' 'haskell-utf8-string' 'haskell-x11'
+         'haskell-xdg-basedir' 'haskell-xdg-desktop-entry' 'haskell-xml' 'haskell-xml-helpers'
+         'haskell-yaml' 'xmonad' 'xmonad-contrib' 'gtk3' 'systemd-libs')
+makedepends=('ghc' 'haskell-hspec-core' 'haskell-hspec-discover' 'haskell-hspec-golden')
 checkdepends=('python-dbusmock' 'upower' 'xorg-server' 'xorg-server-xvfb' 'xorg-xkbcomp'
               'xorg-xprop' 'xorg-xrandr' 'xterm')
-source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('ce6e5e3d57c531fcef346fe05e9bd9a4b5c60c8b2e920c569a3863b235343bc5')
+source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz"
+        'protocol-build-fix.patch')
+sha256sums=('1776f021a9c2a41f027be6c50c7cc29355d0b79491211ca2453850e26f533bdd'
+            'b5a32e5c497063541e83a167b469340267a0fa6bd28db4dd74c4834e9312289a')
 
 prepare() {
   cd $pkgname-$pkgver
-  gen-setup
+  printf 'import Distribution.Simple\nmain = defaultMain\n' > Setup.hs
+
+  # Fix compilation with GHC <9.8
+  patch -Np1 -i ../protocol-build-fix.patch
 
   # TODO: make a package for this?
   # Borrowed from nixpkgs:

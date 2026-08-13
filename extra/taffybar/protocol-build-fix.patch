@@ -1,0 +1,15 @@
+--- a/src/System/Taffybar/Information/XDG/Protocol.hs
++++ b/src/System/Taffybar/Information/XDG/Protocol.hs
+@@ -68,9 +68,9 @@
+   maybePrefix <- (mMenuPrefix <|>) <$> getXDGMenuPrefix
+   let maybeAddDash "" = ""
+       maybeAddDash t =
+-        case unsnoc t of
+-          Just (_, '-') -> t
+-          _ -> t ++ "-"
++        if last t == '-'
++          then t
++          else t ++ "-"
+       prefixes =
+         case maybePrefix of
+           Nothing -> [""]
