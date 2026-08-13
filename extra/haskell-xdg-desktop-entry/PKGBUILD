@@ -2,8 +2,8 @@
 
 _hkgname=xdg-desktop-entry
 pkgname=haskell-xdg-desktop-entry
-pkgver=0.1.1.4
-pkgrel=29
+pkgver=0.1.1.5
+pkgrel=1
 pkgdesc="Parse files conforming to the xdg desktop entry spec"
 url="https://github.com/taffybar/taffybar/tree/master/packages/xdg-desktop-entry"
 license=("BSD-3-Clause")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-either' 'haskell-ini' 'haskell-multimap' 'haskell-s
          'haskell-unordered-containers')
 makedepends=('ghc' 'haskell-hspec' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('c72cdf0c6829d7d19f2559e5c4e352268710c6b3e3f2376583e25973bd5a32a5')
+sha256sums=('ebfaf5dcb87f2f5d4e78c1eeee81ff4bc9104fb07f70ab7dbd9e8ea31c6c1f0f')
 
 build() {
   cd $_hkgname-$pkgver
