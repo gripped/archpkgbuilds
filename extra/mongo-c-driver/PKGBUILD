@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=mongo-c-driver
-pkgver=2.3.2
+pkgver=2.4.0
 pkgrel=1
 pkgdesc="A client library written in C for MongoDB"
 arch=(x86_64)
@@ -30,15 +30,8 @@ replaces=(
   libbson
   libmongoc
 )
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-         cmake-4.4.patch)
-b2sums=('5238aeef28be1afe2c3407a7cd3ae647b5444989803327667e39a59ea365d67fad77e581e155fc7dea537ca15cf5fb78cd8427437a37fbfd712fdb3e9552c554'
-        'a07ff84c415f33ad70b1df489bad26f55e4b7cd4ab21b527097aa5a68ce059c55fe6d2c04e606e50839da160fbbe2109cd823be10f042a2dd8c04fb81ff8cdec')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -p1 -i ../cmake-4.4.patch # Fix build with cmake 4.4
-}
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
+b2sums=('23cdfbf77da09492ecd5df2133458498543d8a871550a688e63862e5a8cd0235d43489bfa2e792599ab4e81850b3cf0a4fc46c95d318d63513ee26d217923217')
 
 build() {
   cd $pkgname-$pkgver
@@ -51,6 +44,8 @@ build() {
     -DBUILD_VERSION="$pkgver" \
     -DENABLE_STATIC=BUILD_ONLY \
     -DENABLE_STATIC_LIBBSON_INSTALL=OFF \
+    -DMONGOC_INSTALL_INCLUDEDIR=include \
+    -DBSON_INSTALL_INCLUDEDIR=include \
     -DENABLE_TESTS=ON
   cmake --build build
 }
