@@ -2,8 +2,8 @@
 
 _hkgname=text-show
 pkgname=haskell-text-show
-pkgver=3.11
-pkgrel=15
+pkgver=3.11.1
+pkgrel=1
 pkgdesc="Efficient conversion of values into Text"
 url="https://github.com/RyanGlScott/text-show"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-base-compat-batteries' 'haskell-bifunctors' 'haskel
 makedepends=('ghc' 'haskell-base-orphans' 'haskell-deriving-compat' 'haskell-hspec'
              'haskell-generic-deriving' 'haskell-quickcheck' 'haskell-quickcheck-instances')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('45b86b17991b82c74d537cc03227c396c5aa4a44b1f28a3b2238f7e8d7a90e36d02e16066bdc3a21b33e0cb0688e736cc63b94048c998b8138c9a013ada3c97e')
+sha512sums=('48cf460ec93814844947c04654592c3a13d1b27d45609647220beeabbe450d5137a5dc28f052e55c0a1d8c96d653e06bd33ff4df927259a03c9020bd4c0206e8')
 
 build() {
     cd $_hkgname-$pkgver
