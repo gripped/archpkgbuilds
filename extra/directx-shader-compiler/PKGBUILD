@@ -2,7 +2,7 @@
 # Maintainer: Laurent Carlier <lordheavym@archlinux.org>
 
 pkgname=directx-shader-compiler
-pkgver=1.10.2605.24
+pkgver=1.10.2605.37
 pkgrel=1
 pkgdesc="Compiler for HLSL to DXIL (DirectX Intermediate Language)"
 url="https://github.com/microsoft/DirectXShaderCompiler"
@@ -31,7 +31,7 @@ source=(
   "git+https://github.com/KhronosGroup/SPIRV-Tools"
   0001-Install-more-components.patch
 )
-b2sums=('fe9913b9a1b1acd62b0118b4359adcc8e67bf0eee24f36a777db256d301c8c8b7a737b2651b5316f4720ae40413899f920e32bd94ef1fae4c976e8971fd8693e'
+b2sums=('f7577fce2433b9b2d6c24cc31bf950b87009acf473391ea50b3a66baaba27a09f5309c8033c5bcfdce3af1f63d0620e63e91087a3d07c2be57f19878049b7b53'
         'SKIP'
         'SKIP'
         'SKIP'
