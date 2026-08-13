@@ -3,8 +3,8 @@
 
 _hkgname=summoner
 pkgname=haskell-summoner
-pkgver=2.1.0.0
-pkgrel=67
+pkgver=2.2.0.0
+pkgrel=2
 pkgdesc="Tool for scaffolding fully configured batteries-included production-level Haskell projects."
 url="https://github.com/kowainik/summoner"
 license=('MPL-2.0')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-colourista' 'haskell-generic-data' 'haskell-gitrev'
 makedepends=('ghc' 'uusi' 'haskell-hedgehog' 'haskell-hspec' 'haskell-hspec-hedgehog'
              'haskell-tree-diff')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('6d11b687dfe0153f31db1d3eaa2ce384005fe9445ace6f63d46dbf2ccb5506ec')
+sha256sums=('71bec713d98f3eb94078b3654f72b7d1fd49adf895afbf4311b53836cb4a7e24')
 
 prepare(){
   cd $_hkgname-$pkgver
