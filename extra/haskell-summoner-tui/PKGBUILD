@@ -3,8 +3,8 @@
 
 _hkgname=summoner-tui
 pkgname=haskell-summoner-tui
-pkgver=2.1.0.0
-pkgrel=70
+pkgver=2.2.0.0
+pkgrel=2
 pkgdesc="Tool for scaffolding fully configured batteries-included production-level Haskell projects using TUI."
 url="https://github.com/kowainik/summoner"
 license=('MPL-2.0')
@@ -14,13 +14,12 @@ depends=('ghc-libs' 'haskell-brick' 'haskell-colourista' 'haskell-microlens' 'ha
          'haskell-vty-crossplatform')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d85815b8f03948e7b6f2d69b48cc5a4ddf138c7e54cca30d09644a5a3553ab7c')
+sha256sums=('7183f8599536f67afbf69c97ceb08700115e5955386e16df43c530f086e6847d')
 
 prepare(){
   cd $_hkgname-$pkgver
-  sed -i 's/brick >= 1.0 && < 2.11/brick >= 1.0 \&\& < 2.13/' summoner-tui.cabal
   gen-setup
-  uusi -u vty-crossplatform
+  uusi -u vty-crossplatform -u brick
 }
 
 build() {
