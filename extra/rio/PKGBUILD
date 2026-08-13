@@ -4,19 +4,19 @@
 # Contributor: Raphael Amorim <rapha850@gmail.com>
 
 pkgname=rio
-pkgver=0.5.19
+pkgver=0.5.20
 pkgrel=1
 pkgdesc="A hardware-accelerated GPU terminal emulator powered by WebGPU"
 arch=('x86_64')
 url="https://github.com/raphamorim/rio"
 license=('MIT')
-depends=(alsa-lib libasound.so
-         fontconfig libfontconfig.so
-         freetype2 libfreetype.so
+depends=(alsa-lib
+         fontconfig
+         freetype2
          glibc # libc.so libm.so ld-linux-x86-64.so
          hicolor-icon-theme
-         libgcc libgcc_s.so
-         libstdc++ libstdc++.so
+         libgcc
+         libstdc++
          oniguruma # libonig.so
          vulkan-driver)
 makedepends=(cargo
@@ -26,8 +26,8 @@ makedepends=(cargo
              libxkbcommon
              python
              scdoc)
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('b03c202c3480b26c6fa5358e2f776ee2a2b470e3d3bffe5f7e23b40566e01a8c013bd8c9a136f71df1c600fb39749d275eb8d8675ad785979b445d56027040fc')
+source=("${url}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('cf91a3b05ec8dfa4053968eaad19d1bca20c411e8565d25476ae05eeb6a2e8b4f04463dcff8da522ecbcc77a3ad781afa440aff6870905e965c1a52bab3977bc')
 
 _srcenv() {
   cd "${pkgname}-${pkgver}"
@@ -37,8 +37,8 @@ _srcenv() {
   export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
-  CFLAGS+=' -ffat-lto-objects'
-  CXXFLAGS+=' -ffat-lto-objects'
+  CFLAGS+=' -fno-lto'
+  CXXFLAGS+=' -fno-lto'
   export RUSTONIG_DYNAMIC_LIBONIG=1
 }
 
@@ -63,6 +63,11 @@ check() {
 
 package() {
   cd "${pkgname}-${pkgver}"
+  depends=(libasound.so
+           libfontconfig.so
+           libfreetype.so
+           libgcc_s.so
+           libstdc++.so)
   install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
   install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
   install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
