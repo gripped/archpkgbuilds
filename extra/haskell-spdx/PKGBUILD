@@ -3,8 +3,8 @@
 
 _hkgname=spdx
 pkgname=haskell-spdx
-pkgver=1.1
-pkgrel=49
+pkgver=1.1.0.1
+pkgrel=1
 pkgdesc="SPDX license expression language, Extras"
 url="https://github.com/phadej/spdx"
 license=("BSD-3-Clause")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-puresat')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ee929db49942c48b6f6aa1ef69cb9faa1fe8ae288269e466c8eac4d65c1ddaf95179cfc4f0b96a3f7ffa7b95bf059e2e0b18e74b1f295e4fc49eaae35ce880fd')
+sha512sums=('c0d9841f0b3b7d6d7758426fd3a4856fae8e609a0691696426a9525ee483b8c832b93b7a3a1353fb3333a5931d26df9e4c8e1e411f690fd8dd3a22d8ed804170')
 
 build() {
     cd $_hkgname-$pkgver
