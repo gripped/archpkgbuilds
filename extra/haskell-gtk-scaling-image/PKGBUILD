@@ -3,7 +3,7 @@
 _hkgname=gtk-scaling-image
 pkgname=haskell-gtk-scaling-image
 pkgver=0.1.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Generic GTK image scaling helpers for haskell-gi'
 url='https://github.com/taffybar/gtk-scaling-image#readme'
 license=("BSD-3-Clause")
@@ -12,11 +12,6 @@ depends=('ghc-libs' 'haskell-gi-cairo-connector' 'haskell-gi-cairo-render' 'hask
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('fb18aa6b98028fb431691280aa593d5fc7f00b1bef3b8b2e065a7b9d22a53c1a')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -rgi-gdk3:gi-gdk -rgi-gtk3:gi-gtk
-}
 
 build() {
   cd $_hkgname-$pkgver
