@@ -9,7 +9,7 @@ pkgname=(
   freeciv-gtk4
   freeciv-qt
 )
-pkgver=3.2.4
+pkgver=3.2.5
 pkgrel=1
 pkgdesc="A multiuser clone of the famous Microprose game of Civilization"
 arch=('x86_64')
@@ -44,7 +44,7 @@ makedepends=(
 )
 conflicts=('freeciv<3.2.2-2')
 source=("git+https://github.com/freeciv/freeciv.git#tag=R${pkgver//./_}")
-b2sums=('c5ab32b500d75cc073f6c99d36797504bd9b49ce789adf23adc84baf77194e1b348f5c689f912e0f8542d84d35d23c8e56f6809ce3f0f63b7984e465f9b56aa5')
+b2sums=('2eb61ee290cd64db9731a635122e915ecd1df306a7f4d791aa165c1ecde564a50d8c06ced4ed2ac97292c58788bfa454c24e3571872637b00f9e8db5a8f1f2bc')
 
 build() {
   arch-meson $pkgbase build \
@@ -107,9 +107,11 @@ package_freeciv-common() {
     usr/bin/freeciv-ruledit \
     usr/share/applications/org.freeciv.qt.desktop \
     usr/share/applications/org.freeciv.qt.mp.desktop \
+    usr/share/applications/org.freeciv.ruledit.desktop \
     usr/share/freeciv/themes/gui-qt \
     usr/share/metainfo/org.freeciv.qt.metainfo.xml \
-    usr/share/metainfo/org.freeciv.qt.mp.metainfo.xml
+    usr/share/metainfo/org.freeciv.qt.mp.metainfo.xml \
+    usr/share/metainfo/org.freeciv.ruledit.metainfo.xml
   rm -vr "$pkgdir/usr/share/freeciv/themes" # Remove empty dir
 }
 
