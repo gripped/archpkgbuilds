@@ -2,16 +2,16 @@
 
 _hkgname=tzdata
 pkgname=haskell-tzdata
-pkgver=0.2.20250115.0
-pkgrel=141
+pkgver=0.2.20260708.0
+pkgrel=1
 pkgdesc="Haskell package that distributes the standard time zone database"
 url="https://github.com/ysangkok/haskell-tzdata"
-license=('Apache')
+license=('Apache-2.0')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-vector')
 makedepends=('ghc' 'haskell-hunit' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-th')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('bb2526c59105511b73bfaa1768359704e3b5c4a7b139bde1e8065589326fb00ddae3437b362a0c384417de44b33b4ea32fe4b85a73aef402e2b89824647a291a')
+sha512sums=('f977c438fa4d2429be24d3a20274e9a2c72e8a79744fdddba7a2a41227763d72c9f7ebbb6ee34ce3843742fc39dbb372cce602349f799022585acdfcdc2f47c6')
 
 build() {
     cd $_hkgname-$pkgver
@@ -28,8 +28,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    # https://github.com/ysangkok/haskell-tzdata/issues/3
-    runhaskell Setup test --show-details=direct || echo "Tests failed"
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
