@@ -1,9 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-_hkgname=gi-gtk
+_hkgname=gi-gtk3
 pkgname=haskell-gi-gtk3
-pkgver=3.0.43
-pkgrel=68
+pkgver=3.0.44
+pkgrel=1
 pkgdesc="Gtk bindings (GTK3)"
 url="https://github.com/haskell-gi/haskell-gi"
 license=('LGPL-2.1-only')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-gi-atk' 'haskell-gi-cairo' 'haskell-gi-gdk3' 'haske
          'haskell-gi-base' 'haskell-gi-overloading' 'gtk3')
 makedepends=('ghc' 'gobject-introspection')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('d703fe478992c6a89db708f52d235331a150416448479ae6b8e32368a2b76f92')
+sha256sums=('19b9fe4491481e9c6dde574010ba1aa123d7e3738a9a7cd5a9080dc3998ecfd3')
 
 build() {
   cd $_hkgname-$pkgver
