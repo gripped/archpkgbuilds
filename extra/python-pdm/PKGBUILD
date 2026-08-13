@@ -2,7 +2,7 @@
 
 _name=pdm
 pkgname=python-pdm
-pkgver=2.28.0
+pkgver=2.28.1
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -10,6 +10,7 @@ url="https://github.com/pdm-project/pdm"
 license=(MIT)
 depends=(
   python
+  python-argcomplete
   python-blinker
   python-certifi
   python-dep-logic
@@ -61,8 +62,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('1322fc9e965cc7995f02ceaee2a6e72b3220efb4476b27477e885cb0bcc1d3b532f417ec8067eb4b2402ed9f813084ab53da2ee6028f7d0d43a960f59dd2f706')
-b2sums=('bb5ce7d1553e4a73b9a91590870dd48763afd5067542c182410e38a5a7e241a222f833339f4cc77953d1007d792f775dc7d911aa9e7205735c219dcc12f4cbdb')
+sha512sums=('5247b9209acd0667b9c37a009f94d8f63b5ae47388bb5a9077393b72cb90be083be1209389f9641e7a953eb32bcb6d8831c16ed7861f1699c4b67693289da731')
+b2sums=('a37c3fe54d04b7379d353cd10e112e09c0b3ee165d19d4c046ec84751275d30c226b082d2e6c7055cdfa580b4393436690ca6888579fb09fdfd67e756d42caa4')
 
 build() {
   cd $_name-$pkgver
@@ -77,6 +78,8 @@ check() {
     --deselect tests/test_project.py::test_access_index_with_auth
     # unclear issue with no isolation build
     --deselect tests/cli/test_build.py::test_build_with_no_isolation
+    # https://github.com/pdm-project/pdm/issues/3837
+    --deselect tests/cli/test_venv.py::test_core_registration_does_not_import_command_actions
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
