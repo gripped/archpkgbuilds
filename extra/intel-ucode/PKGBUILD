@@ -3,7 +3,7 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org>
 
 pkgname=intel-ucode
-pkgver=20260811
+pkgver=20260812
 pkgrel=1
 pkgdesc='Microcode update files for Intel CPUs'
 arch=('any')
@@ -12,7 +12,7 @@ replaces=('microcode_ctl')
 makedepends=('iucode-tool')
 license=('custom')
 source=("${url}/archive/refs/tags/microcode-${pkgver}.tar.gz")
-sha256sums=('643a1ac6154f065eb467d45a0c8277844d5b60f10b650a23c1c893386b82cd30')
+sha256sums=('7614616d7b2988c278060486f47de716ef44c19317928cb45ac9e288fafd5bd1')
 
 build() {
   cd Intel-Linux-Processor-Microcode-Data-Files-microcode-${pkgver}
