@@ -4,12 +4,13 @@
 # Contributor: Fabian Bornschein <fabiscafe@mailbox.org>
 # Contributor: Tyler Dence <tyzoid@archlinux32.org>
 # Contributor: Konstantin Shalygin <k0ste@k0ste.ru>
+# Contributor: Stefan Morgenthaler <dev@morgenthaler.at>
 
 pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
 pkgver=34.0.1
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
@@ -20,6 +21,7 @@ depends=(
     kdbusaddons
     kdsingleapplication
     kguiaddons
+    libcanberra
     libcloudproviders
     libp11
     openssl
