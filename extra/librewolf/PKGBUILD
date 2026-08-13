@@ -4,11 +4,11 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=librewolf
-pkgver=153.0.3_1
+pkgver=153.0.4_1
 _fixedfirefoxver="${pkgver%_*}" # Version of Firefox this LibreWolf version is based on, but the Firefox patch number is always included
 _librewolfver="${pkgver#*_}"
 _firefoxver="${_fixedfirefoxver%.0}" # Removes ".0" from the end. For "136.0.0" this will result in "136.0" but for "136.0.1" won't do anything.
-pkgrel=5
+pkgrel=1
 pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and freedom"
 url="https://librewolf.net/"
 arch=(x86_64 aarch64)
@@ -85,7 +85,7 @@ options=(
 )
 
 source=(
-  https://codeberg.org/api/packages/librewolf/generic/librewolf-source/$_firefoxver-$_librewolfver/librewolf-$_firefoxver-$_librewolfver.source.tar.gz{,.sig}
+  https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/$_firefoxver-$_librewolfver/librewolf-$_firefoxver-$_librewolfver.source.tar.gz{,.sig}
   $pkgname.desktop
 
   # Support FFmpeg 9
@@ -93,7 +93,7 @@ source=(
   https://gitlab.archlinux.org/archlinux/packaging/packages/firefox/-/raw/153.0.3-2/0002-Bug-2057577-DOM-Media-Add-FFmpeg-63-support.-r-alwu-.patch
 )
 
-sha256sums=('ab4283ce8eb6765e9df0f4586b2f4fb0a05de186398f2b944f6f5c791541321f'
+sha256sums=('2a985ec674e1472282eefc34d5334f6e711a5d9a21e76c3d50b57972f45fe45f'
             'SKIP'
             '3d6ac59ae9d5ba4c9fe15f95c1338fa68214dec6119f8432336403e3be50f8ae'
             '55aeec4d098990e91f881de32126ea91576b0d185e322b561241c513ea5b9fcd')
