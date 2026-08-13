@@ -5,7 +5,7 @@
 pkgbase=python-cupy
 pkgname=(python-cupy python-cupy-rocm-gfx9 python-cupy-rocm-gfx10 python-cupy-rocm-gfx11 python-cupy-rocm-gfx12)
 pkgver=14.1.1
-pkgrel=2
+pkgrel=3
 pkgdesc="NumPy/SciPy-compatible array library for GPU-accelerated computing with Python"
 arch=(x86_64)
 url="https://github.com/cupy/cupy"
@@ -26,6 +26,7 @@ makedepends=(
   # TODO: package cusparselt
   cutensor
   nccl
+  python-cuda-pathfinder
   # ROCm build
   hip-runtime-amd
   hipblas
@@ -175,6 +176,7 @@ package_python-cupy() {
     python
     python-fastrlock
     python-numpy
+    python-cuda-pathfinder
   )
   optdepends+=(
     'cutensor: for acceleratedd tensor operations'
