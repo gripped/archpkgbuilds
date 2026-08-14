@@ -3,17 +3,17 @@
 
 _hkgname=hslua-module-system
 pkgname=haskell-hslua-module-system
-pkgver=1.1.3
-pkgrel=4
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="Lua module wrapper around Haskell's System module"
 url="https://github.com/hslua/hslua"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hslua-packaging'
-         'haskell-temporary')
-makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
+         'haskell-temporary' 'haskell-hslua-list' 'haskell-tasty-lua' 'haskell-tasty-hunit')
+makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('082100001979b2adcf2d7a85eefb905ea57ddf6edde934f740c3a7fa1e4824043c685e973d3391516e000972e9cce50917b2836e58bf0809c6801f6ec17df669')
+sha512sums=('47ea62159d572b3d87d2112b9f30feb92bcd20e6b286b0a6c4af62719bced96d6a131f901205ae2816c8a03f3676386d4163b1aa3128c035b3c86db325a15a65')
 
 prepare() {
     cd $_hkgname-$pkgver
