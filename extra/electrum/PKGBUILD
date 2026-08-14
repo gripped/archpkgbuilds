@@ -5,8 +5,8 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.7.2
-pkgrel=2
+pkgver=4.8.1
+pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
 url="https://electrum.org"
@@ -26,7 +26,6 @@ depends=(
   'python-jsonpatch'
   'python-jsonpointer'
   'python-pillow'
-  'python-protobuf'
   'python-pyaes'
   'python-pyqt6'
   'python-qrcode'
@@ -59,12 +58,10 @@ source=(
   "git+https://github.com/spesmilo/electrum.git#tag=$pkgver?signed"
   "git+https://github.com/spesmilo/electrum-locale.git"
   "git+https://github.com/spesmilo/electrum-http.git"
-  "$pkgname-remove-runtime-aiorpcx-version-check.patch"
 )
-b2sums=('13f8ba10488f220a5e85a4f654d3d6e7f3aa284b985b751e66e933ceb83929cce6c3e622f3893d0f9d06ecaa1dee3f308145162d1a7d5467f0ce329ea061fb27'
+b2sums=('439ef8c121600159f0ba0ee5572080d7908dfd5611f591b7bd4c0a010f0c497de9e8f0573e07b1b07d530c4f85ec086cd680fdd17505408ec51093d40cd4a92b'
         'SKIP'
-        'SKIP'
-        '9faa19e6442e1f736ec05499f7a66839c9791c5487ac8edd8d3ccb13b6ad070fba7a3625d9aa5040962aa336567409c2720fb933829eedc027cb3ceac5d6e479')
+        'SKIP')
 validpgpkeys=(
   '6694D8DE7BE8EE5631BED9502BD5824B7F9470E6' # Thomas Voegtlin (https://electrum.org) <thomasv@electrum.org>
   '4AD64339DFA05E20B3F6AD51E7B748CDAF5E5ED9' # SomberNight <somber.night@protonmail.com>
@@ -77,8 +74,6 @@ prepare() {
     "$srcdir/electrum-locale"
   git config submodule.electrum/plugins/payserver/www.url "$srcdir/electrum-http"
   git -c protocol.file.allow=always submodule update
-
-  patch -Np1 -i ../$pkgname-remove-runtime-aiorpcx-version-check.patch
 }
 
 build() {
