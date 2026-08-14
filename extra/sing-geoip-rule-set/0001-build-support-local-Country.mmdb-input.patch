@@ -1,0 +1,103 @@
+From b2bdbe142c9b0c991fbcd9c95e62e73d3dbac17b Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Tue, 11 Aug 2026 10:54:10 +0800
+Subject: [PATCH] build: support local Country.mmdb input
+
+---
+ main.go | 57 +++++++++++++++++++++++++++++++++++++++------------------
+ 1 file changed, 39 insertions(+), 18 deletions(-)
+
+diff --git a/main.go b/main.go
+index 0f7b21b..49504fa 100644
+--- a/main.go
++++ b/main.go
+@@ -2,6 +2,7 @@ package main
+ 
+ import (
+ 	"context"
++	"flag"
+ 	"io"
+ 	"net"
+ 	"net/http"
+@@ -161,24 +162,37 @@ func write(writer *mmdbwriter.Tree, dataMap map[string][]*net.IPNet, output stri
+ 	return err
+ }
+ 
+-func release(source string, destination string, output string, ruleSetOutput string) error {
+-	sourceRelease, err := fetch(source)
+-	if err != nil {
+-		return err
+-	}
+-	destinationRelease, err := fetch(destination)
+-	if err != nil {
+-		log.Warn("missing destination latest release")
++func release(source string, destination string, output string, ruleSetOutput string, localCountryMMDB string) error {
++	var (
++		sourceRelease *github.RepositoryRelease
++		binary        []byte
++		err           error
++	)
++	if localCountryMMDB != "" {
++		log.Info("read local Country.mmdb ", localCountryMMDB)
++		binary, err = os.ReadFile(localCountryMMDB)
++		if err != nil {
++			return err
++		}
+ 	} else {
+-		if os.Getenv("NO_SKIP") != "true" && strings.Contains(*destinationRelease.Name, *sourceRelease.Name) {
+-			log.Info("already latest")
+-			setActionOutput("skip", "true")
+-			return nil
++		sourceRelease, err = fetch(source)
++		if err != nil {
++			return err
++		}
++		destinationRelease, err := fetch(destination)
++		if err != nil {
++			log.Warn("missing destination latest release")
++		} else {
++			if os.Getenv("NO_SKIP") != "true" && strings.Contains(*destinationRelease.Name, *sourceRelease.Name) {
++				log.Info("already latest")
++				setActionOutput("skip", "true")
++				return nil
++			}
++		}
++		binary, err = download(sourceRelease)
++		if err != nil {
++			return err
+ 		}
+-	}
+-	binary, err := download(sourceRelease)
+-	if err != nil {
+-		return err
+ 	}
+ 	metadata, countryMap, err := parse(binary)
+ 	if err != nil {
+@@ -239,7 +253,11 @@ func release(source string, destination string, output string, ruleSetOutput str
+ 		outputRuleSet.Close()
+ 	}
+ 
+-	setActionOutput("tag", *sourceRelease.Name)
++	if localCountryMMDB != "" {
++		setActionOutput("skip", "true")
++	} else {
++		setActionOutput("tag", *sourceRelease.Name)
++	}
+ 	return nil
+ }
+ 
+@@ -248,7 +266,10 @@ func setActionOutput(name string, content string) {
+ }
+ 
+ func main() {
+-	err := release("Dreamacro/maxmind-geoip", "sagernet/sing-geoip", "geoip.db", "rule-set")
++	localCountryMMDB := flag.String("country-mmdb", "", "path to local Country.mmdb")
++	flag.Parse()
++
++	err := release("Dreamacro/maxmind-geoip", "sagernet/sing-geoip", "geoip.db", "rule-set", *localCountryMMDB)
+ 	if err != nil {
+ 		log.Fatal(err)
+ 	}
+-- 
+2.55.0
+

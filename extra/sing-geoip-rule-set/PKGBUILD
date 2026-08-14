@@ -1,0 +1,36 @@
+# Maintainer: DeepChirp <deepchirp@archlinux.org>
+# Contributor: everyx <lunt.luo#gmail.com>
+
+pkgname=sing-geoip-rule-set
+_pkgname=sing-geoip
+pkgver=20260812
+pkgrel=1
+pkgdesc="GeoIP rule sets for sing-box"
+arch=('any')
+url="https://github.com/SagerNet/${_pkgname}"
+license=('GPL-3.0-or-later')
+makedepends=('go')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
+        "Country-${pkgver}.mmdb::https://github.com/Dreamacro/maxmind-geoip/releases/download/${pkgver}/Country.mmdb"
+        "0001-build-support-local-Country.mmdb-input.patch")
+sha256sums=('4346430b33bf23338cb32351fea88b983907c4f954c6c5c08dbe4748e31f6731'
+            'b6a525d8ffd7628b59a1c7853264937ae3a23632deebed9daae2ebffbf876265'
+            'e7ab002eb14ebb1db4f15c4c9ff28364748665bf739205dc116de4440eb95e5d')
+
+prepare() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    patch -Np1 -i "${srcdir}/0001-build-support-local-Country.mmdb-input.patch"
+    export GOPATH="${srcdir}"
+    go mod download -modcacherw
+}
+
+build() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    export GOPATH="${srcdir}"
+    go run -v . -country-mmdb "${srcdir}/Country-${pkgver}.mmdb"
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    install -Dm644 ./rule-set/*.srs -t "${pkgdir}/usr/share/sing-box/rule-set"
+}
