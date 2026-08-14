@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=pandoc-crossref
-pkgver=0.3.19
-pkgrel=271
+pkgver=0.3.20
+pkgrel=1
 pkgdesc="Pandoc filter for cross-references"
 url="https://hackage.haskell.org/package/${pkgname}"
 license=("GPL2")
@@ -13,11 +13,19 @@ depends=('ghc-libs' 'haskell-data-default' 'haskell-gitrev' 'haskell-microlens'
          'haskell-microlens-ghc' 'haskell-microlens-mtl' 'haskell-microlens-th' 'haskell-open-browser'
          'haskell-optparse-applicative' 'haskell-pandoc' 'haskell-pandoc-types' 'haskell-syb'
          'haskell-utility-ht')
-makedepends=('ghc' 'haskell-hspec' 'pandoc-cli')
+makedepends=('ghc' 'haskell-hspec' 'pandoc-cli' 'uusi')
 conflicts=('haskell-pandoc-crossref')
 replaces=('haskell-pandoc-crossref')
-source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('c8d3d61f78a6da084906207fe44ae6179ed6710c390f5c1364ffa76bef864fe2f7d96375e099161939a80bf9d454ae4ae5ac7fa0eea86f08db6b517e1c43d3aa')
+source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        pandoc-3.8-build-fix.patch)
+sha512sums=('533371ff2b813cf46d92e9fb33ccddc5eae422fdc2fc986f75066b2f648af40da232a287a81c814bf04b1eef8724771ebd4cef1562711e9c6fb5c09e07bbc3ae'
+            'ed39079c53be3063d26f20bc55895d92f454c82f4ba7b36fe4b484f0b91260464d697cb7a0e314376ad9470cf5a20268299106390bdc4b0155d455ec237cf309')
+
+prepare() {
+  cd $pkgname-$pkgver
+  uusi -u pandoc
+  patch -Np1 -i ../pandoc-3.8-build-fix.patch
+}
 
 build() {
   cd $pkgname-$pkgver

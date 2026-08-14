@@ -1,0 +1,27 @@
+diff -rup pandoc-crossref-0.3.20.orig/src/ManData.hs pandoc-crossref-0.3.20.new/src/ManData.hs
+--- pandoc-crossref-0.3.20.orig/src/ManData.hs	2001-09-08 21:46:40.000000000 -0400
++++ pandoc-crossref-0.3.20.new/src/ManData.hs	2026-08-12 22:53:29.550507650 -0400
+@@ -62,7 +62,7 @@ embedManualHtml = do
+           $   P.compileDefaultTemplate "html5"
+   embedManual $ P.writeHtml5String P.def{
+     P.writerTemplate = Just tt
+-  , P.writerHighlightStyle = Just pygments
++  , P.writerHighlightMethod = P.Skylighting pygments
+   , P.writerTOCDepth = 6
+   , P.writerTableOfContents = True
+   }
+diff -rup pandoc-crossref-0.3.20.orig/test/test-integrative.hs pandoc-crossref-0.3.20.new/test/test-integrative.hs
+--- pandoc-crossref-0.3.20.orig/test/test-integrative.hs	2001-09-08 21:46:40.000000000 -0400
++++ pandoc-crossref-0.3.20.new/test/test-integrative.hs	2026-08-12 22:54:14.168249361 -0400
+@@ -42,8 +42,9 @@ m2m dir
+     expect_md <- runIO $ readFile ("test" </> "m2m" </> dir </> "expect.md")
+     let ro = def { readerExtensions = pandocExtensions }
+         wo = def { writerExtensions = disableExtension Ext_raw_html $ disableExtension Ext_raw_attribute pandocExtensions
+-                 , writerHighlightStyle=Just pygments
+-                 , writerListings = dir `elem` listingsDirs }
++                 , writerHighlightMethod = if dir `elem` listingsDirs
++                       then IdiomaticHighlighting
++                       else Skylighting pygments }
+     p@(Pandoc meta _) <- runIO $ either (error . show) id <$> P.runIO (readMarkdown ro $ T.pack input)
+     let actual_md = either (fail . show) T.unpack $ runPure $ writeMarkdown wo $ runCrossRef meta (Just $ Format "markdown") defaultCrossRefAction p
+     it "Markdown" $ do
