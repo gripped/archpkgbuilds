@@ -4,25 +4,26 @@
 
 _hkgname=pandoc
 pkgname=haskell-pandoc
-pkgver=3.6.1
-pkgrel=13
+pkgver=3.10.2
+pkgrel=1
 pkgdesc='Conversion between markup formats'
 url='https://pandoc.org'
 license=('GPL-2.0-or-later')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-glob' 'haskell-juicypixels' 'haskell-aeson' 'haskell-aeson-pretty'
-         'haskell-attoparsec' 'haskell-base64-bytestring' 'haskell-blaze-html'
-         'haskell-blaze-markup' 'haskell-case-insensitive' 'haskell-citeproc' 'haskell-commonmark'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-asciidoc' 'haskell-attoparsec'
+         'haskell-base64-bytestring' 'haskell-blaze-html' 'haskell-blaze-markup'
+         'haskell-case-insensitive' 'haskell-citeproc' 'haskell-commonmark'
          'haskell-commonmark-extensions' 'haskell-commonmark-pandoc' 'haskell-crypton'
          'haskell-crypton-connection' 'haskell-crypton-x509-system' 'haskell-data-default'
          'haskell-djot' 'haskell-doclayout' 'haskell-doctemplates' 'haskell-emojis'
-         'haskell-file-embed' 'haskell-gridtables' 'haskell-haddock-library' 'haskell-http-client'
-         'haskell-http-client-tls' 'haskell-http-types' 'haskell-ipynb' 'haskell-jira-wiki-markup'
-         'haskell-libyaml' 'haskell-mime-types' 'haskell-network' 'haskell-network-uri'
-         'haskell-pandoc-types' 'haskell-pretty-show' 'haskell-random' 'haskell-safe'
-         'haskell-scientific' 'haskell-skylighting' 'haskell-skylighting-core' 'haskell-split'
-         'haskell-syb' 'haskell-tagsoup' 'haskell-temporary' 'haskell-texmath'
-         'haskell-text-conversions' 'haskell-tls' 'haskell-typst' 'haskell-unicode-collation'
+         'haskell-file-embed' 'haskell-glob' 'haskell-gridtables' 'haskell-haddock-library'
+         'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-types' 'haskell-ipynb'
+         'haskell-jira-wiki-markup' 'haskell-juicypixels' 'haskell-libyaml' 'haskell-mime-types'
+         'haskell-network' 'haskell-network-uri' 'haskell-pandoc-types' 'haskell-pretty-show'
+         'haskell-random' 'haskell-safe' 'haskell-scientific' 'haskell-skylighting'
+         'haskell-skylighting-core' 'haskell-split' 'haskell-syb' 'haskell-tagsoup'
+         'haskell-temporary' 'haskell-texmath' 'haskell-text-conversions' 'haskell-tls'
+         'haskell-typst' 'haskell-unicode-collation' 'haskell-unicode-data'
          'haskell-unicode-transforms' 'haskell-vector' 'haskell-xml' 'haskell-xml-conduit'
          'haskell-xml-types' 'haskell-yaml' 'haskell-zip-archive' 'haskell-zlib')
 optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross-references to them with pandoc-crossref filter'
@@ -34,10 +35,10 @@ optdepends=('pandoc-crossref: for numbering figures, equations, tables and cross
             'texlive-fontsrecommended: for pdf output using latex or xelatex engines'
             'texlive-latex: for pdf output using pdflatex engine'
             'texlive-xetex: for pdf output using xelatex engine')
-makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-tasty' 'haskell-tasty-golden'
-             'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'haskell-diff' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit'
+             'haskell-tasty-quickcheck' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('5db6ee03b7e023fb235aadce92be429052e3094ff89b156f0098a5d09e0baab9dfd147d2e0ec31e92f07889029af3743875de8f48b22d70ccda26c1556b8e91f')
+sha512sums=('168387b4d1b8ef32024a899389036bf961324872bd2b653ede3c9f8b8f73d09bf238d71dd9f3e061aacd929f2369c22203f17d745b2d1a52f26d82c1561ef2da')
 
 prepare() {
     cd $_hkgname-$pkgver
