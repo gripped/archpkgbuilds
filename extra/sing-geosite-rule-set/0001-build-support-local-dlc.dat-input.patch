@@ -1,0 +1,78 @@
+From 06e4756dcf10f3028637a92e63a745ba3ca6608a Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Tue, 11 Aug 2026 10:28:13 +0800
+Subject: [PATCH] build: support local dlc.dat input
+
+---
+ main.go | 34 ++++++++++++++++++++++++++++------
+ 1 file changed, 28 insertions(+), 6 deletions(-)
+
+diff --git a/main.go b/main.go
+index 65eae47..5d14a30 100644
+--- a/main.go
++++ b/main.go
+@@ -5,6 +5,7 @@ import (
+ 	"context"
+ 	"crypto/sha256"
+ 	"encoding/hex"
++	"flag"
+ 	"io"
+ 	"net/http"
+ 	"os"
+@@ -295,11 +296,7 @@ func mergeTags(data map[string][]geosite.Item) {
+ 	println("merged cn categories: " + strings.Join(cnCodeList, ","))
+ }
+ 
+-func generate(release *github.RepositoryRelease, output string, cnOutput string, ruleSetOutput string, ruleSetUnstableOutput string) error {
+-	vData, err := download(release)
+-	if err != nil {
+-		return err
+-	}
++func generate(vData []byte, output string, cnOutput string, ruleSetOutput string, ruleSetUnstableOutput string) error {
+ 	domainMap, err := parse(vData)
+ 	if err != nil {
+ 		return err
+@@ -412,7 +409,11 @@ func release(source string, destination string, output string, cnOutput string,
+ 			return nil
+ 		}
+ 	}
+-	err = generate(sourceRelease, output, cnOutput, ruleSetOutput, ruleSetOutputUnstable)
++	vData, err := download(sourceRelease)
++	if err != nil {
++		return err
++	}
++	err = generate(vData, output, cnOutput, ruleSetOutput, ruleSetOutputUnstable)
+ 	if err != nil {
+ 		return err
+ 	}
+@@ -421,6 +422,27 @@ func release(source string, destination string, output string, cnOutput string,
+ }
+ 
+ func main() {
++	dlcPath := flag.String("dlc", "", "use a local dlc.dat file and skip release")
++	flag.Parse()
++
++	if *dlcPath != "" {
++		vData, err := os.ReadFile(*dlcPath)
++		if err != nil {
++			log.Fatal(err)
++		}
++		err = generate(
++			vData,
++			"geosite.db",
++			"geosite-cn.db",
++			"rule-set",
++			"rule-set-unstable",
++		)
++		if err != nil {
++			log.Fatal(err)
++		}
++		setActionOutput("skip", "true")
++		return
++	}
+ 	err := release(
+ 		"v2fly/domain-list-community",
+ 		"sagernet/sing-geosite",
+-- 
+2.55.0
+
