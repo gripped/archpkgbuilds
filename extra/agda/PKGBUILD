@@ -3,28 +3,31 @@
 
 _hkgname=Agda
 pkgname=agda
-pkgver=2.6.4.3
-pkgrel=175
+# Remember to also update agda-stdlib, which has a versioned dependency on agda.
+pkgver=2.8.0
+pkgrel=1
 pkgdesc="A dependently typed functional programming language and proof assistant"
 url="https://wiki.portal.chalmers.se/agda/"
 license=("custom")
 arch=('x86_64')
-depends=('ghc-libs' 'ghc' 'haskell-stmonadtrans' 'haskell-aeson' 'haskell-ansi-terminal'
-         'haskell-async' 'haskell-blaze-html' 'haskell-boxes' 'haskell-case-insensitive'
-         'haskell-cpphs' 'haskell-data-hash' 'haskell-dlist' 'haskell-edit-distance'
-         'haskell-equivalence' 'haskell-gitrev' 'haskell-hashable' 'haskell-monad-control'
-         'haskell-murmur-hash' 'haskell-parallel' 'haskell-peano' 'haskell-regex-tdfa'
-         'haskell-split' 'haskell-strict' 'haskell-time-compat' 'haskell-unordered-containers'
-         'haskell-uri-encode' 'haskell-vector' 'haskell-vector-hashtables' 'haskell-zlib'
-         'haskell-text-icu')
+depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'haskell-blaze-html'
+         'haskell-boxes' 'haskell-case-insensitive' 'haskell-data-hash' 'haskell-dlist'
+         'haskell-edit-distance' 'haskell-enummapset' 'haskell-equivalence' 'haskell-filelock'
+         'haskell-filemanip' 'haskell-generic-data' 'haskell-gitrev' 'haskell-hashable'
+         'haskell-monad-control' 'haskell-murmur-hash' 'haskell-nonempty-containers'
+         'haskell-parallel' 'haskell-peano' 'haskell-pqueue' 'haskell-process-extras'
+         'haskell-regex-tdfa' 'haskell-split' 'haskell-stmonadtrans' 'haskell-strict'
+         'haskell-unordered-containers' 'haskell-uri-encode' 'haskell-vector'
+         'haskell-vector-hashtables' 'haskell-zlib' 'ghc' 'haskell-text-icu')
 optdepends=('agda-stdlib: for standard library')
-makedepends=('alex' 'happy' 'ghc' 'uusi')
+makedepends=('ghc' 'alex' 'happy' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('d6246d1550b535a3f299cbbf8e38b5b44ee469cce089bbec1d6a62a2518bca2d2900a456d6df10a179d7064982ccdc5f38a1ffc53e327c0c4c060c09f8280488')
+sha512sums=('53ae24c9759c271251c3c487a27b8600ba55d39391a186684731a1495a744c18ccd4d3deb5e5231f72abb1be95fa8dac2dac8f257612bc32c6f51d2071ae8273')
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u parallel
+    gen-setup
+    uusi -u parallel -u pqueue
     sed -i '/fno-warn-overlapping-patterns/a \        , "-dynamic"' src/full/Agda/Compiler/MAlonzo/Compiler.hs
 }
 
