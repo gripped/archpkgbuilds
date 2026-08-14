@@ -2,18 +2,18 @@
 
 _hkgname=hslua-module-zip
 pkgname=haskell-hslua-module-zip
-pkgver=1.1.4
-pkgrel=5
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="Lua module to work with file zips."
 url="https://hslua.org/"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-list' 'haskell-hslua-marshalling'
-         'haskell-hslua-packaging' 'haskell-hslua-typing' 'haskell-zip-archive')
-makedepends=('ghc' 'uusi' 'haskell-hslua-module-system' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-lua')
+         'haskell-hslua-packaging' 'haskell-zip-archive')
+makedepends=('ghc' 'haskell-hslua-module-system' 'haskell-tasty' 'haskell-tasty-hunit'
+             'haskell-tasty-lua' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('5e53f4f43271d9e9f34417c20f3730ba4e32d21b6befc2cf3cfc928a7ccd42c6')
+sha256sums=('d84a8e78a7a5ea8434a3b84dea14107e3f063c0affd1fd8ed8e8e9057531665b')
 
 prepare() {
   cd $_hkgname-$pkgver
