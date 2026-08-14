@@ -3,7 +3,7 @@
 
 _name=llvmlite
 pkgname=python-$_name
-pkgver=0.48.0
+pkgver=0.49.0
 pkgrel=1
 pkgdesc="A lightweight LLVM Python binding for writing JIT compilers"
 arch=(x86_64)
@@ -29,7 +29,7 @@ checkdepends=(
     python-pytest
 )
 source=(git+https://github.com/numba/llvmlite.git#tag=v$pkgver)
-b2sums=('9ef3a3ae9781d97109eefcf87a58739383adaefc157b8fa44672da583e4c747ea5d86312ec7cb119562dbc344bd6a145a0b18b26dd29a83b2e3b7bead44e3ea8')
+b2sums=('9a46ebc71dc74aa206f79b23dbacb3de3ba564776fc92e88b4cf43c4e18f9a29bcad80bd5bb4b024e5410da4596f3c44b069ba9a85be2ef9d8ab5028cf409db7')
 
 build() {
     cd $_name
