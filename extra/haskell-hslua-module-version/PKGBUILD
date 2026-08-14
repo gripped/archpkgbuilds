@@ -2,16 +2,16 @@
 
 _hkgname=hslua-module-version
 pkgname=haskell-hslua-module-version
-pkgver=1.1.1
-pkgrel=207
+pkgver=1.2.0.1
+pkgrel=1
 pkgdesc="Lua module to work with version specifiers."
 url="https://github.com/hslua/hslua-module-version"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-hslua' 'haskell-hslua-marshalling' 'haskell-hslua-packaging')
-makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
+depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hslua-packaging')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('49e45444d5568e988b8c13558a5661fe86ff8fdaad404f068427ae13e6230a40')
+sha256sums=('8582c96591ac7cd991c7deaa6d4b83587b71b9dbcb22a518e87c6f1966fb53a9')
 
 prepare() {
   cd $_hkgname-$pkgver
