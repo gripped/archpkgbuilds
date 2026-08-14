@@ -1,0 +1,147 @@
+# Maintainer: DeepChirp <deepchirp@archlinux.org>
+# Contributor: George Hu <integral@archlinux.org>
+# Contributor: everyx <lunt.luo#gmail.com>
+
+pkgname=sing-box
+pkgver=1.13.18
+# Check the hash for `cronet-go` in `go.sum`, and visit the `go` branch of `SagerNet/cronet-go` to obtain the commit hash
+_cronet_commit_hash=7e27f60f7f04a1c762b6bb69b4a44d7b24cd7a5d
+pkgrel=3
+pkgdesc='The universal proxy platform'
+arch=('x86_64')
+url='https://sing-box.sagernet.org/'
+license=("GPL-3.0-or-later" "LicenseRef-${pkgname}-exception")
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/SagerNet/sing-box/archive/v${pkgver}.tar.gz"
+        "git+https://github.com/SagerNet/cronet-go.git#commit=${_cronet_commit_hash}"
+        "git+https://github.com/SagerNet/naiveproxy.git#branch=cronet-go"
+        "0001-build-use-the-system-toolchain.patch"
+        "0002-build-drop-unknown-clang-flag.patch"
+        "https://github.com/chromium/chromium/raw/refs/tags/150.0.7871.63/tools/generate_shim_headers/generate_shim_headers.py")
+sha256sums=('e41ed9d7adecd7597c1d5cc91818366a9538d94b41c244225ac40ac948c643f5'
+            '46501331925bc53f58ff5497fe0aa42f7e65ddcbd313b52cfd63755240f48c02'
+            'SKIP'
+            '58c83e0ab0587a8bb020d98ee5cd787e32f692041824b2ae6b78812ec912c5a0'
+            'b941918a0af49840bd929d16be947cc473b0c8b27a4ceab16da34e9b288a57dd'
+            'b64f3bc06e74955d1027e3720a2ef14b6203722a5e7fe4c777a6b1051b9744dd')
+depends=('glibc' 'libgcc')
+makedepends=('clang' 'git' 'gn' 'go>=1.25' 'lld' 'llvm' 'ninja' 'python')
+optdepends=('sing-geosite-rule-set: GeoSite rule sets'
+            'sing-geoip-rule-set: GeoIP rule sets')
+backup=("etc/${pkgname}/config.json")
+
+declare -gA _system_libs=(
+    [brotli]=brotli
+    [zlib]=zlib
+    [zstd]=zstd
+)
+_unwanted_bundled_libs=( "${!_system_libs[@]}" )
+depends+=("${_system_libs[@]}")
+
+prepare() {
+    export GOPATH="${srcdir}"
+
+    cd "${srcdir}/cronet-go"
+    git submodule init
+    git config submodule.naiveproxy.url "${srcdir}/naiveproxy"
+    git -c protocol.file.allow=always submodule update
+    patch -Np1 -i "${srcdir}/0001-build-use-the-system-toolchain.patch"
+    patch -Np1 -i "${srcdir}/0002-build-drop-unknown-clang-flag.patch" -d naiveproxy
+
+    # `optimize_for_size=true` is actually the `-Os` flag for gcc, which does not conform to the official requirement of `-O2`
+    sed -i \
+        -e '/optimize_for_size/s/true/false/' \
+        -e '/use_thin_lto/s/false/true/' \
+        cmd/build-naive/cmd_build.go
+
+    go mod download -modcacherw
+
+    pushd "naiveproxy/src"
+    # Avoid warnings about target triplet mismatches during linking
+    local _clang_target="$(clang -dumpmachine)"
+    sed -i "s/--target=${CARCH}-unknown-linux-gnu/--target=${_clang_target}/g" build/config/compiler_cpu_abi.gn
+    # Remove bundled libraries
+    install -Dm644 "${srcdir}/generate_shim_headers.py" "tools/generate_shim_headers/generate_shim_headers.py"
+    sed -i 's/defined(OFFICIAL_BUILD)/defined(NEVER_DEFINED_OFFICIAL_BUILD)/g' tools/generate_shim_headers/generate_shim_headers.py
+    local _lib
+    for _lib in "${_unwanted_bundled_libs[@]}"; do
+        find "third_party/$_lib" -type f \
+            \! -path "third_party/$_lib/chromium/*" \
+            \! -path "third_party/$_lib/google/*" \
+            \! -path "third_party/harfbuzz-ng/utils/hb_scoped.h" \
+            \! -regex '.*\.\(gn\|gni\|isolate\)' \
+            -delete
+    done
+    ./build/linux/unbundle/replace_gn_files.py \
+        --system-libraries "${!_system_libs[@]}"
+    popd
+
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    go mod download -modcacherw
+}
+
+build() {
+    export CGO_CPPFLAGS="${CPPFLAGS}"
+    export CGO_CFLAGS="${CFLAGS}"
+    export CGO_CXXFLAGS="${CXXFLAGS}"
+    export CGO_LDFLAGS="${LDFLAGS} -fuse-ld=lld"
+    export CGO_ENABLED=1
+    export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+    export GOPATH="${srcdir}"
+    export CC=clang
+    export CXX=clang++
+
+    declare -A _goarch_map=(
+        [x86_64]=amd64
+        [aarch64]=arm64
+        [loong64]=loong64
+        [riscv64]=riscv64
+    )
+    local _cronet_goarch="${_goarch_map[$CARCH]:-$CARCH}"
+    local _cronet_target="linux/${_cronet_goarch}"
+    local _cronet_lib="linux_${_cronet_goarch}"
+
+    cd "${srcdir}/cronet-go"
+
+    go run ./cmd/build-naive --target="${_cronet_target}" build
+    go run ./cmd/build-naive --target="${_cronet_target}" package
+
+    cd "${srcdir}/${pkgname}-${pkgver}"
+
+    go mod edit -replace "github.com/sagernet/cronet-go=${srcdir}/cronet-go"
+    go mod edit -replace "github.com/sagernet/cronet-go/lib/${_cronet_lib}=${srcdir}/cronet-go/lib/${_cronet_lib}"
+
+    local _TAGS=$(< release/DEFAULT_BUILD_TAGS)
+    local _LDFLAGS_SHARED=$(< release/LDFLAGS)
+
+    go build -v \
+        -tags "${_TAGS}" \
+        -ldflags "-linkmode external -extldflags \"${CGO_LDFLAGS}\" -X github.com/sagernet/sing-box/constant.Version=${pkgver} ${_LDFLAGS_SHARED}" \
+        ./cmd/sing-box
+
+    install -d completions
+    for _shell in bash fish zsh; do
+        ./"${pkgname}" completion "${_shell}" > completions/"${_shell}"
+    done
+}
+
+check() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+    go test ./...
+}
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}"
+
+    install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+    install -Dm755 "${pkgname}" -t "${pkgdir}/usr/bin"
+    install -Dm644 "release/config/config.json" -t "${pkgdir}/etc/${pkgname}"
+    install -Dm644 "release/config/sing-box.rules" -t "${pkgdir}/usr/share/polkit-1/rules.d"
+    install -Dm644 "release/config/sing-box.service" -t "${pkgdir}/usr/lib/systemd/system"
+    install -Dm644 "release/config/sing-box.sysusers" "${pkgdir}/usr/lib/sysusers.d/sing-box.conf"
+    install -Dm644 "release/config/sing-box@.service" -t "${pkgdir}/usr/lib/systemd/system"
+    install -Dm644 "release/config/sing-box-split-dns.xml" "${pkgdir}/usr/share/dbus-1/system.d/sing-box-split-dns.conf"
+
+    install -Dm644 completions/bash "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
+    install -Dm644 completions/fish "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
+    install -Dm644 completions/zsh "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+}

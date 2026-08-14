@@ -1,0 +1,55 @@
+From 341692a70f348ea1e2e45c88857debc00405a8f0 Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Thu, 13 Aug 2026 12:47:31 +0800
+Subject: [PATCH] build: use the system toolchain
+
+See: https://github.com/NixOS/nixpkgs/blob/4a182c458bf7e47b0b2cc0d769b33c05e166fa7b/pkgs/by-name/cr/cronet-go/build-naive.patch
+---
+ cmd/build-naive/cmd_build.go | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
+
+diff --git a/cmd/build-naive/cmd_build.go b/cmd/build-naive/cmd_build.go
+index 4f34d22..8de0ab5 100644
+--- a/cmd/build-naive/cmd_build.go
++++ b/cmd/build-naive/cmd_build.go
+@@ -228,14 +228,14 @@ func runGetClang(t Target) {
+ }
+ 
+ func buildTarget(t Target) {
+-	runGetClang(t)
+-
+ 	outputDirectory := getOutputDirectory(t)
+ 
+ 	args := []string{
+ 		"is_official_build=true",
+ 		"is_debug=false",
+ 		"is_clang=true",
++		"clang_base_path=\"/usr\"",
++		"clang_use_chrome_plugins=false",
+ 		"use_clang_modules=false",
+ 		"use_thin_lto=false", // Disable ThinLTO so static lib can be linked with system clang
+ 		"fatal_linker_warnings=false",
+@@ -267,10 +267,7 @@ func buildTarget(t Target) {
+ 	case "mac":
+ 		args = append(args, "use_sysroot=false")
+ 	case "linux":
+-		// Sysroot is handled by get-clang.sh, use the naiveproxy path
+-		sysrootPath := getSysrootPath(t)
+-		sysrootDirectory := strings.TrimPrefix(sysrootPath, srcRoot+string(filepath.Separator))
+-		args = append(args, "use_sysroot=true", fmt.Sprintf("target_sysroot=\"//%s\"", sysrootDirectory))
++		args = append(args, "use_sysroot=false")
+ 		if t.CPU == "x64" {
+ 			args = append(args, "use_cfi_icall=false", "is_cfi=false")
+ 		}
+@@ -331,7 +328,7 @@ func buildTarget(t Target) {
+ 
+ 	gnArgs := strings.Join(args, " ")
+ 
+-	gnPath := filepath.Join(srcRoot, "gn", "out", "gn")
++	gnPath := "gn"
+ 	if runtime.GOOS == "windows" {
+ 		gnPath += ".exe"
+ 	}
+-- 
+2.55.0
+

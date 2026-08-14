@@ -1,0 +1,74 @@
+From b398557291299fc9e9d9657f001b9b9f1a2aa1ee Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Thu, 13 Aug 2026 12:29:24 +0800
+Subject: [PATCH] build: drop unknown clang flag
+
+---
+ src/build/config/compiler/BUILD.gn         | 11 -----------
+ src/build/config/sanitizers/sanitizers.gni |  7 -------
+ 2 files changed, 18 deletions(-)
+
+diff --git a/src/build/config/compiler/BUILD.gn b/src/build/config/compiler/BUILD.gn
+index 9ee6e7b36..b360608c1 100644
+--- a/src/build/config/compiler/BUILD.gn
++++ b/src/build/config/compiler/BUILD.gn
+@@ -580,7 +580,6 @@ config("compiler") {
+     # Flags for diagnostics.
+     cflags += [ "-fcolor-diagnostics" ]
+     if (!is_win) {
+-      cflags += [ "-fdiagnostics-show-inlining-chain" ]
+     } else {
+       # Combine after https://github.com/llvm/llvm-project/pull/192241
+       cflags += [ "/clang:-fdiagnostics-show-inlining-chain" ]
+@@ -619,7 +618,6 @@ config("compiler") {
+     # https://crbug.com/484082200 for background and https://crrev.com/c/7593035
+     # for discussion.
+     if (!is_wasm && !is_apple) {
+-      cflags += [ "-fno-lifetime-dse" ]
+     }
+ 
+     # TODO(hans): Remove this once Clang generates better optimized debug info
+@@ -1596,12 +1594,6 @@ config("clang_warning_suppression") {
+ ubsan_hardening("c_array_bounds") {
+   sanitizer = "array-bounds"
+   condition = !(is_asan && target_cpu == "x86")
+-
+-  # Because we've enabled array-bounds sanitizing we also want to suppress
+-  # the related warning about "unsafe-buffer-usage-in-static-sized-array",
+-  # since we know that the array bounds sanitizing will catch any out-of-
+-  # bounds accesses.
+-  cflags = [ "-Wno-unsafe-buffer-usage-in-static-sized-array" ]
+ }
+ 
+ # Enable UBSan subset to ensure we always hit `return` statement in non-void
+@@ -1943,9 +1935,6 @@ config("default_warnings") {
+ 
+       # TODO(crbug.com/432275627): Fix and re-enable.
+       "-Wno-uninitialized-const-pointer",
+-
+-      # TODO(crbug.com/495753203): Fix and re-enable.
+-      "-Wno-unused-but-set-global",
+     ]
+ 
+     cflags_cc += [
+diff --git a/src/build/config/sanitizers/sanitizers.gni b/src/build/config/sanitizers/sanitizers.gni
+index 04d86c566..0aa43c24b 100644
+--- a/src/build/config/sanitizers/sanitizers.gni
++++ b/src/build/config/sanitizers/sanitizers.gni
+@@ -535,13 +535,6 @@ template("ubsan_hardening") {
+       cflags = [
+         "-fsanitize=${invoker.sanitizer}",
+         "-fsanitize-trap=${invoker.sanitizer}",
+-
+-        # Prevents `__has_feature(undefined_behavior_sanitizer)`
+-        # from evaluating true. Configs defined here are intended to
+-        # be usable even in release builds, i.e. as widely as possible.
+-        # It's important not to have full-on UBSan workarounds activate
+-        # just because we built support for a specific sanitizer.
+-        "-fsanitize-ignore-for-ubsan-feature=${invoker.sanitizer}",
+       ]
+       if (defined(invoker.cflags)) {
+         cflags += invoker.cflags
+-- 
+2.55.0
+
