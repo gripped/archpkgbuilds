@@ -3,17 +3,17 @@
 
 _hkgname=hslua-packaging
 pkgname=haskell-hslua-packaging
-pkgver=2.3.1
-pkgrel=196
+pkgver=2.4.1
+pkgrel=1
 pkgdesc="Utilities to build Lua modules."
 url="https://hslua.org/"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling'
          'haskell-hslua-objectorientation' 'haskell-hslua-typing')
-makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hslua' 'haskell-tasty-hunit')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hslua' 'haskell-tasty-hunit' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('36dcaed69a9f7a3fc4adb4e1c7a063774b6b75d7c02ad2c1ec04035cc1572173')
+sha256sums=('94769f403866d6c5e062ea9b4b87f5d7612c63252d28b6d42704df0f8e75e6cd')
 
 prepare() {
   cd $_hkgname-$pkgver
