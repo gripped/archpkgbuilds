@@ -3,7 +3,7 @@
 
 pkgbase=crun
 pkgname=(crun krun)
-pkgver=1.29
+pkgver=1.29.1
 pkgrel=1
 pkgdesc="A fast and lightweight fully featured OCI runtime and C library for running containers"
 url="https://github.com/containers/crun"
@@ -26,14 +26,17 @@ makedepends=(
 source=(
   "git+https://github.com/containers/crun.git#tag=$pkgver?signed"
   0001-fix-missing-json-c-symbols-in-build.patch
+  https://github.com/containers/crun/pull/2188.patch
 )
 validpgpkeys=('AC404C1C0BF735C63FF4D562263D6DF2E163E1EA')
-sha256sums=('46a6a56f3a367708b802e78446dfd25c39a5f38fc975d04e2ac5a883427181cc'
-            '8d487cb316b802961d53620eac4b2c8742e14b68cee04511d36a070227635510')
+sha256sums=('d5f2f27ea25554ad28c4163749cd3060f39ba48461b5dc6e80cf676b53ba5515'
+            '8d487cb316b802961d53620eac4b2c8742e14b68cee04511d36a070227635510'
+            'd90a2cf783c1d498d3bd345fc25794d3489625ca302c9829da9b8317e7c1fd4c')
 
 prepare() {
     cd "$pkgname"
     patch -Np1 < ../0001-fix-missing-json-c-symbols-in-build.patch
+    patch -Np1 < ../2188.patch
 }
 
 build() {
