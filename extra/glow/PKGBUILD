@@ -4,8 +4,8 @@
 # Contributor: Stephen Gregoratto <dev@sgregoratto.me>
 
 pkgname=glow
-pkgver=2.1.2
-pkgrel=1
+pkgver=3.0.0
+pkgrel=2
 pkgdesc="Command-line markdown renderer"
 url="https://github.com/charmbracelet/glow"
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('glibc')
 makedepends=('git' 'go')
 options=('!lto')
 source=("git+${url}.git#tag=v${pkgver}")
-b2sums=('48cf420f30e87e0298912af9efe2cd1b761d9881a3895afc67da45dd5d560ec5cd1f669d1c5f6dd53e534ea11cecdabd21a7b9bf7248d518889b2bfd1fde81b5')
+b2sums=('63a972f3b64da121fb54b90cb9aae937c227e6f880d20d8f670933724cc9547148b6afed86f62acce6552ac6e85b979a412b657c7db062b6bae38f8e42bf7f0c')
 
 prepare() {
 	cd "${pkgname}"
@@ -30,8 +30,16 @@ build() {
 	export CGO_CFLAGS="${CFLAGS}"
 	export CGO_CXXFLAGS="${CXXFLAGS}"
 	export CGO_LDFLAGS="${LDFLAGS}"
-	export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -mod=readonly -modcacherw"
-	go build -v -ldflags "-X main.Version=${pkgver}" -o build .
+	export GOPATH="${srcdir}"
+	export GOFLAGS="-buildmode=pie -mod=readonly -modcacherw"
+	local ldflags=(
+		-compressdwarf=false
+		-linkmode=external
+		-X main.Version="${pkgver}"
+		-X main.CommitSHA="$(git rev-parse --short=7 HEAD)"
+		-X main.CommitDate="$(git show -s --format=%cs HEAD)"
+	)
+	go build -v -ldflags "${ldflags[*]}" -o build .
 
 	build/glow completion bash > completion.bash
 	build/glow completion fish > completion.fish
