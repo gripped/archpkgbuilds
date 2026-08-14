@@ -2,7 +2,7 @@
 
 pkgname=lite-xl-plugin-manager
 pkgver=1.4.7
-pkgrel=3
+pkgrel=4
 pkgdesc='Lite XL Plugin Manager'
 arch=(x86_64 aarch64)
 url='https://github.com/lite-xl/lite-xl-plugin-manager'
@@ -12,7 +12,7 @@ depends=(glibc # libc.so
          libzip libzip.so
          lite-xl
          lua # liblua.so
-         mbedtls libmbedcrypto.so libmbedtls.so libmbedx509.so
+         mbedtls3 # libmbedcrypto.so libmbedtls.so libmbedx509.so
          xz liblzma.so
          zlib libz.so)
 makedepends=(meson)
@@ -25,6 +25,7 @@ build() {
 	local meson_opts=(
 		install_plugin=true
 		static=true
+		pkg_config_path=/usr/lib/mbedtls3/pkgconfig
 	)
 	# https://github.com/lite-xl/lite-xl-plugin-manager/issues/185
 	CFLAGS+=" -DLPM_VERSION='\"$pkgver\"' -DLPM_DEFAULT_RELEASE=''"
