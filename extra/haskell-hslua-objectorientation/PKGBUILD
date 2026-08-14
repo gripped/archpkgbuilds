@@ -3,17 +3,16 @@
 
 _hkgname=hslua-objectorientation
 pkgname=haskell-hslua-objectorientation
-pkgver=2.3.1
-pkgrel=94
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="Object orientation tools for HsLua"
 url="https://hslua.org/"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hslua-typing')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-lua-arbitrary' 'haskell-quickcheck-instances'
-             'haskell-tasty' 'haskell-tasty-hslua' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hslua' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1824b71160f2c545277b6f29f0dbde3da1a223c70406d5466c9c4c91198e7dab')
+sha256sums=('032fa1fe2f48e33162f6fa436e7c2b1695919864a900b0a75d6589bb7d6442e6')
 
 prepare() {
   cd $_hkgname-$pkgver
