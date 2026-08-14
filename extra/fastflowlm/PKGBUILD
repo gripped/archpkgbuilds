@@ -2,8 +2,8 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=fastflowlm
-pkgver=0.9.46
-pkgrel=2
+pkgver=1.0.0
+pkgrel=1
 pkgdesc='Run LLMs on AMD Ryzen AI NPUs'
 arch=('x86_64')
 url='https://www.fastflowlm.com/'
@@ -37,7 +37,7 @@ source=(
   "${pkgname}::git+https://github.com/FastFlowLM/FastFlowLM.git#tag=v${pkgver}"
   "${pkgname}-tokenizers-cpp::git+https://github.com/mlc-ai/tokenizers-cpp"
 )
-sha256sums=('4b38514ae014660d7b9a93d188fbba865e7370be7e21ba45635e470bd84e77e8'
+sha256sums=('ac2959ef1c4fc0bd65d7f3ec7afb6384f32cd2b3e8ad2f7fa60c2565f99d021d'
             'SKIP')
 
 prepare() {
