@@ -2,8 +2,8 @@
 
 _hkgname=pqueue
 pkgname=haskell-pqueue
-pkgver=1.6.0.0
-pkgrel=25
+pkgver=1.7.0.0
+pkgrel=1
 pkgdesc="Reliable, persistent, fast priority queues."
 url="https://github.com/lspitzner/pqueue"
 license=('BSD-3-Clause')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-indexed-traversable')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('865b5cf14bf26b7ca43028a8997aedbd9e56cedf49e03c7f7d8f0a032af8e9ad')
+sha256sums=('235f4f47334d9340a17553851a0e2e8ed59a8ea13b5b7ca85f8484ca35f2cd95')
 
 build() {
   cd $_hkgname-$pkgver
