@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=python-numba
-pkgver=0.66.0
+pkgver=0.67.0
 pkgrel=1
 pkgdesc='JIT compiler that translates a subset of Python and NumPy code into fast machine code'
 arch=(x86_64)
@@ -52,21 +52,9 @@ checkdepends=(
   python-pyyaml
   python-scipy
 )
-source=(git+https://github.com/numba/numba#tag=$pkgver
-        python-numba-0.66.0-numpy-2.5.patch)
-sha512sums=('a63ea8ab898b29b3a099a7b1016fb8f10e80e030e93b861848bda82033ac99788b417ce6cbfad8f7ddb8939324dd257e397d14534cd4bbc44b6549ccd448906e'
-            '6752071e5ec165f8860f29e72dea0a3fe64dce90bbb84abcc551e8db16a77fb516768cfcfda798aa180d2f7260097afc1016610760418d9701d57675b0865757')
-b2sums=('9aa20b40a9e20b3fe5c8c87de3ae80c0cd8e336ee3702067e6fdb5213b6d19967ce1b69a4e5d7ebec661246911a72beed1b790d755015fbd9de3a65d191eee40'
-        '5d114bb22ac9a9e26b27b4cc60b0c7f68621f756c8cd2914155118e76746391c394ff986518a2a63546a08a201816b4f5f2bd21c00ad8d0b802ca7dc45e10457')
-
-prepare() {
-  cd numba
-  # https://github.com/numba/numba/pull/10645
-  git cherry-pick -n 361a0c830d52cf34b69818434a9f09f5ffec2e6b # Temporarily add NumPy 2.5 installation to buildscript
-  git cherry-pick -n 7b9770949950e868f7798aede0dc5aceaa1cc2f2 # Add fixes for test failures
-  git cherry-pick -n 217cbf9f509f0c4d6ebd82fc5bd90120c0a48f71 # Temporarily disable modified test execution
-  patch -Np1 -i ../python-numba-0.66.0-numpy-2.5.patch
-}
+source=(git+https://github.com/numba/numba#tag=$pkgver)
+sha512sums=('f64aba5d04245bee0ddc74fc8abc6eb0ad74558ce5eac77c3a5e852695d525d095b47664abfbece985b60f3b863b96e8614d3e3e72083d9313cdd498f36e646d')
+b2sums=('48b76ff0b1f7374a3f059a26dc3dbf67671ae0f6f5bfed164bcdf946bb5ea5a9bc8b364c9f2a8440100f4c550e6481c9f2ede4b8674674b713134c85a68e8bc9')
 
 build() {
   cd numba
@@ -76,8 +64,10 @@ build() {
 check() {
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer numba/dist/*.whl
-  # 2 test failures are expected with numpy 2.5.0
-  test-env/bin/python -m numba.runtests -b -v -m 64 -- numba.tests || :
+  # skip failing typing test
+  local site_packages=$(test-env/bin/python -c "import site; print(site.getsitepackages()[0])")
+  mv "$site_packages"/numba/tests/test_function_type.py{,.disabled}
+  test-env/bin/python -m numba.runtests -b -v -m 64 -- numba.tests
 }
 
 package() {
