@@ -3,17 +3,17 @@
 
 _hkgname=hslua-typing
 pkgname=haskell-hslua-typing
-pkgver=0.1.1
-pkgrel=188
+pkgver=0.2.0
+pkgrel=1
 pkgdesc="Type specifiers for Lua."
 url="https://hslua.org/"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-lua-arbitrary' 'haskell-quickcheck-instances'
-             'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'haskell-lua-arbitrary' 'haskell-quickcheck' 'haskell-quickcheck-instances'
+             'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('449ac7b351b71a64fcc68f2dbbe16a222ccd8d14d2b53c9459ad44ed4f7a094c')
+sha256sums=('04cefaa91144e5d709b5647d728b125b52f1a8ff39aee44183cc28769bdb5b73')
 
 prepare() {
   cd $_hkgname-$pkgver
