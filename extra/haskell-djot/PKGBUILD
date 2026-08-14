@@ -2,16 +2,16 @@
 
 _hkgname=djot
 pkgname=haskell-djot
-pkgver=0.1.3
+pkgver=0.1.4.1
 pkgrel=2
 pkgdesc="Parser and renderer for djot light markup syntax"
 url="https://github.com/jgm/djoths"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-doclayout')
-makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('36df9431ee3e6b2c29742f8ccee59cc7fa6469cb278eb89272c2d1b4fecbc680')
+sha256sums=('6150f741346dc9c8dd0ca09d6996d84fbd23059ee82f99e492cc5e82ea7d6050')
 
 prepare() {
   cd $_hkgname-$pkgver
