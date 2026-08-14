@@ -3,16 +3,16 @@
 
 _hkgname=hslua-module-path
 pkgname=haskell-hslua-module-path
-pkgver=1.1.1
-pkgrel=165
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Lua module to work with file paths."
 url="https://github.com/hslua/hslua-module-path"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-hslua' 'haskell-hslua-marshalling' 'haskell-hslua-packaging')
-makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua')
+depends=('ghc-libs' 'haskell-hslua-core' 'haskell-hslua-marshalling' 'haskell-hslua-packaging')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-lua' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('802a2f67023f23a7ccac15531cc4cb301affcaf0eb1381492da2ce252845b80c')
+sha256sums=('f22418469cd89f5eb77e4940532aac36d4e6d4436c7d4f88619ba223c0dbb80f')
 
 prepare() {
   cd $_hkgname-$pkgver
