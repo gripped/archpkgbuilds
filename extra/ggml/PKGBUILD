@@ -3,9 +3,15 @@
 pkgbase=ggml
 pkgname=(
   ggml
+  ggml-blas
+  ggml-cpu
+  ggml-cuda
+  ggml-hip
+  ggml-openvino
   ggml-sycl
+  ggml-vulkan
 )
-pkgver=0.19.0
+pkgver=0.20.0
 pkgrel=1
 pkgdesc='Tensor library for machine learning'
 arch=(x86_64)
@@ -14,16 +20,10 @@ license=(MIT)
 depends=(
   glibc
   libgcc
-  libgomp
   libstdc++
 )
-conflicts=(ggml)
-provides=(
-  ggml
-  ggml-blas
-  ggml-cpu
-)
 makedepends=(
+  chrpath
   cmake
   cuda
   git
@@ -32,7 +32,8 @@ makedepends=(
   nccl
   ninja
   openblas
-  #opencl-headers
+  opencl-clhpp
+  openvino
   procps-ng
   rocm-hip-sdk
   rocm-toolchain
@@ -42,7 +43,7 @@ makedepends=(
   vulkan-icd-loader
 )
 source=(git+https://github.com/ggml-org/ggml.git#tag=v${pkgver})
-b2sums=('a66f143379df01e3fbf2bb1e0e890bda3c8bd16de26c9047e388eb6e0780f91d32bdf70267f158b849eaa0bd01e8eaccb9c4c1c2b87ebc761f12f8cdde64e114')
+b2sums=('6dcefbf21d5459b9fdb7d47bc0182aee4354caf8b2621b228dd7d6f691f5f68b2f895f7123a39f60922aee64ff930d43ad33959c72d594597cd3ee6aeb09e6cb')
 
 build() {
   cmake -S ggml -B build-all -G Ninja \
@@ -56,10 +57,10 @@ build() {
       -DGGML_CPU_ALL_VARIANTS=ON \
       -DGGML_CUDA=ON \
       -DGGML_HIP=ON \
+      -DGGML_OPENVINO=ON \
       -DGGML_VULKAN=ON
-      #-DGGML_OPENCL=ON \
-      #-DGGML_OPENCL_USE_ADRENO_KERNELS=OFF \
   cmake --build build-all
+  chrpath -d build-all/bin/libggml-*.so
 
   . /opt/intel/oneapi/setvars.sh
 
@@ -77,28 +78,73 @@ build() {
       -DGGML_SYCL=ON \
       -DGGML_SYCL_F16=ON
   cmake --build build-sycl
+  chrpath -d build-sycl/bin/libggml-*.so
 }
 
 package_ggml() {
+  depends+=(libgomp)
   optdepends=(
-    'cuda: CUDA backend'
-    #'ocl-icd: OpenCL backend'
-    'nccl: CUDA backend'
-    'openblas: BLAS backend'
-    'hipblas: ROCm backend'
-    'rocblas: ROCm backend'
-    'rocm-hip-runtime: ROCm backend'
-    'vulkan-icd-loader: Vulkan backend'
-  )
-  provides+=(
-    ggml-cuda
-    #ggml-opencl
-    ggml-rocm
-    ggml-vulkan
+    'ggml-blas: BLAS backend'
+    'ggml-cpu: CPU backend'
+    'ggml-cuda: CUDA backend'
+    'ggml-openvino: Openvino backend'
+    'ggml-hip: HIP backend'
+    'ggml-vulkan: Vulkan backend'
   )
 
   DESTDIR="${pkgdir}" cmake --install build-all
-  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+  rm -rf "${pkgdir}"/usr/lib/ggml
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_ggml-blas() {
+  depends+=(
+    ggml
+    openblas
+  )
+
+  install -Dm 755 build-all/bin/libggml-blas.so -t "${pkgdir}"/usr/lib/ggml/
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_ggml-cpu() {
+  install -Dm 755 build-all/bin/libggml-cpu-*.so -t "${pkgdir}"/usr/lib/ggml/
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_ggml-cuda() {
+  depends+=(
+    cuda
+    ggml
+    nccl
+  )
+
+  install -Dm 755 build-all/bin/libggml-cuda.so -t "${pkgdir}"/usr/lib/ggml/
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_ggml-hip() {
+  depends+=(
+    ggml
+    hipblas
+    rocblas
+    rocm-hip-runtime
+  )
+
+  install -Dm 755 build-all/bin/libggml-hip.so -t "${pkgdir}"/usr/lib/ggml/
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_ggml-openvino() {
+  depends+=(
+    ggml
+    intel-oneapi-toolkit
+    onetbb
+    openvino
+  )
+
+  install -Dm 755 build-all/bin/libggml-openvino.so -t "${pkgdir}"/usr/lib/ggml/
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 package_ggml-sycl() {
@@ -106,7 +152,27 @@ package_ggml-sycl() {
     intel-oneapi-toolkit
     level-zero-loader
   )
+  conflicts=(
+    ggml
+    ggml-blas
+    ggml-cpu
+  )
+  provides=(
+    ggml
+    ggml-blas
+    ggml-cpu
+  )
 
   DESTDIR="${pkgdir}" cmake --install build-sycl
-  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_ggml-vulkan() {
+  depends+=(
+    ggml
+    vulkan-icd-loader
+  )
+
+  install -Dm 755 build-all/bin/libggml-vulkan.so -t "${pkgdir}"/usr/lib/ggml/
+  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
