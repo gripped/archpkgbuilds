@@ -2,25 +2,24 @@
 
 pkgname=wingpanel-indicator-sound
 pkgver=8.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Wingpanel Sound Indicator'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel-indicator-sound
 license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
-  cairo
   dconf
   gdk-pixbuf2
   glib2
   glibc
-  gtk3
+  granite7
+  gtk4
   libcanberra
   libgee
-  libgranite.so
   libnotify
   libpulse
-  libwingpanel.so
+  wingpanel
 )
 makedepends=(
   git
@@ -29,14 +28,8 @@ makedepends=(
   meson
   vala
 )
-_tag=8114866d425043e7e77ffc942edfb76493550c15
-source=(wingpanel-indicator-sound::git+https://github.com/elementary/wingpanel-indicator-sound.git#tag=${_tag})
-b2sums=('215edcea9b0edbb0b0879b2baa78c12828e985c3dfe7fa372af4cbf33dade1c3b0595787fa10b0003ed0b410f16f3a708c6a4c1e541745f5228130c88734cafb')
-
-pkgver() {
-  cd wingpanel-indicator-sound
-  git describe --tags
-}
+source=(wingpanel-indicator-sound::git+https://github.com/elementary/wingpanel-indicator-sound.git#commit=47db6982c74117c6c1a551f2e15ccfd4cda91900)
+b2sums=('26ff60837c4c41558f1c51eba61dd099c36f15781c7580092eadc843094ee6ac3b028683152a4ce76df17004ca8113b2c095bdb1bf759fcdb78770e9c8fe8849')
 
 build() {
   arch-meson wingpanel-indicator-sound build
@@ -46,5 +39,3 @@ build() {
 package() {
   DESTDIR="${pkgdir}" ninja -C build install
 }
-
-# vim: ts=2 sw=2 et:
