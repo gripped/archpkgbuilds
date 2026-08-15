@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langsmith
-pkgver=0.10.9
+pkgver=0.10.10
 pkgrel=1
 pkgdesc="Client library to connect to the LangSmith Observability and Evaluation Platform"
 arch=('any')
@@ -59,7 +59,7 @@ optdepends=(
   'python-opentelemetry-exporter-otlp-proto-http: OpenTelemetry export support'
 )
 source=("git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v$pkgver")
-sha512sums=('86c8742cfe9084e9c971d3aafe5356ea9ebe74e460c83cd5d061f226c21c92f6c3786f671b3b4e65a775d20199d47aace02919e1702bbb66515596e0ca9a200f')
+sha512sums=('ff301263cc5cf27cd1b2123919073d34c9924b8c429611c5536524d9d85afd7ff6f6588d69db9e9f57f0545e12228f0e410d76b5c9f0cfaa3ae9f5a70f373b25')
 
 build() {
   cd langsmith-sdk/python
