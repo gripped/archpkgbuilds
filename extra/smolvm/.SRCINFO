@@ -1,6 +1,6 @@
 pkgbase = smolvm
 	pkgdesc = Tool to build & run portable, lightweight, self-contained virtual machines
-	pkgver = 1.7.7
+	pkgver = 1.8.0
 	pkgrel = 1
 	url = https://github.com/smol-machines/smolvm
 	arch = x86_64
@@ -14,6 +14,7 @@ pkgbase = smolvm
 	makedepends = libepoxy
 	makedepends = virglrenderer
 	makedepends = clang
+	makedepends = lld
 	depends = seatd
 	depends = crun
 	depends = jq
@@ -28,15 +29,15 @@ pkgbase = smolvm
 	depends = sqlite
 	depends = zstd
 	provides = smolvm
-	source = git+https://github.com/smol-machines/smolvm#tag=v1.7.7
+	source = git+https://github.com/smol-machines/smolvm#tag=v1.8.0
 	source = git+https://github.com/smol-machines/libkrun
 	source = git+https://github.com/smol-machines/libkrunfw
 	source = git+https://github.com/smol-machines/smolvm-sdk
-	source = smolvm-fix-agent-build.patch
-	sha256sums = 512bbbbba8804ff624259607ca494d08bb5ee2772eaa84d194d947a39509b587
+	source = smolvm-build-fixes.patch
+	sha256sums = 22bb8c18446873cd65ba280303e3d77a18634c6f65c605be7b1c473de4e01591
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
-	sha256sums = bffa13bb64fd6783f97baae45431b0296b316cdee128cdd201614fe7567e7d5a
+	sha256sums = ace64d0f406db5d1bd902059a909f219ad44655c8b9d0cc70072114fabdab011
 
 pkgname = smolvm
