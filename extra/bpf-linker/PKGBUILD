@@ -2,16 +2,16 @@
 # Contributor: Eric Long <i@hack3r.moe>
 
 pkgname=bpf-linker
-pkgver=0.10.4
+pkgver=0.11.0
 pkgrel=1
 pkgdesc="Simple BPF static linker"
 arch=('x86_64')
 url="https://github.com/aya-rs/bpf-linker"
 license=('Apache-2.0' 'MIT')
 depends=('glibc' 'libgcc' 'llvm-libs' 'clang')
-makedepends=('cargo' 'llvm')
+makedepends=('cargo' 'llvm' 'lld')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/aya-rs/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('32a5c6b3081386e7dca8765d2c7d23f9f7feed459ad135c914d8bab686168b3d')
+sha256sums=('e32948056bd2604cdcc7fb384155feaf52f05512e02f4e8a7368af48e22f30f2')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -20,7 +20,8 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld" \
+    cargo build --release --frozen
 }
 
 check() {
@@ -29,7 +30,8 @@ check() {
   # skipping compile_test:
   # failed to build sysroot: "/usr/lib/rustlib/src/rust/library" does not seem to be a rust library
   # source folder: `src/Cargo.toml` not found
-  CARGO_MANIFEST_DIR="$PWD" cargo test --frozen \
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld" \
+    CARGO_MANIFEST_DIR="$PWD" cargo test --frozen \
     -- --skip compile_test --skip test_link_ir_files
 }
 
