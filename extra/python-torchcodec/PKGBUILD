@@ -2,28 +2,32 @@
 
 _name=torchcodec
 pkgname=python-$_name
-pkgver=0.15.0
-pkgrel=3
+pkgver=0.16.0
+pkgrel=1
 license=(BSD-3-Clause)
 pkgdesc="PyTorch media decoding and encoding"
 arch=(x86_64)
 url="https://github.com/pytorch/torchcodec"
 depends=(
-  ffmpeg
   glibc
+  libavif
   libgcc
+  libheif
+  libjpeg-turbo
+  libpng
   libstdc++
+  libwebp
   python
   python-pytorch
 )
 makedepends=(
   cmake
+  ffmpeg
   fmt
   pkg-config
   python-build
   python-installer
-  python-setuptools
-  python-wheel
+  python-scikit-build-core
 )
 checkdepends=(
   python-numpy
@@ -31,19 +35,11 @@ checkdepends=(
   python-pytest
   python-torchvision
 )
-source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
-        https://github.com/meta-pytorch/torchcodec/commit/a87fcd5570845b10b917ca1cd97b938fd68734a0.patch)
-b2sums=('b1e908ccac29f09b29f4b07dccfcaba50c939686fae825db7b73f0c7772ed99f0d9c02f6bcd461abc610075a90e2fcd3ecdf1dbf6fa344105005c48445915573'
-        '59c25317ddc662a786df10ab6e2e18f4a580e94603a10d432db1bb762ba6513c5f4f7a2a4ec38e72ba2cfcd5f8e735dea2fbac31726db014ce06d9ae20f8138f')
-
-prepare() {
-  cd "$_name-$pkgver"
-
-  # Fix build with ffmpeg 9
-  sed -i '/^diff .*repair_wheel.py/,/^diff .*src\/torchcodec\/_core\/CMakeLists.txt/d' \
-    ../a87fcd5570845b10b917ca1cd97b938fd68734a0.patch
-  patch -Np1 -i ../a87fcd5570845b10b917ca1cd97b938fd68734a0.patch
-}
+optdepends=(
+  'ffmpeg: for video and audio decoding and encoding'
+)
+source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
+b2sums=('08e734e7177792143cccd6afa883f4e048816394753c9e0e54c68195493de10e2f112e23df368d955368a9140faac4010cda65a1deabfce1b9678fa04ff134e7')
 
 build() {
   cd $_name-$pkgver
@@ -63,9 +59,6 @@ check() {
   local pytest_options=(
     -vv
     -W ignore::DeprecationWarning
-    # Disable tests broken with ffmpeg 9; for details, see
-    # https://github.com/meta-pytorch/torchcodec/issues/1600#issuecomment-5210622376.
-    -k "not (test_audio_against_cli and flac)"
   )
 
   cd $_name-$pkgver
