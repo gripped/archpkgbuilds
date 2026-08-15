@@ -1,7 +1,7 @@
 pkgbase = wingpanel
 	pkgdesc = The Pantheon Top Panel
 	pkgver = 8.0.4
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/elementary/wingpanel
 	arch = x86_64
 	groups = pantheon
@@ -12,14 +12,17 @@ pkgbase = wingpanel
 	makedepends = meson
 	makedepends = vala
 	depends = glib2
-	depends = gtk3
+	depends = glibc
+	depends = granite7
+	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libgala.so
 	depends = libgee
-	depends = libgranite.so
-	depends = mutter46
+	depends = mutter
 	depends = pantheon-notifications
-	provides = libwingpanel.so
-	source = git+https://github.com/elementary/wingpanel.git#tag=cb055fd0749034965f05c17d40fff80a9e5b9c25
-	b2sums = 12f93ff4d681fee63555a9b07a1384cfc8c82e7d5fe81b326ab8ecac040892ba45bcb31ad535f557d447712b789f88bc893c0a9e34d3380d9199391a57b9c7b0
+	depends = wayland
+	provides = libwingpanel-9.so
+	source = git+https://github.com/elementary/wingpanel.git#commit=8bc5eeb8f97c436494f744211046992d83a5e0b4
+	b2sums = ec44b2c3f18ebc7ec936ace9db452186fe5e499f23ff40e33cb89034a39131ae4c5eeea5071a9a2adba2bbd1611dc8e05c049829509fd9ccd988fefca3e538a2
 
 pkgname = wingpanel
