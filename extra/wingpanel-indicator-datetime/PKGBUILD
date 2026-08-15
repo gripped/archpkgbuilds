@@ -2,7 +2,7 @@
 
 pkgname=wingpanel-indicator-datetime
 pkgver=2.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Date & Time indicator for Wingpanel'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel-indicator-datetime
@@ -13,26 +13,21 @@ depends=(
   evolution-data-server
   glib2
   glibc
-  gtk3
+  gtk4
+  libadwaita
   libgee
-  libgranite.so
-  libhandy-1.so
+  granite7
   libical
-  libwingpanel.so
+  wingpanel
 )
 makedepends=(
   git
   meson
   vala
 )
-_tag=f5fad6090a599f97cbf31335f1a4c654faf23780
-source=(git+https://github.com/elementary/wingpanel-indicator-datetime.git#tag=${_tag})
-b2sums=('046f672ef1c0edcc6b961fea1a17bf477044f9457c1eb26f09017ef7e142aaf6a1b43aa2e8d81d233d11068d7bfeb8123c73b4074f8a828348d9b8b6e63a5599')
-
-pkgver() {
-  cd wingpanel-indicator-datetime
-  git describe --tags
-}
+#source=(git+https://github.com/elementary/wingpanel-indicator-datetime.git#tag=${pkgver})
+source=(git+https://github.com/elementary/wingpanel-indicator-datetime.git#commit=182a225c1bc632bd4c85e82471dd61879f58cfc1)
+b2sums=('b6464c6a9c2d1441e5325659eee52f14ba684f6a9d3a1ab1c933331beeb9b8f27108022ec835175358520014bf0ad70c1e9996567a9dce8d4acabfec8e14b706')
 
 build() {
   arch-meson wingpanel-indicator-datetime build
@@ -42,5 +37,3 @@ build() {
 package() {
   meson install -C build --destdir "${pkgdir}"
 }
-
-# vim: ts=2 sw=2 et:
