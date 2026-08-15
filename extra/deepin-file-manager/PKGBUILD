@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.29
+pkgver=6.5.30
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -14,7 +14,7 @@ license=('CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'LGPL-3.0-or-later' 'MIT')
 depends=('dtk6core' 'dtk6gui' 'dtk6widget'
          'deepin-anything' 'deepin-util-dfm' 'deepin-shell' 'qt6-base' 'qt6-svg'
          'deepin-pdfium' 'docparser' 'libsecret' 'zlib' 'dconf' 'openssl' 'glib2'
-         'libxcb' 'libx11' 'qt6-multimedia' 'cryptsetup' 'lucene++' 'avfs'
+         'libxcb' 'libx11' 'qt6-multimedia' 'cryptsetup' 'device-mapper' 'lucene++' 'avfs'
          'polkit-qt6' 'poppler' 'taglib' 'util-linux-libs' 'icu' 'pcre2' 'glibc' 'libgcc' 'libstdc++'
          'deepin-appearance' 'deepin-qt-dbus-factory' 'cryfs' 'socat' 'dtklog' 'deepin-service-manager')
 makedepends=('git' 'boost' 'cmake' 'ninja' 'qt6-tools' 'deepin-tray-loader' 'deepin-movie'
@@ -34,7 +34,7 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          gcc-15.patch)
-sha512sums=('9b08587b08398a164bc13c0169c1c5e866bd7a30a0e15ee022ffd3b1794cbf16d0ee6acc42ad827a1c73a775a4eae119ec3bb11f73b202bdf5b30ef06f91bb5d'
+sha512sums=('dcb58a98482e167439bc5842ecd9a7a7a65773dda9a45febb8b5b961f55c94cd73b0c34c98edc49372fcea141c0cd09d3b86baab97306e5f3d3b63bbe365ae1b'
             'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
@@ -77,15 +77,6 @@ prepare() {
     src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/fulltext/fulltextsearcher_p.h \
     src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/iterator/iteratorsearcher.h
 
-  # Build the migrated diskencrypt service with Qt6 APIs.
-  sed -i \
-    -e 's/#include <QTime>/#include <QElapsedTimer>/' \
-    -e 's/QString::SkipEmptyParts/Qt::SkipEmptyParts/g' \
-    -e "s|newContents += items.join('\\\\t');|newContents += items.join('\\\\t').toUtf8();|" \
-    -e "s|newContents += fstabItems.at(i).join('\\\\t');|newContents += fstabItems.at(i).join('\\\\t').toUtf8();|" \
-    -e 's/QTime t;/QElapsedTimer t;/' \
-    src/services/diskencrypt/encrypt/encryptworker.cpp
-
   # Match upstream's Qt6 service migration:
   # https://github.com/linuxdeepin/dde-file-manager/commit/37633fa4053ab0e3cde5c20061a3dff0dbff5458
   # This tag still wires up the old Qt5 base library; keep header install only.
@@ -112,9 +103,13 @@ prepare() {
   sed -i 's|polkit-qt5-1|polkit-qt6-1|g' \
     src/plugins/filemanager/dfmplugin-vault/utils/vaultutils.h \
     src/services/accesscontrol/polkit/policykithelper.h \
-    src/services/diskencrypt/diskencryptdbus.cpp \
+    src/services/diskencrypt/dbus/diskencryptsetup.cpp \
     src/services/mountcontrol/mounthelpers/cifsmounthelper.cpp \
     src/services/sharecontrol/polkit/policykithelper.h
+
+  # Package the new udev rule under /usr/lib; /run is volatile on Arch.
+  sed -i 's|DESTINATION /run/udev/rules.d|DESTINATION ${CMAKE_INSTALL_LIBDIR}/udev/rules.d|' \
+    src/services/diskencrypt/CMakeLists.txt
 
   sed -i \
     -e '/pkg_search_module(dfm-io/,/)/d' \
