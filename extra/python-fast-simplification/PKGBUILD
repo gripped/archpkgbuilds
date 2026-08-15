@@ -2,7 +2,7 @@
 
 _name=fast-simplification
 pkgname=python-$_name
-pkgver=0.1.13
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Fast quadric mesh simplification"
 arch=(x86_64)
@@ -16,16 +16,17 @@ depends=(
   python-numpy
 )
 makedepends=(
-  cython
+  nanobind
   python-build
   python-installer
-  python-setuptools
+  python-scikit-build-core
+  python-setuptools-scm
 )
 checkdepends=(
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('8ebabd7496384e1770a15744fb90e7ca7229fe0aa0bbe684aed3cf4d67b429b644400a8e148311d90b095dff3279d8e733510f1ab7dab5dc23bc2df2cb646a00')
+b2sums=('2f575c7815e6bbc2f9496c3f9959feb17d0877bc8a5c81f48f06eef6333becf91d16f86aef219b46f1ef21583f144ea9a14b8a97afe562c7444f811fcc8cbcb7')
 
 build() {
   cd $_name-$pkgver
