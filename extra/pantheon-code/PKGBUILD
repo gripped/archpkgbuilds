@@ -2,7 +2,7 @@
 # Contributor: Ner0 <darkelfdarkelf666@yahoo.co.uk>
 
 pkgname=pantheon-code
-pkgver=8.3.1
+pkgver=8.3.2
 pkgrel=1
 pkgdesc='The Pantheon Text Editor'
 arch=(x86_64)
@@ -38,7 +38,7 @@ optdepends=(
   'libsoup3: Pastebin plugin'
 )
 source=(pantheon-code::git+https://github.com/elementary/code.git#tag=${pkgver})
-b2sums=('bb630baa0c7e8f529567a25db7b92de155316d0889ce5c8c5a12e1e648fdab090ecba827fd16fd9eb902b985482b85ae014040dd3c2d67e59dd1f942a8b8654c')
+b2sums=('4c418f828aca31d29257f5048a22d75ea4ea58f7e9b6507781228fc00386e4ed2d1aa08ce29f5e32310b18d11fb636cbccc849b98e3c0a63ed39debf0e3b5552')
 
 build() {
   arch-meson pantheon-code build
