@@ -2,8 +2,8 @@
 
 _hkgname=deferred-folds
 pkgname=haskell-deferred-folds
-pkgver=0.9.18.9
-pkgrel=12
+pkgver=0.9.18.10
+pkgrel=1
 pkgdesc="Abstractions over deferred folds"
 url="https://github.com/nikita-volkov/deferred-folds"
 license=('MIT')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-foldl' 'haskell-hashable' 'haskell-primitive'
 makedepends=('ghc' 'uusi' 'haskell-quickcheck-instances' 'haskell-rerebase' 'haskell-tasty'
              'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('07ea2e1688fbeeedf1eccc9803681fcc438e2b862d34d41e92a016ba4663d386e78dddb3ac044ee1b58a5ceab050ea1166bf381ddf65ec9ee8178a32eee91ef0')
+sha512sums=('bc78220320b3dda76ea02b5756d1e4c8dcd5dfcd88a79bf462872401aa51a0f1a12028404eaf4c6baa40f08310bf28e01bbffc9a3c2990d0e34cbad897ca141c')
 
 prepare() {
     cd $_hkgname-$pkgver
