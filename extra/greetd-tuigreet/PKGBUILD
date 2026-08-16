@@ -3,38 +3,49 @@
 
 pkgname=greetd-tuigreet
 _pkgname=${pkgname#*-}
-pkgver=0.9.1
-pkgrel=2
+pkgver=0.11.0
+pkgrel=3
 pkgdesc='A console UI greeter for greetd'
-url="https://github.com/apognu/$_pkgname"
+url="https://github.com/$_pkgname/$_pkgname"
 license=(GPL-3.0-only)
 arch=(x86_64)
-depends=(glibc
+depends=(glibc # libc.so libm.so
          greetd
          libgcc
          systemd)
 provides=(greetd-greeter)
 makedepends=(cargo
              scdoc)
+backup=(etc/tuigreet/config.toml)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz"
         "$_pkgname.tmpfiles")
-sha256sums=('14fd1fadeb84040eb31901da2b53a48aa55b0fdaccb36d96fa52ce2d2113667f'
+sha256sums=('5f18485979be009512b60b303c7136f8ef2901091ed00edd4f3d61d871c51368'
             '8f83aee7874aab5d06981a1d1cd05df906368a79dbca90d157a33a2f023b67d3')
 
-prepare() {
+_srcenv() {
 	cd "$_archive"
-	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=thin
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
+
+prepare() {
+	_srcenv
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
-	cd "$_archive"
+	_srcenv
 	cargo build --frozen --release --all-features
 	scdoc < contrib/man/$_pkgname-1.scd > contrib/man/$_pkgname.1
 }
 
 check() {
-	cd "$_archive"
+	_srcenv
 	local skipped=(
 		# Requires libnss_wrapper to mockup data, see https://github.com/apognu/tuigreet/issues/138
 		'info::nsswrapper_tests::nsswrapper_get_users_from_nss stdout'
@@ -43,6 +54,7 @@ check() {
 }
 
 package() {
+	depends+=(libgcc_s.so)
 	cd "$_archive"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$_pkgname"
 	install -Dm0755 -t "$pkgdir/usr/share/man/man1/" "contrib/man/$_pkgname.1"
