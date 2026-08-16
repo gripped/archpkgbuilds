@@ -5,8 +5,8 @@ pkgname=(
   rqbit
   rqbit-desktop
 )
-pkgver=8.1.1
-pkgrel=2
+pkgver=9.0.0
+pkgrel=1
 pkgdesc="A bittorrent client in Rust"
 url='https://github.com/ikatson/rqbit'
 arch=('x86_64')
@@ -25,12 +25,12 @@ makedepends=(
   'webkit2gtk-4.1' 'libwebkit2gtk-4.1.so'
 )
 source=(https://github.com/ikatson/${pkgbase}/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('452b8260fabba938567e1819a9edfcf6b69579ecd5f8b87fee4ca1666fa8fede')
-b2sums=('e202a78eea56728d33b63d8956a838e3d7bf1eba87d8c7a293fc5d8515b11ef91303b6aacbd2532222b84d4fb434d7de36be3f862787d779fd5e0564f262b13c')
+sha256sums=('a5c549c35e5a1e643e67376fd465158421a57e600594b69438f444b804fb6f34')
+b2sums=('23194bc5601a609f0bc0298874e4e9552571590da890b1e63bf979d0aa877965f7ed267e9cf009e7bbf9946ce9089ae11f312d3505f975af54d4a741bd08872d')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target host-tuple
 
   pushd desktop
   npm install
@@ -42,6 +42,7 @@ prepare() {
 
 build() {
   cd ${pkgbase}-${pkgver}
+  export CFLAGS+=" -ffat-lto-objects"
   cargo build -p rqbit --frozen --release
   cd desktop
   cargo tauri build -b deb --ci
@@ -54,8 +55,8 @@ check() {
 
 package_rqbit() {
   depends=(
-    'gcc-libs'
     'glibc'
+    'libgcc'
     'libssl.so'
   )
 
@@ -75,10 +76,10 @@ package_rqbit() {
 package_rqbit-desktop() {
   pkgdesc="A bittorrent client in Rust (desktop app)"
   depends=(
-    'gcc-libs'
     'glibc'
     'hicolor-icon-theme'
     'libcairo.so'
+    'libgcc'
     'libgdk_pixbuf-2.0.so'
     'libglib-2.0.so'
     'libgtk-3.so'

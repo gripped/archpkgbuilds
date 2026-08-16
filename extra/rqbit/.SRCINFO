@@ -1,7 +1,7 @@
 pkgbase = rqbit
 	pkgdesc = A bittorrent client in Rust
-	pkgver = 8.1.1
-	pkgrel = 2
+	pkgver = 9.0.0
+	pkgrel = 1
 	url = https://github.com/ikatson/rqbit
 	arch = x86_64
 	license = Apache-2.0
@@ -23,21 +23,21 @@ pkgbase = rqbit
 	makedepends = typescript
 	makedepends = webkit2gtk-4.1
 	makedepends = libwebkit2gtk-4.1.so
-	source = https://github.com/ikatson/rqbit/archive/v8.1.1/rqbit-8.1.1.tar.gz
-	sha256sums = 452b8260fabba938567e1819a9edfcf6b69579ecd5f8b87fee4ca1666fa8fede
-	b2sums = e202a78eea56728d33b63d8956a838e3d7bf1eba87d8c7a293fc5d8515b11ef91303b6aacbd2532222b84d4fb434d7de36be3f862787d779fd5e0564f262b13c
+	source = https://github.com/ikatson/rqbit/archive/v9.0.0/rqbit-9.0.0.tar.gz
+	sha256sums = a5c549c35e5a1e643e67376fd465158421a57e600594b69438f444b804fb6f34
+	b2sums = 23194bc5601a609f0bc0298874e4e9552571590da890b1e63bf979d0aa877965f7ed267e9cf009e7bbf9946ce9089ae11f312d3505f975af54d4a741bd08872d
 
 pkgname = rqbit
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
 	depends = libssl.so
 
 pkgname = rqbit-desktop
 	pkgdesc = A bittorrent client in Rust (desktop app)
-	depends = gcc-libs
 	depends = glibc
 	depends = hicolor-icon-theme
 	depends = libcairo.so
+	depends = libgcc
 	depends = libgdk_pixbuf-2.0.so
 	depends = libglib-2.0.so
 	depends = libgtk-3.so
