@@ -3,26 +3,26 @@
 # Contributor: Clement Tsang (xoronth) <cjhtsang@uwaterloo.ca>
 
 pkgname=bottom
-pkgver=0.14.7
+pkgver=0.14.8
 pkgrel=1
 pkgdesc='A graphical process/system monitor'
 arch=(x86_64)
 url='https://github.com/ClementTsang/bottom'
 license=(MIT)
 depends=(glibc # libc.so libm.so
-         libgcc libgcc_s.so)
+         libgcc)
 makedepends=(git
              rust)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('4ec039ea1d94c19d2d93538fa9b9d1ef7f0a2f64084237d3ac52e087ac3c9087563a42f74e6b2fdc7b1a991d749ac0b8e505a2141e2dec27d572400c329d599f')
-b2sums=('b5537601bbec724a75bb975865c8f8f4372676cf16a154c4e894019c9496f9afb04bfa610840e8c8b3a258633712f990f16d6f809b5180d9be4b7850aa343aef')
+sha512sums=('fe9f071548de654bc5dcc8170fe195dc29eae9961296b748ae23e9b5088633908f0fffb6f03e4a638ab5fdf6c15cdbf1d9c2fe08d1330ec60cfb7dcbfc869747')
+b2sums=('eb3c6ae86ae069d397a4551fccda2e4b994b43783596aa1d5055d2a1c0b3a982dab1f2d5036b86b9102a649ef67e864c5a065823cc9a40629ae24f609a46c599')
 
 _srcenv() {
   cd "$pkgname"
   export CARGO_HOME="$srcdir"
   export CARGO_PROFILE_RELEASE_DEBUG=2
   export CARGO_PROFILE_RELEASE_STRIP=false
-  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 }
@@ -48,6 +48,7 @@ check() {
 }
 
 package() {
+  depends+=(libgcc_s.so)
   cd "$pkgname"
 
   # binary
