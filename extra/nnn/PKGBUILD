@@ -5,7 +5,7 @@
 # Contributor: John Jenkins <twodopeshaggy@gmail.com>
 
 pkgname=nnn
-pkgver=5.2
+pkgver=5.3
 pkgrel=1
 pkgdesc="The fastest terminal file manager ever written."
 arch=('x86_64')
@@ -25,7 +25,7 @@ url="https://github.com/jarun/${pkgname}"
 license=('BSD-2-Clause')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/jarun/nnn/releases/download/v$pkgver/nnn-v$pkgver.tar.gz"
         "${pkgname}-${pkgver}.tar.gz.sig::${url}/releases/download/v${pkgver}/nnn-${pkgver}.tar.gz.sig")
-sha512sums=('e799228f3481680e51943c4e814f23d3c766c03ac92e0ae54fe98203e047e3caeafe88fc8a6434fee4e359465e24d9c984f5443ac1fb4e799781bdabb3c481cb'
+sha512sums=('6cb5edffede5903fee4601ca3b18c30e91a613ecbd41004c8139f08706592cf30d354f900ea77950b8fd5b51ac9f2c0e1b4956340d5c4b84ab96fd4a3c11ee9d'
             'SKIP')
 validpgpkeys=('BBAD0B2F3093A7C3377A8F6BA75979F35C080412'
               'E0B84447CD884CBB13E3266E4A865183AF6C5631')
@@ -36,7 +36,7 @@ prepare() {
 
 build() {
     cd "${pkgname}-${pkgver}"
-    make
+    make O_NORL=0
 }
 
 package() {
