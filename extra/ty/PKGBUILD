@@ -2,14 +2,14 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ty
-pkgver=0.0.70
+pkgver=0.0.72
 pkgrel=1
 pkgdesc='Extremely fast Python type checker and language server, written in Rust'
 arch=(x86_64)
 url=https://github.com/astral-sh/ty
 license=(MIT)
 depends=(glibc # libc.so libm.so
-         libgcc libgcc_s.so
+         libgcc
          python)
 makedepends=(git
              maturin
@@ -17,7 +17,7 @@ makedepends=(git
 checkdepends=(uv)
 source=("git+$url.git#tag=$pkgver"
         git+https://github.com/astral-sh/ruff.git)
-b2sums=('7cfd9696ed8caf307e245c04571308d682b44f273f0ce2e1c95ca6476b95c4920273a8b32a4332cf1d0a3a503b07967b526d298f89f62f274e52964dab07d439'
+b2sums=('acc34481bbbba92152bb2f304fe9475c39c1fd83d7b7d678335470e53624ef6c7f8b008e00a4bb20e9ca3cab04c553380619a05efae0c7dc3c5bb1f807ac722a'
         'SKIP')
 
 _srcenv() {
@@ -61,6 +61,7 @@ check() {
 }
 
 package() {
+  depends+=(libgcc_s.so)
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/licenses/LICENSE \
