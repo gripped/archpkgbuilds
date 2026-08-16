@@ -44,7 +44,7 @@
 
  $(LIB_SHARED): $(LIB_OBJS)
 -	$(MKDIR) -p $(DEBUG_DIR)
- 	$(CC) $(LIB_CFLAGS) $(LIB_CPPFLAGS) $(LIB_LDFLAGS) $(OUTPUT_OPTION) $^ $(LIB_SCRIPT) $(LIB_LDLIBS)
+ 	$(CC) $(LIB_CFLAGS) $(LIB_CPPFLAGS) $(LIB_LDFLAGS) $(OUTPUT_OPTION) $^ -Wl,--version-script=$(LIB_SCRIPT) -Wl,-e,nvc_entrypoint -Wl,-u,interpreter -Wl,-u,abitag $(LIB_LDLIBS)
 -	$(OBJCPY) --only-keep-debug $@ $(LIB_SONAME)
 -	$(OBJCPY) --add-gnu-debuglink=$(LIB_SONAME) $@
 -	$(MV) $(LIB_SONAME) $(DEBUG_DIR)
@@ -57,7 +57,7 @@
 -	$(STRIP) --strip-unneeded -R .comment $@
 
  $(BIN_NAME): $(BIN_OBJS)
- 	$(CC) $(BIN_CFLAGS) $(BIN_CPPFLAGS) $(BIN_LDFLAGS) $(OUTPUT_OPTION) $^ $(BIN_SCRIPT) $(BIN_LDLIBS)
+ 	$(CC) $(BIN_CFLAGS) $(BIN_CPPFLAGS) $(BIN_LDFLAGS) $(OUTPUT_OPTION) $^ -Wl,-u,argp_err_exit_status -Wl,-u,argp_program_version_hook -Wl,-u,argp_program_bug_address $(BIN_LDLIBS)
 -	$(STRIP) --strip-unneeded -R .comment $@
 
  ##### Public rules #####
