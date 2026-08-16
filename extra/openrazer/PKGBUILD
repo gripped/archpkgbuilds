@@ -8,8 +8,8 @@ pkgname=(
   python-openrazer
 )
 pkgbase=openrazer
-pkgver=3.12.2
-pkgrel=2
+pkgver=3.12.4
+pkgrel=1
 pkgdesc='Community-led effort to support Razer peripherals on Linux'
 arch=(any)
 url=https://openrazer.github.io
@@ -22,17 +22,14 @@ source=(
   "git+https://github.com/$pkgbase/$pkgbase.git#tag=v$pkgver"
   sysusers.conf
   0001-Use-openrazer-group.patch
-  0002-razerkbd-Adjust-to-hid_report_raw_event-signature-change.patch
 )
-b2sums=('9c2a037755b6cc0407ec41755b9a0388dbd107878b0fa0295f0836775ebedd9a824eba5f7a4804dd6008b4ef77d85d10dd795e3b3ef58a8db1d406731ab5bcdb'
+b2sums=('5a32ee9a8bdcea50baad0dddf08d8ffa2db68b96990b838e23cb479520f977b8f44341fdb8f9803a5358b2248fb7ac44381caadd2fcfd89397cb4cf036d05e86'
         '4315fa4a7c79eb678c1d357b3326fcfec438b83e12741c86605dc4440414950b3b0e267b83056500f70b09a08a41004f46f40182d04fcd3ba8c55f724f1b436d'
-        'd24c3dba7300bc375f11cc168f44b3488933b660355d101cd2f4b006c6ca33baa9d96f9523807d6392620f4d17349dd140ba1a58b84de930d117e548a4727d46'
-        'd030b5f8789c3904af291953a1ae306e2f43e9ae872701183f0f605b81a036815d39231f34001c7195c6c490608b728c9ae74d240f2c0e46889a2e0dc623c620')
+        'd24c3dba7300bc375f11cc168f44b3488933b660355d101cd2f4b006c6ca33baa9d96f9523807d6392620f4d17349dd140ba1a58b84de930d117e548a4727d46')
 
 prepare() {
   cd $pkgbase
   patch --forward --strip=1 --input=../0001-Use-openrazer-group.patch
-  patch --forward --strip=1 --input=../0002-razerkbd-Adjust-to-hid_report_raw_event-signature-change.patch
 }
 
 package_openrazer-daemon() {
