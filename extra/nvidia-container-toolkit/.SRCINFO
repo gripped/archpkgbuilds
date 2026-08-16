@@ -1,22 +1,20 @@
 pkgbase = nvidia-container-toolkit
 	pkgdesc = NVIDIA container toolkit
-	pkgver = 1.19.1
+	pkgver = 1.20.0
 	pkgrel = 1
 	url = https://github.com/NVIDIA/nvidia-container-toolkit
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = go
 	depends = glibc
-	depends = libnvidia-container=1.19.1
+	depends = libnvidia-container=1.20.0
 	options = !lto
 	backup = etc/nvidia-container-runtime/config.toml
-	source = nvidia-container-toolkit-1.19.1.tar.gz::https://github.com/NVIDIA/nvidia-container-toolkit/archive/v1.19.1.tar.gz
+	source = nvidia-container-toolkit-1.20.0.tar.gz::https://github.com/NVIDIA/nvidia-container-toolkit/archive/v1.20.0.tar.gz
 	source = nvidia-ctk-cdi
 	source = nvidia-ctk-cdi.hook
-	source = nvidia-container-toolkit-fix-glob-files-test.patch::https://patch-diff.githubusercontent.com/raw/NVIDIA/nvidia-container-toolkit/pull/1856.patch
-	b2sums = 3d1ae036ca077a1f525809af753eb2e3152b15ab42a8580d717b986c9be9e1a76cd3e7e0e57b509a5ee288c7c99e4f085ef81e64a7417366bd7e5a21a3751dfc
+	b2sums = dc9b219dd1f584979ae99f0226b33f1421da713fb072591e0e5fe88e13a64451f6052a2582aeba687889a3fad31bfc1fe5be7d87895e24cb84afe487af5436b7
 	b2sums = 196ba959e25b7bc9a6087b192a09196c6c46e4a2a0a6dbf1de158c06dc852b822235fb6193f10311c89d06bc722035fd807cab3afa560bf49e6181a9e14b6bd6
 	b2sums = 504872f704a23488801a3f8ec9f99bc3df399ec24f3e322d63d57c374ca377f0b9c7a0d944038173cac173bf77e30f64ca59057e7583844588b8baa18b2cc435
-	b2sums = f92fce85d3d38f6fb846f36ecc86367b3c39972819612f6152b9aa7f51f60a0346b79e939e525c8fd9e569e4cc80037144cac550808dc2eaa9b389c22dd8360b
 
 pkgname = nvidia-container-toolkit
