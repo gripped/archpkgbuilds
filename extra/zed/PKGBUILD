@@ -2,8 +2,8 @@
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=1.14.2
-pkgrel=2
+pkgver=1.15.0
+pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
 url=https://zed.dev
@@ -13,23 +13,23 @@ depends=(alsa-lib libasound.so
          curl
          fontconfig
          git
-         glib2 libgio-2.0.so libglib-2.0.so libgobject-2.0.so
+         glib2
          glibc # libc.so libm.so ld-linux-x86_64.so
-         libgcc libgcc_s.so
-         libstdc++ libstdc++.so
+         libgcc
+         libstdc++
          libxcb # libxcb.so libxcb-xkb.so
          libx11 # libX11-xcb.so
-         libxkbcommon libxkbcommon.so
-         libxkbcommon-x11 libxkbcommon-x11.so
+         libxkbcommon
+         libxkbcommon-x11
          netcat
          'nodejs>=18'
          npm
-         sqlite libsqlite3.so
+         sqlite
          vulkan-driver
          vulkan-icd-loader
          vulkan-tools
          wayland
-         zstd libzstd.so)
+         zstd)
 makedepends=(cargo
              cargo-about
              clang
@@ -41,7 +41,7 @@ optdepends=('org.freedesktop.secrets: to keep you logged into your Zed account')
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('2a76e45be06708e719d71aa37cab887c2fcf34e5d5cad8c41ef2be5b70ba2e02')
+sha256sums=('9f347990d067c375d93f9d8251a2bbe21e11d6b408adf0df1531d16b024e318a')
 
 _binname=zeditor
 _appid=dev.zed.Zed
@@ -96,6 +96,13 @@ check() {
 }
 
 package() {
+	depends+=(libgio-2.0.so libglib-2.0.so libgobject-2.0.so
+	          libgcc_s.so
+	          libstdc++.so
+	          libxkbcommon.so
+	          libxkbcommon-x11.so
+	          libsqlite3.so
+	          libzstd.so)
 	cd "$_archive"
 	install -Dm0755 target/release/cli "$pkgdir/usr/bin/$_binname"
 	install -Dm0755 target/release/zed "$pkgdir/usr/lib/$pkgname/zed-editor"
