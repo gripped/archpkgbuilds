@@ -3,11 +3,11 @@
 pkgname=linux-apfs-rw-dkms
 _pkgname=${pkgname%-dkms}
 epoch=1
-pkgver=0.3.20
+pkgver=0.3.21
 pkgrel=1
 pkgdesc="Experimental APFS kernel module with Write support (DKMS)"
 arch=('any')
-url="https://github.com/linux-apfs/${_pkgname}"
+url="https://github.com/linux-apfs/linux-apfs-rw"
 license=(
 	'GPL-2.0-only'
 	'BSD-3-Clause'
@@ -17,8 +17,8 @@ depends=(
 	'dkms'
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('9654782a03b05e1549e2816867208413da81956f24078ef3e9ed0bf78f50e3a7')
-b2sums=('10822811ffb138a28a466457cf9c319ee5db886fcf6e6190af015e333dca183ecff220c55fd92fd4a5812eaa61d99fda9d6af377adc2c013d4c07c1dc3186f75')
+sha256sums=('7c2af6a0e7f9d0aa2b1dd9dd8e4a03b73f1e5ce429cfa0115e66099c75bd233d')
+b2sums=('069bc92a12d583581051e7884e27e137c879629d1547a571e7426e9d6a84a2f73ff590349b0b7e70e7a2326f93040ee9acfe6cbb99595303b9f66cafaafcb53e')
 
 prepare() {
 	# Extract BSD-3-Clause terms from sources
