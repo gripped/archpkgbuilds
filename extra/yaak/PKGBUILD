@@ -5,8 +5,8 @@
 pkgname=yaak
 _appid=app.yaak.Yaak
 _appname=yaak-app-client
-pkgver=2026.5.0
-pkgrel=3
+pkgver=2026.6.0
+pkgrel=1
 pkgdesc='A fast, secure, and offline API client'
 arch=('x86_64')
 url='https://yaak.app/'
@@ -50,7 +50,7 @@ options=("!lto") # https://gitlab.archlinux.org/archlinux/packaging/packages/pac
 provides=("yaak-app" "yaak-app-client")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mountain-loop/yaak/archive/refs/tags/v${pkgver}.tar.gz"
         "${_appid}.desktop")
-sha256sums=('a3e4e08716093f96c0f8c97c3b50bbdcfb5ccceaa93f908e1b9dfc5663090b1a'
+sha256sums=('efcfb8e7364e72c80a89ba923fb43f8516aa86a415291b2499fa7c2d4da67761'
             '228dc02b9ffecef06195e67d5d7d70b1fd64546682ced382cb448f35039997f8')
 
 _setup_env() {
@@ -94,10 +94,10 @@ build() {
     npx tauri build
     popd
 
-    local icon_src="crates-tauri/${_appname}/icons/icon.png"
+    local _icon_src="crates-tauri/${_appname}/icons/icon.png"
     mkdir -p "${srcdir}/icons-build"
     for res in 16 24 32 48 64 128 256 512 1024; do
-        magick "${icon_src}" -resize "${res}x${res}" "${srcdir}/icons-build/${_appname}-${res}.png"
+        magick "${_icon_src}" -resize "${res}x${res}" "${srcdir}/icons-build/${_appname}-${res}.png"
     done
 }
 
@@ -129,8 +129,8 @@ package() {
     ln -sf "/usr/include/google/protobuf" "${pkgdir}/usr/lib/${pkgname}/vendored/protoc/include/google/protobuf"
 
     for res in 16 24 32 48 64 128 256 512 1024; do
-        local target_dir="${pkgdir}/usr/share/icons/hicolor/${res}x${res}/apps"
-        install -Dm644 "${srcdir}/icons-build/${_appname}-${res}.png" "${target_dir}/${_appname}.png"
+        local _target_dir="${pkgdir}/usr/share/icons/hicolor/${res}x${res}/apps"
+        install -Dm644 "${srcdir}/icons-build/${_appname}-${res}.png" "${_target_dir}/${_appname}.png"
     done
 
     install -Dm644 "flatpak/${_appid}.metainfo.xml" -t "${pkgdir}/usr/share/metainfo"
