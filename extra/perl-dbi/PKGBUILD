@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-dbi
-pkgver=1.651
+pkgver=1.652
 pkgrel=1
 pkgdesc="Database independent interface for Perl"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-1.0-or-later' 'Artistic-1.0-Perl')
 depends=('perl')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/H/HM/HMBRAND/DBI-$pkgver.tgz")
-sha512sums=('551ec29b88055a0c5380ba3a23105f33d64ab66a24833e6174e793d97583650719b50304255de54f967fac72f61e06cf0976483caaa340b6e725f6f45bfc24ba')
+sha512sums=('b695a177c7e3a1c0da70b4f2864521264fdda9560fd12f416add42d6f23099344bab5b13e9477c2283265a603013fad90a025610fdab1498b0792ae741c89a00')
 
 build() {
   cd DBI-$pkgver
