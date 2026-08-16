@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=nvchecker
-pkgver=2.21
+pkgver=2.22
 pkgrel=1
 pkgdesc="New version checker for software releases"
 arch=('any')
@@ -15,13 +15,15 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
              # optional deps
              'python-gobject' 'python-toml' 'python-aiohttp' 'python-httpx')
 checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-httpbin' 'python-pytest-rerunfailures'
-              'pyalpm' 'python-awesomeversion' 'python-lxml' 'python-jq' 'git')
+              'pyalpm' 'python-awesomeversion' 'python-lxml' 'python-jq' 'python-pygit2' 'python-dulwich' 'git')
 optdepends=(
   'pyalpm: for using "sort_version_key = vercmp" in configuration files and the alpm source'
   'python-awesomeversion: for using "sort_version_key = awesomeversion" in configuration files'
   'python-lxml: for the htmlparser source'
   'python-packaging: for the pypi source'
   'python-jq: for the jq source'
+  'python-pygit2: for the git_pygit2 source'
+  'python-dulwich: for the git_dulwich source'
   'python-toml: for nvchecker-ini2toml script'
   'python-aiohttp: alternative HTTP backend'
   'python-httpx: alternative HTTP backend'
@@ -30,7 +32,7 @@ optdepends=(
   'libnotify: for nvchecker-notify'
 )
 source=("git+https://github.com/lilydjwg/nvchecker.git?signed#tag=v$pkgver")
-sha512sums=('a8f0d06a50332024eabcf7318c03225b956838d49b6842cd0a6e0b2fba08cc6556dcced8c21539b0ffb51ba1ee379d5eaf69567cc0b5ebc31a493c6e9a210edd')
+sha512sums=('454f12634bc5b50685f03a92ac53b53a907e09a38e0c10b8e65b7ec32d53c9f1412c486c7ad544a62618b034a3af116096f14b1a7779978a1e3b016b3f602a98')
 validpgpkeys=(
   # No direct trust chain. Some related stuffs:
   # https://api.github.com/users/lilydjwg/gpg_keys
@@ -39,8 +41,6 @@ validpgpkeys=(
 )
 
 _backports=(
-  da11370b404e1546b23cfd559df0b3646ada9bd7
-  1ee24160f38063d7bec9cd8860c3c81d6349e058
 )
 
 prepare() {
@@ -67,8 +67,7 @@ build() {
 
 check() {
   cd nvchecker
-  # https://github.com/lilydjwg/nvchecker/issues/310
-  pytest --deselect tests/test_container.py::test_container_with_tag
+  pytest
 }
 
 package() {

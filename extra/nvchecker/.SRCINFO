@@ -1,6 +1,6 @@
 pkgbase = nvchecker
 	pkgdesc = New version checker for software releases
-	pkgver = 2.21
+	pkgver = 2.22
 	pkgrel = 1
 	url = https://github.com/lilydjwg/nvchecker
 	arch = any
@@ -13,6 +13,8 @@ pkgbase = nvchecker
 	checkdepends = python-awesomeversion
 	checkdepends = python-lxml
 	checkdepends = python-jq
+	checkdepends = python-pygit2
+	checkdepends = python-dulwich
 	checkdepends = git
 	makedepends = git
 	makedepends = python-build
@@ -35,14 +37,16 @@ pkgbase = nvchecker
 	optdepends = python-lxml: for the htmlparser source
 	optdepends = python-packaging: for the pypi source
 	optdepends = python-jq: for the jq source
+	optdepends = python-pygit2: for the git_pygit2 source
+	optdepends = python-dulwich: for the git_dulwich source
 	optdepends = python-toml: for nvchecker-ini2toml script
 	optdepends = python-aiohttp: alternative HTTP backend
 	optdepends = python-httpx: alternative HTTP backend
 	optdepends = git: support for git repositories
 	optdepends = python-gobject: for nvchecker-notify
 	optdepends = libnotify: for nvchecker-notify
-	source = git+https://github.com/lilydjwg/nvchecker.git?signed#tag=v2.21
+	source = git+https://github.com/lilydjwg/nvchecker.git?signed#tag=v2.22
 	validpgpkeys = 356690A1E7404E30D0E902B2E64D049594A54F54
-	sha512sums = a8f0d06a50332024eabcf7318c03225b956838d49b6842cd0a6e0b2fba08cc6556dcced8c21539b0ffb51ba1ee379d5eaf69567cc0b5ebc31a493c6e9a210edd
+	sha512sums = 454f12634bc5b50685f03a92ac53b53a907e09a38e0c10b8e65b7ec32d53c9f1412c486c7ad544a62618b034a3af116096f14b1a7779978a1e3b016b3f602a98
 
 pkgname = nvchecker
