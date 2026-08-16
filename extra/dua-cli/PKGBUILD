@@ -4,25 +4,25 @@
 # Contributor: mexus <gilaldpellaeon@gmail.com>
 
 pkgname=dua-cli
-pkgver=2.41.1
+pkgver=2.42.1
 pkgrel=1
 pkgdesc="A tool to conveniently learn about the disk usage of directories, fast!"
 arch=(x86_64)
 url="https://github.com/Byron/dua-cli"
 license=(MIT)
 depends=(glibc # libc.so libm.so
-         libgcc libgcc_s.so)
+         libgcc)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha512sums=('beb653766e7a04bfc8fb9935fa5b8a34304f42ee4db2fa795aa1b679cc4b444eb8aa4c00025863f3da7bf992f1626f02e373f2f3a4ddbcdbb7e8d76bc469bb6b')
+sha512sums=('4902f1c1fe2fe54154081502541ab1beecf2abf3716ce8a8109b9a776a1fa8d279f3bdd77c88c0fbbac4209279a2ae9386716c1eb1abc2cced763a982e7df442')
 
 _srcenv() {
 	cd "$_archive"
 	export CARGO_HOME="$srcdir"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
 	export CARGO_PROFILE_RELEASE_STRIP=false
-	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 }
@@ -46,6 +46,7 @@ check() {
 }
 
 package() {
+	depends+=(libgcc_s.so)
 	cd "$_archive"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
