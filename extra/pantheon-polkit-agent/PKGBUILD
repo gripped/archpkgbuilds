@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-polkit-agent
-pkgver=8.0.2
+pkgver=8.1.0
 pkgrel=1
 pkgdesc='Pantheon Polkit Agent'
 arch=(x86_64)
@@ -9,6 +9,7 @@ url=https://github.com/elementary/pantheon-agent-polkit
 license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
+  gcr-4
   glib2
   glibc
   gtk4
@@ -24,14 +25,8 @@ makedepends=(
   intltool
   vala
 )
-_tag=9e93b53ebb3d7784eba4908243f168662da434da
-source=(pantheon-polkit-agent::git+https://github.com/elementary/pantheon-agent-polkit.git#tag=${_tag})
-b2sums=('0162c18b3b34baba28ebc3047e5b6c8c0ecb43616b644677c1dcb3cecc038ddfdb19e8339657e72b3896b284224cae96b21e1fd6f426779c896446cd3529d185')
-
-pkgver() {
-  cd pantheon-polkit-agent
-  git describe --tags
-}
+source=(pantheon-polkit-agent::git+https://github.com/elementary/pantheon-agent-polkit.git#tag=${pkgver})
+b2sums=('be8931da419e8c5c978491db22ba876beac6f45728ea2e01919c46b17be8357632b7e02e4ca65083334f6781ce22108ef609d3bd7c01935fc5f6c24698e722b0')
 
 build() {
   arch-meson pantheon-polkit-agent build
