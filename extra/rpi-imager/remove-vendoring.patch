@@ -1,12 +1,13 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 2dd86fcf..74600c1b 100644
+index 247e1d03..b6aa2aa8 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -155,26 +155,22 @@ set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
+@@ -155,27 +155,26 @@ set(BUILD_TESTING OFF CACHE BOOL "" FORCE)
  set(BUILD_STATIC_LIBS ON)
  set(BUILD_SHARED_LIBS OFF)
  
 -include(FetchContent)
+-include(dependencies/fetch-vendor.cmake)
  
  # Bundled liblzma
 -include(dependencies/xz.cmake)
@@ -18,6 +19,10 @@ index 2dd86fcf..74600c1b 100644
 -# Remote nghttp2
 -include(dependencies/nghttp2.cmake)
 +find_package(zstd 1.5.7 REQUIRED)
++# zstd's config only exports imported targets, not the classic Find-module
++# variables the rest of this file uses; derive them here.
++set(ZSTD_LIBRARIES zstd::libzstd_shared)
++get_target_property(ZSTD_INCLUDE_DIR zstd::libzstd_shared INTERFACE_INCLUDE_DIRECTORIES)
  
  # Bundled yescrypt
  include(dependencies/yescrypt.cmake)
@@ -33,7 +38,7 @@ index 2dd86fcf..74600c1b 100644
  
  # libcurl
  if(APPLE)
-@@ -188,12 +184,13 @@ if(APPLE)
+@@ -189,12 +188,13 @@ if(APPLE)
      # Note: No need to find OpenSSL on macOS - we use native Security.framework
      # for RSA operations and CommonCrypto for hashing
  else()
@@ -49,7 +54,7 @@ index 2dd86fcf..74600c1b 100644
  
  # Add dependencies
  if (APPLE)
-@@ -551,8 +548,8 @@ else()
+@@ -540,8 +540,8 @@ else()
      include(linux/PlatformPackaging.cmake)
  endif()
  

@@ -1,0 +1,10 @@
+diff --git a/src/cmake/GenerateVersion.cmake b/src/cmake/GenerateVersion.cmake
+index 29a3464a..15c1bc56 100644
+--- a/src/cmake/GenerateVersion.cmake
++++ b/src/cmake/GenerateVersion.cmake
+@@ -14,4 +14,4 @@ if(GIT_EXECUTABLE)
+     execute_process(
+-        COMMAND "${GIT_EXECUTABLE}" describe --tags --always --dirty
++        COMMAND "${GIT_EXECUTABLE}" describe --tags --always --dirty=-archlinux
+         WORKING_DIRECTORY "${SOURCE_DIR}"
+         OUTPUT_VARIABLE GIT_DESCRIBE
