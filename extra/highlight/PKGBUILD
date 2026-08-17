@@ -4,7 +4,7 @@
 
 pkgbase=highlight
 pkgname=('highlight' 'highlight-perl' 'highlight-gui')
-pkgver=4.20
+pkgver=4.21
 pkgrel=1
 pkgdesc="Fast and flexible source code highlighter"
 url="http://www.andre-simon.de/doku/highlight/highlight.html"
@@ -13,7 +13,7 @@ arch=('x86_64')
 makedepends=('qt6-base' 'lua' 'boost' 'swig')
 source=("http://www.andre-simon.de/zip/${pkgbase}-${pkgver}.tar.bz2"{,.asc}
         'use_gcc.patch')
-sha256sums=('52838d40104c595b3d555a23680a1bd40f8ba6df0fbd63595018bb82501c0980'
+sha256sums=('310785a78bd054c4592ff012924c0542826ab53b7afd68d207462321c409a999'
             'SKIP'
             '5aaacca96f1f4307bbe9cfb5b0f67a98edb0b5d653270990176e20840196ab50')
 validpgpkeys=('B8C55574187F49180EDC763750FE0279D805A7C7')
