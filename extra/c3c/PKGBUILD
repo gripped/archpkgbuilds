@@ -3,7 +3,7 @@
 # Contributor: Manuel Linares <mbarriolinares@gmail.com>
 
 pkgname=c3c
-pkgver=0.8.2
+pkgver=0.8.3
 pkgrel=1
 pkgdesc='Compiler for the C3 language'
 arch=(x86_64)
@@ -12,7 +12,7 @@ license=(LGPL-3.0-or-later MIT)
 depends=(curl glibc libstdc++ lld llvm-libs)
 makedepends=(clang cmake git llvm)
 source=("git+$url#tag=v$pkgver")
-b2sums=('7239e9ab57a1c822c977a9872ce15ef047409c12b27395df9055281b3ed3d104d5588ab95d0be58b475ba48e9d628ccf4d83ccb141e03dd1be69c2f6d4cd7806')
+b2sums=('f567c225ae9b8ceddbe62c3259ac6d0467508603fce4ab46d57c83f69f58df454bba97ff90abe7115bdafcbb88bcc55c2dbf6cd0140e4060756e457983cb2552')
 
 build() {
   cmake \
