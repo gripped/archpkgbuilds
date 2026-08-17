@@ -3,8 +3,8 @@
 
 _pkgbasename=libice
 pkgname=lib32-$_pkgbasename
-pkgver=1.1.1
-pkgrel=2
+pkgver=1.1.2
+pkgrel=1
 pkgdesc="X11 Inter-Client Exchange library (32-bit)"
 arch=(x86_64)
 url="https://xorg.freedesktop.org/"
@@ -12,11 +12,11 @@ depends=('lib32-glibc' $_pkgbasename)
 makedepends=('xtrans>=1.2.5' 'xorg-util-macros' 'xorgproto')
 source=(${url}/releases/individual/lib/libICE-${pkgver}.tar.xz{,.sig})
 license=('custom')
-sha1sums=('7e4b51bb5633d7fc7d1f4e161d231591ab545f0b'
+sha1sums=('99687d0adca149a06b021f16df1c5eb0f1f90c21'
           'SKIP')
-sha256sums=('03e77afaf72942c7ac02ccebb19034e6e20f456dcf8dddadfeb572aa5ad3e451'
+sha256sums=('974e4ed414225eb3c716985df9709f4da8d22a67a2890066bc6dfc89ad298625'
             'SKIP')
-validpgpkeys=('3BB639E56F861FA2E86505690FDD682D974CA72A') # Matt Turner <mattst88@gmail.com>
+validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
 
 build() {
   cd "${srcdir}/libICE-${pkgver}"
