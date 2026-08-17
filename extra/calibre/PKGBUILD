@@ -9,7 +9,7 @@
 # Contributor: Larry Hajali <larryhaja@gmail.com>
 
 pkgname=calibre
-pkgver=9.12.0
+pkgver=9.13.0
 pkgrel=2
 pkgdesc='Ebook management application'
 arch=(x86_64)
@@ -101,12 +101,10 @@ replaces=("${conflicts[@]}")
 _archive="$pkgname-$pkgver"
 source=("https://download.calibre-ebook.com/$pkgver/$_archive.tar.xz"
         "$url/signatures/$_archive.tar.xz.sig"
-        https://github.com/kovidgoyal/calibre/commit/49af1f0904e00351ffbf9ad430a37bfe66226bae.patch
         "tts-piper-remove-withterminator.patch")
-sha256sums=('6e2b49e2210f40730bb9a79ebd9108e8c1d9e2c8b34ab0a1a9ef23f936b120ed'
+sha256sums=('38d7d88d7abcbc62c6fe3575483fb5493ce962d261a978a1a4db4d58bc4b3793'
             'SKIP'
-            'ec609872b37da3c6135440555ea17da8f3ebe3effee1ac5bd63821298e756051'
-            '128dad5dda9175ee9d8a798cdac0514e228821dca11b746b54682a9cc787d3da')
+            'e4c2a5a3885e0476b13b40afd2fa3bceaa08465d900295d5a53111797d12b815')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 prepare(){
@@ -123,9 +121,6 @@ prepare(){
 
 	# espeak-ng headers do not provide espeak_TextToPhonemesWithTerminator
 	patch -Np1 -i ../tts-piper-remove-withterminator.patch
-
-	# fix compilation with ffmpeg 9
-	patch -Np1 -i ../49af1f0904e00351ffbf9ad430a37bfe66226bae.patch
 }
 
 build() {
