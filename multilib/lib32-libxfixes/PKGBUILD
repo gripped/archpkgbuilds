@@ -2,8 +2,8 @@
 
 _pkgbasename=libxfixes
 pkgname=lib32-$_pkgbasename
-pkgver=6.0.1
-pkgrel=2
+pkgver=6.0.2
+pkgrel=1
 pkgdesc="X11 miscellaneous 'fixes' extension library (32-bit)"
 arch=('x86_64')
 url="https://xorg.freedesktop.org/"
@@ -11,12 +11,9 @@ license=('custom')
 depends=('lib32-libx11' $_pkgbasename)
 makedepends=('pkg-config' gcc-multilib )
 source=(${url}/releases/individual/lib/libXfixes-${pkgver}.tar.xz{,.sig})
-sha256sums=('b695f93cd2499421ab02d22744458e650ccc88c1d4c8130d60200213abc02d58'
+sha256sums=('39f115d72d9c5f8111e4684164d3d68cc1fd21f9b27ff2401b08fddfc0f409ba'
             'SKIP')
-
-validpgpkeys=('C41C985FDCF1E5364576638B687393EE37D128F8') # Matthieu Herrb <matthieu.herrb@laas.fr>
-validpgpkeys+=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF') # Peter Hutterer (Who-T) <office@who-t.net>
-validpgpkeys+=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
+validpgpkeys=('3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
 
 build() {
   export CC="gcc -m32"
