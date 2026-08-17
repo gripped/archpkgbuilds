@@ -4,7 +4,7 @@
 # Contributor: Moritz Maxeiner <moritz@ucworks.org>
 
 pkgname=dub
-pkgver=1.41.0
+pkgver=1.42.0
 pkgrel=1
 pkgdesc="Developer package manager for D programming language"
 arch=('x86_64')
@@ -14,12 +14,13 @@ groups=('dlang')
 makedepends=('ldc')
 depends=('curl')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/dlang/dub/archive/v$pkgver.tar.gz")
-sha512sums=('27e531c51dea57458d2b9bb666ae3ef3c3ba9d5cd75427e19fd6272af62164a98fce0a5e85af2abbbf4e1561906aef11d616ba721d281b0ea2c579a272bbf90c')
+sha512sums=('ec722a3baf6e111714111abc7bf0178216a1cb59ee5ff32a7faf84a1417be8609746d4f83f532b20c037b3af2f2dae3f69f542730a41e08520e27d3525e79d69')
 
 build() {
 	cd "$pkgname-$pkgver"
 
-	GITVER=$pkgver DMD=ldmd2 ldmd2 -run build.d -release -O3 -linker=gold --flto=thin -link-defaultlib-shared=false -L--build-id
+	_ldFlags="$(echo -ne $LDFLAGS | sed -e 's/-Wl,/-L=/g' -e 's/=auto/=full/' -e 's/\(-L=-z\),\([a-z-]*\)/\1 -L=\2/g')"
+	GITVER=$pkgver DMD=ldmd2 ldmd2 -run build.d -release -O3 $_ldFlags -link-defaultlib-shared=false -L--build-id
 
 	# Build man pages
 	bin/dub --single scripts/man/gen_man.d
