@@ -7,7 +7,7 @@
 
 pkgname=poedit
 epoch=1
-pkgver=3.9
+pkgver=3.9.1
 pkgrel=1
 pkgdesc="Cross-platform gettext catalogs (.po files) editor"
 arch=('x86_64')
@@ -31,11 +31,10 @@ makedepends=('boost'
              'git'
              'nlohmann-json')
 source=(git+https://github.com/vslavik/poedit#tag=v${pkgver}-oss)
-sha256sums=('64006234308cce59ea240cf4c44306cfd1a0ddcc219bcde3030b0abfcb99040d')
+sha256sums=('178fcce14ad1d7794d8e0da99b7843eb13918a23bb4c2521b8678863a5139c34')
 
 prepare() {
   cd $pkgname
-  git cherry-pick -n 96bc3fe075d369ab953379a8418052c2d79ac250 # Fix spell checking
   autoreconf -fiv
 }
 
