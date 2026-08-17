@@ -6,8 +6,8 @@
 
 pkgbase=networkmanager-l2tp
 pkgname=(networkmanager-l2tp networkmanager-vpn-plugin-l2tp)
-pkgver=1.52.2
-pkgrel=2
+pkgver=1.52.4
+pkgrel=1
 pkgdesc='NetworkManager VPN plugin for L2TP'
 url='https://github.com/nm-l2tp/NetworkManager-l2tp/wiki'
 arch=(x86_64)
@@ -15,7 +15,7 @@ license=(GPL-2.0-or-later)
 depends=(glib2 glibc gtk4 libgcc libnm libnma-gtk4 libsecret openssl)
 makedepends=(git glib2-devel libnma nspr nss ppp python strongswan xl2tpd)
 source=("git+https://github.com/nm-l2tp/NetworkManager-l2tp#tag=$pkgver")
-b2sums=('f099e50c9570d65f920fadb1bb784e5b4919b9705491f6c17c03d2a159c5fd646ce86361ed4edc31a4b66c482378de880dd8740f8f9746b0c23a545e0bf03f2e')
+b2sums=('1b9c90b626d3dc80276e6c25eaa3b31d2f0556450f4e104bc72a540182bfae574e4e72d46ed95fc452c3a3e37467344efdf9b7e4c17862305271f49f9ba24a30')
 _dirname=NetworkManager-l2tp
 
 prepare() {
