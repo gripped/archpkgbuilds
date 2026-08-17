@@ -2,8 +2,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=putty
-pkgver=0.84
-pkgrel=2
+pkgver=0.85
+pkgrel=1
 pkgdesc='A terminal integrated SSH/Telnet client'
 arch=('x86_64')
 url='https://putty.software/'
@@ -21,8 +21,8 @@ source=("git+https://git.tartarus.org/simon/putty.git#tag=${pkgver}"
         'putty.desktop'
         'putty.png'
         'putty.xpm')
-sha256sums=('9cd9a84497535baa5df5a675c367bfe2bdbf0cbcec54f24993e2110bf66f94ab'
-            '4a8af81fe8ac702ad298606076088f237b83beed82cc089a32f314888b67cf2c'
+sha256sums=('153b40fea84406073db3cbfcd2c4312227ee283cc692d4176e09fb33559ec518'
+            '91b06cb4dcbe1beec68c6224296e41bbdcdf019c0c6de0c5b82259a816ea460a'
             '93ba8ea8abf942f4de1c6cd167d4b5c2d6246fb1aa39dc49571cc18d167460c1'
             'd65139883171ed0119d9778ff4a89e6a8151a5ae97fcf8dc7cafb59df424377f')
 
