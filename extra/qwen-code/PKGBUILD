@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.19.8
+pkgver=0.19.9
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,18 +29,11 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('edd1c86ac7992294483e9f0505f5d6b5b818212f09eece0b48286297bda67833')
-b2sums=('ed6ab35188ca379b21cfbc98abe26e863aa37d64cd3d0ed0823c4912a5338ec6a190bd053e15d3790bc89045cb9f6beee6ba0c99a19fbc9c3cdc2ab3b25068f0')
+sha256sums=('0abbc5173cd044e3a42d12e815fafa37c5a12333a8d72e5c7d0eb2b77e9247a5')
+b2sums=('3ded28e63cea430ddb72a6498149330266b1d065c8ee6b06e3b2a458bb08a162f7137c57395239fde6545f57689e630fe0c88ad35067f17096576c4bef322da6')
 
 prepare() {
   cd $pkgname
-  # Upstream test-only UI flake fixes:
-  # https://github.com/QwenLM/qwen-code/pull/6622
-  git cherry-pick -n 88bd001ae52992ff91f4a81eb3a7316d9a36fe54
-  # https://github.com/QwenLM/qwen-code/pull/6605
-  git show --format= --no-ext-diff d454d0e7440218ae3619815f60ae819a566c9a66 -- \
-    packages/cli/src/ui/hooks/useStatusLine.test.ts \
-    packages/cli/src/ui/voice/voice-keyterms-race.test.ts | git apply
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
