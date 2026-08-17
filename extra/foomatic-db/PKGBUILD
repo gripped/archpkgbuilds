@@ -3,7 +3,7 @@
 pkgbase="foomatic-db"
 pkgname=('foomatic-db' 'foomatic-db-ppds' 'foomatic-db-nonfree' 'foomatic-db-nonfree-ppds')
 arch=('any')
-pkgver=20260209
+pkgver=20260813
 pkgrel=1
 epoch=3
 
@@ -14,7 +14,7 @@ options=('!emptydirs')
 # check https://github.com/OpenPrinting/foomatic-db
 # for latest commits and development, currently identical to foomatic-4.0 branch
 
-source=(foomatic-db::git+https://github.com/OpenPrinting/foomatic-db#commit=57e546cb7774c7b03e7090ced65fb1ffd552f33d                    #2026-02-09
+source=(foomatic-db::git+https://github.com/OpenPrinting/foomatic-db#commit=a8bdf5fbe1f736afabd188cbcacb95f459492e3f                    #2026-08-13
         foomatic-db-nonfree::git+https://github.com/OpenPrinting/foomatic-db-nonfree#commit=6ddae02ac89240c019f8b5026cfe70e30fd2b3db    #2015-06-05
 )
 sha256sums=('SKIP'
