@@ -6,8 +6,8 @@
 
 pkgbase=obs-studio
 pkgname=('obs-studio' 'obs-studio-plugin-browser')
-pkgver=32.2.1
-pkgrel=7
+pkgver=32.2.2
+pkgrel=1
 pkgdesc="Free, open source software for live streaming and recording"
 arch=('x86_64')
 url="https://obsproject.com"
@@ -26,7 +26,7 @@ source=(
   "obs-browser-Update-to-C-20.patch"
   "obs-browser-enable-support-for-CEF-6613+.patch"
 )
-sha256sums=('5b11ccf5468654d19537db108443812db12767084eba295ee532d81c4834492a'
+sha256sums=('18edf1162e6cc37c192c4532ccfb902a07c5891d5929e95c4f028c6ad5d762d5'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -63,11 +63,11 @@ build() {
   local _cef_api_version=$(grep -oP 'CEF_API_VERSION_LAST CEF_API_VERSION\_\K[0-9]+' /usr/include/cef/include/cef_api_versions.h)
   echo Setting CEF_API_VERSION to $_cef_api_version
 
-  export CXXFLAGS+=" -Wno-error=deprecated-declarations -Wno-error=ignored-qualifiers -Wno-error=unused-parameter"
   local cmake_options=(
     -B build
     -S $pkgname
     -DCMAKE_INSTALL_PREFIX="/usr"
+    -DCMAKE_COMPILE_WARNING_AS_ERROR=OFF
     # mbedtls 4 not supported yet
     # https://github.com/obsproject/obs-studio/issues/13601
     -DMbedTLS_INCLUDE_DIR="/usr/include/mbedtls3"
