@@ -3,7 +3,7 @@
 
 pkgname=bazaar
 pkgver=0.9.4
-pkgrel=1
+pkgrel=3
 pkgdesc="A new app store for GNOME with focus on flatpaks, particularly Flathub"
 arch=('x86_64')
 url="https://github.com/kolunmi/bazaar"
@@ -57,7 +57,16 @@ sha256sums=('74aad31514c18c06d93ea3936b7be51e15336c2095732bdd51083026402ee93d')
 build() {
   cd "${pkgname}"
 
-  meson setup build --prefix=/usr
+  meson setup build \
+    --prefix=/usr \
+    -Dlibdex:default_library=static \
+    -Dlibdex:docs=false \
+    -Dlibdex:examples=false \
+    -Dlibdex:gdbus=disabled \
+    -Dlibdex:introspection=disabled \
+    -Dlibdex:pygobject=false \
+    -Dlibdex:tests=false \
+    -Dlibdex:vapi=false
   ninja -C build
 }
 
@@ -65,4 +74,7 @@ package() {
   cd "${pkgname}"
 
   DESTDIR="${pkgdir}" ninja -C build install
+  rm -r "${pkgdir}"/usr/include/libdex-1
+  rm "${pkgdir}"/usr/lib/libdex-1.a
+  rm "${pkgdir}"/usr/lib/pkgconfig/libdex-1.pc
 }
