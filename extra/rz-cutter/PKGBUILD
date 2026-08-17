@@ -4,7 +4,7 @@
 
 pkgname=rz-cutter
 pkgver=2.4.1
-pkgrel=6
+pkgrel=7
 pkgdesc='Qt and C++ GUI for rizin reverse engineering framework'
 url='https://github.com/rizinorg/cutter'
 arch=(x86_64)
@@ -18,7 +18,8 @@ depends=(
   python
   pyside6
   graphviz
-  gcc-libs
+  libgcc
+  libstdc++
   syntax-highlighting
 )
 makedepends=(
@@ -27,7 +28,7 @@ makedepends=(
   git
   ninja
   qt6-tools
-  shiboken6
+  shiboken6-generator
 )
 optdepends=(
   'rz-ghidra: ghidra decompiler plugin'

@@ -1,7 +1,7 @@
 pkgbase = rz-cutter
 	pkgdesc = Qt and C++ GUI for rizin reverse engineering framework
 	pkgver = 2.4.1
-	pkgrel = 6
+	pkgrel = 7
 	url = https://github.com/rizinorg/cutter
 	arch = x86_64
 	license = GPL-3.0-only
@@ -10,7 +10,7 @@ pkgbase = rz-cutter
 	makedepends = git
 	makedepends = ninja
 	makedepends = qt6-tools
-	makedepends = shiboken6
+	makedepends = shiboken6-generator
 	depends = rizin
 	depends = capstone
 	depends = qt6-base
@@ -19,7 +19,8 @@ pkgbase = rz-cutter
 	depends = python
 	depends = pyside6
 	depends = graphviz
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = syntax-highlighting
 	optdepends = rz-ghidra: ghidra decompiler plugin
 	source = git+https://github.com/rizinorg/cutter#tag=v2.4.1
