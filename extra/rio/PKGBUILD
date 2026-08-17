@@ -5,7 +5,7 @@
 
 pkgname=rio
 pkgver=0.5.24
-pkgrel=1
+pkgrel=2
 pkgdesc="A hardware-accelerated GPU terminal emulator powered by WebGPU"
 arch=('x86_64')
 url="https://github.com/raphamorim/rio"
@@ -63,11 +63,14 @@ check() {
 
 package() {
   cd "${pkgname}-${pkgver}"
-  depends=(libasound.so
+  depends=(hicolor-icon-theme
+           libasound.so
            libfontconfig.so
            libfreetype.so
            libgcc_s.so
-           libstdc++.so)
+           libstdc++.so
+           oniguruma
+           vulkan-driver)
   install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
   install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
   install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
