@@ -2,8 +2,8 @@
 
 _pkgbasename=libxrender
 pkgname=lib32-$_pkgbasename
-pkgver=0.9.11
-pkgrel=2
+pkgver=0.9.12
+pkgrel=1
 pkgdesc="X Rendering Extension client library (32-bit)"
 arch=('x86_64')
 url="https://xorg.freedesktop.org/"
@@ -11,7 +11,7 @@ license=('custom')
 depends=('lib32-libx11>=1.3.4' $_pkgbasename)
 makedepends=('pkgconfig' 'gcc-multilib' 'xorgproto')
 source=(${url}/releases/individual/lib/libXrender-${pkgver}.tar.xz{,.sig})
-sha256sums=('bc53759a3a83d1ff702fb59641b3d2f7c56e05051fa0cfa93501166fa782dc24'
+sha256sums=('b832128da48b39c8d608224481743403ad1691bf4e554e4be9c174df171d1b97'
             'SKIP')
 validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') #Alan Coopersmith <alan.coopersmith@oracle.com>
 validpgpkeys+=('C41C985FDCF1E5364576638B687393EE37D128F8') # Matthieu Herrb <matthieu.herrb@laas.fr>
