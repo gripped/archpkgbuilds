@@ -3,15 +3,15 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.99
-pkgrel=1
+pkgver=6.1.101
+pkgrel=2
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-daemon"
 license=('GPL-3.0-or-later')
 # deepin-session-shell not added for org.deepin.dde.LockFront1, because bring in
 #                      deepin-session for non-DDE users is not desirable
-depends=('deepin-desktop-schemas' 'deepin-api' 'deepin-app-services' 'deepin-wloutput-daemon'
+depends=('deepin-desktop-schemas' 'deepin-api' 'deepin-app-services'
          # TODO
          'gtk3' 'libx11' 'gdk-pixbuf-xlib' 'gdk-pixbuf2' 'libxi' 'libpulse' 'glib2' 'libxcursor'
          'libxcrypt' 'libgudev' 'pam' 'iso-codes'
@@ -69,7 +69,7 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('6ec5f8dc846ab42874841c545a429ede66335dcf40cf75576a4222108afdb5244ecf3dd1c3ee4bee8f6b1eef3de6d0c129492eaad5359636ec2da1bb6db6e7f1')
+sha512sums=('692788b018dc998808cdc4ab370867a915dfa45ebee9368ac07f6444537f405c4609c46b412d787cf6df1c8ea50ac07bd75627f13efd2d17ffb209b3c2cb8a6f')
 
 prepare() {
   cd dde-daemon
