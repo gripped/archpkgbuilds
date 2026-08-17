@@ -10,8 +10,8 @@ pkgname=(
   ndiff
   zenmap
 )
-pkgver=7.99
-pkgrel=3
+pkgver=7.991
+pkgrel=1
 pkgdesc="Utility for network discovery and security auditing"
 url='https://nmap.org/'
 arch=(x86_64)
@@ -46,10 +46,10 @@ source=(
   "https://nmap.org/dist/sigs/$pkgname-$pkgver.tar.bz2.asc"
   "$pkgbase-ndiff-fix-tests.patch"
 )
-sha512sums=('9ff69659b76573eb10b6e472a0217032fd5fed20f0ac971b3736a4222fb6251c5fbf381ebea7ede313b8ff2feac90a848f645000c61200772d01b843594f4ba4'
+sha512sums=('d87836eedd453f4f5e55075b50640a6ad61cb5dbc1f887dbaf725fa8c32b6a472d838d174c68a2efa749b3b028512d2f0467aea0ff0b5f5752df714db62f8320'
             'SKIP'
             '9836b2f2df95e8a6d1af6cef99ba27ebaaafa16c97d7945887adf00b3022302f730eaf93e81b1e37462bad8f6a6bfef0130670d827d68e61b9f60c8c66497b34')
-b2sums=('76cc39c7ba28615a143eec7f6fdf009746ad1c3ca8f07a8d3fb8a707ee116bc1acbfd2e33515817dd3e64cf0b4d8c6d6674e796c06bf20a8ee73e9b38b89341a'
+b2sums=('883713c80cf44067f0c586c88fffee7ef656b3e02aa70dfd0bdd31916e91066165b2e8218b273869d2a37fd46e1c956688d34f4d5a4bc98a80e7212ebb84391a'
         'SKIP'
         '73e2cc10a2addec4cb7ea5df2f6129527733546fb30d412ae27b961840b2876eb19214be308217152bcbd81f27f1fbcfe1c83db7c8214338ae7a93abc4f12ced')
 validpgpkeys=('436D66AB9A798425FDA0E3F801AF9F036B9355D0') # Nmap Project Signing Key (http://www.insecure.org/)
