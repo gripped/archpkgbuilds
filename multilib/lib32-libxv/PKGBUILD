@@ -2,8 +2,8 @@
 
 _pkgbasename=libxv
 pkgname=lib32-$_pkgbasename
-pkgver=1.0.12
-pkgrel=2
+pkgver=1.0.13
+pkgrel=1
 pkgdesc="X11 Video extension library (32-bit)"
 arch=('x86_64')
 license=('custom')
@@ -11,7 +11,7 @@ url="https://xorg.freedesktop.org/"
 depends=('lib32-libxext' $_pkgbasename)
 makedepends=('pkgconfig' gcc-multilib)
 source=(${url}/releases/individual/lib/libXv-${pkgver}.tar.xz{,.sig})
-sha256sums=('aaf7fa09f689f7a2000fe493c0d64d1487a1210db154053e9e2336b860c63848'
+sha256sums=('7d34910958e1c1f8d193d828fea1b7da192297280a35437af0692f003ba03755'
             'SKIP')
 validpgpkeys+=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
 
