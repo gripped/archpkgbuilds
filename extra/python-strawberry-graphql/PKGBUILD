@@ -3,7 +3,7 @@
 
 pkgname=python-strawberry-graphql
 _pkgname=strawberry
-pkgver=0.323.2
+pkgver=0.324.0
 pkgrel=1
 pkgdesc="A GraphQL library for Python that leverages type annotations"
 url="https://strawberry.rocks"
@@ -12,8 +12,16 @@ license=('MIT')
 depends=('python' 'python-graphql-core'	'python-dateutil' 'python-packaging'
          'python-cross-web' 'python-rich' 'python-typing_extensions' 'python-pygments')
 makedepends=('python-build' 'python-installer' 'python-uv-build')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/strawberry-graphql/strawberry/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('3371ec812c3a3a0c73a21445328703d2206de434a7094777d23817d45aa3629d')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/strawberry-graphql/strawberry/archive/refs/tags/${pkgver}.tar.gz"
+        remove-uv-build-version-upperbound.patch)
+sha256sums=('db3ff35f2988a1106e0192af899ba73061bca35946e64da893d5fc3c2124903a'
+            '0272761c912686bc4791c88947975a4f0c50be2fdb214ef36cde397915657a96')
+
+prepare() {
+	cd "${_pkgname}-${pkgver}"
+	# Remove version upperbound from pyproject.toml for uv-build
+	patch -Np1 -i "${srcdir}/remove-uv-build-version-upperbound.patch"
+}
 
 build() {
 	cd "${_pkgname}-${pkgver}"
