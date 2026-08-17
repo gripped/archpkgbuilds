@@ -5,7 +5,7 @@ pkgname=('percona-server-clients' 'percona-server')
 pkgver=9.7.1_1
 _pkgver=${pkgver/_/-}
 _myver=${pkgver/_rel*}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 makedepends=('cmake' 'zlib' 'lz4' 'zstd' 'libaio' 'systemd-tools' 'pam' 'numactl' 'jemalloc' 'openssl'
              'rpcsvc-proto' 'doxygen' 'graphviz' 'libevent' 'libfido2' 'protobuf' 'editline')
@@ -46,69 +46,70 @@ prepare() {
 }
 
 build() {
-	# rm -rf build
-	mkdir -p build
-	cd build
-
-	cmake "../$pkgbase-$_pkgver" \
-		-DCMAKE_C_FLAGS_RELWITHDEBINFO="${CFLAGS} -DNDEBUG -ffat-lto-objects -msse4.2 -mpclmul" \
-		-DCMAKE_CXX_FLAGS_RELWITHDEBINFO="${CXXFLAGS} -DNDEBUG -ffat-lto-objects -msse4.2 -mpclmul" \
-		-Wno-dev \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-		-DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-		-DBUILD_CONFIG=mysql_release \
-		-DREPRODUCIBLE_BUILD=ON \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DSYSCONFDIR=/etc/mysql \
-		-DMYSQL_DATADIR=/var/lib/mysql \
-		-DMYSQL_UNIX_ADDR=/run/mysqld/mysqld.sock \
-		-DDEFAULT_CHARSET=utf8mb4 \
-		-DDEFAULT_COLLATION=utf8mb4_0900_ai_ci \
-		-DWITH_EXTRA_CHARSETS=all \
-		-DENABLED_LOCAL_INFILE=ON \
-		-DINSTALL_LAYOUT=RPM \
-		-DINSTALL_SBINDIR=bin \
-		-DINSTALL_LIBDIR=lib \
-		-DINSTALL_PLUGINDIR=lib/perconaserver/plugin \
-		-DINSTALL_INCLUDEDIR=include/perconaserver \
-		-DINSTALL_INFODIR=share/doc/percona-server \
-		-DINSTALL_DOCREADMEDIR=share/doc/percona-server \
-		-DINSTALL_DOCDIR=share/doc/percona-server \
-		-DINSTALL_MANDIR=share/man \
-		-DINSTALL_SUPPORTFILESDIR=share/mysql \
-		-DINSTALL_MYSQLSHAREDIR=share/mysql \
-		-DINSTALL_STATIC_LIBRARIES=OFF \
-		-DWITH_ZLIB=system \
-		-DWITH_LZ4=system \
-		-DWITH_ZSTD=system \
-		-DWITH_SSL=system \
-		-DWITH_ICU=system \
-		-DWITH_FIDO=system \
-		-DWITH_PROTOBUF=system \
-    -DWITH_EDITLINE=system \
-		-DWITH_ENCRYPTION_UDF=ON \
-		-DWITH_LIBWRAP=OFF \
-		-DWITH_MECAB=OFF \
-		-DWITH_PAM=ON \
-		-DWITH_ARCHIVE_STORAGE_ENGINE=ON \
-		-DWITH_BLACKHOLE_STORAGE_ENGINE=ON \
-		-DWITH_FEDERATED_STORAGE_ENGINE=ON \
-		-DWITH_ROCKSDB=ON \
-		-DROCKSDB_DISABLE_AVX2=1 \
-		-DROCKSDB_DISABLE_MARCH_NATIVE=1 \
-		-DWITH_AUTHENTICATION_CLIENT_PLUGINS=1 \
-		-DWITH_VALGRIND=OFF \
-		-DDEBUG_EXTNAME=OFF \
-		-DBUILD_TESTING=OFF \
-		-DWITH_UNIT_TESTS=OFF \
-		-DWITH_SYSTEMD=1 \
-		-DCMAKE_EXE_LINKER_FLAGS='-ljemalloc' \
-		-DWITH_LTO=ON \
-		-DUSE_LD_LLD=0 \
-		-DWITH_NUMA=ON
-
-	make
+	local cmake_options=(
+		-B build
+		-S "$pkgbase-$_pkgver"
+		-D CMAKE_C_FLAGS_RELWITHDEBINFO="${CFLAGS} -DNDEBUG -ffat-lto-objects"
+		-D CMAKE_CXX_FLAGS_RELWITHDEBINFO="${CXXFLAGS} -DNDEBUG -ffat-lto-objects"
+		-W no-dev
+		-D CMAKE_BUILD_TYPE=RelWithDebInfo
+		-D CMAKE_POSITION_INDEPENDENT_CODE=ON
+		-D CMAKE_POLICY_VERSION_MINIMUM=3.5
+		-D BUILD_CONFIG=mysql_release
+		-D REPRODUCIBLE_BUILD=ON
+		-D CMAKE_INSTALL_PREFIX=/usr
+		-D SYSCONFDIR=/etc/mysql
+		-D MYSQL_DATADIR=/var/lib/mysql
+		-D MYSQL_UNIX_ADDR=/run/mysqld/mysqld.sock
+		-D DEFAULT_CHARSET=utf8mb4
+		-D DEFAULT_COLLATION=utf8mb4_0900_ai_ci
+		-D WITH_EXTRA_CHARSETS=all
+		-D ENABLED_LOCAL_INFILE=ON
+		-D INSTALL_LAYOUT=RPM
+		-D INSTALL_SBINDIR=bin
+		-D INSTALL_LIBDIR=lib
+		-D INSTALL_PLUGINDIR=lib/perconaserver/plugin
+		-D INSTALL_INCLUDEDIR=include/perconaserver
+		-D INSTALL_INFODIR=share/doc/percona-server
+		-D INSTALL_DOCREADMEDIR=share/doc/percona-server
+		-D INSTALL_DOCDIR=share/doc/percona-server
+		-D INSTALL_MANDIR=share/man
+		-D INSTALL_SUPPORTFILESDIR=share/mysql
+		-D INSTALL_MYSQLSHAREDIR=share/mysql
+		-D INSTALL_STATIC_LIBRARIES=OFF
+		-D WITH_ZLIB=system
+		-D WITH_LZ4=system
+		-D WITH_ZSTD=system
+		-D WITH_SSL=system
+		-D WITH_ICU=system
+		-D WITH_FIDO=system
+		-D WITH_PROTOBUF=system
+		-D WITH_EDITLINE=system
+		-D WITH_ENCRYPTION_UDF=ON
+		-D WITH_LIBWRAP=OFF
+		-D WITH_MECAB=OFF
+		-D WITH_PAM=ON
+		-D WITH_ARCHIVE_STORAGE_ENGINE=ON
+		-D WITH_BLACKHOLE_STORAGE_ENGINE=ON
+		-D WITH_FEDERATED_STORAGE_ENGINE=ON
+		-D WITH_ROCKSDB=ON
+		-D ROCKSDB_DISABLE_AVX2=1
+		-D ALLOW_NO_SSE42=ON
+		-D WITH_AUTHENTICATION_CLIENT_PLUGINS=1
+		-D WITH_VALGRIND=OFF
+		-D DEBUG_EXTNAME=OFF
+		-D BUILD_TESTING=OFF
+		-D WITH_UNIT_TESTS=OFF
+		-D WITH_SYSTEMD=1
+		-D CMAKE_EXE_LINKER_FLAGS="${LDFLAGS} -ljemalloc"
+		-D WITH_LTO=ON
+		-D WITH_NUMA=ON
+	)
+	if [[ "${CARCH}" == "x86_64" ]]; then
+		cmake_options+=(-D ROCKSDB_BUILD_ARCH=x86-64)
+	fi
+	cmake "${cmake_options[@]}"
+	cmake --build build
 }
 
 package_percona-server-clients() {
