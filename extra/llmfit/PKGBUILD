@@ -2,25 +2,25 @@
 # Contributor: Agustin <agustinballesteros04@gmail.com>
 
 pkgname=llmfit
-pkgver=1.1.9
+pkgver=1.1.10
 pkgrel=1
 pkgdesc='CLI tool to tell which LLM models will run best on your hardware'
 arch=(x86_64 aarch64)
 url="https://github.com/AlexsJones/$pkgname"
 license=(MIT)
 depends=(glibc # libc.so libm.so
-         libgcc libgcc_s.so)
+         libgcc)
 makedepends=(cargo
              git)
 replaces=("$pkgname-bin")
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('d2a8e8032dfaa69c52af036544dcf99a0e56984d679761fde14aea3e49c175e4')
+sha256sums=('5a2f5d0f0e2b414ecab6b3d9d108d4d7a90ae9b41b65d51b4445a4f65138215c')
 
 _srcenv() {
 	cd "$pkgname"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
 	export CARGO_PROFILE_RELEASE_STRIP=false
-	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 	CFLAGS+=' -ffat-lto-objects'
@@ -42,6 +42,7 @@ check() {
 }
 
 package() {
+	depends+=(libgcc_s.so)
 	cd "$pkgname"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
