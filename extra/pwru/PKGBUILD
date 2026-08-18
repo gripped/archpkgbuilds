@@ -2,8 +2,8 @@
 # Contributor: Y7n05h < echo WTduMDVoQHk3bjA1aC5kZXY= | base64 -d >
 
 pkgname=pwru
-pkgver=1.0.11
-pkgrel=2
+pkgver=1.0.12
+pkgrel=1
 pkgdesc="Packet, where are you? -- eBPF-based Linux kernel networking debugger"
 arch=("x86_64")
 url="https://github.com/cilium/pwru"
@@ -11,7 +11,7 @@ license=("GPL2")
 depends=("glibc")
 makedepends=("clang" "llvm" "go")
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('a2dc9c7ae51a38a42236bb485d411d8f41a2e08c60d5f2e92009a45eb7d6b8e2')
+sha256sums=('1b5154439ad4bf02d4d7acaf98fd1913fb053593d31282f6898352a1b04e5e09')
 
 prepare() {
 	cd "$pkgname-$pkgver"
