@@ -4,8 +4,8 @@
 pkgbase=fltk
 pkgname=(fltk fltk-docs)
 pkgver=1.4.5
-pkgrel=1
-pkgdesc="Graphical user interface toolkit for X"
+pkgrel=2
+pkgdesc="Graphical user interface toolkit for Wayland and X"
 arch=(x86_64)
 license=('LGPL-2.0-only WITH FLTK-exception')
 url="https://www.fltk.org/"
@@ -45,12 +45,13 @@ _pick() {
 build() {
   local cmake_options=(
     -B build
-    -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=None
-    -D FLTK_LIBDIR=/usr/lib
-    -D FLTK_BUILD_SHARED_LIBS=ON
+    -D CMAKE_INSTALL_PREFIX=/usr
     -D FLTK_BUILD_HTML_DOCS=ON
+    -D FLTK_BUILD_SHARED_LIBS=ON
     -D FLTK_INSTALL_HTML_DOCS=ON
+    -D FLTK_LIBDIR=/usr/lib
+    -D FLTK_OPTION_CAIRO_WINDOW=ON
     -S $pkgbase-release-$pkgver
     -W no-dev
   )
