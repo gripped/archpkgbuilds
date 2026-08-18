@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-python-discovery
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc='Python interpreter discovery'
 arch=(any)
@@ -23,9 +23,21 @@ checkdepends=(
   python-pytest-mock
   python-setuptools
 )
-source=("$pkgname::git+https://github.com/tox-dev/python-discovery#tag=$pkgver")
-sha512sums=('48e56c199308819a09cea4cdef18a944223f6bffad220d6033b11284c3de281e74647e6c4951c12b0da09ddd2227f49438b8c915eea809035f5b5317be79fc92')
-b2sums=('9ab7d447bedef9566f5b430202573872d7f1e971f2aab67c912d2bba51f5d0976387cf9a840b51303dc883cb05d8b8ac9af8545dd0062d890342fc89faf5c258')
+source=(
+  "$pkgname::git+https://github.com/tox-dev/python-discovery#tag=$pkgver"
+  no-vermin.patch
+)
+sha512sums=('edc97b94624c28ec7492df107a007abf81e3799eb37070cec6d50b6c78be2fc2ce4447e8449688b6435846efde12644463462f96bd7fcbfb9e06926e9ee36347'
+            'c9057e2e74dde6819b2f43cf6f29c6f0903da9f12784fc1e84fc24b972a8d114fb55c60630f65106cee1e2c02e043ddfff08f5729c98d3e35a32c0b83ec184cd')
+b2sums=('36a90fff40b3f980990e17193f4cdadccb3fb6ad2554983b79d7ae931818906a96cb5d9c6b4e184d3956d56f58790838a78571df351b77aae37c85939dc48ec8'
+        'e23fac44ff0fe6dc0eb4f19da9bef5410c0e4d03b2992d2f79eba45a4b69c81173c11feb13e84d8d440938b67aa65f3ada6fe6583f627f828a83fa70863ec507')
+
+prepare() {
+  cd "$pkgname"
+
+  # we don't want to detect old python versions
+  patch -p1 -i "$srcdir/no-vermin.patch"
+}
 
 build() {
   cd "$pkgname"
