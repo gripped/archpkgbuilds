@@ -1,13 +1,14 @@
 pkgbase = python-progressbar
 	pkgdesc = A progress bar for Python
-	pkgver = 4.5.0
-	pkgrel = 3
+	pkgver = 4.6.0
+	pkgrel = 1
 	url = https://github.com/WoLpH/python-progressbar
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-dill
 	checkdepends = python-pytest
 	checkdepends = python-freezegun
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -16,12 +17,9 @@ pkgbase = python-progressbar
 	makedepends = python-wheel
 	depends = python
 	depends = python-utils
-	source = https://github.com/WoLpH/python-progressbar/releases/download/v4.5.0/progressbar2-4.5.0.tar.gz
-	source = https://github.com/WoLpH/python-progressbar/releases/download/v4.5.0/progressbar2-4.5.0.tar.gz.asc
+	source = git+https://github.com/WoLpH/python-progressbar?signed#tag=v4.6.0
 	validpgpkeys = 149325FD15904E9C4EB89E95E81444E9CE1F695D
-	sha512sums = 84d13cce516aebc184285479849a1f4d16d16bbd48c7eab55c28ce131f5c770d97368df1ca57499a59e4d2994bce5a0cef7cc3d7c3a358b2dd6beba785f5db33
-	sha512sums = SKIP
-	b2sums = 3c4adc503d1b6e0121dd579719aa6758a52459cf7c2d63016032edd89d9f22918b1e0b497237b1658f703d790273feb64818e420b752a5f0e04e99e75042fc1d
-	b2sums = SKIP
+	sha512sums = 578ef712fc5eebc1ea68fe5101a7c9f91a6476f6833696ccc7b507ef0a16fecbbbb812f3d8c4ac3c8ea42312974e63f746745867be6f1e336ec7612fc0125804
+	b2sums = de2e70d74c7b2a9946b5d0572b475ad27b8e25d55d402048a071520369c9cd87c2f2dda9eabe95b8971cf3a81794c281452fa20566a4d1a4125b1413c5b516e2
 
 pkgname = python-progressbar
