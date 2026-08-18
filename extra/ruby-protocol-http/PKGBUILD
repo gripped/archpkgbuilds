@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-http
-pkgver=0.70.0
+pkgver=0.71.0
 pkgrel=1
 pkgdesc='Provides abstractions to handle HTTP protocols'
 arch=(any)
@@ -27,8 +27,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+https://github.com/socketry/protocol-http.git#tag=v${pkgver}")
-sha512sums=('2ff0f17367649a3a3b469970e131d52b5902c3fc3290e75ac26df74ee83cb13bd5c0858571f8778ce83988e7be3b855d609db31d471b77551af247e0c3184cba')
-b2sums=('2be31139e9b5d8d56130233dcf0ef7ccfbbb160c640f80fc29a04f077cfdb8b6a9072cb8d0aa0756d7d9a985bb04ede6d53953cc956ac1edde98998088e4e129')
+sha512sums=('78efa68f0c27aae8526ef1b96e0cc6a149425121c9e7b149f27e31f4f2fecfe14e790e3aca57a8640f317b1c7a4055e6eb5e6801634df2894bd540ccee32260b')
+b2sums=('2968beceeb8a3db2d54a75c9855438d8bfc4321d6aa76812f2d2ca7ac36012575f794295ef8b3e9620736671f74af3f332e0f1a54f2eaecca1be515e5e66c39b')
 
 prepare() {
   cd protocol-http
