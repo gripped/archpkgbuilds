@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pixi
-pkgver=0.76.1
+pkgver=0.76.2
 pkgrel=1
 pkgdesc="A package management and workflow tool"
 arch=('x86_64')
@@ -16,14 +16,14 @@ makedepends=(cargo)
 checkdepends=(git
               sdl2)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('47feec49c7d8bcd82f4969d614f43aae0bef91cb6ededa5790175e8e6e9d37ae29cc04492ea8fb3669234163b1cb301be80f1e28f606f11825f5d00e18e286dd')
+sha512sums=('19e0800a827a50f6e5ecbb4f4bbfc23d33525f5d9c4ef137d9b9471801673bec97f21db83eb47f87c5f05bcc39206855d8379a0f9cb1e39a152a25f14fdcacd1')
 
 _srcenv() {
   cd "$pkgname-$pkgver"
   export CARGO_HOME="$srcdir"
   export CARGO_PROFILE_RELEASE_DEBUG=2
   export CARGO_PROFILE_RELEASE_STRIP=false
-  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
   CFLAGS+=' -ffat-lto-objects'
@@ -54,6 +54,9 @@ check() {
     install_tests::install_conda_meta_history
     install_tests::quick_validate_refreshes_resolved_platform
     install_tests::install_all_skips_unsupported_environments
+    # does stuff with temp dirs and locks our chroots don't like
+    source_package_tests::locked_accepts_branch_build_source_after_upstream_moves
+    source_package_tests::test_abbreviated_git_rev_build_source_keeps_lock_satisfied
     source_package_tests::test_git_path_lock_behaviour
     # https://github.com/prefix-dev/pixi/issues/5383
     tests::test_env_vars_are_set
