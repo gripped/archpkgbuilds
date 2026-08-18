@@ -5,8 +5,8 @@
 # Contributor: xav <xav at ethertricks dot net>
 
 pkgname=umurmur
-pkgver=0.3.1
-pkgrel=4
+pkgver=0.4.0
+pkgrel=1
 pkgdesc='Minimalistic Mumble server'
 url="https://github.com/umurmur/umurmur"
 arch=(x86_64)
@@ -23,26 +23,18 @@ makedepends=(
 backup=(etc/umurmur/umurmur.conf)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
-  $pkgname-0.3.1-install-dir.patch
   umurmur.sysusers
   umurmur.service
   umurmur.tmpfiles
 )
-sha512sums=('f0f38af67442660a45692010232a56c7e9c2bd96908898fe946f70e3f531d3d135059e3a8f88180aef0cef3f4883a591ae922a833652ed221214a12c757bbb42'
-            'f291eff184d58c1648f29e9f4747bc7ae609022667cdf1cfe0cdd52f5ecdd09a22f04b238ae24d7c22eae6d1dc050d978e412de8dbe7510f69f2cf7fce2b8ab5'
+sha512sums=('bc6577d60c803466b18886f7117aacae83c6201274bd71592a556e125f5b1924d545ecde3fcb4d908bb7127efec9be4ebb32b75e4522ce2cac0d4f22338a5dc0'
             '0b965915585d03e9b461adfa1f25c655e470c53ca043f91a55267f11bc00cac34f5f3a206097a100eea92e48a71672a2ce2eb06c7af38827b373233dc261c426'
             '0d34548ce1d1b3bc240664f5538d8b7dc31969731ef6ce04c99c9fab011e1d946eb5d5e91b14d66242d4a4955936f08752de9dd9ac7244886a53628079e8cfac'
             'b49b65a1e87cba9d8b453dee23f9f1e89d9eeb326e9ce98a32605ac62f72d36c1efbca70ed1a87efe9294ef137d3f673429cd70b5051e03e0e85db310943c39e')
-b2sums=('cd4b715d19463816e886dddbc1520d3d4c050258c249722335f726b32821e145f8883c327b9877512b68aa5b905efb792441f7eff12f872fdde99eabe4905d01'
-        '02a1fa0c77674f3f4707824741a702c59dff0f314f5d9d1b51a4d74a65cfd23d317fe98f33e51c447b3a2d639fbdfd786109eba976c6daa01b1032d72fab7ec0'
+b2sums=('6cf748040ba9881af306a221213bd2f5373486c41036e13f82ff847f775c33ac5a4bc6a8bc237f230984b2ae18273518edb5e740bf36574efc5758e0743bf2cd'
         '9963646f3020b35e0064c8334fef40b59efa38d335a117b2e5095dc64e5331323ce3ad3489afd88661fb1500fe0d276f957dcb9954e5470fe4c18764648bf780'
         '82783532ec4c21bdd8484175b8eeba53a593c86a92e11d441ee2f92410df90fab132a9bf7d5de24af48ed42eec57ece97b5399545094558d73a370827bbe4118'
         '935f8ea09c8cbb32dc508959181b707bfadd564c038b2c7a4ce213372242cdefaf75c7f3d76644f28246b666c93a0d89c5b4741f12f63261f19b99d8c0603219')
-
-prepare() {
-  # fix issue with default binary install directory: https://github.com/umurmur/umurmur/issues/212
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-0.3.1-install-dir.patch
-}
 
 build() {
   local cmake_options=(
@@ -72,7 +64,7 @@ package() {
 
   cd $pkgname-$pkgver
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-  install -vDm 644 {AUTHORS,ChangeLog,README.md} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 {AUTHORS,{CHANGELOG,README}.md} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 
 # vim: ts=2 sw=2 et:
