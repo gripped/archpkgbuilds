@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=go-swagger
-pkgver=0.36.2
+pkgver=0.36.4
 pkgrel=1
 pkgdesc='Swagger 2.0 implementation in Go'
 arch=(x86_64)
@@ -11,8 +11,8 @@ depends=(glibc)
 makedepends=(git go)
 options=(!lto)
 source=("$pkgname::git+https://github.com/go-swagger/go-swagger#tag=v$pkgver")
-sha512sums=('4f718b688ec428ddf39f86d1bde57e436906b7129581af6299e360d0cbd3a1c194cc5d670e03a7bdf9e99a8034ab41bcaf1e6ee28589390575718c0615319649')
-b2sums=('5d2eeec91292c895eb725927df881ef259904199c976e004bb0466fe816eda05c259868a6f41113838bdd396585fc17bfe2e42a97a19ea2c693b406919fe9ad1')
+sha512sums=('d7d131e27075ed8642bb48be53a4f63055a0e97f9552c430e96bcca55a6f03c853511fcb69a785c3c38fda2ba5493d5e8a418d2cecf34bb63fc0f0cec95d2a54')
+b2sums=('1b0a0f4b5325390339377003c584ab35c0308276349283073de5a6d61bd783d11fb940c2150000a17383d3741d56f8d305755fcc56284dd355e9a15f17b4883c')
 
 prepare() {
   cd "$pkgname"
