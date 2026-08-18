@@ -4,8 +4,8 @@
 
 pkgbase=amsynth
 pkgname=(amsynth amsynth-{common,dssi,lv2,standalone,vst})
-pkgver=1.13.4+r202+gc83787a
-pkgrel=2
+pkgver=2.0.0
+pkgrel=1
 pkgdesc="Analogue Modeling SYNTHesizer"
 arch=(x86_64)
 url="https://amsynth.github.io/"
@@ -40,30 +40,24 @@ makedepends=(
   zlib
 )
 checkdepends=(lv2lint)
-_commit=c83787a381dded142f55e9090f20f0f9e816da72  # develop
 source=(
-  git+https://github.com/amsynth/amsynth.git#commit=$_commit
-  git+https://github.com/juce-framework/JUCE.git
+  git+https://github.com/amsynth/amsynth.git#tag=release-$pkgver
+  amsynth-juce::git+https://github.com/amsynth/JUCE.git
   git+https://github.com/ODDSound/MTS-ESP.git
 )
-sha512sums=('c3514d90b2202c0b7f708779980cae266566db05195f17189ebaa5eee277aba32a37bc0c1b5661b57b81ae18b720ffbc9aa21f7f426c9d29ab6104297c20e841'
+sha512sums=('5e635a117286e971123ca9871deb1443ffc0529faf9bde7f8fbcf4b4557bd0f8432b8ca240612efe4dc4b2406c43eea60f767a873e2ca7a426420a2b9abb53b9'
             'SKIP'
             'SKIP')
-b2sums=('d53329901b880e544a1689b7b2d146c90cb605ab989d99a962bd79fcca47790ce027aa67b34fd8be827d86beb7b205a92a45045b8ec3e448ec301c9fd4b759f0'
+b2sums=('c760636b4dc3bf67fcdd3e5fe0209ffabada5195a03a55fa082277fb3df39b0ed49ceacc656e6c611383f5f45bfe4ece4673d63866f29e831be00dfc707f078b'
         'SKIP'
         'SKIP')
-
-pkgver() {
-  cd $pkgname
-  git describe --tags | sed 's/^release-//;s/[^-]*-g/r&/;s/-/+/g'
-}
 
 prepare() {
   cd $pkgname
 
   git submodule init
-  git submodule set-url external/JUCE "$srcdir/JUCE"
-  git submodule set-url external/MTS-ESP "$srcdir/MTS-ESP"
+  git submodule set-url external/JUCE ../amsynth-juce
+  git submodule set-url external/MTS-ESP ../MTS-ESP
   git -c protocol.file.allow=always submodule update
 
 # Fix metainfo install dir
@@ -148,6 +142,7 @@ package_amsynth-dssi() {
     liblo liblo.so
     libpng libpng16.so
     libstdc++
+    libx11
     zlib libz.so
   )
 
@@ -163,6 +158,7 @@ package_amsynth-lv2() {
     libgcc
     libpng libpng16.so
     libstdc++
+    libx11
     lv2-host
     zlib libz.so
   )
@@ -183,6 +179,7 @@ package_amsynth-standalone() {
     liblo liblo.so
     libpng libpng16.so
     libstdc++
+    libx11
     zlib libz.so
   )
   optdepends=(
@@ -201,6 +198,7 @@ package_amsynth-vst() {
     libgcc
     libpng libpng16.so
     libstdc++
+    libx11
     vst-host
     zlib libz.so
   )
