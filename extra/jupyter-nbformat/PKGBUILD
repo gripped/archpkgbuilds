@@ -2,7 +2,7 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=jupyter-nbformat
-pkgver=5.11.0
+pkgver=5.11.1
 pkgrel=1
 pkgdesc='The base implementation of the Jupyter Notebook format and Python APIs for working with notebooks'
 arch=(any)
@@ -20,7 +20,7 @@ makedepends=(git
 checkdepends=(python-pytest
               python-testpath)
 source=(git+https://github.com/jupyter/nbformat#tag=v$pkgver)
-sha256sums=('67e4787379fe6c98fe32cc2aff4779705c78f61d7c3aac0addbab5f7d88d3a28')
+sha256sums=('64e57cb51da171d2b0960631d8fd6754db927beb87ac6d1cfd860a37418ddc5d')
 
 build() {
   cd nbformat
