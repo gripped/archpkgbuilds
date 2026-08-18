@@ -3,7 +3,7 @@
 
 _name=pytest-rerunfailures
 pkgname=python-pytest-rerunfailures
-pkgver=16.4
+pkgver=16.5
 pkgrel=1
 pkgdesc="A plugin for py.test that re-runs failed tests to eliminate intermittent failures"
 arch=(any)
@@ -27,8 +27,8 @@ optdepends=(
   'python-pytest-xdist: for recovering from crashes'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('29d9d59a105be82f12b3a6186ace0030cae95b008e38eaf1785af7530ac863b781236d469b91f7690265f4de755b9068f4415f5afb9dc1711633e124a62ab38e')
-b2sums=('87129dbe465df64f5f0d0ede6aaf05a64f5d08f9219b4f5d539f99eb170da5317398bef4860d090f23507e14cb794133b2b075a2b86d31cf8310bb4597b2540c')
+sha512sums=('a02f25dc57ba5c16813a7c8b70ec64cd8a3a242a97daac24d42b1c4825305e7418a2913637c31a507b98893b45ab51a5a0da39486c7056839d61f0215791f7fe')
+b2sums=('3670e38c7afca029a21fa58565e608671b342379fe8fc801cc5604d3c5127cdab617b4d89e08a48e0bd8224be13232156aebafa84945e839e1f82bc103fe1902')
 
 build() {
   cd $_name-$pkgver
