@@ -4,12 +4,12 @@
 
 _name=elfutils
 pkgname=lib32-libelf
-pkgver=0.195
+pkgver=0.196
 pkgrel=1
 pkgdesc="Handle ELF object files and DWARF debugging information (libraries, 32-bit)"
 arch=(x86_64)
 url="https://sourceware.org/elfutils/"
-_url=https://sourceware.org/git/elfutils.git
+_url=https://forge.sourceware.org/elfutils/elfutils-mirror.git
 license=('GPL-2.0-or-later OR LGPL-3.0-or-later')
 depends=(
   "libelf=$pkgver"
@@ -27,12 +27,9 @@ makedepends=(
   lib32-gcc-libs
 )
 # NOTE: the shared objects can not be added to provides as they are not versioned
-source=(git+$_url?signed#tag=$_name-$pkgver
-        "remove-comment.patch")
-sha512sums=('7bbc1db55939e999683ccff41f287433ed926e255b4a35048812bc85505a1b3339828691691c769c4d79347f513792356c2d6b1727eabe0fd720722f7076643e'
-            'e33fe8d3fc9347fc9839c3958e51f8dbb7fbe4670b44ede503f5e8237998c80c4d53dfb7a6f36bc33d552ee35aaa955f7323a60476f315afd4fbee052a6551a1')
-b2sums=('6be17af5c5d015e028f1658f63a5a635c00952c98fa76be4f5a56c27366681a56f8e288261db876c51bc884a8a3fc4d03ecdf965e0e0fc98a2ebb3d4351d2d1c'
-        'c48aba30e2890744700982a49fef69bae94e1db0036fb25c0168c18ebbe8baf2f7ab49e46c384506ef7d35d4bebb028241112103f2be474c717f292d9a4c003b')
+source=($_name::git+$_url?signed#tag=$_name-$pkgver)
+sha512sums=('ea440d94638326902e89506ab4a6e878f7ec9ae4c3672360bcc67511ca28b31fca8c0c7ef4ad1ae3463f635250ec745d55ce6afe3861ff63c90eb503ac63a47a')
+b2sums=('08adddadcac1194c73d244f3ac25fb3e4300e782ea304119016bfe056ca8f3c3a3a7492b992091a35b1a9e430d1dcaf0d77e49585fcefcee5bd10526ba03c200')
 validpgpkeys=(
   'EC3CFE88F6CA0788774F5C1D1AA44BE649DE760A'  # Mark Wielaard <mjw@gnu.org>
   '6C2B631563B8D330578D3CB474FD3FA2779E7073'  # Aaron Merey <amerey@redhat.com>
@@ -40,13 +37,6 @@ validpgpkeys=(
 
 prepare() {
   cd $_name
-
-  # remove failing test due to missing glibc debug package during test: https://bugs.archlinux.org/task/74875
-  sed -e 's/run-backtrace-native.sh//g' -i tests/Makefile.am
-
-  # Accidental comment in the AWK file. Removing it.
-  patch -Np1 < "$srcdir/remove-comment.patch"
-
   autoreconf -fiv
 }
 
