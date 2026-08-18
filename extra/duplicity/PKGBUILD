@@ -4,7 +4,7 @@
 # Contributor: Aaron Schaefer <aaron@elasticdog.com>
 
 pkgname=duplicity
-pkgver=3.2.0
+pkgver=3.2.0.1
 pkgrel=1
 pkgdesc='A utility for encrypted, bandwidth-efficient backups using the rsync algorithm'
 arch=(x86_64)
@@ -17,12 +17,14 @@ depends=(
   python
   python-fasteners
   python-pexpect
+  python-gnupg
 )
 makedepends=(
   git
   python-build
   python-installer
   python-setuptools
+  python-setuptools-gettext
   python-setuptools-scm
   python-wheel
 )
@@ -46,10 +48,10 @@ source=(
   fix-documentation-directory.patch
   no-pip.patch
 )
-sha512sums=('87ed3b225c947d11dbf7008883285e0365dd0bbdba647f2430c306725d049c509f6b6bddd480af084d44aa40d31b50f7ff456c6e64ca8e06a1699556a85be4f8'
+sha512sums=('cdf1c979114b86d4f2acf6eb2a435c19f17bb146dc0396f5cce796529aa3d3e5f94ac9370f4866906638464e2258e694bec7bdf147eb8189c61ad22d22ae7528'
             'c157fc0b5a3eff6e5743721adbc9567c89638ce8f5adf33b4f976e6a86adbcf16dd3f8b38b2482e4570ae728a4f99b813600efc5ac6e3996b6881ccf1a04fa22'
             'b380db3036442966e4fa39d3759b6a554254fc03955666c93b80ecdfb9ae2d57de8d4c08a94bcffb950858106a08967f7741afb4385a68bc6bc4890d0e33aa10')
-b2sums=('b18e675c7086fb21a0028972c1aed221ebb03d30d898ec5485845437dc55faba47a151cb361e100c34f2d5ae3c7a7d62c4850b953b98b80670c5383990e6b119'
+b2sums=('ccd655ab5e5ffed10a38a9a2bc7a4cd180c14ed3bafd523255a6bc7326f52ca25b371d1fa6087a75f32cd8217888db049ca441d942890c69e13ce81f6512fe40'
         '727029fc3e8dbafea089b976be112631ea3d580dab251f1346594ade5fb6ca7cd87640b80fda11cafc87f13312712da3c8fe5e2a2c497093ad31dfce6c866560'
         '40b4e6aeec2fbda0036bde6921e987e6f77e36878ae08ee6e59acb07a94564522224245f04f17a3aa7566af4e355fb4fac940df633487aeb2949789a6bec52e8')
 
