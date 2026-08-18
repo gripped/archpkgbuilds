@@ -1,7 +1,7 @@
 # Maintainer: Thore Bödecker <foxxx0@archlinux.org>
-# Maintainer: Morten Linderud <foxboron@archlinux.org>
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
+# Contributor: Morten Linderud <foxboron@archlinux.org>
 # Contributor: Pierre Neidhardt <ambrevar@gmail.com>
 # Contributor: Hermann Zahnweh (eigengrau)
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
@@ -9,13 +9,16 @@
 # Contributor: jebaum <jebaum at ucla dot edu>
 
 pkgname=fzf
-pkgver=0.74.2
+pkgver=0.74.3
 pkgrel=1
 pkgdesc='Command-line fuzzy finder'
 arch=('x86_64')
 url='https://github.com/junegunn/fzf'
 license=('MIT')
-depends=('bash')
+depends=(
+    'bash'
+    'glibc'
+)
 makedepends=('git' 'go')
 optdepends=('fish: fish keybindings'
             'tmux: fzf-tmux script for launching fzf in a tmux pane'
@@ -26,7 +29,7 @@ source=("git+https://github.com/junegunn/fzf.git#tag=v${pkgver}?signed")
 validpgpkeys=(
 	'B5FB4AB5F32EC1A0C9DE9637254BC280FEF9C627'
 	'23F9CCD32FBC4A8D4E822AB8D9770615D226D94C') # Junegunn Choi <junegunn.c@gmail.com>
-sha512sums=('d2c094ea5ab694bfadd611094bb61dba05c9eecf896c6964cdd7c0f6224e0f6fa0e6c1c7d0e75e0c12474bb1e147dd650142294a5bb695a103a42cc7271b92e1')
+sha512sums=('37b2c8d7e4f0f81cc9bb9e7cee764b2f2bfa567f66ac5b1f74db1836b904620b7d550816cefea439ed4c2c7bab8019d3a2c5899aeac60bb2ea6e23d3365e1548')
 
 prepare() {
 	cd "${pkgname}"
