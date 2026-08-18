@@ -5,8 +5,8 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.114.1
-pkgrel=2
+pkgver=0.115.0
+pkgrel=1
 pkgdesc='A new type of shell'
 arch=(x86_64)
 url='https://www.nushell.sh'
@@ -25,8 +25,8 @@ makedepends=(cargo git)
 checkdepends=(procps-ng)
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha512sums=('624543e4b291e1935cdcbdb266157c1ab72b30d461a61bba4fc8b41e04181283fe535da8d7554178f04b197cb09d321736b6c8851ecfae11771deb34631b5c2c')
-b2sums=('40946c18b77dfb6b2722c6e34f56f5a580e8fd720cab813131bb8e3dfa28b4bb45e9aee6882af6ba25908632c27112bad9b241405c667958b1f1aaa76a7f3038')
+sha512sums=('eac6f954417e0ad60b9c51c018f9d9504fb0de9ab79db229f6d50f7a6142c539182cb612ba80b9e466774ef4e9b62d56c28e2de1edf161c7e2c2e0ce1c4df63b')
+b2sums=('64dc8f637276f8ab887e5e71ce096c80ae7c0f8bc0392b7b07e8508b0b3fab258349d3ea39a70e9a7808ff3337a9db6f9ff52f35ffc8aabf15d01ed2e9599bce')
 
 prepare() {
   cd "$pkgname"
@@ -44,7 +44,7 @@ build() {
   export CARGO_PROFILE_RELEASE_DEBUG=2
   export CARGO_PROFILE_RELEASE_STRIP=false
   export CARGO_HOME="$srcdir"
-  export CARGO_PROFILE_RELEASE_LTO=true
+  export CARGO_PROFILE_RELEASE_LTO=thin
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 
