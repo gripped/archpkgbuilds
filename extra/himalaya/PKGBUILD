@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=himalaya
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='A CLI email client'
 arch=(x86_64)
@@ -10,13 +10,13 @@ url="https://github.com/soywod/himalaya"
 license=(MIT Apache-2.0)
 depends=(glibc # libc.so
          gpgme
-         libgcc libgcc_s.so
+         libgcc
          notmuch
          openssl)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('0f58a5761490c2a96105073358487fa6032c79c0f07e962a65f6e8aeef782fd9')
+sha256sums=('491c7e51aa58874e2b70b4a0377e1770a1d3522392b9a9b867f965ac9d75aaa5')
 
 _features='maildir'
 
@@ -25,10 +25,10 @@ _srcenv() {
 	export CARGO_HOME="$srcdir"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
 	export CARGO_PROFILE_RELEASE_STRIP=false
-	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
-	CFLAGS+=" -ffat-lto-objects"
+	CFLAGS+=' -ffat-lto-objects'
 	export OPENSSL_NO_VENDOR=true
 }
 
@@ -64,6 +64,7 @@ check() {
 }
 
 package() {
+	depends+=(libgcc_s.so)
 	cd "$pkgname-$pkgver"
 	install -Dm 755 -t "$pkgdir/usr/bin" "target/release/$pkgname"
 	install -Dm 664 -t "$pkgdir/usr/share/bash-completion/completions/" "completions/$pkgname"
@@ -71,6 +72,5 @@ package() {
 	install -Dm 664 -t "$pkgdir/usr/share/zsh/site-functions/" "completions/_$pkgname"
 	install -Dm 644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
 	install -Dm 644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE-*
-	install -Dm 644 -t "$pkgdir/usr/share/applications/" "assets/$pkgname.desktop"
 	install -Dm 644 -t "$pkgdir/usr/share/man/man1/" man/*.1
 }
