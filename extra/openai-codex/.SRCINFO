@@ -1,6 +1,6 @@
 pkgbase = openai-codex
 	pkgdesc = OpenAIs lightweight coding agent that runs in your terminal
-	pkgver = 0.146.1
+	pkgver = 0.147.0
 	pkgrel = 1
 	url = https://github.com/openai/codex
 	arch = x86_64
@@ -20,8 +20,13 @@ pkgbase = openai-codex
 	optdepends = git: allow for repository actions
 	optdepends = nodejs: enable the js_repl experimental tool
 	optdepends = ripgrep: accelerated large-repo search
+	noextract = librusty_v8-150.4.0.a.gz
 	options = !lto
-	source = openai-codex-0.146.1.tar.gz::https://github.com/openai/codex/archive/refs/tags/rust-v0.146.1.tar.gz
-	b2sums = 38b8ec4fd4717bf408ae087be1c6da2d5834c5ecaa4d4116779d33cf009c846643238fa03629370a6a7bd112e12b87ffe74771596c77a055a5b580f2a7f0dcc5
+	source = openai-codex-0.147.0.tar.gz::https://github.com/openai/codex/archive/refs/tags/rust-v0.147.0.tar.gz
+	source = librusty_v8-150.4.0.a.gz::https://github.com/openai/codex/releases/download/rusty-v8-v150.4.0/librusty_v8_ptrcomp_sandbox_release_x86_64-unknown-linux-gnu.a.gz
+	source = src_binding-150.4.0.rs::https://github.com/openai/codex/releases/download/rusty-v8-v150.4.0/src_binding_ptrcomp_sandbox_release_x86_64-unknown-linux-gnu.rs
+	b2sums = 2ee63de67a78c48c00290e98391dab8f51e8a491b2d368762e1ddd1c26c5fea959d3c64301edd1cab0052c2ef4e2c2300b50c66b5672eb79d4d4ccc536b78522
+	b2sums = 816509947f4062124bd4f5fe581b8ae2762f3f50562c84558e58fed657a9bd17360120879deb9838a73664e4fc3aa3b8d1ed09bf11093d289f81d9eb9533c9b6
+	b2sums = b21381b7f09d0205455ba541b2a38ff79b9535c4b8436b309f39f4b40d819e604b3689298ae81deb00c07a12a21ef0fd1bd0bbddb196d63f24d8621ace7165c1
 
 pkgname = openai-codex
