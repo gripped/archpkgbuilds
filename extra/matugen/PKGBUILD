@@ -1,27 +1,33 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=matugen
-pkgver=4.1.0
+pkgver=4.2.0
 pkgrel=1
 pkgdesc='A material you color generation tool'
 arch=(x86_64)
 url="https://github.com/InioX/$pkgname"
 license=(GPL-2.0-only)
-depends=(gcc-libs
-         glibc)
+depends=(glibc
+         libgcc)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('b46507be24d01a6233597077512501f21075fe4ce19b60b410354f439f569ddf')
-
-prepare() {
-	cd "$_archive"
-	cargo fetch --locked --target "$(rustc --print host-tuple)"
-}
+source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
+sha256sums=('82044ab8ac3e793b2b94f8f75917b348b4038585133a77c07f5de59c88d65244')
 
 _srcenv() {
 	cd "$_archive"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=thin
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 	CFLAGS+=' -ffat-lto-objects'
+}
+
+prepare() {
+	_srcenv
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -35,6 +41,7 @@ check() {
 }
 
 package() {
+	depends+=(libgcc_s.so)
 	cd "$_archive"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
 }
