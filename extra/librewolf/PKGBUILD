@@ -4,7 +4,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=librewolf
-pkgver=153.0.4_1
+pkgver=154.0_2
 _fixedfirefoxver="${pkgver%_*}" # Version of Firefox this LibreWolf version is based on, but the Firefox patch number is always included
 _librewolfver="${pkgver#*_}"
 _firefoxver="${_fixedfirefoxver%.0}" # Removes ".0" from the end. For "136.0.0" this will result in "136.0" but for "136.0.1" won't do anything.
@@ -13,6 +13,7 @@ pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and 
 url="https://librewolf.net/"
 arch=(x86_64 aarch64)
 license=(MPL-2.0)
+
 depends=(
   alsa-lib
   at-spi2-core
@@ -85,25 +86,20 @@ options=(
 )
 
 source=(
-  https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/$_firefoxver-$_librewolfver/librewolf-$_firefoxver-$_librewolfver.source.tar.gz{,.sig}
+  https://librewolf.dev/api/packages/librewolf/generic/librewolf-source/$_fixedfirefoxver-$_librewolfver/librewolf-$_fixedfirefoxver-$_librewolfver.source.tar.gz{,.sig}
   $pkgname.desktop
-
-  # Support FFmpeg 9
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/firefox/-/work_items/34
-  https://gitlab.archlinux.org/archlinux/packaging/packages/firefox/-/raw/153.0.3-2/0002-Bug-2057577-DOM-Media-Add-FFmpeg-63-support.-r-alwu-.patch
 )
 
-sha256sums=('2a985ec674e1472282eefc34d5334f6e711a5d9a21e76c3d50b57972f45fe45f'
+sha256sums=('7e6c340882f2e2ffc09a24d9f53b91de063c15a1ae0e6214b5a08119244a7a4c'
             'SKIP'
-            '3d6ac59ae9d5ba4c9fe15f95c1338fa68214dec6119f8432336403e3be50f8ae'
-            '55aeec4d098990e91f881de32126ea91576b0d185e322b561241c513ea5b9fcd')
+            '3d6ac59ae9d5ba4c9fe15f95c1338fa68214dec6119f8432336403e3be50f8ae')
 
 validpgpkeys=('662E3CDD6FE329002D0CA5BB40339DD82B12EF16') # https://rpm.librewolf.net/pubkey.gpg
 
 
 prepare() {
   mkdir -p mozbuild
-  cd librewolf-$_firefoxver-$_librewolfver
+  cd librewolf-$_fixedfirefoxver-$_librewolfver
 
   local src
   for src in "${source[@]}"; do
@@ -158,7 +154,7 @@ END
 
 
 build() {
-  cd librewolf-$_firefoxver-$_librewolfver
+  cd librewolf-$_fixedfirefoxver-$_librewolfver
 
   export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=pip
   export MOZBUILD_STATE_PATH="$srcdir/mozbuild"
@@ -220,7 +216,7 @@ END
 }
 
 package() {
-  cd librewolf-$_firefoxver-$_librewolfver
+  cd librewolf-$_fixedfirefoxver-$_librewolfver
 
   # The `install` target doesn't install the language packs generated with the `package-multi-locale` target
   # We are therefore "manually" copying the packaged browser to the relevant directory in `$pkgdir` instead
