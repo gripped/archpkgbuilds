@@ -4,7 +4,7 @@
 
 pkgname=spice
 pkgver=0.16.0
-pkgrel=3
+pkgrel=4
 pkgdesc="SPICE server"
 arch=('x86_64')
 url="https://www.spice-space.org"
@@ -15,10 +15,12 @@ makedepends=('meson' 'python-pyparsing' 'glib2-devel')
 checkdepends=('gdk-pixbuf2' 'glib-networking')
 provides=('libspice-server.so')
 source=("https://www.spice-space.org/download/releases/spice-server/$pkgname-$pkgver.tar.bz2"{,.sig}
-        "https://src.fedoraproject.org/rpms/spice/raw/rawhide/f/0001-test-display-base-Fix-C-designated-initializer-for-a.patch")
+        "https://src.fedoraproject.org/rpms/spice/raw/rawhide/f/0001-test-display-base-Fix-C-designated-initializer-for-a.patch"
+        "https://src.fedoraproject.org/rpms/spice/raw/rawhide/f/0001-inputs-Fix-keyboard-and-mouse-state-leaks-on-interfa.patch")
 sha256sums=('0a6ec9528f05371261bbb2d46ff35e7b5c45ff89bb975a99af95a5f20ff4717d'
             'SKIP'
-            '3804c14f9ff32a6ab28dc7af35005a529f2cdcb86d8e6d30c85d0dfeb64cc5de')
+            '3804c14f9ff32a6ab28dc7af35005a529f2cdcb86d8e6d30c85d0dfeb64cc5de'
+            '7a9708e00072296882eb330957a4ffd70be69c9f5c7c5e496f6a95208312cce2')
 validpgpkeys=('206D3B352F566F3B0E6572E997D9123DE37A484F') # Victor Toso <victortoso@redhat.com>
 
 prepare() {
@@ -28,6 +30,10 @@ prepare() {
   sed -i "/meson-dist/d" meson.build
 
   patch -Np1 -i "$srcdir"/0001-test-display-base-Fix-C-designated-initializer-for-a.patch
+
+  # Backport patch to fix crash on VM shutdown:
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/spice/-/work_items/4
+  patch -Np1 -i "$srcdir"/0001-inputs-Fix-keyboard-and-mouse-state-leaks-on-interfa.patch
 }
 
 build() {
