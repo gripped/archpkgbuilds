@@ -1,6 +1,6 @@
 pkgbase = firewalld
 	pkgver = 2.5.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://firewalld.org
 	arch = any
 	license = GPL-2.0-or-later
@@ -12,9 +12,11 @@ pkgbase = firewalld
 	source = git+https://github.com/firewalld/firewalld.git#tag=v2.5.1
 	source = firewalld-sysconfigdir.patch
 	source = fix_gettext_macros_path.patch
+	source = fix_gettext_domain.patch
 	sha256sums = a4d2320c5da7561cf8311ab3f0c374f8746db7497d60990e63313dfb5f59b39d
 	sha256sums = 3b2e00f67680c2e620804eb28620d7370b4096851bcb5f6fec22460a21941ad9
 	sha256sums = 49f793aeaf2e87c834c734b37dc926c9579cc2ec0782e5fe297ee286df6c7ef6
+	sha256sums = ead062334024680698aa3065bf1122b874e5dc9db41b504dcdc3befabeac1e09
 
 pkgname = firewalld
 	pkgdesc = Firewall daemon with D-Bus interface
