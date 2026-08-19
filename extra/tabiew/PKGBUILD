@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=tabiew
-pkgver=0.14.1
+pkgver=0.14.2
 pkgrel=1
 pkgdesc="A lightweight TUI to view and query CSV files"
 arch=('x86_64')
@@ -10,34 +10,41 @@ url="https://github.com/shshemi/tabiew"
 license=('MIT')
 depends=('glibc' 'libgcc' 'openssl' 'sqlcipher' 'zstd')
 makedepends=('cargo')
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('fb2fb200ac313df691070f3b4abbe563efe8dd36876b004eb4e8103a5cd5caea2e050ef481564439abf3b356fb8af64a3fbaded4ccd8a72a3721fbc13901741d')
-options=('!lto')
+source=("$url/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
+sha512sums=('3c952b17eb29610e91269cdeab5abca4c1c1e6bd5fc3139d4b9e1a15315770688d0b3fc21d81c5b4955d7841dbcc03764436b4ae999cc905c7e386945d43eef4')
 
-prepare() {
+_srcenv() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
-}
-
-build() {
-  cd "$pkgname-$pkgver"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=thin
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+  CFLAGS+=' -fno-lto'
   export OPENSSL_NO_VENDOR=true
   export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   export ZSTD_SYS_USE_PKG_CONFIG=1
+}
+
+prepare() {
+  _srcenv
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  _srcenv
   cargo build --release --frozen
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  export OPENSSL_NO_VENDOR=true
-  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
-  export ZSTD_SYS_USE_PKG_CONFIG=1
+  _srcenv
   cargo test --frozen
 }
 
 package() {
   cd "$pkgname-$pkgver"
-  install -Dm 755 "target/release/tw" -t "$pkgdir/usr/bin"
+  install -Dm 755 "target/release/tw" -t "$pkgdir/usr/bin/"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
 }
