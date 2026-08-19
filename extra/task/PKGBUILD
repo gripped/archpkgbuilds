@@ -7,8 +7,8 @@
 # Contributor: coolkehon <coolkehon@gmail.com>
 
 pkgname=task
-pkgver=3.4.2
-_commit=48fb891c30fd7c572db3a4cff46e3435c75a1b6c
+pkgver=3.5.0
+_commit=3419d5ba1e6a780fbbb0a8d68d8fd31e675c1bf8
 pkgrel=1
 pkgdesc="Taskwarrior, a command-line todo list manager"
 arch=('x86_64')
@@ -21,7 +21,7 @@ source=(
   "$pkgname::git+https://github.com/GothenburgBitFactory/taskwarrior.git#commit=$_commit"
   "$pkgname-libshared::git+https://github.com/GothenburgBitFactory/libshared.git"
 )
-sha256sums=('0cd9765bc9c12a81c0d33a44f97afecf3977653d7a73ac70524b9472a1b48705'
+sha256sums=('f857266a2be231365090fbc44e87536e93f79c33634ffb06182a679dc47fcc49'
             'SKIP')
 options=('!lto')
 
@@ -45,7 +45,6 @@ package() {
 
   # Note that we rename the bash completion script for bash-completion > 1.99, until upstream does so.
   install -Dm644 "$pkgdir/usr/share/doc/task/scripts/bash/task.sh" "$pkgdir/usr/share/bash-completion/completions/task"
-  install -Dm644 "$pkgdir/usr/share/doc/task/scripts/fish/task.fish" "$pkgdir/usr/share/fish/vendor_completions.d/task.fish"
 
   install -Dm644 "$pkgdir/usr/share/doc/task/scripts/vim/ftdetect/task.vim" "$pkgdir/usr/share/vim/vimfiles/ftdetect/task.vim"
   install -Dm644 "$pkgdir/usr/share/doc/task/scripts/vim/syntax/taskdata.vim" "$pkgdir/usr/share/vim/vimfiles/syntax/taskdata.vim"
