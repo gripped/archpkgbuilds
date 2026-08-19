@@ -1,0 +1,66 @@
+From 793bd1fc8fcdbc585053bde6abfe879bce0ddf5d Mon Sep 17 00:00:00 2001
+From: Timo Kankare <timo.kankare@iki.fi>
+Date: Thu, 18 Jul 2024 12:09:32 +0300
+Subject: [PATCH 1/2] Fixed issue 224: Added missing mark_as_seen method to
+ MaildirBackend class.
+
+---
+ Mailnag/backends/local.py | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/Mailnag/backends/local.py b/Mailnag/backends/local.py
+index 2cc490a..2d5c348 100644
+--- a/Mailnag/backends/local.py
++++ b/Mailnag/backends/local.py
+@@ -1,5 +1,5 @@
+ # Copyright 2020 Patrick Ulbrich <zulu99@gmx.net>
+-# Copyright 2016 Timo Kankare <timo.kankare@iki.fi>
++# Copyright 2016, 2024 Timo Kankare <timo.kankare@iki.fi>
+ #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by
+@@ -142,6 +142,11 @@ def request_folders(self):
+ 			maildir.close()
+ 
+ 
++	def mark_as_seen(self, mails):
++		# TODO: local mailboxes should support this
++		raise NotImplementedError
++
++
+ 	def notify_next_change(self, callback=None, timeout=None):
+ 		raise NotImplementedError("maildir does not support notifications")
+ 
+
+From 6e7b4164ed9b338989a362037a7c6ed110d10ea3 Mon Sep 17 00:00:00 2001
+From: Timo Kankare <timo.kankare@iki.fi>
+Date: Thu, 18 Jul 2024 12:58:26 +0300
+Subject: [PATCH 2/2] Added dummy flags to return value of list_messages
+ method.
+
+---
+ Mailnag/backends/local.py | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Mailnag/backends/local.py b/Mailnag/backends/local.py
+index 2d5c348..217e62d 100644
+--- a/Mailnag/backends/local.py
++++ b/Mailnag/backends/local.py
+@@ -119,7 +119,7 @@ def is_open(self):
+ 
+ 	def list_messages(self):
+ 		"""List unread messages from the mailbox.
+-		Yields pairs (folder, message).
++		Yields tuples (folder, message, flags).
+ 		"""
+ 		folders = self._folders if len(self._folders) != 0 else ['']
+ 		root_maildir = mailbox.Maildir(self._path, factory=None, create=False)
+@@ -128,7 +128,7 @@ def list_messages(self):
+ 				maildir = self._get_folder(root_maildir, folder)
+ 				for msg in maildir:
+ 					if 'S' not in msg.get_flags():
+-						yield folder, msg
++						yield folder, msg, {}
+ 		finally:
+ 			root_maildir.close()
+ 

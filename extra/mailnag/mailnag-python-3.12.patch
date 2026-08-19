@@ -1,0 +1,220 @@
+From bd60a0c872416b752eb4242dfcc95abd15a7c85a Mon Sep 17 00:00:00 2001
+From: bryango <bryango@users.noreply.github.com>
+Date: Tue, 17 May 2022 20:33:11 +0800
+Subject: [PATCH 1/5] Set ssl ciphers='ALL' in imaplib2 for Python 3.10
+
+Fix SSLV3_ALERT_HANDSHAKE_FAILURE for some imap servers.
+They use old, less secure ciphers that are disabled for Python 3.10.
+See <https://stackoverflow.com/a/71007463>.
+---
+ Mailnag/common/imaplib2.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Mailnag/common/imaplib2.py b/Mailnag/common/imaplib2.py
+index dfce0b4..0cbcff3 100644
+--- a/Mailnag/common/imaplib2.py
++++ b/Mailnag/common/imaplib2.py
+@@ -492,7 +492,7 @@ def ssl_wrap_socket(self):
+ 
+             ssl_version =  TLS_MAP[self.tls_level][self.ssl_version]
+ 
+-            self.sock = ssl.wrap_socket(self.sock, self.keyfile, self.certfile, ca_certs=self.ca_certs, cert_reqs=cert_reqs, ssl_version=ssl_version)
++            self.sock = ssl.wrap_socket(self.sock, self.keyfile, self.certfile, ca_certs=self.ca_certs, cert_reqs=cert_reqs, ssl_version=ssl_version, ciphers='ALL')
+             ssl_exc = ssl.SSLError
+             self.read_fd = self.sock.fileno()
+         except ImportError:
+
+From bebca8aaae683476e4bf2b4e503bf055f25046fd Mon Sep 17 00:00:00 2001
+From: Bryan Lai <bryanlais@gmail.com>
+Date: Thu, 23 May 2024 01:04:43 +0800
+Subject: [PATCH 2/5] Switch from imp to importlib for Python 3.12
+
+See: https://docs.python.org/3/whatsnew/3.12.html#imp
+---
+ Mailnag/common/plugins.py | 35 ++++++++++++++++++++++-------------
+ 1 file changed, 22 insertions(+), 13 deletions(-)
+
+diff --git a/Mailnag/common/plugins.py b/Mailnag/common/plugins.py
+index d9bf572..be5ed31 100644
+--- a/Mailnag/common/plugins.py
++++ b/Mailnag/common/plugins.py
+@@ -17,7 +17,8 @@
+ #
+ 
+ import os
+-import imp
++import importlib.util
++import importlib.machinery
+ import inspect
+ import logging
+ from enum import Enum
+@@ -255,22 +256,30 @@ def _load_plugin_types():
+ 			for f in os.listdir(path):
+ 				mod = None
+ 				modname, ext = os.path.splitext(f)
++				filename = os.path.join(path, f)
+ 				
+ 				try:
+ 					if ext.lower() == '.py':
+-						if not os.path.exists(os.path.join(path, modname + '.pyc')):
+-							mod = imp.load_source(modname, os.path.join(path, f))
++						loader = importlib.machinery.SourceFileLoader(modname, filename)
+ 					elif ext.lower() == '.pyc':
+-						mod = imp.load_compiled(modname, os.path.join(path, f))
+-				
+-					if mod != None:
+-						for t in dir(mod):
+-							t = getattr(mod, t)
+-							if inspect.isclass(t) and \
+-								(inspect.getmodule(t) == mod) and \
+-								issubclass(t, Plugin):
+-								plugin_types.append((modname, t))
+-						
++						loader = importlib.machinery.SourcelessFileLoader(modname, filename)
++					else:
++						continue
++
++					spec = importlib.util.spec_from_file_location(modname, filename, loader=loader)
++
++					if spec is None:
++						continue
++
++					mod = importlib.util.module_from_spec(spec)
++					loader.exec_module(mod)
++
++					for attr_name in dir(mod):
++						attr = getattr(mod, attr_name)
++						if not inspect.isclass(attr):
++							continue
++						if issubclass(attr, Plugin) and attr != Plugin:
++							plugin_types.append((modname, attr))
+ 				except:
+ 					logging.exception("Error while opening plugin file '%s'" % f)
+ 		
+
+From fe1ecce1d27dddf3fec645c798f7ac24aaa7b017 Mon Sep 17 00:00:00 2001
+From: Bryan Lai <bryanlais@gmail.com>
+Date: Thu, 23 May 2024 01:13:43 +0800
+Subject: [PATCH 3/5] Fix deprecated ssl.wrap_socket
+
+This fix was originally provided by Lalufu in #fedora-devel, and posted
+on the issue tracker by @knurd.
+---
+ Mailnag/common/imaplib2.py | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/Mailnag/common/imaplib2.py b/Mailnag/common/imaplib2.py
+index 0cbcff3..e97ccab 100644
+--- a/Mailnag/common/imaplib2.py
++++ b/Mailnag/common/imaplib2.py
+@@ -309,6 +309,7 @@ def __init__(self, host=None, port=None, debug=None, debug_file=None, identifier
+         self.compressor = None          # COMPRESS/DEFLATE if not None
+         self.decompressor = None
+         self._tls_established = False
++        self._ssl_context = None
+ 
+         # Create unique tag for this session,
+         # and compile tagged response matcher.
+@@ -492,7 +493,13 @@ def ssl_wrap_socket(self):
+ 
+             ssl_version =  TLS_MAP[self.tls_level][self.ssl_version]
+ 
+-            self.sock = ssl.wrap_socket(self.sock, self.keyfile, self.certfile, ca_certs=self.ca_certs, cert_reqs=cert_reqs, ssl_version=ssl_version, ciphers='ALL')
++            self._ssl_context = ssl.SSLContext(ssl_version)
++            self._ssl_context.verify_mode = cert_reqs
++            if self.ca_certs:
++                self._ssl_context.load_verify_locations(self.ca_certs)
++            if self.keyfile and self.certfile:
++                self._ssl_context.load_cert_chain(self.certfile, self.keyfile)
++            self.sock = self._ssl_context.wrap_socket(self.sock, server_hostname=self.host)
+             ssl_exc = ssl.SSLError
+             self.read_fd = self.sock.fileno()
+         except ImportError:
+
+From 71502d0b2a0c274404798184e2ab20361f852feb Mon Sep 17 00:00:00 2001
+From: Bryan Lai <bryanlais@gmail.com>
+Date: Fri, 24 May 2024 23:54:28 +0800
+Subject: [PATCH 4/5] Exit gracefully when autostart creation fails
+
+---
+ Mailnag/configuration/configwindow.py | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/Mailnag/configuration/configwindow.py b/Mailnag/configuration/configwindow.py
+index bc7799d..9ee2d05 100644
+--- a/Mailnag/configuration/configwindow.py
++++ b/Mailnag/configuration/configwindow.py
+@@ -245,7 +245,12 @@ def _create_autostart(self):
+ 		if not os.path.exists(autostart_folder):
+ 			os.makedirs(autostart_folder)
+ 
+-		shutil.copyfile(src, dst)
++		try:
++			shutil.copyfile(src, dst)
++		except Exception as e:
++			import logging
++			logging.info(f"failed setting autostart: {e}")
++			return
+ 		
+ 		# If mailag-config was started from a local directory, 
+ 		# patch the exec path of the autostart .desktop file accordingly.
+
+From 92a55def2c54548304a8f7c97475614d9b7e4cc9 Mon Sep 17 00:00:00 2001
+From: Bryan Lai <bryanlais@gmail.com>
+Date: Sat, 25 May 2024 00:02:40 +0800
+Subject: [PATCH 5/5] Use raw strings for backlashes
+
+This prevents SyntaxWarning: invalid escape sequence
+---
+ Mailnag/backends/imap.py   | 2 +-
+ Mailnag/common/imaplib2.py | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Mailnag/backends/imap.py b/Mailnag/backends/imap.py
+index 91ecd66..f6e74dd 100644
+--- a/Mailnag/backends/imap.py
++++ b/Mailnag/backends/imap.py
+@@ -148,7 +148,7 @@ def mark_as_seen(self, mails):
+ 						if folder != last_folder:
+ 							conn.select(f'"{folder}"', readonly = False)
+ 							last_folder = folder
+-						status, data = conn.uid("STORE", m.flags['uid'], "+FLAGS", "(\Seen)")
++						status, data = conn.uid("STORE", m.flags['uid'], "+FLAGS", r"(\Seen)")
+ 					except:
+ 						logging.warning("Failed to set mail with uid %s to seen on server (account: '%s').", m.flags['uid'], acc.name)
+ 
+diff --git a/Mailnag/common/imaplib2.py b/Mailnag/common/imaplib2.py
+index e97ccab..70fa8d3 100644
+--- a/Mailnag/common/imaplib2.py
++++ b/Mailnag/common/imaplib2.py
+@@ -2466,7 +2466,7 @@ def ParseFlags(resp):
+     ('select', ('imaplib2_test2',)),
+     ('search', (None, 'SUBJECT', '"IMAP4 test"')),
+     ('fetch', ('1:*', '(FLAGS INTERNALDATE RFC822)')),
+-    ('store', ('1', 'FLAGS', '(\Deleted)')),
++    ('store', ('1', 'FLAGS', r'(\Deleted)')),
+     ('namespace', ()),
+     ('expunge', ()),
+     ('recent', ()),
+@@ -2571,7 +2571,7 @@ def run(cmd, args, cb=True):
+             if not uid: continue
+             run('uid', ('FETCH', uid[-1],
+                     '(FLAGS INTERNALDATE RFC822.SIZE RFC822.HEADER RFC822.TEXT)'))
+-            run('uid', ('STORE', uid[-1], 'FLAGS', '(\Deleted)'))
++            run('uid', ('STORE', uid[-1], 'FLAGS', r'(\Deleted)'))
+             run('expunge', ())
+ 
+         if 'IDLE' in M.capabilities:
+@@ -2585,10 +2585,10 @@ def run(cmd, args, cb=True):
+             dat = run('fetch', (num, '(FLAGS INTERNALDATE RFC822)'), cb=False)
+             M._mesg('fetch %s => %s' % (num, repr(dat)))
+             run('idle', (2,))
+-            run('store', (num, '-FLAGS', '(\Seen)'), cb=False),
++            run('store', (num, '-FLAGS', r'(\Seen)'), cb=False),
+             dat = run('fetch', (num, '(FLAGS INTERNALDATE RFC822)'), cb=False)
+             M._mesg('fetch %s => %s' % (num, repr(dat)))
+-            run('uid', ('STORE', num, 'FLAGS', '(\Deleted)'))
++            run('uid', ('STORE', num, 'FLAGS', r'(\Deleted)'))
+             run('expunge', ())
+             if idle_intr:
+                 M._mesg('HIT CTRL-C to interrupt IDLE')
