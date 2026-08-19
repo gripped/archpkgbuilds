@@ -1,18 +1,21 @@
 pkgbase = rustic
 	pkgdesc = Fast, encrypted, deduplicated backups powered by Rust (reads and writes restic repos)
-	pkgver = 0.11.3
-	pkgrel = 2
+	pkgver = 0.11.4
+	pkgrel = 1
 	url = https://github.com/rustic-rs/rustic
 	arch = x86_64
 	license = Apache-2.0
 	license = MIT
 	makedepends = cargo
-	depends = libgcc
 	depends = glibc
+	depends = libgcc
 	replaces = rustic-rs
 	replaces = rustic-bin
 	options = !lto
-	source = https://github.com/rustic-rs/rustic/archive/v0.11.3/rustic-0.11.3.tar.gz
-	sha256sums = abbafea18ea56f486a68f186bb139b0e8e8d002bb5cd897ed148cf7817a8ed73
+	source = https://github.com/rustic-rs/rustic/archive/v0.11.4/rustic-0.11.4.tar.gz
+	sha256sums = ea1796a66c22e2cd0232ee4d3e18cf95c7eb8608a465481023a6422f4720d2c3
 
 pkgname = rustic
+	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
