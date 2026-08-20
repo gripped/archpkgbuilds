@@ -5,27 +5,49 @@
 
 pkgname=gnubiff
 pkgver=2.2.17
-pkgrel=12
+pkgrel=13
 pkgdesc='Mail notification program that checks for mail and displays headers when new mail has arrived'
-arch=('x86_64')
-url='http://gnubiff.sourceforge.net/'
-license=('GPL3')
-depends=('gtk3')
-makedepends=('intltool')
-source=("https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
-        'gnubiff.appdata.xml')
-sha256sums=('e616ab031d493e4b9b27a2bccc810e4b2ada912b3cf8d44f39325cbc5293fb2c'
-            '372cec540a50c0f1be01f8e097f5d530dc5f78d571337377048652e62c0cc939')
+arch=(x86_64)
+url='https://gnubiff.sourceforge.net/'
+license=(GPL-3.0-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libgcc
+  libstdc++
+  libx11
+  openssl
+  pango
+  popt
+)
+makedepends=(intltool)
+source=(
+  "https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
+  gnubiff.appdata.xml
+)
+b2sums=(
+  5ee58828211eb7b85ab017129feec48c6d2b2df4de862f7791f15f361bda7919cbdc7aa37403130da044a1f9e2068154ddc5ae8629eb9f4d38956d759477fb80
+  02914c3ab2a79cb6a51516b23dd126ccf5cd73991d8ee6cbd37a55ed30e585e38a078ea8dfe002656fe17b80eb497ac88bb4d95bcd34d43e665821d53112ad23
+)
 
 prepare() {
   cd $pkgname-$pkgver
   sed -i 's|$(datadir)/pixmaps|$(datadir)/icons/hicolor/48x48/apps|' art/Makefile.am
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr --disable-fam --disable-gnome --with-password \
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-fam \
+    --disable-gnome \
+    --with-password \
     --with-password-string="65423957eb027b94c9e661611c0e4271"
   make
 }
