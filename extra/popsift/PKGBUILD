@@ -1,9 +1,9 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor : bartus <arch-user-repoᘓbartus.33mail.com>
 pkgname=popsift
-pkgver=1.0.0.git4
-_commit=e34fdc66c3055315c16879f2062a88d1db9fe501
-pkgrel=4
+pkgver=1.0.0.git5
+_commit=36d704d39b4cc065839d84f3706b3fa88eff2518
+pkgrel=1
 pkgdesc="Realtime GPU implementation of SIFT"
 arch=('x86_64')
 url="https://github.com/alicevision/popsift"
@@ -13,7 +13,7 @@ makedepends=('boost' 'cmake' 'ninja' 'git' 'cuda')
 options=('staticlibs' '!lto')
 source=("git+https://github.com/alicevision/popsift.git#commit=$_commit"
          boost-1.89.patch)
-sha256sums=('e76fea8c4b263e6a2f7b9cacb3d77d83df7bb84f4dca955a0241b8b0ec503146'
+sha256sums=('73d98132fcfc668f96be8da8cb362f535bf05575f9bd68e26e3bd514929168ab'
             '606ba3d19d1472090c15ad0766ef5f66dabaf40b8ff4f1da20a0b8bd0d56b991')
 
 prepare() {
