@@ -6,7 +6,7 @@
 pkgname=python-autobahn
 # https://github.com/crossbario/autobahn-python/blob/master/docs/changelog.rst
 pkgver=26.7.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Real-time framework for Web, Mobile & Internet of Things'
 arch=(x86_64)
 url='https://github.com/crossbario/autobahn-python/'
@@ -50,6 +50,7 @@ prepare() {
   cd "$srcdir/autobahn-python"
   patch -Np1 -i ../remove-march-flags-for-safe-builds.patch
   patch -Np1 -i ../fix-max-message-size-test.patch
+  sed -i '/flatc/d' pyproject.toml
 }
 
 build() {
