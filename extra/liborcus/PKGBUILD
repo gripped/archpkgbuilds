@@ -3,7 +3,7 @@
 
 pkgname=liborcus
 pkgver=0.21.0
-pkgrel=6
+pkgrel=7
 pkgdesc="File import filter library for spreadsheet documents."
 arch=('x86_64')
 url="https://gitlab.com/orcus/orcus/blob/master/README.md"
@@ -18,6 +18,11 @@ sha256sums=('1c6e473d6b8a63d61d0e6874a1762d6f0e0e78338d763e48ac93126ecde19b37')
 
 # labplot usually needs patching to support new liborcus versions, since the liborcus pc file is versioned.
 # Otherwise it gets silently built without liborcus support
+
+prepare() {
+    cd "${pkgname}"-${pkgver}
+    autoreconf -fiv
+}
 
 build() {
     cd "${pkgname}"-${pkgver}
