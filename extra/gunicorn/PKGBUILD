@@ -5,13 +5,13 @@
 # Contributor: Vsevolod Balashov <vsevolod at balashov dot name>
 
 pkgname=gunicorn
-pkgver=26.0.0
+pkgver=26.1.0
 pkgrel=1
 pkgdesc='WSGI HTTP Server for UNIX'
 arch=('any')
 url='https://gunicorn.org/'
 license=('MIT')
-depends=('python-packaging')
+depends=('python')
 makedepends=(
   'git'
   'python-build'
@@ -23,18 +23,20 @@ checkdepends=(
   'python-gevent'
   'python-h2'
   'python-httpx'
+  'python-packaging'
   'python-pytest'
   'python-pytest-asyncio'
 )
 optdepends=(
   'python-gevent: for asynchronous request handling with gevent'
   'python-h2: for HTTP/2 support'
+  'python-packaging: for gevent worker version checks'
   'python-setproctitle: for process renaming'
   'python-tornado: for asynchronous request handling with tornado'
   'python-uvloop: for ASGI event loop performance'
 )
 source=("git+https://github.com/benoitc/$pkgname.git#tag=$pkgver")
-b2sums=('7c567313c5bdd8398109d59961b058b0347f6725f739829bc08ef40ea79b316a74e493236f5bc993df8e85e593245ce74ae0496ae140608cf15081351cb490dd')
+b2sums=('4cf9cb6c209e4c4ca37052d57906024bfb92c4b544184026fe0d81bb22ab8e0a206cb9f8ac641640bd6d599b36923399fbeb03619ffa4aa518eafbad1b29a237')
 
 build() {
   cd $pkgname
