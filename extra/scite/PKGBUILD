@@ -7,18 +7,33 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=scite
-pkgver=5.6.2
+pkgver=5.6.6
 pkgrel=1
 pkgdesc='Editor with facilities for building and running programs'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.scintilla.org/SciTE.html'
-license=('custom:HPND')
-depends=('gtk3')
-backup=('usr/share/scite/SciTEGlobal.properties')
-source=("https://www.scintilla.org/${pkgname}${pkgver//./}.tgz"
-        'SciTE.appdata.xml')
-sha256sums=('f46a77b0d4972dc51c857bab3fe55a8e47cae481737359f93aef98ccca56de1d'
-            'cecf3f2f86cd05541e4c87064244f098904d5aed535f77244977e22cede7c842')
+license=(HPND)
+depends=(
+  at-spi2-core
+  cairo
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libgcc
+  libstdc++
+  pango
+)
+backup=(usr/share/scite/SciTEGlobal.properties)
+source=(
+  "https://www.scintilla.org/${pkgname}${pkgver//./}.tgz"
+  SciTE.appdata.xml
+)
+b2sums=(
+  80cb8465bc081806ae358b485b32da38c92b42290007b715746fc1962e15a02d9c12ec720912688d26008142656c5f2b0b19f4561cf4b701435ad5badc50ab1b
+  684e8072881bb507dcdb47159ce69b0c9de017512f80d2bce1efc721ff73afdd503dac69c9e8f8ba9c55ce7dac68a6cf7815b4d7c2638c1a18506ad51edfd58d
+)
 
 prepare() {
   sed -i 's/xdg-open/gio open/' scite/src/*.properties
@@ -35,7 +50,6 @@ build() {
 
 package() {
   make -C scite/gtk DESTDIR="$pkgdir" GTK3=1 install
-  install -Dm644 scite/License.txt "$pkgdir/usr/share/licenses/$pkgname/License.txt"
-  install -Dm644 SciTE.appdata.xml "$pkgdir/usr/share/metainfo/SciTE.appdata.xml"
-  ln -sf /usr/bin/SciTE "$pkgdir/usr/bin/scite"
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" scite/License.txt
+  install -Dm644 -t "$pkgdir/usr/share/metainfo/" SciTE.appdata.xml
 }
