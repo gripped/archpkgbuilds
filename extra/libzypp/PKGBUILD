@@ -6,7 +6,7 @@ pkgname=(
     libzypp-docs
 )
 pkgver=17.38.14
-pkgrel=1
+pkgrel=2
 pkgdesc="ZYpp Package Management library"
 arch=(x86_64)
 url="https://github.com/openSUSE/libzypp"
@@ -80,20 +80,21 @@ check() {
 
 package_libzypp() {
     depends=(
-        boost-libs
-        curl
-        gcc-libs
-        glib2
-        glibc
-        gpgme
-        libsigc++
-        libsolv
-        libxml2
-        openssl
-        rpm-tools
-        systemd-libs
-        yaml-cpp
-        zlib
+      boost-libs
+      curl
+      libgcc
+      libstdc++
+      glib2
+      glibc
+      gpgme
+      libsigc++
+      libsolv
+      libxml2
+      openssl
+      rpm-tools
+      systemd-libs
+      yaml-cpp
+      zlib
     )
     optdepends=(
         'libzypp-docs: for documentation'
