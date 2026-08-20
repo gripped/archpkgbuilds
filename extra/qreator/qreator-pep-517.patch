@@ -1,0 +1,36 @@
+From ef88254119d573601746402dba6003b391c48244 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 19 Aug 2026 22:53:11 +0200
+Subject: [PATCH] Fix build with PEP 517
+
+---
+ setup.py | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 51e03fe..4aa5398 100644
+--- a/setup.py
++++ b/setup.py
+@@ -118,7 +118,7 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
+         DistUtilsExtra.auto.install_auto.run(self)
+ 
+         root = '/' if self.root is None else self.root
+-        target_data = '/' + os.path.relpath(self.install_data, root) + '/'
++        target_data = '/usr/'
+         target_pkgdata = target_data + 'share/qreator/'
+         target_scripts = '/' + os.path.relpath(self.install_scripts, root) + '/'
+ 
+@@ -126,10 +126,6 @@ class InstallAndUpdateDataDirectory(DistUtilsExtra.auto.install_auto):
+                   '__version__': "'%s'" % self.distribution.get_version()}
+         update_config(self.install_lib, values)
+ 
+-        desktop_file = move_desktop_file(root, target_data, self.prefix)
+-        update_desktop_file(desktop_file, target_pkgdata, target_scripts)
+-        compile_schemas(root, target_data)
+-
+ 
+ ##################################################################################
+ ###################### YOU SHOULD MODIFY ONLY WHAT IS BELOW ######################
+-- 
+2.55.0
+
