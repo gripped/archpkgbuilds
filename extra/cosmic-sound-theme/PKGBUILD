@@ -2,7 +2,7 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=cosmic-sound-theme
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc='Sound theme for the COSMIC desktop environment'
 arch=(any)
