@@ -1,0 +1,23 @@
+From 915d841e7b39679511826e186568ac0be70b8701 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 19 Aug 2026 18:59:51 +0200
+Subject: [PATCH] Add keyboard accelerators for change sign button
+
+Same as in the scientific view.
+---
+ ui/basic_buttons_gtk3.ui | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/ui/basic_buttons_gtk3.ui b/ui/basic_buttons_gtk3.ui
+index c72a1b2..a9d4056 100644
+--- a/ui/basic_buttons_gtk3.ui
++++ b/ui/basic_buttons_gtk3.ui
+@@ -263,6 +263,8 @@
+                     <property name="receives_default">False</property>
+                     <property name="tooltip_text" translatable="yes">Change sign</property>
+                     <property name="use_underline">True</property>
++                    <accelerator key="KP_Subtract" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
++                    <accelerator key="minus" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+                     <signal name="can-activate-accel" handler="on_button_can_activate_accel" swapped="no"/>
+                     <signal name="released" handler="on_togglebutton_released" swapped="no"/>
+                     <signal name="clicked" handler="on_gfunc_button_clicked" swapped="no"/>
