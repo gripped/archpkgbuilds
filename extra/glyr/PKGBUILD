@@ -3,18 +3,37 @@
 
 pkgname=glyr
 pkgver=1.0.10
-pkgrel=6
+pkgrel=7
 pkgdesc='Music metadata searchengine utility and library written in C'
-arch=('x86_64')
+arch=(x86_64)
 url='https://github.com/sahib/glyr'
-license=('LGPL3')
-depends=('curl' 'glib2' 'sqlite')
-makedepends=('cmake' 'ninja')
-source=("https://github.com/sahib/$pkgname/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('77e8da60221c8d27612e4a36482069f26f8ed74a1b2768ebc373c8144ca806e8')
+license=(LGPL-3.0-or-later)
+depends=(
+  curl
+  glib2
+  glibc
+  sqlite
+)
+makedepends=(
+  cmake
+  git
+  ninja
+)
+source=("git+https://github.com/sahib/glyr.git#tag=$pkgver")
+b2sums=(b540ee9c9ba75805c9232dc7ac6553c49f1fd89a5266b68d3c8646894d71d261de96651b7e2b41ddca70a03646cbdf703942c67d331f1dc410556c01081d148f)
+
+prepare() {
+  cd $pkgname
+
+  # Fix build with recent curl versions
+  # https://github.com/sahib/glyr/pull/106
+  sed -i 's|curl/multi\.h|curl/curl.h|' lib/core.c
+}
 
 build() {
-  cmake -S $pkgname-$pkgver -B build -G Ninja -DCMAKE_INSTALL_PREFIX='/usr'
+  cmake -S $pkgname -B build -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
