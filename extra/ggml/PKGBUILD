@@ -11,7 +11,7 @@ pkgname=(
   ggml-sycl
   ggml-vulkan
 )
-pkgver=0.20.0
+pkgver=0.20.2
 pkgrel=1
 pkgdesc='Tensor library for machine learning'
 arch=(x86_64)
@@ -43,7 +43,7 @@ makedepends=(
   vulkan-icd-loader
 )
 source=(git+https://github.com/ggml-org/ggml.git#tag=v${pkgver})
-b2sums=('6dcefbf21d5459b9fdb7d47bc0182aee4354caf8b2621b228dd7d6f691f5f68b2f895f7123a39f60922aee64ff930d43ad33959c72d594597cd3ee6aeb09e6cb')
+b2sums=('7952c366407a0ac766c23696879267d90c0410089d214881c0e5aa5d8a039e97dea52d831c7b781298b5800d5ba4ddc36ff1235f846ebbd6e7e7046f8fa11ff7')
 
 build() {
   cmake -S ggml -B build-all -G Ninja \
