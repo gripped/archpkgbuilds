@@ -2,20 +2,23 @@
 
 pkgname=papilo
 pkgver=3.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Parallel Presolve for Integer and Linear Optimization'
 arch=(x86_64)
 url='https://www.scipopt.org/'
 license=(LGPL-3.0-only)
-depends=(boost-libs
+depends=(blas
+         boost-libs
          glibc
          gmp
          libgcc
+         libgfortran
          libquadmath
          libstdc++
          tbb)
 makedepends=(boost
              cmake
+             gcc-fortran
              git)
 source=(git+https://github.com/scipopt/papilo#tag=v$pkgver)
 sha256sums=('132f41de60ca82f5fd276be0939ec0d1cf938e27e9afdc63772510c479fd549b')
