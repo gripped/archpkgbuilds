@@ -6,7 +6,7 @@
 pkgbase=vigra
 pkgname=(vigra python-vigra)
 pkgver=1.12.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Computer vision library'
 arch=(x86_64)
 url="https://ukoethe.github.io/$pkgname"
@@ -75,7 +75,8 @@ _pick() {
 
 package_vigra() {
   depends=(
-    gcc-libs
+    libgcc
+    libstdc++
     glibc
     hdf5
     imath
@@ -103,7 +104,8 @@ package_python-vigra() {
   depends=(
     boost-libs
     fftw
-    gcc-libs
+    libgcc
+    libstdc++
     glibc
     hdf5
     python
