@@ -2,7 +2,7 @@
 
 pkgname=mdserve
 pkgver=1.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast markdown preview server with live reload and theme support"
 arch=('x86_64')
 url="https://github.com/jfernandez/mdserve"
@@ -15,7 +15,7 @@ b2sums=('d6166da1068a78a9ede316a9e58f97c905f23c009091dfef23eb4730665bb8850f1b301
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
