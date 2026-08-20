@@ -6,35 +6,56 @@
 
 pkgname=dvdauthor
 pkgver=0.7.2
-pkgrel=15
+pkgrel=16
 pkgdesc='DVD authoring tools'
-arch=('x86_64')
+arch=(x86_64)
 url='http://dvdauthor.sourceforge.net/'
-license=('GPL-2.0-or-later')
-depends=('libdvdread' 'imagemagick' 'libxml2')
-source=("https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz"
-        'dvdauthor-0.7.2-imagemagick7.patch'
-        'dvdauthor-0.7.2-freetype-pkgconfig.patch')
-sha256sums=('3020a92de9f78eb36f48b6f22d5a001c47107826634a785a62dfcd080f612eb7'
-            '5c6a6c1cca2fdb2a0037507361980de7ed3bf6c603cb85e9ce273eaf0028dc00'
-            'e78ceba3152249ba5b1e5919b19b0db934ab92172bd8266cf3d442591dcfab47')
+license=(GPL-2.0-or-later)
+depends=(
+  bash
+  fontconfig
+  freetype2
+  fribidi
+  glibc
+  imagemagick
+  libdvdread
+  libpng
+  libxml2
+)
+makedepends=(
+  docbook-sgml
+  docbook-utils
+  git
+  perl-sgmls
+)
+source=(
+  "git+https://github.com/ldo/dvdauthor.git#tag=$pkgver"
+  dvdauthor-0.7.2-imagemagick7.patch
+)
+b2sums=(
+  bf79688ded7fa17ae87d0e6dcd60d09e36df57fba2ac6203a5264b64b4bbcd1f81138b583ba52509372ac096efe4551e1e5d3c3d5ff5e6dcdac012e87adabf6e
+  e7949e4d5d26f2b54157a13957199b509a4686c70c50be691890d4312b5b7aebf448729ee39328abd7599ed7c7a461942f22f0aa8ff0eb89734c583816203b20
+)
 
 prepare() {
   cd $pkgname
+
+  # Don't search for obsolete freetype-config
+  git cherry-pick -n d5bb0bdd542c33214855a7062fcc485f8977934e
 
   # Port to imagemagick 7
   # https://bugs.gentoo.org/610574#c2
   patch -Np1 -i ../dvdauthor-0.7.2-imagemagick7.patch
 
-  # don't search for obsolete freetype-config
-  patch -p1 -i ../dvdauthor-0.7.2-freetype-pkgconfig.patch 
-
-  autoreconf -vif
+  autoreconf -fiv
 }
 
 build() {
   cd $pkgname
-  ./configure --prefix=/usr
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
