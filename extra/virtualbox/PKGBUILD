@@ -9,7 +9,7 @@ pkgname=('virtualbox'
          'virtualbox-guest-utils-nox'
          'virtualbox-host-dkms'
          'virtualbox-sdk')
-pkgver=7.2.14
+pkgver=7.2.16
 _tarver=${pkgver}
 pkgrel=1
 arch=('x86_64')
@@ -71,7 +71,7 @@ source=("https://download.virtualbox.org/virtualbox/${pkgver}/VirtualBox-${_tarv
         '0013-support-building-from-dkms.patch'
         '0018-upate-xclient-script.patch'
         '0020-python-3-12.patch')
-sha256sums=('384f293184c52fd51bc941c17d753b4019446f53a6b07c828adfb3e61fe0a500'
+sha256sums=('50356ccdaefe8f03537600ec31898b506e3a85ce79b94f26fb6cc1920c9e18eb'
             'f753501352054576c510aa81e83f4935079ea620e601057784b02b4d4d1eeb04'
             '2101ebb58233bbfadf3aa74381f22f7e7e508559d2b46387114bc2d8e308554c'
             'da4c49f6ca94e047e196cdbcba2c321199f4760056ea66e0fbc659353e128c9e'
@@ -88,7 +88,7 @@ sha256sums=('384f293184c52fd51bc941c17d753b4019446f53a6b07c828adfb3e61fe0a500'
             'd76b52d955215a72c296aa36d173897bcaa357528bf5a73347c52ccec8654ced'
             '8c64b3617e597390dd25cf85c9afac0ebbe369d620349d7f5c8056d834acb6c6'
             '00f68b86d32a1fada900c2da8dad2ab4215106cd58004f049bded99727cda2ff'
-            '2540381de895fabbcc68d820c1f72ba644ef566ff5dab0f60be055c7b45cc06f'
+            'def0d47f8e11af317d59f2d422b11495e51d3a65c0c1b0a7b6d3674acce60391'
             'ddb2092a5a000aa6ef854796f39dcdf86e72c06d53b24bac3835350571182df6')
 
 prepare() {
@@ -288,7 +288,7 @@ package_virtualbox-guest-utils() {
     source "VirtualBox-${pkgver}/env.sh"
     pushd "VirtualBox-${pkgver}/out/linux.${BUILD_PLATFORM_ARCH}/release/bin/additions"
     install -d "${pkgdir}/usr/bin"
-    install -m0755 VBoxAudioTest VBoxClient VBoxControl VBoxDRMClient VBoxService vboxwl "${pkgdir}/usr/bin"
+    install -m0755 VBoxAudioTest VBoxClient VBoxControl VBoxDRMClient VBoxService "${pkgdir}/usr/bin"
     install -m0755 -D "${srcdir}"/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/98vboxadd-xclient \
         "${pkgdir}"/usr/bin/VBoxClient-all
     install -m0644 -D "${srcdir}"/VirtualBox-${pkgver}/src/VBox/Additions/x11/Installer/vboxclient.desktop \
