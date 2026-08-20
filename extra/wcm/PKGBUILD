@@ -2,14 +2,15 @@
 # Contributor: Adrian Perez de Castro <aperez@igalia.com>
 
 pkgname=wcm
-pkgver=0.10.0
-pkgrel=5
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='GTK application to configure Wayfire'
 arch=(x86_64)
 url='https://github.com/WayfireWM/wcm'
 license=(MIT)
 depends=(
   atkmm
+  fmt
   glib2
   glibc
   glibmm
@@ -34,15 +35,21 @@ makedepends=(
   "wf-shell>=${pkgver%.*}.0"
 )
 optdepends=('wdisplays: Display configuration tool')
-source=("git+https://github.com/WayfireWM/wcm.git#tag=v$pkgver")
-b2sums=(b76e5467d02cc5926ae7efe300c6d017aa9a0410b2c720e16ebb53fce03560c111ab9e664f4e164881bee2c1237d45e14c5b8ab18ddc0265e319f718867985a5)
+source=(
+  "git+https://github.com/WayfireWM/wcm.git#tag=v$pkgver"
+  wcm-install-icon.patch
+)
+b2sums=(
+  c554f436cb2a887d7c594af9f77a67a719d2c5f8ec3b4f53195e57e765044b6917dfb9d25d44037571c695d60f3ba3bbf541ac89d1e75661584febb0181daf88
+  cc5fc8a58e8f109730ed8cbda8ea33b5a878a16595bd4cde871f39018218d8a5bff6e19deed572ef09deacdeae092614e3a9482d2fddab80a0888836606a9f9a
+)
 
 prepare() {
   cd $pkgname
 
-  # Install wcm.svg to the expected location
-  # https://github.com/WayfireWM/wcm/pull/118
-  sed -i "s/join_paths(share_dir, 'icons')/join_paths(share_dir, 'icons', 'hicolor', 'scalable', 'apps')/" icons/desktop/meson.build
+  # Install icons into private directory
+  # https://github.com/WayfireWM/wcm/pull/120
+  git apply -3 ../wcm-install-icon.patch
 }
 
 build() {

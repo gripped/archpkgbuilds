@@ -1,0 +1,35 @@
+From da7f628e021c9bb6b7e0d1d2d4c6984c6b54da74 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 28 Jul 2026 21:29:41 +0200
+Subject: [PATCH] Install icons into private directory
+
+The icons 'plugin-*' have too generic name, and may conflict with other
+packages on the system. Move them back to the
+$prefix/share/wcm/icons/ directory to avoid possible collision.
+
+This partially reverts commit 84063a07ccfc5be2a96b98d934271761a1730c2b
+---
+ icons/desktop/meson.build | 1 +
+ meson.build               | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/icons/desktop/meson.build b/icons/desktop/meson.build
+index 5f55f26..c210ddb 100644
+--- a/icons/desktop/meson.build
++++ b/icons/desktop/meson.build
+@@ -1 +1,2 @@
+ install_data('wcm.svg', install_dir: join_paths(share_dir, 'icons', 'hicolor', 'scalable', 'apps'))
++install_data('wcm.svg', install_dir: join_paths(share_dir, 'wcm', 'icons'))
+diff --git a/meson.build b/meson.build
+index 68f02d6..a5fa92f 100644
+--- a/meson.build
++++ b/meson.build
+@@ -15,7 +15,7 @@ wayfire_sysconf_dir = wayfire.get_variable(pkgconfig: 'sysconfdir')
+ 
+ share_dir = join_paths(get_option('prefix'), 'share')
+ wayfire_locale_dir = join_paths(share_dir, 'locale')
+-wcm_icon_dir = join_paths(share_dir, 'icons', 'hicolor', 'scalable', 'apps')
++wcm_icon_dir = join_paths(share_dir, 'wcm', 'icons')
+ wayfire_icon_dir = wayfire.get_variable(pkgconfig: 'icondir')
+ 
+ add_global_arguments('-DWAYFIRE_METADATADIR="' + wayfire_metadata_dir + '"', language : 'cpp')
