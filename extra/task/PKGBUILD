@@ -9,7 +9,7 @@
 pkgname=task
 pkgver=3.5.0
 _commit=3419d5ba1e6a780fbbb0a8d68d8fd31e675c1bf8
-pkgrel=1
+pkgrel=2
 pkgdesc="Taskwarrior, a command-line todo list manager"
 arch=('x86_64')
 url="https://taskwarrior.org/"
@@ -35,7 +35,7 @@ prepare() {
 build() {
   cd "$srcdir/$pkgname"
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr .
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=None .
   make
 }
 
