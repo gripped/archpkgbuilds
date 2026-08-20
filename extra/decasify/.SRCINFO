@@ -1,7 +1,7 @@
 pkgbase = decasify
 	pkgdesc = cast strings to title-case according to locale specific style guides including Turkish
-	pkgver = 0.11.3
-	pkgrel = 3
+	pkgver = 0.11.4
+	pkgrel = 1
 	url = https://github.com/alerque/decasify
 	arch = x86_64
 	license = LGPL-3.0-only
@@ -22,12 +22,12 @@ pkgbase = decasify
 	makedepends = python-installer
 	makedepends = python-wheel
 	makedepends = python-maturin
-	depends = libgcc
 	depends = glibc
-	source = https://github.com/alerque/decasify/releases/download/v0.11.3/decasify-0.11.3.tar.zst
-	source = https://github.com/alerque/decasify/releases/download/v0.11.3/decasify-0.11.3.tar.zst.asc
+	depends = libgcc
+	source = https://github.com/alerque/decasify/releases/download/v0.11.4/decasify-0.11.4.tar.zst
+	source = https://github.com/alerque/decasify/releases/download/v0.11.4/decasify-0.11.4.tar.zst.asc
 	validpgpkeys = 9F377DDB6D3153A48EB3EB1E63CC496475267693
-	sha256sums = 2404c9f1c163b4290aeb93694d3ad49181c0a389c3aea7ed6abab22489d14e93
+	sha256sums = 37e56750c7ccbe725f44dd065c6dbc170f92afa950c335e7f8256f21ba3b8fcc
 	sha256sums = SKIP
 
 pkgname = decasify
@@ -45,7 +45,7 @@ pkgname = lua51-decasify
 
 pkgname = neovim-decasify
 	pkgdesc = cast strings to title-case according to locale specific style guides including Turkish (Neovim plugin)
-	depends = lua51-decasify=0.11.3
+	depends = lua51-decasify=0.11.4
 	depends = neovim
 
 pkgname = python-decasify
@@ -54,5 +54,5 @@ pkgname = python-decasify
 
 pkgname = sile-decasify
 	pkgdesc = cast strings to title-case according to locale specific style guides including Turkish (SILE package)
-	depends = lua51-decasify=0.11.3
+	depends = lua51-decasify=0.11.4
 	depends = sile

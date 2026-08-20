@@ -2,17 +2,15 @@
 
 pkgbase=decasify
 pkgname=("$pkgbase" "lua-$pkgbase" "lua54-$pkgbase" "lua53-$pkgbase" "lua52-$pkgbase" "lua51-$pkgbase" "neovim-$pkgbase" "python-$pkgbase" "sile-$pkgbase")
-pkgver=0.11.3
+pkgver=0.11.4
 _rockrel=1
-pkgrel=3
+pkgrel=1
 pkgdesc='cast strings to title-case according to locale specific style guides including Turkish'
 arch=(x86_64)
 url="https://github.com/alerque/$pkgbase"
 license=(LGPL-3.0-only)
-depends=(
-  libgcc
-  glibc
-)
+depends=(glibc
+         libgcc)
 makedepends=(cargo
              jq
              lua{,-luarocks-build-rust-mlua}
@@ -25,28 +23,27 @@ makedepends=(cargo
              python-maturin)
 _archive="$pkgbase-$pkgver"
 source=("$url/releases/download/v$pkgver/$_archive.tar.zst"{,.asc})
-sha256sums=('2404c9f1c163b4290aeb93694d3ad49181c0a389c3aea7ed6abab22489d14e93'
+sha256sums=('37e56750c7ccbe725f44dd065c6dbc170f92afa950c335e7f8256f21ba3b8fcc'
             'SKIP')
 validpgpkeys=('9F377DDB6D3153A48EB3EB1E63CC496475267693') # Caleb Maclennan <caleb@alerque.com> (@alerque)
 
-_env() {
+_srcenv() {
+	cd "$_archive"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
 	export CARGO_PROFILE_RELEASE_STRIP=false
 	export CARGO_HOME="$srcdir"
-	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 }
 
 prepare() {
-	cd "$_archive"
-	_env
+	_srcenv
 	cargo fetch --locked --target host-tuple
 }
 
 build() {
-	cd "$_archive"
-	_env
+	_srcenv
 	export CARGO_FEATURE_FLAGS==--offline
 	./configure --prefix /usr
 	make
@@ -54,24 +51,23 @@ build() {
 }
 
 check() {
-	cd "$_archive"
+	_srcenv
 	./$pkgbase -l tr -c title 'ılIk ilkİ' | grep -Fx 'Ilık İlki'
 	# check requires lua & python developer tooling, needs to be reworked for a simple selfcheck
-	# _env
+	# _srcenv
 	# export CARGO_FEATURE_FLAGS==--offline
 	# make check
 }
 
 package_decasify() {
-	cd "$_archive"
+	_srcenv
 	pkgdesc+=' (CLI tool)'
 	make DESTDIR="$pkgdir" install
 }
 
 _package() {
-	cd "$_archive"
 	pkgdesc+=" (Rock for Lua $1)"
-	_env
+	_srcenv
 	luarocks --lua-version "$1" --tree "$pkgdir/usr/" \
 		make --deps-mode none --no-manifest "rockspecs/$_archive-$_rockrel.rockspec"
 }
