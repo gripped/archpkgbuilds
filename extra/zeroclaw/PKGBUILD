@@ -1,0 +1,67 @@
+# Maintainer: Maxime Gauduin <alucryd@gmail.com>
+# Contributor: zeroclaw-labs <bot@zeroclaw.dev>
+# Contributor: Ralph Torres <mail@ralphptorr.es>
+# Contributor: SteamedFish <steamedfish@hotmail.com>
+
+pkgbase=zeroclaw
+pkgname=(
+  zeroclaw
+  zerocode
+)
+pkgver=0.8.4
+pkgrel=1
+pkgdesc='Zero overhead. Zero compromise. 100% Rust. The fastest, smallest AI assistant.'
+arch=(x86_64)
+url=https://github.com/zeroclaw-labs/zeroclaw
+license=(
+  Apache-2.0
+  MIT
+)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+)
+makedepends=(
+  cargo
+  clang
+  git
+  nodejs-lts
+  npm
+  rust
+)
+source=(git+https://github.com/zeroclaw-labs/zeroclaw.git#tag=v${pkgver})
+b2sums=('3a4ecd4d2aa17151b0ae0bc6bb818823c448453ced0f1de175cd25a18f87495e3b31a8a481163c78c794042205573f3f999f0f5ce4fcc0257c553a25e479fc66')
+
+prepare() {
+  cd zeroclaw
+  cargo fetch --locked
+  cd web
+  npm ci
+}
+
+build() {
+  cd zeroclaw
+  export CC=clang
+  export CXX=clang++
+  cargo web build
+  cargo build \
+    --release \
+    --frozen \
+    --features "embedded-web,plugins-wasm,sandbox-landlock,webauthn"
+  cd apps/zerocode
+  cargo build \
+    --release \
+    --frozen \
+    -p zerocode
+}
+
+package_zeroclaw() {
+  install -Dm 755 zeroclaw/target/release/zeroclaw -t "${pkgdir}"/usr/bin/
+  install -Dm 644 zeroclaw/LICENSE-MIT -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_zerocode() {
+  install -Dm 755 zeroclaw/target/release/zerocode -t "${pkgdir}"/usr/bin/
+  install -Dm 644 zeroclaw/LICENSE-MIT -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
