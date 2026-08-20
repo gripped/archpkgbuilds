@@ -3,7 +3,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-validate-pyproject
-pkgver=0.25
+pkgver=0.26
 pkgrel=1
 pkgdesc="Validation library and CLI tool for checking on 'pyproject.toml' files using JSON Schema"
 arch=('any')
@@ -23,8 +23,8 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=('python-pytest')
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('a97c6458c0f8099d1ebbc686a231c27592150fdac3d913508cc58c227edcc07d1357be6736cac73ef1aa5b0c80c349383600d79f7ace356f9020022fa980136b')
+source=("git+$url.git#tag=$pkgver")
+b2sums=('e48adc8783d0f6912e829403bcd059635de5e54a8683d9e77af28f8d8b91d4e965a79027863c07688084413ebf2f5792d0a69e786af5a6540d467c349cb46694')
 
 build() {
   cd ${pkgname#python-}
