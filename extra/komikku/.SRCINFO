@@ -1,6 +1,6 @@
 pkgbase = komikku
 	pkgdesc = Manga and comics reader for GNOME
-	pkgver = 50.11.0
+	pkgver = 50.12.1
 	pkgrel = 1
 	url = https://apps.gnome.org/Komikku/
 	arch = any
@@ -11,11 +11,13 @@ pkgbase = komikku
 	makedepends = git
 	makedepends = meson
 	makedepends = python-curl_cffi
+	makedepends = python-pytesseract
 	depends = dconf
 	depends = gdk-pixbuf2
 	depends = glib2
 	depends = graphene
 	depends = gtk4
+	depends = gtksourceview5
 	depends = hicolor-icon-theme
 	depends = libadwaita
 	depends = libsoup3
@@ -23,6 +25,7 @@ pkgbase = komikku
 	depends = python
 	depends = python-beautifulsoup4
 	depends = python-brotli
+	depends = python-cairo
 	depends = python-colorthief
 	depends = python-cryptography
 	depends = python-dateparser
@@ -46,7 +49,8 @@ pkgbase = komikku
 	depends = python-urllib3
 	depends = webkitgtk-6.0
 	optdepends = python-curl_cffi: for impersonating browser requests
-	source = git+https://codeberg.org/valos/Komikku.git#tag=v50.11.0
-	b2sums = 728358ff5111b5ef2375b771fd2d5c6e930253dc58490fcf8ca3f64e4e0bb9afb7b5bce44ca16368a780d948ee7380c773de684c6e152f75d57d3ee243742c4e
+	optdepends = python-pytesseract: OCR translator
+	source = git+https://codeberg.org/valos/Komikku.git#tag=v50.12.1
+	b2sums = 2729065d6a2c36e47e75c727554b4692f80b41f58b0dad40d682fa2884ff1316d2d5d145ee954051dfb793433be4e555fd230f2683385b5ff13013132d255fca
 
 pkgname = komikku
