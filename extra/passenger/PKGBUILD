@@ -2,7 +2,7 @@
 
 pkgbase=passenger
 pkgname=(passenger mod_passenger nginx-mod-passenger)
-pkgver=6.1.8
+pkgver=6.2.0
 pkgrel=1
 pkgdesc="Fast and robust web server and application server for Ruby, Python and Node.js"
 arch=('x86_64')
@@ -15,7 +15,7 @@ validpgpkeys=('D5F0851426939232F437AB722AC745A50A212A8C'
               '16378A33A6EF16762922526E561F9B9CAC40B2F7'  # auto-software-signing@phusion.nl
               'B0F4253373F8F6F510D42178520A9993A1C052F8') # Maxim Dounin <mdounin@mdounin.ru>
 source=(https://s3.amazonaws.com/phusion-passenger/releases/passenger-$pkgver.tar.gz{,.asc})
-sha256sums=('86fdafdc0e02da8f4120a3e518e7ce3b2db0199b8c0cdfc46865240e8ebfc32d'
+sha256sums=('bd0e14538fa4a9f479a3ce60805a201bf10757d6051d23087759b1abbc811529'
             'SKIP')
 
 prepare() {
