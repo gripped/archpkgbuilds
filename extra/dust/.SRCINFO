@@ -1,7 +1,7 @@
 pkgbase = dust
 	pkgdesc = A more intuitive version of du in rust
-	pkgver = 1.2.4
-	pkgrel = 2
+	pkgver = 1.2.5
+	pkgrel = 1
 	url = https://github.com/bootandy/dust
 	arch = x86_64
 	license = Apache-2.0
@@ -9,9 +9,11 @@ pkgbase = dust
 	makedepends = rust
 	depends = glibc
 	depends = libgcc
-	depends = libgcc_s.so
-	source = dust::git+https://github.com/bootandy/dust#tag=v1.2.4
-	sha512sums = 0a6dcf9ba0668afbeb39dfe288ece1723d0caa6012511d17c93513ddd1edfb6242f743bec39e9419c9780c7961c51c54614490cca36739254b4fb45dbccea344
-	b2sums = 648fff66583dc0a6c6e0d555615fa40d5ff395ba8699dd13c8254b1e0e4bfb1740b51ae7bb00615948b6363cb00e1bac3353a2fb3c3a6ffc92d81dab8d4051d3
+	source = dust::git+https://github.com/bootandy/dust#tag=v1.2.5
+	sha512sums = 390f4f75c2548ed63a5d6cd0e90fa39d4784eb34f686d7952a6840f3d2d9894a5dce55962886356affedd437293bdd24d4de725f670590ccc23e3a617973cb1a
+	b2sums = 4ffdd37c7e4ef90f9ecce2f287b7e962e31f053f6d8a901f704698a145422461251ba582568014028dde63fb3c06e2a0bb5973d87ed0428b97d35f9708fac32b
 
 pkgname = dust
+	depends = glibc
+	depends = libgcc
+	depends = libgcc_s.so
