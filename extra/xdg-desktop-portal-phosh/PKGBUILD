@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=xdg-desktop-portal-phosh
-pkgver=0.56.1
+pkgver=0.57.0
 pkgrel=1
 pkgdesc='Backend implementation for xdg-desktop-portal that is using GTK/GNOME/Phosh'
 arch=(x86_64)
@@ -32,7 +32,7 @@ source=(
   git+https://gitlab.gnome.org/World/Phosh/pfs.git
 )
 b2sums=(
-  1dce3794dad4a29b9cb3de667078ff3ffc79d9c5bc9708168b064af1ceee0b72adaf9510ac427c04d86846c1398288e2d96cbc8f86bbaa4c8b712eb0943f1cfb
+  0c00bee203b4f0d699739d2a22b1ec65e630567cebdceb54fa43b5dcb7294e8a8d92ae7ec532700372f92a1ff37635425f2bd63d9f32949ab0a3e60c18e3f1c4
   SKIP
 )
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
@@ -43,7 +43,7 @@ prepare() {
 
   cd $pkgname
   CARGO_HOME="$srcdir/build/cargo" \
-    cargo fetch --locked --target "$(rustc --print host-tuple)"
+    cargo fetch --target "$(rustc --print host-tuple)"
 
   cd subprojects/pfs
   CARGO_HOME="$srcdir/build/subprojects/pfs/cargo-home" \
