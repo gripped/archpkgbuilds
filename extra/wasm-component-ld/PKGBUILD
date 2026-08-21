@@ -2,7 +2,7 @@
 # Contributor: greyltc (AUR)
 
 pkgname=wasm-component-ld
-pkgver=0.5.29
+pkgver=0.5.30
 pkgrel=1
 pkgdesc="Command line linker for creating WebAssembly components"
 url="https://github.com/bytecodealliance/wasm-component-ld"
@@ -22,7 +22,7 @@ checkdepends=(
 )
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
-b2sums=('24345e784cd60cb20d1d26dc3bbd4c2511b6ff0688def44f62bffc3f7da1f998406d9651875e078923486b71f6b5722638d3f6b19ee6e86ab429b56c81af67f8')
+b2sums=('67733546949e396fbe54365f0dd882ada171615f081ede37143fa84289334c3c37f2dd1c6380f405de003914e1de0be9ef4238eb624e054adc583fa4fa8209dc')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
