@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-persistent
-pkgver=6.7
+pkgver=6.8
 pkgrel=1
 pkgdesc="Translucent persistent objects"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('python-cffi' 'python-zope-interface' 'python-zope-deferredimport')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-zope-testrunner' 'python-manuel')
 source=("git+https://github.com/zopefoundation/persistent.git#tag=$pkgver")
-sha512sums=('1318773a830fa4714af362592222a945dc491dd59a3e2ab25bc876df92ea7a74834191e0f4f8504136932a64e2ecda7056ff9a281677b544d26cea8f9135c229')
+sha512sums=('673454d9e06de0b90fd65885a3e9df80a6b5f2d91a71d08c5472f3eedecd688acdf1e613b623128d060f4696d3d9d7d9777397ec18fbb03af3350ee4d392b5a7')
 
 build() {
   cd persistent
