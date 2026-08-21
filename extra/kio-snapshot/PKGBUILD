@@ -1,0 +1,31 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=kio-snapshot
+pkgver=1.0.0
+pkgrel=1
+arch=(x86_64)
+pkgdesc='Btrfs Filesystem snapshot integration for KDE applications'
+url='https://kde.org/'
+license=(LGPL-2.0-or-later)
+depends=(btrfs-progs
+         glibc
+         kcoreaddons
+         ki18n
+         kio
+         libstdc++
+         qt6-base
+         solid)
+makedepends=(extra-cmake-modules)
+source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('4713d0c60b186bef0bc0f992093c8bae2473d37808ae8d73179ab2571ce8a7d2'
+            'SKIP')
+validpgpkeys=('0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D') # Bhushan Shah (mykolab address) <bshah@mykolab.com>
+
+build() {
+  cmake -B build -S $pkgname-$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
