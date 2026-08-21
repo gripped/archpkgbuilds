@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -17,13 +20,14 @@ path = [
     "*.timer",
     "*.desktop",
     "*.hook",
+    "*.appdata.xml",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "fixes.patch",
+    "steadyflow-fixes.patch",
 ]
 SPDX-FileCopyrightText = "steadyflow contributors"
-SPDX-License-Identifier = "TODO-Choose-a-license"
+SPDX-License-Identifier = "GPL-3.0-or-later"
