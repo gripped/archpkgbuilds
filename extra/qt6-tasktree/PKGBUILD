@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-tasktree
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='A generic framework for automatic management of asynchronous tasks'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base)
 makedepends=(cmake
              git
@@ -21,7 +21,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('0128b86818a7497b4902dc1394d1c659392c983e6163fa6dd2ac48a112fb0bfe')
+sha256sums=('53b5acf0cc3e0a6dff14886e1182eb3ec409211caae991d77a9a88ac4100d18e')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
