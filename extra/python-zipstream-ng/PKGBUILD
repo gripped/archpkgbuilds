@@ -3,7 +3,7 @@
 
 _pkgname=zipstream-ng
 pkgname=python-$_pkgname
-pkgver=1.9.2
+pkgver=1.9.3
 pkgrel=1
 pkgdesc='A modern and easy to use streamable zip file generator'
 arch=(any)
@@ -16,7 +16,7 @@ makedepends=(python-{build,installer,wheel}
              python-hatchling)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('9a91a4c046f4955f1c4fdb141e7de59bc290e679b75ff04b91fb787f749989f5')
+sha256sums=('f1781c8d4110b30cb1d2b774d28f4a3e264698ed29be7aa37804b11cdee20da7')
 
 build() {
 	cd "$_archive"
