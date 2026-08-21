@@ -3,26 +3,55 @@
 pkgname=gnome-pie
 _pkgname=Gnome-Pie
 pkgver=0.7.3
-pkgrel=3
-pkgdesc="Circular application launcher for GNOME"
-arch=('x86_64')
-url="https://simmesimme.github.io/gnome-pie.html"
-license=('MIT')
-depends=('libarchive' 'libgee' 'libwnck3' 'gnome-menus')
-makedepends=('cmake' 'vala')
-source=($_pkgname-$pkgver.tar.gz::https://github.com/Simmesimme/$_pkgname/archive/v$pkgver.tar.gz)
-sha256sums=('e5d35462d72a1418555deafd3219f62e68acb28b763a55929c89be992f9c0a85')
+pkgrel=4
+pkgdesc='Circular application launcher'
+arch=(x86_64)
+url='https://simmesimme.github.io/gnome-pie.html'
+license=(MIT)
+depends=(
+  cairo
+  gdk-pixbuf2
+  glib2
+  glibc
+  gnome-menus
+  gtk3
+  hicolor-icon-theme
+  libarchive
+  libgee
+  libwnck3
+  libx11
+  libxml2
+  libxtst
+  pango
+)
+makedepends=(
+  cmake
+  git
+  ninja
+  vala
+)
+source=("git+https://github.com/Schneegans/Gnome-Pie.git#tag=v$pkgver")
+b2sums=(9e9dc1ddf1226b4d893113df52b4b08d5fba4d1237041e7ca5ef20f694c5cb4b036270406bee40d874be7c9d88361f420c027e3a5f22a5880c60146e5445c05b)
+
+prepare() {
+  cd $_pkgname
+
+  # Revert broken translation
+  git revert -n 0d766697fb71f60d53e328f8b306eee4930d7508
+}
 
 build() {
-  cd $_pkgname-$pkgver
-  ./resources/locale/compile-po.sh
-  [[ -d build ]] || mkdir build
-  cd build
-  cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5
-  make
+  cmake -S $_pkgname -B build -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
+  cmake --build build
+
+  for d in $_pkgname/resources/locale/*/; do
+    msgfmt -v "$d/LC_MESSAGES/"*.po -o "$d/LC_MESSAGES/gnomepie.mo"
+  done
 }
 
 package() {
-  cd $_pkgname-$pkgver/build
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" $_pkgname/COPYING
 }
