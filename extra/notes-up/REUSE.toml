@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,7 +26,10 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "0001-Support-Markdown-3.patch",
+    "notes-up-fix-pdf-export.patch",
+    "notes-up-markdown3.patch",
+    "notes-up-window-icon.patch",
+    "notes-up-window-title.patch",
 ]
 SPDX-FileCopyrightText = "notes-up contributors"
 SPDX-License-Identifier = "GPL-2.0-or-later"

@@ -1,0 +1,28 @@
+From f7499d2f695699bc06918e481b04d904ead214a8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 19:41:13 +0200
+Subject: [PATCH] Set window icon
+
+- g_set_prgname() is needed for Wayland compositors to match the window
+with the desktop file.
+
+- gtk_window_set_default_icon_name() is needed for taskbars and window
+managers on X11 to have window icon.
+---
+ src/Main.vala | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/Main.vala b/src/Main.vala
+index ee1952c7..02c7dc9e 100644
+--- a/src/Main.vala
++++ b/src/Main.vala
+@@ -27,7 +27,8 @@ public static int main (string[] args) {
+     Intl.setlocale (LocaleCategory.ALL, Intl.get_language_names ()[0]);
+ 
+     Environment.set_application_name (APP_NAME);
+-    Environment.set_prgname (APP_NAME);
++    Environment.set_prgname ("com.github.philip_scott.notes-up");
++    Gtk.Window.set_default_icon_name ("com.github.philip_scott.notes-up");
+ 
+     var application = new ENotes.Application ();
+ 

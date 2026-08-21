@@ -1,0 +1,23 @@
+From 427ab0b19a48473a0865bfba6261dbcf0fa606ff Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 19:44:30 +0200
+Subject: [PATCH] Set window title to null when nothing is selected
+
+When the window title is null, it falls back to the application name instead of setting an empty string.
+---
+ src/Widgets/Headerbar.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Widgets/Headerbar.vala b/src/Widgets/Headerbar.vala
+index 30ca36c..f192a01 100644
+--- a/src/Widgets/Headerbar.vala
++++ b/src/Widgets/Headerbar.vala
+@@ -447,7 +447,7 @@ public class ENotes.Headerbar : Gtk.HeaderBar {
+         } else if (notebook_title != null) {
+             this.title = notebook_title;
+         } else {
+-            this.title = "";
++            this.title = null;
+         }
+ 
+         this.title = this.title.replace ("&amp;", "&");

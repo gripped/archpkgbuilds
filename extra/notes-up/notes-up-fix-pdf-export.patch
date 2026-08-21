@@ -1,0 +1,23 @@
+From b112168118c802eadd0eb8ad7a53efdd84af2f6e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 20:23:06 +0200
+Subject: [PATCH] Fix PDF export on non-English locales
+
+Read the actual translation from gtk3 localization.
+---
+ src/Services/FileManager.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/Services/FileManager.vala b/src/Services/FileManager.vala
+index 825bba7..fa36dde 100644
+--- a/src/Services/FileManager.vala
++++ b/src/Services/FileManager.vala
+@@ -48,7 +48,7 @@ public class ENotes.FileManager : Object {
+ 
+         var op = new WebKit.PrintOperation (ENotes.ViewEditStack.get_instance ().viewer);
+         var settings = new Gtk.PrintSettings ();
+-        settings.set_printer (_("Print to File"));
++        settings.set_printer (dgettext ("gtk30", "Print to File"));
+ 
+         settings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = file.get_uri ();
+         op.set_print_settings (settings);
