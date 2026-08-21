@@ -1,0 +1,40 @@
+From e1af37ca7bf1232ab74f88ae9100bda374b84c5d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 10:15:45 +0200
+Subject: [PATCH] Make Keyboard Shortcuts page scrollable
+
+This allows the Configuration window to fit into smaller screens.
+---
+ src/gui.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/src/gui.c b/src/gui.c
+index 8e34d076..2f6776e7 100644
+--- a/src/gui.c
++++ b/src/gui.c
+@@ -5318,6 +5318,8 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
+     GtkWidget *conf_page5;
+     GtkWidget *conf_page6;
+     GtkWidget *conf_page7;
++    GtkWidget *conf_scrolled_window;
++
+     GtkWidget *notebook;
+     GdkColor sub_color;
+     gint i = 0;
+@@ -6554,7 +6556,12 @@ void menuitem_config_callback(GtkMenuItem * menuitem, void *data)
+ 
+     // Page 7 - Keyboard Shortcuts
+     conf_table = gtk_table_new(KEY_COUNT + 5, 3, FALSE);
+-    gtk_container_add(GTK_CONTAINER(conf_page7), conf_table);
++    conf_scrolled_window = gtk_scrolled_window_new(NULL, NULL);
++    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(conf_scrolled_window), GTK_POLICY_NEVER,
++                                   GTK_POLICY_AUTOMATIC);
++    gtk_widget_set_vexpand(conf_scrolled_window, TRUE);
++    gtk_container_add(GTK_CONTAINER(conf_scrolled_window), conf_table);
++    gtk_container_add(GTK_CONTAINER(conf_page7), conf_scrolled_window);
+     i = 0;
+     conf_label = gtk_label_new(_("<span weight=\"bold\">Keyboard Shortcuts</span>\n\n"
+                                  "Place the cursor in the box next to the shortcut you want to modify\n"
+-- 
+2.55.0
+

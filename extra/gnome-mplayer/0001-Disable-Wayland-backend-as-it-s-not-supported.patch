@@ -1,0 +1,24 @@
+From 4ce8404bc7b9fc49c99e14b23a333f2e5965de86 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 10:59:31 +0200
+Subject: [PATCH] Disable Wayland backend as it's not supported
+
+---
+ src/main.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/main.c b/src/main.c
+index bc659293..82b68cd9 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -857,6 +857,7 @@ int main(int argc, char *argv[])
+         g_thread_init(NULL);
+ 
+     g_type_init();
++    gdk_set_allowed_backends("x11");
+     gtk_init(&argc, &argv);
+     g_setenv("PULSE_PROP_media.role", "video", TRUE);
+ 
+-- 
+2.55.0
+

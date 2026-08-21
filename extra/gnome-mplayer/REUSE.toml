@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -17,13 +20,16 @@ path = [
     "*.timer",
     "*.desktop",
     "*.hook",
+    "*.appdata.xml",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "gnome-mplayer.appdata.xml",
+    "0001-Disable-Wayland-backend-as-it-s-not-supported.patch",
+    "0001-Fix-incompatible-pointer-type.patch",
+    "0001-Make-Keyboard-Shortcuts-page-scrollable.patch",
 ]
 SPDX-FileCopyrightText = "gnome-mplayer contributors"
 SPDX-License-Identifier = "GPL-2.0-or-later"
