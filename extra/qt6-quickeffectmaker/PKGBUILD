@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickeffectmaker
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='Qt Quick Effect Maker (QQEM) for creating and editing custom shader effects'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base
          qt6-declarative
          qt6-quick3d
@@ -24,7 +24,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('73668e6f91448a080a91fa65f3d3ef1ef3f7d04f4cc1c51849eab0e20fcf8d70')
+sha256sums=('ed5144e7e1914a32d94c6cb8cafa01189573039a4949efc35957a5a169445e83')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
