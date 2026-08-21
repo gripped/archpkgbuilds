@@ -1,7 +1,7 @@
 pkgbase = python-zope-security
 	pkgdesc = Zope Security Framework
-	pkgver = 8.3
-	pkgrel = 3
+	pkgver = 8.4
+	pkgrel = 1
 	url = https://github.com/zopefoundation/zope.security
 	arch = x86_64
 	license = ZPL-2.1
@@ -9,6 +9,7 @@ pkgbase = python-zope-security
 	checkdepends = python-zope-configuration
 	checkdepends = python-zope-testing
 	checkdepends = python-zope-testrunner
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -22,7 +23,7 @@ pkgbase = python-zope-security
 	depends = python-zope-proxy
 	depends = python-zope-schema
 	optdepends = python-zope-configuration: for ZCML support
-	source = https://github.com/zopefoundation/zope.security/archive/8.3/python-zope-security-8.3.tar.gz
-	sha512sums = f3626558e35f4ef1ffca7fd0bd3ca54183e274bb2b67988a9bcf8ab1a8d21dcab3a41b356276c15e97745ba715d11bd05e6e8184c6acdc9971fb6134a32f8d0d
+	source = git+https://github.com/zopefoundation/zope.security.git#tag=8.4
+	sha512sums = 60356662ee188b515b9c605a2295e924c95d26f26532596a7aeec0df27eee8a9164bcb974813488b3c72a5c73564dee239e80f033bf9e32d1eccad8f43277dd1
 
 pkgname = python-zope-security
