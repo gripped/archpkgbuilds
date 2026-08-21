@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-canvaspainter
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='Accelerated 2D painting solution for Qt Quick and QRhi-based render targets'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base
          qt6-declarative)
 makedepends=(cmake
@@ -23,7 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('18b505f811c47e7351c04c52660a55266f2ef15860f14af8557c4532f6ff474e')
+sha256sums=('560bb5ad7c64273d0b9dbf1cf2c11fe25c6902926251617041ade9bb25df3fc2')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
