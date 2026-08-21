@@ -3,8 +3,8 @@
 
 pkgname=python-zope-hookable
 _pkgname=zope.hookable
-pkgver=8.2
-pkgrel=2
+pkgver=8.3
+pkgrel=1
 pkgdesc="Represents the core of the Zope hookable Architecture"
 arch=('x86_64')
 url="https://github.com/zopefoundation/zope.hookable"
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=('python-zope-testrunner')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha512sums=('b746af297f1d081d8a6ea5cc94db834d94b0e6c579a338abbee6ecc92fda44d81d85d5bcde6a8bdb85571b551b30419c95eaf0e2c59e4e8493e086ec26c450de')
+sha512sums=('80ed58c6a3ccac968bed30b1f2ebe3cc7337530b9f0d1b9904878e37007974ad2d955066760ca996266a93fb42f0f27be10b4ca8a21b3dcb72154d0addecba40')
 
 build() {
   cd $_pkgname-$pkgver
