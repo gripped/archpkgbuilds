@@ -4,17 +4,17 @@
 # Contributor: Hoàng Văn Khải <hvksmr1996@gmail.com>
 
 pkgname=dprint
-pkgver=0.55.2
+pkgver=0.56.0
 pkgrel=1
 pkgdesc='Pluggable and configurable code formatting platform'
 arch=('x86_64')
 url='https://github.com/dprint/dprint'
 license=('MIT')
-depends=('bzip2' 'xz' 'libgcc' 'glibc')
+depends=('bzip2' 'xz' 'libgcc' 'glibc' 'zstd')
 makedepends=('cargo' 'git')
 options=('!lto') # interferes with compiling
 source=("git+$url#tag=$pkgver")
-sha256sums=('95d40c564c9e5a940508d4260220662ddf17cb63d861911d7bd68ae4d6fbb3da')
+sha256sums=('784a9dfdbe3d6cc4d145845a03c73eb0553c1486ab58b18f09083b384961f6d2')
 
 prepare() {
 	cd $pkgname
@@ -24,6 +24,7 @@ prepare() {
 build() {
 	cd $pkgname
 
+	export ZSTD_SYS_USE_PKG_CONFIG=1
 	export RUST_TOOLCHAIN=stable
 	export CARGO_TARGET_DIR=target
 	cargo build --release --frozen --all-features
