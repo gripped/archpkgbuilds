@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-wayland
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -13,9 +13,9 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='Provides APIs for Wayland'
-depends=(gcc-libs
-         glibc
+depends=(glibc
          libglvnd
+         libstdc++
          libxkbcommon
          qt6-base
          qt6-declarative
@@ -28,7 +28,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('e60f00f5ec52af545ebcb2a07ae4cd0c384cb09e1f57cb2f50313d12e1a8db9f')
+sha256sums=('b11323d942ee7939955e71d8eaaf17457f0fc894698cf285f9fb74a5fca7cc15')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
