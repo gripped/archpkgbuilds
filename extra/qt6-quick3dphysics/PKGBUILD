@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quick3dphysics
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='Physics engine integration for Qt Quick 3D'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base
          qt6-declarative
          qt6-quick3d)
@@ -24,7 +24,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('4dcba77143ff37c918fb02b481d85aad0d39a6f9c1596254f8d1c506bef8e416')
+sha256sums=('18b3a9190748e07bbeefd5e03dacdc5c70fbef208168e552d6ce65e55389fe60')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
