@@ -1,0 +1,31 @@
+From a9ac4e6561dcfd995e41cb5757e7758372d3252e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 16:07:26 +0200
+Subject: [PATCH] Fix missing default argument for
+ Paragraph::is_empty_completely
+
+The default argument was defined in C++ but was not specified in the
+Python binding, causing calls without arguments to fail with a TypeError.
+
+Closes: https://gitlab.com/bilheps/lifeograph/-/work_items/3
+---
+ src/python/py_bindings.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/python/py_bindings.cpp b/src/python/py_bindings.cpp
+index 55e0c9af..f3266e49 100644
+--- a/src/python/py_bindings.cpp
++++ b/src/python/py_bindings.cpp
+@@ -528,7 +528,8 @@ is_expanded: Supply True to expanded or False to collapse
+               { self.replace_text( bgn, length, new_text, nullptr, F_add_undo ); },
+               py::arg( "pos_bgn" ), py::arg( "len_erase" ), py::arg( "new_text" ),
+               py::arg( "add_undo" ) = true )
+-        .def( "is_empty_completely",&Paragraph::is_empty_completely )
++        .def( "is_empty_completely",&Paragraph::is_empty_completely,
++              py::arg( "spaces_are_things" ) = true )
+         .def( "get_heading_level",  &Paragraph::get_heading_level )
+         .def( "set_heading_level",  &Paragraph::set_heading_level )// TODO: 3.2: consider adding undo
+         .def( "get_indent_level",   &Paragraph::get_indent_level )
+-- 
+GitLab
+
