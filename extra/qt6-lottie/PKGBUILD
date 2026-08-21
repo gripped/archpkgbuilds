@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-lottie
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -12,8 +12,8 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='A family of player software for a certain json-based file format for describing 2d vector graphics animations'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base)
 makedepends=(cmake
              git
@@ -24,7 +24,7 @@ optdepends=('qt6-declarative: QML bindings')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('834be04da1f4834fc6d878e232c7373d9f0512825f4b7b4d71d8419fd89b375d')
+sha256sums=('8e813b49b4af73d4e2c02774f3ced920ed87ae822250a5d38fdd2d0ac7d38f60')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
