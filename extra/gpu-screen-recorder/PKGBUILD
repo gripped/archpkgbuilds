@@ -2,7 +2,7 @@
 # Contributor: dec05eba <dec05eba@protonmail.com>
 
 pkgname=gpu-screen-recorder
-pkgver=6.0.0
+pkgver=6.0.1
 pkgrel=1
 pkgdesc='A shadowplay-like screen recorder for Linux. The fastest screen recorder for Linux'
 arch=('x86_64')
@@ -34,6 +34,7 @@ depends=(
   libpipewire
   dbus
   libjpeg-turbo
+  ffmpeg
 )
 optdepends=(
     'nvidia-utils: Required to record your screen on NVIDIA'
@@ -45,11 +46,11 @@ optdepends=(
     'linux-firmware-intel: Required to record your screen on Intel Skylake or later iGPUs'
 )
 source=(git+https://repo.dec05eba.com/gpu-screen-recorder#tag=$pkgver)
-sha512sums=('aed09f0b538b920f4c1c3d16c93101180f99fe01a56d1a7c97b210a2379d698dab8ffbc5ef9cee006f4bf9f5b6a6f28df615bc78c25264cb2e6389c4ee259f6e')
+sha512sums=('279febaf83b1323bf0d786206dd268e7a9de07a84f03a37a9dff530b9ac2cbbf3d867addbeac6554928e10f981e4d5f7fe67d9aea3312509a166aa879bbbade9')
 
 build() {
   cd "$srcdir"/$pkgname
-  arch-meson build -Dsystemd=true --buildtype=release -Dstrip=true
+  arch-meson build -Dsystemd=true -Dffmpeg_static=false --buildtype=release -Dstrip=true
   meson compile -C build
 }
 
