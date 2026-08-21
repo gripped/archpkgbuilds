@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-svg
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -13,8 +13,8 @@ license=(GPL-3.0-only
          LicenseRef-Qt-Commercial
          Qt-GPL-exception-1.0)
 pkgdesc='Classes for displaying the contents of SVG files'
-depends=(gcc-libs
-         glibc
+depends=(glibc
+         libstdc++
          qt6-base
          zlib)
 makedepends=(cmake
@@ -23,7 +23,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('0b003ff29a271276ecf405be2da70eeb35e2cc5dd0f9bd52d4de3342de0266b4')
+sha256sums=('9f72f7dda1f9977ce9564747c1760f55c7417c1dadbe613e1aac6b1fa102df93')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
