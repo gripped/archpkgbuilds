@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=qt-advanced-docking-system
-pkgver=5.0.0
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Advanced Docking System for Qt'
 arch=(x86_64)
@@ -15,8 +15,8 @@ depends=(glibc
 makedepends=(cmake
              git
              qt6-declarative)
-source=(git+https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System#tag=$pkgver)
-sha256sums=('f41c65947f54ecfc2f82808e99c6078f07d3df99247ca1379ea6030b58288eb1')
+source=(git+https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System#tag=v$pkgver)
+sha256sums=('bece3614ed2aaf672e3e43b4ff99bd9c3c92365796d565471f065c21b3902d6b')
 
 build() {
   cmake -B build -S Qt-Advanced-Docking-System \
