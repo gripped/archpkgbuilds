@@ -2,9 +2,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-openapi
-_pkgver=6.11.1
+_pkgver=6.11.2
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -26,7 +26,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         openapi-generator-jar-path.patch)
-sha256sums=('7f99ec0d6b69aba419031af9f9f2d2491b5ae8089d4ddaa808dec14bf018461c'
+sha256sums=('2a99289648021de3c8db3d35f4d69fe20719e091585a5095563e684f4a83e76c'
             'aebff149fa25d8d5db7f7d8191d7efd1d18abad2d2fb757972802cfb9940343d')
 
 prepare() {
