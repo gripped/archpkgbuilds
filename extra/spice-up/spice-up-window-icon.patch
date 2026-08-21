@@ -1,0 +1,28 @@
+From a705c31ad2d62d0cab7002ae5b90366164bde4fd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 20:58:28 +0200
+Subject: [PATCH] Set window icon
+
+- g_set_prgname() is needed for Wayland compositors to match the window
+with the desktop file.
+
+- gtk_window_set_default_icon_name() is needed for taskbars and window
+managers on X11 to have window icon.
+---
+ src/Application.vala | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/Application.vala b/src/Application.vala
+index e304d07..402f2d6 100644
+--- a/src/Application.vala
++++ b/src/Application.vala
+@@ -129,7 +129,8 @@ public class Spice.Application : Gtk.Application {
+         //Intl.textdomain (TERMINAL_NAME);
+ 
+         Environment.set_application_name (APP_NAME);
+-        Environment.set_prgname (APP_NAME);
++        Environment.set_prgname (APP_ID);
++        Gtk.Window.set_default_icon_name (APP_ID);
+ 
+         var application = Spice.Application.instance;
+ 

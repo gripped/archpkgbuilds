@@ -1,0 +1,86 @@
+From d61d87df7d334f2fe6d1076b6fcf4a6a2e590b45 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 20 Aug 2026 21:14:29 +0200
+Subject: [PATCH] Remove unused libsoup dependency
+
+---
+ README.md                            |  1 -
+ com.github.philip_scott.spice-up.yml | 12 ------------
+ debian/control                       |  3 +--
+ meson.build                          |  1 -
+ src/meson.build                      |  1 -
+ 5 files changed, 1 insertion(+), 17 deletions(-)
+
+diff --git a/README.md b/README.md
+index 01e761c..f6d14c0 100644
+--- a/README.md
++++ b/README.md
+@@ -73,7 +73,6 @@ These dependencies must be present before building
+  - `gee-0.8`
+  - `gudev-1.0`
+  - `libevdev`
+- - `libsoup-2.4`
+ 
+ ## Building
+ ```
+diff --git a/com.github.philip_scott.spice-up.yml b/com.github.philip_scott.spice-up.yml
+index 8ada6fe..76b72b8 100644
+--- a/com.github.philip_scott.spice-up.yml
++++ b/com.github.philip_scott.spice-up.yml
+@@ -45,18 +45,6 @@ modules:
+           stable-only: true
+           url-template: https://www.freedesktop.org/software/libevdev/libevdev-$version.tar.xz
+ 
+-  - name: libsoup
+-    builddir: true
+-    buildsystem: meson
+-    config-opts:
+-      - "-Dtests=false"
+-      - "-Dvapi=disabled"
+-      - "-Dintrospection=disabled"
+-    sources:
+-      - type: archive
+-        url: https://gitlab.gnome.org/GNOME/libsoup/-/archive/2.68.2/libsoup-2.68.2.tar.gz
+-        sha256: a2a44f8b8eb5e145c5dff473f6d8c5b8f1addcf4e6f12223b4705c7fcc6c29b6
+-
+   - name: spice-up
+     buildsystem: meson
+     sources:
+diff --git a/debian/control b/debian/control
+index a11e3fa..0442a65 100644
+--- a/debian/control
++++ b/debian/control
+@@ -9,8 +9,7 @@ Build-Depends: cmake,
+                libgranite-dev,
+                libjson-glib-dev,
+                libgudev-1.0-dev,
+-               libevdev-dev,
+-               libsoup2.4-dev
++               libevdev-dev
+ 
+ Standards-Version: 3.9.6
+ Package: com.github.philip-scott.spice-up
+diff --git a/meson.build b/meson.build
+index f1c60da..caca66c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -31,7 +31,6 @@ granite_dep = dependency('granite', version: '>=0.5')
+ gtk_dep = dependency('gtk+-3.0')
+ gudev_dep = dependency('gudev-1.0')
+ json_glib_dep = dependency('json-glib-1.0')
+-soup_dep = dependency('libsoup-2.4')
+ 
+ subdir('data')
+ subdir('po')
+diff --git a/src/meson.build b/src/meson.build
+index c991a5d..912332d 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -77,7 +77,6 @@ deps = [
+     gtk_dep,
+     gudev_dep,
+     json_glib_dep,
+-    soup_dep,
+ ]
+ 
+ executable(
