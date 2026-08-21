@@ -1,7 +1,7 @@
 # Maintainer: Giovanni Harting <anonfunc@archlinux.org>
 
 pkgname=python-mpv-jsonipc
-pkgver=1.2.2
+pkgver=1.2.3
 pkgrel=1
 pkgdesc='Python API to MPV using JSON IPC'
 arch=(any)
@@ -10,7 +10,7 @@ license=(Apache-2.0)
 depends=(python)
 makedepends=(python-build python-installer python-wheel python-setuptools)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('9f2eb46e2b6ef5e56e2d52f00e09a6cc711127ef312d9eb7e70a4dd46ecead531db32ef7dc1c38806768c318a6a3926a57edc4cdb377f6ed7520ce9d4b335fde')
+b2sums=('05428957c7ae185be6f1eaeaddae0b9c1f42af122e6648b39ef49af1770349680f250a8eca49e24a8af58ba58ca71c7683b8fa26d1579818ee55c40158defaf7')
 
 build() {
   cd $pkgname-$pkgver
