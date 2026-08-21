@@ -5,7 +5,7 @@
 # Contributor: speps <speps dot aur dot archlinux dot org>
 
 pkgname=rssguard
-pkgver=5.2.4
+pkgver=5.2.5
 pkgrel=1
 pkgdesc='Simple (yet powerful) Qt feed reader'
 arch=(x86_64)
@@ -32,7 +32,7 @@ source=(git+https://github.com/martinrotter/rssguard#tag=$pkgver
         git+https://github.com/martinrotter/qtlinq
         git+https://codeberg.org/gumbo-parser/gumbo-parser
         git+https://github.com/martinrotter/qt-publicsuffix)
-sha256sums=('9f7bee387d7640060714c46cc6c7c8b003ba506c087bda3b1d214f9e277e7704'
+sha256sums=('3bd632a295734051de848038fc903fdd17e56d812b21838d8a3640712813a746'
             'SKIP'
             'SKIP'
             'SKIP')
