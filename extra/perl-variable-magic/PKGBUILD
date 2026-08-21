@@ -4,8 +4,8 @@
 
 pkgname="perl-variable-magic"
 _cpanname="Variable-Magic"
-pkgver=0.64
-pkgrel=3
+pkgver=0.65
+pkgrel=1
 pkgdesc="Associate user-defined magic to variables from Perl."
 arch=("x86_64")
 license=("PerlArtistic" "GPL")
@@ -25,7 +25,7 @@ prepareEnvironment() {
     PERL_MB_OPT="--installdirs vendor --destdir '${pkgdir//\'/\\\'}'" \
     MODULEBUILDRC="/dev/null"
 }
-sha256sums=('9f7853249c9ea3b4df92fb6b790c03a60680fc029f44c8bf9894dccf019516bd')
+sha256sums=('457bfb1b2369e44c0e2ef3e7b61580831107cbeebf0f5d8c4b9b02368550b91e')
 
 build() {
   prepareEnvironment
@@ -42,6 +42,4 @@ package() {
   prepareEnvironment
   make install
 
-  # Remove "perllocal.pod" and ".packlist".
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
