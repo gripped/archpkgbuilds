@@ -2,7 +2,7 @@
 
 pkgname=swayosd
 _name=SwayOSD
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc='A GTK based on screen display for keyboard shortcuts like caps-lock and volume'
 arch=(x86_64)
@@ -25,7 +25,7 @@ depends=(
 )
 makedepends=(cargo meson ninja sassc)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-b2sums=('a4bff57b3899a2e5f7540a3c8835b2c110a807f9b9b1361669247af3b19f4674c13982fede35af124403f1b6048ddd342dcdca2941b17229d956ec77ca9ebbe3')
+b2sums=('19bdb114a08cc37c1cd07ee5ca287d782074147c99ba5a3025ccfd93b9433f5569478df4c86e848b82df870658945fca20de698808bb94444a9dedf977e69c8f')
 
 prepare() {
   cd $_name-$pkgver
@@ -41,7 +41,9 @@ build() {
 
 package() {
   cd $_name-$pkgver
-  meson install -C build --destdir "$pkgdir"
+  # upstream marks its cargo target build_always_stale, so meson would rerun cargo here,
+  # which fails without a writable CARGO_HOME. --no-rebuild installs what build() produced.
+  meson install -C build --destdir "$pkgdir" --no-rebuild
 }
 
 # vim:set ts=2 sw=2 et:
