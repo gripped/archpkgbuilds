@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-printer
-pkgver=1.0.15
+pkgver=1.0.16
 pkgrel=1
 pkgdesc='Printer configuration project for DDE'
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('cups' 'deepin-service-manager' 'dtkcore' 'dtkgui' 'dtkwidget' 'glibc' 
 makedepends=('git' 'qt5-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/dde-printer.git#tag=$pkgver")
-sha512sums=('2821467882e1017c72dea8c7b130c5d37ded3810e8b03d02109c7a643d3075f875a3b138398266e3fa5fb75244a1d435c15eedfbcdedff2e9559396cc40e23bd')
+sha512sums=('a63422970ae8835628f94806210df8521fe64f458b7010c5db20451ebdbf0964fab79140c9a1fe93b8ac1781b72e4a53108d348b0f14a3f5dac7524b61460e82')
 
 prepare() {
   cd dde-printer
