@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=akonadiconsole
-pkgver=26.04.3
+pkgver=26.08.0
 pkgrel=1
 pkgdesc='Akonadi management and debugging console'
 arch=(x86_64)
@@ -32,7 +32,6 @@ depends=(akonadi
          libkdepim
          libstdc++
          messagelib
-         qgpgme
          qt6-base
          xapian-core)
 makedepends=(extra-cmake-modules
@@ -40,7 +39,7 @@ makedepends=(extra-cmake-modules
 groups=(kde-applications
         kde-pim)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('d27092a87af4da2d5e3a15eb5a73497081438f6545c2d86c2f2d7ff2db5364e5'
+sha256sums=('b8f352fe688cca9dd5712238f44a8fc57878709bf280adee4ab38a3f9de1f54d'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
