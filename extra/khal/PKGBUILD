@@ -7,7 +7,7 @@
 # Contributor: Max Gautier <mg@max.gautier.name>
 
 pkgname=khal
-pkgver=0.14.0
+pkgver=0.14.1
 pkgrel=1
 pkgdesc='CLI calendar application built around CalDAV'
 arch=(any)
@@ -46,8 +46,8 @@ optdepends=(
   'vdirsyncer: to synchronize CalDAV calendars'
 )
 source=("git+https://github.com/pimutils/khal.git#tag=v$pkgver")
-sha256sums=('f18e3e6b4a95105337c6da6e89040f48fa1ba4e332f1ab9affc793790aaf291f')
-b2sums=('69ba072e4b7f375f3c0c39079e3413dff4fd511addcd8e2f7504b665bd1687cb0742c08700256df9533efdeb419b85d9990142b10d73fc14f8a9f472fde65295')
+sha256sums=('04915555014b69c5dd098d99968c6033464bef172a9b0fd636a1034c68e6db12')
+b2sums=('057e5be28734eae4331bd348a661a6f7cbd211e77460c61ca170e80a6e298ee5f9324881285c2fb7a8931dddd98be09526c97017caf66574c0c6948795746a10')
 
 prepare() {
   # avoid makedepends on sphinxfeed-lsaffre
