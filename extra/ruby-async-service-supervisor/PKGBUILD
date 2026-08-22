@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-service-supervisor
-pkgver=0.20.0
+pkgver=0.21.0
 pkgrel=1
 pkgdesc='A supervisor for managing multiple container processes'
 arch=(any)
@@ -25,10 +25,8 @@ makedepends=(
 checkdepends=(
   ruby-bake
   ruby-bake-test
-  ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-decode
   ruby-metrics
   ruby-sus
   ruby-sus-fixtures-async
@@ -37,8 +35,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+https://github.com/socketry/async-service-supervisor.git#tag=v$pkgver")
-sha512sums=('d248660657732b515111f308ffa8236fcff6be7f0a47a8b3ea500bb366f61543a8ac55e32696ec8b53b72da5182e4d1e9233dc51e9942ea80dcae4eaadf60ffb')
-b2sums=('327f17f6ad6af9d85de526ee74bceac4fff347a7c3d9a45a2788706fbdeb6ff9f20a5043909dc365d0f837f98811bce187fb8559183014b6d826401e2097acff')
+sha512sums=('af2a8715d47d28eebf08fdc303b15bed87e6314f7761c8821d1751ad15e83bbbdeaf18c827900da450c49a302bdbc1514b3a202400f895e18bdae505f286c98e')
+b2sums=('b5ebe3d1923c4b696a45c94f49de17c3c21c84b117036b55f9a5c09cbc7263bc91c59ec2496efcc7c50f94a23e07fd39fbc90b1c12711d788c66f6adea9943e2')
 
 prepare() {
   cd async-service-supervisor
