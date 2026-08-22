@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -24,8 +27,9 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "gtk-version.patch",
-    "python310.patch",
+    "playitslowly-gtk-version.patch",
+    "playitslowly-prgname.patch",
+    "playitslowly-python310.patch",
 ]
 SPDX-FileCopyrightText = "playitslowly contributors"
 SPDX-License-Identifier = "GPL-3.0-or-later"
