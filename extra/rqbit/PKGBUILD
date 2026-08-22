@@ -5,7 +5,7 @@ pkgname=(
   rqbit
   rqbit-desktop
 )
-pkgver=9.0.0
+pkgver=9.0.1
 pkgrel=1
 pkgdesc="A bittorrent client in Rust"
 url='https://github.com/ikatson/rqbit'
@@ -15,6 +15,7 @@ makedepends=(
   'cairo' 'libcairo.so'
   'cargo'
   'cargo-tauri'
+  'dbus' 'libdbus-1.so'
   'gdk-pixbuf2' 'libgdk_pixbuf-2.0.so'
   'glib2' 'libglib-2.0.so'
   'gtk3' 'libgtk-3.so'
@@ -25,8 +26,8 @@ makedepends=(
   'webkit2gtk-4.1' 'libwebkit2gtk-4.1.so'
 )
 source=(https://github.com/ikatson/${pkgbase}/archive/v${pkgver}/${pkgbase}-${pkgver}.tar.gz)
-sha256sums=('a5c549c35e5a1e643e67376fd465158421a57e600594b69438f444b804fb6f34')
-b2sums=('23194bc5601a609f0bc0298874e4e9552571590da890b1e63bf979d0aa877965f7ed267e9cf009e7bbf9946ce9089ae11f312d3505f975af54d4a741bd08872d')
+sha256sums=('62a42c56259b737eea6580b63061589dc9940b145c40991cfff83470aa783291')
+b2sums=('732dad787edd92f34e595371c7f7c92f7f45c750875fa2ca71ecaec88d4ea2dc8752f4200282b5fb814437497dd9226652c926be468d34d955f40627be5dd9b5')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
@@ -79,6 +80,7 @@ package_rqbit-desktop() {
     'glibc'
     'hicolor-icon-theme'
     'libcairo.so'
+    'libdbus-1.so'
     'libgcc'
     'libgdk_pixbuf-2.0.so'
     'libglib-2.0.so'
