@@ -5,9 +5,9 @@
 
 pkgname=super-productivity
 _appid=com.super_productivity.SuperProductivity
-pkgver=18.16.0
+pkgver=18.19.0
 _electronversion=41
-pkgrel=1
+pkgrel=2
 pkgdesc="An advanced todo list app with timeboxing and time tracking capabilities"
 arch=('x86_64')
 url="https://super-productivity.com"
@@ -19,13 +19,15 @@ conflicts=('superproductivity')
 replaces=('superproductivity')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/johannesjo/${pkgname}/archive/v${pkgver}.tar.gz"
         "0001-fix-linux-set-desktop-name-to-fix-icon-on-Wayland.patch"
+        "0002-build-exclude-wayland-idle-helper-from-asar-archive.patch"
         "${_appid}.desktop"
         "${_appid}.metainfo.xml" # Taken from <https://github.com/flathub/com.super_productivity.SuperProductivity>
         "${pkgname}.sh")
-sha256sums=('b310c8c0ef92926f544f9e9f505860e13e0d2034b89bbcb5f9b4907bf01535cd'
+sha256sums=('279ad32fc83e71ae8c1787669bd80472bc5e8ffadd4f3b2b9286ce8870f870fe'
             '73aae23b6d8f18ba553dff5283f80e657b8e3060aa1c7642ae71abac09823b08'
+            'e04715ef0c4c798d7c0fc6f9ad25df784cd96ffa65c62ef446d5950bbfe7e1a1'
             'e310fa4c0749b8568b9516fe96f285ec1d1d05f8371795a7ef30733c4620f98d'
-            '0504febbaedf6f017ae0c99e69ecc1890d30660375d1fc8c2dc319ac4a04f70f'
+            'd6536b4d9483d71bbb2bc69c3b231e49c30b7c1229ee6798909498aeb20c84b1'
             '01ddd1a8a63ec2dea24e666828e7800857d69a4a46f16c302be27458f5847fd0')
 
 prepare() {
@@ -42,12 +44,15 @@ prepare() {
     # Fix the window title bar icon
     patch -Np1 -i "${srcdir}/0001-fix-linux-set-desktop-name-to-fix-icon-on-Wayland.patch"
 
+    # Exclude binary from app.asar so we can create debug package
+    patch -Np1 -i "${srcdir}/0002-build-exclude-wayland-idle-helper-from-asar-archive.patch"
+    sed -i "s|path.dirname(process.execPath)|path.dirname(app.getAppPath())|g" electron/idle-time-handler.ts
+
     export ELECTRON_SKIP_BINARY_DOWNLOAD=1
 
     NODE_ENV=development npm ci
 
     pushd electron/wayland-idle-helper
-    export CARGO_TARGET_DIR=target
     cargo fetch --locked --target host-tuple
     popd
 }
@@ -58,8 +63,6 @@ build() {
     export ELECTRON_SKIP_BINARY_DOWNLOAD=1
     export SYSTEM_ELECTRON_VERSION="$(electron${_electronversion} -v | sed 's/v//g')"
     local electronDist="/usr/lib/electron${_electronversion}"
-
-    export CARGO_TARGET_DIR=target
 
     npm run buildFrontend:prod:es6
     npm run electron:build
@@ -84,13 +87,17 @@ build() {
     find node_modules -iname 'readme*' -type f -print -delete
     find node_modules -iname '*.md' -type f -print -delete
 
+    # for reproducible builds
+    sed -i "s/\"timestamp\": [0-9]*/\"timestamp\": ${SOURCE_DATE_EPOCH}000/" .tmp/angular-dist/browser/ngsw.json
+
     NODE_ENV=production npm exec -c "electron-builder --linux dir -c.electronDist=${electronDist} -c.electronVersion=${SYSTEM_ELECTRON_VERSION}"
 }
 
 package() {
     cd "${pkgname}-${pkgver}"
 
-    install -Dm644 .tmp/app-builds/linux-unpacked/resources/app.asar -t "${pkgdir}/usr/lib/${pkgname}"
+    install -Dm644 .tmp/app-builds/linux*-unpacked/resources/app.asar -t "${pkgdir}/usr/lib/${pkgname}"
+    install -Dm755 .tmp/app-builds/linux*-unpacked/wayland-idle-helper -t "${pkgdir}/usr/lib/${pkgname}"
 
     install -Dm755 "${srcdir}/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
     install -Dm644 "${srcdir}/${_appid}.desktop" -t "${pkgdir}/usr/share/applications"

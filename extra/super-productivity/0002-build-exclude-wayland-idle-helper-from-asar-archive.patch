@@ -1,0 +1,26 @@
+From f87f89dfac84f625303ae95de714b03792c7397f Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Fri, 21 Aug 2026 20:13:40 +0800
+Subject: [PATCH] build: exclude wayland-idle-helper from asar archive
+
+Exclude prebuilt helper binary from the ASAR bundle to allow package
+managers to properly strip symbols and generate debug packages.
+---
+ electron-builder.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/electron-builder.yaml b/electron-builder.yaml
+index 0f89c0f8e..1f574f5c2 100644
+--- a/electron-builder.yaml
++++ b/electron-builder.yaml
+@@ -4,6 +4,7 @@ artifactName: ${name}-${arch}.${ext}
+ 
+ files:
+   - electron/**/*
++  - '!electron/bin/wayland-idle-helper'
+   - '!electron/**/*.ts'
+   - '!electron/**/*.js.map'
+   - .tmp/angular-dist/**/*
+-- 
+2.55.0
+
