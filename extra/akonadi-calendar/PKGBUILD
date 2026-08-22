@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=akonadi-calendar
-pkgver=26.04.3
+pkgver=26.08.0
 pkgrel=1
 pkgdesc='Akonadi calendar integration'
 arch=(x86_64)
@@ -36,9 +36,14 @@ depends=(akonadi
          messagelib
          qgpgme
          qt6-base)
-makedepends=(extra-cmake-modules)
+makedepends=(extra-cmake-modules
+             pyside6
+             python-build
+             python-setuptools
+             shiboken6-generator)
+optdepends=('pyside6: Python bindings')
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('9769bb77600f4228cd3d2a74b4ed486bbc820e36d8edb3b203df9afd4805c779'
+sha256sums=('6c2c21d3932c4c4905ecd6fb0b21b265ba9dc45fd35e538e2795f3b09aae2c5f'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
