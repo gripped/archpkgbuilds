@@ -3,7 +3,7 @@
 # Contributor: Lars Hagström <lars@foldspace.nu>
 
 pkgname=s-tui
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Terminal UI stress test and monitoring tool "
 arch=(any)
@@ -29,7 +29,7 @@ optdepends=(
   'python-numpy: for built-in stress tool'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('9b46e2e51695f22cb0c4c3f1948dd9f0f65a9acd5815ae8786b8a4df31c96ed31ab6cd22222c2d3fd55a11b7c08add4b9bc91387ff3ad82a7bcaf2e652b9cbe7')
+sha512sums=('77313bce4091d4210854c36696dc5ca9c9ac3f250747a683b4dc04546a7ca91e9c2f4509604d7067a0b61d44e37b97c1c2dc8db22d09980f2fbc324a4f67e625')
 
 build() {
   cd $pkgname-$pkgver
