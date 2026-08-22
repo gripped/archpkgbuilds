@@ -2,25 +2,25 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=serie
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc='A rich git commit graph in your terminal'
 url="https://github.com/lusingander/$pkgname"
 depends=(glibc # libc.so
-         libgcc libgcc_s.so)
+         libgcc)
 makedepends=(cargo
              git)
 arch=(x86_64)
 license=(MIT)
 source=("git+$url#tag=v$pkgver")
-sha256sums=('85ee04d5b1b130b12659570471669e39f3575a12b846353d93eb7d4acad42080')
+sha256sums=('008a89c10fed610fb46e335426d9ac06560006dce700887555f60ab637dd8f1d')
 
 _srcenv() {
 	cd "$pkgname"
 	export CARGO_HOME="$srcdir"
 	export CARGO_PROFILE_RELEASE_DEBUG=2
 	export CARGO_PROFILE_RELEASE_STRIP=false
-	export CARGO_PROFILE_RELEASE_LTO=true
+	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
 }
@@ -41,6 +41,7 @@ check() {
 }
 
 package() {
+	depends+=(libgcc_s.so)
 	cd "$pkgname"
 	install -Dm0755 "target/release/$pkgname" "${pkgdir}/usr/bin/${pkgname}"
 	install -Dm0644 -t "$pkgdir/usr/share/doc/${pkgname}/" README.md
