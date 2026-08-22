@@ -3,7 +3,7 @@
 # Contributor: Anibal Pacheco <apacheco.uy@gmail.com>
 
 pkgname=scrapy
-pkgver=2.17.0
+pkgver=2.18.0
 pkgrel=1
 pkgdesc='A fast high-level scraping and web crawling framework'
 arch=(any)
@@ -11,6 +11,7 @@ license=(BSD-3-Clause)
 url='https://scrapy.org'
 depends=(
   python
+  python-brotli
   python-cryptography
   python-cssselect
   python-defusedxml
@@ -41,32 +42,32 @@ checkdepends=(
   bpython
   ipython
   mitmproxy
+  python-anyio
   python-attrs
   python-botocore
-  python-brotli
   python-h2
-  python-httpx
+  python-httpx2
   python-markupsafe
   python-pyftpdlib
   python-pytest
+  python-pytest-rerunfailures
+  python-pytest-timeout
   python-pytest-twisted
   python-sybil
-  python-testfixtures
   python-uvloop
-  python-zstandard
 )
 optdepends=(
   'bpython: for ncurses support in cmdline'
   'ipython: for enhanced support of the interactive scraping shell'
+  'python-anyio: for HTTPX download handler asyncio support'
   'python-botocore: for various utils'
-  'python-brotli: for HTTP compression using brotli'
   'python-h2: for HTTP2 support'
   'python-hpack: for HTTP2 streaming support'
-  'python-zstandard: for HTTP compression using zstandard'
+  'python-httpx2: for HTTPX download handler support'
 )
 source=("$pkgname::git+https://github.com/scrapy/scrapy#tag=$pkgver")
-sha512sums=('ca34bbe0ec81942570f74e2e41dce851a0222e52444bc6f9fd8dc136cdb359b95191bfb9f7397578f4afcf14ee3c8d8bc6a3eb3fcc0f284575d2fa9d75b9ced0')
-b2sums=('67548fd147e7fa58b167aa710cb0bab6c520248773c22c984400ecb1130efd7d83268732a45781ce904ff470bc2404e3093a3ccb8e32531163be1768283e0a7e')
+sha512sums=('ff5c380f30096d322ba160423690cc4c34bc321876e8bf647b2fe657ef235f99e1df164c646624f70924b2ece127d3cc931e3c835e8d08737951bbead5c473db')
+b2sums=('83bcd7938643f50426788c587c51ba9360191f2cc21ab8b7200a810f472972d8c79a91cd73580d23f439333b076175b2c2951890e79a2bd868d05ed279ae0e2f')
 
 build() {
   cd "$pkgname"
@@ -84,17 +85,9 @@ check() {
 
   local pytest_options=(
     -vv
-    # integration tests are blocking and unnecessary
-    --ignore tests/test_proxy_connect.py
-    # TODO: raise upstream
-    --deselect tests/test_crawl.py::CrawlTestCase::test_start_requests_laziness
-    # Flaky, see: https://github.com/scrapy/scrapy/issues/7060
-    --deselect tests/test_downloader_handlers.py::TestHttp11Proxy::test_download_with_proxy_https_timeout
     # Fails with AssertionError under Python 3.14, not sure why
     --deselect tests/test_crawler.py::TestCrawlerProcessSubprocess::test_asyncio_enabled_reactor_different_loop
     --deselect tests/test_pipeline_files.py::TestFilesPipeline::test_file_path
-    --deselect tests/test_utils_asyncio.py::TestAsyncio::test_install_asyncio_reactor
-    --deselect tests/test_utils_reactor.py::TestAsyncio::test_install_asyncio_reactor
     --deselect tests/test_command_check.py
     --deselect tests/test_feedexport.py
     --deselect tests/test_squeues.py
