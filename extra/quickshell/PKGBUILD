@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=quickshell
-pkgver=0.3.0
-pkgrel=3
+pkgver=0.3.1
+pkgrel=1
 pkgdesc='Flexible toolkit for making desktop shells with QtQuick'
 arch=(x86_64 aarch64)
 url="https://git.outfoxxed.me/$pkgname/$pkgname"
@@ -34,7 +34,7 @@ makedepends=(cli11
              wayland-protocols)
 _archive="$pkgname-$pkgver"
 source=("$_archive.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('f4821f9084cab04bd2b5384cc92b9726aecc4ce3eb27200dca24edc67da3b6e5')
+sha256sums=('d60592622f1aa1cbb853d4814f605dfde827bc692befbfecffaccf4c90e352d8')
 
 build() {
 	cd "$pkgname"
