@@ -1,12 +1,10 @@
-# Contributor: Daniele Basso <d dot bass 05 at proton dot me>
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Daniele Basso <d dot bass 05 at proton dot me>
 
 pkgname=bun
-pkgver=1.3.14
+pkgver=1.4.0
 # From https://github.com/oven-sh/bun/blob/main/scripts/build/deps/webkit.ts#L6
-_webkitver=5488984d20e0dbfe4be2c3ba8fb18eb81a5e0e8b
-# From https://github.com/oven-sh/bun/blob/main/scripts/build/zig.ts#L36
-_zigver=04e7f6ac1e009525bc00934f20199c68f04e0a24
+_webkitver=0f966e81b78c84bb23213e391bc679c4ef83e56b
 pkgrel=1
 pkgdesc="Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one"
 arch=(x86_64 aarch64)
@@ -17,17 +15,22 @@ depends=(
   icu
 )
 makedepends=(
-  rustup          # bun
-  clang21         # bun, webkit
-  cmake
+  # Packaging requirements
   git
-  lld21           # bun, webkit
-  llvm21          # bun, webkit
-  ninja
-  python          # webkit
-  ruby            # webkit
-  ruby-getoptlong # webkit
   unzip
+  # bun make dependencies
+  clang21
+  cmake
+  lld21
+  llvm21
+  nasm
+  ninja
+  rustup
+  # WebKit make dependencies
+  python
+  ruby
+  ruby-erb
+  ruby-getoptlong
 )
 options=('!lto')
 source=(
@@ -37,19 +40,15 @@ source=(
 )
 source_x86_64=(
   "$pkgname-bootstrap-$pkgver.zip::https://github.com/oven-sh/bun/releases/download/bun-v$pkgver/bun-linux-x64.zip"
-  "$pkgname-zig-$_zigver-x86_64.zip::https://github.com/oven-sh/zig/releases/download/autobuild-$_zigver/bootstrap-x86_64-linux-musl.zip"
 )
 source_aarch64=(
   "$pkgname-bootstrap-$pkgver.zip::https://github.com/oven-sh/bun/releases/download/bun-v$pkgver/bun-linux-aarch64.zip"
-  "$pkgname-zig-$_zigver-aarch64.zip::https://github.com/oven-sh/zig/releases/download/autobuild-$_zigver/bootstrap-aarch64-linux-musl.zip"
 )
-b2sums=('1ca221bcd1b05526284e748c94fc5ae8eef04d030d57ffdbd3f3730e63702df23db05c26dae8cdedd37e737cc2868ee6e035a024558d08beaf8df32844fcaeb8'
-        'aece9d47e365b6749e7de00e2c7927f387843c2c3f2a01c84802883012ab80c8d2950384f9b8254bd4e8cfb035edc4267ae1d7f712193fc5cca33d923296a67c'
+b2sums=('6c77d0f09c03a950a72906558f22bdf737a54e2cfe1f7a8d1ab434a48cc3a14aad25d19f4b20c3dea841ea2e105097eac03a1fc23863463cd0bd7813d6eeb1e0'
+        '3a6fe03d65694dc47d76936d17e8abdbc67dea90eec28eb762a7e55fec4731a1eed6ec2bda69430362762898cffb8db691f022c1fdec4e9a58fbf241d09a5936'
         'f7b41bee31d26968154501ad62d8fdc157cac9e0f895035ba9a1ddd30caa2beb83b5cf80f6a0e52dcc1acac874fb07ef7974761764929e6e782866f1aacf35c2')
-b2sums_x86_64=('6c291c5900761de1d6dbefc0e7ad4f293a4cf24a132a107cffa467eda4050f44f5ca2aa5e0b35f95c31bd56101578dea0f0d8ae04de06d1a066180d5ee7f1fc7'
-               '40ce8e4774eb1af2ba5761889bd0edaf1d8b32b8c35303bf0b947c77def8a813b4c94712f9c54c5385520d538ddc56c65346d908bc8377537419658f5b5e9b64')
-b2sums_aarch64=('6c291c5900761de1d6dbefc0e7ad4f293a4cf24a132a107cffa467eda4050f44f5ca2aa5e0b35f95c31bd56101578dea0f0d8ae04de06d1a066180d5ee7f1fc7'
-                'cb0f192ec660059efbf073507ea7ce450731aedaea9c276d308c1922eb56dce1c0a7dc2a441d50ad9d73b93355267712116d6cfb37b88502db109009df642eac')
+b2sums_x86_64=('e0135c11f2b74040465985a5b5ce15e14867d75b8f6e803ec1aaa3d9381d3b018df109392b04c2b0e75244d6251b63b9caae9a30052ce3cfbeafaf1df1c4d328')
+b2sums_aarch64=('e0135c11f2b74040465985a5b5ce15e14867d75b8f6e803ec1aaa3d9381d3b018df109392b04c2b0e75244d6251b63b9caae9a30052ce3cfbeafaf1df1c4d328')
 
 prepare() {
   # Fix UB in JSC typed array int32 conversion that causes wrong values
@@ -60,50 +59,45 @@ prepare() {
 
   grep -q "WEBKIT_VERSION = \"$_webkitver\"" scripts/build/deps/webkit.ts \
     || (echo "WebKit version mismatch"; exit 1)
-  grep -q "ZIG_COMMIT = \"$_zigver\"" scripts/build/zig.ts \
-    || (echo "Zig version mismatch"; exit 1)
+
+  # Fix compatibility with older CPUs; see
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/bun/-/merge_requests/4.
+  sed -i 's/-march=nehalem/-march=x86-64/' scripts/build/flags.ts
 
   # Place the WebKit checkout where bun's build system expects local WebKit sources
   # See also https://bun.sh/docs/project/contributing#building-webkit-locally-+-debug-mode-of-jsc
   mkdir -p vendor
   cp -r "$srcdir/$pkgname-WebKit" vendor/WebKit
-
-  case "$CARCH" in
-    x86_64)  _zigzip="$srcdir/$pkgname-zig-$_zigver-x86_64.zip" ;;
-    aarch64) _zigzip="$srcdir/$pkgname-zig-$_zigver-aarch64.zip" ;;
-  esac
-  # unzip can't strip dirs but we want to get rid of the first contained dir so we have to do a little dance
-  mkdir -p vendor/zig.extract
-  unzip -q "$_zigzip" -d vendor/zig.extract
-  mv vendor/zig.extract/* vendor/zig
-  printf '%s\n' "$_zigver" > vendor/zig/.zig-commit
 }
 
 build() {
-  export PATH="/usr/lib/llvm21/bin:$PATH"
+  cd $pkgname
 
+  export PATH="/usr/lib/llvm21/bin:$PATH"
   case "$CARCH" in
     x86_64)  _bundir="bun-linux-x64" ;;
     aarch64) _bundir="bun-linux-aarch64" ;;
   esac
-
   export PATH="$srcdir/$_bundir:$PATH"
 
-  cd $pkgname
   bun scripts/build.ts \
     --profile=release-local \
+    --canary=0 \
+    --baseline=on \
     --build-dir=build/release \
     --cache-dir="$srcdir/build-cache"
 }
 
 check() {
   cd $pkgname
+
   ./build/release/bun --version
   echo 'console.log("ok")' | ./build/release/bun run -
 }
 
 package() {
   cd $pkgname
+
   install -vDm755 build/release/bun "$pkgdir/usr/bin/bun"
   ln -vs /usr/bin/bun "$pkgdir/usr/bin/bunx"
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE.md
