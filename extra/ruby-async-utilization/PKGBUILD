@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-utilization
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='High-performance utilization metrics for Async services using shared memory'
 arch=(any)
@@ -26,8 +26,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+https://github.com/socketry/async-utilization.git#tag=v$pkgver")
-sha512sums=('6a55506b36bebab710c87fcab2a2c414453aa064ef63a359a12af6872d61868ecc10c69ca952e6c1d215f0128282f5fcd06ddfdc2166909b0d1535dd87834606')
-b2sums=('bae9e4f984d5d1fb068127a6ddbbeae3d373a7e5ca029a415d52369b0a3eb6783486d0fb0a4da5ecbf0e4f56b42db24385269b1e4e7e4a077eaf64493d33dee6')
+sha512sums=('6d92bdb138968b56c6f89f4dfe42ab4d48a61afba79c9cfd0d31024c9750931c483a7dc3f98447333743c80bdff2ca1c30e66c1c85c4bae5838b791d92797373')
+b2sums=('d24ce5eaf47fa4e64d682251bf9cc8735a8641ad8dabf3d1035cbd0b7d4c12e4265b31306580ea370f466055e87058eeb17a292d68472e7be4a36c89ca33f6f2')
 
 prepare() {
   cd async-utilization
