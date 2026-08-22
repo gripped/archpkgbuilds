@@ -2,7 +2,7 @@
 
 pkgbase=linux-lts
 pkgver=6.18.45
-pkgrel=1
+pkgrel=2
 pkgdesc='LTS Linux'
 url='https://www.kernel.org'
 arch=(
