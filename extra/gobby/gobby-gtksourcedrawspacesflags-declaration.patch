@@ -1,0 +1,68 @@
+From 3ffe1e8dcf345aaee0e5c02bdacb191154cec797 Mon Sep 17 00:00:00 2001
+From: Philipp Kern <phil@philkern.de>
+Date: Fri, 17 Nov 2023 18:06:40 +0100
+Subject: [PATCH] Declare our own copy of GtkSourceDrawSpacesFlags
+
+GtkSourceDrawSpacesFlags was deprecated in GtkSourceView 3.24, but it is
+used in the settings code to encode whitespace/tab display settings.
+Redefine it and use the new API around GtkSourceSpaceDrawer.
+---
+ code/core/preferences.hpp     |  9 +++++++++
+ code/core/textsessionview.cpp | 17 +++++++++++++----
+ 2 files changed, 22 insertions(+), 4 deletions(-)
+
+Index: gobby-0.6.0/code/core/preferences.hpp
+===================================================================
+--- gobby-0.6.0.orig/code/core/preferences.hpp
++++ gobby-0.6.0/code/core/preferences.hpp
+@@ -427,6 +427,15 @@ template<>
+ struct SettingTraits<InfXmppConnectionSecurityPolicy>:
+ 	SettingTraitsEnum<InfXmppConnectionSecurityPolicy> {};
+ 
++// NOTE: This is copied from gtksourceview-3.0, which deprecated this enum
++// in 3.24 - however Gobby embedded the logic in its settings. This only
++// retains the constants we are actually using.
++typedef enum _GtkSourceDrawSpacesFlags
++{
++        GTK_SOURCE_DRAW_SPACES_SPACE      = 1 << 0,
++        GTK_SOURCE_DRAW_SPACES_TAB        = 1 << 1,
++} GtkSourceDrawSpacesFlags;
++
+ template<>
+ struct SettingTraits<GtkSourceDrawSpacesFlags>:
+ 	SettingTraitsFlags<GtkSourceDrawSpacesFlags> {};
+Index: gobby-0.6.0/code/core/textsessionview.cpp
+===================================================================
+--- gobby-0.6.0.orig/code/core/textsessionview.cpp
++++ gobby-0.6.0/code/core/textsessionview.cpp
+@@ -269,8 +269,7 @@ Gobby::TextSessionView::TextSessionView(
+ 		m_view, m_preferences.view.margin_pos);
+ 	gtk_source_buffer_set_highlight_matching_brackets(
+ 		m_buffer, m_preferences.view.bracket_highlight);
+-	gtk_source_view_set_draw_spaces(
+-		m_view, m_preferences.view.whitespace_display);
++	on_whitespace_display_changed();
+ 
+ 	gtk_widget_show(GTK_WIDGET(m_view));
+ 	Gtk::ScrolledWindow* scroll = Gtk::manage(new Gtk::ScrolledWindow);
+@@ -546,8 +545,18 @@ void Gobby::TextSessionView::on_bracket_
+ 
+ void Gobby::TextSessionView::on_whitespace_display_changed()
+ {
+-	gtk_source_view_set_draw_spaces(
+-		m_view, m_preferences.view.whitespace_display);
++	GtkSourceSpaceDrawer* space_drawer = gtk_source_view_get_space_drawer(
++		m_view);
++	GtkSourceSpaceLocationFlags locations = GTK_SOURCE_SPACE_LOCATION_ALL;
++	GtkSourceSpaceTypeFlags types = GTK_SOURCE_SPACE_TYPE_NONE;
++	if (m_preferences.view.whitespace_display.get() & GTK_SOURCE_DRAW_SPACES_SPACE) {
++		types = (GtkSourceSpaceTypeFlags)(types | GTK_SOURCE_SPACE_TYPE_SPACE);
++	}
++	if (m_preferences.view.whitespace_display.get() & GTK_SOURCE_DRAW_SPACES_TAB) {
++		types = (GtkSourceSpaceTypeFlags)(types | GTK_SOURCE_SPACE_TYPE_TAB);
++	}
++	gtk_source_space_drawer_set_types_for_locations(space_drawer, locations, types);
++	gtk_source_space_drawer_set_enable_matrix(space_drawer, true);
+ }
+ 
+ void Gobby::TextSessionView::on_font_changed()
