@@ -2,7 +2,7 @@
 
 pkgname=solanum
 pkgver=6.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Pomodoro timer for the GNOME desktop'
 arch=(x86_64)
 url='https://apps.gnome.org/Solanum/'
@@ -10,7 +10,6 @@ license=(GPL-3.0-or-later)
 groups=(gnome-circle)
 depends=(
   dconf
-  gcc-libs
   glib2
   glibc
   gst-plugins-bad-libs
@@ -20,6 +19,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   libadwaita
+  libgcc
 )
 makedepends=(
   appstream
@@ -36,7 +36,7 @@ prepare() {
   cd Solanum
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
