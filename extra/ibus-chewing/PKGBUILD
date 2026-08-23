@@ -6,36 +6,27 @@
 # Contributor: Hiroshi Yui <hiroshiyui@gmail.com>
 
 pkgname=ibus-chewing
-_pkgver=2.1.7
+_pkgver=2.2.0
 pkgver=${_pkgver/-rc./rc}
-pkgrel=2
+pkgrel=1
 pkgdesc='Chinese Chewing Engine for IBus Framework'
 arch=('x86_64')
 # "GPLv2+" in https://codeberg.org/chewing/ibus-chewing/src/tag/1.6.2/CMakeLists.txt#L90
 license=('GPL-2.0-or-later')
 url='https://codeberg.org/chewing/ibus-chewing'
 depends=('ibus' 'libchewing>=0.9.0' 'gtk4' 'libadwaita')
-makedepends=('cmake' 'minisign' 'glib2-devel')
+makedepends=('cmake' 'glib2-devel')
 checkdepends=('dbus' 'xorg-server-xvfb')
-source=("https://codeberg.org/chewing/ibus-chewing/releases/download/v$_pkgver/$pkgname-$_pkgver-Source.tar.xz"{,.minisig}
-        "42482defe56e8bb25dae73e650be52b80c10b377.patch")
-sha512sums=('7a654b6a46e0d0cb5b35900a1cce535e52292b345854afbd20e4de5f8778fb7eeabb66b4786251a705c90d8ad69258af87dc9075505a9d901363317d2467b250'
-            '834c15e86ae52c46dd0d2bd4c4382265f782f27fde07c3dcbbbf76689df556259a5aa747e9730da5b5fa73427d015901e73fdf8d640be37699308355cb991aa3'
-            'd7a82f851360f05600e7ac187025097d2833174f1580c1b3cae44caae14064687d1f141c8a09651c7f2b1c2abe5719e1b5ca2ed629c0e64909a9e27f75ad7d6f')
-# The key is mentioned on https://codeberg.org/chewing/ibus-chewing
-_validminisignkey='RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s'
-
-# XXX: move to verify() when devtools supports it
-# https://gitlab.archlinux.org/archlinux/devtools/-/issues/224
-prepare() {
-  minisign -Vm $pkgname-$_pkgver-Source.tar.xz -P $_validminisignkey
-
-  cd $pkgname-$_pkgver-Source
-  patch -Np1 -i ../42482defe56e8bb25dae73e650be52b80c10b377.patch
-}
+source=("https://codeberg.org/chewing/ibus-chewing/releases/download/v$_pkgver/$pkgname-$_pkgver.tar.xz"{,.asc})
+sha512sums=('7b0e9b9e7830f70b1e47ab08cb5bb02a6e5af63da640f534b48f6027041d907eb10dc5d474ef2dc7905c17a9d62cc1ffec9cac6ea266de00b10329f32aa3d61a'
+            'SKIP')
+# The key is mentioned on https://codeberg.org/chewing/libchewing
+validpgpkeys=(
+  '083B3CAB64267E5BAB7159673EF0C673DADCC30C' # Libchewing Signing Key
+)
 
 build() {
-  cd $pkgname-$_pkgver-Source
+  cd $pkgname-$_pkgver
 
   cmake -B build -S . \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -46,16 +37,16 @@ build() {
 }
 
 check() {
-  cd $pkgname-$_pkgver-Source/build
+  cd $pkgname-$_pkgver/build
 
   # glib-compile-schemas is needed for tests
   # https://codeberg.org/chewing/ibus-chewing/src/tag/v2.0.0/.github/workflows/ci.yml#L33
-  export GSETTINGS_SCHEMA_DIR="$srcdir/$pkgname-$_pkgver-Source/build/bin"
+  export GSETTINGS_SCHEMA_DIR="$srcdir/$pkgname-$_pkgver/build/bin"
   glib-compile-schemas ../src/setup --targetdir "$GSETTINGS_SCHEMA_DIR"
   xvfb-run --auto-display dbus-run-session make test
 }
 
 package() {
-  cd $pkgname-$_pkgver-Source/build
+  cd $pkgname-$_pkgver/build
   make DESTDIR="$pkgdir" install
 }
