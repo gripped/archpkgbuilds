@@ -5,7 +5,7 @@
 
 pkgname=python-zope-interface
 _pkgname=zope.interface
-pkgver=8.5
+pkgver=8.6
 pkgrel=1
 pkgdesc='Zope Interfaces for Python 3.x'
 arch=('x86_64')
@@ -27,7 +27,7 @@ checkdepends=(
 )
 makedepends+=(git)
 source=("git+https://github.com/zopefoundation/zope.interface.git#tag=$pkgver")
-sha512sums=('6d57671d957cf9e787d2eb42724005d027c26e2211d42b2e7773077d089f658add78cbc30b0d9348b6515e5bad94aff5edd8d50a169952083ad88554383bb851')
+sha512sums=('f41c9f41c55e4cceaa507c02f49d9f115b1a868ccca7fb3e868aea82bd4de268ce96cc42a48e81ff1f53300312f7d9c01ce3467ab8ffb2c9602d55b8fe2b8d50')
 
 build() {
   cd zope.interface
