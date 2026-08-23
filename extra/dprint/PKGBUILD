@@ -4,7 +4,7 @@
 # Contributor: Hoàng Văn Khải <hvksmr1996@gmail.com>
 
 pkgname=dprint
-pkgver=0.56.0
+pkgver=0.56.1
 pkgrel=1
 pkgdesc='Pluggable and configurable code formatting platform'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('bzip2' 'xz' 'libgcc' 'glibc' 'zstd')
 makedepends=('cargo' 'git')
 options=('!lto') # interferes with compiling
 source=("git+$url#tag=$pkgver")
-sha256sums=('784a9dfdbe3d6cc4d145845a03c73eb0553c1486ab58b18f09083b384961f6d2')
+sha256sums=('49ec8b314390f8ceacce8252cfe5880a4a0816c7e29e69e4c3c3d76edb2f0e31')
 
 prepare() {
 	cd $pkgname
