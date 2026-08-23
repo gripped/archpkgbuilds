@@ -1,0 +1,52 @@
+diff '--color=auto' -Naur activity-log-manager-0.9.7.orig/src/alm.vala activity-log-manager-0.9.7/src/alm.vala
+--- activity-log-manager-0.9.7.orig/src/alm.vala	2013-07-10 08:28:23.000000000 +0200
++++ activity-log-manager-0.9.7/src/alm.vala	2026-08-23 02:32:45.704050901 +0200
+@@ -28,6 +28,7 @@
+ 		{
+ 			Object(application: app);
+ 			this.set_title (_("Activity Log Manager"));
++			this.set_icon_name ("activity-log-manager");
+ 			var widget = new ActivityLogManager();
+ 			this.add(widget);
+ 			this.show();
+@@ -44,9 +45,14 @@
+ 	public class Application : Gtk.Application {
+ 	
+ 		protected override void activate () {
+-            new AlmWindow(this);
+-        }
+-        
++			var window = get_active_window ();
++
++			if (window != null)
++				window.present ();
++			else
++				new AlmWindow (this);
++		}
++
+         protected override void startup () {
+             base.startup ();
+         }
+diff '--color=auto' -Naur activity-log-manager-0.9.7.orig/src/unified-privacy-applications.vala activity-log-manager-0.9.7/src/unified-privacy-applications.vala
+--- activity-log-manager-0.9.7.orig/src/unified-privacy-applications.vala	2013-07-10 08:28:23.000000000 +0200
++++ activity-log-manager-0.9.7/src/unified-privacy-applications.vala	2026-08-23 02:40:06.769354080 +0200
+@@ -202,16 +202,16 @@
+ 			if(icon == null) {
+ 				icon_info = theme.lookup_icon ("gtk-execute" ,
+ 												size,
+-												IconLookupFlags.FORCE_SVG);
++												IconLookupFlags.FORCE_SIZE);
+ 			}
+ 			else {
+ 				icon_info = theme.lookup_by_gicon (icon ,
+ 													size,
+-													IconLookupFlags.FORCE_SVG);
++													IconLookupFlags.FORCE_SIZE);
+ 				if (icon_info == null)
+ 					icon_info = theme.lookup_icon ("gtk-execute" ,
+ 												size,
+-												IconLookupFlags.FORCE_SVG);
++												IconLookupFlags.FORCE_SIZE);
+ 			}
+ 			try {
+ 				pix = icon_info.load_icon ();
