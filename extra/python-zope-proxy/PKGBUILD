@@ -3,7 +3,7 @@
 
 pkgname=python-zope-proxy
 _pkgname=zope.proxy
-pkgver=7.2
+pkgver=7.3
 pkgrel=1
 pkgdesc="Generic Transparent Proxies"
 arch=('x86_64')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-zope-testrunner'
 )
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('bb26d9b08f72b7ab282f8b3e76acc62c906e52d8cace31a03fcf32afbebc279e7d7587f6415e8479222a4a2cc84f2f425489fdc8a58f2378f57408e14dea0cf5')
+sha512sums=('835f774ba6926a0a2b62d4aae601d318eca7a67529899eef0374d4b2e59f4d568d5a9e4d25d3acbfa975250857dc9e07e9feb9395125db54fa5730d34453baee')
 
 build() {
   cd $_pkgname
