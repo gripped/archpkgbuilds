@@ -5,30 +5,69 @@
 
 pkgname=kupfer
 pkgver=329
-pkgrel=1
-pkgdesc="Launcher application written in python. Similar to Gnome-Do / Launchy"
-arch=('any')
-url="https://kupferlauncher.github.io/"
-license=('GPL3')
-depends=('libkeybinder3' 'libwnck3' 'python-cairo' 'python-dbus' 'python-gobject'
-         'python-setproctitle' 'python-xdg')
-makedepends=('intltool' 'itstool' 'python-docutils' 'waf')
-optdepends=('gvfs: Trash plugin'
-            'xautomation: Send Keys plugin')
-source=(https://github.com/kupferlauncher/$pkgname/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-#validpgpkeys=('2578ABA1F9023159DFF211B7368712C4D7A44445') # Ulrik Sverdrup
-sha256sums=('ca8b6b4d3b0cb25ffd2b4ad68017a439ed11753572c427c0b33bf4f9fb199fd5')
+pkgrel=3
+pkgdesc='Launcher application written in Python. Similar to Gnome-Do / Launchy'
+arch=(any)
+url='https://kupferlauncher.github.io/'
+license=(GPL-3.0-or-later)
+depends=(
+  bash
+  gdk-pixbuf2
+  glib2
+  gtk3
+  hicolor-icon-theme
+  libkeybinder3
+  libwnck3
+  pango
+  python
+  python-cairo
+  python-dbus
+  python-gobject
+  python-pyxdg
+  python-setproctitle
+  tinysparql
+)
+makedepends=(
+  git
+  intltool
+  itstool
+  python-docutils
+  waf
+)
+optdepends=(
+  'gvfs: Trash plugin'
+  'libappindicator: StatusNotifierItem support'
+  'python-qrcode: Show QRCode plugin'
+  'xautomation: Send Keys plugin'
+)
+source=("git+https://github.com/kupferlauncher/kupfer.git?signed#tag=v$pkgver")
+b2sums=(487aeb5c119f6c8511c1c837c8d91dd7a5fcb410ae2badbca6c7014c4a8dcc4295a7b49e9981b42f6aaf1e11b42636c2c98ee2ed51b55e9b62f8995fa614a81a)
+validpgpkeys=(E6B26A59AD3BD80DA22CF54BAFFC8A6894648B15) # Karol Będkowski <karol.bedkowski@gmail.com>
+
+prepare() {
+  cd $pkgname
+
+  # Set correct prgname
+  # https://github.com/kupferlauncher/kupfer/pull/197
+  sed -i 's/set_prgname("Kupfer")/set_prgname("kupfer")/' kupfer/main.py
+
+  # Use libappindicator
+  sed -i 's/AyatanaAppIndicator3/AppIndicator3/' kupfer/{,ui/}*.py
+
+  # Unbundle waf
+  rm -r waf waflib
+}
 
 build() {
-  cd $pkgname-$pkgver
-  rm -r waf waflib
-  waf configure --prefix=/usr \
-                  --no-update-mime \
-                  --no-update-icon-cache
-  waf
+  cd $pkgname
+  waf configure \
+    --prefix=/usr \
+    --no-update-mime \
+    --no-update-icon-cache
+  waf build
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   waf install --destdir="$pkgdir"
 }
