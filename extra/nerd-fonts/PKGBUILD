@@ -18,6 +18,7 @@ pkgname=(otf-atkinsonhyperlegiblemono-nerd
          ttf-3270-nerd
          ttf-adwaitamono-nerd
          ttf-agave-nerd
+         ttf-annotationmono-nerd
          ttf-anonymouspro-nerd
          ttf-arimo-nerd
          ttf-bigblueterminal-nerd
@@ -33,6 +34,7 @@ pkgname=(otf-atkinsonhyperlegiblemono-nerd
          ttf-firacode-nerd
          ttf-go-nerd
          ttf-gohu-nerd
+         ttf-googlesanscode-nerd
          ttf-hack-nerd
          ttf-heavydata-nerd
          ttf-iawriter-nerd
@@ -70,7 +72,7 @@ pkgname=(otf-atkinsonhyperlegiblemono-nerd
          ttf-zed-mono-nerd)
 pkgdesc="Iconic font aggregator, collection, and patcher"
 pkgver=3.5.1
-pkgrel=1
+pkgrel=2
 arch=('any')
 url='https://github.com/ryanoasis/nerd-fonts'
 _urlbase="${url}/releases/download/v${pkgver}"
@@ -82,6 +84,7 @@ source=("0xproto-${pkgver}.tar.xz::${_urlbase}/0xProto.tar.xz"
         "3270-${pkgver}.tar.xz::${_urlbase}/3270.tar.xz"
         "adwaitamono-${pkgver}.tar.xz::${_urlbase}/AdwaitaMono.tar.xz"
         "agave-${pkgver}.tar.xz::${_urlbase}/Agave.tar.xz"
+        "annotationmono-${pkgver}.tar.xz::${_urlbase}/AnnotationMono.tar.xz"
         "anonymouspro-${pkgver}.tar.xz::${_urlbase}/AnonymousPro.tar.xz"
         "arimo-${pkgver}.tar.xz::${_urlbase}/Arimo.tar.xz"
         "atkinsonhyperlegiblemono-${pkgver}.tar.xz::${_urlbase}/AtkinsonHyperlegibleMono.tar.xz"
@@ -105,6 +108,7 @@ source=("0xproto-${pkgver}.tar.xz::${_urlbase}/0xProto.tar.xz"
         "geistmono-${pkgver}.tar.xz::${_urlbase}/GeistMono.tar.xz"
         "go-${pkgver}.tar.xz::${_urlbase}/Go-Mono.tar.xz"
         "gohu-${pkgver}.tar.xz::${_urlbase}/Gohu.tar.xz"
+        "googlesanscode-${pkgver}.tar.xz::${_urlbase}/GoogleSansCode.tar.xz"
         "hack-${pkgver}.tar.xz::${_urlbase}/Hack.tar.xz"
         "hasklig-${pkgver}.tar.xz::${_urlbase}/Hasklig.tar.xz"
         "heavydata-${pkgver}.tar.xz::${_urlbase}/HeavyData.tar.xz"
@@ -149,6 +153,7 @@ sha256sums=('3f2d36e4fa8b3af2f97b14b57c5b0f57f4c1bda5a59533fb913a9ff3344db7ce'
             '0be3de53807798fc5bdca90eb972225b0b3880bdd9b505121b3c06750a08b698'
             '409118887ec166a2342c184ade6734faf5d236a097742cb7085ff42826a1dd94'
             '0b29420ed47a4cc9bc2743d454ef17ea645ae31e6c348e86154d994b6ccc756e'
+            'bae334fde071ee7450cc8bbdc20fc5663a81466dce54d66f93815a48f59a308c'
             'f84f067b4de991a14afdbd498e106239c429a553a27e76a364048638f2e1de70'
             '997706a5e98185d9b0b74ef9593c65c6c3bf775721ade614f0bd156aeca6bace'
             'a0fd13eb48ff2c7522f652369d2add4d285903f600525c6bb72be5cf2448ef55'
@@ -172,6 +177,7 @@ sha256sums=('3f2d36e4fa8b3af2f97b14b57c5b0f57f4c1bda5a59533fb913a9ff3344db7ce'
             'd3ba4a7418cde16963fda0caa4f7ae866c509e0a864ec21e393455e1906e070c'
             'd993c556cf0e7c4b2455628063a5adb441b3517a297783185c262d77900d70dd'
             'b56a359a7562beebcc443d2a1c3f57a29e1ac7ffb47da17eca1fa028a0017b5a'
+            'b5a2a79b6ac0f021049c63b67bb42a1dcf81d5bc4e447fc6205c79d969605f42'
             'cdd389472e10e2261520140ff1b382b4f8a226af5fd0b2735b975d31151d9c3c'
             '25f73bb44cf786939f6fe13914ce220ac0d8a1ffde7fc7ee87090854c0f3d83c'
             '5137500fe224d8f7876557352136c0c9eef94b371ccea78cdee6aa0160e2e254'
@@ -216,12 +222,12 @@ noextract=("${source[@]%%::*}")
 
 prepare() {
   # archives don't include a font-specific directory, so we have to make them
-  for _font in 3270 adwaitamono atkinsonhyperlegiblemono agave anonymouspro \
-               arimo aurulent bigblueterminal bitstreamveramono cascadiacode \
-               codenewroman cousine daddytimemono dejavu droid fantasque \
-               fira firamono go hack hasklig heavydata hermit iawriter \
-               ibmplexmono inconsolata inconsolatago inconsolatalgc iosevka \
-               jetbrainsmono lekton liberationmono lilex meslo monofur \
+  for _font in 3270 adwaitamono atkinsonhyperlegiblemono agave annotationmono \
+               anonymouspro arimo aurulent bigblueterminal bitstreamveramono \
+               cascadiacode codenewroman cousine daddytimemono dejavu droid \
+               fantasque fira firamono go googlesanscode hack hasklig heavydata \
+               hermit iawriter ibmplexmono inconsolata inconsolatago inconsolatalgc \
+               iosevka jetbrainsmono lekton liberationmono lilex meslo monofur \
                monoid mononoki mplus noto opendyslexic overpass profont \
                proggyclean robotomono  sharetechmono sourcecodepro spacemono \
                terminus tinos ubuntu  ubuntumono victormono iosevkaterm \
@@ -266,6 +272,14 @@ package_ttf-agave-nerd() {
 
   install -Dm644 agave/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
   install -Dm644 agave/LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-annotationmono-nerd() {
+  pkgdesc="Patched font Annotation Mono from nerd fonts library"
+  license=('OFL-1.1')
+
+  install -Dm644 annotationmono/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 annotationmono/LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
 package_ttf-anonymouspro-nerd() {
@@ -473,6 +487,14 @@ package_ttf-gohu-nerd() {
 
   install -Dm644 gohu/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
   install -Dm644 gohu/COPYING-LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
+
+package_ttf-googlesanscode-nerd() {
+  pkgdesc="Patched font Google Sans Code from nerd fonts library"
+  license=('OFL-1.1')
+
+  install -Dm644 googlesanscode/*.ttf -t "${pkgdir}/usr/share/fonts/TTF"
+  install -Dm644 googlesanscode/OFL.txt -t "${pkgdir}/usr/share/licenses/${pkgname}/"
 }
 
 package_ttf-hack-nerd() {
