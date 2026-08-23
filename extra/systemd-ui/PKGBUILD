@@ -3,26 +3,53 @@
 
 pkgname=systemd-ui
 pkgver=3
-pkgrel=5
-pkgdesc="Graphical front-end for systemd"
-arch=('x86_64')
-url="https://www.freedesktop.org/wiki/Software/systemd"
-license=('GPL')
-depends=('gtk3' 'libgee' 'libnotify')
-makedepends=('vala' 'docbook-xsl' 'libxslt')
-source=(https://www.freedesktop.org/software/systemd/$pkgname-$pkgver.tar.xz
-        systemadm.appdata.xml)
-sha256sums=('455e65000abf39bbccd937786b5f0d7c76ea631b6f28d7142f007fa141338dad'
-            '2d335848d3810e34baa1efada6bb48c459c75e7007db3c7065a9e0d7325adefb')
+pkgrel=6
+pkgdesc='Graphical front-end for systemd'
+arch=(x86_64)
+url='https://github.com/systemd/systemd-ui'
+license=(GPL-2.0-or-later)
+depends=(
+  glib2
+  glibc
+  gtk3
+  libgee
+  libnotify
+)
+makedepends=(
+  docbook-xsl
+  git
+  libxslt
+  vala
+)
+source=("git+https://github.com/systemd/systemd-ui.git#tag=v$pkgver")
+b2sums=(8940643efb9de7c20e3866e91eab93296ba19450555659ccaeb516a2b34e99f4b6cccd3f5a28172a57e17f876aa62cb894238029d981213122848948a1850cb4)
+
+prepare() {
+  cd $pkgname
+
+  # Fix build
+  git cherry-pick -n 282a352dff49c13e185d826af2a248b55988bc32
+  git cherry-pick -n 86531eb5ce3d5b463b3590d61dc179018c5f3174
+  git cherry-pick -n f99f0612bf4cc16d06215f9abfddcaa576f09fd8
+  git cherry-pick -n 10acb3a556c33f332a1066b78f542b20cd7c2786
+
+  # Add metainfo file
+  git cherry-pick -n 4e6ab2e4295ea6ba86a6ca85ae0af363973e9210
+  sed -i 's|$(datadir)/appdata|$(datadir)/metainfo|' Makefile.am
+
+  autoreconf -fiv
+}
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
-  install -Dm644 ../systemadm.appdata.xml "$pkgdir/usr/share/metainfo/systemadm.appdata.xml"
 }
