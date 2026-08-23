@@ -8,57 +8,93 @@
 
 pkgname=pragha
 pkgver=1.3.4
-pkgrel=8
+pkgrel=9
 pkgdesc='Lightweight GTK music player and manager'
-arch=('x86_64')
+arch=(x86_64)
 url='https://pragha-music-player.github.io/'
-license=('GPL-3.0-or-later')
-depends=('cairo' 'gdk-pixbuf2' 'glib2' 'gstreamer' 'gst-plugins-base' 'gst-plugins-base-libs'
-         'gst-plugins-good' 'gtk3' 'hicolor-icon-theme' 'libgudev' 'libpeas' 'pango' 'sqlite'
-         'taglib' 'totem-pl-parser')
-optdepends=('glyr: Get Artist info, Lyrics and Album arts plugin'
-            'grilo: DLNA Renderer plugin'
-            'gst-libav: Extra media codecs'
-            'gst-plugins-bad: Extra media codecs'
-            'gst-plugins-ugly: Extra media codecs'
-            'libcddb: Play cdrom plugin'
-            'libcdio-paranoia: Play cdrom plugin'
-            'libclastfm: Last.fm plugin'
-            'libkeybinder3: Global Hotkeys plugin'
-            'libmtp: MTP Devices plugin'
-            'libnotify: Notification plugin'
-            'libsoup3: AcoustID and Get radios plugin')
-makedepends=('intltool' 'glyr' 'gobject-introspection' 'grilo' 'libcddb' 'libcdio-paranoia'
-             'libclastfm' 'libkeybinder3' 
-             'libmtp' 'libnotify' 'libsoup3' 'xfce4-dev-tools')
-replaces=('dissonance')
-source=("https://github.com/pragha-music-player/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.bz2"
-        Don-t-use-sync-session.patch
-        Switch-to-libsoup3.patch)
-sha256sums=('e54e6acdc11e6f19c691c6e069fa9d54934c37b0f4b78cd5e835ce9512866ba6'
-            '417837d4b6b53b61212ad61d70253133eb4fdf942fefa18191fdd313c0dc1c43'
-            '917342c45a83893483772364a1a7953f7157c8aaf3cf8b7e00b08c3079d04bb7')
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  gdk-pixbuf2
+  glib2
+  glibc
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  gtk3
+  hicolor-icon-theme
+  libgcc
+  libgudev
+  libpeas
+  pango
+  sqlite
+  taglib
+  totem-pl-parser
+)
+makedepends=(
+  git
+  glyr
+  gobject-introspection
+  grilo
+  intltool
+  libcddb
+  libcdio-paranoia
+  libclastfm
+  libkeybinder3
+  libmtp
+  libnotify
+  libsoup3
+  xfce4-dev-tools
+)
+optdepends=(
+  'glyr: Get Artist info, Lyrics and Album arts plugin'
+  'grilo: DLNA Renderer plugin'
+  'gst-libav: Extra media codecs'
+  'gst-plugins-bad: Extra media codecs'
+  'gst-plugins-ugly: Extra media codecs'
+  'libcddb: Play cdrom plugin'
+  'libcdio-paranoia: Play cdrom plugin'
+  'libclastfm: Last.fm plugin'
+  'libkeybinder3: Global Hotkeys plugin'
+  'libmtp: MTP Devices plugin'
+  'libnotify: Notification plugin'
+  'libsoup3: AcoustID and Get radios plugin'
+)
+source=(
+  "git+https://github.com/pragha-music-player/pragha.git#tag=v$pkgver"
+  Don-t-use-sync-session.patch
+  Switch-to-libsoup3.patch
+)
+b2sums=(
+  4a1841fbf1e3f565743222a99da7d22ec03fb180de9dc8a6fb24d587e71abd7a26b5d022eacc1fb0561c81725b88e98e171d9c8e9c6cf1d0600063303cac0fd5
+  2f787f1ff29f20519ae805396f110e6c5529565548c8ee28a071e24f4d7385048ba63993653c76b2f7c99abcf048b5d708f8076a39d5cc1f4983b7755a92e8bd
+  9e733ff0a5e61e8e48bdf381394de3933bbfd9328e0eb11f37a23cb45385cc3cc2c6f678b6ba6027dee308bf494a8f60b936dd594847aff232c48d277b59b1eb
+)
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   # Port to libsoup3
   patch -Np1 -i ../Don-t-use-sync-session.patch
   patch -Np1 -i ../Switch-to-libsoup3.patch
 
-  sed -i 's|(datadir)/appdata|(datadir)/metainfo|' data/Makefile.{am,in}
+  # Fix metainfo location
+  sed -i 's|(datadir)/appdata|(datadir)/metainfo|' data/Makefile.am
 
   autoreconf -fiv
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
