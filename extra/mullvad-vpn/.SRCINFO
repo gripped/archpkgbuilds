@@ -1,24 +1,22 @@
 pkgbase = mullvad-vpn
 	pkgdesc = Mullvad VPN client
-	pkgver = 2026.3
+	pkgver = 2026.4
 	pkgrel = 1
 	url = https://www.mullvad.net
 	arch = x86_64
 	license = GPL-3.0-or-later
-	makedepends = electron39
+	makedepends = electron42
 	makedepends = cargo
 	makedepends = dbus
 	makedepends = git
 	makedepends = glibc
-	makedepends = go
 	makedepends = hicolor-icon-theme
 	makedepends = libgcc
 	makedepends = npm
 	makedepends = protobuf
 	options = !lto
-	source = git+https://github.com/mullvad/mullvadvpn-app.git#tag=2026.3?signed
+	source = git+https://github.com/mullvad/mullvadvpn-app.git#tag=2026.4?signed
 	source = git+https://github.com/mullvad/mullvadvpn-app-binaries.git
-	source = git+https://github.com/mullvad/wireguard-go.git
 	source = mullvad-vpn.sh
 	source = mullvad-vpn.desktop
 	source = electron-builder.yml
@@ -26,8 +24,7 @@ pkgbase = mullvad-vpn
 	validpgpkeys = 7ED98188F8F9AFF15D49E41BEB8D8AD83E8DA7BC
 	validpgpkeys = 1D0026CBD1F1858DF8DB54DFCB87E2B919A6454C
 	validpgpkeys = 049F58CC80D9C78452151EE6EF0CCD68D0E5B9B1
-	b2sums = 2844535b99a50d0b53f173db8b4c88a46a383d64a6a65c0f72676ecc94005f9315b0c8b18d402e39ddd77ef3e5f44aa4d11eddea762082ef86060e73c97d3eba
-	b2sums = SKIP
+	b2sums = 616e76bc44fcbbf27114af5b11180a254b4fc8e2c4d4baa3d612c6dda711863dff67d98326a890e8c7304ff22831f801e8aa9324ce09bd2ec2873e3df83ac2d3
 	b2sums = SKIP
 	b2sums = c3534bf98bc9c5977e14865a8b4e41bb509a42cb006f8ada3f11bdff704e347d132797425b95ca3f709308703ade5f3aa46e7e7c4ef5e73911f9de78df14b1a9
 	b2sums = 1aaf1403601110fee9a5d56ff363c790403e16e316231c084ef1ea90399750bd9b2781d63e5f0e00ded3bfd9b44621dfef1f1920aebe457ea69641418ca97030
@@ -35,7 +32,7 @@ pkgbase = mullvad-vpn
 
 pkgname = mullvad-vpn
 	pkgdesc = Mullvad VPN client (desktop application)
-	depends = electron39
+	depends = electron42
 	depends = hicolor-icon-theme
 	depends = mullvad-vpn-daemon
 	optdepends = libappindicator-gtk3: tray icon
