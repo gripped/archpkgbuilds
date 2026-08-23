@@ -1,0 +1,37 @@
+diff -ur zeitgeist-explorer-0.2.orig/zeitgeist-explorer zeitgeist-explorer-0.2/zeitgeist-explorer
+--- zeitgeist-explorer-0.2.orig/zeitgeist-explorer	2026-01-24 21:08:27.789989055 +0100
++++ zeitgeist-explorer-0.2/zeitgeist-explorer	2026-01-21 21:54:53.695533187 +0100
+@@ -18,7 +18,9 @@
+ # You should have received a copy of the GNU Lesser General Public License
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.";
+ #
++import gi
+ 
++gi.require_version("Gtk", "3.0")
+ from gi.repository import Gtk
+ import gettext
+ 
+diff -ur zeitgeist-explorer-0.2.orig/zgexplorer/applicationsviewer.py zeitgeist-explorer-0.2/zgexplorer/applicationsviewer.py
+--- zeitgeist-explorer-0.2.orig/zgexplorer/applicationsviewer.py	2026-01-24 21:08:27.793322403 +0100
++++ zeitgeist-explorer-0.2/zgexplorer/applicationsviewer.py	2026-01-21 22:05:20.952828211 +0100
+@@ -192,7 +192,7 @@
+         if icon_info is not None:
+             try:
+                 pix = icon_info.load_icon()
+-            except gio.Error:
++            except GLib.Error:
+                 return None
+         else:
+             pix = None
+diff -ur zeitgeist-explorer-0.2.orig/zgexplorer/client.py zeitgeist-explorer-0.2/zgexplorer/client.py
+--- zeitgeist-explorer-0.2.orig/zgexplorer/client.py	2026-01-24 21:08:27.793322403 +0100
++++ zeitgeist-explorer-0.2/zgexplorer/client.py	2026-01-21 22:08:08.123632122 +0100
+@@ -1097,7 +1097,7 @@
+ 		if callable(normal_reply_handler):
+ 			normal_reply_handler(normal_reply_data)
+ 
+-_FIND_EVENTS_FOR_TEMPLATES_ARGS = inspect.getargspec(
++_FIND_EVENTS_FOR_TEMPLATES_ARGS = inspect.getfullargspec(
+ 	ZeitgeistClient.find_events_for_templates)[0]
+ 
+ # vim:noexpandtab:ts=4:sw=4
