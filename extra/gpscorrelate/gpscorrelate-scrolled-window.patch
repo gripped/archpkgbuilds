@@ -1,0 +1,50 @@
+From 3be78ff1dd12698a38046bea4f50bb03f38bfa6e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 23 Aug 2026 03:50:29 +0200
+Subject: [PATCH] Make the controls side scrollable
+
+This allows the application window to fit into smaller screens. Without
+this, the bottom of the window is off screen on a standard 1024x768 display.
+---
+ gui.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/gui.c b/gui.c
+index 9698af8..41abc98 100644
+--- a/gui.c
++++ b/gui.c
+@@ -50,6 +50,7 @@
+ /* Declare all our widgets. Global to this module. */
+ GtkWidget *MatchWindow;
+ GtkWidget *WindowHBox;
++GtkWidget *ScrolledWindow;
+ GtkWidget *ControlsVBox;
+ 
+ GtkWidget *AddPhotosFrame;
+@@ -301,7 +302,7 @@ GtkWidget* CreateMatchWindow (void)
+   char title[80];
+   snprintf(title, sizeof(title), _("GPS Photo Correlate %s"), PACKAGE_VERSION);
+   gtk_window_set_title (GTK_WINDOW (MatchWindow), title);
+-  gtk_window_set_default_size (GTK_WINDOW (MatchWindow), 1050, -1);
++  gtk_window_set_default_size (GTK_WINDOW (MatchWindow), 1050, 820);
+ 
+   g_signal_connect (G_OBJECT (MatchWindow), "delete_event",
+   		G_CALLBACK (DestroyWindow), NULL);
+@@ -310,10 +311,16 @@ GtkWidget* CreateMatchWindow (void)
+   gtk_widget_show (WindowHBox);
+   gtk_container_add (GTK_CONTAINER (MatchWindow), WindowHBox);
+ 
++  ScrolledWindow = gtk_scrolled_window_new (NULL, NULL);
++  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (ScrolledWindow), GTK_POLICY_NEVER,
++                                  GTK_POLICY_AUTOMATIC);
++  gtk_widget_show (ScrolledWindow);
++  gtk_box_pack_start (GTK_BOX (WindowHBox), ScrolledWindow, FALSE, TRUE, 0);
++
+   /* The controls side of the window. */
+   ControlsVBox = gtk_vbox_new (FALSE, 0);
+   gtk_widget_show (ControlsVBox);
+-  gtk_box_pack_start (GTK_BOX (WindowHBox), ControlsVBox, FALSE, TRUE, 0);
++  gtk_container_add (GTK_CONTAINER (ScrolledWindow), ControlsVBox);
+ 
+   /* Add/remove photos area. */
+   AddPhotosFrame = gtk_frame_new (NULL);

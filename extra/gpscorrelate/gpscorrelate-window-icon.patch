@@ -1,0 +1,28 @@
+From 6496383c69e94d8953f1caa1b45e0d0425761839 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 23 Aug 2026 03:45:55 +0200
+Subject: [PATCH] Set window icon
+
+- g_set_prgname() is needed for Wayland compositors to match the window
+with the desktop file.
+
+- gtk_window_set_default_icon_name() is needed for taskbars and window
+managers on X11 to have window icon.
+---
+ main-gui.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/main-gui.c b/main-gui.c
+index d25ed74..6c4f445 100644
+--- a/main-gui.c
++++ b/main-gui.c
+@@ -47,6 +47,9 @@ int main(int argc, char* argv[])
+ 	 * (We ignore passed parameters) */
+ 	gtk_init(&argc, &argv);
+ 
++	g_set_prgname ("gpscorrelate");
++	gtk_window_set_default_icon_name ("gpscorrelate-gui");
++
+ 	/* Create and show the window. */
+ 	CreateMatchWindow();
+ 

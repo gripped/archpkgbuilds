@@ -3,36 +3,68 @@
 # Contributor: sylvain alborini <sylvain.alborini@gmail.com>
 
 pkgname=gpscorrelate
-pkgver=2.0
-pkgrel=6
+pkgver=2.3
+pkgrel=1
 pkgdesc='Correlate (geotagging) digital camera photos with GPS data in GPX format'
-arch=('x86_64')
+arch=(x86_64)
 url='https://dfandrich.github.io/gpscorrelate/'
-license=('GPL2')
-depends=('exiv2' 'gtk3')
-makedepends=('libxslt')
-source=("https://github.com/dfandrich/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
-        'io.github.dfandrich.gpscorrelate.metainfo.xml'
-         exiv2-0.28.patch)
-sha256sums=('3fba8ad72b9b42dfc870a04d1207357c2a6c28842b1ede51e28b30a93b48debe'
-            '3e12e59fff65ae03f7e39910c0c243401fca372fabe8af4539ef3e57f3b71824'
-            '2b14c7679b481ac5f7122d09bd1f0709965154a8f134e5a101c6734b90318723')
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  exiv2
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  harfbuzz
+  hicolor-icon-theme
+  libgcc
+  libstdc++
+  libxml2
+  pango
+  zlib
+)
+makedepends=(
+  docbook-xsl
+  git
+  intltool
+  libxslt
+)
+source=(
+  "git+https://github.com/dfandrich/gpscorrelate.git#tag=$pkgver"
+  gpscorrelate-window-icon.patch
+  gpscorrelate-scrolled-window.patch
+)
+b2sums=(
+  e084cc8522a0323b97f2b7df170688cbfeabdab4668f8114fdfc140fdca44a1ec797f971b4dddcc71aa51a9d19a65125e9e690eeab51564b5ee54805d851047b
+  b83cb4d2944ea8df37670d7a8aefe1c58f6315d247502b7b283b85e6712db5b371aaad750d958afcf902004753f831f8860780f171b83003d0d4bd9a8afeb67a
+  6fbd71f18abfc4281f3901158ffdcc099b2ac1e2ef24d617415843280ca8f8fe3cf86d18aca4e0efeed452d197c75eaf44d7bef3a9edd1f0973c1668cd88a4d6
+)
 
 prepare() {
-  cd $pkgname-$pkgver
-  sed -e '/^CFLAGS   =/d' -e '/^LDFLAGS  =/d' -i Makefile # Honor system build flags
-  patch -p1 -i ../exiv2-0.28.patch # Fix build with exiv2 0.28
+  cd $pkgname
+
+  # Set window icon
+  # https://github.com/dfandrich/gpscorrelate/pull/38
+  git apply -3 ../gpscorrelate-window-icon.patch
+
+  # Make the controls side scrollable
+  # https://github.com/dfandrich/gpscorrelate/pull/39
+  git apply -3 ../gpscorrelate-scrolled-window.patch
+
+  # Honor system build flags
+  sed -e '/^CFLAGS   =/d' -e '/^LDFLAGS  =/d' -i Makefile
 }
 
 build() {
-  cd $pkgname-$pkgver
-  CFLAGS+=' -Wno-implicit-function-declaration' \
+  cd $pkgname
   make prefix=/usr
+  make io.github.dfandrich.gpscorrelate.metainfo.xml
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make prefix=/usr DESTDIR="$pkgdir" install install-desktop-file
-  install -Dm644 ../io.github.dfandrich.gpscorrelate.metainfo.xml \
-    "$pkgdir/usr/share/metainfo/io.github.dfandrich.gpscorrelate.metainfo.xml"
+  install -Dm644 -t "$pkgdir/usr/share/metainfo/" io.github.dfandrich.gpscorrelate.metainfo.xml
 }
