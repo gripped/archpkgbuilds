@@ -2,7 +2,7 @@
 
 pkgname=quickjs-ng
 _pkgname=quickjs
-pkgver=0.16.1
+pkgver=0.16.2
 pkgrel=1
 pkgdesc="A mighty JavaScript engine"
 url="https://quickjs-ng.github.io/quickjs"
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('cmake')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/quickjs-ng/quickjs/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('4b3c11f37dab2c58bdeccbaeb23b923fa4a9798a45e50be6af55f3e75b616ea0')
+sha256sums=('97c80625b26775a4c7ca618c004d4ea24cf99cbf867e4eba78bd927a8b23d106')
 
 build() {
 	local cmake_options=(
