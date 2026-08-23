@@ -3,14 +3,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.38.2
+pkgver=2.40.13
 _llvmmaj=17
 _llvmver="${_llvmmaj}.0.6"
 _vciver=0.25.0
-_spirv_tools_commit=28a883ba4c67f58a9540fb0651c647bb02883622
-_spirv_headers_commit=b8a32968473ce852a809b9de5f04f02a5a9dfa78
-_spirv_llvm_commit=6798e15796e21339af79e248c067cfb746c60d0c
-_opencl_clang_commit=059ad9df664d9cdf54632e12b0011130dcadb46d
+_spirv_tools_commit=f80351511e9c4672e284842c7b124315c511078a
+_spirv_headers_commit=575b6512579ebde466ed3dfc04e413439d14d95d
+_spirv_llvm_commit=0d147297c5e9406def89fd00615641d62d1cfeb3
+_opencl_clang_commit=6de4d92220bbbb4fa28e13418f8d0daf9d67fe58
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -43,12 +43,12 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('24f707f08d9b87e7e6857f8a83d9944990189c051ce9b3c91c291bdc1563246f'
+sha256sums=('a2761e36ddc7b54f51dc80e59f1aff182439313fcf78796bd0ea6e8fa4b58a72'
             'af6abe889504fc5f0cc61758aa306211ec2be086858e9e39ee96d289a6c0117c'
-            '9f4ca62d1efd82fe21e9d667524be74f94f1b0eba1c40c9db991e74b021e78cc'
-            'e028a800c43945d94fc100aa25427d360a21c00b1154fb239ec2fce0c06ea85d'
-            'b6e24e13903d09a8a5d75a457a8bd3e0c676d1b08a81e8ffb6293d25f915024b'
-            '4145093b3ab3e231e3fc73860783fa80bef6a04116f19ac9d0dfd79d0e288005'
+            '3e258c882b331d840698bc41e4f10d082a722e4d87276745c0574cec04bdb3e2'
+            '104e1e45413cb4e4a0f513a067c33ea15cdac3e553634be346096c11111bd614'
+            '496b5e84549096e19cc33e99d13978a493b4bf7a3c3bfa19cf4a7ec17be70df5'
+            'c09db1fd411f0d93f016d97ed32c8e57f5dda4c9466da945f6ea38e309766c92'
             '5cba4bf5388b65e4883908519ec087b5cca23ef3c747fa01e382802c1c62b1da'
             '5493aa24262e5bdc9ddeb07d71238d81227c2c0b8e257da2f9a6ceb01f8fe407')
 
