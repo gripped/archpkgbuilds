@@ -1,7 +1,7 @@
 pkgbase = steam
 	pkgdesc = Valve's digital software delivery system
 	pkgver = 1.0.0.87
-	pkgrel = 1
+	pkgrel = 3
 	url = https://steampowered.com/
 	arch = x86_64
 	license = LicenseRef-steam-subscriber-agreement
@@ -45,6 +45,7 @@ pkgname = steam
 	depends = xz
 	depends = zenity
 	depends = steam-devices
+	optdepends = ntsync-autoload: for NTSync support
 	optdepends = polkit: to setup SteamVR without root access
 	optdepends = xdg-desktop-portal-impl: file & folder picker
 	optdepends = xorg-fonts-misc: for non-latin locales

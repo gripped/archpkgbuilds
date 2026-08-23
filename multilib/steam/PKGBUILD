@@ -7,7 +7,7 @@
 pkgbase=steam
 pkgname=(steam steam-devices)
 pkgver=1.0.0.87
-pkgrel=1
+pkgrel=3
 pkgdesc="Valve's digital software delivery system"
 url='https://steampowered.com/'
 arch=('x86_64')
@@ -76,6 +76,7 @@ package_steam() {
     lib32-vulkan-icd-loader
   )
   optdepends=(
+    'ntsync-autoload: for NTSync support'
     'polkit: to setup SteamVR without root access'
     'xdg-desktop-portal-impl: file & folder picker'
     'xorg-fonts-misc: for non-latin locales'
