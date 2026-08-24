@@ -1,0 +1,132 @@
+From 2a7f04f8f256ae884c8ab05085fdd6981585d47a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 23 Aug 2026 21:18:30 +0200
+Subject: [PATCH] Remove eventbox title from the Preferences dialog
+
+Also, wrap text on long label. This allows Preferences window to fit into
+a standard 1024x768 display.
+---
+ guake/data/prefs.glade | 89 ++++--------------------------------------
+ guake/prefs.py         |  2 -
+ 2 files changed, 7 insertions(+), 84 deletions(-)
+
+diff --git a/guake/data/prefs.glade b/guake/data/prefs.glade
+index 1e31db6a2..53a797409 100644
+--- a/guake/data/prefs.glade
++++ b/guake/data/prefs.glade
+@@ -108,87 +108,6 @@
+         <property name="visible">True</property>
+         <property name="can-focus">False</property>
+         <property name="orientation">vertical</property>
+-        <child>
+-          <object class="GtkBox" id="eventbox-title">
+-            <property name="height-request">70</property>
+-            <property name="visible">True</property>
+-            <property name="can-focus">False</property>
+-            <property name="orientation">vertical</property>
+-            <child>
+-              <object class="GtkBox" id="hbox29">
+-                <property name="visible">True</property>
+-                <property name="can-focus">False</property>
+-                <property name="border-width">12</property>
+-                <child>
+-                  <object class="GtkImage" id="image_logo">
+-                    <property name="width-request">60</property>
+-                    <property name="height-request">60</property>
+-                    <property name="visible">True</property>
+-                    <property name="can-focus">False</property>
+-                    <property name="stock">pixmaps/guake.png</property>
+-                  </object>
+-                  <packing>
+-                    <property name="expand">False</property>
+-                    <property name="fill">False</property>
+-                    <property name="position">0</property>
+-                  </packing>
+-                </child>
+-                <child>
+-                  <object class="GtkBox" id="vbox22">
+-                    <property name="visible">True</property>
+-                    <property name="can-focus">False</property>
+-                    <property name="margin-left">9</property>
+-                    <property name="orientation">vertical</property>
+-                    <child>
+-                      <object class="GtkLabel" id="titleLabel">
+-                        <property name="visible">True</property>
+-                        <property name="can-focus">False</property>
+-                        <property name="halign">start</property>
+-                        <property name="margin-top">6</property>
+-                        <property name="label" translatable="yes">&lt;span size="18000"&gt;&lt;b&gt;Guake properties&lt;/b&gt;&lt;/span&gt;</property>
+-                        <property name="use-markup">True</property>
+-                      </object>
+-                      <packing>
+-                        <property name="expand">False</property>
+-                        <property name="fill">False</property>
+-                        <property name="position">0</property>
+-                      </packing>
+-                    </child>
+-                    <child>
+-                      <object class="GtkLabel" id="label4825">
+-                        <property name="visible">True</property>
+-                        <property name="can-focus">False</property>
+-                        <property name="halign">start</property>
+-                        <property name="label" translatable="yes">Customize behavior and appearance of Guake!</property>
+-                        <property name="use-markup">True</property>
+-                      </object>
+-                      <packing>
+-                        <property name="expand">False</property>
+-                        <property name="fill">False</property>
+-                        <property name="position">1</property>
+-                      </packing>
+-                    </child>
+-                  </object>
+-                  <packing>
+-                    <property name="expand">False</property>
+-                    <property name="fill">False</property>
+-                    <property name="position">1</property>
+-                  </packing>
+-                </child>
+-              </object>
+-              <packing>
+-                <property name="expand">False</property>
+-                <property name="fill">True</property>
+-                <property name="position">0</property>
+-              </packing>
+-            </child>
+-          </object>
+-          <packing>
+-            <property name="expand">False</property>
+-            <property name="fill">False</property>
+-            <property name="position">0</property>
+-          </packing>
+-        </child>
+         <child>
+           <object class="GtkBox" id="vbox1">
+             <property name="visible">True</property>
+@@ -598,7 +517,13 @@
+                                         </child>
+                                         <child>
+                                           <object class="GtkCheckButton" id="workspace-specific-tab-sets">
+-                                            <property name="label" translatable="yes">Use workspace-specific tab sets (requires restart, only work on X11)</property>
++                                            <child>
++                                              <object class="GtkLabel">
++                                                <property name="visible">True</property>
++                                                <property name="label" translatable="yes">Use workspace-specific tab sets (requires restart, only work on X11)</property>
++                                                <property name="wrap">True</property>
++                                              </object>
++                                            </child>
+                                             <property name="visible">True</property>
+                                             <property name="can-focus">True</property>
+                                             <property name="receives-default">False</property>
+diff --git a/guake/prefs.py b/guake/prefs.py
+index 42c240625..599155de6 100644
+--- a/guake/prefs.py
++++ b/guake/prefs.py
+@@ -692,8 +692,6 @@ def __init__(self, settings):
+         self.get_widget("config-window").connect("destroy", self.on_destroy)
+ 
+         # images
+-        ipath = pixmapfile("guake-notification.png")
+-        self.get_widget("image_logo").set_from_file(ipath)
+         ipath = pixmapfile("quick-open.png")
+         self.get_widget("image_quick_open").set_from_file(ipath)
+ 

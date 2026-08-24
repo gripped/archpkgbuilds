@@ -1,0 +1,49 @@
+From 5dd856760332d81ab2c174f7fb10ab723e48d349 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 23 Aug 2026 21:29:16 +0200
+Subject: [PATCH] Install icons into hicolor directory
+
+This is the standard location defined by freedesktop.org Icon Theme
+Specification.
+
+Also, use that icon on the indicator to fix missing icon.
+---
+ Makefile           | 8 ++++++--
+ guake/guake_app.py | 4 ++--
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 38c2538b8..aaf0111a2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -134,8 +134,12 @@ install-schemas:
+ 	install -dm755                                 "$(DESTDIR)$(IMAGE_DIR)"
+ 	install -Dm644 "$(DEV_DATA_DIR)"/pixmaps/*.png "$(DESTDIR)$(IMAGE_DIR)/"
+ 	install -Dm644 "$(DEV_DATA_DIR)"/pixmaps/*.svg "$(DESTDIR)$(IMAGE_DIR)/"
+-	install -dm755                                     "$(DESTDIR)$(PREFIX)/share/pixmaps"
+-	install -Dm644 "$(DEV_DATA_DIR)/pixmaps/guake.png" "$(DESTDIR)$(PREFIX)/share/pixmaps/"
++	install -dm755                                        "$(DESTDIR)$(PREFIX)/share/icons/hicolor/48x48/apps"
++	install -Dm644 "$(DEV_DATA_DIR)/pixmaps/guake-48.png" "$(DESTDIR)$(PREFIX)/share/icons/hicolor/48x48/apps/guake.png"
++	install -dm755                                        "$(DESTDIR)$(PREFIX)/share/icons/hicolor/64x64/apps"
++	install -Dm644 "$(DEV_DATA_DIR)/pixmaps/guake-64.png" "$(DESTDIR)$(PREFIX)/share/icons/hicolor/64x64/apps/guake.png"
++	install -dm755                                         "$(DESTDIR)$(PREFIX)/share/icons/hicolor/128x128/apps"
++	install -Dm644 "$(DEV_DATA_DIR)/pixmaps/guake-128.png" "$(DESTDIR)$(PREFIX)/share/icons/hicolor/128x128/apps/guake.png"
+ 	install -dm755                                           "$(DESTDIR)$(SHARE_DIR)"
+ 	install -Dm644 "$(DEV_DATA_DIR)/autostart-guake.desktop" "$(DESTDIR)$(SHARE_DIR)/"
+ 	install -dm755                           "$(DESTDIR)$(GLADE_DIR)"
+diff --git a/guake/guake_app.py b/guake/guake_app.py
+index f81e7bcb1..85979051b 100644
+--- a/guake/guake_app.py
++++ b/guake/guake_app.py
+@@ -169,9 +169,9 @@ def load_schema():
+         else:
+             # TODO PORT test this on a system with app indicator
+             self.tray_icon = appindicator.Indicator.new(
+-                "guake-indicator", "guake-tray", appindicator.IndicatorCategory.APPLICATION_STATUS
++                "guake-indicator", "guake", appindicator.IndicatorCategory.APPLICATION_STATUS
+             )
+-            self.tray_icon.set_icon_full("guake-tray", _("Guake Terminal"))
++            self.tray_icon.set_icon_full("guake", _("Guake Terminal"))
+             self.tray_icon.set_status(appindicator.IndicatorStatus.ACTIVE)
+             menu = self.get_widget("tray-menu")
+             show = Gtk.MenuItem(_("Show"))
