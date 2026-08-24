@@ -2,8 +2,8 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=python-cron-converter
-pkgver=1.3.1
-pkgrel=2
+pkgver=2.0.1
+pkgrel=1
 pkgdesc="Cron string converter for Python"
 arch=(any)
 url="https://github.com/Sonic0/cron-converter"
@@ -20,13 +20,8 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('e85db02e9f9ec079ce4061c59b8d69feb5bc2de1894532db421fa502904bd52e9a985c40dab97928847fc5b65089342a2ee629a05ad7c193969c3b89b0b03ea6')
-b2sums=('71cf8f7f6840ed0d3d0e9cf01d82ec69fd9c2c8f2b51006b892b4fb1b8be7addada2ce9f2359a6ab786d7aaeadd640ddf511ba3b4192e8788fdf9e41277d538c')
-
-prepare() {
-  cd $pkgname
-  git cherry-pick -n 78a4113d6dd27e69dfe76fe9d2cd718a4c44ffd1
-}
+sha512sums=('3880ecaf02c37a831636c230d8a2374d831798515a0a55e3647805fc615ed42f938e39d83ffb7c34df917a571da722831ebd2c1d566e039ebcb07f3627e736a7')
+b2sums=('d0a3d5ae469076edfd7b72bd9e6a35c8eab2980f5395624db69c3d819d0f27dc8e4d5e8fafa72b9a14899a5266d8d0b22e98ee646eba7438cd61f54be375cf0b')
 
 build() {
   cd $pkgname
