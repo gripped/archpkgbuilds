@@ -4,7 +4,7 @@
 
 pkgname=kio
 pkgver=6.29.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Resource and network access abstraction'
 arch=(x86_64)
 url='https://develop.kde.org/products/frameworks/'
@@ -45,12 +45,18 @@ optdepends=('audiocd-kio: for accessing audio CDs'
             'kio-fuse: to mount remote filesystems via FUSE'
             'switcheroo-control: hybrid GPU support')
 groups=(kf6)
-source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig}
+        https://invent.kde.org/frameworks/kio/-/commit/774defb9.patch)
 sha256sums=('9f06313cd7d6cdde8db43067126d650fc5cc904b6f0b89159274a03e4805a91a'
-            'SKIP')
+            'SKIP'
+            '92d057d00f07b52cd7d3b5fda4b415463945dfb7a321936b192612bb270e92be')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
               )
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < 774defb9.patch # Fix missing service menus
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
