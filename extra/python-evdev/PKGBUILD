@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=python-evdev
-pkgver=1.9.3
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Python bindings for the Linux input subsystem"
 url="https://python-evdev.readthedocs.io/en/latest/"
@@ -19,7 +19,7 @@ makedepends=(
   python-wheel
 )
 source=("git+https://github.com/gvalkov/python-evdev#tag=v$pkgver")
-b2sums=('888556960cd0b91d7d713035c38dc0234452c48d9ce713af709ba98295d81213a0fb98bea94c731ddfccbc1aadc6ee2a2e65bdd696768e507f5300cfb27dc0ea')
+b2sums=('cb7f8c200f249ca458456ab3d028965e01101309a4bcd07af1a8b2e89cf04c25f6fc16e4dd9eec7a719236138768ad10c8734df343e95e4c0442617744225292')
 
 prepare() {
   cd $pkgname
