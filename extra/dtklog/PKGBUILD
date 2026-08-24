@@ -2,8 +2,8 @@
 
 pkgbase=dtklog
 pkgname=(dtklog dtk6log)
-pkgver=6.7.47
-pkgrel=2
+pkgver=6.7.48
+pkgrel=1
 pkgdesc='Simple, convenient and thread safe logger for Qt-based C++ apps'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dtklog"
@@ -11,7 +11,7 @@ license=('LGPL-2.1-or-later')
 groups=('deepin')
 makedepends=('git' 'cmake' 'ninja' 'qt5-base' 'qt6-base' 'spdlog' 'fmt')
 source=("git+https://github.com/linuxdeepin/dtklog.git#tag=$pkgver")
-sha512sums=('93b2391f3e3225efc6200d73f9ec6489353fb272959e3ba7f60b09ad8121aad020a1aa8799acbbdf6cc2fdc8f3a8bfd3d489ea34bea82c05d028b05bcd608462')
+sha512sums=('98196f40c480899961659a219d3b21a67a70a2134c57a6939eff66605b18e587acec6cc69e4a13b4a1bf2c57c747ae00c98e3fd3ab7e60153373716cc847f9ac')
 
 build() {
   cd dtklog
