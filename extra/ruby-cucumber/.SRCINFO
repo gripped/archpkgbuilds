@@ -1,6 +1,6 @@
 pkgbase = ruby-cucumber
 	pkgdesc = Behaviour Driven Development with elegance and joy
-	pkgver = 11.1.0
+	pkgver = 11.1.1
 	pkgrel = 1
 	url = https://github.com/cucumber/cucumber-ruby
 	arch = any
@@ -9,6 +9,7 @@ pkgbase = ruby-cucumber
 	checkdepends = ruby-nokogiri
 	checkdepends = ruby-rspec
 	checkdepends = ruby-webrick
+	makedepends = git
 	makedepends = ruby-rdoc
 	depends = ruby
 	depends = ruby-base64
@@ -27,8 +28,8 @@ pkgbase = ruby-cucumber
 	depends = ruby-sys-uname
 	depends = ruby-rake
 	options = !emptydirs
-	source = https://github.com/cucumber/cucumber-ruby/archive/v11.1.0/cucumber-cucumber-ruby-11.1.0.tar.gz
-	sha512sums = 7ce0216fdec343da2fa837aed3937285e3555b6b5fbaf9b778f4cdc7a013ad4a501647b1f6964d601f4150f0dd8a1cf6d5a9d5043cfc5b96c4086556a676b5c2
-	b2sums = 4085e4fd2ea22c45c4b93186da1b53aa9e363c9eb6a501ec0e390be8dd3dfa43eb4c723792d9862eda1f780a9d08641172b324c8c04bac026b232980a03b5b88
+	source = git+https://github.com/cucumber/cucumber-ruby.git#tag=v11.1.1
+	sha512sums = f2f5d80a83486433343dbb527351f32fe2ce87cf83fad28ec3761aaf9029376db3be08cfd71188526a646ff10c31d2ce62908cb98a12f759663b687f4a038c5b
+	b2sums = 092336b8bd2cd899148f4a7d844b02ce44a44a8fdd04eaa3d48bb30435d25da97a5fbb05f10f2cdb894086f759cc962607570e4f4bc4240256854e51068068f0
 
 pkgname = ruby-cucumber
