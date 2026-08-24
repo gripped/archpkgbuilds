@@ -2,10 +2,10 @@
 
 pkgname=cockatrice
 _pkgname=Cockatrice
-pkgver=3.0.1
-_date=2026-05-23
+pkgver=3.0.2
+_date=2026-06-26
 _tag=$_date-Release-$pkgver
-pkgrel=3
+pkgrel=1
 pkgdesc='A cross-platform virtual tabletop for multiplayer card games'
 arch=('x86_64')
 url='https://cockatrice.github.io'
@@ -18,7 +18,7 @@ optdepends=('zlib: Load zipped files in Oracle'
 provides=('cockatrice-client' 'cockatrice-server')
 conflicts=('cockatrice-client' 'cockatrice-server')
 source=("git+https://github.com/Cockatrice/Cockatrice.git#tag=$_tag")
-sha512sums=('d17ca37fea2b282b6f58e962cd23f1c9aed4d928cbf7bfff1b53194d09660eeb2226c6c3578b977307ab7d07a839cd96e73b7a08cc5087cbf8cee565962bdc33')
+sha512sums=('c99f6e8852a055237dccd0370cf70e5da9170818fed7ca2d7e0f4d1e1c1ec6a58e148037badb3a62af3f87e5f36eaa7f3821463922718a9bbd48b35305358e90')
 
 build() {
   mkdir -p $_pkgname/build
