@@ -4,7 +4,7 @@
 pkgname=greetd-tuigreet
 _pkgname=${pkgname#*-}
 pkgver=0.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A console UI greeter for greetd'
 url="https://github.com/$_pkgname/$_pkgname"
 license=(GPL-3.0-only)
@@ -16,6 +16,11 @@ depends=(glibc # libc.so libm.so
 provides=(greetd-greeter)
 makedepends=(cargo
              scdoc)
+replaces=(greetd-tuigreet-fork{,-bin}
+          greetd-tuigreety{,-bin}
+          tuigreet{,bin}
+          tuigreet-fork{,bin}
+          tuigreety{,-bin})
 backup=(etc/tuigreet/config.toml)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz"
