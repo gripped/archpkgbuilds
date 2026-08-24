@@ -8,7 +8,7 @@
 
 pkgname=scite
 pkgver=5.6.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Editor with facilities for building and running programs'
 arch=(x86_64)
 url='https://www.scintilla.org/SciTE.html'
@@ -52,4 +52,5 @@ package() {
   make -C scite/gtk DESTDIR="$pkgdir" GTK3=1 install
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" scite/License.txt
   install -Dm644 -t "$pkgdir/usr/share/metainfo/" SciTE.appdata.xml
+  ln -s SciTE "$pkgdir/usr/bin/scite"
 }
