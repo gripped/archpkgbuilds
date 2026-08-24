@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs-lts-krypton
-pkgver=24.18.1
+pkgver=24.19.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Active LTS" release: Krypton)'
 arch=('x86_64')
@@ -45,7 +45,7 @@ provides=(
 )
 conflicts=(nodejs)
 source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed")
-b2sums=('9c8ef30db223b8a6993c48e489e782be8b6ae6890613feb559bf541a66cc76e489ed6962c4fdfb25f57ff099b085ca4827abad65bb894774bf69306205267959')
+b2sums=('ae09ed7efd324938eb234a7c409f40d85e96c2262c4a9aaa03374928a0d436f112d0c5258c4db43942a2695e3998c3f71edd50949e5fc2f7cc3e7c858685bf6e')
 validpgpkeys=(
   '8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600' # Michaël Zasso (Targos) <targos@protonmail.com>
   '890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4' # RafaelGSS <rafael.nunu@hotmail.com>
