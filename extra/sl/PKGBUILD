@@ -5,7 +5,7 @@
 
 pkgname=sl
 pkgver=5.05
-pkgrel=5
+pkgrel=6
 pkgdesc='Steam Locomotive runs across your terminal when you type "sl" as you meant to type "ls"'
 arch=('x86_64')
 # The original project: https://github.com/mtoyoda/sl
@@ -16,13 +16,18 @@ depends=('ncurses')
 source=(
 	"$pkgname-$pkgver.tar.gz::https://github.com/eyJhb/sl/archive/$pkgver.tar.gz"
 	"system_ldflags.patch"
+	"rm_dupe_c_manpage_option.patch"
 )
 sha512sums=('4a57737a60c90a1eec2210ce7c28db937b46a5c35006bd1b5ff43d20ef617a004c49c2b2897ebc0fb8c57b6687fe933b2c9834f5800fdc0bf9912e07542a3b30'
-            'cf4592f1f1b2dfe431e8f993a9395900a6a05e6704ce2be32fddab74de8bede2a82c006b82496e50de3ba3c76bda978947f77f251ec41d9391b4db0479bf60c8')
+            'cf4592f1f1b2dfe431e8f993a9395900a6a05e6704ce2be32fddab74de8bede2a82c006b82496e50de3ba3c76bda978947f77f251ec41d9391b4db0479bf60c8'
+            '63a04415eb52c06a8d43fe7350383eb7ebf9674667bc1751083f61293df65aae380870b1b5b006bf9188cb1d90cd656b55612ffba6722e7066d401b1b3823d2d')
 
 prepare() {
 	cd "sl-$pkgver"
 	patch < ../system_ldflags.patch
+	# Fix duplicate manpage -c option
+	# Similar patch merged upstream but unlikely to ever release
+	patch < ../rm_dupe_c_manpage_option.patch
 }
 
 build() {
