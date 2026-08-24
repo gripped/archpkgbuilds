@@ -3,29 +3,49 @@
 # Contributor: Ben <contrasutra@myrealbox.com>
 
 pkgname=xpad
-pkgver=5.8.0
+pkgver=5.9.0
 pkgrel=1
 pkgdesc='Stickies-like notes application'
-arch=('x86_64')
+arch=(x86_64)
 url='https://launchpad.net/xpad'
-license=('GPL3')
-depends=('gtksourceview4' 'libsm' 'libayatana-appindicator')
-makedepends=('intltool')
+license=(GPL-3.0-or-later)
+depends=(
+  glib2
+  glibc
+  gtk3
+  gtksourceview4
+  hicolor-icon-theme
+  libappindicator
+  libice
+  libsm
+  pango
+)
 source=("https://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.tar.bz2"{,.asc})
-sha256sums=('d9a4efe47e0fb75bc47ef4ae4aa5ea8a3f44b51555eac9c72213fb5a6004be03'
-            'SKIP')
-validpgpkeys=('3930646349B9DD3886D9087392BF2FCCA6F2322B'
-	      '8450BEE19B722715FFDB18C6683EAA45951FC552'
-              '7FA67C1981CEE3140281AB04108E2CAA625FE5FE') # Arthur Borsboom <arthurborsboom@gmail.com>
+b2sums=(
+  acee93d5dfe53975671c5d792e6660c07c2f0145a47da77899a4cc22c337821dc3158cb4abcbfa5beaf27572cacb570da822737ae502cf970e723b06c5a9d8a4
+  SKIP
+)
+validpgpkeys=(
+  3930646349B9DD3886D9087392BF2FCCA6F2322B
+  8450BEE19B722715FFDB18C6683EAA45951FC552
+  7FA67C1981CEE3140281AB04108E2CAA625FE5FE
+) # Arthur Borsboom <arthurborsboom@gmail.com>
 
 prepare() {
   cd $pkgname-$pkgver
-  ./autogen.sh
+
+  # Use libappindicator
+  sed -i 's/ayatana-appindicator/appindicator/' configure.ac src/xpad-tray.c
+
+  autoreconf -fiv
 }
 
 build() {
   cd $pkgname-$pkgver
-  ./configure --prefix=/usr
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
   make
 }
 
