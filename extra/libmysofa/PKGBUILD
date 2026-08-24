@@ -1,7 +1,7 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=libmysofa
-pkgver=1.3.4
+pkgver=1.3.5
 pkgrel=1
 pkgdesc='C library to read HRTFs if they are stored in the AES69-2015 SOFA format'
 arch=('x86_64')
@@ -18,20 +18,7 @@ checkdepends=(
     'nodejs')
 provides=('libmysofa.so')
 source=("git+https://github.com/hoene/libmysofa.git#tag=v${pkgver}")
-sha256sums=('1697cd0aaf75fb5fd8134a9cc783555bbf7fa1e07930763cbdcb9275f260b31e')
-
-prepare() {
-    # Tests fails to pass in v1.3.4, and there are fixes available in the current git master.
-    # Two commits present in v1.3.4 are not present in the current git master, needing
-    # to be reverted for properly fixing the tests. This can be confirmed by a tagged
-    # pre-release named 'latest', at commit 302b3fd025cc5105576a767a1e15483e116b8297,
-    # which fixes the tests and also does not have these two commits.
-    git -C libmysofa revert --no-commit a1c0440e21104e4dc60b564a1a5f05accfecdbb3
-    git -C libmysofa revert --no-commit --mainline 2 7a0c07111a3d7230ec534e08925c24a7525f33c0
-    git -C libmysofa cherry-pick --no-commit 070b269b2c70aac15c3869c6772b5916e686e57e
-    git -C libmysofa cherry-pick --no-commit 6c12ee5aaa3fcbbe4220f512dd7f57893ac77a95
-    git -C libmysofa cherry-pick --no-commit d2450a73738db7a45e2bb1d4f734f17507b8b3ec
-}
+sha256sums=('c7590e8100409efc6fec52fdec7dbcd7add56fa4cde403a39be72219b284d9fa')
 
 build() {
     cmake \
@@ -41,7 +28,7 @@ build() {
         -DCMAKE_BUILD_TYPE:STRING='None' \
         -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
         -DCODE_COVERAGE:BOOL='OFF' \
-        -Wno-dev
+        -Wno-author
     cmake --build libmysofa/build
 }
 
