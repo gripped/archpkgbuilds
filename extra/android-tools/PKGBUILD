@@ -6,7 +6,7 @@
 pkgname=android-tools
 pkgver=37.0.0
 _tag=${pkgver} # https://github.com/nmeum/android-tools sometimes carries extra patch version on top of the upstream versioning
-pkgrel=2
+pkgrel=3
 pkgdesc='Android platform tools'
 arch=(x86_64)
 url='https://developer.android.com/tools'
