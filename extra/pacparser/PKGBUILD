@@ -2,7 +2,7 @@
 # Contributor: Max Meyer <dev@fedux.org>
 
 pkgname=pacparser
-pkgver=1.5.1
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="Library to parse proxy auto-config (PAC) files"
 arch=(x86_64)
@@ -10,7 +10,7 @@ url="https://github.com/manugarg/pacparser"
 license=('LGPL-3.0-or-later')
 makedepends=('git')
 source=("git+https://github.com/manugarg/pacparser.git#tag=v$pkgver")
-sha512sums=('d4e9f0b17aa4fdeb61f41858282016c34a74b2e3f87f8e84465cc83d93e503c4cdf9e20746e22df525de1c3fa328e42dac83d8afbbfbffe5f1f7799ad8e01ba6')
+sha512sums=('bc98788d825a83c3107efc8528c16ce0e1d94c7251e35b328b8165d16ca3dd77fbcd6b2b21165044d5606193a3735b7760ed252a6367c85781aace4e0ff190e3')
 
 build() {
   cd $pkgname
