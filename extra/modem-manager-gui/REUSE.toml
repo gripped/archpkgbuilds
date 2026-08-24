@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -20,3 +23,14 @@ path = [
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "Move-the-NetworkManager-dispatcher-script-out-of-etc.patch",
+    "fix-tray-icon.patch",
+    "fix_notification_segfault.patch",
+    "fix_segfault_on_DNS_entries.patch",
+    "meson0.61.patch",
+]
+SPDX-FileCopyrightText = "modem-manager-gui contributors"
+SPDX-License-Identifier = "GPL-3.0-or-later"

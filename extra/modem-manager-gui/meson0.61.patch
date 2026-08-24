@@ -1,0 +1,44 @@
+From: Graham Inggs <ginggs@debian.org>
+Date: Sat, 6 Aug 2022 18:54:42 +0200
+Subject: Drop positional arguments to fix build with meson 0.61
+
+Forwarded: not-yet
+Last-Update: 2022-03-27
+---
+ appdata/meson.build | 4 ++--
+ polkit/meson.build  | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/appdata/meson.build b/appdata/meson.build
+index 06ca8b5..bfd3762 100644
+--- a/appdata/meson.build
++++ b/appdata/meson.build
+@@ -1,6 +1,6 @@
+ i18n = import('i18n')
+ 
+-i18n.merge_file('appdata-file',
++i18n.merge_file(
+ 	input: 'modem-manager-gui.appdata.xml.in',
+ 	output: 'modem-manager-gui.appdata.xml',
+ 	type: 'xml',
+@@ -10,7 +10,7 @@ i18n.merge_file('appdata-file',
+ 	install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'metainfo')
+ )
+ 
+-i18n.merge_file('desktop-file',
++i18n.merge_file(
+ 	input: 'modem-manager-gui.desktop.in',
+ 	output: 'modem-manager-gui.desktop',
+ 	type: 'desktop',
+diff --git a/polkit/meson.build b/polkit/meson.build
+index c2fce4d..c1898ca 100644
+--- a/polkit/meson.build
++++ b/polkit/meson.build
+@@ -1,6 +1,6 @@
+ i18n = import('i18n')
+ 
+-i18n.merge_file('polkit-file',
++i18n.merge_file(
+ 	input: 'ru.linuxonly.modem-manager-gui.policy.in',
+ 	output: 'ru.linuxonly.modem-manager-gui.policy',
+ 	type: 'xml',

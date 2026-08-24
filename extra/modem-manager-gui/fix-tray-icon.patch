@@ -1,0 +1,26 @@
+diff -Naur modem-manager-gui.orig/src/main.c modem-manager-gui/src/main.c
+--- modem-manager-gui.orig/src/main.c	2020-08-01 23:12:39.000000000 +0200
++++ modem-manager-gui/src/main.c	2026-08-23 12:03:57.086695221 +0200
+@@ -2027,7 +2027,6 @@
+ 
+ static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp)
+ {
+-	gchar *iconfilepath;
+ 	const gchar *desktop;
+ 	
+ 	if (mmguiapp == NULL) return;
+@@ -2035,13 +2034,7 @@
+ 	desktop = getenv("XDG_CURRENT_DESKTOP");
+ 	
+ 	/*Indicator*/
+-	if (g_strrstr(desktop, "GNOME") != NULL) {
+-		iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui-symbolic.svg", NULL);
+-	} else {
+-		iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui.svg", NULL);
+-	}
+-	mmguiapp->window->indicator = app_indicator_new(RESOURCE_LOCALE_DOMAIN, iconfilepath, APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
+-	g_free(iconfilepath);
++	mmguiapp->window->indicator = app_indicator_new(RESOURCE_LOCALE_DOMAIN, "modem-manager-gui", APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
+ 	/*Indicator menu*/
+ 	mmguiapp->window->indmenu = gtk_menu_new();
+ 	/*Show window entry*/
