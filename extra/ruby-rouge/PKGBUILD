@@ -2,7 +2,7 @@
 
 _gemname=rouge
 pkgname=ruby-rouge
-pkgver=5.0.0
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Pure-ruby code highlighter that is compatible with pygments'
 url='https://rouge.jneen.net/'
@@ -30,8 +30,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("https://github.com/jneen/rouge/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('082a656739394f8eb3e1a7047601dc8f5db6f2c686633d9a29a277deacdd6165a292739272b1241e0ec3133fa99c32f46334c20fe0866ccd76263116d73797d7')
-b2sums=('048051d11391517583f01afb9c21b8b5cc5a33201e50d6df9c79df2b3566e5624b19ba1cebfed074a2e35ece43bc9d1fd29f6ae4f3e99477ce5120a8817c2c95')
+sha512sums=('b0a36b9db45a9dc8ace602eb355d541a9b177cb4edf1eab9895d618775226883fce34655933edb8132b4c3d40318aefe75dadd88b2a9f7f200ede764cb7f4726')
+b2sums=('12e25b8cfc091eb4950fc24e4d4d914a14332f734050fc6bb314ab9390af64152b9b3bdd8aebb2aca3b52c8d4951a1e6afd6c71f34ac96c824d8454ad6938cae')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
