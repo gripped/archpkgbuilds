@@ -1,33 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=btfs
-pkgver=3.1
-pkgrel=3
+pkgver=3.2
+pkgrel=1
 pkgdesc="A bittorrent filesystem based on FUSE"
 arch=('x86_64')
 url="https://github.com/johang/btfs"
 license=('GPL-3.0-or-later')
 depends=('fuse3' 'libtorrent-rasterbar' 'curl')
-makedepends=('boost')
+makedepends=('boost' 'git')
 optdepends=('python: for btplay')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/johang/btfs/archive/v$pkgver.tar.gz"
-         https://github.com/johang/btfs/commit/dbf00673ed60d4002ec43bacd420e0ebb64f8ea7.patch)
-sha512sums=('e21e1c56ce2cc171f046746cbae17060abde1269f5c48b4c1484ccba6afc486d969c1402ef5282c1de4e019960f48922e70c9c120ecc254798c19d15ee270380'
-            '8df38a6457674e7c8774ed5897f99d6ec2746580ed8c7e48712523e1403ce8a16e0f171461d2e74fb4e5f762a7a3706da0b3ce91f6673d956fbe37be2da9fb9a')
+source=("git+https://github.com/johang/btfs.git#tag=v$pkgver")
+sha512sums=('a523eed339b06b51c660bc18d501649fc95fbb72ecb87325445af8782d99b65597c807cbe839feaeab0e8ece2e57481909ac944745f7a5727f73152ce56cbbf3')
 
 prepare() {
-  cd $pkgname-$pkgver
-  patch -p1 -i ../dbf00673ed60d4002ec43bacd420e0ebb64f8ea7.patch # support libtorrent-rasterbar 2.1
+  cd $pkgname
   autoreconf -i
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure --prefix=/usr
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
 }
