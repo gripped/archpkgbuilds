@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-syrupy
-pkgver=5.5.3
+pkgver=6.0.0
 pkgrel=1
 pkgdesc="Pytest Snapshot Test Utility"
 arch=('any')
@@ -15,7 +15,7 @@ optdepends=(
   'python-pydantic: Pydantic serializer plugin'
 )
 source=("git+https://github.com/syrupy-project/syrupy.git#tag=v$pkgver")
-sha512sums=('fbc9cec8a0609640f237050305c11a57e1eefd3b464fd77a9490ea3a7f9887ae687c520e04f7573fe1da02df7dfb3abd300217c16a190121a17d9a11d27ebbbe')
+sha512sums=('ab11cdbee6c5fe32707177ca62c3817b5c5592efabbae82dee415464870c9c0aaba90986a79ffa1fd604c176a0b80e5d3e22545b363b802b8f0fa8710d36be7f')
 
 build() {
   cd syrupy
