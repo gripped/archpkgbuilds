@@ -3,32 +3,91 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=workrave
-pkgver=1.10.54
+pkgver=1.11.1
 pkgrel=1
-pkgdesc="Assist in the recovery and prevention of Repetitive Strain Injury (RSI)"
-arch=('x86_64')
-url="https://workrave.org/"
-license=('GPL3')
-depends=('gstreamer' 'gtkmm3' 'libsm' 'libxss')
-makedepends=('autoconf-archive' 'boost' 'intltool' 'gobject-introspection' 'libpulse' 'python-jinja'
-             'gnome-panel' 'mate-panel' 'xfce4-panel' 'glib2-devel')
-optdepends=('gst-plugins-good: to play sound events'
-            'gnome-panel: Applet for GNOME Panel'
-            'mate-panel: Applet for MATE Panel'
-            'xfce4-panel: Applet for Xfce4 Panel')
-source=("https://github.com/rcaelers/workrave/releases/download/v${pkgver//./_}/$pkgname-v$pkgver.tar.gz")
-sha256sums=('fcaa0999c5a689fb147f339bb35b85e1587bd3b8558d55d1cfaf3fa9c6d7413b')
+pkgdesc='Assist in the recovery and prevention of Repetitive Strain Injury (RSI)'
+arch=(x86_64)
+url='https://workrave.org/'
+license=(GPL-3.0-or-later)
+depends=(
+  atkmm
+  cairo
+  cairomm
+  dconf
+  fmt
+  gdk-pixbuf2
+  glib2
+  glibc
+  glibmm
+  gstreamer
+  gtk3
+  gtkmm3
+  hicolor-icon-theme
+  libappindicator
+  libdbusmenu-glib
+  libgcc
+  libpulse
+  libsigc++
+  libstdc++
+  libx11
+  libxss
+  libxtst
+  pango
+  pangomm
+  spdlog
+  wayland
+)
+makedepends=(
+  boost
+  cmake
+  git
+  gnome-panel
+  gobject-introspection
+  mate-panel
+  ninja
+  python-jinja
+  xfce4-panel
+)
+optdepends=(
+  'gnome-panel: Applet for GNOME Panel'
+  'gst-plugins-good: to play sound events'
+  'mate-panel: Applet for MATE Panel'
+  'xfce4-panel: Applet for Xfce4 Panel'
+)
+source=("git+https://github.com/rcaelers/workrave.git?signed#tag=v${pkgver//./_}")
+b2sums=(ccd1ab7b57e33b5c08e9753d52c2bf1f84215da07193333a48a0261a7f46446088c05cb1f0bdbac22209c8047e67f1d406a63147912d4ea8384ce8d876d54004)
+validpgpkeys=(70C2550E285606E1A9484F5B2FB833343300F30F) # Rob Caelers <robc@krandor.org>
+
+prepare() {
+  cd $pkgname
+
+  # Don't set decorations on MainWindow
+  # https://github.com/rcaelers/workrave/pull/729
+  sed -i '/window->set_decorations(/d' ui/app/toolkits/gtkmm/MainWindow.cc
+
+  # Change HBox to VBox in TimerPreferencePanel
+  # https://github.com/rcaelers/workrave/pull/730
+  sed -i '/Gtk::HBox \*box =/ s/Gtk::HBox/Gtk::VBox/g' ui/app/toolkits/gtkmm/preferences/TimerPreferencePanel.cc
+
+  # Fix setting name on about dialog
+  # https://github.com/rcaelers/workrave/pull/731
+  sed -i 's/about_dialog->set_name(/about_dialog->set_program_name(/' ui/app/toolkits/gtkmm/Toolkit.cc
+
+  # Fix locale handling when no locale is configured
+  # https://github.com/rcaelers/workrave/pull/732
+  sed -i '/Platform::unsetenv(/d' ui/libs/commonui/src/Locale.cc
+
+  # Use libappindicator
+  sed -i 's/ayatana-appindicator/appindicator/' CMakeLists.txt ui/app/toolkits/gtkmm/platforms/unix/AppIndicatorMenu.hh
+}
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr --sysconfdir=/etc  --localstatedir=/var \
-              --libexecdir=/usr/lib/$pkgname \
-              --enable-gnome45
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+  cmake -S $pkgname -B build -G Ninja \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_INSTALL_SYSCONFDIR=/etc
+  cmake --build build
 }
 
 package() {
-  cd $pkgname-$pkgver
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
 }
