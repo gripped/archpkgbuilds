@@ -9,7 +9,7 @@
 
 pkgname=lib32-libnm
 pkgver=1.58.1
-pkgrel=1
+pkgrel=2
 pkgdesc="NetworkManager client library (32-bit)"
 url="https://networkmanager.dev/"
 arch=(x86_64)
@@ -29,7 +29,6 @@ makedepends=(
   lib32-dbus
   lib32-libndp
   lib32-libpsl
-  lib32-polkit
   lib32-util-linux
   libxslt
   meson
@@ -87,6 +86,7 @@ build() {
     -D teamdctl=false
     -D nbft=false
     -D clat=false
+    -D polkit=false
 
     # configuration plugins
     -D config_plugins_default=keyfile
