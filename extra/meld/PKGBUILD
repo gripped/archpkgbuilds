@@ -5,7 +5,7 @@
 
 pkgname=meld
 pkgver=3.24.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Compare files, directories and working copies"
 url="https://meldmerge.org/"
 license=(GPL-2.0-or-later)
@@ -24,11 +24,11 @@ depends=(
   python-gobject
 )
 makedepends=(
+  appstream
   git
   meson
   yelp-tools
 )
-checkdepends=(appstream-glib)
 source=("git+https://gitlab.gnome.org/GNOME/meld.git#tag=$pkgver")
 b2sums=('6d2462ca38255183156c6d8de68eab0fd28c52bfc5ffe6fb44dd33d7c6b8bdd0bdf5dcb84a104d558e351d7c8fc35d2868e173142689b902fa87bcc946b65d41')
 
