@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=squashfuse
-pkgver=0.6.2
+pkgver=0.6.3
 pkgrel=1
 pkgdesc="FUSE filesystem to mount squashfs archives"
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(fuse
          xz)
 makedepends=(git)
 source=(git+https://github.com/vasi/squashfuse#tag=$pkgver)
-sha256sums=('4b9cb76973dd3abf9a767479252c7c7bfc68f5d578651ad675f8649cbd6ee73c')
+sha256sums=('85552dd21ad05caee9a9b6f31438dd2afa0ae6c9378ecd173119142bcea09043')
 
 prepare() {
   cd $pkgname
