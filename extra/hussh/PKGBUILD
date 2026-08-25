@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=hussh
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc='Memory-safe SSH daemon for restricted TCP forwarding'
 url='https://github.com/kpcyrd/hussh'
@@ -17,8 +17,8 @@ makedepends=(
 )
 backup=('etc/hussh.conf')
 source=(https://github.com/kpcyrd/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('fc0937c74a534dce8e8f8a568c6ac7a960fc28cbe8b64973f2d3081bdbcbcf83')
-b2sums=('4796aad20af361341bd56897c72069a11944726dc688f422c2159c7b96c428771f5333b6deb0b57ca8a11d055e22209ccfcaa1b0e740a1cc75bd3baa84849fbc')
+sha256sums=('a521b1030de94fc8848e7f0c72946807f192bd06b344246273a8d4ed48fd6a93')
+b2sums=('15b48cccb253adc7f915f322ae69c6887013a44bf29672dea74c32877499a2c2cb4d242df63d1cf474f3dfb438eb809709a78cfcf89631acdb709871224a7c26')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
