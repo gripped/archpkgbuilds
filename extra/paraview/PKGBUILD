@@ -6,12 +6,13 @@
 
 pkgname=paraview
 pkgver=6.1.1
-pkgrel=4
+pkgrel=6
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
 license=(BSD-3-Clause)
 depends=(
+  abseil-cpp # libvtkRemotingServerManager.so links to libprotobuf.so.x.y.0 but uses abseil symbols directly
   cgns
   double-conversion
   fmt libfmt.so
