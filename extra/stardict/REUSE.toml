@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,7 +26,8 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
+    "fix-gcc14.patch",
     "mariadb.patch",
 ]
 SPDX-FileCopyrightText = "stardict contributors"
-SPDX-License-Identifier = "TODO-Choose-a-license"
+SPDX-License-Identifier = "GPL-3.0-or-later"
