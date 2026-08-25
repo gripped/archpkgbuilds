@@ -15,7 +15,7 @@ pkgname=(
   "python-${pkgbase}-rocm"
   "python-${pkgbase}-opt-rocm"
 )
-pkgver=1.28.0
+pkgver=1.29.0
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
 pkgrel=1
 arch=('x86_64')
@@ -63,7 +63,7 @@ source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         onnxruntime-cutlass-4.4.2.patch
         onnxruntime-cuda-softmax-stream.patch
         onnxruntime-drop-sharded-moe.patch)
-b2sums=('ac2026e61498bd74d4c0ef2bc105400035470989b8fbb0b5e27b4a063f7d82c9a5da3b4941ff97fe3580b3421c2b260de7debd9d2820a36d8f59e328addc75bb'
+b2sums=('8fdc31605d139480199860fc303a537bf67635bf60eb1d40e850b0270b422b070855cf416e9ca774889b9fba0c52fa40ad6fde0bdaf074013e2aaba89b53e054'
         'f60f3604215f64f33fad902637360050061ec62cfa6413cafc4cd3794a1898c7ee67f7b6edf78e5cb7c6b0ed86b8d80338ad4abee3f2664e391c2cfae5997220'
         'eb527f92bfce897a0dba4757ebe6be11020e172b9b219aec5089645a37f9b0e5bd7a977222b20db193c11d834f6dd46a09ca3633039a4f6a84528d9b0ecce057'
         '86b915dc0b8e68b35fd0ed20bedd5e9c5781826442f332d115166a9a70f34b7e9b4ef60206264035b82652230d42a3c6aa2b91a774fca3b1e415ce65ace2ae96'
@@ -74,7 +74,7 @@ b2sums=('ac2026e61498bd74d4c0ef2bc105400035470989b8fbb0b5e27b4a063f7d82c9a5da3b4
         '619775050c51633a5431fd7ed433097241a399b6c183eeef1753b9e6eca0f741237840fc6e6268073f51b4b5744a7578266cc38901eefd004170840271a5359c'
         '207f020f310a7b447b4dc2fac74819f80099f088fdad6e42d67d0f01aa35bb5b9475bd006d9bec318127ae2db3d7ae3df33382fa16339d936c1dfb3832010837'
         'dfa9e70fdcd0f2c2fafec7f1961e66fa9661a03b8dba08c7d2329d018d8ebd4481337c0ddc6de393d7f4a032bd6011ccfad28d89aa0142ce9e01ead0bafcf079'
-        'b0b58e2eb42a38956ef9e86b853d413c2fd002737d37721962dd9e1fc5c39c1ef4594325c6f6081f2b4cdce39a14907dbebc156645fa25ff3f2bbbce6417cd14'
+        '51464285b869d8c1f1703206297ead97c601ff786695c3fd24606be2eb608a1a5afe34d04d7285e22d9f6a91112a86f6fe94f8706203c31d5b9a94972202f564'
         '2f63abb217ef0f63d2f5d9985be217ad1e3b581a75ed3396b8c986b6004ce94fd116a8b5aa4f0bcfc62637004881950027bbbc57c5ccaec3bdbb7a2b529a113c'
         'dce07bc1fd5b69bd34396dcebccb022d4ae73278dbe6def23006c5ef7ce690dd7af370dcd5efbbdc9a28c7871cc2b7755d44e5171973fc0219aa80f0900962ff'
         '40cbcec058f8198c0462139eb5c4bfa251f9c58e9215fc3ce3124796717a36e13cf4197d8ee6f34e2b2b51549649d70a7c3b9214bc3504bfcb2dff043bce1510'
@@ -174,6 +174,10 @@ build() {
     -DBUILD_TESTING=OFF
     -Donnxruntime_ENABLE_TRAINING=ON
     -Donnxruntime_ENABLE_LAZY_TENSOR=OFF
+    # v1.29.0 added POSIX telemetry via the 1DS SDK (cpp_client_telemetry),
+    # which would vendor curl and mbedtls as well. Off is upstream's default;
+    # set explicitly so the packaged build never phones home.
+    -Donnxruntime_USE_TELEMETRY=OFF
     -DFETCHCONTENT_FULLY_DISCONNECTED=ON
     -DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
     -DFETCHCONTENT_SOURCE_DIR_ABSEIL_CPP="$srcdir/abseil-cpp-${_abseil_ver}"
