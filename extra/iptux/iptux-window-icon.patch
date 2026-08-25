@@ -1,0 +1,29 @@
+From 3c6442f15af30be4e18fc5f564e89f4e9fa63aa4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 24 Aug 2026 10:50:28 +0200
+Subject: [PATCH] Fix window icon name
+
+The application icon is called `io.github.iptux_src.iptux` instead of `iptux`.
+---
+ src/iptux/MainWindow.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/iptux/MainWindow.cpp b/src/iptux/MainWindow.cpp
+index a770162a..a2002493 100644
+--- a/src/iptux/MainWindow.cpp
++++ b/src/iptux/MainWindow.cpp
+@@ -525,12 +525,12 @@ GtkWidget* MainWindow::CreateMainWindow() {
+       /*GDK_HINT_RESIZE_INC |*/ GDK_HINT_WIN_GRAVITY | GDK_HINT_USER_POS |
+       GDK_HINT_USER_SIZE);
+   window = gtk_application_window_new(app->getApp());
+-  gtk_window_set_icon_name(GTK_WINDOW(window), "iptux");
++  gtk_window_set_icon_name(GTK_WINDOW(window), "io.github.iptux_src.iptux");
+   gtk_window_set_title(GTK_WINDOW(window), getTitle().c_str());
+   gtk_window_set_default_size(GTK_WINDOW(window), windowConfig.GetWidth(),
+                               windowConfig.GetHeight());
+   gtk_window_set_geometry_hints(GTK_WINDOW(window), window, &geometry, hints);
+-  gtk_window_set_default_icon_name("iptux");
++  gtk_window_set_default_icon_name("io.github.iptux_src.iptux");
+ 
+   g_signal_connect(window, "configure-event",
+                    G_CALLBACK(WindowConfig::on_configure_event), &windowConfig);

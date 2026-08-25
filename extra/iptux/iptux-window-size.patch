@@ -1,0 +1,37 @@
+From 0c52accd82d7eaa31594939178901a2bb247dab4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 24 Aug 2026 11:00:11 +0200
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Save the current client size with gtk_window_get_size() instead of using the cached window dimensions.
+This prevents the saved size from gradually increasing when using
+client-side decorations on Wayland.
+---
+ src/iptux/MainWindow.cpp | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/iptux/MainWindow.cpp b/src/iptux/MainWindow.cpp
+index 609f01e..b53fdd4 100644
+--- a/src/iptux/MainWindow.cpp
++++ b/src/iptux/MainWindow.cpp
+@@ -1613,11 +1613,14 @@ void MainWindow::PallistDragDataReceived(GtkWidget* treeview,
+  * @param dtset data set
+  * @return Gtk+库所需
+  */
+-gboolean MainWindow::MWinConfigureEvent(GtkWidget*,
++gboolean MainWindow::MWinConfigureEvent(GtkWidget* window,
+                                         GdkEventConfigure* event,
+                                         MainWindow* self) {
+-  self->windowConfig.SetWidth(event->width)
+-      .SetHeight(event->height)
++  gint width, height;
++
++  gtk_window_get_size(GTK_WINDOW(window), &width, &height);
++  self->windowConfig.SetWidth(width)
++      .SetHeight(height)
+       .SaveToConfig(self->config);
+   return FALSE;
+ }
+-- 
+2.55.0
+

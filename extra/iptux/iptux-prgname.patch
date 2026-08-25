@@ -1,0 +1,26 @@
+From 0ea59cd465453b95f5105d42c7a4b69c55f43306 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 24 Aug 2026 10:53:35 +0200
+Subject: [PATCH] Set prgname to application ID
+
+Using the application ID ensures that Wayland compositors could match the
+window with the application and show the appropriate icon for them.
+---
+ src/main/iptux.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/main/iptux.cpp b/src/main/iptux.cpp
+index 0713820..6027aa7 100644
+--- a/src/main/iptux.cpp
++++ b/src/main/iptux.cpp
+@@ -162,6 +162,7 @@ int main(int argc, char** argv) {
+   if (bindIp) {
+     config->SetString("bind_ip", bindIp);
+   }
++  g_set_prgname ("io.github.iptux_src.iptux");
+   Application app(config);
+   return app.run(argc, argv);
+ }
+-- 
+2.55.0
+

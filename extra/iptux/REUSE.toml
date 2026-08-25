@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,7 +26,11 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "cinttypes.patch",
+    "iptux-hide-on-close.patch",
+    "iptux-present-window.patch",
+    "iptux-prgname.patch",
+    "iptux-window-icon.patch",
+    "iptux-window-size.patch",
 ]
 SPDX-FileCopyrightText = "iptux contributors"
-SPDX-License-Identifier = "TODO-Choose-a-license"
+SPDX-License-Identifier = "GPL-2.0-or-later"

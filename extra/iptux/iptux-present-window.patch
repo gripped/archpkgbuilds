@@ -1,0 +1,25 @@
+From 71389b9748ebeec490cdbb283007d611218ea403 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 24 Aug 2026 10:56:52 +0200
+Subject: [PATCH] Present window on activation
+
+This ensures that the main window brings to the front if the application is already launched.
+---
+ src/iptux/Application.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/iptux/Application.cpp b/src/iptux/Application.cpp
+index 4fb06ffb..7660d9fe 100644
+--- a/src/iptux/Application.cpp
++++ b/src/iptux/Application.cpp
+@@ -210,6 +210,10 @@ void Application::onStartup(Application& self) {
+ 
+ void Application::onActivate(Application& self) {
+   if (self.started) {
++    auto window = gtk_application_get_active_window(self.app);
++    if (window) {
++      gtk_window_present(window);
++    }
+     return;
+   }
+   self.started = true;
