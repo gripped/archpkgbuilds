@@ -2,19 +2,21 @@
 
 pkgname=rhit
 pkgver=2.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A nginx log explorer"
 arch=('x86_64')
 url="https://github.com/Canop/rhit"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('53b3dd342cce8d7083c752d5fd6f999515f06e1b901ac67b668e16f27e96b7bfe24f2983838c86b4ab617b475b8ce1d23033443c81461a08a1c9be6e2bd721c9')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
