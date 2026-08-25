@@ -3,7 +3,7 @@
 
 pkgname=bamf
 pkgver=0.5.6
-pkgrel=3
+pkgrel=4
 pkgdesc='Application matching framework'
 arch=(x86_64)
 url=https://launchpad.net/bamf
@@ -26,7 +26,6 @@ depends=(
 makedepends=(
   git
   glib2-devel
-  gnome-common
   gobject-introspection
   vala
 )
@@ -34,14 +33,9 @@ source=(git+https://git.launchpad.net/bamf?signed#tag=${pkgver})
 validpgpkeys=(D4C501DA48EB797A081750939449C2F50996635F) # Marco Trevisan (Treviño) <mail@3v1n0.net>
 b2sums=('54a4aeb5a06efec8e8209a8456d873880694f2a6001ab7124763a20509cbbcc585dc6e732d5fac925acff29a878ccdc4adcacde9fa303eb994dfc2a94c6c5217')
 
-pkgver() {
-  cd bamf
-  git describe --tags
-}
-
 prepare() {
   cd bamf
-  NOCONFIGURE=1 ./autogen.sh
+  autoreconf -fiv
 }
 
 build() {
