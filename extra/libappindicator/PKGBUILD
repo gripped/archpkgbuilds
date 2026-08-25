@@ -9,13 +9,13 @@
 pkgname=libappindicator
 _pkgver=12.10.1+20.10.20200706.1
 pkgver=${_pkgver%+*}
-pkgrel=1
+pkgrel=2
 pkgdesc='Allow applications to extend a menu via Ayatana indicators in Unity, KDE or Systray'
 url='https://launchpad.net/libappindicator'
 arch=('x86_64')
 license=('GPL-3.0-only')
 depends=('glib2' 'glibc' 'gtk3' 'libdbusmenu-glib' 'libdbusmenu-gtk3')
-makedepends=('dbus-glib' 'glib2-devel' 'gnome-common' 'gobject-introspection' 'gtk-doc' 'vala')
+makedepends=('dbus-glib' 'glib2-devel' 'gobject-introspection' 'gtk-doc' 'vala')
 conflicts=("${pkgname}-gtk3")
 provides=("${pkgname}-gtk3=$pkgver")
 replaces=("${pkgname}-gtk3")
@@ -30,7 +30,7 @@ prepare() {
   # Fix unfallback from status icon
   patch -Np0 -i libappindicator-fix-unfallback.patch
 
-  NOCONFIGURE=1 ./autogen.sh
+  autoreconf -fiv
 }
 
 build() {
