@@ -2,7 +2,7 @@
 
 pkgname=light-locker
 pkgver=1.9.0
-pkgrel=6
+pkgrel=7
 pkgdesc='A simple session locker for LightDM'
 arch=(x86_64)
 url=https://github.com/the-cavalry/light-locker
@@ -28,11 +28,8 @@ depends=(
 makedepends=(
   git
   glib2-devel
-  gnome-common
   intltool
   meson
-  upower
-  xorgproto
 )
 optdepends=('upower: Power management support')
 source=(git+https://github.com/the-cavalry/light-locker.git#tag=v${pkgver})
