@@ -3,7 +3,7 @@
 
 pkgname=grcov
 pkgver=0.10.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Rust tool to collect and aggregate code coverage data for multiple source files"
 arch=('x86_64')
 url="https://github.com/mozilla/grcov"
@@ -15,7 +15,7 @@ sha256sums=('5c4a236133f6982a4ea6588f0b1a9c0cc5838be50cb533da2023344b198120df')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
