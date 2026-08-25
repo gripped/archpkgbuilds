@@ -1,26 +1,25 @@
-diff --git a/src/global_util/sessionmanager.h b/src/global_util/sessionmanager.h
-index e751d046..136094db 100644
---- a/src/global_util/sessionmanager.h
-+++ b/src/global_util/sessionmanager.h
-@@ -8,2 +8,7 @@
--#include <QLightDM/SessionsModel>
--#include <QLightDM/UsersModel>
-+#include <QtCore/qglobal.h>
-+#pragma push_macro("Q_DECL_EXPORT")
-+#undef Q_DECL_EXPORT
-+#define Q_DECL_EXPORT Q_DECL_IMPORT
-+#include <QLightDM/SessionsModel>
-+#include <QLightDM/UsersModel>
-+#pragma pop_macro("Q_DECL_EXPORT")
 diff --git a/src/lightdm-deepin-greeter/greeterworker.h b/src/lightdm-deepin-greeter/greeterworker.h
-index 8f13797b..84860063 100644
+index 36d6c5b7..6f447038 100644
 --- a/src/lightdm-deepin-greeter/greeterworker.h
 +++ b/src/lightdm-deepin-greeter/greeterworker.h
-@@ -14 +14,6 @@
+@@ -14,2 +14,7 @@
 -#include <QLightDM/Greeter>
 +#include <QtCore/qglobal.h>
 +#pragma push_macro("Q_DECL_EXPORT")
 +#undef Q_DECL_EXPORT
 +#define Q_DECL_EXPORT Q_DECL_IMPORT
 +#include <QLightDM/Greeter>
+ #include <QLightDM/SessionsModel>
++#pragma pop_macro("Q_DECL_EXPORT")
+diff --git a/src/lightdm-deepin-greeter/sessionwidget.h b/src/lightdm-deepin-greeter/sessionwidget.h
+index 8b90f977..fd71e308 100644
+--- a/src/lightdm-deepin-greeter/sessionwidget.h
++++ b/src/lightdm-deepin-greeter/sessionwidget.h
+@@ -11,2 +11,7 @@
++#include <QtCore/qglobal.h>
++#pragma push_macro("Q_DECL_EXPORT")
++#undef Q_DECL_EXPORT
++#define Q_DECL_EXPORT Q_DECL_IMPORT
+ #include <QLightDM/SessionsModel>
+ #include <QLightDM/UsersModel>
 +#pragma pop_macro("Q_DECL_EXPORT")

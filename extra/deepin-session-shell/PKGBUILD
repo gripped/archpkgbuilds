@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-shell
-pkgver=6.0.32
+pkgver=6.0.33
 pkgrel=1
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('x86_64')
@@ -12,18 +12,18 @@ license=('GPL-3.0-or-later')
 # deepin-daemon: org.deepin.dde.Display1
 # deepin-session: org.deepin.dde.Session1
 depends=('bash' 'deepin-daemon' 'deepin-network-core' 'deepin-qt6integration' 'deepin-wallpapers'
-         'liblightdm-qt6' 'lightdm' 'deepin-pw-check' 'dtk6core' 'dtk6gui'
+         'liblightdm-qt6' 'lightdm' 'dtk6core' 'dtk6gui'
          'dtk6widget' 'libx11' 'libxcursor' 'qt6-svg' 'qt6-base' 'libxi' 'dconf'
          'libxtst' 'glibc' 'libxext' 'libxfixes' 'pam' 'libgcc' 'libstdc++'
-         'libxrandr' 'libxcb' 'xcb-util-wm' 'deepin-session')
+         'libxrandr' 'libxcb' 'xcb-util-wm' 'openssl' 'deepin-session')
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools')
 conflicts=('deepin-session-ui<5')
 provides=('lightdm-deepin-greeter')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-session-shell-snipe.git#tag=$pkgver"
         "fix-lightdm-qt6-visibility.patch")
-sha512sums=('733853444e02f71246d5c60e648ea6845d4a90d9e6e9725b5042d9d0bd204bfa25afafaf391f07dccd91b807cf37ce7bedebcc6e8eac17d264e35089f74bbd35'
-            'b9b0a9c48a6284c4d0f0dd5b81516915fb318989d672d83cae635a6c5d9027f3904fd2c0d10d431f5aaad501a444b33b72c2d060f103dbce97e2df4dcdb1da03')
+sha512sums=('38073d9faf85e2b62ab230b0435d71f26531d3dfc33a513878c847659ab2e6354bd74a9e717b1bc28d2c05430a4e153a01d465e34aa2fbcadace970928da4135'
+            '9eaff1aeecb04d54dff637913c06c036d29f8df9abe11760990972b732b08e47ffa55d7d060eb12ef7a6c4806d38a5da5ec783b4e8b38a18f77c1c20a925f738')
 
 prepare() {
   cd dde-session-shell-snipe
@@ -36,7 +36,7 @@ prepare() {
 
 build() {
   cd dde-session-shell-snipe
-  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc
+  cmake . -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_SYSCONFDIR=/etc -DDDE_SESSION_SHELL_SNIPE=ON
   ninja
 }
 
