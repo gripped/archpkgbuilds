@@ -5,13 +5,13 @@
 pkgname=libpinyin
 pkgver=2.10.3
 _modelver=20
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to deal with pinyin"
 arch=('x86_64')
 url="https://github.com/libpinyin/libpinyin"
 license=('GPL-3.0-or-later')
 depends=('kyotocabinet' 'glib2')
-makedepends=('git' 'gnome-common')
+makedepends=('git')
 source=("git+https://github.com/libpinyin/libpinyin.git#tag=$pkgver"
         "$pkgname-model$_modelver.text.tar.gz::https://downloads.sourceforge.net/libpinyin/model$_modelver.text.tar.gz")
 noextract=("$pkgname-model$_modelver.text.tar.gz")
