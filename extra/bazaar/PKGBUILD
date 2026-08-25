@@ -3,62 +3,65 @@
 
 pkgname=bazaar
 pkgver=0.9.4
-pkgrel=3
-pkgdesc="A new app store for GNOME with focus on flatpaks, particularly Flathub"
-arch=('x86_64')
-url="https://github.com/kolunmi/bazaar"
-license=(GPL-3.0-only)
+pkgrel=4
+pkgdesc="A fast and modern store for GNOME with focus on Flatpaks, particularly from Flathub"
+arch=(x86_64)
+url="https://apps.gnome.org/Bazaar/"
+license=(GPL-3.0-or-later)
+groups=(gnome-circle)
 depends=(
-  glibc
-  libgcc
-  glib2
-  gtk4
-  glycin-gtk4
-  json-glib
-  glycin
-  cairo
-  pango
-  graphene
-  gtksourceview5
-  flatpak
   appstream
+  cairo
   dconf
-  md4c
-  webkitgtk-6.0
+  flatpak
+  glib2
+  glibc
+  glycin
+  glycin-gtk4
+  graphene
+  gtk4
+  gtksourceview5
   hicolor-icon-theme
+  json-glib
   libadwaita
-  libdex
-  libheif
+  libatomic
+  libgcc
+  libmalcontent
+  libproxy
+  libsecret
+  libsoup3
+  liburing
   libxmlb
   libyaml
-  libsoup3
-  libsecret
-  libproxy
-  libmalcontent
-  malcontent
+  md4c
+  pango
+  systemd-libs
+  webkitgtk-6.0
 )
 makedepends=(
-  meson
-  ninja
-  gcc
-  pkgconf
+  blueprint-compiler
   git
   glib2-devel
-  gobject-introspection
+  meson
+  ninja
   python-babel
-  blueprint-compiler
-  vala
 )
-optdepends=('krunner-bazaar: krunner integration')
+source=(
+  "git+https://gitlab.gnome.org/World/bazaar.git#tag=v${pkgver}"
+  git+https://gitlab.gnome.org/GNOME/libdex.git
+)
+b2sums=(
+  25d0cdd9fab5ae2ec1c50f1cc0179b7e07b6a3f86e3452da0ee20084966a44bfe89597721074c303e432967c5b11c5d3eb18ec46bb8489204260d55955e2f15e
+  SKIP
+)
 
-source=(git+https://github.com/kolunmi/bazaar#tag=v${pkgver})
-sha256sums=('74aad31514c18c06d93ea3936b7be51e15336c2095732bdd51083026402ee93d')
+prepare() {
+  ln -s "$srcdir/libdex" "$pkgname/subprojects/libdex"
+  meson subprojects checkout --sourcedir $pkgname
+}
 
 build() {
-  cd "${pkgname}"
-
-  meson setup build \
-    --prefix=/usr \
+  arch-meson $pkgname build \
     -Dlibdex:default_library=static \
     -Dlibdex:docs=false \
     -Dlibdex:examples=false \
@@ -67,13 +70,15 @@ build() {
     -Dlibdex:pygobject=false \
     -Dlibdex:tests=false \
     -Dlibdex:vapi=false
-  ninja -C build
+  meson compile -C build
 }
 
-package() {
-  cd "${pkgname}"
+check() (
+  meson test -C build --print-errorlogs
+)
 
-  DESTDIR="${pkgdir}" ninja -C build install
+package() {
+  meson install -C build --destdir "$pkgdir"
   rm -r "${pkgdir}"/usr/include/libdex-1
   rm "${pkgdir}"/usr/lib/libdex-1.a
   rm "${pkgdir}"/usr/lib/pkgconfig/libdex-1.pc
