@@ -1,43 +1,57 @@
-# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 # Contributor: Allan McRae <allan@archlinux.org>
 # Contributor: FJ <joostef@gmail.com>
 # Contributor: Sebastien Piccand <sebcactus gmail com>
 
 pkgname=gaupol
-pkgver=1.16
+pkgver=2.0
 pkgrel=1
-pkgdesc="Editor for text-based subtitles"
-arch=('any')
-url="https://otsaloma.io/gaupol/"
-license=('GPL-3.0-or-later AND CC0-1.0')
-depends=('python-gobject' 'gtk3' 'gst-plugins-'{base,good,bad,ugly} 'gst-libav'
-         'gst-plugin-gtk' 'gspell' 'iso-codes' 'python-charset-normalizer'
-         'python-cairo' 'desktop-file-utils' 'hicolor-icon-theme')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-optdepends=('mpv: subtitle preview'
-            'vlc: subtitle preview'
-            'mplayer: subtitle preview')
-source=($pkgname-$pkgver.tar.gz::https://github.com/otsaloma/$pkgname/archive/$pkgver.tar.gz
-        fix-prefix-with-pep517.patch)
-sha256sums=('ea45025d8de5f5a089d4626085a4f1ed7d7e021462a30aa777728e32327d71ca'
-            '5e4402fd683a24c1b8ddcb9226176d259215263a491265548547d787bd28052d')
-
-prepare() {
-  cd $pkgname-$pkgver
-  patch -Np1 -i ../fix-prefix-with-pep517.patch
-}
+pkgdesc='Editor for text-based subtitles'
+arch=(any)
+url='https://otsaloma.io/gaupol/'
+license=(GPL-3.0-or-later)
+depends=(
+  glib2
+  graphene
+  gst-plugin-gtk4
+  gst-plugins-base
+  gst-plugins-base-libs
+  gst-plugins-good
+  gstreamer
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  iso-codes
+  libspelling
+  pango
+  python
+  python-charset-normalizer
+  python-gobject
+)
+makedepends=(git)
+optdepends=(
+  'gst-libav: Extra media codecs'
+  'gst-plugins-bad: Extra media codecs'
+  'gst-plugins-ugly: Extra media codecs'
+)
+source=("git+https://github.com/otsaloma/gaupol.git?signed#tag=$pkgver")
+b2sums=(a3812340c26433e531e4d5a33db0d634d38c47360ff0e1a5a72b863158c9123889b903542b231f0a7e4c34277c9a29dbe6eb9fc1bbfd737db01223d9aa945a51)
+validpgpkeys=(8DD6B3FCDAB33C91EA915B913A584A9504CACA67) # Osmo Salomaa <otsaloma@iki.fi>
 
 build() {
-  cd $pkgname-$pkgver
-  python -m build --wheel --no-isolation
+  cd $pkgname
+  make
 }
 
 package() {
-  cd $pkgname-$pkgver
-  python -m installer --destdir="$pkgdir" dist/*.whl
-  # remove bundled iso-codes
-  rm -r "$pkgdir/usr/share/gaupol/iso-codes"
-}
+  cd $pkgname
+  make DESTDIR="$pkgdir" PREFIX=/usr install
 
-# vim:set ts=2 sw=2 et:
+  # Remove bundled iso-codes
+  rm -r "$pkgdir/usr/share/gaupol/aeidon/data/iso-codes"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}
