@@ -3,13 +3,13 @@
 
 pkgname=pyzy
 pkgver=1.1
-pkgrel=3
+pkgrel=4
 pkgdesc='The Chinese PinYin and Bopomofo conversion library'
 arch=('x86_64')
 url='https://github.com/openSUSE/pyzy'
 license=('LGPL')
 depends=('glib2' 'sqlite' 'util-linux')
-makedepends=('doxygen' 'gnome-common' 'python')
+makedepends=('doxygen' 'python')
 source=("https://github.com/openSUSE/pyzy/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         $pkgname-fail-on-error.patch::https://github.com/openSUSE/pyzy/pull/1.patch
         $pkgname-py3-fix.patch::https://github.com/openSUSE/pyzy/pull/2.patch)
@@ -21,11 +21,12 @@ prepare() {
   cd pyzy-$pkgver
   patch -p1 -i ../$pkgname-fail-on-error.patch
   patch -p1 -i ../$pkgname-py3-fix.patch
+  autoreconf -fiv
 }
 
 build() {
   cd pyzy-$pkgver
-  ./autogen.sh --prefix=/usr
+  ./configure --prefix=/usr
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
