@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-utils
-pkgver=10.1.1
+pkgver=10.2.0
 pkgrel=1
 pkgdesc="Oslo Utility library"
 arch=('any')
@@ -15,7 +15,7 @@ checkdepends=('python-eventlet' 'python-testscenarios' 'python-testtools' 'pytho
               'python-ddt' 'python-stestr' 'python-cryptography' 'qemu-img')
 optdepends=('python-cryptography: LUKS image inspection support')
 source=("git+https://github.com/openstack/oslo.utils.git#tag=$pkgver")
-sha512sums=('1ab535cc28906009c5df0464cf2dc24800ca3eb46e17ceb01f84a74dd54dc9bc1b80b5fc37891453db5d7d5dc2a257effd2e797ac3c579064f3bd20d21bf2201')
+sha512sums=('045bdff409c11cf6e7f9d680b7636732d5ad39ead2eb39b32f9e0a335bbd65b4ba718795b89f6a9882a4d461c9d6400c0ef403b5979aef6812f455ab200e020a')
 
 build() {
   cd oslo.utils
