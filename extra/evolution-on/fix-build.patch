@@ -1,0 +1,32 @@
+diff --git a/src/on_icon.h b/src/on_icon.h
+index aa1f6ae..9c8e5a2 100644
+--- a/src/on_icon.h
++++ b/src/on_icon.h
+@@ -254,14 +254,12 @@ status_icon_activate_cb(struct OnIcon *_onicon)
+ 		EShellWindow *shell_window;
+ 		EShellSidebar *shell_sidebar;
+ 		EMFolderTree *folder_tree;
+-		GtkAction *action;
+ 		/* Present the shell window. */
+ 		shell_window = E_SHELL_WINDOW(list->data);
+ 
+ 		/* Switch to the mail view. */
++		e_shell_window_set_active_view(shell_window, "mail");
+ 		shell_view = e_shell_window_get_shell_view(shell_window, "mail");
+-		action = e_shell_view_get_action(shell_view);
+-		gtk_action_activate(action);
+ 
+ 		/* Select the latest folder with new mail. */
+ 		shell_sidebar = e_shell_view_get_shell_sidebar(shell_view);
+diff --git a/src/tray.c b/src/tray.c
+index 2d616ce..35a6617 100644
+--- a/src/tray.c
++++ b/src/tray.c
+@@ -21,6 +21,7 @@
+ #endif
+ 
+ #include <gtk/gtk.h>
++#include <gdk/gdkx.h>
+ #include <glib.h>
+ #include <glib/gi18n.h>
+ #include <string.h>
