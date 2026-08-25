@@ -3,7 +3,7 @@
 
 pkgname=totem
 pkgver=43.2
-pkgrel=5
+pkgrel=6
 pkgdesc="Movie player for the GNOME desktop based on GStreamer"
 url="https://gitlab.gnome.org/GNOME/totem"
 arch=(x86_64)
@@ -39,7 +39,7 @@ depends=(
   totem-plparser
 )
 makedepends=(
-  appstream-glib
+  appstream
   docbook-xsl
   git
   glib2-devel
