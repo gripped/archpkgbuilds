@@ -5,7 +5,7 @@
 # Contributor: Bumsik Kim <k.bumsik@gmail.com>
 
 pkgname=nushell
-pkgver=0.115.0
+pkgver=0.115.1
 pkgrel=1
 pkgdesc='A new type of shell'
 arch=(x86_64)
@@ -25,8 +25,8 @@ makedepends=(cargo git)
 checkdepends=(procps-ng)
 install=nushell.install
 source=("git+https://github.com/nushell/nushell.git#tag=$pkgver")
-sha512sums=('eac6f954417e0ad60b9c51c018f9d9504fb0de9ab79db229f6d50f7a6142c539182cb612ba80b9e466774ef4e9b62d56c28e2de1edf161c7e2c2e0ce1c4df63b')
-b2sums=('64dc8f637276f8ab887e5e71ce096c80ae7c0f8bc0392b7b07e8508b0b3fab258349d3ea39a70e9a7808ff3337a9db6f9ff52f35ffc8aabf15d01ed2e9599bce')
+sha512sums=('d25ab516544a99fc3fe12987e96181f59a3d22f3ea8eef59df66852edc846893665e74d11c935043338df1ff8ca1b4a018cc4a9e56716b006be66104e9965501')
+b2sums=('3ecebe3df3a49ad1c9ff44d218dba78a1045bf9e7b9f42d83b72049355d2e76216f880776f440afa0550359ffd30dd56236f1a4d9bc34c66cfbb6ed56983c8bb')
 
 prepare() {
   cd "$pkgname"
