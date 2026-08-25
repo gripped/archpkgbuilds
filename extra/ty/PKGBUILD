@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ty
-pkgver=0.0.72
+pkgver=0.0.74
 pkgrel=1
 pkgdesc='Extremely fast Python type checker and language server, written in Rust'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(git
 checkdepends=(uv)
 source=("git+$url.git#tag=$pkgver"
         git+https://github.com/astral-sh/ruff.git)
-b2sums=('acc34481bbbba92152bb2f304fe9475c39c1fd83d7b7d678335470e53624ef6c7f8b008e00a4bb20e9ca3cab04c553380619a05efae0c7dc3c5bb1f807ac722a'
+b2sums=('176872fe6f85f68fec1f36210c4e9ea4b77bbbd3af3ff9bb4772c171c62263637c366110dc81bccf64de9bdd6fd0e1ee6f85d2bfb492138f2374a88aa74331ee'
         'SKIP')
 
 _srcenv() {
@@ -54,8 +54,13 @@ build() {
 check() {
   _srcenv
   local skipped=(
-    # our nspawn chroot *is* virtual, so naturally we don't pass this test
+    # our nspawn chroot is detected as an environment, so naturally we don't pass these tests
+    # also the tests are racey...
+    python_environment::ty_environment_and_active_environment
+    python_environment::ty_environment_and_discovered_venv
+    python_environment::ty_environment_is_only_environment
     python_environment::ty_environment_is_system_not_virtual
+    python_environment::ty_system_environment_and_local_venv
   )
   cargo test --manifest-path ruff/crates/$pkgname/Cargo.toml --frozen --all-features -- ${skipped[@]/#/--skip }
 }
