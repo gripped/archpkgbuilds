@@ -2,7 +2,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=frei0r-plugins
-pkgver=3.4.3
+pkgver=3.5.0
 pkgrel=1
 pkgdesc='Collection of video effect plugins'
 arch=(x86_64)
@@ -22,7 +22,7 @@ makedepends=(
 )
 source=("git+https://github.com/dyne/frei0r#tag=v$pkgver"
          opencv-5.patch)
-b2sums=('b45d09072ff6479d3ad1c75d8e90506d031c0673fad1e1f77d7396e47e1e42dbf448c08fc2b3f63386198e9efccb4dec55a6caa098032ec0502208be89ba5f59'
+b2sums=('c5dbffdd4797d1c60d7ccbac46b1e275b969cfba5f5ae63866c0a4467a985bf241149e10a8bce35592874135e223e28066c4ca3a2f86696dab704acb23fcbc3f'
         '8a4d4b1e87b5c5ba553a687dc74d6d8b7af1566fba5ed59175cc9867894f0776442acfff8d0dbebe5b72a1f23ad8de80bd8853bfc4f024a250e6c666b28b5384')
 validpgpkeys=(6113D89CA825C5CEDD02C87273B35DA54ACB7D10) # Denis Roio (Jaromil)
 
