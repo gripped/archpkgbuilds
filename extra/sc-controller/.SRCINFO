@@ -1,7 +1,7 @@
 pkgbase = sc-controller
 	pkgdesc = User-mode driver, mapper and GTK3 based GUI for Steam Controller, DS4 and similar controllers
 	pkgver = 0.6.6
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/C0rn3j/sc-controller
 	arch = x86_64
 	license = GPL-2.0-only
@@ -10,7 +10,6 @@ pkgbase = sc-controller
 	makedepends = python-installer
 	depends = gtk3
 	depends = gtk-layer-shell
-	depends = libayatana-appindicator
 	depends = python-cairo
 	depends = python-evdev
 	depends = python-gobject
@@ -20,6 +19,7 @@ pkgbase = sc-controller
 	depends = python-setuptools
 	depends = python-vdf
 	depends = xorg-xinput
+	optdepends = libappindicator: StatusNotifierItem support
 	conflicts = scc
 	source = sc-controller-0.6.6::git+https://github.com/C0rn3j/sc-controller.git#tag=v0.6.6
 	sha256sums = fafe5a148b3af70d71c060514bf4ef2f9d58b6eb66773c5b83e41668c49437b7
