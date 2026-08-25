@@ -4,7 +4,7 @@
 
 pkgname=plank
 pkgver=0.11.89
-pkgrel=5
+pkgrel=6
 pkgdesc='Elegant, simple, clean dock'
 arch=(x86_64)
 url=https://launchpad.net/plank
@@ -27,23 +27,16 @@ depends=(
 )
 makedepends=(
   git
-  gnome-common
-  intltool
   vala
 )
 source=(git+https://github.com/ricotz/plank.git#tag=${pkgver})
-sha256sums=(SKIP)
+b2sums=('edaaff7a113a14799c32badc0f686748e08a81a904ca09300db145ad3dac3ad915a188ae5366141c7d253be537542c0c3535806b423967ba02f18abc7a20b460')
 
 prepare() {
   cd plank
   git cherry-pick -n 5967798a47ba8835ae100c01a8d647d2f9a2412f
   sed 's/0.19.6/0.20/' -i configure.ac
   NOCONFIGURE=1 ./autogen.sh
-}
-
-pkgver() {
-  cd plank
-  git describe --tags
 }
 
 build() {
