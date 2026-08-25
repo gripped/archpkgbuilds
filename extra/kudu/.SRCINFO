@@ -1,0 +1,20 @@
+pkgbase = kudu
+	pkgdesc = TUI for creating and managing virtual machines on Linux
+	pkgver = 0.2
+	pkgrel = 1
+	url = https://github.com/pythops/kudu
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = cargo
+	depends = gcc-libs
+	depends = glibc
+	depends = libisoburn
+	depends = passt
+	depends = qemu-system-x86
+	optdepends = qemu-system-aarch64: AArch64 virtual machine support
+	optdepends = qemu-system-riscv: RISC-V virtual machine support
+	options = !lto
+	source = kudu-0.2.tar.gz::https://github.com/pythops/kudu/archive/v0.2.tar.gz
+	sha256sums = b789061e31c46c018eaeba8bf5a3d473c0ac54ff2784cc472ffc55b924ba043c
+
+pkgname = kudu

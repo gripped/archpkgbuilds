@@ -1,0 +1,43 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=kudu
+pkgver=0.2
+pkgrel=1
+pkgdesc="TUI for creating and managing virtual machines on Linux"
+arch=('x86_64')
+url="https://github.com/pythops/kudu"
+license=('GPL-3.0-or-later')
+depends=('gcc-libs'
+         'glibc'
+         'libisoburn'
+         'passt'
+         'qemu-system-x86')
+makedepends=('cargo')
+optdepends=('qemu-system-aarch64: AArch64 virtual machine support'
+            'qemu-system-riscv: RISC-V virtual machine support')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('b789061e31c46c018eaeba8bf5a3d473c0ac54ff2784cc472ffc55b924ba043c')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --release --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
