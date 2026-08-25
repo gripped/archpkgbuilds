@@ -7,15 +7,14 @@
 
 pkgname=xiphos
 pkgver=4.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc='A Bible study tool for GTK3'
 arch=(x86_64)
 url='https://xiphos.org'
 license=(GPL-2.0-only)
-depends=('biblesync' 'dbus-glib' 'icu' 'libbiblesync.so' 'libicui18n.so'
+depends=('biblesync' 'icu' 'libbiblesync.so' 'libicui18n.so'
          'libspeechd' 'minizip' 'sword' 'webkit2gtk-4.1')
-makedepends=('appstream' 'appstream-glib' 'cmake' 'git' 'glib2-devel' 'gnome-common'
-             'intltool' 'libffi' 'libspeechd' 'libxml2' 'python' 'zlib' 'zip')
+makedepends=('appstream' 'cmake' 'git' 'glib2-devel' 'itstool')
 source=("git+https://github.com/crosswire/xiphos.git#tag=$pkgver")
 sha256sums=('a418b106ba38e947c12445efb63ddd4cb50fcace9b2ab0cefb5a2a6b5515e495')
 
