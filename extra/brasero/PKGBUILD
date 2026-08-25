@@ -5,7 +5,7 @@
 
 pkgname=brasero
 pkgver=3.12.3+r44+gdea4990b
-pkgrel=1
+pkgrel=2
 pkgdesc="CD/DVD mastering tool"
 url="https://wiki.gnome.org/Apps/Brasero"
 arch=(x86_64)
@@ -35,7 +35,6 @@ makedepends=(
   docbook-xsl
   git
   glib2-devel
-  gnome-common
   gobject-introspection
   gtk-doc
   intltool
@@ -93,7 +92,10 @@ prepare() {
   # https://gitlab.gnome.org/GNOME/brasero/-/merge_requests/29
   git apply -3 ../0006-Remove-libegg-multidrag-treeview-support-for-in-buil.patch
 
-  NOCONFIGURE=1 ./autogen.sh
+  # Remove gnome-common dependency
+  sed -i '/^GNOME_/d' configure.ac
+
+  autoreconf -fiv
 }
 
 build() {
