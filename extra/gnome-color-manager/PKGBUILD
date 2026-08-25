@@ -2,7 +2,7 @@
 
 pkgname=gnome-color-manager
 pkgver=3.36.2
-pkgrel=1
+pkgrel=2
 pkgdesc="GNOME Color Profile Tools"
 url="https://gitlab.gnome.org/GNOME/gnome-color-manager"
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(GPL-2.0-or-later)
 depends=(
   cairo
   colord
-  gcc-libs
+  libgcc
   gdk-pixbuf2
   glib2
   glibc
@@ -21,7 +21,6 @@ depends=(
   pango
 )
 makedepends=(
-  appstream-glib
   docbook-sgml
   docbook-utils
   git
