@@ -2,37 +2,48 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hawkeye
-pkgver=6.5.1
+pkgver=7.0.0
 pkgrel=1
 pkgdesc="Simple license header checker and formatter"
-arch=('x86_64')
+arch=(x86_64)
 url="https://github.com/korandoru/hawkeye"
-license=('Apache-2.0')
-depends=('gcc-libs')
-makedepends=('cargo-nightly')
-options=(!lto)
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('ae7f7a5e16642c769c8fdb1f071e3677e01d7307b69ec745a242699c867f8a9e')
+license=(Apache-2.0)
+depends=(glibc # libc.so
+         libgcc)
+makedepends=(cargo)
+checkdepends=(git)
+_archive="$pkgname-$pkgver"
+source=("$url/archive/refs/tags/$pkgver/$_archive.tar.gz")
+sha256sums=('67331fbed422037948d4cd8aca005ec090ec0f07c946dd8d74cc0b089c7bd5bb')
+
+_srcenv() {
+	cd "$_archive"
+	export CARGO_HOME="$srcdir"
+	export CARGO_PROFILE_RELEASE_DEBUG=2
+	export CARGO_PROFILE_RELEASE_STRIP=false
+	export CARGO_PROFILE_RELEASE_LTO=thin
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+	_srcenv
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+	_srcenv
+	cargo build --release --frozen
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  cargo test --frozen
+	_srcenv
+	cargo test --frozen
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
-  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+	depends+=(libgcc_s.so)
+	cd "$_archive"
+	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
+	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
 }
-
-# vim: ts=2 sw=2 et:
