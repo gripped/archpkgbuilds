@@ -1,12 +1,13 @@
-# Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=rhythmbox
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
-pkgdesc="Music playback and management application"
-url="https://gitlab.gnome.org/GNOME/rhythmbox"
+pkgdesc='Music playback and management application'
+url='https://gitlab.gnome.org/GNOME/rhythmbox'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
@@ -45,20 +46,18 @@ depends=(
 makedepends=(
   appstream
   brasero
+  check
   git
   gobject-introspection
+  itstool
   libdmapsharing
   libgpod
   lirc
   meson
   vala
-  yelp-tools
   zeitgeist
 )
-checkdepends=(
-  check
-  xorg-server-xvfb
-)
+checkdepends=(xorg-server-xvfb)
 optdepends=(
   'brasero: Audio CD Recorder plugin'
   'grilo-plugins: Grilo media browser plugin'
@@ -71,7 +70,7 @@ optdepends=(
   'zeitgeist: Zeitgeist logging plugin'
 )
 source=("git+https://gitlab.gnome.org/GNOME/rhythmbox.git#tag=$pkgver")
-b2sums=('b113c10b8ea5922db7e1e7d4a55d6826b1fbdef964465a6bb908cb59a42828ac93c47a19da5de513ee37fbe19705f1ee981f7316f323a399cc9fc614738089e9')
+b2sums=(03710ba1210fd4e99df6b69c9a78066aa7cf3dff2f67b3049e50209070d5f0b247dffaee50eed93bee9fcb375dec05076efaeb27291610eb5864164f98ae3500)
 
 prepare() {
   cd $pkgname
@@ -94,5 +93,3 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
-
-# vim:set sw=2 sts=-1 et:
