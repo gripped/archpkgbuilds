@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=pdm
 pkgname=python-pdm
-pkgver=2.28.1
+_name=${pkgname#python-}
+pkgver=2.28.2
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -62,8 +62,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('5247b9209acd0667b9c37a009f94d8f63b5ae47388bb5a9077393b72cb90be083be1209389f9641e7a953eb32bcb6d8831c16ed7861f1699c4b67693289da731')
-b2sums=('a37c3fe54d04b7379d353cd10e112e09c0b3ee165d19d4c046ec84751275d30c226b082d2e6c7055cdfa580b4393436690ca6888579fb09fdfd67e756d42caa4')
+sha512sums=('3f5e28279aa30868dbd12d562af550ef1314cc7ca73ca4c07ebbafec8dabc487c1f413b42bc5c4e6a599818e8fda4df2268b3cde2b573594a0a1228ab665bb8e')
+b2sums=('6101d1b871517c92d2d3d1fe1e67e79e7c933efacd53bb7266ca09fc19f987dc0b3f72ca35fae00399d80a66f56e8ebf9831fb97e38d090b9247f1b46992497f')
 
 build() {
   cd $_name-$pkgver
@@ -78,8 +78,6 @@ check() {
     --deselect tests/test_project.py::test_access_index_with_auth
     # unclear issue with no isolation build
     --deselect tests/cli/test_build.py::test_build_with_no_isolation
-    # https://github.com/pdm-project/pdm/issues/3837
-    --deselect tests/cli/test_venv.py::test_core_registration_does_not_import_command_actions
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
