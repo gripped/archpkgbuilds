@@ -1,9 +1,9 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
-_name=pywayland
 pkgname=python-pywayland
-pkgver=0.4.18
-pkgrel=3
+_name=${pkgname#python-}
+pkgver=0.4.19
+pkgrel=1
 pkgdesc="Python bindings for the libwayland library"
 arch=(x86_64)
 url="https://github.com/flacjacket/pywayland"
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('cf46e3fed04a30eff4bb8293857fc9e874394bbd214b94cc2f73424e3c64d1c4a5df125189163e57d2b17017feb1e919588291e06c84acdc2e4479315b400932')
-b2sums=('d44858fb70b2a2d5e3a4f23766c1f00e255ea2fdbe3e5da47d2a114dfb6c4bd6951d971653db9727f54c3e697acb83d65446c08e670f32686520e35d6051e35c')
+sha512sums=('697f02089128777d5e195bd0dc8dd91f02e20f89029c76bbd7e1d6ff3ddc6d8e811b9a3d5c8b9fc359e3a26088d01bdd550439b73c3340e5c2d49bf089fcfb32')
+b2sums=('84d767c50de00eaabaaebd1042a8dd6ddef86c6fc006665af39c4c35f805fdff3f0ffd4d003e84e7c8d305550ab56c8b79cd3f47f09faec6198fbd68e1185d00')
 
 build() {
   cd $_name-$pkgver
