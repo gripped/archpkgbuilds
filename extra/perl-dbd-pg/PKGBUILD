@@ -2,7 +2,7 @@
 # Contributor: François Charette <firmicus ατ gmx δοτ net>
 
 pkgname=perl-dbd-pg
-pkgver=3.20.2
+pkgver=3.21.1
 pkgrel=1
 pkgdesc="Postgres Driver for DBI"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('GPL' 'PerlArtistic')
 depends=('perl-dbi>=1.52' 'postgresql-libs')
 options=('!emptydirs')
 source=("https://www.cpan.org/authors/id/T/TU/TURNSTEP/DBD-Pg-${pkgver}.tar.gz")
-sha512sums=('258592be693e111ffb767f2091876fd519d14cf4b03c7fa8f5ac26a70dfe73968e61fc51315283ff6a96cf5882216db87eb718a3ffc7e4944d72c2e7b688078a')
+sha512sums=('d2ebad41d4f83d030dde40298f65f7e685cdeccbaa8b28e510ac26a27e65a73ef2e996061eb2b4ab68aa9fffdb40cdc45e886710ffd458df28e31c3dd551f016')
 
 build() {
   cd  DBD-Pg-${pkgver}
