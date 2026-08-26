@@ -3,7 +3,7 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=python-pbr
-pkgver=7.1.1
+pkgver=7.1.2
 pkgrel=1
 pkgdesc="Python Build Reasonableness"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('git' 'python-build' 'python-installer')
 checkdepends=('python-stestr' 'python-testresources' 'python-testscenarios'
               'python-testtools' 'python-virtualenv' 'python-sphinx' 'python-testrepository')
 source=("git+https://github.com/openstack-dev/pbr.git#tag=$pkgver")
-sha512sums=('299916f9d2cbfc26f5b0a2d8e7c4c9c420f12a1a6b60324f31ada09046779981a50b030f3d168c02c394edf9f07b01c63afde63926347c5482c780b6d9f1ee45')
+sha512sums=('a6e7fec64c9435cb9638fe7c3f1c5885ed9f5c07f2332b12cfeb9fb57acfdeee25704e3a9f0950fce644e7be25050efb1d736a3d9b6aa037d580328bdb7d934d')
 
 build() {
   cd pbr
