@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-google-auth-httplib2
-pkgver=0.4.1
+pkgver=0.4.2
 pkgrel=1
 pkgdesc="Google Authentication Library: httplib2 transport"
 url="https://github.com/googleapis/google-cloud-python/tree/main/packages/google-auth-httplib2"
@@ -11,7 +11,7 @@ depends=('python-google-auth' 'python-httplib2')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-flask' 'python-pytest-localserver')
 source=("git+https://github.com/googleapis/google-cloud-python.git#tag=google-auth-httplib2-v$pkgver")
-sha512sums=('ee49bec6a197bc3f376d8d8128cc8913b2adcc74f9cf695be2a3341391eaa9ee4a76317d9a502b89b8eb8955ffa696442cb2d2d6e9e8c9d8bb0ce141fe04f38a')
+sha512sums=('74f3c3f372bcad858b85aafcf90ec8c7a8d1aca483e7f3ba216f87d427b74e17ef6c2c78a752dd1bfc2c15032e777e4c9fc558e3572c6a7b1e7bdfdc9a7e8a5b')
 
 build() {
   cd google-cloud-python/packages/google-auth-httplib2
