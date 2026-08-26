@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=kfr
-pkgver=7.0.1
-pkgrel=3
+pkgver=7.1.0
+pkgrel=1
 pkgdesc="Fast, modern C++ DSP framework, FFT, Sample Rate Conversion, FIR/IIR/Biquad Filters"
 arch=(x86_64)
 url="https://github.com/kfrlib/kfr/"
@@ -16,8 +16,8 @@ makedepends=(
   cmake
 )
 source=("$pkgname-$pkgver.tar.gz::${url}archive/refs/tags/$pkgver.tar.gz")
-sha512sums=('5cd65ee75a0526d4be6923e25cf3adcf91083192f4e81248205c6822e230c36590a281bf65a1421f21bb842548b7522093dc8e36a375ee7b74aac11170dbc55a')
-b2sums=('6f9ffa8b28cd84d8b316516d109c95ff66b0cc5e10b979632e67d53a44c1e95aa46b8f37acd682eb6e969fd2e2f7871d8bb2b5a4fe4f7f7d65b1247e9e230957')
+sha512sums=('109a38f849b64ce3a96ab9995583dd89cbb1d91fa179f9a74eec0784b3926b17bfaaf3033af935efb2a747eec39f726f7e00bdd00f6dc104bb69696b7206a7d1')
+b2sums=('8f6d972d955e0f53f44430ee918890bc54f1699c3450423d92433c4b572ed4f907be40a34c4526c2b925a917a604f6dc9f6cb788ff4814ba1ff918c17b063cd9')
 
 build() {
   local cmake_options=(
@@ -41,6 +41,8 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
+  # remove files that are in the wrong location: https://github.com/kfrlib/kfr/issues/277
+  rm --verbose "$pkgdir/usr/"{LICENSE.txt,README.md}
   install -vDm 644 "$pkgname-$pkgver/LICENSE.txt" -t "$pkgdir/usr/share/licenses/$pkgname/"
   install -vDm 644 "$pkgname-$pkgver/"{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
 }
