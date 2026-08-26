@@ -3,7 +3,7 @@
 
 _name=distributed
 pkgname=python-$_name
-pkgver=2026.7.1
+pkgver=2026.8.0
 pkgrel=1
 pkgdesc="Distributed task scheduler for Dask"
 arch=(any)
@@ -61,7 +61,7 @@ checkdepends=(
   python-zstandard
 )
 source=(https://github.com/dask/distributed/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-b2sums=('ebba05670b0c7638c5448b0d3b90e25a2541c5ff20b8b9c4869efcbfc748f29f3c8c8a78da06c21344e7c7d763d7890de5c626f1e069f20900189a572a2c50cc')
+b2sums=('63dc79fabdd31a7d33259c558911ee175549071a4c166710bb4efcca68f882bdfe9086bf56db256c81bff47d2e4255ab7efd0306c6a8d10ba01248b9a567113d')
 
 build() {
   cd $_name-$pkgver
