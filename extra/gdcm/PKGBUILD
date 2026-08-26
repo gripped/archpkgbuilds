@@ -2,7 +2,7 @@
 
 pkgbase=gdcm
 pkgname=(gdcm gdcm-docs)
-pkgver=3.2.10
+pkgver=3.2.11
 pkgrel=1
 pkgdesc="C++ library for DICOM medical files"
 arch=(x86_64)
@@ -28,8 +28,17 @@ makedepends=(
   util-linux-libs
   zlib
 )
-source=($pkgbase-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-b2sums=('a4340aa1c7029b70ec1e7166228aaf941b119b40cf11086eefac0c813f7fd6fde350d36f0cc9a69c80728d742ccedfb85c4896d5372078934fcb2223a52f9954')
+source=($pkgbase-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
+        fix-swig-4.5-python-compat.patch)
+b2sums=('25bf8bfb3095e8151550b1a160979539e727d6419940d0ca9e2c6247422149344e1748110af6a4caa30b8e4321af62374531bbe05ff8981b29bb14ae805eca2a'
+        'd71287bc982b42b535b7985d428bbd1ab2ea653baff0af73823903c33ad849decf959722b63bcd059fef0c08bfa91926fcddf36b670260df0f9c0e98d9d92d3d')
+
+prepare() {
+  cd ${pkgbase^^}-$pkgver
+  # fix compilation of the Python wrappers with SWIG 4.5.0
+  # https://github.com/malaterre/GDCM/pull/232
+  patch -p1 < ../fix-swig-4.5-python-compat.patch
+}
 
 _pick() {
   local p="$1" f d; shift
@@ -71,6 +80,9 @@ build() {
     -DGDCM_USE_VTK=OFF
     -DGDCM_WRAP_PYTHON=ON
     -DGDCM_INSTALL_PYTHONMODULE_DIR="$site_packages"
+    # 3.2.11 no longer back-fills LIBRARY_OUTPUT_PATH, but the post-build copy
+    # of gdcmswig.py/gdcm.py in Wrapping/Python still expands it
+    -DLIBRARY_OUTPUT_PATH="$srcdir"/build/bin
   )
   cmake "${cmake_options[@]}"
   cmake --build build

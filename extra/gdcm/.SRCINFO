@@ -1,6 +1,6 @@
 pkgbase = gdcm
 	pkgdesc = C++ library for DICOM medical files
-	pkgver = 3.2.10
+	pkgver = 3.2.11
 	pkgrel = 1
 	url = https://github.com/malaterre/GDCM
 	arch = x86_64
@@ -22,8 +22,10 @@ pkgbase = gdcm
 	makedepends = openssl
 	makedepends = util-linux-libs
 	makedepends = zlib
-	source = gdcm-3.2.10.tar.gz::https://github.com/malaterre/GDCM/archive/v3.2.10.tar.gz
-	b2sums = a4340aa1c7029b70ec1e7166228aaf941b119b40cf11086eefac0c813f7fd6fde350d36f0cc9a69c80728d742ccedfb85c4896d5372078934fcb2223a52f9954
+	source = gdcm-3.2.11.tar.gz::https://github.com/malaterre/GDCM/archive/v3.2.11.tar.gz
+	source = fix-swig-4.5-python-compat.patch
+	b2sums = 25bf8bfb3095e8151550b1a160979539e727d6419940d0ca9e2c6247422149344e1748110af6a4caa30b8e4321af62374531bbe05ff8981b29bb14ae805eca2a
+	b2sums = d71287bc982b42b535b7985d428bbd1ab2ea653baff0af73823903c33ad849decf959722b63bcd059fef0c08bfa91926fcddf36b670260df0f9c0e98d9d92d3d
 
 pkgname = gdcm
 	depends = expat

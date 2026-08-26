@@ -1,0 +1,73 @@
+From 5ebde0b55256142fbfe1b86f010109144ed35251 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jakub=20Klinkovsk=C3=BD?=
+ <1289205+lahwaacz@users.noreply.github.com>
+Date: Tue, 25 Aug 2026 18:18:21 +0200
+Subject: [PATCH] Fix Python wrappers for SWIG 4.5.0
+
+SWIG 4.5.0 removed the Python 2 compatibility aliases that pyhead.swg
+previously injected into every generated Python wrapper:
+
+    #define PyString_AsString(str) PyBytes_AsString(str)
+    #define PyString_Size(str) PyBytes_Size(str)
+    #define PyInt_FromLong(x) PyLong_FromLong(x)
+    ...
+
+GDCM's hand-written typemaps still use the Python 2 names, so with
+SWIG 4.5.0 the generated gdcmswigPYTHON_wrap.cxx fails to compile:
+
+    error: 'PyString_AsString' was not declared in this scope
+    error: 'PyInt_FromLong' was not declared in this scope
+
+Replace them with the Python 3 C-API calls the aliases expanded to,
+which is also behavior-identical to what SWIG <= 4.4 produced when
+targeting Python 3 (byte string argument, list of ints).
+
+Assisted-by: Sisyphus (Kimi K3) via OpenCode
+---
+ Wrapping/Python/gdcmswig.i       | 6 +++---
+ Wrapping/SWIGCommon/gdcmcommon.i | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Wrapping/Python/gdcmswig.i b/Wrapping/Python/gdcmswig.i
+index f2a9d2514..e9eab433a 100644
+--- a/Wrapping/Python/gdcmswig.i
++++ b/Wrapping/Python/gdcmswig.i
+@@ -366,11 +366,11 @@ EXTEND_CLASS_PRINT(gdcm::ByteValue)
+ %template(SmartPtrSQ) gdcm::SmartPointer<gdcm::SequenceOfItems>;
+ %template(SmartPtrFrag) gdcm::SmartPointer<gdcm::SequenceOfFragments>;
+ %typemap(in) (const char* array, uint32_t length) {
+-  $1 = PyString_AsString($input);
++  $1 = PyBytes_AsString($input);
+   if ($1 == NULL) {
+     SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "in method '$symname', argument $argnum expected byte string.");
+   }
+-  Py_ssize_t length = PyString_Size($input);
++  Py_ssize_t length = PyBytes_Size($input);
+   if (static_cast<size_t>(length) > std::numeric_limits<uint32_t>::max()) {
+     SWIG_exception_fail(SWIG_ArgError(SWIG_OverflowError), "in method '$symname', array in argument $argnum is too large.");
+   }
+@@ -436,7 +436,7 @@ EXTEND_CLASS_PRINT(gdcm::File)
+  int n = arg1->GetNumberOfDimensions();
+  $result = PyList_New(n);
+  for (i = 0; i < n; i++) {
+-   PyObject *o = PyInt_FromLong((long) $1[i]);
++   PyObject *o = PyLong_FromLong((long) $1[i]);
+    PyList_SetItem($result,i,o);
+  }
+ }
+diff --git a/Wrapping/SWIGCommon/gdcmcommon.i b/Wrapping/SWIGCommon/gdcmcommon.i
+index 449cf8c77..b068bf225 100644
+--- a/Wrapping/SWIGCommon/gdcmcommon.i
++++ b/Wrapping/SWIGCommon/gdcmcommon.i
+@@ -403,7 +403,7 @@ using namespace gdcm;
+  int n = arg1->GetNumberOfDimensions();
+  $result = PyList_New(n);
+  for (i = 0; i < n; i++) {
+-   PyObject *o = PyInt_FromLong((long) $1[i]);
++   PyObject *o = PyLong_FromLong((long) $1[i]);
+    PyList_SetItem($result,i,o);
+  }
+ }
+-- 
+2.55.0
+
