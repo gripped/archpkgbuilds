@@ -3,31 +3,32 @@
 pkgname=wezterm
 pkgver=20240203.110809.5046fc22.r869.g76b606ec5
 _commit=76b606ec597a3c0263fa60321548637451c0a547
-pkgrel=2
+pkgrel=3
 pkgdesc="A GPU-accelerated cross-platform terminal emulator and multiplexer"
 arch=('x86_64')
 url="https://github.com/wezterm/wezterm"
 license=('MIT')
 depends=(
-  'bash'
-  'fontconfig'
-  'libgcc'
-  'glib2'
-  'glibc'
-  'hicolor-icon-theme'
-  'libssh2'
-  'libx11'
-  'libxcb'
-  'libxkbcommon'
-  'libxkbcommon-x11'
-  'openssl'
-  'ttf-jetbrains-mono'
-  'ttf-roboto'
-  'wayland'
-  'xcb-util'
-  'xcb-util-image'
-  'zlib'
-  'zstd'
+  bash
+  fontconfig
+  libgcc
+  glib2
+  glibc
+  hicolor-icon-theme
+  libgit2
+  libssh2
+  libx11
+  libxcb
+  libxkbcommon
+  libxkbcommon-x11
+  openssl
+  ttf-jetbrains-mono
+  ttf-roboto
+  wayland
+  xcb-util
+  xcb-util-image
+  zlib
+  zstd
 )
 makedepends=('cargo' 'cmake' 'git' 'pkgconf' 'python')
 optdepends=(
