@@ -1,12 +1,13 @@
 pkgbase = smolvm
 	pkgdesc = Tool to build & run portable, lightweight, self-contained virtual machines
-	pkgver = 1.9.1
+	pkgver = 1.12.0
 	pkgrel = 1
 	url = https://github.com/smol-machines/smolvm
 	arch = x86_64
 	license = Apache-2.0
 	makedepends = git
 	makedepends = rust
+	makedepends = musl
 	makedepends = rust-musl
 	makedepends = cargo-make
 	makedepends = bc
@@ -29,12 +30,12 @@ pkgbase = smolvm
 	depends = sqlite
 	depends = zstd
 	provides = smolvm
-	source = git+https://github.com/smol-machines/smolvm#tag=v1.9.1
+	source = git+https://github.com/smol-machines/smolvm#tag=v1.12.0
 	source = git+https://github.com/smol-machines/libkrun
 	source = git+https://github.com/smol-machines/libkrunfw
 	source = git+https://github.com/smol-machines/smolvm-sdk
 	source = smolvm-build-fixes.patch
-	sha256sums = 75f739c45a1393d079e5f734f41d92a4d3d2bcfca430a654dd12450d86855f4c
+	sha256sums = 0365a8f22346e47f7460a0fe5acdb1e2947e04624b081a37ec92e087f18508b5
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP

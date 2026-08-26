@@ -1,14 +1,14 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Anas Elgarhy <anas.elgarhy.dev@gmail.com>
 pkgname=smolvm
-pkgver=1.9.1
+pkgver=1.12.0
 pkgrel=1
 pkgdesc='Tool to build & run portable, lightweight, self-contained virtual machines'
 arch=('x86_64')
 url='https://github.com/smol-machines/smolvm'
 license=('Apache-2.0')
 depends=('seatd' 'crun' 'jq' 'e2fsprogs' 'util-linux' 'libcap' 'gzip' 'tar' 'libgcc' 'zlib' 'oniguruma' 'sqlite' 'zstd')
-makedepends=('git' 'rust' 'rust-musl' 'cargo-make' 'bc' 'python-pyelftools' 'libepoxy' 'virglrenderer'
+makedepends=('git' 'rust' 'musl' 'rust-musl' 'cargo-make' 'bc' 'python-pyelftools' 'libepoxy' 'virglrenderer'
               'clang' 'lld')
 provides=('smolvm')
 source=("git+https://github.com/smol-machines/smolvm#tag=v${pkgver}"
@@ -16,7 +16,7 @@ source=("git+https://github.com/smol-machines/smolvm#tag=v${pkgver}"
         "git+https://github.com/smol-machines/libkrunfw"
         "git+https://github.com/smol-machines/smolvm-sdk"
         'smolvm-build-fixes.patch')
-sha256sums=('75f739c45a1393d079e5f734f41d92a4d3d2bcfca430a654dd12450d86855f4c'
+sha256sums=('0365a8f22346e47f7460a0fe5acdb1e2947e04624b081a37ec92e087f18508b5'
             'SKIP'
             'SKIP'
             'SKIP'
