@@ -3,15 +3,15 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-screen-recorder
-pkgver=6.5.12
+pkgver=6.5.13
 pkgrel=1
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-screen-recorder"
 license=('GPL-3.0-or-later')
-depends=('deepin-qt6integration' 'deepin-qt-dbus-factory' 'deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget'
-         'qt6-base' 'qt6-multimedia' 'qt6-svg' 'qt6-wayland' 'deepin-turbo' 'ffmpeg4.4' 'libxtst' 'opencv'
-         'dconf' 'libprocps' 'libxext' 'libx11' 'libxfixes' 'libxinerama' 'portaudio' 'deepin-image-editor'
+depends=('deepin-qt6integration' 'deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget'
+         'qt6-base' 'qt6-multimedia' 'qt6-svg' 'qt6-wayland' 'deepin-turbo' 'ffmpeg4.4' 'ffmpegthumbnailer' 'libxtst' 'opencv'
+         'dconf' 'libprocps' 'libxext' 'libx11' 'libxfixes' 'libxinerama' 'portaudio'
          'glibc' 'libgcc' 'libstdc++' 'wayland' 'hicolor-icon-theme')
 makedepends=('git' 'deepin-tray-loader' 'qt6-tools')
 optdepends=('deepin-shortcut-viewer: for shortcut display')
@@ -20,7 +20,7 @@ conflicts=('deepin-screenshot')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=$pkgver"
          libv4l-1.30.patch)
-sha512sums=('35038a547e19ca76144b4226d5fb536070f0e6e5f6150abff2ca77fc0dfe5ce9747b3cec4f0eb296d418410c97a797f5b8d290f0670f8eb3f9614f213f52f38f'
+sha512sums=('744312a4bba96d1346e8745d4c0db9539b4c8e12dcf0e15caf5f43f07480e13c1a72fb78e45f34f3a6ff853798138df9405b11c75b779ce1e30838a0596d01be'
             'b8527bbf18b78b530507ed7725218db88f3ae4ed6abb700f6430903421e188456d7f0695f680461376d403c9227bc0234578d909f29399a4072a13a042d524cb')
 
 prepare() {
@@ -35,14 +35,8 @@ prepare() {
          -e 's|cvSize(|cv::Size(|g' \
          src/utils/pixmergethread.cpp
 
-  # Arch intentionally ships only deepin-image-editor's Qt6 visual result library.
-  sed -i 's|libimagevisualresult/visualresult.h|libimagevisualresult6/visualresult.h|;s|-limagevisualresult\>|-limagevisualresult6|' src/camera/majorimageprocessingthread.cpp src/src.pro
-
   # https://github.com/linuxdeepin/developer-center/issues/3035
   sed -i "s|/etc/os-version|/etc/uos-version|" src/src.pro
-
-  # Remove non-existent resources.qrc reference
-  sed -i '/..\/resources.qrc/d' src/src.pro
 
   patch -p1 -i ../libv4l-1.30.patch
 }
