@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-app-library
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic App Library'
@@ -25,16 +25,19 @@ makedepends=(
   lld
 )
 source=(git+https://github.com/pop-os/cosmic-applibrary.git#tag=epoch-${pkgver})
-b2sums=('5bd4b7f010a6bab321f2c18c055cae479741fcc6969986dee7b2f87fa9569f8a8585214a09992028aa128cd53fca251e9ade7f98fda03f86520dd41b6a82ecc1')
+b2sums=('40c17f80c56554ee602d2531c0f2162b9304b5568ef354ca6edfa789efd3606733f72163cafb12dc4749f02589b171c83b6ec297eecc74566c2e88b7cb727df5')
 
 prepare() {
   cd cosmic-applibrary
+  sed -i 's/^name = "generate"$/name = "xdgen-generate"/' scripts/xdgen/Cargo.lock
   cargo fetch --locked
+  cargo fetch --locked --manifest-path scripts/xdgen/Cargo.toml
 }
 
 build() {
   cd cosmic-applibrary
   RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  just xdgen
   just build-release --frozen
 }
 
