@@ -3,7 +3,7 @@
 
 pkgname=libuv
 pkgver=1.52.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Multi-platform support library with a focus on asynchronous I/O"
 arch=('x86_64')
 url="https://github.com/libuv/libuv"
