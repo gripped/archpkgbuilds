@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-workspaces
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=1
 epoch=2
 pkgdesc='Cosmic workspaces'
