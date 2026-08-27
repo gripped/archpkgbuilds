@@ -3,16 +3,17 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=adns
-pkgver=1.6.1
+pkgver=1.6.2
 pkgrel=1
 pkgdesc="An asyncronous replacement resolver library"
 arch=('x86_64')
 url="https://www.chiark.greenend.org.uk/~ian/adns/"
 license=('GPL-3.0-or-later')
 depends=('glibc')
-validpgpkeys=('559AE46C2D6B6D3265E7CBA1E3E3392348B50D39')
+validpgpkeys=('559AE46C2D6B6D3265E7CBA1E3E3392348B50D39'
+              '41638114D132883B25A20DDD47515757D8002456')
 source=(https://www.chiark.greenend.org.uk/~ian/$pkgname/ftp/$pkgname-$pkgver.tar.gz{,.sig})
-sha512sums=('71d8b3368f8055bbf558d7828e772f6689b3370945d7c2061b835c43d4f71971569d1a17c0cfd6e8ebe0602d78cdf22d4915eeb06836e2193f521d51e87fa0a0'
+sha512sums=('92e27999fa084661901899df7e1a1051f76aaaf37bcfd0f7b3a16c2bcfff9f925f756063d52a263cf68089dfc8dd56facca9db1666071644ded9bdad655849ff'
             'SKIP')
 
 build() {
