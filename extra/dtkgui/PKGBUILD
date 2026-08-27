@@ -2,8 +2,8 @@
 
 pkgbase=dtkgui
 pkgname=(dtkgui dtk6gui)
-pkgver=6.7.47
-pkgrel=2
+pkgver=6.7.48
+pkgrel=1
 epoch=1
 pkgdesc='Deepin Toolkit, gui module for DDE look and feel'
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('git' 'cmake' 'ninja' 'extra-cmake-modules' 'qt5-tools' 'qt6-tools'
              'dtkcore' 'dtk6core' 'libqt5xdg' 'libqtxdg' 'librsvg' 'qt5-base' 'qt6-base' 'qt5-wayland'
              'glib2' 'libx11' 'treeland-protocols')
 source=("git+https://github.com/linuxdeepin/dtkgui.git#tag=$pkgver")
-sha512sums=('3cfd8c10de0a0e7244f1337fcb59321f90715c53cd7ec60c42ba01840b7e5fea160ef978e4292c9aa62118a4bb8dcd5a5399af6efe4c1e5845b344da3e5ce23f')
+sha512sums=('0f02786508d1738726f93f96ed2c736ad2db99712de34457bd5084d317a951e8d469fc5347759866f5073d7c3857d02fad27181f4c2592cb4489661f95d77c36')
 
 prepare() {
   # Use separate source directories for Qt5 and Qt6 builds
