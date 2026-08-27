@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-neutronclient
-pkgver=13.0.0
+pkgver=14.0.0
 pkgrel=1
 pkgdesc="OpenStack Networking (Neutron) Client"
 arch=('any')
@@ -16,7 +16,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 checkdepends=('python-oslotest' 'python-osprofiler' 'python-openstackclient'
               'python-requests-mock' 'python-stestr' 'python-testtools')
 source=("git+https://github.com/openstack/python-neutronclient.git#tag=$pkgver")
-sha512sums=('435d5955c882b11f52779055a939dd1856113b422fd46f619ec515a26e16bfd729a1b8e373057a83bf5e7cdd5f041f57378f465a625db352c93aa13df92838fd')
+sha512sums=('734d3ad1ae7dd9470ade40cf1bc02201850a912382af5d11fc537085c46302f0097e8016cd4b24bbacce3d10feac78d23d0fe8055db10e4ab722762b4b08542b')
 
 build() {
   cd python-neutronclient
