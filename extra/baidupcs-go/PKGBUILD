@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=baidupcs-go
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="Terminal utility for Baidu Network Disk"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('go' 'git')
 conflicts=("baidupcs")
 provides=("baidupcs")
 source=("git+https://github.com/qjfoidnh/BaiduPCS-Go.git#tag=v$pkgver")
-sha512sums=('9341dfffb67f65c481d2f7fe39baa39e3aac25d5f5826be1c09a0a6b8c68f976d04b85c7d8e80a8d7e6583f8fb4b1e0fef4d8bf3f82b3f161c9d5d64cb20881c')
+sha512sums=('e0ad0c323908525c7199684e4691b2efda0027a535508bb78936f1e3da1a60b1942af47fc993a80432dbd8d7bd760c4bd6d5c26b1cb8dd6f1468237674fefc6d')
 
 prepare() {
   cd BaiduPCS-Go
