@@ -4,8 +4,8 @@
 
 pkgbase=dtkwidget
 pkgname=(dtkwidget dtk6widget)
-pkgver=6.7.47
-pkgrel=3
+pkgver=6.7.48
+pkgrel=1
 epoch=1
 pkgdesc='Deepin base graphical widgets library'
 arch=('x86_64')
@@ -19,15 +19,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'qt6-base' 'qt6-imageformats' 'qt6-svg'
              'libx11' 'libxcb' 'libxext' 'libxi' 'startup-notification' 'xcb-util')
 source=("git+https://github.com/linuxdeepin/dtkwidget.git#tag=$pkgver")
-sha512sums=('025d5f5b0f5c0d5c2042cca5db35c235058529fee9e5ea1da30e1fae55d645ef2abf4fbde0a10994821eebc575f4ef580956aaeebf266aa66bcb1217869a0b79')
-
-prepare() {
-  cd dtkwidget
-
-  # Move QtSvg out of the public link interface:
-  # https://github.com/linuxdeepin/dtkwidget/commit/6fbce4375936a7ac581973dffa864dccc24bc83e
-  git cherry-pick -n 6fbce4375936a7ac581973dffa864dccc24bc83e
-}
+sha512sums=('f9564f270070a25d07167709c1c669cae22909f33e35a369ee120afadce42862a5032645663655c3883be184970c220a7dc8be6230d0fafd813042296711cca4')
 
 build() {
   cd dtkwidget
