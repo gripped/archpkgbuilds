@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ananta
-pkgver=1.4.3
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="A command-line tool to execute commands on multiple remote hosts"
 arch=('any')
@@ -12,7 +12,7 @@ optdepends=('python-uvloop: for improved performance')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest' 'python-pytest-asyncio')
 source=("git+https://github.com/cwt/ananta.git#tag=v$pkgver")
-sha512sums=('90a1daec627943d973733f357e26abee177dd1c4168796471c46abb013d609c2c84cee81ca673c4f8a6cf06d8ac6a4a1696667834f1164ce0845b76e2d95f41a')
+sha512sums=('2e069aeba8d052cf15e1d3d5b13802151bfd2da8bf745969fca0e0eef456f92370ec92b711aa6553331b84429f8ecf7bc4a326ba527f2c6a4a8c81f06fc712cf')
 
 build() {
   cd ananta
