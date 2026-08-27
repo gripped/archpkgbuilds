@@ -11,7 +11,7 @@ pkgname=(
   kmscon-terminfo
 )
 pkgver=10.0.2
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 pkgdesc='Kernel Mode Setting (KMS) and DRM based virtual Console Emulator'
 url='https://github.com/kmscon/kmscon'
@@ -48,13 +48,16 @@ optdepends=(
 )
 source=(
   git+${url}.git#tag=v${pkgver}
+  kmscon-10.0.2-crash-on-exit.patch
 )
-b2sums=('8faffc4945cd9e847a5d0f209a20b09243b6b54ab9aee8d9cba2c825880d0935db72a0bc815fc65e76fe5cd909a291d3fc73505088cabea212f8a9eb451604c7')
+b2sums=('8faffc4945cd9e847a5d0f209a20b09243b6b54ab9aee8d9cba2c825880d0935db72a0bc815fc65e76fe5cd909a291d3fc73505088cabea212f8a9eb451604c7'
+        '7051ba0ceb6d3da711cda28274e2445f8ea83d393374abde5acf1801bf72f2d82de2d11e969e38463bf9b287bda84b41b8d45257ca5f8e7fcc92ed2cbd0f74d1')
 
-#prepare() {
-#  cd "$pkgname"
-#  git pull origin pull/366/head         
-#}
+prepare() {
+  cd "$pkgname"
+  patch -Np1 -i ../kmscon-10.0.2-crash-on-exit.patch
+  #  git pull origin pull/366/head         
+}
 
 build() {
   arch-meson "$pkgname" build
