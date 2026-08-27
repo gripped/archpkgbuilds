@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.34
+pkgver=6.5.35
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -34,7 +34,7 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          gcc-15.patch)
-sha512sums=('30847b8a3729dd5d2c615d81fc2d080bffd630cbf678eeef2c3e18f7548026fc262e7b4e7d0791c37b90df8a432d0a1f4deb91db03bdf4eeb64cd63274cd6f5b'
+sha512sums=('0c9db346f6c362a5c1e456d83e2f884aa31cca00703ab5bcc3eb56c1082110e89ef7bff4c18fd3024129369c65e679e5d6763489a6442240857ead2ae14a03d3'
             'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
@@ -77,47 +77,9 @@ prepare() {
     src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/fulltext/fulltextsearcher_p.h \
     src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/iterator/iteratorsearcher.h
 
-  # Match upstream's Qt6 service migration:
-  # https://github.com/linuxdeepin/dde-file-manager/commit/37633fa4053ab0e3cde5c20061a3dff0dbff5458
-  # This tag still wires up the old Qt5 base library; keep header install only.
-  sed -i \
-    -e 's/^set(QT_VERSION_MAJOR 5)/#&/' \
-    -e 's/^set(DTK_VERSION_MAJOR "")/#&/' \
-    -e 's/^include(dfm-base.cmake)/#&/' \
-    src/dfm-base/dfm-base-qt5.cmake
-
-  # Build the remaining service modules against Qt6 so dfm-io is not required.
-  sed -i \
-    -e 's/find_package(Qt5/find_package(Qt6/g' \
-    -e 's/qt5_/qt6_/g' \
-    -e 's/Qt5::/Qt6::/g' \
-    -e 's/PolkitQt5/PolkitQt6/g' \
-    -e 's/polkit-qt5-1/polkit-qt6-1/g' \
-    -e 's/DFM::base/DFM6::base/g' \
-    src/services/accesscontrol/CMakeLists.txt \
-    src/services/diskencrypt/CMakeLists.txt \
-    src/services/mountcontrol/CMakeLists.txt \
-    src/services/sharecontrol/CMakeLists.txt \
-    src/services/textindex/CMakeLists.txt
-
-  sed -i 's|polkit-qt5-1|polkit-qt6-1|g' \
-    src/plugins/filemanager/dfmplugin-vault/utils/vaultutils.h \
-    src/services/accesscontrol/polkit/policykithelper.h \
-    src/services/diskencrypt/dbus/diskencryptsetup.cpp \
-    src/services/mountcontrol/mounthelpers/cifsmounthelper.cpp \
-    src/services/sharecontrol/polkit/policykithelper.h
-
   # Package the new udev rule under /usr/lib; /run is volatile on Arch.
   sed -i 's|DESTINATION /run/udev/rules.d|DESTINATION ${CMAKE_INSTALL_LIBDIR}/udev/rules.d|' \
     src/services/diskencrypt/CMakeLists.txt
-
-  sed -i \
-    -e '/pkg_search_module(dfm-io/,/)/d' \
-    -e '/pkg_search_module(dfm-mount/,/)/d' \
-    -e '/PkgConfig::dfm-io/d' \
-    -e '/PkgConfig::dfm-mount/d' \
-    -e '/\${DtkWidget_LIBRARIES}/d' \
-    src/services/accesscontrol/CMakeLists.txt
 
   # Upstream regenerates checked-in DBus XML files while other targets consume them,
   # which creates Ninja dependency cycles with globbed sources.
