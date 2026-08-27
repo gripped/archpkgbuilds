@@ -20,7 +20,7 @@
 pkgbase=kodi
 pkgname=('kodi' 'kodi-gles' 'kodi-eventclients' 'kodi-tools-texturepacker' 'kodi-dev')
 pkgver=21.3
-pkgrel=5
+pkgrel=7
 arch=('x86_64')
 url="https://kodi.tv"
 license=('GPL-2.0-or-later')
@@ -33,7 +33,7 @@ makedepends=(
   'pipewire' 'python-pycryptodomex' 'python-pillow' 'python-pybluez'
   'python-simplejson' 'smbclient' 'sndio' 'spdlog' 'taglib'
   'tinyxml' 'swig' 'upower' 'giflib' 'rapidjson' 'ghostscript' 'meson' 'gtest'
-  'graphviz' 'pcre' 'tinyxml2' 'libdisplay-info'
+  'graphviz' 'pcre2' 'tinyxml2' 'libdisplay-info'
   # cmake/scripts/linux/Install.cmake calls distutils
   # python 3.12 does no longer come with distutils on board
   'python-setuptools'
@@ -49,7 +49,7 @@ depends=(
   'mariadb-libs' 'mesa' 'libpipewire' 'python-pillow' 'python-pycryptodomex'
   'python-simplejson' 'smbclient' 'sndio' 'spdlog' 'sqlite'
   'tinyxml' 'taglib' 'libxrandr' 'libxkbcommon' 'waylandpp' 'libinput'
-  'pcre' 'tinyxml2' 'libdisplay-info'
+  'pcre2' 'tinyxml2' 'libdisplay-info'
 )
 optdepends=(
   'bluez: Blutooth support'
@@ -83,6 +83,7 @@ source=(
   "$pkgbase-flatbuffers-$_flatbuffers_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/flatbuffers-$_flatbuffers_version.tar.gz"
   "$pkgbase-libudfread-$_libudfread_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
   "https://github.com/xbmc/xbmc/pull/28016.patch"
+  "kodi-21.3-pcre2.patch"
 )
 noextract=(
   "$pkgbase-libdvdcss-$_libdvdcss_version.tar.gz"
@@ -103,7 +104,8 @@ sha512sums=('4e344f7de95e7f47da413f7aeeef0656837befa89ef8924edf5409ac1c0c8c49e40
             'aaeb0227afd5ada5955cbe6a565254ff88d2028d677d199c00e03b7cb5de1f2c69b18e6e8b032e452350a8eda7081807b01765adbeb8476eaf803d9de6e5509c'
             '4066c94f2473c7ea16917d29a613e16f840a329089c88e0bdbdb999aef3442ba00abfd2aa92266fa9c067e399dc88e6f0ccac40dc151378857e665638e78bbf0'
             '3069feb5db40288beb5b112b285186162a704f0fdd3cf67a17fd4eeea015f2cfcfbb455b7aa7c3d79d00fd095a3fd11cffc7b121dce94d99c3b06a509a8977d2'
-            'cd7870f9afdaf9e24149082348022b2f257768bbaad9ac6bf2bdb3738f237368ca44a944c87cba9203f7d74c983123b9b446df631c778636a42964de14666cc5')
+            'cd7870f9afdaf9e24149082348022b2f257768bbaad9ac6bf2bdb3738f237368ca44a944c87cba9203f7d74c983123b9b446df631c778636a42964de14666cc5'
+            '8bbe97b8e7083538cbd6e76f42dc32652d5e75086f9eb5339afcfe5f87c8fdde613ffac28080019700854596851983b9158110b0fd4f30a43030d87647393f41')
 
 prepare() {
   [[ -d "$srcdir/kodi-build" ]] && rm -rf "$srcdir/kodi-build"
@@ -115,6 +117,8 @@ prepare() {
   # TexturePacker will not build with giflib-6.1.2
   # https://github.com/xbmc/xbmc/pull/28016
   patch -p1 -i "$srcdir/28016.patch"
+  # PCRE2 support from Debian https://sources.debian.org/patches/kodi/2:21.3+dfsg-1.1/workarounds/0003-pcre2.patch/
+  patch -p1 -i "$srcdir/kodi-21.3-pcre2.patch"
 
   rm -rf system/certs # remove not needed cacert
 }
