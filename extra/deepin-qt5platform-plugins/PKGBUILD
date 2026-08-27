@@ -2,8 +2,8 @@
 
 pkgbase=deepin-qt5platform-plugins
 pkgname=(deepin-qt5platform-plugins deepin-qt6platform-plugins)
-pkgver=6.7.47
-pkgrel=2
+pkgver=6.7.48
+pkgrel=1
 pkgdesc='Qt platform plugins for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/qt5platform-plugins"
@@ -13,7 +13,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'qt5-xcb-private-head
              'libglvnd' 'gtest' 'extra-cmake-modules' 'dtkcommon' 'cairo'
              'qt5-base' 'qt5-x11extras' 'qt6-base')
 source=("git+https://github.com/linuxdeepin/qt5platform-plugins.git#tag=$pkgver")
-sha512sums=('1a29b1f711574ba60c6121a60bbd76807bcb7dcf497cb008216b70359b5d56ce155bc72225958fdcd85dd748cade13d13872b9a343c521e972d8f37961f3b7c4')
+sha512sums=('a6b6bd9a1c7f10602cdba828627dcae7a27da7349a532ecb4a00b95b781ecf58dafe791dd7fae6fc31da753aad52e4a5a7a716c75558086db6a87061ce9bbadb')
 
 prepare() {
   cd qt5platform-plugins
