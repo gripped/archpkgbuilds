@@ -1,7 +1,7 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 # Contributor: LiamillionSS <liamillion-dev at protonmail dot com>
 pkgname=cosmic-monitor
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=1
 epoch=1
 pkgdesc="COSMIC System Monitor"
@@ -19,7 +19,7 @@ makedepends=(
   'mold'
 )
 source=(git+https://github.com/pop-os/cosmic-monitor.git#tag=epoch-${pkgver})
-sha256sums=('7ee13a902d4b407cfe347389c4f7656ecb4a7f180a54ac7c31138f6f15ff05ea')
+sha256sums=('67ed92fd2f3b8fd912f4f3cd65101f611e871784e7e844fc8c89930ab1a84e02')
 
 prepare() {
   cd "${pkgname}"
