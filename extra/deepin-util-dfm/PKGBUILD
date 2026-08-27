@@ -2,7 +2,7 @@
 
 pkgname=deepin-util-dfm
 epoch=1
-pkgver=1.3.9
+pkgver=1.3.10
 pkgrel=1
 pkgdesc='Utilities of deepin file manager'
 arch=('x86_64')
@@ -12,14 +12,7 @@ depends=('glib2' 'glibc' 'libgcc' 'libisoburn' 'libmediainfo' 'libsecret'
          'libstdc++' 'qt6-base' 'udisks2' 'util-linux-libs')
 makedepends=('git' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/util-dfm.git#tag=$pkgver")
-sha512sums=('ddea70bdaa4ba100e571c6cc77bb327362136c4d7257344eac6595f585664ef12a46043c0045b410a0f5129e61ff757152ac6b3bf149fe06a0b24c7e0e7a6b9e')
-
-prepare() {
-  cd util-dfm
-  # Backport upstream's Qt6-only CMake cleanup so the package does not require Qt5:
-  # https://github.com/linuxdeepin/util-dfm/commit/1415a2557ea42b057fedf6b62ed1a1991e09bc12
-  git cherry-pick -n 1415a2557ea42b057fedf6b62ed1a1991e09bc12
-}
+sha512sums=('420cad19b2ae30638f9320bc8fe6cc2b5e925bfcf5f110ef1601b82f974461e86aac6278d40f76fb17a629eeb7977995bab8f7c61f36350a2b6130c4b1441431')
 
 build() {
   cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5
