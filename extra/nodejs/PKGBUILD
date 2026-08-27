@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=26.7.0
+pkgver=26.8.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
@@ -42,7 +42,7 @@ makedepends=(
 optdepends=('npm: nodejs package manager')
 source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed")
 
-sha512sums=('73b6c236d41ada03af22d0e5526bcad38516f4d300b51673b02f39002e9cb69d06cf935d67ec121fd75a50fc9944c8b2ee0a726ef16c3c438be5420664310b8e')
+sha512sums=('f2a110062658abd70ff93ae5e5cf93eddae4bee9b479f887972dc71b881c0541aa649209c750d6099856a0cba50e121d3180b0ccfa43fe14bd405c2bc125ccb8')
 validpgpkeys=(
   '8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600' # Michaël Zasso (Targos) <targos@protonmail.com>
   '890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4' # RafaelGSS <rafael.nunu@hotmail.com>
@@ -56,6 +56,17 @@ _set_flags() {
   # /usr/lib/libnode.so uses malloc_usable_size, which is incompatible with fortification level 3
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+}
+
+prepare() {
+  cd node
+
+  # v26.8.0 kept alpha macros enabled, making process.version report an alpha.
+  sed -i '/^#define NODE_ALPHA_/d' src/node_version.h
+
+  # Fix the CCM empty-message test with newer OpenSSL behavior:
+  # https://github.com/nodejs/node/commit/7e2254fc8ba5ac88fe6f35715e7bb6e78597846b
+  git cherry-pick -n 7e2254fc8ba5ac88fe6f35715e7bb6e78597846b
 }
 
 build() {
