@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,10 +26,9 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "gnome-keysign-fix-fullscreen.patch",
+    "gnome-keysign-missing-icons.patch",
     "gnome-keysign-python-3.13.patch",
     "gnome-keysign-symbolic-icon.patch",
-    "gnome-keysign-window-icon.patch",
 ]
 SPDX-FileCopyrightText = "gnome-keysign contributors"
 SPDX-License-Identifier = "GPL-3.0-or-later"

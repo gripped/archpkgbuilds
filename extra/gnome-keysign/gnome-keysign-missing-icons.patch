@@ -1,0 +1,47 @@
+From e81ddb19d19fddce75ae899a87a31e14b40fc0bc Mon Sep 17 00:00:00 2001
+From: Sascha Steinbiss <satta@debian.org>
+Date: Wed, 5 Aug 2026 16:45:45 +0200
+Subject: [PATCH] restore icons lost in GTK 4 UI migration
+
+The GTK 3 to GTK 4 UI file conversion dropped all <property name="stock">
+entries (GTK 4 removed stock items entirely) without replacing them with
+<property name="icon-name"> equivalents, leaving empty GtkImage widgets
+that render no icon. This restores icons for the Internet toggle button,
+the error infobar and the connect button using freedesktop icon names.
+---
+ keysign/app4.ui  | 1 +
+ keysign/send4.ui | 2 ++
+ 2 files changed, 3 insertions(+)
+
+diff --git a/keysign/app4.ui b/keysign/app4.ui
+index 431e278..88a66c5 100644
+--- a/keysign/app4.ui
++++ b/keysign/app4.ui
+@@ -24,6 +24,7 @@
+               <object class="GtkBox">
+                 <child>
+                   <object class="GtkImage">
++                    <property name="icon-name">network-idle</property>
+                     </object>
+                 </child>
+                 <child>
+diff --git a/keysign/send4.ui b/keysign/send4.ui
+index 91af7bb..98c7025 100644
+--- a/keysign/send4.ui
++++ b/keysign/send4.ui
+@@ -49,6 +49,7 @@ Please use, e.g. Seahorse to create one.</property>
+                         </child>
+                         <child>
+                           <object class="GtkImage">
++                            <property name="icon-name">dialog-error</property>
+                             </object>
+                         </child>
+                         <child>
+@@ -596,6 +597,7 @@ You can drag and drop the email here to import your certification.</property>
+               <object class="GtkBox">
+                 <child>
+                   <object class="GtkImage">
++                    <property name="icon-name">network-idle</property>
+                     </object>
+                 </child>
+                 <child>
