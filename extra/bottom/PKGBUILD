@@ -3,7 +3,7 @@
 # Contributor: Clement Tsang (xoronth) <cjhtsang@uwaterloo.ca>
 
 pkgname=bottom
-pkgver=0.14.8
+pkgver=0.14.9
 pkgrel=1
 pkgdesc='A graphical process/system monitor'
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(glibc # libc.so libm.so
 makedepends=(git
              rust)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('fe9f071548de654bc5dcc8170fe195dc29eae9961296b748ae23e9b5088633908f0fffb6f03e4a638ab5fdf6c15cdbf1d9c2fe08d1330ec60cfb7dcbfc869747')
-b2sums=('eb3c6ae86ae069d397a4551fccda2e4b994b43783596aa1d5055d2a1c0b3a982dab1f2d5036b86b9102a649ef67e864c5a065823cc9a40629ae24f609a46c599')
+sha512sums=('953953340af53876a76414204208a1247f39da019e8d757644d635495e347fc3a99c59b55461de2b18c12756670c0a1b64506fbc7c880ad6596e5d271aa0a882')
+b2sums=('a0c5880ec25fb172e68c8de3dea4b8091d66373460c2e83b7c45c33d049fd14fa1d17119f0ebe9420a1a2992a98442edd846c21aaae886feb74d450f7a59dece')
 
 _srcenv() {
   cd "$pkgname"
