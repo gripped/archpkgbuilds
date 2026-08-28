@@ -17,7 +17,7 @@
  from cffi import FFI
  
  # this is the upstream libcurl-impersonate version
--__version__ = "2.0.0"
+-__version__ = "2.1.1"
 -
 -
 -def is_android_env() -> bool:
@@ -224,9 +224,9 @@
 -    ),
 -    libraries=get_curl_libraries(),
 -    extra_objects=[],  # linked via extra_link_args
++    library_dirs=["/usr/lib"],
 +    libraries=["curl-impersonate"],
 +    extra_objects=[],
-+    library_dirs=["/usr/lib"],
      source_extension=".c",
      include_dirs=[
          str(root_dir / "include"),
