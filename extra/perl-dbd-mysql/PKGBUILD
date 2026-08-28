@@ -4,7 +4,7 @@
 # Contributor: Eric Johnson <eric@coding-zone.com>
 
 pkgname=perl-dbd-mysql
-pkgver=4.053
+pkgver=4.054
 pkgrel=1
 pkgdesc='Perl/CPAN DBD::mysql module for interacting with MySQL via DBD'
 arch=('x86_64')
@@ -15,13 +15,7 @@ makedepends=('perl-devel-checklib')
 checkdepends=('mariadb' 'perl-test-deep')
 options=('!emptydirs')
 source=(https://search.cpan.org/CPAN/authors/id/D/DV/DVEEDEN/DBD-mysql-${pkgver}.tar.gz)
-sha512sums=('066d9b4e748b52b2427b78babb5176a92fd3285695710139e4c9529e7e9dff19dc12aef2d8f616fa4a9065867bc5bcc517f8f29f84190956b4c2e06defae62b6')
-
-prepare() {
-  cd DBD-mysql-$pkgver
-  # Fix build with MariaDB, which lacks mysql_real_escape_string_quote().
-  sed -i '/mysql_real_escape_string_quote(sock/s/mysql_real_escape_string_quote(sock, ptr, valbuf, vallen, .*/mysql_real_escape_string(sock, ptr, valbuf, vallen);/' dbdimp.c
-}
+sha512sums=('aadfabbf36c2b96e726f0a6ccbabda8b38a469785ac98d985e4f2167f5b0a548e4f14ede6c4d5f42fcd76f017d66b54c5e548a66b136acbbf2b61f8edcbde3ec')
 
 build() {
   cd DBD-mysql-$pkgver
