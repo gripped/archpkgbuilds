@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-socket
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='Pytest plugin to disable socket calls during tests'
 arch=(any)
@@ -20,13 +20,15 @@ makedepends=(
 )
 checkdepends=(
   python-httpx
+  python-pytest
+  python-pytest-benchmark
   python-pytest-httpbin
   python-requests
   python-starlette
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('a107cb74648d214528464db77c52417a458c444a52513dd81a42d3f1098389a382fe3af788a2f93fc10af8d8b2f41069552e890bd95ae8c84f5e87fccb8b86f4')
-b2sums=('c118057de2693f577851f97b5068c96d5db19f6a73c7c43f7411b3e0b0f65a1fb6107a47714e9590f1321f5dc7b0463f2fb4c3d176c13eca6d554f83f4ef60e5')
+sha512sums=('fcf0c33dcbe28c55730bee99ee4f48b8651f831c26621612dc33d679653da44c338aa50f718ce30643e6b752688c4cc1ae27e0038391c480066df0f3c18a1809')
+b2sums=('a3695021d40352819dc4fdd22e48c3876bea66cceebe3209ee2c224719196600de0deddefc2b8c3963b7d4505182c6350d597b1b9f929eba10a43de83956c97d')
 
 build() {
   cd "$pkgname"
