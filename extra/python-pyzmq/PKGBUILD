@@ -2,8 +2,8 @@
 # Contributor: Kyle Keen <keenerd at gmail dot com>
 
 pkgname=python-pyzmq
-pkgver=27.1.0
-pkgrel=2
+pkgver=27.2.0
+pkgrel=1
 pkgdesc='Python bindings for ZeroMQ'
 arch=(x86_64)
 url='https://zeromq.org/languages/python/'
@@ -20,8 +20,8 @@ makedepends=(
   cython
 )
 source=("$pkgname::git+https://github.com/zeromq/pyzmq#tag=v$pkgver")
-sha512sums=('c551cdeb7ad49312cac5d76427317c085704891d8b36a94dee361396585e2cd87257a885e486ba04623ad63cd456dd3ab88a0d44a0b8397647439bf81a88432b')
-b2sums=('3f371bdb16e859101a4c7f46a7c0ae38e6ac536e52a49e44ed5e58934d7b839db26892a8d14375333bf5fa2aa6368e7e5f2f63cb22dbc705296704881eb0c14c')
+sha512sums=('4533e04dedf8cf03460902cb9cdf8ad3589366d2f7d6b527af3aaba00cc89d5bb91b5c8721fad453a5c53697678d5d2f5ed2b244b12c371bec6d7cd0f875a910')
+b2sums=('e5a595187e79458615814cfa7090bc0c9f4cecfa201799ab8cba271d575057275f6da74e6f878db3747d0ca3666a67c831d8c7a564e4cf15ec49e2180739b1d5')
 
 build() {
   cd "$pkgname"
