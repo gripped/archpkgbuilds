@@ -3,18 +3,18 @@
 # Contributor: rustemb <rustemb at systemli dot org>
 
 pkgname=shadowsocks-rust
-pkgver=1.24.0
-pkgrel=4
+pkgver=1.25.0
+pkgrel=1
 pkgdesc='A Rust port of shadowsocks'
 arch=(x86_64)
 url='https://github.com/shadowsocks/shadowsocks-rust'
 license=('MIT')
 depends=('glibc' 'libgcc' 'libstdc++' 'openssl' 'rocksdb' 'zstd')
-makedepends=('git' 'cargo' 'clang')
+makedepends=('git' 'cargo' 'clang' 'cmake')
 source=("git+https://github.com/shadowsocks/shadowsocks-rust.git#tag=v$pkgver"
         'shadowsocks-rust@.service'
         'shadowsocks-rust-server@.service')
-sha512sums=('7f4ccc814a4c2268ac1a105c3711e27f87c2831fe77653900eae00ad45ef097a96ca5eaa376e73ab77e2312297f8e6affe8b88929bc61d68a548aa8f382a3262'
+sha512sums=('7258469e8784a72c934e6ba63bb007218460579661246a1d209f80e7d0288bfc7269006cdc91addfaeca79acd82918ee8bcea88a802eb9b7b075144a16d13818'
             '90ee8735104795b5c50bc855ad11ee9c741fa1695409d72de7c69b89b0aa80c9596459edbb3a2c1d49e9414e3d06bc55328126c0062f1e28cac141ea202e455d'
             'ef5a348dfbbfd0bad733da217824dd55851aff3490c63685e9f1bc2b393998fea1bdad864c16a98b8af07264851bb0a11326959529a669008c5e62e94b26b209')
 
