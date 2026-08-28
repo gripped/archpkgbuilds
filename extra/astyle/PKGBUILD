@@ -5,8 +5,9 @@
 # Contributor: Vinay S Shastry <vinayshastry@gmail.com>
 # Contributor: tardo <tardo@nagi-fanboi.net>
 
+# TODO rebuild reverse-deps on every pkgver bump
 pkgname=astyle
-pkgver=3.6.17
+pkgver=3.6.18
 pkgrel=1
 pkgdesc='A free, fast and small automatic formatter for C, C++, C#, and Java source code'
 arch=(x86_64)
@@ -26,9 +27,9 @@ source=(
   "$pkgname::git+https://gitlab.com/saalen/astyle.git#tag=$pkgver"
   simplify-makefile.patch
 )
-sha512sums=('8f6f32ad6ec5378152734c2d2db979fbe349ea44719fc4fcffdf20f09744b4bc71dde51ecc522a26fef9f0c2c03829b5505d6eda0f3e30b58b5e9313eb474faf'
+sha512sums=('dfb5d38492bf875c8a50a82daa01b4ee707a8ecef3d03a8452206243d15ba19a40847730bf25f4d3efd76f2d9db077b1ad49e5cda107eef7e3bb828344a3f150'
             '4a533c6b073a55206ea2c8351d6631ba6e056d59823c8988eae63a47a762e920ad852442b57ed1860a648199c34fbc08c31bb553f0dc3f1ed145c2c702ad0290')
-b2sums=('eda4cb7f3965a45a1ac9c163d03db0481831e150432d1c722b9fe9d329d9e0a291e672e90d46ee2089bd68417ba714556daa80904d193c2b0343587bfd297ac9'
+b2sums=('9f979e83a805d74440595f881266df24e158df93b7a49c5803ac25cd40999c72d36f392a671f5baa6147a6868fa570d5baca91d2ed879556c45456119a28ed75'
         '155dca3520e1669713efbf42431e4ba2c9c05006dcd2a14f58252d9e6913aab799af7b64c9040201e99ff8d12f953918124c83845fcf64ec025fc131e7acdf1f')
 
 prepare() {
