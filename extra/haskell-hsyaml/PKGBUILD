@@ -3,16 +3,16 @@
 
 _hkgname=HsYAML
 pkgname=haskell-hsyaml
-pkgver=0.2.1.5
-pkgrel=88
+pkgver=0.2.1.6
+pkgrel=1
 pkgdesc="Pure Haskell YAML 1.2 processor"
 url="https://github.com/haskell-hvr/HsYAML"
-license=('GPL-2.0-only')
+license=('GPL-2.0-or-later')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck')
+makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('d06793aeb850db0f58cdedd33a25290e99825d78d0e5e6730ff296b8dba9f82108f8cbe5f3f6d1c84094cbd9dfd8e096da661fb57b0e457081b7e29088e4d4e5')
+sha512sums=('f6fc6b6476ee3baf5e6195f10bd397d5dead0252d360ff125d36b5068b9fd1b3ad2aedc32b0b614d42955923ea079ce224f44548082db3ba16d3384db2e77f70')
 
 build() {
     cd $_hkgname-$pkgver
