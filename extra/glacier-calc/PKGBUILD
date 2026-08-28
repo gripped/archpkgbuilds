@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=glacier-calc
-pkgver=0.4
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Nemo calculator"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('LGPL-2.1-only')
 depends=('libglacierapp' 'qt5-quickcontrols-nemo')
 makedepends=('git' 'cmake' 'qt6-tools')
 source=("git+https://github.com/nemomobile-ux/glacier-calc.git#tag=$pkgver")
-sha512sums=('b09d20d4d651404748258208814262a02186328339139cc036da3d484a9156f72cdf596a366242fc7ddb6f79fe70d2e9dc9d2b023e76d94ddea7dbe3398104b6')
+sha512sums=('361c57898acb145554ee9664ff31f0bbdf249246ef3a825bd60e77f2e9fb93b7e5ff4f66f74da018488723d97f6f3547059657a38a598aeb7f1e750661bdccfd')
 
 build(){
   cd glacier-calc
