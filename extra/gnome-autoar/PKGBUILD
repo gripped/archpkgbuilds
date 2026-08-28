@@ -1,44 +1,46 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
-pkgname=gnome-autoar
-pkgver=0.4.5
+pkgbase=gnome-autoar
+pkgname=(
+  gnome-autoar
+  gnome-autoar-docs
+)
+pkgver=0.5.1
 pkgrel=1
 pkgdesc="Automatic archives creating and extracting library"
-url="https://wiki.gnome.org/TingweiLan/GSoC2013Final"
+url="https://gnome.pages.gitlab.gnome.org/gnome-autoar/"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
   glib2
   glibc
-  gtk3
   libarchive
+  libgcc
 )
 makedepends=(
+  gi-docgen
   git
   glib2-devel
   gobject-introspection
-  gtk-doc
   meson
   vala
 )
-provides=(libgnome-autoar{,-gtk}-${pkgver%%.*}.so)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-autoar.git#tag=$pkgver")
-b2sums=('089fc1f3c409f12fc660433f6884f21bb09b05bda242279b65b083474da926fcaa7cb4d7f4f4b8ab8e3703f645d85ff6dcf6c3db12d1a2a7a8551fa5101d7ca4')
+b2sums=('2759c402756ec3e58c93f6a41a8991fb2713f6026c5fde8937efc672ef7a4161c04fa612a81c3c45b5fbf568e4dfd55490f6d96f301aa3919172e27fb82ec2be')
 
 prepare() {
-  cd $pkgname
+  cd $pkgbase
 }
 
 build() {
   local meson_options=(
-    -D gtk_doc=true
+    -D docs=true
     -D tests=true
     -D vapi=true
   )
 
-  arch-meson $pkgname build "${meson_options[@]}"
+  arch-meson $pkgbase build "${meson_options[@]}"
   meson compile -C build
 }
 
@@ -46,8 +48,20 @@ check() {
   meson test -C build --print-errorlogs
 }
 
-package() {
+package_gnome-autoar() {
+  provides=(libgnome-autoar-${pkgver%%.*}.so)
+
   meson install -C build --destdir "$pkgdir"
+
+  mkdir -p doc/usr/share
+  mv {"$pkgdir",doc}/usr/share/doc
+}
+
+package_gnome-autoar-docs() {
+  pkgdesc+=" (documentation)"
+  depends=()
+
+  mv doc/* "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:

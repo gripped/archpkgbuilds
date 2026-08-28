@@ -1,24 +1,26 @@
 pkgbase = gnome-autoar
 	pkgdesc = Automatic archives creating and extracting library
-	pkgver = 0.4.5
+	pkgver = 0.5.1
 	pkgrel = 1
-	url = https://wiki.gnome.org/TingweiLan/GSoC2013Final
+	url = https://gnome.pages.gitlab.gnome.org/gnome-autoar/
 	arch = x86_64
 	license = LGPL-2.1-or-later
+	makedepends = gi-docgen
 	makedepends = git
 	makedepends = glib2-devel
 	makedepends = gobject-introspection
-	makedepends = gtk-doc
 	makedepends = meson
 	makedepends = vala
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
-	depends = gtk3
 	depends = libarchive
-	provides = libgnome-autoar-0.so
-	provides = libgnome-autoar-gtk-0.so
-	source = git+https://gitlab.gnome.org/GNOME/gnome-autoar.git#tag=0.4.5
-	b2sums = 089fc1f3c409f12fc660433f6884f21bb09b05bda242279b65b083474da926fcaa7cb4d7f4f4b8ab8e3703f645d85ff6dcf6c3db12d1a2a7a8551fa5101d7ca4
+	depends = libgcc
+	source = git+https://gitlab.gnome.org/GNOME/gnome-autoar.git#tag=0.5.1
+	b2sums = 2759c402756ec3e58c93f6a41a8991fb2713f6026c5fde8937efc672ef7a4161c04fa612a81c3c45b5fbf568e4dfd55490f6d96f301aa3919172e27fb82ec2be
 
 pkgname = gnome-autoar
+	provides = libgnome-autoar-0.so
+
+pkgname = gnome-autoar-docs
+	pkgdesc = Automatic archives creating and extracting library (documentation)
+	depends = 
