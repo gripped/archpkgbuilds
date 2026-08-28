@@ -2,7 +2,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-responses
-pkgver=0.26.2
+pkgver=0.26.3
 pkgrel=1
 pkgdesc='A utility library for mocking out the `requests` Python library'
 arch=(any)
@@ -28,8 +28,8 @@ checkdepends=(
   python-tomli-w
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('d387839d3450bc772940fa05d0e5212404e327e56fa7cb6d25d350d6943b13dc7e9c46ebfba49692f7dbf84f8406781b5856286ea5009370da41ccb284c53bfa')
-b2sums=('e3a04d42b7cb265dd808c40962f097b106d2d5b99b471f26ca138b807b9d04ba8040f7853ebe6ccfd507a81f612329c5987bf8fa808cd5fb501be02390df2e7f')
+sha512sums=('3b18c4b93a4e82c398c82b3e86fd6defd75e4a4da84da1e2cbed24bb0dd9f6a7a8e24bc978eebb63ead097ad29fd424946fb91355165c031fdb281a14c3c1754')
+b2sums=('e8ceb06cca2821528a443fa873fee4b7ea4efc129a761ef1eaf61a6fa7d7cdb05a453bdb19edb1fe9234c9cb42d1e69390a00ec7b09a2d20d1991bbd396abaa7')
 
 build() {
   cd "$pkgname"
