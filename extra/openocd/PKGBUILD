@@ -9,7 +9,7 @@
 pkgname=openocd
 epoch=1
 pkgver=0.12.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Debugging, in-system programming and boundary-scan testing for embedded target devices'
 arch=(x86_64)
 url='https://openocd.org'
@@ -49,6 +49,9 @@ prepare() {
 
   # add missing includes (stdio.h)
   git cherry-pick --no-commit 73390332d203f02aa5b9798a7550191d55650d97
+
+  # https://review.openocd.org/c/openocd/+/8619
+  git cherry-pick --no-commit 6834f022b96fb1c7f5829166578e01a0ac223cb0
 
   # run autotools configuration
   # all submodules are unnecessary, so skip setup
