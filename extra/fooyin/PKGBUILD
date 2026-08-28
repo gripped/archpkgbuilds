@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=fooyin
-pkgver=0.12.4
+pkgver=0.12.6
 pkgrel=1
 pkgdesc='A customisable music player'
 arch=(x86_64)
@@ -52,8 +52,8 @@ optdepends=(
     'soundtouch: For the SoundTouch-based DSP plugin'
 )
 source=("$pkgname::git+https://github.com/fooyin/fooyin#tag=v$pkgver")
-sha512sums=('fbdd775424830fc5f3ff3053cc0a0ddd16fc46f0f2ec1b6432218281deb0cb4a07b391622d0871b449ef87b0eae2345ecd49de690d45e2a2b18bbafcb7802d16')
-b2sums=('97164b29ffbd538727f579ffed96707fd80a9c0f4e47d83b41023800802e2c8b4efcc3432526cba4078d4248b47c2c0aa5a050183e9e7408a34cdc38f0ea3bd0')
+sha512sums=('3a10e2ad98b806d751caf69d618ec1bd333219c160deaba08ee22cd775e00cf0003674694e01176879f940390661127a916fc64b0f011389c461940d7795f6fe')
+b2sums=('733a31294e8071cc0c1fd6c073b6e5e7c371c5552a9756c2bf6128f8e2276ecfbc897cef4a875d1090df55b808441d5fceb494485c823b5fd9e1f15549c6b8bd')
 
 build() {
   local cmake_options=(
