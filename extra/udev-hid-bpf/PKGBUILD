@@ -3,7 +3,7 @@
 pkgname=udev-hid-bpf
 pkgver=2.3.0.20260703
 _pkgver="$(sed 's/\(.*\)\./\1-/' <<< "${pkgver}")"
-pkgrel=1
+pkgrel=2
 pkgdesc='An automatic HID-BPF loader based on udev events written in rust'
 url='https://gitlab.freedesktop.org/libevdev/udev-hid-bpf'
 arch=('x86_64')
@@ -46,7 +46,7 @@ prepare() {
 
 build() {
   cd "${pkgname}-${_pkgver}"
-  arch-meson build
+  arch-meson -Dbpfs=testing,stable build
   ninja -C build
 }
 
