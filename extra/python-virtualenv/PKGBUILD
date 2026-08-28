@@ -4,7 +4,7 @@
 # Contributor: Daniele Paolella <dp@mcrservice.it>
 
 pkgname=python-virtualenv
-pkgver=21.7.4
+pkgver=21.7.5
 pkgrel=1
 pkgdesc='Virtual Python Environment builder'
 arch=(any)
@@ -51,8 +51,15 @@ replaces=(virtualenv)
 conflicts=(virtualenv)
 options=(!makeflags)
 source=("$pkgname::git+https://github.com/pypa/virtualenv#tag=$pkgver")
-sha512sums=('6d0b134fa8d14388aed69a8f4071f719d814529488b13f610f1b4c1298b7959312e75dc6945a5218eedbc34f294842e81f0b99378f7e24da41fb0709d95eb088')
-b2sums=('cd36f7f5eb056b83a70abb39cdf6cbe7335529d8ab4138e27f318b6fc30ede32ffc17f293ce813a5146e9c0f7f470c73a850fa00f3f94e17d2543ee0382ea194')
+sha512sums=('8a8fb9841cbbb3fa5df8e802f956542d58f6009d1bc190aeb4543039dee6a0239eb3edcd00cfe2899d39bfe456a98069381a4844e644f445107a2b71fba7f379')
+b2sums=('df4cbd0d7ed9113b931f4ba567e7d2496723a096b37b920f65f92c2edd0e9c30097f9143c981cb1546c10b87a3939ec9718e58c4c7e9ac6179caaba1a5f6705d')
+
+prepare() {
+  cd "$pkgname"
+
+  # why the hell do we need LLM crap in packages?
+  git revert --no-commit b39e96c953b5bfb944c76d34fca57ed631e80a16
+}
 
 build() {
   cd "$pkgname"
