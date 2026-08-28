@@ -1,32 +1,27 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -55,11 +55,7 @@ set(LOADTRK_SOURCES
-     src/bme/bme_snd.cpp
-     src/bme/bme_win.cpp
-     src/bme/bme_io.cpp
--    src/bme/bme_end.cpp
+@@ -62,11 +62,7 @@ set(LOADTRK_SOURCES
+     src/sdl_sound.cpp
+     src/sdl_gui.cpp
+     src/sdl_io.cpp
+-    src/io_helpers.cpp
 -    src/rtmidi/rtmidi_c.h
 -    src/rtmidi/rtmidi_c.cpp
 -    src/rtmidi/RtMidi.h
 -    src/rtmidi/RtMidi.cpp)
-+    src/bme/bme_end.cpp)
++    src/io_helpers.cpp)
  
  if(MINGW)
      list(APPEND LOADTRK_SOURCES
-@@ -187,11 +183,14 @@ if(WIN32 OR MINGW)
-     set(use_midi ON)
- endif()
+@@ -197,6 +193,11 @@ endif()
  
-+find_package(PkgConfig REQUIRED)
-+
- if (use_midi)
-     target_compile_definitions(loadtrk PUBLIC USE_MIDI_INPUT)
--endif()
+ find_package(PkgConfig REQUIRED)
  
--find_package(PkgConfig REQUIRED)
++if (use_midi)
 +    pkg_check_modules(rtmidi REQUIRED IMPORTED_TARGET rtmidi)
 +    target_link_libraries(loadtrk PkgConfig::rtmidi)
 +endif()
- 
++
  pkg_check_modules(EXSID IMPORTED_TARGET libexsid>=2.0)
  if (EXSID_FOUND)
+     target_compile_definitions(loadtrk PUBLIC USE_EXSID)

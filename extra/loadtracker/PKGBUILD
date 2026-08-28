@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=loadtracker
-pkgver=1.99.4
+pkgver=1.99.5
 pkgrel=1
 pkgdesc='A modernised fork of GoatTracker2'
 arch=(x86_64)
@@ -26,10 +26,10 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   use-system-rtmidi.patch
 )
-sha512sums=('e152cb09834ab1489a3cf6700db95cbbc0eff3252e8e42313ef31302aa33a063453c8db5b712c1e85f42b298ca551b376f94285d66ee4cdde48f1c5d5f68b873'
-            '70cd66430368f355bc74d184e92a06d57a7562acf787325cf44cf56f0b3d26c5a6227115090aeaee8e7e0a8c76d7fa3f53d83afde27e6253fe5163b0f0a7688a')
-b2sums=('edfa91462aa35d256debd5d844ba1df4e5780701d003842a6173d69b5af19485785e16b834edf1d7dbcb392133d290abc21e7093b34ba5ef56f188580e65bbf9'
-        'e8f268a91a633ee970c2feeaffac5f92663969346b31ea3cfda1fafe223df9ff12f89644bc8f23a98cc836cf775779d6aa492a59de43d3fbddf1ed88294a0211')
+sha512sums=('b8688a373869c3fdfd4f14bc3c6c13a50088d00ebd3b71c57ef5710cf88c285a0dceb2815ef21c2a86e2e4fcd6b38e3f3c22e804b81b708bfce6337b6ade5d92'
+            '474408484ae33efbed783e674f963843b0aa97ffbd620eb48acf30c4df1eb8fbc302786f45f5147c15ee38cd1a3194c0ccf4f06ce5b3667275bc661e5e8b361e')
+b2sums=('c6d03d4a911a00aabe8506afd19f0e665c534ce9cdeb1bece81405411db418f8a1e3c327e8ec12ab6967af2c498f23b1f21801a6d9bb8593483652b3b66b3cc9'
+        'd0991fa99008b1dc7bfd62d2213115f046d2e4f4012dfed29aa1079391f5e001d28a95c7ee4b51c6801981f6d827a1b6b1d288bf0f4dd831483fd9306fabec02')
 
 prepare() {
   cd "$pkgname"
