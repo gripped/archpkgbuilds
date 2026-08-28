@@ -4,12 +4,14 @@
 
 pkgname=tere
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A terminal file explorer"
 arch=('x86_64')
 url="https://github.com/mgunyho/tere"
 license=("custom:EUPL")
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('7db94216b94abd42f48105c90e0e777593aaf867472615eb94dc2f77bb6a3cfb')
@@ -17,7 +19,7 @@ sha256sums=('7db94216b94abd42f48105c90e0e777593aaf867472615eb94dc2f77bb6a3cfb')
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
 
-	cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+	cargo fetch --locked --target host-tuple
 }
 
 build() {
