@@ -5,8 +5,8 @@
 
 _target=riscv64-linux-gnu
 pkgname=$_target-gcc
-pkgver=15.1.0
-pkgrel=2
+pkgver=15.2.0
+pkgrel=1
 pkgdesc='Cross compiler for 32-bit and 64-bit RISC-V'
 arch=('x86_64')
 url='https://gcc.gnu.org/'
@@ -15,7 +15,7 @@ groups=('risc-v')
 depends=(
   "$_target-binutils"
   "$_target-glibc"
-  'gcc-libs'
+  "libgcc"
   'glibc'
   'gmp'
   'libisl' 'libisl.so'
@@ -25,9 +25,12 @@ depends=(
   'zstd' 'libzstd.so'
 )
 options=(!emptydirs !strip  staticlibs !lto)
-source=("https://gcc.gnu.org/pub/gcc/releases/gcc-$pkgver/gcc-$pkgver.tar.xz")
-sha256sums=('e2b09ec21660f01fecffb715e0120265216943f038d0e48a9868713e54f06cea')
-b2sums=('a902ce99db4e93615879e435bcd0b96d5a16ea0af42598ca0e6d12913b2ce3651a98574c3264b2717b848e6b5a823b403ccca0adde463938d5b41aa3f1da0d34')
+source=("https://gcc.gnu.org/pub/gcc/releases/gcc-$pkgver/gcc-$pkgver.tar.xz"
+        gcc-15-libcody-cxx26.patch)
+sha256sums=('438fd996826b0c82485a29da03a72d71d6e3541a83ec702df4271f6fe025d24e'
+            '36af419d9923f178e34f4e55c5d5ff7d29480c38572d0f4a36bbc668e3fbdf96')
+b2sums=('e270320978ca690e6e8f5ef06414dc13caf561f16403a3783c76fbf3dcee57e755a2d5bba922bf7fcae0bb6120443755d819b003791ae823d54589dd799804de'
+        '2cb8eda15c92cb463eed60d14ba984a94a40a23ac9915f4dcba4349c518285ff86b91d2d83963fb99ed1de60419a6a9ac54345f6bc6e492cd7b0fe70f918a13a')
 
 if [[ -n "$_snapshot" ]]; then
   _basedir=gcc-$_snapshot
@@ -42,6 +45,10 @@ prepare() {
 
   # Do not run fixincludes
   sed -i 's@\./fixinc\.sh@-c true@' gcc/Makefile.in
+
+  # Fix libcody build with C++20+ host compilers:
+  # https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=1f0224e8ddb3d3d0bf4c7a11769b193a4df5cc37
+  patch -Np1 -i ../gcc-15-libcody-cxx26.patch
 
   rm -rf "$srcdir/gcc-build"
   mkdir "$srcdir/gcc-build"
