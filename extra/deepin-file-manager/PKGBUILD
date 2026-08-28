@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.35
+pkgver=6.5.36
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -34,7 +34,7 @@ replaces=('deepin-desktop')
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
          gcc-15.patch)
-sha512sums=('0c9db346f6c362a5c1e456d83e2f884aa31cca00703ab5bcc3eb56c1082110e89ef7bff4c18fd3024129369c65e679e5d6763489a6442240857ead2ae14a03d3'
+sha512sums=('817a13c2d4d22afc56dc693883edafd59478519ea3c7c990e42d4f0b6adc0cfe8e4dd1970508cbfa4ab1d63844c1cfad6b794025b208aa44962634cd26aec79f'
             'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
 
 prepare() {
@@ -88,9 +88,6 @@ prepare() {
     src/plugins/daemon/recent/CMakeLists.txt \
     src/plugins/daemon/tag/CMakeLists.txt \
     src/plugins/daemon/vault/CMakeLists.txt
-
-  # Build against Qt6, whose translation tools are shipped as versioned binaries.
-  sed -i 's|\<lrelease\>|/usr/lib/qt6/bin/lrelease|' src/translate_generation.sh
 
 }
 
