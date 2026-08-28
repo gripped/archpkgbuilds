@@ -2,7 +2,7 @@
 
 pkgbase=man-pages
 pkgname=('man-pages' 'man-pages-utils')
-pkgver=6.18
+pkgver=6.19
 _posixver=2017-a
 pkgrel=1
 pkgdesc="Linux man pages"
@@ -31,7 +31,7 @@ makedepends=('man2html' 'git')
 source=(https://www.kernel.org/pub/linux/docs/man-pages/$pkgname-$pkgver.tar.{xz,sign}
         https://www.kernel.org/pub/linux/docs/man-pages/man-pages-posix/$pkgname-posix-${_posixver}.tar.{xz,sign})
 # https://www.kernel.org/pub/linux/docs/man-pages/sha256sums.asc
-sha256sums=('c934fadc8b59748c68227a34f6581d2ddf8282b73cdcd52546c8cd88b74b24d1'
+sha256sums=('88a7c42ad2e03d8b96dc72d95e451f2d875ff0f43103a8eb8ac8242133bdcb05'
             'SKIP'
             'ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3'
             'SKIP')
