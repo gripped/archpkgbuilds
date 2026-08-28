@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=10.2.1
+pkgver=10.3.0
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr'
 checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-requests-mock'
               'python-stestr' 'python-testtools' 'python-wrapt')
 source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('45f756204e2d4d3acaa2e9e7193f3b9b0b1b41336127dbd8e585fff0927fe037fda3a37faf47f3609e26e4aa150fc7663291a0bedf481fc4261f45876de95f72')
+sha512sums=('477b2a61006ccd258333bc0e8324ee50ba7672b67ae7f3c09d7a971067925d91ac4e1dce9c8f20a368f4a45f405ab9ee072f8e580adf840c81b181f131e523b4')
 
 build() {
   cd python-openstackclient
