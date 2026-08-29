@@ -8,7 +8,7 @@ pkgname=(breeze
          breeze-cursors)
 pkgver=6.7.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 pkgdesc='Artwork, styles and assets for the Breeze visual style for the Plasma Desktop'
 url='https://kde.org/plasma-desktop/'
@@ -35,7 +35,6 @@ makedepends=(extra-cmake-modules
              frameworkintegration5
              kconfigwidgets5
              kiconthemes5
-             kirigami2
              kwindowsystem5)
 optdepends=('breeze-gtk: Breeze widget style for GTK applications'
             'breeze5: Breeze widget style for Qt5 applications')
@@ -78,7 +77,6 @@ package_breeze5() {
            kconfigwidgets5
            kguiaddons5
            kiconthemes5
-           kirigami2
            kwindowsystem5
            libstdc++
            qt5-base
