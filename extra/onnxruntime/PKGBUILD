@@ -17,7 +17,7 @@ pkgname=(
 )
 pkgver=1.29.0
 _pkgdesc='Cross-platform, high performance scoring engine for ML models'
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://github.com/microsoft/onnxruntime'
 license=('MIT')
@@ -41,7 +41,9 @@ makedepends+=("${_pydepends[@]}")
 # rebuilt against a newer toolchain than onnxruntime's bundled abseil yields
 # undefined-symbol link failures, so we pin and vendor it here.
 # TODO Check for new versions in cmake/deps.txt with every onnxruntime release
-_abseil_ver=20250814.0
+# _abseil_ver must match the abseil-cpp package, not deps.txt (20250814.0):
+# protobuf 36 exports HandleAddOverflow(absl::int128), mangled per abseil LTS.
+_abseil_ver=20260817.0
 _tensorboard_ver=373eb09e4c5d2b3cc2493f0949dc4be6b6a45e81
 _re2_ver=2024-07-02
 _flatbuffers_ver=23.5.26
@@ -64,7 +66,7 @@ source=("git+https://github.com/microsoft/onnxruntime#tag=v${pkgver}"
         onnxruntime-cuda-softmax-stream.patch
         onnxruntime-drop-sharded-moe.patch)
 b2sums=('8fdc31605d139480199860fc303a537bf67635bf60eb1d40e850b0270b422b070855cf416e9ca774889b9fba0c52fa40ad6fde0bdaf074013e2aaba89b53e054'
-        'f60f3604215f64f33fad902637360050061ec62cfa6413cafc4cd3794a1898c7ee67f7b6edf78e5cb7c6b0ed86b8d80338ad4abee3f2664e391c2cfae5997220'
+        '90a2dba1f88ef2ba16fe7f8ea19b5ae8895edb52b241baba987f246b9c5ef12b9012ee6c085aa89f4b86d1809b5ee74fc43aa846a9b075d4fb0b97ac2d3bbcd2'
         'eb527f92bfce897a0dba4757ebe6be11020e172b9b219aec5089645a37f9b0e5bd7a977222b20db193c11d834f6dd46a09ca3633039a4f6a84528d9b0ecce057'
         '86b915dc0b8e68b35fd0ed20bedd5e9c5781826442f332d115166a9a70f34b7e9b4ef60206264035b82652230d42a3c6aa2b91a774fca3b1e415ce65ace2ae96'
         '147425e7c018072f4ae4cdb3e034a4f434362d88d5e27b09375965993c279acfbed36064014c8f4fbe3fb81175ac0aa9b07629675e2c7ad33d59a9c85f2c3bb8'
