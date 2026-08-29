@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=haproxy
-pkgver=3.4.3
+pkgver=3.4.4
 pkgrel=1
 
 # Each release serie has its own repository. This is handled automatically in
@@ -20,15 +20,16 @@ backup=('etc/haproxy/haproxy.cfg')
 
 install=haproxy.install
 
-validpgpkeys=('0C9568FA554656551590C5E44E386D9C9C61702F'  # Willy Tarreau <w@1wt.eu>
-              '07D5F18D201984D7D13FB7AAF5F936267AA4B280'  # Christopher Faulet <christopher.faulet@capflam.org>
-              '692A51FE968BDB627C8C4B0E12F8CCEE5C19FD8D') # Amaury Denoyelle <adenoyelle@haproxy.com>
+validpgpkeys=('07D5F18D201984D7D13FB7AAF5F936267AA4B280'  # Christopher Faulet <christopher.faulet@capflam.org>
+              '0C9568FA554656551590C5E44E386D9C9C61702F'  # Willy Tarreau <w@1wt.eu>
+              '692A51FE968BDB627C8C4B0E12F8CCEE5C19FD8D'  # Amaury Denoyelle <adenoyelle@haproxy.com>
+              '7712818B4DD86BCBA855B016A2DD7DD105DA703D') # William Lallemand <wlallemand@irq6.net>
 source=("git+https://git.haproxy.org/git/haproxy-${pkgver%.*}.git?signed#tag=v${pkgver}"
         'haproxy.cfg'
         'haproxy.sysusers'
         '0001-Use-CFLAGS-and-LDFLAGS-when-building-admin.patch')
 
-sha256sums=('528c6552af569245fa756606d84c240451260b426a160bc8dee11d91a2f1622b'
+sha256sums=('506c36c867d82dae9d102df4c41a1120ac33f1c578de898d6ad49437da1cca71'
             'f6babef513b99a3fa0e50f2b144c73c980f1b78b119874ffa2580af1e651e7a9'
             'c6e716ea59272a8e871af53703726dd2a75b56c82dacf097d4bf08ac5e841a0d'
             'a1e3a1c2923465081383eb431bae55ff9841d89909469311cdba4b394ec4a998')
