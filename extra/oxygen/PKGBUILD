@@ -9,7 +9,7 @@ pkgname=(oxygen
 pkgdesc='KDE Oxygen style'
 pkgver=6.7.4
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
 license=(LGPL-2.0-or-later)
@@ -35,7 +35,6 @@ makedepends=(extra-cmake-modules
              frameworkintegration5
              kconfigwidgets5
              kiconthemes5
-             kirigami2
              kwindowsystem5
              kservice5
              kcompletion5
