@@ -2,8 +2,8 @@
 
 pkgname=libcerf
 epoch=1
-pkgver=3.3
-pkgrel=2
+pkgver=3.4
+pkgrel=1
 pkgdesc='Self-contained numeric library that provides an efficient and accurate implementation of complex error functions'
 arch=(x86_64)
 url='https://jugit.fz-juelich.de/mlz/libcerf/'
@@ -13,7 +13,7 @@ depends=(glibc
 makedepends=(cmake
              git)
 source=(git+https://jugit.fz-juelich.de/mlz/libcerf#tag=v$pkgver)
-sha256sums=('504fd78f65361b6a40a54be4dd48afdbb6c82eab73fff28dea7a2079df726644')
+sha256sums=('36335773132f953f032ededbfcf495c747ead806c5ef08a38e074943cda129f0')
 
 build() {
   cmake -B build -S $pkgname \
