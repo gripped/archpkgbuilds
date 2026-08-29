@@ -4,8 +4,8 @@
 
 pkgname=hefur
 pkgver=1.0
-pkgrel=42
-_protobuf_ver=35.1
+pkgrel=43
+_protobuf_ver=36.0
 pkgdesc='A standalone and lightweight BitTorrent tracker'
 arch=('x86_64')
 url='https://github.com/abique/hefur'
@@ -21,8 +21,8 @@ depends=(
     'xz'
     'zlib')
 makedepends=(
-    'git'
-    'cmake')
+    'cmake'
+    'git')
 source=("git+https://github.com/abique/hefur.git#tag=${pkgver}"
         'git+https://github.com/abique/mimosa.git'
         "https://github.com/protocolbuffers/protobuf/archive/v${_protobuf_ver}/protobuf-${_protobuf_ver}.tar.gz"
@@ -33,7 +33,7 @@ source=("git+https://github.com/abique/hefur.git#tag=${pkgver}"
         '020-hefur-fix-invalid-port-set-for-https.patch'::'https://github.com/abique/hefur/commit/f8b0fe6295257a6bfd7da00b1bd9cd4da966ddeb.patch')
 sha256sums=('d6db02ee070102c6da4374edaf50f558e47559268eb4c1491bdc44a7bb4c8e04'
             'SKIP'
-            '22775f9376938295efa2d59a59bde4cd075a42df5a9b4d27aa9b99fa6a413bd2'
+            'd120933b88a2857c1b5fb6dafe387cca1b96762c2263cb53d945dcae34e88a3f'
             '3d8b0a716f35798f6aa25d6ee6a032d8a142811b920338bcb398c24beb1c8b43'
             '2e87fa1d1662d13103e4b84bc52c4f97507b06cd9982e0e9d1fec24ac495327a'
             '7d39eec7c9f004a8651de95d11d32422f0a506f0fe21d5fdf37a407a05d4de0f'
@@ -71,7 +71,7 @@ build() {
 		-G 'Unix Makefiles' \
 		-DCMAKE_BUILD_TYPE:STRING='None' \
 		-DCMAKE_INSTALL_PREFIX:PATH='/usr' \
-		-Wno-dev
+		-Wno-author
 	cmake --build build
 }
 
