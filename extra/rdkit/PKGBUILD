@@ -1,8 +1,8 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=rdkit
-pkgver=2026.03.5
-pkgrel=2
+pkgver=2026.03.6
+pkgrel=1
 pkgdesc="Open-source toolkit for cheminformatics"
 arch=(x86_64)
 url="https://github.com/rdkit/rdkit"
@@ -31,18 +31,13 @@ makedepends=(
 )
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/Release_${pkgver//./_}.tar.gz
-  rdkit-boost-1.92.0-build-failure.patch
 )
-b2sums=('2936ff1430ee9ff9a77d48a6dc45737c9f4d2c43abba4275b44097b8942e7e18366dd9306839c3196d84278f58d21a88f901ce0558fd04d8ab49f5252fa9e6b5'
-        '44e5812d015fba064588ca19f27eb0e1ced6a344353ea6331d25fd4179e5dbadf8b5e39eb7c3a5f1be753ab00867296a20804ca56a852fd8c1d37ff42f949806')
+b2sums=('573b75ed8cfd24f4e784ddb4d583b7adbf78fd5fb25aac8aac0e94d57e34a54ed0d4003b575ea743e792491b55a3fcf48e8efb2985ecc4e6924f0afedb6948c8')
 
 prepare() {
   # Fix finding Eigen3 https://github.com/rdkit/rdkit/issues/8896
   rm $pkgname-Release_${pkgver//./_}/Code/cmake/Modules/FindEigen3.cmake
   sed -i 's|if(NOT EIGEN3_FOUND)|if(NOT TARGET Eigen3::Eigen)|' $pkgname-Release_${pkgver//./_}/CMakeLists.txt
-
-  # Fix build failure with boost 1.92
-  patch -Np1 -d $pkgname-Release_${pkgver//./_} -i "$srcdir/rdkit-boost-1.92.0-build-failure.patch"
 }
 
 build() {
