@@ -2,7 +2,7 @@
 
 pkgname=deepin-movie
 epoch=1
-pkgver=6.5.9
+pkgver=6.5.10
 pkgrel=1
 pkgdesc='Movie player based on mpv'
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'ffmpegthumbnail
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-movie-reborn.git#tag=$pkgver")
-sha512sums=('5f8a2a0575c0839333f0b8ee196ba45a1a4d37396b77919247557272f6dad017bbd66691028108ec0b162dfb211c8a790b92c2374b1ac155076b4cc9d40bd5a2')
+sha512sums=('fe30b53b82755ff7f4f13f69128383c8b145c7e973f78f8aa4deb75cda1e5d8d2e4d8e8520600a38e039117643876d2cb8c242e9c605ee4231e283b4b4758350')
 
 prepare() {
   cd deepin-movie-reborn
@@ -24,7 +24,6 @@ prepare() {
   git cherry-pick -n 2607b7409c24101f5cae94b320aa3cd281eb4e73
   sed -i \
     -e 's/pkg_check_modules(Other REQUIRED  gsettings-qt)/pkg_check_modules(Other REQUIRED  gsettings-qt6)/' \
-    -e 's/dconfig_meta_files/dtk_add_config_meta_files/g' \
     -e 's|SET(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} |SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} |g' \
     -e 's|SET(CMAKE_C_FLAGS "$ENV{CFLAGS} |SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} |g' \
     -e 's| -fPIE||g' \
