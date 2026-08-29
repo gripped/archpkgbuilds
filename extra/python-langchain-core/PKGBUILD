@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain-core
-pkgver=1.6.0
-pkgrel=1
+pkgver=1.6.1
+pkgrel=2
 pkgdesc="Building applications with LLMs through composability"
 arch=('any')
 url="https://github.com/langchain-ai/langchain"
@@ -27,6 +27,19 @@ makedepends=(
   'python-installer'
   'python-wheel'
 )
+checkdepends=(
+  'python-blockbuster'
+  'python-freezegun'
+  'python-grandalf'
+  'python-langchain-tests'
+  'python-numpy'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-mock'
+  'python-pytest-xdist'
+  'python-responses'
+  'python-syrupy'
+)
 source=("git+https://github.com/langchain-ai/langchain.git")
 sha512sums=('SKIP')
 
@@ -40,6 +53,11 @@ prepare() {
 build() {
   cd langchain/libs/core
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd langchain/libs/core
+  python -m pytest -n auto tests/unit_tests/
 }
 
 package() {
