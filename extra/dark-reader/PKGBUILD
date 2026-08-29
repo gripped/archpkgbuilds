@@ -8,7 +8,7 @@ pkgname=(
 )
 pkgbase=dark-reader
 _name=${pkgbase/-}
-pkgver=4.9.124
+pkgver=4.9.126
 pkgrel=1
 pkgdesc='Inverts brightness of web pages and aims to reduce eyestrain while browsing the web'
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(
   npm
 )
 source=("git+https://github.com/$_name/$_name.git#tag=v$pkgver")
-b2sums=('f821d0b0a1a36cf58608c962139bbf6236c8cf1f86bc5b96d33051c9a841494947b2d005a6c10d0a53355628868989e72e858d3f6e07f654e1a39adf4b7e3ed8')
+b2sums=('7c9e8f7f99ad341a888150e8bfe96bc83c11173eb612281e8f0539440622d79196c3430dbe15cc1cdcdd587f4742714d9cf0dd09f1eeb54ef98d5c2e0562c906')
 
 prepare() {
   cd "$_name"
