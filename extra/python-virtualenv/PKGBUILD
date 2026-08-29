@@ -4,7 +4,7 @@
 # Contributor: Daniele Paolella <dp@mcrservice.it>
 
 pkgname=python-virtualenv
-pkgver=21.7.5
+pkgver=21.7.7
 pkgrel=1
 pkgdesc='Virtual Python Environment builder'
 arch=(any)
@@ -51,8 +51,8 @@ replaces=(virtualenv)
 conflicts=(virtualenv)
 options=(!makeflags)
 source=("$pkgname::git+https://github.com/pypa/virtualenv#tag=$pkgver")
-sha512sums=('8a8fb9841cbbb3fa5df8e802f956542d58f6009d1bc190aeb4543039dee6a0239eb3edcd00cfe2899d39bfe456a98069381a4844e644f445107a2b71fba7f379')
-b2sums=('df4cbd0d7ed9113b931f4ba567e7d2496723a096b37b920f65f92c2edd0e9c30097f9143c981cb1546c10b87a3939ec9718e58c4c7e9ac6179caaba1a5f6705d')
+sha512sums=('815c2107171f084ec270d1178d6573f95056267c3409129945ac0904be68165afbef2127fb2ac13e93353b53472ee4ea39451aef19e605753064076e45b6215c')
+b2sums=('a535f1f0d592c78ed336aaf4d6e49cb4d61bc810addb92ef847f1c11a9075e146d5a245f96368b2ac725de43bab4133f8c804cad97ec8fec6e05284bfb47ffd3')
 
 prepare() {
   cd "$pkgname"
@@ -63,6 +63,8 @@ prepare() {
 
 build() {
   cd "$pkgname"
+
+  export SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"
 
   python -m build --wheel --no-isolation
 
