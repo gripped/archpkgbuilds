@@ -2,7 +2,7 @@
 # Contributor: taotieren <admin@taotieren.com>
 
 pkgname=linyaps
-pkgver=1.13.0
+pkgver=1.14.0
 pkgrel=1
 pkgdesc='Next-Gen Universal Package Manager for Linux (linglong)'
 arch=(x86_64)
@@ -20,6 +20,7 @@ depends=(
   erofs-utils
   erofsfuse
   fmt
+  fuse-overlayfs
   glib2
   glibc
   hicolor-icon-theme
@@ -51,13 +52,7 @@ makedepends=(
 source=(
   git+https://github.com/OpenAtom-Linyaps/linyaps.git#tag=$pkgver
 )
-sha256sums=('c80f57aa46ad1d527c4ce8a6cc3c06b1a64ae83585effa65f371f5de32ea01c4')
-
-prepare() {
-  cd linyaps
-  # Fix tests without /etc/localtime: https://github.com/OpenAtom-Linyaps/linyaps/pull/1680
-  git cherry-pick -n 2177b06d9097179f5102374bdf88b5b9383f5583
-}
+sha256sums=('78427315381aeb2e4d83f1ab1d0c7f22b5e4eed1eb199b48d9965345b6e87cb3')
 
 build() {
   cd linyaps
