@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=impala
-pkgver=0.8.1
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="TUI for managing wifi"
 url="https://github.com/pythops/impala"
@@ -15,24 +15,35 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('GPL-3.0-only')
 source=("${pkgname}-${pkgver}.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('f6ced2449c69e6814246335ca505807544c66309fb55b4ea5fd31f5f47563cf72a3c49bbcc807e212cb72b403102968871570d44c350079980a40b9b87cb4850')
+sha512sums=('52428dc343a4fa0165d220752cc7f79460b2308cfa3f07a9142be3d73b7251bc2e0b3133450259c30e5626c0a3d9fad26c09d51707dc6570a2b251c19918035d')
+
+_srcenv() {
+  cd "${pkgname}-${pkgver}"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=thin
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+}
 
 prepare() {
-  cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  _srcenv
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  _srcenv
   cargo build --release --frozen
 }
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  _srcenv
   cargo test --frozen
 }
 
 package() {
+  depends+=(libgcc_s.so)
   cd "${pkgname}-${pkgver}"
   install -Dm 755 "target/release/$pkgname" "${pkgdir}/usr/bin/${pkgname}"
   install -Dm 644 Readme.md -t "${pkgdir}/usr/share/doc/${pkgname}"
