@@ -4,7 +4,7 @@
 
 _target=riscv64-linux-gnu
 pkgname=$_target-binutils
-pkgver=2.45.1
+pkgver=2.46.0
 pkgrel=1
 pkgdesc='Assemble and manipulate binary and object files for 32-bit and 64-bit RISC-V'
 arch=(x86_64)
@@ -19,11 +19,13 @@ depends=(
 )
 makedepends=(setconf)
 source=("https://ftp.gnu.org/gnu/binutils/binutils-$pkgver.tar.xz")
-sha256sums=('5fe101e6fe9d18fdec95962d81ed670fdee5f37e3f48f0bef87bddf862513aa5')
-b2sums=('1ccab38659ec47f9100b61322627345fe79ebd04ed0b1e872c988edded4d292d7c9ac33d9f6ea47bf265ec823dfba60da0e84374900c15ec89e3aa9280ac020c')
+sha256sums=('d75a94f4d73e7a4086f7513e67e439e8fcdcbb726ffe63f4661744e6256b2cf2')
+b2sums=('9f4fd8897d237eb5003bdf439537dfc5f8c681e9ff939fb06bb8235ed298031ea4cc91611edb640ffc432199d5791289d003fe0d07acce80327dc40595a5eb9e')
 
 prepare() {
   setconf binutils-$pkgver/libiberty/configure ac_cpp "'\$CPP \$CPPFLAGS -O2'"
+  # Turn off development mode (-Werror, gas run-time checks, date in sonames)
+  sed -i '/^development=/s/true/false/' binutils-$pkgver/bfd/development.sh
 }
 
 build() {
