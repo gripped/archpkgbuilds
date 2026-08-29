@@ -1,0 +1,15 @@
+diff --git a/src/modes/thread_view/page_client.hh b/src/modes/thread_view/page_client.hh
+--- a/src/modes/thread_view/page_client.hh
++++ b/src/modes/thread_view/page_client.hh
+@@ -11,7 +11,11 @@
+ # include "astroid.hh"
+ # include "thread_view.hh"
+ 
++# undef LOG
+ # include "messages.pb.h"
++/* protobuf 36 pulls in abseil's LOG macro; keep using astroid's logger. */
++# undef LOG
++# define LOG(x) BOOST_LOG_TRIVIAL(x)
+ 
+ namespace Astroid {
+   extern "C" void PageClient_init_web_extensions (
