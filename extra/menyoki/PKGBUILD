@@ -1,21 +1,26 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=menyoki
-pkgver=1.7.0
-pkgrel=3
+pkgver=1.8.0
+pkgrel=1
 pkgdesc="Screen{shot,cast} and perform ImageOps on the command line"
 arch=('x86_64')
 url="https://github.com/orhun/menyoki"
-license=('GPL3')
-depends=('gcc-libs' 'libxrandr' 'libsixel')
+license=('GPL-3.0-only')
+depends=(
+  'glibc'
+  'libgcc'
+  'libx11'
+  'libxrandr'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('fca337a78a4dddfde3b1fde2d42a33df098a868e50fe324c710354834acb8e5198e4112c52441a78e763cd9a875feb0d020af13c7a5305385d580dc34d7ce7f9')
+sha512sums=('36c092f323f083defe5a7f0f6c66985f24ac4476f5a4fcd9e555346d85c3b2dabb4086c51a609b4b4974dd6974fd083ff12f249754cd0d8cc0915b2a22554767')
 options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -25,7 +30,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --frozen
+  cargo test --frozen --features sixel
 }
 
 package() {
