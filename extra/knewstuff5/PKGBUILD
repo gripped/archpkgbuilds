@@ -5,13 +5,13 @@
 _name=knewstuff
 pkgname=${_name}5
 pkgver=5.116.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Support for downloading application assets from the network'
 arch=(x86_64)
 url='https://community.kde.org/Frameworks'
 license=(LGPL)
-depends=(kdeclarative5 kio5 kirigami2 kpackage5 attica5 syndication5)
-makedepends=(extra-cmake-modules qt5-declarative qt5-tools)
+depends=(kio5 kpackage5 attica5 syndication5)
+makedepends=(extra-cmake-modules qt5-tools)
 conflicts=("$_name<5.111")
 replaces=("$_name<5.111")
 groups=(kf5)
