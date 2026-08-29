@@ -3,7 +3,7 @@
 
 _pyname=jupyter_client
 pkgname=python-${_pyname/_/-}
-pkgver=8.9.1
+pkgver=8.10.0
 pkgrel=1
 pkgdesc='Jupyter protocol implementation and client libraries'
 arch=(any)
@@ -14,6 +14,7 @@ depends=(ipython
          python-dateutil
          python-jupyter-core
          python-pexpect
+         python-psutil
          python-pyzmq
          python-tornado
          python-traitlets)
@@ -31,7 +32,7 @@ conflicts=(python-jupyter_client)
 provides=(python-jupyter_client)
 replaces=(python-jupyter_client)
 source=(git+https://github.com/jupyter/jupyter_client#tag=v$pkgver)
-sha256sums=('91e7b1c7ed29ec745b6b82c68f5836f407352e0164c87c76d1a99a1b7b5454ca')
+sha256sums=('e54f391d33d9733fc94e17e10258448c7e2355bb6db05ce119cda1613802876d')
 
 build() {
   cd $_pyname
