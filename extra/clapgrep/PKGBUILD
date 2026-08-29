@@ -1,0 +1,83 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=clapgrep
+pkgver=26.02
+pkgrel=1
+pkgdesc='One app to search through all your files'
+arch=(x86_64)
+url='https://github.com/luleyleo/clapgrep'
+license=(GPL-3.0-or-later)
+depends=(
+  cairo
+  glib2
+  glibc
+  gtk4
+  gtksourceview5
+  hicolor-icon-theme
+  libadwaita
+  libgcc
+  pango
+  poppler-glib
+)
+makedepends=(
+  appstream
+  blueprint-compiler
+  git
+  meson
+  rust
+)
+source=(
+  "git+https://github.com/luleyleo/clapgrep.git#tag=v$pkgver"
+  clapgrep-appstreamcli.patch
+  clapgrep-single-window.patch
+  clapgrep-nautilus-extension-install.patch
+  clapgrep-nautilus-extension-open.patch
+)
+b2sums=(
+  0f7e1ba51ae1948241020bfb1072758fc90f08da53d714e19c7c2d5fc8e714609f1730a4d7c4818ccefe1e99a7bb4f1867830758ae6763a05d5e2c86e0dac269
+  f724bc5fab2428cb153c97f62ac2b9e8eceacea0a045a87da0fa5d008dbddc224059d1153607f97f5070b8ecdf7a0422e4b58c5a708fb14682ccad2813681da1
+  68f552f9e922d3d028c207729e55ad0b04ddb24f426196d4b6ea8b5ef4575681d31b20aa8cad3ed55fcb46fd29235f8fdf6d20ef33834794095c0f2536249881
+  58720919c7f1e080c40148a5531aa736798b3f745b00ddc80ecf5da794d5f48f3a5b7ef1f9c74755f25ac755526a118a41937792b8522e3a4b11ae03b5bc8bed
+  60610541e90535a83307ebae8c60fdbf500422e4c8d14b2a5bd5aa16d1508c11fa9b76253761cc89866bfe5b9b33ca0a8b8c99afdacefc87914de3403ee9e4de
+)
+
+prepare() {
+  cd $pkgname
+
+  CARGO_HOME="$srcdir/build/cargo-home" \
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Use appstreamcli for metainfo validation
+  # https://github.com/luleyleo/clapgrep/pull/170
+  git apply -3 ../clapgrep-appstreamcli.patch
+
+  # Present existing window instead of new one on activation
+  # https://github.com/luleyleo/clapgrep/pull/171
+  git apply -3 ../clapgrep-single-window.patch
+
+  # Create parent dirs before copying Nautilus extension
+  # https://github.com/luleyleo/clapgrep/pull/172
+  git apply -3 ../clapgrep-nautilus-extension-install.patch
+
+  # nautilus: Try to run clapgrep from the system first
+  # https://github.com/luleyleo/clapgrep/pull/173
+  git apply -3 ../clapgrep-nautilus-extension-open.patch
+}
+
+build() {
+  arch-meson $pkgname build
+
+  CARGO_PROFILE_RELEASE_LTO=true \
+    CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
+    CARGO_PROFILE_RELEASE_DEBUG=2 \
+    CARGO_PROFILE_RELEASE_STRIP=false \
+    meson compile -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs --no-rebuild --exclude cargo-test
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+}

@@ -1,0 +1,23 @@
+From ad893bf71f1a90022fa995e623366914cae04a8a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 29 Aug 2026 00:56:47 +0200
+Subject: [PATCH] Create parent dirs before copying Nautilus extension
+
+This fixes the problem that the extension was not installed if the
+nautilus-python/extensions directory was not exists.
+---
+ gnome/src/ui/preferences.rs | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/gnome/src/ui/preferences.rs b/gnome/src/ui/preferences.rs
+index 4ea656a..5d53f4e 100644
+--- a/gnome/src/ui/preferences.rs
++++ b/gnome/src/ui/preferences.rs
+@@ -75,6 +75,7 @@ impl PreferencesDialogImp {
+                     let resource_file = gio::File::for_uri(&format!(
+                         "resource://{APP_PATH}/integrations/nautilus/clapgrep.py"
+                     ));
++                    let _ = fs::create_dir_all(nautilus_extension_path.parent().unwrap());
+                     let _ = resource_file.copy(
+                         &extension_file,
+                         FileCopyFlags::NONE,

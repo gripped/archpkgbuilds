@@ -1,0 +1,34 @@
+pkgbase = clapgrep
+	pkgdesc = One app to search through all your files
+	pkgver = 26.02
+	pkgrel = 1
+	url = https://github.com/luleyleo/clapgrep
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = appstream
+	makedepends = blueprint-compiler
+	makedepends = git
+	makedepends = meson
+	makedepends = rust
+	depends = cairo
+	depends = glib2
+	depends = glibc
+	depends = gtk4
+	depends = gtksourceview5
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libgcc
+	depends = pango
+	depends = poppler-glib
+	source = git+https://github.com/luleyleo/clapgrep.git#tag=v26.02
+	source = clapgrep-appstreamcli.patch
+	source = clapgrep-single-window.patch
+	source = clapgrep-nautilus-extension-install.patch
+	source = clapgrep-nautilus-extension-open.patch
+	b2sums = 0f7e1ba51ae1948241020bfb1072758fc90f08da53d714e19c7c2d5fc8e714609f1730a4d7c4818ccefe1e99a7bb4f1867830758ae6763a05d5e2c86e0dac269
+	b2sums = f724bc5fab2428cb153c97f62ac2b9e8eceacea0a045a87da0fa5d008dbddc224059d1153607f97f5070b8ecdf7a0422e4b58c5a708fb14682ccad2813681da1
+	b2sums = 68f552f9e922d3d028c207729e55ad0b04ddb24f426196d4b6ea8b5ef4575681d31b20aa8cad3ed55fcb46fd29235f8fdf6d20ef33834794095c0f2536249881
+	b2sums = 58720919c7f1e080c40148a5531aa736798b3f745b00ddc80ecf5da794d5f48f3a5b7ef1f9c74755f25ac755526a118a41937792b8522e3a4b11ae03b5bc8bed
+	b2sums = 60610541e90535a83307ebae8c60fdbf500422e4c8d14b2a5bd5aa16d1508c11fa9b76253761cc89866bfe5b9b33ca0a8b8c99afdacefc87914de3403ee9e4de
+
+pkgname = clapgrep

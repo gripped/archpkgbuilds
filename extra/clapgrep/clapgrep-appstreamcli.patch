@@ -1,0 +1,44 @@
+From 059a632ab89e850642ed4b0d0e7515edcb4259eb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 28 Aug 2026 22:18:44 +0200
+Subject: [PATCH] Use appstreamcli for metainfo validation
+
+appstream-glib is under heavy maintenance mode and recommends using
+appstream instead.
+---
+ assets/meson.build | 6 +++---
+ meson.build        | 2 +-
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/assets/meson.build b/assets/meson.build
+index 0082156..7488c11 100644
+--- a/assets/meson.build
++++ b/assets/meson.build
+@@ -48,11 +48,11 @@ appdata_file = i18n.merge_file(
+ )
+ 
+ # Validate Appdata
+-if appstream_util.found()
++if appstreamcli.found()
+   test(
+     'validate-appdata',
+-    appstream_util,
+-    args: ['validate', '--nonet', appdata_file.full_path()],
++    appstreamcli,
++    args: ['validate', '--no-net', appdata_file.full_path()],
+     depends: appdata_file,
+   )
+ endif
+diff --git a/meson.build b/meson.build
+index d9fe7ae..3621ebe 100644
+--- a/meson.build
++++ b/meson.build
+@@ -11,7 +11,7 @@ dependency('gtk4', version: '>= 4.0.0')
+ dependency('poppler-glib', version: '>= 24.08.0')
+ 
+ desktop_file_validate = find_program('desktop-file-validate', required: false)
+-appstream_util = find_program('appstream-util', required: false)
++appstreamcli = find_program('appstreamcli', required: false)
+ cargo = find_program('cargo', required: true)
+ blueprint_compiler = find_program('blueprint-compiler', version: '>= 0.14.0', required: true)
+ 

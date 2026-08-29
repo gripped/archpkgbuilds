@@ -1,0 +1,26 @@
+From 7393a64a87ffac57c783d8f06a14f7f39033953d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 28 Aug 2026 22:41:22 +0200
+Subject: [PATCH] Present existing window instead of new one on activation
+
+Multiple main windows are not supported by the current code.
+---
+ gnome/src/app.rs | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/gnome/src/app.rs b/gnome/src/app.rs
+index 1d7ddff..7f5bb08 100644
+--- a/gnome/src/app.rs
++++ b/gnome/src/app.rs
+@@ -36,6 +36,11 @@ pub fn start(app: &adw::Application, files: &[gio::File]) {
+         config.set_search_path(glib::home_dir());
+     }
+ 
++    if let Some(window) = app.active_window() {
++        window.present();
++        return;
++    }
++
+     let window = ui::SearchWindow::new(app);
+ 
+     let preferences_action = SimpleAction::new("preferences", None);

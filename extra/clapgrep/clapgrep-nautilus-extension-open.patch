@@ -1,0 +1,44 @@
+From 4611008915da789dbeb2809eaa9ce885b2ce61d1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 29 Aug 2026 01:14:30 +0200
+Subject: [PATCH] nautilus: Try to run clapgrep from the system first
+
+This makes the script to work with Claprep installed on the system.
+---
+ assets/integrations/nautilus/clapgrep.py | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
+
+diff --git a/assets/integrations/nautilus/clapgrep.py b/assets/integrations/nautilus/clapgrep.py
+index 7868f85..a784a72 100644
+--- a/assets/integrations/nautilus/clapgrep.py
++++ b/assets/integrations/nautilus/clapgrep.py
+@@ -1,4 +1,4 @@
+-import os
++import shutil
+ import subprocess
+ from gi.repository import Nautilus, GObject, Gio
+ 
+@@ -8,9 +8,20 @@ def __init__(self):
+         pass
+ 
+     def __open_clapgrep(self, file):
+-        os.system(
+-            f"""flatpak run de.leopoldluley.Clapgrep "{file.get_location().get_path()}" &"""
+-        )
++        clapgrep = shutil.which("clapgrep")
++
++        if clapgrep:
++            subprocess.Popen([
++                clapgrep,
++                file.get_location().get_path(),
++            ])
++        else:
++            subprocess.Popen([
++                "flatpak",
++                "run",
++                "de.leopoldluley.Clapgrep",
++                file.get_location().get_path(),
++            ])
+ 
+     def menu_activate_cb(self, menu, file):
+         self.__open_clapgrep(file)
