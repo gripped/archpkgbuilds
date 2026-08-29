@@ -1,0 +1,2775 @@
+diff --git a/rocAL/include/api/rocal_api.h b/rocAL/include/api/rocal_api.h
+index eaf1c54d..ce36ccc7 100644
+--- a/rocAL/include/api/rocal_api.h
++++ b/rocAL/include/api/rocal_api.h
+@@ -42,7 +42,7 @@ THE SOFTWARE.
+ #define ROCAL_INVALID_CONTEXT_ERR(p_context, output) \
+     do {                                             \
+         if (p_context == nullptr) {                  \
+-            ERR("Invalid rocal context")             \
++            ROCAL_ERR("Invalid rocal context")             \
+             return output;                           \
+         }                                            \
+     } while (0)
+@@ -50,7 +50,7 @@ THE SOFTWARE.
+ #define ROCAL_INVALID_INPUT_ERR(input, output) \
+     do {                                       \
+         if (input == nullptr) {                \
+-            ERR("Invalid input image")         \
++            ROCAL_ERR("Invalid input image")         \
+             return output;                     \
+         }                                      \
+     } while (0)
+diff --git a/rocAL/include/decoders/image/rocjpeg_decoder.h b/rocAL/include/decoders/image/rocjpeg_decoder.h
+index a6f30e95..9cf30d9d 100644
+--- a/rocAL/include/decoders/image/rocjpeg_decoder.h
++++ b/rocAL/include/decoders/image/rocjpeg_decoder.h
+@@ -52,7 +52,7 @@ inline int GetChannelPitchAndSizes(RocJpegDecodeParams decode_params, RocJpegChr
+     uint32_t roi_width = decode_params.crop_rectangle.right - decode_params.crop_rectangle.left;
+     uint32_t roi_height = decode_params.crop_rectangle.bottom - decode_params.crop_rectangle.top;
+     if (roi_width > widths[0] || roi_height > heights[0]) {
+-        ERR("Invalid ROI passed to the decoder")
++        ROCAL_ERR("Invalid ROI passed to the decoder")
+     }
+ 
+     switch (decode_params.output_format) {
+diff --git a/rocAL/include/parameters/parameter_vx.h b/rocAL/include/parameters/parameter_vx.h
+index 43e3ded8..2795fa4b 100644
+--- a/rocAL/include/parameters/parameter_vx.h
++++ b/rocAL/include/parameters/parameter_vx.h
+@@ -93,7 +93,7 @@ class ParameterVX {
+             return;
+ 
+         if ((status = vxWriteScalarValue(_scalar, &val)) != VX_SUCCESS)
+-            WRN("Updating vx scalar failed")
++            ROCAL_WRN("Updating vx scalar failed")
+     }
+     void update_array() {
+         vx_status status;
+diff --git a/rocAL/include/pipeline/context.h b/rocAL/include/pipeline/context.h
+index 6b0d590a..116c898d 100644
+--- a/rocAL/include/pipeline/context.h
++++ b/rocAL/include/pipeline/context.h
+@@ -29,7 +29,7 @@ THE SOFTWARE.
+ struct Context {
+     explicit Context(size_t batch_size, RocalAffinity affinity, int gpu_id, size_t cpu_thread_count, size_t prefetch_queue_depth, RocalTensorDataType output_tensor_type) : affinity(affinity),
+                                                                                                                                                                             _user_batch_size(batch_size) {
+-        LOG("Processing on " + STR(((affinity == RocalAffinity::CPU) ? " CPU" : " GPU")))
++        ROCAL_LOG("Processing on " + STR(((affinity == RocalAffinity::CPU) ? " CPU" : " GPU")))
+         master_graph = std::make_shared<MasterGraph>(batch_size, affinity, cpu_thread_count, gpu_id, prefetch_queue_depth, output_tensor_type);
+     }
+     ~Context() {
+diff --git a/rocAL/include/pipeline/log.h b/rocAL/include/pipeline/log.h
+index bcaca31b..0e4772a4 100644
+--- a/rocAL/include/pipeline/log.h
++++ b/rocAL/include/pipeline/log.h
+@@ -27,26 +27,26 @@ THE SOFTWARE.
+ 
+ #include <iostream>
+ #if DBGINFO
+-#define INFO(X) std::clog << "[INF] "                 \
++#define ROCAL_INFO(X) std::clog << "[INF] "                 \
+                           << " {" << __func__ << "} " \
+                           << " " << X << std::endl;
+ #else
+-#define INFO(X) ;
++#define ROCAL_INFO(X) ;
+ #endif
+ #if DBGLOG
+-#define LOG(X) std::clog << "[LOG] "                 \
++#define ROCAL_LOG(X) std::clog << "[LOG] "                 \
+                          << " {" << __func__ << "} " \
+                          << " " << X << std::endl;
+ #else
+-#define LOG(X) ;
++#define ROCAL_LOG(X) ;
+ #endif
+-#define ERR(X) std::cerr << "[ERR] "                 \
++#define ROCAL_ERR(X) std::cerr << "[ERR] "                 \
+                          << " {" << __func__ << "} " \
+                          << " " << X << std::endl;
+ #if WRNLOG
+-#define WRN(X) std::clog << "[WRN] "                 \
++#define ROCAL_WRN(X) std::clog << "[WRN] "                 \
+                          << " {" << __func__ << "} " \
+                          << " " << X << std::endl;
+ #else
+-#define WRN(X) ;
++#define ROCAL_WRN(X) ;
+ #endif
+diff --git a/rocAL/include/pipeline/tensor.h b/rocAL/include/pipeline/tensor.h
+index 7ad648b6..9d8be754 100644
+--- a/rocAL/include/pipeline/tensor.h
++++ b/rocAL/include/pipeline/tensor.h
+@@ -89,7 +89,7 @@ struct Roi {
+         if (_roi_ptr.get() != nullptr && roi_buffer != nullptr) {
+             memcpy(roi_buffer, (const void*)_roi_ptr.get(), _roi_buffer_size);
+         } else {
+-            WRN("ROI data is not available for the tensor")
++            ROCAL_WRN("ROI data is not available for the tensor")
+         }
+     }
+     unsigned no_of_dims() { return _roi_no_of_dims; }
+diff --git a/rocAL/include/pipeline/timing_debug.h b/rocAL/include/pipeline/timing_debug.h
+index 89ae96c5..b5e4328c 100644
+--- a/rocAL/include/pipeline/timing_debug.h
++++ b/rocAL/include/pipeline/timing_debug.h
+@@ -75,7 +75,7 @@ class TimingDbg {
+ 
+         auto dur = static_cast<long long unsigned>(std::chrono::duration_cast<std::chrono::microseconds>(_accumulated_time).count());
+         if (_count > 0)
+-            LOG(_name + " ran " + TOSTR(_count) + " times with average duration " + TOSTR((dur / _count) / 1000000) + " sec " + TOSTR((dur / _count) % 1000000) + " us ")
++            ROCAL_LOG(_name + " ran " + TOSTR(_count) + " times with average duration " + TOSTR((dur / _count) / 1000000) + " sec " + TOSTR((dur / _count) % 1000000) + " us ")
+         _count = 0;
+         _accumulated_time = _t_start - _t_start;
+         return dur;
+diff --git a/rocAL/source/api/rocal_api.cpp b/rocAL/source/api/rocal_api.cpp
+index 6604c458..c88c16a4 100644
+--- a/rocAL/source/api/rocal_api.cpp
++++ b/rocAL/source/api/rocal_api.cpp
+@@ -69,11 +69,11 @@ rocalCreate(
+             }
+         };
+         if (gpu_id < 0)
+-            ERR(STR("Negative GPU device ID passed to context creation. Setting GPU device ID to 0"));
++            ROCAL_ERR(STR("Negative GPU device ID passed to context creation. Setting GPU device ID to 0"));
+         context = new Context(batch_size, translate_process_mode(affinity), std::max(gpu_id, 0), cpu_thread_count, prefetch_queue_depth, translate_output_data_type(output_tensor_data_type));
+         // Reset seed in case it's being randomized during context creation
+     } catch (const std::exception& e) {
+-        ERR(STR("Failed to init the Rocal context, ") + STR(e.what()))
++        ROCAL_ERR(STR("Failed to init the Rocal context, ") + STR(e.what()))
+     }
+     return context;
+ }
+@@ -87,7 +87,7 @@ rocalRun(RocalContext p_context) {
+             return ROCAL_RUNTIME_ERROR;
+     } catch (const std::exception& e) {
+         context->capture_error(e.what());
+-        ERR(e.what())
++        ROCAL_ERR(e.what())
+         return ROCAL_RUNTIME_ERROR;
+     }
+     return ROCAL_OK;
+@@ -100,7 +100,7 @@ rocalVerify(RocalContext p_context) {
+         context->master_graph->build();
+     } catch (const std::exception& e) {
+         context->capture_error(e.what());
+-        ERR(e.what())
++        ROCAL_ERR(e.what())
+         return ROCAL_RUNTIME_ERROR;
+     }
+     return ROCAL_OK;
+diff --git a/rocAL/source/api/rocal_api_augmentation.cpp b/rocAL/source/api/rocal_api_augmentation.cpp
+index fdce0f00..c2ccd1bd 100644
+--- a/rocAL/source/api/rocal_api_augmentation.cpp
++++ b/rocAL/source/api/rocal_api_augmentation.cpp
+@@ -1508,11 +1508,11 @@ rocalLensCorrection(
+         RocalTensorlayout op_tensor_layout = static_cast<RocalTensorlayout>(output_layout);
+         RocalTensorDataType op_tensor_datatype = static_cast<RocalTensorDataType>(output_datatype);
+         if (camera_matrix.size() != context->user_batch_size()) {
+-            ERR("User should pass camera matrix for all images in a batch")
++            ROCAL_ERR("User should pass camera matrix for all images in a batch")
+             return output;
+         }
+         if (distortion_coeffs.size() != context->user_batch_size()) {
+-            ERR("User should pass distortion coefficients for all images in a batch")
++            ROCAL_ERR("User should pass distortion coefficients for all images in a batch")
+             return output;
+         }
+         TensorInfo output_info = input->info();
+@@ -2044,7 +2044,7 @@ rocalSpectrogram(
+     try {
+         RocalTensorDataType op_tensor_data_type = static_cast<RocalTensorDataType>(output_datatype);
+         if (op_tensor_data_type != RocalTensorDataType::FP32) {
+-            WRN("Only FP32 data-type is supported for Spectrogram augmentation.")
++            ROCAL_WRN("Only FP32 data-type is supported for Spectrogram augmentation.")
+             op_tensor_data_type = RocalTensorDataType::FP32;
+         }
+         std::vector<size_t> max_dims = input->info().max_shape();
+@@ -2069,7 +2069,7 @@ rocalSpectrogram(
+                                             op_tensor_data_type,
+                                             spectrogram_layout);
+         if(power != 1 && power != 2) {
+-            WRN("rocalSpectrogram power value can be 1 or 2, setting it to default 2")
++            ROCAL_WRN("rocalSpectrogram power value can be 1 or 2, setting it to default 2")
+             power = 2;
+         }
+         output = context->master_graph->create_tensor(output_info, is_output);
+@@ -2123,7 +2123,7 @@ rocalResample(RocalContext p_context,
+               RocalTensorOutputType output_datatype) {
+     Tensor* output = nullptr;
+     if ((p_context == nullptr) || (p_input == nullptr) || (p_output_resample_rate == nullptr)) {
+-        ERR("Invalid ROCAL context or invalid input tensor")
++        ROCAL_ERR("Invalid ROCAL context or invalid input tensor")
+         return output;
+     }
+     Tensor* resampled_output = nullptr;
+diff --git a/rocAL/source/api/rocal_api_data_loaders.cpp b/rocAL/source/api/rocal_api_data_loaders.cpp
+index 5a17e01a..9e9f75b2 100644
+--- a/rocAL/source/api/rocal_api_data_loaders.cpp
++++ b/rocAL/source/api/rocal_api_data_loaders.cpp
+@@ -61,7 +61,7 @@ evaluate_audio_data_set(StorageType storage_type, DecoderType decoder_type,
+     auto max_channels = source_evaluator.GetMaxChannels();
+     if (max_samples == 0 || max_channels == 0)
+         THROW("Cannot find size of the audio files or files cannot be accessed")
+-    LOG("Maximum input audio dimension [ " + TOSTR(max_samples) + " x " + TOSTR(max_channels) + " ] for audio's in " + source_path)
++    ROCAL_LOG("Maximum input audio dimension [ " + TOSTR(max_samples) + " x " + TOSTR(max_channels) + " ] for audio's in " + source_path)
+     return std::make_tuple(max_samples, max_channels);
+ }
+ #endif
+@@ -90,7 +90,7 @@ evaluate_image_data_set(RocalImageSizeEvaluationPolicy decode_size_policy, Stora
+     if (max_width == 0 || max_height == 0)
+         THROW("Cannot find size of the images or images cannot be accessed")
+ 
+-    LOG("Maximum input image dimension [ " + TOSTR(max_width) + " x " + TOSTR(max_height) + " ] for images in " + source_path)
++    ROCAL_LOG("Maximum input image dimension [ " + TOSTR(max_width) + " x " + TOSTR(max_height) + " ] for images in " + source_path)
+     return std::make_tuple(max_width, max_height);
+ };
+ 
+@@ -222,12 +222,12 @@ rocalJpegFileSourceSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::FILE_SYSTEM, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+ 
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -280,13 +280,13 @@ rocalJpegFileSource(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::FILE_SYSTEM, DecoderType::TURBO_JPEG, source_path, "");
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+ 
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -347,7 +347,7 @@ rocalSequenceReader(
+         // FILE_SYSTEM is used here only to evaluate the width and height of the frames.
+         auto [width, height] = evaluate_image_data_set(decode_size_policy, StorageType::FILE_SYSTEM, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format_sequence(rocal_color_format, context->user_batch_size(), height, width, sequence_length);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+ 
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -416,7 +416,7 @@ rocalSequenceReaderSingleShard(
+         // FILE_SYSTEM is used here only to evaluate the width and height of the frames.
+         auto [width, height] = evaluate_image_data_set(decode_size_policy, StorageType::FILE_SYSTEM, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format_sequence(rocal_color_format, context->user_batch_size(), height, width, sequence_length);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+ 
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -471,12 +471,12 @@ rocalJpegCaffe2LMDBRecordSource(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::CAFFE2_LMDB_RECORD, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+ 
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -533,12 +533,12 @@ rocalJpegCaffe2LMDBRecordSourceSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::CAFFE2_LMDB_RECORD, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -592,12 +592,12 @@ rocalJpegCaffeLMDBRecordSource(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::CAFFE_LMDB_RECORD, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -656,12 +656,12 @@ rocalJpegCaffeLMDBRecordSourceSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::CAFFE_LMDB_RECORD, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -718,7 +718,7 @@ rocalJpegCaffeLMDBRecordSourcePartialSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+         DecoderType decoder_type = DecoderType::FUSED_TURBO_JPEG;
+         // For partial decoder API's use ROCJPEG_CROPPED type when the user requests for rocJpeg decoder
+@@ -726,7 +726,7 @@ rocalJpegCaffeLMDBRecordSourcePartialSingleShard(
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::CAFFE_LMDB_RECORD, decoder_type, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -784,7 +784,7 @@ rocalJpegCaffe2LMDBRecordSourcePartialSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+         DecoderType decoder_type = DecoderType::FUSED_TURBO_JPEG;
+         // For partial decoder API's use ROCJPEG_CROPPED type when the user requests for rocJpeg decoder
+@@ -792,7 +792,7 @@ rocalJpegCaffe2LMDBRecordSourcePartialSingleShard(
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::CAFFE2_LMDB_RECORD, decoder_type, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -847,12 +847,12 @@ rocalMXNetRecordSource(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::MXNET_RECORDIO, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -912,12 +912,12 @@ rocalMXNetRecordSourceSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::MXNET_RECORDIO, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -972,13 +972,13 @@ rocalJpegCOCOFileSource(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::COCO_FILE_SYSTEM, DecoderType::TURBO_JPEG, source_path, json_path);
+ 
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -1038,12 +1038,12 @@ rocalJpegCOCOFileSourceSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::COCO_FILE_SYSTEM, DecoderType::TURBO_JPEG, source_path, json_path);
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -1096,7 +1096,7 @@ rocalFusedJpegCrop(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+         DecoderType decoder_type = DecoderType::FUSED_TURBO_JPEG;
+         // For partial decoder API's use ROCJPEG_CROPPED type when the user requests for rocJpeg decoder
+@@ -1157,7 +1157,7 @@ rocalJpegCOCOFileSourcePartial(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+         DecoderType decoder_type = DecoderType::FUSED_TURBO_JPEG;
+         // For partial decoder API's use ROCJPEG_CROPPED type when the user requests for rocJpeg decoder
+@@ -1166,7 +1166,7 @@ rocalJpegCOCOFileSourcePartial(
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::COCO_FILE_SYSTEM, decoder_type, source_path, json_path);
+ 
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -1225,7 +1225,7 @@ rocalJpegCOCOFileSourcePartialSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+         DecoderType decoder_type = DecoderType::FUSED_TURBO_JPEG;
+         // For partial decoder API's use ROCJPEG_CROPPED type when the user requests for rocJpeg decoder
+@@ -1296,12 +1296,12 @@ rocalJpegTFRecordSource(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::TF_RECORD, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -1368,12 +1368,12 @@ rocalJpegTFRecordSourceSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = use_input_dimension ? std::make_tuple(max_width, max_height) : evaluate_image_data_set(decode_size_policy, StorageType::TF_RECORD, DecoderType::TURBO_JPEG, source_path, "");
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -1425,7 +1425,7 @@ rocalRawTFRecordSource(
+         if (out_width == 0 || out_height == 0) {
+             THROW("Invalid output width and height");
+         } else {
+-            LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height))
++            ROCAL_LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height))
+         }
+ 
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), out_height, out_width);
+@@ -1484,11 +1484,11 @@ rocalRawTFRecordSourceSingleShard(
+         if ((out_width == 0 || out_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height))
++            ROCAL_LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height))
+         }
+ 
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), out_height, out_width);
+-        INFO("Internal buffer size width = " + TOSTR(out_width) + " height = " + TOSTR(out_height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(out_width) + " height = " + TOSTR(out_height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -1544,7 +1544,7 @@ rocalFusedJpegCropSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         DecoderType decoder_type = DecoderType::FUSED_TURBO_JPEG;
+@@ -2100,12 +2100,12 @@ rocalRawCIFAR10Source(
+         if (out_width == 0 || out_height == 0) {
+             THROW("Invalid video input width and height");
+         } else {
+-            LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height));
++            ROCAL_LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height));
+         }
+ 
+         auto [width, height] = std::make_tuple(out_width, out_height);
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+ 
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -2148,14 +2148,14 @@ rocalRawCIFAR10SourceSingleShard(
+         if (out_width == 0 || out_height == 0) {
+             THROW("Invalid input width and height");
+         } else {
+-            LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height));
++            ROCAL_LOG("User input size " + TOSTR(out_width) + " x " + TOSTR(out_height));
+         }
+         if (shard_id >= shard_count)
+             THROW("Shard id should be smaller than shard count");
+ 
+         auto [width, height] = std::make_tuple(out_width, out_height);
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+ 
+         auto info = TensorInfo(std::move(dims),
+@@ -2205,12 +2205,12 @@ rocalJpegExternalFileSource(
+         if (max_width == 0 || max_height == 0) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+ 
+         auto [width, height] = std::make_tuple(max_width, max_height);
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+         ShardingInfo sharding_info(convert_last_batch_policy(rocal_sharding_info.last_batch_policy), rocal_sharding_info.pad_last_batch_repeated, rocal_sharding_info.stick_to_shard, rocal_sharding_info.shard_size);
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+@@ -2264,10 +2264,10 @@ rocalAudioFileSourceSingleShard(
+         if (use_input_dimension && (max_decoded_samples == 0 || max_decoded_channels == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_decoded_samples) + " x " + TOSTR(max_decoded_channels))
++            ROCAL_LOG("User input size " + TOSTR(max_decoded_samples) + " x " + TOSTR(max_decoded_channels))
+         }
+         auto [max_sample_length, max_channels] = use_input_dimension ? std::make_tuple(max_decoded_samples, max_decoded_channels) : evaluate_audio_data_set(StorageType::FILE_SYSTEM, DecoderType::AUDIO_SOFTWARE, source_path, source_file_list_path, context->master_graph->meta_data_reader());
+-        INFO("Internal buffer size for audio samples = " + TOSTR(max_sample_length) + " and channels = " + TOSTR(max_channels))
++        ROCAL_INFO("Internal buffer size for audio samples = " + TOSTR(max_sample_length) + " and channels = " + TOSTR(max_channels))
+         RocalTensorDataType tensor_data_type = RocalTensorDataType::FP32;
+         std::vector<size_t> dims = {context->user_batch_size(), max_sample_length, max_channels};
+         auto info = TensorInfo(std::vector<size_t>(std::move(dims)),
+@@ -2328,10 +2328,10 @@ rocalAudioFileSource(
+         if (use_input_dimension && (max_decoded_samples == 0 || max_decoded_channels == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_decoded_samples) + " x " + TOSTR(max_decoded_channels))
++            ROCAL_LOG("User input size " + TOSTR(max_decoded_samples) + " x " + TOSTR(max_decoded_channels))
+         }
+         auto [max_sample_length, max_channels] = use_input_dimension ? std::make_tuple(max_decoded_samples, max_decoded_channels) : evaluate_audio_data_set(StorageType::FILE_SYSTEM, DecoderType::AUDIO_SOFTWARE, source_path, source_file_list_path, context->master_graph->meta_data_reader());
+-        INFO("Internal buffer size for audio samples = " + TOSTR(max_sample_length) + " and channels = " + TOSTR(max_channels))
++        ROCAL_INFO("Internal buffer size for audio samples = " + TOSTR(max_sample_length) + " and channels = " + TOSTR(max_channels))
+         RocalTensorDataType tensor_data_type = RocalTensorDataType::FP32;
+         std::vector<size_t> dims = {context->user_batch_size(), max_sample_length, max_channels};
+         auto info = TensorInfo(std::vector<size_t>(std::move(dims)),
+@@ -2407,11 +2407,11 @@ rocalWebDatasetSourceSingleShard(
+         if (use_input_dimension && (max_width == 0 || max_height == 0)) {
+             THROW("Invalid input max width and height");
+         } else {
+-            LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
++            ROCAL_LOG("User input size " + TOSTR(max_width) + " x " + TOSTR(max_height))
+         }
+         auto [width, height] = evaluate_image_data_set(decode_size_policy, StorageType::WEBDATASET_RECORDS, decType, source_path, index_path);
+         auto [color_format, tensor_layout, dims, num_of_planes] = convert_color_format(rocal_color_format, context->user_batch_size(), height, width);
+-        INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
++        ROCAL_INFO("Internal buffer size width = " + TOSTR(width) + " height = " + TOSTR(height) + " depth = " + TOSTR(num_of_planes))
+ 
+         auto info = TensorInfo(std::move(dims),
+                                context->master_graph->mem_type(),
+diff --git a/rocAL/source/api/rocal_api_data_transfer.cpp b/rocAL/source/api/rocal_api_data_transfer.cpp
+index 758f25d4..b746647c 100644
+--- a/rocAL/source/api/rocal_api_data_transfer.cpp
++++ b/rocAL/source/api/rocal_api_data_transfer.cpp
+@@ -42,7 +42,7 @@ rocalToTensor(RocalContext p_context, void* out_ptr, RocalTensorLayout tensor_fo
+                                          offset0, offset1, offset2, reverse_channels, tensor_output_data_type, output_mem_type, max_roi_height, max_roi_width);
+     } catch (const std::exception& e) {
+         context->capture_error(e.what());
+-        ERR(e.what())
++        ROCAL_ERR(e.what())
+         return ROCAL_RUNTIME_ERROR;
+     }
+     return ROCAL_OK;
+@@ -58,7 +58,7 @@ rocalCopyToOutput(
+         context->master_graph->copy_output(out_ptr, out_size);
+     } catch (const std::exception& e) {
+         context->capture_error(e.what());
+-        ERR(e.what())
++        ROCAL_ERR(e.what())
+         return ROCAL_RUNTIME_ERROR;
+     }
+     return ROCAL_OK;
+@@ -98,7 +98,7 @@ rocalExternalSourceFeedInput(
+                                                    external_file_mode, format, eos);
+     } catch (const std::exception& e) {
+         context->capture_error(e.what());
+-        ERR(e.what())
++        ROCAL_ERR(e.what())
+         return ROCAL_RUNTIME_ERROR;
+     }
+     return ROCAL_OK;
+@@ -111,7 +111,7 @@ rocalGetOutputTensors(RocalContext p_context) {
+         return context->master_graph->get_output_tensors();
+     } catch (const std::exception& e) {
+         context->capture_error(e.what());
+-        ERR(e.what())
++        ROCAL_ERR(e.what())
+         return nullptr;
+     }
+     return nullptr;
+diff --git a/rocAL/source/api/rocal_api_info.cpp b/rocAL/source/api/rocal_api_info.cpp
+index 560658e6..23dc7fdc 100644
+--- a/rocAL/source/api/rocal_api_info.cpp
++++ b/rocAL/source/api/rocal_api_info.cpp
+@@ -67,7 +67,7 @@ rocalGetRemainingImages(RocalContext p_context) {
+         count = context->master_graph->remaining_count();
+     } catch (const std::exception &e) {
+         context->capture_error(e.what());
+-        ERR(e.what());
++        ROCAL_ERR(e.what());
+     }
+     return count;
+ }
+@@ -92,7 +92,7 @@ TimingInfo
+     rocalGetTimingInfo(RocalContext p_context) {
+     auto context = static_cast<Context *>(p_context);
+     auto info = context->timing();
+-    // INFO("bbencode time "+ TOSTR(info.bb_process_time)); //to display time taken for bbox encoder
++    // ROCAL_INFO("bbencode time "+ TOSTR(info.bb_process_time)); //to display time taken for bbox encoder
+     return {info.read_time, info.decode_time, info.process_time, info.copy_to_output};
+ }
+ 
+@@ -144,7 +144,7 @@ size_t ROCAL_API_CALL rocalIsEmpty(RocalContext p_context) {
+         ret = context->master_graph->empty();
+     } catch (const std::exception &e) {
+         context->capture_error(e.what());
+-        ERR(e.what());
++        ROCAL_ERR(e.what());
+     }
+     return ret;
+ }
+@@ -157,7 +157,7 @@ rocalGetLastBatchPaddedSize(RocalContext p_context) {
+         count = context->master_graph->last_batch_padded_size();
+     } catch (const std::exception &e) {
+         context->capture_error(e.what());
+-        ERR(e.what());
++        ROCAL_ERR(e.what());
+     }
+     return count;
+ }
+diff --git a/rocAL/source/api/rocal_api_meta_data.cpp b/rocAL/source/api/rocal_api_meta_data.cpp
+index 41256bfb..15e22b7e 100644
+--- a/rocAL/source/api/rocal_api_meta_data.cpp
++++ b/rocAL/source/api/rocal_api_meta_data.cpp
+@@ -232,7 +232,7 @@ void
+     auto context = static_cast<Context*>(p_context);
+     auto meta_data = context->master_graph->meta_data();
+     if (!meta_data.second) {
+-        WRN("No label has been loaded for this output image")
++        ROCAL_WRN("No label has been loaded for this output image")
+         return;
+     }
+     size_t meta_data_batch_size = meta_data.second->get_labels_batch().size();
+@@ -336,7 +336,7 @@ void
+     size_t meta_data_batch_size = meta_data.second->get_img_sizes_batch().size();
+ 
+     if (!meta_data.second) {
+-        WRN("No sizes has been loaded for this output image")
++        ROCAL_WRN("No sizes has been loaded for this output image")
+         return;
+     }
+     for (unsigned i = 0; i < meta_data_batch_size; i++) {
+@@ -355,7 +355,7 @@ void
+         size_t meta_data_batch_size = meta_data.second->get_img_roi_sizes_batch().size();
+ 
+         if (!meta_data.second) {
+-            WRN("No label has been loaded for this output image")
++            ROCAL_WRN("No label has been loaded for this output image")
+             return;
+         }
+         for (unsigned i = 0; i < meta_data_batch_size; i++) {
+@@ -420,7 +420,7 @@ void
+     if (context->user_batch_size() != meta_data_batch_size)
+         THROW("meta data batch size is wrong " + TOSTR(meta_data_batch_size) + " != " + TOSTR(context->user_batch_size()))
+     if (!meta_data.second) {
+-        WRN("No encoded labels and bounding boxes has been loaded for this output image")
++        ROCAL_WRN("No encoded labels and bounding boxes has been loaded for this output image")
+         return;
+     }
+     unsigned sum = 0;
+@@ -459,7 +459,7 @@ void
+     if (context->user_batch_size() != meta_data_batch_size)
+         THROW("meta data batch size is wrong " + TOSTR(meta_data_batch_size) + " != " + TOSTR(context->user_batch_size()))
+     if (!meta_data.second) {
+-        WRN("No label has been loaded for this output image")
++        ROCAL_WRN("No label has been loaded for this output image")
+         return;
+     }
+ 
+diff --git a/rocAL/source/api/rocal_api_parameter.cpp b/rocAL/source/api/rocal_api_parameter.cpp
+index dd5b3f13..e9b58a7f 100644
+--- a/rocAL/source/api/rocal_api_parameter.cpp
++++ b/rocAL/source/api/rocal_api_parameter.cpp
+@@ -60,7 +60,7 @@ rocalUpdateIntUniformRand(
+     RocalIntParam p_input_obj) {
+     auto input_obj = static_cast<IntParam *>(p_input_obj);
+     if (!validate_uniform_rand_param(input_obj)) {
+-        ERR("rocalUpdateIntUniformRand : not a UniformRand object!");
++        ROCAL_ERR("rocalUpdateIntUniformRand : not a UniformRand object!");
+         return ROCAL_INVALID_PARAMETER_TYPE;
+     }
+ 
+@@ -85,7 +85,7 @@ rocalUpdateFloatUniformRand(
+     RocalFloatParam p_input_obj) {
+     auto input_obj = static_cast<FloatParam *>(p_input_obj);
+     if (!validate_uniform_rand_param(input_obj)) {
+-        ERR("rocalUpdateFloatUniformRand : not a uniform random object!");
++        ROCAL_ERR("rocalUpdateFloatUniformRand : not a uniform random object!");
+         return ROCAL_INVALID_PARAMETER_TYPE;
+     }
+ 
+@@ -120,7 +120,7 @@ RocalStatus ROCAL_API_CALL
+ rocalUpdateIntParameter(int new_val, RocalIntParam p_input_obj) {
+     auto input_obj = static_cast<IntParam *>(p_input_obj);
+     if (!validate_simple_rand_param(input_obj)) {
+-        ERR("rocalUpdateIntParameter : not a custom random object!");
++        ROCAL_ERR("rocalUpdateIntParameter : not a custom random object!");
+         return ROCAL_INVALID_PARAMETER_TYPE;
+     }
+ 
+@@ -134,7 +134,7 @@ RocalStatus ROCAL_API_CALL
+ rocalUpdateFloatParameter(float new_val, RocalFloatParam p_input_obj) {
+     auto input_obj = static_cast<FloatParam *>(p_input_obj);
+     if (!validate_simple_rand_param(input_obj)) {
+-        ERR("rocalUpdateFloatParameter : not a custom random object!");
++        ROCAL_ERR("rocalUpdateFloatParameter : not a custom random object!");
+         return ROCAL_INVALID_PARAMETER_TYPE;
+     }
+ 
+@@ -152,7 +152,7 @@ rocalUpdateFloatRand(
+     RocalFloatParam p_updating_obj) {
+     auto updating_obj = static_cast<FloatParam *>(p_updating_obj);
+     if (!validate_custom_rand_param(updating_obj)) {
+-        ERR("rocalUpdateFloatRand : not a custom random object!");
++        ROCAL_ERR("rocalUpdateFloatRand : not a custom random object!");
+         return ROCAL_INVALID_PARAMETER_TYPE;
+     }
+ 
+@@ -181,7 +181,7 @@ rocalUpdateIntRand(
+     RocalIntParam p_updating_obj) {
+     auto updating_obj = static_cast<IntParam *>(p_updating_obj);
+     if (!validate_custom_rand_param(updating_obj)) {
+-        ERR("rocalUpdateIntRand : not a CustomRand object!");
++        ROCAL_ERR("rocalUpdateIntRand : not a CustomRand object!");
+         return ROCAL_INVALID_PARAMETER_TYPE;
+     }
+ 
+diff --git a/rocAL/source/augmentations/audio_augmentations/node_preemphasis_filter.cpp b/rocAL/source/augmentations/audio_augmentations/node_preemphasis_filter.cpp
+index 4576afb4..075be6c4 100644
+--- a/rocAL/source/augmentations/audio_augmentations/node_preemphasis_filter.cpp
++++ b/rocAL/source/augmentations/audio_augmentations/node_preemphasis_filter.cpp
+@@ -44,7 +44,7 @@ void PreemphasisFilterNode::update_node() {
+ 
+ void PreemphasisFilterNode::init(FloatParam *preemph_coeff, AudioBorderType preemph_border) {
+     if (preemph_coeff == nullptr)
+-        ERR("Invalid pre-Emphasis co-efficient passed")
++        ROCAL_ERR("Invalid pre-Emphasis co-efficient passed")
+     _preemph_coeff.set_param(core(preemph_coeff));
+     _preemph_border = preemph_border;
+ }
+diff --git a/rocAL/source/augmentations/geometry_augmentations/node_resize.cpp b/rocAL/source/augmentations/geometry_augmentations/node_resize.cpp
+index 2eb3358a..ead2311b 100644
+--- a/rocAL/source/augmentations/geometry_augmentations/node_resize.cpp
++++ b/rocAL/source/augmentations/geometry_augmentations/node_resize.cpp
+@@ -77,7 +77,7 @@ void ResizeNode::update_node() {
+     width_status = vxCopyArrayRange((vx_array)_dst_roi_width, 0, _batch_size, sizeof(vx_uint32), _dst_roi_width_vec.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     height_status = vxCopyArrayRange((vx_array)_dst_roi_height, 0, _batch_size, sizeof(vx_uint32), _dst_roi_height_vec.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (width_status != 0 || height_status != 0)
+-        WRN("ERROR: vxCopyArrayRange _dst_roi_width or _dst_roi_height failed " + TOSTR(width_status) + "  " + TOSTR(height_status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange _dst_roi_width or _dst_roi_height failed " + TOSTR(width_status) + "  " + TOSTR(height_status));
+     _outputs[0]->update_tensor_roi(_dst_roi_width_vec, _dst_roi_height_vec);
+     _dst_roi_width_vec.clear();
+     _dst_roi_height_vec.clear();
+diff --git a/rocAL/source/augmentations/geometry_augmentations/node_resize_mirror_normalize.cpp b/rocAL/source/augmentations/geometry_augmentations/node_resize_mirror_normalize.cpp
+index 127c9478..31faab12 100644
+--- a/rocAL/source/augmentations/geometry_augmentations/node_resize_mirror_normalize.cpp
++++ b/rocAL/source/augmentations/geometry_augmentations/node_resize_mirror_normalize.cpp
+@@ -111,7 +111,7 @@ void ResizeMirrorNormalizeNode::update_node() {
+     width_status = vxCopyArrayRange((vx_array)_dst_roi_width, 0, _batch_size, sizeof(vx_uint32), _dst_roi_width_vec.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     height_status = vxCopyArrayRange((vx_array)_dst_roi_height, 0, _batch_size, sizeof(vx_uint32), _dst_roi_height_vec.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (width_status != 0 || height_status != 0)
+-        WRN("ERROR: vxCopyArrayRange _dst_roi_width or _dst_roi_height failed " + TOSTR(width_status) + "  " + TOSTR(height_status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange _dst_roi_width or _dst_roi_height failed " + TOSTR(width_status) + "  " + TOSTR(height_status));
+     _outputs[0]->update_tensor_roi(_dst_roi_width_vec, _dst_roi_height_vec);
+     _dst_roi_width_vec.clear();
+     _dst_roi_height_vec.clear();
+diff --git a/rocAL/source/decoders/audio/generic_audio_decoder.cpp b/rocAL/source/decoders/audio/generic_audio_decoder.cpp
+index 9f3def47..14f72699 100644
+--- a/rocAL/source/decoders/audio/generic_audio_decoder.cpp
++++ b/rocAL/source/decoders/audio/generic_audio_decoder.cpp
+@@ -35,7 +35,7 @@ AudioDecoder::Status GenericAudioDecoder::Decode(float* buffer) {
+     read_frame_count = sf_readf_float(_sf_ptr, buffer, _sfinfo.frames);
+     AudioDecoder::Status status = Status::OK;
+     if (read_frame_count != _sfinfo.frames) {
+-        ERR("Not able to decode all frames. Only decoded" + TOSTR(read_frame_count) + "frames");
++        ROCAL_ERR("Not able to decode all frames. Only decoded" + TOSTR(read_frame_count) + "frames");
+         sf_close(_sf_ptr);
+         status = Status::CONTENT_DECODE_FAILED;
+     }
+@@ -61,7 +61,7 @@ AudioDecoder::Status GenericAudioDecoder::Initialize(const char* src_filename) {
+     memset(&_sfinfo, 0, sizeof(_sfinfo));
+     if (!(_sf_ptr = sf_open(src_filename, SFM_READ, &_sfinfo))) {
+         // Open failed so print an error message.
+-        WRN("Not able to open input file : " + src_filename)
++        ROCAL_WRN("Not able to open input file : " + src_filename)
+         // Print the error message from libsndfile.
+         puts(sf_strerror(NULL));
+         sf_close(_sf_ptr);
+diff --git a/rocAL/source/decoders/image/fused_crop_decoder.cpp b/rocAL/source/decoders/image/fused_crop_decoder.cpp
+index b6f51824..104f648f 100644
+--- a/rocAL/source/decoders/image/fused_crop_decoder.cpp
++++ b/rocAL/source/decoders/image/fused_crop_decoder.cpp
+@@ -40,7 +40,7 @@ Decoder::Status FusedCropTJDecoder::decode_info(unsigned char *input_buffer, siz
+                             width,
+                             height,
+                             color_comps) != 0) {
+-        WRN("Jpeg header decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
++        ROCAL_WRN("Jpeg header decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
+         return Status::HEADER_DECODE_FAILED;
+     }
+     return Status::OK;
+@@ -94,7 +94,7 @@ Decoder::Status FusedCropTJDecoder::decode(unsigned char *input_buffer, size_t i
+                               tjpf,
+                               TJFLAG_ACCURATEDCT, &x1_diff, &crop_width_diff,
+                               _crop_window.x, _crop_window.y, _crop_window.W, _crop_window.H) != 0) {
+-        WRN("Jpeg image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
++        ROCAL_WRN("Jpeg image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
+         return Status::CONTENT_DECODE_FAILED;
+     }
+ 
+diff --git a/rocAL/source/decoders/image/turbo_jpeg_decoder.cpp b/rocAL/source/decoders/image/turbo_jpeg_decoder.cpp
+index 10909360..f9e58acc 100644
+--- a/rocAL/source/decoders/image/turbo_jpeg_decoder.cpp
++++ b/rocAL/source/decoders/image/turbo_jpeg_decoder.cpp
+@@ -32,7 +32,7 @@ TJDecoder::TJDecoder() {
+         THROW("tjDecompress2_partial_scale(): error getting scaling factors");
+     for(int i = 0; i < _num_scaling_factors; i++) {
+         if(_scaling_factors[i].num < _scaling_factors[i].denom) {
+-            INFO(STR(_scaling_factors[i].num) + "/" + STR(_scaling_factors[i].denom));
++            ROCAL_INFO(STR(_scaling_factors[i].num) + "/" + STR(_scaling_factors[i].denom));
+         }
+     }
+ };
+@@ -47,7 +47,7 @@ Decoder::Status TJDecoder::decode_info(unsigned char* input_buffer, size_t input
+                             color_comps) != 0) {
+         // ignore "Could not determine Subsampling type error"
+         if (STR(tjGetErrorStr2(m_jpegDecompressor)).find("Could not determine subsampling type for JPEG image") == std::string::npos) {
+-            WRN("Jpeg header decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
++            ROCAL_WRN("Jpeg header decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
+             return Status::HEADER_DECODE_FAILED;
+         }
+     }
+@@ -108,7 +108,7 @@ Decoder::Status TJDecoder::decode(unsigned char* input_buffer, size_t input_size
+                                             crop_width, crop_height) != 0)
+ 
+             {
+-                WRN("Jpeg partial image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
++                ROCAL_WRN("Jpeg partial image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
+                 return Status::CONTENT_DECODE_FAILED;
+             }
+             // Find the decoded image size using the predefined scaling factors in the turbo jpeg decoder
+@@ -136,7 +136,7 @@ Decoder::Status TJDecoder::decode(unsigned char* input_buffer, size_t input_size
+                               tjpf,
+                               TJFLAG_ACCURATEDCT) != 0) {
+                 // try decode to original dim and scale using OpenCV
+-                WRN("Jpeg image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
++                ROCAL_WRN("Jpeg image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
+                 return Status::CONTENT_DECODE_FAILED;
+             }
+             // Find the decoded image size using the predefined scaling factors in the turbo jpeg decoder
+@@ -188,7 +188,7 @@ Decoder::Status TJDecoder::decode(unsigned char* input_buffer, size_t input_size
+                                             crop_width, crop_height) != 0)
+ 
+             {
+-                WRN("Jpeg partial image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
++                ROCAL_WRN("Jpeg partial image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
+                 return Status::CONTENT_DECODE_FAILED;
+             }
+             // Find the decoded image size using the predefined scaling factors in the turbo jpeg decoder
+@@ -214,7 +214,7 @@ Decoder::Status TJDecoder::decode(unsigned char* input_buffer, size_t input_size
+                               actual_decoded_height,
+                               tjpf,
+                               TJFLAG_ACCURATEDCT) != 0) {
+-                WRN("KO::Jpeg image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
++                ROCAL_WRN("KO::Jpeg image decode failed " + STR(tjGetErrorStr2(m_jpegDecompressor)))
+                 return Status::CONTENT_DECODE_FAILED;
+             }
+             // Find the decoded image size using the predefined scaling factors in the turbo jpeg decoder
+diff --git a/rocAL/source/decoders/libjpeg/libjpeg_extra.cpp b/rocAL/source/decoders/libjpeg/libjpeg_extra.cpp
+index df5a2198..67e8a9ca 100644
+--- a/rocAL/source/decoders/libjpeg/libjpeg_extra.cpp
++++ b/rocAL/source/decoders/libjpeg/libjpeg_extra.cpp
+@@ -99,7 +99,7 @@ int tjDecompress2_partial(tjhandle handle, const unsigned char *jpegBuf,
+     * after jpeg_start_decompress() is called.
+     */
+     if (crop_x + crop_width > cinfo.output_width || crop_y + crop_height > cinfo.output_height) {
+-        ERR("crop dimensions:" << crop_width << " x " << crop_height << " exceed image dimensions" <<
++        ROCAL_ERR("crop dimensions:" << crop_width << " x " << crop_height << " exceed image dimensions" <<
+             cinfo.output_width << " x " << cinfo.output_height);
+         retval = -1;  goto bailout;
+     }
+@@ -137,7 +137,7 @@ int tjDecompress2_partial(tjhandle handle, const unsigned char *jpegBuf,
+           num_scanlines = jpeg_read_scanlines(&cinfo,  &row_pointer[cinfo.output_scanline - crop_y],
+                                           crop_y + crop_height - cinfo.output_scanline);
+         if (num_scanlines == 0){
+-          ERR("Premature end of Jpeg data. Stopped at " << cinfo.output_scanline - crop_y << "/"
++          ROCAL_ERR("Premature end of Jpeg data. Stopped at " << cinfo.output_scanline - crop_y << "/"
+               << cinfo.output_height)
+         }
+     }      
+@@ -218,7 +218,7 @@ int tjDecompress2_partial_scale(tjhandle handle, const unsigned char *jpegBuf,
+     * after jpeg_start_decompress() is called.
+     */
+     if (crop_x + scaledw   > cinfo.output_width || scaledh   > cinfo.output_height) {
+-        ERR("crop dimensions:" << crop_x + scaledw << " x " << scaledh << " exceed image dimensions" <<
++        ROCAL_ERR("crop dimensions:" << crop_x + scaledw << " x " << scaledh << " exceed image dimensions" <<
+             cinfo.output_width << " x " << cinfo.output_height);
+         retval = -1;  goto bailout;
+     }
+diff --git a/rocAL/source/decoders/video/ffmpeg_video_decoder.cpp b/rocAL/source/decoders/video/ffmpeg_video_decoder.cpp
+index 05144b7d..962c8d0b 100644
+--- a/rocAL/source/decoders/video/ffmpeg_video_decoder.cpp
++++ b/rocAL/source/decoders/video/ffmpeg_video_decoder.cpp
+@@ -29,7 +29,7 @@ THE SOFTWARE.
+ 
+ #define DECODER_ERROR_RETURN(err_msg, status) \
+     do {                                      \
+-        ERR(err_msg)                          \
++        ROCAL_ERR(err_msg)                          \
+         Release();                            \
+         return status;                        \
+     } while (0);
+@@ -41,7 +41,7 @@ int FFmpegVideoDecoder::SeekFrame(AVRational avg_frame_rate, AVRational time_bas
+     int64_t select_frame_pts = av_rescale_q((int64_t)frame_number, av_inv_q(avg_frame_rate), time_base);
+     int ret = av_seek_frame(_fmt_ctx, -1, seek_time, AVSEEK_FLAG_BACKWARD);
+     if (ret < 0) {
+-        ERR("Error in seeking frame..Unable to seek the given frame in a video");
++        ROCAL_ERR("Error in seeking frame..Unable to seek the given frame in a video");
+         return ret;
+     }
+     return select_frame_pts;
+@@ -57,13 +57,13 @@ VideoDecoder::Status FFmpegVideoDecoder::Decode(unsigned char *out_buffer, unsig
+         swsctx = sws_getCachedContext(nullptr, _codec_width, _codec_height, _dec_pix_fmt,
+                                       out_width, out_height, out_pix_format, SWS_BILINEAR, nullptr, nullptr, nullptr);
+         if (!swsctx) {
+-            ERR("Fail to get sws_getCachedContext");
++            ROCAL_ERR("Fail to get sws_getCachedContext");
+             return Status::FAILED;
+         }
+     }
+     int select_frame_pts = SeekFrame(_video_stream->avg_frame_rate, _video_stream->time_base, seek_frame_number);
+     if (select_frame_pts < 0) {
+-        ERR("Error in seeking frame..Unable to seek the given frame in a video");
++        ROCAL_ERR("Error in seeking frame..Unable to seek the given frame in a video");
+         return Status::FAILED;
+     }
+     unsigned frame_count = 0;
+@@ -75,7 +75,7 @@ VideoDecoder::Status FFmpegVideoDecoder::Decode(unsigned char *out_buffer, unsig
+     AVPacket pkt;
+     AVFrame *dec_frame = av_frame_alloc();
+     if (!dec_frame) {
+-        ERR("Could not allocate dec_frame");
++        ROCAL_ERR("Could not allocate dec_frame");
+         return Status::NO_MEMORY;
+     }
+     do {
+@@ -83,7 +83,7 @@ VideoDecoder::Status FFmpegVideoDecoder::Decode(unsigned char *out_buffer, unsig
+         // read packet from input file
+         ret = av_read_frame(_fmt_ctx, &pkt);
+         if (ret < 0 && ret != AVERROR_EOF) {
+-            ERR("Fail to av_read_frame: ret=" + TOSTR(ret));
++            ROCAL_ERR("Fail to av_read_frame: ret=" + TOSTR(ret));
+             status = Status::FAILED;
+             break;
+         }
+@@ -101,7 +101,7 @@ VideoDecoder::Status FFmpegVideoDecoder::Decode(unsigned char *out_buffer, unsig
+         // submit the packet to the decoder
+         ret = avcodec_send_packet(_video_dec_ctx, &pkt);
+         if (ret < 0) {
+-            ERR("Error while sending packet to the decoder\n");
++            ROCAL_ERR("Error while sending packet to the decoder\n");
+             status = Status::FAILED;
+             break;
+         }
+diff --git a/rocAL/source/decoders/video/rocdec_video_decoder.cpp b/rocAL/source/decoders/video/rocdec_video_decoder.cpp
+index ef306456..9d128f5b 100644
+--- a/rocAL/source/decoders/video/rocdec_video_decoder.cpp
++++ b/rocAL/source/decoders/video/rocdec_video_decoder.cpp
+@@ -71,7 +71,7 @@ VideoDecoder::Status RocDecVideoDecoder::Initialize(const char *src_filename, in
+     _rocvid_decoder = std::make_shared<RocVideoDecoder>(device_id, mem_type, rocdec_codec_id, 0, nullptr, 0);
+ 
+     if(!_rocvid_decoder->CodecSupported(device_id, rocdec_codec_id, _demuxer->GetBitDepth())) {
+-        ERR("GPU doesn't support codec!")
++        ROCAL_ERR("GPU doesn't support codec!")
+         return VideoDecoder::Status::FAILED;
+     }
+ 
+@@ -93,11 +93,11 @@ VideoDecoder::Status RocDecVideoDecoder::Decode(unsigned char *output_buffer_ptr
+     _rocvid_decoder->SetReconfigParams(&reconfig_params);
+ 
+     if (!_demuxer || !_rocvid_decoder || !output_buffer_ptr) {
+-        ERR("Decoder is not initialized");
++        ROCAL_ERR("Decoder is not initialized");
+         return Status::FAILED;        
+     }
+     if (!output_buffer_ptr || !(sequence_length|stride)) {
+-        ERR("Invalid parameter passed");
++        ROCAL_ERR("Invalid parameter passed");
+         return Status::FAILED;        
+     }
+ 
+@@ -132,7 +132,7 @@ VideoDecoder::Status RocDecVideoDecoder::Decode(unsigned char *output_buffer_ptr
+         }
+         n_frame_returned = _rocvid_decoder->DecodeFrame(pvideo, n_video_bytes, pkg_flags, pts);
+         if (!n_frame && !_rocvid_decoder->GetOutputSurfaceInfo(&surf_info)) {
+-            ERR("Failed to get Output Surface Info!");
++            ROCAL_ERR("Failed to get Output Surface Info!");
+             return Status::FAILED;
+         }
+         // Take the min of sequence length and num frames to avoid out of bounds memory error
+diff --git a/rocAL/source/device/device_manager_hip.cpp b/rocAL/source/device/device_manager_hip.cpp
+index ac95dc77..825a5467 100644
+--- a/rocAL/source/device/device_manager_hip.cpp
++++ b/rocAL/source/device/device_manager_hip.cpp
+@@ -35,10 +35,10 @@ DeviceManagerHip::~DeviceManagerHip() {
+     if (_resources.hip_stream != nullptr) {
+         err = hipStreamDestroy(_resources.hip_stream);
+         if (err != hipSuccess)
+-            LOG("hipStreamDestroy failed " + TOSTR(err))
++            ROCAL_LOG("hipStreamDestroy failed " + TOSTR(err))
+         _resources.hip_stream = nullptr;
+     }
+-    LOG("HIP device resources released")
++    ROCAL_LOG("HIP device resources released")
+ }
+ 
+ hipError_t DeviceManagerHip::initialize() {
+@@ -73,6 +73,6 @@ void DeviceManagerHip::init_hip(vx_context context) {
+     if (err != hipSuccess) {
+         THROW("init_hip::initialize failed " + TOSTR(err))
+     }
+-    LOG("ROCAL HIP initialized ...")
++    ROCAL_LOG("ROCAL HIP initialized ...")
+ }
+ #endif
+\ No newline at end of file
+diff --git a/rocAL/source/loaders/audio/audio_loader.cpp b/rocAL/source/loaders/audio/audio_loader.cpp
+index be29f1e6..d3fef9cc 100644
+--- a/rocAL/source/loaders/audio/audio_loader.cpp
++++ b/rocAL/source/loaders/audio/audio_loader.cpp
+@@ -112,7 +112,7 @@ void AudioLoader::stop_internal_thread() {
+ 
+ void AudioLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg, RocalMemType mem_type, unsigned batch_size, bool decoder_keep_original) {
+     if (_is_initialized)
+-        WRN("initialize() function is already called and loader module is initialized")
++        ROCAL_WRN("initialize() function is already called and loader module is initialized")
+     if (_output_mem_size == 0)
+         THROW("output audio size is 0, set_output() should be called before initialize for loader modules")
+     _mem_type = mem_type;
+@@ -140,7 +140,7 @@ void AudioLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg,
+     _decoded_audio_info._audio_sample_rates.resize(_batch_size);
+     _circ_buff.init(_mem_type, _output_mem_size, _prefetch_queue_depth);
+     _is_initialized = true;
+-    LOG("Loader module initialized");
++    ROCAL_LOG("Loader module initialized");
+ }
+ 
+ void AudioLoader::start_loading() {
+@@ -154,7 +154,7 @@ void AudioLoader::start_loading() {
+ 
+ LoaderModuleStatus
+ AudioLoader::load_routine() {
+-    LOG("Started the internal loader thread");
++    ROCAL_LOG("Started the internal loader thread");
+     LoaderModuleStatus last_load_status = LoaderModuleStatus::OK;
+     // Initially record number of all the audios that are going to be loaded, this is used to know how many still there
+ 
+@@ -180,9 +180,9 @@ AudioLoader::load_routine() {
+             if (last_load_status != load_status) {
+                 if (load_status == LoaderModuleStatus::NO_MORE_DATA_TO_READ ||
+                     load_status == LoaderModuleStatus::NO_FILES_TO_READ) {
+-                    LOG("Cycled through all audios, count " + TOSTR(_audio_counter));
++                    ROCAL_LOG("Cycled through all audios, count " + TOSTR(_audio_counter));
+                 } else {
+-                    ERR("ERROR: Detected error in reading the audios");
++                    ROCAL_ERR("ERROR: Detected error in reading the audios");
+                 }
+                 last_load_status = load_status;
+             }
+diff --git a/rocAL/source/loaders/audio/audio_read_and_decode.cpp b/rocAL/source/loaders/audio/audio_read_and_decode.cpp
+index f2f34df5..4d606eb8 100644
+--- a/rocAL/source/loaders/audio/audio_read_and_decode.cpp
++++ b/rocAL/source/loaders/audio/audio_read_and_decode.cpp
+@@ -97,7 +97,7 @@ AudioReadAndDecode::Load(float *audio_buffer,
+     while ((file_counter != _batch_size) && _reader->count_items() > 0) {
+         size_t fsize = _reader->open();
+         if (fsize == 0) {
+-            WRN("Opened file " + _reader->id() + " of size 0");
++            ROCAL_WRN("Opened file " + _reader->id() + " of size 0");
+             continue;
+         }
+         _audio_meta_info[file_counter].file_name = _reader->id();
+diff --git a/rocAL/source/loaders/audio/audio_source_evaluator.cpp b/rocAL/source/loaders/audio/audio_source_evaluator.cpp
+index df54b651..7376b3b9 100644
+--- a/rocAL/source/loaders/audio/audio_source_evaluator.cpp
++++ b/rocAL/source/loaders/audio/audio_source_evaluator.cpp
+@@ -53,13 +53,13 @@ void AudioSourceEvaluator::FindMaxDimension() {
+         for (auto rel_file_path : relative_file_paths) {
+             std::string file_name = root_folder_path + "/" + rel_file_path;
+             if (_decoder->Initialize(file_name.c_str()) != AudioDecoder::Status::OK) {
+-                WRN("Could not initialize audio decoder for file : " + _reader->id())
++                ROCAL_WRN("Could not initialize audio decoder for file : " + _reader->id())
+                 continue;
+             }
+             int samples, channels;
+             float sample_rate;
+             if (_decoder->DecodeInfo(&samples, &channels, &sample_rate) != AudioDecoder::Status::OK) {
+-                WRN("Could not decode the header of the: " + _reader->id())
++                ROCAL_WRN("Could not decode the header of the: " + _reader->id())
+                 continue;
+             }
+             if (samples <= 0 || channels <= 0)
+@@ -74,13 +74,13 @@ void AudioSourceEvaluator::FindMaxDimension() {
+             if (!fsize) continue;
+             auto file_name = _reader->file_path();
+             if (_decoder->Initialize(file_name.c_str()) != AudioDecoder::Status::OK) {
+-                WRN("Could not initialize audio decoder for file : " + _reader->id())
++                ROCAL_WRN("Could not initialize audio decoder for file : " + _reader->id())
+                 continue;
+             }
+             int samples, channels;
+             float sample_rate;
+             if (_decoder->DecodeInfo(&samples, &channels, &sample_rate) != AudioDecoder::Status::OK) {
+-                WRN("Could not decode the header of the: " + _reader->id())
++                ROCAL_WRN("Could not decode the header of the: " + _reader->id())
+                 continue;
+             }
+             if (samples <= 0 || channels <= 0)
+diff --git a/rocAL/source/loaders/audio/node_audio_loader.cpp b/rocAL/source/loaders/audio/node_audio_loader.cpp
+index 2b7b990b..0b32c61d 100644
+--- a/rocAL/source/loaders/audio/node_audio_loader.cpp
++++ b/rocAL/source/loaders/audio/node_audio_loader.cpp
+@@ -52,7 +52,7 @@ void AudioLoaderNode::Init(unsigned internal_shard_count, unsigned cpu_num_threa
+ 
+ std::shared_ptr<LoaderModule> AudioLoaderNode::GetLoaderModule() {
+     if (!_loader_module)
+-        WRN("AudioLoaderNode's loader module is null, not initialized")
++        ROCAL_WRN("AudioLoaderNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/audio/node_audio_loader_single_shard.cpp b/rocAL/source/loaders/audio/node_audio_loader_single_shard.cpp
+index 1330ecbb..c3a5cebd 100644
+--- a/rocAL/source/loaders/audio/node_audio_loader_single_shard.cpp
++++ b/rocAL/source/loaders/audio/node_audio_loader_single_shard.cpp
+@@ -54,7 +54,7 @@ void AudioLoaderSingleShardNode::Init(unsigned shard_id, unsigned shard_count, u
+ 
+ std::shared_ptr<LoaderModule> AudioLoaderSingleShardNode::GetLoaderModule() {
+     if (!_loader_module)
+-        WRN("AudioLoaderSingleShardNode's loader module is null, not initialized")
++        ROCAL_WRN("AudioLoaderSingleShardNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/circular_buffer.cpp b/rocAL/source/loaders/circular_buffer.cpp
+index 1d7dd256..c92b9b17 100644
+--- a/rocAL/source/loaders/circular_buffer.cpp
++++ b/rocAL/source/loaders/circular_buffer.cpp
+@@ -189,14 +189,14 @@ void CircularBuffer::release() {
+                     hipError_t err = hipHostFree((void *)_host_buffer_ptrs[buffIdx]);
+ 
+                     if (err != hipSuccess)
+-                        ERR("Could not release hip host memory in the circular buffer " + TOSTR(err))
++                        ROCAL_ERR("Could not release hip host memory in the circular buffer " + TOSTR(err))
+                     _host_buffer_ptrs[buffIdx] = nullptr;
+                 }
+                 if (!_use_pinned_memory && _dev_buffer[buffIdx]) {
+                     hipError_t err = hipFree((void *)_dev_buffer[buffIdx]);
+ 
+                     if (err != hipSuccess)
+-                        ERR("Could not release hip memory in the circular buffer " + TOSTR(err))
++                        ROCAL_ERR("Could not release hip memory in the circular buffer " + TOSTR(err))
+                     _dev_buffer[buffIdx] = nullptr;
+                 }
+             } else {
+diff --git a/rocAL/source/loaders/image/cifar10_loader.cpp b/rocAL/source/loaders/image/cifar10_loader.cpp
+index 41ed1af7..eec78ff6 100644
+--- a/rocAL/source/loaders/image/cifar10_loader.cpp
++++ b/rocAL/source/loaders/image/cifar10_loader.cpp
+@@ -113,7 +113,7 @@ void CIFAR10Loader::set_output(Tensor* output_tensor) {
+ 
+ void CIFAR10Loader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg, RocalMemType mem_type, unsigned batch_size, bool keep_orig_size) {
+     if (_is_initialized)
+-        WRN("initialize() function is already called and loader module is initialized")
++        ROCAL_WRN("initialize() function is already called and loader module is initialized")
+ 
+     if (_output_mem_size == 0)
+         THROW("output image size is 0, set_output_image() should be called before initialize for loader modules")
+@@ -138,7 +138,7 @@ void CIFAR10Loader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cf
+     _crop_image_info._crop_image_coords.resize(_batch_size);
+     _circ_buff.init(_mem_type, _output_mem_size, _prefetch_queue_depth);
+     _is_initialized = true;
+-    LOG("Loader module initialized");
++    ROCAL_LOG("Loader module initialized");
+ }
+ 
+ void CIFAR10Loader::set_random_bbox_data_reader(std::shared_ptr<RandomBBoxCrop_MetaDataReader> randombboxcrop_meta_data_reader) {
+@@ -171,7 +171,7 @@ void CIFAR10Loader::start_loading() {
+ 
+ LoaderModuleStatus
+ CIFAR10Loader::load_routine() {
+-    LOG("Started the internal loader thread");
++    ROCAL_LOG("Started the internal loader thread");
+     LoaderModuleStatus last_load_status = LoaderModuleStatus::OK;
+     // Initially record number of all the images that are going to be loaded, this is used to know how many still there
+ 
+@@ -191,7 +191,7 @@ CIFAR10Loader::load_routine() {
+                 auto read_ptr = data + _image_size * file_counter;
+                 size_t readSize = _reader->open();
+                 if (readSize == 0) {
+-                    ERR("Opened file " + _reader->id() + " of size 0");
++                    ROCAL_ERR("Opened file " + _reader->id() + " of size 0");
+                     continue;
+                 }
+                 _actual_read_size[file_counter] = _reader->read_data(read_ptr, readSize);
+@@ -218,9 +218,9 @@ CIFAR10Loader::load_routine() {
+             if (last_load_status != load_status) {
+                 if (load_status == LoaderModuleStatus::NO_MORE_DATA_TO_READ ||
+                     load_status == LoaderModuleStatus::NO_FILES_TO_READ) {
+-                    LOG("Cycled through all images, count " + TOSTR(_image_counter));
++                    ROCAL_LOG("Cycled through all images, count " + TOSTR(_image_counter));
+                 } else {
+-                    ERR("ERROR: Detected error in reading the images");
++                    ROCAL_ERR("ERROR: Detected error in reading the images");
+                 }
+                 last_load_status = load_status;
+             }
+diff --git a/rocAL/source/loaders/image/image_loader.cpp b/rocAL/source/loaders/image/image_loader.cpp
+index 765940fd..3fd20f4f 100644
+--- a/rocAL/source/loaders/image/image_loader.cpp
++++ b/rocAL/source/loaders/image/image_loader.cpp
+@@ -132,7 +132,7 @@ void ImageLoader::stop_internal_thread() {
+ 
+ void ImageLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg, RocalMemType mem_type, unsigned batch_size, bool decoder_keep_original) {
+     if (_is_initialized)
+-        WRN("initialize() function is already called and loader module is initialized")
++        ROCAL_WRN("initialize() function is already called and loader module is initialized")
+ 
+     if (_output_mem_size == 0)
+         THROW("output image size is 0, set_output() should be called before initialize for loader modules")
+@@ -176,7 +176,7 @@ void ImageLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg,
+     }
+     _is_initialized = true;
+     _image_loader->set_random_bbox_data_reader(_randombboxcrop_meta_data_reader);
+-    LOG("Loader module initialized");
++    ROCAL_LOG("Loader module initialized");
+ }
+ 
+ void ImageLoader::start_loading() {
+@@ -190,7 +190,7 @@ void ImageLoader::start_loading() {
+ 
+ LoaderModuleStatus
+ ImageLoader::load_routine() {
+-    LOG("Started the internal loader thread");
++    ROCAL_LOG("Started the internal loader thread");
+     LoaderModuleStatus last_load_status = LoaderModuleStatus::OK;
+     // Initially record number of all the images that are going to be loaded, this is used to know how many still there
+ 
+@@ -225,9 +225,9 @@ ImageLoader::load_routine() {
+             if (last_load_status != load_status) {
+                 if (load_status == LoaderModuleStatus::NO_MORE_DATA_TO_READ ||
+                     load_status == LoaderModuleStatus::NO_FILES_TO_READ) {
+-                    LOG("Cycled through all images, count " + TOSTR(_image_counter));
++                    ROCAL_LOG("Cycled through all images, count " + TOSTR(_image_counter));
+                 } else {
+-                    ERR("ERROR: Detected error in reading the images");
++                    ROCAL_ERR("ERROR: Detected error in reading the images");
+                 }
+                 last_load_status = load_status;
+             }
+diff --git a/rocAL/source/loaders/image/image_read_and_decode.cpp b/rocAL/source/loaders/image/image_read_and_decode.cpp
+index 922e50cf..a1b80f12 100644
+--- a/rocAL/source/loaders/image/image_read_and_decode.cpp
++++ b/rocAL/source/loaders/image/image_read_and_decode.cpp
+@@ -196,13 +196,13 @@ ImageReadAndDecode::load(unsigned char *buff,
+             auto read_ptr = buff + image_size * file_counter;
+             size_t fsize = _reader->open();
+             if (fsize == 0) {
+-                WRN("Opened file " + _reader->id() + " of size 0");
++                ROCAL_WRN("Opened file " + _reader->id() + " of size 0");
+                 continue;
+             }
+ 
+             _actual_read_size[file_counter] = _reader->read_data(read_ptr, fsize);
+             if (_actual_read_size[file_counter] < fsize)
+-                LOG("Reader read less than requested bytes of size: " + _actual_read_size[file_counter]);
++                ROCAL_LOG("Reader read less than requested bytes of size: " + _actual_read_size[file_counter]);
+ 
+             _image_names[file_counter] = _reader->id();
+             _reader->close();
+@@ -224,13 +224,13 @@ ImageReadAndDecode::load(unsigned char *buff,
+                 auto read_ptr = buff + image_size * file_counter;
+                 size_t fsize = _reader->open();
+                 if (fsize == 0) {
+-                    WRN("Opened file " + _reader->id() + " of size 0");
++                    ROCAL_WRN("Opened file " + _reader->id() + " of size 0");
+                     continue;
+                 }
+ 
+                 _actual_read_size[file_counter] = _reader->read_data(read_ptr, fsize);
+                 if (_actual_read_size[file_counter] < fsize)
+-                    LOG("Reader read less than requested bytes of size: " + _actual_read_size[file_counter]);
++                    ROCAL_LOG("Reader read less than requested bytes of size: " + _actual_read_size[file_counter]);
+ 
+                 _image_names[file_counter] = _reader->id();
+                 ext_reader->get_dims(file_counter, width, height, channels, rwidth, rheight);
+@@ -248,7 +248,7 @@ ImageReadAndDecode::load(unsigned char *buff,
+                 _reader->count_items();
+                 size_t fsize = _reader->open();
+                 if (fsize == 0) {
+-                    WRN("Opened file " + _reader->id() + " of size 0");
++                    ROCAL_WRN("Opened file " + _reader->id() + " of size 0");
+                     continue;
+                 }
+                 _compressed_buff[file_counter].reserve(fsize);
+@@ -264,7 +264,7 @@ ImageReadAndDecode::load(unsigned char *buff,
+         while ((file_counter != _batch_size) && _reader->count_items() > 0) {
+             size_t fsize = _reader->open();
+             if (fsize == 0) {
+-                WRN("Opened file " + _reader->id() + " of size 0");
++                ROCAL_WRN("Opened file " + _reader->id() + " of size 0");
+                 continue;
+             }
+             _compressed_buff[file_counter].reserve(fsize);
+diff --git a/rocAL/source/loaders/image/node_cifar10_loader.cpp b/rocAL/source/loaders/image/node_cifar10_loader.cpp
+index deb14efe..eac24af1 100644
+--- a/rocAL/source/loaders/image/node_cifar10_loader.cpp
++++ b/rocAL/source/loaders/image/node_cifar10_loader.cpp
+@@ -45,7 +45,7 @@ void Cifar10LoaderNode::init(const std::string &source_path, const std::string &
+ 
+ std::shared_ptr<LoaderModule> Cifar10LoaderNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("Cifar10LoaderNode's loader module is null, not initialized")
++        ROCAL_WRN("Cifar10LoaderNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/image/node_fused_jpeg_crop.cpp b/rocAL/source/loaders/image/node_fused_jpeg_crop.cpp
+index 0a5783ea..d4644f6f 100644
+--- a/rocAL/source/loaders/image/node_fused_jpeg_crop.cpp
++++ b/rocAL/source/loaders/image/node_fused_jpeg_crop.cpp
+@@ -57,7 +57,7 @@ void FusedJpegCropNode::init(unsigned internal_shard_count, unsigned cpu_num_thr
+ 
+ std::shared_ptr<LoaderModule> FusedJpegCropNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("FusedJpegCropNode's loader module is null, not initialized")
++        ROCAL_WRN("FusedJpegCropNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/image/node_fused_jpeg_crop_single_shard.cpp b/rocAL/source/loaders/image/node_fused_jpeg_crop_single_shard.cpp
+index 521a33fd..9a109462 100644
+--- a/rocAL/source/loaders/image/node_fused_jpeg_crop_single_shard.cpp
++++ b/rocAL/source/loaders/image/node_fused_jpeg_crop_single_shard.cpp
+@@ -60,7 +60,7 @@ void FusedJpegCropSingleShardNode::init(unsigned shard_id, unsigned shard_count,
+ 
+ std::shared_ptr<LoaderModule> FusedJpegCropSingleShardNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("FusedJpegCropSingleShardNode's loader module is null, not initialized")
++        ROCAL_WRN("FusedJpegCropSingleShardNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/image/node_image_loader.cpp b/rocAL/source/loaders/image/node_image_loader.cpp
+index 0e5d4635..fa937944 100644
+--- a/rocAL/source/loaders/image/node_image_loader.cpp
++++ b/rocAL/source/loaders/image/node_image_loader.cpp
+@@ -75,7 +75,7 @@ void ImageLoaderNode::init(unsigned internal_shard_count, unsigned cpu_num_threa
+ 
+ std::shared_ptr<LoaderModule> ImageLoaderNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("ImageLoaderNode's loader module is null, not initialized")
++        ROCAL_WRN("ImageLoaderNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/image/node_image_loader_single_shard.cpp b/rocAL/source/loaders/image/node_image_loader_single_shard.cpp
+index 7c2c4464..2fac4c65 100644
+--- a/rocAL/source/loaders/image/node_image_loader_single_shard.cpp
++++ b/rocAL/source/loaders/image/node_image_loader_single_shard.cpp
+@@ -60,7 +60,7 @@ void ImageLoaderSingleShardNode::init(unsigned shard_id, unsigned shard_count, u
+ 
+ std::shared_ptr<LoaderModule> ImageLoaderSingleShardNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("ImageLoaderSingleShardNode's loader module is null, not initialized")
++        ROCAL_WRN("ImageLoaderSingleShardNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/image/node_numpy_loader.cpp b/rocAL/source/loaders/image/node_numpy_loader.cpp
+index 51e1ffa8..d99cab5f 100644
+--- a/rocAL/source/loaders/image/node_numpy_loader.cpp
++++ b/rocAL/source/loaders/image/node_numpy_loader.cpp
+@@ -48,7 +48,7 @@ void NumpyLoaderNode::init(unsigned internal_shard_count, const std::string &sou
+ 
+ std::shared_ptr<LoaderModule> NumpyLoaderNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("NumpyLoaderNode's loader module is null, not initialized")
++        ROCAL_WRN("NumpyLoaderNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/image/node_numpy_loader_single_shard.cpp b/rocAL/source/loaders/image/node_numpy_loader_single_shard.cpp
+index 2ef10174..eca4c6bc 100644
+--- a/rocAL/source/loaders/image/node_numpy_loader_single_shard.cpp
++++ b/rocAL/source/loaders/image/node_numpy_loader_single_shard.cpp
+@@ -51,7 +51,7 @@ void NumpyLoaderSingleShardNode::init(unsigned shard_id, unsigned shard_count, c
+ 
+ std::shared_ptr<LoaderModule> NumpyLoaderSingleShardNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("NumpyLoaderSingleShardNode's loader module is null, not initialized")
++        ROCAL_WRN("NumpyLoaderSingleShardNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/image/numpy_loader.cpp b/rocAL/source/loaders/image/numpy_loader.cpp
+index 964df2fb..fc13ee22 100644
+--- a/rocAL/source/loaders/image/numpy_loader.cpp
++++ b/rocAL/source/loaders/image/numpy_loader.cpp
+@@ -117,7 +117,7 @@ void NumpyLoader::stop_internal_thread() {
+ 
+ void NumpyLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg, RocalMemType mem_type, unsigned batch_size, bool decoder_keep_original) {
+     if (_is_initialized)
+-        WRN("initialize() function is already called and loader module is initialized")
++        ROCAL_WRN("initialize() function is already called and loader module is initialized")
+ 
+     if (_output_mem_size == 0)
+         THROW("output tensor size is 0, set_output() should be called before initialize for loader modules")
+@@ -137,7 +137,7 @@ void NumpyLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg,
+     _decoded_data_info._roi_shape.resize(_batch_size);
+     _circ_buff.init(_mem_type, _output_mem_size, _prefetch_queue_depth);
+     _is_initialized = true;
+-    LOG("Loader module initialized");
++    ROCAL_LOG("Loader module initialized");
+ }
+ 
+ void NumpyLoader::start_loading() {
+@@ -151,7 +151,7 @@ void NumpyLoader::start_loading() {
+ 
+ LoaderModuleStatus
+ NumpyLoader::load_routine() {
+-    LOG("Started the internal loader thread");
++    ROCAL_LOG("Started the internal loader thread");
+     LoaderModuleStatus last_load_status = LoaderModuleStatus::OK;
+     // Initially record number of all the numpy arrays that are going to be loaded, this is used to know how many still there
+     const std::vector<size_t> tensor_dims = _output_tensor->info().dims();
+@@ -178,13 +178,13 @@ NumpyLoader::load_routine() {
+                 auto read_ptr = data + _tensor_size * file_counter;
+                 size_t read_size = _reader->open();
+                 if (read_size == 0) {
+-                    ERR("Opened file " + _reader->id() + " of size 0");
++                    ROCAL_ERR("Opened file " + _reader->id() + " of size 0");
+                     _reader->close();
+                     continue;
+                 }
+                 auto fsize = _reader->read_numpy_data(read_ptr, read_size, strides_in_dims);
+                 if (fsize == 0) {
+-                    ERR("Cannot read numpy data from " + _reader->id());
++                    ROCAL_ERR("Cannot read numpy data from " + _reader->id());
+                     _reader->close();
+                     continue;
+                 }
+@@ -211,9 +211,9 @@ NumpyLoader::load_routine() {
+             if (last_load_status != load_status) {
+                 if (load_status == LoaderModuleStatus::NO_MORE_DATA_TO_READ ||
+                     load_status == LoaderModuleStatus::NO_FILES_TO_READ) {
+-                    LOG("Cycled through all numpy files, count " + TOSTR(_file_counter));
++                    ROCAL_LOG("Cycled through all numpy files, count " + TOSTR(_file_counter));
+                 } else {
+-                    ERR("ERROR: Detected error in reading the numpy files");
++                    ROCAL_ERR("ERROR: Detected error in reading the numpy files");
+                 }
+                 last_load_status = load_status;
+             }
+diff --git a/rocAL/source/loaders/image_source_evaluator.cpp b/rocAL/source/loaders/image_source_evaluator.cpp
+index 53254b9a..02198bf2 100644
+--- a/rocAL/source/loaders/image_source_evaluator.cpp
++++ b/rocAL/source/loaders/image_source_evaluator.cpp
+@@ -63,7 +63,7 @@ void ImageSourceEvaluator::find_max_dimension() {
+ 
+         int width, height, jpeg_sub_samp;
+         if (_decoder->decode_info(_header_buff.data(), actual_read_size, &width, &height, &jpeg_sub_samp) != Decoder::Status::OK) {
+-            WRN("Could not decode the header of the: " + _reader->id())
++            ROCAL_WRN("Could not decode the header of the: " + _reader->id())
+             continue;
+         }
+ 
+diff --git a/rocAL/source/loaders/video/node_video_loader.cpp b/rocAL/source/loaders/video/node_video_loader.cpp
+index b6d55e0a..76ae637e 100644
+--- a/rocAL/source/loaders/video/node_video_loader.cpp
++++ b/rocAL/source/loaders/video/node_video_loader.cpp
+@@ -53,7 +53,7 @@ void VideoLoaderNode::init(unsigned internal_shard_count, const std::string &sou
+ 
+ std::shared_ptr<LoaderModule> VideoLoaderNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("VideoLoaderNode's loader module is null, not initialized")
++        ROCAL_WRN("VideoLoaderNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/video/node_video_loader_single_shard.cpp b/rocAL/source/loaders/video/node_video_loader_single_shard.cpp
+index a707813d..388856a5 100644
+--- a/rocAL/source/loaders/video/node_video_loader_single_shard.cpp
++++ b/rocAL/source/loaders/video/node_video_loader_single_shard.cpp
+@@ -54,7 +54,7 @@ void VideoLoaderSingleShardNode::init(unsigned shard_id, unsigned shard_count, c
+ 
+ std::shared_ptr<LoaderModule> VideoLoaderSingleShardNode::get_loader_module() {
+     if (!_loader_module)
+-        WRN("VideoLoaderSingleShardNode's loader module is null, not initialized")
++        ROCAL_WRN("VideoLoaderSingleShardNode's loader module is null, not initialized")
+     return _loader_module;
+ }
+ 
+diff --git a/rocAL/source/loaders/video/video_loader.cpp b/rocAL/source/loaders/video/video_loader.cpp
+index a1dc4cac..99c0772a 100644
+--- a/rocAL/source/loaders/video/video_loader.cpp
++++ b/rocAL/source/loaders/video/video_loader.cpp
+@@ -124,7 +124,7 @@ void VideoLoader::stop_internal_thread() {
+ 
+ void VideoLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg, RocalMemType mem_type, unsigned batch_size, bool decoder_keep_original) {
+     if (_is_initialized)
+-        WRN("initialize() function is already called and loader module is initialized")
++        ROCAL_WRN("initialize() function is already called and loader module is initialized")
+     if (_output_mem_size == 0)
+         THROW("output image size is 0, set_output_image() should be called before initialize for loader modules")
+     _mem_type = mem_type;
+@@ -154,7 +154,7 @@ void VideoLoader::initialize(ReaderConfig reader_cfg, DecoderConfig decoder_cfg,
+     _circ_buff.init(_mem_type, _output_mem_size, _prefetch_queue_depth, 
+                     decoder_cfg._type == DecoderType::ROCDECODE_VIDEO ? true : false);  // Use HIP memory for rocDecode
+     _is_initialized = true;
+-    LOG("Loader module initialized");
++    ROCAL_LOG("Loader module initialized");
+ }
+ 
+ void VideoLoader::start_loading() {
+@@ -167,7 +167,7 @@ void VideoLoader::start_loading() {
+ 
+ LoaderModuleStatus
+ VideoLoader::load_routine() {
+-    LOG("Started the internal loader thread");
++    ROCAL_LOG("Started the internal loader thread");
+     LoaderModuleStatus last_load_status = LoaderModuleStatus::OK;
+ 
+     // Initially record number of all the frames that are going to be loaded, this is used to know how many still there
+@@ -200,9 +200,9 @@ VideoLoader::load_routine() {
+             if (last_load_status != load_status) {
+                 if (load_status == LoaderModuleStatus::NO_MORE_DATA_TO_READ ||
+                     load_status == LoaderModuleStatus::NO_FILES_TO_READ) {
+-                    LOG("Cycled through all images, count " + TOSTR(_image_counter));
++                    ROCAL_LOG("Cycled through all images, count " + TOSTR(_image_counter));
+                 } else {
+-                    ERR("ERROR: Detected error in reading the images");
++                    ROCAL_ERR("ERROR: Detected error in reading the images");
+                 }
+                 last_load_status = load_status;
+             }
+diff --git a/rocAL/source/meta_data/caffe2_meta_data_reader.cpp b/rocAL/source/meta_data/caffe2_meta_data_reader.cpp
+index 85adc29b..2cfa18bb 100644
+--- a/rocAL/source/meta_data/caffe2_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/caffe2_meta_data_reader.cpp
+@@ -49,7 +49,7 @@ bool Caffe2MetaDataReader::exists(const std::string &_image_name) {
+ void Caffe2MetaDataReader::add(std::string _image_name, int label) {
+     pMetaData info = std::make_shared<Label>(label);
+     if (exists(_image_name)) {
+-        WRN("Entity with the same name exists")
++        ROCAL_WRN("Entity with the same name exists")
+         return;
+     }
+     _map_content.insert(pair<std::string, std::shared_ptr<MetaData>>(_image_name, info));
+@@ -57,7 +57,7 @@ void Caffe2MetaDataReader::add(std::string _image_name, int label) {
+ 
+ void Caffe2MetaDataReader::lookup(const std::vector<std::string> &_image_names) {
+     if (_image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (_image_names.size() != (unsigned)_output->size())
+@@ -156,7 +156,7 @@ void Caffe2MetaDataReader::read_lmdb_record(std::string file_name, uint file_byt
+ 
+ void Caffe2MetaDataReader::release(std::string _image_name) {
+     if (!exists(_image_name)) {
+-        WRN("ERROR: Given not present in the map" + _image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + _image_name);
+         return;
+     }
+     _map_content.erase(_image_name);
+diff --git a/rocAL/source/meta_data/caffe2_meta_data_reader_detection.cpp b/rocAL/source/meta_data/caffe2_meta_data_reader_detection.cpp
+index 8f9e9725..c9b604b4 100644
+--- a/rocAL/source/meta_data/caffe2_meta_data_reader_detection.cpp
++++ b/rocAL/source/meta_data/caffe2_meta_data_reader_detection.cpp
+@@ -58,7 +58,7 @@ void Caffe2MetaDataReaderDetection::add(std::string image_name, BoundingBoxCords
+ 
+ void Caffe2MetaDataReaderDetection::lookup(const std::vector<std::string> &_image_names) {
+     if (_image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (_image_names.size() != (unsigned)_output->size())
+@@ -196,7 +196,7 @@ void Caffe2MetaDataReaderDetection::read_lmdb_record(std::string file_name, uint
+ 
+ void Caffe2MetaDataReaderDetection::release(std::string _image_name) {
+     if (!exists(_image_name)) {
+-        WRN("ERROR: Given not present in the map" + _image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + _image_name);
+         return;
+     }
+     _map_content.erase(_image_name);
+diff --git a/rocAL/source/meta_data/caffe_meta_data_reader.cpp b/rocAL/source/meta_data/caffe_meta_data_reader.cpp
+index a91d5594..7c381447 100644
+--- a/rocAL/source/meta_data/caffe_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/caffe_meta_data_reader.cpp
+@@ -47,7 +47,7 @@ bool CaffeMetaDataReader::exists(const std::string& image_name) {
+ void CaffeMetaDataReader::add(std::string image_name, int label) {
+     pMetaData info = std::make_shared<Label>(label);
+     if (exists(image_name)) {
+-        WRN("Entity with the same name exists")
++        ROCAL_WRN("Entity with the same name exists")
+         return;
+     }
+     _map_content.insert(pair<std::string, std::shared_ptr<Label>>(image_name, info));
+@@ -66,7 +66,7 @@ void CaffeMetaDataReader::release() {
+ 
+ void CaffeMetaDataReader::release(std::string image_name) {
+     if (!exists(image_name)) {
+-        WRN("ERROR: Given not present in the map" + image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + image_name);
+         return;
+     }
+     _map_content.erase(image_name);
+@@ -74,7 +74,7 @@ void CaffeMetaDataReader::release(std::string image_name) {
+ 
+ void CaffeMetaDataReader::lookup(const std::vector<std::string>& image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+diff --git a/rocAL/source/meta_data/caffe_meta_data_reader_detection.cpp b/rocAL/source/meta_data/caffe_meta_data_reader_detection.cpp
+index bde3082c..80801062 100644
+--- a/rocAL/source/meta_data/caffe_meta_data_reader_detection.cpp
++++ b/rocAL/source/meta_data/caffe_meta_data_reader_detection.cpp
+@@ -56,7 +56,7 @@ void CaffeMetaDataReaderDetection::add(std::string image_name, BoundingBoxCords
+ 
+ void CaffeMetaDataReaderDetection::lookup(const std::vector<std::string> &_image_names) {
+     if (_image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (_image_names.size() != (unsigned)_output->size())
+@@ -174,7 +174,7 @@ void CaffeMetaDataReaderDetection::read_lmdb_record(std::string file_name, uint
+ 
+ void CaffeMetaDataReaderDetection::release(std::string _image_name) {
+     if (!exists(_image_name)) {
+-        WRN("ERROR: Given not present in the map" + _image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + _image_name);
+         return;
+     }
+     _map_content.erase(_image_name);
+diff --git a/rocAL/source/meta_data/cifar10_meta_data_reader.cpp b/rocAL/source/meta_data/cifar10_meta_data_reader.cpp
+index fe5edc74..822fc547 100644
+--- a/rocAL/source/meta_data/cifar10_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/cifar10_meta_data_reader.cpp
+@@ -50,7 +50,7 @@ bool Cifar10MetaDataReader::exists(const std::string& image_name) {
+ void Cifar10MetaDataReader::add(std::string image_name, int label) {
+     pMetaData info = std::make_shared<Label>(label);
+     if (exists(image_name)) {
+-        WRN("Entity with the same name exists")
++        ROCAL_WRN("Entity with the same name exists")
+         return;
+     }
+     _map_content.insert(pair<std::string, std::shared_ptr<Label>>(image_name, info));
+@@ -69,7 +69,7 @@ void Cifar10MetaDataReader::release() {
+ 
+ void Cifar10MetaDataReader::release(std::string image_name) {
+     if (!exists(image_name)) {
+-        WRN("ERROR: Given not present in the map" + image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + image_name);
+         return;
+     }
+     _map_content.erase(image_name);
+@@ -77,7 +77,7 @@ void Cifar10MetaDataReader::release(std::string image_name) {
+ 
+ void Cifar10MetaDataReader::lookup(const std::vector<std::string>& image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+@@ -162,16 +162,16 @@ void Cifar10MetaDataReader::read_files(const std::string& _path) {
+                 fseek(fp, file_offset, SEEK_SET);
+                 size_t n = fread((void*)&label, sizeof(unsigned char), 1, fp);
+                 if ((n != 1) || (label < 0) || (label > 9))
+-                    WRN("Cifar10MetaDataReader:: Invalid label " + TOSTR(label) + "read");
++                    ROCAL_WRN("Cifar10MetaDataReader:: Invalid label " + TOSTR(label) + "read");
+                 add(file_id, (int)label);
+-                // LOG("Cifar10MetaDataReader:: Added record ID: " + file_id + " label: " + TOSTR(label));
++                // ROCAL_LOG("Cifar10MetaDataReader:: Added record ID: " + file_id + " label: " + TOSTR(label));
+                 file_offset += _raw_file_size;
+             }
+-            LOG("Cifar10MetaDataReader:: Added " + TOSTR(num_of_raw_files) + " Meta map ");
++            ROCAL_LOG("Cifar10MetaDataReader:: Added " + TOSTR(num_of_raw_files) + " Meta map ");
+             fclose(fp);
+         }
+     }
+     if (_file_names.empty())
+-        WRN("LabelReader: Could not find any file in " + _path)
++        ROCAL_WRN("LabelReader: Could not find any file in " + _path)
+     closedir(_src_dir);
+ }
+diff --git a/rocAL/source/meta_data/coco_meta_data_reader.cpp b/rocAL/source/meta_data/coco_meta_data_reader.cpp
+index 934bd524..bd5aed82 100644
+--- a/rocAL/source/meta_data/coco_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/coco_meta_data_reader.cpp
+@@ -52,7 +52,7 @@ ImgSize COCOMetaDataReader::lookup_image_size(const std::string &image_name) {
+ 
+ void COCOMetaDataReader::lookup(const std::vector<std::string> &image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+@@ -325,7 +325,7 @@ void COCOMetaDataReader::read_all(const std::string &path) {
+ 
+ void COCOMetaDataReader::release(std::string image_name) {
+     if (!exists(image_name)) {
+-        WRN("ERROR: Given name not present in the map" + image_name);
++        ROCAL_WRN("ERROR: Given name not present in the map" + image_name);
+         return;
+     }
+     _map_content.erase(image_name);
+diff --git a/rocAL/source/meta_data/label_reader_folders.cpp b/rocAL/source/meta_data/label_reader_folders.cpp
+index 6900459f..ea2f1b51 100644
+--- a/rocAL/source/meta_data/label_reader_folders.cpp
++++ b/rocAL/source/meta_data/label_reader_folders.cpp
+@@ -47,7 +47,7 @@ bool LabelReaderFolders::exists(const std::string& image_name) {
+ void LabelReaderFolders::add(std::string image_name, int label) {
+     pMetaData info = std::make_shared<Label>(label);
+     if (exists(image_name)) {
+-        WRN("Entity with the same name exists")
++        ROCAL_WRN("Entity with the same name exists")
+         return;
+     }
+     _map_content.insert(pair<std::string, std::shared_ptr<Label>>(image_name, info));
+@@ -66,7 +66,7 @@ void LabelReaderFolders::release() {
+ 
+ void LabelReaderFolders::release(std::string image_name) {
+     if (!exists(image_name)) {
+-        WRN("ERROR: Given not present in the map" + image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + image_name);
+         return;
+     }
+     _map_content.erase(image_name);
+@@ -74,7 +74,7 @@ void LabelReaderFolders::release(std::string image_name) {
+ 
+ void LabelReaderFolders::lookup(const std::vector<std::string>& image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+@@ -159,6 +159,6 @@ void LabelReaderFolders::read_files(const std::string& _path) {
+         _subfolder_file_names.push_back(_entity->d_name);
+     }
+     if (_file_names.empty())
+-        WRN("LabelReader: Could not find any file in " + _path)
++        ROCAL_WRN("LabelReader: Could not find any file in " + _path)
+     closedir(_src_dir);
+ }
+diff --git a/rocAL/source/meta_data/mxnet_meta_data_reader.cpp b/rocAL/source/meta_data/mxnet_meta_data_reader.cpp
+index b2e21b7a..f5744a33 100644
+--- a/rocAL/source/meta_data/mxnet_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/mxnet_meta_data_reader.cpp
+@@ -42,7 +42,7 @@ bool MXNetMetaDataReader::exists(const std::string &_image_name) {
+ void MXNetMetaDataReader::add(std::string image_name, int label) {
+     pMetaData info = std::make_shared<Label>(label);
+     if (exists(image_name)) {
+-        WRN("Entity with the same name exists")
++        ROCAL_WRN("Entity with the same name exists")
+         return;
+     }
+     _map_content.insert(std::pair<std::string, std::shared_ptr<Label>>(image_name, info));
+@@ -50,7 +50,7 @@ void MXNetMetaDataReader::add(std::string image_name, int label) {
+ 
+ void MXNetMetaDataReader::lookup(const std::vector<std::string> &_image_names) {
+     if (_image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (_image_names.size() != (unsigned)_output->size())
+@@ -121,7 +121,7 @@ void MXNetMetaDataReader::read_all(const std::string &_path) {
+ 
+ void MXNetMetaDataReader::release(std::string _image_name) {
+     if (!exists(_image_name)) {
+-        WRN("ERROR: Given not present in the map" + _image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + _image_name);
+         return;
+     }
+     _map_content.erase(_image_name);
+@@ -153,7 +153,7 @@ void MXNetMetaDataReader::read_images() {
+         if (_hdr.flag == 0) {
+             add((to_string(_hdr.image_id[0])), _hdr.label);
+         } else {
+-            WRN("\nMultiple record reading has not supported");
++            ROCAL_WRN("\nMultiple record reading has not supported");
+             continue;
+         }
+         delete[] _data;
+diff --git a/rocAL/source/meta_data/randombboxcrop_reader.cpp b/rocAL/source/meta_data/randombboxcrop_reader.cpp
+index 530d61d1..0ce6966c 100644
+--- a/rocAL/source/meta_data/randombboxcrop_reader.cpp
++++ b/rocAL/source/meta_data/randombboxcrop_reader.cpp
+@@ -74,7 +74,7 @@ inline double ssd_BBoxIntersectionOverUnion(const BoundingBoxCord &box1, const B
+ void RandomBBoxCropReader::lookup(const std::vector<std::string> &image_names) {
+     if (image_names.empty()) {
+         std::cerr << "\n No images passed";
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size()) {
+@@ -93,7 +93,7 @@ void RandomBBoxCropReader::lookup(const std::vector<std::string> &image_names) {
+ pCropCord RandomBBoxCropReader::get_crop_cord(const std::string &image_name) {
+     // print_map_contents();
+     if (image_name.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return 0;
+     }
+     auto it = _map_content.find(image_name);
+diff --git a/rocAL/source/meta_data/text_file_meta_data_reader.cpp b/rocAL/source/meta_data/text_file_meta_data_reader.cpp
+index 817f7de0..a6047cc5 100644
+--- a/rocAL/source/meta_data/text_file_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/text_file_meta_data_reader.cpp
+@@ -44,7 +44,7 @@ bool TextFileMetaDataReader::exists(const std::string &image_name) {
+ void TextFileMetaDataReader::add(std::string image_name, int label) {
+     pMetaData info = std::make_shared<Label>(label);
+     if (exists(image_name)) {
+-        WRN("Entity with the same name exists")
++        ROCAL_WRN("Entity with the same name exists")
+         return;
+     }
+     _map_content.insert(std::pair<std::string, std::shared_ptr<Label>>(image_name, info));
+@@ -52,7 +52,7 @@ void TextFileMetaDataReader::add(std::string image_name, int label) {
+ 
+ void TextFileMetaDataReader::lookup(const std::vector<std::string> &image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+@@ -91,7 +91,7 @@ void TextFileMetaDataReader::read_all(const std::string &path) {
+ 
+ void TextFileMetaDataReader::release(std::string image_name) {
+     if (!exists(image_name)) {
+-        WRN("ERROR: Given not present in the map" + image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + image_name);
+         return;
+     }
+     _map_content.erase(image_name);
+diff --git a/rocAL/source/meta_data/tf_meta_data_reader.cpp b/rocAL/source/meta_data/tf_meta_data_reader.cpp
+index 9325a4e5..990660d0 100644
+--- a/rocAL/source/meta_data/tf_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/tf_meta_data_reader.cpp
+@@ -50,7 +50,7 @@ bool TFMetaDataReader::exists(const std::string &_image_name) {
+ void TFMetaDataReader::add(std::string image_name, int label) {
+     pMetaData info = std::make_shared<Label>(label);
+     if (exists(image_name)) {
+-        WRN("Entity with the same name exists")
++        ROCAL_WRN("Entity with the same name exists")
+         return;
+     }
+     _map_content.insert(std::pair<std::string, std::shared_ptr<Label>>(image_name, info));
+@@ -58,7 +58,7 @@ void TFMetaDataReader::add(std::string image_name, int label) {
+ 
+ void TFMetaDataReader::lookup(const std::vector<std::string> &_image_names) {
+     if (_image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (_image_names.size() != (unsigned)_output->size())
+@@ -152,7 +152,7 @@ void TFMetaDataReader::read_all(const std::string &path) {
+ 
+ void TFMetaDataReader::release(std::string _image_name) {
+     if (!exists(_image_name)) {
+-        WRN("ERROR: Given not present in the map" + _image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + _image_name);
+         return;
+     }
+     _map_content.erase(_image_name);
+@@ -173,7 +173,7 @@ void TFMetaDataReader::read_files(const std::string &_path) {
+         _file_names.push_back(_entity->d_name);
+     }
+     if (_file_names.empty())
+-        WRN("TFMetadataReader: Could not find any file in " + _path)
++        ROCAL_WRN("TFMetadataReader: Could not find any file in " + _path)
+     closedir(_src_dir);
+ }
+ 
+diff --git a/rocAL/source/meta_data/tf_meta_data_reader_detection.cpp b/rocAL/source/meta_data/tf_meta_data_reader_detection.cpp
+index 0a8790dc..687a5c28 100644
+--- a/rocAL/source/meta_data/tf_meta_data_reader_detection.cpp
++++ b/rocAL/source/meta_data/tf_meta_data_reader_detection.cpp
+@@ -60,7 +60,7 @@ void TFMetaDataReaderDetection::add(std::string image_name, BoundingBoxCords bb_
+ 
+ void TFMetaDataReaderDetection::lookup(const std::vector<std::string> &image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+@@ -221,7 +221,7 @@ void TFMetaDataReaderDetection::read_all(const std::string &path) {
+ 
+ void TFMetaDataReaderDetection::release(std::string _image_name) {
+     if (!exists(_image_name)) {
+-        WRN("ERROR: Given not present in the map" + _image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + _image_name);
+         return;
+     }
+     _map_content.erase(_image_name);
+@@ -242,7 +242,7 @@ void TFMetaDataReaderDetection::read_files(const std::string &_path) {
+         _file_names.push_back(_entity->d_name);
+     }
+     if (_file_names.empty())
+-        WRN("LabelReader: Could not find any file in " + _path)
++        ROCAL_WRN("LabelReader: Could not find any file in " + _path)
+     closedir(_src_dir);
+ }
+ 
+diff --git a/rocAL/source/meta_data/video_label_reader.cpp b/rocAL/source/meta_data/video_label_reader.cpp
+index 62b30604..d42cbada 100644
+--- a/rocAL/source/meta_data/video_label_reader.cpp
++++ b/rocAL/source/meta_data/video_label_reader.cpp
+@@ -66,7 +66,7 @@ void VideoLabelReader::add(std::string frame_name, int label, unsigned int video
+         pMetaData info = std::make_shared<Label>(label);
+         std::string frame_name = std::to_string(_video_idx) + "#" + file_name + "_" + std::to_string(sequence_start);
+         if (exists(frame_name)) {
+-            WRN("Entity with the same name exists")
++            ROCAL_WRN("Entity with the same name exists")
+             return;
+         }
+         _map_content.insert(pair<std::string, std::shared_ptr<Label>>(frame_name, info));
+@@ -87,7 +87,7 @@ void VideoLabelReader::release() {
+ 
+ void VideoLabelReader::release(std::string frame_name) {
+     if (!exists(frame_name)) {
+-        WRN("ERROR: Given not present in the map" + frame_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + frame_name);
+         return;
+     }
+     _map_content.erase(frame_name);
+@@ -95,7 +95,7 @@ void VideoLabelReader::release(std::string frame_name) {
+ 
+ void VideoLabelReader::lookup(const std::vector<std::string> &frame_names) {
+     if (frame_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (frame_names.size() != (unsigned)_output->size())
+@@ -135,7 +135,7 @@ void VideoLabelReader::read_text_file(const std::string &_path) {
+             }
+             end_frame_number = end_frame_number != 0 ? end_frame_number : props.frames_count;
+             if ((end_frame_number > props.frames_count) || (start_frame_number >= end_frame_number)) {
+-                INFO("Invalid start_frame_number or end_frame_number time/frame passed, skipping the file" + video_file_name)
++                ROCAL_INFO("Invalid start_frame_number or end_frame_number time/frame passed, skipping the file" + video_file_name)
+                 continue;
+             }
+             add(video_file_name, label, (end_frame_number - start_frame_number), start_frame_number);
+@@ -212,7 +212,7 @@ void VideoLabelReader::read_files(const std::string &_path) {
+         _subfolder_video_file_names.push_back(file_path);
+     }
+     if (_file_names.empty())
+-        WRN("LabelReader: Could not find any file in " + _path)
++        ROCAL_WRN("LabelReader: Could not find any file in " + _path)
+     closedir(_src_dir);
+     std::sort(_subfolder_video_file_names.begin(), _subfolder_video_file_names.end());
+ }
+diff --git a/rocAL/source/meta_data/webdataset_meta_data_reader.cpp b/rocAL/source/meta_data/webdataset_meta_data_reader.cpp
+index 99ff0e47..70f21dac 100644
+--- a/rocAL/source/meta_data/webdataset_meta_data_reader.cpp
++++ b/rocAL/source/meta_data/webdataset_meta_data_reader.cpp
+@@ -105,7 +105,7 @@ void WebDataSetMetaDataReader::release() { _map_content.clear(); }
+ 
+ void WebDataSetMetaDataReader::release(std::string image_name) {
+     if (!exists(image_name)) {
+-        WRN("ERROR: Given not present in the map" + image_name);
++        ROCAL_WRN("ERROR: Given not present in the map" + image_name);
+         return;
+     }
+     _map_content.erase(image_name);
+@@ -114,7 +114,7 @@ void WebDataSetMetaDataReader::release(std::string image_name) {
+ void WebDataSetMetaDataReader::lookup(
+     const std::vector<std::string> &image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+@@ -396,7 +396,7 @@ void WebDataSetMetaDataReader::read_all(const std::string &folder_path) {
+                 for (auto &ascii_component : ascii_values) {
+                     if (ascii_component == nullptr) {
+                         if (_missing_component_behaviour == MissingComponentsBehaviour::MISSING_COMPONENT_SKIP) {  // skipping sample
+-                            WRN("WARNING: Skipping the sample with missing components.");
++                            ROCAL_WRN("WARNING: Skipping the sample with missing components.");
+                             skip_sample = true;
+                         } else if (_missing_component_behaviour == MissingComponentsBehaviour::MISSING_COMPONENT_ERROR) {  // throw error
+                             THROW("ERROR: Missing components in the sample. Please check the sample components");
+diff --git a/rocAL/source/parameters/parameter_crop.cpp b/rocAL/source/parameters/parameter_crop.cpp
+index 006d41c8..9adbbb3a 100644
+--- a/rocAL/source/parameters/parameter_crop.cpp
++++ b/rocAL/source/parameters/parameter_crop.cpp
+@@ -75,22 +75,22 @@ void CropParam::update_crop_array() {
+     vx_status status = VX_SUCCESS;
+     status = vxCopyArrayRange((vx_array)x1_arr, 0, batch_size, sizeof(vx_uint32), x1_arr_val.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (status != VX_SUCCESS)
+-        WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
+     status = vxCopyArrayRange((vx_array)y1_arr, 0, batch_size, sizeof(vx_uint32), y1_arr_val.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (status != VX_SUCCESS)
+-        WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
+     status = vxCopyArrayRange((vx_array)cropw_arr, 0, batch_size, sizeof(vx_uint32), cropw_arr_val.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (status != VX_SUCCESS)
+-        WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
+     status = vxCopyArrayRange((vx_array)croph_arr, 0, batch_size, sizeof(vx_uint32), croph_arr_val.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (status != VX_SUCCESS)
+-        WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
+     status = vxCopyArrayRange((vx_array)x2_arr, 0, batch_size, sizeof(vx_uint32), x2_arr_val.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (status != VX_SUCCESS)
+-        WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
+     status = vxCopyArrayRange((vx_array)y2_arr, 0, batch_size, sizeof(vx_uint32), y2_arr_val.data(), VX_WRITE_ONLY, VX_MEMORY_TYPE_HOST);
+     if (status != VX_SUCCESS)
+-        WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
++        ROCAL_WRN("ERROR: vxCopyArrayRange x1_arr failed " + TOSTR(status));
+ }
+ 
+ Parameter<float> *CropParam::default_x_drift_factor() {
+diff --git a/rocAL/source/pipeline/graph.cpp b/rocAL/source/pipeline/graph.cpp
+index 31bf815d..f32136e2 100644
+--- a/rocAL/source/pipeline/graph.cpp
++++ b/rocAL/source/pipeline/graph.cpp
+@@ -107,7 +107,7 @@ Graph::release() {
+     vx_status status = VX_SUCCESS;
+ 
+     if (_graph && (status = vxReleaseGraph(&_graph)) != VX_SUCCESS)
+-        LOG("Failed to call vxReleaseGraph " + TOSTR(status))
++        ROCAL_LOG("Failed to call vxReleaseGraph " + TOSTR(status))
+ 
+     return Status::OK;
+ }
+diff --git a/rocAL/source/pipeline/master_graph.cpp b/rocAL/source/pipeline/master_graph.cpp
+index 30437624..99f3a52a 100644
+--- a/rocAL/source/pipeline/master_graph.cpp
++++ b/rocAL/source/pipeline/master_graph.cpp
+@@ -160,7 +160,7 @@ MasterGraph::MasterGraph(size_t batch_size, RocalAffinity affinity, size_t cpu_t
+         if ((status = vxLoadKernels(_context, "vx_rpp")) != VX_SUCCESS)
+             THROW("Cannot load vx_rpp extension (vx_rpp), vxLoadKernels failed " + TOSTR(status))
+         else
+-            LOG("vx_rpp module loaded successfully")
++            ROCAL_LOG("vx_rpp module loaded successfully")
+         if (_affinity == RocalAffinity::GPU) {
+ #if ENABLE_HIP
+             _device.init_hip(_context);
+@@ -218,7 +218,7 @@ MasterGraph::calculate_cpu_num_threads(size_t shard_count) {
+         unsigned thread_count = std::thread::hardware_concurrency();
+         if (thread_count < minimum_cpu_thread_count) {
+             thread_count = minimum_cpu_thread_count;
+-            WRN("hardware_concurrency() call failed, assuming rocAL can run " + TOSTR(thread_count) + " threads")
++            ROCAL_WRN("hardware_concurrency() call failed, assuming rocAL can run " + TOSTR(thread_count) + " threads")
+         }
+         size_t core_count = thread_count / default_smt_count;
+         _cpu_num_threads = core_count / shard_count;
+@@ -332,7 +332,7 @@ void MasterGraph::set_output(Tensor *output_tensor) {
+ }
+ 
+ void MasterGraph::release() {
+-    LOG("MasterGraph release ...")
++    ROCAL_LOG("MasterGraph release ...")
+     stop_processing();
+     for (auto &node : _nodes)
+         node->release();
+@@ -380,7 +380,7 @@ void MasterGraph::release() {
+     _meta_data_reader = nullptr;
+     delete _box_encoder_gpu;
+     if (_context && (status = vxReleaseContext(&_context)) != VX_SUCCESS)
+-        LOG("Failed to call vxReleaseContext " + TOSTR(status))
++        ROCAL_LOG("Failed to call vxReleaseContext " + TOSTR(status))
+ }
+ 
+ MasterGraph::Status
+@@ -838,7 +838,7 @@ bool MasterGraph::is_out_of_data() {
+ }
+ 
+ void MasterGraph::output_routine() {
+-    INFO("Output routine started with " + TOSTR(_remaining_count) + " to load");
++    ROCAL_INFO("Output routine started with " + TOSTR(_remaining_count) + " to load");
+ #if ENABLE_HIP
+     // Set device ID for output routine thread once
+     if (!_set_device_id) {
+@@ -877,7 +877,7 @@ void MasterGraph::output_routine() {
+             auto crop_image_info = _loader_module->get_crop_image_info();
+ 
+             if (full_batch_data_names.size() != _user_batch_size)
+-                WRN("Master Graph: Names count does not equal batch_size" + TOSTR(full_batch_data_names.size()))
++                ROCAL_WRN("Master Graph: Names count does not equal batch_size" + TOSTR(full_batch_data_names.size()))
+ 
+             // meta_data lookup is done before _meta_data_graph->process() is called to have the new meta_data ready for processing
+             if (_meta_data_reader)
+@@ -943,14 +943,14 @@ void MasterGraph::output_routine() {
+             _ring_buffer.push();  // The data and metadata is now stored in output the ring_buffer, increases it's level by 1
+         }
+     } catch (const std::exception &e) {
+-        ERR("Exception thrown in the process routine: " + STR(e.what()) + STR("\n"));
++        ROCAL_ERR("Exception thrown in the process routine: " + STR(e.what()) + STR("\n"));
+         _processing = false;
+         _ring_buffer.release_all_blocked_calls();
+     }
+ }
+ 
+ void MasterGraph::output_routine_multiple_loaders() {
+-    INFO("Output routine for multiple loaders started with " + TOSTR(_remaining_count) + " to load");
++    ROCAL_INFO("Output routine for multiple loaders started with " + TOSTR(_remaining_count) + " to load");
+ #if ENABLE_HIP
+     // Set device ID for output routine thread once
+     if (!_set_device_id) {
+@@ -1009,7 +1009,7 @@ void MasterGraph::output_routine_multiple_loaders() {
+             _ring_buffer.push();  // Image data and metadata is now stored in output the ring_buffer, increases it's level by 1
+         }
+     } catch (const std::exception &e) {
+-        ERR("Exception thrown in the process routine: " + STR(e.what()) + STR("\n"));
++        ROCAL_ERR("Exception thrown in the process routine: " + STR(e.what()) + STR("\n"));
+         _processing = false;
+         _ring_buffer.release_all_blocked_calls();
+     }
+@@ -1037,7 +1037,7 @@ void MasterGraph::start_processing() {
+     auto thread = _output_thread.native_handle();
+     auto ret = pthread_setschedparam(thread, SCHED_FIFO, &params);
+     if (ret != 0)
+-        WRN("Unsuccessful in setting thread realtime priority for process thread err = "+STR(std::strerror(ret)))
++        ROCAL_WRN("Unsuccessful in setting thread realtime priority for process thread err = "+STR(std::strerror(ret)))
+ #endif
+ #endif
+ }
+@@ -1583,7 +1583,7 @@ TensorList *MasterGraph::matched_index_meta_data() {
+ void MasterGraph::notify_user_thread() {
+     if (_output_routine_finished_processing)
+         return;
+-    LOG("Output routine finished processing all images, no more image to be processed")
++    ROCAL_LOG("Output routine finished processing all images, no more image to be processed")
+     _output_routine_finished_processing = true;
+ }
+ 
+diff --git a/rocAL/source/pipeline/ring_buffer.cpp b/rocAL/source/pipeline/ring_buffer.cpp
+index aeeb8986..1fb421da 100644
+--- a/rocAL/source/pipeline/ring_buffer.cpp
++++ b/rocAL/source/pipeline/ring_buffer.cpp
+@@ -248,11 +248,11 @@ void RingBuffer::release_gpu_res() {
+                 if (_dev_sub_buffer[buffIdx][sub_buf_idx])
+                     if (hipFree((void *)_dev_sub_buffer[buffIdx][sub_buf_idx]) != hipSuccess) {
+                         // printf("Error Freeing device buffer <%d, %d, %p>\n", buffIdx, sub_buf_idx, _dev_sub_buffer[buffIdx][sub_buf_idx]);
+-                        ERR("Could not release hip memory in the ring buffer")
++                        ROCAL_ERR("Could not release hip memory in the ring buffer")
+                     }
+                 if (_dev_roi_buffers[buffIdx][sub_buf_idx]) {
+                     if (hipHostFree((void *)_dev_roi_buffers[buffIdx][sub_buf_idx]) != hipSuccess) {
+-                        ERR("Could not release hip memory for ROI in the ring buffer")
++                        ROCAL_ERR("Could not release hip memory for ROI in the ring buffer")
+                     }
+                 }
+             }
+diff --git a/rocAL/source/pipeline/tensor.cpp b/rocAL/source/pipeline/tensor.cpp
+index e2f6f9c5..60f4ee6e 100644
+--- a/rocAL/source/pipeline/tensor.cpp
++++ b/rocAL/source/pipeline/tensor.cpp
+@@ -202,13 +202,13 @@ void Tensor::update_tensor_roi(const std::vector<uint32_t> &width,
+ 
+         for (unsigned i = 0; i < info().batch_size(); i++) {
+             if (width[i] > max_width) {
+-                WRN("Given ROI width is larger than buffer width for tensor[" + TOSTR(i) + "] " + TOSTR(width[i]) + " > " + TOSTR(max_width))
++                ROCAL_WRN("Given ROI width is larger than buffer width for tensor[" + TOSTR(i) + "] " + TOSTR(width[i]) + " > " + TOSTR(max_width))
+                 roi[i].xywh.w = max_width;
+             } else {
+                 roi[i].xywh.w = width[i];
+             }
+             if (height[i] > max_height) {
+-                WRN("Given ROI height is larger than buffer height for tensor[" + TOSTR(i) + "] " + TOSTR(height[i]) + " > " + TOSTR(max_height))
++                ROCAL_WRN("Given ROI height is larger than buffer height for tensor[" + TOSTR(i) + "] " + TOSTR(height[i]) + " > " + TOSTR(max_height))
+                 roi[i].xywh.h = max_height;
+             } else {
+                 roi[i].xywh.h = height[i];
+@@ -230,13 +230,13 @@ void Tensor::update_tensor_roi(const std::vector<uint32_t> &width,
+         for (unsigned i = 0; i < info().batch_size(); i++) {
+             unsigned *tensor_shape = _info.roi()[i].end;
+             if (samples[i] > max_samples) {
+-                ERR("Given ROI samples is larger than buffer samples for tensor[" + TOSTR(i) + "] " + TOSTR(samples[i]) + " > " + TOSTR(max_samples))
++                ROCAL_ERR("Given ROI samples is larger than buffer samples for tensor[" + TOSTR(i) + "] " + TOSTR(samples[i]) + " > " + TOSTR(max_samples))
+                 tensor_shape[0] = max_samples;
+             } else {
+                 tensor_shape[0] = samples[i];
+             }
+             if (channels[i] > max_channels) {
+-                ERR("Given ROI channels is larger than buffer channels for tensor[" + TOSTR(i) + "] " + TOSTR(channels[i]) + " > " + TOSTR(max_channels))
++                ROCAL_ERR("Given ROI channels is larger than buffer channels for tensor[" + TOSTR(i) + "] " + TOSTR(channels[i]) + " > " + TOSTR(max_channels))
+                 tensor_shape[1] = max_channels;
+             } else {
+                 tensor_shape[1] = channels[i];
+@@ -267,7 +267,7 @@ void Tensor::update_tensor_roi(const std::vector<std::vector<uint32_t>> &shape)
+         unsigned *tensor_shape = _info.roi()[i].end;
+         for (unsigned d = 0; d < shape[i].size(); d++) {
+             if (shape[i][d] > max_shape[d]) {
+-                WRN("Given ROI shape is larger than buffer shape for tensor[" + TOSTR(i) + "] " + TOSTR(shape[i][d]) + " > " + TOSTR(max_shape[d]))
++                ROCAL_WRN("Given ROI shape is larger than buffer shape for tensor[" + TOSTR(i) + "] " + TOSTR(shape[i][d]) + " > " + TOSTR(max_shape[d]))
+                 tensor_shape[d] = max_shape[d];
+             } else {
+                 tensor_shape[d] = shape[i][d];
+@@ -297,7 +297,7 @@ Tensor::Tensor(const TensorInfo &tensor_info, const std::string &name)
+ 
+ int Tensor::create_virtual(vx_context context, vx_graph graph) {
+     if (_vx_handle) {
+-        WRN("Tensor object create method is already called ")
++        ROCAL_WRN("Tensor object create method is already called ")
+         return -1;
+     }
+ 
+@@ -315,7 +315,7 @@ int Tensor::create_virtual(vx_context context, vx_graph graph) {
+ 
+ int Tensor::create_from_handle(vx_context context) {
+     if (_vx_handle) {
+-        WRN("Tensor object create method is already called ")
++        ROCAL_WRN("Tensor object create method is already called ")
+         return -1;
+     }
+ 
+@@ -341,7 +341,7 @@ int Tensor::create_from_handle(vx_context context) {
+ 
+ int Tensor::create(vx_context context) {
+     if (_vx_handle) {
+-        WRN("Tensor object create method is already called ")
++        ROCAL_WRN("Tensor object create method is already called ")
+         return -1;
+     }
+ 
+@@ -357,7 +357,7 @@ int Tensor::create(vx_context context) {
+ 
+ void Tensor::create_roi_tensor_from_handle(void **handle) {
+     if (_vx_roi_handle) {
+-        WRN("ROI Tensor object is already created")
++        ROCAL_WRN("ROI Tensor object is already created")
+         return;
+     }
+ 
+@@ -465,7 +465,7 @@ unsigned Tensor::copy_data(void *user_buffer, uint x_offset, uint y_offset, uint
+ int Tensor::swap_handle(void *handle) {
+     vx_status status;
+     if ((status = vxSwapTensorHandle(_vx_handle, handle, nullptr)) != VX_SUCCESS) {
+-        ERR("Swap handles failed for tensor" + TOSTR(status));
++        ROCAL_ERR("Swap handles failed for tensor" + TOSTR(status));
+         return -1;
+     }
+ 
+diff --git a/rocAL/source/readers/file_source_reader.cpp b/rocAL/source/readers/file_source_reader.cpp
+index 0cae8374..b9425266 100644
+--- a/rocAL/source/readers/file_source_reader.cpp
++++ b/rocAL/source/readers/file_source_reader.cpp
+@@ -215,13 +215,13 @@ Reader::Status FileSourceReader::generate_file_names() {
+             } else if (filesys::exists(pathObj) && filesys::is_directory(pathObj)) {
+                 _folder_path = subfolder_path;
+                 if (open_folder() != Reader::Status::OK)
+-                    WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
++                    ROCAL_WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
+             }
+         }
+     }
+ 
+     if (_file_names.empty())
+-        ERR("FileReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
++        ROCAL_ERR("FileReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
+ 
+     size_t padded_samples = ((_shard_size > 0) ? _shard_size : largest_shard_size_without_padding()) % _batch_size;
+     _last_batch_padded_size = ((_batch_size > 1) && (padded_samples > 0)) ? (_batch_size - padded_samples) : 0;
+@@ -240,7 +240,7 @@ Reader::Status FileSourceReader::generate_file_names() {
+ Reader::Status FileSourceReader::subfolder_reading() {
+     auto ret = generate_file_names();
+     if (!_file_names.empty())
+-        LOG("FileReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + STR(_folder_path))
++        ROCAL_LOG("FileReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + STR(_folder_path))
+     return ret;
+ }
+ 
+@@ -270,12 +270,12 @@ Reader::Status FileSourceReader::open_folder() {
+             _last_file_name = file_path;
+             _file_count_all_shards++;
+         } else {
+-            WRN("Skipping file," + filename + " as it is not present in metadata reader")
++            ROCAL_WRN("Skipping file," + filename + " as it is not present in metadata reader")
+         }
+     }
+ 
+     if (_file_names.empty())
+-        ERR("FileReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
++        ROCAL_ERR("FileReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
+     closedir(_src_dir);
+     return Reader::Status::OK;
+ }
+diff --git a/rocAL/source/readers/image/caffe2_lmdb_record_reader.cpp b/rocAL/source/readers/image/caffe2_lmdb_record_reader.cpp
+index 34d74549..f5ef7ab4 100644
+--- a/rocAL/source/readers/image/caffe2_lmdb_record_reader.cpp
++++ b/rocAL/source/readers/image/caffe2_lmdb_record_reader.cpp
+@@ -118,10 +118,10 @@ Reader::Status Caffe2LMDBRecordReader::folder_reading() {
+     std::string _full_path = _folder_path;
+     auto ret = Reader::Status::OK;
+     if (Caffe2_LMDB_reader() != Reader::Status::OK)
+-        WRN("Caffe2LMDBRecordReader ShardID [" + TOSTR(_shard_id) + "] Caffe2LMDBRecordReader cannot access the storage at " + _folder_path);
++        ROCAL_WRN("Caffe2LMDBRecordReader ShardID [" + TOSTR(_shard_id) + "] Caffe2LMDBRecordReader cannot access the storage at " + _folder_path);
+ 
+     if (!_file_names.empty())
+-        LOG("Caffe2LMDBRecordReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
++        ROCAL_LOG("Caffe2LMDBRecordReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
+ 
+     size_t padded_samples = ((_shard_size > 0) ? _shard_size : largest_shard_size_without_padding()) % _batch_size;
+     _last_batch_padded_size = ((_batch_size > 1) && (padded_samples > 0)) ? (_batch_size - padded_samples) : 0;
+diff --git a/rocAL/source/readers/image/caffe_lmdb_record_reader.cpp b/rocAL/source/readers/image/caffe_lmdb_record_reader.cpp
+index 72cf7cdb..7d5dfb0d 100644
+--- a/rocAL/source/readers/image/caffe_lmdb_record_reader.cpp
++++ b/rocAL/source/readers/image/caffe_lmdb_record_reader.cpp
+@@ -131,7 +131,7 @@ Reader::Status CaffeLMDBRecordReader::folder_reading() {
+     std::string _full_path = _folder_path;
+     auto ret = Reader::Status::OK;
+     if (Caffe_LMDB_reader() != Reader::Status::OK)
+-        WRN("CaffeLMDBRecordReader ShardID [" + TOSTR(_shard_id) + "] CaffeLMDBRecordReader cannot access the storage at " + _folder_path);
++        ROCAL_WRN("CaffeLMDBRecordReader ShardID [" + TOSTR(_shard_id) + "] CaffeLMDBRecordReader cannot access the storage at " + _folder_path);
+ 
+     if (!_file_names.empty())
+         std::cout << "CaffeLMDBRecordReader ShardID [" << TOSTR(_shard_id) << "] Total of " << TOSTR(_file_names.size()) << " images loaded from " << _full_path << std::endl;
+diff --git a/rocAL/source/readers/image/cifar10_data_reader.cpp b/rocAL/source/readers/image/cifar10_data_reader.cpp
+index 1e62848f..604f693e 100644
+--- a/rocAL/source/readers/image/cifar10_data_reader.cpp
++++ b/rocAL/source/readers/image/cifar10_data_reader.cpp
+@@ -182,7 +182,7 @@ Reader::Status CIFAR10DataReader::subfolder_reading() {
+         std::string entry_name(_entity->d_name);
+         if (strcmp(_entity->d_name, ".") == 0 || strcmp(_entity->d_name, "..") == 0) continue;
+         entry_name_list.push_back(entry_name);
+-        LOG("CIFAR10DataReader  Got entry name " + entry_name)
++        ROCAL_LOG("CIFAR10DataReader  Got entry name " + entry_name)
+     }
+     std::sort(entry_name_list.begin(), entry_name_list.end());
+     std::string subfolder_path = _full_path + "/" + entry_name_list[0];
+@@ -195,11 +195,11 @@ Reader::Status CIFAR10DataReader::subfolder_reading() {
+             std::string subfolder_path = _full_path + "/" + entry_name_list[dir_count];
+             _folder_path = subfolder_path;
+             if (open_folder() != Reader::Status::OK)
+-                WRN("CIFAR10DataReader: File reader cannot access the storage at " + _folder_path);
++                ROCAL_WRN("CIFAR10DataReader: File reader cannot access the storage at " + _folder_path);
+         }
+     }
+     if (!_file_names.empty())
+-        LOG("CIFAR10DataReader  Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
++        ROCAL_LOG("CIFAR10DataReader  Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
+ 
+     auto dataset_size = _file_count_all_shards;
+     size_t padded_samples = 0;
+@@ -268,7 +268,7 @@ Reader::Status CIFAR10DataReader::open_folder() {
+         }
+     }
+     if (_file_names.empty())
+-        WRN("CIFAR10DataReader:: Did not load any file from " + _folder_path)
++        ROCAL_WRN("CIFAR10DataReader:: Did not load any file from " + _folder_path)
+ 
+     closedir(_src_dir);
+     return Reader::Status::OK;
+diff --git a/rocAL/source/readers/image/coco_file_source_reader.cpp b/rocAL/source/readers/image/coco_file_source_reader.cpp
+index 554fa3c9..204a3bb6 100644
+--- a/rocAL/source/readers/image/coco_file_source_reader.cpp
++++ b/rocAL/source/readers/image/coco_file_source_reader.cpp
+@@ -245,11 +245,11 @@ Reader::Status COCOFileSourceReader::subfolder_reading() {
+             std::string subfolder_path = _full_path + "/" + entry_name_list[dir_count];
+             _folder_path = subfolder_path;
+             if (open_folder() != Reader::Status::OK)
+-                WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
++                ROCAL_WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
+         }
+     }
+     if (!_file_names.empty())
+-        LOG("FileReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
++        ROCAL_LOG("FileReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
+     closedir(_sub_dir);
+ 
+     size_t padded_samples = ((_shard_size > 0) ? _shard_size : largest_shard_size_without_padding()) % _batch_size;
+@@ -279,11 +279,11 @@ Reader::Status COCOFileSourceReader::open_folder() {
+             _last_file_name = file_path;
+             _file_count_all_shards++;
+         } else {
+-            WRN("Skipping file," + _entity->d_name + " as it is not present in metadata reader")
++            ROCAL_WRN("Skipping file," + _entity->d_name + " as it is not present in metadata reader")
+         }
+     }
+     if (_file_names.empty())
+-        WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
++        ROCAL_WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
+     std::sort(_file_names.begin(), _file_names.end());
+ 
+     closedir(_src_dir);
+diff --git a/rocAL/source/readers/image/coco_meta_data_reader_key_points.cpp b/rocAL/source/readers/image/coco_meta_data_reader_key_points.cpp
+index b6e0ce2f..2eeba5bf 100644
+--- a/rocAL/source/readers/image/coco_meta_data_reader_key_points.cpp
++++ b/rocAL/source/readers/image/coco_meta_data_reader_key_points.cpp
+@@ -44,7 +44,7 @@ bool COCOMetaDataReaderKeyPoints::exists(const std::string &image_name) {
+ 
+ void COCOMetaDataReaderKeyPoints::lookup(const std::vector<std::string> &image_names) {
+     if (image_names.empty()) {
+-        WRN("No image names passed")
++        ROCAL_WRN("No image names passed")
+         return;
+     }
+     if (image_names.size() != (unsigned)_output->size())
+@@ -314,7 +314,7 @@ void COCOMetaDataReaderKeyPoints::read_all(const std::string &path) {
+ 
+ void COCOMetaDataReaderKeyPoints::release(std::string image_name) {
+     if (!exists(image_name)) {
+-        WRN("ERROR: Given name not present in the map" + image_name);
++        ROCAL_WRN("ERROR: Given name not present in the map" + image_name);
+         return;
+     }
+     _map_content.erase(image_name);
+diff --git a/rocAL/source/readers/image/external_source_reader.cpp b/rocAL/source/readers/image/external_source_reader.cpp
+index 367cde86..7ffd0f17 100644
+--- a/rocAL/source/readers/image/external_source_reader.cpp
++++ b/rocAL/source/readers/image/external_source_reader.cpp
+@@ -100,7 +100,7 @@ size_t ExternalSourceReader::open() {
+         ExternalSourceImageInfo image_info;
+         bool ret = pop_file_data(image_info);
+         if (_end_of_sequence && !ret) {
+-            WRN(" EOS || POP FAILED ")
++            ROCAL_WRN(" EOS || POP FAILED ")
+             return 0;
+         }
+         _file_data[_curr_file_idx] = image_info;
+diff --git a/rocAL/source/readers/image/mxnet_recordio_reader.cpp b/rocAL/source/readers/image/mxnet_recordio_reader.cpp
+index b53f737f..a0a919ad 100644
+--- a/rocAL/source/readers/image/mxnet_recordio_reader.cpp
++++ b/rocAL/source/readers/image/mxnet_recordio_reader.cpp
+@@ -111,10 +111,10 @@ void MXNetRecordIOReader::reset() {
+ Reader::Status MXNetRecordIOReader::record_reading() {
+     auto ret = Reader::Status::OK;
+     if (MXNet_reader() != Reader::Status::OK)
+-        WRN("MXNetRecordIOReader ShardID [" + TOSTR(_shard_id) + "] MXNetRecordIOReader cannot access the storage at " + _path);
++        ROCAL_WRN("MXNetRecordIOReader ShardID [" + TOSTR(_shard_id) + "] MXNetRecordIOReader cannot access the storage at " + _path);
+ 
+     if (!_file_names.empty())
+-        LOG("MXNetRecordIOReader ShardID [" << TOSTR(_shard_id) << "] Total of " << TOSTR(_file_names.size()) << " images loaded from " << _path)
++        ROCAL_LOG("MXNetRecordIOReader ShardID [" << TOSTR(_shard_id) << "] Total of " << TOSTR(_file_names.size()) << " images loaded from " << _path)
+     
+     size_t padded_samples = ((_shard_size > 0) ? _shard_size : largest_shard_size_without_padding()) % _batch_size;
+     _last_batch_padded_size = ((_batch_size > 1) && (padded_samples > 0)) ? (_batch_size - padded_samples) : 0;
+@@ -199,7 +199,7 @@ void MXNetRecordIOReader::read_image_names() {
+         if (_hdr.flag == 0)
+             _image_key = to_string(_hdr.image_id[0]);
+         else {
+-            WRN("\nMXNetRecordIOReader Multiple record reading has not supported");
++            ROCAL_WRN("\nMXNetRecordIOReader Multiple record reading has not supported");
+             continue;
+         }
+         /* _clength - sizeof(ImageRecordIOHeader) to get the data size.
+diff --git a/rocAL/source/readers/image/numpy_data_reader.cpp b/rocAL/source/readers/image/numpy_data_reader.cpp
+index 1a2e623f..1e263ed0 100644
+--- a/rocAL/source/readers/image/numpy_data_reader.cpp
++++ b/rocAL/source/readers/image/numpy_data_reader.cpp
+@@ -47,7 +47,7 @@ THE SOFTWARE.
+ #define CHECK_CONDITION_AND_SET_FLAG(condition, error_msg, return_value) \
+     {                                                                    \
+         if (condition) {                                                 \
+-            ERR(error_msg)                                               \
++            ROCAL_ERR(error_msg)                                               \
+             _header_parsing_failed = true;                               \
+             return return_value;                                         \
+         }                                                                \
+@@ -106,14 +106,14 @@ size_t NumpyDataReader::open() {
+     if (!ret) {
+         parse_header(_curr_file_header, file_path);
+         if(_header_parsing_failed) {
+-            ERR("Numpy header parsing failed");
++            ROCAL_ERR("Numpy header parsing failed");
+             return 0;
+         }
+         update_header_cache(file_path, _curr_file_header);
+     } else {
+         _current_file_ptr = std::fopen(file_path.c_str(), "rb");
+         if (_current_file_ptr == nullptr) {
+-            ERR("Could not open file " + file_path + ": " + std::strerror(errno));
++            ROCAL_ERR("Could not open file " + file_path + ": " + std::strerror(errno));
+             return 0;
+         }
+     }
+@@ -278,14 +278,14 @@ void NumpyDataReader::parse_header(NumpyHeaderData& parsed_header, std::string f
+ 
+ size_t NumpyDataReader::read_numpy_data(void* buf, size_t read_size, std::vector<unsigned>& strides_in_dims) {
+     if (!_current_file_ptr) {
+-        ERR("Null file pointer");
++        ROCAL_ERR("Null file pointer");
+         return 0;
+     }
+     
+     auto shape = _curr_file_header.shape();
+     auto data_type_size = tensor_data_size(_curr_file_header.type());
+     if (std::fseek(_current_file_ptr, _curr_file_header.data_offset, SEEK_SET)) {
+-        ERR("Seek operation failed for " + _last_file_path + ": " + std::strerror(errno));
++        ROCAL_ERR("Seek operation failed for " + _last_file_path + ": " + std::strerror(errno));
+         return 0;
+     }
+ 
+@@ -377,7 +377,7 @@ Reader::Status NumpyDataReader::generate_file_names() {
+             for (auto file_path : vec_rel_file_path) {
+                 if (filesys::path(file_path).is_relative()) {  // Only add root path if the file list contains relative file paths
+                     if (!filesys::exists(_folder_path)) {
+-                        ERR(file_path + " is a relative path but root path doesn't exist");
++                        ROCAL_ERR(file_path + " is a relative path but root path doesn't exist");
+                         continue;
+                     }
+                     _absolute_file_path = _folder_path + "/" + file_path;
+@@ -399,7 +399,7 @@ Reader::Status NumpyDataReader::generate_file_names() {
+                     std::getline(ss, file_path, ' ');
+                     if (filesys::path(file_path).is_relative()) {  // Only add root path if the file list contains relative file paths
+                         if (!filesys::exists(_folder_path)) {
+-                            ERR("File list contains relative paths but root path doesn't exists");
++                            ROCAL_ERR("File list contains relative paths but root path doesn't exists");
+                             continue;
+                         }
+                         file_path = _folder_path + "/" + file_path;
+@@ -427,7 +427,7 @@ Reader::Status NumpyDataReader::generate_file_names() {
+                 if (file_extension == "npy") {
+                     if (filesys::path(file_path).is_relative()) {  // Only add root path if the file list contains relative file paths
+                         if (!filesys::exists(_folder_path)) {
+-                            ERR(file_path + " is a relative path but root path doesn't exist");
++                            ROCAL_ERR(file_path + " is a relative path but root path doesn't exist");
+                             continue;
+                         }
+                         file_path = _folder_path + "/" + file_path;
+@@ -459,13 +459,13 @@ Reader::Status NumpyDataReader::generate_file_names() {
+             } else if (filesys::exists(pathObj) && filesys::is_directory(pathObj)) {
+                 _folder_path = subfolder_path;
+                 if (open_folder() != Reader::Status::OK)
+-                    WRN("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
++                    ROCAL_WRN("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
+             }
+         }
+     }
+ 
+     if (_file_names.empty())
+-        ERR("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
++        ROCAL_ERR("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
+ 
+     size_t padded_samples = ((_shard_size > 0) ? _shard_size : largest_shard_size_without_padding()) % _batch_size;
+     _last_batch_padded_size = ((_batch_size > 1) && (padded_samples > 0)) ? (_batch_size - padded_samples) : 0;
+@@ -484,7 +484,7 @@ Reader::Status NumpyDataReader::generate_file_names() {
+ Reader::Status NumpyDataReader::subfolder_reading() {
+     auto ret = generate_file_names();
+     if (!_file_names.empty())
+-        LOG("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + STR(_folder_path))
++        ROCAL_LOG("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + STR(_folder_path))
+     return ret;
+ }
+ 
+@@ -514,12 +514,12 @@ Reader::Status NumpyDataReader::open_folder() {
+             _last_file_name = file_path;
+             _file_count_all_shards++;
+         } else {
+-            WRN("Skipping file," + filename + " as it is not present in metadata reader")
++            ROCAL_WRN("Skipping file," + filename + " as it is not present in metadata reader")
+         }
+     }
+ 
+     if (_file_names.empty())
+-        ERR("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
++        ROCAL_ERR("NumpyDataReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
+     closedir(_src_dir);
+     return Reader::Status::OK;
+ }
+diff --git a/rocAL/source/readers/image/tf_record_reader.cpp b/rocAL/source/readers/image/tf_record_reader.cpp
+index 565d9b36..5cf57b08 100644
+--- a/rocAL/source/readers/image/tf_record_reader.cpp
++++ b/rocAL/source/readers/image/tf_record_reader.cpp
+@@ -133,11 +133,11 @@ Reader::Status TFRecordReader::folder_reading() {
+         std::string subfolder_path = _full_path + "/" + entry_name_list[dir_count];
+         _folder_path = subfolder_path;
+         if (tf_record_reader() != Reader::Status::OK)
+-            WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
++            ROCAL_WRN("FileReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
+     }
+ 
+     if (!_file_names.empty())
+-        LOG("FileReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
++        ROCAL_LOG("FileReader ShardID [" + TOSTR(_shard_id) + "] Total of " + TOSTR(_file_names.size()) + " images loaded from " + _full_path)
+     closedir(_sub_dir);
+ 
+     size_t padded_samples = ((_shard_size > 0) ? _shard_size : largest_shard_size_without_padding()) % _batch_size;
+diff --git a/rocAL/source/readers/video/sequence_file_source_reader.cpp b/rocAL/source/readers/video/sequence_file_source_reader.cpp
+index 14b323b3..b5f6529c 100644
+--- a/rocAL/source/readers/video/sequence_file_source_reader.cpp
++++ b/rocAL/source/readers/video/sequence_file_source_reader.cpp
+@@ -150,7 +150,7 @@ void SequenceFileSourceReader::reset() {
+ Reader::Status SequenceFileSourceReader::get_sequences() {
+     for (unsigned folder_idx = 0; folder_idx < _folder_file_names.size(); folder_idx++) {
+         if (_folder_file_names[folder_idx].size() == 0) {
+-            WRN("\nFolder #" + TOSTR(folder_idx) + "does not have any files")
++            ROCAL_WRN("\nFolder #" + TOSTR(folder_idx) + "does not have any files")
+             continue;
+         }
+         if (_sequence_length > _folder_file_names[folder_idx].size()) {
+@@ -175,10 +175,10 @@ Reader::Status SequenceFileSourceReader::get_sequences() {
+         }
+     }
+     if (_sequence_frame_names.empty())
+-        WRN("SequenceReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
++        ROCAL_WRN("SequenceReader ShardID [" + TOSTR(_shard_id) + "] Did not load any file from " + _folder_path)
+     if (_in_batch_read_count > 0 && _in_batch_read_count < _batch_count) {
+         replicate_last_sequence_to_fill_last_shard();
+-        LOG("SequenceReader ShardID [" + TOSTR(_shard_id) + "] Replicated last sequence " + TOSTR((_batch_count - _in_batch_read_count)) + " times to fill the last batch")
++        ROCAL_LOG("SequenceReader ShardID [" + TOSTR(_shard_id) + "] Replicated last sequence " + TOSTR((_batch_count - _in_batch_read_count)) + " times to fill the last batch")
+     }
+     return Reader::Status::OK;
+ }
+@@ -212,7 +212,7 @@ Reader::Status SequenceFileSourceReader::subfolder_reading() {
+         } else if (filesys::exists(pathObj) && filesys::is_directory(pathObj)) {
+             _folder_path = subfolder_path;
+             if (open_folder() != Reader::Status::OK)
+-                WRN("SequenceReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
++                ROCAL_WRN("SequenceReader ShardID [" + TOSTR(_shard_id) + "] File reader cannot access the storage at " + _folder_path);
+             _folder_file_names.push_back(_file_names);
+             _file_names.clear();
+         }
+diff --git a/rocAL/source/readers/video/video_file_source_reader.cpp b/rocAL/source/readers/video/video_file_source_reader.cpp
+index a19cf686..9f62283e 100644
+--- a/rocAL/source/readers/video/video_file_source_reader.cpp
++++ b/rocAL/source/readers/video/video_file_source_reader.cpp
+@@ -121,10 +121,10 @@ VideoReader::Status VideoFileSourceReader::create_sequence_info() {
+     }
+     if (_in_batch_read_count > 0 && _in_batch_read_count < _batch_count) {
+         replicate_last_sequence_to_fill_last_shard();
+-        LOG("VideoFileSourceReader ShardID [" + TOSTR(_shard_id) + "] Replicated the last sequence " + TOSTR((_batch_count - _in_batch_read_count)) + " times to fill the last batch")
++        ROCAL_LOG("VideoFileSourceReader ShardID [" + TOSTR(_shard_id) + "] Replicated the last sequence " + TOSTR((_batch_count - _in_batch_read_count)) + " times to fill the last batch")
+     }
+     if (_sequences.empty())
+-        WRN("VideoFileSourceReader ShardID [" + TOSTR(_shard_id) + "] Did not load any sequences from " + _folder_path)
++        ROCAL_WRN("VideoFileSourceReader ShardID [" + TOSTR(_shard_id) + "] Did not load any sequences from " + _folder_path)
+     return status;
+ }
+ 
+diff --git a/rocAL/source/readers/video/video_properties.cpp b/rocAL/source/readers/video/video_properties.cpp
+index 627db0ca..1c531691 100644
+--- a/rocAL/source/readers/video/video_properties.cpp
++++ b/rocAL/source/readers/video/video_properties.cpp
+@@ -46,7 +46,7 @@ void open_video_context(const char *video_file_path, Properties &props) {
+     // open video file
+     int ret = avformat_open_input(&pFormatCtx, video_file_path, NULL, NULL);
+     if (ret != 0) {
+-        WRN("Unable to open video file: " + STR(video_file_path))
++        ROCAL_WRN("Unable to open video file: " + STR(video_file_path))
+         exit(0);
+     }
+ 
+@@ -98,7 +98,7 @@ void get_video_properties_from_txt_file(VideoProperties &video_props, const char
+ 
+             // Check if the video file exists
+             if (!filesys::exists(video_file_name)) {
+-                ERR(video_file_name + " path does not exist");
++                ROCAL_ERR(video_file_name + " path does not exist");
+                 continue;
+             }
+ 
+@@ -120,7 +120,7 @@ void get_video_properties_from_txt_file(VideoProperties &video_props, const char
+             }
+             end_frame_number = end_frame_number != 0 ? end_frame_number : props.frames_count;
+             if ((end_frame_number > props.frames_count) || (start_frame_number >= end_frame_number)) {
+-                INFO("Invalid start or end time/frame number passed, skipping the file" + video_file_name)
++                ROCAL_INFO("Invalid start or end time/frame number passed, skipping the file" + video_file_name)
+                 continue;
+             }
+             video_file_name = std::to_string(video_count) + "#" + video_file_name;  // Video index is added to each video file name to identify repeated videos files.
+diff --git a/rocAL/source/readers/webdataset_source_reader.cpp b/rocAL/source/readers/webdataset_source_reader.cpp
+index ede2575b..0a9f48fa 100644
+--- a/rocAL/source/readers/webdataset_source_reader.cpp
++++ b/rocAL/source/readers/webdataset_source_reader.cpp
+@@ -353,7 +353,7 @@ Reader::Status WebDatasetSourceReader::folder_reading() {
+             for (auto& component : sample.components) {
+                 if (!_meta_data_reader || _meta_data_reader->exists(component.filename)) {
+                     if (webdataset_record_reader_from_components(component, wds_shard_index) != Reader::Status::OK)
+-                        WRN("WebDatasetSourceReader ShardID [" + TOSTR(_shard_id) + "] WebDataset File reader cannot access the storage at " + _folder_path + component.filename);
++                        ROCAL_WRN("WebDatasetSourceReader ShardID [" + TOSTR(_shard_id) + "] WebDataset File reader cannot access the storage at " + _folder_path + component.filename);
+                 }
+             }
+         }

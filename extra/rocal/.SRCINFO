@@ -1,7 +1,7 @@
 pkgbase = rocal
 	pkgdesc = A high-performance jpeg decode library for AMD’s GPUs
 	pkgver = 7.2.4
-	pkgrel = 5
+	pkgrel = 6
 	url = https://rocm.docs.amd.com/projects/rocAL/en/latest/
 	arch = x86_64
 	license = MIT
@@ -27,11 +27,11 @@ pkgbase = rocal
 	depends = rocjpeg
 	depends = rocm-core
 	depends = rpp
-	source = rocal-7.2.4.tar.gz::https://github.com/ROCm/rocAL/archive/refs/tags/rocm-7.2.4.tar.gz
+	source = rocal::git+https://github.com/ROCm/rocAL.git#tag=rocm-7.2.4
 	source = rocal-rapidjson-24b5e7a8b27f42fa16b96fc70aade9106cf7102f.tar.gz::https://github.com/Tencent/rapidjson/archive/24b5e7a8b27f42fa16b96fc70aade9106cf7102f.tar.gz
-	source = opencv-5.patch
-	sha256sums = ff97ee78a2b4419f0bfa54dfbb3807e416d57375263d6ab116705bd3b01204d0
+	source = rocal-abseil-log-clash.patch
+	sha256sums = 5dd920f5110c6f60dfc35c3709dc30b203a2792ae8085156bbb1ff49e764f0f6
 	sha256sums = 2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8
-	sha256sums = 7bd05d420f3a1b2b5cf0900bdd7ab7b095fe7d4723ed3b6231f59150c4d4cdf3
+	sha256sums = d2685182aa423ac2657f2a263bba964b1857bd7d2f53a61455b68efcb01a5098
 
 pkgname = rocal

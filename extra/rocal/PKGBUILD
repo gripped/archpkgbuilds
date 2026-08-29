@@ -3,7 +3,7 @@
 
 pkgname=rocal
 pkgver=7.2.4
-pkgrel=5
+pkgrel=6
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocAL/en/latest/'
@@ -38,17 +38,23 @@ _git='https://github.com/ROCm/rocAL'
 _rapidjson='https://github.com/Tencent/rapidjson'
 # rocAL uses some unreleased features of rapidjson
 _commit=24b5e7a8b27f42fa16b96fc70aade9106cf7102f
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz"
+source=("$pkgname::git+$_git.git#tag=rocm-${pkgver}"
         "$pkgname-rapidjson-$_commit.tar.gz::$_rapidjson/archive/$_commit.tar.gz"
-         opencv-5.patch)
-sha256sums=('ff97ee78a2b4419f0bfa54dfbb3807e416d57375263d6ab116705bd3b01204d0'
+        "rocal-abseil-log-clash.patch")
+sha256sums=('5dd920f5110c6f60dfc35c3709dc30b203a2792ae8085156bbb1ff49e764f0f6'
             '2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8'
-            '7bd05d420f3a1b2b5cf0900bdd7ab7b095fe7d4723ed3b6231f59150c4d4cdf3')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
+            'd2685182aa423ac2657f2a263bba964b1857bd7d2f53a61455b68efcb01a5098')
+_dirname="$pkgname"
 _rapidjsondir="$(basename "$_rapidjson")-$(basename "${source[1]}" ".tar.gz")"
 
 prepare() {
-  patch -d $_dirname -p1 < opencv-5.patch
+  cd "$_dirname"
+
+  # OpenCV - remove decoder option for image
+  git cherry-pick -n 83e8ac9a3c676dfd0c2b9d9799a9b716d3c2ba8d
+
+  # Rename LOG macro due to name conflict with abseil-provided one
+  git apply < "${srcdir}/rocal-abseil-log-clash.patch"
 }
 
 build() {
