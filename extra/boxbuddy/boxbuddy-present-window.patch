@@ -1,0 +1,28 @@
+From 393fa6f2541ac97dbc3b8267badab0dd445fc3de Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 28 Aug 2026 23:32:25 +0200
+Subject: [PATCH] Present existing window instead of new one on activation
+
+Multiple main windows are not supported.
+---
+ src/main.rs | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/main.rs b/src/main.rs
+index a20908a..68c70fa 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -71,6 +71,13 @@ fn main() -> glib::ExitCode {
+ }
+ 
+ fn make_window(app: &Application) -> ApplicationWindow {
++    if let Some(window) = app.active_window() {
++        window.present();
++        if let Ok(window) = window.downcast::<ApplicationWindow>() {
++            return window;
++        }
++    }
++
+     let window = ApplicationWindow::builder()
+         .application(app)
+         .title("BoxBuddy")

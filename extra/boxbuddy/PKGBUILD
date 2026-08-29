@@ -2,7 +2,7 @@
 
 pkgname=boxbuddy
 pkgver=2.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Graphical user interface for Distrobox'
 arch=(x86_64)
 url='https://github.com/Dvlv/BoxBuddyRS'
@@ -21,8 +21,14 @@ makedepends=(
   git
   rust
 )
-source=("git+https://github.com/Dvlv/BoxBuddyRS.git#tag=$pkgver")
-b2sums=(4d69d49d5246fbbcf702ac9e39bc6a629e62c6523934073533560c91bed52a9e21308bd8d9ae8df8fb94530cf326f9af781ae6b69cedecfb5ab0414c0d73d65d)
+source=(
+  "git+https://github.com/Dvlv/BoxBuddyRS.git#tag=$pkgver"
+  boxbuddy-present-window.patch
+)
+b2sums=(
+  4d69d49d5246fbbcf702ac9e39bc6a629e62c6523934073533560c91bed52a9e21308bd8d9ae8df8fb94530cf326f9af781ae6b69cedecfb5ab0414c0d73d65d
+  950356b8abc3af207917ab8d31b23dae6f4a55741f65e58b84f656aa8106c3e2e3906e534056754c51f06376fc5c40d39de7c5d27951c7a9d7ff4a617eb05fa7
+)
 
 
 prepare() {
@@ -38,6 +44,10 @@ prepare() {
   # Fix Dutch translation
   # https://github.com/Dvlv/BoxBuddyRS/pull/248
   sed -i 's/ eigenaars.\\n/ eigenaars./' po/nl_NL/LC_MESSAGES/nl_NL.po
+
+  # Present existing window instead of new one on activation
+  # https://github.com/Dvlv/BoxBuddyRS/pull/249
+  patch -Np1 -i ../boxbuddy-present-window.patch
 
   # Set paths
   sed -i 's|"./po"|"/usr/share/locale"|
