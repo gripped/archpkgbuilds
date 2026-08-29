@@ -3,7 +3,7 @@
 
 pkgname=slirp4netns
 pkgdesc='User-mode networking for unprivileged network namespaces'
-pkgver=1.3.4
+pkgver=1.3.5
 pkgrel=1
 arch=(x86_64)
 url="https://github.com/rootless-containers/slirp4netns"
@@ -11,7 +11,7 @@ license=(GPL-2.0-or-later)
 depends=(glibc glib2 libcap libseccomp libslirp)
 makedepends=(git)
 source=("git+$url#tag=v$pkgver?signed")
-sha256sums=('db1e321ff04111eb7b4f2197b9a3b993a3cc3cacd4dc7a5aad53e60676ebf0c8')
+sha256sums=('e5b07177e8fb713867c752e5c71312946269a0db748e1d96c89012a0884afc02')
 validpgpkeys=('C020EA876CE4E06C7AB95AEF49524C6F9F638F1A') # Akihiro Suda <akihiro.suda.cz@hco.ntt.co.jp>
 
 prepare() {
