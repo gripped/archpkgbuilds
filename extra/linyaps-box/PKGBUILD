@@ -2,7 +2,7 @@
 # Contributor: taotieren <admin@taotieren.com>
 
 pkgname=linyaps-box
-pkgver=2.2.1
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='A simple OCI runtime mainly used by linyaps (linglong)'
 arch=(x86_64)
@@ -12,11 +12,13 @@ provides=(
   linglong-box
 )
 depends=(
+  fmt
   glibc
   libcap
   libseccomp
   libgcc
   libstdc++
+  systemd-libs
 )
 makedepends=(
   cli11
@@ -28,12 +30,13 @@ makedepends=(
   pkgconf
 )
 source=("git+https://github.com/OpenAtom-Linyaps/linyaps-box.git#tag=$pkgver")
-sha256sums=('b7f6a9878099ca1a301500e5ed37b86f93a3b706b26227ef807dcf3a814acdd1')
+sha256sums=('63eb4d3f9ae40cc68d20ffb4efa8ff5386aa2acaafdca787c7899ad1dafbe196')
 
 build() {
   cd linyaps-box
 
   cmake -Dlinyaps-box_ENABLE_SECCOMP=ON \
+    -Dlinyaps-box_OFFLINE_BUILD=ON \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -Wno-dev \
     -B build \

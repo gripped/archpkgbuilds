@@ -1,6 +1,6 @@
 pkgbase = linyaps-box
 	pkgdesc = A simple OCI runtime mainly used by linyaps (linglong)
-	pkgver = 2.2.1
+	pkgver = 2.3.0
 	pkgrel = 1
 	url = https://github.com/OpenAtom-Linyaps/linyaps-box
 	arch = x86_64
@@ -12,13 +12,15 @@ pkgbase = linyaps-box
 	makedepends = ninja
 	makedepends = nlohmann-json
 	makedepends = pkgconf
+	depends = fmt
 	depends = glibc
 	depends = libcap
 	depends = libseccomp
 	depends = libgcc
 	depends = libstdc++
+	depends = systemd-libs
 	provides = linglong-box
-	source = git+https://github.com/OpenAtom-Linyaps/linyaps-box.git#tag=2.2.1
-	sha256sums = b7f6a9878099ca1a301500e5ed37b86f93a3b706b26227ef807dcf3a814acdd1
+	source = git+https://github.com/OpenAtom-Linyaps/linyaps-box.git#tag=2.3.0
+	sha256sums = 63eb4d3f9ae40cc68d20ffb4efa8ff5386aa2acaafdca787c7899ad1dafbe196
 
 pkgname = linyaps-box
