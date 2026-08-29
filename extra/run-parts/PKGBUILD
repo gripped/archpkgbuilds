@@ -1,7 +1,7 @@
 # Maintainer: Pierre Schmitz <pierre@archlinux.de>
 
 pkgname=run-parts
-pkgver=5.23.2
+pkgver=5.24
 pkgrel=1
 pkgdesc='run scripts or programs in a directory'
 arch=('x86_64')
@@ -9,9 +9,10 @@ url='https://salsa.debian.org/debian/debianutils'
 license=('GPL-2.0-or-later')
 depends=('glibc')
 makedepends=('git' 'po4a')
-validpgpkeys=('B3131A451DBFDF7CA05B4197054BBB9F7D806442') # Niels Thykier <niels@thykier.net>
-source=("git+https://salsa.debian.org/debian/debianutils.git#tag=debian/${pkgver}?signed")
-sha256sums=('24eeb1c6632149c02a9a4ee096aaa10dedaa955010b0809c3b1eab51a4dd4889')
+validpgpkeys=('B3131A451DBFDF7CA05B4197054BBB9F7D806442'  # Niels Thykier <niels@thykier.net>
+              'FA26CA784BE188927F22B99F6570EA01146F7354') # Ileana Dumitrescu <ileanadumi95@protonmail.com>
+source=("git+https://salsa.debian.org/debian/debianutils.git?signed#tag=debian/${pkgver}")
+sha256sums=('7f335ea46bc5ff795944cb687ca04926cb4d36313c0dcd96317ca65d799e0002')
 
 prepare() {
   cd 'debianutils/'
