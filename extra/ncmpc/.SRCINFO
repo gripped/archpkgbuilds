@@ -1,12 +1,13 @@
 pkgbase = ncmpc
 	pkgdesc = Fully featured MPD client which runs in a terminal
-	pkgver = 0.53
+	pkgver = 0.54
 	pkgrel = 1
 	url = https://www.musicpd.org/clients/ncmpc/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = boost
 	makedepends = fmt
+	makedepends = freetype2
 	makedepends = git
 	makedepends = libmpdclient
 	makedepends = meson
@@ -19,10 +20,10 @@ pkgbase = ncmpc
 	depends = lirc
 	optdepends = python-beautifulsoup4: for lyrics scripts
 	optdepends = python-requests: for lyrics scripts
-	source = git+https://github.com/MusicPlayerDaemon/ncmpc.git?signed#tag=v0.53
+	source = git+https://github.com/MusicPlayerDaemon/ncmpc.git?signed#tag=v0.54
 	validpgpkeys = 0392335A78083894A4301C43236E8A58C6DB4512
-	sha512sums = b3e1954ceaeee2ffd96f20e8d7dc91c691481c391484ad48a893dc0a4f3a77d798a2f0cd08e8c2526bde83b132b8247329e995580c44b6657eba7b527eaeeb7f
-	b2sums = 50b420a3d99d86593022973f8fa7a80cacbac6d284283d7b54a1dc1e35fba5526d796a8ad395ff279e5847063c5bf4b53b833ecf45d4db5b72bc0971ee1d499d
+	sha512sums = 92a3a616e5bf681845f8943d7b82cc5b3ce3a7b183c1c6f14acdd12aa0f14b1c9b3ed8ae82b8a1f4df24f3efe53369b006c53c33d4a250bc855bc9d7cc150718
+	b2sums = bb471ea7a60406c672b9b98bcb00836a12aaef53e2d559dfa05b9e2e798e369f35e65a6ee5a8510d5efadd101c757d3fcb879b3d134db47c682a12f2de1f8b56
 
 pkgname = ncmpc
 	depends = glibc
