@@ -6,7 +6,7 @@
 pkgname=android-tools
 pkgver=37.0.0
 _tag=${pkgver} # https://github.com/nmeum/android-tools sometimes carries extra patch version on top of the upstream versioning
-pkgrel=3
+pkgrel=4
 pkgdesc='Android platform tools'
 arch=(x86_64)
 url='https://developer.android.com/tools'
@@ -15,8 +15,17 @@ depends=(abseil-cpp brotli fmt glibc libgcc libstdc++ libusb lz4 pcre2 protobuf 
 makedepends=(cmake git go gtest ninja)
 optdepends=('python: {mk,unpack_,repack_}bootimg and mkdtboimg support'
 	    'android-udev: optional additional device udev rules')
-source=(https://github.com/nmeum/android-tools/releases/download/$_tag/android-tools-$_tag.tar.xz)
-sha256sums=('2725d09f892a3a38e534429f47a321f58ecf6a3169caa42c915fb2cb7d46be0e')
+source=(https://github.com/nmeum/android-tools/releases/download/$_tag/android-tools-$_tag.tar.xz
+        protobuf-36-absl-log-macros.patch)
+sha256sums=('2725d09f892a3a38e534429f47a321f58ecf6a3169caa42c915fb2cb7d46be0e'
+            'ba52b2227c093b56290f07b2be8238201a4e6a2de6de9ba54c3a82e4d6c890a0')
+
+prepare() {
+	cd "android-tools-${_tag}"
+
+	# Keep adb's LOG/VLOG macros from being overwritten by protobuf 36's Abseil headers.
+	patch -Np1 -i ../protobuf-36-absl-log-macros.patch
+}
 
 build() {
 	cd "android-tools-${_tag}"
