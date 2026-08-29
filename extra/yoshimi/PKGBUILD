@@ -3,7 +3,7 @@
 
 pkgbase=yoshimi
 pkgname=(yoshimi{,-{data,docs,lv2,standalone}})
-pkgver=2.3.6.4
+pkgver=2.3.6.5
 pkgrel=1
 pkgdesc="A sophisticated soft-synth originally forked from ZynAddSubFX"
 arch=(x86_64)
@@ -32,17 +32,9 @@ checkdepends=(
 options=(!lto)
 source=(
   $pkgname-$pkgver.tar.gz::$_url/archive/refs/tags/$pkgver.tar.gz
-  yoshimi-2.3.6.4-fix-includes-for-lv2.patch
 )
-sha512sums=('30dcd06a420cc9a086e5641bd785cc8ff2b7e303a4ac53ef88d16df458d07ffbda3cf9b5f2d951647158a1a1fe3554924f58aba9f161a82a4d344dd2a9980ed9'
-            'e0a07d80eeb9637834351aef27dcb15809b1f4864e669f1c4a8572362e0bf7a713df4cca04d763b5ce7ae0f700c240373b06281fc7fcc1df6734472a1c2ffc76')
-b2sums=('8b4db584879b4389db41b52ba3220d016bf44c15ea9856c942ccb3ab73e4467f20b9ea540ee559c1b21aa2a8048baeaf97d057599ce004a65e42dbd6d22e1052'
-        '5711433689653611f2cb9bc1f4589e590f2a2a5680ada4270bf1cfe53b340e0836c4aedcf4480eac613049d58497411b1c63107762f87d1b73463a88dde00a4c')
-
-prepare() {
-  # Fix issue with includes that should be conditional: https://github.com/Yoshimi/yoshimi/issues/250
-  patch -Np1 -d $pkgbase-$pkgver -i ../yoshimi-2.3.6.4-fix-includes-for-lv2.patch
-}
+sha512sums=('0e66a4a2616474c0a2f81ea5cec835740d4b0703be720833ec9f7dad2870f002c17ad1555b6d63783bcf0ecaca780431102b3f13693153e674734f3b7753887e')
+b2sums=('8436e96312266b301f9af2719eade76a37bd9833ba57ffd9de4f6efbe0a86be7abcee4a12c6c95beb353e213e8cbdc9822176d3475aca191e460f514393649ba')
 
 _pick() {
   local p="$1" f d; shift
