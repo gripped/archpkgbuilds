@@ -5,7 +5,7 @@
 # then cp /usr/lib/libgcrypt.so.11 /var/lib/archbuild/staging-x86_64/root/usr/lib/ and do staging-x86_64-build
 
 pkgname=libgcrypt
-pkgver=1.12.2
+pkgver=1.12.3
 pkgrel=1
 pkgdesc="General purpose cryptographic library based on the code from GnuPG"
 arch=(x86_64)
@@ -24,7 +24,7 @@ depends=('libgpg-error' 'glibc')
 options=('!emptydirs')
 # https://www.gnupg.org/download/integrity_check.html
 source=(https://gnupg.org/ftp/gcrypt/${pkgname}/${pkgname}-${pkgver}.tar.bz2{,.sig})
-sha256sums=('7ce33c2492221a0436f96a8500215e9f3e3dcb5fd26a757cd415e7a843babd5e'
+sha256sums=('98d1b0b3202d2b03fa754a35aa3cbbfcf526a3260d8d2ee213748001b1043006'
             'SKIP')
 # validpgpkeys=('6DAA6E64A76D2840571B4902528897B826403ADA'  # "Werner Koch (dist signing 2020)"
 #               'AC8E115BF73E2D8D47FA9908E98E9B2D19C6C8BD') # Niibe Yutaka (GnuPG Release Key)
