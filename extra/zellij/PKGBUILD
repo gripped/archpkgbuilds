@@ -3,7 +3,7 @@
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 
 pkgname=zellij
-pkgver=0.45.0
+pkgver=0.45.1
 pkgrel=1
 pkgdesc="A terminal multiplexer"
 arch=('x86_64' 'i686' 'armv6h' 'armv7h')
@@ -17,7 +17,7 @@ makedepends=(cargo
              mandown)
 options=(!lto)
 source=("https://github.com/zellij-org/${pkgname}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('09d7de6550b0826a7f925ec5ec28dab601beaad78a627d1c074f7141eb30d13948e173f13acfbe5000d99479d22efed08b35f342bb87809526b4f1a26e7752cd')
+sha512sums=('1fa550fe243d8b18a87ff1983631a9a76eb9dde9d1d2c59f0aa6e1bb8b1a677168c469e143de7cc4fcc9ff3a0799c1dc566553ed74bcadab345282b81c105fc8')
 
 _srcenv() {
   cd "$pkgname-$pkgver"
