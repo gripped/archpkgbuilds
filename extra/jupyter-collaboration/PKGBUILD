@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=jupyter-collaboration
-pkgver=5.0.1
+pkgver=5.0.2
 pkgrel=1
 pkgdesc='A Jupyter Server Extension Providing Support for Y Documents'
 arch=(any)
@@ -36,7 +36,7 @@ checkdepends=(python-dirty-equals
 conflicts=(jupyter-server-ydoc)
 replaces=(jupyter-server-ydoc)
 source=(git+https://github.com/jupyterlab/jupyter-collaboration#tag=v$pkgver)
-sha256sums=('de93743a01c705e0485a7fed9ca5c401cbd58866a98cd458ccaeeb7897ef1d4b')
+sha256sums=('13e2172710e1c2c6db6c5591d03dd3f420fbaaa0130172f25e95aba8a6f86658')
 
 build() {
   for _proj in jupyter-server-ydoc jupyter-docprovider jupyter-collaboration-ui; do
