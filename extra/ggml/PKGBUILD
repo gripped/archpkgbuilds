@@ -4,17 +4,19 @@ pkgbase=ggml
 pkgname=(
   ggml
   ggml-blas
-  ggml-cpu
   ggml-cuda
   ggml-hip
   ggml-openvino
   ggml-sycl
   ggml-vulkan
 )
-pkgver=0.21.0
-pkgrel=1
+pkgver=0.22.0
+pkgrel=2
 pkgdesc='Tensor library for machine learning'
-arch=(x86_64)
+arch=(
+  aarch64
+  x86_64
+)
 url=https://github.com/ggerganov/ggml
 license=(MIT)
 depends=(
@@ -25,75 +27,103 @@ depends=(
 makedepends=(
   chrpath
   cmake
-  cuda
   git
-  intel-oneapi-toolkit
-  level-zero-headers
-  nccl
   ninja
   openblas
-  opencl-clhpp
-  openvino
   procps-ng
-  rocm-hip-sdk
-  rocm-toolchain
   shaderc
   spirv-headers
   vulkan-headers
   vulkan-icd-loader
 )
+makedepends_x86_64=(
+  cuda
+  intel-oneapi-toolkit
+  level-zero-headers
+  nccl
+  opencl-clhpp
+  openvino
+  rocm-hip-sdk
+  rocm-toolchain
+)
 source=(git+https://github.com/ggml-org/ggml.git#tag=v${pkgver})
-b2sums=('4547902bff8b2b5152ca79b582c81f11ab2a6ffb5be32567f68b35c611865fa046bb12642ae9cd132c137ef2b45479d3a05a0bd06216c4f7b1f44e61568a8cf8')
+b2sums=('8feb976772c9a02a198a4754db3562e929ca243fe51b7f92847d7c70f8d330c59919a42fdb34b0faa6533297c0bda992fde36bfcb4296d93f631f048606d1ac8')
 
 build() {
-  cmake -S ggml -B build-all -G Ninja \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DAMDGPU_TARGETS=$(rocm-supported-gfx) \
-      -DGGML_BACKEND_DL=ON \
-      -DGGML_BACKEND_DIR=/usr/lib/ggml \
-      -DGGML_BLAS=ON \
-      -DGGML_BLAS_VENDOR=OpenBLAS \
-      -DGGML_CPU_ALL_VARIANTS=ON \
-      -DGGML_CUDA=ON \
-      -DGGML_HIP=ON \
-      -DGGML_OPENVINO=ON \
-      -DGGML_VULKAN=ON
+  local _cmake_options=(
+    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_INSTALL_PREFIX=/usr
+    -DGGML_BACKEND_DL=ON
+    -DGGML_BACKEND_DIR=/usr/lib/ggml
+    -DGGML_BLAS=ON
+    -DGGML_BLAS_VENDOR=OpenBLAS
+    -DGGML_CPU_ALL_VARIANTS=ON
+    -DGGML_VULKAN=ON
+  )
+
+  if [[ $CARCH == x86_64 ]]; then
+    _cmake_options+=(
+      "-DAMDGPU_TARGETS=$(rocm-supported-gfx)"
+      -DGGML_CUDA=ON
+      -DGGML_HIP=ON
+      -DGGML_OPENVINO=ON
+    )
+  else
+    _cmake_options+=(
+      -DGGML_CUDA=OFF
+      -DGGML_HIP=OFF
+      -DGGML_OPENVINO=OFF
+    )
+  fi
+
+  cmake -S ggml -B build-all -G Ninja "${_cmake_options[@]}"
   cmake --build build-all
   chrpath -d build-all/bin/libggml-*.so
 
-  . /opt/intel/oneapi/setvars.sh
+  if [[ $CARCH == x86_64 ]]; then
+    . /opt/intel/oneapi/setvars.sh
 
-  cmake -S ggml -B build-sycl -G Ninja \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_INSTALL_PREFIX=/usr \
-      -DCMAKE_SKIP_RPATH=ON \
-      -DCMAKE_C_COMPILER=icx \
-      -DCMAKE_CXX_COMPILER=icpx \
-      -DGGML_BACKEND_DL=ON \
-      -DGGML_BACKEND_DIR=/usr/lib/ggml \
-      -DGGML_BLAS=ON \
-      -DGGML_BLAS_VENDOR=Intel10_64lp \
-      -DGGML_CPU_ALL_VARIANTS=ON \
-      -DGGML_SYCL=ON \
-      -DGGML_SYCL_F16=ON
-  cmake --build build-sycl
-  chrpath -d build-sycl/bin/libggml-*.so
+    cmake -S ggml -B build-sycl -G Ninja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_SKIP_RPATH=ON \
+        -DCMAKE_C_COMPILER=icx \
+        -DCMAKE_CXX_COMPILER=icpx \
+        -DGGML_BACKEND_DL=ON \
+        -DGGML_BACKEND_DIR=/usr/lib/ggml \
+        -DGGML_BLAS=ON \
+        -DGGML_BLAS_VENDOR=Intel10_64lp \
+        -DGGML_CPU_ALL_VARIANTS=ON \
+        -DGGML_SYCL=ON \
+        -DGGML_SYCL_F16=ON
+    cmake --build build-sycl
+    chrpath -d build-sycl/bin/libggml-*.so
+  fi
 }
 
 package_ggml() {
   depends+=(libgomp)
   optdepends=(
     'ggml-blas: BLAS backend'
-    'ggml-cpu: CPU backend'
-    'ggml-cuda: CUDA backend'
-    'ggml-openvino: Openvino backend'
-    'ggml-hip: HIP backend'
     'ggml-vulkan: Vulkan backend'
+  )
+  optdepends_x86_64=(
+    'ggml-cuda: CUDA backend'
+    'ggml-hip: HIP backend'
+    'ggml-openvino: Openvino backend'
+  )
+  conflicts=(
+    ggml
+    ggml-cpu
+  )
+  provides=(
+    ggml
+    ggml-cpu
   )
 
   DESTDIR="${pkgdir}" cmake --install build-all
   rm -rf "${pkgdir}"/usr/lib/ggml
+  install -Dm 755 build-all/bin/libggml-cpu-*.so -t "${pkgdir}"/usr/lib/ggml/
   install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
@@ -107,12 +137,8 @@ package_ggml-blas() {
   install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
-package_ggml-cpu() {
-  install -Dm 755 build-all/bin/libggml-cpu-*.so -t "${pkgdir}"/usr/lib/ggml/
-  install -Dm 644 ggml/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
-}
-
 package_ggml-cuda() {
+  arch=(x86_64)
   depends+=(
     cuda
     ggml
@@ -124,9 +150,11 @@ package_ggml-cuda() {
 }
 
 package_ggml-hip() {
+  arch=(x86_64)
   depends+=(
     ggml
     hipblas
+    hip-runtime-amd
     rocblas
     rocm-hip-runtime
   )
@@ -136,6 +164,7 @@ package_ggml-hip() {
 }
 
 package_ggml-openvino() {
+  arch=(x86_64)
   depends+=(
     ggml
     intel-oneapi-toolkit
@@ -148,6 +177,7 @@ package_ggml-openvino() {
 }
 
 package_ggml-sycl() {
+  arch=(x86_64)
   depends+=(
     intel-oneapi-toolkit
     level-zero-loader
