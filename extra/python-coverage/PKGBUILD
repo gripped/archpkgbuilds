@@ -4,7 +4,7 @@
 
 _pkgname=coveragepy
 pkgname=python-coverage
-pkgver=7.13.5
+pkgver=7.14.0
 pkgrel=1
 pkgdesc="A tool for measuring code coverage of Python programs"
 arch=('x86_64')
@@ -13,8 +13,8 @@ license=('Apache-2.0')
 depends=('glibc' 'python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel' 'python-pytest' 'python-pytest-xdist' 'python-flaky' 'python-hypothesis')
 source=("git+https://github.com/nedbat/coveragepy.git#tag=$pkgver")
-sha512sums=('4ba95dcba3f81cb330b635d3cbe79eeeea1301fd0ce75a407c9f2590e6bd8a3e16e3b36ccb04b7c8955ed04ea908228c39f767900a18c32753f4d1df408b6346')
-b2sums=('c08eca86c512a73180a01cbb2c143b3017dff911fdedc0402818816bcc6f43496b048bbdcf327d413dda29357cdb5379ae2f5f02a9b375f7563d51690378b3ef')
+sha512sums=('1eceeea08b7a0770ebf5c2090a8db5779a2af9804965a763de92792bac81eb38d96773b1bb2258495f1fcbc06a941d7e0740ff5bef9c8176e4b78e000ff985c3')
+b2sums=('cf3b205cf1028e1168cc08c19feaf222a533435c7d800650a664b83ab70769619fb888582c6e6d54e247b49fca863c10e6e72c8b73b7785376b1da79aeb1cd71')
 
 build() {
   cd $_pkgname
@@ -23,7 +23,11 @@ build() {
 
 check() {
   cd $_pkgname
-  python -m pytest tests/
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python setup.py --quiet build_ext --inplace
+  test-env/bin/python igor.py zip_mods
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python igor.py test_with_core ctrace tests/
 }
 
 package() {
