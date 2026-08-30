@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libglacierapp
-pkgver=1.2.1
+pkgver=1.2.2
 pkgrel=1
 pkgdesc="Glacier Application library"
 arch=('x86_64')
@@ -10,12 +10,20 @@ license=('LGPL-2.0-or-later')
 depends=('glibc' 'libgcc' 'libstdc++' 'qt6-base' 'qt6-declarative')
 makedepends=('git' 'cmake')
 source=("git+https://github.com/nemomobile-ux/libglacierapp.git#tag=$pkgver")
-sha512sums=('edab5449414586a8ccbea79ff71d1f238e203764ed78fe95bc434d6621a394583e25dabe87e7802d54688e2f0b2a2f54385734dff73623bd584f06080676b1fd')
+sha512sums=('2fd6965400f07ca93c0543738be8785197a53819dfc09c9a3ee01d9d3be174eb098d94761ad285ab8064fb8c07fa3176f6efd160339ddf2021787ac58c962beb')
+
+prepare(){
+  cd $pkgname
+
+  # Add missing Qt DBus CMake wiring fixed upstream after 1.2.2.
+  sed -i 's/Core Gui Qml Quick REQUIRED/Core Gui Qml Quick DBus REQUIRED/g' CMakeLists.txt src/CMakeLists.txt
+  sed -i '/Qt6::Quick/a \    Qt6::DBus' src/CMakeLists.txt
+}
 
 build(){
   cd $pkgname
 
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib -DUSE_QT6=ON .
+  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=/usr/lib .
   make
 }
 
