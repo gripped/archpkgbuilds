@@ -5,7 +5,7 @@
 pkgbase=appstream
 pkgname=(appstream
          appstream-qt)
-pkgver=1.1.6
+pkgver=1.2.0
 pkgrel=1
 pkgdesc='Provides a standard for creating app stores across distributions'
 arch=(x86_64)
@@ -15,14 +15,13 @@ depends=(cairo
          curl
          fontconfig
          freetype2
-         gdk-pixbuf2
          glib2
          glibc
          libblake3
          libfyaml
          libgcc
-         librsvg
          libstemmer
+         libvips
          libxml2
          libxmlb
          pango
@@ -41,7 +40,7 @@ makedepends=(bash-completion
              xmlto)
 source=(git+https://github.com/ximion/appstream#tag=v$pkgver?signed
         update-appstream-cache.hook)
-sha256sums=('eaacd78cb436ad2d1fc2df9aa472ec273351453899f2fa816aa8eabedad8a829'
+sha256sums=('8699c33219c1cb4aa82c57cd9777f9a34cdd14ac6558c93a3553420c725f4a24'
             'edc632e4a76ebe5efc76a56fe5f797e5c981cca6f2f0111c7ce0170d1330c788')
 validpgpkeys=(D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB) # Matthias Klumpp <matthias@tenstral.net>
 
@@ -76,5 +75,5 @@ package_appstream-qt() {
   meson install --destdir "$pkgdir" -C build
 
 # provided by appstream
-  rm -r "$pkgdir"/usr/{bin,include/appstream{,-compose},lib/{appstreamcli-compose,girepository-1.0,libappstream*,pkgconfig},share}
+  rm -r "$pkgdir"/usr/{bin,include/appstream{,-compose},lib/{appstreamcli-compose,ascompose,girepository-1.0,libappstream*,pkgconfig},share}
 }
