@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=6.0.6
+pkgver=6.0.7
 pkgrel=1
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=(git cmake deepin-tray-loader ninja qt6-tools boost)
 groups=(deepin-extra)
 source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
          taglib-2.patch)
-sha512sums=('337351bf60cea17f2f6eaf0f80107773a8cace3f91c05f347c19c032e83e7bae6c1fd99a0787cfe8217ab9be544867ce2f2b34e29ec6d888e2d19d64f38c4a2a'
+sha512sums=('b2266244c5c19d76b38c130ceee46ddaf96b7ee7dea657ef68fe6302eb8f902f4918a092de667c59872b08cb81758f3cf9be7eab34141da2c6d58e29747e2563'
             '8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0')
 
 prepare() {
@@ -33,11 +33,15 @@ prepare() {
   sed -i '/^if(EXISTS LICENSE.txt)$/,/^endif()$/d' 3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
 
   patch -p1 -i ../taglib-2.patch
+
+  # Fix new EventLogUtil header's incomplete Qt type declarations.
+  sed -i 's|#include <QVariantMap>|#include <QObject>\n#include <QJsonObject>\n#include <QThread>\n#include <QVariantMap>|' \
+    src/grand-search/utils/report/eventlogutil.h
 }
 
 build() {
   cd dde-grand-search
-  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr -DVERSION=$pkgver
   ninja
 }
 
