@@ -1,0 +1,55 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-scanner
+pkgver=0.1.22
+pkgrel=1
+pkgdesc='Document scanning tool for Deepin'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/deepin-scanner"
+license=('CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'LGPL-3.0-or-later' 'MIT')
+depends=(
+  'dtk6core'
+  'dtk6gui'
+  'dtk6widget'
+  'glibc'
+  'hicolor-icon-theme'
+  'libgcc'
+  'libpng'
+  'libstdc++'
+  'qt6-5compat'
+  'qt6-base'
+  'qt6-imageformats'
+  'qt6-svg'
+  'quazip-qt6'
+  'sane'
+)
+makedepends=(
+  'cmake'
+  'git'
+  'ninja'
+  'qt6-declarative'
+  'qt6-tools'
+)
+groups=('deepin-extra')
+source=("git+https://github.com/linuxdeepin/deepin-scanner.git#tag=$pkgver")
+sha512sums=('13231edfe0c56eded4f69e72aeb97a314316e35c8d2a2fcd2673a2d287e4d86ceeb2206169c13cd83f5ca2c97a27ebb78d88e42bb4280a071ceb11d664e5fc79')
+
+prepare() {
+  cd deepin-scanner
+  # Upstream finds Qt6 Core5Compat but leaves it out of LINK_LIBS; QRegExp needs its include path.
+  sed -i '/# if (QT_DESIRED_VERSION MATCHES 6)/,/# endif()/s/^# //' CMakeLists.txt
+  # Fix missing Qt include exposed by current Qt/GCC headers.
+  sed -i '/#include <QDateTime>/a #include <QElapsedTimer>' src/device/webcamdevice.cpp
+}
+
+build() {
+  cmake -B build -S deepin-scanner -GNinja \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DVERSION=$pkgver
+  ninja -C build
+}
+
+package() {
+  DESTDIR="$pkgdir" ninja -C build install
+}
