@@ -2,8 +2,8 @@
 # Maintainer: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-vpn-api-core
-pkgver=5.5.11
-pkgrel=1
+pkgver=5.5.15
+pkgrel=2
 _protun_commit=5f5f4c9f7bb6c96a10a5c42747dccdf7ee656039
 pkgdesc="The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services."
 arch=("any")
@@ -20,7 +20,6 @@ depends=(
   python-distro
   python-jinja
   python-proton-core
-  python-proton-vpn-local-agent
   python-cairo
   python-gobject
   python-pynacl
@@ -37,19 +36,32 @@ makedepends=(
   python-wheel
   rust
 )
-provides=(python-proton-vpn-network-manager)
-replaces=(python-proton-vpn-network-manager)
+provides=(
+  python-proton-vpn-local-agent
+  python-proton-vpn-network-manager
+)
+conflicts=(python-proton-vpn-local-agent)
+replaces=(
+  python-proton-vpn-local-agent
+  python-proton-vpn-network-manager
+)
 source=(
   "git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}"
   "protun::git+https://github.com/ProtonVPN/protun.git#commit=${_protun_commit}"
+  fix-protun-protocol.patch
 )
-sha256sums=('e3e3653044befcace7efe3bed278a19550f62a906d6c2067671f30faa8fe3242'
-            '179874ae2f6e2310d5dd977ed6de8b84616bd230e4419e9b4786d2ed4991760a')
+sha256sums=('a6e9e20f64ba2fff1400991b62494703e834a5e0859c4b9faf67c57c00c97148'
+            '179874ae2f6e2310d5dd977ed6de8b84616bd230e4419e9b4786d2ed4991760a'
+            '28abe281b8dee47fe5b3e5f3a612a902f6e7504bcb7509e809e1d422c71df750')
 optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
             "plasma-nm: password prompt on KDE Plasma")
 
 prepare() {
   cd "$pkgname"
+  patch -Np1 < ../fix-protun-protocol.patch
+
+  # The local agent is now included in proton.vpn.platform.
+  sed -i 's/, "proton-vpn-local-agent"//' setup.py
 
   rm -rf dependencies/protun
   cp -a "$srcdir/protun" dependencies/protun

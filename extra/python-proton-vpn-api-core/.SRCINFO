@@ -1,7 +1,7 @@
 pkgbase = python-proton-vpn-api-core
 	pkgdesc = The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services.
-	pkgver = 5.5.11
-	pkgrel = 1
+	pkgver = 5.5.15
+	pkgrel = 2
 	url = https://github.com/ProtonVPN/python-proton-vpn-api-core
 	arch = any
 	license = GPL-3.0-or-later
@@ -21,7 +21,6 @@ pkgbase = python-proton-vpn-api-core
 	depends = python-distro
 	depends = python-jinja
 	depends = python-proton-core
-	depends = python-proton-vpn-local-agent
 	depends = python-cairo
 	depends = python-gobject
 	depends = python-pynacl
@@ -30,12 +29,17 @@ pkgbase = python-proton-vpn-api-core
 	depends = python-fido2
 	optdepends = network-manager-applet: password prompt on Gnome and other GTK DEs
 	optdepends = plasma-nm: password prompt on KDE Plasma
+	provides = python-proton-vpn-local-agent
 	provides = python-proton-vpn-network-manager
+	conflicts = python-proton-vpn-local-agent
+	replaces = python-proton-vpn-local-agent
 	replaces = python-proton-vpn-network-manager
 	options = !lto
-	source = git+https://github.com/ProtonVPN/python-proton-vpn-api-core.git#tag=v5.5.11
+	source = git+https://github.com/ProtonVPN/python-proton-vpn-api-core.git#tag=v5.5.15
 	source = protun::git+https://github.com/ProtonVPN/protun.git#commit=5f5f4c9f7bb6c96a10a5c42747dccdf7ee656039
-	sha256sums = e3e3653044befcace7efe3bed278a19550f62a906d6c2067671f30faa8fe3242
+	source = fix-protun-protocol.patch
+	sha256sums = a6e9e20f64ba2fff1400991b62494703e834a5e0859c4b9faf67c57c00c97148
 	sha256sums = 179874ae2f6e2310d5dd977ed6de8b84616bd230e4419e9b4786d2ed4991760a
+	sha256sums = 28abe281b8dee47fe5b3e5f3a612a902f6e7504bcb7509e809e1d422c71df750
 
 pkgname = python-proton-vpn-api-core
