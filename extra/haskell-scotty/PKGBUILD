@@ -2,25 +2,21 @@
 
 _hkgname=scotty
 pkgname=haskell-scotty
-pkgver=0.22
-pkgrel=272
+pkgver=0.30
+pkgrel=1
 pkgdesc="Haskell web framework inspired by Ruby's Sinatra, using WAI and Warp"
 url="https://github.com/scotty-web/scotty"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-blaze-builder' 'haskell-case-insensitive'
-         'haskell-cookie' 'haskell-data-default-class' 'haskell-http-types' 'haskell-monad-control'
-         'haskell-network' 'haskell-regex-compat' 'haskell-resourcet' 'haskell-transformers-base'
-         'haskell-unliftio' 'haskell-wai' 'haskell-wai-extra' 'haskell-warp')
-makedepends=('ghc' 'uusi' 'haskell-async' 'haskell-doctest' 'haskell-hspec' 'haskell-hspec-discover'
+         'haskell-cookie' 'haskell-http-api-data' 'haskell-http-types' 'haskell-monad-control'
+         'haskell-network' 'haskell-random' 'haskell-regex-compat' 'haskell-resourcet'
+         'haskell-transformers-base' 'haskell-unliftio' 'haskell-unordered-containers' 'haskell-wai'
+         'haskell-wai-extra' 'haskell-warp')
+makedepends=('ghc' 'haskell-async' 'haskell-doctest' 'haskell-hspec' 'haskell-hspec-discover'
              'haskell-hspec-wai' 'haskell-http-client' 'haskell-lifted-base')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('ceb998c12502cd639c8aa59c5b5ea8f2651198e62f2f86cf18b8b5a087b4b81c')
-
-prepare() {
-  cd $_hkgname-$pkgver
-  uusi -u warp
-}
+sha256sums=('df90a8842400708e1314caaf0a7f0a026e214f3d5f98b7722edecc2e14fa4c4b')
 
 build() {
   cd $_hkgname-$pkgver
