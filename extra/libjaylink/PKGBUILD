@@ -3,17 +3,17 @@
 # Contributor: glatavento <glatavento at outlook dot com>
 
 pkgname=libjaylink
-pkgver=0.4.0
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='Library for accessing SEGGER J-Link and compatible devices'
 arch=('x86_64')
 url='https://gitlab.zapb.de/libjaylink/libjaylink'
-license=('GPL')
+license=('LGPL-2.1-or-later')
 depends=('libusb')
 provides=("$pkgname.so")
 makedepends=('git' 'meson')
 source=("git+https://gitlab.zapb.de/libjaylink/libjaylink.git#tag=$pkgver")
-sha256sums=('01083f298381c3d0f7031cdca1c47885038f2142a484073f554e4b0309b0b7a2')
+sha256sums=('f59d6832510dab017fe0512e76e5424f146c71c134d84a0fe1429718b0814a6e')
 
 build() {
   arch-meson $pkgname build
