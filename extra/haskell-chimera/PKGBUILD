@@ -2,23 +2,22 @@
 
 _hkgname=chimera
 pkgname=haskell-chimera
-pkgver=0.4.1.0
-pkgrel=190
+pkgver=0.4.2.0
+pkgrel=1
 pkgdesc="Lazy infinite streams with O(1) indexing and applications for memoization"
 url="https://github.com/Bodigrim/chimera#readme"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-adjunctions' 'haskell-distributive' 'haskell-infinite-list'
          'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-smallcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('728de43b1b2d1f76e3d0bcdf3c70365d03869a9a70a9ce66555ae83a4fb13aa344ce3029a34ade272204dff0c8acfc4803668b3926c71f102c0c50c572603050')
+sha512sums=('8196d7d5d4fc6a29dabc4792ec5920d89a89ad15f0c7ffcaee478ad4dc58da4cb6a76abaa0267abdb84fbe10e22521fb775b83651f839188b74b1ace270ba19e')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u QuickCheck -u tasty-quickcheck
 }
 
 build() {
