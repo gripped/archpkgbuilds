@@ -4,7 +4,7 @@
 # Contributor: bender02 at gmx dot com
 
 pkgname=asymptote
-pkgver=3.13
+pkgver=3.14
 pkgrel=1
 pkgdesc='A vector graphics language (like metapost)'
 arch=(x86_64)
@@ -42,7 +42,7 @@ optdepends=('pyside6: for the xasy GUI'
             'python-cson: for the xasy GUI'
             'ghostscript: PDF output')
 source=(git+https://github.com/vectorgraphics/asymptote#tag=$pkgver)
-sha256sums=('3a048dc913456bfd64615a01eda74fe2d5d2714b856a9efc505ff28e10ae98e9')
+sha256sums=('dda7198984cbb50c1bef4bdaca29822dd58d41878c51f27b877be928af4b04a5')
 
 prepare() {
   cd $pkgname
