@@ -6,7 +6,7 @@ pkgname=yaak
 _appid=app.yaak.Yaak
 _appname=yaak-app-client
 pkgver=2026.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast, secure, and offline API client'
 arch=('x86_64')
 url='https://yaak.app/'
@@ -46,6 +46,7 @@ makedepends=(
     rust-wasm            # Yaak
     wasm-pack            # Yaak
 )
+optdepends=('yaak-cli: CLI management paired with AI agents')
 options=("!lto") # https://gitlab.archlinux.org/archlinux/packaging/packages/pacman/-/issues/20
 provides=("yaak-app" "yaak-app-client")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mountain-loop/yaak/archive/refs/tags/v${pkgver}.tar.gz"

@@ -1,7 +1,7 @@
 pkgbase = yaak
 	pkgdesc = A fast, secure, and offline API client
 	pkgver = 2026.6.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://yaak.app/
 	arch = x86_64
 	license = MIT
@@ -34,6 +34,7 @@ pkgbase = yaak
 	depends = zstd
 	depends = nodejs
 	depends = protobuf
+	optdepends = yaak-cli: CLI management paired with AI agents
 	provides = yaak-app
 	provides = yaak-app-client
 	options = !lto
