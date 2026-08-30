@@ -1,0 +1,25 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=quill
+pkgver=12.2.2
+pkgrel=1
+pkgdesc='Ultra-low-latency asynchronous C++17 logging and metrics library for performance-critical applications'
+arch=(any)
+url='https://quillcpp.readthedocs.io/'
+license=(MIT)
+depends=()
+makedepends=(cmake
+             git)
+source=(git+https://github.com/odygrd/quill#tag=v$pkgver)
+sha256sums=('544bad28c24900413d8e46ebda1b1ab0dd8cc4b13ac51b60a0fd51d489c6c84a')
+
+build() {
+  cmake -B build -S $pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 $pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+}
