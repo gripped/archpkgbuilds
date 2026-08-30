@@ -3,7 +3,7 @@
 _hkgname=hedgehog-fn
 pkgname=haskell-hedgehog-fn
 pkgver=1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Function generation for `hedgehog`'
 url='https://github.com/qfpl/hedgehog-fn'
 license=("BSD-3-Clause")
@@ -28,7 +28,7 @@ build() {
     --ghc-option='-pie' \
     -f-build-examples
 
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
   runhaskell Setup register --gen-script
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
@@ -37,7 +37,7 @@ build() {
 
 check() {
   cd $_hkgname-$pkgver
-  runhaskell Setup test
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
