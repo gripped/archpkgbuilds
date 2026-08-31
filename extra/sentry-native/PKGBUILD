@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sentry-native
-pkgver=0.16.3
+pkgver=0.16.4
 pkgrel=1
 pkgdesc="Sentry SDK for C, C++ and native applications"
 arch=(x86_64)
@@ -38,7 +38,7 @@ source=(
   "$pkgname-mini_chromium::git+https://github.com/getsentry/mini_chromium.git"
   "$pkgname-chromium-zlib::git+https://github.com/getsentry/chromium-zlib.git"
 )
-b2sums=('9fe02e6e7b9160b48eeeb97482ced5da3801814182534821be2da2aec98014653873272f9b2914d66e7e007568011bdaeffb8fd680b1548aaebf72403e89a339'
+b2sums=('32f01d52b7526bfef929fdc105a9d34fa5a0016456a7db3068ee134a8f36e2b034ca50076e30c2cf70aedece7f6cfc3ce866642f11aa3714ae90f9d76db9bac5'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -74,10 +74,18 @@ build() {
 
 check() {
   cd $pkgname
-  # Ignore Windows tests & deselect test requiring .NET 8.0.
+  # Ignore Windows tests & deselect test requiring .NET 8.0 or making network requests.
   pytest \
     --deselect tests/test_dotnet_signals.py::test_dotnet_signals_inproc \
     --deselect tests/test_dotnet_signals.py::test_aot_signals_inproc \
+    --deselect tests/test_integration_crashpad.py::test_crashpad_crash_proxy_env \
+    --deselect tests/test_integration_crashpad.py::test_crashpad_proxy_set_empty \
+    --deselect tests/test_integration_crashpad.py::test_crashpad_proxy_https_not_http \
+    --deselect tests/test_integration_proxy.py::test_proxy_from_env \
+    --deselect tests/test_integration_proxy.py::test_proxy_auth \
+    --deselect tests/test_integration_proxy.py::test_proxy_ipv6 \
+    --deselect tests/test_integration_proxy.py::test_proxy_set_empty \
+    --deselect tests/test_integration_proxy.py::test_proxy_https_not_http \
     --ignore external/crashpad/snapshot/win \
     --ignore external/crashpad/test/win
 }
