@@ -4,23 +4,23 @@
 # Contributor: Chris Baker <baker.chris.3@gmail.com>
 
 pkgname=python-nltk
-pkgver=3.9.1
-pkgrel=5
+pkgver=3.10.3
+pkgrel=1
 pkgdesc='Natural language processing in Python'
 arch=('any')
 url='https://www.nltk.org/'
 license=('Apache-2.0')
 depends=('python-yaml' 'python-click' 'python-regex')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('nltk-data' 'python-requests' 'python-regex')
 optdepends=('nltk-data: test data'
 	    'python-numpy: used for calculations'
 	    'python-matplotlib: used for plotting')
-source=($pkgname-$pkgver.tar.gz::"https://github.com/nltk/nltk/archive/$pkgver.tar.gz")
-sha256sums=('03e06c8c13e352133962c4395ebe0696905c9f1fbdead2d19deae37ba48eb47c')
+source=(git+https://github.com/nltk/nltk#tag=v$pkgver)
+sha256sums=('10625f2a7c648af168d91ee5bc806c05a5f06bbc6373c658d49a6fe88db04276')
 
 build() {
-  cd nltk-$pkgver
+  cd nltk
   python -m build --wheel --no-isolation
 }
 
@@ -31,6 +31,6 @@ build() {
 #}
 
 package() {
-  cd nltk-$pkgver
+  cd nltk
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
