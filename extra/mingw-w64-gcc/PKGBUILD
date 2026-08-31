@@ -3,7 +3,7 @@
 
 pkgname=mingw-w64-gcc
 pkgver=16.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross GCC for the MinGW-w64 cross-compiler"
 arch=('x86_64')
 url="https://gcc.gnu.org"
@@ -60,7 +60,8 @@ build() {
         --with-system-zlib --enable-cloog-backend=isl \
         --enable-lto --enable-libgomp \
         --disable-multilib --enable-checking=release \
-        --disable-sjlj-exceptions --with-dwarf2
+        --disable-sjlj-exceptions --with-dwarf2 \
+        --enable-tls
     make
   done
 }
