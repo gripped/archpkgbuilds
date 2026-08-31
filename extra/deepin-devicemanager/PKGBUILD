@@ -1,0 +1,52 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-devicemanager
+pkgver=6.0.70
+pkgrel=1
+pkgdesc='Deepin hardware information and device management tool'
+arch=('x86_64')
+url='https://github.com/linuxdeepin/deepin-devicemanager'
+license=('GPL-3.0-or-later')
+depends=('bluez-deprecated-tools' 'bluez-utils' 'cups' 'deepin-qt6integration'
+         'deepin-service-manager' 'dmidecode' 'dtk6core' 'dtk6gui' 'dtk6widget'
+         'glib2' 'glibc' 'hicolor-icon-theme' 'hwinfo' 'kmod' 'libgcc'
+         'libstdc++' 'lshw' 'net-tools' 'pciutils' 'polkit-qt6' 'qt6-base'
+         'qt6-svg' 'smartmontools' 'systemd' 'systemd-libs' 'upower' 'usbutils'
+         'util-linux' 'xorg-xrandr')
+makedepends=('git' 'cmake' 'ninja' 'pkgconf' 'qt6-tools')
+optdepends=('deepin-printer: open printer settings from printer pages'
+            'deepin-shortcut-viewer: display keyboard shortcuts'
+            'nvidia-utils: show NVIDIA GPU details')
+groups=('deepin-extra')
+source=("git+https://github.com/linuxdeepin/deepin-devicemanager.git#tag=$pkgver")
+sha512sums=('88b009329e5849391c456226faa7cdec92827978b7fc815213258bb203b3bffa26b0b75e7e0385f00e4d9f0e4e501cc657c05a1777b79c9511dec5ad694d025b')
+
+prepare() {
+  cd deepin-devicemanager
+
+  # Honor DISABLE_DRIVER without requiring Arch-unpackaged QApt/APT driver support.
+  # https://github.com/linuxdeepin/deepin-devicemanager/pull/739
+  git cherry-pick -n 662f2f5cc661fd1d9dc453d8352944fbacefb6ae
+
+  # Fix bundled QtXlsx with Qt 6.10+ CorePrivate CMake target changes.
+  # https://github.com/linuxdeepin/deepin-devicemanager/pull/740
+  git cherry-pick -n 81cc02f12ac1f0f939e3278371eb1cc54ae33513
+
+  # Install the systemd hardening drop-in next to the matching unit.
+  # https://github.com/linuxdeepin/deepin-devicemanager/pull/741
+  git cherry-pick -n 484b85796034b87b4110efb76032b075a631fb03
+}
+
+build() {
+  cmake -GNinja -B build -S deepin-devicemanager \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DVERSION=$pkgver \
+    -DDISABLE_DRIVER=ON
+  ninja -C build
+}
+
+package() {
+  DESTDIR="$pkgdir" ninja -C build install
+}
