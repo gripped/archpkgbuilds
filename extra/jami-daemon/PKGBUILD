@@ -2,7 +2,7 @@
 # Contributor: Baptiste Jonglez <baptiste--aur at jonglez dot org>
 
 pkgname=jami-daemon
-pkgver=20260718
+pkgver=20260819
 pkgrel=2
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (daemon component)"
 arch=(x86_64)
@@ -33,12 +33,14 @@ depends=(
   systemd-libs
   util-linux-libs
   webrtc-audio-processing-0.3
+  y-crdt
   yaml-cpp
   zlib
 )
 # portaudio needs a not-yet-upstream patch https://git.jami.net/savoirfairelinux/jami-daemon/-/issues/650
 makedepends=(
   asio
+  cargo
   cmake
   git
   meson
@@ -49,25 +51,23 @@ makedepends=(
   systemd
 )
 checkdepends=(cppunit)
-_commit=565904f06b7b3d24eb5cd6f26e5c729eb454d75b
-_pjprojectver=08d2e8aef47d2f73546cc9e95514db454e57821e
-_dhtnetver=4c2210f47c2adc2aef726cce30a6d322f0855ad4
+_commit=83aea32cd6007a280339a08a8d36a2d2f17f3fa7
+_pjprojectver=3a92a7ee340dbc1f4730fcaf32acac9a54cacf1b
+_dhtnetver=11f916f2cccba068a48d2fd6ed6f02407d95b7ce
 source=(git+https://git.jami.net/savoirfairelinux/${pkgname}.git#commit=${_commit}
         https://github.com/savoirfairelinux/pjproject/archive/${_pjprojectver}/pjproject-${_pjprojectver}.tar.gz
         dhtnet-$_dhtnetver.tar.gz::https://git.jami.net/savoirfairelinux/dhtnet/-/archive/$_dhtnetver/dhtnet-$_dhtnetver.tar.gz
         ffmpeg-7.patch
         ffmpeg-8.patch
-        ffmpeg-9.patch
-        fix-missing-header.patch)
+        ffmpeg-9.patch)
 noextract=(pjproject-${_pjprojectver}.tar.gz
            dhtnet-${_dhtnetver}.tar.gz)
-sha512sums=('f7bcb78dd52f1d1a2475715f8194ff84853dceb790eace265ef56e8466fc8c295c4304260ace1918e9edfc95d5b0b0501dec5c9bc0ef0454de933b69be936523'
-            '9f464b7fb70bac99f346f9254dee2a75fd4f606f4fc253d03c5197283b739979753958626fd9296d47e99b156149be70cb67dec451a08d8c5b75482083959557'
-            '2a711e6f4267754049a227bbbf5271963b4a3126c8b1a7e2735464caba9078ed94c1440ea1216ff8e51d000a34a7f712e621549f92a354b6a17ffcfe8c10b038'
+sha512sums=('2f73838e7e266c548e03e2cb18384d643958d43f4596c58cd5065185fa12964347a0dcc37a93f07cdbccefb9db77f6a0aaa245b4636bf2095dedc8acb9b11261'
+            'db0b6e5fd92c24d5d7d61a5990c389d81e55ce5e4afbbdfc7250a34751f58e62bda844dc2657062777279369a9782f0fbd61d47d7e32bcd09c510620cedd0c5e'
+            'aae2b72ba5678a494ae779e520f5712895260e94ec46272854cfe8e4c182556851b5db61b41ae891c3e3b01025c55535c4286dd45f7f4060d36a696bb09e013d'
             '39b7181fb66f72d96b63777920a26dfc1fa5377e81d22dce622c6ef4a3d9d2e5002457908a89fc14bdf9af175b7e781114c2d2fd0c572bbea344254495bed563'
             '8fcfe52808d00b8535dc6d181af0233dc0f3a51e8da69728a04e7f6edc82c54fb11e62ffad05344d9eeb6d203dc323ffa03181c615c7c6f84682f70a02ee4319'
-            '6e16e07f392c7530351157d66fcbe30393bdf69242fe84dbece3ee60c53b0cf33bc3d15bb91df5d966f86bc0955150b066b10dde4800eabe989e7b73c315c858'
-            '6025357ffcfe2f8c3088d60b780ea1b63d1d512b80c5ec29f616b5bc7336cc5a7dacb02c1f9e88f9255545c1cbd2446f69e711b3b6244eeea4f7a68291e39465')
+            '6e16e07f392c7530351157d66fcbe30393bdf69242fe84dbece3ee60c53b0cf33bc3d15bb91df5d966f86bc0955150b066b10dde4800eabe989e7b73c315c858')
 
 pkgver() {
   cd ${pkgname}
@@ -92,7 +92,6 @@ prepare() {
   patch -p1 -i ../ffmpeg-7.patch # Fix build with ffmpeg 7+
   patch -p1 -i ../ffmpeg-8.patch # Fix build with ffmpeg 8
   patch -p1 -i ../ffmpeg-9.patch
-  patch -p1 -i ../fix-missing-header.patch
 }
 
 build() {
