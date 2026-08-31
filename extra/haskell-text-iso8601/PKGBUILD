@@ -2,8 +2,8 @@
 
 _hkgname=text-iso8601
 pkgname=haskell-text-iso8601
-pkgver=0.1.1.1
-pkgrel=30
+pkgver=0.1.1.2
+pkgrel=2
 pkgdesc="Converting time to and from ISO 8601 text."
 url="https://github.com/haskell/aeson"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-integer-conversion' 'haskell-time-compat')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('603b68d1135e9373edf2c20a993ea226b9f1fec11189c1b2b8a647262ceb8b3e')
+sha256sums=('ddbb13aec70a2fd54c7a25bf85e38a467d0d5599980d21f4925b3c706f8f7398')
 
 prepare() {
   cd $_hkgname-$pkgver
