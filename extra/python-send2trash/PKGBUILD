@@ -3,8 +3,8 @@
 
 _pkgbase=send2trash
 pkgname=python-send2trash
-pkgver=1.8.3
-pkgrel=3
+pkgver=2.1.0
+pkgrel=1
 pkgdesc="Send file to trash natively"
 arch=('any')
 url="https://github.com/hsoft/send2trash"
@@ -12,7 +12,7 @@ license=('BSD')
 depends=('python')
 makedepends=('python' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/hsoft/$_pkgbase/archive/$pkgver.tar.gz")
-sha256sums=('90bcdf2ed2a18b687040c0f58bfccd6ad2e1b7ec495a9903119dc3c47c615052')
+sha256sums=('7503447b1ae6ce211a71b0325acb7455e8397e3cea516043e52b79a5dd8949ee')
 
 build() {
 	cd $_pkgbase-$pkgver
