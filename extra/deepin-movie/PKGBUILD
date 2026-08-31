@@ -2,7 +2,7 @@
 
 pkgname=deepin-movie
 epoch=1
-pkgver=6.5.11
+pkgver=6.5.12
 pkgrel=1
 pkgdesc='Movie player based on mpv'
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'ffmpegthumbnail
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-movie-reborn.git#tag=$pkgver")
-sha512sums=('91f89159746cdbbb52d82ee79d6d320c21d9ce98aa512c0c0c04ec804d88014cbd56314f06264e0bb19741982f8557dd5adb62dfb9165fe1d1a0501eb3b966bf')
+sha512sums=('729e5889cd5b74683def411a07b2ca0118b021a89451ec26cfab069f127b4e1600141256d9120f414a3cfd93cf059b460d09fc57fed5ca865bf56979dcc0612d')
 
 prepare() {
   cd deepin-movie-reborn
