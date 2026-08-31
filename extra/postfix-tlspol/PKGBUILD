@@ -2,7 +2,7 @@
 
 pkgname=postfix-tlspol
 pkgver=1.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight MTA-STS + DANE/TLSA resolver and TLS policy server for Postfix, prioritizing DANE"
 url="https://github.com/Zuplu/postfix-tlspol"
 arch=('x86_64')
@@ -46,7 +46,6 @@ package() {
 	install -Dm 755 "build/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 	install -Dm 644 "init/${pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}.service"
 	install -Dm 644 "init/${pkgname}.socket" "${pkgdir}/usr/lib/systemd/system/${pkgname}.socket"
-	install -dm 755 "${pkgdir}/var/lib/${pkgname}"
 	install -Dm 644 configs/config.default.yaml "${pkgdir}/etc/${pkgname}/config.yaml"
 	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
