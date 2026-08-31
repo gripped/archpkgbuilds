@@ -2,7 +2,7 @@
 # Contributor: Piotr Rogoża <rogoza dot piotr at gmail dot com>
 
 pkgbase=gimp-help
-pkgver=3.0.2
+pkgver=3.2.0
 pkgrel=1
 arch=('any')
 url='https://docs.gimp.org/'
@@ -10,7 +10,7 @@ license=('GFDL-1.2-or-later')
 makedepends=('python' 'docbook-xsl')
 options=(!strip !zipman)
 source=("https://download.gimp.org/gimp/help/${pkgbase}-${pkgver}.tar.bz2")
-sha256sums=('1dbfe008e5f42dacc15d587d8f2c837833e7a0247d52335320046a60d4499a24')
+sha256sums=('8b3df4ebffcd66ffd52530ca5867f5b0d88e931031fe1d4cccf104b09744e90b')
 
 _languages=(
   'bg     "Bulgarian"'
