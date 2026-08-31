@@ -2,23 +2,26 @@
 
 pkgname=python-aiohttp-openmetrics
 _name=${pkgname#python-}
-pkgver=0.0.12
-pkgrel=4
+pkgver=0.0.13
+pkgrel=1
 pkgdesc='OpenMetrics provider for aiohttp'
-arch=('any')
+arch=(any)
 url=https://github.com/jelmer/aiohttp-openmetrics
-license=('Apache')
-depends=('python-aiohttp' 'python-prometheus_client')
-makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+license=(Apache)
+depends=(
+  python-aiohttp
+  python-prometheus_client
 )
-source=("git+$url.git#tag=v$pkgver?signed")
-b2sums=('a561f8f92cd22d3ff68aa7f3d219cbba46e92ac98200fbfe8829304b6fd48917f0f8ad4cf34527b1490aa691c8640c946c457566a2b3cac19efeb125746e10b1')
-validpgpkeys=('DC837EE14A7E37347E87061700806F2BD729A457') # Jelmer Vernooĳ <jelmer@jelmer.uk>
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('068ed80871ad0fc7629167573d2bd728341956d9c07e033b62df105d8f2165afeb16917c5302616c7bb1bbbd4197fbda046752ea4b0a297bbbafa63ced34fd8b')
+#validpgpkeys=(DC837EE14A7E37347E87061700806F2BD729A457) # Jelmer Vernooĳ <jelmer@jelmer.uk>
 
 build() {
   cd "$_name"
