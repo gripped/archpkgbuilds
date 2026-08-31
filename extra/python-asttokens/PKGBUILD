@@ -2,7 +2,7 @@
 
 pkgname=python-asttokens
 _name=${pkgname#python-}
-pkgver=3.0.1
+pkgver=3.0.2
 pkgrel=1
 pkgdesc='Get the currently executing AST node of a frame, and other information'
 arch=(any)
@@ -21,7 +21,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('b2fc52d5168a5552ba7df45cc155f7f3a5693dabaf0b7174b42a6274e3c250409325bac137ee48adcc92de0e8fb3ceeb5fcbfe53081fc1d6d533f39ab61148da')
+b2sums=('779634bea94edef194d9daf369df5efa8b725c3cc5e42be2522a945c858f4272c51cb886bd8e757eef8e97a1d8a3c6425718026560ca352dc9cd10e6d3f50074')
 
 build() {
   cd "$_name"
