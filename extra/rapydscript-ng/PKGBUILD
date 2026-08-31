@@ -1,7 +1,7 @@
 # Maintainer: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=rapydscript-ng
-pkgver=0.7.23
+pkgver=0.8.6
 pkgrel=1
 pkgdesc="Pythonic JavaScript that doesn't suck"
 arch=('any')
@@ -10,7 +10,7 @@ license=('BSD')
 depends=('nodejs')
 makedepends=('git' 'npm')
 source=("git+${url}.git?signed#tag=v${pkgver}")
-sha256sums=('8b2ef7a0a549de9bc299d8a4102988d73ac66349c7a6e0442ab6dec7bfc8d12a')
+sha256sums=('8131da33bf3bd344d26693cc870c99bb7f88befdb8f9a9030994347bea73c4db')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 build() {
