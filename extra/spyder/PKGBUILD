@@ -5,7 +5,7 @@
 # Contributor: TDY <tdy@gmx.com>
 
 pkgname=spyder
-pkgver=6.1.5
+pkgver=6.1.7
 pkgrel=1
 pkgdesc="The Scientific Python Development Environment"
 arch=(any)
@@ -118,7 +118,7 @@ optdepends=(
 source=(
   "git+https://github.com/spyder-ide/spyder#tag=v$pkgver"
 )
-b2sums=('529ef0964c6fd8d470fbed155de9fb58f94fc2bd7bad0e07a7fe17c27aa2f1c9b818944c37311f25a5a9dabd2c0f80837bf18ef64b36f357017f2fb38af27659')
+b2sums=('989c336d42ca4c3d5411220d614fff3022e2b46dc5517bc3b0f945e7c66b31a8e40b74103d86d9eaa3f6ba8ae8bec700ba211380450c6cd9e06e5af154b874d8')
 
 build() {
   cd $pkgname
@@ -127,6 +127,8 @@ build() {
 
 check() {
   cd $pkgname
+  sed -e 's|if not os.environ.get("CI")|if True|' -i conftest.py
+
   local pytest_args=(
     # pytestqt.exceptions.TimeoutError
     --deselect='spyder/plugins/completion/providers/languageserver/tests/test_client.py'
