@@ -3,8 +3,8 @@
 pkgbase=systray-x
 _pkgbase=SysTray-X
 pkgname=('systray-x-common' 'systray-x-kde')
-pkgver=0.9.11
-pkgrel=4
+pkgver=0.9.12
+pkgrel=1
 pkgdesc="A system tray extension for Thunderbird"
 url="https://github.com/Ximi1970/systray-x"
 arch=('x86_64')
@@ -13,14 +13,10 @@ depends=('qt6-base' 'thunderbird')
 makedepends=('git' 'zip' 'unzip' 'libx11' 'kstatusnotifieritem' 'strip-nondeterminism')
 source=("${pkgbase}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz"
         'Makefile.patch'
-        'binary_path.patch'
-        'tb_137_compat.patch'
-        'relax_tb_upper_version_bound.patch')
-sha256sums=('1aebd2ad17ec5b05aff0b680257f170729ebaa57db2ba1de6c1687e9291be7f8'
+	'binary_path.patch')
+sha256sums=('d67f70251f6eadad45ebfe8b46b5a817405a2c0e6478a58ff55ae241ad5322cb'
             '62affd86e6dbad6e9cf851768d99fd79f76f65ac2fd5e45ef5e89c5dcb63dbab'
-            'aa0a5a7e8b062452416ec9b4472ee4d1a9d7d17fd5ecf94698c557cd504514da'
-            '41f9b8dd6f4d15818781cfb03053e0e2243bcf6cb400d60912b53df833405f94'
-            'e22162e193fbe1dadf734fe7ae33247d46d9bc9ab76401f80bba6c0b76995687')
+            'aa0a5a7e8b062452416ec9b4472ee4d1a9d7d17fd5ecf94698c557cd504514da')
 
 prepare() {
 	cd "${pkgbase}-${pkgver}"
@@ -30,14 +26,6 @@ prepare() {
 
 	# Patch the Makefile to build both versions of the app into separate directories
 	patch -Np1 -i "${srcdir}/Makefile.patch"
-
-	# Backport Thunderbird 137 compatibility patch
-	# See https://github.com/Ximi1970/systray-x/commit/391e44537a19a5253298bc3f96a0be7dac7aeb9c
-	patch -Np1 -i "${srcdir}/tb_137_compat.patch"
-
-	# Backport patch to relax Thunderbird upper bound version
-	# See https://github.com/Ximi1970/systray-x/commit/d1ecb10e516cc055140af31e6d08afb303b4a449
-	patch -Np1 -i "${srcdir}/relax_tb_upper_version_bound.patch"
 }
 
 _build() {
