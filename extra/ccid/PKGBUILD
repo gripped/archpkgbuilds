@@ -1,23 +1,23 @@
-# Maintainer: Giovanni Scafora <giovanni@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Daniel Plaza <daniel.plaza.espi@gmail.com>
 
 pkgname=ccid
-pkgver=1.8.2
+pkgver=1.8.3
 pkgrel=1
 pkgdesc='A generic USB Chip/Smart Card Interface Devices driver'
 arch=('x86_64')
 url='https://ccid.apdu.fr/'
-license=('LGPL' 'GPL')
+license=('LGPL-2.1-or-later')
 depends=('pcsclite' 'libusb' 'flex')
-makedepends=('meson')
+makedepends=('git' 'meson')
 backup=('etc/reader.conf.d/libccidtwin')
 validpgpkeys=('F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E') # Ludovic Rousseau <ludovic.rousseau@free.fr>
-source=("https://ccid.apdu.fr/files/${pkgname}-${pkgver}.tar.xz"{,.asc})
-sha256sums=('d74294e23d436546c3e719c95a4da180b17f5e7ffdd36efca53f75351cb0de75'
-            'SKIP')
+source=("${pkgname}::git+https://salsa.debian.org/rousseau/CCID.git#tag=${pkgver}?signed")
+sha256sums=('a15f80d2eab438940ed1875e717d3b41bb912579ad1214476f90f8b7638d61b3')
 
 build() {
-  arch-meson "${pkgname}-${pkgver}" build \
+  arch-meson "${pkgname}" build \
     -Dclass=true \
     -Dserial=true
   meson compile -C build
@@ -26,5 +26,5 @@ build() {
 package() {
   meson install -C build --destdir "${pkgdir}"
 
-  install -D -m0644 "${pkgname}-${pkgver}/src/92_pcscd_ccid.rules" "${pkgdir}/usr/lib/udev/rules.d/92_pcscd_ccid.rules"
+  install -D -m0644 "${pkgname}/src/92_pcscd_ccid.rules" "${pkgdir}/usr/lib/udev/rules.d/92_pcscd_ccid.rules"
 }
