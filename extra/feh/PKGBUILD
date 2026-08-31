@@ -6,7 +6,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=feh
-pkgver=3.12.3
+pkgver=3.12.4
 pkgrel=1
 pkgdesc='Fast and light imlib2-based image viewer'
 url='https://feh.finalrewind.org/'
@@ -28,7 +28,7 @@ validpgpkeys=('429AF7B8E9EC9C0709D32F7F5333FB7712E24FE8'  # Birte Kristina Fries
               '781BB7071C6BF648EAEB08A1100D5BFB5166E005'  # Daniel Friesel <derf@finalrewind.org> 
               '64FE6EC055560F9EF13A304419E6E524EBB177BA') # Derf Null <derf@ccc.de>
 source=("git+https://git.finalrewind.org/feh.git?signed#tag=${pkgver}")
-sha256sums=('9d49c1daeaf28964f77b1c4ff6ed1c1cee6b164368019a55f9b0ca6f6bce00d5')
+sha256sums=('004dc1c0c710272bac311499104b0a44d93076642decff9b2eb76d49e1c05525')
 
 build() {
   cd "${srcdir}/${pkgname}"
