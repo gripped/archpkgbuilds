@@ -1,8 +1,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rstcheck
-pkgver=6.2.5
-pkgrel=2
+pkgver=6.3.0
+pkgrel=1
 pkgdesc='Checks syntax of reStructuredText and code blocks nested within it'
 arch=(any)
 url=https://github.com/rstcheck/rstcheck
@@ -24,7 +24,7 @@ checkdepends=(
 )
 optdepends=('python-sphinx: for Sphinx support')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('59cd16429002021b9f711d314b86734b00a636aa012456cbe956ddbe88666e3997e3ffe8a097448c1a6416144485c791b0677e325c4ca60a6dc1c6227d3d051a')
+b2sums=('398fa37aa4ca99e579fb50cf5792d5fe1900b4c8a9d91b41a579ad4641d13c23817af38936b1c2c975d9dae6a08f3d0df03d4c899eaa5e69b6800cd6c1d26824')
 
 build() {
   cd $pkgname
@@ -42,7 +42,7 @@ package() {
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/$pkgname-$pkgver.dist-info/licenses/LICENSE \
-    "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+    "$pkgdir"/usr/share/licenses/$pkgname
 
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
