@@ -1,23 +1,26 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=termdown
-pkgver=1.18.0
-pkgrel=7
+pkgver=2.0.0
+pkgrel=1
 pkgdesc='Countdown timer and stopwatch in your terminal'
-arch=('any')
+arch=(any)
 url=https://github.com/trehn/termdown
-license=('GPL3')
-depends=('python-click' 'python-dateutil' 'python-pyfiglet')
+license=(GPL-3.0-only)
+depends=(
+  python-art
+  python-dateutil
+  python-pillow
+)
 makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
+  git
+  python-build
+  python-hatchling
+  python-installer
 )
 optdepends=('espeak-ng: for spoken countdown')
 source=("git+$url.git#tag=$pkgver")
-b2sums=('12ebdce29d3fffd860ac56bc1e2bf70a1885f492aca7454dc77a61394a2561926280bc328884d97e95b1b2114d8bf1992cbeb4b8b2deeb7fb353705e535c0a48')
+b2sums=('8871ed07e1dc3704c4103b9dd4336563e6cfaca27341f8ad5aef314afd7be4a1c6801c18aeb391102fc2477647825bbcf4b81c58e4ab48e43a82159e0993f3ab')
 
 build() {
   cd $pkgname
