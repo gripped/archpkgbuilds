@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=utf8cpp
-pkgver=4.1.1
+pkgver=4.2.0
 pkgrel=1
 pkgdesc="UTF-8 with C++ in a Portable Way"
 arch=(any)
@@ -9,7 +9,7 @@ url="https://github.com/nemtrif/utfcpp"
 license=(BSL-1.0)
 makedepends=(cmake)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('1ca68016f0abc24172998e39ce0d8f8e2b7a26f7579a0ff85d4e1b9a7aea56f8')
+sha256sums=('54a8e96ea835a7359e8e53d03e30e9833d51350cc4615ff53f8449ef19ee46ab')
 
 build() {
   cmake -B build -S ${pkgname/8}-${pkgver} \
