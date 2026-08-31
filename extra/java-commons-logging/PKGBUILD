@@ -3,7 +3,7 @@
 # Maintainer: Stefan Husmann < stefan-husmann@t-online.de>
 
 pkgname=java-commons-logging
-pkgver=1.3.6
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="Wrapper interface for logging APIs in Java"
 arch=('any')
@@ -12,8 +12,8 @@ license=(APACHE)
 depends=('java-runtime')
 source=("https://archive.apache.org/dist/commons/logging/binaries/commons-logging-$pkgver-bin.tar.gz"
         "https://archive.apache.org/dist/commons/logging/source/commons-logging-$pkgver-src.tar.gz")
-sha512sums=('15ed28cf924b189c6732e723a0e66f8590caee204800746c639b104e7bff066738778f1c2645a0b14d015e0f2ac7d992d538106c55a216934eebd8489a580d48'
-            '66b7be2f24c3e2900372645eb803613425aa8d1b11337cd57a87e52eef63b25a193ac0bcde361fd7cb5521582dc26030288f97f9410777570b8f460ae5cf6393')
+sha512sums=('c3de9cf4381cb38e1cf6d753f8326fe8a40307f79a41a982b5225658947c919598baaa5582f1060023c7fbb90714bdd02db4e298b72fb20c47b9c3d452405cee'
+            '92d698301b601b1af76739e445f90f338ceeafe59c5fe6a247e9d4684a967a659d1908e7a211d2616344ddbf3f53433e512e0b160cf6ac9a40ac9b29431dc2a2')
 
 
 build() {
