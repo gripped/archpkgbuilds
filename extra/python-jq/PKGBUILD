@@ -3,7 +3,7 @@
 
 _name=jq.py
 pkgname=python-jq
-pkgver=1.11.0
+pkgver=1.12.0
 pkgrel=1
 pkgdesc='Python bindings for jq'
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('b4b35c07ec1269271bca598debfc92e9dddcc1f86baa41ee7f24ab617139bd6682f813912b76a5433adc5c89f43d2713984062cded9958698a4fb4287c85b735')
+b2sums=('ea6f336539ebda1971eb85f0b87c161401430a7c5611b390c9185ae5dfe1d4f09877446f623d64b1d10e590304b7be81c3c383709dbb5d039ceb329cd944ff91')
 
 build() {
   cd $_name
