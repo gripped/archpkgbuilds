@@ -3,7 +3,7 @@
 # Contributor: Tharre <tharre3@gmail.com>
 
 pkgname=age
-pkgver=1.3.1
+pkgver=1.3.2
 pkgrel=1
 pkgdesc='A simple, modern and secure file encryption tool'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('BSD-3-Clause')
 depends=('glibc')
 makedepends=('go')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('95bb8049de36630f0b128c9626427646e5d4d76e35b6bd6790e29cf3f69fb2a0266ac7786616f56fe9bf378a81c1f3edc17fd9eba197286041b970944898504c')
+sha512sums=('670d24d07a6834c20f11dcbd390880a78652ba4cb1fb3c2b86d9d105e3d36c8af939bbca1f9278a4338671b7d9953deb9931232f978b0776796f139bcf12a6d7')
 
 build() {
     cd "$pkgname-$pkgver"
