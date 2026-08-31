@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=python-scs
-pkgver=3.2.11
-pkgrel=2
+pkgver=3.3.0
+pkgrel=1
 pkgdesc='Splitting Conic Solver'
 url='https://github.com/bodono/scs-python'
 license=(MIT)
@@ -19,7 +19,7 @@ makedepends=(git
 checkdepends=(python-pytest)
 source=(git+https://github.com/bodono/scs-python#tag=$pkgver
         git+https://github.com/cvxgrp/scs)
-sha256sums=('03386b682a331d2dd72c49956aed5cfa2a9b6a1c1e5abb45c1b6dda991db640b'
+sha256sums=('1d3283f7fd4ab63c1dc8f261137e5b0cfbc8944560baa27f997666b3cf87c7bc'
             'SKIP')
 
 prepare() {
