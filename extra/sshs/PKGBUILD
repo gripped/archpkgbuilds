@@ -3,7 +3,7 @@
 # Contributor: Nathanael Demacon <nathanael.dmc[at]outlook[dot]fr>
 
 pkgname=sshs
-pkgver=4.7.2
+pkgver=4.8.0
 pkgrel=1
 pkgdesc="Terminal user interface for SSH"
 url="https://github.com/quantumsheep/sshs"
@@ -12,24 +12,20 @@ license=('MIT')
 depends=('openssh')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('cb14fd50599bfb8de3f04b00cffb8eac9207f67e0ebbdd9380c311d141882f3b')
+sha256sums=('d78c9a4b63fe7e1b6f4ea7de8910a28a6caa745f53a76feff59a3a580a9f6268')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
-	export RUSTUP_TOOLCHAIN=stable
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
 	cd "${pkgname}-${pkgver}"
-	export RUSTUP_TOOLCHAIN=stable
-	export CARGO_TARGET_DIR=target
 	cargo build --frozen --release --all-features
 }
 
 check() {
 	cd "${pkgname}-${pkgver}"
-	export RUSTUP_TOOLCHAIN=stable
 	cargo test --frozen --all-features
 }
 
