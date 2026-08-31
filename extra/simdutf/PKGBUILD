@@ -1,8 +1,8 @@
 # Maintainer:
 
 pkgname=simdutf
-pkgver=9.0.0
-pkgrel=2
+pkgver=9.1.0
+pkgrel=1
 pkgdesc='Unicode routines (UTF8, UTF16, UTF32) and Base64'
 arch=(x86_64)
 url='https://simdutf.github.io/simdutf/'
@@ -14,13 +14,17 @@ depends=(glibc
 makedepends=(cmake
              git)
 source=(git+https://github.com/simdutf/simdutf#tag=v$pkgver)
-sha256sums=('4d5f441fa68f7e583fae9387cb88673a97e93b4e7fca0fa7195c2d9cfd21c096')
+sha256sums=('fb30813f0699f4e8a138e4cc2afa5806b1a1c8fb41751c089d47f9983757305c')
 
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=ON
   cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
