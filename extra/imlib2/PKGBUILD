@@ -3,8 +3,8 @@
 # Contributor: Tom Newsom <Jeepster.gmx.co.uk>
 
 pkgname=imlib2
-pkgver=1.12.6
-pkgrel=2
+pkgver=1.12.7
+pkgrel=3
 pkgdesc='Library that does image file loading and saving as well as rendering, manipulation, arbitrary polygon support'
 url='https://sourceforge.net/projects/enlightenment/'
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('BSD')
 makedepends=(# Currently highway does provide a static library only, that libjxl links to.
              # This introduces a build dependency for now...
              'highway'
-             'libheif' 'libid3tag' 'libjxl' 'librsvg' 'libspectre' 'libwebp' 'openjpeg2')
+             'git' 'libheif' 'libid3tag' 'libjxl' 'librsvg' 'libspectre' 'libwebp' 'openjpeg2')
 depends=('bzip2' 'freetype2' 'giflib' 'libjpeg-turbo' 'libpng' 'libtiff' 'libxext' 'xz')
 optdepends=('libheif: HEIF loader (for AVIF)'
             'libid3tag: ID3 loader'
@@ -22,12 +22,16 @@ optdepends=('libheif: HEIF loader (for AVIF)'
             'libwebp: WEBP loader'
             'openjpeg2: J2K loader')
 provides=('libImlib2.so')
-source=("https://downloads.sourceforge.net/project/enlightenment/imlib2-src/${pkgver}/${pkgname}-${pkgver}.tar.xz")
-sha256sums=('250f9752f69dc522e529a81aaa9395705f7fc312ff2453e5de59ac2ba1f2858f')
-sha512sums=('e62b7e89f6d75fb6a649a589f06fea34d08bba696c68d9ece59ee9500558af874c1073ffecae2d1cadd6d603f1acf4d071a415dbf2ba73b505ccf11fe45eea62')
+source=("${pkgname}::git+https://git.enlightenment.org/old/legacy-imlib2.git#tag=v${pkgver}")
+sha512sums=('47a77967bdd96b779794c4b35947984dfa0890e646e20a2c6498e73f40a95025de09513ef730fe5ff92a4c0556ab36e54e6c8e588f2a6844e0a6e3ffc228f01e')
+
+prepare() {
+  cd "${pkgname}"
+  autoreconf -fiv
+}
 
 build() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
 
   local config_opts=(
     --prefix=/usr
@@ -46,13 +50,13 @@ build() {
 
 
 check() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
   make check
 }
 
 
 package() {
-  cd "${pkgname}-${pkgver}"
+  cd "${pkgname}"
   make DESTDIR="${pkgdir}" install
 
   # Install License
