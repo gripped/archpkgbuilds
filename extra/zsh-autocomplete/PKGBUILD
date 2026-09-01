@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=zsh-autocomplete
-pkgver=25.03.19
+pkgver=26.08.04
 pkgrel=1
 pkgdesc='Real-time type-ahead completion for Zsh'
 arch=(any)
@@ -11,7 +11,12 @@ depends=(zsh)
 makedepends=(git)
 checkdepends=(clitest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('8df7e2ace958637ef73198214c3197589f8ddb2e735986fec6954a3224f5644a56eb2ab750c29e971d35cb6e632d07ea2210df27f3acd9a3c3aaa2711f5c0f17')
+b2sums=('7a8396996cd09dfafcb1eb918a6639422c20b9c35e82abb079d56bec68276441a047c2ef401b4031b291d73fea90cb97c39e22573f306da673b114d7c4913a6b')
+
+prepare() {
+  cd $pkgname
+  sed -i 's,clitest/,=,' run-tests.zsh
+}
 
 check() {
   cd $pkgname
@@ -21,7 +26,7 @@ check() {
 package() {
   cd $pkgname
   install -d "$pkgdir"/usr/share/zsh/plugins/$pkgname
-  cp -r Completions Functions zsh-autocomplete.plugin.zsh \
+  cp -r Completions Functions z-async zsh-autocomplete.plugin.zsh \
     "$pkgdir"/usr/share/zsh/plugins/$pkgname
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
 }
