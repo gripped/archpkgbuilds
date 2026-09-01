@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=typescript-language-server
-pkgver=5.1.3
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Language Server Protocol (LSP) implementation for TypeScript using tsserver'
 url=https://github.com/typescript-language-server/typescript-language-server
@@ -14,33 +14,25 @@ depends=(typescript)
 makedepends=(
   git
   jq
-  yarn
-)
-checkdepends=(
-  corepack
   npm
+  pnpm
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('22e48e3320dc53492a8eb4f47aeb618a35d534e00b49aa50f542d876d6f5c151ba54c84f967847fe12bc42783418f49420cb2e92c8d448fcbf47b88910f1af53')
+b2sums=('922af6a0ea5bf4be5265c0584a681a1f45c55eb6de9ca707e97b1b4d9706f708bf56c47927b13af9dabdbebb53ba2f10d13031dfb2fb8a624d3ba7a744e412f1')
 
 prepare() {
   cd $pkgname
-  yarn --frozen-lockfile
+  pnpm install --frozen-lockfile
 }
 
 build() {
   cd $pkgname
-  yarn build # Needs bin links
+  pnpm build # Needs bin links
 }
 
 check() {
-  cd $pkgname/test-data/yarn-pnp
-  mkdir bin
-  corepack enable --install-directory bin yarn
-  yes | bin/yarn set version stable
-  yes | bin/yarn install --immutable
-  cd ../..
-  yarn test:commit
+  cd $pkgname
+  pnpm test:commit
 }
 
 package() {
@@ -52,8 +44,8 @@ package() {
   cd $pkgname
   # Prune unnecessary packages
   cp package.json{,.bak}
-  read -ra devDependencies < <(jq -r '.devDependencies | keys | join(" ")' package.json)
-  yarn remove --frozen-lockfile "${devDependencies[@]}"
+  rm -r node_modules
+  npm install --omit=dev --ignore-scripts
   mv package.json{.bak,}
 
   cp -r lib package.json "$pkgdir"/$mod_dir
