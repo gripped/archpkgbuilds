@@ -2,8 +2,8 @@
 # Contributor: Florian Pritz <bluewind@xinu.at>
 
 pkgname=python-ansi2html
-pkgver=1.9.2
-pkgrel=4
+pkgver=1.9.3
+pkgrel=1
 pkgdesc='Convert text with ANSI colour codes to HTML'
 arch=(any)
 url='https://github.com/pycontribs/ansi2html'
@@ -19,16 +19,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('dcbfbffc71325052d49653156fea91ca0392199297cd782b0eb6f19e5d01b0b66ff95dd102d2298e7620d2466246ad6ffe17ebf5b28117541110918192569cf5')
-b2sums=('80eed29ebf734a122e5ec41b7d400ed444bf1beb1c37d42b83a91b65cf58975d008313775441c241b2a235c6ce6dd1461143b81c357d1e42e0fbd9efd940e5d9')
-
-prepare() {
-  cd "$pkgname"
-
-  # fix: replace deprecated pkg_resources
-  # https://github.com/pycontribs/ansi2html/pull/258
-  git cherry-pick --no-commit 9c5ed6c803d7c0481af8f5fa67573509930c7930
-}
+sha512sums=('50becd7117bc22df106974d46b42e6c04d440fa3265224fe81debd6e0208f7c00d706e803fedbd1227e2f7a13ec6f4594ebcb0e899a2e1e676ebf11ef2864a8b')
+b2sums=('632c3d2ebe4aa1efd9c581af325c802dc4758e37b6633d596a762ed85dd2361ca1c64bec32cd18c0e07fa0d431be31a663522d421de46c684a99f18d41e0e026')
 
 build() {
   cd "$pkgname"
