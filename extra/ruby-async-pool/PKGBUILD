@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-pool
-pkgver=0.11.2
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='A singleplex and multiplex resource pool for implementing robust clients'
 arch=(any)
@@ -22,7 +22,6 @@ checkdepends=(
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-decode
   ruby-io-event
   ruby-sus
   ruby-sus-fixtures-async
@@ -30,8 +29,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/async-pool/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('48e54c62a7a16c4945efdf4c46cc1e82e8ea2244f8496e72eaedf7eaa7d1b73bb55b0d3df6ee708412fced10c89613f73f006f1129e3ae7770d0cd0ebddd4866')
-b2sums=('4d4ea6d9123115e793e7faa0526dab5ea7a24b00ec1a8edb2e26dad333aaa674c9caeb69a8b31423eef7c8282d23a4516ca041d8c638d0725fff35e49f7dfbb0')
+sha512sums=('87102ff43dd75619be1db092cbe2a9e685f5f7202207ad8ee34ff6d529a11df326f54e28c1dd668f1748f3dddd8440680ff1e21ba3fb03f2c0a768fc67ed7825')
+b2sums=('b3b82bf7285dc4a924294ff501a7ddd29e74d1ce8fc801a9a2fc5c31f69b0e8c2e7a653dcfe14a6f6bc9859f8aa9acc4b3f011703a527b8b24a322d7ea76e0e7')
 
 prepare() {
   cd async-pool-$pkgver
