@@ -3,7 +3,7 @@
 
 pkgname=nanobind
 pkgdesc="Tiny and efficient C++/Python bindings"
-pkgver=2.15.0
+pkgver=3.0.1
 pkgrel=1
 arch=(any)
 url="https://github.com/wjakob/nanobind"
@@ -31,13 +31,7 @@ checkdepends=(
 source=(
   "git+$url.git#tag=v$pkgver"
 )
-b2sums=('850e5a0918b879248ad7c791fd55829952df3b2c6ffd0e145e6b6964abbe2792b681d8d0d1b97d4b712cf1c853e34e0dc4addc541a3673f22147fd1a7dae855d')
-
-prepare() {
-  cd $pkgname
-  # workaround for https://github.com/wjakob/nanobind/issues/1387
-  git cherry-pick -n 2965ecd22f7ea845a2de56b786ae331ccc85ef3d
-}
+b2sums=('b0e0aca41f34976ef0f51f85fe6cad9b8431bcdcd2fd5805f521377e6b613f7acc91043585c283ff85ea5c1a9c6fd0683533c2286801cdfb12771869f9a5cfed')
 
 build() {
   cd $pkgname
