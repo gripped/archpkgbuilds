@@ -3,7 +3,7 @@
 
 _name=treestyletab
 pkgname=firefox-tree-style-tab
-pkgver=4.3.3
+pkgver=4.4.3
 pkgrel=1
 pkgdesc='Firefox extension to show tabs like a tree'
 arch=(any)
@@ -35,7 +35,7 @@ source=(
   git+https://github.com/piroor/webextensions-lib-shortcut-customize-ui.git
   git+https://github.com/piroor/webextensions-lib-tab-favicon-helper.git
 )
-b2sums=('9158962e825befa44db719482e2e844223840f7cabd6320bdb6fb386cbaec41380e1846b505029de10d07dffe5a9e86cb0210a66706312173519c6c58d8681eb'
+b2sums=('61912b1bcf0b7ccb4353aa584c53acbb027dc6fd8a31a1340ca7a97fcef9318856096c7171ec841eaf16dbf57054a4177eeea2bfe64d56de060f8c10baad3f09'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -48,6 +48,8 @@ b2sums=('9158962e825befa44db719482e2e844223840f7cabd6320bdb6fb386cbaec41380e1846
         'SKIP')
 
 prepare() {
+  export NPM_CONFIG_ALLOW_GIT=all
+
   cd $_name
   git submodule init
   for i in ../webextensions*; do
