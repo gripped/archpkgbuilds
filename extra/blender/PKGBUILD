@@ -8,8 +8,8 @@
 # fine with them.
 
 pkgname=blender
-pkgver=5.2.0
-pkgrel=4
+pkgver=5.2.1
+pkgrel=2
 epoch=17
 pkgdesc="A fully integrated 3D graphics creation suite"
 arch=('x86_64')
@@ -83,6 +83,7 @@ depends=(
   'pugixml'
   'pystring'
   'python'
+  'python-cattrs'
   'python-numpy'
   'python-requests'
   'sdl2'  # dlopen'ed
@@ -133,7 +134,7 @@ source=("git+https://projects.blender.org/blender/blender.git#tag=v$pkgver"
         blender-fix-oneapi-2026-atomic-address-space.patch::https://raw.githubusercontent.com/intel/llvm/20a7095cba72ace59f7c8a64711ec4b51f01f030/devops/actions/blender/blender-build/patches/Fix-build.patch
         https://developer.download.nvidia.com/redist/optix/v8.0/OptiX-8.0-Include.zip
         ffmpeg-9.patch)
-sha512sums=('e113ddf9deb48ff1d53ddd7137677f6fd661b8315363fd55189a5b4fc44fe5a0f1cb46ba24a733939f97836edaec09900acc4486893e455bc526057c3a0bd31b'
+sha512sums=('2a18efb4f90f1652841b9657ebb341ca4ea0c47868a44f11062e605ece8446093cf4c1d8ba91c2d805f8c500fd6136e2cd662fb6970f02134ce5cd9e57de84be'
             '77d202e2033a2e5c26adcc5340da6fbd7f859a8b237b37f9be7f08fbbb99173a67462f1b0aa0dce31967cd8c465b6341628567ace1e477b81a1b75c2383357ca'
             '17b15a7e2ea7e89e22a35325104e6a047253242f820815fa499a1010a0caa90b5a7c0a67b4434e24d472d09c767d34a6524e769ca8f1da13728dec89ed9267c0'
             '5502d9df847de12badc702c0444bd4f1f7620460b2235026df2c3133da1e04c148af0f1fc7f345e9a0c009c32f905f66c8d427743445e8864d3a797cdce6a483'
@@ -148,7 +149,6 @@ prepare() {
   git lfs checkout
 
   patch -Np1 -i "$srcdir"/blender-hip-update.patch
-  patch -Np1 -i "$srcdir"/blender-fix-oneapi-2026-atomic-address-space.patch
   patch -Np1 -i ../ffmpeg-9.patch
 
   # TODO Dirty hack / workaround to fix faulty manpage generation.. arguably an upstream issue.
