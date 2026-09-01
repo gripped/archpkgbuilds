@@ -2,8 +2,8 @@
 
 _hkgname=mmark
 pkgname=haskell-mmark
-pkgver=0.0.8.0
-pkgrel=18
+pkgver=0.1.0.0
+pkgrel=1
 pkgdesc="Strict markdown processor for writers"
 url="https://github.com/mmark-md/mmark"
 license=('BSD-3-Clause')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-case-insensitive' 'haskell-dlist'
          'haskell-unordered-containers' 'haskell-yaml')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-megaparsec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('f9499eb3caca7410fb706a95d7d176447e4ca0cc98413abc78051802b1979f17')
+sha256sums=('59b98431fc8a2fb4d8d991311c2f409672d8f326fb3cb0ac988ca058ab8696ee')
 
 prepare() {
   cd $_hkgname-$pkgver
