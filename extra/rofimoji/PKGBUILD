@@ -1,8 +1,8 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=rofimoji
-pkgver=6.7.0
-pkgrel=2
+pkgver=6.8.0
+pkgrel=1
 pkgdesc='Emoji, unicode and general character picker for rofi and rofi-likes'
 arch=(any)
 url=https://github.com/fdw/rofimoji
@@ -29,15 +29,17 @@ optdepends=(
   'xdotool: for the X.Org typer'
 
   'fuzzel: for one of the Wayland selectors'
+  'hpyrlauncher: for one of the Wayland selectors'
   'tofi: for one of the Wayland selectors'
   'wmenu: for one of the Wayland selectors'
   'wofi: for one of the Wayland selectors'
   'wl-clipboard: for the Wayland clipboarder'
+  'wl-ime-type: for one of the Wayland typers'
   'wtype: for one of the Wayland typers'
   'ydotool: for one of the Wayland typers'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('096065b025700adc83b6dba2fa37f196be4042ee819fc33d01e44db6d80116ce8d1ade5704d9b821b69d37d6e724847f2b5c59c6c9e0cc71182f7e1fcff3c412')
+b2sums=('37ffead333c9a97850d34c18cf70a53a2ea5b5611ce553994a962b1afea33ca77550d7d32c8e1b328376c910c7c81cf806e0ce296068bce4f452da321c6200eb')
 
 prepare() {
   cd $pkgname
