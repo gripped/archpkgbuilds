@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.21.0
+pkgver=0.21.1
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,8 +29,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('eeadaf67c0ebf2b74d6b556f5706529f89d2b26115668c03eb9c33010151269e')
-b2sums=('3a5df78bccc5d86b19c9bed94286c3f5880fe19d01b4beed6148388ceaf5acd98bdff48c55b560ade6c90c822529dfa26037cdce4fac9318976c6c000146d8be')
+sha256sums=('4489dcc2b6f25b165ce90458045803f77567585822aee1ec21c1603c0821a587')
+b2sums=('1c6b9e7ae9c1dc49a29251bebda4edbcbac64df6828ce05b68e3b40b10c1bc55f95a2f15e9a18b20b679176f6a91d72f7da671a16e6637d0ed2a9144550b8b72')
 
 prepare() {
   cd $pkgname
@@ -82,7 +82,9 @@ check() {
   npm run test --workspace=@qwen-code/mobile-mcp
   # mobile-mcp uses Playwright; run it above without passing Vitest-only flags.
   npm pkg set 'workspaces[]=!packages/mobile-mcp'
-  npm run test --workspaces --if-present -- --testTimeout=30000 --exclude="$test_exclude"
+  # NODE_OPTIONS gives Node's Web Storage one shared backing file; keep Vitest
+  # files serial so another jsdom test cannot clear draft storage mid-test.
+  npm run test --workspaces --if-present -- --testTimeout=30000 --no-file-parallelism --exclude="$test_exclude"
 }
 
 package() {
