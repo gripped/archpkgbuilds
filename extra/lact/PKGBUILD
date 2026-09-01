@@ -3,7 +3,7 @@
 
 pkgname=('lact')
 pkgbase=lact
-pkgver=0.10.0
+pkgver=0.10.1
 pkgrel=1
 pkgdesc="Linux GPU Configuration Tool"
 arch=('x86_64')
@@ -30,8 +30,8 @@ checkdepends=(
 )
 install="$pkgbase.install"
 source=("git+https://github.com/ilya-zlobintsev/LACT.git#tag=v$pkgver")
-sha256sums=('2c2a7f6385a87eb1244b444b5aa1b17d21a0063c0466baf6374da04928dfa051')
-b2sums=('84ac3588a3f9fb3509eb564c89c0858dd81b58465c9419229c5dd31527dfb72015d7f85bcab6e27076a56735cd1f9b642713e85618da1591b77863d6e5b5f0fa')
+sha256sums=('0b46c49da3b54bc05992bbae0ef0c022da60485f411891b8d2f5e60c33ead07d')
+b2sums=('05166815dfaf40c9cc170f6c431411454b65e94072520fb26a6953542bd3da1872907c8e341b017eb5d50702640d2411fd65b8224ab4c8cde2c46c1cbe0e6a86')
 
 _backports=(
 )
