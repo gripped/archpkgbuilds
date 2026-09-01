@@ -11,9 +11,9 @@ pkgname=('dmd' 'dmd-docs' 'libphobos')
 pkgdesc='D programming language compiler and standard library'
 groups=('dlang' 'dlang-dmd')
 pkgbase=dmd
-pkgver=2.112.1
-_docsver=2.112.0
-_phobosver=2.112.0
+pkgver=2.113.0
+_docsver=2.113.0
+_phobosver=2.113.0
 pkgrel=2
 epoch=1
 arch=('x86_64')
@@ -25,9 +25,9 @@ source=("git+https://github.com/dlang/dmd.git#tag=v$pkgver"
         "http://downloads.dlang.org/releases/2.x/$_docsver/dmd.$_docsver.linux.tar.xz.sig"
         'dmd.conf'
         'dmd-doc.desktop')
-sha256sums=('385a3407d71d80e0c7b44f3e1bfd6a8e3d0f952aeb1dd29cb386491df84f4842'
-            '853a68c3e5644562104c8a7be63ede5fcdb98735f2a67c628848daf0c47a63cf'
-            '4556ecde412c6c43662cd1c6e7cec5c6d567b7e74508287a8a0c3c6c506a7e94'
+sha256sums=('931881817185ca39237ef51a494fb33eff20d9c76d89b9343462df527698c4c8'
+            'ae1420ac7a80c790a95dddc43dbe3df0a5ab4b39ba0d58b7431aa7e8f7a11ebf'
+            'b342ab8bd40cc0c46407692b31d7cd69661ff01da686234f426949e881727294'
             'SKIP'
             '3d639e89528fed1da90006f4dfb2b0fdc41308da5a96d953381ff4ccf257c035'
             '4b7b8722b3fa11082f0f332397b1b66c85b30ce773c43c3fedcba5768a1484b1')
@@ -48,7 +48,8 @@ prepare() {
 }
 
 build() {
-    export DFLAGS="-link-defaultlib-shared=false $(echo -ne $LDFLAGS | cut -d\" -f2 | tail -c+4 | sed -e "s/-Wl,/-L=/g" -e "s/,/ -L=/g" -e "s/-flto=auto/--flto=full/")"
+    _ldFlags="$(echo -ne $LDFLAGS | sed -e 's/-Wl,/-L=/g' -e 's/=auto/=full/' -e 's/\(-L=-z\),\([a-z-]*\)/\1 -L=\2/g')"
+    export DFLAGS="-link-defaultlib-shared=false ${_ldFlags}"
     export HOST_DMD=ldmd2
 
     cd "$srcdir"/dmd
