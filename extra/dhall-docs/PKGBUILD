@@ -2,7 +2,7 @@
 
 pkgname=dhall-docs
 pkgver=1.0.12
-pkgrel=240
+pkgrel=242
 pkgdesc="Generate HTML docs from a dhall package"
 url="https://github.com/dhall-lang/dhall-haskell/tree/master/dhall-docs"
 license=('BSD-3-Clause')
@@ -15,6 +15,14 @@ makedepends=('ghc' 'haskell-doctest' 'haskell-foldl' 'haskell-tasty' 'haskell-ta
              'haskell-tasty-silver' 'haskell-turtle')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
 sha512sums=('58807bb4fbdbe5841c4b0112f95d820c784d27a18c45723d2d0c5b135aba63423b242d17fa40800cb5b1e07f4af7688b354552b163ecbf5f37cf85a623a1f237')
+
+prepare() {
+  cd $pkgname-$pkgver
+
+  # mmark 0.1 passes render extensions explicitly.
+  sed -i 's/MMark.render <$> parseMarkdown/MMark.render mempty <$> parseMarkdown/' src/Dhall/Docs/Markdown.hs
+  sed -i 's/render mmark/render mempty mmark/' src/Dhall/Docs/Core.hs
+}
 
 build() {
   cd $pkgname-$pkgver
