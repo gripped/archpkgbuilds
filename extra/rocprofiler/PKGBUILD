@@ -5,7 +5,7 @@
 
 pkgname=rocprofiler
 pkgver=7.2.4
-pkgrel=1
+pkgrel=2
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocprofiler/en/latest/index.html'
@@ -58,6 +58,8 @@ prepare() {
   git cherry-pick -n 86ee7b2eb2273adaf1181ef9a6b2091465c6f0c7
 
   grep -rl "fmt::join" projects/rocprofiler-sdk/source/ | grep -E '\.(cpp|hpp)$' | xargs sed -i '1i #include <fmt/ranges.h>'
+
+  grep -rl "fmt/core.h" projects/rocprofiler-sdk/source/ | grep -E '\.(cpp|hpp)$' | xargs sed -i 's/fmt\/core\.h/fmt\/format.h/g'
 
   # Add missing <cstdint> include
   cd "${srcdir}/rocm-systems/projects/rocprofiler-sdk/external/elfio"
