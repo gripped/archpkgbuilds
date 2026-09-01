@@ -5,7 +5,7 @@
 
 pkgname=avr-libc
 pkgver=2.3.2
-pkgrel=3
+pkgrel=4
 pkgdesc='The C runtime library for the AVR family of microcontrollers'
 arch=('any')
 url='https://github.com/avrdudes/avr-libc'
@@ -24,10 +24,7 @@ build() {
   ./configure \
     --build=$(./config.guess) \
     --host=avr \
-    --prefix=/usr/lib \
-    --datadir=/usr/share \
-    --bindir=/usr/bin \
-    --mandir=/usr/share/man
+    --prefix=/usr
 
   make
 }
