@@ -1,7 +1,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=corepack
-pkgver=0.34.6
+pkgver=0.36.0
 pkgrel=1
 pkgdesc='Zero-runtime-dependency Node.js script'
 arch=(any)
@@ -14,7 +14,7 @@ makedepends=(
   python
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('f6a2e43aac86bc217a726fc99d818b8ede65122479f43e7eab5f0ff44ea8c6fc9056c1ceefeead4362a87470f26877a1ca893d71735743761bbcbbc814fb7314')
+b2sums=('7d5b5d118ea35eb09bc73453676d113d74c572854b7e9a9218980f1d6ec72c6447abd05d0bc81d7900724336a805a4b1bea27c6893949266eb62710e178f0920')
 
 prepare() {
   cd $pkgname
