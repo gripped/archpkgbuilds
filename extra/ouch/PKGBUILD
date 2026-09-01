@@ -2,8 +2,8 @@
 # Contributor: Yigit Sever <yigit at yigitsever dot com>
 
 pkgname=ouch
-pkgver=0.8.0
-pkgrel=2
+pkgver=0.8.2
+pkgrel=1
 pkgdesc="A command line utility for easily compressing and decompressing files and directories"
 arch=('x86_64')
 url="https://github.com/ouch-org/ouch"
@@ -12,7 +12,7 @@ depends=('bzip3' 'glibc' 'libgcc' 'libstdc++' 'zstd')
 makedepends=('cargo' 'clang')
 checkdepends=('git')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('72ed23c0b2aa51b1b33d3251ddae14cf2bb07a24035d1593c06fc97070e4edf0')
+sha256sums=('803dd9d0bcdb0b4f94336bc1e9fbb5c878bf2867e03f58f266adc679c224698d')
 options=('!lto')
 
 prepare() {
