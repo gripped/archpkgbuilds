@@ -1,7 +1,7 @@
 pkgbase = python-ml-dtypes
 	pkgdesc = A stand-alone implementation of several NumPy dtype extensions used in ML
-	pkgver = 0.5.4
-	pkgrel = 2
+	pkgver = 0.6.0
+	pkgrel = 1
 	url = https://github.com/jax-ml/ml_dtypes
 	arch = x86_64
 	license = Apache-2.0
@@ -10,15 +10,15 @@ pkgbase = python-ml-dtypes
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-pytest
-	makedepends = python-setuptools
-	makedepends = python-wheel
 	makedepends = git
-	depends = gcc-libs
+	makedepends = python-scikit-build-core
+	depends = libgcc
+	depends = libstdc++
 	depends = glibc
 	depends = python-numpy
-	source = git+https://github.com/jax-ml/ml_dtypes#tag=v0.5.4
+	source = git+https://github.com/jax-ml/ml_dtypes#tag=v0.6.0
 	source = python-ml-dtypes-eigen::git+https://gitlab.com/libeigen/eigen.git
-	sha256sums = f0ccad4d8bb75af0b8db2d07167a96e0bdcccb19139c63d706ae8dbda7e649c8
+	sha256sums = 95ca6f53f138f6923deaaad93af384ff0459daad1225ab0f6a7db1c6087d2ba6
 	sha256sums = SKIP
 
 pkgname = python-ml-dtypes
