@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gpaste
-pkgver=50.8
+pkgver=50.9
 pkgrel=1
 pkgdesc="Clipboard management system"
 url="https://www.imagination-land.org/tags/GPaste.html"
@@ -30,8 +30,10 @@ makedepends=(
   vala
 )
 optdepends=("wgetpaste: Upload clipboard contents")
-source=("git+https://github.com/keruspe/gpaste#tag=v$pkgver")
-b2sums=('c30320d6429e2f383ff565f33f624a33cf682f4b3abc3935cc73cba3ad33ec7072f13bc345249db54ef64c2c287a42958cea7e3d64ba3ce2064165263dd82e9b')
+source=(
+  "git+https://github.com/keruspe/gpaste#tag=v${pkgver/[a-z]/.&}"
+)
+b2sums=('b4f13e2c87b825b5dcf46b1066e5f8d993d9d16becf6b0a9db86cc9af78f7da72313a698cdf10dd71f12709fa80e5bf3765441cf34fff044e0f0da2e2faa6429')
 
 prepare() {
   cd gpaste
