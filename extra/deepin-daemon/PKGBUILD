@@ -4,7 +4,7 @@
 
 pkgname=deepin-daemon
 pkgver=6.1.104
-pkgrel=1
+pkgrel=2
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-daemon"
@@ -73,6 +73,9 @@ sha512sums=('9b169a8147f0b51442d0ba68c660e2c41712baca3e793b0fee9b739f4435eec7057
 
 prepare() {
   cd dde-daemon
+
+  # https://github.com/linuxdeepin/dde-daemon/pull/1230
+  git cherry-pick -n cc457ccdc28b877032604c045057b71d1418e6b0
 
   # https://github.com/linuxdeepin/developer-center/discussions/3327
   sed -i 's#/usr/libexec#/usr/lib#' keybinding1/shortcuts/system_shortcut.go
