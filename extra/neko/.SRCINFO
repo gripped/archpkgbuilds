@@ -1,7 +1,7 @@
 pkgbase = neko
 	pkgdesc = High-level dynamically typed programming language
 	pkgver = 2.4.1
-	pkgrel = 6
+	pkgrel = 7
 	url = https://nekovm.org/
 	arch = x86_64
 	license = MIT
@@ -10,10 +10,13 @@ pkgbase = neko
 	makedepends = cmake
 	makedepends = git
 	depends = gc
+	depends = glibc
 	depends = gtk3
 	depends = mariadb-libs
 	depends = mbedtls3
+	depends = pcre2
 	depends = sqlite
+	depends = zlib
 	optdepends = apache: for extending Apache with mod_neko
 	options = !strip
 	source = git+https://github.com/HaxeFoundation/neko#tag=v2-4-1

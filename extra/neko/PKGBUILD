@@ -9,12 +9,12 @@
 
 pkgname=neko
 pkgver=2.4.1
-pkgrel=6
+pkgrel=7
 pkgdesc='High-level dynamically typed programming language'
 url='https://nekovm.org/'
 license=(MIT)
 arch=(x86_64)
-depends=(gc gtk3 mariadb-libs mbedtls3 sqlite)
+depends=(gc glibc gtk3 mariadb-libs mbedtls3 pcre2 sqlite zlib)
 makedepends=(apache apr cmake git)
 optdepends=('apache: for extending Apache with mod_neko')
 options=(!strip)
@@ -30,7 +30,9 @@ build() {
     -B build \
     -D CMAKE_C_FLAGS="$CFLAGS -w" \
     -D CMAKE_INSTALL_PREFIX=/usr \
-    -D MBEDTLS_INCLUDE_DIR="/usr/include/mbedtls3" \
+    -D MBEDTLS_INCLUDE_DIR=/usr/include/mbedtls3 \
+    -D MBEDTLS_ROOT=/usr/lib/mbedtls3 \
+    -D MbedTLS_ROOT=/usr/lib/mbedtls3 \
     -D RUN_LDCONFIG=OFF \
     -S $pkgname
   make -C build
