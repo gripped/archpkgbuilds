@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-font-manager
-pkgver=6.5.29
+pkgver=6.5.31
 pkgrel=1
 pkgdesc='A font management tool for Deepin desktop'
 arch=('x86_64')
@@ -12,10 +12,14 @@ makedepends=('git' 'cmake' 'deepin-file-manager' 'ninja' 'qt6-tools' 'clang')
 optdepends=('deepin-file-manager: font preview in file manager')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-font-manager.git#tag=$pkgver")
-sha512sums=('299f8a9fcd347c873f91ebc4a70a1d2e1c71b865785ebefc2eb3ec0dc9269d1884794ddd20cd3ea3bdca6049378aa52ad9fd116bb173077f284f7030d799f7c1')
+sha512sums=('460ba8bc610ea08bfb68019d1b2cb742512a19dbe665fa03e24684ff84b8820be58002da82dd93fdab0bc7b8c76141e56ee16018041ce46a7bc636d60fa62b9b')
 
 prepare() {
   cd deepin-font-manager
+
+  # Fix Qt6 build: QDebug cannot stream std::endl in onFileAdded().
+  # https://github.com/linuxdeepin/deepin-font-manager/commit/2382cb75bcef18c036e865db57fe15321520edd0
+  git cherry-pick -n 2382cb75bcef18c036e865db57fe15321520edd0
 
   # Fix stale dfm-base references after upstream switched the lookup to dfm6-base.
   sed -i \
