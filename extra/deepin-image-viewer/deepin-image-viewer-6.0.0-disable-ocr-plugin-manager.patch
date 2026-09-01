@@ -1,5 +1,5 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 555a2d28..c8bf70c4 100644
+index 377057fa..e3385951 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.13)
@@ -54,7 +54,7 @@ index f178fd4e..0faf0def 100644
          <file>qml/Utils/ImageInputHandler.qml</file>
          <file>qml/Utils/RightMenuItem.qml</file>
 diff --git a/src/main.cpp b/src/main.cpp
-index c1eaa616..d6c6eeb0 100644
+index ac5eee89..69b66274 100644
 --- a/src/main.cpp
 +++ b/src/main.cpp
 @@ -4,7 +4,6 @@
@@ -65,7 +65,7 @@ index c1eaa616..d6c6eeb0 100644
  #include "src/dbus/applicationadpator.h"
  #include "src/declarative/mousetrackitem.h"
  #include "src/declarative/pathviewrangehandler.h"
-@@ -116,11 +115,6 @@ int main(int argc, char *argv[])
+@@ -138,11 +137,6 @@ int main(int argc, char *argv[])
          providerCache->removeImageCache(fileName);
      });
  
@@ -78,7 +78,7 @@ index c1eaa616..d6c6eeb0 100644
      if (!cliParam.isEmpty()) {
          QStringList filePaths = fileControl.getDirImagePath(cliParam);
 diff --git a/src/qml/ImageViewer.qml b/src/qml/ImageViewer.qml
-index abc0c373..0657d43f 100644
+index 43a1a93c..e320be9a 100644
 --- a/src/qml/ImageViewer.qml
 +++ b/src/qml/ImageViewer.qml
 @@ -10,7 +10,6 @@ import QtQuick.Shapes
@@ -89,200 +89,185 @@ index abc0c373..0657d43f 100644
  import "./InformationDialog"
  import "./Utils"
  
-@@ -40,7 +39,6 @@ Item {
-     }
+@@ -20,8 +19,6 @@ Item {
+     // 记录图像缩放，用于在窗口缩放时，根据前后窗口变化保持图片缩放比例
+     property bool enableChangeDisplay: true
+     property real lastDisplayScaleWidth: 0
+-    // current LiveText select text
+-    property bool liveTextSelected: false
+     // Image 类型的对象，空图片、错误图片、消失图片等异常为 null
+     property alias targetImage: view.currentImage
  
-     function exitLiveText() {
--        ltw.exitLiveText();
-     }
+@@ -519,154 +516,15 @@ Item {
+         id: ltwLoader
  
-     function fitImage() {
-@@ -81,10 +79,6 @@ Item {
-     }
- 
-     function recalculateLiveText() {
--        if (targetImageReady && IV.Types.DynamicImage !== currentImageInfo.type) {
--            exitLiveText();
--            startLiveText();
--        }
-     }
- 
-     function rotateImage(angle) {
-@@ -96,7 +90,7 @@ Item {
- 
-     // 触发全屏展示图片
-     function showPanelFullScreen() {
--        ltw.exitLiveText();
-+        exitLiveText();
-         IV.GStatus.showImageInfo = false;
-         showFullScreen();
-         view.contentItem.forceActiveFocus();
-@@ -122,7 +116,6 @@ Item {
-     }
- 
-     function startLiveText() {
--        ltw.startLiveTextAnalyze();
-     }
- 
-     onHeightChanged: keepImageDisplayScale()
-@@ -513,142 +506,6 @@ Item {
-         source: IV.GControl.currentSource
-     }
- 
--    Connections {
--        function onViewFlickingChanged() {
--            if (IV.GStatus.viewFlicking) {
--                ltw.exitLiveText();
--            } else {
--                ltw.startLiveTextAnalyze();
+         function recalculateLiveText() {
+-            if (Loader.Ready === status && (targetImageReady && IV.Types.DynamicImage !== currentImageInfo.type)) {
+-                item.exitLiveText();
+-                item.startLiveTextAnalyze();
 -            }
--        }
+         }
+ 
+         function startLiveText() {
+-            if (Loader.Ready === status) {
+-                item.startLiveTextAnalyze();
+-            }
+         }
+ 
+         function stopLiveText() {
+-            if (Loader.Ready === status) {
+-                item.exitLiveText();
+-            }
+         }
+ 
+         active: false
+-        anchors.fill: parent
+-        asynchronous: true
 -
--        target: IV.GStatus
--    }
+-        // 实况文本蒙版
+-        sourceComponent: LiveTextWidget {
+-            //live text主控件
+-            id: ltw
 -
--    // 实况文本蒙版
--    LiveTextWidget {
--        //live text主控件
--        id: ltw
+-            //live text退出函数
+-            function exitLiveText() {
+-                liveTextAnalyzer.breakAnalyze();
+-                ltw.clearLive();
+-                liveTextTimer.stop();
+-            }
 -
--        //live text退出函数
--        function exitLiveText() {
--            liveTextAnalyzer.breakAnalyze();
--            ltw.clearLive();
--            liveTextTimer.stop();
--        }
--
--        //live text分析函数
--        //缩放和切换需要重新执行此函数
--        function liveTextAnalyze() {
--            viewBackground.grabToImage(function (result) {
+-            //live text分析函数
+-            //缩放和切换需要重新执行此函数
+-            function liveTextAnalyze() {
+-                viewBackground.grabToImage(function (result) {
 -                    //截取当前控件显示
 -                    liveTextAnalyzer.setImage(result.image); //设置分析图片
 -                    liveTextAnalyzer.analyze(view.currentIndex); //执行分析（异步执行，函数会立即返回）
 -                    // result.saveToFile("/home/user/Desktop/viewer.png") //保存截取的图片，debug用
 -                });
--        }
--
--        //live text执行函数
--        function runLiveText(resultCanUse, token) {
--            if (resultCanUse && token == view.currentIndex) {
--                //这里无视警告，就是需要js的==来进行自动类型转换
--                console.debug("run live start");
--                ltw.drawRect(liveTextAnalyzer.liveBlock());
--                ltw.visible = true;
 -            }
--        }
 -
--        //live text分析启动控制
--        function startLiveTextAnalyze() {
--            if (targetImageReady && IV.Types.DynamicImage !== currentImageInfo.type) {
--                liveTextTimer.restart();
+-            //live text执行函数
+-            function runLiveText(resultCanUse, token) {
+-                if (resultCanUse && token == view.currentIndex) {
+-                    //这里无视警告，就是需要js的==来进行自动类型转换
+-                    console.debug("run live start");
+-                    ltw.drawRect(liveTextAnalyzer.liveBlock());
+-                    ltw.visible = true;
+-                }
 -            }
--        }
 -
--        anchors.fill: parent
+-            //live text分析启动控制
+-            function startLiveTextAnalyze() {
+-                if (targetImageReady && IV.Types.DynamicImage !== currentImageInfo.type) {
+-                    liveTextTimer.restart();
+-                }
+-            }
 -
--        Component.onCompleted: {
--            liveTextAnalyzer.analyzeFinished.connect(runLiveText);
--        }
+-            anchors.fill: parent
 -
--        // 实况文本背景遮罩
--        Rectangle {
--            id: liveTextBackground
+-            Component.onCompleted: {
+-                liveTextAnalyzer.analyzeFinished.connect(runLiveText);
+-            }
+-            onCurrentHasSelectChanged: {
+-                imageViewer.liveTextSelected = currentHasSelect;
+-            }
 -
--            anchors.centerIn: parent
--            color: "#000000" // live text高亮阴影
--            opacity: 0.5
--            visible: highlightTextButton.checked && highlightTextButton.visible
+-            // 实况文本背景遮罩
+-            Rectangle {
+-                id: liveTextBackground
 -
--            onVisibleChanged: {
--                var target = view.currentImage;
--                if (null !== target) {
--                    width = target.paintedWidth * target.scale;
--                    height = target.paintedHeight * target.scale;
+-                anchors.centerIn: parent
+-                color: "#000000" // live text高亮阴影
+-                opacity: 0.5
+-                visible: highlightTextButton.checked && highlightTextButton.visible
+-
+-                onVisibleChanged: {
+-                    var target = view.currentImage;
+-                    if (null !== target) {
+-                        width = target.paintedWidth * target.scale;
+-                        height = target.paintedHeight * target.scale;
+-                    }
+-                }
+-            }
+-
+-            //live text分析启动延迟
+-            Timer {
+-                id: liveTextTimer
+-
+-                interval: 1500
+-                repeat: false
+-                running: false
+-
+-                onTriggered: {
+-                    var supportOcr = IV.FileControl.isCanSupportOcr(IV.GControl.currentSource);
+-                    if (supportOcr && targetImageReady && IV.Types.DynamicImage !== currentImageInfo.type) {
+-                        // 执行条件和OCR按钮使能条件一致
+-                        ltw.liveTextAnalyze();
+-                        running = false;
+-                    }
+-                }
+-            }
+-
+-            FloatingButton {
+-                id: highlightTextButton
+-
+-                property bool isHighlight: false
+-
+-                checked: isHighlight
+-                height: 50
+-                parent: imageViewerArea
+-                visible: false
+-                width: 50
+-                z: ltw.z + 100
+-
+-                // 高亮时不弹出工具栏栏以方便选取
+-                onCheckedChanged: {
+-                    IV.GStatus.animationBlock = checked;
+-                }
+-                onClicked: {
+-                    isHighlight = !isHighlight;
+-                }
+-                onVisibleChanged: {
+-                    if (!visible) {
+-                        IV.GStatus.animationBlock = false;
+-                    }
+-                }
+-
+-                anchors {
+-                    bottom: parent.bottom
+-                    bottomMargin: thumbnailViewBackGround.height + 20
+-                    right: parent.right
+-                    rightMargin: 100
+-                }
+-
+-                DciIcon {
+-                    anchors.centerIn: parent
+-                    height: 45
+-                    name: "icon_recognition_highlight"
+-                    palette: DTK.makeIconPalette(parent.palette)
+-                    width: 45
 -                }
 -            }
 -        }
--
--        //live text分析启动延迟
--        Timer {
--            id: liveTextTimer
--
--            interval: 1500
--            repeat: false
--            running: false
--
--            onTriggered: {
--                var supportOcr = IV.FileControl.isCanSupportOcr(IV.GControl.currentSource);
--                if (supportOcr && targetImageReady && IV.Types.DynamicImage !== currentImageInfo.type) {
--                    // 执行条件和OCR按钮使能条件一致
--                    ltw.liveTextAnalyze();
--                    running = false;
--                }
--            }
--        }
--    }
--
--    FloatingButton {
--        id: highlightTextButton
--
--        property bool isHighlight: false
--
--        checked: isHighlight
--        height: 50
--        parent: imageViewerArea
--        visible: false
--        width: 50
--        z: ltw.z + 100
--
--        // 高亮时不弹出工具栏栏以方便选取
--        onCheckedChanged: {
--            IV.GStatus.animationBlock = checked;
--        }
--        onClicked: {
--            isHighlight = !isHighlight;
--        }
--        onVisibleChanged: {
--            if (!visible) {
--                IV.GStatus.animationBlock = false;
--            }
--        }
--
--        anchors {
--            bottom: parent.bottom
--            bottomMargin: thumbnailViewBackGround.height + 20
--            right: parent.right
--            rightMargin: 100
--        }
--
--        DciIcon {
--            anchors.centerIn: parent
--            height: 45
--            name: "icon_recognition_highlight"
--            palette: DTK.makeIconPalette(parent.palette)
--            width: 45
--        }
--    }
--
-     //rename窗口
-     ReName {
-         id: renamedialog
-@@ -659,9 +516,6 @@ Item {
-     ViewRightMenu {
-         id: rightMenu
+     }
  
--        // 拷贝快捷键冲突：选中实况文本时，屏蔽拷贝图片的快捷键
--        copyableConfig: !ltw.currentHasSelect
+     Loader {
+@@ -703,9 +561,6 @@ Item {
+         sourceComponent: ViewRightMenu {
+             id: rightMenu
+ 
+-            // 拷贝快捷键冲突：选中实况文本时，屏蔽拷贝图片的快捷键
+-            copyableConfig: !imageViewer.liveTextSelected
 -
-         // 菜单销毁后也需要发送信号，否则可能未正常送达
-         Component.onDestruction: {
-             IV.GStatus.showRightMenu = false;
+             // 菜单销毁后也需要发送信号，否则可能未正常送达
+             Component.onDestruction: {
+                 IV.GStatus.showRightMenu = false;
 diff --git a/src/qml/ThumbnailListView.qml b/src/qml/ThumbnailListView.qml
-index bdcc7081..b4c2b58a 100644
+index 095ee864..b9150a90 100644
 --- a/src/qml/ThumbnailListView.qml
 +++ b/src/qml/ThumbnailListView.qml
-@@ -490,32 +490,14 @@ Control {
+@@ -501,32 +501,14 @@ Control {
      Row {
          id: rightRowLayout
  
@@ -319,7 +304,7 @@ index bdcc7081..b4c2b58a 100644
  
      IconButton {
 diff --git a/src/qml/ViewRightMenu.qml b/src/qml/ViewRightMenu.qml
-index 81ee9003..10eba846 100644
+index 577c0a39..41f74d38 100644
 --- a/src/qml/ViewRightMenu.qml
 +++ b/src/qml/ViewRightMenu.qml
 @@ -21,7 +21,6 @@ Menu {
@@ -358,7 +343,7 @@ index 81ee9003..10eba846 100644
          text: qsTr("Slide show")
  
 diff --git a/src/src/filecontrol.cpp b/src/src/filecontrol.cpp
-index 63e70a08..abf3b2e4 100644
+index 4bacf1fb..60f07ed8 100644
 --- a/src/src/filecontrol.cpp
 +++ b/src/src/filecontrol.cpp
 @@ -7,7 +7,6 @@
@@ -369,7 +354,7 @@ index 63e70a08..abf3b2e4 100644
  #include "imagedata/imageinfo.h"
  
  #include <DSysInfo>
-@@ -88,7 +87,6 @@ QUrl UrlInfo(QString path)
+@@ -84,7 +83,6 @@ QUrl UrlInfo(QString path)
  FileControl::FileControl(QObject *parent)
      : QObject(parent)
  {
@@ -377,7 +362,7 @@ index 63e70a08..abf3b2e4 100644
      m_shortcutViewProcess = new QProcess(this);
      m_config = LibConfigSetter::instance();
      imageFileWatcher = ImageFileWatcher::instance();
-@@ -410,30 +408,6 @@ bool FileControl::isCanDelete(const QString &path)
+@@ -411,30 +409,6 @@ bool FileControl::isCanDelete(const QString &path)
      return bRet;
  }
  
@@ -408,7 +393,7 @@ index 63e70a08..abf3b2e4 100644
  QString FileControl::parseCommandlineGetPath()
  {
      QString filepath = "";
-@@ -696,18 +670,6 @@ bool FileControl::isCheckOnly()
+@@ -697,18 +671,6 @@ bool FileControl::isCheckOnly()
      return true;
  }
  
@@ -427,7 +412,7 @@ index 63e70a08..abf3b2e4 100644
  bool FileControl::isCanRename(const QString &path)
  {
      bool bRet = false;
-@@ -788,10 +750,6 @@ QString FileControl::createShortcutString()
+@@ -789,10 +751,6 @@ QString FileControl::createShortcutString()
      shortcut2.insert("name", tr("Exit fullscreen"));
      shortcut2.insert("value", "Esc");
  
@@ -438,7 +423,7 @@ index 63e70a08..abf3b2e4 100644
      QJsonObject shortcut4;
      shortcut4.insert("name", tr("Slide show"));
      shortcut4.insert("value", "F5");
-@@ -855,7 +813,6 @@ QString FileControl::createShortcutString()
+@@ -856,7 +814,6 @@ QString FileControl::createShortcutString()
      QJsonArray shortcutArray1;
      shortcutArray1.append(shortcut1);
      shortcutArray1.append(shortcut2);
@@ -446,7 +431,7 @@ index 63e70a08..abf3b2e4 100644
      shortcutArray1.append(shortcut4);
      shortcutArray1.append(shortcut5);
      shortcutArray1.append(shortcut6);
-@@ -892,25 +849,8 @@ QString FileControl::createShortcutString()
+@@ -893,25 +850,8 @@ QString FileControl::createShortcutString()
      shortcut_group2.insert("groupName", tr("Settings"));
      shortcut_group2.insert("groupItems", shortcutArray2);
  
@@ -473,7 +458,7 @@ index 63e70a08..abf3b2e4 100644
  
      QJsonObject main_shortcut;
 diff --git a/src/src/filecontrol.h b/src/src/filecontrol.h
-index 00522051..6923b433 100644
+index 3edfec46..c001a90a 100644
 --- a/src/src/filecontrol.h
 +++ b/src/src/filecontrol.h
 @@ -17,7 +17,6 @@
@@ -484,7 +469,7 @@ index 00522051..6923b433 100644
  class QProcess;
  
  class FileControl : public QObject
-@@ -41,13 +40,11 @@ public:
+@@ -43,13 +42,11 @@ public:
      Q_INVOKABLE bool displayinFileManager(const QString &path);  // 在文件目录中显示
      Q_INVOKABLE void copyImage(const QString &path);             // 复制图片
      Q_INVOKABLE void copyText(const QString &str);               // 复制文字
@@ -498,7 +483,7 @@ index 00522051..6923b433 100644
      Q_INVOKABLE bool isCanRename(const QString &path);
      Q_INVOKABLE bool isCanReadable(const QString &path);
      Q_INVOKABLE bool isRotatable(const QString &path);  // 是否可以被选旋转
-@@ -86,8 +83,6 @@ private:
+@@ -88,8 +85,6 @@ private:
      QString createShortcutString();
  
  private:
