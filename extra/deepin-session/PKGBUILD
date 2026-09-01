@@ -2,7 +2,7 @@
 
 pkgname=deepin-session
 pkgver=2.0.31
-pkgrel=1
+pkgrel=2
 pkgdesc='New deepin session, based on systemd and existing projects'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session"
@@ -22,6 +22,10 @@ sha512sums=('91d4c1c462e916cbaa32a0057389daf28974660543972b3fad87af7954300328ec3
 
 prepare(){
   cd dde-session
+
+  # https://github.com/linuxdeepin/dde-session/pull/228
+  git cherry-pick -n 08c48736b1159ca7d948c77353ede509f64a87e2
+
   sed -i 's|/etc/os-version|/etc/uos-version|' tools/dde-version-checker/main.cpp
 }
 
