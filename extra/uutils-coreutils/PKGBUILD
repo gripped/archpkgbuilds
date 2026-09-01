@@ -5,9 +5,9 @@
 
 _pkgname=coreutils
 pkgname=uutils-$_pkgname
-pkgver=0.10.0
+pkgver=0.11.0
 _l10nver=0.10.0
-pkgrel=2
+pkgrel=1
 pkgdesc='Cross-platform Rust rewrite of the GNU coreutils'
 arch=('x86_64')
 url='https://uutils.github.io/'
@@ -28,7 +28,7 @@ source=(
   $pkgname::git+$_url.git#tag=${pkgver}
   $pkgname-l10n::git+https://github.com/uutils/coreutils-l10n.git#tag=${_l10nver}
 )
-b2sums=('46ca1fe9884b71a882001ada5369be8df183d6027b007821c413c61ae6865809cf5100a2fe04e1c9f3306d2b89d2c73f366fa2aefe95e9be988fe29fb27d65d3'
+b2sums=('1a15f9b916cc8d89d97a41bd31569bc682c1d6a0a612e89d1814f6a7c428e00a2bde45207350ce27cbd213bfed785eac1f4843cb79a6c774f97d37dfdbe7fb7b'
         'ab788e879bb494c4d2ec94d5de185275af0873866f4208a61c1f32cedc84ca1b032bcadeeec6c44901f166510b9df8a08812418f10abf1b62e006032ae613be2')
 
 # This line inside prepare does not work without chean build
