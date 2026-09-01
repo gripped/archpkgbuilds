@@ -1,16 +1,21 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: hexchain <arch at hexchain.org>
 pkgname=krunvm
-pkgver=0.2.6
+pkgver=0.2.7
 pkgrel=1
 pkgdesc="Create microVMs from OCI images"
 url='https://github.com/containers/krunvm'
 arch=('x86_64')
 license=('Apache-2.0')
 makedepends=('cargo' 'asciidoctor')
-depends=('glibc' 'gcc-libs' 'libkrun' 'buildah')
+depends=(
+  'glibc'
+  'libgcc'
+  'libkrun'
+  'buildah'
+)
 source=("https://github.com/containers/krunvm/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('9f13e938a10565cdd0d38bd49f8c7fc5be57245740bad2bb138eec8675d4ee3b')
+sha256sums=('1b2a54d670b09a8825a005184f7498a54535f86eb3d35850a37d4702da3121fc')
 
 build() {
     cd "$pkgname-$pkgver"
