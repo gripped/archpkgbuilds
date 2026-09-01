@@ -3,7 +3,7 @@
 # Contributor: Caltlgin Stsodaat <contact@fossdaily.xyz>
 
 pkgname=python-rapidfuzz
-pkgver=3.14.5
+pkgver=3.14.6.p1
 pkgrel=1
 pkgdesc='Rapid fuzzy string matching in Python using various string metrics'
 arch=(x86_64)
@@ -30,14 +30,14 @@ checkdepends=(
 )
 optdepends=(python-numpy)
 source=(
-  "$pkgname::git+$url#tag=v$pkgver"
+  "$pkgname::git+$url#tag=v$(echo $pkgver | sed 's/\.p/-/')"
   'github.com-taskflow-taskflow::git+https://github.com/taskflow/taskflow'
   remove-version-constraints.patch
 )
-sha512sums=('c9268e0367923253087e9b33ffe232324a75420efa59334cc5be9cc16abedf611de12af6dde7e220f305119a2a273acea29a4cf3f266cb32e4bbb374e55f12fb'
+sha512sums=('f1e700715e61330fce9fe0af56daa4f4d8ad3a285c680cd614084a0955d2b5e924f8947aa8763b135e4e49dfdae01a529ca73d5f3428df132d1f5e01cd7a6fdc'
             'SKIP'
             '37a0c5921d828dd6bfa0b48121ead76282e5ecfb55a7a8b1e972f43ae39cdf6145728d3be8e4f434d0a70ec0d7f0a3d681d7311a578b853c6dc734bd900c1ed1')
-b2sums=('74edd62999993e12352fa318d1d4ccc5c62b56272492c5c8c78aa21306fe4b6e72062cf168f83a00df91373641dc7eb28508e393cbf35255296dff6278f1f625'
+b2sums=('eda67e3d6313e3779d7620397f1d2330889be81a4e5eb9ffe6c742ee5d0def9eeb55474e07da5a17909cfd269720088fb100777a9db1e62149a1869a77170aab'
         'SKIP'
         'e18ec7e49d6c28ef6f55db753d4027206f8774dacb782cc6e77a9bdc4ece64533aa7eb002b9ac3effb34dbbc8164f376887fd0ab54d8ff66e022b05c1687360e')
 
