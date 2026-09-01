@@ -4,7 +4,7 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-cssselect2
-pkgver=0.9.0
+pkgver=0.10.0
 pkgrel=1
 pkgdesc='CSS selectors for Python ElementTree'
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('6055421817c3d6a0a2e168c7f3d3e09aed3dd7d725cbf6288840c24448d05fbe707fd7b071eafa5e4ad3d0da72c6a452b2cfc414150deaf01c2ffb95af96d665')
-b2sums=('656abe84c4e18024b56c3aa82933b35e0bbf63fc40f30c7282ceded1e2fba8fc99a8d969a343c4c2a146f6b95d7d6b152cff9b0082dd4fb1a6695161ee61aa65')
+sha512sums=('82cd15f7fe63cce447b2bcffe8174a7e43d1a6a4c617ea5e01da4638a17a01d9fa9a164c1506591b29a858fc7547c556958fe80f9edbdcdf0c5641d1d7c7e054')
+b2sums=('f743e8d32d7c12ea4da5ee72f6c7c2dc7292221d57d2322bb1bf00f4f5e282c42e0dca2c3f0b6d245ddf489dfca6445f3cc3a0a5af8afd8ee5a0e12c886b55dd')
 
 build() {
   cd "$pkgname"
