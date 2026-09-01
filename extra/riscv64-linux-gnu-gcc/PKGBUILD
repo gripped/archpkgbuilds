@@ -5,7 +5,7 @@
 
 _target=riscv64-linux-gnu
 pkgname=$_target-gcc
-pkgver=16.1.0
+pkgver=16.2.0
 pkgrel=1
 pkgdesc='Cross compiler for 32-bit and 64-bit RISC-V'
 arch=('x86_64')
@@ -26,8 +26,8 @@ depends=(
 )
 options=(!emptydirs !strip  staticlibs !lto)
 source=("https://gcc.gnu.org/pub/gcc/releases/gcc-$pkgver/gcc-$pkgver.tar.xz")
-sha256sums=('50efb4d94c3397aff3b0d61a5abd748b4dd31d9d3f2ab7be05b171d36a510f79')
-b2sums=('ceb07866b6b17eb4c69a6b51241b275bc5ec506603a7c1a4c1e2585091a09fc647be945beeff76700bffd9018bda81b072d84f909fd7998baa0cfe3f0eb550b4')
+sha256sums=('e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e')
+b2sums=('ab3ffe16e042da767f3f1eac170da518d6d7de3b0f92e068f79e3bf25fdc0bdf56eea0cd586bd4b9b6e9baebadd110c2ebd77b75c99c45853814f4bea5a98ef0')
 
 if [[ -n "$_snapshot" ]]; then
   _basedir=gcc-$_snapshot
