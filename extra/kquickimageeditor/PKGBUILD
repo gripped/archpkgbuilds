@@ -1,23 +1,24 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=kquickimageeditor
-pkgver=0.6.2.1
-pkgrel=2
+pkgver=0.7.0
+pkgrel=1
 pkgdesc='QML image editing components'
 license=(LGPL-2.1-or-later)
 arch=(x86_64)
 url='https://invent.kde.org/libraries/kquickimageeditor'
 depends=(glibc
+         highway
          kconfig
          kirigami
          libgcc
          libstdc++
-         opencv
          qt6-base
          qt6-declarative)
-makedepends=(extra-cmake-modules)
+makedepends=(extra-cmake-modules
+             qt6-shadertools)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('6d37a479463dcd16e4746d8b43d4adb05640e8b49056baabc82c865e2e1a4c85'
+sha256sums=('56789a323250a52cfaa14175c6836e66cef9f2fbb4e56f8cac9f526c243633ae'
             'SKIP')
 validpgpkeys=(39FFA93CAE9C6AFC212AD00202325448204E452A  # Carl Schwan <carl@carlschwan.eu>
               931703E04546328CEE35B5A51F7428FFC412A679) # Noah Davis <noahadvs@gmail.com>
