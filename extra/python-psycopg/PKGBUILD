@@ -2,7 +2,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-psycopg
-pkgver=3.3.4
+pkgver=3.3.5
 pkgrel=1
 pkgdesc='PostgreSQL database adapter for Python'
 arch=(x86_64)
@@ -26,10 +26,10 @@ source=(
   "$pkgname::git+https://github.com/psycopg/psycopg.git#tag=$pkgver"
   remove-version-constraint.patch
 )
-sha512sums=('b5ba078e3048d5cda4974390b5cdbd2e4dee049a98bc6195817eba10cd5d805b08a7525cb01f2b6c25f82c2a50b1eb1ff853817b5c0cfe5babb1145000327a9b'
-            '0ee13cc43647d1e251ef60b32ba32b68e653a0ab07ecbaff650852ac5c654c6a1807aaedb55b555d078b7813ed719c4669d4ffd974c92ba1355f2d675a530277')
-b2sums=('a87550489168b77199561ce943ad681be2b5aa44830e7ee9b58f1b1e4c4d74f0424f1d3934e990730ee4a4d9ad28ece5d421f72fb536d9777c7ac85be3d39573'
-        'c1019eae90c4ce57e23186dfe21d20ed187a1465106140e0256440bd44913a2ee307189d8fcce301e3dedb9d747c4502b9ec8f11bf2ff26fa26416c71a0045a1')
+sha512sums=('ce3420ee6f166fa9ab433b6f3e29e9d3323cbd0e37bfa99687754d12dd5a431cf656f4321084d0a0aceb62594fbf2f0ec208642b4f2feeac58f9f5e17d77913d'
+            'ed8107454e0384003a2108a985f9f573b635c0838b9c45d91b67dd4c1578bdbdceb54f1ffaf17a323a83ac454d2f8e6f72e24ef58367c9175891212c70470b39')
+b2sums=('9c68d7df3f162f49ced3f7e63fd35b32cf3b2287afa1913ead059a3c35c37ea1033e5584edc543adc433ad661d2121e33e5b76ab1e4377ceda0ffc9c65096fc2'
+        'acd2b3e276efca144d6602116670fcc062fbb079b717ff9bfc32412c4850892f88af9f7c51b8bc5835338210a71ffa26bb0841ea48a4a505cd9ec054248724a7')
 
 prepare() {
   cd "$pkgname"
