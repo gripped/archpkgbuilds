@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=blosc2
-pkgver=3.3.2
+pkgver=3.3.3
 pkgrel=1
 pkgdesc='A fast, compressed, persistent binary data store library for C'
 arch=(x86_64)
@@ -21,14 +21,14 @@ makedepends=(
 )
 provides=(libblosc2.so)
 source=("$pkgname::git+https://github.com/Blosc/c-blosc2#tag=v$pkgver")
-sha512sums=('616377aff148b6051f27757a55c8f4096ff34e93a0959e2596e3f87327722da8e66713949c3abcc0c387345f676c078d21eb5606145e6ed68c990108078e7ca2')
-b2sums=('412f02873f59dd4d1b0bac9d8879ecc1c9906f2ada667dfefe0bff24687ca2c5e4aa385ba72a8ba6820a71ccda9deff79bccc190c2a62f473e28225e59663ad7')
+sha512sums=('d29277ca25f93ab44af6cd6db9b93bcd3a32a846cbaad3d8ce3148694594aeefdee8d8f6e39cc7e7e76afa0941c10d1b3f22191e51940c83acf349e49c8296f2')
+b2sums=('93b65c8b66bb097d58284d0f44961b812882b3dbba13fc471ef099457b08484a4d405ada68781014c570b2aa81d5ba654b6c0800abffd9b5b24fa63b5727d23f')
 
 build() {
   local cmake_options=(
     -B build
     -S "$pkgname"
-    -W no-dev
+    -W no-author
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D PREFER_EXTERNAL_LZ4=ON
