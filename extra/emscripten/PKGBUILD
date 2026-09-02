@@ -5,12 +5,12 @@
 
 pkgname=emscripten
 # NOTE: You need to run ./get-compatible-versions.sh after changing the pkgver!
-_binaryen_revision=8d546dc4aea1c3e81e77643f1ed0dea1a649d21d
-_llvm_project_revision=c0125a7bf833b6cf0d5b4a085b63094e0893c85a
+_binaryen_revision=d03c25ea43d8f147fc222f9b88ff3bf641abe8da
+_llvm_project_revision=b158b0ae6c559f87be325b8f427c5588e6a48823
 # Sadly, upstream currently suggests bundling a binaryen version for the time being:
 # https://github.com/emscripten-core/emscripten/issues/12252
 # I'm obviously unhappy about that but it appears to be the only practical solution for the time being.
-pkgver=6.0.8
+pkgver=6.0.9
 pkgrel=1
 pkgdesc="Compile C and C++ into highly-optimizable JavaScript for the web"
 arch=('x86_64')
@@ -30,9 +30,9 @@ source=("git+https://github.com/kripken/emscripten#tag=$pkgver"
         git+https://github.com/WebAssembly/binaryen.git#commit=$_binaryen_revision
         "emscripten.sh"
         emscripten-config)
-sha512sums=('c1c7cd555bb3b9eb2f9c7ba94123df2c0d2fd374204070136b2e23f28dcd6417a80933111886c16a03ba5e8c3244e277f1d1794c3a4cdc6e1bbbabd324833698'
-            '2711119bd4b3339f2bfbffbbee5f9337b2c9c372e9ebe30ce3b99b7b7926b721f483c31a4bfe5bcba614dc0bcc750a0eb20cf4fcec0005bfeb81beaf19b9e30c'
-            'c436416aa69c3e74570fa97c4306c18fb7aa9986f4c7dfb29ef5b2ec1dbdfe44158b55de90344c9c90efc85feb5e2a1920a936768278753ad62a310677471297'
+sha512sums=('e18de55a179553b78d8b87358e00d099456cc37c80e0e3f7375724f390a842ef7715a5c3cc663bd854b377731fb78e97a206e03588bf8e8c1f053eddec9abd5c'
+            '7d43622801f0fb959a6a46f56aa4780e5b39224f33596cc479b1af1bb6712b246e24a916d06e56079116e780ccd07fcdcea2964c4b3f3c3f9810a98837453472'
+            '870b3966a944ef2ca558d543d9a70bb62b59d7d0a18915fa3070b829f27b903cccd7c5f5f866383055b6312c211eb7dc6e56cf5580d20f4b0258c69656272ac1'
             'fbe9b95b8d18e7d0c6ec5fded6f11b72fbe4ddd0391e5704b281ba79c479f3563e82423b790ddf3f0554a23d659193ca898a81fe3db509f16c30c7188b790e4d'
             '8d22f727e64cace0eb33f049a2902b928c29a6448b05098030858590660f31e1dc142dae55a54bbcb4da09650173f571a64789e0a955aefb449ce0081fb438f9')
 
@@ -73,9 +73,6 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" ninja -C binaryen/build install
-
-  # Rename binaryen's wasm2c to avoid conflict with wabt
-  mv "$pkgdir"/usr/bin/wasm2c "$pkgdir"/usr/bin/wasm2c-emscripten
 
   # Install LLVM stuff according to
   # https://github.com/emscripten-core/emscripten/blob/master/docs/packaging.md
