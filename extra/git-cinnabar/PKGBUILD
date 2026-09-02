@@ -2,7 +2,7 @@
 # Contributor: Alex Henrie <alexhenrie24@gmail.com>
 
 pkgname=git-cinnabar
-pkgver=0.7.4
+pkgver=0.7.5
 pkgrel=1
 pkgdesc="Git remote helper to interact with Mercurial repositories"
 url="https://github.com/glandium/git-cinnabar"
@@ -24,7 +24,7 @@ source=(
   "git+$url#tag=$pkgver"
   "glandium-git::git+https://github.com/glandium/git"
 )
-b2sums=('0a77dae0ea2537ba8bcf0830e4959a47485c4f729efaa76001be4d91faa6a949045ab9f1ab447ceed033ecd8f417227cc0ba996b1ffe2ff9eafe2b330629804c'
+b2sums=('0d69770c49d90ecd55025b8723497b86e3b11f9e76eb3bf86bbb8d2d8bf64ae58074ae6907e1937cda4dbe3f4fd9ed8a9aaf7a06bcddd73c8fde2cc01a9e421e'
         'SKIP')
 
 # Use debug
@@ -45,13 +45,11 @@ prepare() {
 
 build() (
   cd git-cinnabar
-  CFLAGS+=" -Wno-error=discarded-qualifiers"
   cargo build --release --frozen --no-default-features
 )
 
 check() (
   cd git-cinnabar
-  CFLAGS+=" -Wno-error=discarded-qualifiers"
   cargo test --frozen --no-default-features
 )
 
