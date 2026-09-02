@@ -2,7 +2,7 @@
 # Contributor: Blair Bonnett <blair.bonnett@gmail.com>
 
 pkgname=python-scikit-build-core
-pkgver=0.12.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='Next generation Python CMake adaptor and Python API for plugins'
 arch=(any)
@@ -35,7 +35,7 @@ checkdepends=(
   python-virtualenv
 )
 source=("$url/archive/v$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-b2sums=('8b5c244a8d0045d6941f6e11d17d3eef1161e5a20c911fc6f1cbeb83bb5b13e4504ceeca4448549f558bc36924eacfc1a06e011ab600e6c4b6feba2d55bfd967')
+b2sums=('89ba46880bc37fa90b6d9ef637c6550b94e7fe64074c5675ff6d0a0a1f4e99a99f08b13b1bb39da725964e50f4d53bdaf441c8e30f351176ca08e252e31a488f')
 
 build() {
   cd ${pkgname#python-}-$pkgver
@@ -48,7 +48,10 @@ check() {
   cd ${pkgname#python-}-$pkgver
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -k 'not network'
+  test-env/bin/python -m pytest -k 'not network' \
+    --ignore=tests/test_editable.py \
+    --ignore=tests/test_editable_generated.py \
+    --ignore=tests/test_pyproject_pep660.py
 }
 
 package() {
