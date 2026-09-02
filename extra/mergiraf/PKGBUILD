@@ -3,7 +3,7 @@
 # Contributor: VCalV
 
 pkgname=mergiraf
-pkgver=0.19.0
+pkgver=0.19.1
 pkgrel=1
 pkgdesc='A syntax-aware git merge driver for a growing collection of programming languages and file formats'
 arch=(x86_64)
@@ -13,8 +13,8 @@ makedepends=(git rust)
 checkdepends=(jujutsu)
 options=(!lto)
 source=("$pkgname::git+https://codeberg.org/mergiraf/mergiraf#tag=v$pkgver")
-sha512sums=('d4021a7fad74a77dd0eea07122bb65c7338ea07ffbd812172819275e18d4c1a3f7846746b385268e9b13b2df2e0fd28726e6dfce1653e2ad7eb1d70b1590c40f')
-b2sums=('01f8f44be645d845f1f3e46e197ae24d135e2926c14ce877d246e30ffae59a73474ac93d5281285309287239f7e912ea4795deb92addeba5396bcc3bb0df19ac')
+sha512sums=('c55bc22cffbe5f0098b564b1d7f6166b043841506ccfc1e817824c87129cbf450b3b61f8832d7bae30867534fa53b4fa019d92861cd273b517b2bb3b6920a117')
+b2sums=('d8edbc8742db9109c6e74bb21b069df2ff544cf6a62fe6400e9f280bc7e940308e975b6adca403ac12f61eb3dbb1492080a977f802fa8401fedf5da295b94636')
 
 prepare() {
   cd "$pkgname"
