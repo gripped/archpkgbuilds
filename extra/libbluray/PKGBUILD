@@ -4,7 +4,7 @@
 # Contributor: Andrew Cook <ariscop@gmail.com>
 
 pkgname=libbluray
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc='Library to access Blu-Ray disks for video playback'
 arch=(x86_64)
@@ -29,7 +29,7 @@ source=(
   git+https://code.videolan.org/videolan/libbluray.git#tag=${pkgver}
   git+https://code.videolan.org/videolan/libudfread.git
 )
-b2sums=('dfc9b0bc0656a115a27599f3df1fddb6a485762fc27624bf4ad35e0930ad2f2c13db2ee9c4b6cdb2ac9fc69d77e69bb2b1dab9af0266080deed54366751a4bfb'
+b2sums=('c6d5fa659c605e69b2e47d23564995f451ad57182b47a0509e21b589f926992bd3adf4d2355b4beafb1467e84b0319ffd422544861b63583db308b99b79cbfcb'
         'SKIP')
 
 prepare() {
