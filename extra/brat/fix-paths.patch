@@ -1,13 +1,20 @@
 --- a/bin/brat
 +++ b/bin/brat
-@@ -5,8 +5,8 @@ set -eu
- 
- export SELF="$(realpath "$0")"
- NAME="${SELF##*/}"
+@@ -26,7 +26,7 @@ OLDENV="$(export -p)"
+ SELF="$(realpath "$0")"
+ NAME="${0##*/}"
+ PROGRAM_NAME="${SELF##*/}"
 -ROOT="${SELF%/*/*}"
--PATH="$ROOT/libexec:$ROOT/lib/$NAME:$PATH"
 +ROOT="/usr"
-+PATH="$ROOT/lib/$NAME:$PATH"
- USAGE="<COMMAND>"
- unset VERSION
  
+ 
+ # Set up the environment
+@@ -35,7 +35,7 @@ LIBEXEC="$ROOT/libexec"
+ SHARE="$ROOT/share/$PROGRAM_NAME"
+ VENDOR="$SHARE/vendor"
+ 
+-PATH="$LIB:$LIBEXEC:$VENDOR:$PATH"
++PATH="$LIB:$VENDOR:$PATH"
+ export SELF
+ 
+ USAGE="<COMMAND>"

@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=brat
-pkgver=0.10.1
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='A parallel TAP testing harness for the POSIX shell'
 arch=(any)
@@ -13,10 +13,10 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   fix-paths.patch
 )
-sha512sums=('a825d04da957c197db87dc8e4be97a6d93f4e7abda06ab6e4ede0471610da0e8097a3c3c6a0ca60acaf8f971c618b681973db83f1096be3fd27255d31ccc5070'
-            'dbd6465e423094d7d3251babe330633b3bc616a3edcd8e79bab5d1f13318cbc4d402cdefea4973c7226ec4a0032d588ed7b9b0618d3f1bb7c46ad2499f5b4cfa')
-b2sums=('16dc1b0d398edeca13359ba3058eaaa09d40864686a819a056238f6510f678cae9fb6ea10911f4fc41991c9f01c89e897a54747e9678aaea6ea4aef851347ec5'
-        'e1825256a00005bb36e6c96ad5fc31a25fdd02b7c6200b967c773c198f5af6e4484f837ca96be3b442d357cc9695c535d69d5e6ca0245ca9363549e1e03cff78')
+sha512sums=('cecd64fe9bc4be3642aab5d39a9711e046687fd7d16233f5cde6fcf8ed32e01e842eccec4dfe34b2bf43239722f126b0b05a9582484d8da0b3c19b563905b9fd'
+            '60b0e21473de73eacd03f997d18e873a103ef0747bbf5bb4dc45c0f0c0b51331550dfce6a18f560cb3ee2c6c53c6973e0b04e9ca715db84b29ce2a56d4a7fddd')
+b2sums=('1609a6bfe0bae8763e6bb19b0acc93ac38391eb9ced71e8ea8eeaf970f9f92847cbd3411e39a5cbbc34cb1b0a711fd63d751bfa34e2a70fdaa4a3c2afb6f5675'
+        '3f4242a2c0abe1e0883fe47dfaf51f5ccbba0f8f4d843028454bd27518564a3753740ae9d4c7686a2709502860af180ddef4a808ccd013c9e1bdf98ae85bc26a')
 
 check() {
   cd "$pkgname"
