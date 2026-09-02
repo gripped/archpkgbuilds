@@ -2,7 +2,7 @@
 
 _name=numba-cuda-mlir
 pkgname=python-$_name
-pkgver=0.5.0
+pkgver=0.5.1
 # https://github.com/NVIDIA/numba-cuda-mlir/blob/main/ci/llvm-version.env
 _llvm_commit=3cbe75b1433a90a28db068d700b7effd2de8f401
 _llvm7_tag=llvmorg-7.1.0
@@ -46,15 +46,29 @@ source=(
   "git+https://github.com/llvm/llvm-project.git#commit=$_llvm_commit"
   pyproject.patch
   fix-extract-cuda-args-oob.patch
+  llvm-nanobind-3.0.patch
 )
-b2sums=('f1193920e6b97c7e179d787b01dbc9bf5b77f413eb12cbd725b22700f0c04800db8a9e1e27b759f3105d79ca5d3f8d5525aa93bd824c7a1431e82fadadc500e0'
+b2sums=('c8d8102bee1fdf351770698ca624232739a82c0b42f4366cc6d378bb9e617aed07aad7cca1c341e9feb18c4cbc7b720abc098df2ce5ad08d893864429483bfc7'
         'f03eeff96feac6a47e904bac188d57b003bbe9e66671b1f01bca3d7a2cc9dd836b9762fec3ff8749e15bb607365f8d63f09ee7c02a04216809a42fa315af92c6'
         'c06f7b34dcf5e8400320f3fd249a5c32135111d5695b68db5c327453d7081e4ae18d5458d35bdf6900c08f86d63817403df2cea2310138a4d2babfe783a0ad8b'
-        '284d58d90d5da1f8a1a69ab2e92669bf1b366a8f9790a94e4a72487b2240e0c832029e9cf4a0985b86273ad7a90c40fed454603fa091aa70973ba83ad18506e2')
+        '284d58d90d5da1f8a1a69ab2e92669bf1b366a8f9790a94e4a72487b2240e0c832029e9cf4a0985b86273ad7a90c40fed454603fa091aa70973ba83ad18506e2'
+        '13fb437188dc0d1b87310b7f8225e411680ea9c51ce8db8d3dceb6ad0a1d8052468fff482383b53e1e264a0ddc9639b3be2bda9a1b1854c3ae5ca1f25a6fd328')
 
 prepare() {
   # make a worktree for LLVM 7 tag
   git -C llvm-project worktree add $_name-llvm7 $_llvm7_tag
+
+  # Fix build with nanobind 3.0 (pinned to 2.9 in LLVM)
+  sed -i 's|nanobind 2.9|nanobind|' llvm-project/mlir/cmake/modules/MLIRDetectPythonEnv.cmake
+
+  # Backport nanobind 3.0 compatibility from upstream LLVM
+  # https://github.com/llvm/llvm-project/commit/0d3f7ae1e926261d532e0cfc92799673ed49489b
+  git -C llvm-project cherry-pick -n 0d3f7ae1e926261d532e0cfc92799673ed49489b
+
+  # nanobind 3.0 fixes not yet upstream: link MLIR's domain-isolated runtime
+  # library directly in add_mlir_python_extension, and initialize the backend
+  # state in the non-module MLIRPythonSupport library via nb::register_module()
+  patch -d llvm-project -p1 < llvm-nanobind-3.0.patch
 
   cd $_name-$pkgver
   # drop cmake and ninja dependencies from pyproject.toml

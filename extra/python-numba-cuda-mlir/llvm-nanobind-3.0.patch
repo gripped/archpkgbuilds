@@ -1,0 +1,68 @@
+diff --git a/mlir/cmake/modules/AddMLIRPython.cmake b/mlir/cmake/modules/AddMLIRPython.cmake
+index 07f97e3261..64f9238aec 100644
+--- a/mlir/cmake/modules/AddMLIRPython.cmake
++++ b/mlir/cmake/modules/AddMLIRPython.cmake
+@@ -959,18 +959,34 @@ function(add_mlir_python_extension libname extname nb_library_target_name)
+       set_property(TARGET ${libname} PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS ON)
+     endif()
+   else()
+-    if(MLIR_ENABLE_PYTHON_STABLE_ABI)
+-      set(_stable_abi_flag STABLE_ABI)
++    # nanobind 3.0 no longer names the shared runtime library after the
++    # domain (see the 3.0.0 changelog, "Split mode"), so nanobind_add_module()
++    # would create a plain libnanobind.so, which fails to link under LLVM's
++    # -Wl,-z,defs and would be missing from the wheel. Replicate its module
++    # setup via the documented low-level helpers instead and link the
++    # pre-built domain runtime library (${nb_library_target_name}) directly.
++    add_library(${libname} MODULE ${ARG_SOURCES})
++    set_target_properties(${libname} PROPERTIES LINKER_LANGUAGE CXX)
++    nanobind_compile_options(${libname})
++    nanobind_link_options(${libname})
++    if(MLIR_ENABLE_PYTHON_STABLE_ABI AND NOT (NB_ABI MATCHES "[0-9]t"))
++      target_compile_definitions(${libname} PRIVATE -DPy_LIMITED_API=0x030C0000)
++      nanobind_extension_abi3(${libname})
+     else()
+-      set(_stable_abi_flag "")
++      nanobind_extension(${libname})
+     endif()
+-    nanobind_add_module(${libname}
+-      NB_DOMAIN ${ARG_MLIR_BINDINGS_PYTHON_NB_DOMAIN}
+-      FREE_THREADED
+-      ${_stable_abi_flag}
+-      NB_SHARED
+-      ${ARG_SOURCES}
++    if(NB_FREE_THREADED)
++      target_compile_definitions(${libname} PRIVATE NB_FREE_THREADED)
++    endif()
++    target_compile_definitions(${libname}
++      PRIVATE
++      NB_DOMAIN=${ARG_MLIR_BINDINGS_PYTHON_NB_DOMAIN}
+     )
++    nanobind_disable_stack_protector(${libname})
++    nanobind_disable_stack_protector(${nb_library_target_name})
++    nanobind_opt_size(${libname})
++    nanobind_strip(${libname})
++    nanobind_set_visibility(${libname})
+     target_compile_definitions(${libname}
+       PRIVATE
+       MLIR_BINDINGS_PYTHON_DOMAIN=${MLIR_BINDINGS_PYTHON_NB_DOMAIN}
+diff --git a/mlir/lib/Bindings/Python/IRCore.cpp b/mlir/lib/Bindings/Python/IRCore.cpp
+index f92d4c14ce..7f21a7ceb6 100644
+--- a/mlir/lib/Bindings/Python/IRCore.cpp
++++ b/mlir/lib/Bindings/Python/IRCore.cpp
+@@ -2894,6 +2894,15 @@ void MLIRError::bind(nb::module_ &m) {
+ }
+ 
+ void populateRoot(nb::module_ &m) {
++#if NB_VERSION_MAJOR >= 3
++  // This library is not a Python module and never runs NB_MODULE(), so it
++  // must join the importing module's domain state before using the nanobind
++  // API. Idempotent; see "Extensions without NB_MODULE" in the nanobind
++  // split mode documentation (nanobind 3.0.0 changelog).
++  if (!nanobind::detail::internals && !nb::register_module(m))
++    throw nb::python_error();
++#endif
++
+   m.attr("T") = nb::type_var("T");
+   m.attr("U") = nb::type_var("U");
+ 
