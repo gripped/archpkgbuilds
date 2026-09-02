@@ -6,7 +6,7 @@
 
 pkgname=(libvirt libvirt-storage-gluster libvirt-storage-iscsi-direct)
 epoch=1
-pkgver=12.6.0
+pkgver=12.7.0
 pkgrel=1
 pkgdesc="API for controlling virtualization engines (openvz,kvm,qemu,virtualbox,xen,etc)"
 arch=('x86_64')
@@ -130,7 +130,7 @@ backup=(
 source=(
   "git+https://gitlab.com/libvirt/libvirt.git#tag=v${pkgver}"
 )
-sha256sums=('3262853b887614cdee8a37f5bd72dca1d14a68ec0f2abd23e262a8641e86b96c')
+sha256sums=('bbe49804c7f7c1ae59b5b35964b265d037a50ae66192047b1ab0ea7d79efaf2f')
 
 prepare() {
   cd ${pkgname}
