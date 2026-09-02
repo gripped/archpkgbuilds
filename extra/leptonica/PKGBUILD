@@ -4,7 +4,7 @@
 
 pkgname=leptonica
 pkgver=1.87.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Software that is broadly useful for image processing and image analysis applications'
 arch=(x86_64)
 url='http://www.leptonica.com'
@@ -15,7 +15,7 @@ depends=(giflib libgif.so
          libpng libpng16.so
          libtiff libtiff.so
          libtiff libtiff.so
-         libwebp libwebp.so libwebpmux.so libsharpyuv.so
+         libwebp libwebp.so libwebpmux.so
          openjpeg2 # libopenjp2.so
          zlib libz.so)
 _archive="$pkgname-$pkgver"
