@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=kudu
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="TUI for creating and managing virtual machines on Linux"
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('cargo')
 optdepends=('qemu-system-aarch64: AArch64 virtual machine support'
             'qemu-system-riscv: RISC-V virtual machine support')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('d0f41d3c1e42dbbd0a1f4897a582785175e37a727f599324de14a929b1f7fd27')
+sha256sums=('d9bbb0a46dacf492029cfed4ad7e8086e41659082b603ffdab47111536d88d8c')
 options=('!lto')
 
 prepare() {
