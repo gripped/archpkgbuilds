@@ -4,7 +4,7 @@
 
 _pkgname=jwcrypto
 pkgname=python-$_pkgname
-pkgver=1.5.9
+pkgver=1.6.0
 pkgrel=1
 pkgdesc='Python implementation of JWK, JWS, JWE specifications'
 arch=(any)
@@ -27,8 +27,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+$url?signed#tag=v${pkgver}")
-sha512sums=('88047183179c2c696c225e01b5e5764b4e31c314bba1261043d65c5c1d4d4526e57575bb68f3468dec164a9557afa9606c5608ebdf64e3060bc7723f5d7aaa6b')
-b2sums=('9db966290fe8dffcac210acba405d8b9eefa847a72d18584e7900a079d618e7d3950fd2d075b026a85068602eb6cf4bb8dfd7b911f8a1807e0698f8d6e9caaff')
+sha512sums=('a3e17f55ebbefd759f2ebdd15ec5d1e857eb90618ecf5e8949c29f48353ebfae2c019c1c3e2a7ff4d9008f1bdbc5c830742b9be4ef5b787a86d518229402c7b6')
+b2sums=('cef2a9e9f4cb2d150c67a75f7d9703d891e776e3142da100fa14e5c65b8fc71e6de92147cc10ffdd35930465c0a240a3eb720e781da62eb9157b171e48e68a43')
 # PyPI sdists for older versions are signed by tiran's key. Since version 1.0,
 # PyPI sdists are not signed, and tiran didn't declare transition of the
 # signing key for some reason. I temporarily trust simo5's signed git tags as
