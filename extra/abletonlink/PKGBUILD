@@ -3,7 +3,7 @@
 _name=link
 pkgname=abletonlink
 pkgver=3.1.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Synchronizes musical beat, tempo, and phase across multiple applications"
 arch=(any)
 url="https://github.com/ableton/link"
@@ -15,8 +15,6 @@ makedepends=(
   git
   jack
   portaudio
-  qt5-tools
-  qt5-quickcontrols
 )
 source=(
   $_name::git+$url#tag=Link-$pkgver
@@ -58,7 +56,6 @@ build() {
     -D CMAKE_INSTALL_PREFIX=/usr
     -D LINK_BUILD_ASIO=ON
     -D LINK_BUILD_JACK=ON
-    -D LINK_BUILD_QT_EXAMPLES=ON
     -S $_name
     -W no-dev
   )
