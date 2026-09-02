@@ -2,8 +2,8 @@
 # Maintainer: Colin Woodbury <colingw@gmail.com>
 
 pkgname=haskell-zlib
-pkgver=0.7.1.0
-pkgrel=26
+pkgver=0.7.1.1
+pkgrel=1
 pkgdesc="Compression and decompression in the gzip and zlib formats"
 url="https://hackage.haskell.org/package/zlib"
 license=('BSD-3-Clause')
@@ -11,12 +11,11 @@ arch=('x86_64')
 depends=('ghc-libs' 'zlib')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/zlib/${pkgver}/zlib-${pkgver}.tar.gz)
-sha512sums=('cc83b1550092ba45595873cb66ce4bd65b4ca372bf0461f2337de9fe1765d95dd8e27e2696ee1fdfd6dc58f0f81c499002492e461f00fc928b11ede98a928c81')
+sha512sums=('5e9a5336ca037bf98c913577c055f024cadb1769d37fd9b8e7200d8ae9b751632c83c3ed9ec5437da3caaf72488349b36c3ac374b76d1a6a5c1c9c1e64146cad')
 
 prepare() {
     cd zlib-$pkgver
     gen-setup
-    uusi -u tasty-quickcheck
 }
 
 build() {
