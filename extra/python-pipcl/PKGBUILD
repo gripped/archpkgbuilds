@@ -2,7 +2,7 @@
 
 pkgname=python-pipcl
 _pkgname=${pkgname#python-}
-pkgver=12
+pkgver=13
 pkgrel=1
 pkgdesc="Python packaging operations for use by a setup.py"
 url="https://github.com/ArtifexSoftware/pipcl"
@@ -12,7 +12,7 @@ depends=('python' 'python-packaging')
 makedepends=('python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('b0f5b04b6992fbd10d1517dcde9b4e12b20bafd42b32e3f180c73a08df2ea021')
+sha256sums=('0ab48438ed24860d874aa59e1d5e043e6c055a6e926ec424d75076f507e96770')
 
 build() {
 	cd "${_pkgname}-${pkgver}"
