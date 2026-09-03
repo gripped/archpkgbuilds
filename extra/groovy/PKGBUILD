@@ -6,7 +6,7 @@
 # Contributor: YongMing Zhang
 
 pkgname=groovy
-pkgver=5.0.8
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Programming language for the Java platform, inspired by Python, Ruby and Smalltalk'
 arch=(any)
@@ -18,9 +18,9 @@ optdepends=('groovy-docs: html and pdf documentation for Groovy')
 validpgpkeys=('34441E504A937F43EB0DAEF96A65176A0FB1CD0B') # Paul King <paulk@apache.org>
 source=("https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-$pkgname-binary-$pkgver.zip"
         "https://downloads.apache.org/groovy/$pkgver/distribution/apache-$pkgname-binary-$pkgver.zip.asc")
-sha256sums=('3b754e2ba201bcb8d31401a403a8b0a8e41c97de108eb1b49fc1e2b6e96b252b'
+sha256sums=('c0d709a36d95a5576e06c5d2163d86f747d0006b12b499d7c198943288102f40'
             'SKIP')
-b2sums=('c963c07e3dad35bf12733d04f975b15785c749006024cbb85b1fde3393c689a45f677dc3a05d6f5e5815445fd8c709dc85c4cf0250e4d871b496fd0c61aa38ca'
+b2sums=('0bbde3e25e5fefcb6a3901fa7cd4ac578307c64fdb89cba9712417de1773020095eea89d813dcd7e38d0567c4bb2354b3e86ef6dbe3d5b09ddadba5e8e6705b3'
         'SKIP')
 
 prepare() {
