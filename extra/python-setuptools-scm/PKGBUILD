@@ -3,7 +3,7 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@barrera.io>
 
 pkgname=python-setuptools-scm
-pkgver=10.2.1
+pkgver=10.2.2
 pkgrel=1
 pkgdesc='Handles managing your python package versions in scm metadata'
 arch=(any)
@@ -36,8 +36,8 @@ optdepends=(
   'python-rich: use rich as console log handler'
 )
 source=("$pkgname::git+$url.git#tag=setuptools-scm-v$pkgver")
-sha512sums=('470ffff539255cbe37b7ddfad6fdeccf02d9f6585d27d7f6250e5e0027b0cf4d0d4ac86d9769a19076c6eb519e548144508912485fe52693a23e127a082dfff8')
-b2sums=('a5efa9609594b52339a0428f147487e495d82dfb76e33fa29d18a87bbfce7162d39bd80de0d6a1215e682f9f417f35e465582060815160e979c783a9a5ddd3b9')
+sha512sums=('61e1b488d9c2af0b5c28501be4dd5b9e383f0baf07a1c27d83cc20c9af1f0ed92910ba661e7e597408b9c98a695e87c0814238382bbe16c94b3e3b0b3602c958')
+b2sums=('b53e406f84fa69bec7959394d8b5ca965fb56c9bfb26534368b14c0e7fb92e88d8146ef19bc4f86c6e678f306d37c775c5c3a7341bc4bf6020f15c18ae6996d9')
 
 build() {
   cd "$pkgname/setuptools-scm"
