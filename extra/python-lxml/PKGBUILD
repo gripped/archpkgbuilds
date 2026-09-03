@@ -5,7 +5,7 @@
 
 pkgbase=python-lxml
 pkgname=('python-lxml' 'python-lxml-docs')
-pkgver=6.1.2_1
+pkgver=6.1.3_1
 pkgrel=1
 pkgdesc="Python binding for the libxml2 and libxslt libraries"
 arch=('x86_64')
@@ -49,8 +49,8 @@ checkdepends=(
   'python-lxml-html-clean'
 )
 source=("$pkgbase::git+https://github.com/lxml/lxml#tag=lxml-${pkgver/_/-}")
-sha512sums=('f119e56a584dc39fe0c8ddd34a398a3f0d7f195fd9255b4ba2561983e1d8ba9f09d5da3f1b2f8d7c34cabe57a8acce1afa296789429dccbf37b908ffa0e4e897')
-b2sums=('da7c7d330871cd8dde174bf4b428347b6d5f835498f99a2dd3f2674f49260b5ef82a2fca14dbeb89a40f00ab697b2f92ce5199b8743f5e92f7a2ca18c6659d21')
+sha512sums=('e187b3f93abd1df76b513aa554fc9c7392ef1ee4f334c4a22322ac7e4c723eb82c1f7cddfe06354c678ee58d50dfdd997a6d757b20611ab339999d26ed0a88a4')
+b2sums=('f0be7875dcdd82ed0a8f0ffbadce65fd2bde0ef73c7176435b018e4127d0c5d37389726c04ee6af468210821a863f289f83fc79b0c1f728abcddde08c4ccf295')
 
 prepare() {
   cd "$pkgbase"
