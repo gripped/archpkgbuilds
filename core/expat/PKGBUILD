@@ -4,7 +4,7 @@
 # Contributor: Judd Vinet <jvinet@zeroflux.org>
 
 pkgname=expat
-pkgver=2.8.3
+pkgver=2.8.4
 pkgrel=1
 pkgdesc="An XML parser library"
 arch=(x86_64)
@@ -18,8 +18,8 @@ makedepends=(
 )
 provides=(libexpat.so)
 source=($pkgname::git+$_url?signed#tag=R_${pkgver//./_})
-sha512sums=('1764d048937fac5c6d08165a206dcb653e923e930135269ce28347f9c0126fa3a2a5b54053eb362a0fb9930fd3081fd13ca56a3cfa259a5927c99cfabb421029')
-b2sums=('ba99006d234d94dd293d6b14ceb2bc906a9c96e4b7b2b38539616fa9033ba5f3fd38daad2851818e66dd5310cf1db65b5583c6dbb4922a803c6d1c49d9e63f9e')
+sha512sums=('222c414b58301294f3577b574251df0275ddf233590cc94e474323198eb720b02e419ed17ba4509c34e69ee3b2a915fc23add8b967dd48e2845c71ee737544e0')
+b2sums=('ca96e51864d4088b9e3387f0aaeaa0c020f809daa52fd445c129ae1a66731648d5d6dff52298d7c0b0985af8998fb8e445e13e1e5b736423af8bb1834f8d77ee')
 validpgpkeys=(3176EF7DB2367F1FCA4F306B1F9B0E909AF37285) # Sebastian Pipping
 
 build() {
