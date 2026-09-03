@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langsmith
-pkgver=0.11.1
+pkgver=0.11.2
 pkgrel=1
 pkgdesc="Client library to connect to the LangSmith Observability and Evaluation Platform"
 arch=('any')
@@ -45,6 +45,7 @@ checkdepends=(
   'python-pytest-httpx'
   'python-pytest-rerunfailures'
   'python-pytest-retry'
+  'python-pytest-socket'
   'python-pytest-timeout'
   'python-rich'
   'python-vcrpy'
@@ -60,7 +61,7 @@ optdepends=(
   'python-opentelemetry-exporter-otlp-proto-http: OpenTelemetry export support'
 )
 source=("git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v$pkgver")
-sha512sums=('13d05ed37eb7832f261bdfa24cb4ff10b54b796518b8a27dc53be2ccd4c088fd512324cd739b641322b3910b04e2ee56ebe7a655cf2e9249c72bca4749f94449')
+sha512sums=('085aa2aba903e879c6730c39708f6889e8bc4cc288e230f1f118c1107a14ff103fd34400a5d2d14efca3da5bf41a851d11e0dd520a3a1076592977680538d9dc')
 
 prepare() {
   cd langsmith-sdk/python
@@ -80,7 +81,9 @@ check() {
 
   # Evaluation/integration tests use live services; external/wrapper tests need unpackaged optional stacks.
   # Prompt model round-trip cases need unpackaged langchain-anthropic/langchain-openai.
+  # Benchmarks need optional benchmarking stacks and are not package tests.
   PYTHONPATH="$PWD" pytest \
+    --ignore=bench \
     --ignore=tests/evaluation \
     --ignore=tests/external \
     --ignore=tests/integration_tests \
