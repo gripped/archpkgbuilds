@@ -1,20 +1,20 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=6.0.9
+pkgver=6.0.9.1
 pkgrel=1
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-grand-search"
 license=('GPL-3.0-or-later')
 # deepin-application-manager: org.deepin.dde.Application1.Manager :/
-depends=(deepin-anything deepin-application-manager deepin-service-manager deepin-shell taglib ffmpeg icu deepin-pdfium ffmpegthumbnailer lucene++
+depends=(deepin-anything deepin-application-manager deepin-service-manager deepin-util-dfm deepin-shell taglib ffmpeg icu deepin-pdfium ffmpegthumbnailer lucene++
          deepin-qt-dbus-factory dtk6core dtk6gui dtk6widget qt6-base qt6-5compat)
 makedepends=(git cmake deepin-desktop-base deepin-tray-loader ninja qt6-tools boost)
 groups=(deepin-extra)
 source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
          taglib-2.patch)
-sha512sums=('b68dbc73911e46e53dbabfb8560fe75731a7ff2c0ad5769c7d0c38283f9ef29615bff1c48eb10d35ec2cc819b386f726d7b293ef1f248238c943e77d8ee92834'
+sha512sums=('29fb93e5fed1c676c6eefc237893ccda6c62f64aa8332968693c1d2592d7d9086f8933d1c31e14c4fe454016bf55abfff44604d273f9b77320aa98812dc4334e'
             '8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0')
 
 prepare() {
@@ -30,7 +30,6 @@ prepare() {
     3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
   sed -i '/CMAKE_POLICY(SET CMP0054 OLD)/d; /CMAKE_POLICY(SET CMP0045 OLD)/d; /CMAKE_POLICY(SET CMP0042 OLD)/d; /CMAKE_POLICY(SET CMP0059 OLD)/d' \
     3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
-  sed -i '/^if(EXISTS LICENSE.txt)$/,/^endif()$/d' 3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
 
   patch -p1 -i ../taglib-2.patch
 
