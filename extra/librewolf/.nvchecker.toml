@@ -1,5 +1,15 @@
 [librewolf]
-source = "git"
-git = "https://codeberg.org/librewolf/source.git"
-from_pattern = "(.+)-(.+)"
-to_pattern = "\\1_\\2"
+source = "jq"
+url = "https://librewolf.dev/api/v1/repos/librewolf/source/tags"
+filter = '''
+  [
+    .[].name
+    | capture("^(?<major>\\d+)(\\.(?<minor>\\d+))?(\\.(?<patch>\\d+))?-(?<release>\\d+)$")
+    | .major = (.major | tonumber)
+    | .minor = (.minor // 0 | tonumber)
+    | .patch = (.patch // 0 | tonumber)
+    | .release = (.release | tonumber)
+  ]
+  | max_by(.major, .minor, .patch, .release)
+  | "\(.major).\(.minor).\(.patch)_\(.release)"
+'''
