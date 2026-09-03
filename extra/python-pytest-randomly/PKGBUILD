@@ -1,17 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-randomly
-pkgver=4.1.0
+pkgver=5.0.0
 pkgrel=1
 pkgdesc='Pytest plugin to randomly order tests and control random.seed'
 arch=('any')
 license=('MIT')
 url='https://github.com/pytest-dev/pytest-randomly'
 depends=('python-pytest')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+makedepends=('git' 'python-build' 'python-installer' 'python-uv-build')
 checkdepends=('python-factory-boy' 'python-faker' 'python-numpy' 'python-pytest-xdist')
 source=("git+https://github.com/pytest-dev/pytest-randomly.git#tag=$pkgver")
-sha512sums=('4f26a89017eba1fdb378291e3e4e99f1533e05a6674155b3fd2d5ae383242d7db2729d1e41d140559be275ab8653f3f14b98f39e9b076f423694ea5b2389f322')
+sha512sums=('e3dda448e7b42097c87e13d264c18779ba3024cac6f02415a56b6aaa67ad014d6fb8d30d596947e46f66f6daecd1f5d729bf30806004c9584e0ecd7d6c1d6987')
 
 build() {
   cd pytest-randomly
@@ -21,11 +21,12 @@ build() {
 check() {
   cd pytest-randomly
   python -m installer -d tmp_install dist/*.whl
-  # tests/test_pytest_randomly.py::test_model_bakery requires python-model-bakery which is not packaged
+  # tests/test_pytest_randomly.py::{test_model_bakery,test_polyfactory} require unpackaged test dependencies
   # tests/test_pytest_randomly.py::test_entrypoint_injection: TODO
   local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
   PYTHONPATH="$PWD/tmp_install/usr/lib/python${python_version}/site-packages" \
     pytest --deselect tests/test_pytest_randomly.py::test_model_bakery \
+           --deselect tests/test_pytest_randomly.py::test_polyfactory \
            --deselect tests/test_pytest_randomly.py::test_entrypoint_injection
 }
 
