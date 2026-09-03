@@ -4,7 +4,7 @@
 # Contributor: tobias [tobias [at] archlinux.org]
 
 pkgname=mutt
-pkgver=2.4.1
+pkgver=2.4.2
 pkgrel=1
 pkgdesc="Small but very powerful text-based mail client"
 arch=(x86_64)
@@ -39,8 +39,8 @@ optdepends=(
 )
 backup=(etc/$pkgname/Muttrc)
 source=("git+https://gitlab.com/muttmua/mutt.git#tag=mutt-${pkgver//./-}-rel?signed")
-sha512sums=('a88baf18dfac3cb67131470a929db31f77d5a7f1a61d12395879cc7248150a121d0f987ef105c7a5e4280be52694822c4f354da57ded6976caf6bf05a70d814d')
-b2sums=('528eeab0d11563c4443632cfe63df6fdfb7a98078eb63dfe003733497bc7b6bc50b11e112ec8335f3b83129a5014a0f58a333497cbf6d5225cf9489010868e2a')
+sha512sums=('c01a80430a97cde6ff0fa5680fdddb8ee1563b95b6c26812d002653efb0eb4f7d794da9bf246bb443c8882d3b8189fd8cd75461da6199387eccba2debb2a391b')
+b2sums=('22b083a899d0cc3ede6e061cc3dd0a21ddf581e061d840086be5ce1480f593c5453027f17ab885fa59fbf347b49d7eee4fae4c677be7e4adabd6d730617721d6')
 validpgpkeys=('8975A9B33AA37910385C5308ADEF768480316BDA') # Kevin J. McCarthy <kevin@8t8.us>
 
 prepare() {
