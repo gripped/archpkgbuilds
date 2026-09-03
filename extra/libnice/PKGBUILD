@@ -3,7 +3,7 @@
 # Contributor: William Díaz <wdiaz@archlinux.us>
 
 pkgname=libnice
-pkgver=0.1.23
+pkgver=0.1.24
 pkgrel=1
 pkgdesc="Nice: GLib ICE library"
 url="https://libnice.freedesktop.org/"
@@ -33,8 +33,8 @@ source=(
   "git+https://gitlab.freedesktop.org/libnice/libnice.git#tag=$pkgver"
   0001-Update-for-gupnp-igd-1.6.patch
 )
-b2sums=('bc7d0c8ba9f38081e36b523d2922642eba82d06d98de81f5b8ebd47a62f0af23b22c3892552696bcc32ac532a58f7a002da22c6b7bc066d8578f7798c0134376'
-        '2ebec9811d22447d8e9212184cbb0677439dcb131407d5a61ccef5752722e97c517ee80dec6ed7d2db4e25ff4688db6ab557de405b3d73934e8eb8fbff98c023')
+b2sums=('01391bca0d3fd3cf0b695d2bbefbf8b4eed988a12b847e86175e30fbe5046b3bb9a35bd7f9796c7ea001848207340b0306b40535566e9a28ae2ea25aa9420b3c'
+        '4ea554ffb9f0c54e4550c4882f3dcc14d7666f11bbd365441658e9558eed51b5dca4a5d328d8eb1d46d4fbba1607f3d403e42bfc871be10fb3e9c966ff7e78d3')
 
 prepare() {
   cd libnice
