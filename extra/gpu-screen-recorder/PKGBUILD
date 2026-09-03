@@ -2,7 +2,7 @@
 # Contributor: dec05eba <dec05eba@protonmail.com>
 
 pkgname=gpu-screen-recorder
-pkgver=6.0.2
+pkgver=6.1.0
 pkgrel=1
 pkgdesc='A shadowplay-like screen recorder for Linux. The fastest screen recorder for Linux'
 arch=('x86_64')
@@ -46,7 +46,7 @@ optdepends=(
     'linux-firmware-intel: Required to record your screen on Intel Skylake or later iGPUs'
 )
 source=(git+https://repo.dec05eba.com/gpu-screen-recorder#tag=$pkgver)
-sha512sums=('3c9b13162717d014612c899172d195588dc4b45e7ba40d3164be7eb1bc4679d6aacc45379b3c2bf6c09faeec54697eb32c11f8fbb0997e417af8362a92ce3a1f')
+sha512sums=('9521851495e85884a53d71351b3ebf30b8013d036846dbd3b427b49df0752c9e9afa952fdc0683c8fe791ef12ad294f92f1bb98de01b778f21fd4ab81980bd9b')
 
 build() {
   cd "$srcdir"/$pkgname
