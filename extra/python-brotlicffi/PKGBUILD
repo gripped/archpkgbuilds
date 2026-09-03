@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-brotlicffi
-pkgver=1.2.0.1
-pkgrel=4
+pkgver=1.2.0.2
+pkgrel=1
 pkgdesc='Python bindings to the Brotli compression library'
 arch=(x86_64)
 url=https://github.com/python-hyper/brotlicffi
@@ -21,7 +21,7 @@ makedepends=(
   python-wheel
 )
 source=(git+https://github.com/python-hyper/brotlicffi.git#tag=v${pkgver})
-b2sums=('a4a0d4b15ca550c8737cde99e28cdb9b5e4c86aaab5e718b54b0658b5b4e76ea5fa62adf22dea0aea2cc8efe27d2cb34ef2c250d26b85fdb487d6e7a757ed8ee')
+b2sums=('b2610f32fd804a4ab14b106695673bb4f278fed63931b59e3294c834dc1991b21a3525dd2ec6fdb60ce13b34b6b766d9e14e29e6bb9d32470e54ffac9be94e68')
 
 build() {
   cd brotlicffi
