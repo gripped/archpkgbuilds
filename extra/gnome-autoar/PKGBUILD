@@ -6,7 +6,7 @@ pkgname=(
   gnome-autoar
   gnome-autoar-docs
 )
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=1
 pkgdesc="Automatic archives creating and extracting library"
 url="https://gnome.pages.gitlab.gnome.org/gnome-autoar/"
@@ -27,7 +27,7 @@ makedepends=(
   vala
 )
 source=("git+https://gitlab.gnome.org/GNOME/gnome-autoar.git#tag=$pkgver")
-b2sums=('2759c402756ec3e58c93f6a41a8991fb2713f6026c5fde8937efc672ef7a4161c04fa612a81c3c45b5fbf568e4dfd55490f6d96f301aa3919172e27fb82ec2be')
+b2sums=('4c6565f97469b770f76b205b6482031f724ccbc0c7ed60f2e83571640ce8116190af47060043f1ce43d80930dc3a1c8b61d4503cdb94bfc6ec05218b016b3b61')
 
 prepare() {
   cd $pkgbase
