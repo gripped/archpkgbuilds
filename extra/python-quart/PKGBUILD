@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-quart
-pkgver=0.21.0
+pkgver=0.23.1
 pkgrel=1
 pkgdesc='A Python ASGI web microframework with the same API as Flask'
 url=https://github.com/pallets/quart
@@ -35,7 +35,7 @@ checkdepends=(
 )
 optdepends=('python-dotenv: support for .env files')
 source=(git+https://github.com/pallets/quart.git#tag=${pkgver})
-b2sums=('152371886f74ca1ea83ed01ed5a6866aa69736f1b94986830082f9a26233a89155f5ca0db2f066f9d535e6c99d250af12d3aa249940ebbdf59fde644d9dde613')
+b2sums=('cef60a1ba34131b5b3795ba22e0d62574787fa3e8d4682f7bf329ca42effd007642d8345b54c57e934472e023d86a1e7f10db875926ad60f3b4124db15cf50c1')
 
 prepare() {
   cd quart
