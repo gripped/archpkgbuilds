@@ -2,7 +2,7 @@
 
 pkgname=python-django-guardian
 _name="${pkgname#python-}"
-pkgver=3.3.3
+pkgver=3.4.0
 pkgrel=1
 pkgdesc="Per object permissions for Django"
 arch=(any)
@@ -27,8 +27,8 @@ checkdepends=(
   python-pytest-django
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('72624bec1836eb5f8f1d6205c226397cd707d9b521aee45371b2a88ab2e4a3e8e7208777d3f61f0302b8bf02468d34bde6610e7852ad041b28170ad621618642')
-b2sums=('bbad55aee5cda226d329559bb3c4e54c3e3af3d60f2f16c2de2bcc3b849287c82970afa8049a5b717d059589a3b71bb45536b23e975d9086a6fc66293a8974b0')
+sha512sums=('fa524a700cd086e07ce9e98ab5ac73c3f1e03337e53b7244439ac28deb25f80b376d1680e181826f65b38677f990c596bec9643167e17f7d8de449d47c37662c')
+b2sums=('9e1de01b072db657129b896be30b556f94cb59d963839f74bf9a6e99a3cdace7fdd01e43c9f93dde2bc7995c516a7312adc13883b204ad50f2e783ae6c5a166e')
 
 build() {
   cd $_name-$pkgver
