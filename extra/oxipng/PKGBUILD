@@ -2,7 +2,7 @@
 # Contributor: Nicolas F. <aur@fratti.ch>
 
 pkgname=oxipng
-pkgver=10.2.0
+pkgver=10.2.1
 pkgrel=1
 pkgdesc="A lossless PNG compression optimiser"
 arch=(x86_64)
@@ -12,7 +12,7 @@ depends=('libgcc' 'glibc')
 options=('!lto')
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/shssoichiro/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('0d0da5f245ed3a669bce63d3ca368d476bae67b0014a927c00df912c9d964a44')
+sha256sums=('460ccfcdcc9c3877b9f7fae1dfd4f2a3f93d3b2a2af3e3b62ca32b163f923cca')
 
 build() {
   cd "$pkgname-$pkgver"
