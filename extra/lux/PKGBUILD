@@ -2,7 +2,7 @@
 
 pkgbase=lux
 pkgname=(lux-cli lua-lux lua54-lux lua53-lux lua52-lux lua51-lux)
-pkgver=0.43.2
+pkgver=0.43.3
 pkgrel=1
 pkgdesc='A luxurious package manager for Lua'
 arch=(x86_64 aarch64)
@@ -24,7 +24,7 @@ makedepends=(cargo
              lua54{,-luarocks-build-rust-mlua})
 _archive="$pkgbase-$pkgver"
 source=("$_url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('5618f58d70a54158ecdd49cf216e0d9d2fa1a1c6283591d551ac5a84bd7df5f4')
+sha256sums=('43d22e17f55f3bc10caf34bd75d6200175efd24b9f0cdc707d5c2e36aa75ffa5')
 
 _srcenv() {
   cd "$_archive"
