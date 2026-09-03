@@ -1,6 +1,6 @@
 pkgbase = nginx-mainline
 	pkgdesc = Lightweight HTTP server and IMAP/POP3 proxy server, mainline release
-	pkgver = 1.31.4
+	pkgver = 1.31.5
 	pkgrel = 1
 	url = https://nginx.org
 	arch = x86_64
@@ -27,7 +27,7 @@ pkgbase = nginx-mainline
 	makedepends = pcre2
 	makedepends = rsync
 	makedepends = zlib
-	source = git+https://github.com/nginx/nginx.git#tag=release-1.31.4
+	source = git+https://github.com/nginx/nginx.git#tag=release-1.31.5
 	source = git+https://github.com/nginx/nginx-tests.git#commit=f150e3b6f30111246206dc2c24717d343010c607
 	source = nginx.service
 	source = logrotate
@@ -36,7 +36,7 @@ pkgbase = nginx-mainline
 	validpgpkeys = 43387825DDB1BB97EC36BA5D007C8D7C15D87369
 	validpgpkeys = D6786CE303D9A9022998DC6CC8464D549AF75C0A
 	validpgpkeys = 13C82A63B603576156E30A4EA0EA981B66B0D967
-	sha512sums = 6d91ecc461bb9ac0453cccc60615386d58355ac70d01d0c62dec67b105a3f7ab7661f39e238f790cab0e51cd918516cd9aecd9552d2933cfee73c6510110e150
+	sha512sums = f792b249b2cadf341adf1f5f23e289bfe9e9d769c5c630c7681d04ec1aecd4ce60d60691d13682318df9d7bfe4fbc5a6d77b5ad2458f3c7381cc7557ac3eb423
 	sha512sums = c175c6ebee041c53ff1f93c173b64ff306ea692d04a7f94b8bc9794cc1be2e4c46351a9bad859fac107bbdc53707b8af3eb0051fa5042317ce1e4545c0f773b1
 	sha512sums = f469b3b14def666e955abf6f2d3c68a47631cad7bee90c92039ffe5bf629aa7e32bb4250844d52c0f963740fb07bf7fea5f8887cc1d5199403f07be6214fcb8d
 	sha512sums = 2f4dfcfa711b8bcbc5918ba635f5e430ef7132e66276261ade62bb1cba016967432c8dce7f84352cb8b07dc7c6b18f09177aa3eb92c8e358b2a106c8ca142fe9
@@ -69,7 +69,7 @@ pkgname = nginx-mainline
 
 pkgname = nginx-mainline-mod-geoip
 	pkgdesc = GeoIP module for nginx-mainline
-	depends = nginx-mainline=1.31.4
+	depends = nginx-mainline=1.31.5
 	depends = glibc
 	depends = geoip
 	conflicts = nginx-mod-geoip
@@ -77,7 +77,7 @@ pkgname = nginx-mainline-mod-geoip
 
 pkgname = nginx-mainline-mod-image-filter
 	pkgdesc = Module for nginx-mainline that transforms images in JPEG, GIF, PNG, and WebP formats
-	depends = nginx-mainline=1.31.4
+	depends = nginx-mainline=1.31.5
 	depends = glibc
 	depends = gd
 	conflicts = nginx-mod-image-filter
@@ -85,14 +85,14 @@ pkgname = nginx-mainline-mod-image-filter
 
 pkgname = nginx-mainline-mod-mail
 	pkgdesc = Mail module for nginx-mainline to proxy IMAP, POP3 and SMTP protocols
-	depends = nginx-mainline=1.31.4
+	depends = nginx-mainline=1.31.5
 	depends = glibc
 	conflicts = nginx-mod-mail
 	backup = etc/nginx/modules.d/20-mail.conf
 
 pkgname = nginx-mainline-mod-perl
 	pkgdesc = Module for nginx-mainline to implement location and variable handlers in Perl
-	depends = nginx-mainline=1.31.4
+	depends = nginx-mainline=1.31.5
 	depends = glibc
 	depends = perl
 	conflicts = nginx-mod-perl
@@ -100,14 +100,14 @@ pkgname = nginx-mainline-mod-perl
 
 pkgname = nginx-mainline-mod-stream
 	pkgdesc = Module for nginx-mainline to proxy TCP and UDP data streams
-	depends = nginx-mainline=1.31.4
+	depends = nginx-mainline=1.31.5
 	depends = glibc
 	conflicts = nginx-mod-stream
 	backup = etc/nginx/modules.d/10-stream.conf
 
 pkgname = nginx-mainline-mod-xslt
 	pkgdesc = Module for nginx-mainline to transform XML responses with XSLT stylesheets
-	depends = nginx-mainline=1.31.4
+	depends = nginx-mainline=1.31.5
 	depends = glibc
 	depends = libxml2
 	depends = libxslt
@@ -115,7 +115,7 @@ pkgname = nginx-mainline-mod-xslt
 	backup = etc/nginx/modules.d/20-xslt.conf
 
 pkgname = nginx-mainline-src
-	pkgdesc = Source code of nginx-mainline 1.31.4, useful for building modules
+	pkgdesc = Source code of nginx-mainline 1.31.5, useful for building modules
 	depends = bash
 	depends = perl
 	conflicts = nginx-src

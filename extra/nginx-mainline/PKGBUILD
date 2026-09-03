@@ -16,7 +16,7 @@ pkgname=(
   nginx-mainline-mod-xslt
   nginx-mainline-src
 )
-pkgver=1.31.4
+pkgver=1.31.5
 pkgrel=1
 _tests_commit=f150e3b6f30111246206dc2c24717d343010c607
 arch=(x86_64)
@@ -63,7 +63,7 @@ validpgpkeys=(
   'D6786CE303D9A9022998DC6CC8464D549AF75C0A'  # Sergey Kandaurov <s.kandaurov@f5.com>
   '13C82A63B603576156E30A4EA0EA981B66B0D967'  # Konstantin Pavlov <thresh@nginx.com>
 )
-sha512sums=('6d91ecc461bb9ac0453cccc60615386d58355ac70d01d0c62dec67b105a3f7ab7661f39e238f790cab0e51cd918516cd9aecd9552d2933cfee73c6510110e150'
+sha512sums=('f792b249b2cadf341adf1f5f23e289bfe9e9d769c5c630c7681d04ec1aecd4ce60d60691d13682318df9d7bfe4fbc5a6d77b5ad2458f3c7381cc7557ac3eb423'
             'c175c6ebee041c53ff1f93c173b64ff306ea692d04a7f94b8bc9794cc1be2e4c46351a9bad859fac107bbdc53707b8af3eb0051fa5042317ce1e4545c0f773b1'
             'f469b3b14def666e955abf6f2d3c68a47631cad7bee90c92039ffe5bf629aa7e32bb4250844d52c0f963740fb07bf7fea5f8887cc1d5199403f07be6214fcb8d'
             '2f4dfcfa711b8bcbc5918ba635f5e430ef7132e66276261ade62bb1cba016967432c8dce7f84352cb8b07dc7c6b18f09177aa3eb92c8e358b2a106c8ca142fe9'
@@ -120,6 +120,7 @@ build() {
     --with-http_realip_module \
     --with-http_secure_link_module \
     --with-http_slice_module \
+    --with-http_json_module \
     --with-http_ssl_module \
     --with-http_stub_status_module \
     --with-http_sub_module \
