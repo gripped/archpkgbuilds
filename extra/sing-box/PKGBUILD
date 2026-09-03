@@ -3,9 +3,9 @@
 # Contributor: everyx <lunt.luo#gmail.com>
 
 pkgname=sing-box
-pkgver=1.13.21
+pkgver=1.14.0
 # Check the hash for `cronet-go` in `go.sum`, and visit the `go` branch of `SagerNet/cronet-go` to obtain the commit hash
-_cronet_commit_hash=7e27f60f7f04a1c762b6bb69b4a44d7b24cd7a5d
+_cronet_commit_hash=d9872d6dd0d39cc7e042d1199d736f16fc40cf8c
 pkgrel=1
 pkgdesc='The universal proxy platform'
 arch=('x86_64')
@@ -17,8 +17,8 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/SagerNet/sing-box/archi
         "0001-build-use-the-system-toolchain.patch"
         "0002-build-drop-unknown-clang-flag.patch"
         "https://github.com/chromium/chromium/raw/refs/tags/150.0.7871.63/tools/generate_shim_headers/generate_shim_headers.py")
-sha256sums=('c994018d7c2a8fc9fcf6080e4b9cc4f2f915e755342238b77e46fc0806fe96db'
-            '46501331925bc53f58ff5497fe0aa42f7e65ddcbd313b52cfd63755240f48c02'
+sha256sums=('87baf6852e37941cbe40bdd94bec81c957c88a56751cecd6bbf0e6108bc69398'
+            '74061e1f81b2fab9a996db6463eb1fa56447594502e650e748694f8ddc0526bc'
             'SKIP'
             '58c83e0ab0587a8bb020d98ee5cd787e32f692041824b2ae6b78812ec912c5a0'
             'b941918a0af49840bd929d16be947cc473b0c8b27a4ceab16da34e9b288a57dd'
@@ -115,7 +115,7 @@ build() {
 
     go build -v \
         -tags "${_TAGS}" \
-        -ldflags "-linkmode external -extldflags \"${CGO_LDFLAGS}\" -X github.com/sagernet/sing-box/constant.Version=${pkgver} ${_LDFLAGS_SHARED}" \
+        -ldflags "-linkmode external -X github.com/sagernet/sing-box/constant.Version=${pkgver} ${_LDFLAGS_SHARED}" \
         ./cmd/sing-box
 
     install -d completions
@@ -126,7 +126,12 @@ build() {
 
 check() {
     cd "${srcdir}/${pkgname}-${pkgver}"
-    go test ./...
+
+    local _TAGS=$(< release/DEFAULT_BUILD_TAGS)
+    readarray -t _test_pkgs < <(go list ./... | grep -v '/experimental')
+
+    # TestUnshareNamespace requires creating a network namespace, but is blocked by permission restrictions
+    go test -tags "${_TAGS}" -skip "TestUnshareNamespace" "${_test_pkgs[@]}"
 }
 
 package() {
