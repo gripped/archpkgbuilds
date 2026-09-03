@@ -4,7 +4,7 @@
 # Contributor: Francois Boulogne <fboulogne at april dot org>
 
 pkgname=python-joblib
-pkgver=1.5.3
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="Set of tools to provide lightweight pipelining in Python"
 arch=('any')
@@ -33,7 +33,7 @@ optdepends=(
   'python-psutil: to mitigate memory leaks in worker processes'
 )
 source=("https://github.com/joblib/joblib/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('b1ef74668dfa55c93285af5e827eb47c8a70c14aa910469df651d72493e02340d8bbb8b7391fa7a991d5475a2a3c1d72da79a3b89fef0a9b7a7baa5e4370384f')
+b2sums=('38ad1d8b871a8cb3ebc834c48f563a1eb872cf0bc7390c0822c7f865abba480d2f66e5ae4e769f35a4d6b005efb90afa8532ebf067a64641e4536926cfdbd978')
 
 build() {
   cd ${pkgname#python-}-${pkgver}
