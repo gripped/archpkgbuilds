@@ -4,16 +4,20 @@
 # Contributor: Ian Ker-Seymer <i.kerseymer@gmail.com>
 
 pkgname=neovim-qt
-pkgver=0.2.19
+pkgver=0.2.20
 pkgrel=1
 pkgdesc='GUI for Neovim'
 arch=(x86_64)
 url='https://github.com/equalsraf/neovim-qt'
 license=(ISC)
 depends=(hicolor-icon-theme neovim qt6-svg)
-makedepends=(cmake git)
+makedepends=(cmake git vulkan-headers)
 source=("git+$url#tag=v$pkgver")
-b2sums=('a67493143f809bfa698595483ceb025863b3412affed0f7847e01c608577e8740df1355390c8092144165c5e329eb19762a0ecef89effb827f5594b0e8d33992')
+b2sums=('e9f2bfc9d3a5fcb6524ae0b127e9eb57c6dae0efad83440bcdd9b84e76b9568f302e6e6dbdbac4da3205e27804c00dfba578aa36b872d8b8760004cd48cb59b9')
+
+prepare() {
+  sed -i 's/msgpack-c 6.0.0/msgpack-c 7.0.0/g' $pkgname/CMakeLists.txt
+}
 
 build() {
   cmake \
