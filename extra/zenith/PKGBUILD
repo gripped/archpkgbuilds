@@ -2,17 +2,19 @@
 # Contributor: Sergey A. <murlakatamenka@disroot.org>
 
 pkgname=zenith
-pkgver=0.15.0
+pkgver=0.15.1
 pkgrel=1
 pkgdesc="Terminal system monitor with histograms"
 arch=('x86_64')
 url="https://github.com/bvaisvil/zenith"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo' 'clang')
 optdepends=('nvidia-utils')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-sha256sums=('f92ed87b66f97b1f6c5863a62cc795ec877510dcd0284fba822ef5dc091b9355')
+sha256sums=('ffa3412c19e99f9ef691f86e4f9b1a342add2b0504bb3ea7f0b57daa17e4b731')
 
 prepare() {
   cd "$pkgname-$pkgver"
