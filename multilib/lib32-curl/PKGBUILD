@@ -7,12 +7,12 @@
 
 pkgbase=lib32-curl
 pkgname=(lib32-curl lib32-libcurl-compat lib32-libcurl-gnutls)
-pkgver=8.21.0
+pkgver=8.22.0
 pkgrel=1
 pkgdesc='command line tool and library for transferring data with URLs (32-bit)'
 arch=('x86_64')
 url='https://curl.se/'
-license=('MIT')
+license=('curl')
 makedepends=(
   # for building
   'git'
@@ -34,7 +34,7 @@ makedepends=(
   'lib32-zstd')
 validpgpkeys=('27EDEAF22F3ABCEB50DB9A125CC908FDB71E12C2') # Daniel Stenberg
 source=("git+https://github.com/curl/curl.git?signed#tag=curl-${pkgver//./_}")
-sha512sums=('ad8fb34ac0c61892d955eb9f339d1693612515e7747c5db621e1023e04edfa77b4b041ccc501718de610e576021b67253495e5c18578790d057ae3594962b2f6')
+sha512sums=('398cd510438960167f65fc7733b8a371808f17ba89809ed8dcce67cc5bcaa91a736d316a28ab95bef72ec5ec3e32705498a066bb6ac5e1d74d37ffeb68f4fe81')
 
 _backports=(
 )
