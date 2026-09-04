@@ -3,7 +3,7 @@
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=enchant
-pkgver=2.8.17
+pkgver=2.8.18
 pkgrel=1
 pkgdesc="A wrapper library for generic spell checking"
 url="https://rrthomas.github.io/enchant/"
@@ -38,7 +38,7 @@ source=(
   "git+https://git.savannah.gnu.org/git/gnulib.git"
   "git+https://github.com/gnulib-modules/bootstrap.git"
 )
-b2sums=('a75bea3b22a2762c5cf24c56f240d7106242095b81ef15861d4d8b0dc6b01f4354a30b5f41994bec3d9a5f6e0b8911bd022911cfc9010144c80462cbe2a4951f'
+b2sums=('f20d22705a19a8451e2148d8ede3b52dc60d6478d69d915b24ad2766eee73714eab42534e8cb182704d5993e7802e9483775ef73ecc507f874ec89cb831ccba3'
         'SKIP'
         'SKIP')
 
@@ -49,13 +49,6 @@ prepare() {
   git submodule set-url gnulib "$srcdir/gnulib"
   git submodule set-url gl-mod/bootstrap "$srcdir/bootstrap"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
-
-  # Fix invalid-argument handling with Vala 0.56.19:
-  # https://github.com/rrthomas/enchant/commit/9793d2ab80b4d213212fae3900ceca3719a9f1f0
-  git cherry-pick -n 9793d2ab80b4d213212fae3900ceca3719a9f1f0
-  # Remove the null-dictionary test made invalid by the same Vala fix:
-  # https://github.com/rrthomas/enchant/commit/45b801ccecff1aaee91df2762a7f7b1fa1a649e3
-  git cherry-pick -n 45b801ccecff1aaee91df2762a7f7b1fa1a649e3
 
   ./bootstrap
 }
