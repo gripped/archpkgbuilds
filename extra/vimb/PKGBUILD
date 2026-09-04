@@ -4,17 +4,25 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.info>
 
 pkgname=vimb
-pkgver=3.7.1
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='The vim like browser'
 arch=(x86_64)
 url=https://fanglingsu.github.io/vimb/
-license=(GPL3)
-depends=(webkit2gtk-4.1)
-makedepends=(git)
-_tag=448e7e2e66471b4cbfa8f373bb4bd7d7134cafaa
+license=(GPL-3.0-or-later)
+depends=(
+  glibc
+  glib2
+  gtk4
+  libsoup3
+  webkitgtk-6.0
+)
+makedepends=(
+  git
+)
+_tag=7679de36556c6519c37da915ec770fac7a9b841c
 source=(git+https://github.com/fanglingsu/vimb.git#tag=${_tag})
-b2sums=('545f2244f1bc18a5e875fe9009f2cce0ecd07cfb8d1f40538fad9ce60bcc5388511e6e0c89cbfb133c1fd6f209fe3516a237e9fe9eb2d2ed0217c6f7abba487b')
+b2sums=('8d69dc849545dd23254318fa456b1f2fdc8b5c332fa05d37aab64250aff0ff470be16dfa088fcbadae0bfe4bcb7eaf82e3d852176d60e23300203af83fbea213')
 
 pkgver() {
   cd vimb
