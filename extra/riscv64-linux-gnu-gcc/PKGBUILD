@@ -5,7 +5,8 @@
 
 _target=riscv64-linux-gnu
 pkgname=$_target-gcc
-pkgver=16.2.0
+pkgver=16.2.1
+_commit=d564253eb6c859e266d3cae18e82fb4db9a88316
 pkgrel=1
 pkgdesc='Cross compiler for 32-bit and 64-bit RISC-V'
 arch=('x86_64')
@@ -24,16 +25,13 @@ depends=(
   'zlib' 'libz.so'
   'zstd' 'libzstd.so'
 )
+makedepends=('git')
 options=(!emptydirs !strip  staticlibs !lto)
-source=("https://gcc.gnu.org/pub/gcc/releases/gcc-$pkgver/gcc-$pkgver.tar.xz")
-sha256sums=('e6738e29597f733270731aa90600f37ffdc045079dfc27ec7e8192cc81085c3e')
-b2sums=('ab3ffe16e042da767f3f1eac170da518d6d7de3b0f92e068f79e3bf25fdc0bdf56eea0cd586bd4b9b6e9baebadd110c2ebd77b75c99c45853814f4bea5a98ef0')
+source=("git+https://forge.sourceware.org/gcc/gcc#commit=$_commit")
+sha256sums=('c4def1816bc86f2bb981deb958a572ca63eb0ef784418f0414f1071a4efee44d')
+b2sums=('9733f0e36b567880de8a9deebab27502ae3407480d49b0fd920049ca95205523644f5cbde67dac7d50537c29582ab808fa5c228090f87e6afe253ba1d70d13f4')
 
-if [[ -n "$_snapshot" ]]; then
-  _basedir=gcc-$_snapshot
-else
-  _basedir=gcc-$pkgver
-fi
+_basedir=gcc
 
 prepare() {
   cd $_basedir
