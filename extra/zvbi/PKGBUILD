@@ -3,7 +3,7 @@
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=zvbi
-pkgver=0.2.44
+pkgver=0.2.45
 pkgrel=1
 pkgdesc='VBI capture and decoding library'
 url=http://zapping.sourceforge.net/cgi-bin/view/ZVBI/WebHome
@@ -14,15 +14,15 @@ depends=(
 )
 makedepends=(git)
 license=(
-  BSD
-  GPL2
-  LGPL2.1
+  GPL-2.0-or-later
+  GPL-2.0-only
+  LGPL-2.1-or-later
   MIT
 )
-_tag=5169a428d51c3ae8ff7b0897e8a687d8e05e37b5
+_tag=45138a87f86b683f9c3611793752ac08795d836f
 #source=(git+https://github.com/zapping-vbi/zvbi.git?signed#tag=${_tag})
 source=(git+https://github.com/zapping-vbi/zvbi.git#tag=${_tag})
-b2sums=('518476fa9dd0e924d1b560bd28b558d01692f55e09065b746fca208734c9bfd8a9a33e86810a1bb244c2297695c8ff3d1e587a0e6fe53afe110354cdae6e9fc4')
+b2sums=('feaad69f28c4e2e5db4d938933b848c1d7e39e470f47d857e76c01b637326febda6594dbd9a1bd6f59baff9262523e734bc76ebe224de0af0b2e62b5a526a493')
 validpgpkeys=(FA26CA784BE188927F22B99F6570EA01146F7354) # Ileana Dumitrescu <ileanadumitrescu95@gmail.com>
 
 prepare() {
