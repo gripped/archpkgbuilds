@@ -2,8 +2,8 @@
 # Contributor: François Charette <firmicus ατ gmx δοτ net>
 
 pkgname=perl-datetime
-pkgver=1.66
-pkgrel=2
+pkgver=1.67
+pkgrel=1
 pkgdesc="A complete, easy to use date and time object"
 arch=('x86_64')
 url="https://search.cpan.org/dist/DateTime"
@@ -17,7 +17,7 @@ LC_NUMERIC=C
 provides=("perl-datetime=`printf %.4f $pkgver`")
 options=('!emptydirs')
 source=(https://www.cpan.org/CPAN/authors/id/D/DR/DROLSKY/DateTime-$pkgver.tar.gz)
-sha512sums=('18e371dad068b1e13415bf00274e4a3f421e6afc53eca9dbe07f63b27e8b71a8f0466fa3fa9f91c3d4b66a6f6c8cb0541f15f9534148fe57dbb813283c58ebdb')
+sha512sums=('1bc68275a83ae62e69656fa15b93c5b8a9c62551f8bf62e9d36e487e6b33a769849253716b9f991fda374fc209cb0ae3e2356e7d2b3298a73c468966dc3b221c')
 
 build() {
   cd  "$srcdir"/DateTime-$pkgver
@@ -32,6 +32,4 @@ _perlver_max=$(perl -e '$v = $^V->{version}; print $v->[0].".".($v->[1]+1);')
 package() {
   cd  "$srcdir"/DateTime-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
