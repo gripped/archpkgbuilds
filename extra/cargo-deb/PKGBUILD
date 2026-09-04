@@ -2,7 +2,7 @@
 # Contributor: Sematre <sematre at gmx dot de>
  
 pkgname=cargo-deb
-pkgver=3.7.0
+pkgver=3.8.0
 pkgrel=1
 pkgdesc="Cargo subcommand that generates Debian packages"
 arch=('x86_64')
@@ -15,11 +15,11 @@ depends=(
   'xz' 'liblzma.so'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('92144d0805743582fcab64fe53b154ed1a97995830587bd7ab78ad29618211ca')
+sha256sums=('30e73f94b32fe6ba06fe5338e6095f0dfc22d7bb9daa16aea9c8af6fdca8b618')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
