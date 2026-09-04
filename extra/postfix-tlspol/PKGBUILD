@@ -1,8 +1,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=postfix-tlspol
-pkgver=1.13.0
-pkgrel=2
+pkgver=1.14.0
+pkgrel=1
 pkgdesc="Lightweight MTA-STS + DANE/TLSA resolver and TLS policy server for Postfix, prioritizing DANE"
 url="https://github.com/Zuplu/postfix-tlspol"
 arch=('x86_64')
@@ -15,7 +15,7 @@ backup=("etc/${pkgname}/config.yaml")
 install="${pkgname}.install"
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
         'systemd-socket.patch')
-sha256sums=('c1fc0f7d7d2e6f8f7e8fd64ac042a98b6355dc373bfbbd1a73f1c0bb7fe87590'
+sha256sums=('3717a233b594af1fbab80df9fc2e442802c82e180c4e6f3b8a4fa5836624c352'
             '3aa785e60670a6b80235b8f8e110eb3353063862b78c6c96f9609b383498d11f')
 
 prepare(){
