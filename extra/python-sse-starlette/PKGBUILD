@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-sse-starlette
-pkgver=3.4.8
+pkgver=3.4.9
 pkgrel=1
 pkgdesc="SSE plugin for Starlette"
 arch=(any)
@@ -22,6 +22,7 @@ makedepends=(
 checkdepends=(
   python-asgi-lifespan
   python-httpx
+  python-httpx2
   python-portend
   python-psutil
   python-pytest
@@ -30,7 +31,7 @@ checkdepends=(
   uvicorn
 )
 source=("git+https://github.com/sysid/sse-starlette.git#tag=v$pkgver")
-b2sums=('4dff2b7dca0db4bdc89a449770fe88eb2f9ed7502be3774e8f1159c15988f943f384f09a52fc963762be51604b66b724b5d63b650a8887ed1c5957618387936d')
+b2sums=('9cdbd41b7b9e4528b739cad918b89ad6e63f8172f1e2026a2843b296e425100d2099822acec75624de3887c5e4dce8d4dfd7902e7bdd94c8e160dce82120ad10')
 
 build() {
   cd sse-starlette
