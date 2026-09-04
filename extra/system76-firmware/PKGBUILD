@@ -3,8 +3,8 @@
 # Contributor: Corey Hinshaw <corey@electrickite.org>
 
 pkgname=system76-firmware
-pkgver=1.0.76
-pkgrel=2
+pkgver=1.0.78
+pkgrel=1
 pkgdesc='System76 Firmware Tool and Daemon'
 arch=(x86_64)
 url=https://github.com/pop-os/system76-firmware
@@ -27,7 +27,7 @@ makedepends=(
 provides=(system76-firmware-daemon)
 conflicts=(system76-firmware-daemon)
 source=(git+https://github.com/pop-os/system76-firmware.git#tag=${pkgver})
-b2sums=('d3c0f62ca7a267126f5b9fd81737fc827c6e40f0cad6cbc145368bec864ea0cbfce2e271401d0c5b72c9d385eb818be9c843ea65ae3fdc3c0b040ccc107cd9a2')
+b2sums=('0db420cabe35b3a32bd1b08553820f8c085d905375115e376d5350d058acca8b2acbb7355ceb9c1e6027d63de91c9a249877e6405bde7fe8251e3e93af9b35c1')
 
 prepare() {
   cd system76-firmware
@@ -44,5 +44,3 @@ package() {
   cd system76-firmware
   make DESTDIR="${pkgdir}" install
 }
-
-# vim: ts=2 sw=2 et:
