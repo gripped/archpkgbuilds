@@ -2,16 +2,19 @@
 
 pkgname=pantheon-terminal
 pkgver=8.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Terminal Emulator'
 arch=(x86_64)
 url=https://github.com/elementary/terminal
 license=(GPL-3.0-only)
 depends=(
+  dconf
   glib2
+  glibc
+  granite7
   gtk4
-  libadwaita-1.so
-  libgranite-7.so
+  libadwaita
+  libgee
   pango
   vte4
 )
@@ -35,5 +38,3 @@ build() {
 package() {
   DESTDIR="${pkgdir}" ninja -C build install
 }
-
-# vim: ts=2 sw=2 et:
