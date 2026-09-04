@@ -2,8 +2,8 @@
 # Contributor: TZ86
 
 pkgname=vivaldi
-_rpmversion=8.1.4087.75-1
-pkgver=8.1.4087.75
+_rpmversion=8.2.4133.45-1
+pkgver=8.2.4133.45
 pkgrel=1
 pkgdesc='An advanced browser made with the power user in mind.'
 url="https://vivaldi.com"
@@ -45,8 +45,8 @@ source_x86_64=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversio
 source_aarch64=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversion}.aarch64.rpm")
 source=('0001-add-support-for-user-flags.patch')
 sha512sums=('a9bdab0fb0f394af17d1b126bae2d0cdc55e63eaa6eaf36eb994735047d3d7bc5000d75ab930f74b76b283c5addefbd4e4e63c5e4f2908bd53c270e73641c19d')
-sha512sums_x86_64=('0cc59ac9f6c01950f38568b4674715e611659d1ce02973b2575775dda6ccd37eb0a21ff8864f21e8ab9ad3a5ba0ed67291d96cd054f5127389f1bb196b4af44c')
-sha512sums_aarch64=('fd6c5636cf348b8cc8dcaefebeb657c36c1c95ab0437dc50c6632d828fe10a5269a584b566233c270053012e0ccaa1bb074e3cd068757de7a8529556f3c470ae')
+sha512sums_x86_64=('aead47a872fae3ad034ba49485c3e4067f6a4f4ef3cf49448bcc9a76f85fdf34c9486d904ef286320b87176a4c4879fefba918aa4a32054d8091552e6efca6f9')
+sha512sums_aarch64=('e730a43d5fd8af4704141dbf840229d22726ef08f8881d4f1d0e382124acfa5342b11d676e6151e1fd4c4b6fcdaa1fae52be3fe836520138ddf130fd1a1f3698')
 
 package() {
     cp --parents -a {opt,usr/bin,usr/share} "$pkgdir"
