@@ -5,12 +5,12 @@
 
 pkgname=python-joblib
 pkgver=1.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Set of tools to provide lightweight pipelining in Python"
 arch=('any')
 url="https://joblib.readthedocs.io/"
 license=('BSD-3-Clause')
-depends=('python')
+depends=('python' 'python-cloudpickle')
 makedepends=(
   'python-build'
   'python-installer'
