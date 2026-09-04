@@ -2,7 +2,7 @@
 
 pkgname=python-anyio
 # https://github.com/agronholm/anyio/blob/master/docs/versionhistory.rst
-pkgver=4.14.2
+pkgver=4.15.0
 pkgrel=1
 pkgdesc='High level compatibility layer for multiple asynchronous event loop implementations'
 arch=(any)
@@ -20,7 +20,7 @@ optdepends=(
   'python-pytest: pytest plugin'
 )
 source=("git+https://github.com/agronholm/anyio.git#tag=$pkgver")
-sha256sums=('8e78edcec4737d9e0aae5ba91663028f990c59b1f9c7810c861b0911f3a02ce3')
+sha256sums=('688c88c5af84b9d9e2eb4efa17227bc9073210d71da09754bfe954779f4e0542')
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
@@ -29,6 +29,12 @@ prepare() {
 
   # Remove "error" from pytest filterwarnings
   sed -i '/"error"/d' pyproject.toml
+
+  # pytest 9 validates native TOML types for pytest-timeout settings.
+  sed -i 's/timeout = "20"/timeout = 20.0/' pyproject.toml
+
+  # 3 seconds is too short for nested pytest subprocesses on riscv64 builders.
+  sed -i 's/timeout=3)/timeout=30)/g' tests/test_pytest_plugin.py
 }
 
 build() {
