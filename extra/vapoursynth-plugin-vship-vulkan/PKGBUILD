@@ -2,8 +2,8 @@
 # Contributor: CreamSodass <greatvaluecreamsoda@gmail.com>
 
 pkgname=vapoursynth-plugin-vship-vulkan
-pkgrel=1
-pkgver=5.1.0
+pkgrel=2
+pkgver=5.1.1
 pkgdesc='Vship Vapoursynth Plugin'
 arch=(x86_64)
 url=https://codeberg.org/Line-fr/Vship
@@ -20,14 +20,20 @@ makedepends=(
   git
   vulkan-headers
 )
-provides=(vapoursynth-plugin-vship)
-conflicts=(vapoursynth-plugin-vship)
+provides=(
+  libvship
+  vapoursynth-plugin-vship
+)
+conflicts=(
+  libvship
+  vapoursynth-plugin-vship
+)
 source=(git+https://codeberg.org/Line-fr/Vship.git#tag=v${pkgver})
-b2sums=('5cc68fd8bc8a9f52009d83bf4d9f401ec1f0f352be93d431d0fbf953f5e03d97003d45fd063f1d1366c5abc376fc11f43b69b8387133e8b31b79c8c70efd7b9b')
+b2sums=('663f0f07f1b2a37e6a0b50c768fb3af4936202babc37a1cb9177384549416633e5347232618edb39f1bead53d8d9820859a1089682b9d113dace12d07ce4f415')
 
 build() {
   cd Vship
-  make buildVulkan
+  make build BACKEND=Vulkan CXX=clang++
 }
 
 package(){
