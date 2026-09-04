@@ -3,16 +3,22 @@
 # Contributor: Luis Martinez <luis dot martinez at tuta dot io>
 
 pkgname=termscp
-pkgver=1.1.1
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="A feature rich terminal UI file transfer and explorer"
 arch=('x86_64')
 url="https://github.com/veeso/termscp"
 license=('MIT')
-depends=('gcc-libs' 'zlib' 'openssl' 'dbus' 'smbclient')
+depends=(
+  'libgcc'
+  'zlib'
+  'openssl'
+  'dbus'
+  'smbclient'
+)
 makedepends=('cargo' 'git')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('bab4afd9b150fd72589ab8b65920b452acf687b1605c5962222630ead4332683db41c059346ce59ebd2b5ddb5d6d63d129b9b0d9a3565c78ad6385c678bb92a1')
+sha512sums=('3cc9cc071b9aba8421a17a39336ba42c03435a3d8e2408555160470738d92adafc0d2baab2226c1b360c278ab9dd0db7120a40807d7ccaa65f2e894826b2eec0')
 options=('!lto')
 
 prepare() {
@@ -24,11 +30,13 @@ build() {
   cd "$pkgname"
   # `termscp -v` will show "makepkg" branch without this
   export VERGEN_GIT_BRANCH=main
+  export OPENSSL_NO_VENDOR=1
   cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname"
+  export OPENSSL_NO_VENDOR=1
   cargo test --frozen -- \
     --skip system::environment::tests::test_system_environment_get_config_dir_err \
     --skip system::keys::keyringstorage::tests::test_system_keys_keyringstorage \
