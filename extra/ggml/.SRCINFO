@@ -1,24 +1,17 @@
 pkgbase = ggml
 	pkgdesc = Tensor library for machine learning
-	pkgver = 0.21.0
-	pkgrel = 1
+	pkgver = 0.22.0
+	pkgrel = 2
 	url = https://github.com/ggerganov/ggml
+	arch = aarch64
 	arch = x86_64
 	license = MIT
 	makedepends = chrpath
 	makedepends = cmake
-	makedepends = cuda
 	makedepends = git
-	makedepends = intel-oneapi-toolkit
-	makedepends = level-zero-headers
-	makedepends = nccl
 	makedepends = ninja
 	makedepends = openblas
-	makedepends = opencl-clhpp
-	makedepends = openvino
 	makedepends = procps-ng
-	makedepends = rocm-hip-sdk
-	makedepends = rocm-toolchain
 	makedepends = shaderc
 	makedepends = spirv-headers
 	makedepends = vulkan-headers
@@ -26,8 +19,16 @@ pkgbase = ggml
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
-	source = git+https://github.com/ggml-org/ggml.git#tag=v0.21.0
-	b2sums = 4547902bff8b2b5152ca79b582c81f11ab2a6ffb5be32567f68b35c611865fa046bb12642ae9cd132c137ef2b45479d3a05a0bd06216c4f7b1f44e61568a8cf8
+	source = git+https://github.com/ggml-org/ggml.git#tag=v0.22.0
+	b2sums = 8feb976772c9a02a198a4754db3562e929ca243fe51b7f92847d7c70f8d330c59919a42fdb34b0faa6533297c0bda992fde36bfcb4296d93f631f048606d1ac8
+	makedepends_x86_64 = cuda
+	makedepends_x86_64 = intel-oneapi-toolkit
+	makedepends_x86_64 = level-zero-headers
+	makedepends_x86_64 = nccl
+	makedepends_x86_64 = opencl-clhpp
+	makedepends_x86_64 = openvino
+	makedepends_x86_64 = rocm-hip-sdk
+	makedepends_x86_64 = rocm-toolchain
 
 pkgname = ggml
 	depends = glibc
@@ -35,11 +36,14 @@ pkgname = ggml
 	depends = libstdc++
 	depends = libgomp
 	optdepends = ggml-blas: BLAS backend
-	optdepends = ggml-cpu: CPU backend
-	optdepends = ggml-cuda: CUDA backend
-	optdepends = ggml-openvino: Openvino backend
-	optdepends = ggml-hip: HIP backend
 	optdepends = ggml-vulkan: Vulkan backend
+	provides = ggml
+	provides = ggml-cpu
+	conflicts = ggml
+	conflicts = ggml-cpu
+	optdepends_x86_64 = ggml-cuda: CUDA backend
+	optdepends_x86_64 = ggml-hip: HIP backend
+	optdepends_x86_64 = ggml-openvino: Openvino backend
 
 pkgname = ggml-blas
 	depends = glibc
@@ -48,9 +52,8 @@ pkgname = ggml-blas
 	depends = ggml
 	depends = openblas
 
-pkgname = ggml-cpu
-
 pkgname = ggml-cuda
+	arch = x86_64
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
@@ -59,15 +62,18 @@ pkgname = ggml-cuda
 	depends = nccl
 
 pkgname = ggml-hip
+	arch = x86_64
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
 	depends = ggml
 	depends = hipblas
+	depends = hip-runtime-amd
 	depends = rocblas
 	depends = rocm-hip-runtime
 
 pkgname = ggml-openvino
+	arch = x86_64
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
@@ -77,6 +83,7 @@ pkgname = ggml-openvino
 	depends = openvino
 
 pkgname = ggml-sycl
+	arch = x86_64
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
