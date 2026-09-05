@@ -4,7 +4,7 @@
 # Contributor: fnord0 <fnord0 AT riseup DOT net>
 
 pkgname=yara
-pkgver=4.5.7
+pkgver=4.5.8
 pkgrel=1
 pkgdesc='Tool aimed at helping malware researchers to identify and classify malware samples'
 url='https://github.com/VirusTotal/yara'
@@ -22,8 +22,8 @@ provides=(
 source=(
   "https://github.com/VirusTotal/yara/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
 )
-sha512sums=('ff53b0606fa947a9ab882c1e4c610586c28b8383873c4ee589e380e7478229e5ef11572650884dbcd8e487061f744e2e0ce70807bc9d8685e2cb4f781301a05b')
-b2sums=('dcfc043416cbeb5c4306fd684288eefbd0297b5b88332d7196402d9a73fcc69c91f394003b4c955492736d9e062da2302ed332551ce65f2e45bb83ac90a1f06e')
+sha512sums=('12bbe1bebb6d51f7ae90ad6a725bdb096f3e884b757913e9ba37bfa1557bced32ef56895eb358af5f3165890336be57dc51e9fe2ad672c1e523cb30e00483c86')
+b2sums=('2e842921aa757d6c592e8eaa2d69cca5d8d8f054b4624ba97b6ac5edd9f56789aa6ad5e64f5ab50986731a42d922dfb2510aa8d6b8676f4cfade3d76bc1aa177')
 
 prepare() {
   cd $pkgname-$pkgver
