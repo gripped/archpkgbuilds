@@ -2,7 +2,7 @@
 # Contributor: Lorenzo Gaifas <brisvag at gmail dot com>
 
 pkgname=python-superqt
-pkgver=0.8.1
+pkgver=0.8.2
 pkgrel=1
 pkgdesc='Missing widgets and components for Qt-python'
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
   python-pyqt6
 )
 source=("git+https://github.com/pyapp-kit/superqt#tag=v$pkgver")
-b2sums=('be09e12ff0fab3a8bcc55d57ffdaf760f9d002ee0fe80441e0eddaea73bd89cb7bf125e1a2505f5942e3e45aeef4cfd5ed7f9da097e4f3a08a7a1d9be1af24a0')
+b2sums=('8cee74416fea1af4eb0c33c36e62543e376afab4ec3df61be55af5ba565e90e24819794fdaa21a982236b063430bf70d6a2063f0370fd49eae5e061c72b5af5e')
 
 build() {
   cd ${pkgname#python-}
