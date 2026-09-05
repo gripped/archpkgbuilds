@@ -2,7 +2,7 @@
 # Contributor: Florian Pritz <bluewind@xinu.at>
 
 pkgname=python-ansi2html
-pkgver=1.9.3
+pkgver=1.9.4
 pkgrel=1
 pkgdesc='Convert text with ANSI colour codes to HTML'
 arch=(any)
@@ -19,8 +19,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('50becd7117bc22df106974d46b42e6c04d440fa3265224fe81debd6e0208f7c00d706e803fedbd1227e2f7a13ec6f4594ebcb0e899a2e1e676ebf11ef2864a8b')
-b2sums=('632c3d2ebe4aa1efd9c581af325c802dc4758e37b6633d596a762ed85dd2361ca1c64bec32cd18c0e07fa0d431be31a663522d421de46c684a99f18d41e0e026')
+sha512sums=('65cb84414941da498ad5a2c08e2ff2de6ed4ec9c0aedb9053de0e3fe132d3e5ad45632d4a1285fdfc117effb415cffd03b943167cd32d4b7bf7bba1a8f8fc75f')
+b2sums=('487beb7ab4f85f77bbf44944347f75624c74e78cb92a10313bc61823cae8fa6a45acd56d747b43a129aa8327b5df4fdb224fe230c89a0d962b38afea3b752995')
 
 build() {
   cd "$pkgname"
