@@ -2,12 +2,13 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=python-jsonrpclib-pelix
-pkgver=0.4.3.3
-pkgrel=3
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="A Python JSON-RPC over HTTP that mirrors xmlrpclib syntax"
 arch=(any)
 depends=(python)
 makedepends=(
+  git
   python-build
   python-installer
   python-setuptools
@@ -15,15 +16,15 @@ makedepends=(
 )
 url="https://github.com/tcalmant/jsonrpclib"
 license=('Apache-2.0')
-source=(https://pypi.io/packages/source/j/jsonrpclib-pelix/jsonrpclib-pelix-$pkgver.tar.gz)
-sha256sums=('c494fe7100b1139b1311469c28bc32d1cb92e4ff1f4511fb71d6807205dc3773')
+source=(git+https://github.com/tcalmant/jsonrpclib#tag=v$pkgver)
+sha256sums=('c12ed44a66a209160173550195f0cd159f315c683179a95a8074e984da5b81d5')
 
 build() {
-  cd jsonrpclib-pelix-$pkgver
+  cd jsonrpclib
   python -m build --wheel --no-isolation
 }
 
 package() {
-  cd jsonrpclib-pelix-$pkgver
+  cd jsonrpclib
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
