@@ -3,12 +3,12 @@
 _pkgbasename=libcups
 pkgname=lib32-$_pkgbasename
 pkgver=2.4.19
-pkgrel=1
+pkgrel=2
 pkgdesc="The CUPS Printing System - client libraries (32-bit)"
 arch=('x86_64')
 license=('Apache-2.0 WITH LLVM-exception AND BSD-3-Clause AND Zlib AND BSD-2-Clause')
 url="https://www.cups.org/"
-depends=(lib32-krb5 lib32-libtiff lib32-libpng lib32-gnutls $_pkgbasename)
+depends=(lib32-zlib lib32-gnutls $_pkgbasename lib32-gcc-libs lib32-glibc)
 source=(https://github.com/OpenPrinting/cups/releases/download/v${pkgver}/cups-${pkgver}-source.tar.gz{,.sig}
         cups-freebind.patch
         guid.patch
@@ -34,11 +34,17 @@ build() {
   # The build system uses only DSOFLAGS but not LDFLAGS to build some libraries.
   export DSOFLAGS=${LDFLAGS}
 
-  ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-     --disable-ldap --enable-raw-printing --disable-gssapi --disable-dbus \
-     --enable-ssl=yes--enable-threads --enable-libusb=no \
-	 --with-dnssd=no \
-     --with-optim="$CFLAGS" --libdir=/usr/lib32
+  ./configure --prefix=/usr \
+     --sysconfdir=/etc \
+     --localstatedir=/var \
+     --libdir=/usr/lib32 \
+     --enable-raw-printing \
+     --disable-dbus \
+     --with-tls=gnutls \
+     --enable-libusb=no \
+     --with-dnssd=no \
+     --enable-relro \
+     --with-optim="$CFLAGS" #--help
   make libs
 }
 
