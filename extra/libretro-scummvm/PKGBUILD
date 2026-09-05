@@ -2,7 +2,7 @@
 # Contributor: Oliver Jaksch <arch-aur@com-in.de>
 
 pkgname=libretro-scummvm
-pkgver=20260504.232922.g660e13b0764f
+pkgver=20260826.133028.g825fea130aba
 pkgrel=1
 pkgdesc='ScummVM core'
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(
 makedepends=(git)
 options=(!lto)
 source=(libretro-scummvm::git+https://github.com/libretro/scummvm.git#commit=${pkgver##*.g})
-b2sums=('3d89abc55a7a58173c2e59891fc59342ad81d87cd840e7cc6d2d46d9e40ef4e1fda92b501edf739b869e36db6782348f38e4ccb83eeff2e1ec3be7c82d46df18')
+b2sums=('c36229271b7b94cf2d67412575825d2d50d58edd64c061bc470c5cbd518b2a435fb5ce5023696bef50ec764cd56c4eb36f448c6b3db74912be87179a9d194c36')
 
 build() {
   make -C libretro-scummvm/backends/platform/libretro
