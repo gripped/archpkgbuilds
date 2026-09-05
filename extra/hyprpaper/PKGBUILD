@@ -1,9 +1,10 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 # Contributor: ThatOneCalculator <kainoa@t1c.dev>
+# Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=hyprpaper
 pkgver=0.8.4
-pkgrel=6
+pkgrel=8
 pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -15,11 +16,11 @@ depends=(file libmagic.so
          hyprlang libhyprlang.so
          hyprtoolkit libhyprtoolkit.so
          hyprutils libhyprutils.so
-         hyprwayland-scanner
          hyprwire libhyprwire.so
          libglvnd libGLESv2.so
          wayland) # libwayland-cursor.so libwayland-client.so
 makedepends=(cmake
+             hyprwayland-scanner
              wayland-protocols
              xorgproto)
 _archive="$pkgname-$pkgver"
