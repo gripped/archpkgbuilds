@@ -3,11 +3,11 @@
 
 pkgname=python-pdftotext
 _name=${pkgname#python-}
-pkgver=2.2.2
-pkgrel=12
+pkgver=4.0.0
+pkgrel=1
 pkgdesc='Simple PDF text extraction'
 arch=('x86_64')
-url=https://github.com/jalan/pdftotext
+url='https://sr.ht/~jalan/pdftotext/'
 license=('MIT')
 depends=('poppler' 'python')
 makedepends=(
@@ -17,14 +17,8 @@ makedepends=(
   'python-setuptools'
   'python-wheel'
 )
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('f7e6735e37b9b0395ed6fd50b7138903a7d1120049d6bc0c7f1511acbd0c9150c82aaf704e37b92d85504ec4c532c1829de1d3a4d774b94846b7c69f4fa32f13')
-
-prepare() {
-  cd "$_name"
-  # Stop using the deprecated pkg_resources
-  git cherry-pick -n a48f24f5fdbe3877e13ebca66ed002cabb4b5968
-}
+source=("git+https://git.sr.ht/~jalan/pdftotext#tag=v$pkgver")
+b2sums=('36030371b4d94a399a06e043a9d45315672b54bb0b89a44c06a508b236be7c10ba32f5c6b3aef66689b6f8f65b15697bba7e31c9d495c3aacccbbbaed9203956')
 
 build() {
   cd "$_name"
