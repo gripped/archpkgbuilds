@@ -1,8 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=hyprlock
 pkgver=0.9.6
-pkgrel=2
+pkgrel=3
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -14,7 +15,6 @@ depends=(cairo # libcairo.so
          hyprgraphics libhyprgraphics.so
          hyprlang libhyprlang.so
          hyprutils libhyprutils.so
-         hyprwayland-scanner
          libdrm # libdrm.so
          libglvnd libEGL.so
          libxkbcommon libxkbcommon.so
@@ -23,7 +23,8 @@ depends=(cairo # libcairo.so
          sdbus-cpp libsdbus-c++.so
          wayland libwayland-client.so libwayland-egl.so
          wayland-protocols)
-makedepends=(cmake)
+makedepends=(cmake
+             hyprwayland-scanner)
 backup=("etc/pam.d/$pkgname")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
