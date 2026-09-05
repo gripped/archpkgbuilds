@@ -1,7 +1,7 @@
 # Maintainer:
 
 pkgname=anari-sdk
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='ANARI Software Development Kit (SDK)'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(glibc
 makedepends=(cmake
              git)
 source=(git+https://github.com/KhronosGroup/ANARI-SDK#tag=v$pkgver)
-sha256sums=('c565c005b39bf1d78f2666ac5912ba14c2475d71f71ea8c2fff46b96a588050e')
+sha256sums=('cabd884e761c79bc9c14f8153bc9044849ba0dc7277c05ddc39e9d925324349e')
 
 build() {
   cmake -B build -S ANARI-SDK \
