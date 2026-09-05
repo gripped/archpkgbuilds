@@ -1,13 +1,13 @@
 pkgbase = dms-shell
 	pkgdesc = A Quickshell-based desktop shell with Material 3 design principles
-	pkgver = 1.5.3
-	pkgrel = 1
+	pkgver = 1.6.0
+	pkgrel = 2
 	url = https://github.com/AvengeMedia/DankMaterialShell
 	arch = x86_64
 	arch = aarch64
 	license = MIT
+	makedepends = git
 	makedepends = go
-	depends = dgop
 	depends = accountsservice
 	depends = quickshell
 	optdepends = cava: Audio visualizer
@@ -22,11 +22,12 @@ pkgbase = dms-shell
 	optdepends = systemd: Required for network managementa via systemd-networkd
 	optdepends = wtype: Paste from clipboard history and plugins
 	replaces = dms-shell-bin
-	source = https://github.com/AvengeMedia/DankMaterialShell/archive/v1.5.3/DankMaterialShell-1.5.3.tar.gz
-	sha256sums = 2d665870f7019700fb38d59d043202e298e1aad1d3f1cb96360a75acbd3be9ca
+	source = git+https://github.com/AvengeMedia/DankMaterialShell.git#tag=v1.6.0
+	source = git+https://github.com/AvengeMedia/dank-qml-common
+	sha256sums = 51186d2a9af990b4640c6b0d9298ba54a1fe16becd14c527243980438eae844a
+	sha256sums = SKIP
 
 pkgname = dms-shell
-	depends = dgop
 	depends = accountsservice
 	depends = quickshell
 	depends = dms-shell-compositor
