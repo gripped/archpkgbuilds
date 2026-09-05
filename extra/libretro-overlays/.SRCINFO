@@ -1,12 +1,15 @@
 pkgbase = libretro-overlays
 	pkgdesc = Collection of overlays for libretro
 	pkgver = 20260624.142726.gd89fb7f05d65
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/libretro/common-overlays
 	arch = any
 	groups = libretro
 	license = CC-BY-4.0
 	makedepends = git
+	depends = bash
+	depends = python
+	depends = python-pillow
 	source = libretro-overlays::git+https://github.com/libretro/common-overlays.git#commit=d89fb7f05d65
 	b2sums = f1016d8a4d11fbb096aa6d204af265ffb7eb98e6371b0d35e08c25f044a28750920817680303a74b49ac4f2ae3648213949740d94d2234d16e073659c00d7853
 
