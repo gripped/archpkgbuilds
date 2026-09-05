@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=opencloud-desktop
-pkgver=3.0.3
-pkgrel=3
+pkgver=4.0.0
+pkgrel=1
 pkgdesc='The OpenCloud desktop application'
 arch=(x86_64)
 url='https://github.com/opencloud-eu/desktop'
@@ -29,8 +29,8 @@ makedepends=(
   qt6-tools
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('8090acbbcb51c8fe4adbd14cab1ee59a19b9081148539d62050675b85b6567d3233ea22e4d250f05005b7ced62ed2d02fe1885666af382bc3445ff5c197a749c')
-b2sums=('90db613ee1a7fd9b973f26f8eca101aed0a65c4a85a2e022bbdeb5f776273aec622568bdedc4c6f195c3e244575e6aad8fe2e1f695c0fee70d2e13f371fed5f0')
+sha512sums=('8e04969dca1b9d3d4bcda0a1d3980842fb8bb93059c238f5cee8dd2513f8db275f5eae11b7c62fef1402d4862a103764bf6d55f5d851583b991e8071602ac1e7')
+b2sums=('7b4f00b9f92629af6f92b9d1e6608a6d91eae396af382bb44e4bf036d6f6d0e46388993cd4983662d234f58ab32d42c76f992400a3f515bae60255bb33073f84')
 
 build() {
   local cmake_options=(
