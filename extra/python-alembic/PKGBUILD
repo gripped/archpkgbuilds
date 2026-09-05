@@ -3,7 +3,7 @@
 # Contributor: Oliver Mangold <o.mangold at gmail dot com>
 
 pkgname=python-alembic
-pkgver=1.19.1
+pkgver=1.19.2
 pkgrel=1
 pkgdesc='Lightweight database migration tool for usage with SQLAlchemy'
 url='https://github.com/sqlalchemy/alembic'
@@ -29,8 +29,8 @@ checkdepends=(
 source=(
   git+https://github.com/sqlalchemy/alembic.git#tag=rel_${pkgver//./_}
 )
-sha512sums=('3b314e315cecccd26d460f9251fb77132faa95eb1b5659709371e8b95e4cef4c5b0f00b93c222cc68b2dffabf3b26980b9f68d06a20c64e6d2e0fb86929331e5')
-b2sums=('a83a0e965a55dea8449d1d3d00e92552317544c24d788732042d2d9abf7b05153416f341e38eb0a02d5336344213c04ca876400520d60f5d040cc9ecda18093d')
+sha512sums=('09871d36b914cbc7e4a07ec79236b97f6df33377edf14ca14cea31f2616f7bc2c7bf84c4ac2ca366eef1e4f0f55761676a2c57611eb639f9e2372ceb4365f91f')
+b2sums=('9641ff73bcae9aefdaeec037f0dc7918f79ebf5d43cd1e0adba961f60955bdaa4c599f237080f1592c360e48b3846e6397df0f29cc1508434f885bde2d4c4d36')
 
 build() {
   cd alembic
