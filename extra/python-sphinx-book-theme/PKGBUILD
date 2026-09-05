@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-sphinx-book-theme
-pkgver=1.2.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc='A clean book theme for scientific explanations and documentation with Sphinx'
 arch=('any')
@@ -25,7 +25,7 @@ checkdepends=(
   'python-pytest-regressions'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('fc958965095fd68b4d7d5efcfec9820cf8e465685d864605ec90005aef597a26f0b047336dbbfe4442b396f65c3549067d098743e4e628e1a2cf8d6a9ab5b640')
+b2sums=('504ab2f81ffeea61d8c0d7ff0ad2c7959024debd022e41531d082e3c5019f1dbe64cbb540c81d1db87afd9889a1ac0898ed2b5a7884e9df85dc045754711167b')
 
 build() {
   cd ${pkgname#python-}-$pkgver
