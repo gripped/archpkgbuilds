@@ -1,9 +1,10 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Jeremy Gust <jeremy AT plasticsoup DOT net>
+# Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=hyprpicker
 pkgver=0.4.7
-pkgrel=3
+pkgrel=4
 pkgdesc="A wlroots-compatible Wayland color picker that does not suck"
 arch=(x86_64)
 url="https://github.com/hyprwm/hyprpicker"
@@ -12,7 +13,6 @@ depends=(
   cairo
   glibc
   hyprutils
-  hyprwayland-scanner
   libgcc
   libstdc++
   libxkbcommon
@@ -20,6 +20,7 @@ depends=(
 )
 makedepends=(
   cmake
+  hyprwayland-scanner
   libglvnd
   libjpeg-turbo
   ninja
