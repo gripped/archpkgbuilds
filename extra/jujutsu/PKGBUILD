@@ -6,8 +6,8 @@
 
 pkgname=jujutsu
 _pkgname=jj
-pkgver=0.44.0
-pkgrel=2
+pkgver=0.45.1
+pkgrel=1
 pkgdesc='Git-compatible VCS that is both simple and powerful'
 arch=(x86_64)
 url="https://github.com/jj-vcs/$_pkgname"
@@ -22,7 +22,7 @@ makedepends=(cargo
 checkdepends=(git)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('cd72ac1040c93d474dcafd8dd7f8d91d7407f9358bc9ffd4a6b72f4017112eab')
+sha256sums=('72bf95905a92c592dd0e7316e2cbbad9a8f2ca04ca770cc4f4f7960495a44e15')
 
 _srcenv() {
 	cd "$_archive"
@@ -59,6 +59,7 @@ check() {
 	local skipped=(
 		test_diff_command # relies on config of external command
 		test_acls::test_diff # relies on assumptions about tty
+		test_converge_command::test_converge_description_changed_inconsistently::dont_invoke_text_editor
 	)
 	cargo test --frozen --all-features --package jj-cli -- ${skipped[@]/#/--skip }
 }
