@@ -8,7 +8,7 @@
 # Note: source array can be synced with an Electron release after updating $pkgver with:
 # bash -c 'source PKGBUILD; _update_sources'
 
-pkgver=43.5.1
+pkgver=43.6.0
 _gcc_patches=150
 pkgrel=1
 _major_ver=${pkgver%%.*}
@@ -84,7 +84,7 @@ source=("git+https://github.com/electron/electron.git#tag=v$pkgver"
         # BEGIN managed sources
         chromium-mirror::git+https://github.com/chromium/chromium.git#tag=150.0.7871.250
         chromium-mirror_third_party_nan::git+https://github.com/nodejs/nan.git#commit=675cefebca42410733da8a454c8d9391fcebfbc2
-        chromium-mirror_third_party_electron_node::git+https://github.com/nodejs/node.git#tag=v24.19.0
+        chromium-mirror_third_party_electron_node::git+https://github.com/nodejs/node.git#tag=v24.20.0
         chromium-mirror_third_party_engflow-reclient-configs::git+https://github.com/EngFlow/reclient-configs.git#commit=955335c30a752e9ef7bff375baab5e0819b6c00d
         chromium-mirror_third_party_clang-format_script::git+https://chromium.googlesource.com/external/github.com/llvm/llvm-project/clang/tools/clang-format.git#commit=6eddfb5ec5f92127a531eda66c568d3a11e7ec11
         chromium-mirror_third_party_compiler-rt_src::git+https://chromium.googlesource.com/external/github.com/llvm/llvm-project/compiler-rt.git#commit=03641f7a5b05e48e318d64369057db577cafc594
@@ -244,7 +244,7 @@ source=("git+https://github.com/electron/electron.git#tag=v$pkgver"
         chromium-mirror_third_party_openscreen_src_third_party_tinycbor_src::git+https://chromium.googlesource.com/external/github.com/intel/tinycbor.git#commit=d393c16f3eb30d0c47e6f9d92db62272f0ec4dc7
         # END managed sources
         )
-sha256sums=('35d8db1d20144f4142fad51da56abbff6ef1aeeb4b61878b534a125d131093e2'
+sha256sums=('b8ce86447358d5026fe538ebb0a37c76621ad98a826ade6bdedc8de740f22c30'
             'e39d6e826b50c7527b6cb24791a6dc444ea8018e627ecb74f71b39ce13a13887'
             '11a96ffa21448ec4c63dd5c8d6795a1998d8e5cd5a689d91aea4d2bdd13fb06e'
             '4fc040a0656a0a524dd8ad090cd129fc5b6cb21adcc66be82080165789e8c13e'
@@ -266,7 +266,7 @@ sha256sums=('35d8db1d20144f4142fad51da56abbff6ef1aeeb4b61878b534a125d131093e2'
             'fa773f8b8a51898da717ecf43759c441e1a73eeff134ba477a6e814d9caa146c'
             'fc709513a7328279961f5c42d0e90a5e60ff08eedd588a9f7d52e4cdd7e85b5e'
             '609bc1e61871d917be64ed793584119e0414761a5d577af21abaf4e4f1474f09'
-            'c652d60a32a5781cc60d059208b3a3be8c2dc7a5319d0ae41b2708919c452cac'
+            '563a49be99edabe83c9cc7f251ac18fe6324a2dc8fd17923a9999628f84675b1'
             '3522166c3ca75316a172b7cc4fe12bba9367e30fed16df8193ede2e236dca8c5'
             'd3002f2181df31573edabf05e16ac1dc9fbd68ba3a52388d1b37578c280bda9f'
             'cc938efccc5cc4416243edd13a1db6d9fab26aea7fb8dc6eedd72e4dd8c5ca8e'
