@@ -1,9 +1,10 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=xdg-desktop-portal-hyprland
 pkgver=1.4.1
 _protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
-pkgrel=1
+pkgrel=2
 pkgdesc='xdg-desktop-portal backend for hyprland'
 url="https://github.com/hyprwm/$pkgname"
 arch=(x86_64)
@@ -15,7 +16,6 @@ depends=(
          glibc
          hyprlang libhyprlang.so
          hyprutils libhyprutils.so
-         hyprwayland-scanner
          libinih
          pipewire
          qt6-base
@@ -25,6 +25,7 @@ depends=(
 )
 makedepends=(cmake
              hyprland-protocols
+             hyprwayland-scanner
              wayland
              wayland-protocols)
 optdepends=('grim: required for the screenshot portal to function'
