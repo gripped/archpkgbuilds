@@ -2,7 +2,7 @@
 
 pkgname=elektroid
 pkgver=3.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Sample & MIDI device manager'
 arch=(x86_64 aarch64)
 url='https://github.com/dagargo/elektroid'
@@ -43,4 +43,8 @@ package() {
   cd "$pkgname"
 
   DESTDIR="$pkgdir" make install
+
+  # documentation
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/docs/images" docs/images/screenshot.png
 }
