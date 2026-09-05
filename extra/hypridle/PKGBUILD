@@ -1,8 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=hypridle
 pkgver=0.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc='hyprland’s idle daemon'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -11,12 +12,12 @@ depends=(libgcc # libgcc_s.so
          'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
          hyprlang libhyprlang.so
-         hyprwayland-scanner
          sdbus-cpp libsdbus-c++.so
          wayland libwayland-client.so
          wayland-protocols)
 makedepends=(cmake
-             hyprland-protocols)
+             hyprland-protocols
+             hyprwayland-scanner)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
 sha256sums=('08703613cc33cc796c2179bcaa6076e8618113f67b938daaf7535f90c7d39595')
