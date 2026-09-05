@@ -11,7 +11,7 @@
 # c.f. https://gitlab.archlinux.org/archlinux/packaging/packages/swig/-/issues/2
 
 pkgname=swig
-pkgver=4.5.0
+pkgver=4.5.1
 pkgrel=1
 pkgdesc="Generate scripting interfaces to C/C++ code"
 arch=('x86_64')
@@ -32,7 +32,7 @@ depends=(
 checkdepends=('ruby' 'python' 'java-environment' 'tcl' 'php' 'lua' 'r' 'go' 'boost')
 makedepends=('git')
 source=(git+https://github.com/swig/swig#tag=v$pkgver)
-sha512sums=('847b78883be86688237f5f50725a490b23ac334a22cf05a01dc9809f6ef2354bd41e54414a6149d22391458afd20151c4b82dcfd6df8a5fcf08280dcf83d66b7')
+sha512sums=('e9e2d78c5c4029852b3258b29686be6ef8ebc56188a6fe3f3aeeb2b596300f0cb65f4a0fc9e957f73e54a5af5090f1246f4fc35149d42396c4d0a276d343836e')
 
 prepare() {
   sed -n '5,32p' $pkgname/LICENSE-UNIVERSITIES > LicenseRef-BSD-Utah-California.txt
