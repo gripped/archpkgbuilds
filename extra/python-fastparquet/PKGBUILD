@@ -2,7 +2,7 @@
 # Contributor: Guillaume Horel <guillaume.horel@gmail.com>
 
 pkgname=python-fastparquet
-pkgver=2026.3.0
+pkgver=2026.5.0
 pkgrel=1
 pkgdesc="A Python implementation of the Parquet columnar file format"
 arch=(x86_64)
@@ -27,8 +27,15 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-pytest)
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('b45cbff2bf3f3f09da6105d0c424fdc8ac5de8788b010d54df61eea6d49ad5268135f46e7e9fa71683ebc9b2ae60b74d3c6b975a013c14ea13d8dfa8dd808091')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
+         https://github.com/dask/fastparquet/commit/fb5634c2aac83a22011a8d06c05899bc68774fa8.patch)
+b2sums=('92831c9b857ba966db43f10f583a68bba1e23d1c5200fbf44397bb0e1a4806700f49fda93ef4be00a57c068ebe9f1eb8b8d10d576b5d363912398e7c96d7c85b'
+        '855b813d563cc314468dddcdf950c0b3e8c33b1def0981c67b365c5369795cfd96fb6584cebc200ee2ddf9ea3d7a71dc9013f8de802ec860023489fa693e1a6c')
+
+prepare() {
+  cd ${pkgname#python-}-$pkgver
+  patch -p1 -i ../fb5634c2aac83a22011a8d06c05899bc68774fa8.patch # NumPy 2.5
+}
 
 build() {
   cd ${pkgname#python-}-$pkgver
