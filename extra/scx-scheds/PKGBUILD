@@ -5,7 +5,7 @@
 pkgname=scx-scheds
 _gitname=scx
 pkgver=1.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc='sched_ext schedulers and tools'
 url='https://github.com/sched-ext/scx'
 arch=('x86_64')
@@ -37,6 +37,10 @@ sha256sums=('282b4a9365fc2635ba554ee46f6decbe78f1d06340a8dee3f1573931e8a3973a')
 
 prepare() {
   cd $_gitname
+
+  # Fix migration-disabled task stalls in LAVD (upstream PR #3748).
+  git cherry-pick --no-commit 6d31ddd8973333e95ae7e3584e84029533064d69
+
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 build() {
