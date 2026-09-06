@@ -373,19 +373,22 @@ index 4bacf1fb..60f07ed8 100644
      m_shortcutViewProcess = new QProcess(this);
      m_config = LibConfigSetter::instance();
      imageFileWatcher = ImageFileWatcher::instance();
-@@ -411,30 +409,6 @@ bool FileControl::isCanDelete(const QString &path)
+@@ -411,34 +409,6 @@ bool FileControl::isCanDelete(const QString &path)
      return bRet;
  }
  
 -void FileControl::ocrImage(const QString &path, int index)
 -{
+-    qCDebug(logImageViewer) << "Starting OCR for image:" << path << "index:" << index;
 -    QString localPath = QUrl(path).toLocalFile();
 -    // 此处借用已取得的缓存信息，一般状态下，调用OCR前已完成图像的加载
 -    ImageInfo info(path);
 -
--    if (Types::MultiImage != info.type()) {  // 非多页图使用路径直接进行识别
+-    if (Types::MultiImage != info.type()) {   // 非多页图使用路径直接进行识别
+-        qCDebug(logImageViewer) << "Processing single page image for OCR";
 -        m_ocrInterface->openFile(localPath);
--    } else {  // 多页图需要确定识别哪一页
+-    } else {   // 多页图需要确定识别哪一页
+-        qCDebug(logImageViewer) << "Processing multi-page image for OCR, page:" << index;
 -        QImageReader imageReader(localPath);
 -        imageReader.jumpToImage(index);
 -        auto image = imageReader.read();
@@ -397,6 +400,7 @@ index 4bacf1fb..60f07ed8 100644
 -        auto tempFileName = tempDir + QDir::separator() + "rec.png";
 -
 -        image.save(tempFileName);
+-        qCDebug(logImageViewer) << "Saved temporary image for OCR:" << tempFileName;
 -        m_ocrInterface->openFile(tempFileName);
 -    }
 -}
