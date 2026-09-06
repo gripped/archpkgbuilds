@@ -1,24 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-rapidjson
-pkgver=1.23
-pkgrel=2
+pkgver=1.24
+pkgrel=1
 pkgdesc="Python wrapper around rapidjson"
 arch=('x86_64')
 url="https://pypi.python.org/pypi/python-rapidjson"
 license=('MIT')
 depends=('python')
-makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel' 'rapidjson')
-checkdepends=('python-pytest' 'python-pytest-benchmark' 'python-pytz')
+makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+checkdepends=('python-pytest' 'python-pytz')
+# The sdist includes the upstream-pinned RapidJSON headers.
 source=("https://pypi.io/packages/source/p/python-rapidjson/python_rapidjson-$pkgver.tar.gz")
-sha512sums=('bab2f89b3e586dd5d88b9c457bd8ecf3ea14c2f6e637d980ed89cf83e23f5702ae30f0dc1ce5a1ea92e9b3e78a9dbc0faf43d6698a84f34a889d2fc4a61802f5')
-
-prepare() {
-  #rm -r python-rapidjson-$pkgver/rapidjson
-  #sed -i 's/if not os.path.isdir/if os.path.isdir/' python-rapidjson-$pkgver/setup.py
-  # Shared rapidjson fails tests.
-  :
-}
+sha512sums=('3d27b53b5f000c3bae659d3f4213dfbc59d01aaa557fe318b256bc4986afceb5f0c8d539c4510ad9c7334a1745e698e223de307eb14d4f5365d39e02a77434ac')
 
 build() {
   cd python_rapidjson-$pkgver
@@ -28,6 +22,7 @@ build() {
 check() {
   cd python_rapidjson-$pkgver
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
+  # Benchmarks compare optional JSON implementations and are not correctness tests.
   PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" pytest --ignore benchmarks/
 }
 
