@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libglacierapp
-pkgver=1.2.5
+pkgver=1.2.6
 pkgrel=1
 pkgdesc="Glacier Application library"
 arch=('x86_64')
@@ -10,15 +10,7 @@ license=('LGPL-2.0-or-later')
 depends=('glibc' 'libgcc' 'libstdc++' 'qt6-base' 'qt6-declarative')
 makedepends=('git' 'cmake')
 source=("git+https://github.com/nemomobile-ux/libglacierapp.git#tag=$pkgver")
-sha512sums=('2a56967d5638e5c0ecd325ebf1894c1bdce5a800b6430bc30615a9f61788667f2965faa35b502d461b366667a8bd65addf438b15ae1ec352e394c94a264251a8')
-
-prepare(){
-  cd $pkgname
-
-  # Add missing Qt DBus CMake wiring for QDBusConnection usage.
-  sed -i 's/Core Gui Qml Quick REQUIRED/Core Gui Qml Quick DBus REQUIRED/g' CMakeLists.txt src/CMakeLists.txt
-  sed -i '/Qt6::Quick/a \    Qt6::DBus' src/CMakeLists.txt
-}
+sha512sums=('8260e91fe6a391b4e9f98279336da31cbde89941bcb9e039e90b8aa49a20286fcb9f3081d6f8995b66b190e896eadcf36028d982cd1587fd1b375d7b5b5d36b2')
 
 build(){
   cd $pkgname
