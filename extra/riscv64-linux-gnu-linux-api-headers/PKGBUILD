@@ -4,7 +4,7 @@
 _target_arch=riscv
 _target=riscv64-linux-gnu
 pkgname=$_target-linux-api-headers
-pkgver=7.1
+pkgver=7.2
 pkgrel=1
 pkgdesc="Kernel headers sanitized for use in userspace ($_target)"
 arch=(any)
@@ -12,9 +12,9 @@ url='https://www.kernel.org'
 license=(GPL-2.0-only)
 makedepends=('rsync')
 source=(https://www.kernel.org/pub/linux/kernel/v${pkgver:0:1}.x/linux-$pkgver.tar.{xz,sign})
-sha256sums=('691f44797fbe790dc8a321604c927087526ad27b6d649925d60f8eed0a2564a0'
+sha256sums=('f9fef3d14c0df53819026f4be74459835c2a0b0dcbf5b5bbd9ea19f0829402b3'
             'SKIP')
-b2sums=('5199b2057fd1b89f0275bdaff9d81035cf5e1e8e64318a4a67467399245628a0f8c5e82f9d80dfc54b094349a8cfcdc892b7a4ad4bdf5dd1daa268ff30c1cf38'
+b2sums=('cf5f3d87b96f223034c47c6e5fc972fe52c2556310eb2f064632537b8727231135a8540179fd5d51343738c8a51f51f09c7e8da374324b68551c84a4124bb71b'
         'SKIP')
 validpgpkeys=(
   'ABAF11C65A2970B130ABE3C479BE3E4300411886'  # Linus Torvalds
