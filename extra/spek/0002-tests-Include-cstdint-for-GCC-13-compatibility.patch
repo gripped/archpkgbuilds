@@ -1,0 +1,29 @@
+From b4bc56a09f367bc05ec2b38dd849430c320867de Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Sat, 5 Sep 2026 16:56:02 +0800
+Subject: [PATCH] tests: Include <cstdint> for GCC 13+ compatibility
+
+GCC 13 cleaned up transitive inclusions of standard library headers.
+As a result, <cstdint> is no longer implicitly included, causing
+build failures in tests/perf.cc due to undeclared integer types.
+
+This patch explicitly includes the required header.
+---
+ tests/perf.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/tests/perf.cc b/tests/perf.cc
+index aa85eb2..b5d0c26 100644
+--- a/tests/perf.cc
++++ b/tests/perf.cc
+@@ -2,6 +2,7 @@
+ #include <cstdlib>
+ #include <iostream>
+ #include <fstream>
++#include <cstdint>
+ 
+ const char *SAMPLE_FILE = SAMPLES_DIR "/perf.wav";
+ const int SAMPLE_RATE = 44100;
+-- 
+2.55.0
+
