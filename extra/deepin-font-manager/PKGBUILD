@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-font-manager
-pkgver=6.5.32
+pkgver=6.5.33
 pkgrel=1
 pkgdesc='A font management tool for Deepin desktop'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('git' 'cmake' 'deepin-file-manager' 'ninja' 'qt6-tools' 'clang')
 optdepends=('deepin-file-manager: font preview in file manager')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-font-manager.git#tag=$pkgver")
-sha512sums=('457c54da87f43fa9c680b48c6d9e617afcf9f06835436b3ac4bd20a55babe76dc95d3b015aca9f246473599da8ac81dce6ac59b7fbb0d6f73cdb61901c455819')
+sha512sums=('bed65cc4047f18cc53c560f971485749af0f01c2c24a12f604927c8b92ecb93bfdaed9ba1fcfc0e760a477e28b473ef129a8c81b37e24fab225ae4ca4aebfab7')
 
 prepare() {
   cd deepin-font-manager
@@ -28,7 +28,7 @@ prepare() {
 
 build() {
   cd deepin-font-manager
-  cmake -GNinja . -DPLUGIN_INSTALL_DIR=  -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -GNinja . -DCMAKE_INSTALL_PREFIX=/usr
   ninja
 }
 
