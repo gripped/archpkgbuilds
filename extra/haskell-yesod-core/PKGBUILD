@@ -3,8 +3,8 @@
 
 _hkgname=yesod-core
 pkgname=haskell-yesod-core
-pkgver=1.6.28.0
-pkgrel=48
+pkgver=1.6.28.1
+pkgrel=1
 pkgdesc="Creation of type-safe, RESTful web applications."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -18,9 +18,10 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec-aeson' 'haskell-auto-upd
          'haskell-unix-compat' 'haskell-unliftio' 'haskell-unordered-containers' 'haskell-vector'
          'haskell-wai' 'haskell-wai-extra' 'haskell-wai-logger' 'haskell-warp' 'haskell-word8')
 makedepends=('ghc' 'haskell-hunit' 'haskell-async' 'haskell-hspec'
-             'haskell-hspec-expectations' 'haskell-network' 'haskell-streaming-commons')
+             'haskell-hspec-expectations' 'haskell-network' 'haskell-streaming-commons'
+             'haskell-th-abstraction')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('d260bb636490b5497fb31f9e2846c47a82e25002a37c7524cbebbb227b13a251e65ef60ae27f7ad5a6a34d2d5a8dbf03af6ff37bfc94095f44072bc5213376dc')
+sha512sums=('311e0a5781b32d6db5f3871cc8027710902d49943fe66ad58b67056eb0a8612c8be4e8ae6d5ccc5fefeb917c98af64a08afe9172254b357e5d560a786086c6dd')
 
 build() {
     cd $_hkgname-$pkgver
