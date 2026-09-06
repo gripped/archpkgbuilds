@@ -4,14 +4,14 @@ shopt -s extglob
 
 pkgbase=unicode-cldr
 pkgname=(unicode-cldr unicode-cldr-annotations)
-pkgver=48.1
+pkgver=48.2
 pkgrel=1
 pkgdesc="Unicode Common Locale Data Repository"
 arch=('any')
 url="http://cldr.unicode.org/"
 license=('Unicode-3.0')
 source=("https://unicode.org/Public/cldr/$pkgver/cldr-common-$pkgver.zip")
-sha512sums=('6727fb2c130b0b1c13067b8f1c5292b6ebe87f03c1a4449fc84490f405e249fabf3a283f2a8e428086e7e840975c94bce2aaa300cbaa42c64dac3219696c14f0')
+sha512sums=('de8660f5371e0fcfd03a42e3b4fc4c686ec6cd602b402f1e3d227844005a54eb7952873894443523837d5828c42874a1a267a19f91ded207a2d166144791fa62')
 
 package_unicode-cldr-annotations() {
   pkgdesc="Unicode Common Locale Data Repository (annotations only)"
