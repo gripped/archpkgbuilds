@@ -1,7 +1,7 @@
 pkgbase = sing-box
 	pkgdesc = The universal proxy platform
 	pkgver = 1.14.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://sing-box.sagernet.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -27,12 +27,14 @@ pkgbase = sing-box
 	source = git+https://github.com/SagerNet/naiveproxy.git#branch=cronet-go
 	source = 0001-build-use-the-system-toolchain.patch
 	source = 0002-build-drop-unknown-clang-flag.patch
+	source = 0003-Fix-h2mux-with-Go-1.27.patch
 	source = https://github.com/chromium/chromium/raw/refs/tags/150.0.7871.63/tools/generate_shim_headers/generate_shim_headers.py
 	sha256sums = 87baf6852e37941cbe40bdd94bec81c957c88a56751cecd6bbf0e6108bc69398
 	sha256sums = 74061e1f81b2fab9a996db6463eb1fa56447594502e650e748694f8ddc0526bc
 	sha256sums = SKIP
 	sha256sums = 58c83e0ab0587a8bb020d98ee5cd787e32f692041824b2ae6b78812ec912c5a0
 	sha256sums = b941918a0af49840bd929d16be947cc473b0c8b27a4ceab16da34e9b288a57dd
+	sha256sums = d98d913120c4a073addb649978035b845a7590f4487fea50cd6be73e2be38516
 	sha256sums = b64f3bc06e74955d1027e3720a2ef14b6203722a5e7fe4c777a6b1051b9744dd
 
 pkgname = sing-box
