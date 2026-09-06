@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=pwndbg
-pkgver=2026.02.18
+pkgver=2026.07.29
 pkgrel=1
 pkgdesc='Makes debugging with GDB suck less'
 url='https://github.com/pwndbg/pwndbg'
@@ -51,12 +51,12 @@ optdepends=(
 source=(
   https://github.com/pwndbg/pwndbg/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha512sums=('aab6bf6df2954aa8c78c8990df1ce34627fed70811ee06bf87d98897a381cfed5d0a9375cd1713d4d77575fe96a05255fedfbb2e3b742726b6860fe5c6efdef6')
-b2sums=('c153e833fee3c96b21fb11c83e3c09cb8ecad730f6a7145a7674ed8d1c04cb3888d6541c5009f1169b4dcefa836028970270f63216dcfa9c767ca86c622e0cb2')
+sha512sums=('1373b0fb00e83b96549585c12f0f3e3850aa0f8a638a741ba1b90254c9e1cf5e8d76f4486ea5a39b6630ef47172e9a6e0527e8705ac7526c455de34e55e486a7')
+b2sums=('3f3687c02349a2ee4a7eaeab2c01d935522cd20867cf6e67866048c1cb4396999461a43d528a84b9f3445236d75c11631ff33eddbbd3d95f33ac9466d0ede3f3')
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  rm -rf caps profiling
+  rm -rf profiling
 }
 
 build() {
@@ -73,7 +73,6 @@ package() {
 
   install -d "${pkgdir}/usr/share/pwndbg"
   cp -r *.py __pycache__ "${pkgdir}/usr/share/pwndbg"
-  touch "${pkgdir}/usr/share/pwndbg/.skip-venv"
 
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
   install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
