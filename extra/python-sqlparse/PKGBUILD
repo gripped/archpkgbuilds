@@ -3,7 +3,7 @@
 # Contributor: Jonathan Kotta <jpkotta AT gmail DOT com>
 
 pkgname=python-sqlparse
-pkgver=0.5.4
+pkgver=0.5.5
 pkgrel=1
 pkgdesc="Non-validating SQL parser for Python"
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python')
 makedepends=('python-build' 'python-installer' 'python-hatchling')
 checkdepends=('python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${pkgver}.tar.gz")
-sha256sums=('e38bdaabaf1376284ed4f97b6101bc008445f4e2474cadd012dba5288d48808d')
+sha256sums=('5b254389b2fb82dd834ed1899c1f389e2d7f5626ba8e90878769f69b41f43413')
 
 build() {
 	cd "sqlparse-${pkgver}/"
