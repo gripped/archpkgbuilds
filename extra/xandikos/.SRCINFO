@@ -1,6 +1,6 @@
 pkgbase = xandikos
 	pkgdesc = Lightweight yet complete CardDAV/CalDAV server that backs onto a Git repository
-	pkgver = 0.4.5
+	pkgver = 0.4.6
 	pkgrel = 1
 	url = https://www.xandikos.org
 	arch = any
@@ -16,16 +16,17 @@ pkgbase = xandikos
 	depends = python-icalendar
 	depends = python-jinja
 	depends = python-multidict
-	depends = python-pytz
 	depends = python-vobject
 	optdepends = python-aiohttp-openmetrics: for metrics with the standalone server
 	optdepends = python-qrcode: for QR codes on the homepage
 	optdepends = python-systemd: for systemd socket activation
+	optdepends = python-aiosmtpd: for imip-listen
+	optdepends = python-bcrypt: for htpasswd
 	optdepends = uwsgi-plugin-python: for the WSGI interface
-	source = git+https://github.com/jelmer/xandikos.git#tag=v0.4.5
+	source = git+https://github.com/jelmer/xandikos.git#tag=v0.4.6
 	source = sysusers.conf
 	source = tmpfiles.conf
-	b2sums = c60bb9d3a06249ecc7d3ed9f235127d15a7e1cf24c4b68171b570b906136aa9a76a327d955cd7649f16f6af7a6dd91768bf624da75a7b373c2dea6600ef4d5d9
+	b2sums = 4080c67a42254ad8444949728282903698b31cf4dee7ea86cdd86d10480a719e4c5463bcd032c761c2d2d84eaadf54a23144580f84a2556644eacffbcc94258d
 	b2sums = 66e31fa7cb6e363df4411eed424ee1ffba1151d504eb957d0fa079d9d19ac34e7b0de76dd781dc6a3802140410428403e77c9cf0ea34e3961e305c154996d8b9
 	b2sums = be8df371a3cdd55e2efd4549251b44cbb5699762f14aa3dcb0e85cdbb3710d75fae8e38b615057f6da37fe744019aabc2c366136ca577a152cd03d380db189c2
 
