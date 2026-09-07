@@ -2,20 +2,23 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=tokei
-pkgver=14.0.0
+pkgver=15.0.0
 pkgrel=1
 pkgdesc='A blazingly fast CLOC (Count Lines Of Code) program'
 arch=('x86_64')
 url="https://github.com/XAMPPRocky/tokei"
 license=('MIT' 'Apache')
 options=('!lto')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('rust' 'cargo')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/XAMPPRocky/tokei/archive/v${pkgver}.tar.gz")
-sha512sums=('ed253bb2ec7bafdd4f02112c01e1d7eb089f84bc7985ebfa256a6557d446459c1cf41d8a3ec66589c2b25d10d35d15f60a50fec629e391271143d90f7e469953')
+sha512sums=('cb7966192bcc6a0089af35c4ad0494a2588f8f7839b3966f04ff734393af92ed9997b804503a67c1e1ee1875fbd723150e38d99e19af7b0aad0d597a21afc53f')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
   cargo build --release --locked --features all
 }
 
