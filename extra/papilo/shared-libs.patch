@@ -1,0 +1,48 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 5a201f35..bcec6f29 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -37,10 +37,6 @@ include(GNUInstallDirs)
+ # Location for storing CMake files.
+ list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/Modules/)
+ 
+-# Functions without PAPILOLIB_EXPORT will not be accessible from outside.
+-set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+-set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+-
+ # Even static libs have position-independent code by default, and can be linked into shared libs.
+ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+ 
+@@ -262,7 +258,7 @@ endif()
+ if(CMAKE_Fortran_COMPILER AND BLAS_FOUND)
+    enable_language(Fortran)
+ 
+-   add_library(clusol STATIC
++   add_library(clusol SHARED
+       src/papilo/external/lusol/src/lusol6b.f
+       src/papilo/external/lusol/src/lusol7b.f
+       src/papilo/external/lusol/src/lusol8b.f
+@@ -316,7 +312,7 @@ else()
+ endif()
+ 
+ # Create target `papilo-core` which is the static library.
+-add_library(papilo-core STATIC
++add_library(papilo-core SHARED
+    src/papilo/core/VariableDomains.cpp
+    src/papilo/core/SparseStorage.cpp
+    src/papilo/core/ConstraintMatrix.cpp
+diff --git a/papilo-config.cmake.in b/papilo-config.cmake.in
+index b8e8c15e..8042e00a 100644
+--- a/papilo-config.cmake.in
++++ b/papilo-config.cmake.in
+@@ -74,10 +74,6 @@ if(PAPILO_FOUND)
+    endif()
+ endif()
+ 
+-if(@PAPILO_HAVE_LUSOL@ AND PAPILO_FOUND)
+-   enable_language(Fortran)
+-endif()
+-
+ if(PAPILO_FOUND)
+   find_package_message(PAPILO "Found PAPILO: ${CMAKE_CURRENT_LIST_FILE} (found suitable version \"@papilo_VERSION@\")"
+     "[${PAPILO_FOUND}][${TBB_FOUND}]")

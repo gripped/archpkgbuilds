@@ -2,7 +2,7 @@
 
 pkgname=papilo
 pkgver=3.0.1
-pkgrel=2
+pkgrel=5
 pkgdesc='Parallel Presolve for Integer and Linear Optimization'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -20,14 +20,19 @@ makedepends=(boost
              cmake
              gcc-fortran
              git)
-source=(git+https://github.com/scipopt/papilo#tag=v$pkgver)
-sha256sums=('132f41de60ca82f5fd276be0939ec0d1cf938e27e9afdc63772510c479fd549b')
+source=(git+https://github.com/scipopt/papilo#tag=v$pkgver
+        shared-libs.patch)
+sha256sums=('132f41de60ca82f5fd276be0939ec0d1cf938e27e9afdc63772510c479fd549b'
+            '957ff8289f3695fef86533b3c32f082b27c7d2e7d472964c214f7c2244c0099d')
+
+prepare() {
+  patch -d $pkgname -p1 < shared-libs.patch # Build shared libraries
+}
 
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_BUILD_TYPE=None \
-    -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects"
+    -DCMAKE_BUILD_TYPE=None
   cmake --build build
 }
 
