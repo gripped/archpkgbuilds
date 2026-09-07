@@ -5,7 +5,7 @@
 
 pkgname=python-hypothesis
 _name=${pkgname#python-}
-pkgver=6.167.0
+pkgver=6.167.1
 pkgrel=1
 pkgdesc="Advanced Quickcheck style testing library for Python"
 arch=(x86_64)
@@ -64,8 +64,8 @@ optdepends=(
   'python-watchdog: for tracking file system events'
 )
 source=("$pkgname::git+$_url#tag=v$pkgver")
-sha512sums=('359873bc648bcfaea20d3326e7dab6e30fca6abab49b9094d609557c2f46a95928aee6ef50628218fafe59639a9ea9060333a9f7e4a3a2fc691563ebaf0a0a68')
-b2sums=('7b0422b9fbd27762614b55c9ac5d113eaaff97a55307674fec5b387c9f1e423065b5c13717c014c809d04328d07afd9015c246e6ad63e8939c594562673b3e06')
+sha512sums=('85033ad835764ae34ce1a8ec5953544c69ef0c286c26f505e93521dad41fccc8dd29972593d7918aac533738c878d7a60450762b46f00f6b4154d8f28054e766')
+b2sums=('beb8ab0d4da2d942281ec6fafa45d32b2edd0744e539c71dff23b17875ed5d87458dcf072a207cede3a435ada63919a9288f282b2b881aab325f11aeaffd94dd')
 
 prepare() {
   cd $pkgname/$_name/rust/
