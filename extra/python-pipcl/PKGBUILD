@@ -3,12 +3,12 @@
 pkgname=python-pipcl
 _pkgname=${pkgname#python-}
 pkgver=13
-pkgrel=1
+pkgrel=2
 pkgdesc="Python packaging operations for use by a setup.py"
 url="https://github.com/ArtifexSoftware/pipcl"
 arch=('any')
 license=('AGPL-3.0-only')
-depends=('python' 'python-packaging')
+depends=('python' 'python-packaging' 'python-pip')
 makedepends=('python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
