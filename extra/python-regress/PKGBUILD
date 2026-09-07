@@ -2,14 +2,14 @@
 
 pkgname=python-regress
 _name=regress
-pkgver=2025.10.1
-pkgrel=2
+pkgver=2026.9.1
+pkgrel=1
 pkgdesc="Python bindings to the Rust regress crate which provides ECMA regular expressions"
 arch=(x86_64)
 url="https://github.com/crate-py/regress"
 license=(MIT)
 depends=(
-  gcc-libs
+  libgcc
   glibc
   python
 )
@@ -21,8 +21,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('2afe046638a845ee35509fcf4153466f6eec1dd65a8bec8d167742cf88712c17a738a4dc99a5d9eaf0cf1e5e1cac15757b113a19a03a73b908c757ea71678100')
-b2sums=('96d16bd087c0e94c5d84059b04ec3991eedc345127e6dba9cbcb605bb9cdba78eb2b4364b09157bf59f23a33a1dc95319ea3776b330e22ccf3d0122c49ace313')
+sha512sums=('a8836710a2661e61dab02ca64e946ddb4605d8210946ff65ef9974a87460f116797a009fa977541ff473819f52613fa50319c1fb54d66d30360fd3c1bfe72c41')
+b2sums=('ccd3f388d4bbd2b76640e2d7bdc7632b30f2dca135d2a5bbd8bd273db4f772ab3ca94ece3aa14f2c90777ca598aef277d7c747bfe8ee2ace4b48e01944861eb9')
 
 prepare() {
   cd $_name-$pkgver
