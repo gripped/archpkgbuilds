@@ -5,7 +5,7 @@
 _name=setBfree
 pkgbase=setbfree
 pkgname=(setbfree setbfree-common setbfree-lv2 setbfree-standalone)
-pkgver=0.8.15
+pkgver=0.8.16
 pkgrel=1
 pkgdesc="DSP tonewheel organ"
 arch=(x86_64)
@@ -28,8 +28,8 @@ checkdepends=(lv2lint)
 source=(
   https://github.com/pantherb/$_name/archive/v$pkgver/$_name-$pkgver.tar.gz
 )
-sha512sums=('fe15131eb58a67a4fed1548f218a81c99436021339815f3b31a1ae7062cca0a899ef39dd92f68ee32472b26ad0363ff9b89de718b33a576d0f355916ed1dc066')
-b2sums=('b7c53bb160c110fd73374b822fddf9770680f75f206b99b45a95d227a477db39c43b5ee205f514d8dc6b45b5ea11e7c509493149720608158beaf11c118c792d')
+sha512sums=('b8252e79b9d15dc1398fbd2f623ac8c6dbe1002c54849917bd2e442829a01fd0b38fa72824d2a00f402667f61b41a1f7f488e6e36bfd03b668a9817c643cb0b6')
+b2sums=('2531f396031a2adbdc2d2aee6299132287c5a99565472a7d2016c694fb6e97ba1483c3dcf5b7c0c07183aaccb9b8073042c071d978406c53c1a5fdac61728793')
 
 _pick() {
   local p="$1" f d; shift
