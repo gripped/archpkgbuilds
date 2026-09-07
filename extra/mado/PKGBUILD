@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=mado
-pkgver=0.3.1
+pkgver=0.3.2
 pkgrel=1
 pkgdesc="A fast Markdown linter written in Rust"
 arch=(x86_64)
@@ -16,8 +16,8 @@ options=(!lto)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-sha512sums=('74ad751dffbb9cfa570adadd7a1ecb4045ed128338b71ef982cbf1ccc98d7146da003ca531aeaf0b0041f1f37508719a3501dd8520194c26af7c57688a755823')
-b2sums=('d57fce4951912daf98ec3e65591f5caaf595b29df3c1228b14dcb1c6ba0feb32ed650fd2d0776fb3e0f7f7004c9dfd7da33370caffc7df423a675db31817c555')
+sha512sums=('ce76256c1e3ea20a931d239de80ff2940dd36e3c0e09ea1c2b15a09abf4ef6f77e1fa6aba8a25af6cb447b74bc0b885ad0b6ca44aa40f073704300aa13d754c7')
+b2sums=('60b12d5e02bd87e5fa9635e57fa4f8a5a3bb9be94289618924eb1523add2b4a8996c72c825aea191e0eb4d0b0b20e9b93a2dbbe29c3904d383d494f9cb8cfdea')
 
 prepare() {
   cd $pkgname-$pkgver
