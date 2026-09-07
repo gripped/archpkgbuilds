@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=schemacrawler
-pkgver=17.14.1
+pkgver=17.15.0
 pkgrel=1
 pkgdesc="Free database schema discovery and comprehension tool"
 arch=('any')
@@ -9,7 +9,7 @@ license=('GPL-3.0-only')
 depends=('java-runtime' 'graphviz')
 makedepends=('maven' 'java-environment=17' 'unzip')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/schemacrawler/SchemaCrawler/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('bd34e0c9a30553b248e1fed6853f22bd239ed4593c80abdaa14fc975bcb4dc0751bf0253d4f46e2046ce6b548a6f7e2492a4b1ebddb22ee8e536064379839faf')
+sha512sums=('3d2ee837c84faa710e1d1b18ec22d8febf380bf813eaf483cc09730aa944172cf5b52e57017c37e0aeca33cb7227d825d1fb748c6ad5df3a6023f7baae139d93')
 
 build() {
   cd SchemaCrawler-$pkgver
