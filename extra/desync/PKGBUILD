@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=desync
-pkgver=1.1.0
+pkgver=1.1.3
 pkgrel=1
 pkgdesc="Alternative casync implementation"
 arch=(x86_64)
@@ -11,8 +11,8 @@ depends=(glibc)
 makedepends=(go)
 options=(!lto)
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('02f9d92b9bbe1fbf1cacb1b7dd078083c19fe4feffb0631521b918ebf1b9761ac9460c1bd3a7e9870c4a0ed41322d3392aa4afe10339a93b849c518e1e5c3fdc')
-b2sums=('01ac05b1d08f0c1be99c75853130f3c3babf61d7e061013961f626208be604d9b75271480b43c8fdf1c304eafb196341cff25a5ed2e48cd4fe70758923776e4d')
+sha512sums=('cf0dd13af6add100b36e5794283917a6dc4a4adaef33327fdaecadb3f4783a3c43a7cdef72723598ce222579a488356f07278d90f99368530fc7a5744dabb323')
+b2sums=('65d405559335e137fbf06ed0acb683ae958769974ccbed6a76d4180926cbe7d0adbfc831defde3ae24901b01947bff0b61d36525c3c321b0397ef483843c87c1')
 
 build() {
   export CGO_CPPFLAGS="$CPPFLAGS"
@@ -24,6 +24,12 @@ build() {
 
   cd $pkgname-$pkgver
   go build -ldflags "-compressdwarf=false -linkmode external" -o $pkgname ./cmd/$pkgname
+
+  mkdir --parents --verbose completions manpage
+  ./$pkgname completion bash > completions/$pkgname
+  ./$pkgname completion fish > completions/$pkgname.fish
+  ./$pkgname completion zsh > completions/_$pkgname
+  ./$pkgname manpage --section 1 manpage/
 }
 
 check() {
@@ -34,6 +40,10 @@ check() {
 package() {
   cd $pkgname-$pkgver
   install -vDm 755 $pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 completions/$pkgname -t "$pkgdir/usr/share/bash-completion/completions/"
+  install -vDm 644 completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  install -vDm 644 completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 manpage/*.1 -t "$pkgdir/usr/share/man/man1/"
   install -vDm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
