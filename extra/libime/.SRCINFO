@@ -1,10 +1,12 @@
 pkgbase = libime
 	pkgdesc = A library to support generic input method implementation
-	pkgver = 1.1.15
+	pkgver = 1.1.16
 	pkgrel = 1
 	url = https://github.com/fcitx/libime
 	arch = x86_64
 	license = LGPL-2.1-or-later
+	license = BSD-3-Clause
+	license = MIT
 	makedepends = git
 	makedepends = boost
 	makedepends = extra-cmake-modules
@@ -12,19 +14,19 @@ pkgbase = libime
 	makedepends = python
 	depends = boost-libs
 	depends = fcitx5
-	noextract = lm_sc.arpa-20260606.tar.zst
-	noextract = dict-20260430.tar.zst
+	noextract = lm_sc.arpa-20260629.tar.zst
+	noextract = dict-20260703.tar.zst
 	noextract = table-20240108.tar.zst
-	source = git+https://github.com/fcitx/libime.git#tag=1.1.15?signed
+	source = git+https://github.com/fcitx/libime.git#tag=1.1.16?signed
 	source = git+https://github.com/kpu/kenlm.git
-	source = https://download.fcitx-im.org/data/lm_sc.arpa-20260606.tar.zst
-	source = https://download.fcitx-im.org/data/dict-20260430.tar.zst
+	source = https://download.fcitx-im.org/data/lm_sc.arpa-20260629.tar.zst
+	source = https://download.fcitx-im.org/data/dict-20260703.tar.zst
 	source = https://download.fcitx-im.org/data/table-20240108.tar.zst
 	validpgpkeys = 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9
-	sha512sums = a691aa9e0ac697a90d6d0df9bb6306a9a7adf2b296f9bc8b4396cc2400ac135ba5a83ffc318307e71fa1a665d51070c3a5f78f0aa6830ccd281e5811b7b6993a
+	sha512sums = ee985bac1a0654ca94fcb1e1b75984eb2e67c061fd790052d5f1928cda8716d2ffa2c57f9634d2bbce9e0d658a0b0d286fc7196b1ef970e531258b16c93d63c5
 	sha512sums = SKIP
-	sha512sums = 5e34f20a1645921891cef58fe36e381ba528eb48054c6f6b9e3d297bc2d24d6228c2a5c297b647fa8a2a7b687aa03fe0627448351d7c90b8cac902e0a51dcdf6
-	sha512sums = c5ba44ba86aefcc56166de01e93432da25daa9629791ba4e844f1181926b4916ba67a6ce20ec7b5183de43e365a6d6ac9fe2d7d53997f548ea562c0c92f31e56
+	sha512sums = ae9b77e7ab3007579f5e7455d340e310caaca92b93387bd1025e895f355456601471decac36d8addc02deba9e79f6e8cbf453718d93f04780f0b1b815822e014
+	sha512sums = 2149ff44e98b6552af80770fa77197f5a39c392d4b3617e5ffb4736c4f2d138b98f0ea3ddce6357bb99f04acdd9f9dbe14db51c8d363b731715750db504cc8dc
 	sha512sums = 0d1642ff84e5da2c5b95710e17439bda11b39d3f65d53426bdc03a775dbe592ae64bff8f9191ce27c57b92db8cfed8284a3b6a4f7f02f8ab7fcc8f28cfa0c0ff
 
 pkgname = libime

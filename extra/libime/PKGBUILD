@@ -2,15 +2,15 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=libime
-pkgver=1.1.15
-_lmver=20260606
-_dictver=20260430
+pkgver=1.1.16
+_lmver=20260629
+_dictver=20260703
 _tablever=20240108
 pkgrel=1
 pkgdesc="A library to support generic input method implementation"
 arch=('x86_64')
 url="https://github.com/fcitx/libime"
-license=('LGPL-2.1-or-later')
+license=('LGPL-2.1-or-later' 'BSD-3-Clause' 'MIT')
 depends=('boost-libs' 'fcitx5')
 makedepends=('git' 'boost' 'extra-cmake-modules' 'ninja' 'python')
 source=("git+https://github.com/fcitx/libime.git#tag=$pkgver?signed"
@@ -21,10 +21,10 @@ source=("git+https://github.com/fcitx/libime.git#tag=$pkgver?signed"
 noextract=("lm_sc.arpa-$_lmver.tar.zst"
            "dict-$_dictver.tar.zst"
            "table-$_tablever.tar.zst")
-sha512sums=('a691aa9e0ac697a90d6d0df9bb6306a9a7adf2b296f9bc8b4396cc2400ac135ba5a83ffc318307e71fa1a665d51070c3a5f78f0aa6830ccd281e5811b7b6993a'
+sha512sums=('ee985bac1a0654ca94fcb1e1b75984eb2e67c061fd790052d5f1928cda8716d2ffa2c57f9634d2bbce9e0d658a0b0d286fc7196b1ef970e531258b16c93d63c5'
             'SKIP'
-            '5e34f20a1645921891cef58fe36e381ba528eb48054c6f6b9e3d297bc2d24d6228c2a5c297b647fa8a2a7b687aa03fe0627448351d7c90b8cac902e0a51dcdf6'
-            'c5ba44ba86aefcc56166de01e93432da25daa9629791ba4e844f1181926b4916ba67a6ce20ec7b5183de43e365a6d6ac9fe2d7d53997f548ea562c0c92f31e56'
+            'ae9b77e7ab3007579f5e7455d340e310caaca92b93387bd1025e895f355456601471decac36d8addc02deba9e79f6e8cbf453718d93f04780f0b1b815822e014'
+            '2149ff44e98b6552af80770fa77197f5a39c392d4b3617e5ffb4736c4f2d138b98f0ea3ddce6357bb99f04acdd9f9dbe14db51c8d363b731715750db504cc8dc'
             '0d1642ff84e5da2c5b95710e17439bda11b39d3f65d53426bdc03a775dbe592ae64bff8f9191ce27c57b92db8cfed8284a3b6a4f7f02f8ab7fcc8f28cfa0c0ff')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
 
@@ -58,4 +58,9 @@ check() {
 package() {
   cd $pkgname
   DESTDIR="$pkgdir" ninja install
+
+  install -Dm644 src/libime/core/kenlm/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE.kenlm"
+  install -Dm644 src/libime/core/kenlm/util/double-conversion/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE.double-conversion"
+  sed -n '6,33p' src/libime/core/kenlm/util/string_piece.hh > "$pkgdir/usr/share/licenses/$pkgname/LICENSE.string_piece"
+  sed -n '13,44p' src/libime/core/kenlm/util/integer_to_string.cc > "$pkgdir/usr/share/licenses/$pkgname/LICENSE.integer_to_string"
 }
