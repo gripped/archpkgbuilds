@@ -2,11 +2,11 @@
 # Maintainer: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-vpn-api-core
-pkgver=5.5.15
-pkgrel=2
-_protun_commit=5f5f4c9f7bb6c96a10a5c42747dccdf7ee656039
+pkgver=5.6.10
+pkgrel=1
+_protun_commit=12e7755a112f59b7b843da79290b3de25febf653
 pkgdesc="The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services."
-arch=("any")
+arch=(any)
 url="https://github.com/ProtonVPN/python-proton-vpn-api-core"
 license=(GPL-3.0-or-later)
 options=(!lto)
@@ -50,8 +50,8 @@ source=(
   "protun::git+https://github.com/ProtonVPN/protun.git#commit=${_protun_commit}"
   fix-protun-protocol.patch
 )
-sha256sums=('a6e9e20f64ba2fff1400991b62494703e834a5e0859c4b9faf67c57c00c97148'
-            '179874ae2f6e2310d5dd977ed6de8b84616bd230e4419e9b4786d2ed4991760a'
+sha256sums=('61240dc7a8c87c33cdfeb52cc73bd1d71260a8c56e7469d0a4f7c63bc483cdc5'
+            '3f90b4967711c9750042b5621695ed91c374fab92d5e8fa2100645862a47f66b'
             '28abe281b8dee47fe5b3e5f3a612a902f6e7504bcb7509e809e1d422c71df750')
 optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
             "plasma-nm: password prompt on KDE Plasma")
@@ -59,6 +59,7 @@ optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
 prepare() {
   cd "$pkgname"
   patch -Np1 < ../fix-protun-protocol.patch
+  sed -i '/^SystemdService=/d' resources/nm-protun.name
 
   # The local agent is now included in proton.vpn.platform.
   sed -i 's/, "proton-vpn-local-agent"//' setup.py
@@ -66,18 +67,6 @@ prepare() {
   rm -rf dependencies/protun
   cp -a "$srcdir/protun" dependencies/protun
 
-  # The public Rust registry supersedes Proton's old GitLab registry.
-  sed -i 's|sparse+https://rust.gitlab-pages.protontech.ch/shared/registry/index/|sparse+https://rust-registry.proton.me/index/|g' Cargo.lock
-  sed -i \
-    -e 's|e96081b45cc7a830262dcbac2a79b58bc312aab0672c4c1c51fd8c28b03ca987|d6cbef9a3ddc5f97501607f1a689c459a1894069745b4cede7c519b71bb64434|' \
-    -e 's|8e4b9d4c0cb1aa4096f9f7bdabc120323c7b6d110efba90d258c0150a65a7e12|4c2654d02228a2e4ccb4edf1883cb2838d9640e19012f75e0cad7afcb468f2d5|' \
-    -e 's|90c6da77725af99bfa1dd9bed7b7c3481c087cd89a8a0a1d7e45e15ed3a3377d|0a7b06dd92ace9b23a49beeb33511ef6bcc04355e314f1f8ee8aadbe8c613b98|' \
-    -e 's|161e33ea4b9b564a0910b8948ef55bf8183504f0c5911e2354cfabcebae25910|57143360edc0690cec81daa6d4f20ee17fd741670b270c4deee0b5247ebb036f|' \
-    -e 's|fcd725b3baebb44befaf9a37e158e7cbfb044e32324469ae765c8e052755f323|7707bef2e4e2d3fb1e9f2d1abf67b2ae7235be299e53bc45771f4de3c40e976b|' \
-    -e 's|23e1d1a18fc6a68c4622b25e7a45fd8e50d41d2607e71a346b986691a3b1507b|64499d4117fcba0ad93e6444cd75dbc5985752d80b645762a999be305c57ceeb|' \
-    -e '/name = "proton-pfff-module"/,/^$/ s/version = "0.6.4"/version = "0.6.5"/' \
-    -e '/name = "proton-vpn-netstack"/,/^$/ s/version = "0.6.0"/version = "0.6.3"/' \
-    Cargo.lock
 }
 
 build() {
@@ -100,15 +89,15 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm755 target/release/nm-protun-service \
-    "$pkgdir/usr/libexec/nm-protun-service"
+    "$pkgdir/usr/lib/nm-protun-service"
   install -Dm755 target/release/nm-protun-auth-dialog \
-    "$pkgdir/usr/libexec/nm-protun-auth-dialog"
+    "$pkgdir/usr/lib/nm-protun-auth-dialog"
   install -Dm644 resources/nm-protun-service.conf \
     "$pkgdir/usr/share/dbus-1/system.d/nm-protun-service.conf"
 
   install -d "$pkgdir/usr/lib/NetworkManager/VPN"
-  sed -e 's|program=.*|program=/usr/libexec/nm-protun-service|' \
-      -e 's|auth-dialog=.*|auth-dialog=/usr/libexec/nm-protun-auth-dialog|' \
+  sed -e 's|program=.*|program=/usr/lib/nm-protun-service|' \
+      -e 's|auth-dialog=.*|auth-dialog=/usr/lib/nm-protun-auth-dialog|' \
     resources/nm-protun.name \
     > "$pkgdir/usr/lib/NetworkManager/VPN/nm-protun.name"
 }
