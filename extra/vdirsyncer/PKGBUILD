@@ -3,8 +3,8 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@barrera.io>
 
 pkgname=vdirsyncer
-pkgver=0.20.0
-pkgrel=4
+pkgver=0.21.0
+pkgrel=1
 pkgdesc='Synchronize CalDAV and CardDAV'
 arch=(any)
 url=https://vdirsyncer.pimutils.org/en/stable/
@@ -16,6 +16,7 @@ depends=(
   python-click
   python-click-log
   python-requests
+  python-tenacity
 )
 makedepends=(
   git
@@ -36,7 +37,7 @@ checkdepends=(
 )
 optdepends=('python-aiohttp-oauthlib: Google support')
 source=("git+https://github.com/pimutils/vdirsyncer.git#tag=v$pkgver")
-b2sums=('c548f23993526e5b0844098c3ba32281a2f7e30cacc6e206e2543bbd3944dad27489a0f4e10fb8ac9244617f911833cc1e87ad1d619f091c17d03bc2d3b228f2')
+b2sums=('731897ddde72b9069b3d7508cb05e64258c39436b7d730f58d161e9f7d2454465a799c8962628d35f187bc79fb58c6d8c579fe5d357205382940c3b76bc4dd5f')
 #validpgpkeys=('951082781CA308E4A529DEFD6F9FFF122B98C0CD') # Hugo Osvaldo Barrera <hugo@barrera.io>
 
 build() {
