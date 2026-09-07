@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=virt-firmware
-pkgver=26.8.1
+pkgver=26.9
 pkgrel=1
 pkgdesc="Collection of tools for edk2 firmware images"
 arch=(any)
@@ -29,8 +29,8 @@ optdepends=(
   'python-requests: for QEMU test integration'
 )
 source=($url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('cfc6de4f6ed050adc38970610bc08ee24bf232f237610f096bd73e034156e11755bd9c116f3d022db51cbcb15a3ce89e10265c22a4328ef0d28152f8a6d1a150')
-b2sums=('ba1503dc3dca0eec18e5736b1e9208a2f39e92ca41dd1616a4bca497d1a418a03579cef9a0e4d56b75decf5a23162f8e5863d0066072788f3d569ee9060cbf0c')
+sha512sums=('e2f6b318a3c72d992728af26519b4d98a0eb3f254a50f2f4dee9c9ecfa5fd3e8f8eb5a1a18151d05fff67fefc09a915270d2e5ed88705378c66ec80df6a5a211')
+b2sums=('a32cfeded750a6e84fd9913bd29f0774ff537c29f46253e64e072e4515469bbf2359f259d00b45619898363af013d5f1dd7805ed67e3928f3cadbce6533551d5')
 
 build() {
   cd $pkgname-v$pkgver
