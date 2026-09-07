@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-configargparse
-pkgver=1.7.5
+pkgver=1.7.7
 pkgrel=1
 pkgdesc='A drop-in replacement for argparse that allows options to also be set via config files and/or environment variables'
 arch=('any')
@@ -9,10 +9,11 @@ url='https://github.com/bw2/ConfigArgParse'
 license=('MIT')
 depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
-checkdepends=('python-pytest' 'python-yaml') # HACK: run tests without python-tests as they fail
-optdepends=('python-yaml: for YAML support')
+checkdepends=('python-pytest' 'python-toml' 'python-yaml') # HACK: run tests without python-tests as they fail
+optdepends=('python-toml: for writing TOML configuration files'
+            'python-yaml: for YAML support')
 source=("git+https://github.com/bw2/ConfigArgParse.git#tag=v$pkgver")
-sha512sums=('76d4167204e67b99efbd850c05860384fc1e3a83738b2e5cf1102b64474ed0c21d07fe0ade2341bbadff80b86ef41c80d7b18eca6b81db3b32ed623a7c16ebe2')
+sha512sums=('95d0aa4a1c9a40237ac690b62d95a2348a1548462b7c19b7f4a9e365b24298ffa47b5178da34f41837c8d110b1adbd40f7a2b98bdf4ebff9dd9f03f91cd38f92')
 
 build() {
   cd ConfigArgParse
@@ -21,8 +22,7 @@ build() {
 
 check() {
   cd ConfigArgParse
-  # https://github.com/bw2/ConfigArgParse/issues/294
-  PYTHONPATH=. pytest -v -k "not TestMisc and not testBasicCase2 and not testMutuallyExclusiveArgs"
+  PYTHONPATH=. pytest -v
 }
 
 package() {

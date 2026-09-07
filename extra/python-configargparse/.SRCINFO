@@ -1,11 +1,12 @@
 pkgbase = python-configargparse
 	pkgdesc = A drop-in replacement for argparse that allows options to also be set via config files and/or environment variables
-	pkgver = 1.7.5
+	pkgver = 1.7.7
 	pkgrel = 1
 	url = https://github.com/bw2/ConfigArgParse
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
+	checkdepends = python-toml
 	checkdepends = python-yaml
 	makedepends = git
 	makedepends = python-build
@@ -14,8 +15,9 @@ pkgbase = python-configargparse
 	makedepends = python-setuptools-scm
 	makedepends = python-wheel
 	depends = python
+	optdepends = python-toml: for writing TOML configuration files
 	optdepends = python-yaml: for YAML support
-	source = git+https://github.com/bw2/ConfigArgParse.git#tag=v1.7.5
-	sha512sums = 76d4167204e67b99efbd850c05860384fc1e3a83738b2e5cf1102b64474ed0c21d07fe0ade2341bbadff80b86ef41c80d7b18eca6b81db3b32ed623a7c16ebe2
+	source = git+https://github.com/bw2/ConfigArgParse.git#tag=v1.7.7
+	sha512sums = 95d0aa4a1c9a40237ac690b62d95a2348a1548462b7c19b7f4a9e365b24298ffa47b5178da34f41837c8d110b1adbd40f7a2b98bdf4ebff9dd9f03f91cd38f92
 
 pkgname = python-configargparse
