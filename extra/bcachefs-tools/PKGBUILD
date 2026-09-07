@@ -5,7 +5,7 @@ pkgbase=bcachefs-tools
 pkgname=(bcachefs-tools bcachefs-dkms)
 epoch=3
 pkgver=1.39.4
-pkgrel=1
+pkgrel=3
 pkgdesc='BCacheFS filesystem utilities'
 arch=('x86_64')
 url='https://bcachefs.org/'
@@ -30,6 +30,7 @@ makedepends=(
   ${_tools_depends[@]}
   rust
   rust-bindgen
+  rust-src
   clang
   git
   jq
@@ -41,13 +42,22 @@ options=(!lto)
 source=(
   git+https://github.com/koverstreet/bcachefs-tools.git#tag=v${pkgver}
   0001-do-not-load-binary-modules-for-dkms-package.patch
+  https://github.com/koverstreet/bcachefs-tools/commit/c6fa96409925203569f1ec5f95ac1544fa691548.patch
+  https://github.com/koverstreet/bcachefs-tools/commit/82033542e7bf14e4fbaad6a525bf6763f9d9f840.patch
+  https://github.com/koverstreet/bcachefs-tools/commit/eeec50f6896c7d52f5fc22c7a3699cbd783a767c.patch
 )
 b2sums=('c6b815b7d09965757d4808961c0c3e3f353db46bd14341603194faae6f35518b8dfd40dcbaec474b683e9fc88f00cc6035d28ba0db1b63ed2b0261bbe2dd983b'
-        '55cc2148c23a18f1d286fb77941a03b41ee4b3748728e517e5af06ec88fab41262c67b603907b0da8319bc5f08ff1667edc1480284bd4d3aca72c5412cb68e9f')
+        '55cc2148c23a18f1d286fb77941a03b41ee4b3748728e517e5af06ec88fab41262c67b603907b0da8319bc5f08ff1667edc1480284bd4d3aca72c5412cb68e9f'
+        'f5ef399aece9a92c62eb1bf18362b7cd9b7e24f01537bda823dd312356adf495e67803153e620aafefc937553ad343f95bfcf72003c0a9bda6e466e472baf9d1'
+        '441b7e75ffc10c145c87d6ea13e4a667ebc6ab3d01dcc48919ecf2f296fc6c85f2481aef9d933aa928f53698f47ff3a087dd4aa49bc27dbed4eb26942ba2263a'
+        '4cdec8011e45f5ae1d3ad91142749d94ade08a05b993c46b317ebac550a13d8acfb080d9d752ed5216e1aeb81774ae51f7d334e6bd151be97fdc80decbc204c1')
 
 prepare() {
   cd ${pkgname}
   patch -Np1 < ../0001-do-not-load-binary-modules-for-dkms-package.patch
+  patch -Np1 < ../c6fa96409925203569f1ec5f95ac1544fa691548.patch
+  patch -Np1 < ../82033542e7bf14e4fbaad6a525bf6763f9d9f840.patch
+  patch -Np1 < ../eeec50f6896c7d52f5fc22c7a3699cbd783a767c.patch
 }
 
 build() {
@@ -107,6 +117,7 @@ package_bcachefs-dkms() {
     dkms
     rust
     rust-bindgen
+    rust-src
   )
   cd ${pkgbase}
 
