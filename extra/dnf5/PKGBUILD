@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=dnf5
-pkgver=5.4.2.1
+pkgver=5.4.4.0
 pkgrel=1
 pkgdesc="Next-generation RPM package management system"
 arch=('x86_64')
@@ -23,11 +23,16 @@ backup=('etc/dnf/dnf.conf'
 options=('!emptydirs')
 conflicts=(dnf)
 replaces=(dnf)
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('6b3f23275a99c66c4b416d4d312f22da779e90f29c881be73eabfc459fca4fef')
+source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz" "include-cstring.patch")
+sha256sums=('40dfec130c231759aa5c33a5852f549602ea7edd47d26a68cc7619b20335d386'
+            'd9705c633a3e0aae907f9965816dae3971c3c80289be208d56fcd041c4b99989')
 
 prepare() {
   cd "$pkgname-$pkgver"
+  # /usr/include/json-c/linkhash.h:360:36: error: ‘lh_entry* lh_table_head(const lh_table*)’ defined but not used [-Werror=unused-function]
+  export CXXFLAGS="${CXXFLAGS} -Wno-unused-function"
+
+  patch -Np1 -i ${srcdir}/include-cstring.patch
 }
 
 build() {

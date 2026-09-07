@@ -1,0 +1,238 @@
+From 10b3ea5df53349511df179eee8dbe3b7a77e8ba4 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+Date: Fri, 14 Aug 2026 09:04:38 +0200
+Subject: [PATCH] Include <cstring> wherever std::strcmp() is used
+
+There are many places where this function is used that don't include the
+appropriate header. This actually causes a build failure with fmt
+12.2.0, because it removed some includes from its headers.
+
+Fix it by including <cstring> at least where std::strcmp() is used.
+---
+ dnf5-plugins/automatic_plugin/automatic_cmd_plugin.cpp        | 1 +
+ dnf5-plugins/builddep_plugin/builddep_cmd_plugin.cpp          | 1 +
+ dnf5-plugins/changelog_plugin/changelog_cmd_plugin.cpp        | 1 +
+ .../config-manager_plugin/config-manager_cmd_plugin.cpp       | 1 +
+ dnf5-plugins/copr_plugin/copr_cmd_plugin.cpp                  | 2 ++
+ dnf5-plugins/manifest_plugin/manifest_cmd_plugin.cpp          | 2 ++
+ .../needs_restarting_plugin/needs_restarting_cmd_plugin.cpp   | 1 +
+ dnf5-plugins/repoclosure_plugin/repoclosure_cmd_plugin.cpp    | 1 +
+ dnf5-plugins/repomanage_plugin/repomanage_cmd_plugin.cpp      | 2 ++
+ dnf5-plugins/reposync_plugin/reposync_cmd_plugin.cpp          | 1 +
+ libdnf5-plugins/appstream/appstream.cpp                       | 1 +
+ libdnf5-plugins/expired-pgp-keys/expired-pgp-keys.cpp         | 4 ++--
+ libdnf5-plugins/local/local.cpp                               | 1 +
+ libdnf5-plugins/rhsm/rhsm.cpp                                 | 1 +
+ test/tutorial-templates/dnf5-plugin/template_cmd_plugin.cpp   | 2 ++
+ test/tutorial-templates/libdnf5-plugin/template.cpp           | 1 +
+ 16 files changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/dnf5-plugins/automatic_plugin/automatic_cmd_plugin.cpp b/dnf5-plugins/automatic_plugin/automatic_cmd_plugin.cpp
+index a9dd59ff2c..363a6c344f 100644
+--- a/dnf5-plugins/automatic_plugin/automatic_cmd_plugin.cpp
++++ b/dnf5-plugins/automatic_plugin/automatic_cmd_plugin.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace dnf5;
+diff --git a/dnf5-plugins/builddep_plugin/builddep_cmd_plugin.cpp b/dnf5-plugins/builddep_plugin/builddep_cmd_plugin.cpp
+index 7c7ca9d439..de703390f8 100644
+--- a/dnf5-plugins/builddep_plugin/builddep_cmd_plugin.cpp
++++ b/dnf5-plugins/builddep_plugin/builddep_cmd_plugin.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace dnf5;
+diff --git a/dnf5-plugins/changelog_plugin/changelog_cmd_plugin.cpp b/dnf5-plugins/changelog_plugin/changelog_cmd_plugin.cpp
+index 3744363e3c..52a6685ed9 100644
+--- a/dnf5-plugins/changelog_plugin/changelog_cmd_plugin.cpp
++++ b/dnf5-plugins/changelog_plugin/changelog_cmd_plugin.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace dnf5;
+diff --git a/dnf5-plugins/config-manager_plugin/config-manager_cmd_plugin.cpp b/dnf5-plugins/config-manager_plugin/config-manager_cmd_plugin.cpp
+index 153517cbb8..d40d8b6f81 100644
+--- a/dnf5-plugins/config-manager_plugin/config-manager_cmd_plugin.cpp
++++ b/dnf5-plugins/config-manager_plugin/config-manager_cmd_plugin.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace dnf5;
+diff --git a/dnf5-plugins/copr_plugin/copr_cmd_plugin.cpp b/dnf5-plugins/copr_plugin/copr_cmd_plugin.cpp
+index 99b31327e3..da1f11a5d8 100644
+--- a/dnf5-plugins/copr_plugin/copr_cmd_plugin.cpp
++++ b/dnf5-plugins/copr_plugin/copr_cmd_plugin.cpp
+@@ -21,6 +21,8 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
++
+ using namespace dnf5;
+ 
+ namespace {
+diff --git a/dnf5-plugins/manifest_plugin/manifest_cmd_plugin.cpp b/dnf5-plugins/manifest_plugin/manifest_cmd_plugin.cpp
+index 7cd61a88bd..f9f658727f 100644
+--- a/dnf5-plugins/manifest_plugin/manifest_cmd_plugin.cpp
++++ b/dnf5-plugins/manifest_plugin/manifest_cmd_plugin.cpp
+@@ -5,6 +5,8 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
++
+ using namespace dnf5;
+ 
+ namespace {
+diff --git a/dnf5-plugins/needs_restarting_plugin/needs_restarting_cmd_plugin.cpp b/dnf5-plugins/needs_restarting_plugin/needs_restarting_cmd_plugin.cpp
+index 92c62e4eb1..175657e861 100644
+--- a/dnf5-plugins/needs_restarting_plugin/needs_restarting_cmd_plugin.cpp
++++ b/dnf5-plugins/needs_restarting_plugin/needs_restarting_cmd_plugin.cpp
+@@ -2,6 +2,7 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace dnf5;
+diff --git a/dnf5-plugins/repoclosure_plugin/repoclosure_cmd_plugin.cpp b/dnf5-plugins/repoclosure_plugin/repoclosure_cmd_plugin.cpp
+index 6dddd041ba..c2ecabb707 100644
+--- a/dnf5-plugins/repoclosure_plugin/repoclosure_cmd_plugin.cpp
++++ b/dnf5-plugins/repoclosure_plugin/repoclosure_cmd_plugin.cpp
+@@ -21,6 +21,7 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace dnf5;
+diff --git a/dnf5-plugins/repomanage_plugin/repomanage_cmd_plugin.cpp b/dnf5-plugins/repomanage_plugin/repomanage_cmd_plugin.cpp
+index e91e3e137f..a066e475cb 100644
+--- a/dnf5-plugins/repomanage_plugin/repomanage_cmd_plugin.cpp
++++ b/dnf5-plugins/repomanage_plugin/repomanage_cmd_plugin.cpp
+@@ -21,6 +21,8 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
++
+ using namespace dnf5;
+ 
+ namespace {
+diff --git a/dnf5-plugins/reposync_plugin/reposync_cmd_plugin.cpp b/dnf5-plugins/reposync_plugin/reposync_cmd_plugin.cpp
+index 10702cdc21..3c5291146b 100644
+--- a/dnf5-plugins/reposync_plugin/reposync_cmd_plugin.cpp
++++ b/dnf5-plugins/reposync_plugin/reposync_cmd_plugin.cpp
+@@ -21,6 +21,7 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace dnf5;
+diff --git a/libdnf5-plugins/appstream/appstream.cpp b/libdnf5-plugins/appstream/appstream.cpp
+index 4ab91fb550..63871c7165 100644
+--- a/libdnf5-plugins/appstream/appstream.cpp
++++ b/libdnf5-plugins/appstream/appstream.cpp
+@@ -24,6 +24,7 @@
+ #include <libdnf5/repo/repo.hpp>
+ #include <libdnf5/repo/repo_query.hpp>
+ 
++#include <cstring>
+ #include <iostream>
+ 
+ using namespace libdnf5;
+diff --git a/libdnf5-plugins/expired-pgp-keys/expired-pgp-keys.cpp b/libdnf5-plugins/expired-pgp-keys/expired-pgp-keys.cpp
+index 81854b477a..0ca34c2d74 100644
+--- a/libdnf5-plugins/expired-pgp-keys/expired-pgp-keys.cpp
++++ b/libdnf5-plugins/expired-pgp-keys/expired-pgp-keys.cpp
+@@ -34,10 +34,10 @@
+ #include <rpm/rpmpgp.h>
+ #endif
+ #include <rpm/rpmts.h>
+-#include <string.h>
+ 
+ #include <chrono>
+ #include <cstdio>
++#include <cstring>
+ #include <memory>
+ #include <string>
+ 
+@@ -268,7 +268,7 @@ void ExpiredPgpKeys::process_expired_pgp_keys(const libdnf5::base::Transaction &
+         // (Or use lr_gpg_import_key_from_memory() directly?)
+         auto key_tfile = libdnf5::utils::fs::TempFile("key");
+         auto & key_ffile = key_tfile.open_as_file("w+");
+-        key_ffile.write(raw_key, strlen(raw_key));
++        key_ffile.write(raw_key, std::strlen(raw_key));
+         key_ffile.flush();
+         free(raw_key);
+ 
+diff --git a/libdnf5-plugins/local/local.cpp b/libdnf5-plugins/local/local.cpp
+index bc3ab52752..5b11ea4619 100644
+--- a/libdnf5-plugins/local/local.cpp
++++ b/libdnf5-plugins/local/local.cpp
+@@ -14,6 +14,7 @@
+ #include <libdnf5/utils/fs/utils.hpp>
+ #include <sys/wait.h>
+ 
++#include <cstring>
+ 
+ constexpr const char * LOCAL_REPO_NAME_GPGCHECK{"_dnf_local"};
+ constexpr const char * LOCAL_REPO_NAME_NOGPGCHECK{"_dnf_local_nogpgcheck"};
+diff --git a/libdnf5-plugins/rhsm/rhsm.cpp b/libdnf5-plugins/rhsm/rhsm.cpp
+index 9687eeaa79..1a58e4c1a0 100644
+--- a/libdnf5-plugins/rhsm/rhsm.cpp
++++ b/libdnf5-plugins/rhsm/rhsm.cpp
+@@ -24,6 +24,7 @@
+ #include <rhsm/rhsm.h>
+ #include <unistd.h>
+ 
++#include <cstring>
+ 
+ using namespace libdnf5;
+ 
+diff --git a/test/tutorial-templates/dnf5-plugin/template_cmd_plugin.cpp b/test/tutorial-templates/dnf5-plugin/template_cmd_plugin.cpp
+index b2fc7b8ffd..a28fb0eb8e 100644
+--- a/test/tutorial-templates/dnf5-plugin/template_cmd_plugin.cpp
++++ b/test/tutorial-templates/dnf5-plugin/template_cmd_plugin.cpp
+@@ -2,6 +2,8 @@
+ 
+ #include <dnf5/iplugin.hpp>
+ 
++#include <cstring>
++
+ using namespace dnf5;
+ 
+ namespace {
+diff --git a/test/tutorial-templates/libdnf5-plugin/template.cpp b/test/tutorial-templates/libdnf5-plugin/template.cpp
+index 804e055abb..1b3d2cec37 100644
+--- a/test/tutorial-templates/libdnf5-plugin/template.cpp
++++ b/test/tutorial-templates/libdnf5-plugin/template.cpp
+@@ -3,6 +3,7 @@
+ #include <libdnf5/plugin/iplugin.hpp>
+ 
+ #include <algorithm>
++#include <cstring>
+ 
+ using namespace libdnf5;
+ 
