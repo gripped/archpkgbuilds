@@ -2,7 +2,7 @@
 
 pkgname=soplex
 pkgver=8.0.3
-pkgrel=1
+pkgrel=3
 pkgdesc='Sequential object-oriented simPlex'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -13,11 +13,11 @@ depends=(glibc
          libstdc++
          mpfr
          onetbb
+         papilo
          zlib)
 makedepends=(boost
              cmake
-             git
-             papilo)
+             git)
 source=(git+https://github.com/scipopt/soplex#tag=v$pkgver
         no-static.patch)
 sha256sums=('cb4d2bdee15931026644fa6ea4b2645eae51faf44ec415b0ce0c07e7567bab6b'
