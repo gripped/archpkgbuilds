@@ -3,7 +3,7 @@
 _hkgname=tree-diff
 pkgname=haskell-tree-diff
 pkgver=0.3.3
-pkgrel=6
+pkgrel=7
 pkgdesc="Diffing of (expression) trees"
 url="https://github.com/phadej/tree-diff"
 license=('GPL-2.0-or-later')
@@ -19,6 +19,7 @@ sha512sums=('5338532a458a21c80d42dbf63f0c03c731f547e644a68b2d1f7e9c5d6ec534b1b48
 
 prepare() {
     cd $_hkgname-$pkgver
+    uusi -u ansi-wl-pprint
     gen-setup
 }
 
