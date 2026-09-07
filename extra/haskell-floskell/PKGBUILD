@@ -3,7 +3,7 @@
 _hkgname=floskell
 pkgname=haskell-floskell
 pkgver=0.11.1
-pkgrel=6
+pkgrel=7
 pkgdesc="A flexible Haskell source code pretty printer"
 url="https://github.com/ennocramer/floskell"
 license=('BSD-3-Clause')
@@ -12,9 +12,14 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-ansi-wl-ppri
          'haskell-attoparsec' 'haskell-attoparsec-aeson' 'haskell-data-default'
          'haskell-src-exts' 'haskell-monad-dijkstra' 'haskell-optparse-applicative'
          'haskell-unordered-containers')
-makedepends=('ghc' 'haskell-hspec')
+makedepends=('ghc' 'haskell-hspec' 'uusi')
 source=("https://github.com/ennocramer/floskell/archive/floskell-$pkgver.tar.gz")
 sha256sums=('ad039fc93c818d1c61613ab8543d3347f19fa33e19eda52e71a6fedc99193b46')
+
+prepare() {
+  cd $_hkgname-floskell-$pkgver
+  uusi -u ansi-wl-pprint
+}
 
 build() {
   cd $_hkgname-floskell-$pkgver
