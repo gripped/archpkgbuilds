@@ -2,7 +2,7 @@
 
 pkgname=scip
 pkgver=10.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Solving Constraint Integer Programs'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -14,13 +14,13 @@ depends=(bliss
          libstdc++
          mpfr
          onetbb
+         papilo
          readline
          soplex
          zlib)
 makedepends=(boost
              cmake
-             git
-             papilo)
+             git)
 source=(git+https://github.com/scipopt/scip#tag=v$pkgver)
 sha256sums=('67828d8e73ebe8d87443c2f8f8ad6206f338d422b636dd7f923facd463d6a97d')
 
