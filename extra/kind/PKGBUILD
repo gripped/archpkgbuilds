@@ -2,8 +2,8 @@
 # Contributor: ml <ml-aur@ransomware.download>
 
 pkgname=kind
-pkgver=0.32.0
-pkgrel=2
+pkgver=0.33.0
+pkgrel=1
 pkgdesc='Kubernetes IN Docker - local clusters for testing Kubernetes'
 arch=('aarch64' 'x86_64')
 url='https://kind.sigs.k8s.io/'
@@ -19,7 +19,7 @@ optdepends=(
     'nerdctl: nerdctl node provider'
 )
 source=("git+https://github.com/kubernetes-sigs/kind.git#tag=v$pkgver")
-sha256sums=('4e9ce162c1306bb8cd804ef71ac2188fd00cd87acba49e1389f03b2b21a9c992')
+sha256sums=('3a212279237dd300c8369debc7a5fd91fe58087570e76fc9dd39556930560362')
 
 build() {
     cd "$pkgname"
