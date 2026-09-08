@@ -6,8 +6,8 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=terminator
-pkgver=2.1.5
-pkgrel=2
+pkgver=2.1.6
+pkgrel=1
 pkgdesc='Terminal emulator that supports tabs and grids'
 arch=('any')
 url='https://github.com/gnome-terminator/terminator'
@@ -37,10 +37,10 @@ source=(${url}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz{,.asc}
 
 validpgpkeys=('6FBDB41587919A0F4BA96EBA9A358BAB04A4ED27'  #Markus Frosch <markus@lazyfrosch.de>
               'D11A7596F61705480C711598F2FAC7C7BAE930A5') #Matt Rose <mattrose@folkwolf.net>
-sha512sums=('27dc3e9cbe7074e3236b6a0fda9460f4b13492010ad37500c0e68bf08cc1949d44347089671259313853014f708cde4be1321b33edf6b5494256b75386616e56'
+sha512sums=('1fe350056c85b697af06681d2957a4d4e6dbd668240d10c0b73ad95b4877786c22f11d7ab97230776b729c487c1cfeb196b03d973e4fa82e7b4a75e960d22ac5'
             'SKIP'
             'da609bbb1f2fce64bd345ec43c05f6b8d76046cfbd1be764d6fcd555d306dfca1dd5786b0fc65c0984e49a85454c9eeabf5a1f8c960412c14a97c5350912f8a9')
-b2sums=('0a1fd90ac06a61b584cbc621a85413dea4ea29ba8d3fc217e80f394f77cd6a8ce65ae8b9bdbabbf1ea96b390f3b0d4986bde691088fa85bc18701cd6f89fb72c'
+b2sums=('634ba872a4dd4acdc84401095156e6d6d4b07efd0037ffcffac592f905e27989b637c8720f1827b4927736941e00ee3d18f7eded20e8fa673206e4832c05d52c'
         'SKIP'
         '7cde90cefde34346ef20b50ebd5b930cb47df650c649e199adbb1b6235db0b40c0c2ad2b0e30bc764d52469357ce0b0424648f70da93b10d39ed0793cbbfe648')
 
