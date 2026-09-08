@@ -3,9 +3,9 @@
 # Contributor: icxes <dev.null@need.moe>
 
 pkgname=copyparty
-pkgver=1.20.21
+pkgver=1.20.23
 pkgrel=1
-pkgdesc='File server with accelerated resumable uploads, dedup, WebDAV, FTP, TFTP, zeroconf, media indexer, thumbnails++'
+pkgdesc='File server with accelerated resumable uploads, dedup, WebDAV, SFTP, FTP, FTPS, zeroconf, media indexer, thumbnails++'
 arch=(any)
 url='https://github.com/9001/copyparty'
 license=(MIT)
@@ -14,7 +14,6 @@ depends=(
   python
   lsof
   python-jinja
-  python-importlib_resources
 )
 makedepends=(
   python-build
@@ -26,35 +25,33 @@ makedepends=(
 optdepends=(
   'ffmpeg: thumbnails for videos, images (slower) and audio, music tags'
   'cfssl: generate TLS certificates on startup'
-  'python-mutagen: music tags (alternative)'
+  'python-mutagen: music tags (fast/inaccurate)'
   'python-pillow: thumbnails for images'
-  'python-pyvips: thumbnails for images (higher quality, faster, uses more ram)'
+  'python-pyvips: thumbnails for images (very RAM-expensive)'
+  'python-paramiko: sftp server'
+  'python-pyftpdlib: ftp server'
+  'python-pyopenssl: ftps server (needs pyftpdlib too)'
   'libkeyfinder: detection of musical keys'
-  'python-pyopenssl: ftps functionality'
   'python-pyzmq: send zeromq messages from event-hooks'
   'python-argon2-cffi: hashed passwords in config'
 )
-backup=(etc/copyparty/copyparty.conf)
+backup=(etc/copyparty.conf)
+install=copyparty.install
 source=(
   "$pkgname-$pkgver.tar.gz::https://github.com/9001/copyparty/releases/download/v$pkgver/copyparty-$pkgver.tar.gz"
-  remove-pkg_resources.patch
 )
-sha512sums=('95c6e5406c6d7e20bc3c773e50141e1a5716fb0b441eb298acadeb2e48d4afd201c8554629a50b1986f98ca629a8195429e45668078bd3f02e71f43d9bcea60b'
-            '25b9e6c79f68c1dbef047a4019a1b40a9e0dc71f4839cd9fb18b0ed4fc9b509aef92a575de58bbf748523b4f8522800c01608b59da09f6f5b19ec28f380f2b33')
-b2sums=('073e234e7b64d94ef8982090e177254714e71d19c6923c4749087ceb283684007aecb9c5fe2226cc42a6de6a31833ddd7e7702ad81d3a64de12e27cfd9364b64'
-        '9ebfab21c3a7a800bdaa653bebad81d5aa7126519fd2c9323ce09cea81a387f9cef241b38a7245fde19e3bdc1eccf0a41dbf9e316aa4f02a09f3eec13a0c89e4')
+sha512sums=('45a7d0017834ef7f15426bca865b68f8d3a9321b6b5662acbf57b6925058c27c591c560c683bde35557b1cb94c109ebc360a58da1ab0f26d99328a89149b18f2')
+b2sums=('95ceaa092fad2cba3d60c30ce8c90597de67d60b4ae62de33eba9fb8bfd89f2ff4b7b1146b8de55f71914f8364bfaec6b21f58ec29763c710dfc2d563dd4d588')
 
 prepare() {
   cd "$pkgname-$pkgver"
-
-  # pkg_resources is deprecated
-  patch -p1 -i "$srcdir/remove-pkg_resources.patch"
 
   sed \
     -e 's/python3/python/g' \
     -i bin/prisonparty.sh \
     -i contrib/systemd/*.service
 }
+
 build() {
   cd "$pkgname-$pkgver"
 
@@ -79,7 +76,7 @@ package() {
   cd contrib/systemd
 
   # global configuration
-  install -vDm644 -t "$pkgdir/etc/copyparty" copyparty.conf
+  install -vDm644 -t "$pkgdir/etc/" copyparty.conf
 
   # systemd integration
   install -vDm644 \
@@ -88,5 +85,5 @@ package() {
   install -vDm644 \
     copyparty-user.service \
     "$pkgdir/usr/lib/systemd/user/copyparty.service"
-  install -vDm644 index.md "$pkgdir/var/lib/copyparty-jail/README.md"
+  install -vDm644 index.md "$pkgdir/var/lib/copyparty-jail/srv/README.md"
 }
