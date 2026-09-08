@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-screen-recorder
-pkgver=6.5.19
+pkgver=6.5.20
 pkgrel=1
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
@@ -20,15 +20,11 @@ conflicts=('deepin-screenshot')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=$pkgver"
          libv4l-1.30.patch)
-sha512sums=('2e59783b9225462622758ba769ea32afc212767c9deff5fbcb02efb9c65ef1aefaffd1c051884f46b5338251bc42c5bd45b48064c6f69f4072f92e996111a63a'
+sha512sums=('c5d3b1add64ec280a686396f0abff5029c83fd315ad6d2c4f6f267801528c2af9f59fe50dbc8fbbe53205c66260eea987d00833f48decbe05b50145d63aab801'
             'b8527bbf18b78b530507ed7725218db88f3ae4ed6abb700f6430903421e188456d7f0695f680461376d403c9227bc0234578d909f29399a4072a13a042d524cb')
 
 prepare() {
   cd deepin-screen-recorder
-
-  # Fix dock plugins failing to load due to an undefined logging category.
-  # https://github.com/linuxdeepin/deepin-screen-recorder/commit/c5c11ee24155fd293b731c23ed9cfbd76b7465f1
-  git cherry-pick -n c5c11ee24155fd293b731c23ed9cfbd76b7465f1
 
   # Revert opencv -> opencv-mobile change, because opencv-mobile is not available in Arch
   sed -i 's|opencv_mobile|opencv5|;s|-lopencv_small|-lopencv_core -lopencv_imgproc|' src/src.pro
