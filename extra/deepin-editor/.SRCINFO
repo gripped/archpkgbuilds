@@ -1,6 +1,6 @@
 pkgbase = deepin-editor
 	pkgdesc = Simple editor for Deepin
-	pkgver = 6.5.58
+	pkgver = 6.5.59
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-editor
 	arch = x86_64
@@ -10,11 +10,13 @@ pkgbase = deepin-editor
 	license = MIT
 	license = CC-BY-4.0
 	license = CC0-1.0
+	checkdepends = noto-fonts
 	makedepends = git
 	makedepends = cmake
 	makedepends = gmock
 	makedepends = gtest
 	makedepends = ninja
+	makedepends = polkit-qt6
 	makedepends = qt6-tools
 	depends = dtk6core
 	depends = dtk6gui
@@ -27,12 +29,14 @@ pkgbase = deepin-editor
 	depends = qt6-5compat
 	depends = qt6-base
 	depends = qt6-svg
+	depends = qt6-webchannel
+	depends = qt6-webengine
 	depends = kcodecs
 	depends = syntax-highlighting
 	depends = libchardet
 	depends = uchardet
 	depends = hicolor-icon-theme
-	source = git+https://github.com/linuxdeepin/deepin-editor.git#tag=6.5.58
-	sha512sums = a51bba3bce6fe5008014374b5eafab1e584b829eacf44871ce1b1d13030dfb8d3011cde857cd9267fe17079e628e17ac05fe8d3a25a55e0273901f2aa92a6c4d
+	source = git+https://github.com/linuxdeepin/deepin-editor.git#tag=6.5.59
+	sha512sums = d23bb9205bec900563f8463392c496f6ada87f46ee83c74eaf30c80b0fa89b6c31bc25c16824f1305469a90dba3e161b51971a8573f3fcce5f0570cfb3feec83
 
 pkgname = deepin-editor

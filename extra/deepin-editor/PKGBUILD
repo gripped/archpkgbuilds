@@ -1,30 +1,51 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-editor
-pkgver=6.5.58
+pkgver=6.5.59
 pkgrel=1
 pkgdesc='Simple editor for Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-editor"
 license=('GPL-2.0-or-later' 'GPL-3.0-or-later' 'MIT' 'CC-BY-4.0' 'CC0-1.0')
 depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'glibc' 'libgcc' 'libstdc++'
-         'icu' 'qt6-5compat' 'qt6-base' 'qt6-svg' 'kcodecs' 'syntax-highlighting' 'libchardet'
+         'icu' 'qt6-5compat' 'qt6-base' 'qt6-svg' 'qt6-webchannel' 'qt6-webengine'
+         'kcodecs' 'syntax-highlighting' 'libchardet'
          'uchardet' 'hicolor-icon-theme')
-makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools')
+makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'polkit-qt6' 'qt6-tools')
+checkdepends=('noto-fonts')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-editor.git#tag=$pkgver")
-sha512sums=('a51bba3bce6fe5008014374b5eafab1e584b829eacf44871ce1b1d13030dfb8d3011cde857cd9267fe17079e628e17ac05fe8d3a25a55e0273901f2aa92a6c4d')
+sha512sums=('d23bb9205bec900563f8463392c496f6ada87f46ee83c74eaf30c80b0fa89b6c31bc25c16824f1305469a90dba3e161b51971a8573f3fcce5f0570cfb3feec83')
+
+prepare() {
+  cd deepin-editor
+  # Allow the SPDX header in the stylesheet fixture.
+  # https://github.com/linuxdeepin/deepin-editor/commit/a166cb401a29ae99e64540816c75526856e3b9d8
+  git cherry-pick -n a166cb401a29ae99e64540816c75526856e3b9d8
+  # Arch's noto-fonts ships the monospace family as Noto Sans Mono.
+  sed -i 's/Noto Mono/Noto Sans Mono/g' tests/common/test_settings.cpp
+  # Runtime function stubs require calls that optimization and LTO cannot remove.
+  sed -i '/^enable_testing()/a add_compile_options(-O0 -fno-inline -fno-lto)\nadd_link_options(-fno-lto)' tests/CMakeLists.txt
+  # The worker may delete itself while QSignalSpy::wait() processes events.
+  sed -i 's/t->wait(2000);/if (guard) guard->wait(2000);/' tests/common2/test_fileloadthread.cpp
+  # QTextCodec already emits the UTF-16/UTF-32 BOM; remove the duplicate insertion.
+  sed -i '/BOM+data/,+2d' src/encodes/detectcode.cpp
+}
 
 build() {
   cd deepin-editor
-  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DVERSION=$pkgver .
+  cmake -GNinja -DCMAKE_INSTALL_PREFIX=/usr -DVERSION=$pkgver -DBUILD_TESTS=ON .
   ninja
 }
 
 check() {
   cd deepin-editor
-  # Tests not available unless in debug mode
-  #ninja test || echo "Tests failed"
+  local _test
+  # Stateful suites require whole executables, as in upstream's test-prj-running.sh.
+  for _test in tests/*/test_*; do
+    [[ -f $_test && -x $_test ]] || continue
+    QT_QPA_PLATFORM=offscreen "$_test" || return
+  done
 }
 
 package() {
