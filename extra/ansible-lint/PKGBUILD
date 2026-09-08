@@ -5,13 +5,13 @@
 
 pkgname=ansible-lint
 pkgver=26.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
 license=('GPL-3.0-or-later')
 depends=(python ansible-core git yamllint
-  python-{ansible-compat,black,filelock,jsonschema,packaging,ruamel-yaml,wcmatch,importlib-metadata})
+  python-{ansible-compat,black,cffi,cryptography,distro,filelock,jsonschema,packaging,pathspec,referencing,ruamel-yaml,subprocess-tee,wcmatch,yaml,importlib-metadata})
 makedepends=(python-{build,installer,setuptools,setuptools-scm,wheel})
 checkdepends=(ansible-creator mypy podman python-jmespath python-pylint python-pytest python-pytest-mock python-uv)
 optdepends=('ansible: check official ansible collections')
