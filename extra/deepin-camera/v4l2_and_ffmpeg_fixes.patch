@@ -320,7 +320,10 @@ index f7d62f8..61e895c 100644
 diff --git a/libcam/libcam_encoder/encoder.c b/libcam/libcam_encoder/encoder.c
 --- a/libcam/libcam_encoder/encoder.c
 +++ b/libcam/libcam_encoder/encoder.c
-@@ -309,0 +310,13 @@
+@@ -309,7 +309,21 @@
+  */
+ static int encoder_check_audio_sample_fmt(const AVCodec *codec, enum AVSampleFormat sample_fmt)
+ {
 +#if LIBAVCODEC_VER_AT_LEAST(63, 0)
 +    const void *configs = NULL;
 +    const enum AVSampleFormat *p;
@@ -334,9 +337,15 @@ diff --git a/libcam/libcam_encoder/encoder.c b/libcam/libcam_encoder/encoder.c
 +    if (!p)
 +        return 1;
 +#else
-@@ -310,0 +324 @@
+     const enum AVSampleFormat *p = codec->sample_fmts;
 +#endif
-@@ -334,0 +349,12 @@
+ 
+     while (*p != AV_SAMPLE_FMT_NONE) {
+         if (*p == sample_fmt)
+@@ -334,10 +348,23 @@
+     const int *p;
+     int best_samplerate = 0;
+ 
 +#if LIBAVCODEC_VER_AT_LEAST(63, 0)
 +    const void *configs = NULL;
 +
@@ -349,8 +358,14 @@ diff --git a/libcam/libcam_encoder/encoder.c b/libcam/libcam_encoder/encoder.c
 +    if (!p)
 +        return sample_rate;
 +#else
-@@ -338,0 +365 @@
+     if (!codec->supported_samplerates)
+         return sample_rate;
+ 
+     p = codec->supported_samplerates;
 +#endif
+     while (*p) {
+         if (*p == sample_rate)
+             return sample_rate;
 diff --git a/src/src/basepub/load_libs.c b/src/src/basepub/load_libs.c
 --- a/src/src/basepub/load_libs.c
 +++ b/src/src/basepub/load_libs.c
