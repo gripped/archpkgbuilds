@@ -6,8 +6,8 @@
 # Contributor: Jesus Alvarez
 
 pkgname=python-jedi
-pkgver=0.19.2
-pkgrel=4
+pkgver=0.20.0
+pkgrel=1
 pkgdesc="Awesome autocompletion for python"
 arch=('any')
 url="https://github.com/davidhalter/jedi"
@@ -27,12 +27,10 @@ source=(
   "git+https://github.com/davidhalter/jedi.git#tag=v$pkgver"
   git+https://github.com/davidhalter/typeshed.git
   git+https://github.com/davidhalter/django-stubs.git
-  0001-jedi-set-3.14-as-supported-environment.patch
 )
-b2sums=('6d9da16b255a847e8b60e993a1f3907730bfce2918fc4796d0bafa30d5242bb91a567d19a6ae06ad51d562ea5a491a3d7d1740e423b48bc61e8c2fd080fd1de3'
+b2sums=('dbe53ad8f10bbe7c3757cb231c675a2ed8cbb73c720e87c32ea9da3fc07088daa5c7d1fc088c1ac3e62306e385d73b21048459ece3398f68fed2b03f884b70fd'
         'SKIP'
-        'SKIP'
-        '64188f7bfdf2d0a9ef2a9cb43458514ea8ba541423567f8de6cb56e5679a684b1b41fbc526a5f3ef1600294856babfe76363dd21a5808a64828dca25e8723b66')
+        'SKIP')
 
 pkgver() {
   cd jedi
@@ -45,9 +43,6 @@ prepare() {
   git config submodule."jedi/third_party/typeshed".url "$srcdir/typeshed"
   git config submodule."jedi/third_party/django-stubs".url "$srcdir/django-stubs"
   git -c protocol.file.allow=always submodule update --recursive
-
-  # https://github.com/davidhalter/jedi/issues/2064
-  patch -Np1 -i ${srcdir}/0001-jedi-set-3.14-as-supported-environment.patch
 }
 
 build() {
