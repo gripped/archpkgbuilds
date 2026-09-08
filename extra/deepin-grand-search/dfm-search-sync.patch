@@ -1,0 +1,35 @@
+Subject: [PATCH] Keep semantic filename searches synchronous
+
+DFM Search invokes callbacks asynchronously, but the local QObject holder
+owns and destroys the engine as soon as searchWithCallback() returns.
+Collect results synchronously before the engine is destroyed, retaining
+error reporting and result-limit handling.
+
+diff --git a/src/dde-grand-search-daemon/searcher/semantic/database/filenamequery.cpp b/src/dde-grand-search-daemon/searcher/semantic/database/filenamequery.cpp
+--- a/src/dde-grand-search-daemon/searcher/semantic/database/filenamequery.cpp
++++ b/src/dde-grand-search-daemon/searcher/semantic/database/filenamequery.cpp
+@@ -31,13 +31,17 @@
+         // 设置搜索选项
+         engine->setSearchOptions(options);
+         bool terminated = false;
+-        engine->searchWithCallback(query, [this, &terminated, &entity, callBack, pdata](const SearchResult &file)->bool {
+-              auto ret = processSearchResult(file.path(), entity, callBack, pdata);
+-              if (ret == Terminated) {
+-                  terminated = true;
+-              }
+-              return terminated;
+-        });
++        const auto result = engine->searchSync(query);
++        if (!result.hasValue()) {
++            qWarning() << "DFMSearch failed for key:" << entity.keys << result.error().message();
++            continue;
++        }
++        for (const auto &file : result.value()) {
++            if (processSearchResult(file.path(), entity, callBack, pdata) == Terminated) {
++                terminated = true;
++                break;
++            }
++        }
+ 
+         if (terminated)
+             break;
