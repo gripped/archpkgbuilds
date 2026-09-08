@@ -3,7 +3,7 @@
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=enchant
-pkgver=2.8.19
+pkgver=2.8.21
 pkgrel=1
 pkgdesc="A wrapper library for generic spell checking"
 url="https://rrthomas.github.io/enchant/"
@@ -38,7 +38,7 @@ source=(
   "git+https://git.savannah.gnu.org/git/gnulib.git"
   "git+https://github.com/gnulib-modules/bootstrap.git"
 )
-b2sums=('d8a5da44c8c27eef64a54f878254ba6465cf54d727ef7c6657a7e40bc1d1f847265912e373173f7f92284f3cf231bc900b91eabdbdddf73ae4329539b4070baa'
+b2sums=('fcf34a1949631d43fa122b164eb39d9a042815fe41e9fe0e60e150751b1bc0efc1596d5220c2abe76658d4ce2c6263d265f39606c7e7ede518b2963657586659'
         'SKIP'
         'SKIP')
 
