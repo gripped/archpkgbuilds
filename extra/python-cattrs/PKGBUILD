@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-cattrs
-pkgver=26.1.0
+pkgver=26.2.0
 pkgrel=1
 pkgdesc='Complex custom class converters for attrs'
 arch=(any)
@@ -36,7 +36,7 @@ optdepends=(
   'python-yaml: YAML converter'
 )
 source=("git+$_url#tag=v$pkgver")
-b2sums=('4367811a0dc9154f7e3f56a1f2b6710fdb269fa3ea7e6ea77cbf8e1b81fab819168a23b82d64d2ffc8556bd924ef6f97a94bf35d0b85ae0ec69fcaef00794b48')
+b2sums=('b4c4a6d1c383c40e01d647ba46d46bbabe9bc5c025cfaa977065dc36b851727106dd3f83f50d00947257d2cb25b781f317893af45710439cfbe1c1c2e66ec20a')
 
 build() {
   cd "${pkgname#python-}"
