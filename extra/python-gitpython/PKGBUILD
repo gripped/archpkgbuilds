@@ -5,7 +5,7 @@
 
 pkgdesc="A python library used to interact with Git repositories"
 pkgname=python-gitpython
-pkgver=3.1.61
+pkgver=3.1.62
 pkgrel=1
 url="https://github.com/gitpython-developers/gitpython"
 license=(BSD-3-Clause)
@@ -28,8 +28,8 @@ checkdepends=(
   procps-ng
 )
 source=("$pkgname::git+$url.git?signed#tag=$pkgver")
-sha512sums=('0fd63e5955d08032f13aa8cb006f733d380349c4a258fc71d50605e66fd761f7a3e99bdee3c3a5d31d27658a06095d6d4b290132fb5ec73c11af0fd494e18c12')
-b2sums=('805679ad74eb51b99c64cb511bcc095f25958d13e03f114f91b0286e1a3061359f8c147300e550cf090110ca09b7ec2e13889c142fb76782e666f7f1f7b47f1c')
+sha512sums=('ff15b9ff8bf7f040848227583907e660882ddd5ac69b542441e13f728d2dda4797bccb6e1cc9c49e90afa455fe6289bee1bada720241a50a99075c10a1d8864e')
+b2sums=('95395055bb5c431bccb5897aa980b74180a46cfc5b32d97fbb9ec8f3bc43920fec2d81c1f91bb13e31ad99e0ce604038c48bc9ac173b3bb7a1fbb280b4c26554')
 validpgpkeys=('27C50E7F590947D7273A741E85194C08421980C9') # Sebastian Thiel (In Rust I trust!) <byronimo@gmail.com>
 
 build() {
