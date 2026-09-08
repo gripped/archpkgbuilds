@@ -1,5 +1,5 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index fb0b8f3f..6be05bd3 100644
+index a945377b..b9981f47 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.13)
@@ -10,13 +10,14 @@ index fb0b8f3f..6be05bd3 100644
  
  set(APP_BIN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/bin/)
  set(BIN_NAME ${CMAKE_PROJECT_NAME})
-@@ -22,17 +21,14 @@ find_package(Dtk${DTK_VERSION_MAJOR} REQUIRED COMPONENTS
+@@ -22,18 +21,14 @@ find_package(Dtk${DTK_VERSION_MAJOR} REQUIRED COMPONENTS
      Declarative
  )
  
 -# OCR
 -find_package(PkgConfig REQUIRED)
 -pkg_search_module(OCR_PLUGIN REQUIRED deepin-ocr-plugin-manager)
+-pkg_check_modules(InferenceEngine REQUIRED ncnn opencv_mobile)
 -include_directories(${OCR_PLUGIN_INCLUDE_DIRS})
 -
  # 保证 src 目录下头文件全局可见
@@ -29,8 +30,8 @@ index fb0b8f3f..6be05bd3 100644
 +list(FILTER QMLSRC EXCLUDE REGEX ".*/qml/Live.*")
  
  qt_add_resources(SRCS res.qrc)
- 
-@@ -102,10 +98,6 @@ else()
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wl,--as-need -fPIE")
+@@ -107,10 +102,6 @@ else()
              qml/InformationDialog/PropertyActionItemDelegate.qml
              qml/InformationDialog/PropertyItem.qml
              qml/InformationDialog/PropertyItemDelegate.qml
@@ -41,10 +42,11 @@ index fb0b8f3f..6be05bd3 100644
              qml/ThumbnailDelegate/BaseThumbnailDelegate.qml
              qml/ThumbnailDelegate/MultiThumnailDelegate.qml
              qml/ThumbnailDelegate/NormalThumbnailDelegate.qml
-@@ -143,7 +135,6 @@ target_link_libraries(${BIN_NAME} PRIVATE
+@@ -148,8 +139,6 @@ target_link_libraries(${BIN_NAME} PRIVATE
      Dtk${DTK_VERSION_MAJOR}::Declarative
      GL
      pthread
+-    ${InferenceEngine_LIBRARIES}
 -    ${OCR_PLUGIN_LIBRARIES}
  )
  

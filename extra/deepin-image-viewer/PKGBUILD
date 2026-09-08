@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-image-viewer
-pkgver=6.0.21
+pkgver=6.0.22
 pkgrel=1
 pkgdesc='An image viewing tool with fashion interface and smooth performance'
 arch=('x86_64')
@@ -18,9 +18,9 @@ groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-image-viewer.git#tag=$pkgver"
         "$pkgname-6.0.1-fix-missing-qt-includes.patch"
         "$pkgname-6.0.0-disable-ocr-plugin-manager.patch")
-sha512sums=('1cb1a523ba1d0dacebabc00db1bf62e409d75b2b14a00a8106441513f6232ec359a063dee33845c995028aad35632952218520aaff44099ed18d4d41f3d11847'
+sha512sums=('57bad34b9e4efc2d69087ffb8828d879a5560bfa8081592f9fd3b624197992d4ad68a905d9db5887f3a73ec72907c19a7b2349f024e6d98003c00f99076df9cb'
             'b327d66c0324be7f69d433e5a294f85917553a325161a1d19763b9e2c19af62b0c5c92d18d4d7982198fc33b1654a82e5e35a856660f8b11f9567af8b7208224'
-            '8322b62b3a6cfb9cc487b1c3cb0938adb68b62aad3d5634433c0d3ab4b8c9ce698ab10e27ae4037c9d9af6ab2dd1ac7353c704b34a2a88f10419f05e614ef651')
+            '91f7740050e96e94484598d40ca5612b1cf73fd82d4055a3332db28cf8536ae25a6c0c76bb2023aa07b364fdb0b2336d91ae32c48c7a39f63af760abf55fef67')
 
 prepare() {
   cd deepin-image-viewer
