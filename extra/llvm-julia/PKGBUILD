@@ -4,10 +4,10 @@
 
 pkgname=(llvm-julia
          llvm-julia-libs)
-pkgver=18.1.7.4
+pkgver=18.1.7.5
 _pkgver=${pkgver%.*}-${pkgver##*.}
 _majver=${pkgver%.*.*.*}
-pkgrel=3
+pkgrel=1
 arch=(x86_64)
 url='https://julialang.org/'
 license=('custom:Apache 2.0 with LLVM Exception')
@@ -26,7 +26,7 @@ makedepends=(cmake
              python)
 options=(!lto) # https://github.com/llvm/llvm-project/issues/57740
 source=(llvm-julia::git+https://github.com/JuliaLang/llvm-project#tag=julia-$_pkgver)
-sha256sums=('626b1bf1acf34d95dd23bf5f56e715c3975b6ccbf5bf12494b0007b14640da63')
+sha256sums=('74f73bfe1f46546a6ae317f825904e5c2a3776ba47d88a073bf7664b484f5872')
 
 prepare() {
   cd llvm-julia
