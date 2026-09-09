@@ -2,7 +2,7 @@
 # Contributor: Christian Pfeiffer <cpfeiffer@live.de>
 
 pkgname=libigl
-pkgver=2.6.0
+pkgver=2.6.3
 pkgrel=1
 pkgdesc='Simple C++ geometry processing library'
 arch=(any)
@@ -13,15 +13,13 @@ makedepends=(
   git
   ninja
 )
-license=(GPL3)
-_tag=40e7900ccbd767f1f360e0eb10f0f1a6432e0993
-source=(git+https://github.com/libigl/libigl.git#tag=${_tag})
-b2sums=('99c04942f3a376dc1f994d7ca62b42d3d0b348522b276bfba6b443afd445c018a4e9dff7ae63933e46e2af0c3d7f9ddccba6ded0193ab899f32e101bc93f64a4')
-
-pkgver() {
-  cd libigl
-  git describe --tags | sed 's/^v//'
-}
+license=(
+  GPL-2.0-or-later
+  GPL-3.0-or-later
+  MPL-2.0
+)
+source=(git+https://github.com/libigl/libigl.git#tag=v${pkgver})
+b2sums=('20d14042a183013c794c0536cac6ae4adf5c6cd3bbc09bcd45894f23ef0786ed08716622c7ede313dc44be3ef97cfd9340ae1d7222c9c94de1637f019c8325ac')
 
 build() {
   cmake -S libigl -B build -G Ninja \
