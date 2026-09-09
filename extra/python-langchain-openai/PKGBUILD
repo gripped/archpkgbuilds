@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain-openai
-pkgver=1.6.0
+pkgver=1.6.1
 pkgrel=1
 pkgdesc="An integration package connecting OpenAI and LangChain"
 arch=('any')
@@ -27,6 +27,7 @@ makedepends=(
 checkdepends=(
   'python-freezegun'
   'python-httpx2'
+  'python-langchain'
   'python-langchain-tests'
   'python-pytest'
   'python-pytest-asyncio'
@@ -67,23 +68,14 @@ check() {
   cp "$srcdir"/cl100k_base.tiktoken tiktoken_cache/9b5ad71b2ce5302211f9c61530b329a4922fc6a4
   cp "$srcdir"/o200k_base.tiktoken tiktoken_cache/fb374d419588a4632f3f557e76b4b70aebbca790
 
-  # Re-enable this langchain.agents import after python-langgraph is packaged.
-  # Upstream PR #36818 skips these serdes snapshots in min-version testing;
-  # unset env-backed default_factory fields are serialized.
   TIKTOKEN_CACHE_DIR=tiktoken_cache python -m pytest \
     --disable-socket --allow-unix-socket \
-    --ignore=tests/unit_tests/middleware/test_openai_moderation_middleware.py \
-    --deselect=tests/unit_tests/chat_models/test_azure_standard.py::TestOpenAIStandard::test_serdes \
-    --deselect=tests/unit_tests/chat_models/test_base_standard.py::TestOpenAIStandard::test_serdes \
-    --deselect=tests/unit_tests/chat_models/test_responses_standard.py::TestOpenAIResponses::test_serdes \
     tests/unit_tests/
 
-  # The Azure ignore matches upstream's test_vcr target; responses_api also
-  # imports langchain.agents.
+  # The Azure ignore matches upstream's test_vcr target.
   OPENAI_API_KEY=test TIKTOKEN_CACHE_DIR=tiktoken_cache python -m pytest \
     --record-mode=none -m vcr \
     --ignore=tests/integration_tests/chat_models/test_azure_standard.py \
-    --ignore=tests/integration_tests/chat_models/test_responses_api.py \
     tests/integration_tests/
 }
 
