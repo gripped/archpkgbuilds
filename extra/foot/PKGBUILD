@@ -5,7 +5,7 @@ pkgbase=foot
 pkgdesc='Fast, lightweight, and minimalistic Wayland terminal emulator'
 pkgname=($pkgbase $pkgbase-terminfo)
 pkgver=1.28.0
-pkgrel=1
+pkgrel=2
 url="https://codeberg.org/dnkl/$pkgbase"
 arch=(x86_64)
 license=(MIT)
@@ -26,7 +26,6 @@ makedepends=(fcft
              wayland
              wayland-protocols)
 optdepends=('libutempter: utmp logging')
-backup=(etc/xdg/foot/foot.ini)
 source=("$pkgbase::git+$url.git#tag=$pkgver")
 sha256sums=('05a057b1145507625d9f548ae546705d58ba60cbb26a8958ce72f0b9c1bdee46')
 
@@ -57,6 +56,7 @@ package_foot() {
 	         ncurses
 	         pixman
 	         wayland)
+	backup=(etc/xdg/foot/foot.ini)
 	cd "$pkgbase"
 	DESTDIR="$pkgdir" ninja -C build install
 	rm -r "$pkgdir/usr/share/terminfo/"
