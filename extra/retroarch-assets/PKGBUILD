@@ -6,7 +6,7 @@ pkgname=(
   retroarch-assets-ozone
   retroarch-assets-xmb
 )
-pkgver=20260411.201626.gcd17f64cff4e
+pkgver=20260813.223050.g73106363e14e
 pkgrel=1
 epoch=1
 pkgdesc='UI/UX assets for RetroArch'
@@ -17,7 +17,7 @@ groups=(libretro)
 depends=(retroarch)
 makedepends=(git)
 source=(git+https://github.com/libretro/retroarch-assets.git#commit=${pkgver##*.g})
-b2sums=('6ba368af18b4d5f7ff3870412b3153f67549747ffb2528748e411fb98395c8fd60bf199e7582fc92e4f9396b41fa21c15937f3e267f8b730917abd556b20cc2c')
+b2sums=('25622d04c10cc5334af80055ed7b90d109f31fe4094cb3d55922abdbff4d64f4b30d73292aa4eb5ea9dd25fea9461681a5108befe55e1a5d3dffa88737b02aff')
 
 package_retroarch-assets-glui() {
   depends+=(retroarch-assets-xmb)
