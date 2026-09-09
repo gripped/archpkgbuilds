@@ -3,7 +3,7 @@
 
 pkgname=rust-bindgen
 _pkgname=bindgen
-pkgver=0.73.1
+pkgver=0.73.2
 pkgrel=1
 pkgdesc='Automatically generates Rust FFI bindings to C (and some C++) libraries'
 url='https://github.com/rust-lang/rust-bindgen'
@@ -12,7 +12,7 @@ makedepends=('cargo')
 arch=('x86_64')
 license=('BSD-3-Clause')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/rust-lang/rust-bindgen/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('95bcc769aa102e4bded5bbda568fa2c592aab32379bb83dd55b22cee9bce07e0f3805336694a52ce70d016fbe5832342b48db69fc4f77a56431cfd43e664b33e')
+sha512sums=('1e783d5e939f58572710131075746ca5a1e5d441dc9463d517c33c2c01a43990f9ceaee5ffbbdb8c0b8614177c3acee19c4feb21188e5303adf28734aa51b259')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
