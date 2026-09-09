@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-django-modeltranslation
-pkgver=0.20.3
+pkgver=0.20.6
 pkgrel=1
 pkgdesc='Translates Django models using a registration approach'
 arch=(any)
@@ -19,7 +19,7 @@ makedepends=(
 source=(
   ${pkgname#python-}::git+https://github.com/deschler/django-modeltranslation.git#tag=v${pkgver}
 )
-b2sums=('3f989e9a6fc9f976d1a28d18fdf751e9d9e9dc95807ecfecb6f0ec81f75dd0decf95a3c108dbf7d6bdb2a14e3077bd8c690d4650cd3569b3a1b4a20cf86bff77')
+b2sums=('5a038e69833734ca39813f986da481bff3f6df2ceafd365c3066056f38aca96a0d74d8e5df24ac233ed7c38d180fb5e248a4b8c27d0c33aeb9db1c98249afcab')
 
 build() {
   cd django-modeltranslation
