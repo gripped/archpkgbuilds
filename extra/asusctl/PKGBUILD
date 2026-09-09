@@ -6,7 +6,7 @@
 pkgbase=asusctl
 pkgname=(asusctl rog-control-center)
 pkgver=6.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Daemon and tools to control your ASUS ROG laptop"
 arch=('x86_64')
 url="https://asus-linux.org"
@@ -27,13 +27,13 @@ build() {
 
     export CARGO_PROFILE_RELEASE_LTO=true
     export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-    cargo build --frozen --release --all-features
+    cargo build --frozen --release
 }
 
 check() {
     cd "${pkgbase}-${pkgver}"
 
-    cargo test --workspace --frozen --all-features
+    cargo test --workspace --frozen
 }
 
 package_asusctl() {
