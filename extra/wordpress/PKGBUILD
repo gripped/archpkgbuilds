@@ -5,8 +5,8 @@
 # Contributor: Christopher Rogers <slaxemulator@gmail.com>
 
 pkgname=wordpress
-pkgver=7.1
-pkgrel=1
+pkgver=7.1.0
+pkgrel=2
 pkgdesc='Blog tool and publishing platform'
 arch=(any)
 url='https://wordpress.org/'
@@ -17,7 +17,7 @@ optdepends=('apache: Web server'
             'nginx: Web server')
 options=(!debug emptydirs)
 install=$pkgname.install
-source=("https://wordpress.org/$pkgname-$pkgver.tar.gz")
+source=("https://wordpress.org/$pkgname-${pkgver%.0}.tar.gz")
 sha256sums=('05a5f89138f632b7329f1202f2a0553c5f7fe4daf8e4b9ca7ebae9b9466b9e86')
 b2sums=('f93a610e90bf90cc3169a1f05bebc57c7930808e39e06f089d5a03d50f80666828f35a691a5d273a1d072da92d5d986e2daecb36e24f99154bb131a8343bfe3a')
 
