@@ -6,7 +6,7 @@ pkgname=(
   dleyna-docs
   python-dleyna
 )
-pkgver=0.8.4
+pkgver=0.8.5
 pkgrel=1
 pkgdesc="Services and D-Bus APIs to access UPnP and DLNA media devices"
 url="https://gitlab.gnome.org/World/dLeyna"
@@ -34,7 +34,7 @@ makedepends=(
   python-sphinx_rtd_theme
 )
 source=("git+https://gitlab.gnome.org/World/dLeyna.git?signed#tag=v$pkgver")
-b2sums=('3712843852e4408f8562ef66dced171c3f2dd70c5522ab7ed6347c87757ff2044bf2fe2832e352853ff90d3f4320a52f29e1a4f234935ef7ffd6884e9cea67ec')
+b2sums=('9e1148239207ddd28bb621e9704def759a5c1ec911dfe2a53f55b3a401c248bf74ceaa0e7020bc8df9fa7c2b86490a76987b3c8f6c5f70d343d2bc69ff94abee')
 validpgpkeys=(
   AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1 # Jens Georg <mail@jensge.org>
 )
