@@ -2,7 +2,7 @@
 
 pkgname=hyprtoolkit
 pkgver=0.5.4
-pkgrel=5
+pkgrel=6
 pkgdesc='A modern C++ Wayland-native GUI toolkit'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -26,7 +26,8 @@ depends=(
          pixman libpixman-1.so
          wayland libwayland-client.so
 )
-makedepends=(cmake)
+makedepends=(cmake
+             hyprwayland-scanner)
 provides=(libhyprtoolkit.so)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
