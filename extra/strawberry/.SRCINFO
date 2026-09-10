@@ -1,7 +1,7 @@
 pkgbase = strawberry
 	pkgdesc = A music player aimed at audio enthusiasts and music collectors
 	pkgver = 1.2.29
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.strawberrymusicplayer.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -31,6 +31,7 @@ pkgbase = strawberry
 	depends = libpulse
 	depends = libstdc++
 	depends = libx11
+	depends = openssl
 	depends = qt6-base
 	depends = sqlite
 	depends = taglib
@@ -39,6 +40,8 @@ pkgbase = strawberry
 	optdepends = gst-plugins-bad: additional codecs
 	optdepends = gst-plugins-ugly: additional codecs
 	source = git+https://github.com/strawberrymusicplayer/strawberry#tag=1.2.29
+	source = https://github.com/strawberrymusicplayer/strawberry/releases/download/1.2.29/strawberry-1.2.29.tar.xz
 	sha256sums = 909523daf62e4f7ab533a1f5ffb44debae2f531a51ffabfd1d02793c45fb9f86
+	sha256sums = f5fa02477e25cf1b2d501ee1b0a31521fc7ba74ea13055ab5f934793eb7dc264
 
 pkgname = strawberry
