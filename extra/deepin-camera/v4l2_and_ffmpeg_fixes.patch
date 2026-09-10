@@ -244,18 +244,6 @@ index e6ff475..dd99307 100644
                      audio_codec_data->frame->nb_samples,
                      audio_codec_data->codec_context->sample_fmt,
                      buffer_size);
-diff --git a/libcam/libcam_encoder/mp4.c b/libcam/libcam_encoder/mp4.c
-index f4ad069..45e98c8 100644
---- a/libcam/libcam_encoder/mp4.c
-+++ b/libcam/libcam_encoder/mp4.c
-@@ -21,6 +21,7 @@
- 
- #include "mp4.h"
- #include <libavutil/mathematics.h>
-+#include "camview.h"
- #include "load_libs.h"
- 
- static int64_t video_pts = 0;
 diff --git a/libcam/libcam/camview.c b/libcam/libcam/camview.c
 index 45687bd..0a71648 100644
 --- a/libcam/libcam/camview.c
