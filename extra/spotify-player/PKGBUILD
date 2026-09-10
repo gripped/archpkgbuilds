@@ -2,7 +2,7 @@
 # Contributor: Thang Pham <phamducthang1234 at gmail dot com>
 
 pkgname=spotify-player
-pkgver=0.24.1
+pkgver=0.25.1
 pkgrel=1
 pkgdesc="A command driven spotify player"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('openssl' 'dbus' 'libpulse' 'libsixel')
 optdepends=('libnotify: Notification support' 'fzf: Fuzzy search support')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/aome510/spotify-player/archive/v${pkgver}.tar.gz")
-sha512sums=('e541f93a0e9b00a0be6f80b4aa39ced2d796cd9a655b72e49974766e14c693ea659f15cf0ea48be88e32a771b158523eda53e3d9e48395c585ad612a1cf66d33')
+sha512sums=('67d1e3afc0d3bf4b22567ee12d4e411ded1c3827d5e84414e7f0f47529aa2ddb38fee81a099eefbac0ba51dfb09ce4103adce8073918193c0231b61cbf15451b')
 options=('!lto')
 
 prepare() {
