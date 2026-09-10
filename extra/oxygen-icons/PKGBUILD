@@ -6,7 +6,7 @@
 pkgbase=oxygen-icons
 pkgname=(oxygen-icons
          oxygen-icons-svg)
-pkgver=6.29.0
+pkgver=6.30.0
 epoch=1
 pkgrel=1
 pkgdesc='The Oxygen Icon Theme'
@@ -17,7 +17,7 @@ makedepends=(extra-cmake-modules
              qt6-base)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('3d365f052087de1b5f870a4ecee083a6eb6e5f9174925152331110025113367a'
+sha256sums=('8ae13c8827883d54cf903f63fbc9eff246b3a4dd8c0d7c835b610d642f49f37e'
             'SKIP')
 validpgpkeys=('39FFA93CAE9C6AFC212AD00202325448204E452A' # Carl Schwan <carl@carlschwan.eu>
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1' # Nicolas Fella
