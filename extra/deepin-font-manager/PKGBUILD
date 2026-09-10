@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-font-manager
-pkgver=6.5.34
+pkgver=6.5.35
 pkgrel=1
 pkgdesc='A font management tool for Deepin desktop'
 arch=('x86_64')
@@ -12,17 +12,13 @@ makedepends=('git' 'cmake' 'deepin-file-manager' 'ninja' 'qt6-tools' 'clang')
 optdepends=('deepin-file-manager: font preview in file manager')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-font-manager.git#tag=$pkgver")
-sha512sums=('760cd835eac90e5b80f613beafd5c06e24e3487142c44071a30303bd272131bf5d8cecc879d65af2a55947a2fb42d0534a9755fc67122e79cef1c55308f4441e')
+sha512sums=('6eff2cee3ba5562637563eb5c16b7a9f55b3c33213540f97083f9dad0331f7b2d4c0b7442a247dfe42e833d5389d1d19528b1b4bfda8b01e6b8a30693b90d54a')
 
 prepare() {
   cd deepin-font-manager
 
-  # Fix stale dfm-base references after upstream switched the lookup to dfm6-base.
-  sed -i \
-    -e 's/if (dfm-base_FOUND)/if (dfm${DTK_VERSION}-base_FOUND)/g' \
-    -e 's/${dfm-base_INCLUDE_DIRS}/${dfm${DTK_VERSION}-base_INCLUDE_DIR}/g' \
-    -e 's/list(APPEND LIBS dfm-base)/list(APPEND LIBS ${dfm${DTK_VERSION}-base_LIBRARIES})/' \
-    -e 's/elseif(dde-file-manager_FOUND)/elseif(DeepinFileManager_FOUND)/' \
+  # Linking the bare dfm library name does not propagate its include directory.
+  sed -i '/# dfm-base typically provides include directories through imported targets/,+1c\    target_include_directories(${APP_PLUGIN} PRIVATE ${${DFM_BASE_PACKAGE}_INCLUDE_DIR})' \
     deepin-font-preview-plugin/CMakeLists.txt
 }
 
