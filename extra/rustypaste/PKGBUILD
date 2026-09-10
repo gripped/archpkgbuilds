@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rustypaste
-pkgver=0.18.0
+pkgver=0.18.1
 pkgrel=1
 pkgdesc='A minimal file upload/pastebin service'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('libgcc' 'libstdc++' 'openssl')
 makedepends=('cargo')
 backup=('etc/rustypaste/config.toml')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/orhun/rustypaste/archive/refs/tags/v${pkgver}.tar.gz)
-b2sums=('ea8680738eb7076074b98756dd874f45c41c4c541f5066257d35b2f69ffc89c06a6ef65b6a97e3e3680218d218ff0e6a7bb5056990b0741762a582721be76dd1')
+b2sums=('651693695d3b49a0f0fff0aee90e76133b27c0608dceb9f353b4f46d7ce5debe503ab7f99bbc8cdc2caa15b05e9caf71eb736cad4031e47259a164f6d27c9bfc')
 
 prepare() {
   cd ${pkgname}-${pkgver}
