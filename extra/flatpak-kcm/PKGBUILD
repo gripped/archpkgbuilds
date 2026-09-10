@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=flatpak-kcm
-pkgver=6.7.4
+pkgver=6.7.5
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Flatpak Permissions Management KCM'
@@ -24,7 +24,7 @@ depends=(flatpak
 makedepends=(extra-cmake-modules)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('1133b40e4d7fad2349a84b5e0f12acaaa22a0940fa4fc1500e2c79482535e219'
+sha256sums=('acf25d4c7eed41e0d0ba9c897e6dae081b9021f9bcb75e3ca532ef5406ffa0ad'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
