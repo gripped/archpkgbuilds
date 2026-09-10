@@ -1,0 +1,76 @@
+# Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
+# Contributor: HurricanePootis <hurricanepootis@protonmail.com>
+# Contributor: Michal Wojdyla <micwoj9292 at gmail.com>
+# Contributor: Michael DeGuzis <mdeguzis@gmail.com>
+
+pkgname=quake
+pkgver=1.36.0
+_lq_ver=0.09-beta
+pkgrel=2
+pkgdesc='Quake for Vulkan (vkQuake) + the LibreQuake resource files'
+arch=(x86_64)
+provides=(librequake vkquake)
+url='https://github.com/Novum/vkquake'
+license=(GPL-2.0-or-later BSD-3-Clause)
+depends=(flac glibc libvorbis mpg123 opusfile sdl3 vulkan-icd-loader)
+makedepends=(gendesk glslang meson spirv-tools vulkan-headers vulkan-validation-layers)
+source=("vkquake-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
+        librequake-$_lq_ver.zip::https://github.com/lavenderdotpet/LibreQuake/releases/download/v$_lq_ver/full.zip)
+b2sums=('0dd9dbea3bab4d64b1ce05e69770b6d3d88f1a77679c11b11d879a2bf8d45784492cbc6240678b0a42826f09aebd7758963dff226c87996346472993912795aa'
+        'a463ed00898d58867eb21b82a95091c6d9fa89300bc07716a1c8c5b1cd1e8b726ba18b597acbac5794ebc454f7c2875e276a2ad224a325f325ab198ba80b7940')
+
+
+prepare() {
+  # Generate a desktop shortcut
+  gendesk -f -n --pkgname "$pkgname" --pkgdesc "$pkgdesc"
+
+  ln -sf full librequake-$_lq_ver
+  cd vkQuake-$pkgver/Quake
+
+  # Choose a different default basedir
+  sed -i 's,"\.","/usr/share/librequake/",g' main_sdl.c
+  sed -i 's|"basedirs.txt", "r");|"basedirs.txt", "r"); if \(!f\) q_strlcpy \(com_storedbasedirs\[QUAKE_FLAVOR_ORIGINAL\], "/usr/share/librequake", MAX_OSPATH\);|g' common.c
+
+  # Add a missing include
+  sed '/#include <dirent.h>/a\#include <ctype.h>' host_cmd.c
+}
+
+build() {
+  arch-meson build \
+    -D do_userdirs=enabled \
+    -D mp3_lib=mpg123 \
+    -D use_codec_flac=enabled \
+    -D use_codec_mp3=enabled \
+    -D use_codec_opus=enabled \
+    -D use_codec_vorbis=enabled \
+    -D vorbis_lib=vorbis \
+    vkQuake-$pkgver
+
+  meson compile -C build
+}
+
+package() {
+  # Package vkQuake (the executable + symlink)
+  install -Dm755 build/vkquake "$pkgdir/usr/bin/vkquake"
+  ln -s /usr/bin/vkquake "$pkgdir/usr/bin/$pkgname"
+
+  # Package LibreQuake (the data files)
+  install -d "$pkgdir/usr/share/librequake"
+  cp -rv librequake-$_lq_ver/id1 "$pkgdir/usr/share/librequake/"
+  rm -rv "$pkgdir/usr/share/librequake/id1/docs"
+
+  # Package desktop shortcut + icon
+  install -Dm644 $pkgname.desktop "$pkgdir/usr/share/applications/$pkgname.desktop"
+  install -Dm644 vkQuake-$pkgver/Misc/vkQuake_512.png "$pkgdir/usr/share/pixmaps/$pkgname.png"
+
+  # Package licenses (non-GPL2)
+  install -Dm644 librequake-$_lq_ver/id1/docs/COPYING "$pkgdir/usr/share/licenses/$pkgname/LibreQuake-LICENSE"
+  install -Dm644 librequake-$_lq_ver/id1/docs/CREDITS "$pkgdir/usr/share/licenses/$pkgname/LibreQuake-CREDITS"
+  install -Dm644 librequake-$_lq_ver/id1/docs/freedoom-docs/COPYING.adoc "$pkgdir/usr/share/licenses/$pkgname/FreeDoom-LICENSE"
+  install -Dm644 librequake-$_lq_ver/id1/docs/freedoom-docs/CREDITS "$pkgdir/usr/share/licenses/$pkgname/FreeDoom-CREDITS"
+
+  # Package documentation
+  install -Dm644 vkQuake-$pkgver/readme.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  install -Dm644 vkQuake-$pkgver/error_reporting_howto.md "$pkgdir/usr/share/doc/$pkgname/vkQuake-error-reporting-howto.md"
+  install -Dm644 librequake-$_lq_ver/id1/docs/deathmatch-setup-guide.txt "$pkgdir/usr/share/doc/$pkgname/deathmatch-guide.txt"
+}
