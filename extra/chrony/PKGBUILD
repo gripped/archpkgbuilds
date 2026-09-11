@@ -9,8 +9,8 @@
 # Contributor: Elisamuel Resto <ryuji@simplysam.us>
 
 pkgname=chrony
-pkgver=4.8
-pkgrel=3
+pkgver=4.9
+pkgrel=1
 pkgdesc='Lightweight NTP client and server'
 url=https://chrony-project.org/
 arch=('x86_64')
@@ -36,7 +36,7 @@ source=(
   chrony.sysusers
   chrony.tmpfiles
 )
-b2sums=('a8ec6f39c7504ea2aa0b7c8abfbdabed793dd3e9fcc9811ad5244525d2eb2490f055110ae657c522e6e19a4afe872b8453055a8f5ef935cc6d53f1226d942138'
+b2sums=('a420a4ffb4b920aa9887f1bd871587e1dffb83f18979d8bb870a823b1200163e7e4f1022c3971de74fa707c410af8b411c923378fe14cf0e7278b069e1a4910b'
         'a7aba9192a1b9ba512e78e768c5f5b3c630db0cfff23dd231f1254c5389ee8d750c6c33667cb9cec65712f3e2ef595a66d1dd87faf500a68e8b15d33fec162dc'
         'e709df2f97b523ef1c7a9dae3232ccbd235ac8f025eba866165272f8ba0372a0aba965d3aae1402395e43331bd629b9d8f3fbffd75fc254f4a7e5ecd47f73130')
 validpgpkeys=(
