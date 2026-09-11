@@ -4,7 +4,7 @@
 # Contributor: Daniel Martí <mvdan@mvdan.cc>
 
 pkgname=shfmt
-pkgver=3.13.1
+pkgver=3.14.1
 pkgrel=1
 pkgdesc="Format shell programs"
 url="https://github.com/mvdan/sh"
@@ -18,7 +18,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('ea2cd6e69ac3f18624ce6769161041de7a799a4f8b4a6aaefdbbaba842eca7e518b048d6dc3648edf59fcc5113e4ed4d8028028eeadaf1627091281491af7bd8')
+b2sums=('3997992424addca49f90f0f0be5858b233348f118f8b13f5f10da60f07de133fa1ce0bb8a6172348ff5a7d09b797bd623aa00b3c87898779151df76e1830ba57')
 
 prepare() {
   cd "sh"
