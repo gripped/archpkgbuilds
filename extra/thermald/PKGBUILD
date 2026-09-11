@@ -6,7 +6,7 @@
 pkgname=thermald
 _pkgname=thermal_daemon
 epoch=2
-pkgver=2.5.12
+pkgver=2.5.13
 pkgrel=1
 pkgdesc='The Linux Thermal Daemon program from 01.org'
 arch=('x86_64')
@@ -27,7 +27,7 @@ makedepends=(
 source=(
   "git+https://github.com/intel/thermal_daemon.git#tag=v${pkgver}"
 )
-b2sums=('73aecf0f46824fb1c515d8489fb8a88391c5f95bb922a0aed9d0878dfda7cd6d2defb2c24c010cebb6826fae80a3aa2998877fba67c55a7bd11f24ea208550ac')
+b2sums=('86362962bf3487ad885ce97e477c014f751f2519df4c1a2488dca1678b7aef92a8e1b6537d70dee4d255268a14212f546a04ba64375a1c3b7437cd0b99682190')
 
 build() {
   cd ${_pkgname}
