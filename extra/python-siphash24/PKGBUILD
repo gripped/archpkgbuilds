@@ -2,8 +2,8 @@
 
 _name=siphash24
 pkgname=python-$_name
-pkgver=1.8
-pkgrel=3
+pkgver=1.9
+pkgrel=1
 pkgdesc="Streaming-capable SipHash implementation"
 arch=(x86_64)
 url="https://github.com/dnicolodi/python-siphash24"
@@ -23,7 +23,7 @@ makedepends=(
   python-wheel
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('f14f49c9cad6e5f8b232af2b561f13965150a66d6b997f25b8106e5c60851d4e05736b7349bb8e3cf18916eeaf82f0b42f37945f824efe277a77698a71860eca')
+b2sums=('a0c6d0f6ea82bb8558d2a1687699b47ac75a295762bb1008adcdc3d721c77aa6ae810d7e5054bdf37e08a1b27cfa7eb83ef1fceec3ebd5fc5e6abcad8447371a')
 
 build() {
   cd $pkgname-$pkgver
