@@ -2,26 +2,33 @@
 # Contributor: Marcel Campello <marcel@prafrentex.com.br>
 
 pkgname=opentofu
-pkgver=1.12.1
+pkgver=1.12.6
 pkgrel=1
 pkgdesc="Lets you declaratively manage your cloud infrastructure"
 arch=(x86_64)
 url="https://github.com/opentofu/opentofu"
 license=(MPL-2.0)
 depends=(glibc)
-makedepends=(go)
+makedepends=(
+  git
+  go
+)
 provides=(terragrunt-iac-provider)
 options=(!lto)
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('11c30db77efd8cb3d5d386fd377dadd60f52c8b1974bb5c0224c5cb6d6d3cfc9d5c47ec8f522c7a2c13e75a48f9c6d4419b31434e56a00a57c56ef4aa937a848')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('4e604bd03aa4a9b05290c34d8d0b892c62ab338caa90cd7608cd3587e7f72dde8b3d68dbb1aa95b28764c7e167ef3e42899185ec45690199344dd8944f8714e5')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd $pkgname
+  # Go 1.27 compat
+  go get golang.org/x/net@v0.57.0
+  git show --no-color --format= 079a1ed74d56b9d3fdcffc3a62da1b3517812d91 \
+    -- '*_test.go' | git apply
   GOFLAGS="-mod=readonly" go mod vendor -v
 }
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
@@ -38,13 +45,13 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   # Skipped test asserts a hard-coded terraform_version that lags the release
   go test ./... -skip '^TestStateViews$'
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   install -vDm755 -t "$pkgdir/usr/bin" tofu
 
   echo 'complete -C /usr/bin/tofu tofu' \
