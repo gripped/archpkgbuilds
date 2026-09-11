@@ -5,7 +5,7 @@
 # Contributor: Douglas Soares de Andrade <dsandrade@gmail.com>
 
 pkgname=python-urwid
-pkgver=4.0.13
+pkgver=4.1.2
 pkgrel=1
 pkgdesc='Curses-based user interface library'
 arch=('any')
@@ -42,8 +42,8 @@ optdepends=(
   'python-twisted: for twisted integration'
 )
 source=("git+https://github.com/urwid/urwid.git#tag=$pkgver")
-sha512sums=('0e3cee266c3c4a01f9a1463aaca0848354434b795ec7bae32f13fe96f609f1e8fa42cb3d27fe4adc3789d39bad4fe4b04854717e599dece204115f153a942642')
-b2sums=('3a8e7352120079a29644f0bea3e67f34bf130217f0139ad7d39a3a82e8cf86dc03c6b8d0ab99157a10d7784b67fcf1332139e1d288d962a514c99c31dcbd5045')
+sha512sums=('916fd207c3f66044b3412be238ed3508023906b3d7fff5d9c5ca2b3170d767fe73851eaff93360ccc67005e86a0b174165227ba1c58c29210548b9c405dca998')
+b2sums=('4a212acd31a7bc32e19c95418be0559ba2cf51b384d40f6885cf2ccefdc821207e1b31c2287201331c920237e7be48e7cf376ba6aee03f7128eb7d300f6b5afe')
 
 build() {
   cd ${pkgname#python-}
