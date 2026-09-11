@@ -1,13 +1,13 @@
 pkgbase = qmapshack
 	pkgdesc = Consumer grade GIS software
-	pkgver = 1.20.3
+	pkgver = 1.21.1
 	pkgrel = 1
 	url = https://github.com/Maproom/qmapshack
 	arch = x86_64
 	license = GPL-3.0-only
 	makedepends = clang
 	makedepends = cmake
-	depends = alglib
+	makedepends = git
 	depends = gdal
 	depends = glibc
 	depends = hicolor-icon-theme
@@ -18,11 +18,11 @@ pkgbase = qmapshack
 	depends = qt6-5compat
 	depends = qt6-base
 	depends = qt6-declarative
+	depends = qt6-svg
 	depends = qt6-tools
 	depends = qt6-webengine
-	depends = quazip-qt6
 	depends = routino
-	source = https://github.com/Maproom/qmapshack/archive/V_1.20.3/qmapshack-1.20.3.tar.gz
-	b2sums = 960815fbc83bf5d1090433df411fc980a950e9ba25a18e578509d14687c8e5919ace7a58e31e47c20e437f936b113d80e326d7a56fb644041b3af3edafb533df
+	source = git+https://github.com/Maproom/qmapshack.git#tag=V_1.21.1
+	b2sums = a7e0a174c62af0056fb781bc74315be6f1e456ff2fb5cd8266e090753be1d90f3b592ae9ffe152b601c9675ac9d9b88136b1996e3128362407327da4f74b4e2b
 
 pkgname = qmapshack
