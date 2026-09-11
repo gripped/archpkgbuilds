@@ -5,8 +5,8 @@
 # Contributor: orbisvicis <orbisvicis@gmail.com>
 
 pkgname=mapnik
-pkgver=4.2.2
-pkgrel=5
+pkgver=4.3.1
+pkgrel=1
 pkgdesc="Open source toolkit for developing mapping applications"
 arch=('x86_64')
 url="https://mapnik.org/"
@@ -31,7 +31,6 @@ depends=(
   'openssl'
   'postgresql-libs'
   'proj'
-  'protozero'
   'qt6-base'
   'sqlite'
   'zlib'
@@ -40,6 +39,7 @@ makedepends=(
   'boost'
   'cmake'
   'git'
+  'protozero'
 )
 source=(
   "git+$_url.git#tag=v$pkgver"
@@ -47,10 +47,10 @@ source=(
   "mapnik-test-data-visual::git+https://github.com/mapnik/test-data-visual.git"
   "mapbox-variant::git+https://github.com/mapbox/variant.git"
   "mapbox-geometry::git+https://github.com/mapbox/geometry.hpp.git"
-  "mapbox-polylabel::git+https://github.com/mapbox/polylabel.git"
+  "mapbox-polylabel::git+https://github.com/mapnik/polylabel.git"
   "git+https://github.com/mapnik/mapnik-vector-tile.git"
 )
-b2sums=('e96b1e1e0d39663a4dc8c47b0601fc1e73c977b9859eaa017d92770b29308a61f28f6043a49068065543701c771c01c5d460b63d44caeb37e70fc9850cac3cfe'
+b2sums=('d9253c2af2f832dd19e9cd8c137623dff7623101af8161edb2036146bd27b6f0dbf2b9a6c4f0fd5cd1190164fbb783c5ed4c9b03ea883c0cd5a9cc6b10405a26'
         'SKIP'
         'SKIP'
         'SKIP'
