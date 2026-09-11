@@ -2,7 +2,7 @@
 # Contributor: Tom Wadley <tom@tomwadley.net>
 
 pkgname=nvm
-pkgver=0.40.5
+pkgver=0.40.7
 pkgrel=1
 pkgdesc="Node Version Manager - Simple bash script to manage multiple active node.js versions"
 arch=('any')
@@ -18,7 +18,7 @@ source=(
   "git+$url.git#tag=v$pkgver"
   "init-nvm.sh"
 )
-b2sums=('b2801a08da5016d9c5813c456becf019bd72251fcf51e4bd4202a614c01de065cf2830e81d09b40f492881084e87f14272929d603314ae7ae37df8eb91ceab3d'
+b2sums=('9a08bd419bc5f345c50f52f98f15117d4d5ea17ae45f4508abad118e74159051be6738e760c8c395c60c0b3f658137a9d1643e94bf3adcb27719a42fcdd3751f'
         'd541d4a3411b665ad19e80fce02bc44e19b389a67959944451da4fb3e0a3e10bee0052f0f2ece2a67e4908333a26d23664bef995ef929bdcf44ffa77eff052aa')
 
 prepare() {
