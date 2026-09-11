@@ -1,8 +1,9 @@
 # Maintainer: Sébastien Luttringer
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 
 pkgname=bird
-pkgver=3.2.1
+pkgver=3.3.2
 pkgrel=1
 pkgdesc='RIP, OSPF, BGP, MPLS, BFD, Babel routing daemon'
 arch=('x86_64')
@@ -19,7 +20,7 @@ replaces=('bird6')
 backup=('etc/bird.conf')
 source=("https://gitlab.nic.cz/labs/bird/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz"
         'bird.service')
-b2sums=('47c81bf0495dfe395c69a134c61b0c4fe927e78ba17e197a9079d2d17b26f78cc42a365525e72c91d4ca940295d428c93feb68840e34a81ce791fce94334f4c4'
+b2sums=('30395a10b1bc403cf1a2bae30fef88773665c4de975d8b1b7f6fd8151d957876ddee1dfe23327967cd71d8ebe6f9ca480c37b43bb3fc1f523961393813e93fd5'
         '03ba113301babdba0f12974157386dab76603e84ee868af9c21718184a8fc87b7a1bc8e363258e76cca6397781d93a9f7210f49c3f602154ed4e2d6730c76e03')
 
 prepare() {
