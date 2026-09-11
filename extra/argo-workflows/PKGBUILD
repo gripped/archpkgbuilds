@@ -1,20 +1,20 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=argo-workflows
-pkgver=4.0.5
+pkgver=4.1.2
 pkgrel=1
 pkgdesc='Workflow Engine for Kubernetes'
 arch=(x86_64)
 url='https://github.com/argoproj/argo-workflows'
 license=(Apache-2.0)
-depends=(glibc)
+depends=(glibc sqlite)
 makedepends=(
   git
   go
 )
 options=('!lto')
 source=("git+$url#tag=v$pkgver")
-b2sums=('09b08413d76369252403c047f178a3bd447b37600a9b706c71f888cd54de94ed00628b42f73e201e2689b120c97de3693ccbcaca3a90733d447d04b206c393cc')
+b2sums=('7aa72f91ddbd946bea20d0a04c1b11376262c53fc0277525ab65b5de668f8e1a2d8d50d14ec07a243f3d61c5c2c7afeb60a2d1edd5c5006aa465862e1d9853f5')
 
 prepare() {
   cd $pkgname
@@ -38,13 +38,13 @@ build() {
     -X github.com/argoproj/argo-workflows/v4.version=$pkgver \
     -X github.com/argoproj/argo-workflows/v4.gitTag=v$pkgver \
   "
-  go build -v -ldflags "$ld_flags" -o build/argo ./cmd/argo
+  go build -v -ldflags "$ld_flags" -tags libsqlite3 -o build/argo ./cmd/argo
 }
 
 check() {
   cd $pkgname
   # Skip tests requiring a Kubernetes cluster
-  go test ./cmd/argo/... ./pkg/...
+  go test -tags libsqlite3 ./cmd/argo/... ./pkg/...
 }
 
 package() {
