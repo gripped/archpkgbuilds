@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=shikane
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Deterministic dynamic output configuration tool for Wayland compositors"
 arch=('x86_64')
@@ -17,7 +17,7 @@ makedepends=(
   'pandoc'
 )
 source=("$url/-/archive/v$pkgver/$pkgname-v$pkgver.tar.gz")
-b2sums=('9bf65a98538fb4f5cafbacc7eb79971a1aa6ec781067e6914f8d635f214a5ef1cfbf6c7411d1fd32157b37a83279ba344c98521b4926acf830bcaaf52ddd5e98')
+b2sums=('1766f42e535515059c1c034c01ff4ee27809186c4f21d720b1783ba0e29d8d07f3efd5ed6a643def9c1cd6bb1ff3ba5c00f9d1de5be96dadb9afd7606b15614b')
 
 prepare() {
   cd $pkgname-v$pkgver
