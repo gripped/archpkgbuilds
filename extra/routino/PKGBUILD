@@ -1,36 +1,41 @@
 # Maintainer: Jaroslav Lichtblau <svetlemodry@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Contributor: Sanpi <sanpi+aur@homecomputing.fr>
 
 pkgname=routino
-pkgver=3.4.3
+pkgver=3.4.4
 pkgrel=1
 pkgdesc='Router for OpenStreetMap Data'
 arch=('x86_64')
 url='https://www.routino.org/'
-license=('AGPL3')
-depends=('zlib' 'bzip2')
-source=(https://www.routino.org/download/$pkgname-$pkgver.tgz)
-sha256sums=('4eba067d32c97ca9388ad6e97c0f5a3c10d48829367240d78c51375d8cc11e54')
+license=('AGPL-3.0-or-later')
+depends=(
+  'bzip2'
+  'glibc'
+  'zlib'
+)
+source=("https://www.routino.org/download/$pkgname-$pkgver.tgz")
+b2sums=('be5a91fd8201ea17e88e960df83fe6cffe79d3070bbf169d033da6f734dfdaf490dd5866cf943108ad03c36617c8ff31a74309a289fd717c79d6e40a61f8022a')
 
 prepare() {
-  cd "$pkgname-$pkgver"
-
-#paths fix
+  cd $pkgname-$pkgver
   sed -i 's|prefix=/usr/local|prefix=/usr|' Makefile.conf
   sed -i 's|/doc/routino|/share/doc/routino|' Makefile.conf
-
-#RPATH fix
   sed -i 's|LDFLAGS_LDSO=-Wl,-R.||' Makefile.conf
+  sed -i 's/^CFLAGS=/CFLAGS+=/; s/^LDFLAGS=/LDFLAGS+=/' Makefile.conf
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-
+  cd $pkgname-$pkgver
   make
 }
 
-package() {
-  cd "$pkgname-$pkgver"
+check() {
+  cd $pkgname-$pkgver
+  make test
+}
 
-  make DESTDIR="${pkgdir}" install
+package() {
+  cd $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install
 }
