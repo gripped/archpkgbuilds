@@ -4,7 +4,7 @@
 # Contributor: Mike Williamson <mike at korora dot ca>
 
 pkgname=eksctl
-pkgver=0.229.0
+pkgver=0.230.0
 pkgrel=1
 pkgdesc='Command line tool for creating clusters on Amazon EKS'
 url='https://github.com/eksctl-io/eksctl'
@@ -20,7 +20,7 @@ makedepends=(
 )
 options=('!lto')
 source=("git+${url}.git#tag=v${pkgver}")
-b2sums=('d28df85b386ebc95c87a123ae178358df8b91f3f26352d92b7277ae5a51203d7b292c9e1be1a91437e337fd41e475ace9393d22fb8460ff50fbab81fd44b9432')
+b2sums=('fc93c5b505f00534fc529ab06ce7d53051e8756dca697c095b9f71ce13ae99f2572daaedcfb14dea9e87f2fef85ea6bd2bd9d80724c74b6c04d6261bc246e4a5')
 
 prepare() {
   cd ${pkgname}
