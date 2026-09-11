@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=cava
-pkgver=0.10.7
+pkgver=1.0.0
 pkgrel=1
 pkgdesc='Console-based Audio Visualizer with support for multiple backends'
 arch=('x86_64')
@@ -22,11 +22,12 @@ depends=(
   'portaudio'
   'sndio'
   # Output backends
+  'libglvnd'
   'ncurses'
   'sdl2'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('6db21291cf06049b6349ac2ffbc6d2803481e514374dcb21d57d9d23cfe886a8bdfc8a247c51db1fb5feb57a855953f2d468db7762ac119dbddd7f37d1f4b597')
+b2sums=('6de652e3029d0ec8e2b682f3c4f9377cbc6712c92be5e0d69178e562edae70c288f98784665f40c03dce9b9cd1ffeb3c866931405e56138a58c69fbe303fb667')
 
 prepare() {
   cd $pkgname-$pkgver
