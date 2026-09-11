@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sonivox
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="Fork of the AOSP 'platform_external_sonivox' to use outside of Android"
 arch=(x86_64)
@@ -20,9 +20,9 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
   https://www.ronimusic.com/sf2/Airfont_340.dls  # soundfont required for testing...
 )
-sha256sums=('dabdbd54bd6ba8d5be995bd9ef504c2a34bdf654f41a389510c99043cfc237ca'
+sha256sums=('5c513d7a6fa0ebf61afd3b96da881e3014edf53acfb8d08a63dd853fca37c1fa'
             'beb3e39e3c9fc51ef4dff36fdd8db0361471a91d244c3ee78af90f6d3c783b04')
-b2sums=('e1b1abb66e4659c7357c47ce221413d3c24c3499199d6a260194c67af23fafbe90bafe0622d68d1198cc112d3bf40ca70355fa8c49c696e87260e872d35ae0cf'
+b2sums=('4356ce1371c803d1b488fbe7f1de447bd15a27918be28629583ce7452255ae9c5a99367be631f2ce77af40fedc8fb945f62051748d241f277cb73492c0cf7f18'
         '298ea526ddd68367817ffbec77e8f338bbc167a608f3d670a96d2c517923cb72e44df9bde5aafd97faad0139789732dc2975be9f9d7bee3c7c6cecc78014bf47')
 
 prepare() {
