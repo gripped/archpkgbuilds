@@ -8,14 +8,16 @@
 
 pkgname=julia
 epoch=2
-pkgver=1.12.7
+pkgver=1.13.0
 pkgrel=1
 arch=(x86_64)
 pkgdesc='High-level, high-performance, dynamic programming language'
 url='https://julialang.org/'
 license=(MIT)
 depends=(blas64-openblas
+         dsfmt
          fftw
+         libatomic
          libblastrampoline
          libgit2
          libnghttp2
@@ -27,7 +29,8 @@ depends=(blas64-openblas
          openssl
          7zip
          pcre2
-         suitesparse)
+         suitesparse
+         zstd)
 makedepends=(cmake
              gcc-fortran
              libwhich
@@ -38,13 +41,15 @@ optdepends=('gnuplot: If using the Gaston Package from julia')
 source=(https://github.com/JuliaLang/julia/releases/download/v$pkgver/$pkgname-$pkgver-full.tar.gz{,.asc}
         c12e8515.patch
         julia-hardcoded-libs.patch
-        glibc-2.44.patch)
+        system-llvm.patch
+        system-zstd.patch)
 backup=(etc/julia/startup.jl)
-sha256sums=('5c7d85b771de3185eeca9fbc2e6173d8bcf6d74f68418622a9e9c43ad752af51'
+sha256sums=('6b7f8eecb208b2fffc95cec6713a06c94f51bcbc5616630c30b42bd9221cb26e'
             'SKIP'
             '2cc294b63e601d50341979fb936826bdba59de2165a5929eae927e152652f367'
             '120c3b77a1aecfdb045ac64902164210ea8dd139d2fb8e8b098155b344a8e1fb'
-            '54685e7c0dffaca2ed791dc62c42333b98fd29662101188348df3a146868c5fd')
+            '263e3d23109c8f8170dfc1418a6c31e0c86c089ba622a46ce861cd874e6dca8e'
+            '3dfa4890ad82d6c30d7f9db1dcef6f8f5c5cdf147ec622f102f555b714d57978')
 validpgpkeys=('64B779A570972FFF7BFC2B54EAD471E1A1F2C10A') # Julia (Binary signing key) <buildbot@julialang.org>
 options=(!lto)
 
@@ -55,8 +60,13 @@ prepare() {
   patch -Rp1 -i ../c12e8515.patch
 # Don't hardcode library names
   patch -p1 -i ../julia-hardcoded-libs.patch
-# Fix segfaults with glibc 2.44
-  patch -p1 -i ../glibc-2.44.patch
+# https://github.com/JuliaLang/julia/issues/63094
+  mkdir -p usr/lib
+  ln -s libatomic.so.1 usr/lib/libatomic.so
+# https://github.com/JuliaLang/julia/issues/63102
+  patch -p1 -i ../system-llvm.patch
+# https://github.com/JuliaLang/julia/issues/63100
+  patch -p1 -i ../system-zstd.patch
 }
 
 _make() {
@@ -79,7 +89,7 @@ _make() {
     USE_SYSTEM_MPFR=1
     USE_SYSTEM_LIBSUITESPARSE=1
     USE_SYSTEM_LIBWHICH=1
-    USE_SYSTEM_DSFMT=0
+    USE_SYSTEM_DSFMT=1
     USE_SYSTEM_LIBUV=0
     USE_SYSTEM_UTF8PROC=1
     USE_SYSTEM_LIBGIT2=1
@@ -89,6 +99,7 @@ _make() {
     USE_SYSTEM_CURL=1
     USE_SYSTEM_PATCHELF=1
     USE_SYSTEM_ZLIB=1
+    USE_SYSTEM_ZSTD=1
     USE_SYSTEM_P7ZIP=1
     USE_SYSTEM_OPENLIBM=1
     USE_BLAS64=1
@@ -97,7 +108,7 @@ _make() {
     LIBLAPACK=-llapack64
     LIBLAPACKNAME=liblapack64
     VERBOSE=1
-    JLDFLAGS="$LDFLAGS -lLLVM-18jl"
+    JLDFLAGS="$LDFLAGS -lLLVM-20jl"
     LLVM_CONFIG=/usr/lib/llvm-julia/bin/llvm-config
   )
 
@@ -135,6 +146,7 @@ check() {
     --skip PCRE2_jll \
     --skip LibGit2_jll \
     --skip Zlib_jll \
+    --skip Zstd_jll \
     --skip precompile # https://github.com/JuliaLang/julia/issues/59887
   find ../stdlib \( -name \*.cov -o -name \*.mem \) -delete
   rm -fr ../stdlib/Artifacts/test/artifacts
