@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=arduino-cli
-pkgver=1.4.1
+pkgver=1.5.1
 pkgrel=1
 arch=('x86_64')
 pkgdesc='Arduino command line interface'
@@ -15,7 +15,7 @@ makedepends=(
   'go'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('ba500af35055370b5e9684169e6ac795cf36ef13b5ef176955c4f10a80469eadf810641cecea9b604fd3406ea5c55075125028176d0595cfe9b226a60211d834')
+b2sums=('9e57cabb66b018f3771f729e3c0004ff06cd8f8540d5fec3cc295679dcad2aeeae165f27c07222be872dfbe29e7de68209def7e97863cbb19ad2c7b7a7e291a3')
 
 prepare() {
   cd $pkgname
