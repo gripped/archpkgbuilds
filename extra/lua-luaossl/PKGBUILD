@@ -1,8 +1,8 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=(lua-luaossl lua51-luaossl lua52-luaossl lua53-luaossl lua54-luaossl)
-pkgver=20250929
-pkgrel=2
+pkgver=20260910
+pkgrel=1
 pkgdesc='Most comprehensive OpenSSL module in the Lua universe'
 arch=('x86_64')
 url='http://25thandclement.com/~william/projects/luaossl.html'
@@ -10,16 +10,12 @@ license=('MIT')
 makedepends=('luarocks' 'lua' 'lua51' 'lua52' 'lua53' 'lua54')
 depends=('openssl')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/wahern/luaossl/archive/rel-$pkgver.tar.gz"
-      "https://github.com/wahern/luaossl/releases/download/rel-$pkgver/luaossl-$pkgver-0.rockspec"
-       https://github.com/wahern/luaossl/commit/dc891ba243e6dc7c327e8c63ad404a40314c61e3.patch)
-sha256sums=('2f695aea5f0bc0b9b32d3de56fffc5d41630f30bdd7e15bd68ce1f4bd3e8f61e'
-            'b4a726aa81341b877ca305f45f6386a7056f05019b02418a1e8c33d4f610a886'
-            '7236113d06dfc000bc37a63ce7cae880ff0597b54f3d1ec6ae14f6844017245f')
+      "https://github.com/wahern/luaossl/releases/download/rel-$pkgver/luaossl-$pkgver-0.rockspec")
+sha256sums=('f6c2ed1007df7214bfdfa2f11a1f2128698119c99fa1efb776ce846f7bd198a8'
+            '4f9268354d86d117caf84d58bb26f6d9bf895090a48b3076b6232719eee4c320')
 
 prepare() {
   cd "luaossl-rel-$pkgver"
-# LUA 5.5 support
-  patch -p1 -i ../dc891ba243e6dc7c327e8c63ad404a40314c61e3.patch
 }
 
 build() {
