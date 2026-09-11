@@ -1,4 +1,6 @@
 [wasmtime]
-source = "git"
-git = "https://github.com/bytecodealliance/wasmtime.git"
-prefix = "v"
+source = 'github'
+github = 'bytecodealliance/wasmtime'
+use_max_tag = true
+prefix = 'v'
+exclude_regex = ".*(rc|alpha|beta|post).*"
