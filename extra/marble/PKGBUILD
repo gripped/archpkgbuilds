@@ -10,8 +10,8 @@ pkgname=(marble
          marble-common
          marble-maps
          marble-qt)
-pkgver=26.08.0
-pkgrel=4
+pkgver=26.08.1
+pkgrel=1
 pkgdesc='Desktop Globe'
 arch=(x86_64)
 url='https://apps.kde.org/marble/'
@@ -31,7 +31,7 @@ makedepends=(extra-cmake-modules
              qt6-webengine
              shapelib)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgbase-$pkgver.tar.xz{,.sig})
-sha256sums=('d91506f09629e744531910f2b1e95b1dec3373772390e205971de5f995cdc6e5'
+sha256sums=('a8d5fbfb6b8cc4a8517df6e75143afcdaebcd7995f88f7a459d6b17c9bae1a98'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
