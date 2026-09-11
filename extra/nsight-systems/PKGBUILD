@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=nsight-systems
-pkgver=2026.1.3.425
+pkgver=2026.3.2.313
 pkgrel=1
 pkgdesc="System-wide statistical sampling profiler with tracing features"
 arch=(x86_64 aarch64)
@@ -40,8 +40,8 @@ source_aarch64=(https://developer.download.nvidia.com/compute/cuda/redist/${pkgn
 source=(nsight-systems.desktop)
 
 b2sums=('3f4fdc522ede1f4efa3ba91d369bbd1d576b0541f711558c309a697d33a1c9125c1ce3d430acc4e4ba060fa112ccb89c0d7e6284473b566502ca838202b790cc')
-b2sums_x86_64=('48d71ec1d1c5bd3a515e6d70ed78a65e53094d34e8d3edb915f621c82f5f15ea1eb71482e62b78946073dfb45996afd4cd8f8fbedfee9532fe5e51c512e5c24e')
-b2sums_aarch64=('605646342a3e52ec83f9aef91a9c58a6e1c2696f7b5f4aa4be79e379f5f851ac078cda16f62fc62143867c6d42093c787fdef13ca8e6ba3db2acddb62f7ffa4d')
+b2sums_x86_64=('f4e8e3c760f7b158bbdb87f67b01123aa63f4d3f6a169b5791f63177a3a977d617d9e5f11d780825ff11673b13738eb9d855b73dde081f83e6565558e7f60e32')
+b2sums_aarch64=('f334e4a1c904d7222bbbccc73e71de192164588c5a50b9cff4aed6c04edd18cd41a04a60098173b613d18c0ef0b40586209abdeac9d7dc493cdec92535c7c373')
 
 package() {
   cd ${pkgname/-/_}-linux-*-${pkgver}-archive
