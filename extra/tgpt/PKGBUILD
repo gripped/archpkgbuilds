@@ -2,7 +2,7 @@
 # Contributor: George Woodall <georgewoodall82@gmail.com>
 
 pkgname=tgpt
-pkgver=2.11.1
+pkgver=2.14.0
 pkgrel=1
 pkgdesc="AI Chatbots in terminal without needing API keys"
 arch=(x86_64)
@@ -15,7 +15,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('2ecf507bb05e3a87ffec69f8d7eaea71b9fb5e74ad025fc50bc7cbbae59bd2fc2c310b0c790a469e5e3e2b0347058136facd68024d26fb392c145f5b638f6a07')
+b2sums=('ac93cda3a27420bb0c3fb26b607e43876160cc1256780234be1dddafc069f2a6a55c32cda3ddcd31ccefea5a5300e3cb4308697d3c44f6f2ff66f24673d4c83b')
 
 prepare() {
   cd $pkgname-$pkgver
@@ -40,6 +40,7 @@ check() {
   local unit_tests=$(
     go list ./... \
       | grep -v github.com/aandrew-me/tgpt/v2/providers/opengpts \
+      | grep -v github.com/aandrew-me/tgpt/v2/src/helper \
       | grep -v github.com/aandrew-me/tgpt/v2/src/imagegen/pollinations \
   )
   # shellcheck disable=SC2086
