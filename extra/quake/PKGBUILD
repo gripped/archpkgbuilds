@@ -6,12 +6,12 @@
 pkgname=quake
 pkgver=1.36.0
 _lq_ver=0.09-beta
-pkgrel=2
+pkgrel=3
 pkgdesc='Quake for Vulkan (vkQuake) + the LibreQuake resource files'
 arch=(x86_64)
 provides=(librequake vkquake)
 url='https://github.com/Novum/vkquake'
-license=(GPL-2.0-or-later BSD-3-Clause)
+license=(BSD-3-Clause GPL-2.0-or-later)
 depends=(flac glibc libvorbis mpg123 opusfile sdl3 vulkan-icd-loader)
 makedepends=(gendesk glslang meson spirv-tools vulkan-headers vulkan-validation-layers)
 source=("vkquake-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
@@ -22,7 +22,7 @@ b2sums=('0dd9dbea3bab4d64b1ce05e69770b6d3d88f1a77679c11b11d879a2bf8d45784492cbc6
 
 prepare() {
   # Generate a desktop shortcut
-  gendesk -f -n --pkgname "$pkgname" --pkgdesc "$pkgdesc"
+  gendesk -f -n --pkgname "$pkgname" --pkgdesc "$pkgdesc" --categories "Games;Shooter"
 
   ln -sf full librequake-$_lq_ver
   cd vkQuake-$pkgver/Quake
@@ -50,11 +50,11 @@ build() {
 }
 
 package() {
-  # Package vkQuake (the executable + symlink)
+  # Package vkQuake (executable + symlink)
   install -Dm755 build/vkquake "$pkgdir/usr/bin/vkquake"
   ln -s /usr/bin/vkquake "$pkgdir/usr/bin/$pkgname"
 
-  # Package LibreQuake (the data files)
+  # Package LibreQuake (data files)
   install -d "$pkgdir/usr/share/librequake"
   cp -rv librequake-$_lq_ver/id1 "$pkgdir/usr/share/librequake/"
   rm -rv "$pkgdir/usr/share/librequake/id1/docs"
