@@ -4,7 +4,7 @@
 
 pkgname=(llvm-julia
          llvm-julia-libs)
-pkgver=18.1.7.5
+pkgver=20.1.8.2
 _pkgver=${pkgver%.*}-${pkgver##*.}
 _majver=${pkgver%.*.*.*}
 pkgrel=1
@@ -21,19 +21,11 @@ makedepends=(cmake
              libedit
              libffi
              libxml2
-             ncurses
              ninja
              python)
 options=(!lto) # https://github.com/llvm/llvm-project/issues/57740
 source=(llvm-julia::git+https://github.com/JuliaLang/llvm-project#tag=julia-$_pkgver)
-sha256sums=('74f73bfe1f46546a6ae317f825904e5c2a3776ba47d88a073bf7664b484f5872')
-
-prepare() {
-  cd llvm-julia
-  git cherry-pick -n 20dbc097256ca1bf1cfeb738d7a4610d379da8f5 \
-                     18021ff5420ed1945f9aa1e67679094112680f6b \
-                     7b28655847aa1d37dbf7e09f57a3db0284874115 # Fix build with GCC 15
-}
+sha256sums=('285da7f6315118d3da1bab8ab306fddd668903dea5ae91a89e0747a5d8ad2d8c')
 
 # Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid
 # installing static libraries; inspired by Gentoo
@@ -119,8 +111,7 @@ package_llvm-julia-libs() {
   pkgdesc="LLVM runtime libraries - Julia fork"
   depends+=(libedit
             libffi
-            libxml2
-            ncurses)
+            libxml2)
 
   install -d "$pkgdir/usr/lib/llvm-julia/lib"
   for _lib in libLLVM-${_majver}jl.so libLLVM.so.${pkgver%.*.*}jl; do

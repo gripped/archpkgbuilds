@@ -1,5 +1,5 @@
 pkgbase = llvm-julia
-	pkgver = 18.1.7.5
+	pkgver = 20.1.8.2
 	pkgrel = 1
 	url = https://julialang.org/
 	arch = x86_64
@@ -9,7 +9,6 @@ pkgbase = llvm-julia
 	makedepends = libedit
 	makedepends = libffi
 	makedepends = libxml2
-	makedepends = ncurses
 	makedepends = ninja
 	makedepends = python
 	depends = glibc
@@ -18,8 +17,8 @@ pkgbase = llvm-julia
 	depends = zlib
 	depends = zstd
 	options = !lto
-	source = llvm-julia::git+https://github.com/JuliaLang/llvm-project#tag=julia-18.1.7-5
-	sha256sums = 74f73bfe1f46546a6ae317f825904e5c2a3776ba47d88a073bf7664b484f5872
+	source = llvm-julia::git+https://github.com/JuliaLang/llvm-project#tag=julia-20.1.8-2
+	sha256sums = 285da7f6315118d3da1bab8ab306fddd668903dea5ae91a89e0747a5d8ad2d8c
 
 pkgname = llvm-julia
 	pkgdesc = Compiler infrastructure - Julia fork
@@ -40,4 +39,3 @@ pkgname = llvm-julia-libs
 	depends = libedit
 	depends = libffi
 	depends = libxml2
-	depends = ncurses
