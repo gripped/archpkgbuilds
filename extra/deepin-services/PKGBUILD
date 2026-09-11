@@ -1,19 +1,19 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-services
-pkgver=1.0.41
+pkgver=1.0.42
 pkgrel=1
 pkgdesc='Manage DBus service on Deepin'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-services"
 license=('LGPL-3.0-or-later' 'GPL-3.0-or-later' 'CC0-1.0')
 depends=(glibc libgcc libstdc++ systemd-libs qt6-base qt6-wayland dtk6core dtk6gui glib2
-         libx11 libxcb libxtst python wayland xcb-util-keysyms
-         deepin-service-manager)
+         libx11 libxcb libxext libxss libxtst polkit-qt6 python wayland xcb-util-keysyms
+         deepin-service-manager deepin-power-control deepin-screensaver)
 makedepends=(git cmake ninja qt6-tools treeland-protocols wayland-protocols wlr-protocols)
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-services.git#tag=$pkgver)
-sha512sums=('66689a81ab0da2ed54d9ad0d0a94f59b2e4018bf786729c7b17b5b68045b492da80348c0a373ec268aeae14172517486cb29517a881e313dbc98242a81e4600c')
+sha512sums=('4ea3f834a60c54e7ab1ecdb9f5ec3452e106a85b8f288bab8af1d5dc1d07f9b66586ad910afb3dbd0864657afdd030e3b3870502c9c03321ecf34ca59a685fe3')
 
 build() {
   cd dde-services
