@@ -5,7 +5,7 @@
 # Contributor: Ondřej Surý <ondrej@sury.org>
 
 pkgname=knot-resolver
-pkgver=6.4.0
+pkgver=6.4.2
 pkgrel=1
 pkgdesc="Caching DNSSEC-validating DNS resolver"
 arch=('x86_64')
@@ -18,8 +18,10 @@ depends=(
   'gnutls'
   'knot'
   'libcap-ng'
+  'libgcc'
   'libnghttp2'
   'libngtcp2'
+  'libstdc++'
   'libuv'
   'lmdb'
   'luajit'
@@ -57,7 +59,7 @@ source=(
   "git+https://gitlab.nic.cz/knot/3rdparty/lua-aho-corasick.git"
   "git+https://gitlab.nic.cz/knot/3rdparty/lua-tapered.git"
 )
-b2sums=('ece96938444a16e602fce3d431af39eeb6c0916b35c190836aa53bba225bde3b48ff5c01490bc810135995e5491453a2bc61528b992232b8d6db6b5467f7ce62'
+b2sums=('788270f27461317ea9a3d4dba0c3a18b1959f8a0b8de03d0a85f10a80d769999fe6c8c107db4b08f0ba3fa7c7cbea8ad11617d6d74fcd1d42c1e27be733c6e43'
         'SKIP'
         'SKIP'
         'SKIP')
