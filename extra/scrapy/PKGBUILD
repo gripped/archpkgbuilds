@@ -3,7 +3,7 @@
 # Contributor: Anibal Pacheco <apacheco.uy@gmail.com>
 
 pkgname=scrapy
-pkgver=2.18.0
+pkgver=2.19.0
 pkgrel=1
 pkgdesc='A fast high-level scraping and web crawling framework'
 arch=(any)
@@ -11,7 +11,9 @@ license=(BSD-3-Clause)
 url='https://scrapy.org'
 depends=(
   python
+  python-aiohttp
   python-brotli
+  python-charset-normalizer
   python-cryptography
   python-cssselect
   python-defusedxml
@@ -20,6 +22,7 @@ depends=(
   python-lxml
   python-packaging
   python-parsel
+  python-platformdirs
   python-protego
   python-pydispatcher
   python-pyopenssl
@@ -45,9 +48,11 @@ checkdepends=(
   python-anyio
   python-attrs
   python-botocore
+  python-colorlog
   python-h2
   python-httpx2
   python-markupsafe
+  python-psutil
   python-pyftpdlib
   python-pytest
   python-pytest-rerunfailures
@@ -61,13 +66,14 @@ optdepends=(
   'ipython: for enhanced support of the interactive scraping shell'
   'python-anyio: for HTTPX download handler asyncio support'
   'python-botocore: for various utils'
+  'python-colorlog: for colored logging'
   'python-h2: for HTTP2 support'
   'python-hpack: for HTTP2 streaming support'
   'python-httpx2: for HTTPX download handler support'
 )
 source=("$pkgname::git+https://github.com/scrapy/scrapy#tag=$pkgver")
-sha512sums=('ff5c380f30096d322ba160423690cc4c34bc321876e8bf647b2fe657ef235f99e1df164c646624f70924b2ece127d3cc931e3c835e8d08737951bbead5c473db')
-b2sums=('83bcd7938643f50426788c587c51ba9360191f2cc21ab8b7200a810f472972d8c79a91cd73580d23f439333b076175b2c2951890e79a2bd868d05ed279ae0e2f')
+sha512sums=('4154fc45e511850b4f61b1ef454d89a9ca54b9bd555a24127a2d9b07282a17fe91c9abef7730797579d3c2e9970b749cedd8fbe773a1254a7082e8cd943e3b4d')
+b2sums=('aaa20d0cae81bac95c48471dff82e43c4c600fb4c162620e0d60752bdb28b5e83e0631b8e4da37ee74545715ffa1a539ca0b92cede6a69ce2243276c13e0ce83')
 
 build() {
   cd "$pkgname"
@@ -86,17 +92,11 @@ check() {
   local pytest_options=(
     -vv
     # Fails with AssertionError under Python 3.14, not sure why
-    --deselect tests/test_crawler.py::TestCrawlerProcessSubprocess::test_asyncio_enabled_reactor_different_loop
     --deselect tests/test_pipeline_files.py::TestFilesPipeline::test_file_path
     --deselect tests/test_command_check.py
     --deselect tests/test_feedexport.py
     --deselect tests/test_squeues.py
     --reactor default
-    # AttributeError: 'LogCapture' object has no attribute 'addFilter'
-    --deselect tests/test_utils_log.py::TestTopLevelFormatter::test_top_level_logger
-    --deselect tests/test_utils_log.py::TestTopLevelFormatter::test_children_logger
-    --deselect tests/test_utils_log.py::TestTopLevelFormatter::test_overlapping_name_logger
-    --deselect tests/test_utils_log.py::TestTopLevelFormatter::test_different_name_logger
     # ModuleNotFoundError: No module named 'tests'
     --deselect tests/test_crawler_subprocess.py::TestCrawlerRunnerSubprocess::test_response_ip_address
     # assert 'Ignoring response <402' not in "scrapy.middleware"
