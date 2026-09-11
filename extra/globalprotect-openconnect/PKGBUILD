@@ -3,7 +3,7 @@
 # Contributor: Keinv Yue <yuezk001@gmail.com>
 
 pkgname=globalprotect-openconnect
-pkgver=2.5.4
+pkgver=2.6.5
 pkgrel=1
 pkgdesc="A GlobalProtect VPN GUI client based on Openconnect, supports SAML auth mode"
 arch=(x86_64)
@@ -46,10 +46,10 @@ source=(
 	"git+https://gitlab.gnome.org/GNOME/libxml2.git"
   "$pkgname-hipreport-install-location.patch"
 )
-b2sums=('483597860c4d0dca4fef922563ca6a17fbc5b3e4a54a655dc4d5623ea3f52209631cee36cfe18b9738bcaf326101a50c388782250bdc702d23bfbe5a3804ec7e'
+b2sums=('51d2643c8c5a310f6b14bbccfdec785d2770e2d49a272e0b46b3dd0ff40726150c27d61df0b96edb1c32c4106d20c2b920a07694347150bfd0d44fe6d48540c1'
         'SKIP'
         'SKIP'
-        'da022f5969e10d6de9caf8204a3bb56189f311dbbc6b38663304d2bcd0aa781cfbdd558249406b899dba705c439d6604244be126e4309a076b078e3af8af9670')
+        '2d807731ab30d28a0b14f49bf71014d7fe1b7d012223bb4c834bc1cf25050448429605750f97f63c4eed649efc28fc625b2846f1ac54cf6d0e850297a8f81391')
 
 prepare() {
   cd $pkgname
