@@ -1,7 +1,7 @@
 # Maintainer:
 
 pkgname=meson-python
-pkgver=0.21.0
+pkgver=0.21.1
 pkgrel=1
 pkgdesc='Meson PEP 517 Python build backend'
 arch=(any)
@@ -25,7 +25,7 @@ checkdepends=(cmake
               python-pytest-mock
               python-wheel)
 source=(git+https://github.com/mesonbuild/meson-python#tag=$pkgver)
-sha256sums=('2ec8e012108d383b844feb82c67b72b6dcecc93783f9ad927789d6a2d421c804')
+sha256sums=('e7d0b3b794947968585dc339e0b1e79b8ae2a100adbc69784dc8d16636be4517')
 
 prepare() {
   cd $pkgname
