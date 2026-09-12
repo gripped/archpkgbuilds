@@ -2,8 +2,8 @@
 # Contributor:  Joakim Hernberg <jbh@alchemy.lu>
 
 pkgbase=linux-rt-lts
-pkgver=6.18.50.rt6.arch1
-pkgrel=2
+pkgver=6.18.51.rt6.arch1
+pkgrel=1
 pkgdesc='Linux RT LTS'
 arch=(x86_64)
 url='https://gitlab.archlinux.org/archlinux/packaging/upstream/linux-rt-lts'
@@ -59,19 +59,19 @@ source=(
   $url/-/releases/v${_distro_patch_ver}/downloads/$pkgbase-v${_distro_patch_ver}.patch.{sig,zst}
 )
 source_x86_64=(config.x86_64)
-sha512sums=('57f65d17e09e023c084adf49041676f14215a7a3514f5b9de7fc8819df9af180b016a909f4a59eb30907932f6bce5e187343cd3fb649a574b4067dcf331eea5f'
+sha512sums=('482c68c483c8317db0266fcdce54bc7028ba2a2e0d410af5995258efa21d4f8246dcbded43c09da7cc0b272148ee34c422d840d66dbf7ebb9d57c295dc770bea'
             'SKIP'
             'SKIP'
-            'a541ebeea9ff9d816a3f94d524e7f1f1a2637e5a12576c26da425779a1a33c171d241b0a7c22fdc363d2cc69de2816ba64191625d49098c2f0803c6f062ed76c'
+            'e48b303c85939a377164410ad749afb7c844bb9bb818aa9576884b3ac7f647edd4c420670e37ad2755ce41f2a3c4d7e24a26a5bfbe5f7f8139bac65ab96a2575'
             'SKIP'
-            '251b33aa099cd54b08add7d2490f9adf6593ee9d8ae6df47c3ca9bf291d2930db4ccb47fd4a25170703997b80f7e759fd58cdd8a8ebd0bf983d7e6b968e7e9e1')
+            'aa0e9baf5bc22be7e3cc1ecef0d44e6bb5f22f686bfef4b0ea31e8c6ce7a15e02e095a6795f01e9e850122ee8b573c8254ef304d9f47886d424954bc87cf548d')
 sha512sums_x86_64=('bae974e19078bc49561eef620601c1a97114751fef8b65c1ac6cf277d695e5bb4c6b401f496e5ab28f39ba095ef5d3b3772f8da531b414bf4a051ec9f14facc3')
-b2sums=('f2bafe037541a25fae70910534ef9a5d7d41bee0db85a56caa5be9992d23acf336bf5adb016182c37e4d5720b932b5e284df91d8ee4e148893f5448f15455691'
+b2sums=('76ef8f305ed9f5bd23ba30d90df4928cb45f877a0b9961fccf601d03aa4734c4905a4af384cd1728388b70c199fbaae8134c6acb51bcce385ef4bb72b2dc2227'
         'SKIP'
         'SKIP'
-        'e12b10173823fab089fc0a2a3ee4969d95d69a73e33fe584966e390485cd64a4056a9283304bc03ab7831970632452ff98de2d1a5baece7a5ff01c462852a14c'
+        '9878cac2a35be5a00fd02aff9f5ce21b0cf1c9e5b061ce17010a696b309a99f121c4d491e9ff2aaac340337e6ac3cb47f8391e7ed0ebf5467f4d19a4c0b8aa51'
         'SKIP'
-        '2f96d704c59a58191c35e7a99ad757c0c3607cbdba1ff58d47e83ac2b78fae6f1e531671959b066b8c30efeb04eafd5fb55b3a5d1d5cd62d19c66901728c1dab')
+        '038171f15c4d5d2cc97b2170e24a321f77f12b808a403092344d3ca93fad4b4537eb2ee8e19875379da436ef4d7579502741d0c5fd8c9c75ef3ec8671b448bd8')
 b2sums_x86_64=('a417756950560f4f500eeae42a97218944817f767ecbc1f5d473500f447c7a62a08fa02f2f1dd3c1ae47d2b913ef553dca424e0ff48aeb657e83cb23bd05001d')
 validpgpkeys=(
   647F28654894E3BD457199BE38DBBDC86092693E  # Greg Kroah-Hartman <gregkh@linuxfoundation.org>
