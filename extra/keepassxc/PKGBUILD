@@ -4,14 +4,15 @@
 
 pkgname=keepassxc
 pkgver=2.7.12
-pkgrel=4
+pkgrel=5
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 url="https://keepassxc.org/"
 arch=(x86_64)
 license=('GPL-2.0-only OR GPL-3.0-only OR LGPL-2.1-only')
-depends=('argon2' 'botan' 'hicolor-icon-theme' 'libxtst' 'minizip' 'pcsclite' 'qrencode' 'qt5-svg' 'qt5-x11extras' 'libusb')
+depends=('argon2' 'botan' 'glibc' 'hicolor-icon-theme' 'libgcc' 'libstdc++' 'libusb' 'libxtst' 'libx11'
+         'minizip' 'pcsclite' 'qrencode' 'qt5-base' 'qt5-svg' 'qt5-x11extras' 'readline' 'zlib')
 makedepends=('asciidoctor' 'cmake' 'git' 'qt5-tools')
-checkdepends=('xclip' 'xorg-server-xvfb' 'xclip')
+checkdepends=('xclip' 'xorg-server-xvfb')
 optdepends=('xclip: keepassxc-cli clipboard support under X server'
             'wl-clipboard: keepassxc-cli clipboard support under Wayland')
 provides=('org.freedesktop.secrets')
@@ -24,7 +25,6 @@ validpgpkeys=(3489040C1F0C3EEAB8D556A5440FC65F2E0C6E01  # Jonathan White <suppor
               71D4673D73C7F83C17DAE6A2D8538E98A26FD9C4  # KeePassXC Release <release@keepassxc.org>
               AF0AEA44ABAC8F1047733EA7AFF235EEFB5A2517  # KeePassXC Release <release@keepassxc.org>
               C1E4CBA3AD78D3AFD894F9E0B7A66F03B59076A8) # KeePassXC Release <release@keepassxc.org>
-
 
 prepare() {
 	cd "${pkgname}"
