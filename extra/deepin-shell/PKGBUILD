@@ -2,7 +2,7 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=2.0.53
+pkgver=2.0.54
 pkgrel=1
 pkgdesc='New DDE shell'
 arch=('x86_64')
@@ -17,10 +17,14 @@ groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('2c21be349084d67399ab695e63e8e25d5df423dd01161c9a4bdbde50a90e3a2dfcc501131013dd0afc433bcc74cf88cabb45a826c907a98a089c136f1f47d57f')
+sha512sums=('727dd7d8ca225af9ae6c113f6bda3157210ea537f183a578749cc27fda3d2c3b817706bcbf9e511031e06ce06ac997affc11586cdd18210c3360cf3983ecbce1')
 
 prepare() {
   cd dde-shell
+  # Qt 6.10 support: https://github.com/linuxdeepin/dde-shell/pull/1735
+  git cherry-pick -n fb18e7a4eca9daf917cf367f903f66d6f8be982a
+  # GCC 16 support: https://github.com/linuxdeepin/dde-shell/pull/1736
+  git cherry-pick -n 19ac675da9bdae2d51e2d9107e7c75f09c66a201
   sed -i '/target_compile_definitions(dde-shell-dock PRIVATE DS_LIB)/d' panels/dock/frame/CMakeLists.txt
 }
 
