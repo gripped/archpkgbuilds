@@ -1,13 +1,14 @@
-# Maintainer: Morten Linderud <foxboron@archlinux.org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: Morten Linderud <foxboron@archlinux.org>
 # Contributor: Devin Cofer <ranguvar[at]ranguvar[dot]io>
 # Contributor: DriverX
 # Contributor: Nicolas Quiénot <niQo @ aur>
 # Contributor: Martin Schrodt <martin@schrodt.org>
 
 pkgname=nvme-cli
-pkgver=2.16
-pkgrel=2
+pkgver=3.0
+pkgrel=1
 pkgdesc="NVM-Express user space tooling for Linux"
 arch=('x86_64')
 url="https://github.com/linux-nvme/nvme-cli"
@@ -31,7 +32,7 @@ depends=(
 install=nvme-cli.install
 # checkdepends=('python2-nose' 'python-nose')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linux-nvme/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('989682ed7b250a2c7a8127e362ffc5d29f5c370127abe405be09c73216da2b97')
+sha256sums=('37db80e4303403434f169265be4c0f28fedbc37862a54ad49c7cb289f677c6fe')
 
 build() {
     local meson_options=(
