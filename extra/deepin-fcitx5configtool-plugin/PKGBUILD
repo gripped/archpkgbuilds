@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-fcitx5configtool-plugin
-pkgver=6.0.37
+pkgver=6.0.38
 pkgrel=1
 pkgdesc='DDE Control Center plugin for Fcitx 5 configuration'
 arch=('x86_64')
@@ -25,6 +25,7 @@ depends=(
   'polkit-qt6'
   'qt6-base'
   'qt6-declarative'
+  'systemd-libs'
   'xkeyboard-config'
 )
 makedepends=(
@@ -37,7 +38,7 @@ makedepends=(
 )
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-fcitx5configtool-plugin.git#tag=$pkgver")
-sha512sums=('8ab77f1f3e3a7e5a3bf06c7c9e16d7e48bd3f7530bdeff95b3bc549bcacae9d555b06969e0fa5c69e4b770b8beb08f1aae70f4ac9cd2f04b34996e072d618018')
+sha512sums=('3b5af741d6eeeef1d7ab7e1946b0f53520b6da215ac53d724082598a42b8cc0ae16a167e9a60819ec259c9732a579a40ce10f9d0fdb2b4a5df3b460c6443a947')
 
 prepare() {
   cd deepin-fcitx5configtool-plugin
