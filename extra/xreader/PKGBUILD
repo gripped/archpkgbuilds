@@ -3,7 +3,7 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xreader
-pkgver=4.6.5
+pkgver=4.6.7
 pkgrel=1
 pkgdesc='Document viewer for files like PDF and Postscript'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(
   at-spi2-core
   cairo
   dconf
-  gcc-libs
+  libgcc
   gdk-pixbuf2
   glib2
   glibc
@@ -24,11 +24,9 @@ depends=(
   libice
   libsm
   libtiff
-  libx11
   libxml2
   pango
   poppler-glib
-  webkit2gtk-4.1
   xapp
   zlib
 )
@@ -48,16 +46,14 @@ optdepends=(
   'djvulibre: support for djvu files'
   'libgxps: support for xps files'
   'libspectre: support for dvi and ps files'
-  'mathjax2: support for math in epub files'
   'texlive-bin: support for dvi files'
 )
 source=("git+https://github.com/linuxmint/xreader.git#tag=${pkgver}")
-b2sums=('9515c2a6d60d707b8200e41632734f5c2d341ab69f6c38b0d1af604dc8f7d5073f65989a0e892834212cecc74d9e9e722290554b6ac72cf9270d6e6d1b42a4db')
+b2sums=('caee8e682531a888ac51ea323cae5b6fa37fcc87700562ae0df5ca5717b22d0026097b1f38d33c6bf687f2b23321166c4c771b0fcb47b7a00818c77913916904')
 
 build() {
   arch-meson $pkgname build \
     --libexecdir=lib/$pkgname \
-    -D mathjax-directory=/usr/share/mathjax2 \
     -D comics=true \
     -D djvu=true \
     -D dvi=true \
