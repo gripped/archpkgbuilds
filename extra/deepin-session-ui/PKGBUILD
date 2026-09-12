@@ -3,12 +3,12 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-ui
-pkgver=6.0.48
+pkgver=6.0.49
 pkgrel=1
 pkgdesc='Deepin desktop-environment - Session UI module'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session-ui"
-license=('GPL-3.0-or-later')
+license=('CC0-1.0' 'GPL-3.0-or-later')
 groups=('deepin')
 # deepin-daemon: org.deepin.dde.daemon.*
 depends=('deepin-daemon' 'deepin-wallpapers' 'deepin-pw-check' 'dtk6core'
@@ -16,7 +16,7 @@ depends=('deepin-daemon' 'deepin-wallpapers' 'deepin-pw-check' 'dtk6core'
          'libxcrypt' 'glibc' 'libgcc' 'libstdc++' 'hicolor-icon-theme')
 makedepends=('git' 'cmake' 'deepin-tray-loader' 'deepin-gettext-tools' 'qt6-tools' 'gtest' 'ninja')
 source=("git+https://github.com/linuxdeepin/dde-session-ui.git#tag=$pkgver")
-sha512sums=('4c69b589e33fc6f9efbc3ee862e09cb2fcfe3a2bec9b78337d0395735bed090931c8d060e30a3cdb92e985e384a73dd89aa597a9e4ee0fb64e666e013cfaa9d4')
+sha512sums=('2d6411de44259e73eed27bce94f894c0ed85f5d6ca42b05f6050b169f49e84950165e47a2b16db85126b4816aff17a32f51060de72cee625f9ec5e6291a10bfb')
 
 build() {
   cd dde-session-ui
