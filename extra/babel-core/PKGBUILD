@@ -1,24 +1,22 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=babel-core
-pkgver=8.0.1
+pkgver=8.0.5
 pkgrel=1
 pkgdesc="A compiler for writing next generation JavaScript"
 arch=('any')
 url="https://babeljs.io/"
 license=('MIT')
-depends=('nodejs' 'semver')
+depends=('nodejs')
 makedepends=('npm')
 source=("$pkgname-$pkgver.tgz::https://registry.npmjs.org/@babel/core/-/core-$pkgver.tgz")
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('e4583133874b4293091d289501393c7e85b6eb77551d01c15695d88a298d1025561b4d5fe2717211b422c5e4fa330be0ed36b24442768292a5de8d91a0c767ab')
+sha512sums=('dbfa169204db058a2a8a8096004e172686ceaf3c314c36b9fd78c33f7b49d41843affa3071df6a9d7069e31737ff61b95f86ef5ccd389ebc5b449c4571703115')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
   tar xf $pkgname-$pkgver.tgz package/LICENSE
   install -Dm644 package/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-
-  rm -r "$pkgdir"/usr/lib/node_modules/@babel/core/node_modules/{,.bin/}semver
 
   # Non-deterministic race in npm gives 777 permissions to random directories.
   # See https://github.com/npm/npm/issues/9359 for details.
