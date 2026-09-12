@@ -3,13 +3,13 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=atril
-pkgver=1.28.3
+pkgver=1.28.7
 pkgrel=1
 pkgdesc="A document viewer for MATE"
 url="https://mate-desktop.org"
 arch=('x86_64')
 license=('GPL-2.0-or-later')
-depends=('djvulibre' 'libspectre' 'libgxps' 'mathjax2' 'gettext' 'poppler-glib' 'cairo>=1.14.0' 'webkit2gtk-4.1>=2.6.0' 'libsynctex' 'mate-desktop')
+depends=('djvulibre' 'libspectre' 'libgxps' 'libgepub' 'gettext' 'poppler-glib' 'cairo>=1.14.0' 'webkit2gtk-4.1>=2.6.0' 'libsynctex' 'mate-desktop')
 makedepends=('autoconf-archive' 'caja' 'git' 'glib2-devel' 'gobject-introspection' 'itstool' 'mate-common' 'texlive-bin' 'python-packaging' 'yelp-tools')
 optdepends=('caja: Document Properties extension'
             'texlive-bin: DVI support')
@@ -18,7 +18,7 @@ conflicts=('atril-gtk3')
 replaces=('atril-gtk3')
 source=("git+https://github.com/mate-desktop/atril.git#tag=v${pkgver}"
         git+https://github.com/mate-desktop/mate-submodules.git)
-sha256sums=('5ecb107fe0fdef8d1340fa8ab756db38ceea22b77c902c4384e6e80bd86f65f2'
+sha256sums=('911c09957a8c4c6d8db4ac96d7c83f40f9607f6b1b3233de9bb7b1fbd9955038'
             'SKIP')
 
 prepare() {
