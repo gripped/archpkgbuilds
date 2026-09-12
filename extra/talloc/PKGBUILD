@@ -3,7 +3,7 @@
 
 pkgname=talloc
 pkgver=2.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Hierarchical pool based memory allocator with destructors"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
@@ -23,6 +23,7 @@ build() {
      --localstatedir=/var \
      --bundled-libraries=NONE \
      --builtin-libraries=replace \
+     --disable-rpath-install \
      --enable-talloc-compat1
    make
 }
