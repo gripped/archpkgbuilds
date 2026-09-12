@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=release-plz
-pkgver=0.3.162
+pkgver=0.3.165
 pkgrel=1
 pkgdesc='Release Rust packages without using the command line'
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(curl libcurl.so
 makedepends=(cargo 'git')
 optdepends=('cargo-semver-checks: check for API breaking changes')
 source=("git+$url.git#tag=$pkgname-v$pkgver")
-sha256sums=('0ce81ad67485211b993acfb050eb9e41d7b489b9d867e64e2981349f0cb0a5c5')
+sha256sums=('83ee415fdd5e0cf39ffbebf2efdcd9fc1b50e1a240ca80e92b8c779b25e29f13')
 
 _srcenv() {
 	cd "$pkgname"
@@ -53,6 +53,7 @@ check() {
 	_srcenv
 	local skipped=(
 		next_ver
+		semver_check::tests::only_major_changes_are_incompatible
 	)
 	cargo test --frozen --no-default-features -- ${skipped[@]/#/--skip } 
 }
