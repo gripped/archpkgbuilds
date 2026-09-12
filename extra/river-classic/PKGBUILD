@@ -3,7 +3,7 @@
 
 pkgname=river-classic
 pkgver=0.3.17
-pkgrel=1
+pkgrel=2
 pkgdesc="A dynamic tiling wayland compositor"
 arch=('x86_64')
 url="https://codeberg.org/river/river-classic"
@@ -28,6 +28,9 @@ optdepends=('polkit: access seat through systemd-logind')
 provides=('wayland-compositor')
 conflicts=('river')
 source=(git+https://codeberg.org/river/river-classic.git#tag=v${pkgver}?signed)
+#
+# disable source caching for now: https://codeberg.org/ziglang/zig/issues/31866
+#
 # PACKAGING.md -> build.zig.zon
 # source+=(zig-pixman-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
          # zig-wayland-v0.6.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.6.0.tar.gz
@@ -43,6 +46,7 @@ sha256sums=('af6f536e0c1d049316e17f46941d07b92b035632cfbf38ae6ac6182917d8da13'
             # '1e185423e6b23ed9729614e66751ab7522db4487df4e0dcc7a2b06375aacda23'
             # 'SKIP')
 )
+
 # prepare() {
     # zig fetch --global-cache-dir ./zig-global-cache "./${source[1]%%::*}"
     # zig fetch --global-cache-dir ./zig-global-cache "./${source[2]%%::*}"
@@ -62,6 +66,7 @@ build() {
     -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie \
+    --build-id=none \
     -Doptimize=ReleaseSafe \
     -Dxwayland
 
@@ -79,6 +84,7 @@ check() {
     -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie \
+    --build-id=none \
     -Doptimize=ReleaseSafe \
     -Dxwayland
 
