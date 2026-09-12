@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=buf
-pkgver=1.72.0
+pkgver=1.73.0
 pkgrel=1
 pkgdesc='A tool for working with Protocol Buffers'
 arch=(x86_64)
@@ -10,8 +10,8 @@ license=(Apache-2.0)
 depends=(glibc)
 makedepends=(git go)
 source=("$pkgname::git+https://github.com/bufbuild/buf#tag=v$pkgver")
-sha512sums=('9c46d38dc3fe4867d7b5a768d89648c0ffca4494c5ed0a45acc39872ff3a498edcc4c9e695e6f0d2a84005895fcf67e7c2d15825aa623ada9a67c4577a4c79a8')
-b2sums=('85f12249bca51d24c25d74554f03d87838e7843cbb9ff116bad765d3d9599a05ba6a143ca47545dd477fc33eb0bbc8ad0284ad617303e4940939146bc00e4353')
+sha512sums=('b6f63b7c086992e8e934b98280b7be9a7ecd4d87e6dc1c64d70a2be6f172ba0e6a4ccb1a2b1bd914fba9fd96ac41e093cdf864918b0d62532268070c65cb9958')
+b2sums=('81f1875f7865f908f28fa160a0387527249abcee701671ea6faae3ccc1cc28f299554750d10bc7f2f05dfe4683f5e6e5636c9702ba9bacd6eecf24b2f411e6d9')
 
 prepare() {
   cd "$pkgname"
@@ -21,7 +21,7 @@ prepare() {
 
   # download dependencies
   export GOPATH="${srcdir}"
-  go mod download
+  go mod download -modcacherw
 }
 
 build() {
