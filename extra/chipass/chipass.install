@@ -1,0 +1,19 @@
+post_install() {
+	cat <<EOM
+
+:: Users of the KeePassXC browser plugin may need to update the binary path in the
+   org.keepassxc.keepassxc_browser.json native messaging hosts file to point to the
+   ChiPass-proxy binary (instead of the keepassxc-proxy binary) in order for the
+   browser plugin to work properly with ChiPass.
+
+   To do so, edit the org.keepassxc.keepassxc_browser.json file and replace the
+   binary path line from:
+
+   "path": "/usr/bin/keepassxc-proxy",
+
+   to:
+
+   "path": "/usr/bin/ChiPass-proxy",
+
+EOM
+}
