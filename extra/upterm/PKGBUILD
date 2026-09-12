@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Sýlvan Heuser <sylvan.heuser@gmx.net>
 pkgname=upterm
-pkgver=0.25.1
+pkgver=0.26.0
 pkgrel=1
 pkgdesc='Secure Terminal Sharing, an alternative to tmate'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('Apache-2.0')
 depends=('glibc')
 makedepends=('go')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/owenthereal/upterm/archive/v${pkgver}.tar.gz")
-sha256sums=('ad26cd4fd70e182c9cd7ab003b23bb6cb8ccabd9cfda3ae012c9be90901a1b08')
+sha256sums=('2eee37b11631e7ecf2a51c94d7a5051fcdf5beebf0fd69f50c9272fb0252de55')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
