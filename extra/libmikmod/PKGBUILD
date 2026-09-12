@@ -4,7 +4,7 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=libmikmod
-pkgver=3.3.13
+pkgver=3.3.14
 pkgrel=1
 pkgdesc="Module player library supporting many formats, including MOD, S3M, IT and XM"
 url="https://mikmod.sourceforge.net"
@@ -24,14 +24,11 @@ makedepends=(
 provides=(libmikmod.so)
 source=(
   "git+https://git.code.sf.net/p/mikmod/mikmod#tag=libmikmod-$pkgver"
-  0001-libmikmod-cmake-Install-documentation-and-autoconf-m.patch
 )
-b2sums=('4a5001249655eae7b6a93c4d3a79de93ae58b702bc3fa7ebc5fa16d8006b749f4eeb365fdcf0ea8fa0d47affa1932f99a31e9bfdaab516b0e1d5ee873cc3c5c6'
-        'ba79a911013dceef7c58c8a495f27127f0a5a878ab83eff6e336bdf4d6dfa791171b3c91c0e12ca73fba8fa7825e676b42aad24723f2255114d5968a88d5889f')
+b2sums=('5050ab01b2a9f295abc4b1ce5f226ad9185f678dd915c416886f090e6bea019d582336b03af3f8e50b15aa5b075ab9985c05be15ed3030696919987b09b81f94')
 
 prepare() {
   cd mikmod
-  git apply -3 ../0001-libmikmod-cmake-Install-documentation-and-autoconf-m.patch
 }
 
 build() {

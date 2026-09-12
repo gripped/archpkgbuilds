@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -23,7 +26,7 @@ SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
-    "0001-libmikmod-cmake-Install-documentation-and-autoconf-m.patch",
+    "*.patch",
 ]
 SPDX-FileCopyrightText = "libmikmod contributors"
 SPDX-License-Identifier = "LGPL-2.0-or-later"
