@@ -1,7 +1,7 @@
 pkgbase = python-cupy
 	pkgdesc = NumPy/SciPy-compatible array library for GPU-accelerated computing with Python
-	pkgver = 14.1.1
-	pkgrel = 3
+	pkgver = 14.2.0
+	pkgrel = 1
 	url = https://github.com/cupy/cupy
 	arch = x86_64
 	license = MIT
@@ -34,14 +34,14 @@ pkgbase = python-cupy
 	makedepends = rocm-toolchain
 	optdepends = python-scipy: for copying sparse matrices from GPU to CPU
 	optdepends = python-optuna: for using using Automatic Kernel Parameters Optimizations (cupyx.optimizing)
-	source = python-cupy::git+https://github.com/cupy/cupy.git#tag=v14.1.1
+	source = python-cupy::git+https://github.com/cupy/cupy.git#tag=v14.2.0
 	source = python-cupy-cccl::git+https://github.com/NVIDIA/cccl.git
 	source = python-cupy-dlpack::git+https://github.com/dmlc/dlpack.git
 	source = python-cupy-jitify::git+https://github.com/NVIDIA/jitify.git
 	source = python-cupy-xsf::git+https://github.com/scipy/xsf.git
 	source = cuda_wrappers.diff
 	source = cusparse_spgeam.diff::https://github.com/cupy/cupy/pull/10064.diff
-	b2sums = 7e314f5887edab4fd1eca9ee07c9af3934d8072c317ab8b03cebad8a4918c6c49e2a31270b2832fa9abe95f892274aef34aa59e35354a2c15baaf5fef5f87927
+	b2sums = 47474fb6cfbdaa8e4abd3d153998ba236378bfa7aa2ce516e3015aefd6917c1688f85337a2867793511cbd26c6411dd78457d9cddbaee508d56ea59ec4b08f3c
 	b2sums = SKIP
 	b2sums = SKIP
 	b2sums = SKIP
