@@ -6,7 +6,7 @@
 
 pkgname=tevent
 pkgver=0.17.2
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Event system based on the talloc memory management library'
 url="https://tevent.samba.org/"
@@ -26,6 +26,7 @@ build() {
   ./configure \
     --prefix=/usr \
     --bundled-libraries=NONE \
+    --disable-rpath-install \
     --builtin-libraries=replace
   make
 }
