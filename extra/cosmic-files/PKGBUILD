@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-files
-pkgver=1.7.0
+pkgver=1.8.0
 pkgrel=1
 epoch=1
 pkgdesc='File manager for the COSMIC desktop environment'
@@ -19,6 +19,7 @@ depends=(
   gvfs
   libxkbcommon
   xdg-utils
+  zstd
 )
 makedepends=(
   cargo
@@ -31,7 +32,7 @@ source=(
   git+https://github.com/pop-os/cosmic-files.git#tag=epoch-${pkgver}
   cosmic-files-lto.patch
 )
-b2sums=('203b38738ed0841bd18ea7126b60f6e9575312e1f170f3a61d96aa4feb91cc6b6b8d9d1ed92680ce4dab7aa30c136e6b737ea84c814673455bd59778b2dfe1ff'
+b2sums=('f6b8eabc0b10a341a8b7868c8819cf6af8c16a7e552b64579edabff9f92a80237a972d503f8bb05a70f42f4c4e144e7822a67f01ebee27f705959cab73f469b1'
         '105231f886affb3274d18bbe95d0fc27ba33cb557245ca567caccc9b0f5fbae0b7d92a81c0b2784130659e81b73e374ac735f8ad9b06adad18b4e4fd227164b5')
 
 prepare() {
@@ -43,6 +44,7 @@ prepare() {
 build() {
   cd cosmic-files
   RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  export ZSTD_SYS_USE_PKG_CONFIG=1
   CC=clang just build-release --frozen
 }
 
