@@ -3,7 +3,7 @@
 
 pkgname=river
 pkgver=0.4.8
-pkgrel=1
+pkgrel=2
 pkgdesc='a non-monolithic Wayland compositor'
 arch=('x86_64')
 url="https://isaacfreund.com/software/river/"
@@ -63,6 +63,7 @@ build() {
     -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie \
+    --build-id=none \
     -Doptimize=ReleaseSafe \
     -Dxwayland
     # --global-cache-dir ../zig-global-cache \
@@ -79,6 +80,7 @@ check() {
     -Dtarget=native-linux.6.6-gnu.2.40 \
     -Dcpu=baseline \
     -Dpie \
+    --build-id=none \
     -Doptimize=ReleaseSafe \
     -Dxwayland
     # --global-cache-dir ../zig-global-cache \
