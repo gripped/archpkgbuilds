@@ -3,7 +3,7 @@
 # Contributor: John K. Luebs <jkl at johnluebs dot tld>
 
 pkgname=tea
-pkgver=0.15.1
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='A command line tool to interact with Gitea servers'
 arch=(x86_64)
@@ -14,8 +14,8 @@ makedepends=(git go)
 replaces=(gitea-tea)
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('8e4cdbdc2a79bf159b46c9e9d1a58ed98d6929a57fd7993bd2e9ea75e7c861c0b1a60823e5ae7abba9cad13b5b67d9dbf56194a6d595dfa30d0ab933c8267b8f')
-b2sums=('bfb41e206799beecfaaa6db89c31d7af7d219188e4b71cd724917b3c2179f0d04ac2ad91e30402a07a64bf364359b0d4072c21aa3f492f0c32c3952890d09055')
+sha512sums=('669ddbedda1193e0802b9c4b685f90afd50d02495733060b67e57dab033bbf858ab5c0e925ed64a158daac0003501b91d0857d449a77b32b93127cc50487fba3')
+b2sums=('7a8cfe7ea8ef274158ba5631f201b580e0b0b60a109dbec5ecdaa20587223952adbb4fee83075dba0dbfeaf80463dfb33317e45e617bbcc4dab3637ad701c0fc')
 
 prepare() {
   cd "$pkgname"
