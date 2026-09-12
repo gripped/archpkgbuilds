@@ -4,7 +4,7 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xapp
-pkgver=3.2.2
+pkgver=3.2.3
 pkgrel=1
 pkgdesc="Common library for X-Apps project"
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(
   bash
   cairo
   dconf
-  gcc-libs
+  libgcc
   gdk-pixbuf2
   glib2
   glibc
@@ -41,8 +41,8 @@ provides=(xapps)
 conflicts=(xapps)
 replaces=(xapps)
 source=("git+https://github.com/linuxmint/xapp.git#tag=$pkgver")
-sha256sums=('a13acc0cd27bc82c23b1cf076dde9d27589eef4cb22fa89064c00ab0f6aa87ff')
-b2sums=('9ef85da1092ee7b751fd8dd7e9f5ad151a8efb958d3abd0289913f85149ab551675fe29a45f23b15f15ad0fd4b1ede2d72829be1b1ac56f88874ad939cf7b535')
+sha256sums=('0d34cdd60428bb1b0d77e596df511ed7fd08118a87912e037bd12375f87edfda')
+b2sums=('d1716222f03c7cd91c85bd4fe756c48f8f909de13fdfb681823d8911774009b933d649bfad73e751f3680e455f4b7dff63aeacd0bb270cc6f05fd1129d60fc48')
 
 build() {
   arch-meson $pkgname build \
