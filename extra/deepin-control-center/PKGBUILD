@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.80
+pkgver=6.1.81
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -22,7 +22,7 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('8b66b74a3593281278d2376cce65343f943389350a5b1cf7296389645857d73ec433cc7d34f3e16c55e77f1698cd40001027a593b5a868721635774b5a3539c4')
+sha512sums=('37d44765512a9073c4c34a40d08005e7bac713897e871c962dafb16c37d0f35000615d2380223e92725de121e8a66cc2de4b35251e3092c75c5330175b4b37fd')
 
 prepare() {
   mkdir -p build
