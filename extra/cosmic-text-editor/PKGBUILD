@@ -4,7 +4,7 @@
 # Contributor: soloturn <soloturn@gmail.com>
 
 pkgname=cosmic-text-editor
-pkgver=1.7.0
+pkgver=1.8.0
 pkgrel=1
 epoch=1
 pkgdesc='Text editor for the COSMIC desktop'
@@ -19,6 +19,7 @@ depends=(
   glibc
   libxkbcommon
   wayland
+  oniguruma
 )
 makedepends=(
   cargo
@@ -31,7 +32,7 @@ source=(
   git+https://github.com/pop-os/cosmic-edit.git#tag=epoch-${pkgver}
   cosmic-text-editor-lto.patch
 )
-b2sums=('2e2ec42792e9e37725c0ace5faf129df728c360e1c6c50ecd4dd5d0cacbe187ec97b324029fbfe6235a95da98b0425b188f3038d093ab426b90ee3ee7d4df465'
+b2sums=('5fc58223f437b69cef26efa89dfe734345a1325db235f3623241f1d9f65f6dfbcd68eaa80c5cf7a6410d0cffe7ca0dc8b58d3e35998faf355dc9f26a8e86d2a8'
         'd0ac6a0caa849a4445812f574787c5f99e42e73dbc53dcbf0c0a212cc97382dcd3cdbce58f6203fb2d920fc45d4a0a4b5d086308bcb5e2a92b86f1bebf1dd6da')
 
 prepare() {
@@ -48,6 +49,7 @@ prepare() {
 build() {
   cd cosmic-edit
   RUSTFLAGS+=" -C link-arg=-fuse-ld=mold"
+  export RUSTONIG_DYNAMIC_LIBONIG=1
   just build-release --frozen
 }
 
