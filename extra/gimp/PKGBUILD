@@ -4,8 +4,8 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-pkgver=3.2.4
-pkgrel=2
+pkgver=3.2.6
+pkgrel=1
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -34,7 +34,7 @@ depends=(
   'libmypaint' #'libmypaint.so'
   'libstdc++' 'libstdc++.so'
   'libunwind' 'libunwind.so'
-  'mypaint-brushes1'
+  'mypaint-brushes'
   'pango' 'libpango-1.0.so' 'libpangocairo-1.0.so' 'libpangoft2-1.0.so'
   'python-gobject'
   'python-cairo'
@@ -60,7 +60,6 @@ depends=(
   'libxfixes' #'libXfixes.so'
   'libxmu' #'libXmu.so'
   'libxpm' #'libXpm.so'
-  'mypaint-brushes'
   'openexr' #'libIex-3_4.so' 'libOpenEXR-3_4.so'
   'openjpeg2' #'libopenjp2.so'
   'poppler-data'
@@ -98,7 +97,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_${pkgver//./_}
   git+https://gitlab.gnome.org/GNOME/gimp-data.git
 )
-sha256sums=('34416c191513b8887650522b6d8b41e45ba6dd751bd2635ca3fb86de2b2611f2'
+sha256sums=('a6f43eec310dddde776d41e6a572f925d40506c41b8664aed039ec007eab9521'
             'SKIP')
 
 prepare() {
@@ -106,9 +105,6 @@ prepare() {
   git submodule init
   git config submodule.gimp-data.url "$srcdir/gimp-data"
   git -c protocol.file.allow=always submodule update
-
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues/12
-  git cherry-pick -n 1685c86af5d6253151d0056a9677ba469ea10164
 
   # a request to gitlab for bug url fails, causes by anubis - disable for now
   sed -i '/appstreamcli.found/,$d' desktop/meson.build
