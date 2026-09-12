@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-chess
-pkgver=50.0
+pkgver=50.1
 pkgrel=1
 pkgdesc="Play the classic two-player boardgame of chess"
 url="https://wiki.gnome.org/Apps/Chess"
@@ -29,7 +29,7 @@ makedepends=(
 optdepends=('gnuchess: Play against computer')
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-chess.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('22ad585452e95996123d764f3490cbde4427ea5709d6b275d576525dc7077856ffd22bfca4ae51deb91fb00da2ddf1b71f2bbdbbd4f2f9a8b735c04d8cf82fa2')
+b2sums=('f1dfe86a3cc6bd274b644ece297348e90007f002f333e2ec0b0672a442aef9d2224e2508440130d4c148424c6fa8b5b28159c137bed743049ec9e3628e530afa')
 validpgpkeys=(
   EF033B6B1044EEE7F743A1737F71B64279363298 # Michael Catanzaro <mcatanzaro@innerfocus.xyz>
 )
