@@ -2,8 +2,8 @@
 
 _name=ucc
 pkgname=openucc
-pkgver=1.8.0
-pkgrel=2
+pkgver=1.9.0
+pkgrel=1
 pkgdesc="Unified Collective Communication Library"
 arch=(x86_64)
 url="https://github.com/openucx/ucc"
@@ -37,7 +37,7 @@ provides=(
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
 )
-b2sums=('9fc537aae7f7daafa821ac5d1938f8af332579cdd78ed472f68d2083d1e053cc05034d7c3036fc5e9298b276329a1e935e8877bf9a510af6541eb35f8848823c')
+b2sums=('5459f1e64ea27bea8e89932eb90509fe39719bd4adc82ecf3172971da6d2f9510dc8e2e5160130ac31163f9ae383168952183107ac04d0d954c0b5923ae233e1')
 
 prepare() {
   cd $_name-$pkgver
