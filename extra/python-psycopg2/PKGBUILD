@@ -5,7 +5,7 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=python-psycopg2
-pkgver=2.9.12
+pkgver=2.9.13
 pkgrel=1
 pkgdesc="A PostgreSQL database adapter for the Python programming language."
 arch=(x86_64)
@@ -23,7 +23,7 @@ makedepends=(
   python-wheel
 )
 source=("https://github.com/psycopg/psycopg2/archive/refs/tags/${pkgver}.tar.gz")
-b2sums=('7019dec7f7154a1000ea3c65e5e1d1dbd18f970b9eaf631c1b3de3b0578964c0faa7a53118d1855a893b0955774431a47d85fc02d107eddb888068306a871ba1')
+b2sums=('a31541d95bcd749f1ed156c6065d8e02ab975ebab78d5ea69fa8e704155ab9ce8bf8585b8b4f5ee7917df3d77f55cba9b451ea9115216add842145c34fce74fc')
 
 prepare(){
   cd "psycopg2-${pkgver}"
