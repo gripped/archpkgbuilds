@@ -3,24 +3,24 @@
 # Contributor: Oliver Sherouse <oliver DOT sherouse AT gmail DOT com>
 
 pkgname=python-statsmodels
-pkgver=0.14.6
-pkgrel=2
+pkgver=0.15.0
+pkgrel=1
 pkgdesc="Statistical computations and models for use with SciPy"
 arch=(x86_64)
 url="https://www.statsmodels.org/"
 license=(BSD-3-Clause)
 depends=(python-numpy python-scipy python-pandas python-patsy)
-makedepends=(python-setuptools-scm python-wheel python-build python-installer cython git)
+makedepends=(meson-python python-setuptools-scm python-wheel python-build python-installer cython git)
 optdepends=('jupyter-notebook: needed to run the notebooks'
             'python-cvxopt: regularized fitting of some models'
             'python-joblib: accelerate distributed estimation for certain models'
             'python-matplotlib: plotting functions')
-checkdepends=(python-pytest python-pytest-xdist python-joblib python-matplotlib)
+checkdepends=(python-pytest python-pytest-randomly python-pytest-xdist python-joblib python-matplotlib)
 source=(git+https://github.com/statsmodels/statsmodels#tag=v$pkgver)
-sha256sums=('032a7ca9875b3752201fcc03916abb722271de9eaa85aba3e4c086248ce3b516')
+sha256sums=('c6ea132ab56ee106ca747f57b7890a35ec85b5843c449447bd87dcb2efa3970e')
 
 prepare() {
-  sed -e 's/,<9//' -e '/oldest-supported-numpy/d' -i statsmodels/pyproject.toml
+  sed -e 's/,<10//' -e '/oldest-supported-numpy/d' -i statsmodels/pyproject.toml
 }
 
 build() {
@@ -29,9 +29,12 @@ build() {
 }
 
 check() {
-  local python_version=$(python -c 'import sys; print(".".join(map(str, sys.version_info[:2])))')
-  cd statsmodels/build/lib.linux-${CARCH}-cpython-${python_version/./}
-  PYTHONPATH="${PWD}" pytest -vv --color=yes statsmodels
+  cd statsmodels
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  cd test-env/lib/python*/site-packages
+  sed -e 's|--strict||' -i statsmodels/pyproject.toml
+  pytest -vv --color=yes statsmodels
 }
 
 package() {
