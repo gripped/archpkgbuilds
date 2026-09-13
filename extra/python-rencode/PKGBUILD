@@ -3,42 +3,30 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=python-rencode
-pkgver=1.0.8
-pkgrel=3
+pkgver=1.0.9
+pkgrel=1
 pkgdesc="A Module similar to bencode from the BitTorrent project"
 url="https://github.com/aresch/rencode"
 license=('GPL-3.0-or-later')
 arch=('x86_64')
 depends=('glibc' 'python')
-makedepends=('git' 'cython' 'python-build' 'python-installer' 'python-poetry-core' 'python-setuptools')
+makedepends=('git' 'cython' 'python-build' 'python-installer' 'python-setuptools')
 checkdepends=('python-pytest')
-source=(
-  "git+https://github.com/aresch/rencode.git#tag=v$pkgver"
-  0001-Remove-extra-compile-args.patch
-)
-sha512sums=('974d3efb1e1f7a54902c3772663a5d122399b2e825592634cc88ba1f1a51ebf97470c368e6891d9e52af8a700a50749d428d273de2c5b21b6334fa456f664443'
-            '43088a23f0832a39efcd0acba90163c46e53dde263217693b1b9a35d7b85170b0427ea82bb40fbdefc10508bead3abc2cc2260f898d760cfcdc40edb90b773ef')
-
-prepare() {
-  cd rencode
-
-  # https://gitlab.archlinux.org/archlinux/packaging/packages/python-rencode/-/issues/1
-  # https://github.com/aresch/rencode/issues/38
-  git apply -3 ../0001-Remove-extra-compile-args.patch
-}
+source=("git+https://github.com/aresch/rencode.git#tag=v$pkgver")
+sha512sums=('29e6b14c683a17dd2b08be5a0705025f5f8c70b63290f11e60d2959cedefdb21488b3cf0580db3d19af1e553cbc3c64ca6df84cb8e7c7dbe56c31c575317e2a0')
 
 build() {
-  # Running in the rencode dir won't work, as
-  # ./build.py will be ran instead of python-build
-  python -m build --wheel --no-isolation rencode
+  cd rencode
+  python -m build --wheel --no-isolation
 }
 
 check() {
   python -m venv --system-site-packages testenv
   testenv/bin/python -m installer rencode/dist/*.whl
-  testenv/bin/python -m pytest
+  testenv/bin/python -m pytest rencode/tests
 }
 
 package() {
-  python -m installer --destdir="$pkgdir" rencode/dist/*.whl
+  cd rencode
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
