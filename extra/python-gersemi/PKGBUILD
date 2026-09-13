@@ -2,7 +2,7 @@
 
 _name=gersemi
 pkgname=python-$_name
-pkgver=0.28.1
+pkgver=0.29.0
 pkgrel=1
 pkgdesc="A formatter to make your CMake code the real treasure"
 arch=(x86_64)
@@ -29,7 +29,7 @@ checkdepends=(
   python-lark-parser
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-b2sums=('759ecf7e1607fbd287fda235a0c6ff420551231d1cee818f7fecfe6de2311b227de18d67f3bca74decc8c23321f4f247db1200efe6c14449cc06151312a0779a')
+b2sums=('7a3eb10ae84fbda5dac0c036bcb541c599c2812aa7c286b5753d3550a7ceca74bd5a7d2a824d35d8ebb77c9aed6066474f680598fef28cc6112de366050bdcbd')
 
 build() {
   cd $_name-$pkgver
