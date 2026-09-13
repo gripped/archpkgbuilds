@@ -3,31 +3,35 @@
 # Contributor: Maikel Wever <maikelwever@gmail.com>
 
 pkgname=python-pipenv
-pkgver=2026.6.1
+pkgver=2026.8.0
 pkgrel=1
 pkgdesc="Sacred Marriage of Pipfile, Pip, & Virtualenv."
 url="https://pipenv.pypa.io"
 arch=('any')
 license=('MIT')
 depends=('python'
-         'python-pip'
          'python-certifi'
-         'python-virtualenv-clone'
-         'python-virtualenv')
+         'python-pip'
+         'python-virtualenv'
+         'python-virtualenv-clone')
 makedepends=('python-build'
              'python-installer'
              'python-setuptools'
              'python-wheel')
 checkdepends=('git'
+              'python-beautifulsoup4'
               'python-flaky'
+              'python-invoke'
               'python-pytest'
-	      'python-pytest-cov'
+              'python-pytest-cov'
               'python-pytest-mock'
               'python-pytest-timeout'
-	      'python-pytest-xdist'
-	      'python-pytz')
+              'python-pytest-xdist'
+              'python-pytz'
+              'python-requests'
+              'python-semver')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pypa/pipenv/archive/v${pkgver}.tar.gz")
-b2sums=('3b97269ca898f9aa7dc9cbe8c037bd637750c61481491006b20ee7a90c8c811360bacad15b52bc15100576b6eb88894c7736c23e8a3940d308197e413260b2a8')
+b2sums=('204b8b24f8a5a0b6d89139ec8c851ad9e1375eb5013e33b02cd2ec8f54e280bfcc9c29af28da8578a7dd55ac5fd236464aa05e45923b47b2aee7ae7f4516d97f')
 
 build() {
   cd "pipenv-${pkgver}"
