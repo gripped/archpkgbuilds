@@ -5,7 +5,7 @@
 
 pkgname=python-nbdime
 pkgver=4.0.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Diff and merge of Jupyter Notebooks'
 url='https://github.com/jupyter/nbdime'
 makedepends=(python-build python-installer
@@ -19,7 +19,7 @@ makedepends=(python-build python-installer
              python-tabulate jupyter-notebook python-packaging)
 # Dependencies follow the order in pyproject.toml
 depends=(python jupyter-nbformat python-colorama python-pygments python-tornado
-         python-requests python-gitpython jupyter-server jupyter-server-mathjax
+         python-requests python-gitpython jupyter-server
          python-jinja
          # following are detected by namcap and not listed in pyproject.toml
          python-traitlets python-jupyter-core)
