@@ -14,7 +14,7 @@ pkgname=(
   python-gnuradio
 )
 pkgver=3.10.12.0
-pkgrel=17
+pkgrel=18
 pkgdesc="Signal processing runtime and signal processing software development toolkit"
 arch=(x86_64)
 url="https://gnuradio.org"
@@ -42,7 +42,7 @@ makedepends=(
   libuhd
   libunwind
   libvolk
-  mathjax2
+  mathjax
   portaudio
   pybind11
   python-cairo
@@ -107,6 +107,11 @@ prepare() {
   # fix flaky test
   sed -e 's|self.assertAlmostEqual(data.var(), 2, places=2)|self.assertAlmostEqual(data.var(), 2, delta=0.02)|' -i \
     gr-analog/python/analog/qa_fastnoise.py
+
+  # Use MathJax 4
+  sed -e 's|MathJax.js|tex-svg.js|' -e 's|PATH_SUFFIXES mathjax2|PATH_SUFFIXES mathjax|' -i cmake/Modules/FindMathJax2.cmake
+  echo "MATHJAX_VERSION = MathJax_4" >> docs/doxygen/Doxyfile.in
+  sed -e 's|^MATHJAX_EXTENSIONS.*|MATHJAX_EXTENSIONS=|' -i docs/doxygen/Doxyfile.in
 }
 
 build() {
@@ -276,6 +281,7 @@ package_gnuradio-companion() {
 }
 
 package_gnuradio-docs() {
+  depends=(mathjax)
   pkgdesc+=" (documentation)"
 
   cp -va -t "$pkgdir" "$pkgname/"*
