@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pyjwt
-pkgver=2.13.0
+pkgver=2.14.0
 pkgrel=1
 pkgdesc='JSON Web Token implementation in Python'
 arch=(any)
@@ -25,7 +25,7 @@ checkdepends=(
   python-pytest
 )
 source=(git+https://github.com/jpadilla/pyjwt.git#tag=${pkgver})
-b2sums=('92d93124d86ba5e21c2922426d5225a5495c2f7e2339f449d4e4ed35352874bb2384a9e09df603507e13e6ddac8e5a4769a97f2b846be19ec0f140370c3ba3b0')
+b2sums=('f42f5afb8c31c754776fe1aec5e069b222f737f02b37267c7b2434a0eff6acb73a517e1327c919412017e765dc2c3126fa2126d9fcea61dafbf8a3772f9d6b7e')
 
 build() {
   cd pyjwt
