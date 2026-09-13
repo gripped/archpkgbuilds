@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-rack
-pkgver=0.22.1
+pkgver=0.23.0
 pkgrel=1
 pkgdesc='An implementation of the Rack protocol/specification'
 arch=(any)
@@ -9,6 +9,8 @@ url='https://github.com/socketry/protocol-rack'
 license=(MIT)
 depends=(
   ruby
+  ruby-console
+  ruby-io-stream
   ruby-protocol-http
   ruby-rack
 )
@@ -21,15 +23,14 @@ checkdepends=(
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-decode
   ruby-sus
   ruby-sus-fixtures-async-http
   ruby-sus-fixtures-console
 )
 options=(!emptydirs)
 source=(https://github.com/socketry/protocol-rack/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('b98884756659fe94c64502ce0b8a0223d95e0d4f9468bdb7bbe33504840fa353fc2056386d11fcbe1891f6db8be84e107f6c80d26df945a91b869fa6b0c4b4f0')
-b2sums=('d51bc08b9b22644c7eacf4561854eec7efba7725cdc1cc0a5cc686d5f110c94cb493313565685136bf3ba68c9af52b9daea2f9ffa0dd6181dda91023838c7a9f')
+sha512sums=('923cabe571efd5b6af921ee8229731501e16e341ce6796712aa704bf130cd1f4765bf1b7597385d797a34225e3d09dbb920cec7be8a4525e0bd28ea03afcfabb')
+b2sums=('01e3ea94b5c36eb5d4c178085a8f885c9fee4cc6eff5711b25dbd2eee36290d974ba2bed93d3311dd1967a51356ece8f08d665e7a8723f9718f66cf2c059ae39')
 
 prepare() {
   cd protocol-rack-$pkgver
