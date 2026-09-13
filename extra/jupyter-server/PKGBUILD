@@ -2,7 +2,7 @@
 
 pkgname=jupyter-server
 pkgver=2.21.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Provides the backend for Jupyter web applications like Jupyter notebook, JupyterLab, and Voila'
 arch=(any)
 url='https://jupyter.org/'
@@ -37,8 +37,7 @@ checkdepends=(python-flaky
               python-pytest-tornasync
               python-requests
               python-terminado)
-optdepends=('jupyter-server-mathjax: to use local MathJax'
-            'python-jupyter-server-terminals: terminals support')
+optdepends=('python-jupyter-server-terminals: terminals support')
 source=(git+https://github.com/jupyter-server/jupyter_server#tag=v$pkgver)
 sha256sums=('7ecc479988de5fc4c32b9de6367ad7bb4c1d09a0e6e4e609e27e1ed5f52d0d94')
 
