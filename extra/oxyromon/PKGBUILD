@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=oxyromon
-pkgver=0.21.0
-pkgrel=2
+pkgver=0.23.0
+pkgrel=1
 pkgdesc='Rusty ROM OrgaNizer'
 arch=(x86_64)
 url=https://github.com/alucryd/oxyromon
@@ -19,12 +19,11 @@ makedepends=(
   git
   mame-tools
   maxcso
-  pnpm
   p7zip
   qt6-base
-  rust
+  rustup
+  trunk
   wit
-  yarn
 )
 optdepends=(
   'bchunk: BIN to ISO support'
@@ -38,13 +37,16 @@ optdepends=(
 )
 source=(git+https://github.com/alucryd/oxyromon.git#tag=${pkgver})
 validpgpkeys=(95220BE99CE6FF778AE0DC670F65C7D881506130) # Maxime Gauduin <alucryd@archlinux.org>
-b2sums=('5a931e85292ddbcaafb10781334067d2426c3e0888e1c20f3f245c8533499ba7d967856924670dd6260f9bf6e686dec806729711edf6ca0cb98e366d7f4a842a')
+b2sums=('787c54c8dacd6b93a8af1ad513bb05e03fd90720c4163b4ed5e7062813cd14cf15b91f059bf9e028830432087c644cbbcc02ee70e3a9dda1c7c039eeeeb7389c')
 options=(!lto)
 
 prepare() {
   cd oxyromon
-  yarn install \
-    --frozen-lockfile
+  rustup install stable
+  rustup target add wasm32-unknown-unknown
+  cargo fetch \
+    --locked
+  cd frontend
   cargo fetch \
     --locked
 }
@@ -53,7 +55,11 @@ build() {
   cd oxyromon
   export CARGO_PROFILE_RELEASE_LTO=true
   export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-  yarn build
+  unset RUSTFLAGS
+  pushd frontend
+  CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS= \
+    trunk build --release
+  popd
   cargo build \
     --features server \
     --release \
@@ -61,6 +67,7 @@ build() {
 }
 
 check() {
+  unset RUSTFLAGS
   cargo test \
     --features server \
     --release \
@@ -69,6 +76,7 @@ check() {
 }
 
 package() {
+  unset RUSTFLAGS
   cargo install \
     --features server \
     --frozen \
