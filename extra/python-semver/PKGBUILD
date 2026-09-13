@@ -1,18 +1,18 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-semver
-pkgver=3.0.4
-pkgrel=2
+pkgver=3.1.0
+pkgrel=1
 pkgdesc="Python helper for Semantic Versioning"
 url="https://github.com/python-semver/python-semver"
-license=('BSD')
+license=('BSD-3-Clause')
 arch=('any')
 depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm'
              'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/python-semver/python-semver.git#tag=$pkgver")
-sha512sums=('f8dfb0f49e0f6e1ceea7aa684f4656b2ebea5ba5629722ebfdfc9483c1ba67ca968a6bb9abb91d8e3e2aa7fe0da84311c11f66994b949b4e7365eee173b94db4')
+sha512sums=('9343acafb568e8aa1b47cb25309308ee47d2f9da2db782a6d1869f7f8a883ca09d68b7a2694bc787bdb1692563001a8d1f66c2e6728efe8c125462e91e5ef30e')
 
 build() {
   cd python-semver
