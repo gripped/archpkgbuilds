@@ -3,7 +3,7 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=multimon-ng
-pkgver=1.4.1
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="An SDR decoder that supports POCSAG, UFSK, CLIPFSK, AFSK, HAPN, FSK, DTMF, ZVEI"
 url="https://github.com/EliasOenal/multimon-ng"
@@ -16,7 +16,7 @@ depends=(
 makedepends=('cmake')
 optdepends=('sox: wav conversion')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('348bb43b6fbb641d04243b8910a89713681afe20d224071ddc909b4bfdcd2c9ab1d2350a44607cad9a450b626b2ddf609b2f26890b727795221c4c6738ff4042')
+sha512sums=('2b68f49ec07d4e96f720c19d46709b5fa4f9bf11700bad0ed6d3b7b9a0487e5da97f97b4462eb711200cd5ef9e265dbe92a52d72178f7eef9a1ddab00bfac0ea')
 
 build() {
   export CMAKE_POLICY_VERSION_MINIMUM=3.5
