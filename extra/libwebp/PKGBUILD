@@ -95,6 +95,7 @@ package_libwebp() {
   DESTDIR="$pkgdir" cmake --install build
 
   _pick utils "$pkgdir"/usr/bin
+  _pick utils "$pkgdir"/usr/share/man/man1
 
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 \
     libwebp-$pkgver/COPYING
