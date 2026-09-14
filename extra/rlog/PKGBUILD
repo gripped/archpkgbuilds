@@ -10,7 +10,10 @@ pkgdesc="A flexible message logging facility for C++ programs and libraries"
 arch=('x86_64')
 url="https://www.arg0.net/rlog"
 license=('LGPL-2.1-only')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+  'libstdc++'
+)
 source=(https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/${pkgname}/${pkgname}-${pkgver}.tar.gz{,.asc}
         ${pkgname}-section.patch)
 sha256sums=('a938eeedeb4d56f1343dc5561bc09ae70b24e8f70d07a6f8d4b6eed32e783f79'
