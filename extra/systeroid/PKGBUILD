@@ -14,7 +14,7 @@ sha512sums=('cb5cf3dae37ddec8343561c43d91e0f0de9eef94acdae3b1203db6aaecd31a0e354
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
