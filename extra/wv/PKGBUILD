@@ -34,7 +34,7 @@ prepare() {
   patch -Np1 -i ../wv-1.2.9-format_security.patch
 
   touch AUTHORS ChangeLog
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
