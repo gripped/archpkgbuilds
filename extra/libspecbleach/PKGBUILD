@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=libspecbleach
-pkgver=0.2.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="C library for audio noise reduction"
 arch=(x86_64)
@@ -11,29 +11,45 @@ depends=(
   glibc
 )
 makedepends=(
+  cmake
   fftw
-  meson
+  libgomp
 )
 provides=(libspecbleach.so)
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('52c03116dd5559e74913df101d6ff491042a55d09bf49e988341ace3b50ce61de6c1e396234965d57dc11c5c0a1b47b46661c08aa285da7b268aceb69bbed189')
-b2sums=('6f79fd30f639c766e865bd6709e10eb1d54be0efd63b7b0299aa69186e632e1dcca25408f45dfb1593a6b2599fb9eb6a49b1a229cfc9ff4a7251f7765844fe7c')
+sha512sums=('b2ea6ea4af6cb01e0412ec8d1f25b2fa27f4058d9e1d204c2d1550cebe94961da5423b65d505304c5a9fefb703b73d8e12502e1a000fedcbd8d41a9aed1cbd19')
+b2sums=('079c8f85f59c1d00ccaa4bba181a487624048b63675cadb4f9172033a9c5454520b86ba63214e6d408b7c19f64114fa05b23ce408e9609f7632b6ecd8161d2fc')
 
 build() {
-  arch-meson $pkgname-$pkgver build
-  meson compile -C build
+  local cmake_options=(
+    -B build
+    -S "$pkgname-$pkgver"
+    -W no-author
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
+  )
+  cmake "${cmake_options[@]}"
+  cmake --build build --verbose
 }
 
 check() {
-  meson test -C build
+  local excluded_tests=""
+  local ctest_flags=(
+    --test-dir build
+    --output-on-failure
+    --parallel "$(nproc)"
+    --exclude-regex "$excluded_tests"
+  )
+  ctest "${ctest_flags[@]}"
 }
 
 package() {
   depends+=(
     fftw libfftw3f.so
+    libgomp libgomp.so
   )
 
-  meson install -C build --destdir="$pkgdir"
+  DESTDIR="$pkgdir" cmake --install build
   install -vDm 644 $pkgname-$pkgver/README.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 $pkgname-$pkgver/examples/* -t "$pkgdir/usr/share/doc/$pkgname/example/"
 }
