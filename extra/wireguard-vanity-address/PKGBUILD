@@ -9,7 +9,7 @@ url='https://github.com/warner/wireguard-vanity-address'
 arch=('x86_64')
 license=(MIT)
 depends=(
-  'gcc-libs'
+  'libgcc'
   'glibc'
 )
 makedepends=(
@@ -22,7 +22,7 @@ b2sums=('8bc6fedd3a17b40b4d0018ad8f1fb8c067345480794d16c980cb354b733e130af930fa1
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
