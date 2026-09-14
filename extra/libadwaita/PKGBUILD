@@ -7,7 +7,7 @@ pkgname=(
   libadwaita-demos
   libadwaita-docs
 )
-pkgver=1.9.3
+pkgver=1.9.4
 pkgrel=1
 epoch=1
 pkgdesc="Building blocks for modern adaptive GNOME applications"
@@ -35,11 +35,16 @@ makedepends=(
 checkdepends=(weston)
 source=(
   "git+https://gitlab.gnome.org/GNOME/libadwaita.git#tag=${pkgver/[a-z]/.&}"
+  0001-tests-Make-pass-with-appstream-1.2.0.patch
 )
-b2sums=('d0fb57825cd50185af7f50aba2d5d8e99ce244a8e23e13cfc91b63a6462228700dc449432679e7c985cfc2e1a199e02392e1e20c7a22c929ae18e3d072f87739')
+b2sums=('8e044bc38270c2f8783893ab9bea7f75996b7850ceb3d1a54373d49defef6c6114c3f0317d037da051a33506db3a6ac38de07bd39a28794e1995facfbef3c8a1'
+        'e0cc42e0863acf12746a15800dc1ba867cdddf0af1f59eaa1220ff93a69204b402613479e4e2f012196fe71fb3aa1a1017fd969eda430aed3d0f8c3169e49566')
 
 prepare() {
   cd $pkgname
+
+  # https://gitlab.gnome.org/GNOME/libadwaita/-/work_items/1161
+  git apply -3 ../0001-tests-Make-pass-with-appstream-1.2.0.patch
 }
 
 build() {
