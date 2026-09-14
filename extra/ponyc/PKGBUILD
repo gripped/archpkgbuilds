@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.70.1
+pkgver=0.72.0
 pkgrel=1
 pkgdesc='An actor model, capabilities, high performance programming language'
 arch=('x86_64')
@@ -12,6 +12,7 @@ depends=(
   'glibc'
   'libatomic'
   'libgcc'
+  'openssl'
   'zlib'
 )
 makedepends=(
@@ -25,7 +26,7 @@ source=(
   "git+https://github.com/llvm/llvm-project.git"
   "ponyc-remove-usr-local-refs.patch"
 )
-b2sums=('97d00daca3dbc77a77895d89e95b4e5210d2fb7edcb640b29acaab903b83788e7467315589375184044b2e2ec713182a78d224b98223d6c82e1f2a39604fe785'
+b2sums=('27f04bff5333fc80980e2da6cddf282c70cf38ef76ba1cf9422a41b9d8e7a88607ec1b0463a7f9497475f34595b5ad6618762a8ad027e59fce624773325602fe'
         'SKIP'
         '42844af44b7728b0f1cb7886113e52e6a40bb4863215d3637141e26c23e519b16776e692ed8cc437336778fcb5c093ae978bd41f28c41c11b188dec72d47cfe1')
 
@@ -94,13 +95,10 @@ check() {
     --test_lib="$PWD/test_lib" \
     ../../test/full-program-tests
 
-  PONYPATH=. ./ponyc -b stdlib-release --pic --checktree \
-    ../../packages/stdlib
-  ./stdlib-release --sequential --exclude="net/Broadcast"
-
-  find ../../examples/*/* -name '*.pony' -print0 \
-    | xargs -0 -n 1 dirname | sort -u | grep -v ffi- \
-    | xargs -n 1 -I {} ./ponyc -d -s --checktree -o {} {}
+  # Use upstream's SSL flags and certificate fixtures for networking tests.
+  PONY_STDLIB_TEST_EXCLUDES='--exclude=net/Broadcast' \
+    ctest --test-dir ../build_release --output-on-failure \
+      --tests-regex '^(stdlib-release|examples)$'
 }
 
 package() {
