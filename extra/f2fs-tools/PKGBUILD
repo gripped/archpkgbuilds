@@ -10,7 +10,7 @@ url='https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/abou
 provides=('libf2fs.so' 'libf2fs_format.so')
 depends=('util-linux')
 makedepends=('git')
-license=('GPL')
+license=('GPL-2.0-only AND (GPL-2.0-only OR LGPL-2.1-only)')
 validpgpkeys=('D3452A79D8C2B4EAC656F4224014A87E824850D2') # Jaegeuk Kim <jaegeuk@kernel.org>
 source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git#tag=v${pkgver}")
 sha256sums=('87d0ecee953f1c800c8c1869b5cdca8e37d5df1fe7e40a80e21b187425205c48')
@@ -18,6 +18,8 @@ sha256sums=('87d0ecee953f1c800c8c1869b5cdca8e37d5df1fe7e40a80e21b187425205c48')
 _backports=(
   # f2fs-tools: fix build error on lz4-1.9.4
   '19f77c6f6277a274434d6d8883f50e7955c6a8db'
+  # f2fs-tools: use stdbool.h instead of bool
+  '6617d15a660becc23825007ab3fc2d270b5b250f'
 )
 
 _reverts=(
