@@ -8,8 +8,9 @@ pkgbase = webrtc-audio-processing-1
 	makedepends = git
 	makedepends = meson
 	depends = abseil-cpp
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	provides = libwebrtc-audio-coding-1.so
 	provides = libwebrtc-audio-processing-1.so
 	source = git+https://gitlab.freedesktop.org/pulseaudio/webrtc-audio-processing.git?signed#tag=v1.3
