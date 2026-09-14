@@ -10,7 +10,11 @@ pkgdesc='Simple, small XML parser'
 url='https://sourceforge.net/projects/tinyxml'
 arch=(x86_64)
 license=(Zlib)
-depends=(gcc-libs glibc)
+depends=(
+  libgcc
+  libstdc++
+  glibc
+)
 makedepends=(setconf)
 source=("https://downloads.sourceforge.net/$pkgname/${pkgname}_${pkgver//./_}.tar.gz"
         entity.patch
