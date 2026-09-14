@@ -4,7 +4,7 @@
 pkgbase=python-cuda
 # NOTE: python-cuda-pathfinder and python-cuda-core are packaged separately
 pkgname=(python-cuda python-cuda-bindings)
-pkgver=13.3.1
+pkgver=13.4.1
 pkgrel=1
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
@@ -32,12 +32,12 @@ options=(!emptydirs)
 source=(
   $pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver
 )
-b2sums=('477bb6e2a25e6ce843fcae8d27f36eca7fa68de4fbe3bd8c35b16d06b0d36e1f9bc8ca0ba4beddeffd9c1d54bc8877ab20f3251871ab497cfce3cbb8f9fecd68')
+b2sums=('25a51baebcbac7ad7f496dcac5f845465053b17db9fc91585a17fd7008063bc66968d320cb632366ac1032a6d70114c44d0407825432d50a2948bc1d5157485c')
 
 prepare() {
   cd $pkgbase
   # release cython constraints
-  sed -i 's|"cython>=3.0,<3.1.0"|"cython>=3.0"|' cuda_bindings/pyproject.toml
+  sed -i 's|"cython>=3.2.5,<3.3"|"cython"|' cuda_bindings/pyproject.toml
 }
 
 build() {
