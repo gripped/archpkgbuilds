@@ -35,6 +35,7 @@ depends=(
   lz4
   pango
   pcre2
+  simdutf
   systemd
   systemd-libs
 )
@@ -54,12 +55,8 @@ makedepends=(
   vala
 )
 options=(!lto)
-source=(
-  "git+https://gitlab.gnome.org/GNOME/vte.git#tag=$pkgver"
-  "git+https://github.com/simdutf/simdutf.git#tag=v8.2.0"
-)
-b2sums=('f8f03ea82a08697d28a8e7a76729c39cb2088335380eb21b0af54f04519fb293f257a334c8b41948707b50cebbb8bb9c792a2c745b38f3834c9351ae730610ce'
-        'b2bec641525c8247db26e5d11449ed4581815ea758212f049c249bb88ca0397c79fa90bfaf5dce26435f067c2a645526e92e6fce40838e3fa2fb2eefab85750e')
+source=("git+https://gitlab.gnome.org/GNOME/vte.git#tag=$pkgver")
+b2sums=('f8f03ea82a08697d28a8e7a76729c39cb2088335380eb21b0af54f04519fb293f257a334c8b41948707b50cebbb8bb9c792a2c745b38f3834c9351ae730610ce')
 
 prepare() {
   cd vte
@@ -69,9 +66,6 @@ build() {
   local meson_options=(
     -D docs=true
   )
-
-  # Inject simdutf
-  export MESON_PACKAGE_CACHE_DIR="$srcdir"
 
   arch-meson vte build "${meson_options[@]}"
   meson compile -C build
