@@ -7,7 +7,9 @@ pkgdesc="Simple Pokedex based on TUI"
 arch=('x86_64')
 url="https://github.com/ckaznable/poketex"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('69b86a490f33f8f73d5e99bbf80b71c4945739c1dc638aee3b877d385a6272e2')
