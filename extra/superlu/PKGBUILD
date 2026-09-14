@@ -9,7 +9,7 @@ pkgver=7.0.1
 pkgrel=2
 pkgdesc='Set of subroutines to solve a sparse linear system'
 arch=(x86_64)
-url='https://github.com/xiaoyeli/superlu/'
+url='https://github.com/xiaoyeli/superlu'
 license=(BSD-3-Clause-LBNL)
 depends=(
   blas
@@ -19,8 +19,8 @@ makedepends=(
   cmake
   ninja
 )
-source=("https://github.com/xiaoyeli/$pkgname/archive/v${pkgver}/$pkgname-$pkgver.tar.gz")
-sha256sums=('86dcca1e086f8b8079990d07f00eb707fc9ef412cf3b2ce808b37956f0de2cb8')
+source=($url/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
+b2sums=('de0547375e84fafb36e63180e4b038d0462e13d50cdf76fe217585f575b51805c8caec7ce8601ee72b20606821b74263f3342fde713905cfce3eaa138ca32e8e')
 
 build() {
   local cmake_options=(
@@ -39,7 +39,7 @@ build() {
 }
 
 check(){
-  ctest --test-dir build
+  ctest --test-dir build --output-on-failure
 }
 
 package() {
