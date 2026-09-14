@@ -134,7 +134,8 @@ _package() {
   pkgdesc+="`cat pkgdesc-$1`"
   [[ -s depends-$1 ]] && depends+=(`cat depends-$1`)
 # jadetex depends on ulem and marvosym
-  [[ $1 == formatsextra ]] && depends+=(texlive-plaingeneric texlive-fontsrecommended texlive-latexrecommended)
+  [[ $1 == formatsextra ]] && depends+=(texlive-plaingeneric texlive-latexrecommended)
+  [[ $1 == latexrecommended ]] && depends+=(texlive-fontsrecommended)
   [[ $1 == xetex ]] && depends+=(texlive-latex)
   [[ $1 == latex || $1 == binextra ]] && depends+=(dvisvgm)
   [[ $1 == context ]] && optdepends+=('luametatex: LuaMetaTeX engine')
@@ -161,6 +162,7 @@ _package() {
                  'perl-ipc-system-simple: for latex-git-log'
                  'python: for de-macro, dviasm, pythontex'
                  'texlive-latexrecommended: for pdfjam'
+                 'texlive-luatex: for tex4ebook'
                  'wdiff: for texdiff')
     conflicts=(git-latexdiff)
     provides=(git-latexdiff)
