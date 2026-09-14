@@ -9,7 +9,7 @@ pkgdesc='Cargo plugin for linting your dependencies'
 arch=('x86_64')
 url='https://github.com/EmbarkStudios/cargo-deny'
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'git' 'glibc' 'libgcc')
+depends=('cargo' 'git' 'glibc' 'libgcc' 'zstd')
 options=(!lto)
 source=("$pkgname-$pkgver::git+$url.git#tag=$pkgver"
   "$pkgname-advisory-db::git+https://github.com/rustsec/advisory-db"
@@ -29,13 +29,13 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --frozen
+  ZSTD_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
   # https://github.com/EmbarkStudios/cargo-deny/issues/816
-  CARGO_HOME=/build/.cargo cargo test --frozen
+  CARGO_HOME=/build/.cargo ZSTD_SYS_USE_PKG_CONFIG=1 cargo test --frozen
 }
 
 package() {
