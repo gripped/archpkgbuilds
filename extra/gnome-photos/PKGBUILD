@@ -14,7 +14,7 @@ depends=(
   cairo
   dconf
   dleyna
-  gcc-libs
+  libgcc
   gdk-pixbuf2
   gegl
   geocode-glib-2
@@ -44,7 +44,7 @@ makedepends=(
   yelp-tools
 )
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-photos.git#tag=${pkgver/[a-z]/.&}"
+  "git+https://gitlab.gnome.org/Archive/gnome-photos.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgd.git"
   0001-Don-t-abort-if-failed-to-create-XdpPortal-instance.patch
   0002-Set-default-window-icon.patch
