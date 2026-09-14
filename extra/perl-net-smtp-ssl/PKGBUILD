@@ -20,7 +20,4 @@ package() {
   make
   make DESTDIR="$pkgdir" install || return 1
 
-  # Remove .packlist and perllocal.pod files.
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name 'perllocal.pod' -delete
 }
