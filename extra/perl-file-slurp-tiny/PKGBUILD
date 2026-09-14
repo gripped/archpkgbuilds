@@ -29,5 +29,4 @@ check() {
 package() {
   cd "$srcdir/File-Slurp-Tiny-$pkgver"
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -o -name '*.pod' -delete
 }
