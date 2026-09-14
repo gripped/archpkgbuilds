@@ -3,8 +3,8 @@
 # Contributor: Vlad M. <vlad@archlinux.net>
 
 pkgname=toxic
-pkgver=0.16.2
-pkgrel=2
+pkgver=0.16.3
+pkgrel=1
 pkgdesc='CLI Tox client'
 arch=('x86_64')
 url='https://github.com/JFreegman/toxic'
@@ -25,7 +25,7 @@ depends=(
 )
 makedepends=('git')
 source=("git+https://github.com/JFreegman/$pkgname?signed#tag=v$pkgver")
-sha512sums=('c53f47b6577890da49ff9a5fdf6de3a43a83a2d37cb655fb140eee71512d1317cc330857d433e45e75a5790f53a9eae675afd51af2d3ae6212b4a5229dffad47')
+sha512sums=('2e3415127af7bf8a2d5614ccd1213b5078dd9c9a5ef59f1500cb587d4a284daab48a2e20d226b4ea12eab2bc833f0a11edd3ea0fdc271a66a5cf322a63d1b25d')
 validpgpkeys=('BABD00573A065BFA90D53D563627F3144076AE63') # Jfreegman <jfreegman@gmail.com>
 
 build() {
