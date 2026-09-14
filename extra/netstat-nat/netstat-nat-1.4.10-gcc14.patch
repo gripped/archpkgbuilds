@@ -1,0 +1,27 @@
+diff --git a/Makefile.am b/Makefile.am
+index dfb7819..e0d8db1 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,7 +1,7 @@
+ bin_PROGRAMS = netstat-nat
+ netstat_nat_SOURCES = netstat-nat.c netstat-nat.h
+ docdir = $(prefix)/share/doc/$(PACKAGE)-$(VERSION)
+-doc_DATA = INSTALL NEWS README ChangeLog AUTHORS COPYING NEWS
++doc_DATA = INSTALL NEWS README ChangeLog AUTHORS COPYING
+ dist_man_MANS = netstat-nat.1
+ EXTRA_DIST = netstat-nat.spec
+ SUBDIRS = 
+diff --git a/netstat-nat.h b/netstat-nat.h
+index ec0d39b..391359d 100755
+--- a/netstat-nat.h
++++ b/netstat-nat.h
+@@ -49,6 +49,9 @@ void check_src_dst(char *protocol, char *src_ip, char *dst_ip, char *src_port, c
+ void store_data(char *protocol, char *src_ip, char *dst_ip, char *src_port, char *dst_port, char *nathostip, char *nathostport, char *status);
+ void extract_ip(char *gen_buffer);
+ void display_help();
++int string_search(char *string, char *search);
++int search_first_hit(char *search, char *line, char *ret);
++int search_sec_hit(char *search, char *line, char *ret);
+ int lookup_hostname(char **r_host);
+ int lookup_ip(char *hostname, size_t hostname_size);
+ //int match(char *string, char *pattern);
