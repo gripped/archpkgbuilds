@@ -1,10 +1,11 @@
-# Maintainer: Johannes Löthberg <johannes@kyriasis.com>
-# Maintainer: Robin Candau <antiz@archlinux.org>
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Contributor: Johannes Löthberg <johannes@kyriasis.com>
+# Contributor: Robin Candau <antiz@archlinux.org>
 # Contributor: Sergej Pupykin <arch+pub@sergej.pp.ru>
 # Contributor: Gilbert Kennen <gilbert firewatcher org>
 
 pkgname=elixir
-pkgver=1.20.2
+pkgver=1.20.4
 pkgrel=1
 pkgdesc="A dynamic, functional language for building scalable and maintainable applications"
 url="https://elixir-lang.org"
@@ -31,14 +32,17 @@ checkdepends=(
   'rebar3'
 )
 source=("git+https://github.com/elixir-lang/elixir.git#tag=v${pkgver}")
-sha512sums=('cc0cea402b2ea8bdd215a9080d77137f6b314fbdd3b138800affa89bdb8e6a4b20b783f0751f7d34d5b0b3cf4783e1fc670955a0d2171d895c7d14daf4a23de1')
+sha512sums=('4142452cfbec69c0e869c1debfe9694bf7e17cb698a0c3920debe513e6594e75788af6554f4bb7b0814319e873de042ff9a762999fbc85cd8938a97be758e2cc')
 
 prepare() {
   cd ${pkgname}
-  # Fix regex position test for newer PCRE2
-  sed -i 's/position 0\$/position [01]$/' lib/elixir/test/elixir/regex_test.exs
-
-  git cherry-pick -n 07e6e1a985c6a5791446066ac92c0c5feadad87d # otp 29 compat
+  # The test suite runs the primary node as `primary@$(hostname)` and starts a
+  # secondary node via :peer.start/1, which names it after the peer's own
+  # `inet:gethostname()`. The build chroot's hostname doesn't resolve, so the
+  # secondary can't dial back to the origin and its boot times out. Pin both
+  # node names to localhost, which always resolves.
+  sed -i 's/--sname primary/--sname primary@localhost/g' Makefile
+  sed -i 's/:peer.start(%{name: :secondary})/:peer.start(%{name: :secondary, host: ~c"localhost"})/' lib/elixir/test/elixir/test_helper.exs
 }
 
 build() {
