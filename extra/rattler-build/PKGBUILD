@@ -7,7 +7,12 @@ pkgdesc="A fast conda-package builder"
 arch=('x86_64')
 url="https://github.com/prefix-dev/rattler-build"
 license=('BSD')
-depends=('gcc-libs' 'openssl' 'bzip2' 'xz')
+depends=(
+  'libgcc'
+  'openssl'
+  'bzip2'
+  'xz'
+)
 makedepends=('cargo')
 checkdepends=('patchelf' 'git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
