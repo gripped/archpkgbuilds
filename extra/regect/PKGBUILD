@@ -7,7 +7,9 @@ pkgdesc="A CLI tool to quickly test regular expressions"
 arch=('x86_64')
 url="https://github.com/kloki/regect"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('7d4401f38b52337602397114fe21a58e282fb0b05c3d50f997f5d0b630843007')
