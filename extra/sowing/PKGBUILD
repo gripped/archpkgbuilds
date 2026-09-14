@@ -8,7 +8,13 @@ pkgdesc="Tools for documenting and improving portability"
 arch=(x86_64)
 url="http://wgropp.cs.illinois.edu/projects/software/sowing/"
 license=(GPL)
-depends=(bash gcc-libs glibc perl)
+depends=(
+  bash
+  libgcc
+  libstdc++
+  glibc
+  perl
+)
 options=(!makeflags)
 source=(${pkgname}-${pkgver}.tar.gz::https://bitbucket.org/petsc/pkg-sowing/get/v${pkgver}.tar.gz)
 sha256sums=('e2fd8980ffe20056dca84aa93b523bcb389d155bf9702b882d2d68a9b87ff235')
