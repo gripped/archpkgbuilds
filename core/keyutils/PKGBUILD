@@ -13,7 +13,7 @@ makedepends=('git')
 provides=('libkeyutils.so')
 backup=('etc/request-key.conf')
 validpgpkeys=('A86E54B0D5E1B4E0AB7C640FFBB7576BA7CB0B6B') # David Howells <dhowells@redhat.com>
-source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git#tag=v${pkgver}?signed"
+source=("git+https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git?signed#tag=v${pkgver}"
         'request-key.conf.patch' 'reproducible.patch')
 sha256sums=('fb172bd1100b07e5ea3f4ba899ca369fd25dcd0ccadee88bd162a8e431e78d26'
             '203c602c61ed94ccd423a0a453d74143d678c641a9a4486367576ee8af2cb8d6'
