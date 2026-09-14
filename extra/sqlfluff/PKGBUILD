@@ -4,7 +4,7 @@
 
 pkgname=sqlfluff
 pkgver=4.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A dialect-flexible and configurable SQL linter'
 arch=(x86_64)
 url='https://github.com/sqlfluff/sqlfluff'
@@ -42,6 +42,11 @@ checkdepends=(
 source=("$pkgname::git+$url#tag=$pkgver")
 sha512sums=('585668819b421e491f21bb92c452ff212833b7b08a354d91edc53bd7eaf68b2850c2179242ace0e1470800a4afc6853128a0523296fdbac8257200f6dc4a18b1')
 b2sums=('1ac404dff95cef3774c0983a1ed0d199c730eb8d579b603cd8e77bc4f5c0756233b99d1ccefe22a1cf7f6086382979a7dab9effc0b366743db3e45668f23af2a')
+
+prepare() {
+  cd "$pkgname"
+  sed -i 's/click<8\.5\.0/click/' pyproject.toml
+}
 
 build() {
   cd "$pkgname"
