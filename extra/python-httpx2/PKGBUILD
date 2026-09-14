@@ -5,7 +5,7 @@ pkgname=(
   python-httpx2
   python-httpcore2
 )
-pkgver=2.3.0
+pkgver=2.12.0
 pkgrel=1
 pkgdesc="A next generation HTTP client for Python"
 arch=(any)
@@ -35,16 +35,19 @@ checkdepends=(
   python-pytest-trio
   python-rich
   python-socksio
+  python-starlette
   python-trio
   python-trustme
   python-truststore
+  python-websockets
   python-werkzeug
+  python-wsproto
   python-zstandard
   uvicorn
 )
 source=("$pkgbase::git+$url#tag=v$pkgver")
-sha512sums=('be9278d0f8306415041fc512f9fac66b14b505836383a5fdebf4e27177bb8360cfdeb3de13145ac607bba8d18f22271ef6431e93f320ab9f85c8dddae752de65')
-b2sums=('bbba0ff5bafea725d56557b9dec04b6dd4ebd49a09e74c98e3613f7b0c021e24000a4c665c89fae6f5c6e84ec17cc2a177f65f641323cc5d718956bb78aaf575')
+sha512sums=('125af9ef14e03a252215b6e7e9bca1bb953378f177583e5a42ee9390a281742a7e6ec9900a692fe172d957eacbc7164a8aba780d5c6973ecb9feb66b1f5ce843')
+b2sums=('eb6b85b0d3673cc1066d9aa70f4d1744a627e270acd322b947da77aee4120dc01b5ca4869c27015ca433db9e0b3d9dd7a31da6788a26bd368d146458586c9278')
 
 build() {
   cd $pkgbase
@@ -62,6 +65,8 @@ check() {
     --deselect tests/httpx2/models/test_responses.py::test_response_decode_text_using_autodetect
     --deselect tests/httpx2/models/test_responses.py::test_response_no_charset_with_cp_1252_content
     --deselect tests/httpx2/test_decoders.py::test_text_decoder_with_autodetect
+    # DeprecationWarning: 'isolated_filesystem' is deprecated and will be removed in Click 9.0. 
+    -W ignore::DeprecationWarning
   )
 
   cd $pkgbase
@@ -86,6 +91,7 @@ package_python-httpx2() {
     'python-rich: command line client support'
     'python-socksio: SOCKS proxy support'
     'python-trio: alternative async library'
+    'python-wsproto: WebSocket support'
     'python-zstandard: for zstd response decompression'
   )
 

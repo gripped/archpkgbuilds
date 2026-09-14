@@ -1,6 +1,6 @@
 pkgbase = python-httpx2
 	pkgdesc = A next generation HTTP client for Python
-	pkgver = 2.3.0
+	pkgver = 2.12.0
 	pkgrel = 1
 	url = https://github.com/pydantic/httpx2
 	arch = any
@@ -20,10 +20,13 @@ pkgbase = python-httpx2
 	checkdepends = python-pytest-trio
 	checkdepends = python-rich
 	checkdepends = python-socksio
+	checkdepends = python-starlette
 	checkdepends = python-trio
 	checkdepends = python-trustme
 	checkdepends = python-truststore
+	checkdepends = python-websockets
 	checkdepends = python-werkzeug
+	checkdepends = python-wsproto
 	checkdepends = python-zstandard
 	checkdepends = uvicorn
 	makedepends = git
@@ -32,9 +35,9 @@ pkgbase = python-httpx2
 	makedepends = python-hatchling
 	makedepends = python-installer
 	makedepends = python-uv-dynamic-versioning
-	source = python-httpx2::git+https://github.com/pydantic/httpx2#tag=v2.3.0
-	sha512sums = be9278d0f8306415041fc512f9fac66b14b505836383a5fdebf4e27177bb8360cfdeb3de13145ac607bba8d18f22271ef6431e93f320ab9f85c8dddae752de65
-	b2sums = bbba0ff5bafea725d56557b9dec04b6dd4ebd49a09e74c98e3613f7b0c021e24000a4c665c89fae6f5c6e84ec17cc2a177f65f641323cc5d718956bb78aaf575
+	source = python-httpx2::git+https://github.com/pydantic/httpx2#tag=v2.12.0
+	sha512sums = 125af9ef14e03a252215b6e7e9bca1bb953378f177583e5a42ee9390a281742a7e6ec9900a692fe172d957eacbc7164a8aba780d5c6973ecb9feb66b1f5ce843
+	b2sums = eb6b85b0d3673cc1066d9aa70f4d1744a627e270acd322b947da77aee4120dc01b5ca4869c27015ca433db9e0b3d9dd7a31da6788a26bd368d146458586c9278
 
 pkgname = python-httpx2
 	depends = python
@@ -49,6 +52,7 @@ pkgname = python-httpx2
 	optdepends = python-rich: command line client support
 	optdepends = python-socksio: SOCKS proxy support
 	optdepends = python-trio: alternative async library
+	optdepends = python-wsproto: WebSocket support
 	optdepends = python-zstandard: for zstd response decompression
 
 pkgname = python-httpcore2
