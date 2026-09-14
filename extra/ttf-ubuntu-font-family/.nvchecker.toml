@@ -1,0 +1,7 @@
+[ttf-ubuntu-font-family]
+source = "htmlparser"
+url = "https://design.ubuntu.com/font"
+xpath = "//a[starts-with(@href,'https://assets.ubuntu.com/')]/@href"
+include_regex = ".*ubuntu-font-family-[0-9.]+\\.zip"
+from_pattern = ".*ubuntu-font-family-([0-9.]+)\\.zip"
+to_pattern = "\\1"
