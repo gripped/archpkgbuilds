@@ -9,7 +9,9 @@ pkgdesc='Save disk space by cleaning non-essential files from software projects'
 arch=('x86_64')
 url='https://github.com/tbillington/kondo'
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo' 'pango' 'gdk-pixbuf2' 'gtk3')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname-$pkgver-depend-on-0.9.patch")

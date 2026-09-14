@@ -9,7 +9,7 @@ pkgbase = kondo
 	makedepends = pango
 	makedepends = gdk-pixbuf2
 	makedepends = gtk3
-	depends = gcc-libs
+	depends = libgcc
 	options = !lto
 	source = kondo-0.9.tar.gz::https://github.com/tbillington/kondo/archive/v0.9.tar.gz
 	source = kondo-0.9-depend-on-0.9.patch
@@ -20,7 +20,7 @@ pkgname = kondo
 
 pkgname = kondo-ui
 	pkgdesc = Save disk space by cleaning non-essential files from software projects (UI)
-	depends = gcc-libs
+	depends = libgcc
 	depends = glib2
 	depends = cairo
 	depends = gtk3
