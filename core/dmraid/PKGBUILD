@@ -28,10 +28,13 @@ sha256sums=('93421bd169d71ff5e7d2db95b62b030bfa205a12010b6468dcdef80337d6fbd8'
 prepare() {
   cd "$pkgname/1.0.0.rc16-3/$pkgname"
   patch -Np1 -i ${srcdir}/dmraid-format-security.patch
+
+  autoreconf -fvi
 }
 
 build() {
   cd "$pkgname/1.0.0.rc16-3/$pkgname"
+  export CFLAGS+=' -std=gnu17'
   ./configure --enable-led --enable-intel_led
   make -j1
 }
