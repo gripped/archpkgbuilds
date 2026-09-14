@@ -6,7 +6,8 @@ pkgbase = webrtc-audio-processing-0.3
 	arch = x86_64
 	license = BSD-3-Clause
 	makedepends = git
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = glibc
 	provides = libwebrtc_audio_processing.so
 	replaces = webrtc-audio-processing<=0.3.1-5
