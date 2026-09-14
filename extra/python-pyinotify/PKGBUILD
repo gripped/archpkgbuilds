@@ -10,7 +10,7 @@ arch=('any')
 url="https://github.com/seb-m/pyinotify"
 license=('MIT')
 depends=('python')
-makedepends=('python' 'python-setuptools')
+makedepends=('python' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/seb-m/pyinotify/archive/${pkgver}.tar.gz"
 	"pyinotify-python-3.12-fix.patch")
 sha512sums=('144db691c1cdfd4e52b838b8ed839b8d50d84d26a91a59b7460c3170f58a1c96b3ce4f51e6273835835291781215a87b8f2d2d87d1abf012e4c14b2cd4b3f4cf'
@@ -23,12 +23,12 @@ prepare() {
 
 build() {
   cd pyinotify-${pkgver}
-  python3 setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd pyinotify-${pkgver}
-  python3 setup.py install --root="${pkgdir}" -O1
+  python -m installer --destdir="${pkgdir}" dist/*.whl
 
   install -d "${pkgdir}"/usr/share/licenses/python-pyinotify
   install -m644 COPYING \
