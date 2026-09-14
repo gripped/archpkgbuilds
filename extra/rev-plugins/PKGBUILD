@@ -8,13 +8,14 @@ pkgrel=3
 pkgdesc="LADSPA stereo and ambisonic reverb plugin based on zita-rev1"
 arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/ladspa/"
-license=(GPL3)
+license=(GPL-3.0-or-later)
 groups=(
   ladspa-plugins
   pro-audio
 )
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   ladspa-host
 )
