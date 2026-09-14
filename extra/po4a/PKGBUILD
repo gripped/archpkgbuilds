@@ -21,7 +21,6 @@ sha256sums=('6e390eb7707501a86f2e648d78fddb0d211d1e8699aa1ee201176e9f966a798b')
 
 build() {
   cd ${pkgname}-${pkgver}
-  perl Build.PL installdirs=vendor create_packlist=0
   # The script expects a UTF-8 locale
   LC_ALL=en_US.UTF-8 perl Build
 }
@@ -29,6 +28,4 @@ build() {
 package() {
   cd ${pkgname}-${pkgver}
   perl Build destdir="${pkgdir}" install
-  # remove perllocal.pod and .packlist
-  find "${pkgdir}" -name .packlist -o -name perllocal.pod -delete
 }
