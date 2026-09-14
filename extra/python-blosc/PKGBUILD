@@ -6,26 +6,24 @@ pkgname=python-blosc
 pkgver=1.11.4
 pkgrel=1
 pkgdesc='Python wrapper for the extremely fast Blosc compression library'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.blosc.org/python-blosc/python-blosc.html'
-license=('BSD-3-Clause')
-depends=('python' 'blosc')
+license=(BSD-3-Clause)
+depends=(python blosc)
 makedepends=(
-  'git'
-  'cmake'
-  'ninja'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
-  'python-scikit-build'
-  'python-py-cpuinfo'
+  git
+  cmake
+  ninja
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+  python-scikit-build
+  python-py-cpuinfo
 )
-checkdepends=('python-numpy' 'python-psutil')
+checkdepends=(python-numpy python-psutil)
 optdepends=('python-numpy: for tests and benchmarks')
-source=(
-  "$pkgname::git+https://github.com/Blosc/python-blosc#tag=v$pkgver"
-)
+source=("$pkgname::git+https://github.com/Blosc/python-blosc#tag=v$pkgver")
 sha512sums=('53f041a31e63b390e31b6c41dfeac8d2b60f65b189e78e9830b10ceb33c5393131f6020a52299e8896a742d7ab4787fe162c82e3f08a3efa9d1bd96304b4d0fb')
 b2sums=('f8ebbbadbac34a8dce8feae84af9b27d823cde6511e4ab7f7a5a59ddb0a5419287b141484428950fd937817222599810fe6db44fe498d1370049f15eb9ea9805')
 
