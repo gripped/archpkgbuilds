@@ -5,9 +5,10 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=readline
-_basever=8.3
-_patchlevel=003
-pkgver=${_basever}.${_patchlevel}
+pkgver=8.3.3
+_patchlevel=${pkgver#*.*.}
+[[ $_patchlevel == "$pkgver" ]] && _patchlevel=0
+_basever=${pkgver%"${_patchlevel:+.$_patchlevel}"}
 pkgrel=1
 pkgdesc='GNU readline library'
 arch=('x86_64')
@@ -26,12 +27,10 @@ provides=(
 options=('!emptydirs')
 source=(
   https://ftp.gnu.org/gnu/readline/readline-$_basever.tar.gz{,.sig}
-  https://ftp.gnu.org/gnu/readline/readline-8.3-patches/readline83-001{,.sig}
+  # INFO: point patches are extended automatically into the source array
   inputrc
     )
 b2sums=('45d6fe7e34c56d309102a94aa776a7f5284201e844450e14ff818df9fa84a72154bdca70f11828c94954b080cbbe4666fa0b00ffa8460118ec8f3ea551b73dad'
-        'SKIP'
-        'b0953458a18b8b06b0086567abd3c9ca3efceb5e4c38271e62137e126c106b938945d956394de0e955ecea5d48f8b261a4f2f3db2ee1d2cbc3b4cfdcf213ca46'
         'SKIP'
         '50db43bff430f282175aba4c4259e0b2222bc7e342fbe47b9dcce0172458472e72aebb9852eeafa4d10d4e89f2e1e8bb83b6b5dfc68eeababe699d4b5eae80f7'
         'b0953458a18b8b06b0086567abd3c9ca3efceb5e4c38271e62137e126c106b938945d956394de0e955ecea5d48f8b261a4f2f3db2ee1d2cbc3b4cfdcf213ca46'
@@ -42,7 +41,8 @@ b2sums=('45d6fe7e34c56d309102a94aa776a7f5284201e844450e14ff818df9fa84a72154bdca7
         'SKIP')
 validpgpkeys=('7C0135FB088AAF6C66C650B9BB5869F064EA74AB') # Chet Ramey
 
-if [ $_patchlevel -gt 0 ]; then
+# extend patches to source array
+if (( _patchlevel > 0 )); then
     for (( _p=1; _p <= $((10#${_patchlevel})); _p++ )); do
         source=(${source[@]} https://ftp.gnu.org/gnu/readline/readline-$_basever-patches/readline${_basever//.}-$(printf "%03d" $_p){,.sig})
     done
@@ -51,7 +51,7 @@ fi
 prepare() {
   cd $pkgname-$_basever
   for (( _p=1; _p <= $((10#${_patchlevel})); _p++ )); do
-    msg "applying patch readline${_basever//.}-$(printf "%03d" $_p)"
+    msg2 "applying patch readline${_basever//.}-$(printf "%03d" $_p)"
     patch -p0 -i ../readline${_basever//.}-$(printf "%03d" $_p)
   done
 
@@ -63,7 +63,7 @@ build() {
   cd $pkgname-$_basever
 
   # build with -fPIC for x86_64 (FS#15634)
-  [[ $CARCH == "x86_64" ]] && CFLAGS="$CFLAGS -fPIC"
+  [[ $CARCH == x86_64* ]] && CFLAGS="$CFLAGS -fPIC"
 
   ./configure --prefix=/usr
   make SHLIB_LIBS=-lncurses
