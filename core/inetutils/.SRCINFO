@@ -10,19 +10,19 @@ pkgbase = inetutils
 	makedepends = help2man
 	makedepends = python
 	depends = glibc
-	depends = pam
 	depends = libcap
-	depends = readline
-	depends = ncurses
-	depends = libxcrypt
-	depends = libpam.so
 	depends = libcrypt.so
-	depends = libreadline.so
 	depends = libncursesw.so
+	depends = libpam.so
+	depends = libreadline.so
+	depends = libxcrypt
+	depends = ncurses
+	depends = pam
+	depends = readline
 	options = !emptydirs
 	backup = etc/pam.d/rlogin
 	backup = etc/pam.d/rsh
-	source = git+https://git.savannah.gnu.org/git/inetutils.git#tag=v2.8?signed
+	source = git+https://git.savannah.gnu.org/git/inetutils.git?signed#tag=v2.8
 	source = git+https://git.savannah.gnu.org/git/gnulib.git
 	source = inetutils.sysusers
 	source = ftpd.service
