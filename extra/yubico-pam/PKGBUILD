@@ -15,7 +15,7 @@ checkdepends=('perl-net-ldap-server')
 provides=("${_shortname}")
 conflicts=("${_shortname}")
 validpgpkeys=('0A3B0262BCA1705307D5FF06BCA00FD4B2168C0A') # Klas Lindfors <klas@yubico.com>
-source=("git+https://github.com/Yubico/yubico-pam.git#tag=${pkgver}?signed")
+source=("git+https://github.com/Yubico/yubico-pam.git?signed#tag=${pkgver}")
 sha256sums=('b137854b2a8758f9a646d13590725eb92cd3396e56222b4f68a33a9f886370ec')
 
 prepare() {
