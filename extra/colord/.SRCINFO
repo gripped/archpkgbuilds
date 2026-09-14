@@ -17,10 +17,10 @@ pkgbase = colord
 	makedepends = vala
 	depends = dbus
 	depends = dconf
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = lcms2
+	depends = libgcc
 	depends = libgudev
 	depends = libgusb
 	depends = polkit
@@ -35,10 +35,10 @@ pkgbase = colord
 pkgname = colord
 	depends = dbus
 	depends = dconf
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = lcms2
+	depends = libgcc
 	depends = libgudev
 	depends = libgusb
 	depends = polkit
@@ -53,10 +53,10 @@ pkgname = colord
 
 pkgname = libcolord
 	pkgdesc = System daemon for managing color devices (client library)
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
 	depends = lcms2
+	depends = libgcc
 	depends = systemd-libs
 	provides = libcolord.so
 
@@ -65,9 +65,9 @@ pkgname = colord-sane
 	depends = colord=1.4.8-1
 	depends = libcolord=1.4.8-1
 	depends = dbus
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
+	depends = libgcc
 	depends = libgudev
 	depends = sane
 

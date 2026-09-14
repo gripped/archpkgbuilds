@@ -17,10 +17,10 @@ license=(GPL-2.0-or-later)
 depends=(
   dbus
   dconf
-  gcc-libs
   glib2
   glibc
   lcms2
+  libgcc
   libgudev
   libgusb
   polkit
@@ -106,10 +106,10 @@ package_colord() {
 package_libcolord() {
   pkgdesc+=" (client library)"
   depends=(
-    gcc-libs
     glib2
     glibc
     lcms2
+    libgcc
     systemd-libs
   )
   provides=(libcolord.so)
@@ -122,9 +122,9 @@ package_colord-sane() {
     "colord=$pkgver-$pkgrel"
     "libcolord=$pkgver-$pkgrel"
     dbus
-    gcc-libs
     glib2
     glibc
+    libgcc
     libgudev
     sane
   )
