@@ -12,14 +12,14 @@ url='https://github.com/ReFirmLabs/binwalk'
 arch=(x86_64)
 license=(MIT)
 depends=(
-  'bzip2'
-  'gcc-libs'
-  'freetype2'
-  'fontconfig'
-  'xz'
+  bzip2
+  freetype2
+  fontconfig
+  libgcc
+  xz
 )
 makedepends=(
-  'rust'
+  rust
 )
 optdepends=(
   'python-opengl: binviz module support'
@@ -49,14 +49,12 @@ b2sums=('021384121d961775172c282775ed78a783e2eaba1a0c2a7eb4f98e2fc6fcfaa9e11ef41
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 
 build() {
   cd ${pkgname}-${pkgver}
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --release --locked
 }
 
