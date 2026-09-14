@@ -7,7 +7,12 @@ pkgdesc="Run a team of autonomous AI agents from your terminal"
 arch=('x86_64')
 url="https://github.com/bosun-ai/kwaak"
 license=('MIT')
-depends=('gcc-libs' 'openssl' 'oniguruma')
+depends=(
+  'libgcc'
+  'libstdc++'
+  'openssl'
+  'oniguruma'
+)
 makedepends=('cargo' 'protobuf')
 checkdepends=('git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
@@ -16,7 +21,7 @@ options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
