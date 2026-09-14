@@ -116,8 +116,9 @@ package_adlplug-lv2() {
   depends=(
     fmt
     freetype2
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libx11
     libxext
     lv2-host
@@ -132,11 +133,12 @@ package_adlplug-standalone() {
   depends=(
     fmt
     freetype2
-    gcc-libs
     glibc
     hicolor-icon-theme
     jack
+    libgcc
     liblo
+    libstdc++
     libx11
     libxext
   )
@@ -153,8 +155,9 @@ package_adlplug-vst() {
   depends=(
     fmt
     freetype2
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libx11
     libxext
     vst-host
@@ -176,8 +179,9 @@ package_opnplug-lv2() {
   depends=(
     fmt
     freetype2
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libx11
     libxext
     lv2-host
@@ -192,11 +196,12 @@ package_opnplug-standalone() {
   depends=(
     fmt
     freetype2
-    gcc-libs
     glibc
     hicolor-icon-theme
     jack
+    libgcc
     liblo
+    libstdc++
     libx11
     libxext
   )
@@ -213,8 +218,9 @@ package_opnplug-vst() {
   depends=(
     fmt
     freetype2
-    gcc-libs
     glibc
+    libgcc
+    libstdc++
     libx11
     libxext
     vst-host
