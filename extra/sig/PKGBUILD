@@ -7,7 +7,9 @@ pkgdesc="Interactive grep for streaming"
 arch=('x86_64')
 url="https://github.com/ynqa/sig"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('95ce2a6246f8bf80076c61b253e1c2e5433c2b9b2593054ab8a399646bf3a39871478c1451b9809a3f5597c7ad67571fd9f57ad0fe85de4bd8262318233fed26')
