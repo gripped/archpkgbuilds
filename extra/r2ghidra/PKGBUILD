@@ -2,17 +2,17 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=r2ghidra
-pkgver=6.2.0
+pkgver=6.2.2
 pkgrel=1
 pkgdesc='Deep ghidra decompiler integration for radare2 and iaito'
 arch=(x86_64)
 url='https://github.com/radareorg/r2ghidra'
 license=(LGPL-3.0-only)
 depends=(
+  "radare2=$pkgver"
   glibc
   libgcc
   libstdc++
-  radare2
   zlib
 )
 makedepends=(
@@ -21,25 +21,18 @@ makedepends=(
 )
 provides=(radare2-r2ghidra)
 replaces=(r2ghidra-dec)
-_ghidra_native_ver=0.6.4
-_pugixml_ver=v1.15
+_ghidra_native_ver=483ae94bcbc661a77667e52f1eff75928cb6aa2e
 source=(
   "git+https://github.com/radareorg/r2ghidra#tag=$pkgver"
-  "git+https://github.com/radareorg/ghidra-native.git#tag=$_ghidra_native_ver"
-  "git+https://github.com/zeux/pugixml.git#tag=$_pugixml_ver"
+  "git+https://github.com/radareorg/ghidra-native.git#commit=$_ghidra_native_ver"
 )
-b2sums=('49526ac0aded51075a830d8cb905f50aba172e74970ba4ba0d277bcec67c9a7537a288498c1d216e70600bdb01b195330f8c9a7174d17f31c87be6ab0f1616ac'
-        '664a80d82f041dff08c303a17edf65d6f675d472098254e356c62d09f9175a68bb6ab4624545cb63301a5dafae53d52ff0e59132a4cfc81e8b385d9c40b3774f'
-        'f57c537eb028ce25f81bff48f0001cf134fbed14bd836277f11907f1429c43f8a243e084b92d84bf5529c0fcb18d65e79afd256edb85561591871f62c65cf65b')
+b2sums=('8965210390b4a6cde344c7a955f3f9d83a66a5b2a4dddf680dfa766340914ceb53f1bf3cb818f94391590e2c586fb3999c83b6a5263001db60569a7526e43c05'
+        '0edaa79814afa502eff3998a1ea9979e73139a15dc3917cb039f9802881201ecf1cd7775b6a4b38641edd34f4e3597876d8c14d21cf1dcca00ed1162ebb774e8')
 
 prepare() {
   cd $pkgname
-  for subproject in ghidra-native pugixml; do
-    local ver_var=_${subproject//-/_}_ver
-    local expected_ver=${!ver_var}
-    grep -q "revision = $expected_ver" subprojects/$subproject.wrap \
-      || { echo "Version mismatch in subproject $subproject"; exit 1; }
-  done
+  grep -q "revision = $_ghidra_native_ver" subprojects/ghidra-native.wrap \
+    || { echo "Version mismatch in subproject ghidra-native"; exit 1; }
 }
 
 build() {
