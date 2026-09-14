@@ -9,8 +9,8 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs-lts-krypton
-pkgver=24.20.0
-pkgrel=2
+pkgver=24.21.0
+pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Active LTS" release: Krypton)'
 arch=(x86_64)
 url=https://nodejs.org/
@@ -46,10 +46,8 @@ provides=(
 conflicts=(nodejs)
 source=(
   "git+https://github.com/nodejs/node.git#tag=v$pkgver?signed"
-  0001-test-account-for-varied-OpenSSL-CCM-final-behaviours.patch
 )
-b2sums=('a4e5287d10c437d5ee501ec2c8ce96f0fd6df0d190d361f223edc2e433e4fc23439c6417cb56f361975745089c179edbc48b0c6c83172c3c685328c5a7ad1821'
-        '970519acd0adacbe647ecadd7536e2564e11475cb0334e9cedf6f370585a942ac9b13504969205cf59f147ff3e9bf52d7d0e932773420cef38cf30add5e5b38b')
+b2sums=('6d3f26cfda79e037402f5170be3503700fdbe5c19027bacbf4e75364ff24f337bcc43f5d87082457ddf07149e0b40da8266f7f6df4b51a40844902f8c7bd7b06')
 validpgpkeys=(
   8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 # Michaël Zasso (Targos) <targos@protonmail.com>
   890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4 # RafaelGSS <rafael.nunu@hotmail.com>
@@ -65,12 +63,6 @@ _set_flags() {
   # /usr/lib/libnode.so uses malloc_usable_size, which is incompatible with fortification level 3
   CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
-}
-
-prepare() {
-  cd node
-  # test: account for varied OpenSSL CCM final behaviours
-  patch --forward --strip=1 --input=../0001-test-account-for-varied-OpenSSL-CCM-final-behaviours.patch
 }
 
 build() {
