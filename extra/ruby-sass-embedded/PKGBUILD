@@ -1,7 +1,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 _name="sass-embedded"
 pkgname="ruby-$_name"
-pkgver=1.103.1
+pkgver=1.104.0
 pkgrel=1
 pkgdesc="Embedded Sass Host for Ruby"
 arch=("any")
@@ -12,7 +12,7 @@ makedepends=("ruby-rake" "ruby-rdoc" "protobuf")
 checkdepends=("ruby-bundler" "ruby-rspec")
 source=("$pkgname-$pkgver::https://github.com/sass-contrib/sass-embedded-host-ruby/archive/refs/tags/v$pkgver.tar.gz"
         "no-rubocop-build.patch")
-sha256sums=('786bc24b9355f5c01f61369db311b7d7a3e6e14c552413203a9b5361f78775c8'
+sha256sums=('cea739e92dfda1e62df8ffcd0ac14e69a3d0e590ba36cb588e509c9240b14e47'
             '400bf05b863d1e29245c48a211b524b12ec72e0f11ee65cca2e5a5fc052ea042')
 
 prepare() {
@@ -20,7 +20,10 @@ prepare() {
 
   # use system provided dart-sass
   sed --in-place --regexp-extended \
-    --expression "s|exe = 'dart-sass/sass'|exe = '/usr/bin/sass'|" ext/sass/Rakefile
+    --expression "s|exe = 'dart-sass/sass'|exe = '/usr/bin/sass'|" \
+    --expression "/cli\.rb/s| *=> *%w\[dart-sass\]||" \
+    --expression "/file File\.absolute_path\('cli\.rb'/a \  mkdir_p ARCHDIR" \
+    ext/sass/Rakefile
 
   # remove runtime depedency on rake as it is only used to build and test Gem
   sed --in-place --regexp-extended "/spec.add_dependency 'rake'/d" \
