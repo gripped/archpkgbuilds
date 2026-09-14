@@ -4,16 +4,18 @@
 pkgbase=suitesparse
 pkgname=(suitesparse
          suitesparse-graphblas)
-pkgver=7.12.1
+pkgver=7.14.1
 pkgrel=1
 pkgdesc='A collection of sparse matrix libraries'
 url='http://faculty.cse.tamu.edu/davis/suitesparse.html'
 arch=(x86_64)
 depends=(blas
-         gcc-libs
          glibc
          gmp
          lapack
+         libgcc
+         libgomp
+         libstdc++
          mpfr)
 makedepends=(cmake
              gcc-fortran
@@ -21,7 +23,7 @@ makedepends=(cmake
 replaces=('suitesparse64<7.1.0')
 license=(GPL)
 source=(git+https://github.com/DrTimothyAldenDavis/SuiteSparse#tag=v$pkgver)
-sha256sums=('3c838951c9dd849872f1c8b5f23f5a934d27cd9e69da1f3a52cf2b9b93bced99')
+sha256sums=('783c13e5dbf0d5eae7186de049fa4ebc38c131b7f076825a8bfddf9ec13f5697')
 
 build() {
   cd SuiteSparse
@@ -44,8 +46,9 @@ package_suitesparse() {
 
 package_suitesparse-graphblas() {
   pkgdesc='Graph algorithms in the language of linear algebra'
-  depends=(gcc-libs
-           glibc)
+  depends=(glibc
+           libgcc
+           libgomp)
 
   cd SuiteSparse
   DESTDIR="$pkgdir" make install -C GraphBLAS
