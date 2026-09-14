@@ -21,7 +21,8 @@ sha256sums=('13c3fe5f430eb0c010560c7e438123a573ca61a55c6708aa750cfbf56bf25e17'
 build() {
   cd $pkgname-$pkgver
 
-  LDFLAGS="-lm"
+  CFLAGS+=" -std=gnu17"
+  LDFLAGS+=" -lm"
 
   ./configure --prefix=/usr
 
