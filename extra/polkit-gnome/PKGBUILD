@@ -56,7 +56,7 @@ prepare() {
   # Remove dependency on gnome-common
   sed -i '/GNOME_/d' configure.ac
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
