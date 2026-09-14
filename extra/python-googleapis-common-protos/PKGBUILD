@@ -4,7 +4,7 @@
 
 _name=googleapis-common-protos
 pkgname=python-$_name
-pkgver=1.75.2
+pkgver=1.75.3
 pkgrel=1
 pkgdesc="Python classes generated from the common protos in the googleapis repository"
 arch=('any')
@@ -15,7 +15,7 @@ optdepends=('python-grpcio: for grpc support')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("https://github.com/googleapis/google-cloud-python/archive/refs/tags/$_name-v$pkgver.tar.gz")
-sha256sums=('2d96e23075535b7169caebd83dca556121c5643070bafd77208269dbb0c147fd')
+sha256sums=('224934a91c33a13858198e0348f206b3cba91d639ee3efca6adc1117b30ab73e')
 
 build() {
   cd google-cloud-$pkgname-v$pkgver/packages/$_name
