@@ -2,14 +2,13 @@
 # Contributor: Campbell Jones <arch at serebit dot com>
 
 pkgname=budgie-extras
-pkgver=2.0.0
-pkgrel=2
+pkgver=2.2.3
+pkgrel=1
 pkgdesc='Additional Budgie Desktop components from the Ubuntu Budgie team'
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 url='https://github.com/UbuntuBudgie/budgie-extras'
 depends=(
-  at-spi2-core
   budgie-desktop
   cairo
   dconf
@@ -18,17 +17,16 @@ depends=(
   glibc
   gnome-menus
   granite
+  gtk-layer-shell
   gtk3
   hicolor-icon-theme
   json-glib
   libgee
   libhandy
-  libkeybinder3
   libnm
   libnotify
   libpeas-2
   libsoup3
-  libwnck3
   libxfce4windowing
   pango
   python
@@ -40,13 +38,10 @@ depends=(
   python-psutil
   python-pyudev
   python-svgwrite
-  python-xlib
   sound-theme-freedesktop
   vorbis-tools
-  wmctrl
-  xdotool
-  xorg-xinput
-  xorg-xprop
+  wf-recorder
+  xdg-utils
   xprintidle
   zenity
 )
@@ -54,6 +49,7 @@ makedepends=(
   appstream
   git
   intltool
+  libkeybinder3
   meson
   ninja
   vala
@@ -66,7 +62,7 @@ source=(
   git+https://github.com/UbuntuBudgie/budgie-trash-applet.git
 )
 b2sums=(
-  f242f3b8a745c4e39f11d836ed8f039e46afbfad9ee3b0ad5c43c116c8551c7e5c760fa279635e0612ddc20c8f16b9ae872b33b5aba4981f5549be91e28b9703
+  84100f05f33f8805372bc401d5da46aa50bb18eaba097a4f227d80b33d9ba27173eb2697a0b39536a13239b316053d9a8f80e93d8bc10efd621705a86cb6f1a8
   SKIP
   SKIP
   SKIP
@@ -82,24 +78,11 @@ prepare() {
   git config submodule.budgie-network-manager/budgie-network-applet.url ../budgie-network-applet
   git config submodule.budgie-trash/trash.url ../budgie-trash-applet
   git -c protocol.file.allow=always submodule update
-
-  # Use libpeas-2
-  sed -i -e 's/libpeas-1.0/libpeas-2/' -e "s/python_loader = 'python3'/python_loader = 'python'/" meson.build
-  find . -name meson.build -exec sed -i -e 's/budgie-1.0/budgie-2.0/' -e '/libpeas-gtk-1.0/d' {} +
-  find . -name '*.py' -exec sed -i "s/gi.require_version('Budgie', '1.0')/gi.require_version('Budgie', '2.0')/" {} +
-
-  # Fix build
-  sed -i 's/this.popdown();/this.hide();/' budgie-quicknote/QuickNoteApplet.vala
-
-  # Fix path for libexec directory
-  sed -i "s/'libexec'/'lib'/" meson.build
-
-  # Add missing categories
-  sed -i '$ a Categories=GTK;Settings;' budgie-hotcorners/misc/org.ubuntubudgie.budgie-extras.HotCorners.desktop.in.in
 }
 
 build() {
   arch-meson $pkgname build \
+    -D for-wayland=true \
     -D b_pie=false
   meson compile -C build
 }
