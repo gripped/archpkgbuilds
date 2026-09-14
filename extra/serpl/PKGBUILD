@@ -7,7 +7,9 @@ pkgdesc="A simple TUI for search and replace, ala VS Code"
 arch=('x86_64')
 url="https://github.com/yassinebridi/serpl"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
 sha512sums=('296609260aa18a8b84e2c9e9650fa476cbd4a260a082c042a66340229d4528a23ace9d3b0767fb24570ed9dc6accf0dc73598c8c43d5825dd2fe30f2cd170601')
