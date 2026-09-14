@@ -8,7 +8,9 @@ pkgdesc="A CLI tool for managing long running shell commands"
 arch=('x86_64')
 url="https://github.com/nukesor/pueue"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('236a47a1cc74721998f4de3eff5062efe8e73c56c05aa19e64fef2e5ee55700f')
