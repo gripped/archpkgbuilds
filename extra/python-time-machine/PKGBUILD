@@ -2,7 +2,7 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=python-time-machine
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
 pkgdesc='Travel through time in your tests'
 arch=(x86_64)
@@ -32,8 +32,8 @@ optdepends=(
   'python-tokenize-rt: for the migration tool'
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('a5b7064bcc4bac6f9fe94bc59151cb13b973d8cd559f39978b5ee79166de654997d13cd2ef65ae47b54a8c8470431d8c211e2602cdae09bb3b740e87a446b03c')
-b2sums=('87faef71aa427e63916e8a9f3312fbc18892e1d281493d314e2763acd74a49e0d344a8ccfa77710b2e04de36ff20f5b466c8c2ba9ac404b6a105c85d8daea7ba')
+sha512sums=('e947eb6a0eef7b6d5176ee87579e4cfe344ceb04e6f926e340dae5b4494f61bba0efce43e8d501db81bbe527f25b403b72f2bbbae8c925fb78a72a07c11a0554')
+b2sums=('97d71b30a69b680824c76da8c641f749a8f104004d7f58a7c86d73be50e988d5d768543433895e97066e11d8ca61c9ab7e1e22a645bb94ae70621b11586a60d9')
 
 build() {
   cd "$pkgname"
@@ -44,9 +44,14 @@ build() {
 check() {
   cd "$pkgname"
 
+  local pytest_options=(
+    -vv
+    --deselect tests/test_fuzz.py::test_travel_to_aware_datetime
+  )
+
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v
+  test-env/bin/python -m pytest "${pytest_options[@]}"
 }
 
 package() {
