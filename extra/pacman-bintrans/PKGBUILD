@@ -10,7 +10,7 @@ arch=('x86_64')
 license=('GPL-3.0-or-later')
 depends=(
   'bzip2' 'libbz2.so'
-  'gcc-libs'
+  'libgcc'
   'glibc'
   'openssl' 'libssl.so'
   'rekor'
@@ -34,7 +34,7 @@ validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -59,7 +59,7 @@ package_pacman-bintrans-tools() {
   pkgdesc='Binary transparency for pacman (sign/monitor tools)'
   depends=(
     'bzip2' 'libbz2.so'
-    'gcc-libs'
+    'libgcc'
     'glibc'
     'openssl' 'libssl.so'
     'rekor'
