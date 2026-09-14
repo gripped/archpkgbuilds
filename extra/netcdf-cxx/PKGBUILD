@@ -9,7 +9,12 @@ pkgdesc="NetCDF C++ bindings"
 arch=(x86_64)
 url="https://github.com/Unidata/netcdf-cxx4/"
 license=(custom)
-depends=(gcc-libs netcdf curl)
+depends=(
+  libgcc
+  libstdc++
+  netcdf
+  curl
+)
 options=(!makeflags)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         netcdf-cxx-fix-debug-flags.patch::${url}/commit/fe9511b4149fd6e7f71252f61657e03ce6ee01c6.patch)
