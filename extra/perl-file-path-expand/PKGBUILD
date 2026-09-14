@@ -20,6 +20,4 @@ build() {
 package() {
   cd "$srcdir"/File-Path-Expand-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
