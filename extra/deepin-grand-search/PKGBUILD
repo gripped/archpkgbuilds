@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=6.0.11
+pkgver=6.0.13
 pkgrel=1
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
@@ -13,33 +13,44 @@ depends=(deepin-anything deepin-application-manager deepin-service-manager deepi
 makedepends=(git cmake deepin-desktop-base deepin-tray-loader ninja qt6-tools boost)
 groups=(deepin-extra)
 source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
-         taglib-2.patch
          dfm-search-sync.patch)
-sha512sums=('4bcebe32a78cf26f9ae8522ddb15a282b3d9a82e04a5a09bcc50c79b37fc98ab904f595edf67603bc9245dcce216f625d2c71955d04908b7b098ab3ac3827d4b'
-            '8364cd5aa0350a7d109be7ce10035c6c4e3fd6686205bc880017b1fc93a10cff6e78a8f66daeb25427c416a6dc075482136146c9d8278aee6de71653673d59a0'
+sha512sums=('0945be7040ea738fe95cd81a50a439078ee2775cc7f7a5acaf3fe4417d4a6e7e8862a379cab7535e8e96a56755d5890da7503d3694e41257decb83d5fbdfa485'
             '5a04f3800bef8e1309a31f6641678661247a03c16b6f412b9452142b269919a752a16386247cb69d8e36ce39b0344cc8acd5918363a509c09c43ba69ce3b7f8f')
 
 prepare() {
   cd dde-grand-search
 
+  # Remove invalid global PIE flags that break linking shared libraries.
   # https://github.com/linuxdeepin/dde-grand-search/pull/65
   sed -i 's/-fPIE -pie//g' src/*/CMakeLists.txt
 
+  # Extract the bundled ANTLR runtime omitted from the Git tag checkout.
+  # https://github.com/linuxdeepin/dde-grand-search/commit/54eb7ce7234cf6fd3d587eb39c3a697fc55bd265
   if [[ ! -d 3rdparty/antlr4 ]]; then
     bsdtar -xf 3rdparty/antlr4.tar.gz -C 3rdparty
   fi
+
+  # Adapt the bundled ANTLR runtime's obsolete declarations for CMake 4.
+  # https://github.com/linuxdeepin/dde-grand-search/commit/54eb7ce7234cf6fd3d587eb39c3a697fc55bd265
   sed -i 's/^cmake_minimum_required (VERSION 2\.8)$/cmake_minimum_required (VERSION 3.5)/' \
     3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
+
+  # Remove bundled ANTLR policy settings no longer accepted by CMake 4.
+  # https://github.com/linuxdeepin/dde-grand-search/commit/54eb7ce7234cf6fd3d587eb39c3a697fc55bd265
   sed -i '/CMAKE_POLICY(SET CMP0054 OLD)/d; /CMAKE_POLICY(SET CMP0045 OLD)/d; /CMAKE_POLICY(SET CMP0042 OLD)/d; /CMAKE_POLICY(SET CMP0059 OLD)/d' \
     3rdparty/antlr4/antlr4-runtime/CMakeLists.txt
 
-  patch -p1 -i ../taglib-2.patch
+  # Use the TagLib 2 String API in the audio preview plugin.
+  # https://github.com/linuxdeepin/dde-grand-search/pull/119
+  git cherry-pick -n ae1bb2a9083e3f50a940d0232c3be6e2d55d737e
 
-  # Fix new EventLogUtil header's incomplete Qt type declarations.
+  # Add Qt includes missing from the EventLogUtil header introduced by upstream.
+  # https://github.com/linuxdeepin/dde-grand-search/pull/195
   sed -i 's|#include <QVariantMap>|#include <QObject>\n#include <QJsonObject>\n#include <QThread>\n#include <QVariantMap>|' \
     src/grand-search/utils/report/eventlogutil.h
 
-  # Collect search results before the local DFM Search engine is destroyed.
+  # Avoid the asynchronous callback introduced upstream outliving its search engine.
+  # https://github.com/linuxdeepin/dde-grand-search/pull/213
   patch -p1 -i ../dfm-search-sync.patch
 }
 
