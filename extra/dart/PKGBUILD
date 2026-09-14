@@ -81,12 +81,26 @@ build() {
 
   # gn args --list out
 
-  /usr/bin/gn gen -qv out --args='
-                        target_cpu = "x64"
+  # GN uses its own CPU names; map from $CARCH instead of hardcoding x64. Pinning
+  # x64 made the *default* (target) toolchain x64 on other arches, and since
+  # prepare() strips that toolchain's cross prefix GN then invoked the native g++
+  # with -m64 -march=x86-64 -msse2 and the build died. Everything else already
+  # compiles via dart's arch-appropriate toolchain. The build injects the arch.
+  local _target_cpu
+  case "$CARCH" in
+    x86_64)  _target_cpu=x64 ;;
+    aarch64) _target_cpu=arm64 ;;
+    armv7h)  _target_cpu=arm ;;
+    riscv64) _target_cpu=riscv64 ;;
+    *)       _target_cpu=$CARCH ;;
+  esac
+
+  /usr/bin/gn gen -qv out --args="
+                        target_cpu = \"$_target_cpu\"
                         is_debug = false
                         is_release = true
                         is_clang = false
-                        verify_sdk_hash = false'
+                        verify_sdk_hash = false"
   ninja create_sdk -v -C out
 }
 
