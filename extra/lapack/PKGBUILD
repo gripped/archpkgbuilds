@@ -54,8 +54,9 @@ build() {
 
 package_lapack() {
   depends=(blas
-           gcc-libs
-           glibc)
+           glibc
+           libgcc
+           libgfortran)
   
   DESTDIR="$pkgdir" cmake --install build
   install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
@@ -68,8 +69,9 @@ package_lapack() {
 
 package_blas() {
   pkgdesc='Basic Linear Algebra Subprograms'
-  depends=(gcc-libs
-           glibc)
+  depends=(glibc
+           libgcc
+           libgfortran)
 
   DESTDIR="$pkgdir" cmake --install build/BLAS
   install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
@@ -96,8 +98,9 @@ package_lapacke() {
 package_lapack64() {
   pkgdesc='Linear Algebra PACKage (64-bit integers)'
   depends=(blas64
-           gcc-libs
-           glibc)
+           glibc
+           libgcc
+           libgfortran)
 
   DESTDIR="$pkgdir" cmake --install build64
   install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
@@ -110,8 +113,9 @@ package_lapack64() {
 
 package_blas64() {
   pkgdesc='Basic Linear Algebra Subprograms (64-bit integers)'
-  depends=(gcc-libs
-           glibc)
+  depends=(glibc
+           libgcc
+           libgfortran)
 
   DESTDIR="$pkgdir" cmake --install build64/BLAS
   install -Dm644 $pkgbase/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/

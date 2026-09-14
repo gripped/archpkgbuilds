@@ -15,8 +15,9 @@ pkgbase = lapack
 
 pkgname = blas
 	pkgdesc = Basic Linear Algebra Subprograms
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libgfortran
 
 pkgname = cblas
 	pkgdesc = C interface to BLAS
@@ -25,8 +26,9 @@ pkgname = cblas
 
 pkgname = lapack
 	depends = blas
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libgfortran
 
 pkgname = lapacke
 	pkgdesc = C interface to LAPACK
@@ -35,8 +37,9 @@ pkgname = lapacke
 
 pkgname = blas64
 	pkgdesc = Basic Linear Algebra Subprograms (64-bit integers)
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libgfortran
 
 pkgname = cblas64
 	pkgdesc = C interface to BLAS (64-bit integers)
@@ -47,8 +50,9 @@ pkgname = cblas64
 pkgname = lapack64
 	pkgdesc = Linear Algebra PACKage (64-bit integers)
 	depends = blas64
-	depends = gcc-libs
 	depends = glibc
+	depends = libgcc
+	depends = libgfortran
 
 pkgname = lapacke64
 	pkgdesc = C interface to LAPACK (64-bit integers)
