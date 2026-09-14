@@ -1,13 +1,12 @@
 pkgbase = syslog-ng
 	pkgdesc = Next-generation syslogd with advanced networking and filtering capabilities
 	pkgver = 4.12.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/syslog-ng/syslog-ng
 	arch = x86_64
 	license = GPL-2.0-or-later
 	license = LGPL-2.1-or-later
 	checkdepends = criterion
-	checkdepends = gperf
 	checkdepends = python-pytest
 	checkdepends = python-pytest-mock
 	checkdepends = qpdf
@@ -62,6 +61,7 @@ pkgbase = syslog-ng
 	makedepends = systemd
 	makedepends = systemd-libs
 	makedepends = zlib
+	makedepends = gperf
 	source = git+https://github.com/syslog-ng/syslog-ng.git#tag=syslog-ng-4.12.0
 	source = git+https://github.com/balabit/ivykis.git
 	source = git+https://github.com/open-telemetry/opentelemetry-proto.git
