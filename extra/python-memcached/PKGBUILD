@@ -12,14 +12,20 @@ license=('PSF-2.0')
 pkgdesc='Python interface to memcached'
 depends=('python')
 checkdepends=('memcached' 'pifpaf' 'python-pytest')
-makedepends=('git' 'python-setuptools')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("git+https://github.com/linsomniac/python-memcached#tag=$pkgver")
 sha256sums=('SKIP')
+
+build() {
+  cd 'python-memcached'
+
+  python -m build --wheel --no-isolation
+}
 
 package() {
   cd 'python-memcached'
 
-  python3 setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 check() {
