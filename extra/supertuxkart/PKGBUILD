@@ -10,11 +10,28 @@ pkgdesc='Kart racing game featuring Tux and his friends'
 arch=('x86_64')
 url='https://supertuxkart-evolution.com'
 license=('GPL-3.0-or-later')
-depends=('openal' 'libvorbis' 'freetype2' 'harfbuzz' 'curl' 'bluez-libs' 'glibc' 'zlib' 'gcc-libs'
-         'sqlite' 'libjpeg-turbo' 'libpng' 'hicolor-icon-theme' 'sdl2' 'shaderc' 'openssl')
+depends=(
+  'openal'
+  'libvorbis'
+  'freetype2'
+  'harfbuzz'
+  'curl'
+  'bluez-libs'
+  'glibc'
+  'zlib'
+  'libgcc'
+  'libstdc++'
+  'sqlite'
+  'libjpeg-turbo'
+  'libpng'
+  'hicolor-icon-theme'
+  'sdl2'
+  'shaderc'
+  'openssl'
+)
 makedepends=('cmake' 'setconf' 'ninja')
 source=("https://github.com/supertuxkart/stk-code/releases/download/${pkgver}/SuperTuxKart-${pkgver}-src.tar.gz")
-sha512sums=('682faa84358afda725dfc66886b3d300f6e5298b8cf7bcb89134f56d7f627611a02c1b175f35468058a7e1963e182a6553b0b65191c302e6544f71682bf13ca3')
+sha512sums=('f82824f138aa05d179fe9e4fd197971b24a8488417c4eb340648529afc76a0775e32fee933a055672944436d5c67694e64234fb7282c0a0fef7bc89538b51cf8')
 
 build() {
   cd "$srcdir"/SuperTuxKart-${pkgver}-src
