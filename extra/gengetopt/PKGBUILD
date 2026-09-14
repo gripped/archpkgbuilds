@@ -10,10 +10,12 @@ arch=('x86_64')
 url='https://www.gnu.org/software/gengetopt/gengetopt.html'
 license=('GPL-3.0-or-later')
 options=('!docs' '!makeflags')
-depends=('glibc' 'gcc-libs')
+depends=('glibc'
+         'libgcc' 'libgcc_s.so'
+         'libstdc++' 'libstdc++.so')
 makedepends=('git' 'gengen' 'gengetopt' 'help2man')
 validpgpkeys=('CD7AB2B200F374043F92E5D42485C3A5CF0FF62F') # Gray Wolf <wolf@wolfsden.cz>
-source=("git+https://git.savannah.gnu.org/git/gengetopt.git#tag=rel_${pkgver/./_}?signed")
+source=("git+https://git.savannah.gnu.org/git/gengetopt.git?signed#tag=rel_${pkgver/./_}")
 sha256sums=('acb81a9e7315285e2ef6e3d5ded387e85abe7322d86f509e25644d27ac1a5bd0')
 
 prepare() {

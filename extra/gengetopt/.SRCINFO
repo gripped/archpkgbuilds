@@ -10,10 +10,13 @@ pkgbase = gengetopt
 	makedepends = gengetopt
 	makedepends = help2man
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libgcc_s.so
+	depends = libstdc++
+	depends = libstdc++.so
 	options = !docs
 	options = !makeflags
-	source = git+https://git.savannah.gnu.org/git/gengetopt.git#tag=rel_2_23?signed
+	source = git+https://git.savannah.gnu.org/git/gengetopt.git?signed#tag=rel_2_23
 	validpgpkeys = CD7AB2B200F374043F92E5D42485C3A5CF0FF62F
 	sha256sums = acb81a9e7315285e2ef6e3d5ded387e85abe7322d86f509e25644d27ac1a5bd0
 
