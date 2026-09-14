@@ -1,0 +1,65 @@
+From: Carl Smedstad <carsme@archlinux.org>
+Subject: [PATCH] Port the build to the Rocq Build Language of dune 3.24
+
+Dune 3.24 deleted the `coq` extension in favor of the `rocq` one, so
+`(using coq 0.8)` is rejected outright. The oldest `rocq` extension
+version dune 3.24 accepts is 0.11, which in turn requires dune lang
+3.21, hence the `(lang dune ...)` bump.
+
+Upstream did the same rename in PR #21660, but it has not been
+backported to the 9.2 branch. Hand-adapted backport of:
+
+  bb2d10049429979482520af8608c1ae1ce37eb65 "Require dune version 3.21."
+  a3d4aff3670190f1876cffe7130552e284879a5c "Switch to [rocq.theory] for dune."
+
+Only the build system bits are taken; the opam metadata, manual, docker
+and changelog changes of those commits are omitted. The hunk for `dune`
+is rebased onto the 9.2 branch, whose neighbouring `(dev (flags ...))`
+line differs from master.
+
+Upstream: https://github.com/rocq-prover/rocq/pull/21660
+---
+--- a/dune-project
++++ b/dune-project
+@@ -1,11 +1,11 @@
+-(lang dune 3.8)
++(lang dune 3.21)
+ (name rocq-prover)
+ 
+ ; We use directory targets in documentation
+ (using directory-targets 0.1)
+ 
+ ; We need this for when we use the dune.disabled files instead of our rule_gen
+-(using coq 0.8)
++(using rocq 0.11)
+ 
+ (formatting
+  (enabled_for ocaml))
+--- a/dune
++++ b/dune
+@@ -1,7 +1,7 @@
+ ; Default flags for all Rocq libraries.
+ (env
+  (dev     (flags :standard -w -9-27@60-69@70 \ -short-paths)
+-          (coq (flags :standard -w +default)))
++          (rocq (flags :standard -w +default)))
+  (release (flags :standard)
+           (ocamlopt_flags :standard -O3 -unbox-closures))
+  (ireport (flags :standard -w -9-27+60-70)
+--- a/theories/Corelib/dune.disabled
++++ b/theories/Corelib/dune.disabled
+@@ -1,5 +1,5 @@
+ ; For now we use coq_dune to generate the rules here
+-(coq.theory
++(rocq.theory
+  (name Corelib)
+  (package rocq-core)
+  (synopsis "Rocq's Core Library")
+--- a/theories/Ltac2/dune.disabled
++++ b/theories/Ltac2/dune.disabled
+@@ -1,4 +1,4 @@
+-(coq.theory
++(rocq.theory
+  (name Ltac2)
+  (package rocq-core)
+  (synopsis "Ltac2 tactic language")
