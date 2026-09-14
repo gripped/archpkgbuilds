@@ -9,13 +9,13 @@ _realver=4.4.3-P1
 pkgver=${_realver/-/.}
 pkgrel=4
 arch=('x86_64')
-license=('custom:isc-dhcp')
+license=('MPL-2.0')
 url='https://www.isc.org/dhcp/'
 makedepends=('bash' 'iproute2' 'openldap')
 options=('!lto')
 validpgpkeys=('7E1C91AC8030A5A59D1EFAB9750F3C87723E4012') # Internet Systems Consortium, Inc. (Signing key, 2021-2022) <codesign@isc.org>
 source=("https://downloads.isc.org/isc/${pkgbase}/${_realver}/${pkgbase}-${_realver}.tar.gz"{,.asc}
-        '0001-99-replace-hostname-with-uname-n.patch::https://gitlab.isc.org/isc-projects/dhcp/-/commit/b2482a4f7d9a06a9c10a26eb1fb2b855d83e94c7.patch'
+        '0001-99-replace-hostname-with-uname-n.patch'
         'dhcp.sysusers'
         'dhcp.tmpfiles'
         'dhcpd4.service'
