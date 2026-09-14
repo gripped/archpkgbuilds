@@ -29,15 +29,20 @@ makedepends=(cmake
              python-sphinx)
 _archive="$pkgname-$pkgver"
 source=("$_url/releases/download/$pkgver/$_archive.tar.xz"
-        "$_url/pull/5702.patch")
+        "$_url/pull/5702.patch"
+        "$pkgname-20251009-remove-pkg_resources.patch::$_url/commit/fbc4114e1af657b0889f78d24f70c4d56937d189.patch?full_index=1")
 sha256sums=('69046500185a5581b58139dfad30c0b3d8128f00ebbfddc31f2fcf877e329e52'
-            'dcabf49b2057df11c4e64999f3acb6636d5b80f7931b593cd095de80b6e1a702')
+            'dcabf49b2057df11c4e64999f3acb6636d5b80f7931b593cd095de80b6e1a702'
+            '8e4c915c157af908deee9520c5747140d0042dc283a37fabc862183347439bfe')
 
 prepare() {
 	cd "$_archive"
 	# https://gitlab.archlinux.org/archlinux/packaging/packages/fontforge/-/issues/2
 	# https://github.com/fontforge/fontforge/pull/5702
 	patch -p1 -i "$srcdir/5702.patch"
+	# https://archlinux.org/todo/python-pkg_resources-deprecation/
+	# https://github.com/fontforge/fontforge/commit/fbc4114e1af657b0889f78d24f70c4d56937d189
+	patch -p1 -i "$srcdir/$pkgname-20251009-remove-pkg_resources.patch"
 }
 
 build() {
