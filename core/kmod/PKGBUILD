@@ -13,7 +13,7 @@ checkdepends=('linux-headers' 'libelf')
 options=('strip')
 provides=('libkmod.so')
 validpgpkeys=('EAB33C9690013C733916AC839BA2A5A630CBEA53')  # Lucas DeMarchi
-source=("git+https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git#tag=v${pkgver}?signed"
+source=("git+https://git.kernel.org/pub/scm/utils/kernel/kmod/kmod.git?signed#tag=v${pkgver}"
         'depmod-search.conf'
         'depmod.hook'
         'depmod.script')
