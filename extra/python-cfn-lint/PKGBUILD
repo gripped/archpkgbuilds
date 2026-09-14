@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-cfn-lint
-pkgver=1.48.1
+pkgver=1.56.3
 pkgrel=1
 pkgdesc='CloudFormation Linter'
 arch=(any)
@@ -10,7 +10,6 @@ url='https://github.com/aws-cloudformation/cfn-lint'
 license=('MIT-0')
 depends=(
   python
-  python-aws-sam-translator
   python-jsonpatch
   python-jsonpointer
   python-networkx
@@ -27,6 +26,7 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  python-boto3
   python-defusedxml
   python-jschema-to-python
   python-junit-xml
@@ -42,7 +42,7 @@ optdepends=(
   'python-sarif-om: for sarif formatter'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('5cd69cae5ecd729a4d12979ea572403844386cea04a07314c4cf8858b8c6adec1f7cdd3f09c9e9ff6357aab410c0ece5e0bcb4eeacf1993c232f65183181e415')
+b2sums=('0ff231320e2f6b5503036302a6d2f134fd721b9a10db8e042a1abd511d82d3f9a40c485ee16a73f2abe2bcd170d39371b3f911ff9e7158f8822e64bc99254041')
 
 build() {
   cd ${pkgname#python-}
@@ -53,11 +53,9 @@ check() {
   cd ${pkgname#python-}
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  # Deselected tests fails for version 1.40.0
+  # Integration tests require downloading the full CloudFormation schemas.
   PATH=$PWD/test-env/bin:$PATH test-env/bin/python -m pytest -n auto \
-    --deselect=test/integration/test_quickstart_templates.py::TestQuickStartTemplates::test_templates \
-    --deselect=test/integration/test_quickstart_templates_non_strict.py::TestQuickStartTemplates::test_module_integration \
-    --deselect=test/integration/test_quickstart_templates_non_strict.py::TestQuickStartTemplates::test_templates
+    --ignore=test/integration
 }
 
 package() {
