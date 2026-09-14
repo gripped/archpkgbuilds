@@ -29,7 +29,6 @@ package() {
   cd Crypt-OpenSSL-DSA-$pkgver
   make DESTDIR="$pkgdir" install
 
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
 
 # vim:set ts=2 sw=2 et:
