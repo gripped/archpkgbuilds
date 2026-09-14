@@ -23,19 +23,16 @@ sha512sums=('81b6fa1b0fa0bef17a97d841b2fe42c88a80d4c5d0bca8d82aaf24e24b2eeefdac6
 
 prepare() {
   cd "prometheus_wireguard_exporter-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "prometheus_wireguard_exporter-${pkgver}"
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features
 }
 
 check() {
   cd "prometheus_wireguard_exporter-${pkgver}"
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features
 }
 
