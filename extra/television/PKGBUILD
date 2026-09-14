@@ -8,7 +8,9 @@ pkgdesc="A general purpose fuzzy finder for your terminal"
 arch=('x86_64')
 url="https://github.com/alexpasmantier/television"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo' 'git' 'zig')
 checkdepends=('fd' 'bat')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
