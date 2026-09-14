@@ -6,10 +6,11 @@ pkgrel=3
 pkgdesc="Measure the round-trip latency of a soundcard"
 arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/"
-license=(GPL2)
+license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   jack
 )
