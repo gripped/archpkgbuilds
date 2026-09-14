@@ -39,7 +39,7 @@ b2sums=(25f6fc2f05b947153fd69f6d20c45261c15c453d74b4609d04d97dad6731fd6d754f4244
 prepare() {
   cd $pkgbase
   mm-common-prepare -cf
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
