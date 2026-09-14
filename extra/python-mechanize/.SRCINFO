@@ -5,11 +5,14 @@ pkgbase = python-mechanize
 	epoch = 1
 	url = https://github.com/python-mechanize/mechanize
 	arch = any
-	license = BSD
+	license = BSD-3-Clause
 	checkdepends = python-zope-interface
 	checkdepends = python-twisted
-	makedepends = python-setuptools
 	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python-html5lib
 	optdepends = python-html5-parser: faster parsing of HTML
 	source = git+https://github.com/python-mechanize/mechanize#tag=v0.4.10?signed
