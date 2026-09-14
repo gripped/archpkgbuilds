@@ -6,14 +6,18 @@ pkgdesc="Vulkan compute tool for testing video memory stability"
 arch=('x86_64')
 url="https://github.com/GpuZelenograd/memtest_vulkan"
 license=('Zlib')
-depends=('glibc' 'gcc-libs' 'vulkan-driver')
+depends=(
+  'glibc'
+  'libgcc'
+  'vulkan-driver'
+)
 makedepends=('git' 'rust')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/GpuZelenograd/memtest_vulkan/archive/refs/tags/v${pkgver}.tar.gz")
 sha256sums=('ec7100c94d92e0d5f5357386f144dc33ec428890f5dc0d7925e9b1f09cb58e5e')
 
 prepare() {
     cd memtest_vulkan-$pkgver
-    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+    cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
