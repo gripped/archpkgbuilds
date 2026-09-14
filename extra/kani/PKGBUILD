@@ -9,7 +9,10 @@ pkgdesc='Bit-precise model checker for Rust'
 arch=('x86_64')
 url="https://github.com/model-checking/kani"
 license=('Apache-2.0' 'MIT')
-depends=('cargo-nightly' 'gcc-libs') # kani-compiler only supports nightly
+depends=(
+  'cargo-nightly' # kani-compiler only supports nightly
+  'libgcc'
+)
 makedepends=('git')
 provides=('cargo-kani' 'kani-verifier')
 source=(
@@ -35,7 +38,7 @@ prepare() {
   git -c protocol.file.allow=always submodule update --init --recursive
 
   rustup component add rust-src rustc-dev llvm-tools-preview
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
