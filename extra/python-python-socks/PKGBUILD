@@ -2,7 +2,7 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=python-python-socks
-pkgver=2.8.1
+pkgver=3.1.1
 pkgrel=1
 pkgdesc='Core proxy client (SOCKS4, SOCKS5, HTTP) functionality for Python'
 arch=('any')
@@ -23,10 +23,12 @@ checkdepends=(
   'python-pytest'
   'python-pytest-asyncio'
   'python-pytest-trio'
+  'python-starlette'
   'python-tiny-proxy'
   'python-trio'
   'python-trustme'
   'python-yarl'
+  'uvicorn'
 )
 optdepends=(
   'python-anyio: anyio support'
@@ -36,7 +38,7 @@ optdepends=(
 provides=('python-python_socks')
 replaces=('python-python_socks')
 source=("git+$url.git?signed#tag=v$pkgver")
-b2sums=('4502b8c289d52131437fa9d715ce6111ab2ac93a037f58672386c6c3c35aced1d85b5b895ee71776e02de525b989d8472c29773766fcf7df5e99d471f8bc0792')
+b2sums=('b0410cb38def76de0ddb8fdd7369b0b68252bdf23f0ac35f9f434e4000efde8f792a407dd7831636865632409a86442e1d850d01503ec862fa44816b29040a6c')
 validpgpkeys=('706A8935FED55F3BFB7C188B5EEAD7400A5D80ED') # Roman Snegirev <rsng@mail.ru>
 
 build() {
