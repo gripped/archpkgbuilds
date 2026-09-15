@@ -8,7 +8,11 @@ pkgdesc="displays files in hexadecimal and ASCII (or EBCDIC) and highlight the d
 arch=('x86_64')
 url="https://www.cjmweb.net/vbindiff/"
 license=('GPL')
-depends=('gcc-libs' 'ncurses')
+depends=(
+  'libgcc'
+  'libstdc++'
+  'ncurses'
+)
 source=($url/$pkgname-$pkgver.tar.gz)
 sha256sums=('f04da97de993caf8b068dcb57f9de5a4e7e9641dc6c47f79b60b8138259133b8')
 
