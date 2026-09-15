@@ -53,7 +53,7 @@ prepare() {
   patch -Np1 -i ../add_subdir-objects.patch
   patch -Np1 -i ../musepack-tools-495-incompatible-pointers.patch
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
