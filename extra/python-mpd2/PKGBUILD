@@ -9,6 +9,7 @@ pkgname=python-mpd2
 pkgver=3.1.2
 pkgrel=2
 pkgdesc='Python library which provides a client interface for the Music Player Daemon'
+arch=(any)
 url=https://github.com/Mic92/python-mpd2
 license=(GPL-3.0-only)
 depends=(python)
@@ -19,23 +20,20 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-arch=(any)
-_tag=abd04a5564fd038181fa6bc5e7afefdc63a06122
-source=(git+https://github.com/Mic92/python-mpd2.git#tag=${_tag})
-sha256sums=('89a87053e82f47a2c906b0c03beb4a76d69aefbb89a74015f1f3566a0fdb08e9')
-
-pkgver() {
-  cd python-mpd2
-  git describe --tags | sed 's/^v//'
-}
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('c9e8115b8f0d6496e15fea1f03f09267a012eea29f66687701c55d61e8ebe83e772f3c008dac112ac21f2435fd6d862fd138c87f19d05d1310b55c05c72f9bc4')
+b2sums=('d34fe779137012502836c3f5c7926c4a977026dfa6f76e93672b48d6b44d33a2d189fd2de4ce114072ca3917d15e9e814cd955c96f6882d99c1ae8a51eba4ab4')
 
 build() {
-  cd python-mpd2
+  cd "$pkgname"
+
   python -m build --wheel --no-isolation
 }
 
 package() {
-  python -m installer --destdir="${pkgdir}" python-mpd2/dist/*.whl
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim: ts=2 sw=2 et:
