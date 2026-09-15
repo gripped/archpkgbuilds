@@ -12,7 +12,6 @@ depends=('curl' 'glibc' 'libgcc')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('730a80841546433438a0eecd47d452d8932d0a58bae557bfa8e200c1fd22f6ecb069397abf0494fb655f2b710c31a5ba4d6d823923e75709739e42e868b3d523')
-options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
