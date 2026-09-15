@@ -3,7 +3,7 @@
 # Contributor: Kaizhao Zhang <zhangkaizhao@gmail.com>
 
 pkgname=python-hatchling
-pkgver=1.30.1
+pkgver=1.32.0
 pkgrel=1
 pkgdesc="Extensible, standards compliant build backend used by Hatch"
 arch=('any')
@@ -16,6 +16,7 @@ depends=(
   'python-packaging'
   'python-pathspec'
   'python-pluggy'
+  'python-tomlkit'
   'python-trove-classifiers'
 )
 makedepends=(
@@ -33,7 +34,7 @@ checkdepends=(
   'python-uv'
 )
 source=("https://github.com/pypa/hatch/archive/hatchling-v$pkgver.tar.gz")
-sha256sums=('2870bc5c4978db887b45b3d5688d54d5cd44aaa5d92a01ae5802a23071f71da8')
+b2sums=('a3eea27c39600ccf7b45e1b8de28112f3b92380f80579049013101cefde5f734225d71ac330d1b76a6c39c8f2e4a6e8b116f548b5eab305852a71d6d0b6c0094')
 
 build() {
   cd hatch-hatchling-v$pkgver
