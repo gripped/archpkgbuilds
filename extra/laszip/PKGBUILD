@@ -9,7 +9,10 @@ pkgdesc='ASPRS LAS lossless compression library'
 arch=('x86_64')
 url='https://laszip.org'
 license=('Apache-2.0')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+  'libstdc++'
+)
 makedepends=('cmake' 'ninja')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/LASzip/LASzip/archive/refs/tags/${pkgver}.tar.gz")
 sha512sums=('6cdc38249ace8191dae454817fe5f5a3cd22b24c7065daa0e4a3eaaca4d698540c56affa06e15de88aea2912a82033d1dc93f5d3904190a896edf1204af865f5')
