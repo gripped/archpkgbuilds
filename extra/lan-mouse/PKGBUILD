@@ -10,7 +10,15 @@ pkgdesc="Software KVM Switch / mouse & keyboard sharing software for Local Area 
 arch=('x86_64')
 url="https://github.com/feschber/lan-mouse"
 license=("GPL-3.0-only")
-depends=('libadwaita' 'gtk4' 'libx11' 'libxtst' 'glib2' 'gcc-libs' 'hicolor-icon-theme')
+depends=(
+  'libadwaita'
+  'gtk4'
+  'libx11'
+  'libxtst'
+  'glib2'
+  'libgcc'
+  'hicolor-icon-theme'
+)
 makedepends=('cargo' 'desktop-file-utils' 'git')
 source=("$pkgname-$pkgver::git+$url.git#commit=$_commit")
 sha256sums=('63fecab52a0939605d82cb0e48544d4e34c3edc19dcf118a5ea183b0edd90d92')
