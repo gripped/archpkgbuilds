@@ -7,7 +7,9 @@ pkgdesc="Terminal-based REST client"
 arch=('x86_64')
 url="https://github.com/LucasPickering/slumber"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('f32b4bbcb624ac6d8b05feef5326a19797c8fce62f92e1b6f5185b8f01bc381d')
