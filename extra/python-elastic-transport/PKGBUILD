@@ -2,7 +2,7 @@
 
 pkgname=python-elastic-transport
 _pkgname=elastic-transport-python
-pkgver=9.2.1
+pkgver=9.4.2
 pkgrel=1
 pkgdesc="Transport classes and utilities shared among Python Elastic client libraries"
 arch=(any)
@@ -34,8 +34,19 @@ checkdepends=(
   python-trio
   python-trustme
 )
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('d469e4caa01f741dac083e30fd06b8770739060ae4eee5e4b6b5de1c043bbaf4a5267b3bac3bae63513416d0ddde2981b7c4867cd8a14dd53ea16e14e5187b4f')
+source=(
+  "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
+  "$pkgname-update-debug-logging-tests.patch::$url/commit/3e100bf9dca8724a38c65f3953dcf0d103cacfde.patch"
+)
+b2sums=('fde26b2d8f2adff6156ada512f4a36a09cc99fb3c85d4a72b7002e3f08e73d015df29e67db97adbc304576cf499f758987a0320a250f14c184d4bb958286a80d'
+        '87cb5104d1bfc54c7769ed9a8400ce1f560ad3f900ea76d5fe18270cfbe1c79965bbedad4c8909054086f3882a3be62de67b87c4ddd8acecc912c7f27030bfe4')
+
+prepare() {
+  cd $_pkgname-$pkgver
+  # httpbin 0.10.3 switched from the JSONIFY_PRETTYPRINT_REGULAR setting to
+  # app.json.compact, so its JSON responses are now indented.
+  patch -Np1 < ../$pkgname-update-debug-logging-tests.patch
+}
 
 build() {
   cd $_pkgname-$pkgver
