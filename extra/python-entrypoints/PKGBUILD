@@ -11,8 +11,15 @@ license=('MIT')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-flit-core')
 checkdepends=('python-pytest')
-source=(https://github.com/takluyver/entrypoints/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('d2197a94aa73e70a7f60600e654ac9918ca2a0ee5480eb875296c42220a02272')
+source=(https://github.com/takluyver/entrypoints/archive/$pkgver/$pkgname-$pkgver.tar.gz
+        python-entrypoints-0.4-flit-core-4.0.patch)
+sha256sums=('d2197a94aa73e70a7f60600e654ac9918ca2a0ee5480eb875296c42220a02272'
+            '4d422282f490698797509a717bf964fab0d1a25214221d5cd99bf8aa94b7dd27')
+
+prepare() {
+  cd $_name-$pkgver
+  patch -Np1 -i ../python-entrypoints-0.4-flit-core-4.0.patch
+}
 
 build() {
   cd $_name-$pkgver
