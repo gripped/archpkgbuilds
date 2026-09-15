@@ -54,7 +54,8 @@ package_cockpit() {
               "sudo: elevate privileges"
               "networkmanager: manage network connections"
               "sssd: authentication"
-              "sscg: generate self-signed certificate")
+              "sscg: generate self-signed certificate"
+              "dmidecode: access hardware information")
 
   cd cockpit-$pkgver
   make DESTDIR="$pkgdir" install
