@@ -13,7 +13,7 @@ url="https://gitlab.gnome.org/GNOME/librest"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
-  gcc-libs
+  libgcc
   glib2
   glibc
   json-glib
@@ -91,7 +91,7 @@ package_librest-docs() {
 package_librest-demos() {
   pkgdesc+=" (demo applications)"
   depends=(
-    gcc-libs
+    libgcc
     glib2
     glibc
     gtk4
