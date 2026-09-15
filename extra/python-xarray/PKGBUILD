@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-xarray
-pkgver=2026.07.0
+pkgver=2026.04.0
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -49,14 +49,11 @@ optdepends=(
   # 'python-pydap: fallback for accessing OPeNDAP'
   # 'python-zarr: chunked, compressed N-dimensional arrays'
   'python-cftime: datetimes support for non-standard calendars or distant dates'
-  'python-fsspec: remote filesystem support'
-  'python-pooch: download and cache tutorial datasets'
   # 'python-pseudonetcdf: atmospheric science specific file formats support'
   # 'python-rasterio: GeoTiffs and other gridded raster datasets support'
   # 'python-iris: conversion to and from iris’ Cube objects'
   # 'python-cfgrib: mapping GRIB files to CDF4'
   'python-bottleneck: faster NaN-skipping and rolling window aggregations'
-  'python-opt_einsum: faster tensor contractions'
   # 'python-numbagg: faster exponential rolling window operations'
   # 'python-flox: faster GroupBy reductions'
   'python-dask: parallel computation'
@@ -67,11 +64,9 @@ optdepends=(
   # 'python-nc-time-axis: plotting of cftime.datetime objects'
   # 'python-sparse: sparse arrays support'
   'python-pint: units of measure support'
-  'python-cupy: GPU array support'
-  'python-hypothesis: strategies for testing code using xarray objects'
 )
 source=("https://github.com/pydata/xarray/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('aaa3682be82c5dd91ff69fbf8e3e5ffa3d6e21595ece79c5aaa012951635b2c2cdbf6b40b48397ca1ff27e9b44c208fc1a53380752c328f6b90f9a62373637c8')
+b2sums=('dd919a79a037e3bc4282dc822a808c742939974717e65b766e288acc4b586d090ef55e0913589041a57342f420e2bdd8030eab403efdf13938fadd1c02b0a1fc')
 
 build() {
   cd ${pkgname#python-}-$pkgver
@@ -84,9 +79,6 @@ check() {
     --override-ini="addopts="
     -n=auto
     -W=ignore::pytest.PytestDeprecationWarning
-
-    # pandas < 3 triggers this NumPy 2.5 warning when creating timedeltas.
-    -W="default:The 'generic' unit for NumPy timedelta is deprecated:DeprecationWarning"
 
     # Segfaults with python-h5py installed
     --deselect=xarray/tests/test_backends.py::TestDask::test_save_mfdataset_compute_false_roundtrip
