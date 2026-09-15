@@ -33,5 +33,4 @@ check() {
 package() {
   cd "${srcdir}/HTML-Form-${pkgver}"
   make DESTDIR="$pkgdir" install
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
