@@ -8,7 +8,7 @@ pkgdesc="Detects usage of unsafe Rust in a Rust crate and its dependencies"
 arch=('x86_64')
 url="https://github.com/rust-secure-code/cargo-geiger"
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'openssl' 'curl')
+depends=('cargo' 'openssl' 'curl' 'libssh2' 'sqlite')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-$pkgver.tar.gz")
 sha256sums=('02a3999b58e45527932cc9fa60503b3197f011778dc1954909fb5fe9dd168f72')
 options=('!lto')
@@ -16,16 +16,20 @@ options=('!lto')
 prepare() {
   mv "$pkgname-$pkgname-$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd "$pkgname-$pkgver/$pkgname"
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
+  export LIBSSH2_SYS_USE_PKG_CONFIG=1
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   cargo test --frozen
 }
 
