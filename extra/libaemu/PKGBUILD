@@ -11,7 +11,11 @@ pkgrel=5
 arch=("x86_64")
 url="https://android.googlesource.com/platform/hardware/google/aemu/"
 source=("git+https://android.googlesource.com/platform/hardware/google/aemu#tag=v${pkgver}-aemu-release")
-depends=(glibc gcc-libs)
+depends=(
+  glibc
+  libgcc
+  libstdc++
+)
 makedepends=(cmake git clang)
 sha256sums=('a971602ce7397fa13587a0c9d9cc38e4c0725110881d4a8520bed48f014da019')
 
