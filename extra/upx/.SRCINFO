@@ -9,7 +9,8 @@ pkgbase = upx
 	makedepends = cmake
 	makedepends = git
 	makedepends = perl
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	depends = glibc
 	source = git+https://github.com/upx/upx-vendor-bzip2#commit=f6ff91c4ab4998a87bd17251fa311d84ff0797bc
 	source = git+https://github.com/upx/upx-vendor-doctest#commit=835aaee34666173532e98437b057f37b385076c9

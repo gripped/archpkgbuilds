@@ -12,7 +12,11 @@ pkgdesc='Extendable, high-performance executable packer for several executable f
 arch=(x86_64)
 url='https://github.com/upx/upx'
 license=(custom GPL-2.0-or-later)
-depends=(gcc-libs glibc)
+depends=(
+  libgcc
+  libstdc++
+  glibc
+)
 makedepends=(cmake git perl)
 # https://github.com/upx/upx/tree/v5.2.0/vendor
 #b='v5.2.0'; for x in bzip2 doctest lzma-sdk ucl valgrind zlib zstd; do echo "git+\$url-vendor-$x#commit=$(git ls-remote https://github.com/upx/upx-vendor-$x $b-upx-vendor | cut -b-40)"; done
