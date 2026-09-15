@@ -8,7 +8,13 @@ pkgdesc='top-like interface to netfilter connection-tracking table'
 arch=('x86_64')
 url='https://www.phildev.net/iptstate/'
 license=('custom')
-depends=('glibc' 'gcc-libs' 'ncurses' 'libnetfilter_conntrack')
+depends=(
+  'glibc'
+  'libgcc'
+  'libstdc++'
+  'ncurses'
+  'libnetfilter_conntrack'
+)
 validpgpkeys=('121BDA2D4ACB63616B367A0E58E11BB1E414D9AD') # Phil Dibowitz
 source=("https://github.com/jaymzh/iptstate/releases/download/v$pkgver/iptstate-$pkgver.tar.bz2"{,.asc})
 sha256sums=('896df0602885456a2631f795d634fc21311e505f8c910348e6312860f2097955'
