@@ -26,7 +26,4 @@ package() {
   cd  ${_realname}-${pkgver}
   make DESTDIR="${pkgdir}" install
 
-  # remove perllocal.pod, .packlist, and empty dirs:
-  find "${pkgdir}" -name '.packlist' -delete
-  find "${pkgdir}" -name 'perllocal.pod' -delete
 }
