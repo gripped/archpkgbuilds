@@ -8,7 +8,12 @@ pkgdesc="Linker from the LLVM project (Version 21)"
 arch=('x86_64')
 url="https://lld.llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
-depends=('llvm21-libs' 'gcc-libs' 'zlib' 'zstd')
+depends=(
+  'llvm21-libs'
+  'libstdc++'
+  'zlib'
+  'zstd'
+)
 makedepends=('llvm21' 'cmake' 'ninja' 'python-sphinx')
 checkdepends=('llvm')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
