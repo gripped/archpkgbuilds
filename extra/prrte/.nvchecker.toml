@@ -2,4 +2,5 @@
 source = "git"
 git = "https://github.com/openpmix/prrte"
 prefix = "v"
-exclude_regex = ".*(pre|rc|alpha|beta).*"
+# v4.x.y releases are ignored until stable OpenMPI gains support
+exclude_regex = ".*(pre|rc|alpha|beta|v4).*"
