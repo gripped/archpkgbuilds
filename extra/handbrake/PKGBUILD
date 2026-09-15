@@ -1,5 +1,5 @@
-# Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 # Maintainer: T.J. Townsend <blakkheim@archlinux.org>
+# Contributor: Evangelos Foutras <foutrelis@archlinux.org>
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Sebastien Piccand <sebcactus gmail com>
 
@@ -9,9 +9,26 @@ pkgrel=1
 arch=('x86_64')
 url="https://handbrake.fr/"
 license=('GPL-2.0-only')
-_commondeps=('libxml2' 'libass' 'libvorbis' 'opus' 'speex' 'libtheora' 'lame'
-             'x264' 'jansson' 'libvpx' 'libva' 'numactl' 'bzip2' 'gcc-libs'
-             'zlib' 'xz' 'libjpeg-turbo')
+_commondeps=(
+  'libxml2'
+  'libass'
+  'libvorbis'
+  'opus'
+  'speex'
+  'libtheora'
+  'lame'
+  'x264'
+  'jansson'
+  'libvpx'
+  'libva'
+  'numactl'
+  'bzip2'
+  'libgcc'
+  'libstdc++'
+  'zlib'
+  'xz'
+  'libjpeg-turbo'
+)
 _guideps=('gst-plugins-base' 'gtk4' 'librsvg')
 # git included as a build dependency for bundled x265 to work
 # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=275546#c0
