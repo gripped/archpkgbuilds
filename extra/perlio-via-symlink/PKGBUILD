@@ -7,7 +7,7 @@ pkgrel=10
 pkgdesc="Perl/CPAN Module PerlIO::via::symlink"
 arch=("any")
 url="https://search.cpan.org/dist/PerlIO-via-symlink/"
-license=("GPL" "PerlArtistic")
+license=("Artistic-2.0")
 options=('!emptydirs')
 source=("https://www.cpan.org/authors/id/C/CL/CLKAO/PerlIO-via-symlink-$pkgver.tar.gz"
 	"Makefile.PL")
@@ -23,6 +23,4 @@ build() {
 package() {
   cd "$srcdir"/PerlIO-via-symlink-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
