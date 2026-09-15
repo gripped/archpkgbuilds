@@ -7,7 +7,7 @@ pkgrel=10
 pkgver=1.6.3
 pkgdesc="An AST unparser for Python"
 depends=('python' 'python-six')
-makedepends=('python-setuptools' 'python-wheel')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 url="https://github.com/simonpercivall/astunparse"
 license=('python')
 arch=('any')
@@ -23,12 +23,12 @@ prepare() {
 
 build() {
   cd "$srcdir/$_pkgname-$pkgver"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd "$srcdir/$_pkgname-$pkgver"
-  python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
