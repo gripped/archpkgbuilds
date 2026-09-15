@@ -9,7 +9,7 @@ url="https://github.com/google/yapf"
 license=('Apache-2.0')
 depends=('python' 'python-platformdirs')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
-checkdepends=('python-nose')
+checkdepends=('python-pytest')
 source=("git+https://github.com/google/yapf.git#tag=v$pkgver")
 sha512sums=('d60e01307bb29a1bd065b9d1f06705ca79421048b0c6adf4f1745a76bdc746c51911493cdb151a4672bc47b6d95591eb54323d71564ec8bd95891b9bf446dbc6')
 
@@ -20,7 +20,7 @@ build() {
 
 check() {
   cd yapf
-  PYTHONPATH="$PWD/third_party" nosetests3
+  PYTHONPATH="$PWD/third_party" pytest
 }
 
 package() {
