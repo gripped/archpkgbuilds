@@ -40,5 +40,4 @@ package()
   export PERL_MM_USE_DEFAULT=1 MODULEBUILDRC=/dev/null
   unset PERL5LIB PERL_MB_OPT
   ./Build install installdirs=vendor destdir="$pkgdir"
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 )
