@@ -38,7 +38,9 @@ prepare() {
 build() {
   cd "$pkgname"
 
-  make \
+  # FTBFS: Do no treat discarded-qualifiers as an error
+  CFLAGS+=' -Wno-error=discarded-qualifiers' \
+    make \
     -C src \
     PREFIX=/usr \
     VERSION="$pkgver"
