@@ -8,7 +8,12 @@ pkgdesc="A concrete syntax tree parser and serializer library for Python that pr
 arch=('x86_64')
 url='https://github.com/Instagram/LibCST'
 license=('MIT')
-depends=('glibc' 'gcc-libs' 'python' 'python-pyyaml')
+depends=(
+  'glibc'
+  'libgcc'
+  'python'
+  'python-pyyaml'
+)
 makedepends=('python-build' 'python-installer'
              'python-setuptools-rust' 'python-setuptools-scm' 'python-wheel')
 #checkdepends=('python-hypothesis' 'python-hypothesmith')
