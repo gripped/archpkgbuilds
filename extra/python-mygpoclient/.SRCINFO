@@ -5,12 +5,13 @@ pkgbase = python-mygpoclient
 	url = https://github.com/gpodder/mygpoclient
 	arch = any
 	license = GPL-3.0-or-later
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	source = https://github.com/gpodder/mygpoclient/archive/1.10/python-mygpoclient-1.10.tar.gz
-	sha256sums = 00e8b9fc990aafd7427411bb7b8e7878cd4e364ccf405691070ff924985c70b5
+	source = git+https://github.com/gpodder/mygpoclient.git#tag=1.10
+	b2sums = 0ea5590387b2d1b4a7d7765d49f1199bc14948ee28d4ead3f262c899c78c4eddddb14aab47ccc5eb21f1f053261f4e315fce8166ad0474d92765d2d2fba22efd
 
 pkgname = python-mygpoclient
