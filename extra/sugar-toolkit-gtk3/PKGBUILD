@@ -60,7 +60,7 @@ prepare() {
   # https://github.com/sugarlabs/sugar-toolkit-gtk3/pull/491
   sed -i 's/cp.readfp/cp.read_file/' src/sugar3/{bundle/contentbundle.py,graphics/icon.py}
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
