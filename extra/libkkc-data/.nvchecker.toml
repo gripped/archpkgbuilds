@@ -1,4 +1,4 @@
 [libkkc-data]
-source = "git"
-git = "https://github.com/ueno/libkkc.git"
-prefix = "v"
+source = "regex"
+url = "https://api.github.com/repos/ueno/libkkc/releases"
+regex = '"browser_download_url":\s*"[^"]*/libkkc-data-([\d.]+)\.tar\.xz"'
