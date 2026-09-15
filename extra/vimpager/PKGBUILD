@@ -6,11 +6,15 @@ pkgname=vimpager
 pkgver=2.06
 pkgrel=7
 pkgdesc="A vim-based script to use as a PAGER."
-arch=('any')
-url="https://www.vim.org/scripts/script.php?script_id=1723"
-license=('custom:BSD')
-depends=('vim')
-makedepends=('sharutils')
+url='https://github.com/rkitover/vimpager/'
+arch=(any)
+license=('Vim AND BSD-2-Clause')
+depends=(
+  vim
+)
+makedepends=(
+  sharutils
+)
 noextract=(vimpager-$pkgver.tar.gz)
 backup=(etc/vimpagerrc)
 source=("vimpager-$pkgver.tar.gz::https://github.com/rkitover/vimpager/tarball/$pkgver"
