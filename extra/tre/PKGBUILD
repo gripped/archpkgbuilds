@@ -9,6 +9,7 @@ arch=('x86_64')
 pkgdesc="POSIX compliant regexp matching library. Includes agrep for approximate grepping."
 url="https://github.com/laurikari/tre/"
 depends=('glibc')
+provides=('libtre.so')
 license=('custom:BSD')
 source=("https://github.com/laurikari/tre/releases/download/v${pkgver}/tre-${pkgver}.tar.gz")
 sha256sums=('f57f5698cafdfe516d11fb0b71705916fe1162f14b08cf69d7cf86923b5a2477')
