@@ -122,7 +122,8 @@ build() {
 package_juce() {
   depends=(
     freetype2 libfreetype.so
-    gcc-libs
+    libgcc
+    libstdc++
     glibc
     hicolor-icon-theme
     libpng
