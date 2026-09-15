@@ -165,6 +165,10 @@ build() {
 	echo "Install mysql-connector-c++..."
 	make DESTDIR="${srcdir}/install-bundle/" install
 
+	# MySQL source assumes char is signed (Bug #60910, #78950, #87543 — unfixed since 2011).
+	# On aarch64, char is unsigned by default, causing narrowing conversion errors in ctype-utf8.cpp.
+	CXXFLAGS+=" -fsigned-char"
+
 	# Build MySQL Workbench itself with bundled libs
 	mkdir "${srcdir}/mysql-workbench-community-${pkgver}-src-build"
 	cd "${srcdir}/mysql-workbench-community-${pkgver}-src-build"
