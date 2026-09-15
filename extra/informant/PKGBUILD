@@ -9,7 +9,7 @@ arch=('any')
 url="https://github.com/bradford-smith94/$pkgname"
 license=('MIT')
 makedepends=('python-build' 'python-installer' 'python-setuptools')
-depends=('python' 'python-docopt' 'python-dateutil' 'python-feedparser' 'python-html2text' 'python-cachecontrol' 'python-lockfile' 'python-psutil')
+depends=('python' 'python-docopt' 'python-dateutil' 'python-feedparser' 'python-html2text' 'python-cachecontrol' 'python-psutil')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/bradford-smith94/$pkgname/archive/v$pkgver.tar.gz"
         "sysusers.conf"
         "tmpfiles.conf")
@@ -24,6 +24,8 @@ prepare() {
   # doesn't meaningfully matter for security since you'd be most interested in
   # the news when installing updates,
   sed -i '/Operation = Install/d' informant.hook
+  # Remove transitive depdency on lockfile no longer used by cacheutils
+  sed -i '/lockfile/d' setup.py requirements.txt
 }
 
 build() {
