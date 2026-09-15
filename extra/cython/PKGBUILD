@@ -3,7 +3,7 @@
 # Contributor: Igor Scabini <furester @ gmail.com>
 
 pkgname=cython
-pkgver=3.2.9
+pkgver=3.3.0
 pkgrel=1
 pkgdesc='C-Extensions for Python'
 arch=(x86_64)
@@ -23,12 +23,11 @@ checkdepends=(gdb
               python-pytest
               python-tests)
 source=(git+https://github.com/cython/cython#tag=$pkgver)
-sha256sums=('c7bc8839708ca1a090e7c016048b6a6fd6a9ccab87975aa457fd8b4c014402db')
+sha256sums=('89b5fcbb67c01e6c8fd079da74be1290c6f36ef10201dd7281eee8d6c17abe41')
 
 prepare() {
   cd cython
-  git cherry-pick -n d344f9b284549362dee39af7a74a9c669bb65ce8 # Do not embed absolute paths of source files (breaks packaging)
-  git cherry-pick -n fd847477a47855f9c0d036f35c8865196d5267cc # Drop pkg_resources usage
+  git cherry-pick -n 2ea7297e5f732e1bfa6e562662df145170bb0bfc # Fix int comparison with GCC+LTO
 }
 
 build() {
