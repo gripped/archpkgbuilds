@@ -31,7 +31,6 @@ check() {
 package() {
   cd "$srcdir/Params-Util-$pkgver"
   make install INSTALLDIRS=vendor DESTDIR="$pkgdir"
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
 
 # Local Variables:
