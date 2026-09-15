@@ -1,0 +1,11 @@
+diff --git a/libs/Makefile.am b/libs/Makefile.am
+index 32c06a0..007186d 100644
+--- a/libs/Makefile.am
++++ b/libs/Makefile.am
+@@ -46,5 +46,5 @@ INCLUDES = @X_INCLUDES@ \
+ MAINTAINERCLEANFILES = configparser.c xkbparser.c
+ 
+ install-data-local:
+-	$(mkinstalldirs) ${sysxkmdir}
++	$(mkinstalldirs) $(DESTDIR)${sysxkmdir}
+ 

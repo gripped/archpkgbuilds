@@ -1,0 +1,13 @@
+diff --git a/libs/protocol.c b/libs/protocol.c
+index f4fff52..aca5071 100644
+--- a/libs/protocol.c
++++ b/libs/protocol.c
+@@ -23,7 +23,7 @@ static Atom magic_atom = (Atom) 0;
+ 
+ static int bad_window = 0;
+ static int (*old_handler)(Display *, XErrorEvent *) = 0;
+-static int (*old_after)() = 0;
++static int (*old_after)(Display *) = 0;
+ 
+ /* === Forward declarations === */
+ 
