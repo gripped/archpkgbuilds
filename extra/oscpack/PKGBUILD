@@ -8,7 +8,11 @@ pkgdesc="Open Sound Control packet manipulation library"
 arch=(x86_64)
 url="https://github.com/RossBencina/oscpack"
 license=(MIT)
-depends=(gcc-libs glibc)
+depends=(
+  libgcc
+  libstdc++
+  glibc
+)
 provides=(liboscpack.so)
 source=(
   $url/archive/release_${pkgver//./_}/$pkgname-release_${pkgver//./_}.tar.gz
