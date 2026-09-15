@@ -11,7 +11,7 @@ url="https://pypi.python.org/pypi/pytz"
 license=("MIT")
 pkgdesc="Cross platform time zone library for Python"
 depends=('python')
-makedepends=('python' 'python-setuptools')
+makedepends=('python' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("https://pypi.io/packages/source/p/pytz/pytz-${pkgver}.tar.gz"
         "0001-Use-the-system-zoneinfo-from-the-tzdata-package.patch")
 sha512sums=('2e8a8a55185cd54b286fed40034c8c7e0de6ba9f37828b225e107b8553a3f3863b9cb34001c9793ab194c2d34172689139e3137f31cec0b8d0be8deaa800d451'
@@ -27,7 +27,7 @@ prepare() {
 
 build(){
     cd pytz-$pkgver
-    python setup.py build
+    python -m build --wheel --no-isolation
 }
 
 check(){
@@ -39,7 +39,7 @@ check(){
 package(){
     cd pytz-$pkgver
 
-    python3 setup.py install --root="$pkgdir"/
+    python -m installer --destdir="$pkgdir" dist/*.whl
 
     install -Dm644 LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
