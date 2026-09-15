@@ -28,6 +28,4 @@ check() {
 package() {
   cd  "$srcdir"/Chart-v$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
