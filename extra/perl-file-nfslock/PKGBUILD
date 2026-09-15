@@ -24,6 +24,4 @@ build() {
 package() {
   cd  "$srcdir/File-NFSLock-$pkgver"
   make install DESTDIR="$pkgdir" || return 1
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
