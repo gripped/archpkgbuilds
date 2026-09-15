@@ -7,10 +7,13 @@ pkgdesc='Cross-platform frameless window framework for Qt'
 arch=(x86_64)
 url='https://github.com/stdware/qwindowkit'
 license=(Apache-2.0)
-depends=(gcc-libs
-         glibc
-         qt6-base
-         qt6-declarative)
+depends=(
+  libgcc
+  libstdc++
+  glibc
+  qt6-base
+  qt6-declarative
+)
 makedepends=(cmake
              git)
 source=(git+https://github.com/stdware/qwindowkit#tag=$pkgver
