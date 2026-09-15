@@ -14,7 +14,7 @@ sha256sums=('06474f7f06b26dd9201c5089b23dc8b76a7af910e3a32c1a46def759c74df52b')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
