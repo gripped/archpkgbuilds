@@ -1,8 +1,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-propcache
-pkgver=0.4.1
-pkgrel=2
+pkgver=0.5.2
+pkgrel=1
 pkgdesc='Fast property caching'
 arch=(x86_64)
 url='https://github.com/aio-libs/propcache'
@@ -21,7 +21,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/v$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-sha512sums=('b7bc1e7f41c42e0f6e22a3fe4e4bbccf44f30ac19af274c74b1acd8430f24c201363b1dfb909bdbbb12b4aaf9fb12eb32d611e09865d3df11fde379cfeb62103')
+sha512sums=('9793c89695f1631f0b7c0076a1efffb0adfe9e83e7899e45b968afe9e00bcb721c88eed0b712570d81b25571cc6b0745a79b2e23f345fdd7ddc991fdfa4b3731')
 
 prepare() {
   cd ${pkgname#python-}-$pkgver
