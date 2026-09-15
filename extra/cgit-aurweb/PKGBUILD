@@ -28,8 +28,8 @@ optdepends=('groff: about page using man page syntax'
             'zstd: zstd compressed snapshots'
             'mime-types: serve file with correct content-type header')
 install=cgit.install
-validpgpkeys=('AB9942E6D4A4CFC3412620A749FC7012A5DE03AE')
-source=("git+https://git.zx2c4.com/cgit.git#tag=v${pkgver}"
+validpgpkeys=('AB9942E6D4A4CFC3412620A749FC7012A5DE03AE') # Jason A. Donenfeld <Jason@zx2c4.com>
+source=("git+https://git.zx2c4.com/cgit.git?signed#tag=v${pkgver}"
         'git+https://github.com/git/git.git'
         '1001-aurweb.patch'
         'cgit.tmpfiles'
