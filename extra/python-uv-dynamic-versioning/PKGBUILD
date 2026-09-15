@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-uv-dynamic-versioning
-pkgver=0.14.0
+pkgver=0.14.1
 pkgrel=1
 pkgdesc="Dynamic versioning based on VCS tags for uv/hatch projects"
 arch=(any)
@@ -24,7 +24,7 @@ checkdepends=(
   python-pytest
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-b2sums=('80f4e51eb17d38c55d611da753edf104800fedb3aa0b1cd5e408f0bff84c474e288b417565d7cae9ee4e39288e985f9402eb1b4c2a5064396f2a24c67f70452c')
+b2sums=('83633deff35f9a130a9b3246d31b425eab1717f4463e85078bd5d32cde40dd5175620020100b798871c286270636b6ec25080d2ee7dfdea57b703540b820f4fa')
 
 build() {
   cd $pkgname
