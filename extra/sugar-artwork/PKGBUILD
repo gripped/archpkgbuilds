@@ -31,7 +31,7 @@ prepare() {
   sed -i '/ICON_NAMING_UTILS_REQUIRED/,+14d' configure.ac
   sed -i '/ICONMAP/d' icons/scalable/*/Makefile.am
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
