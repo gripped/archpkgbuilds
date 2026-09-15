@@ -7,7 +7,11 @@ pkgdesc="Audio session manager"
 arch=(x86_64)
 url="https://github.com/jackaudio/new-session-manager"
 license=(GPL3)
-depends=(gcc-libs glibc)
+depends=(
+  libgcc
+  libstdc++
+  glibc
+)
 makedepends=(fltk jack liblo meson)
 optdepends=('fltk: for nsm-legacy-gui')
 provides=(non-session-manager)
