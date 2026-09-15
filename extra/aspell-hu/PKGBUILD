@@ -3,15 +3,17 @@
 pkgname=aspell-hu
 pkgver=0.99.4.2
 pkgrel=7
-pkgdesc="Hungarian spellcheck dictionary for aspell"
+pkgdesc='Hungarian spellcheck dictionary for aspell'
 arch=(x86_64)
-url="http://aspell.net/"
-license=(GPL)
+url='http://aspell.net/'
+license=(GPL-2.0-only)
 depends=(aspell)
-source=("https://ftp.gnu.org/gnu/aspell/dict/hu/aspell6-hu-0.99.4.2-0.tar.bz2"{,.sig})
-validpgpkeys=('31A768B0808E4BA619B48F81B6D9D0CC38B327D7') # Kevin Atkinson
-sha256sums=('3335a7b45cf9774bccf03740fbddeb7ec4752dd87178fa93f92d4c71e3f236b5'
-            'SKIP')
+source=(https://ftp.gnu.org/gnu/aspell/dict/hu/aspell6-hu-0.99.4.2-0.tar.bz2{,.sig})
+b2sums=(
+  933844253b8280d01e4f37f141e566548b3eecfdb16a2fcfeb026698d64667faedeae512d582b7ceb900753c5e2b1fba6b474bb4d85e598c432d0ac0010a9d31
+  SKIP
+)
+validpgpkeys=(31A768B0808E4BA619B48F81B6D9D0CC38B327D7) # Kevin Atkinson
 
 build() {
   cd aspell6-hu-$pkgver-0
