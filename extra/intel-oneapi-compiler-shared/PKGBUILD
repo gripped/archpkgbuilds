@@ -12,9 +12,16 @@ url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=("LicenseRef-Intel-EULA-Developer-Tools")
 source=("https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-${_majmin}-${_pkgver}_amd64.deb")
 sha256sums=('67bf46baff36755aed231381c5f5b8a5e5b0a4b9a6170cac3ebbe129bd36abf9')
-depends=('intel-oneapi-compiler-shared-runtime'
-         'intel-oneapi-dpcpp-debugger' 'intel-oneapi-common' 'intel-oneapi-compiler-shared-runtime-libs'
-         'level-zero-loader' 'glibc' 'gcc-libs' 'zlib')
+depends=(
+  'intel-oneapi-compiler-shared-runtime'
+  'intel-oneapi-dpcpp-debugger'
+  'intel-oneapi-common'
+  'intel-oneapi-compiler-shared-runtime-libs'
+  'level-zero-loader'
+  'glibc'
+  'libgcc'
+  'zlib'
+)
 provides=("${pkgname}-common")
 conflicts=('intel-oneapi-basekit')
 
