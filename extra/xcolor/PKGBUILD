@@ -8,7 +8,13 @@ pkgdesc="Lightweight color picker for X11"
 arch=('x86_64')
 url="https://github.com/Soft/xcolor"
 license=('MIT')
-depends=('libxcb' 'libxcursor' 'libx11' 'gcc-libs' 'hicolor-icon-theme')
+depends=(
+  'libxcb'
+  'libxcursor'
+  'libx11'
+  'libgcc'
+  'hicolor-icon-theme'
+)
 makedepends=('rust' 'python')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
 sha256sums=("cff417d0ccbece766c66a183413e167868fdbd98b8129516ff9021a4b11a5647")
