@@ -9,7 +9,9 @@ pkgdesc='A C library that exports various synchronization primitives, such as mu
 arch=('x86_64')
 url='https://github.com/google/nsync'
 license=('Apache-2.0')
-depends=('gcc-libs')
+depends=(
+  'libstdc++'
+)
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver/$pkgname-$pkgver.tar.gz"
         "$pkgname-export.patch")
