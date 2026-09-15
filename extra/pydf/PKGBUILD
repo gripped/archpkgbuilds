@@ -7,13 +7,13 @@ pkgver=12
 pkgrel=5
 pkgdesc="A colorized df clone"
 arch=("any")
-url="http://kassiopeia.juls.savba.sk/~garabik/software/pydf/"
+url="https://pypi.org/project/pydf/"
 license=('custom')
 depends=('python')
 backup=('etc/pydfrc')
-source=(http://kassiopeia.juls.savba.sk/~garabik/software/pydf/pydf_$pkgver.tar.gz)
-md5sums=('0887807ecc56e7241b1b188c60abab74')
-sha256sums=('860029145e42f3484fa647c42966c236d90cba0221681dbf5f48257b6c5b8c92')
+source=("https://files.pythonhosted.org/packages/source/p/pydf/pydf-$pkgver.tar.gz")
+md5sums=('0cd98aca382e41d94f603e7345a59140')
+sha256sums=('7f47a7c3abfceb1ac04fc009ded538df1ae449c31203962a1471a4eb3bf21439')
 
 build() {
 	cd "$srcdir/pydf-$pkgver"
