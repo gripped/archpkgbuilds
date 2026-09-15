@@ -27,20 +27,16 @@ b2sums=('bf61c133252cddc79ef492836a99da8ab099527f0dc508f8ea29d6057f4dd4ac5603bd4
 
 prepare() {
   cd spotifyd-${pkgver}
-  export RUSTUP_TOOLCHAIN=stable
   cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
 }
 
 build() {
   cd spotifyd-${pkgver}
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --release --locked --features pulseaudio_backend,dbus_mpris,rodio_backend
 }
 
 check() {
   cd spotifyd-${pkgver}
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --release --locked --target-dir=target
  }
 
