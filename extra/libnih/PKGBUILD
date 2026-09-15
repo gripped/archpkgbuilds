@@ -16,6 +16,11 @@ source=(https://launchpad.net/libnih/1.0/${pkgver}/+download/$pkgname-$pkgver.ta
 sha512sums=('fce40d2445b28c27b8838631681ca3206a4f053b2dd4fc488fc9ef98bbd3d933e3d62b82cf346be2ef1677f6457f692cf5544cd915a6bb1e5c618f98ffa101b4'
             'SKIP')
 
+prepare() {
+  cd "$srcdir"/$pkgname-$pkgver
+  autoreconf -fiv
+}
+
 build() {
   cd "$srcdir"/$pkgname-$pkgver
   CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
