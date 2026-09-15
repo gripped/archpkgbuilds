@@ -1,0 +1,6 @@
+[otf-ipafont]
+source = "regex"
+url = "https://moji.or.jp/ipafont/ipafontdownload/"
+regex = 'https://moji.or.jp/ipafont/ipa(\d+)/'
+from_pattern = '^(\d{3})(\d{2})$'
+to_pattern = '\1.\2'
