@@ -42,9 +42,6 @@ b2sums=(4ebe097fc04b1e1fd317382ed113729e27141282a4e42d9ead25205e2d0d3efa9853a73d
 
 prepare() {
   cd $pkgname
-
-  # Skip broken tests
-  sed -i "/subdir('tests')/d" meson.build
 }
 
 build() {
@@ -53,7 +50,8 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs
+  # test_backends.py segfaults randomly
+  meson test -C build --print-errorlogs --exclude 'Run tests'
 }
 
 package() {
