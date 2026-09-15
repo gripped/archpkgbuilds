@@ -5,8 +5,8 @@
 
 pkgbase=asusctl
 pkgname=(asusctl rog-control-center)
-pkgver=6.4.0
-pkgrel=3
+pkgver=6.5.0
+pkgrel=1
 pkgdesc="Daemon and tools to control your ASUS ROG laptop"
 arch=('x86_64')
 url="https://asus-linux.org"
@@ -14,7 +14,7 @@ license=('MPL-2.0')
 makedepends=('cargo' 'fontconfig')
 checkdepends=('clang' 'sdl2')
 source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/OpenGamingCollective/asusctl/archive/${pkgver}.tar.gz")
-sha256sums=('ba19565a1ed313cbb17b0d8926780023856fe85b9490f6b4fe65b7ede14ee434')
+sha256sums=('edceeab080df670a3851af9815c082949e5c0d14be20fc41216d4a7e84d8fca8')
 
 prepare() {
     cd "${pkgbase}-${pkgver}"
