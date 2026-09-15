@@ -10,8 +10,8 @@ url="https://gitlab.archlinux.org/archlinux/signstar/-/tree/main/signstar-config
 _url="https://gitlab.archlinux.org/archlinux/signstar"
 license=('Apache-2.0 OR MIT')
 depends=(
-  gcc-libs
   glibc
+  libgcc
 )
 makedepends=(
   git
@@ -27,14 +27,11 @@ validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@ar
 
 prepare() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   cargo build --frozen --release --all-features --package $pkgname
   just generate shell_completions $pkgname
   just generate manpages $pkgname
@@ -42,7 +39,6 @@ build() {
 
 check() {
   cd $_name
-  export RUSTUP_TOOLCHAIN=stable
   cargo test --frozen --all-features --package $pkgname
 }
 
