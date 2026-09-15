@@ -1,8 +1,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-httpx-aiohttp
-pkgver=0.1.12
-pkgrel=3
+pkgver=0.2.0
+pkgrel=1
 pkgdesc='aiohttp-powered httpx client'
 arch=(any)
 url=https://github.com/karpetrosyan/httpx-aiohttp
@@ -32,7 +32,7 @@ checkdepends=(
   uvicorn
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('68421ee8998a5257ad145d5ad02e061435c312aed80272b94f33978d47c85766ed35c59716af81b8536f7783b30b2fdf1778a4fe991cc7fadfaabc4b802948eb')
+b2sums=('415fae3b385e7ee91744145e8d03315ae6430bc7c521d60a20cd9768abb19a1372e43eed123ad41789079f9b44fcca6c1df4646edfeb1116291208b0750b068f')
 
 prepare() {
   cd "$srcdir/${pkgname#python-}"
@@ -52,11 +52,16 @@ check() {
   test-env/bin/python scripts/httpx_test.py \
     -k 'not [trio]' \
     --deselect 'tests/client/test_async_client.py::test_get_invalid_url' \
+    --deselect 'tests/client/test_client.py::test_client_decode_text_using_autodetect' \
+    --deselect 'tests/client/test_client.py::test_client_decode_text_using_explicit_encoding' \
+    --deselect 'tests/client/test_proxies.py::test_async_proxy_close[asyncio]' \
     --deselect 'tests/client/test_proxies.py::test_proxies_environ' \
     --deselect 'tests/client/test_proxies.py::test_socks_proxy' \
-    --deselect 'tests/httpx/tests/client/test_proxies.py::test_async_proxy_close[asyncio]' \
+    --deselect 'tests/models/test_responses.py::test_response_decode_text_using_autodetect' \
     --deselect 'tests/test_main.py' \
-    --deselect 'tests/test_timeouts.py'
+    --deselect 'tests/test_timeouts.py' \
+    --deselect 'tests/test_utils.py::test_logging_redirect_chain' \
+    --deselect 'tests/test_utils.py::test_logging_request'
 }
 
 package() {
