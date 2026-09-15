@@ -9,7 +9,14 @@ pkgdesc='Library for generating documents in Open Document Format'
 arch=('x86_64')
 url='https://sourceforge.net/p/libwpd/wiki/libodfgen/'
 license=('LGPL-2.1-or-later OR MPL-2.0')
-depends=('zlib' 'librevenge' 'libxml2' 'gcc-libs' 'glibc')
+depends=(
+  'zlib'
+  'librevenge'
+  'libxml2'
+  'libgcc'
+  'libstdc++'
+  'glibc'
+)
 makedepends=('libwpg' 'libetonyek' 'doxygen')
 source=(https://sourceforge.net/projects/libwpd/files/libodfgen/libodfgen-$pkgver/$pkgname-$pkgver.tar.xz
         includes.patch)
