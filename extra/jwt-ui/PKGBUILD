@@ -7,7 +7,9 @@ pkgdesc="A command line UI for decoding/encoding JSON Web Tokens"
 arch=('x86_64')
 url="https://github.com/jwt-rs/jwt-ui"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('10894aefce35682b72690cae47a7274dbc6cf9f5dd59d85b5b2cfb745a0501da26d83c6986f7f3aab584546763ad92097540bdb160b67f58cae99050e64db3a2')
@@ -15,7 +17,7 @@ options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
