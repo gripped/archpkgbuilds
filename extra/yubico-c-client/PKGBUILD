@@ -13,7 +13,7 @@ makedepends=('git' 'help2man')
 provides=("${_shortname}")
 conflicts=("${_shortname}")
 validpgpkeys=('0A3B0262BCA1705307D5FF06BCA00FD4B2168C0A') # Klas Lindfors <klas@yubico.com>
-source=("git+https://github.com/Yubico/yubico-c-client.git#tag=ykclient-${pkgver}?signed")
+source=("git+https://github.com/Yubico/yubico-c-client.git?signed#tag=ykclient-${pkgver}")
 sha256sums=('3dd6eef72917bb0a07e89c862a6a5f4c80ba5e5a7dc55b223971f5912554f96c')
 
 prepare() {
