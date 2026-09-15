@@ -30,6 +30,4 @@ check() {
 package() {
   cd $_perlmod-$pkgver
   make install DESTDIR="$pkgdir/"
-  # remove perllocal.pod and .packlist
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
