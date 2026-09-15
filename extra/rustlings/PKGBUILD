@@ -7,7 +7,9 @@ pkgdesc="Small exercises to get you used to reading and writing Rust code"
 arch=('x86_64')
 url="https://github.com/rust-lang/rustlings"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 install="rustlings.install"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
@@ -15,7 +17,7 @@ sha256sums=('d3b394c77145b272bba4f4b94435dd6b1a6accb9e2531238391c5fa42ccb348d')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
