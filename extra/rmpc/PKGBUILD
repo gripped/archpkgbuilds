@@ -8,7 +8,9 @@ pkgdesc='A beautiful and configurable TUI client for MPD'
 url='https://mierak.github.io/rmpc/'
 arch=('x86_64')
 license=('BSD-3-Clause')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 optdepends=(
   'yt-dlp: for youtube playback'
   'ffmpeg: for youtube playback'
