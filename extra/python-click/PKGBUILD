@@ -4,7 +4,7 @@
 # Contributor: Carl George < arch at cgtx dot us >
 
 pkgname=python-click
-pkgver=8.3.3
+pkgver=8.5.0
 pkgrel=1
 pkgdesc="Simple wrapper around optparse for powerful command line utilities"
 arch=('any')
@@ -16,13 +16,16 @@ makedepends=(
   'python-flit-core'
   'python-installer'
 )
-checkdepends=('python-pytest')
+checkdepends=(
+  'less'
+  'python-pytest'
+)
 source=("https://github.com/pallets/click/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('c2dc5eeb6b7e1ea8a4381fa657b753fdb3afdd5fd348987b8fcac4118a625f2689d19111838295a52916550223682152236530d67cdf5c732e3b22899f66b2bc')
+b2sums=('0e4ed5d703b3da63717edcc7e54e9cd9629a95635af1c54ee5d544a514be8ffc4e74d42cc7fbcd132669ba12265874e1707e2ae0dcfbe7de5b87f84ee0a4d8b8')
 
 build() {
   cd ${pkgname#python-}-$pkgver
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
