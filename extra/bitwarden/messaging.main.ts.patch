@@ -1,13 +1,13 @@
 diff --git a/apps/desktop/src/main/messaging.main.ts b/apps/desktop/src/main/messaging.main.ts
-index 4352f2e..080af75 100644
+index bc8d9ae468..15418fd92b 100644
 --- a/apps/desktop/src/main/messaging.main.ts
 +++ b/apps/desktop/src/main/messaging.main.ts
-@@ -119,7 +119,7 @@ export class MessagingMain {
-     if (process.platform === "linux") {
-       autostart
-         .setAutostart(enabled, {
--          execPath: app.getPath("exe"),
-+          execPath: "bitwarden-desktop",
-           autostartFlag: AUTOSTART_FLAG,
-         })
-         .catch((e) => {
+@@ -136,7 +136,7 @@ export class MessagingMain {
+   Version=${app.getVersion()}
+   Name=Bitwarden
+   Comment=Bitwarden startup script
+-  Exec=${app.getPath("exe")}
++  Exec=bitwarden-desktop
+   StartupNotify=false
+   Terminal=false`;
+ 
