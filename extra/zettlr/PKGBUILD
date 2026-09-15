@@ -60,7 +60,10 @@ build() {
 	local NODE_ENV=''
 	export ZETTLR_DISABLE_UPDATE_CHECK=1
 	export BUNDLE_PANDOC=0
-	bin/yarn package:linux-x64
+	# electron-forge target differs by arch; derive from $CARCH (x86_64 unchanged).
+	local _yarn_target=linux-x64
+	[[ "$CARCH" == aarch64 ]] && _yarn_target=linux-arm
+	bin/yarn package:$_yarn_target
 }
 
 package() {
@@ -68,8 +71,11 @@ package() {
 	cd "$_archive"
 	install -Dm0755 "$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
 	local _destdir="usr/lib/$pkgname"
-	install -Dm0644 -t "$pkgdir/$_destdir/" "out/$_pkgname-linux-x64/resources/app.asar"
-	cp -a out/$_pkgname-linux-x64/resources/app.asar.unpacked "$pkgdir/$_destdir/"
+	# electron-forge names the output dir linux-x64 on x86_64, linux-arm64 on aarch64
+	local _outarch=x64
+	[[ "$CARCH" == aarch64 ]] && _outarch=arm64
+	install -Dm0644 -t "$pkgdir/$_destdir/" "out/$_pkgname-linux-$_outarch/resources/app.asar"
+	cp -a "out/$_pkgname-linux-$_outarch/resources/app.asar.unpacked" "$pkgdir/$_destdir/"
 	for px in 16 24 32 48 64 96 128 256 512 1024; do
 		install -Dm0644 "resources/icons/png/${px}x${px}.png" \
 			"$pkgdir/usr/share/icons/hicolor/${px}x${px}/apps/$pkgname.png"
