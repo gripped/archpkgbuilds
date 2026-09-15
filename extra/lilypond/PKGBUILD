@@ -51,6 +51,14 @@ source=("https://lilypond.org/downloads/sources/v${pkgver%.*}/$pkgname-$pkgver.t
 sha512sums=('94854f697093b764a9732dff85a822149846b25b0d2dc26008f3dd755674f77d18f4ff957bdf73c6837af434b009181acd108ab79c4581aedbbca210b633c516')
 b2sums=('24a6074382a501b5549c4d1faf5305b9b409a4bc7de4aaaa02785d81df9d0781fc76edc0fe3ea9fc23d54d7e1e7a807680df75473cde50e66d7992884191f8a8')
 
+# Enforce only packaging even-numbered stable release series
+prepare() {
+  if [[ $pkgver =~ ^.*[13579].*$ ]]; then
+    echo 'Odd-numbered releases are unstable development series'
+    exit 1
+  fi
+}
+
 build() {
   cd $pkgname-$pkgver
   ./configure --prefix=/usr \
