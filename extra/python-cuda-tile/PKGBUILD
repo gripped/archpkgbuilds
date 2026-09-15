@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=python-cuda-tile
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="A Python-based DSL and parallel programming model for NVIDIA GPUs"
 arch=(x86_64)
@@ -10,6 +10,7 @@ license=(Apache-2.0)
 depends=(
   cuda
   glibc
+  libstdc++
   python
   python-numpy
   python-typing_extensions
@@ -25,13 +26,17 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cutile-python/archive/refs/tags/v$pkgver.tar.gz
 )
-b2sums=('7f54676bb71e3d2738b01278c288d6ae833a1a46d0aeeeec26be044d0780271ae3f7ef10d7b06d617b58427085c72f4d26c08c616233b46b6f66d5f65a4c8fc5')
+b2sums=('69b993456a4e6559922f09f5cc55a6a2e03f5ec477852a3e7eba0c9afda9ce65c7177e6d6322565738134aad2d2c09dca7e4f1388b717432ec9f757209cc9382')
 
 prepare() {
   cd cutile-python-$pkgver
   # remove custom FindCUDAToolkit module to fix finding CUDA
   # https://github.com/NVIDIA/cutile-python/issues/58
   rm -v cmake/FindCUDAToolkit.cmake
+
+  # CMake's builtin FindCUDAToolkit does not set CUDAToolkit_NVVM_INCLUDE_DIR,
+  # which is needed since 1.6.0 to find nvvm.h for cext/pynvvm.cpp
+  sed -i 's|set(NVVM_INCLUDE_DIR ${CUDAToolkit_NVVM_INCLUDE_DIR})|set(NVVM_INCLUDE_DIR "/opt/cuda/nvvm/include")|' cext/CMakeLists.txt
 
   # -nostdlib and -fstack-clash-protection do not work together (undefined reference to `__stack_chk_fail')
   # https://github.com/NVIDIA/cutile-python/issues/60
