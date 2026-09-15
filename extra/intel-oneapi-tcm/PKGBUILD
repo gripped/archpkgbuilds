@@ -8,7 +8,13 @@ pkgdesc="Thread Composability Manager"
 arch=('x86_64')
 url="https://www.intel.com/content/www/us/en/developer/tools/oneapi/overview.html"
 license=('LicenseRef-Intel-Simplified')
-depends=('intel-oneapi-common' 'glibc' 'gcc-libs' 'hwloc')
+depends=(
+  'intel-oneapi-common'
+  'glibc'
+  'libgcc'
+  'libstdc++'
+  'hwloc'
+)
 source=("https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-${_majmin}-${_pkgver}_amd64.deb")
 b2sums=('874b6bb986bbf98cfa8340955c1f7575f823050c3258450bd0508b09dd9fa0507bacb13193d4282ff2591b5e8f79fea1ecc412141ea07eb290e4103411cdd9be')
 noextract=("${pkgname}-${majmin}-${_pkgver}_amd64.deb")
