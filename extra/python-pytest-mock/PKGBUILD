@@ -1,33 +1,49 @@
+# Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-mock
-pkgver=3.14.1
+pkgver=3.15.1
 pkgrel=1
 pkgdesc="Thin-wrapper around the mock package for easier use with py.test"
 arch=('any')
 license=('MIT')
-url="https://github.com/pytest-dev/pytest-mock/"
-depends=('python-pytest')
-makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel'
-             'python-setuptools-scm')
+url="https://github.com/pytest-dev/pytest-mock"
+depends=(
+  'python'
+  'python-pytest'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-setuptools-scm'
+  'python-wheel'
+)
 checkdepends=('python-pytest-asyncio')
-source=("git+https://github.com/pytest-dev/pytest-mock.git#tag=v$pkgver")
-sha512sums=('aba45b0bbea6d2b4ab074377d8d84a598644afde479dfcfade1ecb490e8d5d930b1a0791f215a5ecb7afa410d7965b54694769aec3e13de11cce72b99a6ea53f')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('d30c43bedc60955a53ae214a5aaecd2d18e61dbcabc34fe838b35fafd79370b15f633959a2c32c060865108ace6abf2f439a160507d3da93d4bdd2264ded36ce')
+
+prepare() {
+  cd ${pkgname#python-}
+  # Adapt tests to pytest 9.1
+  git cherry-pick -n 1d42981a1577207db5919852f30ef08c97208496
+}
 
 build() {
-  cd pytest-mock
-  python -m build -nw
+  cd ${pkgname#python-}
+  python -m build --wheel --no-isolation
 }
 
 check() {
-  cd pytest-mock
+  cd ${pkgname#python-}
   python -m venv tmpenv --system-site-packages
   tmpenv/bin/python -m installer dist/*.whl
   tmpenv/bin/python -m pytest
 }
 
 package() {
-  cd pytest-mock
+  cd ${pkgname#python-}
   python -m installer -d "$pkgdir" dist/*.whl
-  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -vDm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
