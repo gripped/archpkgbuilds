@@ -5,7 +5,7 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.8.1
+pkgver=4.8.2
 pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
@@ -48,10 +48,13 @@ optdepends=(
   'python-cbor2: Jade hardware wallet support'
   'python-hidapi: Digital Bitbox hardware wallet support'
   'python-matplotlib: plot transaction history in graphical mode'
+  'python-objgraph: memory leak debugging'
   'python-pycryptodomex: use PyCryptodome AES implementation instead of pyaes'
+  'python-pygments: HTML stack traces for debugging'
   'python-pyserial: Jade hardware wallet support'
   'python-qdarkstyle: optional dark theme in graphical mode'
   'python-rpyc: send commands to Electrum Python console from an external script'
+  'qt6-multimedia: camera QR code scanning in the QML interface'
   'zbar: QR code reading support'
 )
 source=(
@@ -59,7 +62,7 @@ source=(
   "git+https://github.com/spesmilo/electrum-locale.git"
   "git+https://github.com/spesmilo/electrum-http.git"
 )
-b2sums=('439ef8c121600159f0ba0ee5572080d7908dfd5611f591b7bd4c0a010f0c497de9e8f0573e07b1b07d530c4f85ec086cd680fdd17505408ec51093d40cd4a92b'
+b2sums=('06801f30da35bccac08b113111009bf7e4ce27f2860bdfefb0cd495abebe68bc2aaba02c878b51eda32d0f5be9ab981413ddcb5574bfa737548dfc88af9c601e'
         'SKIP'
         'SKIP')
 validpgpkeys=(
@@ -74,10 +77,20 @@ prepare() {
     "$srcdir/electrum-locale"
   git config submodule.electrum/plugins/payserver/www.url "$srcdir/electrum-http"
   git -c protocol.file.allow=always submodule update
+
+  # Ignore generated stats.json when rebuilding translations in place.
+  sed -i 's|for i in \*; do|for i in */; do|' contrib/locale/build_locale.sh
+
+  # Ship only compiled translations and their completion statistics.
+  cat >> MANIFEST.in <<'EOF'
+prune electrum/locale
+recursive-include electrum/locale *.mo stats.json
+EOF
 }
 
 build() {
   cd $pkgname
+  ./contrib/locale/build_locale.sh electrum/locale/locale electrum/locale/locale
   python -m build --wheel --no-isolation
 }
 
@@ -89,12 +102,6 @@ check() {
 package() {
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
-
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  install -vdm755 "$pkgdir/$site_packages/electrum"
-  ./contrib/locale/build_locale.sh \
-    electrum/locale/locale \
-    "$pkgdir/$site_packages/electrum/locale"
 
   install -vDm644 -t "$pkgdir/usr/share/applications" "electrum.desktop"
   install -vDm644 -t "$pkgdir/usr/share/metainfo" "org.electrum.electrum.metainfo.xml"
