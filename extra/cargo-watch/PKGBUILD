@@ -17,7 +17,7 @@ b2sums=('770f4b15f1aeb7f63872582ccf8977ac6dba22bc8edeab865d6fee492bd8c323718fef7
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
