@@ -6,10 +6,10 @@ pkgver=0.7.32
 pkgrel=2
 pkgdesc="Run a process twice and check the output for reproducibility"
 arch=('any')
-license=('GPL3')
+license=('GPL-3.0-or-later')
 url="https://salsa.debian.org/reproducible-builds/reprotest"
 depends=('python-setuptools' 'python' 'python-rstr' 'diffoscope' 'fakeroot' 'python-distro' 'python-wheel' 'libfaketime')
-makedepends=('help2man' 'python-docutils' 'git')
+makedepends=('help2man' 'python-build' 'python-docutils' 'python-installer' 'python-wheel' 'git')
 checkdepends=('python-pytest' 'disorderfs')
 optdepends=(
     'disorderfs: to enable the shuffle-dirents option'
@@ -25,7 +25,7 @@ validpgpkeys=("A405E58AB3725B396ED1B85C1318EFAC5FBBDBCE" # Ximin Luo
 
 build() {
   cd "$srcdir/${pkgname}"
-  python setup.py build
+  python -m build --wheel --no-isolation
 
   make -C doc
 }
@@ -38,6 +38,6 @@ check() {
 
 package() {
   cd "$srcdir/${pkgname}"
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644  doc/reprotest.1 "${pkgdir}/usr/share/man/man1/reprotest.1"
 }
