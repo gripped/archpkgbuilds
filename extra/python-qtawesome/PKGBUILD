@@ -3,21 +3,21 @@
 
 _pkg=qtawesome
 pkgname=python-${_pkg}
-pkgver=1.4.0
+pkgver=1.4.2
 pkgrel=1
 pkgdesc="Iconic fonts in PyQt and PySide applications"
 arch=(any)
 url="https://github.com/spyder-ide/qtawesome/"
 license=(MIT)
 depends=(python-qtpy)
-makedepends=(python-setuptools)
-checkdepends=(python-pytest python-pytest-qt xorg-server-xvfb python-pyqt5)
+makedepends=(python-setuptools python-build python-installer)
+checkdepends=(python-pytest python-pytest-qt xorg-server-xvfb)
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('4b05beb43a5144e1221e0be2ee55a4fe363be89fd74a635f9172dffc35798fb4')
+sha256sums=('f5c927ffcc52e68cca6813574dc51afc02649095a908ff406a133b2cfcbd9353')
 
 build() {
   cd ${_pkg}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -29,6 +29,6 @@ check() {
 
 package() {
   cd ${_pkg}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
