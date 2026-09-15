@@ -83,7 +83,7 @@ prepare() {
   # Fix build (too many arguments)
   sed -i 's/Gpm_Wgetch(stdscr)/Gpm_Wgetch()/' src/aacurkbd.c
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
