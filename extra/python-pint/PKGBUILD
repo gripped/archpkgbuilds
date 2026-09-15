@@ -2,7 +2,7 @@
 # Contributor: Matthew Sloan matthew@sloan.cc
 
 pkgname=python-pint
-pkgver=0.26
+pkgver=0.26.1
 pkgrel=1
 pkgdesc="A unit library for Python"
 arch=('any')
@@ -30,7 +30,7 @@ checkdepends=(
   'python-uncertainties'
 )
 source=("git+https://github.com/hgrecco/pint.git#tag=$pkgver")
-sha512sums=('39c7f6c49d1872bfe646ebc07ddda01c7f24c1e6e2f9cd0f5b686ea8440e92fe10ee3b4b22cd854028a92d5db9a7d7327b3c14e2dbf752fb41f9d79d90e2af8a')
+sha512sums=('86aeec9758e9805f89b892e2f441cc5f262b2d88ca7075b006423b018918d3efac68a596ecb5cb042bc2caa5890b9110ca886dcdc0558d19c77b36d00ef75622')
 
 build() {
   cd pint
