@@ -23,7 +23,4 @@ package() {
   cd "${srcdir}/File-MMagic-${pkgver}"
   make install DESTDIR="${pkgdir}"
 
-  # remove perllocal.pod and .packlist
-  find "${pkgdir}" -name perllocal.pod -delete
-  find "${pkgdir}" -name .packlist -delete
 }
