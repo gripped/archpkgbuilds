@@ -45,7 +45,7 @@ prepare() {
   # https://gitlab.gnome.org/Archive/goocanvas/-/merge_requests/15
   git apply -3 ../goocanvas-incompatible-pointer.patch
 
-  autoreconf -fi -I /usr/share/gettext/m4/
+  autoreconf -fiv -I /usr/share/gettext/m4/
   aclocal -I m4
   autoconf
 }
