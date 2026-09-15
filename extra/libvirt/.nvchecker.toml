@@ -1,7 +1,5 @@
 [libvirt]
-source = 'gitlab'
-gitlab = 'libvirt/libvirt'
-use_max_tag = true
+source = 'git'
+git = "https://github.com/libvirt/libvirt.git"
 include_regex = 'v\d+\.\d+(\.\d+)?'
 prefix = 'v'
-
