@@ -4,7 +4,7 @@
 
 pkgname=python-pyee
 _name=${pkgname#python-}
-pkgver=13.0.1
+pkgver=14.0.0
 pkgrel=1
 pkgdesc="Port of node.js's EventEmitter to python"
 arch=(any)
@@ -29,7 +29,7 @@ optdepends=(
   python-twisted
 )
 source=("git+https://github.com/jfhbrook/pyee#tag=v$pkgver")
-sha256sums=('2f3cb24b02767665060a63d5639c9b0b8185eea98419a9aa4037b1456d42e0d2')
+sha256sums=('70871db7e9e6c1c06f9ea8cc0cb0e8ee370bbd117dd50f12a15b29182b055ed2')
 
 build() {
   cd "$_name"
