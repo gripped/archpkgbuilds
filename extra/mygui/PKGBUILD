@@ -8,7 +8,14 @@ pkgdesc="A multilayer and overlappable GUI System"
 arch=('x86_64')
 url="http://mygui.info/"
 license=('MIT')
-depends=('sdl2' 'sdl2_image' 'gcc-libs' 'glibc' 'freetype2')
+depends=(
+  'sdl2'
+  'sdl2_image'
+  'libgcc'
+  'libstdc++'
+  'glibc'
+  'freetype2'
+)
 makedepends=('cmake' 'doxygen' 'graphviz' 'ttf-dejavu' 'ninja' 'glu')
 install=mygui.install
 source=("https://github.com/MyGUI/mygui/archive/MyGUI${pkgver}.tar.gz")
