@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-socketio
-pkgver=5.16.1
+pkgver=5.16.4
 pkgrel=1
 pkgdesc='Python implementation of the Socket.IO realtime server'
 arch=('any')
@@ -37,9 +37,9 @@ source=(
   "$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz"
   "$pkgname-fix-type-error-freezing-tests.patch"
 )
-sha512sums=('dda5a250ea6b77e0a168012052aba3ff856ed8e6d9aa593a8c3404286bd5f3537f97813ec8f9ebebf5348704068aefab889ffcc5de814abdead10242cb4be021'
+sha512sums=('431914392b6f847c37670036280b47d00389e258bc2ca10ae5d6bfbb767854d1d43537e87d62ee6245c2a09b7d9c0ca1050804cbcf5fe95f9eea129bcf2acdab'
             'dbf2846cfc0193baefdc5a26c58f3378b13a0b18c2a87f0403841a97ed06d795c68c7fd6128429c7bb3edb6e53389a06dbf915028479933c849fcd7ffb8e6729')
-b2sums=('b85fa6890e5bcb3f4273b5f0dbdb281de486c420dafdf89ad695aa3e871be7462439b13c3610a43deb3e7ca23c794b5d76a2910e2c14b0bcbab34e9244a0a565'
+b2sums=('79e4c75b38d2851d0fd4f99644553965c1bb0370e0fa4864f9cab5bcef75be9867e581c74ad533a24935a4c3d85d1ccf8ddba104ab5affdf3809fc894a8d06a4'
         '0dbcfe86665a986b422268fd9ffd03c72ba63cf97571078453d085a13b9793ee8552d99c81ed0cf77ea02b71e14252f607dfe7c819bb7b71a77fd258c242c156')
 
 prepare() {
