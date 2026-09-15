@@ -9,30 +9,34 @@ arch=(x86_64)
 url="https://gitlab.freedesktop.org/xorg/app/xkbcomp"
 license=('LicenseRef-xkbcomp')
 depends=('libxkbfile' 'libx11' 'glibc')
-makedepends=('xorg-util-macros')
+makedepends=('git' 'xorg-util-macros')
 groups=('xorg-apps' 'xorg')
-source=(https://xorg.freedesktop.org/archive/individual/app/xkbcomp-${pkgver}.tar.xz{,.sig})
-sha512sums=('d8ef4906261251e2600b3650660fbe88ed99a44694f1e59b433e0811f1ab5234c4f2f0b3647fa5372fb0f46b56eac60c0219a762bf1af0ab06226b63e4a6b081'
-            'SKIP')
+source=(git+https://gitlab.freedesktop.org/xorg/app/xkbcomp.git?signed#tag=xkbcomp-${pkgver})
+sha512sums=('5ba24d230fe9463ff1ec1ed1c2d15a7b850085ac9e1a75d941ebe29ae6035fd12d707845fba12385fb297b64c1bb54e3a5bcb323ea547710c00f232abdefa656')
 validpgpkeys=('3C2C43D9447D5938EF4551EBE23B7E70B467F0BF') # Peter Hutterer (Who-T) <office@who-t.net>
 #validpgpkeys+=('A66D805F7C9329B4C5D82767CCC4F07FAC641EFF') # "Daniel Stone <daniels@collabora.com>"
 #validpgpkeys+=('DD38563A8A8224537D1F90E45B8A2D50A0ECD0D3') # "Adam Jackson <ajax@benzedrine.nwnk.net>"
 #validpgpkeys+=('3BB639E56F861FA2E86505690FDD682D974CA72A') # "Matt Turner <mattst88@gmail.com>"
-# validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
+#validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # "Alan Coopersmith <alan.coopersmith@oracle.com>"
 
+prepare() {
+  cd xkbcomp
+  autoreconf -fiv
+}
+  
 build() {
-  cd xkbcomp-${pkgver}
+  cd xkbcomp
   ./configure --prefix=/usr
   make
 }
 
 check() {
-  cd xkbcomp-${pkgver}
+  cd xkbcomp
   make check
 }
 
 package() {
-  cd xkbcomp-${pkgver}
+  cd xkbcomp
   make DESTDIR="${pkgdir}" install
   install -m755 -d "${pkgdir}/usr/share/licenses/${pkgname}"
   install -m644 COPYING "${pkgdir}/usr/share/licenses/${pkgname}/"
