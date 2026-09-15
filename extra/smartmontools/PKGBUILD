@@ -10,7 +10,12 @@ pkgdesc='Control and monitor S.M.A.R.T. enabled ATA and SCSI Hard Drives'
 url='https://www.smartmontools.org/'
 license=('GPL')
 arch=('x86_64')
-depends=('gcc-libs' 'libcap-ng' 'bash' 'systemd-libs')
+depends=('bash'
+         'glibc'
+         'libgcc' 'libgcc_s.so'
+         'libcap-ng' 'libcap-ng.so'
+         'libstdc++' 'libstdc++.so'
+         'systemd-libs' 'libsystemd.so')
 makedepends=('systemd')
 optdepends=('s-nail: to get mail alerts to work')
 backup=('etc/smartd.conf'
