@@ -1,8 +1,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-ast-serialize
-pkgver=0.3.0
-pkgrel=2
+pkgver=0.11.1
+pkgrel=1
 pkgdesc='Fast Python parser that generates a serialized AST'
 arch=(x86_64)
 url=https://github.com/mypyc/ast_serialize
@@ -18,10 +18,9 @@ makedepends=(
   python-installer
   python-maturin
 )
-checkdepends=(python-pytest)
 provides=(python-ast_serialize)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-b2sums=('43c51d391de340afb935e872d0c359a110d0b01a199ade1c01a174276394d423110f52dc17323ba7facb9dfbe15811a55afa606a45b1e50d111e539e969f55df')
+b2sums=('c553d7842c04ef5ac49bd9acf8eb555c3fbb80735f83764e2b9d63ae92a29b423833a738ce6de9dae66c06d4be531c42ccc0cf1ea0c7b6001a8204947c76afc2')
 
 prepare() {
   cd $pkgname
@@ -39,11 +38,13 @@ check() {
   cd $pkgname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest
+  test-env/bin/python test_ast_serialize.py
 }
 
 package() {
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+  install -vDm644 crates/LICENSE \
+    "$pkgdir/usr/share/licenses/$pkgname/LICENSE-ruff"
 }
