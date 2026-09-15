@@ -24,6 +24,4 @@ build() {
 package() {
   cd  "$srcdir"/XML-Atom-$pkgver
   ./Build install --destdir="$pkgdir/"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
