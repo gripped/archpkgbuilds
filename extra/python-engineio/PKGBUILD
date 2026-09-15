@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-engineio
-pkgver=4.13.3
+pkgver=4.14.0
 pkgrel=1
 pkgdesc='Python implementation of the Engine.IO realtime server'
 url='https://github.com/miguelgrinberg/python-engineio'
@@ -38,8 +38,8 @@ optdepends=(
   'python-tornado: tornado driver'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0a8b286974ba2b6be8964963d178b1b211f9b4b04a94fa226408da679d478cdf08a4306023f82611a9b006e029d36fa6fa33a44158557d2663320e986a4b0d37')
-b2sums=('333f97faee3fe186cd38a52ea6a43ca534e3aa8d48cd27979889c445c34bb72038963c6e9a4dd4acc38d5e415859085b8054abe0687e58eb8f83db7bb7306dd6')
+sha512sums=('9079c5c831ee11f06b35f80c562ae3182c5dfc8694d711000c8d3d72b92325b25b2ea8a08d8315da8888c8d499c11c8c8db0b4dcc8cdf65fa80ec192ffbb6122')
+b2sums=('9bb26c1e94c2b156ec2c3d0f5e730234d08dfd1f36d130bfbe344b2209949c35bfcadc852fcd1396fd774dd7e4c96580992fb8e9918f9eb6cd2cdcecf94c7845')
 
 build() {
   cd $pkgname-$pkgver
