@@ -12,14 +12,21 @@ makedepends=('cargo' 'cargo-c')
 source=("https://github.com/ImageOptim/libimagequant/archive/$pkgver/libimagequant-$pkgver.tar.gz")
 sha256sums=('2464a3e922b5a220b633d674062b82f0670114f8f3dd30d1935a621c95965f1b')
 
+prepare() {
+    cd "$srcdir/$pkgname-$pkgver/imagequant-sys"
+    cargo fetch --target host-tuple
+}
+
 build() {
     cd "$srcdir/$pkgname-$pkgver/imagequant-sys"
+    export CARGO_PROFILE_RELEASE_LTO=true
+    export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
     cargo cbuild --release --prefix=/usr
 }
 
 check() {
     cd "$srcdir/$pkgname-$pkgver/imagequant-sys"
-    cargo ctest --release
+    cargo ctest
 }
 
 package() {
