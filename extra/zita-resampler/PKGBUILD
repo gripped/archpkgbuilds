@@ -14,7 +14,8 @@ arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio"
 license=(GPL-3.0-or-later)
 makedepends=(
-  gcc-libs
+  libgcc
+  libstdc++
   glibc
   libsndfile
 )
@@ -41,7 +42,11 @@ build() {
 }
 
 package_zita-resampler() {
-  depends=(gcc-libs glibc)
+  depends=(
+    libgcc
+    libstdc++
+    glibc
+  )
   optdepends=(
     'libsndfile: for zresample and zretune'
     'zita-resampler-docs: for documentation'
