@@ -23,7 +23,5 @@ package() {
   cd Tk-TableMatrix-${pkgver}
   make install DESTDIR="$pkgdir"
 
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
   find "$pkgdir" -name 'extralibs.ld' -delete
 }
