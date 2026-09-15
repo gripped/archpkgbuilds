@@ -84,7 +84,8 @@ check(){
 
 package_python-pyopencl() {
     depends+=(
-        'gcc-libs'
+        'libgcc'
+        'libstdc++'
         'glibc'
         'ocl-icd'
         'python'
