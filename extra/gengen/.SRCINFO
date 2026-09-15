@@ -7,7 +7,10 @@ pkgbase = gengen
 	license = GPL-3.0-or-later
 	makedepends = git
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libgcc_s.so
+	depends = libstdc++
+	depends = libstdc++.so
 	source = git+https://git.savannah.gnu.org/git/gengen.git#tag=rel_1_4_3
 	validpgpkeys = D459FCC2041AC8FEF297D53EB4AA8C689E629EAC
 	sha256sums = e057458122d1dc8b732fc1f65928e8aec08eab4ab586d23fa4ac25285dc6fbcb

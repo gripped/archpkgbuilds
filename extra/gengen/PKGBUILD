@@ -7,7 +7,9 @@ pkgdesc='parameterized-text-generator generator based on a template '
 arch=('x86_64')
 url='https://www.gnu.org/software/gengen/'
 license=('GPL-3.0-or-later')
-depends=('glibc' 'gcc-libs')
+depends=('glibc'
+         'libgcc' 'libgcc_s.so'
+         'libstdc++' 'libstdc++.so')
 makedepends=('git')
 validpgpkeys=('D459FCC2041AC8FEF297D53EB4AA8C689E629EAC')  # Lorenzo Bettini <lorenzo.bettini@gmail.com>
 source=("git+https://git.savannah.gnu.org/git/gengen.git#tag=rel_${pkgver//./_}")
