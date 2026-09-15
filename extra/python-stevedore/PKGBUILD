@@ -2,7 +2,7 @@
 # Contributor: Evangelos Foutras <foutrelis@archlinux.org
 
 pkgname=python-stevedore
-pkgver=5.7.0
+pkgver=5.9.1
 pkgrel=1
 pkgdesc="Manage dynamic plugins for Python applications"
 arch=('any')
@@ -29,7 +29,7 @@ optdepends=(
 )
 options=('!emptydirs')
 source=("git+https://opendev.org/openstack/stevedore.git#tag=$pkgver")
-sha256sums=('fe503190a5e175ab5590d5ef3b5bb8db8476618baaf3972d3ca2e1ff0b048910')
+sha256sums=('4bf91261d977244dd46bc8acd7406374c95833087a468cf55fe3044252cec1b0')
 
 prepare() {
   # Exclude examples and unit tests from the wheel
