@@ -1,0 +1,16 @@
+["mythes-it:1"]
+source = 'regex'
+url = 'https://sourceforge.net/projects/linguistico/files/Thesaurus%20OOo%202.x.x/'
+regex = 'x/0([\d_]+)_[a-z]'
+from_pattern = '_'
+to_pattern = '.'
+
+["mythes-it:2"]
+source = 'regex'
+url = 'https://sourceforge.net/projects/linguistico/files/Thesaurus%20OOo%202.x.x/'
+regex = 'x/0[\d_]+_([a-z])'
+
+[mythes-it]
+source = 'combiner'
+from = ['mythes-it:1', 'mythes-it:2']
+format = '$1$2'
