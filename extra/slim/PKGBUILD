@@ -13,7 +13,9 @@ pkgdesc='Simple Login Manager resurrected'
 arch=(x86_64)
 url='https://slim-fork.sourceforge.io/'
 license=(GPL-2.0-or-later)
-depends=(gcc-libs
+depends=(
+         libgcc
+         libstdc++
          libjpeg-turbo
          libpng
          libx11
@@ -23,7 +25,8 @@ depends=(gcc-libs
          libxrandr
          pam
          ttf-font
-         xorg-xauth)
+         xorg-xauth
+)
 makedepends=(cmake)
 backup=("etc/logrotate.d/$pkgname"
         "etc/pam.d/$pkgname"
