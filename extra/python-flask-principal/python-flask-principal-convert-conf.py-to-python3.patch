@@ -1,0 +1,84 @@
+diff -aur flask-principal-0.4.0.old/docs/conf.py flask-principal-0.4.0/docs/conf.py
+--- flask-principal-0.4.0.old/docs/conf.py	2024-11-19 14:13:37.459257279 +0100
++++ flask-principal-0.4.0/docs/conf.py	2024-11-19 14:14:04.742801830 +0100
+@@ -44,8 +44,8 @@
+ master_doc = 'index'
+ 
+ # General information about the project.
+-project = u'Flask Principal'
+-copyright = u'2012, Ali Afshar'
++project = 'Flask Principal'
++copyright = '2012, Ali Afshar'
+ 
+ # The version info for the project you're documenting, acts as replacement for
+ # |version| and |release|, also used in various other places throughout the
+@@ -190,8 +190,8 @@
+ # Grouping the document tree into LaTeX files. List of tuples
+ # (source start file, target name, title, author, documentclass [howto/manual]).
+ latex_documents = [
+-  ('index', 'FlaskPrincipal.tex', u'Flask-Principal Documentation',
+-   u'Matt Wright', 'manual'),
++  ('index', 'FlaskPrincipal.tex', 'Flask-Principal Documentation',
++   'Matt Wright', 'manual'),
+ ]
+ 
+ # The name of an image file (relative to this directory) to place at the top of
+@@ -217,8 +217,8 @@
+ # One entry per manual page. List of tuples
+ # (source start file, name, description, authors, manual section).
+ man_pages = [
+-    ('index', 'flask-principal', u'Flask-Principal Documentation',
+-     [u'Matt Wright'], 1)
++    ('index', 'flask-principal', 'Flask-Principal Documentation',
++     ['Matt Wright'], 1)
+ ]
+ 
+ # If true, show URL addresses after external links.
+@@ -231,8 +231,8 @@
+ # (source start file, target name, title, author,
+ #  dir menu entry, description, category)
+ texinfo_documents = [
+-  ('index', 'Flask-Pecurity', u'Flask-Principal Documentation',
+-   u'Matt Wright', 'Flask-Principal', 'Identity management for Flask',
++  ('index', 'Flask-Pecurity', 'Flask-Principal Documentation',
++   'Matt Wright', 'Flask-Principal', 'Identity management for Flask',
+    'Miscellaneous'),
+ ]
+ 
+@@ -249,10 +249,10 @@
+ # -- Options for Epub output ---------------------------------------------------
+ 
+ # Bibliographic Dublin Core info.
+-epub_title = u'Flask-Security'
+-epub_author = u'Matt Wright'
+-epub_publisher = u'Matt Wright'
+-epub_copyright = u'2012, Matt Wright'
++epub_title = 'Flask-Security'
++epub_author = 'Matt Wright'
++epub_publisher = 'Matt Wright'
++epub_copyright = '2012, Matt Wright'
+ 
+ # The language of the text. It defaults to the language option
+ # or en if the language is not set.
+@@ -297,13 +297,13 @@
+ # fall back if theme is not there
+ try:
+     __import__('flask_theme_support')
+-except ImportError, e:
+-    print '-' * 74
+-    print 'Warning: Flask themes unavailable.  Building with default theme'
+-    print 'If you want the Flask themes, run this command and build again:'
+-    print
+-    print '  git submodule update --init'
+-    print '-' * 74
++except ImportError as e:
++    print('-' * 74)
++    print('Warning: Flask themes unavailable.  Building with default theme')
++    print('If you want the Flask themes, run this command and build again:')
++    print()
++    print('  git submodule update --init')
++    print('-' * 74)
+ 
+     pygments_style = 'tango'
+     html_theme = 'default'
+Only in flask-principal-0.4.0/docs: conf.py.bak
