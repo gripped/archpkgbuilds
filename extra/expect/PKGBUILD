@@ -32,6 +32,7 @@ prepare() {
 
 build() {
   cd expect${pkgver}
+  export CFLAGS+=" -std=gnu17"
   ./configure --prefix=/usr --mandir=/usr/share/man
   make
 }
