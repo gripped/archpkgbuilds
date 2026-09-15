@@ -9,14 +9,16 @@ pkgdesc="Terminal-based typing test"
 arch=('x86_64')
 url="https://github.com/max-niederman/ttyper"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('2d3f82b1409651dc5a2e81e10d2cd531a5454dd278d77fa588d1036c192d1a49ad38652580b903d3a121f4a5c1984d46bcdf812684444d2ee80d2336822debf2')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
