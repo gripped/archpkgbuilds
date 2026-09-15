@@ -13,7 +13,9 @@ makedepends=(
   fftw
   freetype2
   git
+  libgcc
   libglvnd
+  libstdc++
   libx11
   libxcursor
   libxext
@@ -170,9 +172,10 @@ package_distrho-ports-lv2() {
   depends=(
     alsa-lib
     freetype2
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     lv2-host
@@ -191,9 +194,10 @@ package_distrho-ports-vst() {
   depends=(
     alsa-lib
     freetype2
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     vst-host
@@ -210,9 +214,10 @@ package_distrho-ports-vst3() {
   pkgdesc+=" - VST3 plugins"
   depends=(
     freetype2
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     vst3-host
   )
   groups=(
