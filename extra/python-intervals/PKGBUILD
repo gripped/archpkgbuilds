@@ -9,8 +9,8 @@ pkgdesc='Python tools for handling intervals (ranges of comparable objects).'
 url='https://github.com/kvesteri/intervals'
 depends=('python' 'python-infinity')
 checkdepends=('python-pytest')
-makedepends=('python' 'python-setuptools')
-license=('BSD')
+makedepends=('python' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+license=('BSD-3-Clause')
 arch=('any')
 source=("https://files.pythonhosted.org/packages/source/${_name::1}/${_name}/${_name}-${pkgver}.tar.gz"
         'pytest5.patch')
@@ -23,7 +23,7 @@ prepare() {
 }
 build() {
   cd "${srcdir}/${_name}-${pkgver}"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -33,6 +33,6 @@ check() {
 
 package() {
   cd "${srcdir}/${_name}-${pkgver}"
-  python setup.py install --root="${pkgdir}/" --optimize=1
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
