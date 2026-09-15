@@ -26,7 +26,7 @@ sha256sums=('2997480eb5b4cf3092c0896483cd2de625158bf51c501aea2dc5cf74176d6de9'
 build() {
   cd $pkgname-$pkgver
 
-  CFLAGS+=' -fcommon -Wno-implicit-function-declaration' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
+  CFLAGS+=' -fcommon -D_DEFAULT_SOURCE -Wno-implicit-function-declaration' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
 
   case $CARCH in
 	i686) sed -i 's#^OBJTYPE\s.*$#OBJTYPE = 386#' config.mk ;;
@@ -35,6 +35,9 @@ build() {
 
   sed -i 's#^PREFIX\s.*$#PREFIX = /opt/plan9#' config.mk
   sed -i 's#^CFLAGS\s*+=#CFLAGS += -DPLAN9PORT #' config.mk
+
+  # Fix identifiers conflicting with modern bool definitions.
+  sed -i 's/\<true\>/True/g' dd/dd.c troff/n5.c
 
   # Force dynamic linking.  Several of the programs in 9base won't work
   # when statically linked against the latest glibc.
