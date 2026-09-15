@@ -32,5 +32,4 @@ package() {
   cd "XS-Parse-Keyword-${pkgver}"
   unset PERL5LIB PERL_MM_OPT PERL_MB_OPT PERL_LOCAL_LIB_ROOT
   ./Build install --installdirs=vendor --destdir="$pkgdir"
-  find "$pkgdir" "(" -name .packlist -o -name perllocal.pod ")" -delete
 }
