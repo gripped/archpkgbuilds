@@ -5,7 +5,7 @@
 pkgname=qt6-declarative
 _pkgver=6.11.2
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -30,6 +30,10 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
 sha256sums=('52d45eed2f8907e67d2b03ace60dc6f4ca282971e7be50e762a8fcd9deab274b')
+
+prepare() {
+  git -C $_pkgfn cherry-pick -n 2efb7c60ef45952cc8e04b9c9a07965d14c30446 # Fix QML errors in Plasma
+}
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
