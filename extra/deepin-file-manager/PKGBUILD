@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.45
+pkgver=6.5.46.1
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -32,21 +32,22 @@ conflicts=('deepin-desktop')
 replaces=('deepin-desktop')
 # https://github.com/linuxdeepin/developer-center/issues/5725
 options=('!lto')
-source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver"
-         gcc-15.patch)
-sha512sums=('b49c585b6603317e3e581b1740d0aefcb859a661caa49235450f311388f2506b048c6ca63d45786d27f2ae351a87e677c768a47ee1f08c8d001539370903c8e2'
-            'b2cda989438b90703a5718ac0daf5972f4d70e21ceef5ad9751445178c4299200f8ac3be112e79682bd37b751e6e3fbd3aaef4189adaaf9abe2506132c16ab41')
+source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver")
+sha512sums=('a2ac7f818e0c22429da9d17201bffd5431bd59d6d6487f2592d649363148d37fda1f716be9ae2963e4ef429b49388bb5c548f155cb522057fe28d63b9d1b2c37')
 
 prepare() {
   cd dde-file-manager
-  patch -p1 -i ../gcc-15.patch
 
-  # Migrate search/TextIndex from PCRE1 to PCRE2:
-  # https://github.com/linuxdeepin/dde-file-manager/commit/682dffd359abdf42329f03a1cb0ca666eb3a328d
+  # Include <cstdint> where required when building with GCC 15.
+  # https://github.com/linuxdeepin/dde-file-manager/pull/2928
+  git cherry-pick -n baa88b600c4398bc49c36a3547077cd8d3a4e5cf
+
+  # Migrate search and TextIndex from PCRE1 to PCRE2.
+  # https://github.com/linuxdeepin/dde-file-manager/pull/2812
   git cherry-pick -n 682dffd359abdf42329f03a1cb0ca666eb3a328d
 
-  # Backport upstream's Qt 6.10+ private-header target links:
-  # https://github.com/linuxdeepin/dde-file-manager/commit/9e015ef660051814aed687b06dbb1966ba143004
+  # Backport upstream's Qt 6.10+ private-header target links.
+  # https://github.com/linuxdeepin/dde-file-manager/pull/3245
   sed -i \
     -e 's/find_package(Qt6 COMPONENTS Core Widgets Gui Svg REQUIRED)/find_package(Qt6 COMPONENTS Core Widgets Gui Svg WidgetsPrivate REQUIRED)/' \
     -e '/Qt6::Widgets$/a\    Qt6::WidgetsPrivate' \
@@ -71,11 +72,6 @@ prepare() {
     -e 's/find_package(Dtk6 COMPONENTS Widget REQUIRED)/find_package(Qt6 COMPONENTS Core Widgets WidgetsPrivate REQUIRED)\n&/' \
     -e '/DFM6::framework/a\    Qt6::Core\n    Qt6::Widgets\n    Qt6::WidgetsPrivate' \
     src/plugins/filemanager/dfmplugin-workspace/CMakeLists.txt
-
-  # Build with Qt 6.11, where QElapsedTimer must be included explicitly.
-  sed -i 's|#include <QTime>|#include <QElapsedTimer>|' \
-    src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/fulltext/fulltextsearcher_p.h \
-    src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/iterator/iteratorsearcher.h
 
   # Package the udev rule under /usr/lib instead of an admin directory.
   sed -i 's|DESTINATION /etc/udev/rules.d|DESTINATION ${CMAKE_INSTALL_LIBDIR}/udev/rules.d|' \
