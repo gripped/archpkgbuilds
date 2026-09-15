@@ -17,7 +17,8 @@ sha256sums=('ee74f29f3f4d339f71de831af341b36d2cf24d0129e5bec0512b145d66da3daf')
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_STATIC_LIBS=OFF
+    -DBUILD_STATIC_LIBS=OFF \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
   cmake --build build
 }
 
