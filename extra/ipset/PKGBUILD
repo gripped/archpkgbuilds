@@ -11,7 +11,7 @@ makedepends=('git')
 depends=('glibc' 'libmnl')
 backup=("etc/${pkgname}.conf")
 validpgpkeys=('B4DAC1EB5D49B76C8D7EFE6ED6A8E7CF924196F6') # Jozsef Kadlecsik <kadlec@blackhole.kfki.hu>
-source=("git+https://git.netfilter.org/ipset.git#tag=v${pkgver}?signed"
+source=("git+https://git.netfilter.org/ipset.git?signed#tag=v${pkgver}"
         "${pkgname}.service")
 sha256sums=('6ac4541c9f38bd8b2028ec8e3586b9246339d3c4c1b4a981b3b918559f178e49'
             '5a0e326a80fd5ab2d9545faa1189b647cc866c9568ab6a9dd0833ba5863f39ce')
