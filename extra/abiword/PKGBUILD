@@ -60,14 +60,8 @@ optdepends=(
 )
 conflicts=(abiword-plugins)
 replaces=(abiword-plugins)
-source=(
-  "git+https://gitlab.gnome.org/World/AbiWord.git#tag=release-$pkgver"
-  abiword-fix-appstream-data.patch
-)
-b2sums=(
-  3a8daba3c3a7f690500ecc3ff88e0205041ba8d55d35f67cdfc575b43b9a3cc6b380b1dbe3b6f5a79c7b8fa92dee7130e20964fe3bf778a886421c8ba80c43be
-  93736365b5db419a2dd19e581d7aafff75fe87aba3eccd1a2c54e0312f494227d1e0a7f9783966c3f5b227408728505f9ce5447caab567c4b5cfa398d2f71292
-)
+source=("git+https://gitlab.gnome.org/World/AbiWord.git#tag=release-$pkgver")
+b2sums=(3a8daba3c3a7f690500ecc3ff88e0205041ba8d55d35f67cdfc575b43b9a3cc6b380b1dbe3b6f5a79c7b8fa92dee7130e20964fe3bf778a886421c8ba80c43be)
 validpgpkeys=(6C44DB3E0BF3EAF5B433239A5FEE05E6A56E15A3) # Hubert Figuiere <hub@figuiere.net>
 
 prepare() {
@@ -82,8 +76,8 @@ prepare() {
   # Install AppStream data into metainfo directory
   sed -i 's|/appdata|/metainfo|' Makefile.am
 
-  # Fix AppStream data
-  patch -Np1 -i ../abiword-fix-appstream-data.patch
+  # Fix launchable ID in AppStream metadata
+  sed -i 's|com.abisource.AbiWord.desktop|abiword.desktop|' abiword.appdata.xml
 
   ./autogen-common.sh
   autoreconf -fiv
