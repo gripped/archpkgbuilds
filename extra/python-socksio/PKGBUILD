@@ -25,6 +25,8 @@ prepare() {
 
   # Apply upstream patch to unpin python-flit-core dependency
   git cherry-pick --no-commit b326406915fd98a8185c1c160165c5b8963b30c1
+  # Use PEP 621 metadata to fix flit-core-4 compatibility
+  git cherry-pick --no-commit 504f7e51682b9526d3ecc7ea893338af1fedfb2d
 }
 
 build() {
