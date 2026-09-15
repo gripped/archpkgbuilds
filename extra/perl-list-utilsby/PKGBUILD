@@ -39,6 +39,4 @@ package() {
 	prepareEnvironment
 	make install
 
-	# Remove "perllocal.pod" and ".packlist".
-	find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
