@@ -7,7 +7,14 @@ pkgdesc='AMD’s C++ library for accelerating tensor primitives'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/hipTensor/en/latest/'
 license=('MIT')
-depends=('rocm-core' 'hip-runtime-amd' 'composable-kernel' 'glibc' 'gcc-libs')
+depends=(
+  'rocm-core'
+  'hip-runtime-amd'
+  'composable-kernel'
+  'glibc'
+  'libgcc'
+  'libstdc++'
+)
 makedepends=('cmake' 'ninja' 'rocm-llvm' 'rocm-cmake' 'rocm-toolchain')
 source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
 sha256sums=('50a4090b4ad18b34c375f666e5f71816cf55f89bc2175dc3eba9a7b80f65a15d')
