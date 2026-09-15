@@ -48,7 +48,7 @@ prepare() {
   sed -i 's/^NotShowIn=.*/OnlyShowIn=LXDE;/' data/lxpolkit.desktop.in.in
 
   mkdir m4
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
