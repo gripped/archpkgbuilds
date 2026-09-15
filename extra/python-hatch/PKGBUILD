@@ -4,7 +4,7 @@
 # Contributor: Phillip A. (flying-sheep)
 
 pkgname=python-hatch
-pkgver=1.17.0
+pkgver=1.18.0
 pkgrel=1
 pkgdesc="A modern project, package, and virtual env manager"
 arch=('any')
@@ -46,7 +46,7 @@ checkdepends=(
   'rust'
 )
 source=("$url/archive/hatch-v$pkgver.tar.gz")
-b2sums=('2d687ac7401eb38036c45386080bbf65dad01625f4dec60bca0c1ee9569c984240589e7b4541cac1502c197811d60960a37b9be16f85cfa3ddd3e9a2f16a4cc9')
+b2sums=('c4513118a3054f4fcf1968229566cd6635d7472b5c912004be2b6bf927691d1c963111439d4cc0c8fc2a9db0e393b0301eb034c72330147851cc574b1bce5f6e')
 
 build() {
   cd hatch-hatch-v$pkgver
