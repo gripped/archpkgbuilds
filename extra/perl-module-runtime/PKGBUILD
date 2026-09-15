@@ -22,6 +22,4 @@ build() {
 package() {
   cd "$srcdir"/Module-Runtime-$pkgver
   make install DESTDIR="${pkgdir}"
-  find "$pkgdir" -name perllocal.pod -delete
-  find "$pkgdir" -name .packlist -delete
 }
