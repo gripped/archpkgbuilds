@@ -13,7 +13,7 @@ sha256sums=('c151b33078913bed7f72977821d246c6dda5e01b64a53d963b5f95b65852e634')
 
 build() {
   cd $pkgname-$pkgver
-  make CC="gcc ${CFLAGS} ${LDFLAGS}"
+  make CC="gcc ${CFLAGS} -std=gnu17 ${LDFLAGS}"
 }
 
 package() {
