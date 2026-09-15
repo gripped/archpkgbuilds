@@ -11,7 +11,7 @@ depends=(
   android-tools
   bzip2 libbz2.so
   clang
-  gcc-libs
+  libgcc
   glibc
   gradle
   gtk3
@@ -27,12 +27,12 @@ depends=(
 makedepends=(
   cargo
 )
-source=("${pkgname}-${pkgver}.tar.gz::https://crates.io/api/v1/crates/${pkgname}/${pkgver}/download")
+source=("${pkgname}-${pkgver}.tar.gz::https://static.crates.io/crates/${pkgname}/${pkgname}-${pkgver}.crate")
 sha256sums=('f006de3e08cc8a6bb7c67df83b28d63dddb38a4fcd31565f294b7a51b777c82e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
