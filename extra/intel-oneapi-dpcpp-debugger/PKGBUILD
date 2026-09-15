@@ -15,7 +15,15 @@ b2sums=('d90a63fe1a6277551b77e196767d28ad0db55a6f93b5eb76fc574dfb4b1a5b449b2b9c2
 noextract=(
 	"${pkgname}-${_majmin}-${_pkgver}_amd64.deb"
 )
-depends=('intel-oneapi-common' 'sh' 'glibc' 'gcc-libs' 'zlib' 'libffi')
+depends=(
+  'intel-oneapi-common'
+  'sh'
+  'glibc'
+  'libgcc'
+  'libstdc++'
+  'zlib'
+  'libffi'
+)
 provides=("$pkgname-eclipse-cfg")
 conflicts=('intel-oneapi-basekit')
 
