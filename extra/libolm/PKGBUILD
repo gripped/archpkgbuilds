@@ -42,7 +42,9 @@ check() {
 }
 
 package_libolm() {
-  depends=('gcc-libs')
+  depends=(
+    'libstdc++'
+  )
   provides=('libolm.so')
 
   DESTDIR="$pkgdir" cmake --install build
