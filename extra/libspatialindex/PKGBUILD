@@ -9,7 +9,10 @@ pkgdesc='Extensible framework that supports robust spatial indexing methods and 
 arch=(x86_64)
 url="https://libspatialindex.github.io/"
 license=(MIT)
-depends=(gcc-libs)
+depends=(
+  libgcc
+  libstdc++
+)
 makedepends=(git cmake ninja)
 conflicts=(spatialindex)
 replaces=(spatialindex)

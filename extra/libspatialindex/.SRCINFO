@@ -8,7 +8,8 @@ pkgbase = libspatialindex
 	makedepends = git
 	makedepends = cmake
 	makedepends = ninja
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	provides = spatialindex=2.1.0
 	conflicts = spatialindex
 	replaces = spatialindex
