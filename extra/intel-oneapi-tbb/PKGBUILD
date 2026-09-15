@@ -14,7 +14,15 @@ source=("https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-${_majmin}-${_p
         "https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-devel-${_majmin}-${_pkgver}_amd64.deb")
 b2sums=('5dc1e6e6a78443a5098089565b4004ac7f0679e6080b96b9c009b0a79660f70b0bc6e5e967fc488db399064a3f68c35e89b068744a2f53aebbfc0107cee3f560'
         'f96fa6000ccddccc0ea7d20f9e071648405e0532c03d788e64e05b9852b32c1fe7d941bd764de411bef9960c4e6ed31bfed3e358c43560f4858a3af730c4a4d4')
-depends=('intel-oneapi-common' 'intel-oneapi-tcm' 'sh' 'gcc-libs' 'glibc' 'hwloc')
+depends=(
+  'intel-oneapi-common'
+  'intel-oneapi-tcm'
+  'sh'
+  'libgcc'
+  'libstdc++'
+  'glibc'
+  'hwloc'
+)
 conflicts=('intel-oneapi-basekit')
 noextract=(
     "${pkgname}-${_majmin}-${_pkgver}_amd64.deb"
