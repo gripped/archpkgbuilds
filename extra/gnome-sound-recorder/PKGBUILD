@@ -25,7 +25,7 @@ makedepends=(
 )
 groups=(gnome-extra)
 source=(
-  "git+https://gitlab.gnome.org/GNOME/gnome-sound-recorder.git#tag=$pkgver"
+  "git+https://gitlab.gnome.org/Archive/gnome-sound-recorder.git#tag=$pkgver"
   0001-Replace-emblem-icon-removed-from-Adwaita.patch
   0002-Add-D-Bus-service-file.patch
 )
@@ -36,7 +36,7 @@ b2sums=('be3e4e1a0508075bc1e0fe895e2fa0660a1b5cbc4bb69db61c76c7aef0630e1eaa5567e
 prepare() {
   cd $pkgname
 
-  # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/193
+  # https://gitlab.gnome.org/Archive/gnome-sound-recorder/-/merge_requests/193
   # Remove unnecessary help-overlay creation
   git cherry-pick -n 3d9a5aab50823f3b6b64c8dd253abc43261d5e6b
   # Do not overwrite the existing window on activation
@@ -45,11 +45,11 @@ prepare() {
   git cherry-pick -n 8547fe753695a332d0efa045dc31a16a84eb8601
 
   # Fix missing icon
-  # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/235
+  # https://gitlab.gnome.org/Archive/gnome-sound-recorder/-/merge_requests/235
   git apply -3 ../0001-Replace-emblem-icon-removed-from-Adwaita.patch
 
   # Add D-Bus service file
-  # https://gitlab.gnome.org/GNOME/gnome-sound-recorder/-/merge_requests/236
+  # https://gitlab.gnome.org/Archive/gnome-sound-recorder/-/merge_requests/236
   git apply -3 ../0002-Add-D-Bus-service-file.patch
 }
 
