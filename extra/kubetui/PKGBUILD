@@ -7,7 +7,9 @@ pkgdesc="A TUI for real-time monitoring and exploration of Kubernetes resources"
 arch=('x86_64')
 url="https://github.com/sarub0b0/kubetui"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('524993d2acfd83f73e78f410c496422983889e570438a80e6ca8d54f73632a650c7414562e613f13d0ad30236ea42b4046ecd4e85ac4fb580bfde11052eab593')
