@@ -9,7 +9,13 @@ pkgdesc="Best-Effort Extent-Same, a btrfs deduplicator daemon"
 arch=('x86_64')
 url="https://github.com/Zygo/bees"
 license=('GPL-3.0-or-later')
-depends=('util-linux-libs' 'bash' 'glibc' 'gcc-libs')
+depends=(
+  'util-linux-libs'
+  'bash'
+  'glibc'
+  'libgcc'
+  'libstdc++'
+)
 makedepends=('btrfs-progs' 'systemd')
 source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/Zygo/bees/archive/v${pkgver}.tar.gz")
 sha256sums=('191caa0d6557f346fec1585743c8b76ca4a40bd6462660a45ec7888753a5cd41')
