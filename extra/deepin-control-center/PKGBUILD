@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.81
+pkgver=6.1.83
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -22,7 +22,7 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('37d44765512a9073c4c34a40d08005e7bac713897e871c962dafb16c37d0f35000615d2380223e92725de121e8a66cc2de4b35251e3092c75c5330175b4b37fd')
+sha512sums=('ecb74f1586b08237d5db9a105d6d646955c09cc2992c558eaed100a5953e777f3bace6584843c1efb603421869ad16e53a0a37632a741ba6975b819d3d215368')
 
 prepare() {
   mkdir -p build
@@ -30,13 +30,20 @@ prepare() {
   cd dde-control-center
 
   # Adapt the wallpaper-manager protocol used by treeland-protocols 0.5.8+.
-  # https://github.com/linuxdeepin/dde-control-center/commit/f791e7f374212364de9e08320886651614640da7
+  # https://github.com/linuxdeepin/dde-control-center/pull/3209
   git cherry-pick -n f791e7f374212364de9e08320886651614640da7
   # Remove stale PersonalizationWallpaperContext references.
-  # https://github.com/linuxdeepin/dde-control-center/commit/f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f
+  # https://github.com/linuxdeepin/dde-control-center/pull/3297
   git diff f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f^ f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f -- \
     src/plugin-personalization/operation/treelandworker.cpp \
     src/plugin-personalization/operation/treelandworker.h | git apply
+
+  # Use the structured EventLogger API provided by deepin-api 6.0.40+.
+  # https://github.com/linuxdeepin/dde-control-center/pull/3192
+  git diff c687c0da264bc30c50c791c9a2a636a1bd54d0b6^ c687c0da264bc30c50c791c9a2a636a1bd54d0b6 -- \
+    CMakeLists.txt \
+    src/dde-control-center/CMakeLists.txt \
+    src/dde-control-center/dccmanager.cpp | git apply
 }
 
 build() {
