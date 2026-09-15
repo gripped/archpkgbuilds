@@ -3,10 +3,10 @@
 _project=lua-TestMore
 pkgbase=${_project,,}
 _rockname=${pkgbase#lua-}
-pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname")
+pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
 pkgver=0.3.7
 _rockrel=1
-pkgrel=1
+pkgrel=2
 pkgdesc='A Lua port of the Perl Test::More unit testing framework'
 arch=(any)
 url="https://framagit.org/fperrad/$_project"
@@ -29,6 +29,10 @@ _package() {
 }
 
 package_lua-testmore() {
+	_package 5.5
+}
+
+package_lua54-testmore() {
 	_package 5.4
 }
 
