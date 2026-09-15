@@ -6,7 +6,9 @@ pkgdesc="A super simple reverse proxy with TLS support"
 arch=('x86_64')
 url="https://github.com/svenstaro/proxyboi"
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('rust')
 options=('!lto')
 source=($pkgname-$pkgver.tar.gz::https://github.com/svenstaro/proxyboi/archive/v${pkgver}.tar.gz)
