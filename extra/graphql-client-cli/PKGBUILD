@@ -12,14 +12,19 @@ source=("$pkgname-$pkgver.tar.gz::https://github.com/graphql-rust/graphql-client
 sha512sums=('1fdbfe7e43471167e25d4748028828d99d7ecc67fd38fd4d2f33da18bfecc6827d9ebfceabaa545e8959c61ea8f94967943696d8ba359d9bacd5fd7535554caf')
 options=('!lto')
 
+prepare() {
+    cd "graphql-client-$pkgver"
+    cargo fetch --locked --target host-tuple
+}
+
 build() {
     cd "graphql-client-$pkgver"
-    cargo build --package graphql_client_cli --release
+    cargo build --package graphql_client_cli --frozen --release
 }
 
 check() {
     cd "graphql-client-$pkgver"
-    cargo test --package graphql_client_cli
+    cargo test --frozen --package graphql_client_cli
 }
 
 package() {
