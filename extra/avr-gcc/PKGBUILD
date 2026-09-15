@@ -14,7 +14,14 @@ pkgdesc='The GNU AVR Compiler Collection'
 arch=(x86_64)
 license=(GPL LGPL FDL custom)
 url='http://gcc.gnu.org/'
-depends=($_target-binutils gcc-libs libmpc libisl zstd)
+depends=(
+  $_target-binutils
+  libgcc
+  libstdc++
+  libmpc
+  libisl
+  zstd
+)
 optdepends=('avr-libc: Standard C library for Atmel AVR development')
 options=(!emptydirs !lto)
 source=(https://ftp.gnu.org/gnu/gcc/gcc-$pkgver/gcc-$pkgver.tar.xz{,.sig}
