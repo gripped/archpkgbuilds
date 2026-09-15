@@ -7,8 +7,8 @@ pkgrel=1
 pkgdesc="A command-line sampling profiler for macOS and Linux"
 arch=('x86_64')
 url="https://github.com/mstange/samply"
-license=('Apache' 'MIT')
-depends=('gcc-libs')
+license=('Apache-2.0 OR MIT')
+depends=('glibc' 'libgcc' 'sqlite3')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-v$pkgver.tar.gz")
 sha512sums=('2e26ba41a4361fc35ae03b098d708e047f44a04a9d104600c9323a395f276c3e84dd205ae983b911112b4d091fe163e14003ac58f5ac565ba3bd7f857747ac96')
@@ -17,16 +17,25 @@ options=('!lto')
 prepare() {
   mv "$pkgname-$pkgname-v$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver/$pkgname"
-  cargo fetch --target "$(rustc -vV | sed -n 's/host: //p')" --locked
+  cargo fetch --target host-tuple --locked
 }
 
 build() {
   cd "$pkgname-$pkgver/$pkgname"
+
+  export CARGO_PROFILE_RELEASE_LTO="true"
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+
   cargo build --frozen --release
 }
 
 check() {
   cd "$pkgname-$pkgver/$pkgname"
+
+  export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
+
   cargo test --frozen
 }
 
