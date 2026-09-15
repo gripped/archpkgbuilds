@@ -8,7 +8,9 @@ pkgdesc='Minimal X screenshot utility'
 arch=('x86_64')
 url=https://github.com/neXromancers/shotgun
 license=('MPL2')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('git' 'rust')
 optdepends=(
   'hacksaw: for area/window selection'
@@ -19,7 +21,7 @@ b2sums=('fa4259a553528484c8a2d959fff4eac6a608cf4c22c68f4c55326310dd11530c864a13e
 
 prepare() {
   cd shotgun-$pkgver
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
