@@ -12,20 +12,22 @@ groups=(pantheon)
 depends=(
   accountsservice
   cairo
+  dconf
   gdk-pixbuf2
+  glib2
   glibc
   gnome-desktop
-  libgdk-3.so
+  granite
+  graphene
+  gtk3
+  hicolor-icon-theme
   libgee
-  libgio-2.0.so
-  libglib-2.0.so
   libgl
-  libgobject-2.0.so
-  libgranite.so
-  libgtk-3.so
-  libhandy-1.so
+  libhandy
   lightdm
+  libx11
   mutter46
+  wayland
 )
 makedepends=(
   cmake
@@ -34,9 +36,7 @@ makedepends=(
   libglvnd
   vala
 )
-install=lightdm-pantheon-greeter.install
-_tag=a9e5386c0ec07a1c4b885a5db4f68c216aa5e39c
-source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#tag=${_tag})
+source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#tag=$pkgver)
 b2sums=('2be21ec468c54c183fa22380f1f1d44aa826efd39572c0870aa5b48edf07c18c864d5c16e882f45567419f8c532e0a0f7ce0437b4e8da0a92a5670746bedda1b')
 
 pkgver() {
@@ -50,6 +50,16 @@ build() {
 }
 
 package() {
+  depends+=(
+    libgdk-3.so
+    libgtk-3.so
+    libgio-2.0.so
+    libglib-2.0.so
+    libgobject-2.0.so
+    libgranite.so
+    libhandy-1.so
+  )
+
   meson install -C build --destdir "$pkgdir"
 }
 
