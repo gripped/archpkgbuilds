@@ -67,7 +67,7 @@ index 4b9fcbc4..74bc47dd 100644
          <file>qml/Utils/ImageInputHandler.qml</file>
          <file>qml/Utils/RightMenuItem.qml</file>
 diff --git a/src/main.cpp b/src/main.cpp
-index 63cc92f9..e85097ae 100644
+index 24d02cd0..2120f724 100644
 --- a/src/main.cpp
 +++ b/src/main.cpp
 @@ -4,7 +4,6 @@
@@ -78,18 +78,19 @@ index 63cc92f9..e85097ae 100644
  #include "src/dbus/applicationadpator.h"
  #include "src/declarative/mousetrackitem.h"
  #include "src/declarative/pathviewrangehandler.h"
-@@ -138,11 +137,6 @@ int main(int argc, char *argv[])
-         providerCache->removeImageCache(fileName);
+@@ -174,12 +173,6 @@ int main(int argc, char *argv[])
      });
+     qCDebug(logImageViewer) << "Connect signal imageFileChanged.";
  
 -    // OCR分析工具
 -    auto liveTextAnalyzer = new LiveTextAnalyzer;
 -    engine.rootContext()->setContextProperty("liveTextAnalyzer", liveTextAnalyzer);
 -    engine.addImageProvider(QLatin1String("liveTextAnalyzer"), liveTextAnalyzer);
+-    qCDebug(logImageViewer) << "LiveTextAnalyzer registered.";
 -
      // 判断命令行数据，在 QML 前优先加载
      if (!cliParam.isEmpty()) {
-         QStringList filePaths = fileControl.getDirImagePath(cliParam);
+         qCDebug(logImageViewer) << "Commandline parameter is not empty, processing initial image.";
 diff --git a/src/qml/ImageViewer.qml b/src/qml/ImageViewer.qml
 index da8766d7..e02e0b36 100644
 --- a/src/qml/ImageViewer.qml
@@ -356,7 +357,7 @@ index 577c0a39..41f74d38 100644
          text: qsTr("Slide show")
  
 diff --git a/src/src/filecontrol.cpp b/src/src/filecontrol.cpp
-index 4bacf1fb..60f07ed8 100644
+index 1e64f157..c2d47cc7 100644
 --- a/src/src/filecontrol.cpp
 +++ b/src/src/filecontrol.cpp
 @@ -7,7 +7,6 @@
@@ -367,15 +368,20 @@ index 4bacf1fb..60f07ed8 100644
  #include "imagedata/imageinfo.h"
  
  #include <DSysInfo>
-@@ -84,7 +83,6 @@ QUrl UrlInfo(QString path)
- FileControl::FileControl(QObject *parent)
+@@ -92,11 +91,10 @@ FileControl::FileControl(QObject *parent)
      : QObject(parent)
  {
+     qCDebug(logImageViewer) << "FileControl constructor entered.";
 -    m_ocrInterface = new OcrInterface("com.deepin.Ocr", "/com/deepin/Ocr", QDBusConnection::sessionBus(), this);
      m_shortcutViewProcess = new QProcess(this);
      m_config = LibConfigSetter::instance();
      imageFileWatcher = ImageFileWatcher::instance();
-@@ -411,34 +409,6 @@ bool FileControl::isCanDelete(const QString &path)
+-    qCDebug(logImageViewer) << "OCR interface, shortcut view process, config, and image file watcher initialized.";
++    qCDebug(logImageViewer) << "Shortcut view process, config, and image file watcher initialized.";
+ 
+     QObject::connect(imageFileWatcher, &ImageFileWatcher::imageFileChanged, this, &FileControl::imageFileChanged);
+     qCDebug(logImageViewer) << "Connected imageFileWatcher::imageFileChanged signal.";
+@@ -453,41 +451,6 @@ bool FileControl::isCanDelete(const QString &path)
      return bRet;
  }
  
@@ -389,14 +395,20 @@ index 4bacf1fb..60f07ed8 100644
 -    if (Types::MultiImage != info.type()) {   // 非多页图使用路径直接进行识别
 -        qCDebug(logImageViewer) << "Processing single page image for OCR";
 -        m_ocrInterface->openFile(localPath);
+-        qCDebug(logImageViewer) << "Called OCR interface openFile for single image.";
 -    } else {   // 多页图需要确定识别哪一页
 -        qCDebug(logImageViewer) << "Processing multi-page image for OCR, page:" << index;
 -        QImageReader imageReader(localPath);
+-        qCDebug(logImageViewer) << "ImageReader created for: " << localPath;
 -        imageReader.jumpToImage(index);
+-        qCDebug(logImageViewer) << "Jumped to image index: " << index;
 -        auto image = imageReader.read();
+-        qCDebug(logImageViewer) << "Image read from reader.";
 -        auto tempDir = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
+-        qCDebug(logImageViewer) << "Cache location: " << tempDir;
 -        QDir dir(tempDir);
 -        if (!dir.exists()) {
+-            qCDebug(logImageViewer) << "Cache directory does not exist, creating it.";
 -            dir.mkpath(".");
 -        }
 -        auto tempFileName = tempDir + QDir::separator() + "rec.png";
@@ -404,43 +416,49 @@ index 4bacf1fb..60f07ed8 100644
 -        image.save(tempFileName);
 -        qCDebug(logImageViewer) << "Saved temporary image for OCR:" << tempFileName;
 -        m_ocrInterface->openFile(tempFileName);
+-        qCDebug(logImageViewer) << "Called OCR interface openFile for temporary image.";
 -    }
 -}
 -
  QString FileControl::parseCommandlineGetPath()
  {
-     QString filepath = "";
-@@ -697,18 +671,6 @@ bool FileControl::isCheckOnly()
+     qCDebug(logImageViewer) << "Parsing commandline to get path.";
+@@ -829,22 +792,6 @@ bool FileControl::isCheckOnly()
      return true;
  }
  
 -bool FileControl::isCanSupportOcr(const QString &path)
 -{
+-    qCDebug(logImageViewer) << "FileControl::isCanSupportOcr() called for path: " << path;
 -    bool bRet = false;
 -    QString localPath = QUrl(path).toLocalFile();
 -    QFileInfo info(localPath);
 -    imageViewerSpace::ImageType type = LibUnionImage_NameSpace::getImageType(localPath);
+-    qCDebug(logImageViewer) << "Image type: " << type << ", isReadable: " << info.isReadable();
 -    if (imageViewerSpace::ImageTypeDynamic != type && info.isReadable()) {
+-        qCDebug(logImageViewer) << "Image supports OCR. Returning true.";
 -        bRet = true;
 -    }
+-    qCDebug(logImageViewer) << "Image does not support OCR. Returning false.";
 -    return bRet;
 -}
 -
  bool FileControl::isCanRename(const QString &path)
  {
-     bool bRet = false;
-@@ -789,10 +751,6 @@ QString FileControl::createShortcutString()
-     shortcut2.insert("name", tr("Exit fullscreen"));
+     qCDebug(logImageViewer) << "FileControl::isCanRename() called for path: " << path;
+@@ -948,11 +895,6 @@ QString FileControl::createShortcutString()
      shortcut2.insert("value", "Esc");
+     qCDebug(logImageViewer) << "Added Exit fullscreen shortcut.";
  
 -    QJsonObject shortcut3;
 -    shortcut3.insert("name", tr("Extract text"));
 -    shortcut3.insert("value", "Alt + O");
+-    qCDebug(logImageViewer) << "Added Extract text shortcut.";
 -
      QJsonObject shortcut4;
      shortcut4.insert("name", tr("Slide show"));
      shortcut4.insert("value", "F5");
-@@ -856,7 +814,6 @@ QString FileControl::createShortcutString()
+@@ -1023,7 +965,6 @@ QString FileControl::createShortcutString()
      QJsonArray shortcutArray1;
      shortcutArray1.append(shortcut1);
      shortcutArray1.append(shortcut2);
@@ -448,7 +466,7 @@ index 4bacf1fb..60f07ed8 100644
      shortcutArray1.append(shortcut4);
      shortcutArray1.append(shortcut5);
      shortcutArray1.append(shortcut6);
-@@ -893,25 +850,8 @@ QString FileControl::createShortcutString()
+@@ -1060,25 +1001,8 @@ QString FileControl::createShortcutString()
      shortcut_group2.insert("groupName", tr("Settings"));
      shortcut_group2.insert("groupItems", shortcutArray2);
  
