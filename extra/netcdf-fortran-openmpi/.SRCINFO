@@ -1,6 +1,6 @@
 pkgbase = netcdf-fortran-openmpi
 	pkgdesc = NetCDF fortran bindings with parallel support (openmpi version)
-	pkgver = 4.6.2
+	pkgver = 4.6.4
 	pkgrel = 1
 	url = https://github.com/Unidata/netcdf-fortran
 	arch = x86_64
@@ -10,14 +10,15 @@ pkgbase = netcdf-fortran-openmpi
 	makedepends = gcc-fortran
 	makedepends = git
 	makedepends = doxygen
-	depends = gcc-libs
+	depends = libgcc
+	depends = libgfortran
 	depends = netcdf-openmpi
 	depends = curl
 	provides = netcdf-fortran
 	conflicts = netcdf-fortran
 	options = !makeflags
 	options = staticlibs
-	source = git+https://github.com/Unidata/netcdf-fortran#tag=v4.6.2
-	sha256sums = fce90dea1f796f359634c9550515f3c5139be472f4aa016f845607a17c91edab
+	source = git+https://github.com/Unidata/netcdf-fortran#tag=v4.6.4
+	sha256sums = 47d8f0e950531c30db616d2584bee722950f1a75bc740c431185a2b6a69a1028
 
 pkgname = netcdf-fortran-openmpi
