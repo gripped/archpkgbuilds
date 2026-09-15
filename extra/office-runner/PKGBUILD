@@ -32,7 +32,7 @@ prepare() {
   # Don't use deprecated path for metainfo file
   sed -i 's|$(datarootdir)/appdata|$(datarootdir)/metainfo|' src/Makefile.am
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
