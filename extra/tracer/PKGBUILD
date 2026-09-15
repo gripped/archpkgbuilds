@@ -6,9 +6,9 @@ pkgrel=2
 pkgdesc="Tracer finds outdated running applications in your system"
 arch=('any')
 url="http://tracer-package.com/"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=(python python-distro python-psutil python-six python-dbus pyalpm)
-makedepends=(python-setuptools)
+makedepends=(python-setuptools python-build python-installer python-wheel)
 checkdepends=(python-pytest)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/FrostyX/tracer/archive/refs/tags/$pkgname-$pkgver-1.tar.gz")
 sha512sums=('bc41c758568a233ba5bcbdb065c2a8bba166736a35188682227811b95ff094ad47246d46ee6e32e931f51f9fca793f12a9222ee1616ca23d462c73abf76899f6')
@@ -26,12 +26,14 @@ check() {
 build() {
     cd "$pkgname-$pkgname-$pkgver-1"
 
-    python setup.py build
+    python -m build --wheel --no-isolation
 }
 
 package() {
     cd "$pkgname-$pkgname-$pkgver-1"
 
-    python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+    python -m installer --destdir="$pkgdir" dist/*.whl
+    install -Dm644 scripts/tracer.bash_completion \
+        "$pkgdir/usr/share/bash-completion/completions/$pkgname"
     install -Dm644 LICENCE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
