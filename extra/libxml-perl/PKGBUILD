@@ -28,6 +28,4 @@ check() {
 
 package() {
   make -C $pkgname-$pkgver/ DESTDIR="$pkgdir" install
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
