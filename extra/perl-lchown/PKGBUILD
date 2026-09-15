@@ -34,5 +34,4 @@ check() {
 package() {
     cd "${srcdir}/Lchown-${pkgver}"
     ./Build install
-    find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
