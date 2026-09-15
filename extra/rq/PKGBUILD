@@ -8,8 +8,10 @@ pkgdesc='Record Query, a tool for record analysis and transformation'
 arch=(x86_64)
 url="https://github.com/dflemstr/$pkgname"
 license=(Apache-2.0)
-depends=(gcc-libs
-         glibc)
+depends=(
+  libgcc
+  glibc
+)
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 options=(!lto)
@@ -18,7 +20,7 @@ sha256sums=('4c3fc4427d02271c93a2cf4a784887982e97f9aba4946900aad1a35b142f9a47')
 
 prepare() {
 	cd "$_archive"
-	cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+	cargo fetch --locked --target "$(rustc --print host-tuple)"
 	sed -i -e '/deny(warnings)/d' src/lib.rs
 }
 
