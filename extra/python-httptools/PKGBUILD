@@ -15,6 +15,8 @@ depends=(
 makedepends=(
   cython
   git
+  python-build
+  python-installer
   python-setuptools
   python-wheel
 )
@@ -26,6 +28,7 @@ b2sums=('7d90b76b7482c48ccd0e29e7ea11eb59956bb0b7dc4e1b9185f21ac32954ad1d5563e17
 prepare() {
   cd httptools
   sed 's/CYTHON_DEPENDENCY =.*/CYTHON_DEPENDENCY = "Cython"/' -i setup.py
+  sed 's/setuptools==.*"/setuptools"/' -i pyproject.toml
   git rm vendor/llhttp
   git submodule init
   git config submodule.vendor/http-parser.url "$srcdir"/http-parser
@@ -34,12 +37,14 @@ prepare() {
 
 build() {
   cd httptools
-  python setup.py build build_ext --use-system-llhttp
+  python -m build --wheel --no-isolation \
+    --config-setting="--build-option=build_ext" \
+    --config-setting="--build-option=--use-system-llhttp"
 }
 
 package() {
   cd httptools
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
