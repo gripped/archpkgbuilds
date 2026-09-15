@@ -15,6 +15,8 @@ source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('63c95e4b86d99bd913fafe56c89dddd52e11d7bd84e138d236043133b0a7103a9de7393265c5ad387a61218c1f79a458460dca213ff0e9e9a4a65be9313e6580')
 
 prepare() {
+	# Update shebangs to call `ash` via `busybox` explicitly
+	# Arch's busybox package intentionally doesn't provide applet symlinks
 	find -type f | while read file; do
 		sed -E -i "${file}" \
 			-e '1s|#!/usr/bin/env ash$|#!/bin/busybox ash|'
