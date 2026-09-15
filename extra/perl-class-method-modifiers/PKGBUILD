@@ -42,7 +42,6 @@ package() {
     PERL_MB_OPT="--installdirs vendor --destdir '"$pkgdir"'" \
     MODULEBUILDRC=/dev/null
   make install
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
 
 # Local Variables:
