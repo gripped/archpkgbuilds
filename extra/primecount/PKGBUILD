@@ -19,12 +19,17 @@ source=(git+https://github.com/kimwalisch/primecount#tag=v$pkgver)
 sha256sums=('9823154ad4e2708761e60c7b547bca6ddfe6965ca97c54c3748169b9825a32a6')
 
 build() {
+  # WITH_MULTIARCH builds x86 CPU-dispatch variants (POPCNT/AVX512), invalid on
+  # non-x86; WITH_FLOAT128 needs x86 libquadmath. Keep the x86_64 behaviour; use the
+  # portable path on other architectures. Build system injects the target arch.
+  local _arch_opts=(-DWITH_FLOAT128=ON)
+  [[ "$CARCH" != x86_64 ]] && _arch_opts=(-DWITH_MULTIARCH=OFF)
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_LIBPRIMESIEVE=OFF \
     -DBUILD_STATIC_LIBS=OFF \
     -DBUILD_SHARED_LIBS=ON \
-    -DWITH_FLOAT128=ON
+    "${_arch_opts[@]}"
   cmake --build build
 }
 
