@@ -33,7 +33,7 @@ checkdepends=(
   xorg-server-xvfb
 )
 source=(
-  "git+https://github.com/xkbcommon/libxkbcommon#tag=xkbcommon-$pkgver"
+  "git+https://github.com/xkbcommon/libxkbcommon#tag=xkbcommon-${pkgver/[a-z]/-&}"
 )
 b2sums=('c5d8814cb27709b1318a4c0af2e67b96753203c17ee83479d82c2b1aded6cad237b14a9a8a362079f4553232560322f36bc781287a41ce0291dfa844b0620b9b')
 
