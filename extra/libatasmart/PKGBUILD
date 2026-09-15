@@ -28,7 +28,7 @@ prepare() {
   patch -Np1 -i ../0001-Dont-test-undefined-bits.patch
   patch -Np1 -i ../0002-Drop-our-own-many-bad-sectors-heuristic.patch
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
