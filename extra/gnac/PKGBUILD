@@ -93,7 +93,7 @@ prepare() {
   # Don't install icon into pixmaps
   sed -i '/pixmaps/d' data/icons/Makefile.am
 
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
