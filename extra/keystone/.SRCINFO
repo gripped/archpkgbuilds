@@ -7,7 +7,8 @@ pkgbase = keystone
 	license = GPL2
 	makedepends = cmake
 	makedepends = ninja
-	makedepends = gcc-libs
+	makedepends = libgcc
+	makedepends = libstdc++
 	makedepends = python
 	makedepends = python-setuptools
 	options = staticlibs
@@ -20,7 +21,8 @@ pkgbase = keystone
 	b2sums = 8a7948296c38f2f6c09758d714c2c5c705035ec94612a636361f11ecd45a069c80576147fee69dc9f30fe4d8f516c36587bf37e987286d97ae7281c563a39aa5
 
 pkgname = keystone
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	provides = libkeystone.so
 
 pkgname = python-keystone

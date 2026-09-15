@@ -8,7 +8,14 @@ pkgdesc='Lightweight multi-platform, multi-architecture assembler framework'
 url='https://www.keystone-engine.org/'
 arch=('x86_64')
 license=('GPL2')
-makedepends=('cmake' 'ninja' 'gcc-libs' 'python' 'python-setuptools')
+makedepends=(
+  'cmake'
+  'ninja'
+  'libgcc'
+  'libstdc++'
+  'python'
+  'python-setuptools'
+)
 options=('staticlibs' '!emptydirs')
 source=(https://github.com/keystone-engine/keystone/archive/${pkgver}/${pkgbase}-${pkgver}.tar.gz
         gcc-15.patch)
@@ -57,7 +64,10 @@ build() {
 }
 
 package_keystone() {
-  depends=('gcc-libs')
+  depends=(
+    'libgcc'
+    'libstdc++'
+  )
   provides=('libkeystone.so')
   cd ${pkgbase}-${pkgver}
   DESTDIR="${pkgdir}" ninja -C build-shared install
