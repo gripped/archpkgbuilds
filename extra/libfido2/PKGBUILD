@@ -35,6 +35,10 @@ build() {
   make -C build VERBOSE=1
 }
 
+check() {
+  make -C ${pkgname}-${pkgver}/build test
+}
+
 package() {
   cd ${pkgname}-${pkgver}
   make -C build DESTDIR="${pkgdir}" install
