@@ -87,7 +87,7 @@ prepare() {
   sed -i '/Set default language/i export XDG_CURRENT_DESKTOP="X-Sugar"\n' bin/sugar.in
 
   mkdir m4
-  autoreconf -fi
+  autoreconf -fiv
 }
 
 build() {
