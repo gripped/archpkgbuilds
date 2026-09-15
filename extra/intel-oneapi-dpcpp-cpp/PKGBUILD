@@ -14,10 +14,19 @@ b2sums=('a4307b1ba59fce43483755eb9d1070ebf1a4b86cb21bba084a65f711b1b2b76315141ab
 noextract=(
     "${pkgname}-${_majmin}-${_pkgver}_amd64.deb"
 )
-depends=('intel-oneapi-compiler-dpcpp-cpp-common' 'intel-oneapi-compiler-dpcpp-cpp-runtime'
-         'intel-oneapi-compiler-shared-runtime' 'intel-oneapi-compiler-shared'
-         'intel-oneapi-tbb' 'intel-oneapi-dev-utilities' 'intel-oneapi-common'
-         'gcc-libs' 'glibc' 'bash' 'zlib')
+depends=(
+  'intel-oneapi-compiler-dpcpp-cpp-common'
+  'intel-oneapi-compiler-dpcpp-cpp-runtime'
+  'intel-oneapi-compiler-shared-runtime'
+  'intel-oneapi-compiler-shared'
+  'intel-oneapi-tbb'
+  'intel-oneapi-dev-utilities'
+  'intel-oneapi-common'
+  'libgcc'
+  'glibc'
+  'bash'
+  'zlib'
+)
 conflicts=('intel-oneapi-basekit')
 
 package() {
