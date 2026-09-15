@@ -44,7 +44,8 @@ build() {
 package_stk() {
   depends=(
     alsa-lib libasound.so
-    gcc-libs
+    libgcc
+    libstdc++
     glibc
     jack libjack.so
   )
