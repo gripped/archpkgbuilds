@@ -36,5 +36,4 @@ package() {
 	cd Log-Report-Optional-$pkgver
 	sanitize
 	make install DESTDIR="$pkgdir"
-	find "$pkgdir" \( -name .packlist -o -name perllocal.pod \) -delete
 }
