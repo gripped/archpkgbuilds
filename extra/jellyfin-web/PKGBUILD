@@ -2,7 +2,7 @@
 # Maintainer: Giovanni Harting <anonfunc@archlinux.org>
 
 pkgname=jellyfin-web
-pkgver=10.11.11
+pkgver=12.0
 pkgrel=1
 pkgdesc='Web client for Jellyfin'
 arch=(any)
@@ -11,28 +11,14 @@ license=(GPL-2.0-or-later)
 makedepends=(
   git
   nodejs
-  'npm=10.9.2'
+  npm
 )
-source=(
-  "$pkgname::git+https://github.com/jellyfin/jellyfin-web#tag=v$pkgver"
-  remove-npm-version-constraint.patch
-)
-sha512sums=('57b2dd9c83a61d856fd64220b23f18049a9c2be896fafb4f608d535828e75cfe24721744958876a8118dcfe1348d293813279560ec35bae4b34d1add8e54fcc2'
-            '63b57be505e31bb91469db84b96d6bb2d363324c4a4cde7a1e5f476a5aa6a6fb4d962871a307317ea81dce7cbac6864982a39aeb470dc632492d332a9e8dbd11')
-b2sums=('0a3083f61736027f757baf72081703e7d7895f126c71062c3b182bf53f4a3aad978026dbfba67d75e77a52394ce339fcda4cbbd74af3bd398ab770e5e23a2523'
-        'f7c3d837a0d33b9d6ef4a52d43111258795dd411627d5fad050d06247ea29d08625fb13bf1953063ba46e56f85d097b1edea316510c7b0a564f90f1d66d1a3cc')
+source=("$pkgname::git+https://github.com/jellyfin/jellyfin-web#tag=v$pkgver")
+sha512sums=('2344ccd8884777474df019d1200812aa0ed18dfb851e731e1cef9417abe9dc686a0d48e3112ac2e86fb1db205a1f690884bc30f31e8c5da52bd5a824a740e00a')
+b2sums=('19b222b5189c6913d18fc83037e2aa3d75b0fb70d5f5d928ba075f0969e678feddb7c1333dfab7ab4088d9809dcce69bb9ca8af99b38c9e62ba7de1c1e859150')
 
 prepare() {
   cd "$pkgname"
-
-  # wtf is this crud?
-  # error code EBADENGINE
-  # error engine Unsupported engine
-  # error engine Not compatible with your version of node/npm: jellyfin-web@10.11.0
-  # error notsup Not compatible with your version of node/npm: jellyfin-web@10.11.0
-  # error notsup Required: {"node":">=20.0.0","npm":">=9.6.4 <11.0.0","yarn":"YARN NO LONGER USED - use npm instead."}
-  # error notsup Actual:   {"npm":"11.6.2","node":"v24.9.0"}
-  #patch -p1 -i "$srcdir/remove-npm-version-constraint.patch"
 
   # download dependencies
   npm ci --no-audit --no-fund --no-update-notifier
