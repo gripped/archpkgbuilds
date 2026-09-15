@@ -3,7 +3,7 @@
 # Contributor: Tobias Roettger <toroettg@gmail.com>
 
 pkgname=python-platformdirs
-pkgver=4.11.7
+pkgver=4.11.8
 pkgrel=1
 pkgdesc='A library to determine platform-specific system directories'
 arch=(any)
@@ -23,8 +23,8 @@ checkdepends=(
   python-appdirs
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('63ff5eb0f460fa2acfbe351c6da961dc5be0a6a705adb52a975382a547894a9d32a3b2dcdbc3555be465cce63248bb7c4c64e56daa4470320fd20a739501a997')
-b2sums=('9cc449c447e6f7c17bd0a7aa9dde650cb3e66a50be73dff61b247e09c44b3ea20f7e07eea180f34060bee17729f7a078fe0ba03efc3e6a75ac0ac2980a6a1ea3')
+sha512sums=('acc9c118a913ca2973f813e5b92b7ff92dad996abda2b55a56d2fe26d2fb72682b4c1cc605d3736ab75793a09aec45b3c99455f3a70b0b7cb3c902c57cec1296')
+b2sums=('f50d3e73a61818f7c28689a82217e93db0edad017befb261f5b48c0d05883251fa7f460e78ad4654ea54cf1d231b275aa1058d204dbb55770c179f81b3c5686e')
 
 build() {
   cd "$pkgname"
