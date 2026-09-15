@@ -29,7 +29,6 @@ check() {
 package() {
   cd "${srcdir}/YAML-Tiny-${pkgver}"
   make install DESTDIR="${pkgdir}"
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
 
 # vim:set ts=2 sw=2 et:
