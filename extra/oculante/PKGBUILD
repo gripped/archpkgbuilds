@@ -32,21 +32,17 @@ b2sums=('467404f94d5ccfb41755e7405de5f8d2ef2c7ec8784bc2ad42d95f3a741b3809a567386
 
 prepare() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
-  export CARGO_TARGET_DIR=target
   export TURBOJPEG_SOURCE=pkg-config
   cargo build --release --locked --features 'heif'
 }
 
 check() {
   cd $pkgname
-  export RUSTUP_TOOLCHAIN=stable
   export TURBOJPEG_SOURCE=pkg-config
   cargo test --frozen -- --skip=tests::net --skip=tests::flathub --skip=bench --skip=thumbnails::test_thumbs
 }
