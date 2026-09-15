@@ -7,7 +7,15 @@ pkgdesc="Intel® Open Volume Kernel Library"
 arch=(x86_64)
 url="https://www.openvkl.org/"
 license=(Apache-2.0)
-depends=(embree gcc-libs glibc onetbb openvdb rkcommon)
+depends=(
+  embree
+  libgcc
+  libstdc++
+  glibc
+  onetbb
+  openvdb
+  rkcommon
+)
 makedepends=(boost cmake ispc)
 source=(
   https://github.com/openvkl/openvkl/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
