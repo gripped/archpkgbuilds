@@ -29,7 +29,6 @@ depends=(
 )
 makedepends=(
   boost
-  imagemagick
   zip
 )
 source=(
@@ -48,7 +47,6 @@ prepare() {
   patch -Np1 -i ../codeblocks-fedora.patch
 
   # Install icon into hicolor directory
-  magick src/mime/codeblocks.png +set date:create +set date:modify -background none -extent 64x64 src/mime/codeblocks.png
   sed -i 's|$(datadir)/pixmaps|$(datadir)/icons/hicolor/64x64/apps|' src/mime/Makefile.am
 
   autoreconf -fiv
