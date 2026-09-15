@@ -24,6 +24,7 @@ build() {
     -B build
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5
     -D BUILD_SHARED_LIBS=ON
     -S $pkgname-$pkgver
     -Wno-dev
