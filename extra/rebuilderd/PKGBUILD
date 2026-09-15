@@ -2,14 +2,14 @@
 
 pkgbase=rebuilderd
 pkgname=(rebuilderd rebuilderd-tools)
-pkgver=0.25.0
+pkgver=0.27.0
 pkgrel=1
 pkgdesc='Independent verification system of binary packages'
 url='https://github.com/kpcyrd/rebuilderd'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 depends=(
-  'gcc-libs'
+  'libgcc' 'libgcc_s.so'
   'glibc'
 )
 makedepends=(
@@ -23,16 +23,16 @@ makedepends=(
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/kpcyrd/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz
         https://github.com/kpcyrd/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz.asc)
-sha512sums=('b1cb36f3d9b416aac208a32e0c76041f04b975c9ea04c4f49f4c8a46856ecd960577e05a40d1278fa2feb326623af816a1dae1e8ad64d72745643f99101ac286'
+sha512sums=('dccbe0708cfc469ca295da8058337dd6c1e65ee7da2cb46c3a17ffaed274f17796385b0d7d22810a96190976b8b249e0d7a83ed074a4f21329bcdf0956d7ddb2'
             'SKIP')
-b2sums=('d8700167849f09eb2667e198f5c91f4a910566f3b1a7100a4f835181b9aff17892d9c976665e5dc60c6bec74ac9262d673c9add3cbe62470f90cc5fd4912d2dc'
+b2sums=('b48ae8a3e98f20661052ba3cde0af95fdf00ae501524b4bc35a9cb0ae6c7ac4219a5924da192f0d8a8cc3a4b8c729f26101c9844a658eee59e4be9ddc5271407'
         'SKIP')
 
 validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd ${pkgbase}-${pkgver}
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -43,7 +43,8 @@ build() {
 
 check() {
   cd ${pkgbase}-${pkgver}
-  cargo test --frozen --workspace
+  # Running web-api tests exceeds file descriptor limits on computers with many cores
+  cargo test --frozen --workspace -- --skip api::v1::
 }
 
 package_rebuilderd() {
@@ -53,6 +54,7 @@ package_rebuilderd() {
     'libsqlite3.so'
     'libzstd.so'
     'rebuilderd-tools'
+    'sh'
   )
   backup=('etc/rebuilderd.conf'
           'etc/rebuilderd-sync.conf'
