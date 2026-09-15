@@ -8,7 +8,12 @@ pkgdesc="Linker from the LLVM project (Version 18)"
 arch=('x86_64')
 url="https://lld.llvm.org/"
 license=('Apache-2.0 WITH LLVM-exception')
-depends=('llvm18-libs' 'gcc-libs' 'zlib' 'zstd')
+depends=(
+  'llvm18-libs'
+  'libstdc++'
+  'zlib'
+  'zstd'
+)
 makedepends=('llvm18' 'cmake' 'ninja' 'python-sphinx')
 checkdepends=('llvm')
 _source_base=https://github.com/llvm/llvm-project/releases/download/llvmorg-$pkgver
