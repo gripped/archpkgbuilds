@@ -37,7 +37,9 @@ build() {
 
   cd fido2plugin
   CGO_ENABLED=1 CGO_CPPFLAGS="${CPPFLAGS}" CGO_CFLAGS="${CFLAGS}" CGO_CXXFLAGS="${CXXFLAGS}" CGO_LDFLAGS="${LDFLAGS}" \
-    go build -trimpath -mod=readonly -modcacherw -buildmode=plugin -o ../fido2plugin.so .
+    go build -trimpath -mod=readonly -modcacherw -buildmode=plugin \
+       -ldflags="-linkmode external -buildid='' -extldflags \"${LDFLAGS}\"" \
+       -o ../fido2plugin.so .
 
   cd ../..
   ronn docs/manpage.md
