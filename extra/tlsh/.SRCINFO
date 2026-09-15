@@ -7,7 +7,8 @@ pkgbase = tlsh
 	license = Apache-2.0
 	makedepends = cmake
 	makedepends = python
-	makedepends = gcc-libs
+	makedepends = libgcc
+	makedepends = libstdc++
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
@@ -18,10 +19,12 @@ pkgbase = tlsh
 
 pkgname = tlsh
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++
 	provides = libtlsh.so
 
 pkgname = python-tlsh
 	depends = python
 	depends = glibc
-	depends = gcc-libs
+	depends = libgcc
+	depends = libstdc++

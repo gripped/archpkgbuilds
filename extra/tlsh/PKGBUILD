@@ -11,7 +11,8 @@ license=(Apache-2.0)
 makedepends=(
   cmake
   python
-  gcc-libs
+  libgcc
+  libstdc++
   python-build
   python-installer
   python-setuptools
@@ -61,7 +62,8 @@ check() {
 package_tlsh() {
   depends=(
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
   )
   provides=(libtlsh.so)
   cd ${pkgbase}-${pkgver}
@@ -74,7 +76,8 @@ package_python-tlsh() {
   depends=(
     python
     glibc
-    gcc-libs
+    libgcc
+    libstdc++
   )
   cd ${pkgbase}-${pkgver}/py_ext
   python -m installer --destdir="${pkgdir}" dist/*.whl
