@@ -22,5 +22,4 @@ build() {
 package() {
   cd "$srcdir"/Sort-Naturally-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
 }
