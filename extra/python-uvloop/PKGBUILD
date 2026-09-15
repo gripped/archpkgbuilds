@@ -8,7 +8,7 @@ pkgdesc='Ultra fast asyncio event loop'
 arch=(x86_64)
 url=https://github.com/MagicStack/uvloop
 license=(
-  APACHE
+  Apache-2.0
   MIT
 )
 depends=(
@@ -21,6 +21,7 @@ makedepends=(
   git
   python-build
   python-installer
+  python-packaging
   python-setuptools
   python-wheel
 )
@@ -29,6 +30,9 @@ source=(git+https://github.com/MagicStack/uvloop.git#tag=${_tag})
 b2sums=('86b3dec5f32ab030433d2f59bc288500d5cfe8b2ace291beeb6b8307c055fe667ca8c1b07378854d43e5f3f29c22723c2469925605c36ddad9a52926264a6ce0')
 
 prepare() {
+  # setup: Use packaging over pkg_resources
+  # https://github.com/MagicStack/uvloop/pull/727
+  git -C uvloop cherry-pick -n 6eeff672c7493c88b4bc3f6e3f0ea2907fbd5140
   sed 's/self.use_system_libuv = False/self.use_system_libuv = True/' -i uvloop/setup.py
   sed -e 's|>=0.29.36,<0.30.0|>=0.29.36|g' -i uvloop/pyproject.toml
 }
