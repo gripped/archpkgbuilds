@@ -9,7 +9,12 @@ arch=(x86_64)
 pkgdesc="Statistical Language Model based pinyin IME by Sun"
 license=(LGPL)
 url="https://github.com/sunpinyin/sunpinyin"
-depends=(sqlite make gcc-libs)
+depends=(
+  sqlite
+  make
+  libgcc
+  libstdc++
+)
 makedepends=(git scons intltool python)
 optdepends=('sunpinyin-data: Statistical language model data from open-gram project for sunpinyin')
 source=("https://github.com/sunpinyin/sunpinyin/archive/v$_tag/sunpinyin-$_tag.tar.gz")
