@@ -56,8 +56,14 @@ build() {
 }
 
 package_intel-oneapi-compiler-shared-runtime-libs() {
-    depends=('intel-oneapi-common' 'intel-oneapi-openmp' 'glibc' 'gcc-libs'
-             'zlib')
+    depends=(
+      'intel-oneapi-common'
+      'intel-oneapi-openmp'
+      'glibc'
+      'libgcc'
+      'libstdc++'
+      'zlib'
+    )
     conflicts=('intel-oneapi-basekit')
     pkgdesc="${_pkgdesc}: Minimal compiler libraries"
 
@@ -73,8 +79,17 @@ package_intel-oneapi-compiler-shared-runtime-libs() {
 }
 
 package_intel-oneapi-compiler-shared-runtime() {
-    depends=('intel-oneapi-openmp' 'intel-oneapi-common' 'intel-oneapi-compiler-shared-runtime-libs'
-             'libxml2' 'glibc' 'gcc-libs' 'level-zero-loader' 'zlib')
+    depends=(
+      'intel-oneapi-openmp'
+      'intel-oneapi-common'
+      'intel-oneapi-compiler-shared-runtime-libs'
+      'libxml2'
+      'glibc'
+      'libgcc'
+      'libstdc++'
+      'level-zero-loader'
+      'zlib'
+    )
     provides=("${_pkgname}-common" "opencl-driver")
     conflicts=('intel-oneapi-basekit')
     pkgdesc="${_pkgdesc}"
