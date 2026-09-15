@@ -8,7 +8,10 @@ pkgdesc="Achim's Signal Processing LIBrary"
 arch=('x86_64')
 url='https://github.com/AchimTuran/asplib'
 license=('GPL')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+  'libstdc++'
+)
 makedepends=('git' 'cmake')
 source=("git+https://github.com/AchimTuran/asplib.git#commit=$_commit")
 sha256sums=('SKIP')
