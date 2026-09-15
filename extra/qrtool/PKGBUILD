@@ -7,7 +7,9 @@ pkgdesc="An utility for encoding or decoding QR code"
 arch=('x86_64')
 url="https://github.com/sorairolake/qrtool"
 license=('MIT' 'Apache-2.0' 'CC-BY-4.0')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo' 'asciidoctor')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('6dde70434c747c74d3d5f4bf491f2ff0c893c6779ad43db4a562a2bf7bca5ae8a9e3838ee16ebf8fd14c4ee097488ef1c9513f088cf05e2aee63d9dcda2dafaf')
