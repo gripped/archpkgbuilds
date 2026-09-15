@@ -37,7 +37,7 @@ validpgpkeys=(5BDA30D0C2E985E598089E444CF80E80E77C5C35) # Cameron White
 
 prepare() {
   cd Pinta
-  TargetFramework="net$_dotnet_version" dotnet restore Pinta.sln
+  TargetFramework="net$_dotnet_version" dotnet restore Pinta/Pinta.csproj
   sed -i 's|"/icons"|"/pinta/icons"|' Pinta/Main.cs
   autoreconf -fiv
 }
