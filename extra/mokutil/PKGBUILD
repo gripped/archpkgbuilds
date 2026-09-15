@@ -14,6 +14,8 @@ b2sums=('8fc3481b293c5534a354322420e81e5b3f6dd26c3528d2a8792c6d66343c71e093e758f
 
 prepare() {
   cd "${pkgname}"
+  # mokutil: remove unused int_to_b64()
+  git cherry-pick -n ea98ef56fa64e088d968a10c7bc751492abe672f
   autoreconf -f -i
 }
 
