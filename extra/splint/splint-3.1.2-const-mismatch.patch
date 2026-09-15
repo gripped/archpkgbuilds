@@ -1,0 +1,35 @@
+diff --git a/src/Headers/message.h b/src/Headers/message.h
+index 9674a54..aa04dfc 100644
+--- a/src/Headers/message.h
++++ b/src/Headers/message.h
+@@ -7,7 +7,7 @@
+ # define MESSAGE_H
+ 
+ /*@messagelike@*/
+-extern /*@only@*/ cstring message(/*@temp@*/ const char *p_fmt, ...) /*@*/ ;
++extern /*@only@*/ cstring message(/*@temp@*/ char *p_fmt, ...) /*@*/ ;
+ 
+ # else
+ # error "Multiple include"
+diff --git a/src/message.c b/src/message.c
+index 5e55055..1b1fff4 100644
+--- a/src/message.c
++++ b/src/message.c
+@@ -50,7 +50,7 @@ typedef enum
+ ** advances *c to next character.
+ */
+ 
+-static ccode identify_control (const char **s)
++static ccode identify_control (char **s)
+ {
+   char c;
+ 
+@@ -133,7 +133,7 @@ static ccode identify_control (const char **s)
+ */
+ 
+ /*@messagelike@*/ /*@only@*/ cstring
+-message (/*@temp@*/ const char *fmt, ...)
++message (/*@temp@*/ char *fmt, ...)
+ {
+   char c;
+   int lastint = 0;
