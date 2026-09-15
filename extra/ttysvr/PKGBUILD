@@ -7,14 +7,18 @@ pkgdesc="Screen saver for your terminal"
 arch=('x86_64')
 url="https://github.com/cxreiff/ttysvr"
 license=('MIT' 'Apache-2.0')
-depends=('gcc-libs' 'alsa-lib' 'systemd-libs')
+depends=(
+  'libgcc'
+  'alsa-lib'
+  'systemd-libs'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha512sums=('74bab2615698d5064afe802756f3aca66ff949f2b2b653cbd48789a30462413aca4e574905745dbff77e678cbdb12426e15177030b14bf563383dae333a91cd5')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
