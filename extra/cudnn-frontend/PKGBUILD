@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 pkgbase=cudnn-frontend
 pkgname=(${pkgbase} python-${pkgbase})
-pkgver=1.28.0
+pkgver=1.29.0
 pkgrel=1
 pkgdesc="Modern, open-source entry point to the cuDNN library"
 arch=("x86_64")
@@ -23,7 +23,7 @@ makedepends=(
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/cudnn-frontend/archive/refs/tags/v${pkgver}.tar.gz"
 	pyproject.patch)
-sha256sums=('c4c2be237f282d67abee8141b321eee2930464f8a7b3cecb3c3c59e431afa37f'
+sha256sums=('ef76ffd1cb9efd9b2f56e652c98bd000e0f59d1995b602c4d6408281f0e27fdc'
             '4910a5be87991be35d779b23cf3a52bbf6b204cef5560db279a5bb07a8b976a8')
 
 prepare() {
