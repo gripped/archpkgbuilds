@@ -8,7 +8,9 @@ pkgdesc='Your filesystem as a dungeon!'
 arch=('x86_64')
 url='https://github.com/facundoolano/rpg-cli'
 license=('MIT')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz"
   "$pkgname.sh")
@@ -17,7 +19,7 @@ sha256sums=('f3993abe7b73666bc3707760dcc650aa9190cd3e7f06be846a0b6adcbbc46663'
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
