@@ -12,12 +12,17 @@ makedepends=('rust')
 source=($pkgname-$pkgver.tar.gz::https://github.com/oknozor/toml-bombadil/archive/${pkgver}.tar.gz)
 sha512sums=('293abacdb413c98cf9979b58bea2da8df11eee77c45b4268e8e26828ccd464534a390dd3382684b0e202d458a6bb68f840f802aefbc4141d0926dc7ea23c556a')
 
+prepare() {
+  cd "$srcdir/$pkgname-$pkgver"
+  cargo fetch --locked --target host-tuple
+}
+
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   export LIBGIT2_NO_VENDOR=1
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
   export OPENSSL_NO_VENDOR=true
-  cargo build --release --locked
+  cargo build --release --frozen
 }
 
 package() {
