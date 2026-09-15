@@ -8,50 +8,38 @@
 # This must be built against the version of dovecot being used,
 # else mail delivery will fail.
 # Specify the version of dovecot to be used here:
-_dcpkgver=2.4.4
+_dcpkgver=2.4.5
 # Make sure to bump pkgrel if changing this.
 
 _dcmajor="$(awk -F'.' '{printf "%d.%d", $1, $2}' <<< "${_dcpkgver}")"
 
 pkgname=pigeonhole
-pkgver=2.4.4
+pkgver=2.4.5
 pkgrel=1
-
 pkgdesc='Sieve implementation for Dovecot'
 url='https://pigeonhole.dovecot.org/'
 arch=('x86_64')
 license=('LGPL-2.1-only')
-
-depends=("dovecot=${_dcpkgver}")
+depends=(
+  "dovecot=${_dcpkgver}"
+  'glibc'
+)
 makedepends=(python)
-
-conflicts=('dovecot-sieve' 'pigeonhole-hg')
-
+conflicts=(
+  'dovecot-sieve'
+  'pigeonhole-hg'
+)
 source=("https://pigeonhole.dovecot.org/releases/${_dcmajor}/dovecot-pigeonhole-${pkgver}.tar.gz"{,.sig})
-
-sha256sums=('73c54f75359bf613c5c78e570ae98419f9295fe4451db6493e28ecb995bcd214'
-            'SKIP')
+b2sums=('6d34d55dc7fd2a2e0931dd9860064fd8458c9d542223622926d8d63954138d4d7161b971ddb4048b3322660b5bb0ab3df435dfd82c027125233afc48f599595f'
+        'SKIP')
 validpgpkeys=(
   '42F3CD50D4F25A41833BEE3704D62B1E3DFBB4F4' # Stephan Bosch <stephan@rename-it.nl>
   '2BE74AAB3EE754DFB9C80D3318A348AEED409DA1'
   'EF0882079FD4ED32BF8B23B2A1B09EF84EDC5219'
 )
 
-
-prepare() {
-  cd "dovecot-pigeonhole-${pkgver}"
-
-  local filename
-  for filename in "${source[@]}"; do
-    if [[ "$filename" =~ \.patch$ ]]; then
-      patch -p1 -N -l -i "$srcdir/${filename##*/}"
-    fi
-  done
-}
-
 build() {
   cd "dovecot-pigeonhole-${pkgver}"
-
   ./configure \
     --prefix=/usr \
     --with-dovecot=/usr/lib/dovecot \
@@ -62,11 +50,10 @@ build() {
 
 check() {
   cd "dovecot-pigeonhole-${pkgver}"
-  make check || true
+  make check
 }
 
 package() {
   cd "dovecot-pigeonhole-${pkgver}"
-
   make DESTDIR="$pkgdir" install
 }
