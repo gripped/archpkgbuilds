@@ -8,7 +8,9 @@ pkgdesc='Simple command-line utility for sorting inputs by proximity to a path a
 arch=('x86_64')
 url=https://github.com/jonhoo/proximity-sort
 license=('MIT' 'APACHE')
-depends=('gcc-libs')
+depends=(
+  'libgcc'
+)
 makedepends=('rust')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/jonhoo/proximity-sort/archive/refs/tags/v${pkgver}.tar.gz")
 sha256sums=('2642b896af81fbb62902d45f12bca19f8c1827d5f6b152d4eaaf9bc1e3e0166d')
