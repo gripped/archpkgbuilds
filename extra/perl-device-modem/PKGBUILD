@@ -24,6 +24,4 @@ build() {
 package() {
   cd  "$srcdir"/Device-Modem-$pkgver
   make install DESTDIR="$pkgdir"
-  find "$pkgdir" -name '.packlist' -delete
-  find "$pkgdir" -name '*.pod' -delete
 }
