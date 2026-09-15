@@ -50,13 +50,12 @@ validpgpkeys=('CFA6AF15E5C74149FC1D8C086D1655C14CE1C13E') # Florian Pritz <bluew
 
 prepare() {
   cd "${srcdir}/${pkgname}"
-  git config --global protocol.file.allow always
   git submodule init
   git config submodule."application/third_party/mockery".url "${srcdir}/mockery"
   git config submodule."application/third_party/QrCode".url "${srcdir}/QrCode"
   git config submodule."application/third_party/parsedown".url "${srcdir}/parsedown"
   git config submodule."data/tests/exif-orientation-examples".url "${srcdir}/exif-orientation-examples"
-  git submodule update --recursive
+  git -c protocol.file.allow=always submodule update --recursive
 }
 
 build () {
