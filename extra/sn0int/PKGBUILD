@@ -36,7 +36,7 @@ validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
