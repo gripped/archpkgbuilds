@@ -23,5 +23,4 @@ build() {
 package(){
   cd "$srcdir/Class-Accessor-$pkgver"
   make DESTDIR="$pkgdir" install 
-  find "$pkgdir" \( -name '.packlist' -o -name '*.pod' \) -delete
 }
