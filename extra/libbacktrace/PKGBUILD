@@ -7,7 +7,10 @@ pkgdesc="A C library that may be linked into a C/C++ program to produce symbolic
 arch=('x86_64')
 url="https://github.com/ianlancetaylor/libbacktrace"
 license=('BSD-3-Clause')
-depends=('gcc-libs' 'zlib')
+depends=(
+  'libgcc'
+  'zlib'
+)
 makedepends=('git' 'libunwind')
 provides=('libbacktrace.so')
 source=("git+https://github.com/ianlancetaylor/libbacktrace.git"
