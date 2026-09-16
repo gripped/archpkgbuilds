@@ -14,7 +14,7 @@ Subject: [PATCH] Support versioned fusermount
  7 files changed, 21 insertions(+), 6 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 5a2e406924ef..58aa406fbda7 100644
+index 5873baf3518a..d109ae7123d1 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -218,9 +218,14 @@ AC_ARG_WITH([fuse],
@@ -36,7 +36,7 @@ index 5a2e406924ef..58aa406fbda7 100644
  GLIB_TESTS
  
 diff --git a/meson.build b/meson.build
-index 827f44883490..ca7abce32103 100644
+index 04797a63ebca..9fc34acd11fa 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -55,6 +55,13 @@ debugedit = find_program('debugedit', version: '>= 5.0')
@@ -54,10 +54,10 @@ index 827f44883490..ca7abce32103 100644
  subdir('doc')
  if get_option('tests')
 diff --git a/src/builder-context.c b/src/builder-context.c
-index 1467cc7c3a68..6799738606e8 100644
+index 4b130a94d422..7926b6eb40a1 100644
 --- a/src/builder-context.c
 +++ b/src/builder-context.c
-@@ -855,7 +855,7 @@ static char *rofiles_unmount_path = NULL;
+@@ -856,7 +856,7 @@ static char *rofiles_unmount_path = NULL;
  static void
  rofiles_umount_handler (int signum)
  {
@@ -66,7 +66,7 @@ index 1467cc7c3a68..6799738606e8 100644
                       NULL };
  
    argv[2] = rofiles_unmount_path;
-@@ -995,7 +995,7 @@ gboolean
+@@ -996,7 +996,7 @@ gboolean
  builder_context_disable_rofiles (BuilderContext *self,
                                   GError        **error)
  {
@@ -88,7 +88,7 @@ index 917983476360..bda51aed8db7 100644
  config_data.set_quoted('PACKAGE_VERSION', meson.project_version())
  config_data.set_quoted('PACKAGE_STRING', '@0@-@1@'.format(meson.project_name(), meson.project_version()))
 diff --git a/tests/Makefile.am.inc b/tests/Makefile.am.inc
-index 8cd31ae6734a..77e7d9e3f614 100644
+index 2a661a650258..bd50c1be4332 100644
 --- a/tests/Makefile.am.inc
 +++ b/tests/Makefile.am.inc
 @@ -2,6 +2,7 @@ AM_TESTS_ENVIRONMENT = FLATPAK_TESTS_DEBUG=1 \
@@ -100,10 +100,10 @@ index 8cd31ae6734a..77e7d9e3f614 100644
  
  if !WITH_SYSTEM_DEBUGEDIT
 diff --git a/tests/libtest.sh b/tests/libtest.sh
-index 9227b4bf91e8..ae082b934dc2 100644
+index 1fa46e8daa00..e456a87fcee9 100644
 --- a/tests/libtest.sh
 +++ b/tests/libtest.sh
-@@ -333,7 +333,7 @@ run_build_fail () {
+@@ -358,7 +358,7 @@ run_build_fail () {
  # fuse support is needed (and the kernel module needs to be loaded) for several
  # flatpak-builder tests
  skip_without_fuse () {
@@ -113,7 +113,7 @@ index 9227b4bf91e8..ae082b934dc2 100644
          exit 0
      fi
 diff --git a/tests/meson.build b/tests/meson.build
-index aec77d17efdb..54931c84d9fe 100644
+index 402d41261e3f..eb632f31aacd 100644
 --- a/tests/meson.build
 +++ b/tests/meson.build
 @@ -6,6 +6,7 @@ test_env.set('FLATPAK_TESTS_DEBUG', '1')
