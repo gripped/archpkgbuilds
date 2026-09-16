@@ -1,13 +1,13 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
-pkgname='python-omemo-dr'
+pkgname=python-omemo-dr
 _pkgname="${pkgname#python-}"
 pkgver=1.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="OMEMO Crypto Library"
+url="https://gitlab.com/gajim/omemo-dr"
 arch=('x86_64')
-url="https://dev.gajim.org/gajim/omemo-dr"
-license=('GPL3')
+license=('GPL-3.0-only')
 depends=('python-cryptography' 'python-protobuf')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 source=("${url}/-/archive/v${pkgver}/${_pkgname}-v${pkgver}.tar.gz")
