@@ -1,0 +1,16 @@
+pkgbase = nomad-driver-exec2
+	pkgdesc = An official Nomad task driver plugin for sandboxing workloads using native Linux kernel features
+	pkgver = 0.1.2
+	pkgrel = 1
+	url = https://developer.hashicorp.com/nomad/plugins/drivers/exec2
+	arch = x86_64
+	license = MPL-2.0
+	makedepends = go
+	makedepends = git
+	depends = nomad
+	depends = glibc
+	depends = libgcc
+	source = nomad-driver-exec2::git+https://github.com/hashicorp/nomad-driver-exec2.git#tag=v0.1.2
+	sha256sums = 43e18b67d4caa3e9017a87064e1db09e4eb72bab324a8b4dd3c681e8dba482d9
+
+pkgname = nomad-driver-exec2
