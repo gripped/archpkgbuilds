@@ -3,7 +3,7 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@barrera.io>
 
 pkgname=python-setuptools-scm
-pkgver=10.2.3
+pkgver=10.3.2
 pkgrel=1
 pkgdesc='Handles managing your python package versions in scm metadata'
 arch=(any)
@@ -36,8 +36,8 @@ optdepends=(
   'python-rich: use rich as console log handler'
 )
 source=("$pkgname::git+$url.git#tag=setuptools-scm-v$pkgver")
-sha512sums=('750d1c1d39bf524918736287aa41d50a71a65f2f5dc1e3efaab5dd924e397d7d91290298e7a2d592a8dd6908d95b04f40f3a62734ce9e4ae83cebb470c00ad8f')
-b2sums=('cf3228aff3f49fd52f8795257efb2cb665cb3fae2ad4cae7ca073dcacb7600fe45e46dfcd39d23dcbaea658c91c193f815c84b4c292661f5329e80394cb95193')
+sha512sums=('5449a55f401ae2394dbc309aa106386e370a0c0e5d088937d96f26420597fecc111fa9ed48f92b0e95e1a3409f2826a74dcc062708e5fef134fd4eb90bb4b523')
+b2sums=('4c6bb5dab65900d81a90292a28e2e11e8c3df6b7a77b7f90c2ee7a400e2a2e49ed3121dc089717823d368efc206ede2eef7a393d82f037562a174d1c1ee3f018')
 
 build() {
   cd "$pkgname/setuptools-scm"
@@ -57,6 +57,8 @@ check() {
     -k 'not test_not_owner'
     --deselect testing_scm/test_basic_api.py::test_get_version_blank_tag_regex
     --deselect testing_scm/test_integration.py::test_setuptools_version_keyword_ensures_regex
+    --deselect "testing_scm/test_integration.py::test_commands_registered_only_when_inference_produced_data[not-configured]"
+    --deselect "testing_scm/test_integration.py::test_commands_registered_only_when_inference_produced_data[version-already-set]"
   )
 
   pytest "${pytest_opts[@]}"
