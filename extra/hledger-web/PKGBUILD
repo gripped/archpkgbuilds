@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hledger-web
-pkgver=1.52.1
-pkgrel=78
+pkgver=1.52.4
+pkgrel=2
 pkgdesc="Web-based user interface for the hledger accounting system"
 url="http://hledger.org"
 license=('GPL-3.0-or-later')
@@ -22,11 +22,14 @@ depends=('ghc-libs' 'hledger' 'haskell-hledger-lib' 'haskell-aeson' 'haskell-bas
 makedepends=('ghc' 'uusi')
 replaces=('hledger-api')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('94cbaab993e91bd07ed7293cc77bd8430fa64791105fcdbf64f5ee43f65c3a6b26a90ec7cb651056d412883e898cca168ff86ef75aace12092dea030f32ff00d')
+sha512sums=('e355fd5cd94f0baf462806d0ab6cad6f06458e38cd84ff87ee5bc92e3b976bbc82bc316f7ba20f3da3205499a061feec39a9e3294f95efae4c832aa7d7bf176f')
 
 prepare() {
     cd $pkgname-$pkgver
     uusi -u yesod-static
+    # Backtrack minimum version, makes this vulnerable to known DOS but allows building against Arch
+    # dependencies. Since there are *other* security fixes in 1.52.3 & .4 as well this is a trade off.
+    sed -i -e '/aeson/s/2.2.5.1/2.2.2.0/' hledger-web.cabal
 }
 
 build() {
