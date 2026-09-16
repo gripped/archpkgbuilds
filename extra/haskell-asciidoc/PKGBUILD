@@ -2,8 +2,8 @@
 
 _hkgname=asciidoc
 pkgname=haskell-asciidoc
-pkgver=0.1.0.4
-pkgrel=7
+pkgver=0.1.0.5
+pkgrel=1
 pkgdesc='AsciiDoc parser.'
 url='https://github.com/jgm/asciidoc-hs.git'
 license=("BSD-3-Clause")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-optparse-applicative' 'haskell-pretty-show' 'haskell-tagsoup')
 makedepends=('ghc' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('aafe1a7b77d90eda4904f650b341fe6f08dc8e7a3a41dbb18142ee9963bcec0e')
+sha256sums=('ec3d59709af49c2c2ce71a57ff07091aead9bd2ed6eb64fa63bd94266433c2e6')
 
 prepare() {
   cd $_hkgname-$pkgver
