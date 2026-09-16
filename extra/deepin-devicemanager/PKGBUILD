@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-devicemanager
-pkgver=6.0.71
+pkgver=6.0.72
 pkgrel=1
 pkgdesc='Deepin hardware information and device management tool'
 arch=('x86_64')
@@ -19,7 +19,7 @@ optdepends=('deepin-printer: open printer settings from printer pages'
             'nvidia-utils: show NVIDIA GPU details')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-devicemanager.git#tag=$pkgver")
-sha512sums=('e225940de873406f0c3684825da8ab9438bc045cc1dfc8a82f3e0ac9e0abb395366caf1eb52b417841e754f0b040035fe4e29c83da898a372d2ff57a90e5d9c9')
+sha512sums=('c4b921199b642e2e7521bc0c1ab92c552de7d558e9ac8f0b230fbcd2bcdac365d23eedfcc7f7795a9eeb8c1414f2ae796004264dc6558f0d3978e2dd9e85c270')
 
 build() {
   cmake -GNinja -B build -S deepin-devicemanager \
