@@ -3,7 +3,7 @@
 
 pkgname=php-snuffleupagus
 _pkgname=snuffleupagus
-pkgver=0.13.0
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="Security module for PHP"
 url='https://snuffleupagus.readthedocs.io/'
@@ -18,8 +18,8 @@ makedepends=('re2c')
 backup=('etc/php/conf.d/snuffleupagus.ini'
         'etc/php/conf.d/snuffleupagus.rules')
 source=(https://github.com/jvoisin/${_pkgname}/archive/v${pkgver}/${_pkgname}-${pkgver}.tar.gz)
-sha256sums=('350a33cd3906bdba46f5c4cf3d00edeb81eaf6a7b9a3a7e5ef47bc967492ae90')
-b2sums=('76cca31850c13f4bc39fdb3ca7fa957eed5fc0be2171128cb673962155c6604c70dccd0d0c5dd87f73023f89aa080b698da57ddc85caba6854d4573b2083c970')
+sha256sums=('080cf7e24d15a8650e271837030fca546e627c7a4c7317710c683282fdcb71c6')
+b2sums=('9062306e10c1c05c552d73037300f7050bdb2f4b0ecd64f14b9a01aace7c93c0a0134f8d3d40a3c79e9bd50623246aa53ad5c7c35cb32c28435617d5213e5353')
 
 prepare() {
   cd ${_pkgname}-${pkgver}/src
