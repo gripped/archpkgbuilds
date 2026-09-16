@@ -3,10 +3,10 @@
 # Contributor: everyx <lunt.luo#gmail.com>
 
 pkgname=sing-box
-pkgver=1.14.0
+pkgver=1.14.1
 # Check the hash for `cronet-go` in `go.sum`, and visit the `go` branch of `SagerNet/cronet-go` to obtain the commit hash
-_cronet_commit_hash=d9872d6dd0d39cc7e042d1199d736f16fc40cf8c
-pkgrel=4
+_cronet_commit_hash=049f2909701ca088c9569f6b303bba5376a2b2ff
+pkgrel=1
 pkgdesc='The universal proxy platform'
 arch=('x86_64')
 url='https://sing-box.sagernet.org/'
@@ -16,16 +16,12 @@ source=("${pkgname}-${pkgver}.tar.gz::https://github.com/SagerNet/sing-box/archi
         "git+https://github.com/SagerNet/naiveproxy.git#branch=cronet-go"
         "0001-build-use-the-system-toolchain.patch"
         "0002-build-drop-unknown-clang-flag.patch"
-        "0003-Fix-h2mux-with-Go-1.27.patch"
-        "0004-Fix-bidirectional-stream-cancel-racing-with-destroy.patch"
         "https://github.com/chromium/chromium/raw/refs/tags/150.0.7871.63/tools/generate_shim_headers/generate_shim_headers.py")
-sha256sums=('87baf6852e37941cbe40bdd94bec81c957c88a56751cecd6bbf0e6108bc69398'
-            '74061e1f81b2fab9a996db6463eb1fa56447594502e650e748694f8ddc0526bc'
+sha256sums=('1ea41f7d06b0017fe3d3ba7ee30959048aa0ddde31cb0165dab9257edf673321'
+            '2feebadf58de91f9c357c8963dacea68d44ce41089f4377f98c0d0d80148d360'
             'SKIP'
             '58c83e0ab0587a8bb020d98ee5cd787e32f692041824b2ae6b78812ec912c5a0'
             'b941918a0af49840bd929d16be947cc473b0c8b27a4ceab16da34e9b288a57dd'
-            'd98d913120c4a073addb649978035b845a7590f4487fea50cd6be73e2be38516'
-            '0278a76397c605eb1d8772f893e25da41182e1bc0b40ba3931d1d8f7fa45871b'
             'b64f3bc06e74955d1027e3720a2ef14b6203722a5e7fe4c777a6b1051b9744dd')
 depends=('glibc' 'libgcc')
 makedepends=('clang' 'git' 'gn' 'go>=1.25' 'lld' 'llvm' 'ninja' 'python')
@@ -50,8 +46,6 @@ prepare() {
     git -c protocol.file.allow=always submodule update
     patch -Np1 -i "${srcdir}/0001-build-use-the-system-toolchain.patch"
     patch -Np1 -i "${srcdir}/0002-build-drop-unknown-clang-flag.patch" -d naiveproxy
-    # Fix a potential crash when using the Naive outbound
-    patch -Np1 -i "${srcdir}/0004-Fix-bidirectional-stream-cancel-racing-with-destroy.patch"
 
     # `optimize_for_size=true` is actually the `-Os` flag for gcc, which does not conform to the official requirement of `-O2`
     sed -i \
@@ -82,7 +76,6 @@ prepare() {
     popd
 
     cd "${srcdir}/${pkgname}-${pkgver}"
-    patch -Np1 -i "${srcdir}/0003-Fix-h2mux-with-Go-1.27.patch"
     go mod download -modcacherw
 }
 
