@@ -2,8 +2,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=sequoia-sq
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.4.1
+pkgrel=1
 pkgdesc='Command-line frontends for Sequoia'
 url='https://sequoia-pgp.org/'
 arch=(x86_64)
@@ -12,7 +12,6 @@ groups=(sequoia)
 replaces=(sequoia)
 depends=(
   glibc
-  gmp
   libgcc
   sqlite
 )
@@ -21,13 +20,12 @@ makedepends=(
   cargo
   clang
   git
-  nettle3
   openssl
 )
 options=(!lto)
 source=(git+https://gitlab.com/sequoia-pgp/sequoia-sq.git?signed#tag=v$pkgver)
-sha512sums=('e05d2de72e2954c299ce6c5db379eaa6c815a45b15e43f6bfb3ededb3eaa36cfce4049829d745804aafcf3eb6779b43d971287acdea7da00e8a0baceabcf7f97')
-b2sums=('cef82d4e4135d3bd0afbbedcead4bdebb480740d73ec5318b64ea8698fcbfb32241669355564c766b52099d2ec11d78b5c64c21d686211bd03518e95f1acb6a7')
+sha512sums=('7ca83034833630272f9516ef0cc7c3c64120cda61264d5b897791279872f30aa39b3299b9cbb7f726bc0d30b7ac40726e1087a77e3da0ace657e09f28641daeb')
+b2sums=('47044a338b787a657acbb44ffe32d09b34f60086a3fde8d1e0125937ac74f1b1e4af2f2a71fa900c161ad7d26bd848aa014a134921c8fd5948917bae070bf2b5')
 validpgpkeys=(
   CBCD8F030588653EEDD7E2659B7DD433F254904A  # Justus Winter <justus@sequoia-pgp.org>
   8F17777118A33DDA9BA48E62AACB3243630052D9  # Neal H. Walfield <neal@sequoia-pgp.org>
@@ -40,29 +38,24 @@ pkgver() {
 
 prepare() {
   cd $pkgname
-  cargo fetch --locked --target "$CARCH-unknown-linux-gnu"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd $pkgname
   export CARGO_TARGET_DIR=../target
   export ASSET_OUT_DIR=../target
-  export PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig
-  export RUSTFLAGS+=" -L/usr/lib/nettle3"
   # NOTE: we select specific (default) features, as there are multiple crypto backends
-  cargo build --release --frozen --features default
+  cargo build --release --frozen --no-default-features --features crypto-openssl
 }
 
 check() {
   cd $pkgname
-  export PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig
-  export RUSTFLAGS+=" -L/usr/lib/nettle3"
-  cargo test --frozen --features default
+  cargo test --frozen --no-default-features --features crypto-openssl
 }
 
 package() {
   depends+=(
-    nettle3 libnettle.so libhogweed.so
     openssl libcrypto.so libssl.so
   )
 
