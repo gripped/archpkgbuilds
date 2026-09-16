@@ -10,8 +10,8 @@ pkgname=(
   ggml-sycl
   ggml-vulkan
 )
-pkgver=0.23.0
-pkgrel=2
+pkgver=0.24.0
+pkgrel=1
 pkgdesc='Tensor library for machine learning'
 arch=(
   aarch64
@@ -48,7 +48,7 @@ makedepends_x86_64=(
 )
 options=(!buildflags)
 source=(git+https://github.com/ggml-org/ggml.git#tag=v${pkgver})
-b2sums=('5d389d62bcd4615e8a80f9084cdb5ed5d5aec46de8fdfd8d18d9b237704dcd1ac6381f39001d892206f0844af59bae11d84b59c1051c8bc9b3098e62a4c46807')
+b2sums=('cf9bbf4d7b01ff17df536a3a828ceda1752f9ac716ad1e6dbe26d0a0595d56d8856e1052a2a27f88bb26ad404dcbe8cf000773e6cf4d1fdab47d08f0361864ce')
 
 build() {
   local _cmake_options=(
