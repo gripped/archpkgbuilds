@@ -6,7 +6,7 @@
 # Contributor: sh__
 
 pkgname=rtorrent
-pkgver=0.16.22
+pkgver=0.16.23
 pkgrel=1
 pkgdesc='Ncurses BitTorrent client based on libTorrent'
 url='https://rakshasa.github.io/rtorrent/'
@@ -15,7 +15,7 @@ arch=('x86_64')
 makedepends=('git')
 depends=("libtorrent=${pkgver}" 'curl' 'tinyxml2')
 source=("git+https://github.com/rakshasa/rtorrent.git#tag=v${pkgver}")
-sha256sums=('e93900204d006e9e192b575fc361932117156e0cbe543e9d09a4546d3c4b335c')
+sha256sums=('30085762098b231c1c885c8f2fbfe1f55a91891cf6f92c9e85607c047aff26db')
 
 prepare() {
   cd ${pkgname}
