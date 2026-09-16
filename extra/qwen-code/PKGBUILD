@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.21.6
+pkgver=0.21.7
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,8 +29,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('0548bdadeeb0b6618950828d909ac5bb96a656de71d8ca8d325e6bb68a1d2410')
-b2sums=('40224022c899231f033500a4da9cd3f7012b44bd9a67a94a4611d86425223fe93474a1af5101659c89e307f95ede35168c3d1926e1e5c792bde592af026dd84e')
+sha256sums=('605c8f54ebf05a64eb331824dc14e5fd13bb5e24e1be7ea84cb80667d6f43a22')
+b2sums=('a462a2b71efb86de6b8de0a66ad2f2086dce3f25e58bd22bdc67c692592638a3095247691f2c717a675e4688c521977da9e806abb3d77d5e77da5da89d012ecb')
 
 prepare() {
   cd $pkgname
