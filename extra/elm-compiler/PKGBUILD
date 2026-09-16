@@ -2,7 +2,7 @@
 
 pkgname=elm-compiler
 pkgver=0.19.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Compiler for Elm, a functional language for reliable web applications'
 arch=('x86_64')
 url='https://elm-lang.org'
@@ -41,7 +41,7 @@ build() {
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'
-  runhaskell Setup build
+  runhaskell Setup build $MAKEFLAGS
 }
 
 check() {
@@ -54,5 +54,5 @@ package() {
 
   runhaskell Setup copy --destdir="$pkgdir"
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
-  rm -f "$pkgdir/usr/share/doc/$pkgname/LICENSE"
+  rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
 }
