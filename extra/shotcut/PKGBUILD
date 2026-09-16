@@ -5,7 +5,7 @@
 pkgname=shotcut
 pkgdesc='Cross-platform Qt based Video Editor'
 pkgver=26.8.1
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 url='https://www.shotcut.org'
 license=('GPL3')
@@ -33,7 +33,6 @@ build() {
   export CXXFLAGS+=" -DSHOTCUT_NOUPGRADE"
 
   cmake -B build -G Ninja \
-    -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -D SHOTCUT_VERSION="$pkgver"
