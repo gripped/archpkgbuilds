@@ -5,7 +5,7 @@
 # Contributor: PedroHLC <root@pedrohlc.com>
 
 pkgname=gamescope
-pkgver=3.16.28
+pkgver=3.16.29
 pkgrel=1
 pkgdesc='SteamOS session compositing window manager'
 arch=(x86_64)
@@ -73,7 +73,7 @@ source=(
   git+https://github.com/Joshua-Ashton/vkroots.git
   git+https://gitlab.freedesktop.org/wlroots/wlroots.git
 )
-b2sums=('f78220d752626a25625ddde5601c51d8795a1a54075e3cd8c9884d7cbe549902d4ad9bb58afd632dabd3003e263e134d86116ccc103654219ee15a048f31678f'
+b2sums=('1cffbc0ae2bde5b6cfa3fbd99223819795ef4e15ed11f5d939c5590de5ac71eed5b3cbe3630645ce9a57c13029a5029a0a206957660e712879dcc95e3d2e925a'
         'SKIP'
         'SKIP'
         'SKIP'
