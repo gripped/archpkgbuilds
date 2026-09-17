@@ -2,7 +2,7 @@
 # Contributor: Bambang Catur Pamungkas <bambangcaturz@gmail.com>
 
 pkgname=sentry-cli
-pkgver=3.7.0
+pkgver=3.8.0
 pkgrel=1
 pkgdesc="A command line utility to work with Sentry"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc' 'libgcc' 'bzip2' 'zlib' 'xz')
 makedepends=('cargo')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz"::https://github.com/getsentry/sentry-cli/archive/${pkgver}.tar.gz)
-sha256sums=('b34093b7c0741d537cef5b46821b2b38759393ba0ba99dd4691a84618c92d2e3')
+sha256sums=('38bc0057faffe31e877a3b1c6afd9c68220e1e5755fe113f70a5e5cbdd1ce2ea')
 
 build() {
   cd $pkgname-$pkgver
