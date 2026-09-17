@@ -3,8 +3,8 @@
 
 _pyname=jupyterlab_server
 pkgname=python-${_pyname/_/-}
-pkgver=2.28.0
-pkgrel=2
+pkgver=2.28.1
+pkgrel=1
 pkgdesc='Launch an application built using JupyterLab'
 arch=(any)
 url='https://jupyter.org/'
@@ -12,7 +12,6 @@ license=(BSD-3-Clause)
 depends=(jupyter-server
          python
          python-babel
-         python-importlib-metadata
          python-json5
          python-jsonschema
          python-jupyter-core
@@ -39,8 +38,15 @@ conflicts=(jupyterlab_server
 provides=(python-jupyterlab_server)
 replaces=(jupyterlab_server
           python-jupyterlab_server)
-source=(git+https://github.com/jupyterlab/jupyterlab_server#tag=v$pkgver)
-sha256sums=('647061d6f86246390c421be7085fbcb75dbe0218c6a26e29f61559ece10d2301')
+source=(git+https://github.com/jupyterlab/jupyterlab_server#tag=v$pkgver
+        openapi-core-0.23.patch)
+sha256sums=('3444e77a59aaf5db52ea0f9405c9b0b92460119579ece498562b9ce5919d8a66'
+            '944cfb1848f747f166717c252c127920dc1b9721527f8125260809fb33267792')
+
+prepare() {
+  cd $_pyname
+  patch -p1 -i ../openapi-core-0.23.patch # Support openapi-core 0.23
+}
 
 build() {
   cd $_pyname
