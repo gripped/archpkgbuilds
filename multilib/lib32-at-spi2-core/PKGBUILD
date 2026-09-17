@@ -7,7 +7,7 @@ pkgbase=lib32-at-spi2-core
 pkgname=(
   lib32-at-spi2-core
 )
-pkgver=2.60.6
+pkgver=2.60.7
 pkgrel=1
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi (32-bit)"
 url="https://gitlab.gnome.org/GNOME/at-spi2-core"
@@ -35,7 +35,7 @@ checkdepends=(
   at-spi2-core
 )
 source=("git+https://gitlab.gnome.org/GNOME/at-spi2-core.git?signed#tag=$pkgver")
-b2sums=('1900413ffe8b479e2f156dfa8d848d4c362c8c09b0ca5e2fc84b1cf78544e47064f43e8cc7377627fa071c82a38c46e3cc97a4b095df3df83d41159701510dcc')
+b2sums=('294821b4f0cf73c2eb8ca75bc471dd7033032313c2bb1a3b6c2f37f4e175e3cedfa1cf69e0871e37e5102a8a986c92cb3df5267b477a32e02cbcc80b54f247e0')
 validpgpkeys=(
   276BFDAFB36212F8DB095E2140823A056FD6D4B3 # Mike Gorse <mgorse@suse.com>
 )
