@@ -4,7 +4,7 @@
 
 pkgname=(llvm-julia
          llvm-julia-libs)
-pkgver=20.1.8.2
+pkgver=20.1.8.3
 _pkgver=${pkgver%.*}-${pkgver##*.}
 _majver=${pkgver%.*.*.*}
 pkgrel=1
@@ -25,7 +25,7 @@ makedepends=(cmake
              python)
 options=(!lto) # https://github.com/llvm/llvm-project/issues/57740
 source=(llvm-julia::git+https://github.com/JuliaLang/llvm-project#tag=julia-$_pkgver)
-sha256sums=('285da7f6315118d3da1bab8ab306fddd668903dea5ae91a89e0747a5d8ad2d8c')
+sha256sums=('f11796a09fa9b898eaa1f2b49386f01f0558e0d8647044fa2fa473b5a044189f')
 
 # Utilizing LLVM_DISTRIBUTION_COMPONENTS to avoid
 # installing static libraries; inspired by Gentoo
