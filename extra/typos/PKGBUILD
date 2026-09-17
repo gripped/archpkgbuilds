@@ -3,7 +3,7 @@
 # Contributor: Sematre <sematre at gmx dot de>
 
 pkgname=typos
-pkgver=1.50.1
+pkgver=1.50.2
 pkgrel=1
 pkgdesc="Source code spell checker"
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=(
 )
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('871533d5d4be599db158a2644b80da1b5e67d8793a19cf0d5635541f3ef3225a')
+sha256sums=('412b161d33996e2c3c4a8b076e22183527f3420242975e868ba9968a3ce1727e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
