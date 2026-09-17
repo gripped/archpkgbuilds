@@ -1,0 +1,61 @@
+From 9c1de670b1fb781ca4791961539e15fe3ca0a534 Mon Sep 17 00:00:00 2001
+From: Sergii Negodiuk <s.negodyuck@smartweb.com.ua>
+Date: Thu, 16 Jul 2026 01:17:57 +0300
+Subject: [PATCH] Fix complex value scripts after nginx script engine change
+
+---
+ config            |  5 +++++
+ src/ndk_rewrite.c | 14 ++++++++++++++
+ 2 files changed, 19 insertions(+)
+
+diff --git a/config b/config
+index 8cb7ad0..bdd0b3e 100644
+--- a/config
++++ b/config
+@@ -58,6 +58,11 @@ fi
+ 
+ have=NDK . auto/have
+ 
++# Script engine capabilities cannot be inferred from versions across forks.
++if grep -q ngx_http_script_complex_value_end_code src/http/ngx_http_script.h 2>/dev/null; then
++    have=NDK_HAVE_HTTP_SCRIPT_COMPLEX_VALUE_END_CODE . auto/have
++fi
++
+ ##############
+ ## INCLUDES ##
+ ##############
+diff --git a/src/ndk_rewrite.c b/src/ndk_rewrite.c
+index 77ce9f8..b1f5fe4 100644
+--- a/src/ndk_rewrite.c
++++ b/src/ndk_rewrite.c
+@@ -17,6 +17,9 @@ ndk_http_rewrite_value (ngx_conf_t *cf, ndk_http_rewrite_loc_conf_t *lcf,
+     ngx_http_script_compile_t              sc;
+     ngx_http_script_value_code_t          *val;
+     ngx_http_script_complex_value_code_t  *complex;
++#ifdef NDK_HAVE_HTTP_SCRIPT_COMPLEX_VALUE_END_CODE
++    ngx_http_script_complex_value_end_code_t  *complex_end;
++#endif
+ 
+     n = ngx_http_script_variables_count(value);
+ 
+@@ -63,6 +66,17 @@ ndk_http_rewrite_value (ngx_conf_t *cf, ndk_http_rewrite_loc_conf_t *lcf,
+         return NGX_CONF_ERROR;
+     }
+ 
++#ifdef NDK_HAVE_HTTP_SCRIPT_COMPLEX_VALUE_END_CODE
++    complex_end = ngx_http_script_add_code(lcf->codes,
++                              sizeof(ngx_http_script_complex_value_end_code_t),
++                              &complex);
++    if (complex_end == NULL) {
++        return NGX_CONF_ERROR;
++    }
++
++    complex_end->code = ngx_http_script_complex_value_end_code;
++#endif
++
+     return NGX_CONF_OK;
+ }
+ 
+-- 
+2.55.0
+
