@@ -4,9 +4,9 @@
 
 pkgname=sing-box
 pkgver=1.14.1
-# Check the hash for `cronet-go` in `go.sum`, and visit the `go` branch of `SagerNet/cronet-go` to obtain the commit hash
+# Check the hash in `.github/CRONET_GO_VERSION`, then visit the `go` branch of `SagerNet/cronet-go` to get the commit hash
 _cronet_commit_hash=049f2909701ca088c9569f6b303bba5376a2b2ff
-pkgrel=1
+pkgrel=2
 pkgdesc='The universal proxy platform'
 arch=('x86_64')
 url='https://sing-box.sagernet.org/'
@@ -23,10 +23,29 @@ sha256sums=('1ea41f7d06b0017fe3d3ba7ee30959048aa0ddde31cb0165dab9257edf673321'
             '58c83e0ab0587a8bb020d98ee5cd787e32f692041824b2ae6b78812ec912c5a0'
             'b941918a0af49840bd929d16be947cc473b0c8b27a4ceab16da34e9b288a57dd'
             'b64f3bc06e74955d1027e3720a2ef14b6203722a5e7fe4c777a6b1051b9744dd')
-depends=('glibc' 'libgcc')
-makedepends=('clang' 'git' 'gn' 'go>=1.25' 'lld' 'llvm' 'ninja' 'python')
-optdepends=('sing-geosite-rule-set: GeoSite rule sets'
-            'sing-geoip-rule-set: GeoIP rule sets')
+depends=(
+    'glibc'
+    'libgcc'
+)
+makedepends=(
+    'clang'
+    'git'
+    'gn'
+    'go>=1.25'
+    'lld'
+    'llvm'
+    'ninja'
+    'python'
+)
+optdepends=(
+    'sing-geosite-rule-set: GeoSite rule sets for domain matching'
+    'sing-geoip-rule-set: GeoIP rule sets for IP matching'
+    # https://sing-box.sagernet.org/configuration/shared/wifi-state/
+    'networkmanager: Wi-Fi SSID/BSSID routing rule support via NetworkManager'
+    'iwd: Wi-Fi SSID/BSSID routing rule support via iwd'
+    'wpa_supplicant: Wi-Fi SSID/BSSID routing rule support via wpa_supplicant'
+    'connman: Wi-Fi SSID/BSSID routing rule support via ConnMan'
+)
 backup=("etc/${pkgname}/config.json")
 
 declare -gA _system_libs=(
@@ -122,6 +141,8 @@ build() {
     for _shell in bash fish zsh; do
         ./"${pkgname}" completion "${_shell}" > completions/"${_shell}"
     done
+
+    ./"${pkgname}" schema -o schema.json
 }
 
 check() {
@@ -149,4 +170,6 @@ package() {
     install -Dm644 completions/bash "${pkgdir}/usr/share/bash-completion/completions/${pkgname}"
     install -Dm644 completions/fish "${pkgdir}/usr/share/fish/vendor_completions.d/${pkgname}.fish"
     install -Dm644 completions/zsh "${pkgdir}/usr/share/zsh/site-functions/_${pkgname}"
+
+    install -Dm644 schema.json -t "${pkgdir}/usr/share/${pkgname}"
 }

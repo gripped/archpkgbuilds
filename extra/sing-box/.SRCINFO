@@ -1,7 +1,7 @@
 pkgbase = sing-box
 	pkgdesc = The universal proxy platform
 	pkgver = 1.14.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://sing-box.sagernet.org/
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -19,8 +19,12 @@ pkgbase = sing-box
 	depends = brotli
 	depends = zstd
 	depends = zlib
-	optdepends = sing-geosite-rule-set: GeoSite rule sets
-	optdepends = sing-geoip-rule-set: GeoIP rule sets
+	optdepends = sing-geosite-rule-set: GeoSite rule sets for domain matching
+	optdepends = sing-geoip-rule-set: GeoIP rule sets for IP matching
+	optdepends = networkmanager: Wi-Fi SSID/BSSID routing rule support via NetworkManager
+	optdepends = iwd: Wi-Fi SSID/BSSID routing rule support via iwd
+	optdepends = wpa_supplicant: Wi-Fi SSID/BSSID routing rule support via wpa_supplicant
+	optdepends = connman: Wi-Fi SSID/BSSID routing rule support via ConnMan
 	backup = etc/sing-box/config.json
 	source = sing-box-1.14.1.tar.gz::https://github.com/SagerNet/sing-box/archive/v1.14.1.tar.gz
 	source = git+https://github.com/SagerNet/cronet-go.git#commit=049f2909701ca088c9569f6b303bba5376a2b2ff
