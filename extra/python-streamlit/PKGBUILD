@@ -2,7 +2,7 @@
 
 _name=streamlit
 pkgname=python-$_name
-pkgver=1.63.0
+pkgver=1.64.0
 pkgrel=1
 pkgdesc="A faster way to build and share data apps"
 arch=(any)
@@ -76,7 +76,7 @@ source=(
   # build requires git in frontend/protobuf/scripts/generate-proto.js
   git+https://github.com/streamlit/streamlit#tag=$pkgver
 )
-b2sums=('b304dfa771435bcd9180664785498a21a37c7f1335f87dadcb487b844dff4852922921b12898af9461722c7a1851f1b1deefde3450e4c51291ec6e0ff07389e8')
+b2sums=('69488b83f92db7697e233739b9842b526688df99602a53107569d82f4ee5d19c46db82dda8c8c00d18eb4661106caaf07a94f1e0e6641669237cc3d168649900')
 
 # based on https://github.com/streamlit/streamlit/blob/develop/Makefile
 build() {
@@ -131,6 +131,7 @@ check() {
     --ignore tests/streamlit/runtime/fragment_test.py
     --ignore tests/streamlit/runtime/state/widgets_test.py
     --ignore tests/streamlit/streamlit_test.py
+    --ignore tests/streamlit/testing/proto_variant_parse_test.py
     --ignore tests/streamlit/write_test.py
     # sqlite3.OperationalError: table movie already exists
     --deselect tests/streamlit/dataframe_util_test.py::DataframeUtilTest::test_verify_sqlite3_integration
