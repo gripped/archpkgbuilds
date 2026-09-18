@@ -4,8 +4,8 @@
 
 pkgname=jemalloc
 epoch=1
-pkgver=5.3.1
-pkgrel=3
+pkgver=5.4.0
+pkgrel=1
 pkgdesc='General-purpose scalable concurrent malloc implementation'
 arch=('x86_64')
 license=('BSD-2-Clause')
@@ -15,16 +15,10 @@ optdepends=('perl: for jeprof')
 makedepends=('git')
 provides=('libjemalloc.so')
 source=("git+https://github.com/jemalloc/jemalloc.git#tag=${pkgver}")
-sha256sums=('a398d44ca763f5836313a67a54d3eb5ed89c99cc95d7d675c9da67df9b2059e3')
+sha256sums=('1013d73abb1820cd7c7a24b2270414c09f663474bdeb1c86c36a200f4f950ad6')
 
 prepare() {
   cd "${pkgname}"
-
-  # Replace std::__throw_bad_alloc call with standard C++
-  # Replace std::set_new_handler calls with std::get_new_handler
-  git cherry-pick -n \
-    '3ff7e38fac4c261e78974f82e823c7b2f205ebd1' \
-    'b68e7627d6c5e00055e31ee6846bea33844fccfe'
 
   autoreconf -fi
 }
