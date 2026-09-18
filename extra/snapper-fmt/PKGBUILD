@@ -2,7 +2,7 @@
 
 _name=snapper
 pkgname=snapper-fmt
-pkgver=0.11.2
+pkgver=0.11.5
 pkgrel=1
 pkgdesc="Semantic line break formatter for Org, LaTeX, Markdown, and plaintext"
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(
   cargo
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('20fa1b7f78c639c2564df59f9ca5627b0a867efd151c6c00860b9954e1e56d80530f3f6fdfe380211ad1044eec349f358a4ada011e80fd929ce036e6ff13374a')
+b2sums=('c68b5ce055719fd44a925de6387a49eefeaa92050aa9641c846c83366f3a51489432cfbb86d7fcaac59cbbd4bd722790542b8658d535382f39cfa6eaf2e33990')
 
 prepare() {
   cd $_name-$pkgver
