@@ -1,7 +1,7 @@
 pkgbase = mariadb-lts
 	pkgdesc = Fast SQL database server, derived from MySQL (LTS)
-	pkgver = 11.8.9
-	pkgrel = 2
+	pkgver = 12.3.3
+	pkgrel = 1
 	url = https://mariadb.org/
 	arch = x86_64
 	license = GPL-2.0-only
@@ -24,7 +24,7 @@ pkgbase = mariadb-lts
 	makedepends = zlib
 	makedepends = zstd
 	makedepends = xz
-	source = mariadb::git+https://github.com/MariaDB/server.git?signed#tag=mariadb-11.8.9
+	source = mariadb::git+https://github.com/MariaDB/server.git?signed#tag=mariadb-12.3.3
 	source = git+https://github.com/codership/wsrep-lib.git
 	source = git+https://github.com/duckdb/duckdb.git
 	source = git+https://github.com/facebook/rocksdb.git
@@ -34,7 +34,7 @@ pkgbase = mariadb-lts
 	source = git+https://github.com/wolfSSL/wolfssl.git
 	source = 0001-arch-specific.patch
 	validpgpkeys = 177F4010FE56CA3336300305F1656F24C74CD1D8
-	sha256sums = 3f82bfff997e17eca7ae1ec9872afb310071ab8ef74952504a95ef4403844153
+	sha256sums = 6d1d2a71921cf450d460c6ea1be3a8fdf7bcc1bfe46f3badcff84c004d6f0878
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -60,7 +60,7 @@ pkgname = mariadb-lts-libs
 	depends = zstd
 	depends = libzstd.so
 	optdepends = krb5: for gssapi authentication
-	provides = mariadb-libs=11.8.9
+	provides = mariadb-libs=12.3.3
 	provides = libmariadbclient
 	provides = mariadb-connector-c
 	provides = libmariadb.so
@@ -72,18 +72,18 @@ pkgname = mariadb-lts-libs
 
 pkgname = mariadb-lts-clients
 	pkgdesc = MariaDB client tools (LTS)
-	depends = mariadb-lts-libs=11.8.9
+	depends = mariadb-lts-libs=12.3.3
 	depends = ncurses
 	depends = libncursesw.so
-	provides = mariadb-clients=11.8.9
-	provides = mysql-clients=11.8.9
+	provides = mariadb-clients=12.3.3
+	provides = mysql-clients=12.3.3
 	conflicts = mariadb-clients
 	conflicts = mysql-clients
 
 pkgname = mariadb-lts
 	pkgdesc = Fast SQL database server, derived from MySQL (LTS)
 	install = mariadb.install
-	depends = mariadb-lts-clients=11.8.9
+	depends = mariadb-lts-clients=12.3.3
 	depends = bzip2
 	depends = libbz2.so
 	depends = coreutils
@@ -104,8 +104,8 @@ pkgname = mariadb-lts
 	optdepends = perl-dbd-mariadb: for mariadb-hotcopy, mariadb-convert-table-format and mariadb-setpermission
 	optdepends = python-mysqlclient: for myrocks_hotbackup
 	optdepends = xz: lzma provider
-	provides = mariadb-server=11.8.9
-	provides = mariadb=11.8.9
+	provides = mariadb-server=12.3.3
+	provides = mariadb=12.3.3
 	provides = mysql
 	conflicts = mariadb
 	conflicts = mysql
@@ -123,7 +123,7 @@ pkgname = mariadb-lts
 
 pkgname = mariadb-lts-pam
 	pkgdesc = MariaDB PAM support (LTS)
-	depends = mariadb-lts=11.8.9
+	depends = mariadb-lts=12.3.3
 	depends = pam
 	depends = libpam.so
 	backup = etc/security/user_map.conf
