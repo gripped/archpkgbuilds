@@ -2,7 +2,7 @@
 
 _name=altair
 pkgname=python-$_name
-pkgver=6.2.2
+pkgver=6.3.0
 pkgrel=1
 pkgdesc="Declarative statistical visualization library for Python"
 arch=(any)
@@ -43,7 +43,7 @@ optdepends=(
   'python-vl-convert: PNG and SVG export via Vega-Lite specifications'
 )
 source=($_name-$pkgver.tar.gz::https://github.com/vega/altair/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('fea31c7ca8269b79302429363d59384feca8eb408e8a904beb18c507112e2a0be8ed3e5e132b1aa00698643140173f74fc25d27565433da2c9be8118d91d196b')
+b2sums=('3b7f52103ef0dc1e68e93e534675d412e2fe5a89192f1cc91b70c2e8e27267cd4a5bfbc8353f135cf93e5c755fcd0ca975cfcbee93667dc7d0aa12032dfb6d24')
 
 build() {
   cd $_name-$pkgver
