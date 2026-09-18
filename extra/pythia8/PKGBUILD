@@ -3,11 +3,11 @@
 # Contributor: Stefano Campanella < stefanocampanella1729 at gmail dot com >
 
 pkgname=pythia8
-pkgver=8.3.17
+pkgver=8.3.18
 _pkgver="${pkgver//./}"
 _pkgid="${pkgname:0:-1}${_pkgver}"
 _pkgpre="${_pkgver:0:2}"
-pkgrel=2
+pkgrel=1
 pkgdesc="High-energy physics events generator"
 arch=('x86_64')
 url="https://pythia.org"
@@ -27,10 +27,10 @@ optdepends=(
     'root: integrated examples with CERN ROOT data analysis framework'
 )
 replaces=(python-pythia8)
-source=("https://pythia.org/download/pythia${_pkgpre}/${_pkgid}.tgz"
+source=("https://pythia.org/releases/pythia${_pkgpre}/${_pkgid}.tgz"
         'pythia8.sh'
         'fix-rpath.patch')
-b2sums=('93d28e1e7b60a89fa948d3de784f8a251e44fe9ff189770828065e333497adbecaf6cbe76c966383088bc763ad68f6dd762a3be4fcb6cfc6c3d7b28d2a619eaf'
+b2sums=('415f45844bdcd2198e353ee4009b0859cada0c532cb9fffb2332f9c5a69138e264aedfaa679be7693b9c8f5b6a17a87e2fbad2b56a0cd99dc4ae891b9a088539'
         '133b72411c3e60a6f0165212dadfa457a69706f045c21d217ac0bb78f84133a9daada0836633f62f8bffc7c70cacd86ffe7f34b2b8a444ea24149261852001e0'
         'a429cf0c1bda300dc05e395454b2810896a26e98714a2d40520ea8399e89b674762d033bd76f364acf99020898860cf621e891577966db2def99a5d7e065fe93')
 
