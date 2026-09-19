@@ -4,15 +4,15 @@
 # Contributor: Victor Feight <vrfeight3 at gmail dot com>
 
 pkgname=gsimplecal
-pkgver=2.5.2
+pkgver=2.5.3
 pkgrel=1
 pkgdesc="Simple and lightweight GTK calendar"
 url="https://dmedvinsky.github.io/gsimplecal/"
 arch=('x86_64')
 license=('BSD-3-Clause')
-depends=('gtk3')
+depends=('glibc' 'glib2' 'gtk3' 'libgcc' 'libstdc++')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/dmedvinsky/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('abf6f2a20e97111eb757be8eff552f0a082ed30c1e37db32b64599d2c1a52235')
+sha256sums=('39c3a14b507d0ca0a167d864f9bd662485bb77e2bb089a5252dd4c6c1ffc2036')
 
 build() {
 	cd "${pkgname}-${pkgver}"
