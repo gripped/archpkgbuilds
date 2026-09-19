@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=scip
-pkgver=10.0.3
-pkgrel=2
+pkgver=10.1.0
+pkgrel=1
 pkgdesc='Solving Constraint Integer Programs'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -22,7 +22,7 @@ makedepends=(boost
              cmake
              git)
 source=(git+https://github.com/scipopt/scip#tag=v$pkgver)
-sha256sums=('67828d8e73ebe8d87443c2f8f8ad6206f338d422b636dd7f923facd463d6a97d')
+sha256sums=('b92cf8c499fe4675ab25af9db0c767058ac7653c420e56075209e19b0ee6489a')
 
 prepare() {
   cd $pkgname
