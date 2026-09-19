@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=tracer
-pkgver=1.4
-pkgrel=2
+pkgver=1.6
+pkgrel=1
 pkgdesc="Tracer finds outdated running applications in your system"
 arch=('any')
 url="http://tracer-package.com/"
@@ -11,7 +11,7 @@ depends=(python python-distro python-psutil python-six python-dbus pyalpm)
 makedepends=(python-setuptools python-build python-installer python-wheel)
 checkdepends=(python-pytest)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/FrostyX/tracer/archive/refs/tags/$pkgname-$pkgver-1.tar.gz")
-sha512sums=('bc41c758568a233ba5bcbdb065c2a8bba166736a35188682227811b95ff094ad47246d46ee6e32e931f51f9fca793f12a9222ee1616ca23d462c73abf76899f6')
+sha512sums=('6aebc61ba212a4fe02395832e288f2ab9c21df1429b3f5884f3015e4178a0d64ae176f3720a4971f58883e7f223f15216c75763bdb024df73a8938f3f408c472')
 
 prepare() {
     cd "$pkgname-$pkgname-$pkgver-1"
