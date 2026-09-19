@@ -1,8 +1,8 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=papilo
-pkgver=3.0.1
-pkgrel=5
+pkgver=3.0.2
+pkgrel=1
 pkgdesc='Parallel Presolve for Integer and Linear Optimization'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -22,7 +22,7 @@ makedepends=(boost
              git)
 source=(git+https://github.com/scipopt/papilo#tag=v$pkgver
         shared-libs.patch)
-sha256sums=('132f41de60ca82f5fd276be0939ec0d1cf938e27e9afdc63772510c479fd549b'
+sha256sums=('a90802fa310e933e51cc826ee46dd39e4e21f801960d2718e6d078f53fab6e08'
             '957ff8289f3695fef86533b3c32f082b27c7d2e7d472964c214f7c2244c0099d')
 
 prepare() {
