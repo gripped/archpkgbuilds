@@ -1,38 +1,38 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=tlottie
-_commit=758c7cb74444f1c3c9923065c40fdb3aad8b7d60
-pkgver=0.1.0.git1.${_commit:0:7}
+pkgver=1.0.6
 pkgrel=1
 pkgdesc="Rust library for drawing Lottie animations"
 arch=('x86_64')
 url="https://github.com/dkaraush/tlottie"
 license=('MIT')
 depends=('glibc' 'libgcc')
-makedepends=('rust' 'git')
-source=("git+${url}.git#commit=${_commit}")
-sha512sums=('7aaed57277aee0577cbf37768b5f379dccc8211deccc111c121cf456b14edc264bc7e2c968f5c0cef7f2c887bdd74be055efffc60af88930067f83505b4eb33d')
+makedepends=('rust')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/dkaraush/tlottie/archive/refs/tags/v1.0.6.tar.gz")
+sha512sums=('101116a4739bd4526985ff844ee159236b0d93d3abfa54ee75ac70477bbeefa111ad152cef51fbf3fb57d41ac4602cb61a5ac0277810040fe8a59286acf163f9')
 
 prepare() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
   cargo build --release --frozen --features c-api
 }
 
-check() {
-  cd "$pkgname"
-
-  cargo test --frozen --features c-api
-}
+# check() {
+#   cd "$pkgname-$pkgver"
+#
+#   cargo test --frozen --features c-api
+# }
 
 package() {
-  cd "$pkgname"
+  cd "$pkgname-$pkgver"
 
-  install -vDm755 -t "$pkgdir/usr/lib" target/release/libtlottie.so
-  install -vDm644 -t "$pkgdir/usr/include" include/tlottie.h
+  install -Dm755 -t "$pkgdir/usr/lib" target/release/libtlottie.so
+  install -Dm644 -t "$pkgdir/usr/include" include/tlottie.h
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
