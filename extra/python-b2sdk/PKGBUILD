@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-b2sdk
-pkgver=2.12.0
+pkgver=2.13.0
 pkgrel=1
 pkgdesc='Python module to access B2 cloud storage'
 arch=(any)
@@ -40,8 +40,8 @@ optdepends=(
   'python-pydantic: for improved type hints'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('1057f536201d6e4155f91dbf6e015973243ddd7ad5b956b3ae2790c97671b8d72cc728c582b9ac634cb0afecc7e9a5acd5462d9eb49f2079f582bb3977695b18')
-b2sums=('91061ea33e8453bded953348e893d100e014701364fac277be39e866a3657f048cb1f99508b405ece9096238b26d98b7d2c907c144a7a599604bbbf2c7427c12')
+sha512sums=('0cfc6d40103741f207fd77c3eddd76b67bf8642700ca49e4b8fab6c3d31397b04a6953f71645c9c3591f8c08327b2e32c56b312cb05a32132b3992251275df90')
+b2sums=('3221eef5b8aee88961e55538d431f8c4f9093d02d07b6a459c16d75a5cec6c7e46bbe7f4a1b27054228c840621b17e8b3049b9ab8e137877ebf1cbc690493d2c')
 
 build() {
   cd "$pkgname"
