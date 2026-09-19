@@ -2,7 +2,7 @@
 # Contributor: Fernandez Ludovic <lfernandez dot dev at gmail dot com>
 
 pkgname=lego
-pkgver=5.4.1
+pkgver=5.5.1
 pkgrel=1
 pkgdesc='Lets Encrypt client and ACME library'
 arch=(x86_64)
@@ -12,8 +12,8 @@ depends=(glibc)
 makedepends=(git go)
 options=(!lto)
 source=("$pkgname::git+https://github.com/go-acme/lego.git#tag=v$pkgver")
-sha512sums=('46537c741e949b32254c6530fc5da8ad23b4fb128c7b42900ab1c985a5fa3ff22b0d00e926a45de532e3923853ed6c5e2b5b45c47ac641aaa0fc13177065dfd8')
-b2sums=('566ac5c8c9acaffd02664b6831d75a0ec68fb983b4ae0299cd02208754fe666c8d84a411c42b613dd7c4ce6615a98edb5eedb45ab1248e27b102e07775691939')
+sha512sums=('4dcfccdc877b28a83c5ec400efd66da42e56134679550125f4f4bc6a8501b74adb836efb5365ea99c462052563f2564f0136939b772778514d8f8b9becd06fa7')
+b2sums=('409c14df0ef1ff6858447cfb3d8048d0c346e19cc95b8e4e94eabf01e881af5acdb2e9f2d439dac79c4ae3e411a396dc5fe0bf225d9837015adb52f0b47fdbdb')
 
 prepare() {
   cd "$pkgname"
