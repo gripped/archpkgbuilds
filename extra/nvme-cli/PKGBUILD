@@ -7,8 +7,8 @@
 # Contributor: Martin Schrodt <martin@schrodt.org>
 
 pkgname=nvme-cli
-pkgver=3.0
-pkgrel=2
+pkgver=3.1
+pkgrel=1
 pkgdesc="NVM-Express user space tooling for Linux"
 arch=('x86_64')
 url="https://github.com/linux-nvme/nvme-cli"
@@ -31,7 +31,7 @@ depends=(
 install=nvme-cli.install
 # checkdepends=('python2-nose' 'python-nose')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linux-nvme/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('37db80e4303403434f169265be4c0f28fedbc37862a54ad49c7cb289f677c6fe')
+sha256sums=('8a6879f1f2af53743c03a8f77f247261306300d3f3b0edfd242c5f646bdfdccb')
 
 build() {
     local meson_options=(
