@@ -1,19 +1,19 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libpkgmanifest
-pkgver=0.5.9
+pkgver=0.6.0
 # Sins copied from https://src.fedoraproject.org/rpms/libpkgmanifest/blob/rawhide/f/libpkgmanifest.spec#_5
 IFS='.' read -r major_version minor_version patch_version <<< "$pkgver"
-pkgrel=2
+pkgrel=1
 pkgdesc="Library for working with RPM manifests system"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgname"
 license=('LGPL-2.1-or-later')
 depends=(yaml-cpp)
-makedepends=(cmake swig python yaml-cpp)
+makedepends=(cmake swig python yaml-cpp rpm-tools)
 checkdepends=(gtest)
 source=($pkgname-$pkgver.tar.gz::"$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('7b268f9c12f06137493def0d18bb7d8f59f2af0d26c1f9c0d531dabb80ae2854')
+sha256sums=('b0b89c59931dcff0e619f71f94a366b32c613d937f4053e8f7cc6d8e706bdf9c')
 
 prepare() {
   cd "$pkgname-$pkgver"
