@@ -1,0 +1,126 @@
+From b708c77f5905c016126c88d1ddb9a542ce7d5479 Mon Sep 17 00:00:00 2001
+From: Cor0n4V1rus <60296087+Cor0n4V1rus@users.noreply.github.com>
+Date: Fri, 18 Sep 2026 13:03:22 +0200
+Subject: [PATCH 1/1] Make compilation work with more recent compilers / C23
+
+---
+ iodbc/connect.c                    | 1 +
+ iodbc/dlproc.h                     | 2 +-
+ iodbc/henv.c                       | 1 +
+ iodbc/info.c                       | 1 +
+ iodbc/misc.c                       | 1 +
+ iodbc/trace/trace.c                | 1 +
+ iodbcinst/SQLGetInstalledDrivers.c | 1 +
+ iodbcinst/inifile.c                | 1 +
+ iodbcinst/misc.c                   | 1 +
+ 9 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/iodbc/connect.c b/iodbc/connect.c
+index f152dbe..1620cd5 100644
+--- a/iodbc/connect.c
++++ b/iodbc/connect.c
+@@ -83,6 +83,7 @@
+ #include <sqlucode.h>
+ #include <iodbcext.h>
+ #include <odbcinst.h>
++#include <strings.h>
+ 
+ #include "dlproc.h"
+ 
+diff --git a/iodbc/dlproc.h b/iodbc/dlproc.h
+index d200504..7a98a63 100644
+--- a/iodbc/dlproc.h
++++ b/iodbc/dlproc.h
+@@ -83,7 +83,7 @@
+ #if defined(_MAC) || defined (__cplusplus)
+ typedef SQLRETURN (* HPROC) (...);
+ #else
+-typedef SQLRETURN (* HPROC) ();
++typedef SQLRETURN (* HPROC) (...);
+ #endif
+ 
+ #ifdef	DLDAPI_SVR4_DLFCN
+diff --git a/iodbc/henv.c b/iodbc/henv.c
+index 370c798..85eab7e 100644
+--- a/iodbc/henv.c
++++ b/iodbc/henv.c
+@@ -83,6 +83,7 @@
+ #include <sqlext.h>
+ 
+ #include <odbcinst.h>
++#include <strings.h>
+ 
+ #include "dlproc.h"
+ 
+diff --git a/iodbc/info.c b/iodbc/info.c
+index 6e83047..387b0f8 100644
+--- a/iodbc/info.c
++++ b/iodbc/info.c
+@@ -96,6 +96,7 @@
+ 
+ #include <stdio.h>
+ #include <ctype.h>
++#include <strings.h>
+ 
+ #ifdef WIN32
+ #define SECT1			"ODBC 32 bit Data Sources"
+diff --git a/iodbc/misc.c b/iodbc/misc.c
+index 3a9e2c3..a612ffd 100644
+--- a/iodbc/misc.c
++++ b/iodbc/misc.c
+@@ -83,6 +83,7 @@
+ 
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <strings.h>
+ #include <unistd.h>
+ 
+ #include "unicode.h"
+diff --git a/iodbc/trace/trace.c b/iodbc/trace/trace.c
+index 2bd205f..0dcaf42 100644
+--- a/iodbc/trace/trace.c
++++ b/iodbc/trace/trace.c
+@@ -79,6 +79,7 @@
+ 
+ #include <stdlib.h>
+ #include <stdio.h>
++#include <strings.h>
+ #include <stdarg.h>
+ #include <ctype.h>
+ #include <pwd.h>
+diff --git a/iodbcinst/SQLGetInstalledDrivers.c b/iodbcinst/SQLGetInstalledDrivers.c
+index fc0810b..fd76034 100644
+--- a/iodbcinst/SQLGetInstalledDrivers.c
++++ b/iodbcinst/SQLGetInstalledDrivers.c
+@@ -77,6 +77,7 @@
+ 
+ #include <iodbc.h>
+ #include <odbcinst.h>
++#include <strings.h>
+ #include "unicode.h"
+ 
+ #include "misc.h"
+diff --git a/iodbcinst/inifile.c b/iodbcinst/inifile.c
+index 8c0b506..9b77c9d 100644
+--- a/iodbcinst/inifile.c
++++ b/iodbcinst/inifile.c
+@@ -81,6 +81,7 @@
+ #include <stdarg.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <strings.h>
+ #ifndef _MAC
+ #include <sys/types.h>
+ #include <sys/stat.h>
+diff --git a/iodbcinst/misc.c b/iodbcinst/misc.c
+index 4e7530a..42d7e48 100644
+--- a/iodbcinst/misc.c
++++ b/iodbcinst/misc.c
+@@ -81,6 +81,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <strings.h>
+ #include <unistd.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
