@@ -2,8 +2,8 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-pam
-pkgver=2.0.2
-pkgrel=6
+pkgver=2.1.0
+pkgrel=1
 pkgdesc='Pure Python interface to the Pluggable Authentication Modules system'
 arch=(any)
 url='https://github.com/FirefighterBlu3/python-pam'
@@ -13,20 +13,12 @@ makedepends=(
   git
   python-build
   python-installer
-  python-setuptools
-  python-wheel
+  python-poetry-core
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('5677d5e478d2be48a38c256ee8d54977546905016f58eb70afe8b9cd40fae62170bf7bf42711fa5017d20d20f23ae1bcc12d88ef1aee2b95434dc6015a4c0e6d')
-b2sums=('c3c33b9c1a5779bd5c98bb498fb79d750aeb747206aa554427606f232eb4f95b5b4aebf88796f3b1140f9b6ecb1aff183cecbb7488c73cb6ad4b572e39b55f2b')
-
-prepare() {
-  cd "$pkgname"
-
-  # remove depdendency on python-six
-  git cherry-pick --no-commit 8d6f8eefcb0b0edafa585d23d6b3f2169d8e1c6f
-}
+sha512sums=('b8ad916b7355b79629f89738a55747858639e3da42525878604f217587361952c47900a0feeed129f3e3a4884c96997e08c603a4f0cb3e1c0d46c56f7d2188cc')
+b2sums=('51042dfdf6aedea748b049cee7687ee8ac9fd53740f967916686689200c343e07b7ffee3f513ae473ee372f87c8205571dcac0e584f3e1c97e2856269b262923')
 
 build() {
   cd "$pkgname"
