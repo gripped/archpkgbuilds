@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-ladybug-geometry
-pkgver=1.35.5
+pkgver=1.35.6
 pkgrel=1
 pkgdesc='Python library housing basic geometry objects and computation methods'
 arch=(any)
@@ -18,8 +18,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('b1d548b7e35a371bbfbae6ecc73ee67c5363730024e2b67f28e8ff07880f2100a669f61b9e32a8b17e17bfb6b6d890ff81aab0882f8053cd817a2572804aac80')
-b2sums=('800c1024fc6d1e1a7cf975883ed45c5b22b0f9797e6bbf21b93febb7fd30d1ad5ce7516124dc22dfee34659cd6d2a35ef70c30bcc8a5c6131c3f6d012c6ac519')
+sha512sums=('a0416073dc75a558c5612521d00f026a0ef19664cf8144030daee8598377a77171bd6eb90c1b02ceea739f2522518120521ced83ab4975370e16491a3d23a0a9')
+b2sums=('05d2e453641cba22398c2a5eb1abcea88ba289273256f006a277bc14900ee5ef089d81d6a424324e6e83896105091f51d8d9edd1c6616b40d5db589f1f30f9a4')
 
 build() {
   cd "$pkgname"
