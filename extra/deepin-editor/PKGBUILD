@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-editor
-pkgver=6.6.2
+pkgver=6.6.3
 pkgrel=1
 pkgdesc='Simple editor for Deepin'
 arch=('x86_64')
@@ -15,13 +15,10 @@ makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'polkit-qt6' 'qt6-tools')
 checkdepends=('noto-fonts')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-editor.git#tag=$pkgver")
-sha512sums=('278c738a730843557626eb342a9402b7fde130f148902c639f2ab1db4bdb7c9df1a98877fb40241add1affe611ab131541abb94e65501584641847d2c6d737fa')
+sha512sums=('949c5cf1d7f3bc4c35ba806d9a4379626c463b2b2e1e784b9dd49310631dcd970d964de2e113cd8b6752ebeff90431f55a89cd26cdc1c06352a7c4652723679c')
 
 prepare() {
   cd deepin-editor
-  # Allow the SPDX header in the stylesheet fixture.
-  # https://github.com/linuxdeepin/deepin-editor/commit/a166cb401a29ae99e64540816c75526856e3b9d8
-  git cherry-pick -n a166cb401a29ae99e64540816c75526856e3b9d8
   # Arch's noto-fonts ships the monospace family as Noto Sans Mono.
   sed -i 's/Noto Mono/Noto Sans Mono/g' tests/common/test_settings.cpp
   # Runtime function stubs require calls that optimization and LTO cannot remove.
