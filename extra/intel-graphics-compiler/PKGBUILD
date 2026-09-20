@@ -3,14 +3,13 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.40.13
-_llvmmaj=17
-_llvmver="${_llvmmaj}.0.6"
+pkgver=2.41.5
+_llvmver=22.1.8
 _vciver=0.25.0
 _spirv_tools_commit=f80351511e9c4672e284842c7b124315c511078a
 _spirv_headers_commit=575b6512579ebde466ed3dfc04e413439d14d95d
-_spirv_llvm_commit=0d147297c5e9406def89fd00615641d62d1cfeb3
-_opencl_clang_commit=6de4d92220bbbb4fa28e13418f8d0daf9d67fe58
+_spirv_llvm_commit=27afcfe385cf542197dfde8c658e1f5ff53fc2fc
+_opencl_clang_commit=b953eceebb0abc6ea954a14545420e3f97540a77
 pkgrel=1
 epoch=1
 pkgdesc='Intel Graphics Compiler for OpenCL'
@@ -29,7 +28,7 @@ makedepends=(
     'python'
     'python-mako'
     'python-yaml')
-provides=("intel-opencl-clang=${_llvmmaj}")
+provides=("intel-opencl-clang=${_llvmver%.*}")
 conflicts=('intel-opencl-clang')
 replaces=('intel-opencl-clang')
 # upstream do not support LTO
@@ -43,14 +42,14 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('a2761e36ddc7b54f51dc80e59f1aff182439313fcf78796bd0ea6e8fa4b58a72'
+sha256sums=('a7853d0c32d2cfd6dabd338af6c109d22486a45cf52c376f038d6ab274441767'
             'af6abe889504fc5f0cc61758aa306211ec2be086858e9e39ee96d289a6c0117c'
-            '3e258c882b331d840698bc41e4f10d082a722e4d87276745c0574cec04bdb3e2'
+            '587da20520635f105126f62e60576d6276d9555e70dda10d3b7ea98f18e5fdab'
             '104e1e45413cb4e4a0f513a067c33ea15cdac3e553634be346096c11111bd614'
             '496b5e84549096e19cc33e99d13978a493b4bf7a3c3bfa19cf4a7ec17be70df5'
-            'c09db1fd411f0d93f016d97ed32c8e57f5dda4c9466da945f6ea38e309766c92'
-            '5cba4bf5388b65e4883908519ec087b5cca23ef3c747fa01e382802c1c62b1da'
-            '5493aa24262e5bdc9ddeb07d71238d81227c2c0b8e257da2f9a6ceb01f8fe407')
+            'cab1c3d13c417fd78017e4d5388a87c0f54c137aedf30861119a7f2a397f445c'
+            '22acb48afcad5f242c5d3fb4da5686d6e0db60b9ac600eb23bb32dc4135ac596'
+            '74b79a64b70a4217627340f30c044838a78829c2dc57d2cc9ad3e492dda01531')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
@@ -64,7 +63,7 @@ prepare() {
 }
 
 build() {
-    # Prevent IGC to load LLVM 18+ symbols
+    # Prevent IGC to load LLVM 23+ symbols
     export CFLAGS+=' -fno-semantic-interposition'
     export CXXFLAGS+=' -fno-semantic-interposition'
     export LDFLAGS+=' -Wl,-Bsymbolic'
@@ -83,7 +82,6 @@ build() {
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_LIBDIR=lib \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_POLICY_VERSION_MINIMUM=3.5.0 \
         -DCMAKE_SKIP_RPATH=YES \
         -DIGC_OPTION__CLANG_MODE=Source \
         -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR=ON \
@@ -106,5 +104,5 @@ package() {
     # additional files for opencl-clang
     install -D -m644 opencl-clang/opencl_clang.h -t "${pkgdir}/usr/include/cclang"
     install -D -m644 opencl-clang/LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE-opencl-clang"
-    ln -s "libopencl-clang.so.${_llvmmaj}" "${pkgdir}/usr/lib/libopencl-clang.so"
+    ln -s "libopencl-clang.so.${_llvmver%.*}" "${pkgdir}/usr/lib/libopencl-clang.so"
 }
