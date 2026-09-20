@@ -3,7 +3,7 @@
 
 pkgname=igsc
 pkgver=0.9.5
-pkgrel=13
+pkgrel=14
 pkgdesc='Intel graphics system controller firmware update library'
 arch=('x86_64')
 url='https://github.com/intel/igsc/'
@@ -25,7 +25,7 @@ build() {
         -DCMAKE_BUILD_TYPE='None '\
         -DCMAKE_INSTALL_PREFIX='/usr' \
         -DENABLE_WERROR='OFF' \
-        -Wno-dev
+        -Wno-author
     cmake --build build
 }
 
