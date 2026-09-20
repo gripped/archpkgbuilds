@@ -20,7 +20,7 @@
 pkgbase=kodi
 pkgname=('kodi' 'kodi-gles' 'kodi-eventclients' 'kodi-tools-texturepacker' 'kodi-dev')
 pkgver=21.3
-pkgrel=8
+pkgrel=12
 arch=('x86_64')
 url="https://kodi.tv"
 license=('GPL-2.0-or-later')
@@ -84,6 +84,7 @@ source=(
   "$pkgbase-libudfread-$_libudfread_version.tar.gz::https://mirrors.kodi.tv/build-deps/sources/libudfread-$_libudfread_version.tar.gz"
   "https://github.com/xbmc/xbmc/pull/28016.patch"
   "kodi-21.3-pcre2.patch"
+  "kodi-21.3-gbm-atomic-modeset.patch"
 )
 noextract=(
   "$pkgbase-libdvdcss-$_libdvdcss_version.tar.gz"
@@ -105,7 +106,8 @@ sha512sums=('4e344f7de95e7f47da413f7aeeef0656837befa89ef8924edf5409ac1c0c8c49e40
             '4066c94f2473c7ea16917d29a613e16f840a329089c88e0bdbdb999aef3442ba00abfd2aa92266fa9c067e399dc88e6f0ccac40dc151378857e665638e78bbf0'
             '3069feb5db40288beb5b112b285186162a704f0fdd3cf67a17fd4eeea015f2cfcfbb455b7aa7c3d79d00fd095a3fd11cffc7b121dce94d99c3b06a509a8977d2'
             'cd7870f9afdaf9e24149082348022b2f257768bbaad9ac6bf2bdb3738f237368ca44a944c87cba9203f7d74c983123b9b446df631c778636a42964de14666cc5'
-            '8bbe97b8e7083538cbd6e76f42dc32652d5e75086f9eb5339afcfe5f87c8fdde613ffac28080019700854596851983b9158110b0fd4f30a43030d87647393f41')
+            '8bbe97b8e7083538cbd6e76f42dc32652d5e75086f9eb5339afcfe5f87c8fdde613ffac28080019700854596851983b9158110b0fd4f30a43030d87647393f41'
+            '541e349de354f5dad1460667c10a7d845bfc82e168574958e6f416da26a993d951d509b034293af52d839d5cfe5eec43567ccd929c08ce7f5c566c829368ac72')
 
 prepare() {
   [[ -d "$srcdir/kodi-build" ]] && rm -rf "$srcdir/kodi-build"
@@ -119,6 +121,9 @@ prepare() {
   patch -p1 -i "$srcdir/28016.patch"
   # PCRE2 support from Debian https://sources.debian.org/patches/kodi/2:21.3+dfsg-1.1/workarounds/0003-pcre2.patch/
   patch -p1 -i "$srcdir/kodi-21.3-pcre2.patch"
+  # gbm screen refresh rate crash: https://gitlab.archlinux.org/archlinux/packaging/packages/kodi/-/work_items/20
+  # patch extracted from https://github.com/xbmc/xbmc/pull/28246/changes/2530a9be035f4b369dcccaff7ba4bb22ce5b3289
+  patch -p1 -i "$srcdir/kodi-21.3-gbm-atomic-modeset.patch"
 
   rm -rf system/certs # remove not needed cacert
 }
