@@ -3,7 +3,7 @@
 pkgname=kodi-addon-peripheral-joystick
 pkgver=21.1.23
 _codename=Omega
-pkgrel=2
+pkgrel=6
 pkgdesc="Joystick support for Kodi"
 arch=('x86_64')
 url='https://github.com/xbmc/peripheral.joystick'
@@ -26,7 +26,7 @@ build() {
 }
 
 package() {
-    depends=('kodi' 'kodi-platform')
+    depends=('kodi')
     cd "peripheral.joystick-$pkgver-$_codename"
     make DESTDIR="$pkgdir/" install
 }
