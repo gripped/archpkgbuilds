@@ -3,17 +3,19 @@
 # vim: ft=sh:
 
 pkgname=libcec
-pkgver=7.1.1
-pkgrel=2
+pkgver=8.1.7
+pkgrel=1
 pkgdesc="Pulse-Eight's libcec for the Pulse-Eight USB-CEC adapter"
 arch=('x86_64')
 url="http://libcec.pulse-eight.com/"
 license=('GPL-2.0-or-later')
 makedepends=('cmake' 'swig' 'python')
-depends=('udev' 'p8-platform' 'libxrandr')
-optdepends=('python: use cec in python applications')
+depends=('udev' 'libxrandr')
+optdepends=(
+    'python: use cec in python applications'
+)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Pulse-Eight/$pkgname/archive/$pkgname-$pkgver.tar.gz")
-sha256sums=('7f7da95a4c1e7160d42ca37a3ac80cf6f389b317e14816949e0fa5e2edf4cc64')
+sha256sums=('e4ac4d1dd3559cf83189d29ab40fc5537b5a2beceb82916ef173dac7e50dbfa0')
 
 build() {
     cd "$pkgname-$pkgname-$pkgver"
@@ -22,7 +24,10 @@ build() {
     cmake .. \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_SHARED_LIBS=1 \
+        -DDISABLE_STATIC=ON \
         -DHAVE_LINUX_API=1 \
+        -DHAVE_EXYNOS_API=1 \
+        -DHAVE_AOCEC_API=1 \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_INSTALL_LIBDIR=/usr/lib \
         -DCMAKE_INSTALL_LIBDIR_NOARCH=/usr/lib
