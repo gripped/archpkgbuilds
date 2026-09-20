@@ -4,7 +4,7 @@
 # Contributor: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=pgcli
-pkgver=4.6.0
+pkgver=4.7.1
 pkgrel=1
 pkgdesc='A command line interface for PostgreSQL with auto-completion and syntax highlighting'
 arch=(any)
@@ -40,8 +40,8 @@ optdepends=(
   'python-sshtunnel: for accessing remote instances over SSH'
 )
 source=("$pkgname::git+https://github.com/dbcli/pgcli.git#tag=v$pkgver")
-sha512sums=('bd87e06b68dcdc6a402a62b22139e71f7f452b0260a574ac7f5abaaf235ec8c0cfd00e578e211e590a217da5fca26a97ce654c8745315606347cddd54dd5ec42')
-b2sums=('890df005db510365d75dc9baf609bd0d74c1b356c5ac57ef056a6108b46dc9677b608ec72326b3b64c767a83a95736c2bf8701ea58181a009a054464d351d884')
+sha512sums=('91807c44e9b5eb7c07ae60dfd28982bf625ac7f257257545fb5d6e70aa33449aa1882113a85f32387a9e6218f5f1db1eb7365af05d740971f5d44bf906c0fbbd')
+b2sums=('e936bc2c010e486afadb6635ad4b7a66b321be5708bbb3c0e12165932089bcc7ed4c22a11ca82c9301c7f967e386b1994992e246371494fd86cdcfb3c0fe637e')
 
 build() {
   cd "$pkgname"
