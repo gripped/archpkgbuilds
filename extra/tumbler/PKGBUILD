@@ -5,7 +5,7 @@
 
 pkgname=tumbler
 pkgver=4.20.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Thumbnail service implementing the thumbnail management D-Bus specification"
 arch=('x86_64')
 url="https://docs.xfce.org/xfce/tumbler/start"
@@ -14,7 +14,7 @@ groups=('xfce4')
 depends=('libxfce4util' 'gdk-pixbuf2' 'hicolor-icon-theme')
 makedepends=('git' 'glib2-devel' 'python' 'ffmpegthumbnailer' 'poppler-glib'
              'libgsf' 'libgepub' 'libopenraw' 'freetype2' 'xfce4-dev-tools')
-optdepends=('ffmpegthumbnailer: video thumbnails'
+optdepends=('ffmpegthumbnailer: audio and video thumbnails'
             'poppler-glib: PDF thumbnails'
             'libgsf: ODF thumbnails'
             'libgepub: EPUB thumbnails'
