@@ -4,7 +4,7 @@ pkgbase=highs
 pkgname=(highs
          python-highspy)
 pkgver=1.15.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Linear optimization software'
 arch=(x86_64)
 url='https://highs.dev/'
@@ -39,7 +39,8 @@ package_highs() {
 }
 
 package_python-highspy() {
-  depends+=(python
+  depends+=(highs
+            python
             python-numpy)
 
   cd HiGHS
