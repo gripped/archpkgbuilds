@@ -6,7 +6,7 @@
 
 pkgname=broadcom-wl-dkms
 pkgver=6.30.223.271
-pkgrel=49
+pkgrel=50
 pkgdesc='Broadcom 802.11 Linux STA wireless driver'
 arch=(x86_64)
 url='https://www.broadcom.com/site-search?filters[pages][content_type][values][]=Downloads&q=802.11%20linux%20sta%20wireless%20driver'
@@ -69,8 +69,6 @@ b2sums=('7c4eaa825a37358509a08e5105665eeabc9f097945b6fa163cd5722b00638da5889f546
         'e9d01c1a1a63c07f720e3ee53ee3ef634ab12694135300cb0ce47ade0e9e0084967a0b6df64d983e8184240eb3defb128f650bddb7727e901d50315307f3398a')
 
 prepare() {
-  # apply patch from the source array (should be a pacman feature)
-  local src
   for src in "${source[@]}"; do
     src="${src%%::*}"
     src="${src##*/}"
