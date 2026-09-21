@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-yaspin
-pkgver=3.5.0
+pkgver=3.5.1
 pkgrel=1
 pkgdesc="Yet Another Terminal Spinner"
 url="https://github.com/pavdmyt/yaspin"
@@ -11,7 +11,7 @@ depends=('python-termcolor')
 makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
 checkdepends=('python-pytest' 'python-pytest-mock')
 source=("git+https://github.com/pavdmyt/yaspin.git#tag=v$pkgver")
-sha512sums=('3f167f69ac99c07c9912378a87141af5b5c1e6b58b6c9d3f65421611f1f6cd8db72e62928d30d1c73f412ca6b6b4eb50a5e37302f75c71dd6cfce3b79a2c4e74')
+sha512sums=('1e8b169869e549d112a29e152f68609a953813e944e4e2eabbae966a4040b7b8ac0d2a0aeda1f62d476083bcba657758e69a3ee9a458f2ddf533826cc4fe3929')
 
 build() {
   cd yaspin
