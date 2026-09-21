@@ -5,7 +5,7 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=readline
-pkgver=8.3.3
+pkgver=8.3.6
 _patchlevel=${pkgver#*.*.}
 [[ $_patchlevel == "$pkgver" ]] && _patchlevel=0
 _basever=${pkgver%"${_patchlevel:+.$_patchlevel}"}
@@ -38,6 +38,12 @@ b2sums=('45d6fe7e34c56d309102a94aa776a7f5284201e844450e14ff818df9fa84a72154bdca7
         'bb07c3e1663b36988e59721d8e8054022726f6adc2160cbb1fe30bcb5fe96d70fc38980a84c05a0518b9916975ffa1c4c97542fc9c82845736c6f6d03ca60229'
         'SKIP'
         '39f48eefef1840460aa418a070813dd284893e74dddad5fb44230498a7991148e9681be89b30e98fe805a67b3093360c883a16a26a7f103548f36c899f9359da'
+        'SKIP'
+        '401263120f2b21cae9c71385a73ab49415dcfe44c197cc5af4157e9c228be26da78ef24d31001f11ab78d422425a23f8edc6176e3cf5783b9f9df035aa65b00b'
+        'SKIP'
+        'd21bc0a8e23d0f72569924fd7879f54b132873611823d4ccf93c6449b2beaf64819b1d018df48f90e6b3d977f97fdeb623832615d176c1561935d412dcdcd919'
+        'SKIP'
+        '2ade2b861a51de18e8ec42a218198b50da3da75179cde0aeafa16005d2e5ba73ce97426e373eb72ca046c67bce9346f4ffb75f452290dfbeb9b540de0982d0fd'
         'SKIP')
 validpgpkeys=('7C0135FB088AAF6C66C650B9BB5869F064EA74AB') # Chet Ramey
 
