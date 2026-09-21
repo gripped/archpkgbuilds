@@ -4,13 +4,13 @@
 
 pkgname=bat
 pkgver=0.26.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Cat clone with syntax highlighting and git integration'
 arch=(x86_64)
 url='https://github.com/sharkdp/bat'
 license=('Apache-2.0 OR MIT')
 depends=(libgcc glibc libgit2 oniguruma zlib)
-makedepends=(cargo-edit clang cmake git rust)
+makedepends=(git rust)
 source=("git+$url.git#tag=v$pkgver")
 b2sums=('ceaf51697a1938080c5d8ac51150b0dbe3878909091dde1e35dd3955a7d951c6b8aac5685eb1d1aa345f330b4a27a5ade60aafec35faa63c63620939c6ad4118')
 
@@ -21,14 +21,15 @@ prepare() {
 
 build() {
   cd "$pkgname"
-  CFLAGS+=' -ffat-lto-objects -w'
   export LIBGIT2_NO_VENDOR=1
+  export RUSTONIG_DYNAMIC_LIBONIG=1
   cargo build --frozen --release
 }
 
 check() {
   cd "$pkgname"
   export LIBGIT2_NO_VENDOR=1
+  export RUSTONIG_DYNAMIC_LIBONIG=1
   cargo test --locked --release
 }
 
