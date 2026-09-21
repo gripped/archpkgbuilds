@@ -2,7 +2,7 @@
 # Contributor: Gavin Lloyd <gavinhungry@gmail.com>
 
 pkgname=acme.sh
-pkgver=3.1.4
+pkgver=3.1.5
 pkgrel=1
 pkgdesc='An ACME Shell script, an acme client alternative to certbot'
 arch=('any')
@@ -14,7 +14,7 @@ optdepends=('socat: for standalone mode'
             'python: for standalone mode without socat'
             'oath-toolkit: Used to compute the OTP for some DNS providers')
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('ad6fff3c4fa2278f2eecedd6d232b1641caeccf01f41ec7f545f449e72301afd52fe873099adc9c767d3dffb2ade04e145844c432c5f97282b4255e8bb2f4f28')
+sha512sums=('c64e84a9af0b4f30163ddc0695c94afeacb61fdd4b05f381bd74733631ad37b8870b26c9be3bbb27d98c6b9f3bb29f12026a6cd4838d6fc37da431a8b4521a83')
 
 package() {
   cd $pkgname
@@ -31,5 +31,9 @@ package() {
   install -m755 dnsapi/*.sh "$pkgdir"/usr/share/acme.sh/dnsapi/
   install -m755 notify/*.sh "$pkgdir"/usr/share/acme.sh/notify/
 
-  ln -s /usr/share/acme.sh/acme.sh "$pkgdir"/usr/bin/acme.sh
+  install -Dm755 /dev/stdin "$pkgdir"/usr/bin/acme.sh <<'EOF'
+#!/bin/sh
+export ACME_PACKAGED=1
+exec /usr/share/acme.sh/acme.sh "$@"
+EOF
 }
