@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.47
+pkgver=6.5.47.1
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -33,7 +33,7 @@ replaces=('deepin-desktop')
 # https://github.com/linuxdeepin/developer-center/issues/5725
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver")
-sha512sums=('0d9fd7547129dfda43f42e1175fa502298b1c50b3fddb3aac7d26764f3ff420c01ec2bab26f1a664b187dc6fcc3dff931866d31b7c48d10fb65dec1174f806ca')
+sha512sums=('767fcdad6342e1e7a897a85b6e5c2190526b616a81a71d24d04d4033187416d7fa295472fc963f2fa9f5265a285e09f6697ba846ec0532a3ff206de1ea6ae5b4')
 
 prepare() {
   cd dde-file-manager
@@ -45,12 +45,6 @@ prepare() {
   # Migrate search and TextIndex from PCRE1 to PCRE2.
   # https://github.com/linuxdeepin/dde-file-manager/pull/2812
   git cherry-pick -n 682dffd359abdf42329f03a1cb0ca666eb3a328d
-
-  # The search rewrite uses QElapsedTimer without including its Qt header.
-  # https://github.com/linuxdeepin/dde-file-manager/pull/2759
-  sed -i 's/#include <QTime>/#include <QElapsedTimer>/' \
-    src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/fulltext/fulltextsearcher_p.h \
-    src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/iterator/iteratorsearcher.h
 
   # Backport upstream's Qt 6.10+ private-header target links.
   # https://github.com/linuxdeepin/dde-file-manager/pull/3245
