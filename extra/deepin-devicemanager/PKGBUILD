@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-devicemanager
-pkgver=6.0.72
+pkgver=6.0.73
 pkgrel=1
 pkgdesc='Deepin hardware information and device management tool'
 arch=('x86_64')
@@ -13,13 +13,13 @@ depends=('bluez-deprecated-tools' 'bluez-utils' 'cups' 'deepin-qt6integration'
          'libstdc++' 'lshw' 'net-tools' 'pciutils' 'polkit-qt6' 'qt6-base'
          'qt6-svg' 'smartmontools' 'systemd' 'systemd-libs' 'upower' 'usbutils'
          'util-linux' 'xorg-xrandr')
-makedepends=('git' 'cmake' 'ninja' 'pkgconf' 'qt6-tools')
+makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 optdepends=('deepin-printer: open printer settings from printer pages'
             'deepin-shortcut-viewer: display keyboard shortcuts'
             'nvidia-utils: show NVIDIA GPU details')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-devicemanager.git#tag=$pkgver")
-sha512sums=('c4b921199b642e2e7521bc0c1ab92c552de7d558e9ac8f0b230fbcd2bcdac365d23eedfcc7f7795a9eeb8c1414f2ae796004264dc6558f0d3978e2dd9e85c270')
+sha512sums=('5e68007f9da49f54cbfe796de767a32c238fe8310e73133a04ec5f3da8b2d91f207e1d14700e1599e08d15e7348f9f63911202a7462db6628543271632f9e129')
 
 build() {
   cmake -GNinja -B build -S deepin-devicemanager \
