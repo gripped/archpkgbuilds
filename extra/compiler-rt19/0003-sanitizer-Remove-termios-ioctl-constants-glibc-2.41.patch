@@ -1,0 +1,118 @@
+From 0a17483c481d82eace3b36aee9cacb619eb027af Mon Sep 17 00:00:00 2001
+From: cqwrteur <uwgghhbcad@gmail.com>
+Date: Fri, 25 Jul 2025 03:49:49 +0800
+Subject: [PATCH] [sanitizer] Remove usage of termios ioctl constants on Linux
+ glibc since 2.41 (#149140)
+
+glibc 2.42 made all usage of termios ioctl constants strictly internal
+
+Therefore, we remove all usage for those removed constants.
+
+This should only apply for Linux.
+
+Fix #149103
+
+Reference:
+
+https://github.com/bminor/glibc/commit/3d3572f59059e2b19b8541ea648a6172136ec42e
+
+@fweimer-rh @tstellar
+---
+ .../sanitizer_common_interceptors_ioctl.inc       |  4 ++++
+ .../lib/sanitizer_common/sanitizer_platform.h     | 15 +++++++++++++++
+ .../sanitizer_platform_limits_posix.cpp           |  4 ++++
+ .../sanitizer_platform_limits_posix.h             |  4 +++-
+ 4 files changed, 26 insertions(+), 1 deletion(-)
+
+diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc b/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc
+index 08c2be47f5358..673f284b6a043 100644
+--- a/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc
++++ b/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors_ioctl.inc
+@@ -344,12 +344,16 @@ static void ioctl_table_fill() {
+   _(SOUND_PCM_WRITE_CHANNELS, WRITE, sizeof(int));
+   _(SOUND_PCM_WRITE_FILTER, WRITE, sizeof(int));
+   _(TCFLSH, NONE, 0);
++#    if SANITIZER_TERMIOS_IOCTL_CONSTANTS
+   _(TCGETS, WRITE, struct_termios_sz);
++#    endif
+   _(TCSBRK, NONE, 0);
+   _(TCSBRKP, NONE, 0);
++#    if SANITIZER_TERMIOS_IOCTL_CONSTANTS
+   _(TCSETS, READ, struct_termios_sz);
+   _(TCSETSF, READ, struct_termios_sz);
+   _(TCSETSW, READ, struct_termios_sz);
++#    endif
+   _(TCXONC, NONE, 0);
+   _(TIOCGLCKTRMIOS, WRITE, struct_termios_sz);
+   _(TIOCGSOFTCAR, WRITE, sizeof(int));
+diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_platform.h b/compiler-rt/lib/sanitizer_common/sanitizer_platform.h
+index 196c0a988478e..13099fe84b0aa 100644
+--- a/compiler-rt/lib/sanitizer_common/sanitizer_platform.h
++++ b/compiler-rt/lib/sanitizer_common/sanitizer_platform.h
+@@ -482,4 +482,19 @@
+ #  define SANITIZER_START_BACKGROUND_THREAD_IN_ASAN_INTERNAL 0
+ #endif
+ 
++#if SANITIZER_LINUX
++#  if SANITIZER_GLIBC
++// Workaround for
++// glibc/commit/3d3572f59059e2b19b8541ea648a6172136ec42e
++// Linux: Keep termios ioctl constants strictly internal
++#    if __GLIBC_PREREQ(2, 41)
++#      define SANITIZER_TERMIOS_IOCTL_CONSTANTS 0
++#    else
++#      define SANITIZER_TERMIOS_IOCTL_CONSTANTS 1
++#    endif
++#  else
++#    define SANITIZER_TERMIOS_IOCTL_CONSTANTS 1
++#  endif
++#endif
++
+ #endif  // SANITIZER_PLATFORM_H
+diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp b/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
+index 7a89bf1c74985..ef4b8a85d6634 100644
+--- a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
++++ b/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.cpp
+@@ -780,15 +780,19 @@ unsigned struct_ElfW_Phdr_sz = sizeof(Elf_Phdr);
+ #endif // SOUND_VERSION
+   unsigned IOCTL_TCFLSH = TCFLSH;
+   unsigned IOCTL_TCGETA = TCGETA;
++#    if SANITIZER_TERMIOS_IOCTL_CONSTANTS
+   unsigned IOCTL_TCGETS = TCGETS;
++#    endif
+   unsigned IOCTL_TCSBRK = TCSBRK;
+   unsigned IOCTL_TCSBRKP = TCSBRKP;
+   unsigned IOCTL_TCSETA = TCSETA;
+   unsigned IOCTL_TCSETAF = TCSETAF;
+   unsigned IOCTL_TCSETAW = TCSETAW;
++#    if SANITIZER_TERMIOS_IOCTL_CONSTANTS
+   unsigned IOCTL_TCSETS = TCSETS;
+   unsigned IOCTL_TCSETSF = TCSETSF;
+   unsigned IOCTL_TCSETSW = TCSETSW;
++#    endif
+   unsigned IOCTL_TCXONC = TCXONC;
+   unsigned IOCTL_TIOCGLCKTRMIOS = TIOCGLCKTRMIOS;
+   unsigned IOCTL_TIOCGSOFTCAR = TIOCGSOFTCAR;
+diff --git a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h b/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h
+index 00e237a24fc91..9e11dd9911d9d 100644
+--- a/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h
++++ b/compiler-rt/lib/sanitizer_common/sanitizer_platform_limits_posix.h
+@@ -1339,15 +1339,17 @@ extern unsigned IOCTL_SNDCTL_COPR_WCODE;
+ extern unsigned IOCTL_SNDCTL_COPR_WDATA;
+ extern unsigned IOCTL_TCFLSH;
+ extern unsigned IOCTL_TCGETA;
+-extern unsigned IOCTL_TCGETS;
+ extern unsigned IOCTL_TCSBRK;
+ extern unsigned IOCTL_TCSBRKP;
+ extern unsigned IOCTL_TCSETA;
+ extern unsigned IOCTL_TCSETAF;
+ extern unsigned IOCTL_TCSETAW;
++#    if SANITIZER_TERMIOS_IOCTL_CONSTANTS
++extern unsigned IOCTL_TCGETS;
+ extern unsigned IOCTL_TCSETS;
+ extern unsigned IOCTL_TCSETSF;
+ extern unsigned IOCTL_TCSETSW;
++#    endif
+ extern unsigned IOCTL_TCXONC;
+ extern unsigned IOCTL_TIOCGLCKTRMIOS;
+ extern unsigned IOCTL_TIOCGSOFTCAR;
