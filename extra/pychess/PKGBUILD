@@ -4,8 +4,8 @@
 # Contributor: Alexander Fehr <pizzapunk@gmail.com>
 
 pkgname=pychess
-pkgver=1.1.0
-pkgrel=3
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Chess client"
 url="https://pychess.github.io"
 arch=('any')
@@ -15,7 +15,7 @@ depends=('gst-plugins-base' 'gtksourceview4' 'python-cairo' 'python-gobject'
          'python-websockets')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pychess/pychess/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('351d6b27b5e4524ae1b752d309e84092f765c6bc254d893de96150c4ea14c056')
+sha256sums=('da989acb45ebe77fa013ab68a5e6d4202c8d831af68e3533c8b96a9b5e387548')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
