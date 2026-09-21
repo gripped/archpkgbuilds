@@ -4,8 +4,8 @@
 # Contributor: Juergen Hoetzel <juergen@archlinux.org>
 
 pkgname=lxsession
-pkgver=0.5.6
-pkgrel=2
+pkgver=0.5.7
+pkgrel=1
 epoch=1
 pkgdesc='Lightweight X11 session manager'
 arch=(x86_64)
@@ -36,16 +36,14 @@ replaces=(
 )
 groups=(lxde)
 source=("git+https://github.com/lxde/lxsession.git#tag=$pkgver")
-b2sums=(3242d2c28baf4767a028b737912bb422a5a7bdc391c8fdf85ad6c62959e135a194ee364a87f5c3381a4aaaab47eb98819d4b59bf531c352697d82bd4b4e566fa)
+b2sums=(049a4bd86469f95e6f260fac0ab51458bf23a19a202665be3cb6c7b5489ed096c602dcb807885d6d1ba9531600a5a29571d8d1e9aadc4767e0c69f94e2286604)
 
 prepare() {
   cd $pkgname
 
+  # Replace "which" command
   # https://github.com/lxde/lxsession/pull/43
   sed -i 's/which /command -v /' lxlock/lxlock
-
-  # https://github.com/lxde/lxsession/pull/44
-  sed -i 's/^NotShowIn=.*/OnlyShowIn=LXDE;/' data/lxpolkit.desktop.in.in
 
   mkdir m4
   autoreconf -fiv
