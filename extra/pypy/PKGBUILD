@@ -2,7 +2,7 @@
 # Contributor: William Giokas <1007380@gmail.com>
 
 pkgname=pypy
-pkgver=7.3.23
+pkgver=8.0.0
 pkgrel=1
 pkgdesc="A Python implementation written in Python, JIT enabled"
 url="https://pypy.org"
@@ -12,8 +12,8 @@ makedepends=('pypy' 'tk' 'sqlite' 'mercurial')
 optdepends=('sqlite: sqlite module'
             'tk: tk module')
 license=('MIT')
-source=("https://downloads.python.org/pypy/pypy2.7-v${pkgver}-src.tar.bz2")
-sha512sums=('3750fc9c5309baa7627d00a77b4b2b1e0d755b75841acd0fcee484bc332f1e9ed9c1f33d2f4800777f20ea8849356f39c84167f96b9ebfdd7e479798d62eac06')
+source=("https://downloads.python.org/pypy/pypy2.7-v${pkgver}-src.tar.gz")
+sha512sums=('e0ae52034b5e03d413c47e1ddd9a7bde3549c70b4519c1630367c314ebce58638af78d5936c89943de1907477eb4bec8c149d850836991af14a50c9e643dfa63')
 
 build() {
   cd pypy2.7-v${pkgver}-src/pypy/goal
@@ -30,7 +30,7 @@ package() {
   # Prepare installation
   pypy pypy/tool/release/package.py --archive-name pypy --targetdir .
   mkdir unpacked
-  tar xf pypy.tar.bz2 -C unpacked
+  tar xf pypy.tar.gz -C unpacked
 
   # Install pypy
   cd unpacked
