@@ -3,8 +3,8 @@
 
 _pkgname=html5-parser
 pkgname=python-html5-parser
-pkgver=0.4.12
-pkgrel=5
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="Fast C based HTML 5 parsing for python"
 arch=('x86_64')
 url="https://github.com/kovidgoyal/${_pkgname}"
@@ -14,8 +14,8 @@ makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel
 checkdepends=('python-beautifulsoup4')
 optdepends=('python-beautifulsoup4: to use the soup treebuilder')
 source=("git+${url}#tag=v${pkgver}?signed")
-sha256sums=('57c3a8bc8454cd7ddb7f579f291545edc59076c1c6011501814be83e7ca9bf0c')
-b2sums=('a2685a57d95be31bdca22ac3a8dc1c41d454da10940f4c0e018cb8e3eeea8ce69d31edcb53b17f547f3923a7328dc0728bc3839fdbf4e29e585a7a2312b6b7b1')
+sha256sums=('0a3b6bbfc1855554277e4a686687d7fe609043a23a6b05caf8285029da341e3a')
+b2sums=('56a6c23558e318a8a0926a8eefa7f58f0ddd4aefae376a03b5f9e42c10fa2472c6895897becb090564b215e9715ebdb710be06c445490cf00725adb28ac69aad')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 build() {
