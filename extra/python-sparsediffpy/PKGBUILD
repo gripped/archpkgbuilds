@@ -1,0 +1,38 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+_pyname=SparseDiffPy
+pkgname=python-${_pyname,,}
+pkgver=0.6.1
+pkgrel=1
+pkgdesc='Python bindings for SparseDiffEngine'
+url='https://github.com/SparseDifferentiation/SparseDiffPy'
+license=(Apache-2.0)
+arch=(x86_64)
+depends=(glibc
+         python
+         python-numpy)
+makedepends=(git
+             python-build
+             python-installer
+             python-scikit-build-core)
+source=(git+https://github.com/SparseDifferentiation/SparseDiffPy#tag=v$pkgver
+        git+https://github.com/SparseDifferentiation/SparseDiffEngine)
+sha256sums=('545cfdb272c42157aaefa6797263f62969684d458f9b90cd6ae6f930b33a7f9b'
+            'SKIP')
+
+prepare() {
+  cd $_pyname
+  git submodule init
+  git submodule set-url SparseDiffEngine "$srcdir"/SparseDiffEngine
+  git -c protocol.file.allow=always submodule update SparseDiffEngine
+}
+
+build() {
+  cd $_pyname
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $_pyname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
