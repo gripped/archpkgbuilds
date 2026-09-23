@@ -1,6 +1,6 @@
 --- a/src/parallel
 +++ b/src/parallel
-@@ -2435,11 +2435,6 @@ sub options_completion_hash() {
+@@ -2438,11 +2438,6 @@ sub options_completion_hash() {
  	 "gnu[Behave like GNU parallel]" => \$opt::gnu,
  	 "link|xapply[Link input sources]" => \$opt::link,
  	 "linkinputsource|xapplyinputsource=i" => \@opt::linkinputsource,
@@ -12,7 +12,7 @@
  	 ("bibtex|citation".
  	  "[Print the citation notice and BibTeX entry for GNU parallel, ".
  	  "silence citation notice for all future runs, and exit. ".
-@@ -2727,14 +2722,6 @@ sub parse_options(@) {
+@@ -2730,14 +2725,6 @@ sub parse_options(@) {
      init_globals();
      my @argv_before = @ARGV;
      @ARGV = read_options();
@@ -27,7 +27,7 @@
      # no-* overrides *
      if($opt::nokeeporder) { $opt::keeporder = undef; }
  
-@@ -3063,88 +3050,6 @@ sub parse_options(@) {
+@@ -3067,88 +3054,6 @@ sub parse_options(@) {
  	    eval q{ sub mbswidth { return length @_; } };
  	}
      }
@@ -116,7 +116,7 @@
      parse_halt();
  
      if($ENV{'PARALLEL_ENV'}) {
-@@ -6621,88 +6526,9 @@ sub usage() {
+@@ -6641,88 +6546,9 @@ sub usage() {
  	 "--recstart str  Record start separator for --pipe.",
  	 "",
  	 "GNU Parallel can do much more. See 'man $Global::progname' for details",
@@ -125,8 +125,8 @@
 -	 "If you use programs that use GNU Parallel to process data for an article in a",
 -	 "scientific publication, please cite:",
 -	 "",
--	 "  Tange, O. (2026, July 22). GNU Parallel 20260722 ('Chat Control').",
--	 "  Zenodo. https://doi.org/10.5281/zenodo.21476260",
+-	 "  Tange, O. (2026, September 22). GNU Parallel 20260922 ('Parton').",
+-	 "  Zenodo. https://doi.org/10.5281/zenodo.22904078",
 -	 "",
 -	 # Before changing these lines,  please read
 -	 # https://www.gnu.org/software/parallel/parallel_design.html#citation-notice
@@ -174,8 +174,8 @@
 -		 "If you use programs that use GNU Parallel to process data for an article in a",
 -		 "scientific publication, please cite:",
 -		 "",
--		 "  Tange, O. (2026, July 22). GNU Parallel 20260722 ('Chat Control').",
--		 "  Zenodo. https://doi.org/10.5281/zenodo.21476260",
+-		 "  Tange, O. (2026, September 22). GNU Parallel 20260922 ('Parton').",
+-		 "  Zenodo. https://doi.org/10.5281/zenodo.22904078",
 -		 "",
 -		 # Before changing the code to block printing the citation notice
 -		 # if the user has not accepted to cite, please read:
@@ -205,7 +205,7 @@
  sub status(@) {
      my @w = @_;
      my $fh = $Global::status_fd || *STDERR;
-@@ -6767,9 +6593,6 @@ sub version() {
+@@ -6787,9 +6613,6 @@ sub version() {
  	 "This is free software: you are free to change and redistribute it.",
  	 "GNU $Global::progname comes with no warranty.",
  	 "",
