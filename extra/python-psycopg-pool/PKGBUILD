@@ -4,7 +4,7 @@
 pkgname=python-psycopg-pool
 # source is shared with python-psycopg package, hence the weird naming
 _pkgname=python-psycopg
-pkgver=3.3.2
+pkgver=3.3.3
 pkgrel=1
 pkgdesc='Connection pool for psycopg'
 arch=(any)
@@ -19,8 +19,8 @@ makedepends=(
   python-setuptools
 )
 source=("$_pkgname::git+https://github.com/psycopg/psycopg.git#tag=pool-$pkgver")
-sha512sums=('7a03a06a1b1e654f9ed6895b169c26ed80066c81cf1b1915a211d7a9a079425e443f38fdb1532ce764f8ef9a48a4ed62bed7e3446bba5d0b34faebed05801ce0')
-b2sums=('61ac01b2461fe0bdf34dc4a09e6c87ab45df4ff7a762945e0baca2d13177e64c6d558f0e0d037ae9f6e355a072fc1273592b3f1585c434cda14d6c2f206cba40')
+sha512sums=('11af941cf43e3ca0f1310ee026fbf33a71d3757c0bf97b33af406597f3119f080822640a354af6f7b63dd98efe346e220d1ae98c23846fbbe1277cdf28838493')
+b2sums=('64ae3ced21d75049358ee3d579da111ca379c35948252c244c4f0626d71d25f435c27ce29dd01553be1017289a00884c6fe02c04b0ab80eefc53b77972b0b065')
 
 build(){
   cd "$_pkgname/psycopg_pool"
