@@ -4,18 +4,19 @@
 pkgbase=drumgizmo
 pkgname=(drumgizmo drumgizmo-{lv2,standalone})
 pkgver=0.9.20
-pkgrel=3
+pkgrel=4
 pkgdesc="Multichannel, multilayered, cross-platform drum plugin and stand-alone application"
 arch=(x86_64)
 url="https://www.drumgizmo.org"
 license=(GPL-3.0-or-later)
 makedepends=(
   alsa-lib
-  gcc-libs
   glibc
   jack
+  libgcc
   libsmf
   libsndfile
+  libstdc++
   libxext
   libx11
   libxml2
@@ -88,9 +89,10 @@ package_drumgizmo-lv2() {
     pro-audio
   )
   depends=(
-    gcc-libs
     glibc
+    libgcc
     libsndfile
+    libstdc++
     libxext
     libx11
     lv2-host
@@ -106,11 +108,12 @@ package_drumgizmo-standalone() {
   )
   depends=(
     alsa-lib
-    gcc-libs
     glibc
     jack
+    libgcc
     libsmf
     libsndfile
+    libstdc++
   )
 
   mv -v $pkgname/* "$pkgdir"
