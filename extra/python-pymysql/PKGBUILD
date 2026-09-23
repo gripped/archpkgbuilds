@@ -2,7 +2,7 @@
 
 _name=PyMySQL
 pkgname=python-pymysql
-pkgver=1.2.0
+pkgver=1.2.3
 pkgrel=1
 pkgdesc="Pure Python MySQL Client"
 arch=(any)
@@ -22,8 +22,8 @@ optdepends=(
   'python-pynacl: for ed25519 cryptography'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('4e4d7675c3cd14c5c9f1bfe51db671adb6cd609965127d54ba577fb5ee0e5ae222a6795a95a539070e0b6920c35d0e503ea9ffeab25ae2d3fa4e0b474467008e')
-b2sums=('1ce119abe468d9d75641d54d6fa8e3025192b9eba22be2bcfa1de811347fba2a2fcb08e6211c53c582881c6067a4866547e0e4ea535b405b4ee4c0d19c09e7ef')
+sha512sums=('a0703c9cc04c985cb26cd0d954ccc4f7b9ebed51ccd2f96ba03a0951061129026801f66b4fd16c663cebcf3c69df00bc111448b5770321d349ee97487ecf2476')
+b2sums=('a1d7928c67028a23268b5cca3bbd2606c73f699c4c8ebcb135f2f8736f392f5900385439b6e8076f4f11d6d71b172eb0d1c687aa4e70bd5b1ec0a59e72dcfb2e')
 
 build() {
   cd $_name-$pkgver
