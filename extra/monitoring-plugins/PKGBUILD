@@ -2,20 +2,42 @@
 # Contributor: Jonathan Steel <jsteel at archlinux.org>
 # Contributor: Idares <idares at seznam dot cz>
 
+# NOTE(Martin):
+#   Upon upgrade, check the build log for instances of "configure: WARNING:",
+#   it contains warns for missed make deps of unbuilt optional checks.
+#
+#   lmstat (from lmutil) is ignored on purpose due to being proprietary.
+
 pkgname=monitoring-plugins
 pkgver=3.0.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Plugins for Icinga, Naemon, Nagios, Shinken, Sensu and other monitoring applications"
 arch=('x86_64')
 url="https://github.com/monitoring-plugins/monitoring-plugins/"
 license=('GPL-3.0-or-later')
 depends=(
 	'libcap'
-	'perl')
+	'perl'
+)
 makedepends=(
-	'net-snmp' 'postgresql-libs' 'libdbi' 'mariadb-libs'
-	'procps-ng' 'iputils' 'fping' 'dnsutils' 'rpcbind' 'smbclient' 'openssh'
-	'postfix' 'perl-net-snmp' 'curl' 'uriparser')
+	'curl'
+	'dnsutils'
+	'fping'
+	'iputils'
+	'libdbi'
+	'mariadb-libs'
+	'net-snmp'
+	'openssh'
+	'procps-ng'
+	'postfix'
+	'postgresql-libs'
+	'perl-net-snmp'
+	#'qstat' TODO(Martin): Package and uncomment
+	'radcli'
+	'rpcbind'
+	'smbclient'
+	'uriparser'
+)
 optdepends=(
 	'net-snmp: for SNMP checking'
 	'uriparser: for check_curl'
@@ -23,7 +45,10 @@ optdepends=(
 	'postgresql-libs: for check_pgsql'
 	'mariadb-libs: for check_mysql_query and check_mysql'
 	'libdbi: for check_dbi'
-	'libldap: for check_ldap')
+	'libldap: for check_ldap'
+	'radcli: for check_radius'
+	#'qstat: for check_game'
+)
 provides=('nagios-plugins')
 conflicts=('nagios-plugins')
 replaces=('nagios-plugins')
