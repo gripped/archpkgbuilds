@@ -1,8 +1,8 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-xdg-base-dirs
-pkgver=6.0.2
-pkgrel=2
+pkgver=6.0.3
+pkgrel=1
 pkgdesc='Python module for accessing XDG base directory paths'
 arch=(any)
 url='https://github.com/srstevenson/xdg-base-dirs'
@@ -12,11 +12,11 @@ makedepends=(
   git
   python-build
   python-installer
-  python-poetry-core
+  python-uv-build
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('3206e5a10b39e91cb3d982abe5845a073bfd063dd5c189aa2d89fe3a9c5a881793494d907f2e1c4c5181226d16c7b3dea8167b6c9da0f5feee8cb03bd831c95e')
-b2sums=('2b87a04ed14befd6c745ecb828a4a98bf4cb8b329ed7b1add9ec8acdafc94bc13b93adbf4c1b93b251e9cf22c101e3f00fc6569b6ef90cba583d2a1d38dba22f')
+sha512sums=('ac1adb4dbc1536622e97fa93c091153d71b83e95bd43d11fabdead1aaac2f48290402ea73cecfa7de6c34c397ae94fdba105772cc616e83e918b5c6630d749d3')
+b2sums=('10f86e7da200166130355cde24dc0010e68c7fe9da31ae3268942e20c2afad46aa349b215070afce677bdea52b0fb425aaf80f27125977b1e2980fd633d9cbd6')
 
 build() {
   cd "$pkgname"
