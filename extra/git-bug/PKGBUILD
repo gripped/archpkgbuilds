@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-bug
-pkgver=0.10.1
-pkgrel=2
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='Distributed, offline-first bug tracker embedded in git, with bridges '
 arch=(x86_64)
 url='https://github.com/MichaelMure/git-bug'
@@ -12,8 +12,8 @@ depends=(glibc git)
 makedepends=(go)
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
-sha512sums=('80e3b3bc1d6ae8847fa7bcda418e29f42caf345876ccf3715ae53ef8edf88bd7ab28bc158660c16b7f4ba021c15c365062b82fc112ad922fba5ba2c1b7a9e6e0')
-b2sums=('cbeac34dc63676079f8ff5ba02abdc90762e1f55ffbc5572d98e2a4a8764ffd6ddce4ec6bb97712517c8c26401a7ee78ab9611f97244b63544bd9963e9d53b1e')
+sha512sums=('8657e47d941599d5999db81b10878c2c48525560c4f8af772f9b4a0667bdaf07de7ef72edc8addb50aaf6838e0f676f00ab8c57e9ee025e06afc68398a5aa6c9')
+b2sums=('ba28e0d29c919c15a069de6fd0c3e377c86e031397ae186fd80b6d8e98ca45a5a8ee1d587a0720ba569f55a3e2d9cbba541903046434a793b265c127f7d0bf3c')
 
 # NOTE: webui assets seem to be pregenerated & committed into the repo
 # so there is very little point in regenerating them
