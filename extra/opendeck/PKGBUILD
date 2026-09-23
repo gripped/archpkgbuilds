@@ -1,0 +1,76 @@
+# Maintainer: terrorwolf <jan.jr03+aur@gmail.com>
+# Co-Maintainer: OmegaRogue <omegarogue@omegavoid.codes>
+
+pkgname=opendeck
+pkgver=2.14.0
+pkgrel=2
+pkgdesc='A desktop application that provides functionality for stream controller devices'
+arch=(x86_64 aarch64)
+url='https://github.com/nekename/OpenDeck'
+license=(GPL-3.0-or-later)
+depends=(
+  gtk3
+  fontconfig
+  libgcc
+  openssl
+  libxcb
+  glib2
+  glibc
+  libxkbcommon
+  libsoup3
+  hicolor-icon-theme
+  gdk-pixbuf2
+  cairo
+  dbus
+  systemd-libs
+  libappindicator
+  webkit2gtk-4.1
+)
+makedepends=(
+  git
+  deno
+  rust
+  hidapi
+)
+optdepends=(
+  'wine: Windows plugins'
+  'wine-mono: Windows plugins'
+  'nodejs: Node.js plugins'
+)
+options=(!lto)
+source=(
+  "${pkgname}::git+https://github.com/nekename/OpenDeck#tag=v${pkgver//_/-}"
+  disable-telemetry.patch
+)
+sha512sums=('77b94a75030c0bbfd90459134d0b19b2d487b9089724fdbfe8b76c5e2982916b5c533e1dc45577771a52b1c72f6872852c6b97c14733393581d1fcdeaa85811d'
+            'be35eb5f29431e28f1033b2a7c22a4f6726eb3ecbbd94cf99929eab29af4377887d78bedab73f4d4120c2deb2c9e166c41ac216d08d32b69b676a8f1b3f31884')
+b2sums=('50f239d8c45666c9157deacf1db9dd0324f158b505ac7ee7d2765d896750864097d9e2903e09b7f8df5fc4d83faf03e882c4cc1f3f8cb69dafcdde199d8de25f'
+        '89227a9866f12c40cd559c0359c6b7f335e1e123575b7af9b6337c3759f4af660104072be869c07347c1cbe3c3c511cbc720c6305f331f05460c600a5f157ba4')
+
+prepare() {
+  cd "$pkgname"
+
+  # telemetry should be opt-in, not opt-out
+  patch -p1 -i "$srcdir/disable-telemetry.patch"
+
+  # install frontend dependencies
+  deno install
+
+  # download rust dependencies
+  cd src-tauri
+  cargo fetch --locked --target host-tuple
+}
+build() {
+  cd "$pkgname"
+
+  # disable update check
+  export OPENDECK_DISABLE_UPDATE_CHECK=1
+
+  deno task tauri build --bundles deb -- --frozen
+}
+
+package() {
+  cd "$pkgname"
+
+  cp -a src-tauri/target/release/bundle/deb/opendeck_*/data/* "$pkgdir"
+}
