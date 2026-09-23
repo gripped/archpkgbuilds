@@ -3,8 +3,8 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xed
-pkgver=3.8.9
-pkgrel=2
+pkgver=3.9.0
+pkgrel=1
 pkgdesc='A small and lightweight text editor'
 arch=(x86_64)
 url='https://github.com/linuxmint/xed'
@@ -38,7 +38,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/linuxmint/xed.git#tag=$pkgver")
-b2sums=('f795208cfc3ce94e4b2e6fc4223f72e8cfe06af64afc5256a61e6c08e4da39083a5a6fb3b6faef19499513a2b2df2dadf0375d4344dbbdbb3e6e00948ff5505f')
+b2sums=(8570b23a85e58a7d80cf8ac754a22a38e6cfb2276016d9ded65ee8fd3ace5f9b5ac18888b47b9751ac93e73da23240c146833f64549dc3bbc1758c10d9d5869e)
 
 prepare() {
   cd $pkgname
