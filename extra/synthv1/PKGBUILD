@@ -4,10 +4,11 @@
 pkgbase=synthv1
 pkgname=(
   synthv1
+  synthv1-common
   synthv1-lv2
   synthv1-standalone
 )
-pkgver=1.4.3
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Old-school all-digital 4-oscillator subtractive polyphonic synthesizer with stereo fx"
 arch=(x86_64)
@@ -24,8 +25,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://download.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('1d12b04e98f070091c5291897d4cb07e74264aa967e31e2380631bd594bff9ebd2afc0a4028b722171f34139f52c384d54fbe214b25c6c07fe8a3b4c5d5c39af')
-b2sums=('d7f26a0a5f8f2a4e2fd8c2def9695da642177bce89d99a2df2d8ef5b0cd3b13cfe80ba8881c41805492acede6fe85cdb2f85d649e9bd2a4461de9a660ff736f9')
+sha512sums=('23b86aa9cc1a17547306a0f6ed845fa7eb06221a1b8e9ab87afad61cf5cab7ee17ace460e15c083681ba4d94eff4d0c232a17326550e24931b710e5fc4c0e596')
+b2sums=('2cc1f8061f72c67a1fa7f9f8c2f6a9ffc93705858a3d11efc298b8ea06a0bc39a094fc70b90e2b9784105bd206b927774455595de35ca53dcfe60781c70e5f47')
 
 _pick() {
   local p="$1" f d; shift
@@ -65,9 +66,17 @@ package_synthv1() {
     # https://gitlab.archlinux.org/archlinux/devtools/-/issues/102
     find usr/lib -type f -iname "*.so" -exec chmod +x {} \;
 
+    _pick $pkgbase-common usr/share/$pkgbase
     _pick $pkgbase-lv2 usr/lib/lv2
     _pick $pkgbase-standalone usr/{bin,share}
   )
+}
+
+package_synthv1-common() {
+  pkgdesc+=" - common files"
+
+  mv -v $pkgname/* "$pkgdir"
+  install -vDm 644 $pkgbase-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 
 package_synthv1-lv2() {
@@ -83,6 +92,7 @@ package_synthv1-lv2() {
     lv2-host
     qt6-base
     qt6-svg
+    synthv1-common
   )
 
   mv -v $pkgname/* "$pkgdir"
@@ -104,6 +114,7 @@ package_synthv1-standalone() {
     libstdc++
     qt6-base
     qt6-svg
+    synthv1-common
   )
   optdepends=(
     'new-session-manager: for session management using the standalone application'
