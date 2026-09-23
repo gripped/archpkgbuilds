@@ -4,10 +4,11 @@
 pkgbase=drumkv1
 pkgname=(
   drumkv1
+  drumkv1-common
   drumkv1-lv2
   drumkv1-standalone
 )
-pkgver=1.4.3
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="An old-school drum-kit sampler"
 arch=(x86_64)
@@ -27,8 +28,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://download.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('40b9006fb95830862daeb45b3f44d1fac44be6c35b2b41bfec0ed9147268c1257933d44c626027028885f58fe168fd4efc313d067ff0590cc1d5384619008724')
-b2sums=('ca1eb560f636993341ea2a0cad241d9e2f932b80762e2e0887cd2d9449596ef88c77438ed587d668cdd1c462baa2132f52fa2b99e9e33d2d67c696fefa128871')
+sha512sums=('3456dd992476da0f9edf8afbcc08912b74fc6e49206809853b9341e6d5273d469756bc1ac01caa9533cc9b89ce2e0c398a91afcbe6d1291d5eaf63f2d6e98078')
+b2sums=('7631822eeccadb416b001bd33261c64e170b7d0b1b824554a8fa52e8bbb3f90c36351988b7789379107ee566ab196a5b82471d836a02919c19f355b72b81d606')
 
 _pick() {
   local p="$1" f d; shift
@@ -68,9 +69,17 @@ package_drumkv1() {
     # https://gitlab.archlinux.org/archlinux/devtools/-/issues/102
     find usr/lib -type f -iname "*.so" -exec chmod +x {} \;
 
+    _pick $pkgbase-common usr/share/$pkgbase
     _pick $pkgbase-lv2 usr/lib/lv2
     _pick $pkgbase-standalone usr/{bin,share}
   )
+}
+
+package_drumkv1-common() {
+  pkgdesc+=" - common files"
+
+  mv -v $pkgname/* "$pkgdir"
+  install -vDm 644 $pkgbase-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname"
 }
 
 package_drumkv1-lv2() {
@@ -80,6 +89,7 @@ package_drumkv1-lv2() {
     pro-audio
   )
   depends=(
+    "drumkv1-common=$pkgver"
     glibc
     libgcc
     libsndfile libsndfile.so
@@ -100,6 +110,7 @@ package_drumkv1-standalone() {
   )
   depends=(
     alsa-lib
+    "drumkv1-common=$pkgver"
     glibc
     hicolor-icon-theme
     jack
