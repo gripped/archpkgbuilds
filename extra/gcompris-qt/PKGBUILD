@@ -3,7 +3,7 @@
 # Contributor: Jose Riha <jose1711 gmail com>
 
 pkgname=gcompris-qt
-pkgver=26.1
+pkgver=26.2
 pkgrel=1
 pkgdesc='Educational software suite comprising of numerous activities for children aged 2 to 10'
 arch=(x86_64)
@@ -14,6 +14,7 @@ depends=(
   hicolor-icon-theme
   libgcc
   libstdc++
+  openssl
   qml-box2d
   qt6-base
   qt6-charts
@@ -33,7 +34,7 @@ makedepends=(
   qt6-tools
 )
 source=("git+https://invent.kde.org/education/gcompris.git#tag=V$pkgver")
-b2sums=(7374056bbf14ee10a4afeaf153b716c345656d26b49c51c03b8917ac8558de48044e9b47844a1d89177c70dba04157abae3e9d7a333d5347bb04a694a8bafc1d)
+b2sums=(e5c508286c3373c3ea752983bc9077573489a959d04bf159954c6a98d8653336632c7f92ebeac887d3899428f902718b39adbeb6aedc05718ea6bf04f51ee4d6)
 validpgpkeys=(D2FAAB621F618D42685B427B63D7264C05687D7E) # Timothée Giet <animtim@gmail.com>
 
 prepare() {
@@ -44,6 +45,7 @@ build() {
   cmake -S gcompris -B build -G Ninja \
     -D CMAKE_INSTALL_PREFIX=/usr \
     -D COMPILE_DOC=ON \
+    -D PACKAGE_SERVER=ON \
     -D QML_BOX2D_LIBRARY=/usr/lib/qt6/qml/Box2D
   cmake --build build
 }
