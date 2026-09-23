@@ -3,12 +3,13 @@
 _pyname=SparseDiffPy
 pkgname=python-${_pyname,,}
 pkgver=0.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Python bindings for SparseDiffEngine'
 url='https://github.com/SparseDifferentiation/SparseDiffPy'
 license=(Apache-2.0)
 arch=(x86_64)
-depends=(glibc
+depends=(cblas
+         glibc
          python
          python-numpy)
 makedepends=(git
@@ -29,7 +30,8 @@ prepare() {
 
 build() {
   cd $_pyname
-  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation \
+    -C cmake.define.BLAS_LIBRARIES=-lcblas
 }
 
 package() {
