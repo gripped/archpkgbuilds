@@ -3,7 +3,7 @@
 
 _gemname='net-ping'
 pkgname="ruby-${_gemname}"
-pkgver=2.1.1
+pkgver=2.2.0
 pkgrel=1
 pkgdesc='Provides a ping interface for Ruby. It includes separate TCP, HTTP, LDAP, ICMP, UDP and external ping classes.'
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('ruby-rake' 'ruby-rdoc' 'ruby-rake-compiler' 'ruby-yard' 'ruby-rspe
 checkdepends=('ruby-test-unit' 'ruby-fakeweb')
 options=('!emptydirs')
 source=("${url}/archive/${_gemname}-${pkgver}.tar.gz")
-sha512sums=('ff3d3eee86e02edb6b0ac123b515e46f8a4f9666ce79ab7d9595f03c9df3be2a4cea56a62bc26e6b34e2948e0988803b116f0e5a1d02a24988f8475b829ea5c3')
+sha512sums=('5e024f0c59be5f57a812e8fd65158b9804fb071b4498cfbcf1c8c28e9745aa66a2b8f2844bc77abcb4fab5bb08aaff32835f0456657660da742821a701cefdda')
 
 prepare() {
   cd "${srcdir}/${_gemname}-${_gemname}-${pkgver}"
