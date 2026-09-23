@@ -2,7 +2,7 @@
 # Contributor: Gavin Lloyd <gavinhungry@gmail.com>
 
 pkgname=acme.sh
-pkgver=3.1.5
+pkgver=3.1.6
 pkgrel=1
 pkgdesc='An ACME Shell script, an acme client alternative to certbot'
 arch=('any')
@@ -14,7 +14,7 @@ optdepends=('socat: for standalone mode'
             'python: for standalone mode without socat'
             'oath-toolkit: Used to compute the OTP for some DNS providers')
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('c64e84a9af0b4f30163ddc0695c94afeacb61fdd4b05f381bd74733631ad37b8870b26c9be3bbb27d98c6b9f3bb29f12026a6cd4838d6fc37da431a8b4521a83')
+sha512sums=('1c84a40232f8f6013e61236829b4f1306831d939df9208ab53a7647d6f26ace1d285affb5317b4814495323fafda799f76a7d6b96c29100dd7223a08710f3d41')
 
 package() {
   cd $pkgname
