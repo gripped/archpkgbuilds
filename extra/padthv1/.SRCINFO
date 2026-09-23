@@ -1,6 +1,6 @@
 pkgbase = padthv1
 	pkgdesc = An old-school polyphonic additive synthesizer
-	pkgver = 1.4.3
+	pkgver = 1.5.0
 	pkgrel = 1
 	url = https://padthv1.sourceforge.io/
 	arch = x86_64
@@ -16,13 +16,16 @@ pkgbase = padthv1
 	makedepends = qt6-base
 	makedepends = qt6-svg
 	makedepends = qt6-tools
-	source = https://download.sourceforge.net/padthv1/padthv1-1.4.3.tar.gz
-	sha512sums = e493bdfe3ad40818997b34544966d0e808bae5f6803e6780e03a323138496740f9803211c5bad775f2872453df778d51eafd310a3acf452bd4695570b123bcdb
-	b2sums = f5e23ee6d41356b208438c43e01b94cc14e18f24942a3f6322c7587c683415f8e45fc65ae2163e98360d9fb6ff868f0087785e1fff97da65c94697c06f72be97
+	source = https://download.sourceforge.net/padthv1/padthv1-1.5.0.tar.gz
+	sha512sums = 3e174f09f8cd42deadcb0120163d9c0d1a399ff65649c59a1d6838e36c9cbb1137bac7a9ff7f2a25a679b1d37ab9c7226fc22959abfcb76a7b77e04252ce5be5
+	b2sums = 2e1312b624cae87d6b5e5c2791e9cdb3c7f665bb765d92b3dcc0553df8b141da6b71ad5ff401ee49fa100480d775a8245c8458e10009c6bf780e47fb640b9aab
 
 pkgname = padthv1
-	depends = padthv1-lv2=1.4.3
-	depends = padthv1-standalone=1.4.3
+	depends = padthv1-lv2=1.5.0
+	depends = padthv1-standalone=1.5.0
+
+pkgname = padthv1-common
+	pkgdesc = An old-school polyphonic additive synthesizer - common files
 
 pkgname = padthv1-lv2
 	pkgdesc = An old-school polyphonic additive synthesizer - LV2 plugin
@@ -34,6 +37,7 @@ pkgname = padthv1-lv2
 	depends = libgcc
 	depends = libstdc++
 	depends = lv2-host
+	depends = padthv1-common
 	depends = qt6-base
 	depends = qt6-svg
 
@@ -49,6 +53,7 @@ pkgname = padthv1-standalone
 	depends = libgcc
 	depends = liblo
 	depends = libstdc++
+	depends = padthv1-common
 	depends = qt6-base
 	depends = qt6-svg
 	optdepends = new-session-manager: for session management using the standalone application
