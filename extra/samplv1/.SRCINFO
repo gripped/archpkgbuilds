@@ -1,12 +1,13 @@
 pkgbase = samplv1
 	pkgdesc = Polyphonic sampler synthesizer with stereo fx
-	pkgver = 1.4.3
+	pkgver = 1.5.0
 	pkgrel = 1
 	url = https://samplv1.sourceforge.io/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = alsa-lib
 	makedepends = cmake
+	makedepends = fftw
 	makedepends = hicolor-icon-theme
 	makedepends = jack
 	makedepends = libgcc
@@ -17,18 +18,23 @@ pkgbase = samplv1
 	makedepends = qt6-base
 	makedepends = qt6-svg
 	makedepends = qt6-tools
-	source = https://download.sourceforge.net/samplv1/samplv1-1.4.3.tar.gz
-	sha512sums = 16de35cd14e933d52c281b61f34a8172b70b35ad23c2044943159fef05e5bf07e6fe686adb69d4f76866e8a8906bbd66f0486028edcc39ee5d6487915f4195ff
-	b2sums = c629c48a7605071c2f03856ab9a0bbdba1fb6bf4c346e5cc411ff4cc593f9d3b2109f8a46213423b2d699bf0d5f73ff6708ec8a594e475d4275de8277ad71870
+	source = https://download.sourceforge.net/samplv1/samplv1-1.5.0.tar.gz
+	sha512sums = 72f99c5acb0fdf2e508e0305971f3c57725b0233e58590f42281daa9e3e8994abd276845636c33a79d222acd887c9440a40ab88a83154884f9829dd25e235584
+	b2sums = f6ee5cb08254b1a0a19d1932bf14c8928651c17c1930945bccad9afda0b0dc4d2cfb9d2fc644ef1d94fc463443daa02a2885f802553079f6c4b0937619fa24f4
 
 pkgname = samplv1
-	depends = samplv1-lv2=1.4.3
-	depends = samplv1-standalone=1.4.3
+	depends = samplv1-lv2=1.5.0
+	depends = samplv1-standalone=1.5.0
+
+pkgname = samplv1-common
+	pkgdesc = Polyphonic sampler synthesizer with stereo fx - common files
 
 pkgname = samplv1-lv2
 	pkgdesc = Polyphonic sampler synthesizer with stereo fx - LV2 plugin
 	groups = lv2-plugins
 	groups = pro-audio
+	depends = fftw
+	depends = libfftw3f.so
 	depends = glibc
 	depends = libgcc
 	depends = libsndfile
@@ -37,11 +43,14 @@ pkgname = samplv1-lv2
 	depends = lv2-host
 	depends = qt6-base
 	depends = qt6-svg
+	depends = samplv1-common
 
 pkgname = samplv1-standalone
 	pkgdesc = Polyphonic sampler synthesizer with stereo fx - standalone
 	groups = pro-audio
 	depends = alsa-lib
+	depends = fftw
+	depends = libfftw3f.so
 	depends = glibc
 	depends = hicolor-icon-theme
 	depends = jack
@@ -52,4 +61,5 @@ pkgname = samplv1-standalone
 	depends = libstdc++
 	depends = qt6-base
 	depends = qt6-svg
+	depends = samplv1-common
 	optdepends = new-session-manager: for session management using the standalone application

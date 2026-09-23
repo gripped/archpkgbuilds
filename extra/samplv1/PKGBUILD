@@ -4,10 +4,11 @@
 pkgbase=samplv1
 pkgname=(
   samplv1
+  samplv1-common
   samplv1-lv2
   samplv1-standalone
 )
-pkgver=1.4.3
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Polyphonic sampler synthesizer with stereo fx"
 arch=(x86_64)
@@ -16,6 +17,7 @@ license=(GPL-2.0-or-later)
 makedepends=(
   alsa-lib
   cmake
+  fftw
   hicolor-icon-theme
   jack
   libgcc
@@ -28,8 +30,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://download.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('16de35cd14e933d52c281b61f34a8172b70b35ad23c2044943159fef05e5bf07e6fe686adb69d4f76866e8a8906bbd66f0486028edcc39ee5d6487915f4195ff')
-b2sums=('c629c48a7605071c2f03856ab9a0bbdba1fb6bf4c346e5cc411ff4cc593f9d3b2109f8a46213423b2d699bf0d5f73ff6708ec8a594e475d4275de8277ad71870')
+sha512sums=('72f99c5acb0fdf2e508e0305971f3c57725b0233e58590f42281daa9e3e8994abd276845636c33a79d222acd887c9440a40ab88a83154884f9829dd25e235584')
+b2sums=('f6ee5cb08254b1a0a19d1932bf14c8928651c17c1930945bccad9afda0b0dc4d2cfb9d2fc644ef1d94fc463443daa02a2885f802553079f6c4b0937619fa24f4')
 
 _pick() {
   local p="$1" f d; shift
@@ -69,9 +71,17 @@ package_samplv1() {
     # https://gitlab.archlinux.org/archlinux/devtools/-/issues/102
     find usr/lib -type f -iname "*.so" -exec chmod +x {} \;
 
+    _pick $pkgbase-common usr/share/$pkgbase
     _pick $pkgbase-lv2 usr/lib/lv2
     _pick $pkgbase-standalone usr/{bin,share}
   )
+}
+
+package_samplv1-common() {
+  pkgdesc+=" - common files"
+
+  mv -v $pkgname/* "$pkgdir"
+  install -vDm 644 $pkgbase-$pkgver/{ChangeLog,README} -t "$pkgdir/usr/share/doc/$pkgname/"
 }
 
 package_samplv1-lv2() {
@@ -81,6 +91,7 @@ package_samplv1-lv2() {
     pro-audio
   )
   depends=(
+    fftw libfftw3f.so
     glibc
     libgcc
     libsndfile libsndfile.so
@@ -88,6 +99,7 @@ package_samplv1-lv2() {
     lv2-host
     qt6-base
     qt6-svg
+    samplv1-common
   )
 
   mv -v $pkgname/* "$pkgdir"
@@ -101,6 +113,7 @@ package_samplv1-standalone() {
   )
   depends=(
     alsa-lib
+    fftw libfftw3f.so
     glibc
     hicolor-icon-theme
     jack
@@ -110,6 +123,7 @@ package_samplv1-standalone() {
     libstdc++
     qt6-base
     qt6-svg
+    samplv1-common
   )
   optdepends=(
     'new-session-manager: for session management using the standalone application'
