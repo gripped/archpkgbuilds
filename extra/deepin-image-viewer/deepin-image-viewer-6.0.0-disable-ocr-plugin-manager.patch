@@ -357,7 +357,7 @@ index 577c0a39..41f74d38 100644
          text: qsTr("Slide show")
  
 diff --git a/src/src/filecontrol.cpp b/src/src/filecontrol.cpp
-index 1e64f157..c2d47cc7 100644
+index c8593ddd..c2d47cc7 100644
 --- a/src/src/filecontrol.cpp
 +++ b/src/src/filecontrol.cpp
 @@ -7,7 +7,6 @@
@@ -423,30 +423,31 @@ index 1e64f157..c2d47cc7 100644
  QString FileControl::parseCommandlineGetPath()
  {
      qCDebug(logImageViewer) << "Parsing commandline to get path.";
-@@ -829,22 +792,6 @@ bool FileControl::isCheckOnly()
+@@ -829,23 +792,6 @@ bool FileControl::isCheckOnly()
      return true;
  }
  
 -bool FileControl::isCanSupportOcr(const QString &path)
 -{
 -    qCDebug(logImageViewer) << "FileControl::isCanSupportOcr() called for path: " << path;
--    bool bRet = false;
 -    QString localPath = QUrl(path).toLocalFile();
 -    QFileInfo info(localPath);
 -    imageViewerSpace::ImageType type = LibUnionImage_NameSpace::getImageType(localPath);
 -    qCDebug(logImageViewer) << "Image type: " << type << ", isReadable: " << info.isReadable();
 -    if (imageViewerSpace::ImageTypeDynamic != type && info.isReadable()) {
 -        qCDebug(logImageViewer) << "Image supports OCR. Returning true.";
--        bRet = true;
+-        return true;
 -    }
--    qCDebug(logImageViewer) << "Image does not support OCR. Returning false.";
--    return bRet;
+-    else {
+-        qCDebug(logImageViewer) << "Image does not support OCR. Returning false.";
+-        return false;
+-    }
 -}
 -
  bool FileControl::isCanRename(const QString &path)
  {
      qCDebug(logImageViewer) << "FileControl::isCanRename() called for path: " << path;
-@@ -948,11 +895,6 @@ QString FileControl::createShortcutString()
+@@ -949,11 +895,6 @@ QString FileControl::createShortcutString()
      shortcut2.insert("value", "Esc");
      qCDebug(logImageViewer) << "Added Exit fullscreen shortcut.";
  
@@ -458,7 +459,7 @@ index 1e64f157..c2d47cc7 100644
      QJsonObject shortcut4;
      shortcut4.insert("name", tr("Slide show"));
      shortcut4.insert("value", "F5");
-@@ -1023,7 +965,6 @@ QString FileControl::createShortcutString()
+@@ -1024,7 +965,6 @@ QString FileControl::createShortcutString()
      QJsonArray shortcutArray1;
      shortcutArray1.append(shortcut1);
      shortcutArray1.append(shortcut2);
@@ -466,7 +467,7 @@ index 1e64f157..c2d47cc7 100644
      shortcutArray1.append(shortcut4);
      shortcutArray1.append(shortcut5);
      shortcutArray1.append(shortcut6);
-@@ -1060,25 +1001,8 @@ QString FileControl::createShortcutString()
+@@ -1061,25 +1001,8 @@ QString FileControl::createShortcutString()
      shortcut_group2.insert("groupName", tr("Settings"));
      shortcut_group2.insert("groupItems", shortcutArray2);
  
