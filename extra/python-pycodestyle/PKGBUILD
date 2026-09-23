@@ -4,8 +4,8 @@
 # Contributor: Sergey Mastykov <smastykov[at]gmail[dot]com>
 
 pkgname=python-pycodestyle
-pkgver=2.14.0
-pkgrel=2
+pkgver=2.15.0
+pkgrel=1
 pkgdesc="Python style guide checker"
 arch=('any')
 url="https://pycodestyle.pycqa.org"
@@ -19,11 +19,11 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("https://github.com/PyCQA/pycodestyle/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('0c81febffaf0f23ff4a8f7168202a05917aef913bdd92f0a45b1d595272b8206e79987c43eefbdc850b94a467f25f43067209320b60be628d46788c3cc1ad618')
+sha512sums=('fdf6719a49283e46388dd9cf790c344041ce913c565ee6120f3bcafe650f2d181af9a11670de883fb64d1bfb2fab46ab81d73c640dcf478d7c216a7b4df0c7dd')
 
 build() {
   cd pycodestyle-$pkgver
-  python -m build --wheel --skip-dependency-check --no-isolation
+  python -m build --wheel --no-isolation
 }
 
 check() {
