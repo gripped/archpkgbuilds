@@ -2,7 +2,7 @@
 
 pkgname=python-pdm
 _name=${pkgname#python-}
-pkgver=2.29.1
+pkgver=2.29.2
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -10,6 +10,8 @@ url="https://github.com/pdm-project/pdm"
 license=(MIT)
 depends=(
   python
+  python-anyio  # required by python-hishel's 'httpx' feature
+  python-anysqlite  # required by python-hishel's 'httpx' feature
   python-argcomplete
   python-blinker
   python-certifi
@@ -62,8 +64,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('6ed3b37bc7ef0e412850c9de07647d6657e3a572f83fe5ae3acb41c508f75c57bd604fd5eaede9f24ef4782e0d69211712b6019963e1906b085c4fde453c31e2')
-b2sums=('e0c0119e88641091cb008388cb48244b0349f31a6dddceebceadba1346fd33a72712adbcb9795c13d3f23711aeb6c2a9792c6e5b38f5afdc214f847d16167804')
+sha512sums=('115bdd6733ee3078a87b170aa5a9df39da8cbff07d7933039f8396c45d343afcd20acc368dfc66d450de0c9c7c069c5a8e1c9a2207429302ae73433e1e3b025b')
+b2sums=('acda93c36e5af134a582a4f6c45930a2ac8ada39cf4365438250494441629ef3009a1354808b9d91773d5a07eba302534bce57c77c5e6643709a5ac030e8fc95')
 
 build() {
   cd $_name-$pkgver
@@ -78,6 +80,8 @@ check() {
     --deselect tests/test_project.py::test_access_index_with_auth
     # unclear issue with no isolation build
     --deselect tests/cli/test_build.py::test_build_with_no_isolation
+    # downloads the internet
+    --deselect tests/cli/test_others.py::test_search_package
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
