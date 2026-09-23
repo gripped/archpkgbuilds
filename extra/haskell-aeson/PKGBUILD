@@ -4,8 +4,8 @@
 
 pkgname=haskell-aeson
 _hkgname=aeson
-pkgver=2.2.2.0
-pkgrel=37
+pkgver=2.2.3.0
+pkgrel=1
 pkgdesc="A JSON parsing and encoding library optimized for ease of use and high performance"
 url="https://github.com/haskell/aeson"
 license=('BSD-3-Clause')
@@ -22,11 +22,11 @@ makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-base-orphans' 'haskell-
              'haskell-quickcheck-instances' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-${pkgver}.tar.gz")
-sha512sums=('ef97f121d4e1304ee336df6be4c562184f04c306099efafede5240d670a6b8435e0fb336512127317752da9e7ba7f4e1c309eca2d3ff6c1534d3fc63d501486e')
+sha512sums=('2f8a45cecfa23799d2875982aa46de0b20a57e92c72be5ff6c3c013b37755881426124188fa28f5cf492fb4cda20a9d53954706a5af244782e35cc0b0316b724')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u Diff -u witherable
+  uusi -u Diff
 }
 
 build() {
