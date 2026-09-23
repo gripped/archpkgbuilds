@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=python-curl-adapter
-pkgver=1.2.2
+pkgver=1.2.3
 pkgrel=1
 pkgdesc='A curl HTTP adapter switch for requests library — make browser-like requests with custom TLS fingerprints'
 arch=(any)
@@ -27,7 +27,7 @@ makedepends=(
 checkdepends=(python-pytest)
 optdepends=('python-gevent: gevent support')
 source=(git+https://github.com/el1s7/curl-adapter.git#tag=v${pkgver})
-b2sums=('e22957755d8c3ed112b6b8b35f8020c5119c359ff2e60fc0c6a72b05640de30e887e79efc0ee054e78970e77568e50c87432691e41138d2c45056656abcbd3a4')
+b2sums=('3ad7aa044ff43d86897b59a6074f2af64344f11655fd02e27f4c7b62c6e940b61302afbc863144c91e5ac84a7eb3acf913b399648949764fe4481ef5ab28915c')
 
 build() {
   cd curl-adapter
