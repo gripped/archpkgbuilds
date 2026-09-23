@@ -8,7 +8,7 @@ pkgname=(
   libpeas-docs
 )
 pkgver=1.38.1
-pkgrel=1
+pkgrel=2
 pkgdesc="GObject Plugin System"
 url="https://gitlab.gnome.org/GNOME/libpeas"
 arch=(x86_64)
@@ -18,7 +18,6 @@ depends=(
   glibc
   gtk3
   hicolor-icon-theme
-  libgirepository
 )
 makedepends=(
   gi-docgen
@@ -26,15 +25,15 @@ makedepends=(
   glade
   glib2-devel
   gobject-introspection
-  lua51
-  lua51-lgi
-  luajit
   meson
+  python
+  python-gobject
+  python-setuptools
   vala
 )
 checkdepends=(xorg-server-xvfb)
 source=("git+https://gitlab.gnome.org/GNOME/libpeas.git#tag=libpeas-$pkgver")
-b2sums=('4e7ee0dd9dbabcd213e674d39351eac58b7feea92ad0a3aa998e354ca5e3432f68ec6f5f572b66c5cc40a473fb05ee3414887cef561f546a0bf79ad53a9d1de3')
+b2sums=(4e7ee0dd9dbabcd213e674d39351eac58b7feea92ad0a3aa998e354ca5e3432f68ec6f5f572b66c5cc40a473fb05ee3414887cef561f546a0bf79ad53a9d1de3)
 
 prepare() {
   cd libpeas
@@ -43,7 +42,7 @@ prepare() {
 build() {
   local meson_options=(
     -D gtk_doc=true
-    -D python3=false
+    -D lua51=false
     -D vapi=true
   )
 
@@ -53,7 +52,7 @@ build() {
 
 check() {
   xvfb-run -s '-nolisten local' \
-    meson test -C build --print-errorlogs ||:
+    meson test -C build --print-errorlogs --exclude test-extension-py
 }
 
 _pick() {
@@ -67,9 +66,7 @@ _pick() {
 }
 
 package_libpeas() {
-  optdepends=(
-    'lua51-lgi: Lua loader'
-  )
+  optdepends=('python-gobject: Python loader')
   provides=(libpeas{,-gtk}-1.0.so)
 
   meson install -C build --destdir "$pkgdir"
@@ -88,8 +85,8 @@ package_libpeas-demos() {
     glib2
     glibc
     gtk3
-    libgirepository
     libpeas
+    python-gobject
   )
   mv demo/* "$pkgdir"
 }
