@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=xviewer
-pkgver=3.4.16
-pkgrel=2
+pkgver=3.4.17
+pkgrel=1
 pkgdesc='Simple image viewer'
 arch=(x86_64)
 url='https://github.com/linuxmint/xviewer'
@@ -36,22 +36,22 @@ makedepends=(
   itstool
   meson
 )
+optdepends=('xviewer-plugins: Additional features')
 source=(
   "git+https://github.com/linuxmint/xviewer.git#tag=$pkgver"
-  0001-libpeas-1.38.patch
+  xviewer-update-state.patch
 )
-b2sums=('805fea1c7e38a73a3f2403c6c0433fac45cf4c78cd5a62950fa4265c1469401377caebe219482bc86d08a641bd131f802561d78997521c060b43f476df09b86a'
-        '86ef118b38328baec0c28d22dc40be2df3dc3d1b80dcefa4213c8530a9904c830a661cb99241fcfecd4f983ef45de41e83203e80b54366e95ed98750b2dab88f')
+b2sums=(
+  bf003c59b201c1b7f3078fb59f4a43b6497c673dbb5f2c06ec8feaa813c6e2bf8e8e83c27f88f742f5f38fda15cf1dcc8cfd90bc23cfbac97547e679ea3a898a
+  515efac7b2fd626ec244dd419a0da873d503ce3c155e75a0ae82e1aedf13ffc3058133c52a652cead4577ff6af143a9803db1f36b92aace1eaa3e748a087830e
+)
 
 prepare() {
   cd $pkgname
 
-  # Fix build with libpeas 1.38
-  git apply -3 ../0001-libpeas-1.38.patch
-
   # Update state after opening images
   # https://github.com/linuxmint/xviewer/pull/238
-  sed -i '/xviewer_window_display_image (window, job->image);/a\		update_action_groups_state (window);' src/xviewer-window.c
+  git apply -3 ../xviewer-update-state.patch
 }
 
 build() {

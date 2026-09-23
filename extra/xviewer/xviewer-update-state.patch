@@ -1,0 +1,23 @@
+From 70762548c96c1b653ac58bf7410b8f0b15741a4f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 5 Apr 2026 12:04:07 +0200
+Subject: [PATCH] Update state after opening images
+
+This fixes the problem that the images won't be shown if the application
+was launched without initially specifying an image file.
+---
+ src/xviewer-window.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/xviewer-window.c b/src/xviewer-window.c
+index cd8207c..201a2d7 100644
+--- a/src/xviewer-window.c
++++ b/src/xviewer-window.c
+@@ -1414,6 +1414,7 @@ xviewer_job_load_cb (XviewerJobLoad *job, gpointer data)
+ 		}
+ 
+ 		xviewer_window_display_image (window, job->image);
++		update_action_groups_state (window);
+ 
+ 	} else {
+ 		GtkWidget *message_area;
