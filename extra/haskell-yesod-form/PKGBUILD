@@ -4,7 +4,7 @@
 _hkgname=yesod-form
 pkgname=haskell-yesod-form
 pkgver=1.7.10
-pkgrel=1
+pkgrel=3
 pkgdesc="Form handling support for Yesod Web Framework"
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -13,15 +13,22 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-blaze-builder'
          'haskell-blaze-markup' 'haskell-byteable' 'haskell-data-default' 'haskell-email-validate'
          'haskell-network-uri' 'haskell-persistent' 'haskell-resourcet' 'haskell-shakespeare'
          'haskell-wai' 'haskell-xss-sanitize' 'haskell-yesod-core' 'haskell-yesod-persistent')
-makedepends=('ghc' 'haskell-clientsession' 'haskell-hspec' 'haskell-wai-extra' 'haskell-yesod-test')
+makedepends=('ghc')
+checkdepends=('haskell-clientsession' 'haskell-hspec' 'haskell-wai-extra' 'haskell-yesod-test')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('3a0604660eaed3aacb0398b9310205cbaa5b443ab68ba4721f6443ee6193d720294c94c5e6da971da94a879254bd7da220038da8018312c78dfa1206df4612f1')
 
 build() {
   cd $_hkgname-$pkgver
+
+  if (( CHECKFUNC )); then
+    _opts=('--enable-tests')
+  else
+    _opts=('--disable-tests')
+  fi
   
   runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
       -fnetwork-uri
   runhaskell Setup build $MAKEFLAGS
