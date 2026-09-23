@@ -7,7 +7,7 @@
 
 pkgname=hugin
 pkgver=2025.0.1
-pkgrel=4
+pkgrel=5
 pkgdesc="Panorama photo stitcher"
 arch=(x86_64)
 url="http://hugin.sourceforge.net/"
@@ -41,15 +41,22 @@ optdepends=('darktable: RAW import using darktable'
             'rawtherapee: RAW import using rawtherapee')
 _archive="$pkgname-$pkgver"
 source=("https://downloads.sourceforge.net/$pkgname/$_archive.tar.bz2"
-        ignore_gzip_timestamps.patch)
+        ignore_gzip_timestamps.patch
+        fix-vigra-version-check.patch
+        swig-4.5.patch)
 sha256sums=('7cf8eb33a6a8848cc7f816faf4bc88389228883d5513136dccb5cb243912ab79'
-            'e6a41ce195c55f0c895a359203c84c47e885dbbd98c9b077c9a5e092be3bafb4')
+            'e6a41ce195c55f0c895a359203c84c47e885dbbd98c9b077c9a5e092be3bafb4'
+            '3341a9f8cb5635c9d1b169317a67f5386aeeb09573dd019523cd15cc698ca3a5'
+            '8e58e7ba909e80f6142d1e44f1be559817e976f2f1f1bd51db18705fb98dff43')
 
 prepare() {
 # Ignore timestamps recording in gzip metadata
 # This is required for reproducible builds
   cd "$_archive"
   patch -Np1 -i "$srcdir/ignore_gzip_timestamps.patch"
+
+  patch -p1 -i ../fix-vigra-version-check.patch
+  patch -p1 -i ../swig-4.5.patch
 }
 
 build() {

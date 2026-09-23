@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -17,14 +20,15 @@ path = [
     "*.timer",
     "*.desktop",
     "*.hook",
-    "boost-1.89.patch",
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
 
 [[annotations]]
 path = [
+    "fix-vigra-version-check.patch",
     "ignore_gzip_timestamps.patch",
+    "swig-4.5.patch",
 ]
 SPDX-FileCopyrightText = "hugin contributors"
 SPDX-License-Identifier = "GPL-2.0-only"
