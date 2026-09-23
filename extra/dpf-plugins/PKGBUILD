@@ -7,15 +7,15 @@ pkgname=(
   dpf-plugins-{clap,dssi,ladspa,lv2,standalone,vst,vst3}
 )
 pkgver=1.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Collection of DPF-based plugins"
 arch=(x86_64)
 url="https://github.com/DISTRHO/DPF-Plugins"
 license=(
   ISC
-  GPL2
-  GPL3
-  LGPL3
+  GPL-2.0-or-later
+  GPL-3.0-or-later
+  LGPL-3.0-only
   MIT
 )
 makedepends=(
@@ -23,7 +23,9 @@ makedepends=(
   gendesk
   jack
   ladspa
+  libgcc
   libglvnd
+  libstdc++
   lv2
   projectm
 )
@@ -171,14 +173,13 @@ package_dpf-plugins-clap() {
   groups=(clap-plugins pro-audio)
   depends=(
     clap-host
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
-  )
-  optdepends=(
-    'projectm: for ProM plugin'
+    projectm
   )
 
   mv $pkgname/* "$pkgdir"
@@ -196,10 +197,11 @@ package_dpf-plugins-dssi() {
   groups=(dssi-plugins pro-audio)
   depends=(
     dssi-host
-    gcc-libs
     glibc
     libglvnd
+    libgcc
     liblo
+    libstdc++
     libx11
     libxext
   )
@@ -218,9 +220,10 @@ package_dpf-plugins-ladspa() {
   pkgdesc+=" - LADSPA plugins"
   groups=(ladspa-plugins pro-audio)
   depends=(
-    gcc-libs
     glibc
     ladspa-host
+    libgcc
+    libstdc++
   )
 
   mv $pkgname/* "$pkgdir"
@@ -236,15 +239,14 @@ package_dpf-plugins-lv2() {
   pkgdesc+=" - LV2 plugins"
   groups=(lv2-plugins pro-audio)
   depends=(
-    gcc-libs
     glibc
     lv2-host
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
-  )
-  optdepends=(
-    'projectm: for ProM plugin'
+    projectm
   )
 
   mv $pkgname/* "$pkgdir"
@@ -261,9 +263,10 @@ package_dpf-plugins-standalone() {
   pkgdesc+=" - standalones"
   depends=(
     alsa-lib
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
   )
@@ -285,15 +288,14 @@ package_dpf-plugins-vst() {
   pkgdesc+=" - VST2 plugins"
   groups=(pro-audio vst-plugins)
   depends=(
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
+    projectm
     vst-host
-  )
-  optdepends=(
-    'projectm: for ProM plugin'
   )
 
   mv $pkgname/* "$pkgdir"
@@ -310,15 +312,14 @@ package_dpf-plugins-vst3() {
   pkgdesc+=" - VST3 plugins"
   groups=(pro-audio vst3-plugins)
   depends=(
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
+    projectm
     vst3-host
-  )
-  optdepends=(
-    'projectm: for ProM plugin'
   )
 
   mv $pkgname/* "$pkgdir"
