@@ -5,12 +5,12 @@
 
 pkgname=emscripten
 # NOTE: You need to run ./get-compatible-versions.sh after changing the pkgver!
-_binaryen_revision=d03c25ea43d8f147fc222f9b88ff3bf641abe8da
-_llvm_project_revision=b158b0ae6c559f87be325b8f427c5588e6a48823
+_binaryen_revision=21312a03e1d028a9d53f2cf855888a23b4b69862
+_llvm_project_revision=a06d9165905ce89b5ffef2bbb84c886d60a9b8bf
 # Sadly, upstream currently suggests bundling a binaryen version for the time being:
 # https://github.com/emscripten-core/emscripten/issues/12252
 # I'm obviously unhappy about that but it appears to be the only practical solution for the time being.
-pkgver=6.0.9
+pkgver=6.0.10
 pkgrel=1
 pkgdesc="Compile C and C++ into highly-optimizable JavaScript for the web"
 arch=('x86_64')
@@ -30,9 +30,9 @@ source=("git+https://github.com/kripken/emscripten#tag=$pkgver"
         git+https://github.com/WebAssembly/binaryen.git#commit=$_binaryen_revision
         "emscripten.sh"
         emscripten-config)
-sha512sums=('e18de55a179553b78d8b87358e00d099456cc37c80e0e3f7375724f390a842ef7715a5c3cc663bd854b377731fb78e97a206e03588bf8e8c1f053eddec9abd5c'
-            '7d43622801f0fb959a6a46f56aa4780e5b39224f33596cc479b1af1bb6712b246e24a916d06e56079116e780ccd07fcdcea2964c4b3f3c3f9810a98837453472'
-            '870b3966a944ef2ca558d543d9a70bb62b59d7d0a18915fa3070b829f27b903cccd7c5f5f866383055b6312c211eb7dc6e56cf5580d20f4b0258c69656272ac1'
+sha512sums=('bd3818c065e8f02c9ccd44e0affb45e4e4fab1c1d21435f4367ba0aecc569e98b9f14962c9c9432296ce819ecadb5bdc62e3e7c1377e40f6b91152385900c9e7'
+            'a07db512d442f40d718061b7d43235eb32360d34dd5b16c854897c19818e7b1c9cf948407f253528635228f92bb18c2d9d283d6a8e52279f1f51b2a730fddd34'
+            '573375696d7eeb9842d0a1cf05291211f2cd25858a6ebfe40d4e7d2a74e46981062a89b80f748336ee87ea5d73ada4bde3e8d7d868e8073ed24269b8958cb986'
             'fbe9b95b8d18e7d0c6ec5fded6f11b72fbe4ddd0391e5704b281ba79c479f3563e82423b790ddf3f0554a23d659193ca898a81fe3db509f16c30c7188b790e4d'
             '8d22f727e64cace0eb33f049a2902b928c29a6448b05098030858590660f31e1dc142dae55a54bbcb4da09650173f571a64789e0a955aefb449ce0081fb438f9')
 
