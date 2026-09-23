@@ -3,7 +3,7 @@
 # Contributor: Daniel Plaza <daniel.plaza.espi@gmail.com>
 
 pkgname=ccid
-pkgver=1.8.3
+pkgver=1.8.4
 pkgrel=1
 pkgdesc='A generic USB Chip/Smart Card Interface Devices driver'
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('git' 'meson')
 backup=('etc/reader.conf.d/libccidtwin')
 validpgpkeys=('F5E11B9FFE911146F41D953D78A1B4DFE8F9C57E') # Ludovic Rousseau <ludovic.rousseau@free.fr>
 source=("${pkgname}::git+https://salsa.debian.org/rousseau/CCID.git#tag=${pkgver}?signed")
-sha256sums=('a15f80d2eab438940ed1875e717d3b41bb912579ad1214476f90f8b7638d61b3')
+sha256sums=('efa693ca2ea52f33744580319242ed19643481df4430e8a4735fa48f1ad943d6')
 
 build() {
   arch-meson "${pkgname}" build \
