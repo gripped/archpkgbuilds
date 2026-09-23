@@ -1,7 +1,7 @@
 pkgbase = wireplumber
 	pkgdesc = Session / policy manager implementation for PipeWire
 	pkgver = 0.5.17
-	pkgrel = 1
+	pkgrel = 2
 	url = https://pipewire.pages.freedesktop.org/wireplumber/
 	arch = x86_64
 	license = MIT
@@ -29,7 +29,7 @@ pkgbase = wireplumber
 
 pkgname = wireplumber
 	install = wireplumber.install
-	depends = libwireplumber=0.5.17-1
+	depends = libwireplumber=0.5.17-2
 	depends = glibc
 	depends = libgcc
 	depends = libglib-2.0.so
@@ -42,6 +42,7 @@ pkgname = wireplumber
 	depends = pipewire
 	depends = systemd-libs
 	optdepends = wireplumber-docs: Documentation
+	optdepends = wireplumber-system-services: System daemon (not recommended)
 	provides = pipewire-session-manager
 	conflicts = pipewire-media-session
 
@@ -58,3 +59,8 @@ pkgname = libwireplumber
 
 pkgname = wireplumber-docs
 	pkgdesc = Session / policy manager implementation for PipeWire - documentation
+
+pkgname = wireplumber-system-services
+	pkgdesc = Session / policy manager implementation for PipeWire - system services
+	depends = wireplumber=0.5.17-2
+	depends = pipewire-system-services

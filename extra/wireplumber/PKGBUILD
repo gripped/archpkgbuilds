@@ -6,9 +6,10 @@ pkgname=(
   wireplumber
   libwireplumber
   wireplumber-docs
+  wireplumber-system-services
 )
 pkgver=0.5.17
-pkgrel=1
+pkgrel=2
 pkgdesc="Session / policy manager implementation for PipeWire"
 url="https://pipewire.pages.freedesktop.org/wireplumber/"
 arch=(x86_64)
@@ -47,6 +48,7 @@ build() {
   local meson_options=(
     -D elogind=disabled
     -D system-lua=true
+    -D systemd-system-service=true
   )
 
   arch-meson $pkgbase build "${meson_options[@]}"
@@ -84,6 +86,7 @@ package_wireplumber() {
   )
   optdepends=(
     'wireplumber-docs: Documentation'
+    'wireplumber-system-services: System daemon (not recommended)'
   )
   provides=(pipewire-session-manager)
   conflicts=(pipewire-media-session)
@@ -101,6 +104,8 @@ package_wireplumber() {
     _pick libw usr/share/gir-1.0
 
     _pick docs usr/share/doc/wireplumber/html
+
+    _pick system usr/lib/systemd/system
   )
 
   install -Dt "$pkgdir/usr/share/doc/$pkgname" -m644 $pkgbase/{NEWS,README}*
@@ -126,6 +131,18 @@ package_wireplumber-docs() {
   pkgdesc+=" - documentation"
 
   mv docs/* "$pkgdir"
+
+  install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 $pkgbase/LICENSE
+}
+
+package_wireplumber-system-services() {
+  pkgdesc+=" - system services"
+  depends=(
+    "wireplumber=$pkgver-$pkgrel"
+    pipewire-system-services
+  )
+
+  mv system/* "$pkgdir"
 
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 $pkgbase/LICENSE
 }
