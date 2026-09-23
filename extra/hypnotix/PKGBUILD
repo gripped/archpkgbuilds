@@ -2,7 +2,7 @@
 
 pkgname=hypnotix
 pkgver=5.6
-pkgrel=2
+pkgrel=3
 pkgdesc='IPTV streaming application with support for live TV, movies and series'
 arch=(any)
 url='https://github.com/linuxmint/hypnotix'
@@ -33,9 +33,21 @@ b2sums=(fa02d80d39a8a83feda02a77c70cd63163940a38b066d9810be61ea1ab646b57ce719f87
 prepare() {
   cd $pkgname
 
+  # Set prgname to match with the executable
+  # https://github.com/linuxmint/hypnotix/pull/419
+  git cherry-pick -n 608026942b093ec048a09b591c6fac8fc7b5a3e1
+
+  # Set license type
+  # https://github.com/linuxmint/hypnotix/pull/406
+  git cherry-pick -n 0e0fa1c7596f7925c715c36efb0e4be53a3bde43
+
   # Set mpv video output to 'x11' by default
   # https://github.com/linuxmint/hypnotix/pull/405
   sed -i '/options = {}/a\        options["vo"] = "x11"' usr/lib/hypnotix/hypnotix.py
+
+  # Fix missing conversion of label values to string
+  # https://github.com/linuxmint/hypnotix/pull/432
+  sed -i 's/label=prop_v/label=str(prop_v)/' usr/lib/hypnotix/hypnotix.py
 
   # Set version number
   sed -i "s/__DEB_VERSION__/$pkgver/" usr/lib/hypnotix/hypnotix.py
