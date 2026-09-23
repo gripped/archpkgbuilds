@@ -2,7 +2,7 @@
 
 _pyname=cvxpy
 pkgname=python-$_pyname
-pkgver=1.9.2
+pkgver=1.9.3
 pkgrel=1
 pkgdesc='A Python-embedded modeling language for convex optimization problems'
 url='https://www.cvxpy.org/'
@@ -18,7 +18,8 @@ depends=(glibc
          python-osqp
          python-qdldl
          python-scipy
-         python-scs)
+         python-scs
+         python-sparsediffpy)
 makedepends=(git
              pybind11
              python-build
@@ -35,7 +36,7 @@ checkdepends=(python-cvxopt
               python-pyscipopt
               python-pytest)
 source=(git+https://github.com/cvxpy/cvxpy#tag=v$pkgver)
-sha256sums=('2275bf6ec14f5c25c9f105b2dfc58414e612402759aa2c6ee9e0e41b75871ad9')
+sha256sums=('23d514af2fad8f0c8240d193d75503c5a3a88dcc7c89680289bdc2fb15bc19fb')
 
 prepare() {
   sed -e '/oldest-supported-numpy/d' -i $_pyname/pyproject.toml # Drop version constraints
@@ -52,7 +53,7 @@ check() {
   cd $_pyname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest -v \
+  test-env/bin/python -m pytest -vv \
     --deselect cvxpy/tests/test_cone2cone.py::TestOpRelConeQuad \
     --deselect cvxpy/tests/test_mip_vars.py::TestMIPVariable::test_miqp_warning
 }
