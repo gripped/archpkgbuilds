@@ -2,16 +2,16 @@
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=recode
-pkgver=3.7.15
+pkgver=3.7.16
 pkgrel=1
 pkgdesc='Converts files between various character sets and usages'
 arch=('x86_64')
 url='https://github.com/rrthomas/recode'
-license=('GPL3' 'LGPL3')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
 depends=('glibc')
 makedepends=('python' 'help2man')
 source=("https://github.com/rrthomas/recode/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('f590407fc51badb351973fc1333ee33111f05ec83a8f954fd8cf0c5e30439806')
+sha256sums=('c3d407f54f74bae76360312096e2ed46622f01c86e50b09ef45b2d93c8fcff2d')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
