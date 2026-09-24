@@ -7,7 +7,7 @@
 
 _pkgname=poetry
 pkgname=python-poetry
-pkgver=2.4.1
+pkgver=2.5.1
 pkgrel=1
 pkgdesc='Python dependency management and packaging made easy'
 arch=(any)
@@ -50,12 +50,13 @@ checkdepends=(python-deepdiff  # not mentioned but required
               python-pytest-mock
               python-pytest-randomly
               python-pytest-xdist
-              python-responses)
+              python-responses
+              python-requests)
 optdepends=('python-pip: to use pip with virtual environments')
 provides=(poetry)
 _archive="$_pkgname-$pkgver"
 source=("https://github.com/$pkgname/$_pkgname/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('93a189a01f6cb812d12b9bc9b64733b05c89deb915aff67c35bf07894967c1af')
+sha256sums=('8bd6b01d549d864877ada791b3fcf299fc64a4d24a3d81463c8d1591f36023a9')
 
 build() {
 	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
@@ -79,6 +80,8 @@ check() {
 		tests/utils/test_threading.py
 		# guessing 'export' from 'x' looks legit to me, outdated test?
 		tests/console/test_application_command_not_found.py
+		# expects Darwin sysconfig stuff
+		tests/console/test_application.py::test_no_slow_imports_when_importing_the_cli_entrypoint
 	)
 	pytest -vv tests ${deselected[@]/#/--deselect }
 }
