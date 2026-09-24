@@ -8,7 +8,7 @@
 pkgname=amule
 epoch=1
 pkgver=3.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='An eMule-like client for ed2k p2p network'
 arch=(x86_64)
 url='https://amule-org.github.io/'
@@ -20,7 +20,7 @@ depends=(binutils
          glib2
          glibc
          gtk3
-         libappindicator
+         libayatana-appindicator
          libgcc
          libmaxminddb
          libpng
@@ -50,7 +50,6 @@ sha256sums=('4ed1c1464cca012cfc68947ac908d9cd8743e74b952b367fba67f4852a7cac37'
 
 prepare() {
   cd $pkgname
-  sed -i 's/ayatana-appindicator/appindicator/' src/MuleTrayIcon.cpp # Use libappindicator
   rm -fr .git
 }
 
