@@ -2,8 +2,8 @@
 # Contributor: Adrian Groh <adrian[dot]groh[at]t[dash]online[dot]de>
 
 pkgname=pfetch-rs
-pkgver=2.11.1
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc="A rewrite of the pfetch system information tool in Rust"
 url="https://github.com/Gobidev/pfetch-rs"
 license=('MIT')
@@ -13,7 +13,7 @@ makedepends=('cargo' 'git')
 provides=('pfetch')
 conflicts=('pfetch')
 source=("git+$url#tag=v$pkgver")
-sha256sums=('bed3a427f7bde91ed74185b198fa572e05028087eb70f803ea1a4b923535c7e2')
+sha256sums=('e501c71e8b9c3f56846013f44c9c0136f062c186e2dffd1a91e284bdfc775ce4')
 
 prepare() {
 	cd $pkgname
