@@ -4,7 +4,7 @@
 pkgname=tauon-music-box
 _pkgname=tauonmb
 _gitname=Tauon
-pkgver=12.0.0
+pkgver=12.1.0
 pkgrel=1
 pkgdesc="A modern music player"
 arch=("x86_64") # "aarch64"
@@ -69,14 +69,14 @@ optdepends=(
 )
 
 source=("${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz")
-sha256sums=('a31117a272a6be13a0e79cf433a54704ba58d93e21238a7b6ffd85aab0015513')
+sha256sums=('39505ad826b32e09b9e8f52d68a88a73fb24f0f0bdde0d1c33ad9ee35532467d')
 
 prepare() {
 	# Use system kissfft instead of the expected cloned repository
 	cd "${_gitname}-${pkgver}"
 	sed -i 's|"src/phazor/kissfft/kiss_fftr.c", "src/phazor/kissfft/kiss_fft.c", ||g' pyproject.toml
 	sed -i 's|"samplerate"|"kissfft-float", "samplerate"|g' pyproject.toml
-	sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.appdata.xml
+	sed -i 's|com.github.taiko2k.tauonmb.desktop|tauonmb.desktop|' extra/com.github.taiko2k.tauonmb.metainfo.xml
 
 	cd src/lrclib-solver
 	export RUSTUP_TOOLCHAIN=stable
@@ -106,7 +106,7 @@ package() {
 	done
 
 	install -Dm644 "extra/${_pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
-	install -Dm644 "extra/com.github.taiko2k.tauonmb.appdata.xml" -t "${pkgdir}/usr/share/metainfo"
+	install -Dm644 "extra/com.github.taiko2k.tauonmb.metainfo.xml" -t "${pkgdir}/usr/share/metainfo"
 	install -Dm644 "extra/${_pkgname}-symbolic.svg" -t "${pkgdir}/usr/share/icons/hicolor/symbolic/apps"
 	install -Dm644 "extra/${_pkgname}.svg" -t "${pkgdir}/usr/share/icons/hicolor/scalable/apps"
 	install -Dm755 "extra/tauonmb.sh" "${pkgdir}/opt/${pkgname}/tauonmb.sh"
