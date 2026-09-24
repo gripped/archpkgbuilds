@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-vcs-versioning
-pkgver=2.4.1
+pkgver=2.5.0
 pkgrel=1
 pkgdesc='the blessed package to manage your versions by vcs metadata'
 arch=(any)
@@ -26,8 +26,8 @@ checkdepends=(
 )
 optdepends=('python-rich: formatting of log messages')
 source=("python-setuptools-scm::git+$url#tag=vcs-versioning-v$pkgver")
-sha512sums=('37fac968a911aae33ec44fa125e1e98637d8dc1216ec78d724bde0e3f37cae95a2cd2d9ee718eb59a3f029fc5f6f6247e2772ea21bbf3dbd4ad054b69461d358')
-b2sums=('3c397fb7030e49a5318cfe32f040caeb4b8ec192e5cffecd714815ce6c62d5e92a5ffc902460c4ce89d7ec97f0690464935eb92c48c92cd0db8e6c3f9b80f7f4')
+sha512sums=('19a7d1249a5f62520b0865540644a8c245de5414523dba1c1bc50ed30b83389e0ff3b51571b93f22daa24c41b9e4d9925bb8db54e1cfd2bba5b5f1f8a0a4a45c')
+b2sums=('2559ba30af088731aa1170d20e6884e373fc2aa931518fe5bd50d1d0bac75a47ce9cf6e6cf50599544173262a7aa8c274d78345facc0968eab79eafe91c6350c')
 
 build() {
   cd python-setuptools-scm/vcs-versioning
