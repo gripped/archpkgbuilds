@@ -5,7 +5,7 @@
 # Contributor: Allen Li <darkfeline at abagofapples.com>
 
 pkgname=python-flake8
-pkgver=7.4.0
+pkgver=7.4.1
 pkgrel=1
 epoch=1
 pkgdesc="The modular source code checker: pep8, pyflakes and co"
@@ -29,8 +29,8 @@ checkdepends=('python-pytest')
 provides=('flake8')
 replaces=('flake8')
 source=("$pkgname::git+https://github.com/PyCQA/flake8#tag=$pkgver")
-sha512sums=('a5eaf386518d73feb02be6a0967e01ce3d4f2525819f23bc75e4bcbcad69add15601ebb1f37f1a09826b14f5cbed25d2296e5c35431b93a2be17f8d26f9834de')
-b2sums=('dda60889ce25faf878a0e7450d9c042ddd7ae712bf5efd5f62b55f79d15b73fb1bacee4e90233544e95e22f5f8fb113147dcf80a1fb67c66b5ce6f4c774524a6')
+sha512sums=('0ab4ef9948ed37f9878ca2f0c73ccb4222a83756226b71072090086dc4fb8c5bb50a27016becd398950a04bbc94cdbbba4739a2bb7f84bd51e62b92d93a2cb54')
+b2sums=('d521ca4a752ca15e8f27e8589be100235a44bc0073ed0285f3c5bb0b9410d6794f52ba96732ff2c82680964f8ff261f1344ab440056178226a5652366f99f9e3')
 
 prepare() {
   cd "$pkgname"
