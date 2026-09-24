@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-stone
-pkgver=3.5.4
+pkgver=3.5.5
 pkgrel=1
 pkgdesc='The Official API Spec Language for Dropbox API V2'
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('f27601049470765c5edb3d07e13cec1e9e7d09a9f6142c79670cc019107a02eebe0661a599c040e89500ebd765859023f4313297b99544213aca5c086c15decf')
-b2sums=('5fa26092f785b3703dc0a1f8231cafcb206a5a053b6d7b58a5a262892375df0d5cf770265661a9aab93b1c7567e517848ea2e46d9683a76c744f03f79ebc014c')
+sha512sums=('34ab840900755426ca823c637fcca9a3005c43c814b04b84ae22746dafb887634632d4227ae97274ed9500513e8135164dc60e649305e7d67c25a5791ad43381')
+b2sums=('e87622fefafad51bc2796003fda9aea00b52b2b787f4b5906c449957ed847d6bb10dd4c67f35f91e88edef0b72ddcca4b430357fdf203ee68cf26e1c4af9f3c7')
 
 build() {
   cd "$pkgname"
