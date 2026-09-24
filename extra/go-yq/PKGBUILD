@@ -3,7 +3,7 @@
 # Contributor: Mario Finelli <mario at finel dot li>
 
 pkgname=go-yq
-pkgver=4.53.3
+pkgver=4.53.6
 pkgrel=1
 pkgdesc='Portable command-line YAML processor'
 arch=(x86_64)
@@ -16,11 +16,13 @@ makedepends=(
 )
 conflicts=(yq)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('022a3aeef7de89d378baed7cc9b59083112f1afcd5940cd0da19aa8a8930b873a235685b660a53fc25e3f063e8213279f4d68fd0f32cf0b899d8bd694187fb0f')
+b2sums=('b3471d7e916e14822f462a97bd565f2f003254b5cdae3928e6beb204a29fb56423b0ff994b4bf7f469fc94c71d21713a4fe627338d04ec95e727f99271468a8e')
 
 prepare() {
   cd yq
   go mod vendor
+  # https://github.com/mikefarah/yq/issues/2822
+  sed -i -e '/file.unknown/s/"unknown"/"yaml"/' test/format_test.go
 }
 
 build() {
