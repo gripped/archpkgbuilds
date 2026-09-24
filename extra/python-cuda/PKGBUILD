@@ -4,7 +4,7 @@
 pkgbase=python-cuda
 # NOTE: python-cuda-pathfinder and python-cuda-core are packaged separately
 pkgname=(python-cuda python-cuda-bindings)
-pkgver=13.4.2
+pkgver=13.4.3
 pkgrel=1
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
@@ -32,7 +32,7 @@ options=(!emptydirs)
 source=(
   $pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver
 )
-b2sums=('bdfb7d2ecaafda63082388f432edd31b3e3160c70d7dc401663b9b53ce3b41cd52bcd8f70dd79cc69e317c3feb715c34177b1bb637b25579cb65d0ca5ed89971')
+b2sums=('f44e5b690dcc306ba596854fa6f7bbc87bd292dbcbf0413023f849458611209931df1c5f64e65587f62b15a00c262f17149c976d064c03cf44fcfdbac4669547')
 
 prepare() {
   cd $pkgbase
