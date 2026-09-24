@@ -4,7 +4,7 @@
 # but it has different versioning scheme and release frequency
 pkgname=python-cuda-core
 epoch=1
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="Pythonic access to CUDA core functionality"
 arch=(x86_64)
@@ -32,8 +32,16 @@ checkdepends=(
 )
 source=(
   python-cuda::git+https://github.com/NVIDIA/cuda-python#tag=cuda-core-v$pkgver
+  pyproject.patch
 )
-b2sums=('7d33b8ffcee57d5b2ac0117c3b1a49095a0b6e4abdd6b21eff14224cd1a38bb76a5417ee84a8bdce268d0b4d59ae4f2190d3dbb52f2b9c3c12ded6be2796ebb7')
+b2sums=('25927b66fd3789a5ac7669243bb3f3fde360b4d6bc4a5102ae1b5a80db829291b112c994e5c0a8d418b331aad34e09f23e73d21c4448b6d53adfecac681c56a7'
+        'bb3e04a5085a15e6a2d03444dc86ad581d9dd990ed13964dbc6de47f65ad297a898c9150ee4a26e8243d18ce70bdea72918cc0e2a3ee247ae932e55939a93b54')
+
+prepare() {
+  cd python-cuda
+  # drop upper bound on cython version
+  patch -p1 < ../pyproject.patch
+}
 
 build() {
   cd python-cuda/cuda_core
