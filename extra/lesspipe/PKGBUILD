@@ -6,7 +6,7 @@
 
 pkgname=lesspipe
 pkgver=2.28
-pkgrel=1
+pkgrel=2
 pkgdesc='an input filter for the pager less'
 depends=('less')
 makedepends=('zsh')
@@ -29,7 +29,8 @@ optdepends=('rpmextract: support for rpm files'
 	    'libreoffice-fresh: support for MS Office files'
 	    'unrtf: support for rtf file'
 	    'mediainfo: support for mp4 file'
-	    'imagemagick: support for some image file')
+	    'imagemagick: support for some image file'
+            'tailspin: support for colorizing log files')
 url="https://www-zeuthen.desy.de/~friebel/unix/lesspipe.html"
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/wofr06/lesspipe/archive/refs/tags/v${pkgver}.tar.gz"
         'lesspipe.sh')
