@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-params-someutil
-pkgver=1.11
+pkgver=1.12
 pkgrel=1
 pkgdesc='Simple, compact and correct parameter-checking functions'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-1.0-or-later OR Artistic-1.0-Perl')
 depends=('perl')
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Params-SomeUtil-$pkgver.tar.gz")
-sha256sums=('ad171c7c579e332d067089fa5cb11e3b2c9a6bddf41050d57274577e7bcc976a')
+sha256sums=('ca61027a5c7f9ce2e31285c67a0bdc4f052c62051adfb7406d79ea0f23e5c1f0')
 
 build() {
   cd Params-SomeUtil-$pkgver
