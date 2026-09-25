@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-wayland-protocols
-pkgver=1.22.0
+pkgver=1.23.0
 pkgrel=1
 pkgdesc='Plasma Specific Protocols for Wayland'
 arch=(any)
@@ -11,7 +11,7 @@ depends=()
 makedepends=(extra-cmake-modules
              qt6-base)
 source=(https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f628585c4c2d5e3a9f447a6274e2f59d7811272da557e75341e36948aa3f9d43'
+sha256sums=('16c5ad917bde2ed795942dacba76654819ddc6a1566842325ef34e0b553ef138'
             'SKIP')
 validpgpkeys=(CA1B4E348D22755A67EF4E1A6A4F2C4CDC8BC77F  # Aleix Pol Gonzalez <aleixpol@kde.org>
               EC5516B514543DA145169FD12276F09AF4A790F4  # Vlad Zahorodnii <vlad.zahorodnii@kde.org>
