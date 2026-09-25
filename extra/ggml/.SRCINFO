@@ -1,22 +1,22 @@
 pkgbase = ggml
 	pkgdesc = Tensor library for machine learning
-	pkgver = 0.21.0
+	pkgver = 0.25.2
 	pkgrel = 1
 	url = https://github.com/ggerganov/ggml
+	arch = aarch64
 	arch = x86_64
 	license = MIT
+	makedepends = cuda
 	makedepends = chrpath
 	makedepends = cmake
-	makedepends = cuda
 	makedepends = git
-	makedepends = intel-oneapi-toolkit
-	makedepends = level-zero-headers
-	makedepends = nccl
 	makedepends = ninja
 	makedepends = openblas
+	makedepends = procps-ng
+	makedepends = nccl
+	makedepends = ocl-icd
 	makedepends = opencl-clhpp
 	makedepends = openvino
-	makedepends = procps-ng
 	makedepends = rocm-hip-sdk
 	makedepends = rocm-toolchain
 	makedepends = shaderc
@@ -26,8 +26,11 @@ pkgbase = ggml
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
-	source = git+https://github.com/ggml-org/ggml.git#tag=v0.21.0
-	b2sums = 4547902bff8b2b5152ca79b582c81f11ab2a6ffb5be32567f68b35c611865fa046bb12642ae9cd132c137ef2b45479d3a05a0bd06216c4f7b1f44e61568a8cf8
+	options = !buildflags
+	source = git+https://github.com/ggml-org/ggml.git#tag=v0.25.2
+	b2sums = 02d11ee0712103b595ac12446353469bb9de759523bdc02dc7ab45f6f3ada8b1ffa475dd22ab1a0f808191376f04f7ce68d756646c14ebd2d096c3b4195b81b3
+	makedepends_x86_64 = intel-oneapi-toolkit
+	makedepends_x86_64 = level-zero-headers
 
 pkgname = ggml
 	depends = glibc
@@ -35,11 +38,14 @@ pkgname = ggml
 	depends = libstdc++
 	depends = libgomp
 	optdepends = ggml-blas: BLAS backend
-	optdepends = ggml-cpu: CPU backend
-	optdepends = ggml-cuda: CUDA backend
 	optdepends = ggml-openvino: Openvino backend
-	optdepends = ggml-hip: HIP backend
 	optdepends = ggml-vulkan: Vulkan backend
+	optdepends = ggml-cuda: CUDA backend
+	optdepends = ggml-hip: HIP backend
+	provides = ggml
+	provides = ggml-cpu
+	conflicts = ggml
+	conflicts = ggml-cpu
 
 pkgname = ggml-blas
 	depends = glibc
@@ -47,8 +53,6 @@ pkgname = ggml-blas
 	depends = libstdc++
 	depends = ggml
 	depends = openblas
-
-pkgname = ggml-cpu
 
 pkgname = ggml-cuda
 	depends = glibc
@@ -64,6 +68,7 @@ pkgname = ggml-hip
 	depends = libstdc++
 	depends = ggml
 	depends = hipblas
+	depends = hip-runtime-amd
 	depends = rocblas
 	depends = rocm-hip-runtime
 
@@ -72,11 +77,10 @@ pkgname = ggml-openvino
 	depends = libgcc
 	depends = libstdc++
 	depends = ggml
-	depends = intel-oneapi-toolkit
-	depends = onetbb
 	depends = openvino
 
 pkgname = ggml-sycl
+	arch = x86_64
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
