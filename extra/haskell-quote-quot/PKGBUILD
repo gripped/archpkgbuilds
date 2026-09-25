@@ -2,16 +2,16 @@
 
 _hkgname=quote-quot
 pkgname=haskell-quote-quot
-pkgver=0.2.1.0
-pkgrel=131
+pkgver=0.2.2.0
+pkgrel=1
 pkgdesc="Divide without division"
 url="https://github.com/Bodigrim/quote-quot#readme"
 license=("BSD-3-Clause")
 arch=('x86_64')
-depends=('ghc-libs')
+depends=('ghc-libs' 'haskell-template-haskell-lift')
 makedepends=('ghc' 'uusi' 'haskell-tasty' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('67dc25909c5b9bb373c66a9c9c1721d1e73915bd5518f42d1f97b793f42e4df7')
+sha256sums=('9cd36c161dc3abfebb0dbdf8609a8b34fa3aa25145bc946017123865844dc477')
 
 prepare() {
   cd $_hkgname-$pkgver
