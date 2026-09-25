@@ -2,7 +2,7 @@
 # Contributor: csslayer <wengxt AT gmail com>
 
 pkgname=fcitx5-chinese-addons
-pkgver=5.1.14
+pkgver=5.1.15
 _py_stroke_ver=20250329
 _py_table_ver=20121124
 pkgrel=1
@@ -17,7 +17,7 @@ optdepends=('fcitx5-lua: Lua and imeapi support from pinyin')
 source=("git+https://github.com/fcitx/fcitx5-chinese-addons.git#tag=$pkgver?signed"
         "https://download.fcitx-im.org/data/py_stroke-$_py_stroke_ver.tar.gz"
         "https://download.fcitx-im.org/data/py_table-$_py_table_ver.tar.gz")
-sha512sums=('fe55d6c7a3fe7a0c36442d232c38bc992612a8b663a41c147880cb35e68cb8f4282eca9b29dd76e3fe441ebc3660949cba1bc28c21419e7534016309181eb768'
+sha512sums=('8d7e8b409695100f3353e61a4074329655c998f7b15a7be0748fa9bc0bbd13590dc0c2af5b4c23edd5306525b0000fc920715035c796de01f753679861812228'
             '0b69b008e00a246dd8ff56d6c1e2a3402a2f26e957623e2927b919ac8a90e99861c3f525e3ccf166ba27ac2e44cdbd68fb0dac234f7e4e8e26d7e23ab6ff9144'
             '0fa72ce6820a316e9729bc0d7a08af5ca3468134de9ff1bf0c559a398846a7bcf7313a3609d943e6bab637d930cf45ad9acfe25a8d3df078a774b071a7296486')
 validpgpkeys=('2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9') # Weng Xuetian <wengxt@gmail.com>
