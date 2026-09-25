@@ -7,7 +7,7 @@
 
 pkgname=sagemath
 pkgver=10.9
-pkgrel=6
+pkgrel=7
 pkgdesc='Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab'
 arch=(x86_64)
 url='http://www.sagemath.org'
@@ -142,11 +142,15 @@ checkdepends=(python-pytest)
 source=(git+https://github.com/sagemath/sage#tag=$pkgver
         latte-count.patch
         maxima-5.48.patch
-        planarity-5.patch)
+        planarity-5.patch
+        networkx-3.7.patch
+        https://github.com/sagemath/sage/commit/0cbfbfca.patch)
 sha256sums=('62fed909146a7cec5809c954a06a0932b8fe3e6bbde2a2dab305083cd98d0a91'
             'c3aa0243de70fe9c58772c83e748510b7af6950f98d01b3a819e6f8d1232c797'
             'a2d0663fe563bd131d47687086e36b1cbd9af158993226f69fecba8344cedb8a'
-            '755e7042704f5c18b49dc9330a1d2a999ef187c331aa96d0367ed093fb2676c6')
+            '755e7042704f5c18b49dc9330a1d2a999ef187c331aa96d0367ed093fb2676c6'
+            '26f2918e3b775c89d235abab080012186e1d0070ae327f882cf7a95242b7ccf2'
+            'a6cb39bc0896b342918452dea630f7a499143aa3496a53e204cb9db50d50c581')
 
 prepare(){
   cd sage
@@ -157,6 +161,10 @@ prepare(){
   patch -p1 -i ../maxima-5.48.patch
 # fix build with planarity 5
   patch -p1 -i ../planarity-5.patch
+# Networkx 3.7 fixes
+  patch -p1 -i ../networkx-3.7.patch
+# Fix build with Cython 3.3
+  patch -p1 -i ../0cbfbfca.patch
 }
 
 build() {
