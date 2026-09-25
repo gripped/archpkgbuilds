@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=haproxy
-pkgver=3.4.4
+pkgver=3.4.5
 pkgrel=1
 
 # Each release serie has its own repository. This is handled automatically in
@@ -13,7 +13,14 @@ url='https://www.haproxy.org/'
 arch=('x86_64')
 license=('GPL-2.0-or-later')
 
-depends=('openssl' 'pcre2' 'zlib' 'libxcrypt' 'libcrypt.so' 'lua' 'systemd-libs')
+depends=('glibc'
+         'libxcrypt' 'libcrypt.so'
+         'lua' #'liblua.so'
+         'openssl' 'libcrypto.so' 'libssl.so'
+         'pcre2' 'libpcre2-8.so'
+         'systemd-libs'
+         'zlib' 'libz.so')
+
 makedepends=('git' 'systemd')
 
 backup=('etc/haproxy/haproxy.cfg')
@@ -29,7 +36,7 @@ source=("git+https://git.haproxy.org/git/haproxy-${pkgver%.*}.git?signed#tag=v${
         'haproxy.sysusers'
         '0001-Use-CFLAGS-and-LDFLAGS-when-building-admin.patch')
 
-sha256sums=('506c36c867d82dae9d102df4c41a1120ac33f1c578de898d6ad49437da1cca71'
+sha256sums=('5cc473b7ff450f082a5b842ea88768c9c45d5cfb8a28bf0d2e7be09d91c452c2'
             'f6babef513b99a3fa0e50f2b144c73c980f1b78b119874ffa2580af1e651e7a9'
             'c6e716ea59272a8e871af53703726dd2a75b56c82dacf097d4bf08ac5e841a0d'
             'a1e3a1c2923465081383eb431bae55ff9841d89909469311cdba4b394ec4a998')
