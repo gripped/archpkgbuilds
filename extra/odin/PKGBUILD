@@ -6,19 +6,37 @@
 # Contributor: Johannes Müller <mail@jotrorox.com>
 
 pkgname=odin
-# using monthly tags until a release is tagged
-pkgver=dev_2026_09
-pkgrel=1
+pkgver=dev_2026_09 # using monthly tags until a release is tagged
+pkgrel=3
+_raygui=5.0
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
 url='https://odin-lang.org/'
-license=(BSD-3-Clause)
-depends=(clang llvm21-libs python miniaudio)
-makedepends=(git llvm21 stb)
+license=(BSD-3-Clause Zlib)
+depends=(clang libx11 llvm21-libs miniaudio python raylib)
+makedepends=(git llvm21 setconf)
 checkdepends=(mbedtls)
+checkdepends_aarch64=(lua54)
 options=(staticlibs)
-source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}")
-b2sums=('dbb3bd53f3a2ab4cc2726a9cd064aea6eb99cfa41e91fa7a045e9fac7f518fbb5f6e1d7a109cc6e89b45eb698efda5f1fb75bc5eaf54b5a009ed106c08ca1113')
+source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}"
+        "raygui-$_raygui.tar.gz::https://github.com/raysan5/raygui/archive/refs/tags/$_raygui.tar.gz")
+b2sums=('dbb3bd53f3a2ab4cc2726a9cd064aea6eb99cfa41e91fa7a045e9fac7f518fbb5f6e1d7a109cc6e89b45eb698efda5f1fb75bc5eaf54b5a009ed106c08ca1113'
+        '6f97a2174de0f8b140b8f534386ac92d9425f69ce93ae4dc45c131afd39d812aa5ec8c640144fb36ac7ff818c8ce373f0cfc2ff7c7ed23c22218cea4323766e6')
+
+prepare() {
+  cd Odin
+
+  # Trickery for using the shared system library for Raylib
+  rm vendor/raylib/linux/{libraylib.a,libraylib.so.600,libraygui.a,libraygui.so}
+  ln -s /usr/lib/libraylib.so.600 vendor/raylib/linux/libraylib.so.600
+  setconf vendor/raylib/raylib.odin RAYLIB_SHARED '#config(RAYLIB_SHARED, true)'
+  setconf vendor/raylib/rlgl/rlgl.odin RAYLIB_SHARED '#config(RAYLIB_SHARED, true)'
+
+  # Using miniaudio from the system
+  cd vendor/miniaudio
+  setconf common.odin LIB '"system:miniaudio"'
+  sed -i '/^when !#exists(LIB) {/,/^}/d;s/f v != BINDINGS_VERSION {/f v.xy != BINDINGS_VERSION.xy {/' common.odin
+}
 
 build() {
   cd Odin
@@ -27,8 +45,13 @@ build() {
   export LLVM_CONFIG=/usr/lib/llvm21/bin/llvm-config
   make release
 
-  cd vendor/cgltf/src
-  ./build_cgltf.sh
+  vendor/cgltf/src/build_cgltf.sh
+  vendor/stb/src/build_stb.sh
+
+  cd ../raygui-$_raygui/src
+  cc $CFLAGS -fno-lto -fPIC -DRAYGUI_IMPLEMENTATION -c -x c raygui.h
+  ar rcs ../../Odin/vendor/raylib/linux/libraygui.a raygui.o
+  cc $LDFLAGS -shared -Wl,-soname,libraygui.so -o ../../Odin/vendor/raylib/linux/libraygui.so raygui.o -lraylib -lm
 }
 
 check() {
@@ -49,6 +72,7 @@ package() {
   cp -r base core shared vendor "$pkgdir/usr/lib/$pkgname/"
   ln -s "/usr/lib/$pkgname/odin" "$pkgdir/usr/bin/odin"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 ../raygui-$_raygui/LICENSE "$pkgdir/usr/share/licenses/$pkgname/raygui-LICENSE"
   install -Dm644 PROPOSAL-PROCESS.md "$pkgdir/usr/share/doc/$pkgname/PROPOSAL-PROCESS.md"
   install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
 }
