@@ -2,7 +2,7 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=2.0.54
+pkgver=2.0.55
 pkgrel=1
 pkgdesc='New DDE shell'
 arch=('x86_64')
@@ -17,24 +17,27 @@ groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('727dd7d8ca225af9ae6c113f6bda3157210ea537f183a578749cc27fda3d2c3b817706bcbf9e511031e06ce06ac997affc11586cdd18210c3360cf3983ecbce1')
+sha512sums=('69bf59de72f930a653bb5fd8ab40d12b4cdd970c25dcbeb64992a9a219d455476563d6ebad94f260be02ead5298523ef02f638483303f14a8f559dac8a555aa9')
 
 prepare() {
   cd dde-shell
   # Qt 6.10 support: https://github.com/linuxdeepin/dde-shell/pull/1735
   git cherry-pick -n fb18e7a4eca9daf917cf367f903f66d6f8be982a
-  # GCC 16 support: https://github.com/linuxdeepin/dde-shell/pull/1736
-  git cherry-pick -n 19ac675da9bdae2d51e2d9107e7c75f09c66a201
   sed -i '/target_compile_definitions(dde-shell-dock PRIVATE DS_LIB)/d' panels/dock/frame/CMakeLists.txt
 }
 
 build() {
   cd dde-shell
+  # Coverage defaults to -O0, which conflicts with Arch's _FORTIFY_SOURCE under upstream -Werror.
+  # https://github.com/linuxdeepin/dde-shell/pull/1730
   cmake . -GNinja \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_SYSCONFDIR=/etc \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DFRAME_BUILD_COVERAGE=OFF \
+    -DAPPLETS_BUILD_COVERAGE=OFF \
+    -DDOCK_BUILD_COVERAGE=OFF
   cmake --build .
 }
 
