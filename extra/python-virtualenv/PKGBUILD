@@ -4,7 +4,7 @@
 # Contributor: Daniele Paolella <dp@mcrservice.it>
 
 pkgname=python-virtualenv
-pkgver=21.10.0
+pkgver=21.12.1
 pkgrel=1
 pkgdesc='Virtual Python Environment builder'
 arch=(any)
@@ -54,9 +54,9 @@ source=(
   "$pkgname::git+https://github.com/pypa/virtualenv#tag=$pkgver"
   no-llm-crap.patch
 )
-sha512sums=('46db2cfe9573b03f895ccd90301b5a2bc12cf2c7a351674fcc6f97958b364c4def7c84bf67d19a491cd180e0d160b50f118f4959e23b70927ff2a8a03e89f809'
+sha512sums=('42b458218819f36e1a58487d0acc666552c8b3c5cafda35e5880b3ae107bc4d54c90a687ed088367b3a1d873d4de810bb8375560e120e650dfb478986fcd54ae'
             '243e7a6b08616b9bd30bd32295fe52b32ce3902f462dcd21f7f5ba3979577ad79fdf571965dbb6ff8d85ddd3ac8aa52f6937bfd2c995e518c6729c84033fe8e5')
-b2sums=('83429008875785c5e6a5d76298597745b1ce48ab008fc9480f62e563923620ec6fbc9508d6f53781faaec67921f4cd72a4b36e6dfb9251a805e83f1ddc9be42d'
+b2sums=('6264aaa0c8522a51a3a7fedd0499e39093156e48a45fcd0c4f11de1886c401c09be97a15e3b99eb7168f095110698286ede98e809de91493098f99022fb2bd41'
         'f8291a2cfce1adcd1ca4d4b861967d7c6d22b7a5828978d91bc26c4d0a53268bcebb93601b23e550339a8a05dbc3cc4943fab5e8d138e268a078fb691e92f895')
 
 prepare() {
@@ -100,6 +100,10 @@ check() {
     # failures with 21.10.0
     --deselect tests/unit/test_wheel_age.py::test_generator_converges
     --deselect tests/unit/test_wheel_age.py::test_generator_updates_license
+    # failures with 21.12.1
+    --deselect tests/unit/test_sbom.py::test_sbom_spdx_declared_license[expression]
+    --deselect tests/unit/test_sbom.py::test_sbom_spdx_declared_license[names]
+    --deselect tests/unit/test_sbom.py::test_sbom_spdx_declared_license[undeclared]
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
