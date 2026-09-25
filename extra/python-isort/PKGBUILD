@@ -4,7 +4,7 @@
 
 _pyname=isort
 pkgname=python-$_pyname
-pkgver=9.0.0b2
+pkgver=9.0.1
 pkgrel=1
 pkgdesc='A Python utility / library to sort Python imports'
 arch=(any)
@@ -15,6 +15,7 @@ _pydeps=(colorama
 depends=(python
          "${_pydeps[@]/#/python-}")
 makedepends=(python-{build,installer,wheel}
+             python-hatch-mypyc
              python-hatch-vcs
              python-hatchling)
 _pycheckdeps=(black
@@ -28,7 +29,7 @@ _pycheckdeps=(black
               requirementslib)
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('37aacdaacb00abd7c486c1546e5f3ac0ebbe1ad74c365b81bb9fb1db765ba9e5')
+sha256sums=('ba23db109e3e93ef1999f7209a651214994cd807801addd16ac485982eb4edd7')
 
 prepare() {
 	cd "$_archive"
