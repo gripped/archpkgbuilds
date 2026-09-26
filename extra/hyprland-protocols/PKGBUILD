@@ -2,24 +2,27 @@
 # Contributor: l0gic <l0gic@invalid.invalid>
 
 pkgname=hyprland-protocols
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc='Wayland protocol extensions for Hyprland'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-makedepends=(meson)
-_archive="$pkgname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('ee419006d7cd20927b9b7c8b5fc430571c151b0385d600508de1a7957294498c')
+makedepends=(cmake)
+source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('178fa406a1c76e94efeed5d1488abd6029427865f6fd4caf296c71ffaf0d069e')
 
 build() {
-	arch-meson "$_archive" build
-	meson compile -C build
+	cmake \
+		-B build \
+		-S "${pkgname}-${pkgver}" \
+		-W no-author \
+		-D CMAKE_BUILD_TYPE=None \
+		-D CMAKE_INSTALL_PREFIX=/usr
+	cmake --build build
 }
 
 package() {
-	DESTDIR="$pkgdir" meson install -C build
-	cd "$_archive"
-	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+	DESTDIR="$pkgdir" cmake --install build
+	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" "${pkgname}-${pkgver}/LICENSE"
 }
