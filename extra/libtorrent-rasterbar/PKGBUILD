@@ -4,8 +4,8 @@
 # Contributor: Hugo Doria <hugo@archlinux.org>
 
 pkgname=libtorrent-rasterbar
-pkgver=2.1.1
-pkgrel=2
+pkgver=2.1.2
+pkgrel=1
 epoch=1
 pkgdesc='An efficient and feature complete C++ BitTorrent library implementation'
 url='https://www.rasterbar.com/products/libtorrent/'
@@ -33,9 +33,8 @@ source=('libtorrent-rasterbar'::"git+https://github.com/arvidn/libtorrent.git#ta
         'git+https://github.com/paullouisageneau/usrsctp.git'
         'git+https://github.com/paullouisageneau/libjuice.git'
         'git+https://github.com/nlohmann/json.git'
-        'git+https://github.com/cisco/libsrtp.git'
-        '010-libtorrent-rasterbar-fix-for-fortify-source-3.patch')
-sha512sums=('617501711b24394e5f0faea9365218159b6d3c212ecb6aef9989157847400743438f4bc044ad496f8d24eb1cf721b74f1dff54ebd66137ce264df2ec744ec7eb'
+        'git+https://github.com/cisco/libsrtp.git')
+sha512sums=('aaa6c35c34e3f821a63bb667595ceb1949ab42d98181ee55476931516b87e82200b9e92e1edf41cfba3d71caa40c396924e49aa0938e6f1b21e680bb347ba35e'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -44,8 +43,7 @@ sha512sums=('617501711b24394e5f0faea9365218159b6d3c212ecb6aef9989157847400743438
             'SKIP'
             'SKIP'
             'SKIP'
-            'SKIP'
-            'c0ddab473428658b816f5b832dd6a431d64e5698f85d97c6090bee1b247bddef37850d53e19f1019cc37f25fad33da1294df9ecbbf616be7570d94545c771f7e')
+            'SKIP')
 
 prepare() {
     git -C libtorrent-rasterbar submodule init
@@ -63,10 +61,6 @@ prepare() {
     git -C libtorrent-rasterbar/deps/libdatachannel config --local submodule.deps/json.url "${srcdir}/json"
     git -C libtorrent-rasterbar/deps/libdatachannel config --local submodule.deps/libsrtp.url "${srcdir}/libsrtp"
     git -C libtorrent-rasterbar/deps/libdatachannel -c protocol.file.allow='always' submodule update
-    
-    # https://github.com/arvidn/libtorrent/issues/7519
-    # remove usage of malloc_usable_size() for _FORTIFY_SOURCE=3 compatibility
-    patch -d libtorrent-rasterbar -Np1 -i "${srcdir}/010-libtorrent-rasterbar-fix-for-fortify-source-3.patch"
 }
 
 build() {
