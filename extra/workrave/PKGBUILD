@@ -3,7 +3,7 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=workrave
-pkgver=1.11.1
+pkgver=1.11.4
 pkgrel=1
 pkgdesc='Assist in the recovery and prevention of Repetitive Strain Injury (RSI)'
 arch=(x86_64)
@@ -55,7 +55,7 @@ optdepends=(
   'xfce4-panel: Applet for Xfce4 Panel'
 )
 source=("git+https://github.com/rcaelers/workrave.git?signed#tag=v${pkgver//./_}")
-b2sums=(ccd1ab7b57e33b5c08e9753d52c2bf1f84215da07193333a48a0261a7f46446088c05cb1f0bdbac22209c8047e67f1d406a63147912d4ea8384ce8d876d54004)
+b2sums=(d26d1eb1f9cacd1df1445233f85477f8e892b154bad8219e09e018addda1ea854a31ce1a43173606901b0c3652e5cdaec1f2fb82fa64df9832cdc1a50590331c)
 validpgpkeys=(70C2550E285606E1A9484F5B2FB833343300F30F) # Rob Caelers <robc@krandor.org>
 
 prepare() {
@@ -63,19 +63,19 @@ prepare() {
 
   # Don't set decorations on MainWindow
   # https://github.com/rcaelers/workrave/pull/729
-  sed -i '/window->set_decorations(/d' ui/app/toolkits/gtkmm/MainWindow.cc
+  git cherry-pick -n 3ec01a3ffeb4c3cbf1b9d43f93839b349026572e
 
   # Change HBox to VBox in TimerPreferencePanel
   # https://github.com/rcaelers/workrave/pull/730
-  sed -i '/Gtk::HBox \*box =/ s/Gtk::HBox/Gtk::VBox/g' ui/app/toolkits/gtkmm/preferences/TimerPreferencePanel.cc
+  git cherry-pick -n bb16f4990911c0801641466c43151ac9cf1c821f
 
   # Fix setting name on about dialog
   # https://github.com/rcaelers/workrave/pull/731
-  sed -i 's/about_dialog->set_name(/about_dialog->set_program_name(/' ui/app/toolkits/gtkmm/Toolkit.cc
+  git cherry-pick -n d5361bd869d4fc74826070b39a125484eb651336
 
   # Fix locale handling when no locale is configured
   # https://github.com/rcaelers/workrave/pull/732
-  sed -i '/Platform::unsetenv(/d' ui/libs/commonui/src/Locale.cc
+  git cherry-pick -n 5c1560cd867d2e1793fa3f8b9107b301770dfaae
 
   # Use libappindicator
   sed -i 's/ayatana-appindicator/appindicator/' CMakeLists.txt ui/app/toolkits/gtkmm/platforms/unix/AppIndicatorMenu.hh
