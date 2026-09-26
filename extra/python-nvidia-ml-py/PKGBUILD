@@ -2,8 +2,8 @@
 
 _name=nvidia-ml-py
 pkgname=python-$_name
-pkgver=13.610.43
-pkgrel=2
+pkgver=13.615.71
+pkgrel=1
 pkgdesc='Python bindings for the NVIDIA Management Library (NVML)'
 arch=(any)
 url='https://pypi.org/project/nvidia-ml-py'
@@ -19,7 +19,7 @@ makedepends=(
   python-wheel
 )
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/${_name//-/_}-$pkgver.tar.gz)
-b2sums=('e535c9d4ea12591be861226c6af4a4dbb392583974152714358965700a7655c6861133e5f381eac19411d8c466a287f6f3c97ada4afcad7521daa3840450cb5a')
+b2sums=('bfa25797e3d564260807ffe1582cc0237e13fc9ac6fb836946886bbb99c62c9765cac24e82613da68507699ec88a3d77a3692af64eadfb98a7711bbc624e0ad9')
 
 prepare() {
   cd ${_name//-/_}-$pkgver
