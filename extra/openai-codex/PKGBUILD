@@ -4,7 +4,7 @@
 # Contributor: Christopher Cooper <christopher@cg505.com>
 
 pkgname=openai-codex
-pkgver=0.157.0
+pkgver=0.157.1
 pkgrel=1
 _v8ver=150.4.0
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
@@ -19,6 +19,7 @@ depends=(
   libgcc
   oniguruma
   openssl
+  ripgrep
   sqlite
   xz
   zlib
@@ -28,7 +29,6 @@ makedepends=(cargo)
 optdepends=(
   'git: allow for repository actions'
   'nodejs: enable the js_repl experimental tool'
-  'ripgrep: accelerated large-repo search'
 )
 options=('!debug' '!lto')
 source=(
@@ -38,7 +38,7 @@ source=(
   'fix-chatgpt-recursion-limit.patch'
 )
 noextract=("librusty_v8-$_v8ver.a.gz")
-b2sums=('10bd25c71650418e8b0dbd21b9903ccf474e52ea002c959adba99e929293acdef35290ce73f7c794ebb180a821a30943e79c2d002c10df32f8251a7c280b2ae9'
+b2sums=('d8fd027fe5808a722bf4e77dd78854930a806746e78ff5e80f464d5f172af971e5fed38f307f9e8fce3b8d5d02d903020aed08e23c404e93885fb6574464481a'
         '816509947f4062124bd4f5fe581b8ae2762f3f50562c84558e58fed657a9bd17360120879deb9838a73664e4fc3aa3b8d1ed09bf11093d289f81d9eb9533c9b6'
         'b21381b7f09d0205455ba541b2a38ff79b9535c4b8436b309f39f4b40d819e604b3689298ae81deb00c07a12a21ef0fd1bd0bbddb196d63f24d8621ace7165c1'
         'f22bc2186c0c6105598b654b8cadacd75980f9358af11a384a3732c56f6d63f1554d68fa3acd08486cd8af75e805fc06b92f6df8062aabda2aa190c64b7b83fa')
@@ -69,17 +69,36 @@ build() {
 package() {
   cd codex-rust-v$pkgver/codex-rs
 
-  install -Dm755 -t "$pkgdir"/usr/bin \
+  local root="$pkgdir/usr/lib/openai-codex"
+  install -Dm755 -t "$root/bin" \
     target/release/codex \
     target/release/codex-code-mode-host \
     target/release/codex-responses-api-proxy
 
+  install -d "$pkgdir/usr/bin" "$root/codex-resources" "$root/codex-path"
+  local binary
+  for binary in codex codex-code-mode-host codex-responses-api-proxy; do
+    ln -s "../lib/openai-codex/bin/$binary" "$pkgdir/usr/bin/$binary"
+  done
+
+  printf '%s\n' \
+    '{' \
+    '  "layoutVersion": 1,' \
+    "  \"version\": \"$pkgver+arch.$pkgrel\"," \
+    "  \"target\": \"$(rustc --print host-tuple)\"," \
+    '  "entrypoint": "bin/codex"' \
+    '}' > "$root/codex-package.json"
+  printf '%s\n' '#!/bin/sh' 'exec /usr/bin/bwrap "$@"' \
+    > "$root/codex-resources/bwrap"
+  printf '%s\n' '#!/bin/sh' 'exec /usr/bin/rg "$@"' > "$root/codex-path/rg"
+  chmod 755 "$root/codex-resources/bwrap" "$root/codex-path/rg"
+
   install -d "${pkgdir}/usr/share/bash-completion/completions" \
              "${pkgdir}/usr/share/zsh/site-functions" \
              "${pkgdir}/usr/share/fish/vendor_completions.d"
-  "${pkgdir}/usr/bin/codex" completion bash > "${pkgdir}/usr/share/bash-completion/completions/codex"
-  "${pkgdir}/usr/bin/codex" completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_codex"
-  "${pkgdir}/usr/bin/codex" completion fish > "${pkgdir}/usr/share/fish/vendor_completions.d/codex.fish"
+  "$root/bin/codex" completion bash > "${pkgdir}/usr/share/bash-completion/completions/codex"
+  "$root/bin/codex" completion zsh > "${pkgdir}/usr/share/zsh/site-functions/_codex"
+  "$root/bin/codex" completion fish > "${pkgdir}/usr/share/fish/vendor_completions.d/codex.fish"
 }
 
 # vim:set ts=2 sw=2 et:
