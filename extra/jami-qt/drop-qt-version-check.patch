@@ -1,12 +1,25 @@
+diff --git a/src/app/mainapplication.cpp b/src/app/mainapplication.cpp
+index c6cdb3c7..7855895f 100644
 --- a/src/app/mainapplication.cpp
 +++ b/src/app/mainapplication.cpp
-@@ -100,9 +100,6 @@ ScreenInfo::setCurrentFocusWindow(QWindow* window)
-     : QApplication(argc, argv)
+@@ -69,20 +69,6 @@ static const QtMessageHandler QT_DEFAULT_MESSAGE_HANDLER = qInstallMessageHandle
+ bool
+ isCompatibleQtRuntimeVersion(const QString& runtimeVersion, const QString& buildVersion)
  {
-     const char* qtVersion = qVersion();
--    if (strncmp(qtVersion, QT_VERSION_STR, strnlen(qtVersion, sizeof qtVersion)) != 0) {
--        C_FATAL << "Qt build version mismatch!" << QT_VERSION_STR;
+-    static constexpr int requiredSegmentCount = 2;
+-
+-    const auto runtime = QVersionNumber::fromString(runtimeVersion);
+-    const auto build = QVersionNumber::fromString(buildVersion);
+-    if (runtime.segmentCount() < requiredSegmentCount || build.segmentCount() < requiredSegmentCount) {
+-        return false;
 -    }
- 
-     parseArguments();
+-
+-    for (int i = 0; i < requiredSegmentCount; ++i) {
+-        if (runtime.segmentAt(i) != build.segmentAt(i)) {
+-            return false;
+-        }
+-    }
+-
+     return true;
+ }
  
