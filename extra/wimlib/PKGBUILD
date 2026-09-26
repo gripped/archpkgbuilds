@@ -4,12 +4,12 @@
 
 pkgname=wimlib
 pkgver=1.14.5
-pkgrel=3
+pkgrel=4
 pkgdesc='A library and program to extract, create, and modify WIM files'
 arch=(x86_64)
 url='https://wimlib.net'
 license=('LGPL-2.1-only OR LGPL-3.0-only')
-depends=(glibc bash fuse3 ntfsprogs)
+depends=(glibc bash fuse3 libntfs-3g ntfsprogs)
 makedepends=(git)
 checkdepends=(attr)
 optdepends=(
