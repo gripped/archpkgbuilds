@@ -10,7 +10,7 @@ pkgname=(
   ggml-sycl
   ggml-vulkan
 )
-pkgver=0.25.2
+pkgver=0.25.3
 pkgrel=1
 pkgdesc='Tensor library for machine learning'
 arch=(
@@ -46,10 +46,11 @@ makedepends=(
 makedepends_x86_64=(
   intel-oneapi-toolkit
   level-zero-headers
+  onetbb
 )
 options=(!buildflags)
 source=(git+https://github.com/ggml-org/ggml.git#tag=v${pkgver})
-b2sums=('02d11ee0712103b595ac12446353469bb9de759523bdc02dc7ab45f6f3ada8b1ffa475dd22ab1a0f808191376f04f7ce68d756646c14ebd2d096c3b4195b81b3')
+b2sums=('13d5ed739fc8262f5b9749646f3eed1ccfb5a0d6b0037acc34b82a0671ad2133a1911c1659dadd37ca795ba858c6005b63cd60a2e86861c7eda14fc478449df7')
 
 build() {
   local _cmake_options=(
@@ -60,11 +61,11 @@ build() {
     -DGGML_BLAS=ON
     -DGGML_BLAS_VENDOR=OpenBLAS
     -DGGML_CPU_ALL_VARIANTS=ON
-    -DGGML_VULKAN=ON
-    "-DAMDGPU_TARGETS=$(rocm-supported-gfx)"
     -DGGML_CUDA=ON
     -DGGML_HIP=ON
     -DGGML_OPENVINO=ON
+    -DGGML_VULKAN=ON
+    "-DAMDGPU_TARGETS=$(rocm-supported-gfx)"
     )
 
   cmake -S ggml -B build-all -G Ninja "${_cmake_options[@]}"
@@ -96,10 +97,10 @@ package_ggml() {
   depends+=(libgomp)
   optdepends=(
     'ggml-blas: BLAS backend'
-    'ggml-openvino: Openvino backend'
-    'ggml-vulkan: Vulkan backend'
     'ggml-cuda: CUDA backend'
     'ggml-hip: HIP backend'
+    'ggml-openvino: Openvino backend'
+    'ggml-vulkan: Vulkan backend'
   )
   conflicts=(
     ggml
@@ -153,6 +154,8 @@ package_ggml-hip() {
 package_ggml-openvino() {
   depends+=(
     ggml
+    ocl-icd
+    onetbb
     openvino
   )
 
@@ -165,6 +168,7 @@ package_ggml-sycl() {
   depends+=(
     intel-oneapi-toolkit
     level-zero-loader
+    onetbb
   )
   conflicts=(
     ggml
