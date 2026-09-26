@@ -4,8 +4,8 @@
 # Contributor: Sander Boom <sanderboom@gmail.com>
 
 pkgname=ansible-lint
-pkgver=26.8.0
-pkgrel=2
+pkgver=26.9.0
+pkgrel=1
 pkgdesc="Checks playbooks for practices and behaviour that could potentially be improved."
 arch=('any')
 url="https://github.com/ansible/ansible-lint"
@@ -17,10 +17,12 @@ checkdepends=(ansible-creator mypy podman python-jmespath python-pylint python-p
 optdepends=('ansible: check official ansible collections')
 source=(git+https://github.com/ansible/ansible-lint.git#tag=v$pkgver
         disable_version_check.patch
-        ignore_yamllint_unknown_option.patch)
-b2sums=('d034671a57f80be8015c1af5749df8af4effba03682addc6f3f9a9c1db741c848e7ee51d1d3719e78fbfb50e22e0c493529a5c58e59746702924de6d37d19b10'
+        ignore_yamllint_unknown_option.patch
+        no-galaxy-test-reqs.patch)
+b2sums=('76ae03a52d5a8295718d56787baaf71931541509b73fdb58eb3930787790e5ce3201e2938ec5a8222b7eaba7bd52171e1fe17c45dbc7f6a97a26c682e8a85c52'
         '98294f267ca693c0bc3921f8e076d674a219a891502cd31a0af789bc0b1447b53834b9c85853a134f6bc1ac384f31cb174cba2d55fbcc1636cae9bd3c0bd8f84'
-        '8e419c65642bdbd60aa81d1e204139e69fc4c86aaddde4131fbfe3c21f5751e608a5a635d3ec4f518d3d5dc9d254a84b302e09bb4f873e21628e2f014b151516')
+        '8e419c65642bdbd60aa81d1e204139e69fc4c86aaddde4131fbfe3c21f5751e608a5a635d3ec4f518d3d5dc9d254a84b302e09bb4f873e21628e2f014b151516'
+        '9074d620b257609e000d1835fcce76b18d6c8b3280b5ab345bf5a98fdcc62b06b01dd3fb146fd2b3853d3568c315b2e5e09f4fe1c4f5586a7ef9ecb989a128e2')
 
 prepare() {
   cd ${pkgname}
@@ -28,6 +30,8 @@ prepare() {
   patch -Np1 < "${srcdir}/disable_version_check.patch"
   # remove yamllint 'forbid-duplicated-merge-keys' unknown rule/option (generates errors during tests)
   patch -Np1 < "${srcdir}/ignore_yamllint_unknown_option.patch"
+  # stop trying to pull test reqs from galaxy
+  patch -Np1 < "${srcdir}/no-galaxy-test-reqs.patch"
 }
 
 build() {
@@ -70,7 +74,7 @@ check() {
     --deselect 'test/test_yaml_utils.py::test_yamllint_incompatible_config'
     --deselect 'test/rules/test_syntax_check.py::test_syntax_check_role'
     --deselect 'test/test_transformer.py::test_transformer[strings]'
-    # ignore tests that wants to pull stuff from ansible-galaxy
+    # ignore tests that wants to pull stuff from ansible-galaxy or pip
     --deselect 'test/test_transformer.py::test_pruned_err_after_fix'
     --deselect 'test/test_dependencies_in_meta.py::test_external_dependency_is_ok'
     --deselect 'test/test_file_utils.py::test_kinds[3]'
@@ -82,6 +86,13 @@ check() {
     --deselect 'test/test_include_miss_file_with_role.py::test_cases_warning_message'
     --deselect 'test/test_include_miss_file_with_role.py::test_cases_that_do_not_report[inplace]'
     --deselect 'test/test_include_miss_file_with_role.py::test_cases_that_do_not_report[relative]'
+    --deselect 'test/test_config.py::test_guess_install_method_venv'
+    --deselect 'test/test_config.py::test_guess_install_method_user_install'
+    --deselect 'test/test_config.py::test_guess_install_method_pip_error'
+    --deselect 'test/test_config.py::test_guess_install_method_no_uninstall_paths'
+    --deselect 'test/test_import_playbook.py::test_task_hook_import_playbook'
+    --deselect 'test/test_import_playbook.py::test_import_playbook_from_collection'
+    --deselect 'test/test_transformer.py::test_transformer[fqcn]'
    )
 
   # install to temporary location, as importlib is used
