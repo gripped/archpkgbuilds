@@ -4,7 +4,7 @@
 
 _name=starlette
 pkgname=python-$_name
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=1
 pkgdesc='The little ASGI framework that shines'
 arch=(any)
@@ -22,6 +22,9 @@ makedepends=(
 )
 checkdepends=(
   python-aiosqlite
+  python-blockbuster
+  python-httpx
+  python-opentelemetry-test-utils
   python-pytest
   python-trio
 
@@ -43,8 +46,8 @@ optdepends=(
   'python-httpx2: for test client'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz)
-sha512sums=('b415a5fde7572a1ee1965c7fdaeb0cb5a9b5f7ab8471f3085de730141f531302e7eb0fb61546c65af54f7d8a7a5a49ff2e2f03b544b99358dcaa499082b5d3bd')
-b2sums=('d8e72166045fdafdced1367b2f42ca4117c891577b9b0008590bd62b2d32a61eecf00f406c510511602a88d72908cb94ec3b6bb63f03027b99e7c31ab5b2a9cc')
+sha512sums=('cb599db97c50a75a343ed264c9296900db76b3677e3149938b33c457c6190a3493506d016d66db03adb1f7bc74980dda28b19cb02034fd590762848dacbc5924')
+b2sums=('aba95d92ed3f6b9b0f684fc2b0c7181c8deb90dd7a736785cc10a5de9fd955894031aee8be3192d69716dc0ea47cccfe077e1a7157d4ff05282f7e35db3304f9')
 
 prepare() {
   cd $_name-$pkgver
