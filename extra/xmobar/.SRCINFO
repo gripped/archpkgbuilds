@@ -1,11 +1,12 @@
 pkgbase = xmobar
 	pkgdesc = Minimalistic Text Based Status Bar
-	pkgver = 0.51
-	pkgrel = 19
+	pkgver = 0.51.1
+	pkgrel = 2
 	url = https://codeberg.org/xmobar/xmobar
 	arch = x86_64
 	license = BSD-3-Clause
 	makedepends = ghc
+	makedepends = git
 	makedepends = haskell-hspec
 	makedepends = haskell-regex-tdfa
 	makedepends = haskell-temporary
@@ -43,7 +44,7 @@ pkgbase = xmobar
 	depends = libxpm
 	depends = libxrandr
 	depends = pango
-	source = xmobar-0.51.tar.gz::https://codeberg.org/xmobar/xmobar/archive/0.51.tar.gz
-	sha512sums = 26442672addc17b260c68ced9da9b33fb3c7f14a00d42066a07eb832dacbabc9b715422c124e80d76ed3e6d7f260baf670f62ba4e8a5155927df9f9ce627dc0d
+	source = git+https://codeberg.org/xmobar/xmobar.git#tag=0.51.1
+	sha512sums = 6f9233a243bd01efcd985b7727f4e2a4b5e5e28fadea3a09b7cee351dd53719f393467d904e9df44575730e9fe982f81f018423d0c4acb0774026401da7c41cb
 
 pkgname = xmobar
