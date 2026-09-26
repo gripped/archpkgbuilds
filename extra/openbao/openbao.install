@@ -1,7 +1,8 @@
 post_upgrade() {
-  if (( $(vercmp "2.5.5-1" "$2") < 0 )); then
+  # Is old package version <2.7.0-1 ?
+  if (( $(vercmp "$2" "2.7.0-1") < 0 )); then
     echo ""
-    echo "Build-in KMS plugins will be removed in OpenBao 2.7.0."
+    echo "Build-in KMS plugins have been removed in OpenBao 2.7.0."
     echo "Please switch to the openbao-plugin-kms-* packages."
     echo ""
   fi
