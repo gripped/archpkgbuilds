@@ -2,7 +2,7 @@
 # Contributor: Matteo Giordano <mail at matteogiordano dot me>
 
 pkgname=kew
-pkgver=4.3.4
+pkgver=4.3.6
 pkgrel=1
 pkgdesc="Music for the Shell"
 url="https://codeberg.org/ravachol/kew"
@@ -10,7 +10,7 @@ arch=('x86_64')
 license=('GPL-2.0-only')
 depends=('glibc' 'libstdc++' 'libatomic' 'libgcc' 'zlib' 'fftw' 'chafa' 'glib2' 'opus' 'opusfile' 'libvorbis' 'taglib' 'libogg' 'faad2' 'hicolor-icon-theme')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha512sums=('127aed87c78e7857bfdab59350a8e8456fea9c3cebe62a01154c15e0f7b496dc83f0d9ec923619f0a4fe3e2d7f0cdaf5365fbd25d3946d977770ba6893589155')
+sha512sums=('ea6cfaf0efd465d2fb431087ae3c5df8c2220d5227164f90b9b83765885df0c42d6e14b71d9dd2387190f351987d4bced5bb31e17dc00533e9877bedb29595cf')
 
 prepare() {
 	cd "${pkgname}"
