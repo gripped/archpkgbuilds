@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-bg
-pkgver=1.8.0
+pkgver=1.9.0
 pkgrel=1
 epoch=1
 pkgdesc='COSMIC session service which applies backgrounds to displays'
@@ -30,7 +30,7 @@ makedepends=(
 source=(
   git+https://github.com/pop-os/cosmic-bg.git#tag=epoch-${pkgver}
 )
-b2sums=('624c891652799b285f25ad367891e1ac43bfa549cd3be234ddd6fbe7f984eeea7156757231c4509e2a782c6ddee93a01e314148474936f4e4307a6092cc63687')
+b2sums=('de0e9410fae8f3d115701999d2a45ef481550157d57659f5def3e0818c00bcabf1394ec30a727ddeae3b0f661fe8a890b075b94f9194ea25b019b0a1081566f0')
 
 prepare() {
   cd cosmic-bg
