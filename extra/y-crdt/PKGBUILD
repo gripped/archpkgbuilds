@@ -1,7 +1,9 @@
 # Maintainer:
 
 pkgname=y-crdt
-pkgver=0.28.0
+epoch=1
+# Warning: check jami compatibility before upgrading
+pkgver=0.27.4
 pkgrel=1
 pkgdesc='Rust port of Yjs'
 arch=(x86_64)
@@ -13,7 +15,7 @@ makedepends=(cargo
              git)
 source=(git+https://github.com/y-crdt/y-crdt#tag=v$pkgver
         yrs.pc.in)
-b2sums=('03c95b9a4756f5922c7d1045038bc6a700e579e3e7add1722048ba4f9a908ea086eb28f194c6dd06ff6326261d306e139a08b79d0faf777f06d683446aa7efbd'
+b2sums=('63c62b393eba330eeffca66d2359637ca01eb3dc87413457299688d2ba5c8ce1875ddc8040beb9ebdc23fa8ce2256b65cb642e786da5ff5f894182645096c79e'
         '8e4075b0547e0399053d62de07ba7895f4ca4fdd55912729ed530da88b260536fc587ce580b40f698e489eddbc71494fb03823a9186914ecebba3b43c16cfd7f')
 
 prepare() {
