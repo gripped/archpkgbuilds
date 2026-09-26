@@ -2,7 +2,7 @@
 # Contributor: Alexander Jacocks <alexander@redhat.com>
 
 pkgname=ansible-navigator
-pkgver=26.8.0
+pkgver=26.9.0
 pkgrel=1
 pkgdesc="A text-based user interface (TUI) for Ansible"
 url="https://github.com/ansible/ansible-navigator"
@@ -14,7 +14,7 @@ optdepends=('ansible: check official ansible collections'
             'docker: To use docker as a container runtime'
             'podman: To use podman as a container runtime')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('a90f6b9f1571be4e694cd90beee9e80e7bd85a8bfdff197abc012a952f3df99b')
+sha256sums=('14bf9e5fded86889fb81ca63909696acf876040d28274396954bea36486044bc')
 
 build() {
 	cd "${pkgname}-${pkgver}"
