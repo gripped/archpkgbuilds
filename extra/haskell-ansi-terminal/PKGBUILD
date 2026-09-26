@@ -3,8 +3,8 @@
 
 _hkgname=ansi-terminal
 pkgname=haskell-ansi-terminal
-pkgver=1.1
-pkgrel=98
+pkgver=1.1.1
+pkgrel=2
 pkgdesc="Simple ANSI terminal support"
 url="https://github.com/UnkindPartition/ansi-terminal"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-ansi-terminal-types' 'haskell-colour')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('0ef4709237ec9f6f6aee6b02a16ae6dc0555ad3da760975441a50a585cf04b0155068c97db462c57f0de56edd726a6687743524e87c1b987d9470daf9668cb99')
+sha512sums=('c3d2306bcc4b03069f69ee339dcb429f61f00126bbf5774850dd80dbeb544232cf34bcb683069bc5418c87290b3ca80045711526d97d14d29102bf4bd759812b')
 
 build() {
     cd $_hkgname-$pkgver
