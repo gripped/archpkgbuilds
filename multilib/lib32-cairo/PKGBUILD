@@ -5,7 +5,7 @@ pkgbase=lib32-cairo
 pkgname=(
   lib32-cairo
 )
-pkgver=1.18.4
+pkgver=1.18.6
 pkgrel=1
 pkgdesc="2D graphics library with support for multiple output devices (32-bit)"
 url="https://cairographics.org/"
@@ -31,7 +31,7 @@ makedepends=(
   valgrind
 )
 source=("git+https://gitlab.freedesktop.org/cairo/cairo.git#tag=$pkgver")
-b2sums=('10dd8012e5a24307aa1c9fc7b2418c4385dceba81e034520e098a5864992cc202c2ff65bd398234d532695a62e5b11da60b071ddf36c547ce064c4cbe4f568b4')
+b2sums=('131350b2dbb42b957131a1fa46dbce65eac33b7680f65e59a9087296802bbe301d949ce6574efeac84140e34fec86748e2cb1a0ea9dc352b251c627cfc73252a')
 
 prepare() {
   cd cairo
