@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickcontrols-nemo
-pkgver=6.2.1
+pkgver=6.2.2
 pkgrel=1
 pkgdesc="Qt 6 QML components for Nemomobile"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('LGPL-2.1-or-later' 'BSD-3-Clause' 'Apache-2.0')
 depends=('mlite' 'qt6-base' 'qt6-declarative' 'ttf-opensans')
 makedepends=('cmake' 'git' 'qt6-shadertools')
 source=("git+https://github.com/nemomobile-ux/qtquickcontrols-nemo.git#tag=$pkgver")
-sha512sums=('f57def76b3c06a93a3247d01dc2ad347cc89e20da9283cec5d9dd2cbc42fb4a41b199cc636ae37a41af2d5eb9c52cb90e70db8b82d853b9e41fd7d531fb7d939')
+sha512sums=('632fe1584f19aa6f8e476c7c1fd91876da18f181bc07b98c53b60a1f18f8117131048ea79eb98332f3738313ff5f635e90588b2b01f660cb6f5c29c5b13fe6ea')
 
 prepare() {
   cd qtquickcontrols-nemo
