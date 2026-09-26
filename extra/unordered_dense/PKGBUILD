@@ -1,0 +1,28 @@
+# Maintainer: Lukas Fleischer <lfleischer@archlinux.org>
+# Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
+
+pkgname=unordered_dense
+pkgver=5.0.1
+pkgrel=1
+pkgdesc="A fast and densely stored hashmap and hashset"
+arch=(any)
+url="https://github.com/martinus/unordered_dense"
+license=(MIT)
+makedepends=(cmake git)
+source=("git+https://github.com/martinus/unordered_dense.git#tag=v${pkgver}")
+sha256sums=('26fcaf8d8102c0e2517612c49b1483b8405ce28affb301128e3fd357a8c9ea56')
+
+build() {
+	cmake \
+		-B build \
+		-S unordered_dense \
+		-W no-author \
+		-D CMAKE_BUILD_TYPE=None \
+		-D CMAKE_INSTALL_PREFIX=/usr
+	cmake --build build
+}
+
+package() {
+	DESTDIR="${pkgdir}" cmake --install build
+	install -Dm644 unordered_dense/LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+}
