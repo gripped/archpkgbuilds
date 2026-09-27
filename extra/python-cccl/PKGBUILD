@@ -2,7 +2,7 @@
 
 _name=cccl
 pkgname=python-$_name
-pkgver=1.1.1
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="CUDA Core Compute Libraries for Python"
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(
   python-cuda-pathfinder
   python-llvmlite
   python-numba
-  python-numba-cuda
+  python-numba-cuda-mlir
   python-numpy
   python-typing_extensions
 )
@@ -33,14 +33,19 @@ makedepends=(
   python-wheel
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/python-$pkgver.tar.gz
-        pyproject.patch)
-b2sums=('4ab35a2e23af0f58dff531e873d1fc33e884f6c93ded12448a5ae69bdc243a1941868ca8834b4c1a24dbc5797f48dddc6fb7c3b5e8172a3807e7d1a98f7b9167'
-        'f29697b4e6528421957949142df74fba814d0f37354b9c373df61a695f1ab4382080b3c6c6a376e999bf7ef2cc4c1b5f740c2599406a120fcf730e188b0d62c2')
+        pyproject.patch
+        cuda-13.4.patch)
+b2sums=('8c316603eebc185b6df346dae0416c431274c837faf8d597d1cfce604b4a10ebc9929b2e5d63433887c7d481808e6113e00c90cb4f27ec9fff1e14c389b958be'
+        '53669f3a6596d65374ff9a6dd10c21586e9b5a24dd0fa832564ff95395ff6b0dbd1e849d0d7c22f6b7bf9e6ff4fa6d3d73b43a2a6a16022100e73b9c3df9a57d'
+        '17677af1ea0ed91736a4b2638e317bf2f30f23cc0b2d17e2b74a7c4e8b96320fa619352177b50cd5f563e1b06d357cc33552bac5f931aef7287c1903306f1605')
 
 prepare() {
   cd $_name-python-$pkgver
   # disable CPM dependency
   sed -i 's|CPMAddPackage("gh:nlohmann/json@3.12.0")|find_package(nlohmann_json REQUIRED)|' cmake/CCCLGetDependencies.cmake
+
+  # support CUDA 13.4 on sm_120 (NVBug 6235538, https://github.com/NVIDIA/cccl/pull/9770)
+  patch -p1 < "$srcdir"/cuda-13.4.patch
 
   # drop cmake dependency from pyproject.toml
   cd python/cuda_cccl

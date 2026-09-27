@@ -1,0 +1,23 @@
+--- a/c/parallel/src/scan.cu	2026-09-26 19:15:55.133566105 +0200
++++ b/c/parallel/src/scan.cu	2026-09-26 20:32:18.880347943 +0200
+@@ -8,6 +8,9 @@
+ //
+ //===----------------------------------------------------------------------===//
+ 
++// Support CUDA >= 13.4 on sm_120
++#define CCCL_DISABLE_WARPSPEED_SCAN
++
+ #include <cub/detail/choose_offset.cuh>
+ #include <cub/detail/launcher/cuda_driver.cuh>
+ #include <cub/device/dispatch/dispatch_scan.cuh>
+@@ -437,10 +440,6 @@
+   // the warpspeed/lookahead scan for the JIT as well. The other direction cannot diverge as long as this library is
+   // built with a CUDA compiler below 13.4: every NVRTC version able to target the architectures for which the host
+   // then selects lookahead also selects lookahead.
+-  static_assert(_CCCL_CUDACC_BELOW(13, 4),
+-                "Building cccl.c with CUDA >= 13.4 lets the host select the lookahead scan on sm_120, which an NVRTC "
+-                "below 13.4 rejects, and this one-directional forcing cannot fix that. Revisit NVBug 6235538 "
+-                "before lifting this assert.");
+   if (active_policy.algorithm == cub::ScanAlgorithm::lookback)
+   {
+     args.push_back("-DCCCL_DISABLE_WARPSPEED_SCAN");
