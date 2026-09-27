@@ -1,8 +1,8 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=superlu_dist
-pkgver=9.2.1
-pkgrel=3
+pkgver=9.3.0
+pkgrel=1
 pkgdesc='Distributed memory, MPI based SuperLU'
 arch=(x86_64)
 url='https://github.com/xiaoyeli/superlu_dist'
@@ -32,7 +32,7 @@ optdepends=(
   'python-scipy: for Python interface'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-b2sums=('b6f85781c4c9b2ea4a8687baf73606ef977f4eb22b74487c30e0ab55c31db440d91cc4835f26a1a2cb95005a576413ecd2b8560dfd67c3e6fd0e4731142009df')
+b2sums=('42fb1c25b911c5f898039ae263478accf49478be8df0207a7f387630257200bd040dbea392760c12b87ef438b33c345917b282d68c15b06fda86bc6aef245515')
 
 prepare() {
   cd "$srcdir"/$pkgname-$pkgver
