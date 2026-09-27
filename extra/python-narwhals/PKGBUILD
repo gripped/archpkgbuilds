@@ -2,7 +2,7 @@
 
 pkgname=python-narwhals
 _name=${pkgname#python-}
-pkgver=2.25.0
+pkgver=2.26.0
 pkgrel=1
 pkgdesc="Extremely lightweight and extensible compatibility layer between dataframe libraries"
 arch=('any')
@@ -22,7 +22,7 @@ checkdepends=(
 	python-polars
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/narwhals-dev/narwhals/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('50903c06854f5b26e9316ad24e8d041420962c35051b0a405abd7c080392687a')
+sha256sums=('68dbbfc1581cd728f716efa741b1ec3eee1e7d329944aab13e0797e93214152b')
 
 build() {
   cd "$_name-$pkgver"
