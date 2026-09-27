@@ -4,8 +4,8 @@
 
 pkgname=python-mysqlclient
 _libname=${pkgname/python-/}
-pkgver=2.2.8
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc="Fork of MySQL-python with support for Python 3"
 arch=('x86_64')
 url="https://github.com/PyMySQL/mysqlclient-python"
@@ -48,4 +48,4 @@ package() {
     python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
-sha256sums=('8ed20c5615a915da451bb308c7d0306648a4fd9a2809ba95c992690006306199')
+sha256sums=('bea8294964266f6486f1ca514ccfcdbc54d4fe0d32882b38c1d4594df870be8b')
