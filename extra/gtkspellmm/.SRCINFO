@@ -1,15 +1,24 @@
 pkgbase = gtkspellmm
 	pkgdesc = C++ binding for gtkspell
 	pkgver = 3.0.5
-	pkgrel = 5
-	url = http://gtkspell.sourceforge.net/
+	pkgrel = 6
+	url = https://gtkspell.sourceforge.net/
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
+	makedepends = git
 	makedepends = gtkmm3-docs
+	makedepends = mm-common
+	depends = glib2
+	depends = glibc
+	depends = glibmm
+	depends = gtk3
 	depends = gtkmm3
 	depends = gtkspell3
-	source = https://downloads.sourceforge.net/gtkspell/gtkspellmm-3.0.5.tar.xz
-	sha256sums = 5b875a5753ce593274d0c6e803af6300973020c5443905999aba96ed3cef1545
+	depends = libgcc
+	depends = libsigc++
+	depends = libstdc++
+	source = git+https://git.code.sf.net/p/gtkspell/gtkspellmm#tag=gtkspellmm_3_0_5
+	b2sums = 8c47233b9e8c6f992fa4fea4dc33f296b0f4da2739f9127781c9aac09c334aedcff9ccd317f298d071c0dfe8df42ebfbb35a02fb5553af14afdcbced19ed9a69
 
 pkgname = gtkspellmm
 
