@@ -2,10 +2,10 @@
 
 pkgbase=nvshmem
 pkgname=(nvshmem python-nvshmem)
-pkgver=3.7.2
+pkgver=3.8.0
 _upstream_pkgrel=0
 _cuda_ver=13
-pkgrel=2
+pkgrel=1
 pkgdesc="NVIDIA parallel programming interface based on OpenSHMEM"
 arch=(x86_64)
 url="https://developer.nvidia.com/nvshmem"
@@ -27,7 +27,7 @@ makedepends=(
   python-wheel
 )
 source=($pkgbase-$pkgver.tar.gz::https://github.com/NVIDIA/nvshmem/archive/refs/tags/v$pkgver-$_upstream_pkgrel.tar.gz)
-b2sums=('b0a2b7370aa408acfe8a519a55ad6fc64b7787286dac56f8aa240af6b24df10f25caf1c2941f0e93187665e5584f49a5a7a6b099fae94575c41d48900af58607')
+b2sums=('ec417a8ba9505d1ff29bd5bde7e2d8faae606c6c3c37baede46299ab06a2e7b71fceed95095bd97aeebd33586b3e679fcb8200b0ead08745668f9888d38c8783')
 # LTO does not work with mixed GCC versions (15 by nvcc and 16 system)
 options=(!lto)
 
@@ -97,7 +97,10 @@ build() {
   cmake --build build
 
   cd $pkgbase-$pkgver-$_upstream_pkgrel/nvshmem4py
-  CPPFLAGS="-I /opt/cuda/include" python -m build --wheel --no-isolation
+  # The ask_smem extension includes NVSHMEM device headers (device/nvshmemx_defines.h),
+  # which are exported to the build tree by src/CMakeLists.txt.
+  # See the upstream nvshmem4py/cmake/buildWheel.cmake
+  CPPFLAGS="-I $srcdir/build/src/include -I /opt/cuda/include -I /opt/cuda/include/cccl" python -m build --wheel --no-isolation
 }
 
 package_nvshmem() {
