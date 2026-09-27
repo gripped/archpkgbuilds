@@ -1,24 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-deprecated
-pkgver=1.3.1
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc="Python @deprecated decorator to deprecate old python classes, functions or methods"
 url="https://github.com/tantale/deprecated"
 license=('MIT')
 arch=('any')
 depends=('python' 'python-wrapt')
-makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
 checkdepends=('python-packaging' 'python-pytest')
-source=("git+https://github.com/tantale/deprecated.git#tag=v$pkgver"
-        "python-deprecated-1.3.0-remove-pkg_resources.patch")
-sha512sums=('0ae88b26d6de25aa6bf543d3bb2c5ac51fd5bf99ae10e46dc3dd9affc041e39790991c2d07d3f1a3ef8ee7464f07cdd596f59813128b83a138cf8887a1b95a88'
-            '029b0504220b10438933ebda00696b7b95f095177db0e3baa95b8b36e4402338581b174139e2d038d9dad66717feb87385a04dcfd44d82c7593fbd0a9c28f1e3')
-
-prepare() {
-  cd deprecated
-  patch -Np1 -i ../python-deprecated-1.3.0-remove-pkg_resources.patch
-}
+source=("git+https://github.com/tantale/deprecated.git#tag=v$pkgver")
+sha512sums=('e04190f497bd682c0475bf0d78c52fddbc77e7c6252faf5b6b6c22e3f54b430ca1bc917f4dda166ce17f9f31748086245927c6a56954799e758ffb343ee81c7f')
 
 build() {
   cd deprecated
@@ -27,11 +20,13 @@ build() {
 
 check() {
   cd deprecated
-  pytest
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
 }
 
 package() {
   cd deprecated
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -Dm644 LICENSE.rst -t "$pkgdir"/usr/share/licenses/$pkgname/
+  install -Dm644 LICENSE.md -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
