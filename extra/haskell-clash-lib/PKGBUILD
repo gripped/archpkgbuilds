@@ -2,8 +2,8 @@
 
 _hkgname=clash-lib
 pkgname=haskell-clash-lib
-pkgver=1.8.2
-pkgrel=172
+pkgver=1.8.3
+pkgrel=1
 pkgdesc="Clash: a functional hardware description language - As a library"
 url="https://clash-lang.org/"
 license=('BSD-2-Clause')
@@ -22,7 +22,7 @@ makedepends=('ghc' 'expac' 'haskell-doctest-parallel' 'haskell-ghc-typelits-know
              'haskell-quickcheck-text' 'haskell-src-exts' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck' 'haskell-tasty-th')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('78af3f3058c2bb178dd9da2264aa37dbc59eb9c906823995a3fd5e33a6c4a475a3102c46c14b24088bb2deda16a8af2547c1cb06798aaa304498a14ae1335f0e')
+sha512sums=('5cc32ce9df18cc1a85511e3452233989ec3b9d81250968389ade08c7d514e158e1a0d352a2ed4c10c0010b9aa2d96beb6056b54d826c17b9f20a1c71eb2ef52a')
 
 build() {
   cd $_hkgname-$pkgver
