@@ -1,18 +1,27 @@
-# Maintainer: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=sdl_sound
 pkgver=1.0.3
-pkgrel=13
+pkgrel=14
 pkgdesc="A library to decode several popular sound file formats, such as .WAV and .MP3"
 url="https://icculus.org/SDL_sound/"
 arch=(x86_64)
-license=(LGPL)
+license=(LGPL-2.1-or-later)
 depends=(sdl libmikmod libvorbis flac speex)
-source=(https://icculus.org/SDL_sound/downloads/SDL_sound-$pkgver.tar.gz 
+source=(https://icculus.org/SDL_sound/downloads/SDL_sound-$pkgver.tar.gz
         flac.patch)
 sha256sums=('3999fd0bbb485289a52be14b2f68b571cb84e380cc43387eadf778f64c79e6df'
             '5ffe81fe08453f4abaa2611f9646db6b8fad0dfeaaf8c98b94613d5c6295c691')
+
+prepare() {
+  cd SDL_sound-$pkgver
+  # --foreign is needed, otherwise automake fails due to the files AUTHORS,
+  # ChangeLog and NEWS not being present.
+  export AUTOMAKE='automake --foreign'
+  autoreconf --force --install
+}
 
 build() {
   cd SDL_sound-$pkgver
