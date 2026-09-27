@@ -2,8 +2,8 @@
 
 _hkgname=clash-prelude
 pkgname=haskell-clash-prelude
-pkgver=1.8.2
-pkgrel=151
+pkgver=1.8.3
+pkgrel=1
 pkgdesc="Clash: a functional hardware description language - Prelude library"
 url="https://github.com/clash-lang/clash-prelude"
 license=('BSD-2-Clause')
@@ -19,7 +19,7 @@ makedepends=('ghc' 'uusi' 'haskell-doctest-parallel' 'haskell-hedgehog' 'haskell
              'haskell-quickcheck-classes-base' 'haskell-tasty' 'haskell-tasty-hedgehog'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-tasty-th')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('7a0dc39145ce61afbc0bde93c459a4a59fac495835b90267fb2fb1f60d5d75ba8b0f7967839f02284e717e4bca60a3a355403f91e85d1d2c9093ee2163ad7818')
+sha512sums=('38cf303acb150cc0f0f78769e61874e84a21916d45f26a8a09b42a951aef38a7053bd64e27cddba65576b7249683ae072b7467b6f5add0f0536a6b5dfe7e8a5c')
 
 prepare() {
     cd $_hkgname-$pkgver
