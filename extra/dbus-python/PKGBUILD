@@ -6,8 +6,8 @@ pkgname=(
   python-dbus
   python-dbus-docs
 )
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.5.0
+pkgrel=1
 pkgdesc='Python bindings for D-Bus'
 arch=(x86_64)
 url='https://www.freedesktop.org/wiki/Software/dbus/'
@@ -30,7 +30,7 @@ makedepends=(
 )
 optdepends=('python-gobject: D-Bus services via PyGI')
 source=("git+https://gitlab.freedesktop.org/dbus/$pkgbase.git?signed#tag=$pkgbase-$pkgver")
-b2sums=(4c00d07dd483748243eb8e4bb7fbf9eba29b1e039c5ee9dd1ac3b3adab9a64290e617b40155269898ef5ac389ca6893ab16ec5237b23e9e8d21cdf41d4e0f267)
+b2sums=(e7afea40984b9fe56d751567c71d759353551803a8e08def27f80e061fde613e61cd697886debde0cfa295083a8a7640376fe9512879e3d9e3fa0c4fb01368b2)
 validpgpkeys=(DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90) # Simon McVittie <smcv@pseudorandom.co.uk>
 
 build() {
@@ -61,10 +61,6 @@ package_python-dbus() {
   )
 
   meson install -C build --destdir "$pkgdir"
-
-  # Compile Python bytecode
-  python -m compileall -d /usr/lib "$pkgdir/usr/lib"
-  python -O -m compileall -d /usr/lib "$pkgdir/usr/lib"
 
   # Install egg-info and license
   install -Dm644 -t "$pkgdir$(python -c 'import site; print(site.getsitepackages()[0])')/dbus_python.egg-info/" PKG-INFO
