@@ -1,0 +1,27 @@
+From 458267b3a0a6a4d0ed4090f68273f7de65b26f8d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 27 Sep 2026 16:17:01 +0000
+Subject: [PATCH] Fix running test out of tree
+
+This allows to run meson test with out of tree build by specifying the
+manifest path.
+---
+ src/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/meson.build b/src/meson.build
+index ed9f4927..9a1c2204 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -58,7 +58,7 @@ cargo_build = custom_target(
+ )
+ 
+ cargo_extra_options = [
+-  cargo_release_options,
++  cargo_build_options,
+   '--all-targets',
+   '--all-features',
+   '--workspace',
+-- 
+GitLab
+
