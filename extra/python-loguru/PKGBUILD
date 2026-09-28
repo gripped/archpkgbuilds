@@ -3,7 +3,7 @@
 _name=loguru
 pkgname=python-loguru
 pkgver=0.7.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Python logging made (stupidly) simple"
 arch=(any)
 url="https://github.com/Delgan/loguru"
@@ -21,23 +21,27 @@ checkdepends=(
 )
 source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
-  $_name-0.7.3-update_mypy_deps.patch::https://github.com/Delgan/loguru/commit/8bba363a12483b419a27f17212b9368bc3105677.patch
-  $_name-0.7.3-disable_mypy_tests.patch::https://github.com/Delgan/loguru/commit/e17479bd0701e8fc0b26981339540599dc224d11.patch
-  $_name-0.7.3-fix_exception_modern.patch::https://github.com/Delgan/loguru/commit/84023e2bd8339de95250470f422f096edcb8f7b7.patch
+  $_name-0.7.3-update_mypy_deps.patch::https://github.com/Delgan/loguru/commit/8bba363a12483b419a27f17212b9368bc3105677.patch?full_index=1
+  $_name-0.7.3-disable_mypy_tests.patch::https://github.com/Delgan/loguru/commit/e17479bd0701e8fc0b26981339540599dc224d11.patch?full_index=1
+  $_name-0.7.3-fix_exception_modern.patch::https://github.com/Delgan/loguru/commit/84023e2bd8339de95250470f422f096edcb8f7b7.patch?full_index=1
+  0001-Bump-flit-core-build-requirement-to-version-4.patch
 )
 sha256sums=('1cad8860aa0ecf9567125381e4430046526246e075224350a6a624addac05f5e'
-            '620fd00249a6bdee1002ec8683525a13b5cd33fd61989c8f5c976b0565e62810'
-            '0c2724a1435fa393a3202c1b40bf9acdaf97963abb24ca1758f8773684da348d'
-            '29f9635d9d2bdc5f8daa363cd3092e654783027b6d8dc10d6c23695a4d4d0dbb')
+            'f6e64ee954877dfae026aa42bb393e14205825632fe949078fa359d5aabecf88'
+            '5b36dd7872ab7bd8b62e5fd0fd3501cb4e4cf17364dd9c67f69685ea7ef7243a'
+            '1ebc3b7eaf741e542d3a0efca21b30b9845bda50457319abd28bdd224be44f07'
+            'd2e4971a35baa36165828630cdcc717d2786b05be1ee8cddd29d8f2e0207040e')
 b2sums=('7d7cf167e1350814eea6a358cc00bac217ea6b153ae29ffd70c026f3be63cc126fbc184668ea643ea03416fc8f805bd51502fd8cc9e8d9bcc19099814b8c3fe6'
-        '01e82e4c5c9503ca58e366942622839ba1ec5ce0bc2ce3d598f2583eb047805e189f4d2bef696fbb097ee13f7f3a354911fb4e8d000ae05df78f3bdfd0bfe086'
-        '5101e0d1f5c2ea1f53e1783ec6f239abc35e334b86b7574b68f3da53515a07c0fc0312eb4bca0006f85c88a9a9d6e962e6a42e998eca1670c61575d0180a47ab'
-        '00f891c0ef8929ea69cc624805e1abe60c91d3e0c0c03fddca55ea2e98e0bf0243a66ae8648ccff8f1d25fb3f7d7a3e4e24168396731f3dc6ecff4d95789feda')
+        '532d0fc1012813274586617fcc2b05dbe12b878f0a155ee5381408b9b6facc02643b5e23813ad13eb232a99a48e3516ab54cf78a21a55a7b89dfe1b8919d3459'
+        'ed0705040e89b94414aaaaf25c046c96273d375bf6f6b2816ef2d451472bf074045eb00a06925c8f85de4d9d1db8be058cfff82352b2ace93f9084d31513733e'
+        'f946fc2fda917d681754dd9cabc59967b858840d2aa2b19b623f06982dd994826ab30ac1ed78d8012693a9a10b0359edb734930dbf06350390fe53bf44fc135a'
+        '855f87b535646939e5dceecbbce9e19cdd6fd36b9f42b2e662a372a9388b6f813e7f666953d53a3ea29f6add7d7558bee13feaf0779cb7fbed6a9d00d90ac7de')
 
 prepare() {
   patch -Np1 -d $_name-$pkgver -i ../$_name-0.7.3-update_mypy_deps.patch
   patch -Np1 -d $_name-$pkgver -i ../$_name-0.7.3-disable_mypy_tests.patch
   patch -Np1 -d $_name-$pkgver -i ../$_name-0.7.3-fix_exception_modern.patch
+  patch -Np1 -d $_name-$pkgver -i ../0001-Bump-flit-core-build-requirement-to-version-4.patch
 }
 
 build() {
