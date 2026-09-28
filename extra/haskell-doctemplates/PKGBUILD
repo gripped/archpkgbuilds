@@ -3,8 +3,8 @@
 
 _hkgname=doctemplates
 pkgname=haskell-doctemplates
-pkgver=0.11.0.1
-pkgrel=142
+pkgver=0.11.1
+pkgrel=2
 pkgdesc="Pandoc-style document templates"
 url="https://github.com/jgm/doctemplates"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-doclayout' 'haskell-safe' 'haskell-
 makedepends=('ghc' 'haskell-glob' 'haskell-tasty' 'haskell-tasty-golden' 'haskell-tasty-hunit'
              'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('0a7b8c085a1364040b99ddbd28f33784db1d67b007727ab32c9651f134e96737149df6ad411fe09d163df185196da17cb78607676edd306f9ed8b16844181d0b')
+sha512sums=('71fa682c4bab77fc9b17df16cec2e3ff3435a131eb3584ada373e52d30420692bbcf1a7b152ee4bfe523c35bea4b1376d45039cf7361b4a4087bd8359c35a2cf')
 
 build() {
     cd $_hkgname-$pkgver
