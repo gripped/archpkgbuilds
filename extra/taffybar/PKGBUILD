@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=taffybar
-pkgver=7.3.0
-pkgrel=2
+pkgver=7.3.1
+pkgrel=3
 pkgdesc="A desktop bar similar to xmobar, but with more GUI"
 url="https://github.com/taffybar/taffybar"
 license=('BSD-3-Clause')
@@ -24,17 +24,18 @@ depends=('ghc-libs' 'dhall' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-att
          'haskell-unliftio' 'haskell-unliftio-core' 'haskell-utf8-string' 'haskell-x11'
          'haskell-xdg-basedir' 'haskell-xdg-desktop-entry' 'haskell-xml' 'haskell-xml-helpers'
          'haskell-yaml' 'xmonad' 'xmonad-contrib' 'gtk3' 'systemd-libs')
-makedepends=('ghc' 'haskell-hspec-core' 'haskell-hspec-discover' 'haskell-hspec-golden')
+makedepends=('ghc' 'haskell-hspec-core' 'haskell-hspec-discover' 'haskell-hspec-golden' 'uusi')
 checkdepends=('python-dbusmock' 'upower' 'xorg-server' 'xorg-server-xvfb' 'xorg-xkbcomp'
               'xorg-xprop' 'xorg-xrandr' 'xterm')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz"
         'protocol-build-fix.patch')
-sha256sums=('644869b2eaeb4c222324b3472910cf853d5eccb01b722bba78a5ecb246568ac0'
+sha256sums=('c317d80d0978d90eaef9342983afd87bf330e4e92922f91ca9e8a611ea6e790a'
             'b5a32e5c497063541e83a167b469340267a0fa6bd28db4dd74c4834e9312289a')
 
 prepare() {
   cd $pkgname-$pkgver
-  printf 'import Distribution.Simple\nmain = defaultMain\n' > Setup.hs
+
+  gen-setup
 
   # Fix compilation with GHC <9.8
   patch -Np1 -i ../protocol-build-fix.patch
