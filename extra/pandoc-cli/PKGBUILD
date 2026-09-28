@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pandoc-cli
-pkgver=3.10.2
-pkgrel=16
+pkgver=3.11
+pkgrel=3
 pkgdesc="Conversion between documentation formats"
 url="https://pandoc.org"
 license=("GPL-2.0-or-later")
@@ -11,11 +11,11 @@ arch=('x86_64')
 provides=('pandoc')
 conflicts=('pandoc')
 replaces=('pandoc')
-depends=('ghc-libs' 'hslua-cli' 'haskell-pandoc' 'haskell-pandoc-lua-engine' 'haskell-pandoc-server'
-         'haskell-safe' 'haskell-temporary' 'haskell-wai-extra' 'haskell-warp')
+depends=('ghc-libs' 'haskell-pandoc' 'haskell-pandoc-lua-engine' 'haskell-pandoc-server'
+         'haskell-safe' 'haskell-temporary' 'haskell-wai-extra' 'haskell-warp' 'hslua-cli')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('54897dc8bb7cc7de92c30f2afd21769b615f7dc36ee3fabfb912459078c58f6d')
+sha256sums=('a9f3fc8c64962c8778b379cc2238c7c554541e1e94fd36a210c3f92e1729e929')
 
 prepare() {
   cd $pkgname-$pkgver
