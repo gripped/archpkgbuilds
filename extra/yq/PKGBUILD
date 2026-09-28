@@ -4,7 +4,7 @@
 # Contributor: Daniel M. Capella <polyzen@archlinux.org>
 
 pkgname=yq
-pkgver=4.2.0
+pkgver=4.4.0
 pkgrel=1
 pkgdesc="Command-line YAML, XML, TOML processor - jq wrapper for YAML/XML/TOML documents"
 arch=('any')
@@ -15,25 +15,26 @@ depends=(jq
          python-tomlkit
          python-xmltodict
          python-yaml)
-makedepends=(python-{build,installer,wheel}
+makedepends=(git
+             python-{build,installer,wheel}
              python-hatch-vcs
              python-hatchling)
 conflicts=(go-yq)
-source=("https://files.pythonhosted.org/packages/source/y/$pkgname/$pkgname-$pkgver.tar.gz")
-sha256sums=('53854078bade13fd69eef85d77dcc513125a0bce2f8f1ef8b466e655ce1be9e6')
-b2sums=('14cbc060ba14d431dbfb32b7aa8d11a146af211efa274985ce719655bfed38c2067b9be8d5aea2adfc6c58f63acd71fc2a502a755cc826a4e815f7534d15b333')
+source=("git+https://github.com/kislyuk/yq.git#tag=v$pkgver")
+sha256sums=('7a8836b094bca412801ea2dba607895b96b7941b7aaa3cc976eb4cef7ca3c341')
+b2sums=('4f8d13dd56c97ea76523e11d3dfd9cc03715f18aba9a6f4bb77d3da52ae504beec45d0e32773a0bb1d51caa25dbd48d98fac6b2de9307bb6a8999d2ab563166e')
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m build -wn
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python test/test.py
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   python -m installer -d "$pkgdir" dist/*.whl
 }
