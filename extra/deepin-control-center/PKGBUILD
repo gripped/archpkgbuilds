@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.86
+pkgver=6.1.87
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('GPL-3.0-or-later' 'LGPL-3.0-or-later' 'MIT')
 depends=('dtk6core' 'dtk6declarative' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-declarative'
          'qt6-multimedia' 'qt6-svg' 'qt6-wayland' 'deepin-account-faces' 'deepin-api' 'libpwquality'
          'deepin-daemon' 'startdde' 'deepin-pw-check' 'deepin-network-core' 'deepin-desktop-theme'
-         'ffmpeg' 'icu' 'polkit-qt6')
+         'ffmpeg' 'icu' 'polkit-qt6' 'xorg-xrandr')
 makedepends=('git' 'cmake' 'deepin-tray-loader' 'gmock' 'gtest' 'ninja' 'qt6-tools'
              'deepin-gettext-tools' 'doxygen' 'libsystemd' 'extra-cmake-modules'
              'treeland-protocols' 'wlr-protocols')
@@ -22,7 +22,7 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('7c768b77842b79124962facb3c1105cc0e0eaa785cd4b0eb4298215b59a69a645081957edf625a4fb35aad4da7f7a6a215ce0901c886284bb5742f09f113fcd4')
+sha512sums=('9824bb9f47229cef965ab577d2265b09b5625e504841ebf0eea02235d9cab79a11193ce764a123b3504eb9ee9300a6ba8b5a35b25d1db7768ae5c99744811832')
 
 prepare() {
   mkdir -p build
