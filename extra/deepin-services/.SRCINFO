@@ -1,6 +1,6 @@
 pkgbase = deepin-services
 	pkgdesc = Manage DBus service on Deepin
-	pkgver = 1.0.43
+	pkgver = 1.0.44
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-services
 	arch = x86_64
@@ -35,8 +35,9 @@ pkgbase = deepin-services
 	depends = xcb-util-keysyms
 	depends = deepin-service-manager
 	depends = deepin-power-control
-	depends = deepin-screensaver
-	source = git+https://github.com/linuxdeepin/dde-services.git#tag=1.0.43
-	sha512sums = 9d5fe503e47394a39aa8606f26b3d4b972132ff6f018baae3b67b2a709fcddd990a870c389c8cd92c57bb5e3a805c09af49ffd66ee47447eeb354a550bb66891
+	optdepends = deepin-daemon: for power-event sound effects
+	optdepends = deepin-screensaver: for idle screensaver support
+	source = git+https://github.com/linuxdeepin/dde-services.git#tag=1.0.44
+	sha512sums = 9d578f6fc1db84e5f9953682ebc19526567cd1ab88a9451379e49871f4e4758a72e4b914fe103d3ef25035b0556f7a8c5ad4038b3291f47d2d23b5c048e8ed84
 
 pkgname = deepin-services
