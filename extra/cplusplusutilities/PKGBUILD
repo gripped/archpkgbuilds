@@ -4,8 +4,8 @@
 pkgbase=c++utilities
 pkgname=("${pkgbase}" "${pkgbase}-doc")
 _reponame=cpp-utilities
-pkgver=5.36.0
-pkgrel=2
+pkgver=5.37.0
+pkgrel=1
 pkgdesc='Common C++ classes and routines such as argument parser, IO and conversion utilities'
 arch=('x86_64')
 url="https://github.com/Martchus/${_reponame}"
@@ -25,7 +25,7 @@ checkdepends=(
     'cppunit'
 )
 source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/Martchus/${_reponame}/archive/v${pkgver}.tar.gz")
-sha256sums=('364d43b7cf0ac9225300231d1c3da1f87b9c4a8cb03c24594df505ecb55594d2')
+sha256sums=('9e212e8c873b2de410bb9e23a7fcf65ddbae3ba5484cd52992ed66eefa30e608')
 
 build() {
     local cmake_options=(
