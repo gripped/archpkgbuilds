@@ -4,8 +4,8 @@
 _hkgname=Agda
 pkgname=agda
 # Remember to also update agda-stdlib, which has a versioned dependency on agda.
-pkgver=2.8.0
-pkgrel=12
+pkgver=2.8.0.2
+pkgrel=2
 pkgdesc="A dependently typed functional programming language and proof assistant"
 url="https://wiki.portal.chalmers.se/agda/"
 license=("custom")
@@ -13,16 +13,15 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal' 'haskell-async' 'haskell-blaze-html'
          'haskell-boxes' 'haskell-case-insensitive' 'haskell-data-hash' 'haskell-dlist'
          'haskell-edit-distance' 'haskell-enummapset' 'haskell-equivalence' 'haskell-filelock'
-         'haskell-filemanip' 'haskell-generic-data' 'haskell-gitrev' 'haskell-hashable'
-         'haskell-monad-control' 'haskell-murmur-hash' 'haskell-nonempty-containers'
-         'haskell-parallel' 'haskell-peano' 'haskell-pqueue' 'haskell-process-extras'
-         'haskell-regex-tdfa' 'haskell-split' 'haskell-stmonadtrans' 'haskell-strict'
-         'haskell-unordered-containers' 'haskell-uri-encode' 'haskell-vector'
-         'haskell-vector-hashtables' 'haskell-zlib' 'ghc' 'haskell-text-icu')
+         'haskell-filemanip' 'haskell-generic-data' 'haskell-hashable' 'haskell-monad-control'
+         'haskell-murmur-hash' 'haskell-nonempty-containers' 'haskell-parallel' 'haskell-peano'
+         'haskell-pqueue' 'haskell-process-extras' 'haskell-regex-tdfa' 'haskell-split'
+         'haskell-stmonadtrans' 'haskell-strict' 'haskell-unordered-containers' 'haskell-uri-encode'
+         'haskell-vector' 'haskell-vector-hashtables' 'haskell-zlib' 'haskell-text-icu')
 optdepends=('agda-stdlib: for standard library')
 makedepends=('ghc' 'alex' 'happy' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('53ae24c9759c271251c3c487a27b8600ba55d39391a186684731a1495a744c18ccd4d3deb5e5231f72abb1be95fa8dac2dac8f257612bc32c6f51d2071ae8273')
+sha512sums=('bc8c83472d84c1e66ee43b904a853673a7d0f772a445361f33abfc8143d918adb17351853b6c39b788e344f299a6edc10df5578932268aa4411f795c40114aaf')
 
 prepare() {
     cd $_hkgname-$pkgver
