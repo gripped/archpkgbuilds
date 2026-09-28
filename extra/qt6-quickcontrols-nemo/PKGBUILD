@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickcontrols-nemo
-pkgver=6.2.2
+pkgver=6.2.3
 pkgrel=1
 pkgdesc="Qt 6 QML components for Nemomobile"
 arch=('x86_64')
@@ -10,10 +10,13 @@ license=('LGPL-2.1-or-later' 'BSD-3-Clause' 'Apache-2.0')
 depends=('mlite' 'qt6-base' 'qt6-declarative' 'ttf-opensans')
 makedepends=('cmake' 'git' 'qt6-shadertools')
 source=("git+https://github.com/nemomobile-ux/qtquickcontrols-nemo.git#tag=$pkgver")
-sha512sums=('632fe1584f19aa6f8e476c7c1fd91876da18f181bc07b98c53b60a1f18f8117131048ea79eb98332f3738313ff5f635e90588b2b01f660cb6f5c29c5b13fe6ea')
+sha512sums=('bd4d30327148928f3dab1ca2a6f05cabe8ffcd9080eda9f8c2190745e57db095b8a281c41d8f481b0adb63489f49b757d484d81c61767dd1052ab2f65da5e52b')
 
 prepare() {
   cd qtquickcontrols-nemo
+
+  # Use Arch's Open Sans directory instead of the path introduced by the Qt 6 port.
+  # https://github.com/nemomobile-ux/qtquickcontrols-nemo/pull/41
   sed -i 's|/usr/share/fonts/google-opensans/|/usr/share/fonts/TTF/|' src/core/theme.cpp
 }
 
