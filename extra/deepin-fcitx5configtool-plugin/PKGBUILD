@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-fcitx5configtool-plugin
-pkgver=6.0.38
+pkgver=6.0.39
 pkgrel=1
 pkgdesc='DDE Control Center plugin for Fcitx 5 configuration'
 arch=('x86_64')
@@ -38,15 +38,21 @@ makedepends=(
 )
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-fcitx5configtool-plugin.git#tag=$pkgver")
-sha512sums=('3b5af741d6eeeef1d7ab7e1946b0f53520b6da215ac53d724082598a42b8cc0ae16a167e9a60819ec259c9732a579a40ce10f9d0fdb2b4a5df3b460c6443a947')
+sha512sums=('23501cb545336b3a5f29944005bebec2e8afa9f8591b6805631b03dff7aa4d36ae2d1c4cf4277f8172b2569a82a5fd369aa4dc6782fe0fbcfd7e8f077f6065ec')
 
 prepare() {
   cd deepin-fcitx5configtool-plugin
   # Arch ships fcitx5 directly, without Deepin's fcitx5-start wrapper.
+  # https://github.com/linuxdeepin/deepin-fcitx5configtool-plugin/pull/89
   sed -i 's|/usr/bin/fcitx5-start|/usr/bin/fcitx5|' src/fcitx5helper/processmonitor.cpp
-  # Current Fcitx headers require C++20 and explicit stringutils includes.
+
+  # Explicitly include the header declaring stringutils::joinPath.
+  # https://github.com/linuxdeepin/deepin-fcitx5configtool-plugin/pull/38
   grep -q '#include <fcitx-utils/stringutils.h>' src/lib/configwidgetslib/optionwidget.cpp ||
     sed -i '/#include <fcitx-utils\/i18n.h>/a #include <fcitx-utils/stringutils.h>' src/lib/configwidgetslib/optionwidget.cpp
+
+  # Match Fcitx's C++20 requirement and preserve Arch's compiler flags.
+  # https://github.com/fcitx/fcitx5/pull/1273
   sed -i \
     -e 's/set(CMAKE_CXX_STANDARD 17)/set(CMAKE_CXX_STANDARD 20)/' \
     -e '/set(CMAKE_CXX_FLAGS "-g -Wall")/d' \
