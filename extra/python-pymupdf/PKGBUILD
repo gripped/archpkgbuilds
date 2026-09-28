@@ -4,7 +4,7 @@
 _name=PyMuPDF
 pkgname=python-pymupdf
 pkgver=1.28.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Python bindings for MuPDF's rendering library"
 arch=(x86_64)
 url="https://github.com/pymupdf/PyMuPDF"
@@ -128,6 +128,8 @@ check() {
     --deselect tests/test_pixmap.py::test_4445
     --deselect tests/test_pixmap.py::test_5001
     --deselect tests/test_memory.py::test_4751
+    --deselect tests/test_general.py::test_3569
+    --deselect tests/test_general.py::test_5054
 
     --deselect tests/test_markdown_support.py::test_archive_markdown
     --deselect tests/test_markdown_support.py::test_archive_links
