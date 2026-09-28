@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark dot wagie at proton dot me>
 
 pkgname=fastfetch
-pkgver=2.68.1
+pkgver=2.69.0
 pkgrel=1
 pkgdesc="A feature-rich and performance oriented neofetch like system information tool"
 url="https://github.com/fastfetch-cli/fastfetch"
@@ -34,7 +34,7 @@ optdepends=('chafa: Image output as ascii art'
             'vulkan-icd-loader: Vulkan module & fallback for GPU output'
             'zlib: Faster image output when using kitty graphics protocol')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('c268cfcd230cc7ed5447fb34ed21bf4977315c7104356a39388b6ba784ad11b0')
+sha256sums=('d0e42faf307e39e7b531d632745a56e4eb558a6545f557280099c622562355ee')
 
 build() {
 	cmake -B build -S "${pkgname}-${pkgver}" \
