@@ -2,7 +2,7 @@
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 
 pkgname=goverlay
-pkgver=1.9.2
+pkgver=1.9.3
 _pkgver=${pkgver//_/-}
 pkgrel=1
 pkgdesc="A GUI to help manage Vulkan/OpenGL overlays"
@@ -17,7 +17,7 @@ optdepends=('mesa-utils: OpenGL preview'
             'vkbasalt: Configure vkBasalt'
             'git: Clone reshade repository')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/${_pkgver}.tar.gz")
-sha256sums=('7bf4bbacea0ebf6062ab7b6389fcdb3dcdf612dac8425ed2d10f00001390dd22')
+sha256sums=('c14795d8ad674114d0fcd63a6afbb40d9d5b25e18a4b1036b8570501e0067ec3')
 
 build() {
 	cd "${pkgname}-${_pkgver}"
