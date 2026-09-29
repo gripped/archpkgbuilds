@@ -3,30 +3,26 @@
 # Contributor: Mario Finelli <mario at finel dot li>
 
 pkgname=go-yq
-pkgver=4.53.6
+pkgver=4.54.1
 pkgrel=1
 pkgdesc='Portable command-line YAML processor'
 arch=(x86_64)
 url=https://github.com/mikefarah/yq
 license=(MIT)
 depends=(glibc)
-makedepends=(
-  git
-  go
-)
+makedepends=(git
+             go)
 conflicts=(yq)
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('b3471d7e916e14822f462a97bd565f2f003254b5cdae3928e6beb204a29fb56423b0ff994b4bf7f469fc94c71d21713a4fe627338d04ec95e727f99271468a8e')
+source=("$pkgname::git+$url.git#tag=v$pkgver")
+sha256sums=('48d42fcbd6fa84b9d92cf65a6b3d2267cc61ec278ebdd6cbd431d98d72307b8a')
 
 prepare() {
-  cd yq
+  cd "$pkgname"
   go mod vendor
-  # https://github.com/mikefarah/yq/issues/2822
-  sed -i -e '/file.unknown/s/"unknown"/"yaml"/' test/format_test.go
 }
 
 build() {
-  cd yq
+  cd "$pkgname"
   export CGO_CPPFLAGS="$CPPFLAGS"
   export CGO_CFLAGS="$CFLAGS"
   export CGO_CXXFLAGS="$CXXFLAGS"
@@ -36,12 +32,12 @@ build() {
 }
 
 check() {
-  cd yq
+  cd "$pkgname"
   go test ./...
 }
 
 package() {
-  cd yq
+  cd "$pkgname"
   install -Dt "$pkgdir"/usr/bin yq
   install -Dm644 -t "$pkgdir"/usr/share/licenses/$pkgname LICENSE
   install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname README.md
