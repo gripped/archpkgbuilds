@@ -2,8 +2,8 @@
 
 _name=streamlit-pdf
 pkgname=python-$_name
-pkgver=2.0.1
-pkgrel=2
+pkgver=2.1.0
+pkgrel=1
 pkgdesc="A lightweight Streamlit component for rendering PDF files"
 arch=(any)
 url="https://github.com/streamlit/streamlit-pdf"
@@ -29,7 +29,7 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-b2sums=('8dfc45bf75d847577e756d5917535b4ca8f64db60f4de15760113dfdeb8bbd59b91054205611dd9cf1f5273d3c1ed6913dc45d3021a68fb610914b14a0fef061')
+b2sums=('1636c61d3440bd95293f5b37c4a178d97da82e9d4095f017c2caebb0c37dde0463602a82be17bc83d70fe57ba9792e28475405f6b9cc8cccb8a67c9dc3b0c7cd')
 
 # based on https://github.com/streamlit/streamlit-pdf/blob/main/.github/workflows/release.yml
 build() {
