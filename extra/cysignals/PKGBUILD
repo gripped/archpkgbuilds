@@ -2,8 +2,8 @@
 
 pkgbase=cysignals
 pkgname=python-cysignals
-pkgver=1.12.6
-pkgrel=2
+pkgver=1.13.0
+pkgrel=1
 pkgdesc='Interrupt and signal handling for Cython'
 arch=(x86_64)
 url='https://www.sagemath.org'
@@ -17,7 +17,7 @@ makedepends=(cython
              python-installer)
 checkdepends=(python-pytest)
 source=(git+https://github.com/sagemath/cysignals#tag=$pkgver)
-sha256sums=('3e25bfafdb48ff32e38c6ead9020371e3aa15a88790e343fd94f935e840179d8')
+sha256sums=('bf114c2b5a7c333e283fdad07843efe6a75cecf17822e2c3e4089d4edd38346f')
 
 build() {
   cd $pkgbase
