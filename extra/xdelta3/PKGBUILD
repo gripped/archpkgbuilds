@@ -4,7 +4,7 @@
 # Contributor: Henning Garus <henning.garus@gmail.com>
 
 pkgname=xdelta3
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc='Diff utility for binary files'
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(xz)
 makedepends=(git cmake ninja)
 provides=(libxdelta3.so)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('b304d9fbfa893fbc01026e51695c2cf24ce74e35dbda994ab8c0c916faa6d0ce3c772ba0492d03c7309e10bf37bc27c752fd5127bd2c026b6f959168f7fe7127')
-b2sums=('72e2a7b837d54cd87aa3324a417451374a7ffd842b1bf43f262097c51cafd9717ced9f5e2f9b075bc6ecdcbe408accf00fa1dbdf46b4f5c67ef7fa0a6147fe67')
+sha512sums=('b448af0bb26547a04121aca3f7fe7d6515b3c812ff879866c6c91d0a06bdfd78aedf4cff6614775ccb9a11643e93333cc69e6435712fb2f40f430cc17d5c4482')
+b2sums=('44ee7e5c38662ec3c3275a81ec9b4a31887365d1852f80e12b190969ba016ffdbfba16a7c0d97d8b65ba9763d6f75e11cf08728682c7d3ee8cb79c0d3855ac2f')
 
 build() {
   cd "$pkgname"
