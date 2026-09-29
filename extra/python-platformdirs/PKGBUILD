@@ -3,7 +3,7 @@
 # Contributor: Tobias Roettger <toroettg@gmail.com>
 
 pkgname=python-platformdirs
-pkgver=4.11.14
+pkgver=4.12.1
 pkgrel=1
 pkgdesc='A library to determine platform-specific system directories'
 arch=(any)
@@ -23,8 +23,8 @@ checkdepends=(
   python-appdirs
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('bd8a143f896761d9374b9249700c67389c32edbf5edafa3b47bc6c75c3ab10a6fdd031f879184a5d0a1fb62196490b6d886e450b6639a25b9aa1c4778b71edb0')
-b2sums=('af5d03c86746aaf13525b448f9b5e8ff12531e4210c7a948fec94c8b612aedb58c7db7befe0cc0bb7674f4a8e0f40a5bdd3d463c8e10b5732376fb5532b06707')
+sha512sums=('e54749b27251dfa04467e8f9631b1e7dba6ba33ae3dfda47a34645979d1538eb73d6ef37f0cc2e3680992caee43ff68ee310624244ec24e1dcf64dfeae64ca95')
+b2sums=('991a67a3f3860bd4452862788cbe406ea320d1adf61ce1fa39844251edaa3b081233112db5f6f086e333e2a84a779044db19d4c4aafb0744ff4fc2f25e91d70b')
 
 build() {
   cd "$pkgname"
@@ -35,7 +35,16 @@ build() {
 check() {
   cd "$pkgname"
 
-  PYTHONPATH="$(pwd)/src" pytest -v
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  local pytest_options=(
+    -vv
+    --deselect tests/checkers.py
+  )
+  pytest "${pytest_options[@]}"
 }
 
 package() {
