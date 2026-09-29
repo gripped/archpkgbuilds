@@ -3,8 +3,8 @@
 
 _hkgname=hledger-iadd
 pkgname=hledger-iadd
-pkgver=1.3.22
-pkgrel=99
+pkgver=1.3.23
+pkgrel=1
 pkgdesc="A terminal UI as drop-in replacement for hledger add"
 url="https://github.com/hpdeifel/hledger-iadd#readme"
 license=('BSD-3-Clause')
@@ -16,11 +16,16 @@ depends=('ghc-libs' 'haskell-brick' 'haskell-free' 'haskell-hledger-lib' 'haskel
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-quickcheck-instances' 'haskell-hspec'
              'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('ee271382edb98a687166240f473158e62ce7a1607288f8429b71f9bec0946b9e034993494e48cf5227ea5774cfb8c5ea52de6ca3be00c60e6a4222de61cdcdc4')
+sha512sums=('a7552a8c50d90a09090bc16eab33aa29207d063a4ac71e643dff1b3c61d0c6bfd3448fd433393953ad7396eec233f423da4cbdfd47129408e6b0eaaae91855c4')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u brick -u hledger-lib -u megaparsec
+  uusi -u brick
+  # Downgrade usage to brick 2.x, essentially a revert of
+  # https://github.com/hpdeifel/hledger-iadd/commit/390a4a93588f2462dcd270a0079be0cdf09b5232
+  sed -i -e '/render /s/translateLayer/translateBy/g' \
+    src/Brick/Widgets/BetterDialog.hs \
+    src/Brick/Widgets/HelpMessage.hs
 }
 
 build() {
