@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=primecount
-pkgver=8.7
+pkgver=8.8
 pkgrel=1
 pkgdesc='Fast C++ prime counting function implementation'
 arch=(x86_64)
@@ -16,7 +16,7 @@ depends=(glibc
 makedepends=(cmake
              git)
 source=(git+https://github.com/kimwalisch/primecount#tag=v$pkgver)
-sha256sums=('9823154ad4e2708761e60c7b547bca6ddfe6965ca97c54c3748169b9825a32a6')
+sha256sums=('ae91224ccb4499b8f130a8922e32dd8a46ba35f14e41036b4f71f829eb95f6ae')
 
 build() {
   # WITH_MULTIARCH builds x86 CPU-dispatch variants (POPCNT/AVX512), invalid on
