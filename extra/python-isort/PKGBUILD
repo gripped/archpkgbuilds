@@ -4,7 +4,7 @@
 
 _pyname=isort
 pkgname=python-$_pyname
-pkgver=9.0.1
+pkgver=9.0.2
 pkgrel=1
 pkgdesc='A Python utility / library to sort Python imports'
 arch=(any)
@@ -29,7 +29,7 @@ _pycheckdeps=(black
               requirementslib)
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('ba23db109e3e93ef1999f7209a651214994cd807801addd16ac485982eb4edd7')
+sha256sums=('d2298980ce44350f11d9d24c8150eaef1883431ec203dddbb4e9b5c3ceb54c70')
 
 prepare() {
 	cd "$_archive"
