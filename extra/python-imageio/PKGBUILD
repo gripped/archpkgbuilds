@@ -2,7 +2,7 @@
 
 _name=imageio
 pkgname=python-$_name
-pkgver=2.37.4
+pkgver=2.38.0
 pkgrel=1
 # test_images repo has no releases, the commit may need to be updated on pkgver bumps
 _test_images_commit=f676c96b1af7e04bb1eed1e4551e058eb2f14acd
@@ -40,7 +40,7 @@ source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
   $pkgname-test-images::git+https://github.com/imageio/test_images.git#commit=$_test_images_commit
 )
-b2sums=('29823368f9c9ef520e28b7d219f60266d9ce68e06a9fad39117d3dffee0bd154eade2150e3b4e5d0b78d3e4b6f04cd35d233b11cfd74faa89351ad16d2ec6912'
+b2sums=('5e9cf667b05b7cb10ff164b86999ba6a09bb8e9c059fc7559d95a094642f632ded297da833ce4ec0aaee36a5cc0887952dd5c9e05d7de471469de4d4942dc365'
         'b48440fbd50d12e0138a6c19676b57029b48905cd6e24ea310ce0ad309275eec6bbf8c58604d5854989d795aa9d4a4c420f586d56f9b313ffdef6dcfb5482aa6')
 
 build() {
