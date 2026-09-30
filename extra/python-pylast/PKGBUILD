@@ -5,7 +5,7 @@
 # Contributor: Amr Hassan <amr.hassan@gmail.com>
 
 pkgname=python-pylast
-pkgver=7.1.0
+pkgver=7.2.0
 pkgrel=1
 pkgdesc='A Python interface to Last.fm and Libre.fm'
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
   python-installer
 )
 source=("$pkgname::git+https://github.com/pylast/pylast.git#tag=$pkgver")
-sha512sums=('9f3129cecc1c62f73206ef96da0d66365f5a69bde26352d5325da31a3aa40854837f0dfe8ccec69d58c090cf4ef2dde8611877c711f59359fe897e9d32e0c380')
-b2sums=('a9e4cf8977d77f29a6d148cc14bfc4d46dd674867e56eb56534540b11c49792875bc060c428d5a9bbda9604f225913f49e205608294817dfcc0f3aca942420d1')
+sha512sums=('23d8ef4de9e1f61bb40f98735f4a9b210c37a6f4eb921950896fc4c995f6c93053fade678bb3906c2056c8d3f5467ed4c0326d2c38594005f4a969ef1bbf0cc1')
+b2sums=('9e01e70c0c40849bd44ee41103f4fd18f0a9a73bf8ed8e2b5cdc29b21a86d83598219b9d64ec8c733cff4264ccf407066251c8375c76a4d3925cc05bf05344c2')
 
 build() {
   cd "$pkgname"
