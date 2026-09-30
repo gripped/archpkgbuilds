@@ -1,7 +1,7 @@
 pkgbase = sagemath
 	pkgdesc = Open Source Mathematics Software, free alternative to Magma, Maple, Mathematica, and Matlab
-	pkgver = 10.9
-	pkgrel = 7
+	pkgver = 10.10
+	pkgrel = 2
 	url = http://www.sagemath.org
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -37,6 +37,7 @@ pkgbase = sagemath
 	depends = gmp
 	depends = gmp-ecm
 	depends = gsl
+	depends = highs
 	depends = iml
 	depends = ipython
 	depends = lcalc
@@ -131,18 +132,15 @@ pkgbase = sagemath
 	optdepends = sagemath-giac: giac integration backend
 	optdepends = shared_meataxe: faster matrix arithmetic over finite fields
 	optdepends = sirocco: for computing the fundamental group of the complement of a plane curve
+	optdepends = snappy-manifolds: for some additional knot methods
 	optdepends = topcom: to compute triangulations of point configurations
-	source = git+https://github.com/sagemath/sage#tag=10.9
+	source = git+https://github.com/sagemath/sage#tag=10.10
 	source = latte-count.patch
-	source = maxima-5.48.patch
-	source = planarity-5.patch
 	source = networkx-3.7.patch
-	source = https://github.com/sagemath/sage/commit/0cbfbfca.patch
-	sha256sums = 62fed909146a7cec5809c954a06a0932b8fe3e6bbde2a2dab305083cd98d0a91
+	source = pari-2.19.patch
+	sha256sums = a940259a5fc00e3d6aae916176f346373026f151a8c4575c5711eb9316f9b058
 	sha256sums = c3aa0243de70fe9c58772c83e748510b7af6950f98d01b3a819e6f8d1232c797
-	sha256sums = a2d0663fe563bd131d47687086e36b1cbd9af158993226f69fecba8344cedb8a
-	sha256sums = 755e7042704f5c18b49dc9330a1d2a999ef187c331aa96d0367ed093fb2676c6
 	sha256sums = 26f2918e3b775c89d235abab080012186e1d0070ae327f882cf7a95242b7ccf2
-	sha256sums = a6cb39bc0896b342918452dea630f7a499143aa3496a53e204cb9db50d50c581
+	sha256sums = c3ae95ccade6db780b50590dd4ea507312a870bbf0f4d5ce8f415ff9af75e663
 
 pkgname = sagemath
