@@ -2,21 +2,24 @@
 # Maintainer: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-vpn-api-core
-pkgver=5.6.10
-pkgrel=1
+pkgver=5.6.20
+pkgrel=2
 _protun_commit=12e7755a112f59b7b843da79290b3de25febf653
 pkgdesc="The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services."
-arch=(any)
+arch=(x86_64)
 url="https://github.com/ProtonVPN/python-proton-vpn-api-core"
 license=(GPL-3.0-or-later)
 options=(!lto)
 depends=(
   glibc
   libgcc
+  libmnl
+  libnftnl
   networkmanager-openvpn
   libnm
   python
   python-cryptography
+  python-dbus-fast
   python-distro
   python-jinja
   python-proton-core
@@ -50,7 +53,7 @@ source=(
   "protun::git+https://github.com/ProtonVPN/protun.git#commit=${_protun_commit}"
   fix-protun-protocol.patch
 )
-sha256sums=('61240dc7a8c87c33cdfeb52cc73bd1d71260a8c56e7469d0a4f7c63bc483cdc5'
+sha256sums=('90e811a2acf770d6611278c4fd7f68fa06b6c436caa47de5a2e0316673f0f4d4'
             '3f90b4967711c9750042b5621695ed91c374fab92d5e8fa2100645862a47f66b'
             '28abe281b8dee47fe5b3e5f3a612a902f6e7504bcb7509e809e1d422c71df750')
 optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
@@ -61,12 +64,8 @@ prepare() {
   patch -Np1 < ../fix-protun-protocol.patch
   sed -i '/^SystemdService=/d' resources/nm-protun.name
 
-  # The local agent is now included in proton.vpn.platform.
-  sed -i 's/, "proton-vpn-local-agent"//' setup.py
-
   rm -rf dependencies/protun
   cp -a "$srcdir/protun" dependencies/protun
-
 }
 
 build() {
@@ -76,8 +75,9 @@ build() {
     cargo build --release --locked \
       --bin nm-protun-service \
       --bin nm-protun-auth-dialog \
+      --bin proton-vpn-kill-switch-service \
       --lib \
-      --features 'protun,nm_protun_auth_dialog,python,core,local_agent'
+      --features 'protun,nm_protun_auth_dialog,python,core,local_agent,kill_switch'
 
   install -Dm755 target/release/libproton_vpn_platform.so \
     proton/vpn/platform.abi3.so
@@ -94,6 +94,15 @@ package() {
     "$pkgdir/usr/lib/nm-protun-auth-dialog"
   install -Dm644 resources/nm-protun-service.conf \
     "$pkgdir/usr/share/dbus-1/system.d/nm-protun-service.conf"
+
+  install -Dm755 target/release/proton-vpn-kill-switch-service \
+    "$pkgdir/usr/lib/proton-vpn-kill-switch-service"
+  install -Dm644 resources/proton-vpn-kill-switch.conf \
+    "$pkgdir/usr/share/dbus-1/system.d/me.proton.vpn.kill_switch.conf"
+  install -Dm644 resources/proton-vpn-kill-switch.dbus-service \
+    "$pkgdir/usr/share/dbus-1/system-services/me.proton.vpn.kill_switch.service"
+  sed -i 's|^Exec=.*|Exec=/usr/lib/proton-vpn-kill-switch-service|' \
+    "$pkgdir/usr/share/dbus-1/system-services/me.proton.vpn.kill_switch.service"
 
   install -d "$pkgdir/usr/lib/NetworkManager/VPN"
   sed -e 's|program=.*|program=/usr/lib/nm-protun-service|' \
