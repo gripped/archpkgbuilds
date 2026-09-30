@@ -7,7 +7,7 @@ pkgname=(
   librsvg
   librsvg-docs
 )
-pkgver=2.62.3
+pkgver=2.62.4
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library"
@@ -43,7 +43,7 @@ source=(
   # librsvg tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=$pkgver"
 )
-b2sums=('63d921e517bb95362259f477cacfbafcf788ed9f40fe15697f10b0dfdff32831c7963eb4fce65ab03ad94790555741f6450f275713a9ae9aca7ceb27af653e85')
+b2sums=('c5619041a8596da34bd58bf3f01088036b58d58d7b5ea0ff17bbc6cb14e1afad167cbd10f3ccb60446a4f46f812e69dd5d7e69cb74d1788809e0c47c486f7d83')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -53,6 +53,10 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd librsvg
+
+  # Make reftests pass
+  # https://gitlab.gnome.org/GNOME/librsvg/-/work_items/1237
+  git cherry-pick -n 55a08a24cbd93c042872d6b95f7bb59d3460a0f3
 
   cargo fetch --locked --target host-tuple
 }
