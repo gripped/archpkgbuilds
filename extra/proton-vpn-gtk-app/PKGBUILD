@@ -2,7 +2,7 @@
 # Contributor: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=proton-vpn-gtk-app
-pkgver=4.18.1
+pkgver=4.18.2
 pkgrel=1
 pkgdesc="ProtonVPN GTK app, Maintained by Community"
 arch=(any)
@@ -23,9 +23,7 @@ depends=(
   proton-vpn-daemon
   python-proton-core
   python-proton-keyring-linux
-  python-proton-vpn-api-core
-  python-proton-vpn-local-agent
-  python-proton-vpn-network-manager
+  'python-proton-vpn-api-core>=5.6.18'
   python-requests
 )
 makedepends=(
@@ -36,7 +34,7 @@ makedepends=(
   python-wheel
 )
 source=("git+https://github.com/ProtonVPN/proton-vpn-gtk-app.git#tag=v${pkgver}")
-sha256sums=('79cb6c378e6186edb51c406377246e8f627c23e1ceb6e584c1f795c45774682d')
+sha256sums=('730fd42deb669e279612cf79d0714a8de0dfccf25eb8712287a5e3c2f163ff39')
 
 prepare() {
   cd "$pkgname"
