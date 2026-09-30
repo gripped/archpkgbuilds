@@ -2,7 +2,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=tombi
-pkgver=1.5.5
+pkgver=1.5.8
 pkgrel=1
 pkgdesc='TOML Formatter / Linter / Language Server'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://github.com/tombi-toml/tombi.git#tag=v$pkgver")
-b2sums=('7a48393b29666037b06990049f6feae0ecaa0f5e7a474ffdc4c9a3e6fc9bb70754dcb037c005e9330eea69e27c43f9d102eb60de57783e76018b592e12ae682c')
+b2sums=('0a0b09750617ac63421bb16296236d50b15556c1ab0b7aa11e317e2ee74322c3ee642d01311fa3e9a6543fc13516a02b0ed3a76956b27798b81512dbc4a17ca2')
 
 prepare() {
   cd $pkgname
