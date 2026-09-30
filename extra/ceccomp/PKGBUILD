@@ -1,15 +1,16 @@
 # Maintainer: dbgbgtf <dudududumaxver@outlook.com>
 # Maintainer: RocketDev <ma2014119@outlook.com>
 pkgname=ceccomp
-pkgver=4.2.2
+pkgver=4.3
 pkgrel=1
 pkgdesc="A C-based seccomp analysis tool"
 arch=(x86_64)
-url="https://github.com/dbgbgtf1/Ceccomp"
+url="https://github.com/ceccomp/ceccomp"
 license=(GPL-3.0-or-later)
 depends=(
   glibc
   libseccomp
+  libbpf
 )
 makedepends=(
   asciidoctor # for doc generation
@@ -17,13 +18,18 @@ makedepends=(
   git
   python # for configure
   util-linux # for flock to display a progress
+
+  bpf # for bpftool
+  linux-headers # provided vmlinux.h
+  clang # BPF compiler
+  llvm # for llvm-strip
 )
 checkdepends=(
   python-pytest
 )
 
-source=("$pkgname"::git+https://github.com/dbgbgtf1/Ceccomp.git#tag=v${pkgver}?signed)
-b2sums=('2717e3c4c977e2a8c658034ff6003bb1e67db9b7530ad374f4c38aee97be7f37922e0ac8cd6cb9905dde504e8fadf9c574af055eff8dba4e6b827ccdf05db356')
+source=("$pkgname"::git+$url.git#tag=v${pkgver}?signed)
+b2sums=('6fcc0fab48f3d639823467b2aa91d9b2a281bbec67199a41c67584348ccf88c33e7de5bada7af19abf76273b8cdffc429f33ba7ecb36728e398ec91cb137468f')
 
 validpgpkeys=(
   '0816A179BB09248F30468BD6542A0969B5CEDCDB' # dbgbgtf1 <dudududumaxver@outlook.com>
@@ -32,7 +38,9 @@ validpgpkeys=(
 
 build() {
   cd "$pkgname"
-  ./configure --destdir="$pkgdir" --prefix=/usr
+  # extract file-prefix-map from CFLAGS as BPF_CC write file name into BPF object
+  _mapflag=$(grep -o -- '-ffile-prefix-map=[^[:space:]]*' <<< "$CFLAGS") || _mapflag=
+  BPF_CFLAGS="$_mapflag" ./configure --destdir="$pkgdir" --prefix=/usr
   make
 }
 
