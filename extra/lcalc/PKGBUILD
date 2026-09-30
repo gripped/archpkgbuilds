@@ -2,7 +2,7 @@
 
 pkgname=lcalc
 pkgver=2.2.1
-pkgrel=1
+pkgrel=3
 pkgdesc='C++ L-function class library and command line interface'
 arch=(x86_64)
 url='https://gitlab.com/sagemath/lcalc'
@@ -13,12 +13,15 @@ depends=(glibc
          pari)
 makedepends=(gengetopt
              git)
-source=(git+https://gitlab.com/sagemath/lcalc#tag=$pkgver)
-sha256sums=('3aa2e25ee405aa8a991983b8d6505d0fea3a59044c30e075be46ebf164a040d4')
+source=(git+https://gitlab.com/sagemath/lcalc#tag=$pkgver
+        pari-2.19.patch)
+sha256sums=('3aa2e25ee405aa8a991983b8d6505d0fea3a59044c30e075be46ebf164a040d4'
+            '49f75cd7f400f6f5848c11e8932fa872c49117e371105802d30930af11a5759f')
 
 prepare() {
   cd $pkgname
   sed -e '/ltmain.sh/d' -i configure.ac # Fix build with libtool != 2.5.4
+  patch -p1 -i ../pari-2.19.patch
   autoreconf -fiv
 }
 
