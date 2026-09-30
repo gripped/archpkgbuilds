@@ -2,8 +2,8 @@
 
 pkgname=python-jack-client
 _name=jackclient-python
-pkgver=0.5.5
-pkgrel=3
+pkgver=0.5.7
+pkgrel=1
 pkgdesc="JACK Audio Connection Kit (JACK) Client for Python"
 arch=(any)
 url="https://github.com/spatialaudio/jackclient-python/"
@@ -17,6 +17,7 @@ makedepends=(
   python-build
   python-installer
   python-setuptools
+  python-setuptools-scm
   python-wheel
 )
 checkdepends=(
@@ -27,12 +28,12 @@ checkdepends=(
 )
 optdepends=('python-numpy: Access input/output buffers as numpy arrays')
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('9c415cb32fe78383448cfadda3670b2eb26fd36e2d645588ac92c48688312afbb09ac174347a4187e1553b0f0bfedb6197369f12a9043d9e5739ef80c0257ac7')
-b2sums=('d5ab3d0d152a76d76b940ce3bceb2f0f1fc40053aed5ca25d670ad59a2b76e690410e98ba146a3ec41928d8ebcc043a66025ac5fe999853c26d19ddae905045c')
+sha512sums=('2d6461b2ef5d3203e3189e343b822a91c1be496ac3be8f346ba645bd56ae0779fe5416cb7d59b897885d86a1329b6f88db4de82d3a2459b39c12483ac2a4100f')
+b2sums=('dbf126d09264478516a577a46d733b6644c45e6b90b3449a8b99847fe647f290405b12074782928bb0969680bf3243f757802a650212e9aa1b7b90f6f8632d98')
 
 build() {
   cd $_name-$pkgver
-  python -m build --wheel --no-isolation
+  SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver python -m build --wheel --no-isolation
 }
 
 check() {
