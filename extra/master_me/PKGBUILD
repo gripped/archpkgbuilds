@@ -6,7 +6,7 @@ pkgname=(
   master_me-{clap,ladspa,lv2,standalone,vst,vst3}
 )
 pkgver=1.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Automatic mastering plugin for live streaming, podcasts and internet radio"
 arch=(x86_64)
 url="https://github.com/trummerschlunk/master_me"
@@ -14,10 +14,11 @@ license=(GPL-3.0-or-later)
 makedepends=(
   dbus
   faustpp
-  gcc-libs
   gendesk
   glibc
+  libgcc
   libglvnd
+  libstdc++
   libx11
   libxext
   libxrandr
@@ -75,9 +76,10 @@ package_master_me-clap() {
   pkgdesc+=" - CLAP plugin"
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     libxrandr
@@ -91,9 +93,10 @@ package_master_me-clap() {
 package_master_me-ladspa() {
   pkgdesc+=" - LADSPA plugin"
   depends=(
-    gcc-libs
     glibc
     ladspa-host
+    libgcc
+    libstdc++
   )
   groups=(ladspa-plugins)
 
@@ -104,9 +107,10 @@ package_master_me-lv2() {
   pkgdesc+=" - LV2 plugin"
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     libxrandr
@@ -121,10 +125,11 @@ package_master_me-standalone() {
   pkgdesc+=" - standalone"
   depends=(
     dbus
-    gcc-libs
     glibc
     hicolor-icon-theme
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     libxrandr
@@ -142,9 +147,10 @@ package_master_me-vst() {
   pkgdesc+=" - VST plugin"
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     libxrandr
@@ -159,9 +165,10 @@ package_master_me-vst3() {
   pkgdesc+=" - VST3 plugin"
   depends=(
     dbus
-    gcc-libs
     glibc
+    libgcc
     libglvnd
+    libstdc++
     libx11
     libxext
     libxrandr
