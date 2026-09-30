@@ -5,7 +5,7 @@ _hkgname=Agda
 pkgname=agda
 # Remember to also update agda-stdlib, which has a versioned dependency on agda.
 pkgver=2.8.0.2
-pkgrel=3
+pkgrel=4
 pkgdesc="A dependently typed functional programming language and proof assistant"
 url="https://wiki.portal.chalmers.se/agda/"
 license=("custom")
@@ -54,14 +54,28 @@ check() {
 package() {
     cd $_hkgname-$pkgver
 
-    install -D -m744 register.sh   "${pkgdir}/usr/share/haskell/register/${pkgname}.sh"
-    install -D -m744 unregister.sh "${pkgdir}/usr/share/haskell/unregister/${pkgname}.sh"
+    install -Dm744 register.sh   "${pkgdir}/usr/share/haskell/register/${pkgname}.sh"
+    install -Dm744 unregister.sh "${pkgdir}/usr/share/haskell/unregister/${pkgname}.sh"
     LD_LIBRARY_PATH="$PWD/dist/build" runhaskell Setup copy --destdir="${pkgdir}"
 
-    # Symlink to avoid writing to this place when agda-lib is present
-    install -dm755 "$pkgdir"/usr/share/agda/lib/_build/$pkgver/agda
-    ln -s ../../../prim "$pkgdir"/usr/share/agda/lib/_build/$pkgver/agda/
+    # Pre-build the interface files of the bundled builtin library. Note that prim/ ships its own
+    # agda-builtins.agda-lib, so Agda stores its interfaces in prim/_build/$pkgver/agda and would
+    # otherwise try to create them in /usr on first use, which fails for unprivileged users. See
+    # https://github.com/agda/agda/issues/8731 for details.
+    (
+        local _prim="$pkgdir/usr/share/agda/lib/prim"
+        cd "$_prim"
 
-    install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+        export Agda_datadir="$pkgdir/usr/share/agda"
+        export AGDA_DIR="$srcdir/agda-dir"
+        export LD_LIBRARY_PATH="$srcdir/$_hkgname-$pkgver/dist/build:$pkgdir/usr/lib"
+
+        mkdir -p "$AGDA_DIR"
+        find Agda -name '*.agda' -print0 | xargs -0 -n1 "$pkgdir/usr/bin/agda"
+
+        [[ "$(find "$_prim" -name '*.agda' | wc -l)" -eq "$(find "$_prim/_build" -name '*.agdai' | wc -l)" ]]
+    )
+
+    install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
     rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE
 }
