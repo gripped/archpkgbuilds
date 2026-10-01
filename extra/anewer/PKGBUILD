@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=anewer
-pkgver=0.2.1
+pkgver=0.2.2
 pkgrel=1
 pkgdesc="Appends lines from stdin to a file if they don't already exist in the file"
 url='https://github.com/ysf/anewer'
@@ -15,7 +15,7 @@ makedepends=(
   'cargo'
 )
 source=(https://github.com/ysf/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-b2sums=('d4a6d7f05c906633ba9aaf0f94f83ae4297393f75a5c0ece42ea8637999afa63d3de1e5220c0f8351e079daf44b782a66c32774f6c94c3078c351c82873eccc1')
+b2sums=('96606b7d6053afa223c045d23fdd0f6825505346703ddfa80dbfcb99f7b01628ac55ae057e2d864b881ea11983e9818626868ef0d5a5c0cb8cb20321acd840f4')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
