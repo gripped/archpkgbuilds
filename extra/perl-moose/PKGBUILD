@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=perl-moose
-pkgver=2.4000
+pkgver=2.4001
 pkgrel=1
 pkgdesc="A postmodern object system for Perl 5"
 arch=('x86_64')
@@ -43,7 +43,7 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("https://cpan.metacpan.org/authors/id/E/ET/ETHER/Moose-$pkgver.tar.gz")
-sha512sums=('facae305a538ce55cad1aa1b420a5a2ba7a6f2de502257fe84094ce1d2f91c8f297318e404c1bc236ce6ef2800bac9bb782191061925505c970fb6e38ff1ab87')
+sha512sums=('22a1f48ecbaa8fbe9033bd7297b60417bcdb2c12a2e4118ebaaf009b0a4a75e6e0cdd681caa31c1d0a87f2b72408971bf7927b5fbab8c61cb813c1b17727ee93')
 
 build() {
   cd Moose-$pkgver
