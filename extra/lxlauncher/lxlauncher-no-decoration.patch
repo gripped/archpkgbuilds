@@ -1,0 +1,23 @@
+From e348f798c1cb75ae5eeb602637283070929d284d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 30 Sep 2026 18:09:16 +0200
+Subject: [PATCH] Disable window decoration
+
+This fixes the problem that window decoration is drawn around the launcher
+when GTK_CSD=1 is set.
+---
+ src/lxlauncher.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/lxlauncher.c b/src/lxlauncher.c
+index bf12083..9b2a7fe 100644
+--- a/src/lxlauncher.c
++++ b/src/lxlauncher.c
+@@ -960,6 +960,7 @@ int main(int argc, char** argv)
+ 
+     main_window = gtk_window_new( GTK_WINDOW_TOPLEVEL );
+     gtk_window_move( GTK_WINDOW(main_window), 0, 0 );
++    gtk_window_set_decorated( GTK_WINDOW(main_window), FALSE );
+     gtk_window_set_skip_pager_hint( GTK_WINDOW(main_window), TRUE );
+     gtk_window_set_skip_taskbar_hint( GTK_WINDOW(main_window), TRUE );
+ 
