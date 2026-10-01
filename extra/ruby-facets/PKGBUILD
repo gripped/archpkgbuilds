@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-facets
-pkgver=3.2.2
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='Premiere collection of general purpose method extensions and standard additions for the Ruby programming language'
 arch=(any)
@@ -22,8 +22,8 @@ checkdepends=(
   ruby-simplecov
 )
 options=(!emptydirs)
-source=(git+https://github.com/rubyworks/facets.git#tag=$pkgver)
-sha256sums=('252a57bba8acce6549eb25cc616524197d78df0c63287852567a01306579e794')
+source=(git+https://github.com/rubyworks/facets.git#tag=v$pkgver)
+sha256sums=('857c8386dc8f20515c8fa8670c6eed7c92a6e558d096ed88149bb88beb7e0c29')
 
 build() {
   local _gemdir="$(gem env gemdir)"
@@ -54,9 +54,7 @@ build() {
 check() {
   local _gemdir="$(gem env gemdir)"
   cd facets
-  # Gem is very old and unmaintained, many test failures with new Ruby.
-  # Avoid using it!
-  GEM_HOME="tmp_install/$_gemdir" rake || echo "Tests failed"
+  GEM_HOME="tmp_install/$_gemdir" rake test qed
 }
 
 package() {
