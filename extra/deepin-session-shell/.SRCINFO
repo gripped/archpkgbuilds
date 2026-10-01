@@ -1,6 +1,6 @@
 pkgbase = deepin-session-shell
 	pkgdesc = Deepin desktop-environment - session-shell module
-	pkgver = 6.0.48
+	pkgver = 6.0.50
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/dde-session-shell-snipe
 	arch = x86_64
@@ -40,12 +40,13 @@ pkgbase = deepin-session-shell
 	depends = xcb-util-wm
 	depends = openssl
 	depends = deepin-session
+	depends = systemd
 	depends = xorg-setxkbmap
 	provides = lightdm-deepin-greeter
 	conflicts = deepin-session-ui<5
-	source = git+https://github.com/linuxdeepin/dde-session-shell-snipe.git#tag=6.0.48
+	source = git+https://github.com/linuxdeepin/dde-session-shell-snipe.git#tag=6.0.50
 	source = fix-lightdm-qt6-visibility.patch
-	sha512sums = 4f3a3da14bf32fd1a590d6d93d939dddd09fcc96f00fd972ccc38098c6506abb5d4990aa537ad7c3ab586fc61f9bce664bcb2591cd64ffc8a86dc0a8f677642b
+	sha512sums = 760d0be10a80569b6395404f922ceb5b3bb598f935b86ea25b92422a5948d33fbee07439bfcdca120811633bb9b7bc1e992b7aac65b3a558efdb94cf93d2cad7
 	sha512sums = 3c7a7f4444b584ea4112d5a72325015e0f87e94426014b62db1debd5478b6404c319f04645688743ecd2f117e39cc607ad8fd76f3fb991898c7c6839094f2040
 
 pkgname = deepin-session-shell
