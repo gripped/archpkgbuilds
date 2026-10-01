@@ -4,27 +4,38 @@
 
 _hkgname=cookie
 pkgname=haskell-cookie
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.5.1
+pkgrel=1
 pkgdesc="HTTP cookie parsing and rendering"
-url="https://hackage.haskell.org/package/${_hkgname}"
+url="https://github.com/snoyberg/cookie"
 license=('MIT')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-data-default-class')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-hunit'
+             'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('f4a320280e01cf1a881f49b5ab037e1618983ce521585fcfe3837ec3292532f804717caa51db0fb42b84e149529cb4e665879af58edd974888b6ab129886d811')
+sha512sums=('f0c5427680f34a1e973632168acb75200fe72cc40f3c8f308bf87831990aebd0493685863a48ae61e1fcb6cba2e803be0813c33f51f940ab149e19b79000a21f')
+
+prepare() {
+    cd $_hkgname-$pkgver
+    gen-setup
+}
 
 build() {
     cd $_hkgname-$pkgver
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid -fnetwork-uri
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register   --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
