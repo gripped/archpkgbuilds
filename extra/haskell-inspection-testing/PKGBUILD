@@ -2,8 +2,8 @@
 
 _hkgname=inspection-testing
 pkgname=haskell-inspection-testing
-pkgver=0.6.2
-pkgrel=2
+pkgver=0.6.3
+pkgrel=1
 pkgdesc="GHC plugin to do inspection testing"
 url="https://github.com/nomeata/inspection-testing"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-ghc')
 makedepends=('ghc')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('0fae3db4c31b68396b6c76975fdcdc081ea21b89f89d52d2ec63d04f759f66e9585599a0ef3e3c24a574b7c394283d4aed94fe3d04d4ca26bab9ca5d07ee006e')
+sha512sums=('d659e0e2b5a693764354594c58b966632cf183bd147dd72eb41ced8a6b72421efbbc18688f8af41641d887235e74bf9f3ed4b01b58842cd0078b0499c9c896b0')
 
 build() {
     cd $_hkgname-$pkgver
