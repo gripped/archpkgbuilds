@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-pytest-bdd
-pkgver=8.1.0
-pkgrel=3
+pkgver=9.0.0
+pkgrel=1
 pkgdesc='BDD library for the pytest runner'
 arch=('any')
 license=('MIT')
@@ -23,11 +23,11 @@ makedepends=(
   'git'
   'python-build'
   'python-installer'
-  'python-poetry-core'
+  'python-uv-build'
 )
 checkdepends=('python-setuptools')
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('a8b22b0b9e34469fb927c9a748214cf96b009c14a91de5afed623c7f8286f23011e2c2425a7fb98ccbc466c67eb21af21918d79d2da3bf2a7ae270410f121510')
+sha512sums=('3fdd564619771a6b109c1eade9718f8745bec7d87f27d7075a0875221a670644bbdb87734cd3c9c1d94feca7a8c0e1629f08334bbe4e6319a74a18cb184dac1c')
 
 build() {
   cd ${pkgname#python-}
@@ -39,8 +39,7 @@ check() {
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   PATH=$PWD/test-env/bin:$PATH test-env/bin/python -m pytest \
-    --override-ini="addopts=" \
-    --deselect tests/parser/test_errors.py::test_step_outside_scenario_or_background_error
+    --override-ini="addopts="
 }
 
 package() {
