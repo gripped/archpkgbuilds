@@ -3,7 +3,7 @@
 # Contributor: shadyabhi <abhijeet.1989@gmail.com>
 
 pkgname=python-google-api-python-client
-pkgver=2.200.0
+pkgver=2.201.0
 pkgrel=1
 pkgdesc="Google API Client Library for Python"
 arch=('any')
@@ -13,7 +13,7 @@ depends=('python-google-api-core' 'python-google-auth-httplib2' 'python-httplib2
 optdepends=('python-oauth2client: optional backend')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("google-api-python-client-${pkgver}.tar.gz::https://github.com/google/google-api-python-client/archive/v${pkgver}.tar.gz")
-sha256sums=('71a4a2400ab68724aa10e2f517fb7e35af64a766a384ffb0454cf13086ece344')
+sha256sums=('c09cf98675262a64323bb83b18f8bc005715580d1d3f04e7f865edde29a34456')
 
 build() {
   cd "google-api-python-client-${pkgver}"
