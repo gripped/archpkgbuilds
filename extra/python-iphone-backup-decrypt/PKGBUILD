@@ -2,7 +2,7 @@
 
 _pyname=iphone_backup_decrypt
 pkgname=python-iphone-backup-decrypt
-pkgver=0.9.0
+pkgver=0.11.2
 pkgrel=1
 pkgdesc="Decrypt and extract files from an iOS13+ encrypted local backup"
 arch=(any)
@@ -20,7 +20,7 @@ makedepends=(
   'python-wheel'
 )
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_pyname-$pkgver.tar.gz")
-sha512sums=('3ab724a07a5eafafd084d344cfe82ef12447bdec2e38df4c31368c723f68be02c3c2990388951d29b64c4ff27719b6f06bab9291aa4643ea102556d80f4602b1')
+sha512sums=('b4610e981fc295e60b413d84c2f3d41d06c91a88eaabb75dc93c067ee0b1377a599b1b9515c613f1fc379b3ac78fe0d45531b7994dd5d7c9d5ac3e9356936892')
 
 build() {
   cd "${_pyname}-${pkgver}"
