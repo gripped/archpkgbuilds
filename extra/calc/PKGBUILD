@@ -3,7 +3,7 @@
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 
 pkgname=calc
-pkgver=2.17.0.0
+pkgver=2.17.0.2
 pkgrel=1
 pkgdesc="Arbitrary precision console calculator"
 arch=(x86_64)
@@ -12,7 +12,7 @@ license=(LGPL-2.1-only)
 depends=(readline)
 makedepends=(mandoc)
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/lcn2/${pkgname}/archive/v${pkgver}.tar.gz)
-b2sums=('14ebacf4ee33fec40fdda380d3f528533d27ac21f6f487f776c8435339c21b34f9c91682b994af5af50941ffcea39a01f22237c56733e14fcc745f03bc909b82')
+b2sums=('5db4c1885e2568ae68517c9f7b07c81c1df626fac58da022c69d25e4e4effa824a3fc69ffee3e9ff1cfe7d9f98b74a4979b96283b6077c2eae3c865f0fe4c15f')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
