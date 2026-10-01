@@ -3,7 +3,7 @@
 pkgbase=noto-fonts
 pkgname=(noto-fonts noto-fonts-extra)
 epoch=1
-pkgver=2026.09.01
+pkgver=2026.10.01
 pkgrel=1
 pkgdesc='Google Noto TTF fonts'
 arch=(any)
@@ -13,7 +13,7 @@ makedepends=(git)
 source=(git+https://github.com/notofonts/notofonts.github.io#tag=noto-monthly-release-$pkgver
         66-noto-sans.conf 66-noto-serif.conf
         46-noto-sans.conf 46-noto-serif.conf)
-sha256sums=('8eb1ff370611ba969ec233288beb2435ef2489b691cfdd9fa7bc19fe80d434be'
+sha256sums=('d8d8cf025b3ee5cadec3e34090c2d67507960f85d2c70830704f167f79e8aae5'
             '52684bebf6447be22618d2a04ff37623ec92f9d8ccf6b6f972e5bcbcfee90d69'
             '4459944b63dc083107280f5d7375c69746bf80a09416a4a4909a100e58e5a33a'
             '83a8faf6a47954075f97a2d555048e2a6689c38603b2ca00150157bf645f4593'
