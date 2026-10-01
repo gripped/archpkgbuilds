@@ -2,7 +2,7 @@
 
 pkgbase=deepin-anything
 pkgname=(deepin-anything deepin-anything-dkms)
-pkgver=7.0.9
+pkgver=7.0.10
 _extramodules=extramodules-ARCH
 pkgrel=1
 pkgdesc="Deepin Anything file search tool"
@@ -14,14 +14,14 @@ source=(
   "git+https://github.com/linuxdeepin/deepin-anything.git#tag=$pkgver"
   0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
 )
-sha512sums=('b6333c90cd4d4b7910ba166e00bf10005bf13081052b021c20ab3d688acd9fc0e2db2de90b43d6eeecd3337b9c6994e1c9481954c8d9474ac6edccea994dc228'
+sha512sums=('e1c84b13aadbb997a5f1cab8c3541c68a958d1e70f0ddd7d0cf8833591f6231a3bb141e7fd9f28e7fb039a9b8030d7301084ea16c42711712782db210672ae9c'
             '4d41abba018d90f186a6c5f5af24dd4f1f43858c5ce977eba98c20f6c86df86382ed26c13fc04d8b93350a202ceb58946cc316eb8364fd6d6c0f4241eee0c3cd')
 
 prepare() {
   cd "$pkgbase"
 
-  # Fix build with kernel 6.15: https://github.com/linuxdeepin/deepin-anything/commit/2ee1165
-  git cherry-pick -n 2ee1165
+  # Fix build with kernel 6.15: https://github.com/linuxdeepin/deepin-anything/pull/174
+  git cherry-pick -n 2ee1165f3037ce0eba0f22b06cb3a604c54ff3b9
 
   # Fix build with kernel 6.18
   patch -Np1 < "$srcdir"/0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
