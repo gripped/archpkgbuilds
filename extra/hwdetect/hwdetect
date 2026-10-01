@@ -264,7 +264,7 @@ while [ -n "$*"  ]; do
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
         --intel-kms)    _KMS="i915"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
-        -intel-xe-kms)  _KMS="xe"
+        --intel-xe-kms) _KMS="xe"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
         --nvidia-kms)   _KMS="nouveau"
                         _MODULES_INITRAMFS="${_KMS} ${_MODULES_INITRAMFS}" ;;
