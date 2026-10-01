@@ -4,8 +4,8 @@
 
 _target=riscv64-elf
 pkgname=$_target-gdb
-pkgver=17.1
-pkgrel=2
+pkgver=18.1
+pkgrel=1
 pkgdesc='The GNU Debugger for the RISCV64 (bare-metal) target'
 arch=(x86_64)
 url='https://www.gnu.org/software/gdb/'
@@ -14,7 +14,7 @@ depends=(xz ncurses expat python guile gdb-common mpfr libelf source-highlight)
 makedepends=(boost)
 options=(!emptydirs)
 source=(https://ftp.gnu.org/gnu/gdb/gdb-$pkgver.tar.xz{,.sig})
-sha512sums=('f1a6751e439a2128fecf3eae8b57c1608a0dc7cfe79b4356a937874e5a42bb2df0aba36eb6a9452c41966908b9a59076c7cad9720f684688ab956b65080f1d7c'
+sha512sums=('e7079ad31e6176391a4d278c85a668cc92c13c8dc1f4937f3d4438f9dc7afdbb12083af7f86e17e854b3d23c3ceff80c63bdbbc8e18b0cf9962656f75ab8b5a0'
             'SKIP')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker <brobecker@adacore.com>
 
