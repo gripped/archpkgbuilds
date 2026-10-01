@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-itemloaders
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="Library to populate items using XPath and CSS with a convenient API"
 url="https://github.com/scrapy/itemloaders"
@@ -11,7 +11,7 @@ depends=('python-parsel' 'python-jmespath' 'python-itemadapter')
 makedepends=('git' 'python-build' 'python-installer' 'python-hatchling' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/scrapy/itemloaders.git#tag=v$pkgver")
-sha512sums=('0452a0887e36692ea12c5c4f4b320ae2e1974a6d11f53a38018e15a303e5bfb754fdbd1e21e0243f4629adf3af53916533e13f904928a791447748b6a3b6b056')
+sha512sums=('df2d146597316f8e808da71ce0ca519832d9afa4ff918b740b340b00d702b8d3f4c3253b871ed121d48789a1351863074d3f12faf5decc4c839e0add4bdd2e04')
 
 build() {
   cd itemloaders
