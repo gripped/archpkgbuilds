@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=stalwart-cli
-pkgver=1.0.12
+pkgver=1.0.13
 pkgrel=1
 pkgdesc='A schema-driven command line tool for administering Stalwart'
 arch=(x86_64)
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=(!lto) # aws_lc crates cause linking errors
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('e1f0621e4a8fb7b38f82dd17e5b14ec7574789e6242808bbf17c90009d7ac255bbb7e374461ecced9e1122a7d0685467f3b442a8de7dd571b7882d7a399389c0')
-b2sums=('6208d3da318e036644a47397c286f686712501020c0c4177a00bca9d207bbed0fdc9a7abe4fea574381075818adf68dfb138a4cd3999c22082d13dcddb993e7e')
+sha512sums=('31308feb798e526c9df14b73c7ca0a8ffa0e267c790cfbabd6734de16028b79334d1d797083724ae0c4fa071f29c55be9f7b38edb7cde6f66d14cb8ec4381da3')
+b2sums=('f09ca399acddfcb4425b0dbbd04c4619e117041697958afd977c6f19958bf2192663337a87b9601f5729a0af24a6a8d430f590960f3217dddeea3d131d6d3330')
 
 prepare() {
   cd "$pkgname"
