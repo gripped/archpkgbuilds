@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname='ruby-faraday-http-cache'
-pkgver=2.7.0
+pkgver=2.8.0
 pkgrel=1
 pkgdesc='Middleware to handle HTTP caching'
 arch=('any')
@@ -25,16 +25,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("git+${url}.git#tag=v${pkgver}")
-sha512sums=('b015169a72dcd978f338dc15138269b9ac2aa0a449cb02da61c129bd8d88d214efd224c7c2f1715d0f9067a9595793e903fcb27417474cb616715c8f27535d1d')
-b2sums=('19be84221cee4b477b74f7528c104d00fe678c7c2f14838c100781c9ad1eea58c277c945f7ce7256c43c981b5d010645101557cb58ed5611c9bafc148d4db5c6')
-
-prepare() {
-  cd faraday-http-cache
-
-  # v2.7.0 was tagged with the old version in this file.
-  # Fixed upstream by 4fd5dd3400740b8ca8bfbf040cd570171b18bc8b.
-  sed --in-place "s|VERSION = '[^']*'|VERSION = '${pkgver}'|" lib/faraday/http_cache/version.rb
-}
+sha512sums=('3bfb0509e698efd1f3b10d611108a7bccb4061963d60f807cf9fe957f3c7483420060c2ad428743cb907657276d22c0eb215223d6838fb48391485d8e5c6d84e')
+b2sums=('eec9f2ea5c8eb181a0a37c3783a728ffb24801eb7f5c41de37ce81013c12c733ef67a4501bad4d6f85f0b73f3eb83e960d6759341e701fc09869187907576caa')
 
 build() {
   cd faraday-http-cache
