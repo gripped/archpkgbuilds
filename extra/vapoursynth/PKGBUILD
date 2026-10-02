@@ -3,7 +3,7 @@
 # Contributor: jackoneill <cantabile.desu@gmail.com>
 
 pkgname=vapoursynth
-pkgver=79
+pkgver=80
 pkgrel=1
 pkgdesc='A video processing framework with the future in mind'
 arch=(x86_64)
@@ -30,13 +30,8 @@ source=(
   git+https://github.com/vapoursynth/vapoursynth.git#tag=R${pkgver}
   vapoursynth.xml
 )
-b2sums=('2732962a584c87a995231abfa461b8c07f9c999982c395039b5dae9ce63ad4cfd9ec9b38f891f0621745d7ded053da2b84bc2133f5b6a301e09f2a2e9f6d2345'
+b2sums=('290cac28ee256af05e844c806694cb99a62816810fdd8cf8de789ab6c9dd12e1b1572972a6b3a9f4bd57bb70d40faa7ad7fba715523dfbb7334aa295ac312dd7'
         'feae23a22f8589177f30c36bdf21bab93d55a786194d3e0e958537016630d075b82178f60ac840f30ae316a8f87d3fb01f371211f62d1fee9850ee5063561747')
-
-prepare() {
-  cd vapoursynth
-  git cherry-pick -n d398f465154ef141d447af78b2e65a025de28522 # Prevent statically linking libstdc++
-}
 
 build() {
   cd vapoursynth
@@ -67,5 +62,3 @@ package() {
   printf "set --export --global VSSCRIPT_PATH '%s'\n" "${_libvsscript}" \
     | install -Dm 644 /dev/stdin "${pkgdir}/usr/share/fish/vendor_conf.d/vapoursynth.fish"
 }
-
-# vim: ts=2 sw=2 et
