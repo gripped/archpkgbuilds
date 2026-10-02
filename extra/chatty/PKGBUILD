@@ -2,7 +2,7 @@
 
 pkgname=chatty
 pkgver=0.8.9
-pkgrel=7
+pkgrel=8
 pkgdesc='Simple to use SMS and Matrix messaging application'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Chatty'
@@ -44,6 +44,14 @@ validpgpkeys=(
   FAA79DE7EBDD0D17A3F218E228319315DD47C33B # Evangelos Ribeiro Tzaras <evangelos.tzaras@puri.sm>
   B9386554B7DD266BCB8E29A990F0C9B18A6B4A19 # Evangelos Ribeiro Tzaras <devrtz@fortysixandtwo.eu>
 )
+
+prepare() {
+  cd Chatty
+
+  # Correct vCard attributes fetch for evolution-data-server 3.60.x
+  # https://gitlab.gnome.org/World/Chatty/-/merge_requests/1492
+  git cherry-pick -n 2556c0831414c72a028656da8cbd055dcdb0d51b
+}
 
 build() {
   arch-meson Chatty build \
