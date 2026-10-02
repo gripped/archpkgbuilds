@@ -2,7 +2,7 @@
 # Contributor: Andri Yngvason <andri@yngvason.is>
 
 pkgname=wayvnc
-pkgver=0.10.1
+pkgver=0.10.2
 pkgrel=1
 pkgdesc='VNC server for wlroots-based Wayland compositors'
 arch=(x86_64)
@@ -28,7 +28,7 @@ makedepends=(
 )
 optdepends=('pam: PAM authentication')
 source=(git+https://github.com/any1/wayvnc.git#tag=v${pkgver})
-b2sums=('665d93ce3f075b2edd02aaa6bdc865107a853e2de005f8d977fd858810aabe1f987cc7140f4bd990f1b699793756f6528f78f007252656d8509c514afbaf389a')
+b2sums=('3b9ce6e8a8efd90edc983910c663b0898b9a467a3481a4fa71337c4dd1c15f3dba90066db359b4af7cae78824c769a7115a8cf3125c80aee4683fe24fe77a6bf')
 
 build() {
   arch-meson wayvnc build \
