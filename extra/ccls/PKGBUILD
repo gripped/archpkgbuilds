@@ -4,7 +4,7 @@
 
 pkgname=ccls
 pkgver=0.20250815.1
-pkgrel=2
+pkgrel=3
 pkgdesc='C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting'
 arch=('x86_64')
 url='https://github.com/MaskRay/ccls'
@@ -30,6 +30,11 @@ sha512sums=('2f0bdd62260c65881af55128f7e5008fba8910844173477daf9122f5408f21ac5d2
 prepare() {
   cd $pkgname-$pkgver
   patch -Np1 < ../llvm22.patch
+
+  # Adapt Clang 23's USR header move and PrintingPolicy change.
+  # https://github.com/MaskRay/ccls/commit/e74892376d8a280c5ee99c19cb2349e6ca834bad
+  sed -i 's|<clang/Index/USRGeneration.h>|<clang/UnifiedSymbolResolution/USRGeneration.h>|' src/indexer.cc
+  sed -i 's/pp.AnonymousTagLocations = false;/pp.AnonymousTagNameStyle = static_cast<unsigned>(PrintingPolicy::AnonymousTagMode::Plain);/' src/indexer.cc
 }
 build() {
   local cmake_options=(
