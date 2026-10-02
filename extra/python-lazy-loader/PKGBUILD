@@ -2,7 +2,7 @@
 # Contributor: Butui Hu <hot123tea123@gmail.com>
 
 pkgname=python-lazy-loader
-pkgver=0.5
+pkgver=0.6
 pkgrel=1
 pkgdesc='Populate library namespace without incurring immediate import costs'
 arch=(any)
@@ -22,14 +22,8 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-pytest)
-_tag=2566bebe6a36ecd0bc5dc5a69e8767f7e68fb6d0
-source=(git+https://github.com/scientific-python/lazy-loader.git#tag=${_tag})
-b2sums=('501e2bd47364fc80115e93f50f67e06f7febb06d93022ae2b2969041a0cf15844c48b924063660b951ebbfaaa18cfd8281b8256521d879fae42e03f42eadab97')
-
-pkgver() {
-  cd lazy-loader
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/scientific-python/lazy-loader.git#tag=v${pkgver})
+b2sums=('feb1bde3fba3da9121f08f2831e97044f16e83fd654f4ed01a11a582b7d1401f2e8bd7751efd41fcca346035ccce7d1e34e886cfaab43c3edca540a266e587ed')
 
 build() {
   cd lazy-loader
