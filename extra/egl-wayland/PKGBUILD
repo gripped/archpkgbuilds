@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=egl-wayland
-pkgver=1.1.22
+pkgver=1.1.23
 pkgrel=1
 epoch=4
 pkgdesc="EGLStream-based Wayland external platform"
@@ -22,7 +22,7 @@ makedepends=(
 )
 provides=(libnvidia-egl-wayland.so)
 source=("git+$url#tag=$pkgver")
-b2sums=('5f3d817eada0da9f8a730c2a6018851ebe4fb9a75aec8fc9e6d14df12570788583a82741f569443146950be2fb982d9e2d8424092dd4235be096460eaadf6260')
+b2sums=('f308b5ecef9ab481c1de53781f77a9d41cb3081edef83a131f668aa6d84c784dc805ac7190f5f8a4dba4d0c5f853cffb4ad7704e1bd1d8b54a8775abcae17318')
 
 prepare() {
   cd $pkgname
