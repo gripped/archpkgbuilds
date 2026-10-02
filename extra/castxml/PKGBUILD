@@ -4,7 +4,7 @@
 pkgname=castxml
 pkgdesc="C-family abstract syntax tree XML output tool"
 pkgver=0.7.0
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url="https://github.com/CastXML/CastXML"
 license=(Apache-2.0)
@@ -22,6 +22,13 @@ makedepends=(
 )
 source=("$pkgname::git+$url.git#tag=v$pkgver")
 b2sums=('b9284b5d754a8c511607b1eafcde3cf04ecf969099fb5dbcda87c58d41489288d0a5db7f485f00790e754b9622133176644423ef1d6196f5ef433681ea19cc8d')
+
+prepare() {
+  cd $pkgname
+  # Adapt the raw-comment API rename in Clang 23.
+  # https://github.com/CastXML/CastXML/pull/298
+  git show 315fbacc4e4b9c7ea21d25ad489a90b73a526326 -- src/Output.cxx | git apply
+}
 
 build() {
   cmake -S $pkgname -B build \
