@@ -3,7 +3,7 @@
 
 pkgname=acme.sh
 pkgver=3.1.6
-pkgrel=1
+pkgrel=2
 pkgdesc='An ACME Shell script, an acme client alternative to certbot'
 arch=('any')
 url='https://github.com/acmesh-official/acme.sh'
@@ -27,9 +27,9 @@ package() {
 
   install -m755 acme.sh "$pkgdir"/usr/share/acme.sh/
   install -m644 acme.sh.completion "$pkgdir"/usr/share/bash-completion/completions/acme.sh
-  install -m755 deploy/*.sh "$pkgdir"/usr/share/acme.sh/deploy/
-  install -m755 dnsapi/*.sh "$pkgdir"/usr/share/acme.sh/dnsapi/
-  install -m755 notify/*.sh "$pkgdir"/usr/share/acme.sh/notify/
+  install -m644 deploy/*.sh "$pkgdir"/usr/share/acme.sh/deploy/
+  install -m644 dnsapi/*.sh "$pkgdir"/usr/share/acme.sh/dnsapi/
+  install -m644 notify/*.sh "$pkgdir"/usr/share/acme.sh/notify/
 
   install -Dm755 /dev/stdin "$pkgdir"/usr/bin/acme.sh <<'EOF'
 #!/bin/sh
