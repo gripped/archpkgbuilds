@@ -2,7 +2,7 @@
 # Contributor: quietvoid <tcChlisop0@gmail.com>
 
 pkgname=dovi-tool
-pkgver=2.3.3
+pkgver=2.3.4
 pkgrel=1
 pkgdesc='CLI tool combining multiple utilities for working with Dolby Vision'
 arch=(x86_64)
@@ -13,9 +13,14 @@ makedepends=(
   git
   gnu-free-fonts
 )
-depends=(fontconfig)
+depends=(
+  fontconfig
+  freetype2
+  glibc
+  libgcc
+)
 source=(git+https://github.com/quietvoid/dovi_tool.git#tag=${pkgver})
-b2sums=('5908fc46da4e900e37dd455b1006456f6ac7bd702ecdb13a377c47d476cd0006d058f974e5c26a719c90bfa179546ca2f64d37ced4a5a5a78539bcadb413b5ae')
+b2sums=('39cf2d0b4456d8063928c2bad8230486dad6ab67adb6c257985352efd692b3e97c74fb53327282f7b2040bba4064c193254ad3728bdb278f2a57102ae0237d18')
 
 prepare() {
   cargo fetch \
