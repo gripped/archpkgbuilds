@@ -1,0 +1,289 @@
+--- a/compiler/GHC/Cmm/Parser.y.source
++++ b/compiler/GHC/Cmm/Parser.y.source
+@@ -1240,6 +1240,7 @@
+   ( fsLit "LDV_RECORD_CREATE",     \[e] -> ldvRecordCreate e ),
+ 
+   ( fsLit "PUSH_UPD_FRAME",        \[sp,e] -> emitPushUpdateFrame sp e ),
++  ( fsLit "PUSH_BH_UPD_FRAME",     \[sp,e] -> emitPushBHUpdateFrame sp e ),
+   ( fsLit "SET_HDR",               \[ptr,info,ccs] ->
+                                         emitSetDynHdr ptr info ccs ),
+   ( fsLit "TICK_ALLOC_PRIM",       \[hdr,goods,slop] ->
+@@ -1255,6 +1256,10 @@
+ emitPushUpdateFrame sp e = do
+   emitUpdateFrame sp mkUpdInfoLabel e
+ 
++emitPushBHUpdateFrame :: CmmExpr -> CmmExpr -> FCode ()
++emitPushBHUpdateFrame sp e = do
++  emitUpdateFrame sp mkBHUpdInfoLabel e
++
+ pushStackFrame :: [CmmParse CmmExpr] -> CmmParse () -> CmmParse ()
+ pushStackFrame fields body = do
+   profile <- getProfile
+--- a/compiler/GHC/Cmm/Parser.hs
++++ b/compiler/GHC/Cmm/Parser.hs
+@@ -3131,6 +3131,7 @@
+   ( fsLit "LDV_RECORD_CREATE",     \[e] -> ldvRecordCreate e ),
+ 
+   ( fsLit "PUSH_UPD_FRAME",        \[sp,e] -> emitPushUpdateFrame sp e ),
++  ( fsLit "PUSH_BH_UPD_FRAME",     \[sp,e] -> emitPushBHUpdateFrame sp e ),
+   ( fsLit "SET_HDR",               \[ptr,info,ccs] ->
+                                         emitSetDynHdr ptr info ccs ),
+   ( fsLit "TICK_ALLOC_PRIM",       \[hdr,goods,slop] ->
+@@ -3146,6 +3147,10 @@
+ emitPushUpdateFrame sp e = do
+   emitUpdateFrame sp mkUpdInfoLabel e
+ 
++emitPushBHUpdateFrame :: CmmExpr -> CmmExpr -> FCode ()
++emitPushBHUpdateFrame sp e = do
++  emitUpdateFrame sp mkBHUpdInfoLabel e
++
+ pushStackFrame :: [CmmParse CmmExpr] -> CmmParse () -> CmmParse ()
+ pushStackFrame fields body = do
+   profile <- getProfile
+--- a/rts/Apply.cmm
++++ b/rts/Apply.cmm
+@@ -698,7 +698,7 @@
+ 
+   /* ensure there is at least AP_STACK_SPLIM words of headroom available
+    * after unpacking the AP_STACK. See bug #1466 */
+-  PUSH_UPD_FRAME(Sp - SIZEOF_StgUpdateFrame, R1);
++  PUSH_BH_UPD_FRAME(Sp - SIZEOF_StgUpdateFrame, R1);
+   Sp = Sp - SIZEOF_StgUpdateFrame - WDS(Words);
+ 
+   TICK_ENT_AP();
+--- a/rts/ThreadPaused.c
++++ b/rts/ThreadPaused.c
+@@ -15,6 +15,7 @@
+ #include "RaiseAsync.h"
+ #include "Trace.h"
+ #include "Threads.h"
++#include "Messages.h"
+ #include "sm/NonMovingMark.h"
+ 
+ #include <string.h> // for memmove()
+@@ -182,6 +183,30 @@
+     }
+ }
+ 
++/*
++ * Check whether tso is the owner of the black hole bh.
++ *
++ * We must call this from the capability that runs tso,
++ * since that guarantees that the writes to bh->indirectee
++ * by tso claiming ownership have been visible. If another
++ * tso has claimed it again afterwards we can safely suspend
++ * our work.
++ */
++static bool
++threadPausedBlackHoleOwner(StgTSO *tso, StgClosure *bh)
++{
++    StgClosure *ind = RELAXED_LOAD(&((StgInd*)bh)->indirectee);
++    if (ind == (StgClosure*)tso) {
++        return true;
++    }
++    const StgInfoTable *ind_info = GET_INFO(UNTAG_CLOSURE(ind));
++    if (ind_info == &stg_BLOCKING_QUEUE_CLEAN_info
++        || ind_info == &stg_BLOCKING_QUEUE_DIRTY_info) {
++        return ((StgBlockingQueue*)UNTAG_CLOSURE(ind))->owner == tso;
++    }
++    return false;
++}
++
+ /* -----------------------------------------------------------------------------
+  * Pausing a thread
+  *
+@@ -254,11 +279,10 @@
+             // Note [suspend duplicate work]
+             // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+             // If the info table is a WHITEHOLE or a BLACKHOLE, then
+-            // another thread has claimed it (via the SET_INFO()
+-            // below), or is in the process of doing so.  In that case
+-            // we want to suspend the work that the current thread has
+-            // done on this thunk and wait until the other thread has
+-            // finished.
++            // some thread has claimed it, or is in the process of doing
++            // so. In that case we want to suspend the work that the
++            // current thread has done on this thunk and wait until the
++            // other thread has finished.
+             //
+             // If eager blackholing is taking place, it could be the
+             // case that the blackhole points to the current
+@@ -286,8 +310,8 @@
+             // Note that great care is required when entering computations
+             // suspended by this mechanism. See Note [AP_STACKs must be eagerly
+             // blackholed] for details.
+-            if (((bh_info == &stg_BLACKHOLE_info)
+-                 && (RELAXED_LOAD(&((StgInd*)bh)->indirectee) != (StgClosure*)tso))
++            if ((IS_BLACKHOLE_INFO(bh_info)
++                && !threadPausedBlackHoleOwner(tso, bh))
+                 || (bh_info == &stg_WHITEHOLE_info))
+             {
+                 debugTrace(DEBUG_squeeze,
+@@ -314,48 +338,64 @@
+                 continue;
+             }
+ 
+-            // an EAGER_BLACKHOLE or CAF_BLACKHOLE gets turned into a
+-            // BLACKHOLE here.
++            // If we have a frame that is already eagerly blackholed, we
++            // shouldn't overwrite its payload: There may already be a blocking
++            // queue (see #26324).
++            if(frame_info == &stg_bh_upd_frame_info
++               || IS_BLACKHOLE_INFO(bh_info)) {
++                // already a black hole: we do nothing
++
++                // it should be a black hole (but we may not own it, as another
++                // thread could have raced us to claim it)
++                ASSERT(IS_BLACKHOLE_INFO(bh_info));
++
++            } else {
++                // lazy black hole
++
+ #if defined(THREADED_RTS)
+-            // first we turn it into a WHITEHOLE to claim it, and if
+-            // successful we write our TSO and then the BLACKHOLE info pointer.
+-            cur_bh_info = (const StgInfoTable *)
+-                cas((StgVolatilePtr)&bh->header.info,
+-                    (StgWord)bh_info,
+-                    (StgWord)&stg_WHITEHOLE_info);
++                // first we turn it into a WHITEHOLE to claim it, and if
++                // successful we write our TSO and then the BLACKHOLE info pointer.
++                cur_bh_info = (const StgInfoTable *)
++                    cas((StgVolatilePtr)&bh->header.info,
++                        (StgWord)bh_info,
++                        (StgWord)&stg_WHITEHOLE_info);
+ 
+-            if (cur_bh_info != bh_info) {
+-                bh_info = cur_bh_info;
++                if (cur_bh_info != bh_info) {
++                    bh_info = cur_bh_info;
+ #if defined(PROF_SPIN)
+-                NONATOMIC_ADD(&whitehole_threadPaused_spin, 1);
++                    NONATOMIC_ADD(&whitehole_threadPaused_spin, 1);
+ #endif
+-                busy_wait_nop();
+-                goto retry;
+-            }
++                    busy_wait_nop();
++                    goto retry;
++                }
+ #endif
++                ASSERT(bh_info != &stg_WHITEHOLE_info);
+ 
+-            IF_NONMOVING_WRITE_BARRIER_ENABLED {
+-                if (ip_THUNK(INFO_PTR_TO_STRUCT(bh_info))) {
+-                    // We are about to replace a thunk with a blackhole.
+-                    // Add the free variables of the closure we are about to
+-                    // overwrite to the update remembered set.
+-                    // N.B. We caught the WHITEHOLE case above.
+-                    updateRemembSetPushThunkEager(cap,
+-                                                  THUNK_INFO_PTR_TO_STRUCT(bh_info),
+-                                                  (StgThunk *) bh);
++                IF_NONMOVING_WRITE_BARRIER_ENABLED {
++                    if (ip_THUNK(INFO_PTR_TO_STRUCT(bh_info))) {
++                        // We are about to replace a thunk with a blackhole.
++                        // Add the free variables of the closure we are about to
++                        // overwrite to the update remembered set.
++                        // N.B. We caught the WHITEHOLE case above.
++                        updateRemembSetPushThunkEager(cap,
++                                                    THUNK_INFO_PTR_TO_STRUCT(bh_info),
++                                                    (StgThunk *) bh);
++                    }
+                 }
+-            }
+ 
+-            // zero out the slop so that the sanity checker can tell
+-            // where the next closure is. N.B. We mustn't do this until we have
+-            // pushed the free variables to the update remembered set above.
+-            OVERWRITING_CLOSURE_SIZE(bh, closure_sizeW_(bh, INFO_PTR_TO_STRUCT(bh_info)));
+-
+-            // The payload of the BLACKHOLE points to the TSO
+-            RELEASE_STORE(&((StgInd *)bh)->indirectee, (StgClosure *)tso);
+-            SET_INFO_RELEASE(bh,&stg_BLACKHOLE_info);
++                // zero out the slop so that the sanity checker can tell
++                // where the next closure is. N.B. We mustn't do this until we have
++                // pushed the free variables to the update remembered set above.
++                OVERWRITING_CLOSURE_SIZE(bh, closure_sizeW_(bh, INFO_PTR_TO_STRUCT(bh_info)));
++
++                // The payload of the BLACKHOLE points to the TSO
++                RELEASE_STORE(&((StgInd *)bh)->indirectee, (StgClosure *)tso);
++                SET_INFO_RELEASE(bh,&stg_BLACKHOLE_info);
++            }
+ 
+-            // .. and we need a write barrier, since we just mutated the closure:
++            // We need a write barrier, since the closure was mutated (by
++            // threadPaused for lazy black holes, or the mutator for eager
++            // black holes).
+             recordClosureMutated(cap,bh);
+ 
+             // We pretend that bh has just been created.
+--- a/rts/include/rts/storage/ClosureMacros.h
++++ b/rts/include/rts/storage/ClosureMacros.h
+@@ -322,6 +322,18 @@
+ EXTERN_INLINE StgOffset BLACKHOLE_sizeW ( void )
+ { return sizeofW(StgInd); } // a BLACKHOLE is a kind of indirection
+ 
++/* -----------------------------------------------------------------------------
++   Blackhole predicates
++   -------------------------------------------------------------------------- */
++
++#define IS_BLACKHOLE_INFO(info) \
++    ((info) == &stg_BLACKHOLE_info || \
++     (info) == &__stg_EAGER_BLACKHOLE_info || \
++     (info) == &stg_CAF_BLACKHOLE_info)
++
++#define IS_BLACKHOLE_OR_WHITEHOLE_INFO(info) \
++    (IS_BLACKHOLE_INFO(info) || (info) == &stg_WHITEHOLE_info)
++
+ /* --------------------------------------------------------------------------
+    Sizes of closures
+    ------------------------------------------------------------------------*/
+--- a/rts/Messages.c
++++ b/rts/Messages.c
+@@ -175,10 +175,7 @@
+     // BLACKHOLE has already been updated, and GC has shorted out the
+     // indirection, so the pointer no longer points to a BLACKHOLE at
+     // all.
+-    if (bh_info != &stg_BLACKHOLE_info &&
+-        bh_info != &stg_CAF_BLACKHOLE_info &&
+-        bh_info != &__stg_EAGER_BLACKHOLE_info &&
+-        bh_info != &stg_WHITEHOLE_info) {
++    if (!IS_BLACKHOLE_OR_WHITEHOLE_INFO(bh_info)) {
+         // if it is a WHITEHOLE, then a thread is in the process of
+         // trying to BLACKHOLE it.  But we know that it was once a
+         // BLACKHOLE, so there is at least a valid pointer in the
+@@ -328,10 +325,7 @@
+ 
+     info = RELAXED_LOAD(&bh->header.info);
+ 
+-    if (info != &stg_BLACKHOLE_info &&
+-        info != &stg_CAF_BLACKHOLE_info &&
+-        info != &__stg_EAGER_BLACKHOLE_info &&
+-        info != &stg_WHITEHOLE_info) {
++    if (!IS_BLACKHOLE_OR_WHITEHOLE_INFO(info)) {
+         return NULL;
+     }
+ 
+--- a/rts/Threads.c
++++ b/rts/Threads.c
+@@ -436,7 +436,7 @@
+         // thing the result would be the same in almost all cases. See #20093.
+         p = UNTAG_CLOSURE(bq->bh);
+         const StgInfoTable *pinfo = ACQUIRE_LOAD(&p->header.info);
+-        if (pinfo != &stg_BLACKHOLE_info ||
++        if (!IS_BLACKHOLE_INFO(pinfo) ||
+             (RELAXED_LOAD(&((StgInd *)p)->indirectee) != (StgClosure*)bq))
+         {
+             wakeBlockingQueue(cap,bq);
+@@ -460,10 +460,7 @@
+     const StgInfoTable *i;
+ 
+     i = ACQUIRE_LOAD(&thunk->header.info);
+-    if (i != &stg_BLACKHOLE_info &&
+-        i != &stg_CAF_BLACKHOLE_info &&
+-        i != &__stg_EAGER_BLACKHOLE_info &&
+-        i != &stg_WHITEHOLE_info) {
++    if (!IS_BLACKHOLE_OR_WHITEHOLE_INFO(i)) {
+         updateWithIndirection(cap, thunk, val);
+         return;
+     }
