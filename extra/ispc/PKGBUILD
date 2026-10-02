@@ -4,7 +4,7 @@
 
 pkgname=ispc
 pkgver=1.31.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Compiler for high-performance SIMD programming on the CPU"
 arch=(x86_64)
 url="https://ispc.github.io/"
@@ -42,6 +42,11 @@ prepare() {
   git config submodule.benchmarks/vendor/google/benchmark.url "$srcdir/$pkgname-benchmark"
   git config submodule.ispcrt/tests/vendor/google/googletest.url "$srcdir/$pkgname-googletest"
   git -c protocol.file.allow=always submodule update
+
+# Support LLVM 23
+  git cherry-pick -n 63ac821ed7c5c10cdfc41effedc5ce357deac4ae \
+                     db61d25379b4627f3c0f695412233012632b5729 \
+                     32217788b98b6e8d532799d7b10792fb7c1c732c
 }
 
 build() {
