@@ -2,8 +2,8 @@
 
 _hkgname=haskell-lexer
 pkgname=haskell-lexer 
-pkgver=1.2
-pkgrel=2
+pkgver=1.2.1
+pkgrel=1
 pkgdesc="A fully compliant Haskell 98 lexer"
 url="https://hackage.haskell.org/package/haskell-lexer"
 license=('MIT')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('e6db90ca910526fe4ab34faab279f5337b347a257c2492892882fdbe9becc4b48a35f3d8754aae254039ed037d7e334fcbaff68edf5bc7daa194e3ff41ffc76a')
+sha512sums=('ab6544a75c1ae98d30311e1b0e4c054836eee794a97f96cb7dffaaa632aae59e98d75c5166a776d6aea930d253f3c5e3252134e75c7d1bcef65c9e2279195a1c')
 
 build() {
     cd $_hkgname-$pkgver
