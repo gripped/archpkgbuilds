@@ -1,9 +1,9 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
-_pyname=json-stream
-pkgname=python-${_pyname}
-pkgver=2.3.2
-pkgrel=5
+_pyname=json_stream
+pkgname=python-${_pyname/_/-}
+pkgver=2.5.1
+pkgrel=1
 pkgdesc='Simple streaming JSON parser'
 arch=(any)
 url="https://github.com/daggaz/json-stream"
@@ -11,7 +11,7 @@ license=('MIT')
 depends=(python python-json-stream-rs-tokenizer)
 makedepends=(python-build python-installer python-setuptools python-wheel)
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/${_pyname}/${_pyname}-${pkgver}.tar.gz")
-b2sums=('749a68681349883b32b217a0a9a37a122292f73da9d8795df5191300f52695c320a21b452719a6eedecfa0c48065b8e27a45f66312a310d4947409906ede6c78')
+b2sums=('def45a8d0a9e59fd94140d831cb052b1839c843c5a69a267bceae2133d02cef0418b3cc73ac07d7899d758dc8816b0f9e71b23702f4402a1aa17c96babf5b843')
 
 build() {
   cd "${_pyname}-${pkgver}"
