@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-listen
-pkgver=3.10.0
+pkgver=3.10.1
 pkgrel=1
 pkgdesc='The Listen gem listens to file modifications and notifies you about the changes.'
 arch=(any)
@@ -23,7 +23,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/guard/listen.git#tag=v$pkgver)
-sha256sums=('00d8cd749413ff584f8bcfa13f172c3b94c764ade124fdf2c5fac63fe863aab4')
+sha256sums=('1c862bfd08b2cfb27c0ea80bdd2648ac056e74a7577dc707ad6e9f845ba7df6a')
 
 prepare() {
   cd listen
