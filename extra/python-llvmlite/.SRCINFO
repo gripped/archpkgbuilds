@@ -1,14 +1,14 @@
 pkgbase = python-llvmlite
 	pkgdesc = A lightweight LLVM Python binding for writing JIT compilers
 	pkgver = 0.49.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/numba/llvmlite
 	arch = x86_64
 	license = BSD-2-Clause AND Apache-2.0 WITH LLVM-exception
 	checkdepends = python-pytest
 	makedepends = cmake
 	makedepends = git
-	makedepends = llvm
+	makedepends = llvm22
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
@@ -16,7 +16,7 @@ pkgbase = python-llvmlite
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
-	depends = llvm-libs
+	depends = llvm22-libs
 	depends = python
 	source = git+https://github.com/numba/llvmlite.git#tag=v0.49.0
 	b2sums = 9a46ebc71dc74aa206f79b23dbacb3de3ba564776fc92e88b4cf43c4e18f9a29bcad80bd5bb4b024e5410da4596f3c44b069ba9a85be2ef9d8ab5028cf409db7

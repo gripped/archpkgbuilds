@@ -4,7 +4,7 @@
 _name=llvmlite
 pkgname=python-$_name
 pkgver=0.49.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A lightweight LLVM Python binding for writing JIT compilers"
 arch=(x86_64)
 url="https://github.com/numba/llvmlite"
@@ -13,13 +13,13 @@ depends=(
     glibc
     libgcc
     libstdc++
-    llvm-libs
+    llvm22-libs
     python
 )
 makedepends=(
     cmake
     git
-    llvm
+    llvm22
     python-build
     python-installer
     python-setuptools-scm
@@ -33,6 +33,7 @@ b2sums=('9a46ebc71dc74aa206f79b23dbacb3de3ba564776fc92e88b4cf43c4e18f9a29bcad80b
 
 build() {
     cd $_name
+    export PATH="/usr/lib/llvm22/bin:$PATH"
     LLVMLITE_SHARED=ON python -m build --wheel --no-isolation
 }
 
