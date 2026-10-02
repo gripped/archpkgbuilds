@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=selene
-pkgver=0.31.0
+pkgver=0.32.0
 pkgrel=1
 pkgdesc='Blazing-fast modern Lua linter written in Rust'
 arch=(x86_64)
@@ -17,22 +17,33 @@ makedepends=(
   cargo
   git
 )
-options=(!lto)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('7a3d0166e554eb126b8e821a0c5be489592b5ddde1f4dc7fb38028971f8bbaddfab90725c28e2fe8a72feb5d769df10dc7b6e44df12642fa75b057bb67d83b89')
+b2sums=('5628be2f7dd818e96e3817cc7af7dddd3119ef274d5bf650a3224474234fafc09d6439a97f4ec78cd852351f029d54267cde87766e5cc67a33c9a248718f8adb')
+
+_srcenv() {
+  cd "$pkgname"
+  export CARGO_HOME="$srcdir"
+  export CARGO_PROFILE_RELEASE_DEBUG=2
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  export CARGO_PROFILE_RELEASE_LTO=thin
+  export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+  export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
+  CFLAGS+=' -fno-lto'
+  export OPENSSL_NO_VENDOR=1
+}
 
 prepare() {
-  cd $pkgname
+  _srcenv
   cargo fetch --locked --target host-tuple
 }
 
 build() {
-  cd $pkgname
+  _srcenv
   cargo build --release --locked --offline
 }
 
 check() {
-  cd $pkgname
+  _srcenv
   local skipped=(
     # sometimes stack overflows
     lint_filtering::tests::test_lint_filtering
