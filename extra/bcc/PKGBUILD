@@ -11,7 +11,7 @@ pkgname=(
   'python-bcc'
 )
 pkgver=0.37.0
-pkgrel=1
+pkgrel=2
 pkgdesc='BPF Compiler Collection'
 arch=('x86_64')
 url='https://github.com/iovisor/bcc'
@@ -76,6 +76,8 @@ prepare() {
     > src/python/bcc/version.py
 
   patch -Np1 < ../$pkgbase-define-cmake-components.patch
+
+  git cherry-pick -n dad0db93fd0f443b2a4f43bc2f23c621c9202516 # Fix build with LLVM 23
 }
 
 build() {
