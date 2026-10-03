@@ -2,8 +2,8 @@
 
 _hkgname=sdl2
 pkgname=haskell-sdl2
-pkgver=2.5.6.0
-pkgrel=20
+pkgver=2.5.6.1
+pkgrel=2
 pkgdesc="Both high- and low-level bindings to the SDL library"
 url="https://github.com/haskell-game/sdl2.git"
 license=('BSD-3-Clause')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'sdl2' 'haskell-statevar' 'haskell-linear' 'haskell-vector')
 makedepends=('ghc' 'pulseaudio' 'xorg-server-xvfb' 'haskell-weigh')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7e59b4a4a5984c3d7a28b7d0c0bb2326d94522191deb71e483410c9070e1bd00')
+sha256sums=('9f99ae15183aaacbc5e0422250cfccb95cfea491f751e5855bb5e96127081d7e')
 
 build() {
   cd $_hkgname-$pkgver
