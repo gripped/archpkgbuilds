@@ -4,7 +4,7 @@
 
 pkgname=libmateweather
 pkgver=1.28.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Provides access to weather information from the Internet'
 arch=(x86_64)
 url='https://github.com/mate-desktop/libmateweather'
@@ -23,6 +23,7 @@ makedepends=(
   git
   glib2-devel
   gtk-doc
+  mate-common
   tar
 )
 source=(
