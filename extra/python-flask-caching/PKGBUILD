@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-flask-caching
-pkgver=2.4.0
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="A caching extension for Flask"
 url="https://github.com/pallets-eco/flask-caching"
@@ -35,7 +35,7 @@ optdepends=(
   'python-redis: for Redis backend'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('5809b883e880dca6322d5bd0c147ec731076d1c9f1601e12335b7870d673d309bfe32d7b9a1f651c5cd28ff13c52bf078ad573090fe906d1e72793b8a07e15c4')
+b2sums=('dd02b79712866733cd7cfc8e9e405816aeb65c36e11da1909544daef9e3880de85124919de2ceb7f1ab235c9d2faf8fa9ab31dd4554b947167501063d78c4f86')
 
 build() {
   cd ${pkgname#python-}-$pkgver
