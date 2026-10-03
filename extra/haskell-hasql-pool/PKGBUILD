@@ -3,8 +3,8 @@
 
 _hkgname=hasql-pool
 pkgname=haskell-hasql-pool
-pkgver=0.8.0.3
-pkgrel=26
+pkgver=0.8.0.4
+pkgrel=2
 pkgdesc="A pool of connections for Hasql"
 url="https://github.com/nikita-volkov/hasql-pool"
 license=('MIT')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-hasql')
 makedepends=('ghc' 'uusi' 'haskell-hspec')
 checkdepends=('pifpaf' 'postgresql' 'haskell-async' 'haskell-rerebase')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('1d7b37d66b540640cd853b083cab4931161d6a3307ebf1b8c3f9ee242e4d0916591717fe8e4b299ea9758f7dbf843599bc39022fa7bab748fe5b5a38ee0521b2')
+sha512sums=('4109fef829da5937a09401d0e823a877d4445bb1f7386a6c3bf939cec57ba03c116234ce39a8792f1bfc28edc66f477693c05c5fc1ce249b1242f80b6fcd0981')
 
 prepare() {
     cd $_hkgname-$pkgver
