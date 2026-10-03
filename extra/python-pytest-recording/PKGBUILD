@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-recording
-pkgver=0.13.4
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="A pytest plugin powered by VCR.py to record and replay HTTP traffic"
 arch=('any')
@@ -26,7 +26,7 @@ checkdepends=(
   'python-werkzeug'
 )
 source=("git+https://github.com/kiwicom/pytest-recording.git#tag=v$pkgver")
-sha512sums=('9a5fedf58b9b028746c89b40951742ffab3e3652e7383543e35da1a73502bb842b83255f9fba95f120fb1b36335b16cbcf75d32ae785e0a8cbd95745f63422ab')
+sha512sums=('4d65bb983d217ddd7a49046e3b9bfa92780a13e9f897c9ae1eddfa4a930aec749dfcfa2e652144bf04707a13d6dda9ecee9b07415ab33b741e69b828b6482e6f')
 
 build() {
   cd pytest-recording
