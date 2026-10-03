@@ -2,30 +2,30 @@
 
 pkgname=mate-icon-theme-faenza
 pkgver=1.20.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Faenza icon theme for MATE"
-url="https://mate-desktop.org"
-arch=('any')
-license=('GPL-3.0-only')
-makedepends=('mate-common')
-groups=('mate-extra')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop-legacy-archive/mate-icon-theme-faenza/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('3e838a08c18116d4d69fcacf50b456d79846db12bf249b44c7d971cf2df7b9c0')
+arch=(any)
+url='https://github.com/mate-desktop-legacy-archive/mate-icon-theme-faenza'
+license=(GPL-3.0-only)
+makedepends=(git)
+source=("git+https://github.com/mate-desktop-legacy-archive/mate-icon-theme-faenza.git#tag=v$pkgver")
+b2sums=(c533667e0e4c4998784fd425e7f2adda5bf686be8c2bde1cc12b9454c4708923a292fa864b995d1b3efc328aec5f68bb3918dcdeb7fdd5f259a4b13f326f0fb8)
 
 prepare() {
-    cd "${pkgname}-${pkgver}"
-    ./autogen.sh
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-    cd "${pkgname}-${pkgver}"
-    ./autogen.sh
-    ./configure \
-        --prefix=/usr
-    make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    cd "${pkgname}-${pkgver}"
-    make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
