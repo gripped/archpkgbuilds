@@ -5,7 +5,7 @@
 # Contributer: Alex Ogier <alex.ogier@gmail.com>
 
 pkgname=ruby-build
-pkgver=20260902
+pkgver=20260917
 pkgrel=1
 pkgdesc="A tool to download, compile, and install Ruby on Unix-like systems"
 arch=('any')
@@ -20,7 +20,7 @@ optdepends=(
   'rust: install ruby with YJIT enabled'
 )
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('825f8811408448d7cbfbd95019ba521ce2da64ebcaf100d9b3e83b4bb6d41487e8500ed136b12ee5caf7c3018bdd7a199ec6b6b82570470fd6bd1acb7e94a62a')
+b2sums=('b52a94ea353a9e5c5f2182ecee74cbf1effb3688014271719c61e3ef800d4facc007900e5030abeca535274518f999d2f3ee41aac8eb993379aed45bbb81ead3')
 
 prepare() {
   cd $pkgname
