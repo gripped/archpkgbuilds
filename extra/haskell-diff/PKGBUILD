@@ -3,8 +3,8 @@
 
 _hkgname=Diff
 pkgname=haskell-diff
-pkgver=1.0
-pkgrel=21
+pkgver=1.0.1
+pkgrel=1
 pkgdesc="Diff algorithm in pure Haskell"
 url="https://github.com/seereason/Diff"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('3383443b91a47d594b9dcd1c311f68c774c28858b5df0fad9bc5c1f0067ca3cb0a464ea5cf16f904959b299f08ee76a187860efe1420fc3f11e4c71eb623a24a')
+sha512sums=('24fdbb133b3efaf8a6392bd312d16108adf084bb3c05ffe7c029e6645aee00647f05d08836cb27619c4ea48ca5d29fee7a0f1768ad700fbf6288fa0202e67909')
 
 build() {
     cd $_hkgname-$pkgver
