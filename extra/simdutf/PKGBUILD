@@ -3,7 +3,7 @@
 
 pkgname=simdutf
 pkgver=9.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Unicode routines (UTF8, UTF16, UTF32) and Base64"
 arch=('x86_64')
 url="https://${pkgname}.github.io/${pkgname}/"
@@ -19,7 +19,8 @@ build() {
 		-S "${pkgname}" \
 		-D CMAKE_BUILD_TYPE=None \
 		-D CMAKE_INSTALL_PREFIX=/usr \
-		-D BUILD_SHARED_LIBS=ON
+		-D BUILD_SHARED_LIBS=ON \
+		-D SIMDUTF_CXX_STANDARD=20
 
 	cmake --build build
 }
