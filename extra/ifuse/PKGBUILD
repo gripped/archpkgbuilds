@@ -7,7 +7,7 @@
 # Contributor: Gabriel Martinez < reitaka at gmail dot com >
 
 pkgname=ifuse
-pkgver=1.2.0
+pkgver=1.2.1
 pkgrel=1
 pkgdesc="A fuse filesystem to access the contents of an iPhone or iPod Touch"
 arch=(x86_64)
@@ -22,7 +22,7 @@ depends=(
 )
 makedepends=(git)
 source=("git+https://github.com/libimobiledevice/ifuse#tag=$pkgver")
-b2sums=('de24a6cdd59443f1fa5bae849e37e954fdb7ddc8b071568a22b212de22b85db13f4fef50a842bcf86bb55cdb4dc9d3331ec8aff40839a8e157c0c395fc267e66')
+b2sums=('a39c3e51e370d81c96935dc348e141ff7f991866ebc37fcfdb6ede5161d27587efd2acb4cf58bbd0814225b9b59099596b894b761f71a550ca123b0220657285')
 
 build() {
   cd $pkgname
