@@ -2,7 +2,7 @@
 # Contributor: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=python-aiobotocore
-pkgver=3.4.0
+pkgver=3.9.1
 pkgrel=1
 pkgdesc='asyncio support for botocore library using aiohttp'
 arch=(any)
@@ -21,8 +21,9 @@ depends=(
 makedepends=(
   git
   python-build
+  python-hatch-fancy-pypi-readme
+  python-hatchling
   python-installer
-  python-setuptools
   python-wheel
 )
 checkdepends=(
@@ -36,14 +37,22 @@ checkdepends=(
   python-openapi-spec-validator
   python-pip
   python-pytest
+  python-pytest-mock
   python-time-machine
+  python-tiny-proxy
+  python-trustme
   python-yaml
+)
+optdepends=(
+  'python-anyio: for the HTTPX backends'
+  'python-httpx2: for the HTTPX backend'
+  'python-httpx: for the legacy HTTPX backend'
 )
 source=(
   "git+$url.git#tag=$pkgver"
   "$pkgname-fix-duplicate-server-header.patch"
 )
-b2sums=('4e484acf1a48ad25e705064de7cdfc0bfb85c9e4b8b76c8bf4633e8bb01758e882c460f9b7ce590658bce9abb55cbf9b5c2b34092fe6d3a156b9e59286df697c'
+b2sums=('48c5017d347fc878a42e5ff3e89d35a4f66f042ea4eff469cf2615178be3188b21b2007d8ed1be9fa9b9c2eb36d187753796727dbef63db4627230e6a2975c8c'
         'e0b6a254b92f61cd0c1bb6a2930373bdd8a513afb594f9ec0001a0fdf244439d305e887a7cddcdfb4a8775ffcf609606e128959547506576f2174ccc85afdd18')
 
 prepare() {
