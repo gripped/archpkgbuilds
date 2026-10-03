@@ -3,20 +3,17 @@
 
 pkgname=git-bug
 pkgver=0.11.0
-pkgrel=1
-pkgdesc='Distributed, offline-first bug tracker embedded in git, with bridges '
+pkgrel=2
+pkgdesc='Distributed, offline-first bug tracker embedded in git repositories'
 arch=(x86_64)
 url='https://github.com/MichaelMure/git-bug'
 license=(GPL-3.0-only)
 depends=(glibc git)
-makedepends=(go)
+makedepends=(go pnpm)
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
 sha512sums=('8657e47d941599d5999db81b10878c2c48525560c4f8af772f9b4a0667bdaf07de7ef72edc8addb50aaf6838e0f676f00ab8c57e9ee025e06afc68398a5aa6c9')
 b2sums=('ba28e0d29c919c15a069de6fd0c3e377c86e031397ae186fd80b6d8e98ca45a5a8ee1d587a0720ba569f55a3e2d9cbba541903046434a793b265c127f7d0bf3c')
-
-# NOTE: webui assets seem to be pregenerated & committed into the repo
-# so there is very little point in regenerating them
 
 prepare() {
   cd "$pkgname"
@@ -24,34 +21,39 @@ prepare() {
   # create directory for build output
   mkdir build
 
-  # download dependencies
+  # download go dependencies
+  export GOPATH="${srcdir}"
   go mod download
+
+  # download pnpm dependencies
+  cd webui
+  pnpm install
 }
 
 build() {
   cd "$pkgname"
+
+  # build webui
+  pushd webui
+  pnpm build
+  popd
 
   # set Go flags
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
 
-  local GIT_COMMIT="$(git rev-list -1 HEAD)"
-  local GIT_LAST_TAG="$(git describe --abbrev=0 --tags)"
-  local GIT_EXACT_TAG="$(git name-rev --name-only --tags HEAD)"
-  local COMMANDS_PATH="github.com/MichaelMure/git-bug/commands"
-
   go generate
 
   go build -v \
-    -trimpath \
     -buildmode=pie \
     -mod=readonly \
     -modcacherw \
-    -ldflags "-linkmode external -extldflags \"${LDFLAGS}\" \
-        -X ${COMMANDS_PATH}.GitCommit=${GIT_COMMIT} \
-        -X ${COMMANDS_PATH}.GitLastTag=${GIT_LAST_TAG} \
-        -X ${COMMANDS_PATH}.GitExactTag=${GIT_EXACT_TAG}" \
+    -ldflags "-compressdwarf=false \
+    -linkmode external \
+    -extldflags '${LDFLAGS}'\
+    -X main.version=${pkgver}" \
+    -tags "webui" \
     -o build \
     .
 }
