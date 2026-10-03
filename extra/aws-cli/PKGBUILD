@@ -5,7 +5,7 @@
 # Contributor: Alper KANAT <alperkanat@raptiye.org>
 
 pkgname=aws-cli
-pkgver=1.44.81
+pkgver=1.46.1
 pkgrel=1
 pkgdesc='Universal Command Line Interface for Amazon Web Services'
 arch=('any')
@@ -13,14 +13,14 @@ url="https://github.com/aws/aws-cli"
 license=('Apache-2.0')
 depends=(
   'python'
-  'python-botocore'
+  'python-certifi'
   'python-colorama'
   'python-dateutil'
   'python-docutils'
   'python-jmespath'
   'python-pyasn1'
   'python-rsa'
-  'python-s3transfer'
+  'python-urllib3'
   'python-yaml'
 )
 makedepends=(
@@ -30,12 +30,15 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=(
+  'procps-ng'
   'python-awscrt'
+  'python-jsonschema'
   'python-pytest'
   'python-pytest-xdist'
 )
+optdepends=('python-awscrt: use AWS Common Runtime')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('f23eae79b632a8d0ff142cd856bb97aa563c56ac4748f5473b23f3af05310f37fe94d2c89e1b748917c0b5969ad4112acb4dc3493752541e536462e08cf932b1')
+b2sums=('3120c6768b749a85eea847040758f64120d5fba33be786566e178c36ed53d5d81676b8f9d632be7c09e65cc469d71366f897a4cafeb237b8fd2128361e3b4b1d')
 
 build() {
   cd $pkgname-$pkgver
