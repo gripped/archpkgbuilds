@@ -2,8 +2,8 @@
 
 _hkgname=tasty-checklist
 pkgname=haskell-tasty-checklist
-pkgver=1.0.9.0
-pkgrel=16
+pkgver=1.0.10.0
+pkgrel=2
 pkgdesc="Check multiple items during a tasty test"
 url="https://github.com/kquick/tasty-checklist"
 license=("ISC")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-parameterized-utils')
 makedepends=('ghc' 'uusi' 'haskell-doctest' 'haskell-hunit' 'haskell-tasty'
              'haskell-tasty-expected-failure' 'haskell-tasty-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('d35a66e625b706272585a0f5efaea11a7174d0d5b5166381f11a26cdd0c804a846a5e9e1a95d7185216a36d0978423a967ffa9249e4a47f01498d87046890998')
+sha512sums=('b90ef09a1cd56f8229c76097b7c69f1a5a780388e3e06607ca3307242ed9b3dad21c50365362a12f0ae68330a2ed69612eb948db4c614a428c64c6f070b36b37')
 
 prepare() {
   cd $_hkgname-$pkgver
