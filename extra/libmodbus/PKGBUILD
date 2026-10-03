@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=libmodbus
-pkgver=3.1.12
+pkgver=3.2.0
 pkgrel=1
 pkgdesc='A Modbus library for Linux, Mac OS, FreeBSD and Windows'
 arch=(x86_64)
@@ -10,7 +10,7 @@ license=(LGPL-2.1-or-later)
 depends=(glibc)
 makedepends=(git)
 source=("git+$url#tag=v$pkgver")
-b2sums=('fc9d52a64fd2eb0edab1d51610fefd34395a697dd2df76dc9c68785422036ec2d2588be1bd2a32e0d271126587ef5e02b0065eea193593df794a6dc470706d2a')
+b2sums=('63073bfc05498b40106bc3a2eab7b10c9355943eb3296048fc0bf4585270e95fd72edf1323c78272068794ea15128d7dd2ec93bfb10dba066e84db7352f1a0c3')
 
 prepare() {
   cd $pkgname
