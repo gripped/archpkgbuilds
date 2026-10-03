@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-bitarray
-pkgver=3.8.1
+pkgver=3.11.0
 pkgrel=1
 pkgdesc="Efficient arrays of booleans for Python"
 arch=(x86_64)
@@ -19,7 +19,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$url/archive/$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-b2sums=('72aa18c72ed1f4254a1e120c4a8d1ee7bbb50a5b7927ea499c94bcca6222e20fc53a58e5d55fd6a8671e980b430d0acaa08cc99c9cd48e94325f47e7f816de9f')
+b2sums=('9d6b5e4a3d0a4070dcc3cdec7607064210e7a5a98e1c7735a81e7f0dfb2788cce9df80ea9d99e0666384041db2673430add838073d8fed9b61e9d92a2d957eb5')
 
 build() {
   cd ${pkgname#python-}-$pkgver
@@ -28,9 +28,15 @@ build() {
 
 check() {
   cd ${pkgname#python-}-$pkgver
-  python -m installer --destdir=tmp_install dist/*.whl
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-  pytest "$PWD/tmp_install/$site_packages"
+  local pytest_args=(
+    --pyargs bitarray
+
+    # Requires a free-threaded Python build
+    --ignore-glob='*/test_free_threading.py'
+  )
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -Pm pytest "${pytest_args[@]}"
 }
 
 package() {
