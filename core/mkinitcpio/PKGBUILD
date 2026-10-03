@@ -5,7 +5,7 @@
 # Contributor: Thomas Bächler <thomas@archlinux.org>
 
 pkgname=mkinitcpio
-pkgver=42.1
+pkgver=42.2
 pkgrel=1
 pkgdesc="Modular initramfs image creation utility"
 arch=('any')
@@ -24,8 +24,8 @@ optdepends=('xz: Use lzma or xz compression for the initramfs image'
 provides=('initramfs')
 backup=('etc/mkinitcpio.conf')
 source=("git+$url.git#tag=v${pkgver}?signed")
-sha512sums=('d98062aa8bccb439cbf964efc0c75520f7e6be4f67a2a9d0a4aedd815081596100655bebef1c6e823688ec32a6de0e5816c8102912104078b102e63f65417f80')
-b2sums=('ac13bea8601226a3f816cefcb8508c04bb58fdc18abffd50db3e4356367f5ed3b305b877d7643c5c95e890526356678b4d53b7fb61092daa22b85757467183d0')
+sha512sums=('ddc6cb65586ea690ebdcf04f12eb0b441306efc900fb3045816512ec43b25cdec484d72cb1cbb928911a14ffd8637b14a2b7d0706232dd58797a3a07b0d40fc2')
+b2sums=('b2fb0987878f13a26ebae0c2b4a75b15f52d3f1f8d5eb46ba7e8114629889070472232a4cb5cb259a3fae0c1658ac2d049f17933bbaa6bab9fdd31cd8af18640')
 validpgpkeys=('ECCAC84C1BA08A6CC8E63FBBF22FB1D78A77AEAB'    # Giancarlo Razzolini
               'BB8E6F1B81CF0BB301D74D1CBF425A01E68B38EF')   # nl6720
 
