@@ -1,10 +1,10 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 # Contributor: Joey Dumont <joey.dumont@gmail.com>
-# Contributor: Lucas Hermann Negri <lucashnegri at gmail dot com>
+# Contributor: Lucas Hermann Negri <lucashnegri@gmail.com>
 
 pkgbase=armadillo
 pkgname=(armadillo armadillo-intel)
-pkgver=15.6.0
+pkgver=15.6.1
 pkgrel=1
 pkgdesc='Linear algebra library for C++'
 arch=(x86_64)
@@ -12,7 +12,7 @@ url='https://arma.sourceforge.net/'
 license=(Apache-2.0)
 makedepends=(arpack blas cmake intel-oneapi-mkl lapack superlu)
 source=("https://downloads.sourceforge.net/sourceforge/arma/$pkgbase-$pkgver.tar.xz")
-b2sums=('b0a0e584a0de528c0900cecf59597f909bb18dd5231a1a198c33f3ca8e7bfee46718a0f6ad67598fc608f56abe65ada38cba9ecc3e692778d86d899912164caf')
+b2sums=('7728b9064f78ca3fb606162b2a921ff42dff588cd7ba7b1e7d97cfbdfb524985cade947aab5a1d825b552f41baa72ba0048ec641a600dedffe5d11589af389cc')
 
 build() {
   # Regular build
