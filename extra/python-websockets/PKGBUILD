@@ -4,7 +4,7 @@
 # Contributor: user6553591 <Message on Reddit>
 
 pkgname=python-websockets
-pkgver=16.1.1
+pkgver=17.1
 pkgrel=1
 pkgdesc='Python implementation of the WebSocket Protocol (RFC 6455)'
 arch=('x86_64')
@@ -20,10 +20,17 @@ makedepends=(
   'python-setuptools'
   'python-wheel'
 )
-checkdepends=('python-werkzeug')
+checkdepends=(
+  'python-trio'
+  'python-werkzeug'
+)
+optdepends=(
+  'python-trio: trio backend support'
+  'python-werkzeug: routing support'
+)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('7eeff69ebf0b92c93149ce030fd92440787c3d3b9007b5b0669f0f37cc4c297bb2a207a7742e0450e3ecf1b973fe0306ac9e5dcb96c0d2d907956279c41b6cbd')
-b2sums=('65cf3cb3d755ce131d9f342ef57c3db4fdc7434479eb2e6a86728976ef4245c18245380a7ffad2f135f9b459fe0f54c9682299caa13e3286535f6766985a0438')
+sha512sums=('55a6968ae7a9d02db104733422a6e48f712aaea02e8758389b19f27b41e918697a4d7ed7533cc102eac94f4a025ffe7411d9e671ba2ecd69859450f70a1d1bee')
+b2sums=('af60d77c44adc75b11b0fb1a688ea962a51e61dd5686551981d67758a92ed1b46401ed6d7084218f34a860c1394bc813e2b3a3c8098ee93978ab540a17f50405')
 
 build() {
   cd ${pkgname#python-}-${pkgver}
@@ -42,5 +49,3 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
-
-# vim: ts=2 sw=2 et:
