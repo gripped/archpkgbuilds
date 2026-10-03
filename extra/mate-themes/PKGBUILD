@@ -4,35 +4,37 @@
 
 pkgname=mate-themes
 pkgver=3.22.26
-pkgrel=3
+pkgrel=4
 pkgdesc="Official themes for the MATE desktop"
-url="http://mate-desktop.org"
-arch=('any')
-license=('LGPL-2.1-or-later')
-makedepends=('autoconf-archive' 'mate-common' 'intltool')
+arch=(any)
+url='https://github.com/mate-desktop/mate-themes'
+license=('LGPL-2.1-only AND GPL-3.0-or-later')
+makedepends=(git)
 optdepends=('mate-icon-theme: default icon theme')
-options=('!emptydirs')
-groups=('mate')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-themes/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('7aa022a120b02ee14bcbb35c4e33f4f675c0eb6f33bb0ec7b9595b00bd9b14b7')
+options=(!emptydirs)
+groups=(mate)
+source=("git+https://github.com/mate-desktop/mate-themes.git#tag=v$pkgver")
+b2sums=(c1214b7aec17a4f34e21d01454102ea5bf12d37c8428d15d435b4c172c9c7efd844e930156ebcfaa450a5c0d175b713017de459a37b68d0979b7371ccbf74f28)
 
 prepare() {
-    	cd "${pkgname}-${pkgver}"
+  cd $pkgname
 
-	# Remove check for gtk2
-	sed -i '/Check GTK+ theme engines/,+3d' configure.ac
+  # Remove GTK2 theme engine check
+  git cherry-pick -n b347b074ca0c48f2d33b0b9acffd96c5e368f5a5
 
-	./autogen.sh
+  autoreconf -fiv
 }
 
 build() {
-    	cd "${pkgname}-${pkgver}"
-    	./configure \
-        	--prefix=/usr
-    	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
