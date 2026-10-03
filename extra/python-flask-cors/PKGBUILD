@@ -3,8 +3,8 @@
 # Contributor: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-flask-cors
-pkgver=6.0.2
-pkgrel=2
+pkgver=6.0.5
+pkgrel=1
 pkgdesc='A Flask extension adding a decorator for CORS support'
 url='https://github.com/corydolphin/flask-cors'
 arch=('any')
@@ -19,19 +19,11 @@ makedepends=(
   'python-build'
   'python-installer'
   'python-setuptools'
+  'python-setuptools-scm'
   'python-wheel'
 )
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('c4b49e61505438132abf9c347c3dfee12a85d94a60f307f731f32ebf240c0ab1')
-
-prepare() {
-	cd ${pkgname#python-}
-	# Write versions following upstream release workflow
-	# https://github.com/corydolphin/flask-cors/blob/5.0.1/.github/workflows/on-release-main.yml#L20-L21
-	local RELEASE_VERSION=$pkgver
-	sed -i "s/^version = \".*\"/version = \"$RELEASE_VERSION\"/" pyproject.toml
-	sed -i "s/__version__ .*/__version__ = \"$RELEASE_VERSION\"/" flask_cors/version.py
-}
+b2sums=('ce5e4043abc9b814e9c5b5336cafe2af2c63e9656596c4b20db19a06ba5f0ae39cc3abd47fcc9deab2cb2ae895469d2a5f8687049b8cfcc01a246bc4c5e33fa5')
 
 build() {
 	cd ${pkgname#python-}
