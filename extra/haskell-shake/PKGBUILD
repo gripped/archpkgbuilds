@@ -3,8 +3,8 @@
 
 _hkgname=shake
 pkgname=haskell-shake
-pkgver=0.19.8
-pkgrel=24
+pkgver=0.19.9
+pkgrel=3
 pkgdesc="Build system library, like Make, but more accurate dependencies."
 url="https://shakebuild.com"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-extra' 'haskell-filepattern' 'haskell-hashable'
          'haskell-primitive' 'haskell-random' 'haskell-unordered-containers' 'haskell-utf8-string')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('0570155f03a02cacfcd1c30d16e3a7c4a2d44bc74d4d37f21d36883a88fe51289aa01b1a6f8f961e79cf0143edbec6c50158f0a5aace87bb6b6010f00c9d02b9')
+sha512sums=('2b6324363178268c319e3e032ba8c263d5d72c3a5b8e4924141ebaa07bd68f51a0f084906fd11b40dd0428fd919aaad44bc4635b54c43f46cb774a9b04aee3a0')
 
 prepare() {
     cd $_hkgname-$pkgver
