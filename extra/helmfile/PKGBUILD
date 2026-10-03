@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=helmfile
-pkgver=1.7.4
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Manage multiple helm charts with a single helmfile"
 arch=('x86_64')
@@ -18,8 +18,8 @@ makedepends=(
 )
 options=('!lto')
 source=("git+$url.git#tag=v${pkgver}")
-sha512sums=('9bc2a5c5cedc4117cc5d76f29e8251be8d15ccfe4c66ab9bc3a931276e948e41ff17d3e1788b7a7ba843375628151ab53dda3a889d56f2d4395c84c59f425323')
-b2sums=('79659868f06d29945468dc21922ea15a2abde87a095c1e62fadaa26d90fec88e1c45838334ff07fde00c7a68023f4ec755712cffa1175bfc550c2d4febfe4ccc')
+sha512sums=('ff8faecf500d5fcb2520e94a4803b59342fb4c4791ea0efa15050f2eed04b2e527452e496f4865a1294802700e18feba3e79573cf19d822f176e89d7b43abf29')
+b2sums=('356d0d4ce1c1e8907e6ec1a5efb9a2ae620aa697651624928168721c446c51c4abed17417ce26e0e13cc0b62bad10136bfda08d970aa81788896e06705161af7')
 
 prepare() {
   cd $pkgname
