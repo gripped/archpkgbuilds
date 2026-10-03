@@ -2,19 +2,19 @@
 
 _hkgname=happstack-server
 pkgname=haskell-happstack-server
-pkgver=7.9.3
-pkgrel=78
+pkgver=7.9.4
+pkgrel=1
 pkgdesc="Web related tools and services."
 url="http://happstack.com"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-blaze-html' 'haskell-extensible-exceptions'
-         'haskell-hslogger' 'haskell-html' 'haskell-monad-control' 'haskell-network'
-         'haskell-network-uri' 'haskell-sendfile' 'haskell-syb' 'haskell-system-filepath'
-         'haskell-threads' 'haskell-transformers-base' 'haskell-utf8-string' 'haskell-zlib')
+depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-blaze-html' 'haskell-hslogger'
+         'haskell-html' 'haskell-monad-control' 'haskell-network' 'haskell-network-uri'
+         'haskell-sendfile' 'haskell-syb' 'haskell-system-filepath' 'haskell-threads'
+         'haskell-transformers-base' 'haskell-utf8-string' 'haskell-zlib')
 makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('ab9e02357faaa04a3bb000279ca54cca550ecd51505b6f6e846de669a7884fdc')
+sha256sums=('1ce454a25875c521d2c44c280d35a00611afe150888f08bed5f4daa8afdf9737')
 
 build() {
   cd $_hkgname-$pkgver
