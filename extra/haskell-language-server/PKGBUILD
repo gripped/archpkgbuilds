@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=haskell-language-server
-pkgver=2.3.0.0
-pkgrel=128
+pkgver=2.4.0.0
+pkgrel=1
 pkgdesc="LSP server for GHC"
 url="https://github.com/haskell/haskell-language-server#readme"
 license=('Apache-2.0')
@@ -32,7 +32,7 @@ makedepends=('ghc' 'uusi' 'haskell-ghcide-test-utils' 'haskell-hls-test-utils'
              'haskell-hspec-expectations' 'haskell-lsp-test' 'haskell-row-types')
 checkdepends=('cabal-install')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('49cec135ce5d7c5a34b82af0c9e046a9ba16f895fd3c3f95b2003b0d163b9c9f8f382ff6c332bcf653c21b163ac10d60d6b77703d7219bb5b56d72806dc0af62')
+sha512sums=('a6982d19c06d3f7c89a31de0f97284b5f9dac63c58ba12c0020ca67f981257041982cc0fb22a957d5e0caa7f3e92da7c18e58adb73fde4bd62c547dfa523f33b')
 
 prepare() {
   cd $pkgname-$pkgver
