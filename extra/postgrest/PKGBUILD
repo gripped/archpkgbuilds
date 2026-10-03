@@ -3,7 +3,7 @@
 
 pkgname=postgrest
 pkgver=10.1.0
-pkgrel=119
+pkgrel=125
 pkgdesc="REST API for any Postgres database"
 url="https://github.com/begriffs/postgrest"
 license=("MIT")
@@ -32,6 +32,10 @@ prepare() {
     uusi -u Ranged-sets -u aeson -u auto-update -u cookie -u hspec -u hspec-wai -u hspec-wai-json -u HTTP -u jose -u lens -u lens-aeson -u optparse-applicative -u swagger2 -u warp
     # GHC 9.4+
     uusi -u base -u mtl -u text -u time
+    # jose 0.12 generalizes JWT headers, so select the standard signed JWT type.
+    # https://github.com/frasertweedale/hs-jose/blob/v0.12/CHANGELOG.md
+    sed -i -e '/{-# LANGUAGE RecordWildCards #-}/a {-# LANGUAGE TypeApplications #-}' \
+        -e 's/JWT.decodeCompact token/JWT.decodeCompact @JWT.SignedJWT token/' src/PostgREST/Auth.hs
     # hspec-wai 0.12 re-exports SResponse's accessors, so keep only instances.
     find test/spec -name '*.hs' -exec sed -i -E \
         's/^import Network\.Wai\.Test[[:space:]]+\(SResponse.*$/import Network.Wai.Test ()/' {} +
