@@ -5,8 +5,8 @@
 # Contributor: JD Steffen <jd at steffennet dot org>
 
 pkgname=simutrans
-pkgver=124.5
-pkgrel=2
+pkgver=125.0
+pkgrel=1
 pkgdesc='Transportation simulation game'
 arch=(x86_64)
 url='https://www.simutrans.com/'
@@ -36,10 +36,10 @@ source=(
   "git+https://github.com/simutrans/simutrans#tag=$pkgver"
   simutrans-settings-folder.patch
 )
-b2sums=(
-  262a216e987f05df3f031ac7ef3374c40365ed4334cc34c888d2be96d638523686d01a753b33b74914110419e37c690e896d54a620e8501e507413553b9602a5
-  771342609e9f1ae50c2703b649db6e41bd07dadab176171c3713cc6854be608430a4b55c64be37b5e2b2009e4e0a31b87098b897b95647d9258dc781fa527e7e
-)
+sha512sums=('a550c0032e9cb2ce43e36a6cfd28338727ae80faed5b2464bc4f0c39d7d6a43273b3196518d5bbbf2fe3217958d752d8f0dad6a18b2297ec42036c8113abd9b8'
+            'e6883ff8c83521e1dd9c8b3dfcdbeeacae487dd8c958b6323d4a2f12fba3fad672202438bfe7a05255513b21320613000108f5ccce81ee8860e92a2a551c8208')
+b2sums=('532b7b32ad442e392d9ac95cd0a74c084b20b5941a41a8e6f0654089f81fbc2df2e02cd20c935c7357ef2617a60b5a739b1b4fc5d2f74e2a09bde2b31436d4b3'
+        '771342609e9f1ae50c2703b649db6e41bd07dadab176171c3713cc6854be608430a4b55c64be37b5e2b2009e4e0a31b87098b897b95647d9258dc781fa527e7e')
 
 prepare() {
   cd $pkgname
@@ -50,9 +50,18 @@ prepare() {
 }
 
 build() {
-  cmake -B build -S $pkgname -G Ninja \
-    -D CMAKE_INSTALL_PREFIX=/usr \
+  local cmake_options=(
+    -B build
+    -S "$pkgname"
+    -G Ninja
+    -W no-author
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/usr
     -D USE_GAMES_DATADIR=1
+  )
+
+  cmake "${cmake_options[@]}"
+
   cmake --build build
 }
 
