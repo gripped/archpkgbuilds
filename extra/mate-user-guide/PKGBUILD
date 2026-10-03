@@ -4,30 +4,35 @@
 
 pkgname=mate-user-guide
 pkgver=1.28.0
-pkgrel=2
+pkgrel=3
 pkgdesc="MATE User Guide"
-groups=('mate')
-url="https://mate-desktop.org"
-arch=('any')
-license=('GFDL-1.1-or-later')
-depends=('yelp')
-makedepends=('autoconf-archive' 'itstool' 'mate-common' 'yelp-tools')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-user-guide/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('bedce24a8f11eaeb929fa5ccf5d682160c28d6436097c710341eb4152b11b784')
+arch=(any)
+url='https://github.com/mate-desktop/mate-user-guide'
+license=(GFDL-1.1-or-later)
+groups=(mate)
+depends=(yelp)
+makedepends=(
+  git
+  yelp-tools
+)
+source=("git+https://github.com/mate-desktop/mate-user-guide.git#tag=v$pkgver")
+b2sums=(f933b1cedcee42f6d09e91325d6f3b17c6f63d0b410e0824b8b70ca3f1bd2a0bad516e0f1b9e9e142e99c3f6d7b4675dc8621508f22d90d0bd8c7b94c48ca29b)
 
 prepare() {
-    	cd "${pkgname}-${pkgver}"
-	./autogen.sh
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-    	cd "${pkgname}-${pkgver}"
-    	./configure \
-        	--prefix=/usr
-   	 make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
