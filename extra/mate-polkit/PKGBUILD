@@ -4,36 +4,44 @@
 
 pkgname=mate-polkit
 pkgver=1.28.1
-pkgrel=2
+pkgrel=4
 pkgdesc="PolicyKit integration for the MATE desktop"
-url="https://mate-desktop.org"
-arch=('x86_64')
-license=('GPL-2.0-or-later')
-groups=('mate')
-depends=('gtk3' 'polkit' 'gettext')
-makedepends=('accountsservice' 'autoconf-archive' 'mate-common' 'gobject-introspection')
-conflicts=('mate-polkit-gtk3')
-replaces=('mate-polkit-gtk3')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-polkit/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('b7dd0999f1570e41939997f075ddbf459650c6572dd89a63b3a1963d60427001')
+arch=(x86_64)
+url='https://github.com/mate-desktop/mate-polkit'
+license=(LGPL-2.0-or-later)
+groups=(mate)
+depends=(
+  accountsservice
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  libappindicator
+  polkit
+)
+makedepends=(
+  git
+  mate-common
+)
+source=("git+https://github.com/mate-desktop/mate-polkit.git#tag=v$pkgver")
+b2sums=(0c1b5f170f4368570bfb41473394ce7fe00d5d0a9f100dbacb3f2324ebf73dcd27906db416bdb0992a942f55a4550332ad891de081cad2d3614821adfd522ecb)
 
 prepare() {
-    cd "${pkgname}-${pkgver}"
-    ./autogen.sh
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-    cd "${pkgname}-${pkgver}"
-    ./configure \
-                --prefix=/usr \
-                --libexecdir="/usr/lib/${pkgname}" \
-                --sysconfdir=/etc \
-                --localstatedir=/var \
-                --enable-introspection
-    make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --libexecdir="/usr/lib/$pkgname" \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    cd "${pkgname}-${pkgver}"
-    make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
