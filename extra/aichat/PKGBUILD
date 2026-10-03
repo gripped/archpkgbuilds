@@ -3,7 +3,7 @@
 
 pkgname=aichat
 pkgver=0.30.0
-pkgrel=3
+pkgrel=4
 pkgdesc="All-in-one AI CLI tool featuring Chat-REPL, Shell Assistant, RAG, AI tools & agents"
 arch=(x86_64)
 url="https://github.com/sigoden/aichat"
@@ -11,6 +11,7 @@ license=('MIT OR Apache-2.0')
 depends=(
   glibc
   libgcc
+  oniguruma
 )
 makedepends=(
   cargo
@@ -27,12 +28,12 @@ prepare() {
 
 build() {
   cd $pkgname-$pkgver
-  cargo build --frozen --release --all-features
+  RUSTONIG_DYNAMIC_LIBONIG=1 cargo build --frozen --release --all-features
 }
 
 check() {
   cd $pkgname-$pkgver
-  cargo test --frozen --all-features
+  RUSTONIG_DYNAMIC_LIBONIG=1 cargo test --frozen --all-features
 }
 
 package() {
