@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=harper
-pkgver=2.11.0
+pkgver=2.12.0
 pkgrel=1
 pkgdesc='The Grammar Checker for Developers'
 arch=(x86_64)
@@ -19,8 +19,8 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('f9ba53446d0dfd163d8cbecdcb83c18585944957128425b1d7be24d1d01148cb2fdb76d5021c478d81b89c800904a37c2adcabf085d0dcb35f359862de9431c8')
-b2sums=('df818784b79cc39c8ac54f2b3b79bfb40144622bf7cf0afedf6e5c696beb934951a31b4c425e6c9e075b69ef2c2de07bf9a5ac3cd2805c94f67f46994127af01')
+sha512sums=('ebe2fa10404ee93467bace6b0497837162d3fab167b8e09c1c636aa7c60da60cdb38212895fa89d7ea69b18e9761b9f3ad61d98444eeeac399c2fed80928b5d5')
+b2sums=('b4f6222a3abc7a7445ea3d460e232259a31d9ab1f629c931e215d8cd405c1a8cfae229f44c2d31787d6060db016dcabc84358bef87210fafb0dd46e12ca5e0fc')
 
 prepare() {
   cd "$pkgname"
