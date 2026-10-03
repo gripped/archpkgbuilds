@@ -1,7 +1,7 @@
 pkgbase = dms-shell
 	pkgdesc = A Quickshell-based desktop shell with Material 3 design principles
 	pkgver = 1.6.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/AvengeMedia/DankMaterialShell
 	arch = x86_64
 	arch = aarch64
@@ -22,26 +22,11 @@ pkgbase = dms-shell
 	optdepends = systemd: Required for network managementa via systemd-networkd
 	optdepends = wtype: Paste from clipboard history and plugins
 	replaces = dms-shell-bin
+	replaces = dms-shell-hyprland
+	replaces = dms-shell-niri
 	source = git+https://github.com/AvengeMedia/DankMaterialShell.git#tag=v1.6.2
 	source = git+https://github.com/AvengeMedia/dank-qml-common
 	sha256sums = c796c1e3b01eb3edf649acec013af55d2ae79398d7c4b160abee15bf5accc471
 	sha256sums = SKIP
 
 pkgname = dms-shell
-	depends = accountsservice
-	depends = quickshell
-	depends = dms-shell-compositor
-
-pkgname = dms-shell-hyprland
-	pkgdesc = A Quickshell-based desktop shell with Material 3 design principles (for Hyprland)
-	depends = dms-shell
-	depends = hyprland
-	optdepends = 
-	provides = dms-shell-compositor
-
-pkgname = dms-shell-niri
-	pkgdesc = A Quickshell-based desktop shell with Material 3 design principles (for Niri)
-	depends = dms-shell
-	depends = niri
-	optdepends = 
-	provides = dms-shell-compositor

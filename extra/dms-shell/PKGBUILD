@@ -1,11 +1,10 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
-pkgbase=dms-shell
+pkgname=dms-shell
 _pkg1=DankMaterialShell
 _pkg2=dank-qml-common
-pkgname=($pkgbase $pkgbase-hyprland $pkgbase-niri)
 pkgver=1.6.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A Quickshell-based desktop shell with Material 3 design principles'
 arch=(x86_64 aarch64)
 url="https://github.com/AvengeMedia/$_pkg1"
@@ -25,7 +24,9 @@ optdepends=('cava: Audio visualizer'
             'wtype: Paste from clipboard history and plugins')
 makedepends=(git
              go)
-replaces=($pkgname-bin)
+replaces=($pkgname-bin
+          dms-shell-hyprland
+          dms-shell-niri)
 source=("git+$url.git#tag=v$pkgver"
         "git+${url/$_pkg1/$_pkg2}")
 sha256sums=('c796c1e3b01eb3edf649acec013af55d2ae79398d7c4b160abee15bf5accc471'
@@ -62,29 +63,9 @@ build() {
 		-o bin/dms ./cmd/dms
 }
 
-package_dms-shell() {
+package() {
 	cd "$_pkg1"
-	depends+=(dms-shell-compositor)
-	optdepneds+=('dms-shell-hyprland: Hyprland specific dependencies')
-	optdepneds+=('dms-shell-niri: Niri specific dependencies')
 	make DESTDIR="$pkgdir" PREFIX="/usr" SYSTEMD_USER_DIR="$pkgdir/usr/lib/systemd/user" install
 	install -Dm0644 -t "$pkgdir/usr/share/doc/$pkgname/" README.md
 	cp -r "docs/"* "$pkgdir/usr/share/doc/$pkgname/"
-}
-
-package_dms-shell-hyprland() {
-	pkgdesc+=' (for Hyprland)'
-	provides=(dms-shell-compositor)
-	depends=(dms-shell
-	         hyprland)
-	optdepends=()
-}
-
-package_dms-shell-niri() {
-	pkgdesc+=' (for Niri)'
-	provides=(dms-shell-compositor)
-	depends=(niri)
-	depends=(dms-shell
-	         niri)
-	optdepends=()
 }
