@@ -2,7 +2,7 @@
 # Contributor: Nikita Almakov <nikita.almakov@gmail.com>
 
 pkgname=rate-mirrors
-pkgver=0.31.0
+pkgver=0.33.0
 pkgrel=1
 pkgdesc="Everyday-use client-side map-aware mirror ranking tool"
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=(
 makedepends=('cargo')
 options=('!lto')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('ab90534a251c7a88d3092f48d7b53f0a161aaf09950fc43252f2327ca8dd2a5e7fae07b790fa97092c3f137c8c587d5a0425bf06430f4703bacc4d1ee63d6c24')
+b2sums=('d0087b07d6427380887fb7a65cffbeecf26ff94a8ddeaf887cf6b4cc3de024860da11990435e72c4d343972c7879007d38ec462a36bf225d672365d856390790')
 
 prepare() {
   cd $pkgname-$pkgver
