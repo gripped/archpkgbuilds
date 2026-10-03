@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-unicode-segmentation-rs
-pkgver=0.2.4
+pkgver=0.3.3
 pkgrel=1
 pkgdesc='Unicode segmentation and width for Python using Rust'
 arch=('x86_64')
@@ -20,8 +20,8 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('3f541ca0ac38009e56515e7de5530dcb30ceab282f9b55d9394eaf5e4ce1ed8b187c97bfdf3a03dc69adab30fbff7df28933fd9f84cb0a177ae727f40807846e')
-b2sums=('4e705bb0a2aab1219b55d91471be141f359fa018f416c446c89d610b4c8e20390f82a68a9356a5db2c041746832655d332cf553262a9947fd5789420f80ec639')
+sha512sums=('2e9f62afd474f3559ef9e672194fbf25cb7cef1a109d4eb6fd229554e04ba5a700cf023eff819a73abe0b99b22dfa25cddf9b171f42abc81fb20f5df1da94888')
+b2sums=('ed16c325efa0bfb556491f2653f33b782685808192aa25d3e50afedd1ac797b5e68022d7e102a8404d3fb91d281c61cd32a234d123f4ebcf48921bcc51f5dce5')
 
 build() {
   cd ${pkgname#python-}-$pkgver
