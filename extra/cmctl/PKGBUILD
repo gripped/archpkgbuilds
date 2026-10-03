@@ -3,7 +3,7 @@
 # Contributor: ml <>
 
 pkgname=cmctl
-pkgver=2.5.0
+pkgver=2.6.1
 pkgrel=1
 pkgdesc='CLI tool manage and configure cert-manager resources for Kubernetes'
 arch=('x86_64')
@@ -15,8 +15,8 @@ makedepends=(
   'go'
 )
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('f9983fd249682be94c11eddfd9d6a6bd9ec25b006672272cfe41fe80d7141deaeea66c70444621c1654e8d791c2b367f62413c1fba897f47f2a0e3c2f5cd3702')
-b2sums=('d2314990120a29d0dd33d09fabb3263e7eeabb12f19ec4fd7143869e685d4d7258ae27af1074c48b228f1057c6febd38f35e7ffd71a2c011987d83fe7c69a36c')
+sha512sums=('ddc927a155ac375189f179e2708c65f1117461466ce2b6dc60b85c2198d4dbee403b986689901d235b6102b14b9d304ee8b8eb416cb06f5c0b799dbba39fb68e')
+b2sums=('3195c94e6a4ba9bf161ae318b6d33318168b7fb93f3fefa60665a092377a21515b7461874a82558583b81f86e9226222733c189e02b7e1b9afe9d16b63809b0a')
 
 prepare() {
   cd $pkgname
