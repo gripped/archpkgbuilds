@@ -1,13 +1,14 @@
 pkgbase = mate-backgrounds
 	pkgdesc = Background images and data for MATE
 	pkgver = 1.28.0
-	pkgrel = 2
-	url = https://mate-desktop.org
+	pkgrel = 3
+	url = https://github.com/mate-desktop/mate-backgrounds
 	arch = any
 	groups = mate
-	license = GPL-2.0-or-later
-	makedepends = mate-common
-	source = mate-backgrounds-1.28.0.tar.gz::https://github.com/mate-desktop/mate-backgrounds/archive/refs/tags/v1.28.0.tar.gz
-	sha256sums = a2240af029707b7149b5b9ce67160025a408049b1af6dbb5cd85418511585fa7
+	license = GPL-2.0-or-later AND CC-BY-4.0
+	makedepends = git
+	options = !emptydirs
+	source = git+https://github.com/mate-desktop/mate-backgrounds.git#tag=v1.28.0
+	b2sums = f489c2ec57a3653bfaebb862650349b6c2d62fc32619798c4b866755e96e6e613b2981416a2a87a5210f9a2f2ed3bb46429b69f62d023d41ec26b220b1116884
 
 pkgname = mate-backgrounds
