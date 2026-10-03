@@ -3,8 +3,8 @@
 
 _hkgname=criterion
 pkgname=haskell-criterion
-pkgver=1.6.4.1
-pkgrel=15
+pkgver=1.6.5.0
+pkgrel=2
 pkgdesc="Robust, reliable performance measurement and analysis"
 url="https://github.com/haskell/criterion"
 license=('BSD-3-Clause')
@@ -14,18 +14,11 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base-compat-batteries' 'haskell-bin
          'haskell-js-chart' 'haskell-microstache' 'haskell-mwc-random'
          'haskell-optparse-applicative' 'haskell-prettyprinter'
          'haskell-prettyprinter-ansi-terminal' 'haskell-statistics' 'haskell-transformers-compat'
-         'haskell-vector' 'haskell-vector-algorithms')
+         'haskell-vector')
 makedepends=('git' 'ghc' 'haskell-base-compat' 'haskell-hunit' 'haskell-quickcheck' 'haskell-tasty'
              'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("git+https://github.com/haskell/criterion.git#tag=${_hkgname}-${pkgver}")
-sha512sums=('663dd10d29a483c75331b46330433db1570e547f67e994ab3b081a8ba41bcbe0584a7bf9b885ecc8ec3e3a0d8a83fe6ec0ff0394522b287e2170f51e31b84c3a')
-
-prepare() {
-    cd $_hkgname
-    # tests/Cleanup: prevent parallel test execution with tasty >= 1.5.4
-    # https://github.com/haskell/criterion/commit/d555422d1779434432489efbc19d75011226c3e6
-    git cherry-pick -n d555422d1779434432489efbc19d75011226c3e6
-}
+sha512sums=('cc546355be111f67e70d0b73f80f7ec713152d135be76763ad34adae1d337c762d2588c94c357d8a0472b74a4f2d55d94538bebd2a8c6fe175e7db1e5c373453')
 
 build() {
     cd $_hkgname
