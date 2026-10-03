@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=dagger
-pkgver=0.21.9
+pkgver=0.21.10
 pkgrel=1
 pkgdesc='A portable devkit for CI/CD pipelines'
 arch=(x86_64)
@@ -14,8 +14,8 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+https://github.com/dagger/dagger.git#tag=v$pkgver")
-sha512sums=('81c1204641e9f04ea2e8c8b670faaf40c49a7b95d472418e50b2e314ddd7d2650377e935b8b9e8e349e1eba7846f57e00eaa9334d5e1163f0f2eae5bdf540eb4')
-b2sums=('1b76a27a8688edde6554871d3b5616134c42997d69c0a6dd22f16a84e30fd6edf4d53a5e2cf3446536560becbdc424f8be3cd6cbdddb4d1e8e3b1bd82048bf22')
+sha512sums=('4097c45a2fefef2432a6780d37252b11ac32de0274cdb251a58cdf722245e3ddaa461eb2f420bcdaaa1c567a01f67fe3b36b4400fcd4e460e600eee549aa674e')
+b2sums=('fd2bcc142beb406864336cc75651b33547b793deb4df740eea5c6a8a091364b937d8bbd62effeded38e4dd74d311ee5dac47c8b1221e0cef1159591a966ad057')
 
 prepare() {
   cd "$pkgname"
