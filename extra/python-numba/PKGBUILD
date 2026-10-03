@@ -1,7 +1,7 @@
 # Maintainer: Bruno Pagani <archange@archlinux.org>
 
 pkgname=python-numba
-pkgver=0.67.0
+pkgver=0.68.0
 pkgrel=1
 pkgdesc='JIT compiler that translates a subset of Python and NumPy code into fast machine code'
 arch=(x86_64)
@@ -53,8 +53,8 @@ checkdepends=(
   python-scipy
 )
 source=(git+https://github.com/numba/numba#tag=$pkgver)
-sha512sums=('f64aba5d04245bee0ddc74fc8abc6eb0ad74558ce5eac77c3a5e852695d525d095b47664abfbece985b60f3b863b96e8614d3e3e72083d9313cdd498f36e646d')
-b2sums=('48b76ff0b1f7374a3f059a26dc3dbf67671ae0f6f5bfed164bcdf946bb5ea5a9bc8b364c9f2a8440100f4c550e6481c9f2ede4b8674674b713134c85a68e8bc9')
+sha512sums=('c8558d4981a40e0ba6a3880b961a91ce5eb4ae1f9a2708cfbcadcb397bb507cb524f775261cfffad3821a80c92b2aa274717960b789db3806478f2a0f8d7b943')
+b2sums=('00bcbcbf06c396eb48725482ed4ee4442429f15a630e294b3a8e851ed02cc34a6aafe62acfe9c928e536600669895f79524fb1b88d585fba428e6cbdc9cade7a')
 
 build() {
   cd numba
