@@ -12,8 +12,8 @@ pkgname=(
   rocq
   rocqide
 )
-pkgver=9.1.1
-pkgrel=2
+pkgver=9.2.0
+pkgrel=1
 pkgdesc="Interactive theorem prover, or proof assistant"
 arch=('x86_64')
 url="https://rocq-prover.org/"
@@ -24,6 +24,7 @@ makedepends=(
   'fontconfig'
   'freetype2'
   'gdk-pixbuf2'
+  'git'
   'glib2'
   'glibc'
   'gmp'
@@ -40,17 +41,27 @@ options=(
   'staticlibs'
 )
 source=(
-  "https://github.com/rocq-prover/rocq/archive/V$pkgver/$pkgbase-$pkgver.tar.gz"
+  "git+https://github.com/rocq-prover/rocq.git#tag=V$pkgver"
   "rocqide.desktop"
+  "use-rocq-build-language.patch"
 )
-b2sums=('392ea63d6dfbc1404a04fe37fcb26f21321c50bdccf8d626b490d490607ec6c6344a1b0a81d87805ef2b3ded54ab2af6cb4289ea2d8153afe6e79ae8d9125ba6'
-        'd0c410885cfeeb1e2339e0b5df54bd15b21b07e6cb57b579821e01d5e9ec50db5563fa9abfe1c87539131a0a7129c1a4abd8a055c60ef540ce8411c52c809627')
+b2sums=('d8ea3c7c1d3217ee6f67e88c762f1b28f0c28df5371ada1b966772f5353351e32394c8af065e224de638ae01603b99c7a14ccd846becede54fed159da222a669'
+        'd0c410885cfeeb1e2339e0b5df54bd15b21b07e6cb57b579821e01d5e9ec50db5563fa9abfe1c87539131a0a7129c1a4abd8a055c60ef540ce8411c52c809627'
+        '9e1b3814b3724eb2af00be3a4b6bd2f4a81285e28806d253f6fc1909377d8b38c85c9ad7fd77612e098b0595c3d98f1baadb5af35007919a5377af32bb0ed5d8')
+
+prepare() {
+  cd $pkgbase
+  patch -Np1 < ../use-rocq-build-language.patch
+
+  # Avoid dev/tools/make_git_revision.sh from baking the build host name and
+  # the build directory into the installed revision file.
+  : > revision
+}
 
 build() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   ./configure \
     -prefix /usr \
-    -mandir /usr/share/man \
     -docdir /usr/share/doc \
     -libdir /usr/lib/ocaml/coq
   make dunestrap
@@ -68,7 +79,7 @@ package_rocq() {
   provides=('coq')
   conflicts=('coq')
 
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   dune install rocq-runtime coq-core rocq-core \
     --prefix=/usr \
     --destdir="$pkgdir" \
@@ -96,7 +107,7 @@ package_rocqide() {
   provides=('coqide')
   conflicts=('coqide')
 
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   dune install coqide-server rocqide \
     --prefix=/usr \
     --destdir="$pkgdir" \
