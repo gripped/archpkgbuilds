@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-electrum-ecc
-pkgver=0.0.7
+pkgver=0.0.8
 pkgrel=1
 pkgdesc="Python library for libsecp256k1, using ctypes"
 arch=('any')
@@ -20,7 +20,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("git+$url.git#tag=$pkgver?signed")
-b2sums=('df641ef65ed032831e7d210738c0b4af0d5e5e5edb450f41c993f63828b2e35b829750162a89dc4696e1d2e268501e1a1d8110e0c7e0dca62d37810626c1f647')
+b2sums=('7f447d4219cc895396ddfb2a7f598868fed04869230ad23ff9952ced4b7dfce0dd7b9129bf8c14a363285d47ba0f3ac42537480594f0b7cecd9e580197dbe881')
 validpgpkeys=('4AD64339DFA05E20B3F6AD51E7B748CDAF5E5ED9') # SomberNight <somber.night@protonmail.com>
 
 build() {
