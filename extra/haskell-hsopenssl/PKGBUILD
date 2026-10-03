@@ -2,8 +2,8 @@
 
 _hkgname=HsOpenSSL
 pkgname=haskell-hsopenssl
-pkgver=0.11.7.10
-pkgrel=23
+pkgver=0.11.7.11
+pkgrel=1
 pkgdesc="Partial OpenSSL binding for Haskell"
 url="https://github.com/haskell-cryptography/HsOpenSSL"
 license=('LicenseRef-PublicDomain')
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-network' 'openssl')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('9bd8b6f0b63e5cb5be10786d7a349818c655b0c67a142487869d15ff4f686622015b2294eb7a2e2da9bf0c5a6c0e14a301262d43482a0eec7dd510d2ff3f20bb')
+sha512sums=('1336a69af7e3f2e9acf8816795a755581e58e1dc70b0477eb0b0caff4364f12bb4fd2e026635b9c951aa5b0ef6912616ba4426bd4da1d7f3545f40852b096546')
 
 prepare() {
     cd $_hkgname-$pkgver
