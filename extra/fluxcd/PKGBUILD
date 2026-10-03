@@ -2,7 +2,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=fluxcd
-pkgver=2.9.5
+pkgver=2.9.6
 pkgrel=1
 pkgdesc='Open and extensible continuous delivery solution for Kubernetes'
 arch=(x86_64)
@@ -13,8 +13,8 @@ makedepends=(git go kustomize)
 replaces=(fluxctl)
 options=(!lto)
 source=("$pkgname::git+https://github.com/fluxcd/flux2#tag=v$pkgver")
-sha512sums=('fe401725190cf54a17468e6e51156bda112505d945a7d6480fc9867175aeb9f68cc560ca61e8525abf365f91d788454746e102d984def8e0baf5677aa38dccf8')
-b2sums=('3ca4f7596a544eda57d8cd1b77c848e840b37b8ea5b203730fc8463b0b8942da213f632ba170a4b0b052ed536e38b3585f6e7b7e6280a2b42855ade9fc8c783a')
+sha512sums=('35751ef046802a19c270f23b706d85ec9b299c672400989bc2688320f617d5b03467960d0998a2b62d895c3d47a0a808dc43bf6624071a73fdad3d41ab5b4e24')
+b2sums=('e803bb3e89d5bbc9855c0f86f70c1c1c1a400a49e7eba46614ec13e66a4df83ac9085ce3d3ff32722b6586c6a2313d8a6df11e9bae4827fd9a9e4a2b1c7ed0b6')
 
 prepare() {
   cd "$pkgname"
