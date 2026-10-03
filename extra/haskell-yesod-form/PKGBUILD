@@ -3,8 +3,8 @@
 
 _hkgname=yesod-form
 pkgname=haskell-yesod-form
-pkgver=1.7.10
-pkgrel=19
+pkgver=1.7.10.1
+pkgrel=5
 pkgdesc="Form handling support for Yesod Web Framework"
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -14,9 +14,9 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-blaze-builder'
          'haskell-network-uri' 'haskell-persistent' 'haskell-resourcet' 'haskell-shakespeare'
          'haskell-wai' 'haskell-xss-sanitize' 'haskell-yesod-core' 'haskell-yesod-persistent')
 makedepends=('ghc')
-checkdepends=('haskell-clientsession' 'haskell-hspec' 'haskell-wai-extra' 'haskell-yesod-test')
+checkdepends=('haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('3a0604660eaed3aacb0398b9310205cbaa5b443ab68ba4721f6443ee6193d720294c94c5e6da971da94a879254bd7da220038da8018312c78dfa1206df4612f1')
+sha512sums=('e2aa6a0fd4eb352f8ed4b7c4639ba0440173ce690000c77369d081fdcdfaf67fad9d156cda11c9da54ec5e17a9bf79a1a191147272a9db9e1871ec3d7afb85ea')
 
 build() {
   cd $_hkgname-$pkgver
