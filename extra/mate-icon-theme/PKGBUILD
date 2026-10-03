@@ -4,30 +4,33 @@
 
 pkgname=mate-icon-theme
 pkgver=1.28.0
-pkgrel=2
-pkgdesc="MATE icon theme"
-url="https://mate-desktop.org"
-arch=('any')
-license=('LGPL-3.0-only')
-options=('!emptydirs')
-makedepends=('mate-common' 'icon-naming-utils')
-groups=('mate')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-icon-theme/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('6cd3e848131f3ab995bc7c6f8445157d79fcc6b172c0ad2bc0bc8d81bdc8ae0d')
+pkgrel=3
+pkgdesc='MATE icon theme'
+url="https://github.com/mate-desktop/mate-icon-theme"
+arch=(any)
+license=('LGPL-3.0-only OR CC-BY-SA-3.0')
+options=(!emptydirs)
+makedepends=(git)
+groups=(mate)
+source=("git+https://github.com/mate-desktop/mate-icon-theme.git#tag=v$pkgver")
+b2sums=(e2c30b5db8b7a7b4f1c3e072205c0735eaf36858ec417f70c58a7769657598a8598dbc0a2c6a32bd2bead0f98cfccadc3cb5fdaa22831cb9cdecdc936b146a81)
 
 prepare() {
-   	cd "${pkgname}-${pkgver}"
-	./autogen.sh
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-   	cd "${pkgname}-${pkgver}"
-    	./configure \
-        	--prefix=/usr
-    	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-icon-mapping
+  make
 }
 
 package() {
-    	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
