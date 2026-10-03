@@ -1,0 +1,26 @@
+diff --git a/cypari2/pari_instance.pyx b/cypari2/pari_instance.pyx
+index a0e89df..776ca64 100644
+--- a/cypari2/pari_instance.pyx
++++ b/cypari2/pari_instance.pyx
+@@ -1031,7 +1031,7 @@ cdef class Pari(Pari_auto):
+         if M <= maxprime():
+             return
+         sig_on()
+-        initprimetable(M)
++        initprimetable(M, 2**20)
+         sig_off()
+ 
+     def primes(self, n=None, end=None):
+diff --git a/cypari2/paridecl.pxd b/cypari2/paridecl.pxd
+index 8bd243b..1d3338a 100644
+--- a/cypari2/paridecl.pxd
++++ b/cypari2/paridecl.pxd
+@@ -1922,7 +1922,7 @@ cdef extern from *:     # PARI headers already included by types.pxd
+                        GEN (*div)(void *E, GEN x, GEN y, GEN *r))
+     GEN     gen_fromdigits(GEN x, GEN B, void *E, bb_ring *r)
+     byteptr initprimes(ulong maxnum, long *lenp, ulong *lastp)
+-    void    initprimetable(ulong maxnum)
++    void    initprimetable(ulong maxnum, ulong factorlimit)
+     ulong   init_primepointer_geq(ulong a, byteptr *pd)
+     ulong   init_primepointer_gt(ulong a, byteptr *pd)
+     ulong   init_primepointer_leq(ulong a, byteptr *pd)
