@@ -4,7 +4,7 @@
 
 pkgname=libmatemixer
 pkgver=1.28.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Mixer library for MATE Desktop'
 arch=(x86_64)
 url='https://github.com/mate-desktop/libmatemixer'
@@ -19,6 +19,7 @@ depends=(
 makedepends=(
   git
   gtk-doc
+  mate-common
 )
 source=("git+https://github.com/mate-desktop/libmatemixer.git#tag=v$pkgver")
 b2sums=(c58a061454d6e8c74f725f2811de51f0fde44cb4e2baba2186b06ec999512cfee4e427418a4889d40b51f5615f9128000db873fc32b210335cba2effbec60c6b)
