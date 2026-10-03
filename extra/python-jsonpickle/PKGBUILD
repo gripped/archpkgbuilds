@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-jsonpickle
-pkgver=4.1.2
+pkgver=4.1.3
 pkgrel=1
 arch=('any')
 pkgdesc="Python library for serializing any arbitrary object graph into JSON"
@@ -14,7 +14,14 @@ makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'p
 checkdepends=('python-numpy' 'python-feedparser' 'python-simplejson' 'python-gmpy2'
               'python-pymongo' 'python-ujson' 'python-pandas' 'python-pytest')
 source=("git+https://github.com/jsonpickle/jsonpickle.git#tag=v$pkgver")
-sha512sums=('a9f116386a1a4620fb97ac7d22f3aa5abb73cb1f0ea41e5b066b818575595a4f3b15a61c9e1fcbcc782fd6a5d3622310dd86f446634687de8982177cf809c2fb')
+sha512sums=('f7d4004dc9fb8743df86bc19ac54a9dc0260bbdd65df0ffe865f4e7a87f62eafd2dca7c422c5f28f31f53f82992595106ec796a10437993e9b5fc32cf5b1a79a')
+
+prepare() {
+  cd jsonpickle
+
+  # Replace removed NumPy dtype aliases: https://github.com/jsonpickle/jsonpickle/pull/592
+  sed -i -e 's/i2,a3,i4/i2,S3,i4/' -e 's/u1,f4,a1/u1,f4,S1/' tests/numpy_test.py
+}
 
 build() {
   cd jsonpickle
