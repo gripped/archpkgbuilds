@@ -1,31 +1,31 @@
 pkgbase = shotwell
-	pkgdesc = A digital photo organizer designed for the GNOME desktop environment (odd versions are unstable!)
-	pkgver = 0.32.17
-	pkgrel = 1
+	pkgdesc = A digital photo organizer designed for the GNOME desktop environment
+	pkgver = 33.0
+	pkgrel = 2
 	epoch = 2
-	url = https://wiki.gnome.org/Apps/Shotwell
+	url = https://gitlab.gnome.org/GNOME/shotwell
 	arch = x86_64
-	license = LGPL2.1
-	makedepends = intltool
-	makedepends = vala>=0.17.2
+	license = LGPL-2.1-or-later
+	makedepends = vala
 	makedepends = itstool
 	makedepends = meson
 	makedepends = ninja
-	makedepends = cmake
+	makedepends = git
 	depends = libgee
-	depends = libgexiv2
+	depends = gexiv2
 	depends = libraw
 	depends = libsoup3
 	depends = dconf
 	depends = hicolor-icon-theme
 	depends = json-glib
+	depends = gcr-4
 	depends = gst-plugins-base
 	depends = libgphoto2
 	depends = libgudev
-	depends = gcr
-	depends = libportal-gtk3
+	depends = gtk4
+	depends = libportal-gtk4
 	optdepends = gst-libav: encoders, decoders, muxers, and demuxers provided by FFmpeg
-	source = https://download.gnome.org/sources/shotwell/0.32/shotwell-0.32.17.tar.xz
-	sha256sums = 0a56684e98817c3103f54a648fe9400427c76a25a7b111457fc1d860c3167672
+	source = git+https://gitlab.gnome.org/GNOME/shotwell.git#tag=33.0
+	sha256sums = e1195715fc0f9f76b857f16e99a9fffc397e9d526225f086f86b37b22357c92a
 
 pkgname = shotwell
