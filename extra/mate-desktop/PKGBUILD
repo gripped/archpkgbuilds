@@ -4,33 +4,52 @@
 
 pkgname=mate-desktop
 pkgver=1.28.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Library with common API for various MATE modules"
-url="http://mate-desktop.org"
-arch=('x86_64')
+arch=(x86_64)
+url='https://github.com/mate-desktop/mate-desktop'
 license=('GPL-2.0-or-later AND LGPL-2.0-or-later')
-depends=('gtk3' 'startup-notification' 'iso-codes')
-makedepends=('autoconf-archive' 'gobject-introspection' 'mate-common' 'intltool')
-groups=('mate')
-conflicts=('mate-desktop-gtk3' 'mate-desktop-schemas')
-replaces=('mate-desktop-gtk3' 'mate-desktop-schemas')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-desktop/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('5c235208ab391a74003a38584a2001c722e4b603a7d0d0b0f45da48972e2e6e4')
+depends=(
+  at-spi2-core
+  cairo
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  iso-codes
+  libgcc
+  libx11
+  libxrandr
+  startup-notification
+)
+makedepends=(
+  git
+  gobject-introspection
+  gtk-doc
+  mate-common
+)
+groups=(mate)
+source=("git+https://github.com/mate-desktop/mate-desktop.git#tag=v$pkgver")
+b2sums=(6a333d1a6f671c5a1cc262d04db38fc7c9b4c86529c7c6e831e7eaf41bff470b7543e3a2905080de226e76810378d0c7e0510920f3280258aa19a7f6e94f1723)
 
 prepare() {
-	cd "${pkgname}-${pkgver}"
-	./autogen.sh
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-	cd "${pkgname}-${pkgver}"
-    	./configure \
-        	--prefix=/usr \
-        	--disable-schemas-compile
-    	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-gtk-doc
+  make
 }
 
 package() {
-	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
