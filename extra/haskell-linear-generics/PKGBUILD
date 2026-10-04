@@ -3,15 +3,20 @@
 _hkgname=linear-generics
 pkgname=haskell-linear-generics
 pkgver=0.2.3
-pkgrel=130
+pkgrel=132
 pkgdesc="Generic programming library for generalised deriving."
 url="https://github.com/linear-generics/linear-generics"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-th-abstraction')
-makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover')
+makedepends=('ghc' 'uusi' 'haskell-hspec' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('02af9dbd20f6e33da9de674f79a8712618862b7b48440aca1269228d28f72301')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u th-abstraction
+}
 
 build() {
   cd $_hkgname-$pkgver
