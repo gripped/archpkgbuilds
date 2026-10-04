@@ -3,19 +3,20 @@
 
 pkgname=libsquish
 pkgver=1.15
-pkgrel=8
+pkgrel=9
 pkgdesc='DXT compression library'
 arch=(x86_64)
 url='https://sourceforge.net/projects/libsquish'
 license=(MIT)
-makedepends=(cmake ninja setconf)
+makedepends=(cmake setconf)
+depends=(glibc libgcc libstdc++)
 source=("https://downloads.sourceforge.net/project/libsquish/libsquish-$pkgver.tgz") # exploding tarball
 b2sums=('d2cdf274baf9cf8890ee4c5c434448a34bc6d3d8967df6e2e9334fe1eff66ce5371597396c564c80a128709a8849f1f622d90aaf470eacc1ad67811cef38bd60')
 
 prepare() {
-  setconf config USE_OPENMP 0
-  setconf config USE_SHARED 1
-  setconf config USE_SSE 1
+  for x in USE_OPENMP=0 USE_SHARED=1 USE_SSE=1; do
+    setconf config $x
+  done
   setconf libsquish.pc.in Version "$pkgver"
 }
 
@@ -24,10 +25,10 @@ build() {
     -B build \
     -D CMAKE_BUILD_TYPE=Release \
     -D CMAKE_INSTALL_PREFIX=/usr \
+    -D CMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -D BUILD_SHARED_LIBS=ON \
-    -G Ninja \
     -S .
-  ninja -C build
+  make -C build
 }
 
 package() {
