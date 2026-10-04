@@ -5,7 +5,7 @@
 
 pkgname=lutris
 pkgver=0.5.22
-pkgrel=2
+pkgrel=3
 pkgdesc='Open Gaming Platform'
 arch=(any)
 url=https://lutris.net
@@ -15,7 +15,6 @@ depends=(
   curl
   gdk-pixbuf2
   glib2
-  gnome-desktop
   gobject-introspection-runtime
   gtk3
   hicolor-icon-theme
@@ -90,6 +89,11 @@ prepare() {
   # And https://github.com/lutris/lutris/issues/5659
   protoc --proto_path=galaxy_blizzard_plugin/src --python_out=. product_db.proto
   cp -vf product_db_pb2.py lutris/lutris/util/battlenet/product_db_pb2.py
+
+  cd lutris
+  # Deprecated/removed attributes in GnomeDesktop
+  # https://github.com/lutris/lutris/pull/6833
+  git cherry-pick -n fd91646fbae9b0f7ce90fb5d7dda34e8f13856fe
 }
 
 build() {
