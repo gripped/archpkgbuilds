@@ -12,7 +12,7 @@ pkgname=(
   protonmail-bridge
 )
 pkgver=3.27.0
-pkgrel=1
+pkgrel=3
 pkgdesc="Integrate ProtonMail paid account with any program that supports IMAP and SMTP"
 arch=(x86_64)
 url="https://github.com/ProtonMail/proton-bridge"
@@ -42,11 +42,15 @@ source=(
   "protonmail-bridge.service"
   "remove-vcpkg-dependency.patch"
   "fix-wayland-icon.patch"
+  "protonmail-bridge-core.sh"
+  "protonmail-bridge.sh"
 )
 sha256sums=('aebe2a33e65c5854aa54c21ae4b764a36d443eda266e745fa27ba18f7fc3fad4'
             '5d273f1245fec8549a3daa3fe76e22bb6c23957cf5bcb51c24f878e19c7a5692'
             '2efdc9476f9f187a9c2d296cd3dce6717d5200eac672c5481a0039315cb333e7'
-            '869bcdb550e2899de1fffec8288fffea8c5ce1949322982d6c22f744814aed9c')
+            '869bcdb550e2899de1fffec8288fffea8c5ce1949322982d6c22f744814aed9c'
+            '054ecc70816ffe8d5d998ef7b7373c3c91dc8883383e41241255f23a25b6447a'
+            'caddf21da15386232607fec37370e8c7b5aea83507a34bf49211ac39327be06b')
 
 _archive="$_pkgbase"
 
@@ -172,7 +176,7 @@ package_protonmail-bridge-core() {
   # name to have under /usr/bin (it conflicts with iproute2 for instance).
   install -Dm755 bridge "$pkgdir/usr/lib/protonmail/bridge/bridge"
   install -dm755 "$pkgdir/usr/bin/"
-  ln -s /usr/lib/protonmail/bridge/bridge "$pkgdir/usr/bin/protonmail-bridge-core"
+  install -Dm755 "$srcdir/protonmail-bridge-core.sh" "$pkgdir/usr/bin/protonmail-bridge-core"
 }
 
 package_protonmail-bridge() {
@@ -202,5 +206,5 @@ package_protonmail-bridge() {
   # generic name to have under /usr/bin.
   install -Dm755 build/bridge-gui "$pkgdir/usr/lib/protonmail/bridge/bridge-gui"
   install -dm755 "$pkgdir/usr/bin/"
-  ln -s /usr/lib/protonmail/bridge/bridge-gui "$pkgdir/usr/bin/protonmail-bridge"
+  install -Dm755 "$srcdir/protonmail-bridge.sh" "$pkgdir/usr/bin/protonmail-bridge"
 }
