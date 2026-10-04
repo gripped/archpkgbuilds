@@ -3,8 +3,8 @@
 
 _hkgname=shelly
 pkgname=haskell-shelly
-pkgver=1.12.0
-pkgrel=17
+pkgver=1.12.0.1
+pkgrel=1
 pkgdesc="Shell-like (systems) programming in Haskell"
 url="https://github.com/gregwebs/Shelly.hs"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-unix-compat' 'haskell-monad-control' 'haskell-lifte
          'haskell-async' 'haskell-transformers-base')
 makedepends=('ghc' 'haskell-hunit' 'haskell-hspec' 'haskell-hspec-contrib')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9c9cea050fcb43b7e029c6191dafd138a5ad564e2459a90c7abbbca0f63fecb9c6a59bd826a3ed27830726440176a06e6831589c1bc7c817402610904e675e1e')
+sha512sums=('42cdc81b096ff3cabaeaf2f943137417426cc3ac211861256879b9131b8f4e923c212bb43e79b339eb32a7f0a81cf2dadafae71c80128322a535c9b755528399')
 
 build() {
     cd $_hkgname-$pkgver
