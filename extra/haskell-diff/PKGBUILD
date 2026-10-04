@@ -4,21 +4,28 @@
 _hkgname=Diff
 pkgname=haskell-diff
 pkgver=1.0.1
-pkgrel=1
+pkgrel=4
 pkgdesc="Diff algorithm in pure Haskell"
 url="https://github.com/seereason/Diff"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-quickcheck2')
+makedepends=('ghc')
+checkdepends=('haskell-quickcheck' 'haskell-test-framework' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('24fdbb133b3efaf8a6392bd312d16108adf084bb3c05ffe7c029e6645aee00647f05d08836cb27619c4ea48ca5d29fee7a0f1768ad700fbf6288fa0202e67909')
 
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
