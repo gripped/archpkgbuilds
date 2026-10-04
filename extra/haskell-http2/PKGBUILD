@@ -4,7 +4,7 @@
 _hkgname=http2
 pkgname=haskell-http2
 pkgver=5.2.1
-pkgrel=11
+pkgrel=15
 pkgdesc="HTTP/2 library"
 url="https://github.com/kazu-yamamoto/http2"
 license=('BSD-3-Clause')
@@ -13,10 +13,11 @@ depends=('ghc-libs' 'haskell-async' 'haskell-case-insensitive' 'haskell-http-typ
          'haskell-http-semantics' 'haskell-network' 'haskell-network-byte-order'
          'haskell-network-control' 'haskell-time-manager' 'haskell-unix-time' 'haskell-unliftio'
          'haskell-utf8-string')
-makedepends=('ghc' 'haskell-aeson' 'haskell-aeson-pretty' 'haskell-base16-bytestring'
-             'haskell-crypton' 'haskell-glob' 'haskell-hspec' 'haskell-hspec-discover'
-             'haskell-network-run' 'haskell-random' 'haskell-typed-process'
-             'haskell-unordered-containers' 'haskell-vector')
+makedepends=('ghc')
+checkdepends=('haskell-aeson' 'haskell-aeson-pretty' 'haskell-base16-bytestring'
+              'haskell-crypton' 'haskell-glob' 'haskell-hspec' 'haskell-hspec-discover'
+              'haskell-network-run' 'haskell-random' 'haskell-typed-process'
+              'haskell-unordered-containers' 'haskell-vector')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('bf89bcd2fb04fd43d773535154f6deed8d71be7c86972a8832cda2c0ccd2ae9b457e78a77616c060f89b96d6b464344c12f17f51354b35d6be10765330600c0e')
 
@@ -31,8 +32,14 @@ prepare() {
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
             -f-devel
     runhaskell Setup build $MAKEFLAGS
