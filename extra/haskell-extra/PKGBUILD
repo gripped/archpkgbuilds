@@ -4,21 +4,28 @@
 _hkgname=extra
 pkgname=haskell-extra
 pkgver=1.7.16
-pkgrel=177
+pkgrel=180
 pkgdesc="Extra functions I use."
 url="https://github.com/ndmitchell/extra#readme"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-clock')
-makedepends=('ghc' 'haskell-quickcheck' 'haskell-quickcheck-instances')
+makedepends=('ghc')
+checkdepends=('haskell-quickcheck' 'haskell-quickcheck-instances')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('ee10e9105b17a17980c76cf41225ac7a49b85c2a2a6847bb830a9e1ea142ad09a49766ad6aeb3b81b32e639d3093c79836adafd4e88b2db922b4a8d8260d5504')
 
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
