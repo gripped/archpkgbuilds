@@ -4,7 +4,7 @@
 _hkgname=generics-sop
 pkgname=haskell-generics-sop
 pkgver=0.5.1.4
-pkgrel=1
+pkgrel=3
 pkgdesc="Generic Programming using True Sums of Products"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD-3-Clause")
@@ -17,6 +17,7 @@ sha512sums=('bfe92e3442058c1cfdfc3264dec7d5737313377c0a8d54c8db3a622e92204363ffa
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
+    uusi -u th-abstraction
 }
 
 build() {
