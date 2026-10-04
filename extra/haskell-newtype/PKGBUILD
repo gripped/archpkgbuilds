@@ -3,7 +3,7 @@
 _hkgname=newtype
 pkgname=haskell-newtype
 pkgver=0.2.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A typeclass and set of functions for working with newtypes"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
@@ -28,7 +28,7 @@ build() {
 
 check() {
     cd $_hkgname-$pkgver
-    runhaskell Setup test
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
