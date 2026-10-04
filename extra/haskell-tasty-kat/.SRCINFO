@@ -1,13 +1,13 @@
 pkgbase = haskell-tasty-kat
 	pkgdesc = Known Answer Tests (KAT) framework for tasty
 	pkgver = 0.0.3
-	pkgrel = 325
+	pkgrel = 330
 	url = https://github.com/vincenthz/tasty-kat
 	arch = x86_64
 	license = MIT
+	checkdepends = haskell-tasty-hunit
+	checkdepends = haskell-tasty-quickcheck
 	makedepends = ghc
-	makedepends = haskell-tasty-hunit
-	makedepends = haskell-tasty-quickcheck
 	depends = ghc-libs
 	depends = haskell-tasty
 	source = https://hackage.haskell.org/packages/archive/tasty-kat/0.0.3/tasty-kat-0.0.3.tar.gz
