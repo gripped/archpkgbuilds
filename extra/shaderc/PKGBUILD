@@ -4,7 +4,7 @@
 # Contributor: Bin Jin <bjin@ctrl-d.org>
 
 pkgname=shaderc
-pkgver=2026.3
+pkgver=2026.4
 pkgrel=1
 pkgdesc='Collection of tools, libraries and tests for shader compilation'
 url='https://github.com/google/shaderc'
@@ -14,8 +14,8 @@ depends=('glibc' 'glslang' 'libgcc' 'libstdc++' 'spirv-tools')
 makedepends=('asciidoctor' 'cmake' 'ninja' 'python' 'spirv-headers')
 provides=('libshaderc_shared.so')
 source=(https://github.com/google/shaderc/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('795a2c59c31b11c23e7110fd01fc7ee7c07cadae621c9a11c2df56bc85fcb43c25a1c5504fab36e3df21bad1eb1a2af28872ee9bcf745cd2dec815acd189bcfd')
-b2sums=('b78a37d538b1dc6adbd957e378aad4d72b5f461225a63025d8dfa9e21e3fae7c5080639876754f2419627345513e02d9bc62accca5cc1cef7e40bbac836bc7d9')
+sha512sums=('a8dbf46cd10b2fabd0f533fcc79975202a235d04019295f14d3b51bf9699978ebf332c63f14b60fb518fc4deb07c37f84f19f2450958ae2035cbfacc68d78dae')
+b2sums=('b4f36d811365adf6446fa1651996af4fea19b60b307469c99ffe7a61c432d849432498a66665e93bfe6d696f6b7ec91afc963a231d59890d9840df64f5802b44')
 
 prepare() {
   cd ${pkgname}-${pkgver}
