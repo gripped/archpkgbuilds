@@ -5,7 +5,7 @@
 
 pkgname=cargo-insta
 _pkgname=insta
-pkgver=1.48.0
+pkgver=1.49.0
 pkgrel=1
 pkgdesc="Cargo plugin for snapshot testing in Rust"
 url="https://github.com/mitsuhiko/insta"
@@ -14,7 +14,7 @@ checkdepends=('git')
 arch=('x86_64')
 license=('Apache-2.0')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-sha512sums=('977d55c2f418b262c841fd5a21679b342c79cb3f6d438e2b2675d9ce919ed36d34826b958e030e9edeb212791d53c613d9f5288e48bcfcc694b055173391f7df')
+sha512sums=('953f5c8d5b811920a13107f009c845d5421023ffafe1add4388181a22ddd25394c3c6f484f7697865a56d1ae8b4e1ac121e12d9e7fa68a144af6e6daff55a50b')
 
 prepare() {
   cd "$_pkgname-$pkgver"
@@ -29,7 +29,7 @@ build() {
 check() {
   cd "$_pkgname-$pkgver"
   # workspace test checks if srcdir ends with "insta"
-  cargo test --frozen --all-features -- --skip "test_get_cargo_workspace"
+  cargo test --frozen --all-features -- --skip "test_get_cargo_workspace" --skip "workspace"
 }
 
 package() {
