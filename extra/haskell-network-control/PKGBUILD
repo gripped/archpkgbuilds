@@ -3,14 +3,15 @@
 _hkgname=network-control
 pkgname=haskell-network-control
 pkgver=0.1.6
-pkgrel=7
+pkgrel=11
 pkgdesc="Library to control network protocols"
 url="https://hackage.haskell.org/package/network-control"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-psqueues' 'haskell-unix-time')
-makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
-             'haskell-pretty-simple')
+makedepends=('ghc' 'uusi')
+checkdepends=('haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
+              'haskell-pretty-simple')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha512sums=('364d4a1915f37da65cf91a605d3478f9c102a7f9eb070d2369e3d8ecbd145cd3a29c500b9e4d68bdb00c10c23884c33587b9851b9b2d9488be935f62cc7c0bde')
 
@@ -22,8 +23,14 @@ prepare() {
 build() {
   cd $_hkgname-$pkgver
 
+  if (( CHECKFUNC )); then
+    _opts=('--enable-tests')
+  else
+    _opts=('--disable-tests')
+  fi
+
   runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie'
