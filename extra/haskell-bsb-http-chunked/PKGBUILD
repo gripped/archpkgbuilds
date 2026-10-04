@@ -3,14 +3,15 @@
 _hkgname=bsb-http-chunked
 pkgname=haskell-bsb-http-chunked
 pkgver=0.0.0.4
-pkgrel=551
+pkgrel=554
 pkgdesc="Chunked HTTP transfer encoding for bytestring builders"
 url="https://github.com/sjakobi/bsb-http-chunked"
 license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'uusi' 'haskell-attoparsec' 'haskell-blaze-builder' 'haskell-hedgehog' 'haskell-tasty'
-             'haskell-tasty-hedgehog' 'haskell-tasty-hunit' 'haskell-doctest')
+makedepends=('ghc' 'uusi')
+checkdepends=('haskell-attoparsec' 'haskell-blaze-builder' 'haskell-hedgehog' 'haskell-tasty'
+              'haskell-tasty-hedgehog' 'haskell-tasty-hunit' 'haskell-doctest')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz
         "fix-doctests.patch")
 sha512sums=('74c04c2fd372067c42d3631cdfc2ad7093c0c3af1145833ab307c538dbb936d2042492d4e81c520c3adde8634df29ff8558822f06f226c52d16abb4a35ab1a13'
@@ -24,9 +25,15 @@ prepare() {
 
 build() {
     cd $_hkgname-$pkgver
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
