@@ -4,21 +4,28 @@
 _hkgname=auto-update
 pkgname=haskell-auto-update
 pkgver=0.2.0
-pkgrel=6
+pkgrel=9
 pkgdesc="Efficiently run periodic, on-demand actions"
 url="https://github.com/yesodweb/wai"
 license=("MIT")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-retry' 'haskell-hunit')
+makedepends=('ghc')
+checkdepends=('haskell-hspec' 'haskell-hspec-discover' 'haskell-retry' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('87b9f3bb8f3c961e82a697a8a9aebcafebdd39fab9ec02a781abcf0e0c20a1698783d64125ce1b8679637c8c700f9b9774c74134415dd5cfc5bbb0f39d0eac33')
 
 build() {
     cd $_hkgname-$pkgver
 
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
