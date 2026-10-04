@@ -5,21 +5,29 @@
 _hkgname=pem
 pkgname=haskell-pem
 pkgver=0.2.4
-pkgrel=440
+pkgrel=444
 pkgdesc="Privacy Enhanced Mail (PEM) format reader and writer."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-basement' 'haskell-memory')
-makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
-             'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
+makedepends=('ghc')
+checkdepends=('haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
+              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
 sha512sums=('c27531ae89e69cebbeeecdf3cf72b897eb65c2f9b22c898bf88d79664f1b54b592f0e0f2bc007f84ec3b0efee8bd20eee187bf73a2947b2fc7d9f4a7e418872d')
 
 build() {
     cd $_hkgname-$pkgver
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
+
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register   --gen-script
