@@ -1,0 +1,35 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 04d4c01..5833078 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -63,7 +63,7 @@ set(VENV_STAMP "${VENV_DIR}/venv.stamp")
+ 
+ add_custom_command(
+     OUTPUT "${VENV_STAMP}"
+-    COMMAND ${Python3_EXECUTABLE} -m venv "${VENV_DIR}"
++    COMMAND ${Python3_EXECUTABLE} -m venv --system-site-packages "${VENV_DIR}"
+     COMMAND "${VENV_PYTHON_EXECUTABLE}" -m pip install --no-cache-dir -r "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+     COMMAND ${CMAKE_COMMAND} -E touch "${VENV_STAMP}"
+     DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/requirements.txt"
+diff --git a/scripts/source/vulkan_object_utils.py b/scripts/source/vulkan_object_utils.py
+index 129f11e..31fe22f 100644
+--- a/scripts/source/vulkan_object_utils.py
++++ b/scripts/source/vulkan_object_utils.py
+@@ -34,8 +34,8 @@ from vulkan_object import (
+     Version, FeatureRequirement
+ )
+ 
+-from reg import Registry
+-from base_generator import BaseGenerator, BaseGeneratorOptions, SetOutputDirectory, SetOutputFileName, SetTargetApiName, SetMergedApiNames
++from vulkan_object.reg import Registry
++from vulkan_object.base_generator import BaseGenerator, BaseGeneratorOptions, SetOutputDirectory, SetOutputFileName, SetTargetApiName, SetMergedApiNames
+ from source.vulkan_object_version import VK_VERSION, get_bundle_structure_core_version, is_bundle_structure
+ from source.vulkan_object_expression_parsing import collectExtensions, evalExpression
+ from source.vulkan_object_data import (
+@@ -1163,4 +1163,4 @@ def gatherSatisfiedExtensionRequiredProperties(
+             else:
+                 struct_dict[req.name] = parsed_val
+ 
+-    return satisfied_properties
+\ No newline at end of file
++    return satisfied_properties

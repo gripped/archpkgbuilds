@@ -1,21 +1,26 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 2a3d968..fabe720 100644
+index 04d4c01..0359da4 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -43,11 +43,12 @@ set(MERGE_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_file.py)
+@@ -44,6 +44,8 @@ set(MERGE_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_file.py)
  set(SOLUTION_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/gen_profiles_solution.py)
- set(PROFILES_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/profiles.py)
-
+ set(PROFILES_SCRIPT ${PROJECT_SOURCE_DIR}/scripts/vkprofiles.py)
+ 
 +find_package(PkgConfig REQUIRED)
- find_package(Python3 REQUIRED COMPONENTS Interpreter)
++
+ # We need Python 3.10 or better to use pyinstaller 6.
+ find_package(Python3 3.10 REQUIRED COMPONENTS Interpreter)
+ 
+@@ -79,7 +81,7 @@ add_custom_target(python_venv DEPENDS "${VENV_STAMP}")
  find_package(VulkanHeaders REQUIRED CONFIG QUIET)
  find_package(VulkanUtilityLibraries REQUIRED CONFIG QUIET)
  find_package(valijson REQUIRED CONFIG)
 -find_package(jsoncpp REQUIRED CONFIG)
 +pkg_check_modules(jsoncpp REQUIRED jsoncpp)
+ 
+ # Write baked_version.py immediately after VulkanHeaders is found, BEFORE file(GLOB) is executed
+ file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/scripts/source/baked_version.py" "BAKED_VERSION = \"${VulkanHeaders_VERSION}\"\n")
 
- option(BUILD_TESTS "Build the tests")
- if (BUILD_TESTS)
 diff --git a/layer/CMakeLists.txt b/layer/CMakeLists.txt
 index 561feb6..f77d0a3 100644
 --- a/layer/CMakeLists.txt
@@ -30,15 +35,15 @@ index 561feb6..f77d0a3 100644
  )
  
 diff --git a/profiles/test/CMakeLists.txt b/profiles/test/CMakeLists.txt
-index 93e036d..f0813f9 100644
+index 45c9476..1d34d83 100644
 --- a/profiles/test/CMakeLists.txt
 +++ b/profiles/test/CMakeLists.txt
-@@ -33,7 +33,7 @@ target_compile_definitions(${TEST_NAME} PRIVATE
+@@ -36,7 +36,7 @@ target_compile_definitions(${TEST_NAME} PRIVATE
+     PROFILES_SCHEMA_FILENAME="${CMAKE_SOURCE_DIR}/schema/${PROFILES_SCHEMA_FILENAME}" 
+     JSON_TEST_FILES_PATH="${CMAKE_SOURCE_DIR}/profiles/test/data/"
      PROFILE_FILES_PATH="${CMAKE_SOURCE_DIR}/profiles/")
- add_dependencies(${TEST_NAME} VpGenerated)
- 
 -target_link_libraries(${TEST_NAME} PRIVATE GTest::gtest GTest::gtest_main jsoncpp_static valijson)
 +target_link_libraries(${TEST_NAME} PRIVATE GTest::gtest GTest::gtest_main jsoncpp valijson)
  add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME} --gtest_catch_exceptions=0)
- 
  set_target_properties(${TEST_NAME} PROPERTIES FOLDER "Profiles schema")
+ set_tests_properties(${TEST_NAME} PROPERTIES ENVIRONMENT "PYTHONPATH=${REGISTRY_PATH}")
