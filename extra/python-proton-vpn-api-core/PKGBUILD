@@ -2,7 +2,7 @@
 # Maintainer: Ali Molaei <ali dot molaei at protonmail dot com>
 
 pkgname=python-proton-vpn-api-core
-pkgver=5.6.20
+pkgver=5.8.3
 pkgrel=2
 _protun_commit=12e7755a112f59b7b843da79290b3de25febf653
 pkgdesc="The proton-vpn-core-api acts as a facade to the other Proton VPN components, exposing a uniform API to the available Proton VPN services."
@@ -51,17 +51,16 @@ replaces=(
 source=(
   "git+https://github.com/ProtonVPN/${pkgname}.git#tag=v${pkgver}"
   "protun::git+https://github.com/ProtonVPN/protun.git#commit=${_protun_commit}"
-  fix-protun-protocol.patch
+  fix-protun-dbus-startup-race.patch
 )
-sha256sums=('90e811a2acf770d6611278c4fd7f68fa06b6c436caa47de5a2e0316673f0f4d4'
+sha256sums=('3de673e07e0a5dc4781410fa3408c25af1288b4c7394a0ab4bff6c257d190229'
             '3f90b4967711c9750042b5621695ed91c374fab92d5e8fa2100645862a47f66b'
-            '28abe281b8dee47fe5b3e5f3a612a902f6e7504bcb7509e809e1d422c71df750')
-optdepends=("network-manager-applet: password prompt on Gnome and other GTK DEs"
-            "plasma-nm: password prompt on KDE Plasma")
+            '36b89eacb44d3e4a63522db312ce8a138b1b80234b862566a59c2b6f8e2a0a7d')
 
 prepare() {
   cd "$pkgname"
-  patch -Np1 < ../fix-protun-protocol.patch
+  # https://github.com/ProtonVPN/python-proton-vpn-api-core/issues/31
+  patch -Np1 < ../fix-protun-dbus-startup-race.patch
   sed -i '/^SystemdService=/d' resources/nm-protun.name
 
   rm -rf dependencies/protun
@@ -74,10 +73,9 @@ build() {
   CARGO_REGISTRIES_PROTON_INDEX="sparse+https://rust-registry.proton.me/index/" \
     cargo build --release --locked \
       --bin nm-protun-service \
-      --bin nm-protun-auth-dialog \
       --bin proton-vpn-kill-switch-service \
       --lib \
-      --features 'protun,nm_protun_auth_dialog,python,core,local_agent,kill_switch'
+      --features 'protun,python,core,local_agent,kill_switch,telemetry'
 
   install -Dm755 target/release/libproton_vpn_platform.so \
     proton/vpn/platform.abi3.so
@@ -90,8 +88,6 @@ package() {
 
   install -Dm755 target/release/nm-protun-service \
     "$pkgdir/usr/lib/nm-protun-service"
-  install -Dm755 target/release/nm-protun-auth-dialog \
-    "$pkgdir/usr/lib/nm-protun-auth-dialog"
   install -Dm644 resources/nm-protun-service.conf \
     "$pkgdir/usr/share/dbus-1/system.d/nm-protun-service.conf"
 
@@ -104,9 +100,14 @@ package() {
   sed -i 's|^Exec=.*|Exec=/usr/lib/proton-vpn-kill-switch-service|' \
     "$pkgdir/usr/share/dbus-1/system-services/me.proton.vpn.kill_switch.service"
 
+  # Shipped disabled: the kill switch service enables it when permanent mode is turned on
+  install -Dm644 resources/proton-vpn-kill-switch-boot.service \
+    "$pkgdir/usr/lib/systemd/system/proton-vpn-kill-switch-boot.service"
+  sed -i 's|/usr/libexec/proton-vpn-kill-switch-service|/usr/lib/proton-vpn-kill-switch-service|' \
+    "$pkgdir/usr/lib/systemd/system/proton-vpn-kill-switch-boot.service"
+
   install -d "$pkgdir/usr/lib/NetworkManager/VPN"
   sed -e 's|program=.*|program=/usr/lib/nm-protun-service|' \
-      -e 's|auth-dialog=.*|auth-dialog=/usr/lib/nm-protun-auth-dialog|' \
     resources/nm-protun.name \
     > "$pkgdir/usr/lib/NetworkManager/VPN/nm-protun.name"
 }
