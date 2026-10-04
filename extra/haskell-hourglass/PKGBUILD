@@ -4,14 +4,15 @@
 _hkgname=hourglass
 pkgname=haskell-hourglass
 pkgver=0.2.12
-pkgrel=400
+pkgrel=403
 pkgdesc="simple performant time related library"
 url="https://github.com/vincenthz/hs-hourglass"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs')
-makedepends=('ghc' 'haskell-old-locale' 'haskell-tasty' 'haskell-tasty-hunit'
-             'haskell-tasty-quickcheck')
+makedepends=('ghc')
+checkdepends=('haskell-old-locale' 'haskell-tasty' 'haskell-tasty-hunit'
+              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz"
         "parseTimeM.patch::https://github.com/vincenthz/hs-hourglass/commit/cfc2a4b01f9993b1b51432f0a95fa6730d9a558a.patch")
 sha512sums=('c748d7f875ca0b1ea9034dba1a5cfa3fc4e51613ce24c90b54856fdc385d9ccc5eda3559f1674abf3ea966cc7851891dfee86bad897062a97a79db8408574bdc'
@@ -24,9 +25,15 @@ prepare() {
 
 build() {
     cd $_hkgname-$pkgver
+
+    if (( CHECKFUNC )); then
+        _opts=('--enable-tests')
+    else
+        _opts=('--disable-tests')
+    fi
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname "${_opts[@]}" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
