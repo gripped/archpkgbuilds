@@ -1,7 +1,7 @@
 pkgbase = bazaar
 	pkgdesc = A fast and modern store for GNOME with focus on Flatpaks, particularly from Flathub
-	pkgver = 0.9.4
-	pkgrel = 4
+	pkgver = 0.9.6
+	pkgrel = 1
 	url = https://apps.gnome.org/Bazaar/
 	arch = x86_64
 	groups = gnome-circle
@@ -12,8 +12,10 @@ pkgbase = bazaar
 	makedepends = meson
 	makedepends = ninja
 	makedepends = python-babel
+	makedepends = vala
 	depends = appstream
 	depends = cairo
+	depends = dbus
 	depends = dconf
 	depends = flatpak
 	depends = glib2
@@ -26,22 +28,19 @@ pkgbase = bazaar
 	depends = hicolor-icon-theme
 	depends = json-glib
 	depends = libadwaita
-	depends = libatomic
+	depends = libdex
 	depends = libgcc
 	depends = libmalcontent
 	depends = libproxy
 	depends = libsecret
 	depends = libsoup3
-	depends = liburing
 	depends = libxmlb
 	depends = libyaml
 	depends = md4c
 	depends = pango
 	depends = systemd-libs
 	depends = webkitgtk-6.0
-	source = git+https://gitlab.gnome.org/World/bazaar.git#tag=v0.9.4
-	source = git+https://gitlab.gnome.org/GNOME/libdex.git
-	b2sums = 25d0cdd9fab5ae2ec1c50f1cc0179b7e07b6a3f86e3452da0ee20084966a44bfe89597721074c303e432967c5b11c5d3eb18ec46bb8489204260d55955e2f15e
-	b2sums = SKIP
+	source = git+https://gitlab.gnome.org/World/bazaar.git#tag=v0.9.6
+	b2sums = c59f71121eb5d1f527fd9a0883fee049e476c06068eccd0801aad695f1af2a3f687d9f4d1c2bcaccc67798a5e0eefcb8e8b1b5399d3c90c890e3cb9b0c2c44d0
 
 pkgname = bazaar

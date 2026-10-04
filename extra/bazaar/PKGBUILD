@@ -2,8 +2,8 @@
 # Contributor: Rafael Dominiquini <rafaeldominiquini at gmail dot com>
 
 pkgname=bazaar
-pkgver=0.9.4
-pkgrel=4
+pkgver=0.9.6
+pkgrel=1
 pkgdesc="A fast and modern store for GNOME with focus on Flatpaks, particularly from Flathub"
 arch=(x86_64)
 url="https://apps.gnome.org/Bazaar/"
@@ -12,6 +12,7 @@ groups=(gnome-circle)
 depends=(
   appstream
   cairo
+  dbus
   dconf
   flatpak
   glib2
@@ -24,13 +25,12 @@ depends=(
   hicolor-icon-theme
   json-glib
   libadwaita
-  libatomic
+  libdex
   libgcc
   libmalcontent
   libproxy
   libsecret
   libsoup3
-  liburing
   libxmlb
   libyaml
   md4c
@@ -45,31 +45,20 @@ makedepends=(
   meson
   ninja
   python-babel
+  vala
 )
-source=(
-  "git+https://gitlab.gnome.org/World/bazaar.git#tag=v${pkgver}"
-  git+https://gitlab.gnome.org/GNOME/libdex.git
-)
-b2sums=(
-  25d0cdd9fab5ae2ec1c50f1cc0179b7e07b6a3f86e3452da0ee20084966a44bfe89597721074c303e432967c5b11c5d3eb18ec46bb8489204260d55955e2f15e
-  SKIP
-)
+source=("git+https://gitlab.gnome.org/World/bazaar.git#tag=v${pkgver}")
+b2sums=(c59f71121eb5d1f527fd9a0883fee049e476c06068eccd0801aad695f1af2a3f687d9f4d1c2bcaccc67798a5e0eefcb8e8b1b5399d3c90c890e3cb9b0c2c44d0)
 
 prepare() {
-  ln -s "$srcdir/libdex" "$pkgname/subprojects/libdex"
-  meson subprojects checkout --sourcedir $pkgname
+  cd $pkgname
+
+  # Fix build
+  git cherry-pick -n 4a54d688ff3bd8b2c7f357a03d5b6bd3f3c973ed
 }
 
 build() {
-  arch-meson $pkgname build \
-    -Dlibdex:default_library=static \
-    -Dlibdex:docs=false \
-    -Dlibdex:examples=false \
-    -Dlibdex:gdbus=disabled \
-    -Dlibdex:introspection=disabled \
-    -Dlibdex:pygobject=false \
-    -Dlibdex:tests=false \
-    -Dlibdex:vapi=false
+  arch-meson $pkgname build
   meson compile -C build
 }
 
@@ -79,7 +68,4 @@ check() (
 
 package() {
   meson install -C build --destdir "$pkgdir"
-  rm -r "${pkgdir}"/usr/include/libdex-1
-  rm "${pkgdir}"/usr/lib/libdex-1.a
-  rm "${pkgdir}"/usr/lib/pkgconfig/libdex-1.pc
 }
