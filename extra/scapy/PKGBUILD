@@ -5,8 +5,8 @@
 
 pkgbase=scapy
 pkgname=(scapy python-scapy)
-pkgver=2.7.0
-pkgrel=2
+pkgver=2.8.0
+pkgrel=1
 pkgdesc='Powerful interactive packet manipulation program written in Python'
 url='https://scapy.net/'
 arch=(any)
@@ -27,8 +27,8 @@ checkdepends=(
   sox
 )
 source=(https://github.com/secdev/scapy/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('2274261bd3bceb18d815197349031d99fe236649644007a8cb7987280af10d7b')
-sha512sums=('fafdf9a1df8668603d72f902833ef1954e780b3da74a5447d20bf125a763129cfb78350ee1e7b9c284214d9e97a02d8fb0f1be1f6c05ed890eee50016ef3d2f1')
+sha256sums=('f1ea26f17cfcb3b8e2033676235f37433bff8cf4e14d10c2592e2db30bbfd4f0')
+sha512sums=('c64101f3329c1f7f24c4f7e4714a75c25c039c3df109d1471e258b5070c3824ed3d8fc9e70de0e9a3a2e21ef3219f9489612e86143149212ba079bcfa02f8f63')
 
 build() {
   cd ${pkgbase}-${pkgver}
