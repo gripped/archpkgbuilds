@@ -2,7 +2,7 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=java-commons-lang
-pkgver=3.20.0
+pkgver=3.21.0
 pkgrel=1
 pkgdesc='A host of helper utilities for the java.lang API'
 arch=('any')
@@ -11,10 +11,10 @@ license=('APACHE')
 depends=('java-runtime-headless')
 makedepends=('java-environment' 'maven')
 source=("https://archive.apache.org/dist/commons/lang/source/commons-lang3-$pkgver-src.tar.gz"{,.asc})
-sha512sums=('aebc40e4cccdaa56d6b9831e4928fde872c4accdc1e62cfe4dce937a285002eba6b01636051e52fd458116480b50ec824356c2b1534750d6ad477cbcff3d59bb'
+sha512sums=('38b6615e2c9aee7dcc9e259db4edcc003a10b84baea4ae547af9695938a87b8efc91fbb51f194b0fc37e7f18aef47604c17f9fe2ca49df20aeb1d5cc879275e2'
             'SKIP')
 validpgpkeys=('B6E73D84EA4FCC47166087253FAAD2CD5ECBB314'  # Rob Tompkins <chtompki@apache.org>
-              '2DB4F1EF0FA761ECC4EA935C86FDC7E2A11262CB') # Gary David Gregory (Code signing key) <ggregory@apache.org>
+              'F4DD59C90148BDC52BEB90A4530AA5F25C25011F') # Gary David Gregory (Code signing key) <ggregory@apache.org>
 
 build() {
 	cd "commons-lang3-$pkgver-src"
