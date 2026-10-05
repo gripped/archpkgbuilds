@@ -1,7 +1,7 @@
 pkgbase = stp
 	pkgdesc = Simple Theorem Prover
-	pkgver = 2.3.4
-	pkgrel = 13
+	pkgver = 2.4.1
+	pkgrel = 1
 	url = https://stp.github.io/
 	arch = x86_64
 	license = MIT
@@ -11,12 +11,15 @@ pkgbase = stp
 	makedepends = ninja
 	makedepends = python
 	makedepends = python-setuptools
+	makedepends = git
 	depends = boost-libs
 	depends = cryptominisat
 	depends = minisat
-	source = https://github.com/stp/stp/archive/2.3.4/stp-2.3.4.tar.gz
+	source = git+https://github.com/stp/stp#tag=2.4.1
+	source = git+https://github.com/berkeley-abc/abc.git
 	source = mandir.patch
-	sha256sums = dc197e337c058dc048451b712169a610f7040b31d0078b6602b831fbdcbec990
+	sha256sums = 28a0690390e41b38708f9613b47362c4a3d247e0d10fe4248e310223916f75e8
+	sha256sums = SKIP
 	sha256sums = 4c09301c5a36cd89845a7177e1215008f8bbb23fa6f3c6cc941006825e28c327
 
 pkgname = stp
