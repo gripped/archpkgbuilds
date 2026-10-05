@@ -6,7 +6,7 @@
 # Contributor: Jens Maucher <defcon@archlinux.us>
 
 pkgname=python-rope
-pkgver=1.14.0
+pkgver=1.15.0
 pkgrel=1
 pkgdesc='Refactoring library'
 arch=('any')
@@ -16,7 +16,7 @@ depends=('python-pytoolconfig')
 makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=("https://pypi.io/packages/source/r/rope/rope-$pkgver.tar.gz")
-sha256sums=('8803e3b667315044f6270b0c69a10c0679f9f322ed8efe6245a93ceb7658da69')
+sha256sums=('a9e82c9f5ca5a1054387c22fdf6c9de9e948af556138bda57d4da81d3378793a')
 
 build(){
   cd "rope-$pkgver"
