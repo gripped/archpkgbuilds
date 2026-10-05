@@ -1,0 +1,141 @@
+From 57fbfd133743c5cd03cfbbc2960b7ab996e8cb96 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 4 Oct 2026 18:06:27 +0200
+Subject: [PATCH] Allow configuration of notification location
+
+The support is already there, but it was not exposed as a setting.
+---
+ configure.ac                                   |  6 ++++++
+ data/Makefile.am                               |  8 +++++++-
+ data/org.gnome.notification-daemon.gschema.xml | 16 ++++++++++++++++
+ po/POTFILES.in                                 |  1 +
+ src/nd-stack.c                                 | 17 ++++++++++++++++-
+ 5 files changed, 46 insertions(+), 2 deletions(-)
+ create mode 100644 data/org.gnome.notification-daemon.gschema.xml
+
+diff --git a/configure.ac b/configure.ac
+index b2c0519..5669882 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -75,6 +75,12 @@ AC_SUBST([GETTEXT_PACKAGE])
+ AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
+                    [Define the gettext package to be used])
+ 
++dnl **************************************************************************
++dnl Desktop settings support
++dnl **************************************************************************
++
++GLIB_GSETTINGS
++
+ dnl **************************************************************************
+ dnl Check forrequired packages
+ dnl **************************************************************************
+diff --git a/data/Makefile.am b/data/Makefile.am
+index ccba073..f0f0016 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -10,11 +10,17 @@ desktop_DATA        = $(desktop_in_files:.desktop.in=.desktop)
+ 	$(AM_V_GEN) $(MSGFMT) --desktop --template $< -o $@-t \
+ 		-d $(top_srcdir)/po && mv $@-t $@
+ 
++gsettings_SCHEMAS = org.gnome.notification-daemon.gschema.xml
++
++@GSETTINGS_RULES@
++
+ EXTRA_DIST = \
+-	$(desktop_in_in_files)
++	$(desktop_in_in_files) \
++	$(gsettings_SCHEMAS)
+ 
+ CLEANFILES = \
+ 	$(desktop_in_files) \
++	*.gschema.valid \
+ 	$(desktop_DATA)
+ 
+ -include $(top_srcdir)/git.mk
+diff --git a/data/org.gnome.notification-daemon.gschema.xml b/data/org.gnome.notification-daemon.gschema.xml
+new file mode 100644
+index 0000000..ac7a653
+--- /dev/null
++++ b/data/org.gnome.notification-daemon.gschema.xml
+@@ -0,0 +1,16 @@
++<schemalist gettext-domain="notification-daemon">
++  <enum id="org.gnome.notification-daemon.location">
++    <value nick="top-left" value="0"/>
++    <value nick="top-right" value="1"/>
++    <value nick="bottom-left" value="2"/>
++    <value nick="bottom-right" value="3"/>
++  </enum>
++
++  <schema id="org.gnome.notification-daemon" path="/org/gnome/notification-daemon/">
++    <key name="location" enum="org.gnome.notification-daemon.location">
++      <default>'top-right'</default>
++      <summary>Location of the notifications</summary>
++      <description>The corner of the screen where notifications will be shown.</description>
++    </key>
++  </schema>
++</schemalist>
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index 5ebe998..7995d98 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -1,6 +1,7 @@
+ # List of source files containing translatable strings.
+ # Please keep this file sorted alphabetically.
+ data/notification-daemon.desktop.in.in
++data/org.gnome.notification-daemon.gschema.xml
+ src/nd-bubble.c
+ src/nd-daemon.c
+ src/nd-main.c
+diff --git a/src/nd-stack.c b/src/nd-stack.c
+index fc5a9e0..441cebb 100644
+--- a/src/nd-stack.c
++++ b/src/nd-stack.c
+@@ -44,6 +44,7 @@ struct NdStackPrivate
+         NdStackLocation location;
+         GList          *bubbles;
+         guint           update_id;
++        GSettings      *settings;
+ };
+ 
+ static void     nd_stack_finalize    (GObject       *object);
+@@ -233,6 +234,14 @@ translate_coordinates (NdStackLocation stack_location,
+         }
+ }
+ 
++static void
++location_changed_cb (GSettings     *settings,
++                     const char    *key,
++                     NdStack       *stack)
++{
++  stack->priv->location = g_settings_get_enum (stack->priv->settings, "location");
++}
++
+ static void
+ nd_stack_class_init (NdStackClass *klass)
+ {
+@@ -247,7 +256,11 @@ static void
+ nd_stack_init (NdStack *stack)
+ {
+         stack->priv = ND_STACK_GET_PRIVATE (stack);
+-        stack->priv->location = ND_STACK_LOCATION_DEFAULT;
++        stack->priv->settings = g_settings_new ("org.gnome.notification-daemon");
++        stack->priv->location = g_settings_get_enum (stack->priv->settings, "location");
++
++        g_signal_connect (stack->priv->settings, "changed::location",
++                          G_CALLBACK (location_changed_cb), stack);
+ }
+ 
+ static void
+@@ -262,6 +275,8 @@ nd_stack_finalize (GObject *object)
+ 
+         g_return_if_fail (stack->priv != NULL);
+ 
++        g_clear_object (&stack->priv->settings);
++
+         if (stack->priv->update_id != 0) {
+                 g_source_remove (stack->priv->update_id);
+         }
+-- 
+2.55.0
+

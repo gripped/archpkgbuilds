@@ -1,0 +1,57 @@
+From e5ce999e0f7c271b249487041ba2654149eaf1a9 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 4 Oct 2026 19:07:10 +0200
+Subject: [PATCH] Use gtk_show_uri_on_window to show links
+
+This removes usage of gvfs-open/xdg-open.
+---
+ src/nd-bubble.c | 29 ++++++++---------------------
+ 1 file changed, 8 insertions(+), 21 deletions(-)
+
+diff --git a/src/nd-bubble.c b/src/nd-bubble.c
+index caeeab4..bcf66f0 100644
+--- a/src/nd-bubble.c
++++ b/src/nd-bubble.c
+@@ -410,31 +410,18 @@ on_activate_link (GtkLabel *label,
+                   char     *uri,
+                   NdBubble *bubble)
+ {
+-        char *escaped_uri;
+-        char *cmd = NULL;
+-        char *found = NULL;
++        GError *error;
+ 
+         /* Somewhat of a hack.. */
+         bubble->priv->url_clicked_lock = TRUE;
+ 
+-        escaped_uri = g_shell_quote (uri);
+-
+-        if ((found = g_find_program_in_path ("gvfs-open")) != NULL) {
+-                cmd = g_strdup_printf ("gvfs-open %s", escaped_uri);
+-        } else if ((found = g_find_program_in_path ("xdg-open")) != NULL) {
+-                cmd = g_strdup_printf ("xdg-open %s", escaped_uri);
+-        } else if ((found = g_find_program_in_path ("firefox")) != NULL) {
+-                cmd = g_strdup_printf ("firefox %s", escaped_uri);
+-        } else {
+-                g_warning ("Unable to find a browser.");
+-        }
+-
+-        g_free (escaped_uri);
+-        g_free (found);
+-
+-        if (cmd != NULL) {
+-                g_spawn_command_line_async (cmd, NULL);
+-                g_free (cmd);
++        error = NULL;
++        if (!gtk_show_uri_on_window (GTK_WINDOW (bubble),
++                                    uri,
++                                    gtk_get_current_event_time (),
++                                    &error)) {
++                g_warning ("Could not show link: %s", error->message);
++                g_error_free (error);
+         }
+ 
+         return TRUE;
+-- 
+2.55.0
+
