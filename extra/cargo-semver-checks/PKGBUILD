@@ -3,7 +3,7 @@
 # Contributor: KokaKiwi <kokakiwi+aur at kokakiwi dot net>
 
 pkgname=cargo-semver-checks
-pkgver=0.50.0
+pkgver=0.51.0
 pkgrel=1
 pkgdesc='Scan your Rust crate for semver violations'
 url='https://github.com/obi1kenobi/cargo-semver-checks'
@@ -13,7 +13,7 @@ depends=('cargo' 'glibc' 'libgcc' 'openssl' 'zlib')
 makedepends=('git' 'cmake')
 options=('!lto')
 source=("$pkgname-$pkgver::git+$url.git#tag=v$pkgver")
-sha256sums=('da3d2058e57e319bb159b012fe55ef06d81af6ad46bfb42542eb116c7fc38599')
+sha256sums=('9f414efb3515740b07ec2be747ad82d3db29e4aa41edb5649c60b5b1790f1556')
 
 prepare() {
   cd "$pkgname-$pkgver"
