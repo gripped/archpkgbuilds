@@ -4,7 +4,7 @@
 
 pkgname=mate-notification-daemon
 pkgver=1.29.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Notification daemon for MATE"
 arch=(x86_64)
 url='https://github.com/mate-desktop/mate-notification-daemon'
@@ -52,7 +52,8 @@ build() {
     --prefix=/usr \
     --libexecdir="/usr/lib/$pkgname" \
     --sysconfdir=/etc \
-    --localstatedir=/var
+    --localstatedir=/var \
+    --enable-in-process
   make
 }
 
