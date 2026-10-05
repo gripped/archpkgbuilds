@@ -1,0 +1,30 @@
+From 1ebcb7bfef31e894e9b66cbb3ea30be501d03ce0 Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Sat, 3 Oct 2026 21:00:20 +0800
+Subject: [PATCH] build: unbundle system simdutf
+
+Cast uint8_t into char for simdutf binary_to_base64 to support
+unbundled system simdutf >= 8.0.
+---
+ src/base/simdutf_shim.cc | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/base/simdutf_shim.cc b/src/base/simdutf_shim.cc
+index 81c5cc6af..88262066e 100644
+--- a/src/base/simdutf_shim.cc
++++ b/src/base/simdutf_shim.cc
+@@ -14,7 +14,10 @@ size_t simdutf_base64_length_from_binary(size_t length) {
+ 
+ size_t simdutf_binary_to_base64(std::span<const uint8_t> input,
+                                 std::span<char> binary_output) {
+-  return simdutf::binary_to_base64(input, binary_output);
++  return simdutf::binary_to_base64(
++      std::span<const char>(reinterpret_cast<const char*>(input.data()),
++                            input.size()),
++      binary_output);
+ }
+ 
+ }  // namespace base::internal
+-- 
+2.56.0
+
