@@ -9,7 +9,7 @@
 
 pkgname=awesome
 pkgver=4.3
-pkgrel=6
+pkgrel=7
 pkgdesc='Highly configurable framework window manager'
 url='https://awesomewm.org'
 arch=(x86_64)
@@ -45,7 +45,6 @@ makedepends=(asciidoctor
 optdepends=('rlwrap: readline support for awesome-client'
             'dex: autostart your desktop files'
             'vicious: widgets for the Awesome window manager')
-provides=(notification-daemon)
 backup=('etc/xdg/awesome/rc.lua')
 _archive="$pkgname-$pkgver"
 source=("https://github.com/awesomeWM/awesome/releases/download/v$pkgver/$_archive.tar.xz"{,.asc})
