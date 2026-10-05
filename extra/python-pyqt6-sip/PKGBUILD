@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=python-pyqt6-sip
-pkgver=13.12.0
+pkgver=13.13.0
 pkgrel=1
 arch=(x86_64)
 pkgdesc='The sip module support for PyQt6'
@@ -14,7 +14,7 @@ makedepends=(python-build
              python-setuptools
              python-wheel)
 source=(https://pypi.python.org/packages/source/P/PyQt6-sip/pyqt6_sip-$pkgver.tar.gz)
-sha256sums=('a7ad45c1e3cec3a2473d37ea9870b6c3baeccc560298623c8eb59265714c06e2')
+sha256sums=('2cd55f575cde208c398d6cfdecc5a13394ed2afb54226210c50e3a6df7c3a997')
 
 build() {
   cd pyqt6_sip-$pkgver
