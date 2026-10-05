@@ -1,0 +1,31 @@
+_systemd_running() {
+    ! systemd-detect-virt --chroot && systemd-notify --booted
+}
+
+post_install() {
+    # generate the CDI specification file
+    if _systemd_running; then
+        systemctl start nvidia-cdi-refresh.service
+    fi
+}
+
+post_upgrade() {
+    if (( "$(vercmp "$2" "1.20.1-1")" < 0 )); then
+        # generate the new specification file to replace the removed /etc/cdi/nvidia.yaml
+        if _systemd_running; then
+            systemctl start nvidia-cdi-refresh.service
+        fi
+        if test -f /etc/cdi/nvidia.yaml; then
+            rm /etc/cdi/nvidia.yaml
+        fi
+        cat << EOF
+- The CDI specification is now automatically generated and updated by an
+  upstream systemd service called nvidia-cdi-refresh.  The generated CDI
+  specification now lives at /var/run/cdi/nvidia.yaml.  See upstream
+  documentation for details:
+  https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/cdi-support.html
+- The prior Arch-specific pacman hook has been dropped and its output at
+  /etc/cdi/nvidia.yaml has been automatically deleted.
+EOF
+    fi
+}
