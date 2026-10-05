@@ -3,7 +3,7 @@
 
 pkgname=lxqt-notificationd
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="LXQt notification daemon and library."
 arch=("x86_64")
 groups=("lxqt")
@@ -12,7 +12,6 @@ url="https://github.com/lxqt/$pkgname"
 license=("LGPL-2.1-or-later")
 depends=("qt6-base" "liblxqt" "kwindowsystem" "libQt6Xdg.so" "layer-shell-qt")
 makedepends=("cmake" "lxqt-build-tools")
-provides=("notification-daemon")
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
