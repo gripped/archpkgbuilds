@@ -1,0 +1,77 @@
+diff --git a/src/systray/systraybar.c b/src/systray/systraybar.c
+index 2a9fafe..45d2e1c 100644
+--- a/src/systray/systraybar.c
++++ b/src/systray/systraybar.c
+@@ -292,9 +292,10 @@ void on_change_systray(void *obj)
+     }
+ 
+     TrayWindow *traywin;
+-    GSList *l;
++    GSList *l, *next;
+     int i;
+-    for (i = 1, l = systray.list_icons; l; i++, l = l->next) {
++    for (i = 1, l = systray.list_icons; l; i++, l = next) {
++        next = l->next;
+         traywin = (TrayWindow *)l->data;
+ 
+         traywin->y = posy;
+@@ -398,9 +399,11 @@ void start_net()
+ 
+         fprintf(stderr, RED "tint2: another systray is running, cannot use systray" RESET);
+         if (ret == Success && prop) {
+-            pid = prop[1] * 256;
+-            pid += prop[0];
+-            fprintf(stderr, "tint2:  pid=%d", pid);
++            if (actual_format == 32 && nitems > 0) {
++                pid = (int)*(unsigned long *)prop;
++                fprintf(stderr, "tint2:  pid=%d", pid);
++            }
++            XFree(prop);
+         }
+         fprintf(stderr, RESET "\n");
+         return;
+@@ -595,8 +598,10 @@ gboolean reject_icon(Window win)
+         char *name = get_window_name(win);
+         if (regexec(systray_hide_name_regex, name, 0, NULL, 0) == 0) {
+             fprintf(stderr, GREEN "tint2: Filtering out systray icon '%s'" RESET "\n", name);
++            free(name);
+             return TRUE;
+         }
++        free(name);
+     }
+     return FALSE;
+ }
+@@ -648,8 +653,9 @@ gboolean add_icon(Window win)
+                                      &bytes_after,
+                                      &prop);
+         if (ret == Success && prop) {
+-            pid = prop[1] * 256;
+-            pid += prop[0];
++            if (actual_format == 32 && nitems > 0)
++                pid = (int)*(unsigned long *)prop;
++            XFree(prop);
+         }
+     }
+ 
+diff --git a/src/util/server.c b/src/util/server.c
+index ea8ea98..da04bdf 100644
+--- a/src/util/server.c
++++ b/src/util/server.c
+@@ -456,10 +456,17 @@ void server_get_number_of_desktops()
+     long *work_area_size = server_get_property(server.root_win, server.atom._NET_WORKAREA, XA_CARDINAL, &num_results);
+     if (!work_area_size)
+         return;
++    if (num_results < 4) {
++        XFree(work_area_size);
++        return;
++    }
+     int work_area_width = work_area_size[0] + work_area_size[2];
+     int work_area_height = work_area_size[1] + work_area_size[3];
+     XFree(work_area_size);
+ 
++    if (work_area_width <= 0 || work_area_height <= 0)
++        return;
++
+     long *x_screen_size =
+         server_get_property(server.root_win, server.atom._NET_DESKTOP_GEOMETRY, XA_CARDINAL, &num_results);
+     if (!x_screen_size)
