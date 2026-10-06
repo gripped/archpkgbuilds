@@ -9,7 +9,7 @@
 
 pkgname=ansible-core
 _pkgname=ansible
-pkgver=2.21.4
+pkgver=2.21.5
 pkgrel=1
 pkgdesc='Radically simple IT automation platform'
 arch=('any')
@@ -62,13 +62,13 @@ provides=('python-ansible' 'ansible-base')
 replaces=('ansible-base')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/ansible/ansible/archive/refs/tags/v${pkgver}.tar.gz"
         'relax_strict_dependencies_upper_bound.patch'
-        "fix_checks_with_pytest_9.1.x.patch::https://sources.debian.org/data/main/a/ansible-core/2.21.2-1/debian/patches/fix-pytest91-parametrize-stdin.patch")
-sha512sums=('d4cab79a7b54d8fc0620a8ac9161c982b54d04289670f8e096cef86bc2cc89619acaad83a088e0a4acca32cf5f398e070be9faa48c063fb8fa02b8227cb86e17'
+        "fix_checks_with_pytest_9.1.x.patch::https://github.com/ansible/ansible/commit/00618a2c95921bf38006e42b1e46d99de6c8e746.patch")
+sha512sums=('402073db2fb7b503c55b2afde72afc10f7b5143340e37c9c4e765048a48c8e3c39bd50f056aff043e333ab0e6333842f88ca9c47614cd4c51821fc70d8b33835'
             '82fd5604af055a40ff485213d812061a4183de8cc35807b995d987362fb31aa0709dad76d6fe92c0e587426e07322a56ccf49308b5c88d7c085f64de7e04fd30'
-            'c948e9986e9e8648f47cb855609d93be51a49e723cf82989288458ee210a2a046dd405218cc9be274cb6bf191f29a43add3725d5fe36aa9743539934fadd9d94')
-b2sums=('5c15d21060a9dc77b7e5b43b3134b33a0d3e901773bee7c2380a7d3193e7a275e776a306a78c1bc2a51d28610593e2331999e3037c410ec16c43401b2c814f55'
+            '3f22eb86c4351a13f9ebc4c2ba5fd5b56d05c09d9bd8dce9cf5aa90c052de34ed7b800989fc709c37a7a59587b0823a1721983d5de067079ec1509149bdd3154')
+b2sums=('3c9398569b1f812ab1dcb8217da94acc253df46ba8559e103488f35e660f50ddc758b5e618f6dd807745cbf34941b5a14f82ca3580b4d64b427e7a8592e72954'
         '0c5195b319f716f218a73867eb0dcdd047cb0e77f361290bf06aef0133c7f224df172d8b3a96c9e4c08ba9827128abe36695fe88d2dcbf2fc88f6786fe5d90e0'
-        'a68b29b52771a0b39b984b699142f73531d2beb0cd598f7bd0db04d43c25b772622a23b66e1aa186715fe30be38ad400578e09e9eb1f3a21ca0e30864a42d21c')
+        '9887ea26f18b1b32a0ed9ca0a23441741c8713aae9761bcd9579159dc3e939fc9ef24e0999922f31bece851f48d076a36e9518f584710233916293be76eda216')
 
 prepare() {
   cd "${_pkgname}-${pkgver}"
@@ -78,7 +78,7 @@ prepare() {
   patch -Np1 -i "${srcdir}/relax_strict_dependencies_upper_bound.patch"
 
   # Fix checks with pytest >= 9.1.x
-  # See https://sources.debian.org/data/main/a/ansible-core/2.21.2-1/debian/patches/fix-pytest91-parametrize-stdin.patch
+  # See https://github.com/ansible/ansible/pull/87165
   patch -Np1 -i "${srcdir}/fix_checks_with_pytest_9.1.x.patch"
 }
 
