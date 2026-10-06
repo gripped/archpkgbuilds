@@ -3,7 +3,7 @@
 
 pkgname=interception-caps2esc
 pkgver=0.3.2
-pkgrel=3
+pkgrel=4
 pkgdesc='Interception plugin that transforms the most useless key ever in the most useful one'
 arch=('x86_64')
 license=('MIT')
@@ -14,10 +14,12 @@ source=("$pkgname-$pkgver.tar.gz::https://gitlab.com/interception/linux/plugins/
 sha256sums=('d8a5c7a23cb7368fde2b91a0b5481d8ce906af146dd9a49f609052f2cf1d212c')
 
 build() {
+    # Cmake 4.0: https://gitlab.com/interception/linux/plugins/caps2esc/-/work_items/33
     cmake -B build \
           -S "caps2esc-v${pkgver}" \
           -DCMAKE_INSTALL_PREFIX=/usr \
           -DCMAKE_BUILD_TYPE=None \
+          -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
           -Wno-dev
     cmake --build build
 }
