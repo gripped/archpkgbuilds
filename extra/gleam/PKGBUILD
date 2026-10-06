@@ -3,7 +3,7 @@
 # Contributor: Arnaud Berthomier <arnaud@cyprio.net>
 
 pkgname=gleam
-pkgver=1.18.1
+pkgver=1.19.0
 pkgrel=1
 pkgdesc='Friendly programming language for building type-safe and scalable systems'
 arch=(x86_64)
@@ -17,7 +17,7 @@ optdepends=('erlang: standard erlang distribution'
 provides=(gleam)
 options=(!docs !libtool !lto !staticlibs)
 source=("git+$url#tag=v$pkgver")
-b2sums=('2a26288e3bbdfeb22fa5604e782810e2b434cd5235e2869504e69555509081939ec753dc2f45c0fced18975e682e06b45a02fb1c6c44ed1dcfe1d343a469ba03')
+b2sums=('590d1212e67f6854fc7bfcfe83bec21bd291a1f8faf2ebf9f4b8386c9bac83dd6914147a711c057aac07f989527aab9bcfd240543be5514566b30ba52ed71061')
 
 prepare() {
   cd $pkgname
@@ -38,5 +38,5 @@ check() {
 }
 
 package() {
-  install -vDm755 $pkgname/target/release/gleam "$pkgdir/usr/bin/gleam"
+  install -Dm755 $pkgname/target/release/gleam "$pkgdir/usr/bin/gleam"
 }
