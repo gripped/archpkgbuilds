@@ -1,0 +1,21 @@
+--- a/install-mold.sh
++++ b/install-mold.sh
+@@ -16,16 +16,15 @@ fi
+ 
+ bindir="$DESTDIR$PREFIX/bin"
+ libdir="$DESTDIR$MOLD_LIBDIR/mold"
+-libexecdir="$DESTDIR$PREFIX/libexec/mold"
+ mandir="$DESTDIR$PREFIX/share/man/man1"
+ docdir="$DESTDIR$PREFIX/share/doc/mold"
+ 
+-install -d "$bindir" "$libdir" "$libexecdir" "$mandir" "$docdir"
++install -d "$bindir" "$libdir" "$mandir" "$docdir"
+ install -m 755 "$artifact_dir/mold" "$bindir"
+ install -m 755 "$artifact_dir/mold-wrapper.so" "$libdir"
+ install -m 644 "$srcdir/docs/mold.1" "$mandir"
+ install -m 644 "$srcdir/LICENSE" "$docdir"
+ 
+ ln -sf mold "$bindir/ld.mold"
+-ln -sf ../../bin/mold "$libexecdir/ld"
++ln -sf ../../bin/mold "$libdir/ld"
+ ln -sf mold.1 "$mandir/ld.mold.1"
