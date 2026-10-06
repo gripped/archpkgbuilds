@@ -1,6 +1,6 @@
 [nextcloud-client]
-source = "github"
-github = "nextcloud-releases/desktop"
-include_regex = 'v\d+\.\d+\.\d+'
+source = "git"
+git = "https://github.com/nextcloud-releases/desktop.git"
+include_regex = "v.*"
+exclude_regex = "v.*(pre|rc|alpha|beta).*"
 prefix = "v"
-use_latest_release = true
