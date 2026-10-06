@@ -2,7 +2,7 @@
 
 _name=jekyll-seo-tag
 pkgname=ruby-$_name
-pkgver=2.9.0
+pkgver=2.9.1
 pkgrel=1
 pkgdesc='A Jekyll plugin to generate an Atom feed of your Jekyll posts'
 arch=('any')
@@ -14,7 +14,7 @@ checkdepends=(
   ruby-rspec
 )
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha256sums=('0f1bd407cb3ec8f45b6896991cc4bf1b941d857ad711f97c55929622b28a48cd')
+sha256sums=('e8120a6cf6d9b38f8340a41d73deb78665308c351401b649109a2439a4622aaa')
 
 prepare() {
   cd "$pkgname"
