@@ -7,7 +7,7 @@ pkgbase=lib32-at-spi2-core
 pkgname=(
   lib32-at-spi2-core
 )
-pkgver=2.60.7
+pkgver=2.62.0.1
 pkgrel=1
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi (32-bit)"
 url="https://gitlab.gnome.org/GNOME/at-spi2-core"
@@ -35,7 +35,7 @@ checkdepends=(
   at-spi2-core
 )
 source=("git+https://gitlab.gnome.org/GNOME/at-spi2-core.git?signed#tag=$pkgver")
-b2sums=('294821b4f0cf73c2eb8ca75bc471dd7033032313c2bb1a3b6c2f37f4e175e3cedfa1cf69e0871e37e5102a8a986c92cb3df5267b477a32e02cbcc80b54f247e0')
+b2sums=('ace45aae7ef3dc062af6b425ad4293729a27032fcfb1b58fe46e1698d88315bcf52e0b2a0813246e731dda23e2ee4950595d308e7e515c460d68a4a48de58cce')
 validpgpkeys=(
   276BFDAFB36212F8DB095E2140823A056FD6D4B3 # Mike Gorse <mgorse@suse.com>
 )
@@ -78,7 +78,7 @@ package_lib32-at-spi2-core() {
     'lib32-atk<=2.38.0-2'
   )
 
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 
   rm -r "${pkgdir}"/{etc,usr/{include,lib,share}}
 }
