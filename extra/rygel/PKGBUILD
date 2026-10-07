@@ -2,7 +2,7 @@
 # Contributor: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=rygel
-pkgver=45.2
+pkgver=46.0
 pkgrel=1
 epoch=1
 pkgdesc="UPnP AV MediaServer and MediaRenderer"
@@ -35,6 +35,8 @@ makedepends=(
   git
   gobject-introspection
   meson
+  python-docutils
+  python-yaml
   vala
 )
 optdepends=(
@@ -46,13 +48,13 @@ optdepends=(
   'localsearch: Share indexed media files'
   'tumbler: Thumbnailing service'
 )
-provides=(librygel-{core,db,renderer,renderer-gst,ruih,server}-2.8.so)
+provides=(librygel-{core,db,renderer,renderer-gst,server}-2.8.so)
 backup=(etc/rygel.conf)
 groups=(gnome)
 source=(
   "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('f013601c52478d53133b96ad733d42e9fbe7265cb32bc9ef2bd7c02b03a86af4e211c429a2bd05b305bbc13bca5a03466b3812c3c04980902ffd769f7c22a3cf')
+b2sums=('02c558100321c52a0a18c9ba0c605523c9d1726aaeb258101b014e13529fdf6267f67e248cbf4763ea06d0626a052e59a00f418c24aa527097414d4de79679ec')
 validpgpkeys=(
   AC9CD4E32D7C7F6357BA8ADD10F6E970175D29E1 # Jens Georg <mail@jensge.org>
 )
