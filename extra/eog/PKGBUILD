@@ -8,7 +8,7 @@ pkgname=(
   eog-docs
 )
 pkgver=50.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Eye of Gnome: An image viewing and cataloging program"
 url="https://gitlab.gnome.org/GNOME/eog"
 arch=(x86_64)
