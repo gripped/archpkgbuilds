@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=hindent
-pkgver=6.2.0
-pkgrel=23
+pkgver=6.2.1
+pkgrel=1
 pkgdesc="Extensible Haskell pretty printer"
 url="https://github.com/mihaimaruseac/hindent"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-async' 'haskell-ghc-lib-parser-ex' 'haskell-monad-l
          'haskell-split' 'haskell-syb' 'haskell-unicode-show' 'haskell-utf8-string' 'haskell-yaml')
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('82a89f31070118349459e8c8c4eac5cbbefcce58636161c28f688e08f805886b22134c0c6212f721413f9579781147a302a501ab0c0a443620d8d04e67e2517c')
+sha512sums=('c5e75f0b7638779041b3d3ee2639a0c9c21222063ab868e935697960de9f7c7dc89e09f534f1c6504b3c5934afed9b8bf2470f824362d3102923eaf43f724538')
 
 prepare() {
     cd $pkgname-$pkgver
