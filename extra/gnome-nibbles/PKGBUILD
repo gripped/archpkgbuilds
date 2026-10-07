@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-nibbles
-pkgver=4.5.2
+pkgver=4.6.0
 pkgrel=1
 pkgdesc="Guide a worm around a maze"
 url="https://wiki.gnome.org/Apps/Nibbles"
@@ -12,26 +12,29 @@ depends=(
   dconf
   glib2
   glibc
+  glibmm-2.68
   gsound
   gtk4
+  gtkmm-4.0
   hicolor-icon-theme
-  libadwaita
-  libgee
+  libgcc
+  libsigc++-3.0
+  libstdc++
   pango
+  pangomm-2.48
 )
 makedepends=(
   appstream
   git
   gobject-introspection
   meson
-  vala
   yelp-tools
 )
 groups=(gnome-extra)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-nibbles.git?signed#tag=$pkgver"
 )
-b2sums=('f0098e16533ca634f9011ae18db78aa14aa872ead7599f65121b391b74d9102ee60bd005b7189e332878c13b66accfe5eb1b99efb2f74e773ee902ae56ddc05d')
+b2sums=('3ea9ebf9bc21d4d1bfc61f09fd2ceb54612331def9332421cac5c773edc4c55883de3a12e5abefd7967aae22e5f59181a95d35079a73364766901793e6a1dfdb')
 validpgpkeys=(
   31F449AE968CBE194119A3AD1F1DC770CE79E68B # Ben Corby <bcorby@new-ms.com> (old)
   9CE6D700965C6A1D6F7B4A1C18B04BB8340E3EC5 # Ben Corby <bcorby@new-ms.com>
