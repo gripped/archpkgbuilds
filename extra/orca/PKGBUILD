@@ -4,8 +4,8 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=orca
-pkgver=50.3
-pkgrel=1
+pkgver=51.0
+pkgrel=2
 pkgdesc="Screen reader for individuals who are blind or visually impaired"
 url="https://orca.gnome.org/"
 arch=(any)
@@ -14,6 +14,7 @@ depends=(
   at-spi2-core
   dconf
   glib2
+  glibc
   gobject-introspection-runtime
   gsettings-desktop-schemas
   gst-plugins-base # playbin, audiotestsrc, basic decoders
@@ -21,6 +22,7 @@ depends=(
   gstreamer
   gtk3
   hicolor-icon-theme
+  libgcc
   liblouis
   libwnck3
   pango
@@ -42,6 +44,7 @@ checkdepends=(
   xorg-server-xvfb
 )
 makedepends=(
+  cargo
   git
   itstool
   meson
@@ -51,14 +54,23 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/orca.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('964c9c35f70cdfd8047e120f68aa763ae0d1d7b57fa692622e18b611bfddf7b4293a3b7e84f2e881bd69873ebdf2c3982d00fda2cfccbc6c014751b353b656ec')
+b2sums=('27d3af0e1d4254261b669379893eaa34877d4504b5f3c49cd7f353e82498764c58e47bca62bbd718f782b788abc4233322cdebd89855d143e79021eea9404000')
 validpgpkeys=(
   DBDB67681333AA61BBCB97140A042BFD3DA3816C # Joanmarie Diggs <jdiggs@igalia.com>, older
   85D0D0B3FB02946101A46295E7A697B5609D4701 # Joanmarie Diggs <jdiggs@igalia.com>, newer
 )
 
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
 prepare() {
   cd orca
+
+  cargo fetch --locked --target host-tuple \
+    --manifest-path subprojects/mathcat-py/Cargo.toml
 }
 
 build() {
@@ -76,7 +88,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:

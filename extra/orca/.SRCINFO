@@ -1,7 +1,7 @@
 pkgbase = orca
 	pkgdesc = Screen reader for individuals who are blind or visually impaired
-	pkgver = 50.3
-	pkgrel = 1
+	pkgver = 51.0
+	pkgrel = 2
 	url = https://orca.gnome.org/
 	arch = any
 	groups = gnome
@@ -9,6 +9,7 @@ pkgbase = orca
 	checkdepends = python-pytest
 	checkdepends = python-pytest-mock
 	checkdepends = xorg-server-xvfb
+	makedepends = cargo
 	makedepends = git
 	makedepends = itstool
 	makedepends = meson
@@ -16,6 +17,7 @@ pkgbase = orca
 	depends = at-spi2-core
 	depends = dconf
 	depends = glib2
+	depends = glibc
 	depends = gobject-introspection-runtime
 	depends = gsettings-desktop-schemas
 	depends = gst-plugins-base
@@ -23,6 +25,7 @@ pkgbase = orca
 	depends = gstreamer
 	depends = gtk3
 	depends = hicolor-icon-theme
+	depends = libgcc
 	depends = liblouis
 	depends = libwnck3
 	depends = pango
@@ -37,9 +40,9 @@ pkgbase = orca
 	depends = speech-dispatcher
 	depends = xorg-xkbcomp
 	depends = xorg-xmodmap
-	source = git+https://gitlab.gnome.org/GNOME/orca.git?signed#tag=50.3
+	source = git+https://gitlab.gnome.org/GNOME/orca.git?signed#tag=51.0
 	validpgpkeys = DBDB67681333AA61BBCB97140A042BFD3DA3816C
 	validpgpkeys = 85D0D0B3FB02946101A46295E7A697B5609D4701
-	b2sums = 964c9c35f70cdfd8047e120f68aa763ae0d1d7b57fa692622e18b611bfddf7b4293a3b7e84f2e881bd69873ebdf2c3982d00fda2cfccbc6c014751b353b656ec
+	b2sums = 27d3af0e1d4254261b669379893eaa34877d4504b5f3c49cd7f353e82498764c58e47bca62bbd718f782b788abc4233322cdebd89855d143e79021eea9404000
 
 pkgname = orca
