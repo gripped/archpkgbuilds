@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-remote-desktop
-pkgver=50.2
+pkgver=51.0
 pkgrel=1
 pkgdesc="GNOME Remote Desktop server"
 url="https://gitlab.gnome.org/GNOME/gnome-remote-desktop"
@@ -45,7 +45,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+$url.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('5e649f0160c9d0ff03b56c18210209c2e0f35bab2007c56732de56db5b107a2be22f2beed813f800389f750a3b11f0da33a79bc0527bfdb5e55cb867e5b50653')
+b2sums=('360cc3b47fdd674ac448634018a646447f17966ec91b842112626fe88f802e6201878ca47639678a8b04c0de56e74445bc17f067787f587d072a31e4fed06e40')
 validpgpkeys=(
   8307C0A224BABDA1BABD0EB9A6EEEC9E0136164A # Jonas Ådahl <jadahl@gmail.com>
   E60DADB5546D3F01AF35B87289F540EAB24513E2 # Ray Strode <rstrode@redhat.com>
@@ -66,7 +66,7 @@ build() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
