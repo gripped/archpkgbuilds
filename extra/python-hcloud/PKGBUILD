@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=python-hcloud
-pkgver=2.26.0
+pkgver=2.27.0
 pkgrel=1
 pkgdesc="Official Hetzner Cloud python library"
 arch=('any')
@@ -11,7 +11,7 @@ provides=('hcloud-python')
 depends=('python-requests' 'python-dateutil')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("$pkgname"-$pkgver.tar.gz::https://github.com/hetznercloud/hcloud-python/archive/v${pkgver}.tar.gz)
-sha512sums=('25bcc566150b1e241647067c931ab80cc76cbcc292488cf1739d93049b892a62064f9890a92fb614e862da6f1662a36a53b8034f6d3d94892518534c20cb7467')
+sha512sums=('3486927cbcaa5fa531fcbd0a09c628fbc7a0c51bbf997b082cd4f9947fec04fdb28ec44373680cd9b3b47d4a5da7dc5cf9f6a3de70fa9d11d347da731675d50c')
 
 build() {
   cd "$srcdir/hcloud-python-$pkgver"
