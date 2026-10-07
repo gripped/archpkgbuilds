@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=decoder
-pkgver=0.9.1
-pkgrel=2
+pkgver=0.10.0
+pkgrel=1
 pkgdesc='QR code scanner and generator'
 arch=(x86_64)
 url='https://apps.gnome.org/Decoder/'
@@ -33,7 +33,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/World/decoder.git#tag=$pkgver")
-b2sums=(5d512f4dc2d0b7d4790d04c17f3d21ac6feac663bd76ff7a5970dbcb0cc34a83b32f3d21441c8c46192f1de5e8ccc338f7031bcceccc8ae0565cabe4f7145a39)
+b2sums=(2c68ec57ba47edd45c7f899c9cbb2524c98cf1c302014648871361ba09e632672e942ebc4d0a14b24b414fb57597a363b9015ed7e6c51102351916aa1cdf523e)
 
 prepare() {
   cd $pkgname
