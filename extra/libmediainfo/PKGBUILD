@@ -4,8 +4,8 @@
 # Contributor:  hydro <hydro@freenet.de>
 
 pkgname=libmediainfo
-pkgver=26.05
-pkgrel=2
+pkgver=26.10
+pkgrel=1
 pkgdesc='Shared library for MediaInfo'
 arch=(x86_64)
 url='https://mediaarea.net'
@@ -22,16 +22,9 @@ depends=(
   graphviz
   zlib
 )
-source=("$pkgname-$pkgver.tar.xz::https://mediaarea.net/download/source/libmediainfo/$pkgver/libmediainfo_$pkgver.tar.xz"
-         graphviz-13.patch)
-sha512sums=('8eef2b1214d2b512c8d4483f4a8a967cd05f065cb7dd0ec9ac09b2989a2bce0f60a897a7b154e90f2d6f9e3b53ac8bebe7e9c577dfe2afdb37686c027b3a97a7'
-            'c5d9d5f4cb1a22e1e7fe9d08f6cb1c60fb25a74a653473d9f441a8c936959fdf770b7e9e200683ed884351bd825d3e7de73556186e9b39668285cc93d414b336')
-b2sums=('2c2a6e9a1f5cd9daaaa3575a99477f4d1bfebaa193b4d72f2f25288c0afa2ebe1e9e15ff38d01a09c882aac28b2f13593960e6df738a97eee0e162143c8ffec3'
-        'a26d3207609bf16f66ef12ee54104af0b8660288abb2f9be6c73eb314fa347fd9f38cb15215ce23dbc63fe0a2525437f330a4bee2efd5b702ee7dbdb5b3b8660')
-
-prepare() {
-  patch -d MediaInfoLib -p1 < graphviz-13.patch # Fix build with GraphViz 13
-}
+source=("$pkgname-$pkgver.tar.xz::https://mediaarea.net/download/source/libmediainfo/$pkgver/libmediainfo_$pkgver.tar.xz")
+sha512sums=('5b155195d92c098c05ea7e9bd5af884350186367297535a3d533a6657bb7a1f0a307d585a10e92caaca0a0d16815c90525b9bb9de9bfc373d44f89cad7ee8c6a')
+b2sums=('5f1d92f4fe4de60bf3e0eb21f2b3bc73ecd4e75856ece7df0b864df3779c9e5301730794d849a603799b69a1e486ecf343d8670505529e0c35507a78dda40983')
 
 build() {
   cd MediaInfoLib/Project/GNU/Library
