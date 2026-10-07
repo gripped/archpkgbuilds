@@ -5,8 +5,8 @@
 
 pkgbase=openai-codex
 pkgname=(openai-codex openai-codex-voice)
-pkgver=0.160.1
-pkgrel=2
+pkgver=0.161.0
+pkgrel=1
 _v8ver=150.4.0
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
 arch=(x86_64)
@@ -41,19 +41,15 @@ source=(
   "$pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/rust-v$pkgver.tar.gz"
   "librusty_v8-$_v8ver.a.gz::$url/releases/download/rusty-v8-v$_v8ver/librusty_v8_ptrcomp_sandbox_release_x86_64-unknown-linux-gnu.a.gz"
   "src_binding-$_v8ver.rs::$url/releases/download/rusty-v8-v$_v8ver/src_binding_ptrcomp_sandbox_release_x86_64-unknown-linux-gnu.rs"
-  'fix-chatgpt-recursion-limit.patch'
   'voice-system-libraries.patch'
 )
 noextract=("librusty_v8-$_v8ver.a.gz")
-b2sums=('0250be3f90f0a0732c82025fbd02252e84131a26442a1ba11ad0e4238cdf42b9aa7ede253a5326b8b3ad05cd066a655f8b7d7957e3d2af4a85b770ccac67f415'
+b2sums=('6c9b14f9d07ce7bbfa096d68a108887694e4fa2b29b4146797aa853dc833989a51bb77e9244d5a8a7c7b21017f307a42c4f5563b54e11762222f6011d8ec0c4b'
         '816509947f4062124bd4f5fe581b8ae2762f3f50562c84558e58fed657a9bd17360120879deb9838a73664e4fc3aa3b8d1ed09bf11093d289f81d9eb9533c9b6'
         'b21381b7f09d0205455ba541b2a38ff79b9535c4b8436b309f39f4b40d819e604b3689298ae81deb00c07a12a21ef0fd1bd0bbddb196d63f24d8621ace7165c1'
-        'f22bc2186c0c6105598b654b8cadacd75980f9358af11a384a3732c56f6d63f1554d68fa3acd08486cd8af75e805fc06b92f6df8062aabda2aa190c64b7b83fa'
-        '22d5fbbbd5b538a1e03c8136b9ec0a11368efb8bba986d19dd46536aaebef61682f1726e8a32a38e9781523e7bf24409e044517d0b2fa70368ec3b76ecd15982')
+        'cb7b3b87c46e14199e1c9c89b7b985b241e281bd266f44c0722d72cef4095fa937952525d5f3c71cb5e9a704ef64c24817bf5b634ed02e46432bc0cb705bfc69')
 
 prepare() {
-  patch -d codex-rust-v$pkgver -Np1 \
-    -i "$srcdir/fix-chatgpt-recursion-limit.patch"
   patch -d codex-rust-v$pkgver/codex-rs -Np1 \
     -i "$srcdir/voice-system-libraries.patch"
   cd codex-rust-v$pkgver/codex-rs
