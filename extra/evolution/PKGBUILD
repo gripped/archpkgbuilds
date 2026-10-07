@@ -8,7 +8,7 @@ pkgname=(
   evolution-bogofilter
   evolution-spamassassin
 )
-pkgver=3.60.2
+pkgver=3.62.0
 pkgrel=1
 pkgdesc="Manage your email, contacts and schedule"
 url="https://gitlab.gnome.org/GNOME/evolution/-/wikis/home"
@@ -63,7 +63,7 @@ makedepends=(
 )
 options=(!emptydirs)
 source=("git+https://gitlab.gnome.org/GNOME/evolution.git#tag=$pkgver")
-b2sums=('1339efc7216362b24d775ec4495b73c7a54e91cb6d7c813c39f59a6174618fa79f4172c264b6c372b429f59dfceda2f40a9663bdc89b99a42237ee058c1ccdf0')
+b2sums=('0e76e3e634a33b85a30b4fa10d4ab7fc4b954b5d8f5694cfbd90a9662195fc871197b8288322d8674316234f2f09d44fdfbab0a73f5d28bf1af4a6302d1b6f4b')
 
 prepare() {
   cd $pkgbase
