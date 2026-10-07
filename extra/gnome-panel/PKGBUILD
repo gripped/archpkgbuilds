@@ -3,7 +3,7 @@
 
 pkgname=gnome-panel
 pkgver=3.58.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Panel of GNOME Flashback'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomePanel'
