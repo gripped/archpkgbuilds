@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=dot-language-server
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc="A language server for the DOT language"
 arch=(any)
@@ -14,8 +14,8 @@ makedepends=(
   typescript
 )
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('f3f0d6b87ec4057d6729d5f0747abdd3430b8e924200f5068d792c08d1e764017c654ec59f5a834d32da9fe9863c0c646a4e38ab9310c195e3beb05364a67f28')
-b2sums=('5c7f1733a96e79f5f52d48f20939bd0a96ebdacf62ced9c1e164ecc22c1f6ce7af677bc772b47c445e000e1b395af97da570f4fc092a13f99f57490292abd917')
+sha512sums=('ba9a7d39d563adcf78a3ed41b0c572e86d6f10b4bc993afcd3e3d1b6efb6dc84a4cb03d1ac173afa07fb16a954d7c276fd401cf9011ac443404ad94a333389f7')
+b2sums=('83de8c43c49900a100f59ee07a07dbdf489690912e457756aa19e8f9e909a8895059579a9c7ea8329a68914e54677d385e55f8a1ccb38d24081b33e6c6807666')
 
 build() {
   cd $pkgname-$pkgver
