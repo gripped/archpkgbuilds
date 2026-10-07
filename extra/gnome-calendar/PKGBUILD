@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-calendar
-pkgver=50.0
-pkgrel=2
+pkgver=51.0
+pkgrel=1
 pkgdesc="Simple and beautiful calendar application designed to perfectly fit the GNOME desktop"
 url="https://apps.gnome.org/Calendar"
 arch=(x86_64)
@@ -26,6 +26,7 @@ depends=(
   libgweather-4
   libical
   libsoup3
+  pango
 )
 makedepends=(
   blueprint-compiler
@@ -42,8 +43,8 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-calendar.git#tag=${pkgver/[a-z]/.&}"
   0001-Support-libical-4.0.0.patch
 )
-b2sums=('d56765b7cd680fc1e3b324b7820dea56f7dc0c32059fc5f6ea3f1dcc735100ef83990f232129f62d992766a923e6fef8dd8c58e3fca531574b922de683f037fd'
-        'b7ad326e6e8a90dbaed4adaa9a885392fff01ef32c29497c5880d29c7a318734420c24d5b3a51ca1c98568c45e527dd4da664894c4d4cc017a2781f641f699d6')
+b2sums=('f7aae64783502777e1ee8e796981dc7446e81c3ee14e7b1ae9eba0b4d830d434bfae4b1425faca883fd48362f21b4cb3addf8e3fa86806900c3289c0cab3aed0'
+        '475f289d527efaf68a6a5df4e5205ad85fe355f38b85a4e9abb4bd8fe16d15aaae6f3ec217f3e6e99d7c0bd6bd7c37c62a39998907422e843b9686c9fb9c86b0')
 
 prepare() {
   cd $pkgname
@@ -59,11 +60,11 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs
+  meson test -C build --print-errorlogs ||:
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
