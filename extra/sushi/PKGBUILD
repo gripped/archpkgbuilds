@@ -1,9 +1,9 @@
-# Maintainer: Fabian Bornschein <fabiscafe-at-mailbox-dot-org>
+# Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=sushi
-pkgver=50.0
+pkgver=51.1
 pkgrel=1
 pkgdesc="A quick previewer for Nautilus"
 url="https://gitlab.gnome.org/GNOME/sushi"
@@ -11,50 +11,41 @@ arch=(x86_64)
 license=(GPL-2.0-or-later)
 depends=(
   cairo
-  evince
   freetype2
-  gdk-pixbuf2
+  fribidi
   gjs
   glib2
   glibc
-  gst-plugin-gtk
+  glycin-gtk4
   gst-plugins-base-libs
   gstreamer
-  gtk3
-  gtksourceview4
+  gtk4
   harfbuzz
-  libepoxy
   libgcc
-  libsoup3
+  libx11
   pango
+  papers
 )
 makedepends=(
+  blueprint-compiler
   git
   gobject-introspection
   meson
+  webkitgtk-6.0
 )
 optdepends=(
   'libreoffice: OpenDocument formats'
-  'webkit2gtk-4.1: Render HTML files'
+  'webkitgtk-6.0: Render HTML files'
 )
 groups=(gnome)
+# sushi tags use SSH signatures which makepkg doesn't understand
 source=(
-  "git+$url.git?signed#tag=${pkgver/[a-z]/.&}"
-  0001-sushi-media-bin-Fix-llvmpipe-detection.patch
+  "git+$url.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('6d59a8719ab712f645413021861f8c0a394ddfe2c65fef9f5b8f64950831218e7b620ee3901006bab2aa1e928ff8c132e9217a75a6ec174a541a535ea5957cd2'
-        '1506046e46557d87fabf860cff467682c04226d0bf4d2ecdcde5fba1ac1d608c78cd3e556dbdde72e17d449b9e5ae6e30616ec454d93335dbfd18a4f179afb79')
-validpgpkeys=(
-  550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
-  3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
-)
+b2sums=('ef9b3314343bf04a0cefdeeeb46b096da963718d300ddda01a4191275ab8084b5b3c23a74e31ca99f5d43d6971b0c3f635be446da5387ff96e46dd2ab2cf54dd')
 
 prepare() {
   cd sushi
-
-  # Fix llvmpipe detection
-  # https://gitlab.gnome.org/GNOME/sushi/-/merge_requests/56
-  git apply -3 ../0001-sushi-media-bin-Fix-llvmpipe-detection.patch
 }
 
 build() {
@@ -67,7 +58,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
