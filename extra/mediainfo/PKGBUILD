@@ -5,17 +5,23 @@
 
 pkgbase=mediainfo
 pkgname=(mediainfo mediainfo-gui)
-pkgver=26.05
+pkgver=26.10
 pkgrel=1
 pkgdesc='Supplies technical and tag information about media files'
-arch=('x86_64')
+arch=(x86_64)
 url='https://mediaarea.net'
-license=('BSD-2-Clause')
-depends=("libmediainfo=$pkgver")
-makedepends=('wxwidgets-gtk3')
+license=(BSD-2-Clause)
+depends=(
+  "libmediainfo=$pkgver"
+  libzen
+  libstdc++
+  libgcc
+  glibc
+)
+makedepends=(wxwidgets-gtk3)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/MediaArea/MediaInfo/archive/v$pkgver.tar.gz")
-sha512sums=('2d1fb3af84d0bdc2242a1bf3f8c011b120302e521cd3da001245410a3fe77fb0103ca9dbf7cf0b24699aecf7b6627926a86e28966ef902079bf2365f4b302c90')
-b2sums=('c86323b18e8fe1296a50ae87abda65fb3b754a802b7f54e6f93be1a17c5e30337219051ced0eda41782d852b2aa86be2f98e18807b3a3247ebaed435583025b6')
+sha512sums=('9233defc6d77e639537d4217745556f1ca1369395651c728213cf0a087dc35f69f2f7630134bc0ddd51d1521f600e09985167f3bc98d9237780b5aea425874c0')
+b2sums=('6a731b771bcc4370f9974d1d691a1a6615a5c5d6448fe049f8537284750270a096ad241bd042be22016964fc99bf040235cc317aa984409612934ce51926e268')
 
 prepare() {
   cd MediaInfo-$pkgver
@@ -40,7 +46,7 @@ build() {
 }
 
 package_mediainfo() {
-  pkgdesc+=" (CLI interface)"
+  pkgdesc+=' (CLI interface)'
 
   cd "MediaInfo-$pkgver/Project/GNU/CLI"
 
@@ -51,8 +57,12 @@ package_mediainfo() {
 }
 
 package_mediainfo-gui() {
-  pkgdesc+=" (GUI interface)"
-  depends+=('wxwidgets-gtk3' 'hicolor-icon-theme')
+  pkgdesc+=' (GUI interface)'
+  depends+=(
+    wxwidgets-common
+    wxwidgets-gtk3
+    hicolor-icon-theme
+  )
 
   cd "MediaInfo-$pkgver/Project/GNU/GUI"
 
