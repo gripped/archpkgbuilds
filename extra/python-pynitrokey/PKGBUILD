@@ -4,7 +4,7 @@
 
 _name=pynitrokey
 pkgname=python-pynitrokey
-pkgver=0.13.0
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="A command line interface for the Nitrokey FIDO2, Nitrokey Start, Nitrokey 3 and NetHSM"
 arch=(any)
@@ -19,11 +19,10 @@ depends=(
   python
   python-cffi
   python-click
-  python-click-aliases
   python-cryptography
-  python-ecdsa
   python-fido2
   python-intelhex
+  python-libusb1
   python-nethsm
   python-nitrokey
   python-nkdfu
@@ -43,14 +42,13 @@ makedepends=(
 )
 # NOTE: there are no tests to run
 optdepends=(
-  'python-libusb1: for pro and storage subcommands'
   'python-pyscard: for PC/SC support'
 )
 source=(
   "$_name::git+$url.git?signed#tag=v$pkgver"
 )
-sha512sums=('916b925428360f2a24836dddcb81b3670c1b61815f01b8e9545c527386f03631f49bc63eb3fda9464c428a7673c7f2c3e5ef422c14b5fd15e3ebf1b7993ec495')
-b2sums=('d2c54465130da6d4fbedfe761e32165f22b1ca47fa8464b7f952542905b49c419f2141d4787082a4e2e54676bb12360f3391f0cc62ab67553297e29e797a0564')
+sha512sums=('3e06fcb501bd3876690cf69f02d9d25f71bf92f8cae9ef1bcc080da477e0fff68508949812f17610cce7551abb0b587125b8feb103d96a9ce1bc48b39d33af32')
+b2sums=('45efa257943a76a981928786a7fdc7234ed2d1660a227801bcf7bd2af8775a42ace4ea24a9e6c35f240443b712096b0f15831e53736d676a4be81c80627b9c6d')
 validpgpkeys=(
   868184069239FF65DE0BCD7DD9BAE35991DE5B22  # Szczepan Zalega <szczepan@nitrokey.com> (@szszszsz)
   CC74B7120BFAA36FF42868724C1449F1C9804176  # Markus Meissner <meissner@nitrokey.com> (@daringer)
