@@ -2,7 +2,7 @@
 
 _name=django-filter
 pkgname=python-django-filter
-pkgver=26.1
+pkgver=26.2
 pkgrel=1
 pkgdesc="A generic system for filtering Django QuerySets based on user selections"
 arch=(any)
@@ -29,17 +29,9 @@ optdepends=(
 )
 source=(
   $_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
-  $pkgname-26.1-drop-the-upper-limit-for-flit_core.patch
 )
-sha512sums=('f240fcbd4ffccdb85c2db2c42ac951eced96aa62489e80c7a00156e364c1f8691205e75113d67c2c18bd6310c682a3e5a4065fffa25140369466b37931ad0e05'
-            '5b6712243d4902476c11ecaa32be97088d6401203fcc6c4389eea4ad1a2449796d7b51b92747d78bd911a4e1eb948a765fd3d321c6bbfdcd878fa9839ce4e370')
-b2sums=('cc96a40ec72d2c1b632ab03be5d8e952572ed0901611198f2b84b99358ddc54e747c38c56384e1349f1cc9da81cd81d2639a819487c8c4ddf4b3ad402c6cba18'
-        '922508bbc52e4e5b24f53bcdaa59d7e756992232d6bf377fd4672a99feebb75f61c3201584fe078dd78ac6f891cc3eacc919cb2bc212e34930081f5456aedc73')
-
-prepare() {
-  # Remove flit_core upper version constraint: https://github.com/carltongibson/django-filter/pull/1755
-  patch -Np1 -d "$_name-$pkgver" -i ../$pkgname-26.1-drop-the-upper-limit-for-flit_core.patch
-}
+sha512sums=('520530d0c6ffb39e47b8b5aa544a581858fbce9d0ad17d45cfe9dd471c5ba26e5b36e1e16cee02937a8857546dc0d0167b8d77a3d3a5ed0c13595e4db91f4d17')
+b2sums=('14acf826c18c955c3e77f139683faca47dad4ef9678ecaa689c58251081620ac847dc14826f4886de03a1f2e82c42243fffd2447f48cc4ced372d7677de3c1d1')
 
 build() {
   cd $_name-$pkgver
