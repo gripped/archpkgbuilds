@@ -3,7 +3,7 @@
 # Contributor: Igor Dyatlov <dyatlov.igor@gmail.com>
 
 pkgname=gnome-console
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 pkgdesc="A simple user-friendly terminal emulator for the GNOME desktop"
 url="https://apps.gnome.org/Console/"
@@ -34,7 +34,7 @@ checkdepends=(
 )
 groups=(gnome)
 source=("$pkgname::git+https://gitlab.gnome.org/GNOME/console.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('8041082f14cbf6cb5a77934b5f109870b8c4aa02000b3cc86d27ff91af4fb284f8f1af048f14e9f973e8444e217528e9d9d0d05f87ce09db4e469df76dd53e57')
+b2sums=('673bae633b2a113126c11cbb903cb14487c01f382901a8f78744bbacb93a4545610467d48a9a85172bc66cb8c303913ac06821787a83b7e01973f6fc5fcfe0e4')
 
 prepare() {
   cd $pkgname
@@ -64,7 +64,7 @@ check() (
 )
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
