@@ -2,7 +2,7 @@
 
 pkgname=python-svglib
 _name="${pkgname#python-}"
-pkgver=2.2.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="Read SVG files and convert them to other formats"
 arch=(any)
@@ -25,8 +25,8 @@ checkdepends=(
   python-pytest
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('66a1f03d41435a8704e1170b3d9cb24cd972d502f5f0019282f99d09f4a6e0ca4b4cc27880048fb789c97a63fd287ce2328d5579e90bd6ad80c6e4d16f01cb65')
-b2sums=('604936d2692bb440c9c180e9ebd6dfe9ac34eea5259b1ad5592886a0a79ac73053b4aad6e174ed43743c7b1c09b679d9575f99cef6040c4f982bf925e50dc20e')
+sha512sums=('067daf7c6e7d94d778094a657b214f1e647d01232f317f7e88d05adec50bd7c2610765ea242ee0617e7e8585b182f4ff25f6f9d1a9c2dcfeeb72d789c0ffe185')
+b2sums=('7c0daa119f8f17e96a6a2547555cab74b3a104a1051c4b9838f6a91a5c73cf2fc31f1219f6eea724c5706c5cebf9c3cd736f2b3c38fdc0b1a8ee41a7254e1ab9')
 
 build() {
   cd $_name-$pkgver
