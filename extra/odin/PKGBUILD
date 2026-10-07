@@ -6,8 +6,8 @@
 # Contributor: Johannes Müller <mail@jotrorox.com>
 
 pkgname=odin
-pkgver=dev_2026_09 # using monthly tags until a release is tagged
-pkgrel=3
+pkgver=dev_2026_10 # monthly release tags
+pkgrel=1
 _raygui=5.0
 pkgdesc='Data-oriented programming language'
 arch=(x86_64)
@@ -20,7 +20,7 @@ checkdepends_aarch64=(lua54)
 options=(staticlibs)
 source=("git+https://github.com/odin-lang/Odin#tag=${pkgver//_/-}"
         "raygui-$_raygui.tar.gz::https://github.com/raysan5/raygui/archive/refs/tags/$_raygui.tar.gz")
-b2sums=('dbb3bd53f3a2ab4cc2726a9cd064aea6eb99cfa41e91fa7a045e9fac7f518fbb5f6e1d7a109cc6e89b45eb698efda5f1fb75bc5eaf54b5a009ed106c08ca1113'
+b2sums=('b5cd4f27c04a4375aafa5b7090745fcd41b2ffafcceeb86b7568eb1f57ba0532612d4334ff66b213672e401dcd5bdb71e8f822b5e9a43d5e554f2c153485aee3'
         '6f97a2174de0f8b140b8f534386ac92d9425f69ce93ae4dc45c131afd39d812aa5ec8c640144fb36ac7ff818c8ce373f0cfc2ff7c7ed23c22218cea4323766e6')
 
 prepare() {
@@ -32,7 +32,7 @@ prepare() {
   setconf vendor/raylib/raylib.odin RAYLIB_SHARED '#config(RAYLIB_SHARED, true)'
   setconf vendor/raylib/rlgl/rlgl.odin RAYLIB_SHARED '#config(RAYLIB_SHARED, true)'
 
-  # Using miniaudio from the system
+  # Use miniaudio from the system too
   cd vendor/miniaudio
   setconf common.odin LIB '"system:miniaudio"'
   sed -i '/^when !#exists(LIB) {/,/^}/d;s/f v != BINDINGS_VERSION {/f v.xy != BINDINGS_VERSION.xy {/' common.odin
