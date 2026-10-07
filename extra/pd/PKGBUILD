@@ -3,9 +3,9 @@
 
 _name=pure-data
 pkgname=pd
-pkgver=0.56.5
+pkgver=0.57.0
 _ver=${pkgver%.*}-${pkgver##*.}
-pkgrel=2
+pkgrel=1
 pkgdesc="The Pure Data real-time music and multimedia environment"
 arch=(x86_64)
 url="http://msp.ucsd.edu/software.html"
@@ -30,8 +30,8 @@ provides=(
   libpd.so
 )
 source=($pkgname-$_ver.tar.gz::https://github.com/pure-data/pure-data/archive/refs/tags/$_ver.tar.gz)
-sha512sums=('e2f41383123344a2cd38400362e447ad96aafdf4db61071c6c3cb0ee2b47a2eef71920c38d72820ddcb6bddb27f92ebaf93b203d668a816f517791593b6a0cab')
-b2sums=('179a27660680f5f54d2e8ed219ed6502eca5b85c248bddc5be7dfc62824c22ebf3b7ac704f337ac96507f28d4ee6163199e796e7e6409b02cc10420f01502559')
+sha512sums=('67d4f019322d80b974f44884136528112fac2064e8bd126025162bc8aee08059872c4326d09ccbed36b1f1b65759646309e5dc05c6024864f259e5933ad6bfd6')
+b2sums=('6df9b68673b5a91f99d1ea9dc54d189311e32cf920fc3fd6fb37b52930b7b3ee55c6e4a59b3b45f2d70fb7ec1231db791accdf46fa23ae8daad0706e508bfebf')
 
 prepare() {
   cd $_name-$_ver
