@@ -3,7 +3,7 @@
 
 pkgname=gnome-builder
 pkgver=50.0
-pkgrel=2
+pkgrel=3
 pkgdesc="An IDE for writing GNOME-based software"
 url="https://apps.gnome.org/Builder/"
 arch=(x86_64)
@@ -86,6 +86,9 @@ b2sums=('e0266dbdcc6abcf0e96adb197c62ce525c080924eda64f7a7bc599b83e0d7034595bc8d
 
 prepare() {
   cd $pkgname
+
+  # Fix start with libdex 1.2.0
+  git cherry-pick -n 4dc88803f84ea11caaac78a39d2084ac6f1313d3
 }
 
 build() {
