@@ -3,8 +3,8 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=speedcrunch
-pkgver=0.12.0
-pkgrel=5
+pkgver=1.0.0
+pkgrel=1
 pkgdesc="Simple but powerful calculator using Qt"
 arch=(x86_64)
 url='https://speedcrunch.org/'
@@ -12,22 +12,16 @@ license=(GPL-2.0-only)
 depends=(glibc
          libgcc
          libstdc++
-         qt5-base
-         qt5-tools)
+         qt6-base
+         qt6-tools)
 makedepends=(cmake
              git)
-source=(git+https://bitbucket.org/heldercorreia/speedcrunch#tag=release-$pkgver)
-sha256sums=('368356c8614182c3eff16aa396c730e5ebbb0d11d30bb111ac86418e98824ed8')
-
-prepare() {
-  cd $pkgname
-  sed -e 's|/appdata/|/metainfo/|g' -i src/CMakeLists.txt # Update metainfo install dir
-}
+source=(git+https://github.com/heldercorreia/speedcrunch#tag=v$pkgver)
+sha256sums=('06c246cef12fcfc9bf2cb9f3a44936dad080179f12417d8ebe7313163130685c')
 
 build() {
   cmake -B build -S $pkgname/src \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    -DCMAKE_INSTALL_PREFIX=/usr
   cmake --build build
 }
 
