@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=loupe
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 pkgdesc="A simple image viewer for GNOME"
 url="https://apps.gnome.org/Loupe/"
@@ -35,7 +35,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/loupe.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('fb8a6a175409be8a255f0053d822318c657b1d431e38d30303c9094c906505d952fecb5bc3a85e344850d49684814397eb38bd477f58ac3abb0681273da82b9a')
+b2sums=('d7c3d96b5f9290dbe862cf65277f41eb66f410156003acf55f2c4ddead997b67cc3de359dbfe0d80f6e4b5cc77028a643e70ccd76271f960bb4b9c217f583d07')
 validpgpkeys=(
   4587A0EE1EE5478AAB82C0A93BA28A5559F08EBD # Sophie Herold <sophieherold@gnome.org>
 )
@@ -60,11 +60,11 @@ build() {
 }
 
 check() {
-  meson test -C build --print-errorlogs --no-rebuild
+  meson test -C build --no-rebuild --print-errorlogs
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir" --no-rebuild
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
