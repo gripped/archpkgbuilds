@@ -7,7 +7,7 @@ pkgname=(
   librsvg
   librsvg-docs
 )
-pkgver=2.62.4
+pkgver=2.63.2
 pkgrel=1
 epoch=2
 pkgdesc="SVG rendering library"
@@ -43,7 +43,7 @@ source=(
   # librsvg tags use SSH signatures which makepkg doesn't understand
   "git+https://gitlab.gnome.org/GNOME/librsvg.git#tag=$pkgver"
 )
-b2sums=('c5619041a8596da34bd58bf3f01088036b58d58d7b5ea0ff17bbc6cb14e1afad167cbd10f3ccb60446a4f46f812e69dd5d7e69cb74d1788809e0c47c486f7d83')
+b2sums=('014b5d80429df08e73fd17b0e0c65f5e246b0aae02465409f8073956b48845034f63d76e7cc53170ff5d2eb2565756df10e60abe20f0ee743b09704d05f27830')
 
 # Use debug
 export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
@@ -53,10 +53,6 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd librsvg
-
-  # Make reftests pass
-  # https://gitlab.gnome.org/GNOME/librsvg/-/work_items/1237
-  git cherry-pick -n 55a08a24cbd93c042872d6b95f7bb59d3460a0f3
 
   cargo fetch --locked --target host-tuple
 }
@@ -78,7 +74,7 @@ check() {
 package_librsvg() {
   provides=(librsvg-${pkgver%%.*}.so)
 
-  meson install -C build --destdir "$pkgdir" --no-rebuild
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/doc
