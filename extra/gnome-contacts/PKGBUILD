@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gnome-contacts
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 pkgdesc="Contacts Manager for GNOME"
 url="https://apps.gnome.org/Contacts"
@@ -46,7 +46,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-contacts.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('00694ea321f1b0268a4ae7e31dfb6745a6eb29f74f74ae2a39d7a20f458c15187048f473bdbc5b3d6e0eb8fe02d4b01a460f2fd9e87e3dc8cd28820e718ec8e7')
+b2sums=('8ef1ffc0fdd7cbe21be36668876ce2eeb42a834e94374979d7369a1c75b402cfe2c87d9b6b0af9dc59e5f53450b6947ee458d2963be4d89010ab8a53d01c6270')
 validpgpkeys=(
   A7C626E13F9AD776776BD9CA1D8A57CF2E8D36A3 # Niels De Graef (nielsdg) <nielsdegraef@gmail.com>
   4D0BE12F0E4776D8AACE9696E66C775AEBFE6C7D # Jeremy Bícha <jbicha@ubuntu.com>
@@ -66,7 +66,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
