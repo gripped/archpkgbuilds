@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=bustle
-pkgver=0.13.0
-pkgrel=2
+pkgver=0.14.0
+pkgrel=1
 pkgdesc='Draw sequence diagrams of D-Bus traffic'
 arch=(x86_64)
 url='https://apps.gnome.org/Bustle/'
@@ -26,7 +26,7 @@ makedepends=(
   rust
 )
 source=("git+https://gitlab.gnome.org/World/bustle.git#tag=$pkgver")
-b2sums=('7abf5259ea30c53865dcdc575bfb213906d3bb094445b6ecd4a1a96bb479190bac5b0c101ee1b1e8f688ff839df3b557c1c780df5098445843db90b3f2738147')
+b2sums=(a9e8ed2e2ac9dbe349590262d6ee4faada413e7b4bb455f1ea12fc8df30e943f5a423949e04e47cfc26590d058cd150a9e02d7149802e1a01b60e6ef0b621132)
 
 prepare() {
   cd $pkgname
