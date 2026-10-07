@@ -2,7 +2,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=arti
-pkgver=2.6.0
+pkgver=2.7.0
 pkgrel=1
 pkgdesc="An implementation of Tor in Rust"
 arch=('x86_64')
@@ -19,8 +19,8 @@ makedepends=('cargo')
 backup=('etc/arti.d/arti.toml')
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/-/archive/$pkgname-v$pkgver/$pkgname-$pkgname-v$pkgver.tar.gz")
-sha256sums=('76575e54f4bd67da030ada8376208cffa0c1210de606e9db12d2fa8a2a05b195')
-b2sums=('6e64f35f4676a6986e1821205a4315185b428e5fc71eb1890283ddb0d92fb39ce225f7ba9ceaccbed94ebce4a8082d86eb6326cfbeae91752983d158b4f2421c')
+sha256sums=('d4fbf50fd72fa4b4a4c957db04dcd18277b42ee70bc99d8a9074deb3bdea08d3')
+b2sums=('eca6268acad37fff560e78cf7940766f6121b982d7e5e5288536d4738cdb046eb8a8a7926fe5591adad47317b32890ea705d3c4661db262ff7917c65b216e0a1')
 
 prepare() {
   mv "$pkgname-$pkgname-v$pkgver" "$pkgname-$pkgver"
