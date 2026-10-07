@@ -3,8 +3,8 @@
 
 pkgname=python-nitrokey
 _name="${pkgname#python-}-sdk-py"
-pkgver=0.4.2
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc="Python SDK for Nitrokey devices"
 arch=(any)
 url="https://github.com/nitrokey/nitrokey-sdk-py"
@@ -28,8 +28,8 @@ makedepends=(
   python-poetry-core
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('04003651240361e736e4a3a4f3c7f172a86f06eab7a0a6bd862e20fd8b22aa7918e130fd918ee10f906322949bd8ad292b03e0dc708c928c951e236c6650c680')
-b2sums=('ee2d08363eb7ccb2e72fb73bd2d45e01c00f3c6784bbd5ea2f5b185a4c358c3502e2200796fdcb0c98cc1037324d4cb7e8b7cca97e3a53d5122049040ad778b6')
+sha512sums=('e002c5a71853a38a82f77d840d7658d7b06687214b4b5eef91a336c6e03fe2082c547a48e64343d4b306ff138a675294e3aea7fcb562935bd85a43dc73db11a7')
+b2sums=('3e43f30aa8cae7dbdfe5d9baa449ab16f59c9024e354dd7daaf946948e26b0209044f46d95345d59f11fd51ad78ead8e3d2ccdde601b4af9deacc9f334568332')
 
 build() {
   cd $_name-$pkgver
