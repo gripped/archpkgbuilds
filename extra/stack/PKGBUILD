@@ -2,46 +2,33 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=stack
-pkgver=2.11.1
-pkgrel=23
+pkgver=2.13.1
+pkgrel=2
 pkgdesc="The Haskell Tool Stack"
 url="https://github.com/commercialhaskell/stack"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-aeson' 'haskell-annotated-wl-pprint' 'haskell-ansi-terminal'
+depends=('ghc-libs' 'haskell-aeson' 'haskell-aeson-warning-parser' 'haskell-ansi-terminal'
          'haskell-async' 'haskell-attoparsec' 'haskell-base64-bytestring' 'haskell-casa-client'
-         'haskell-casa-types' 'haskell-colour' 'haskell-conduit' 'haskell-conduit-extra'
-         'haskell-crypton' 'haskell-crypton-conduit' 'haskell-echo' 'haskell-extra'
-         'haskell-file-embed' 'haskell-filelock' 'haskell-fsnotify' 'haskell-generic-deriving'
-         'haskell-githash' 'haskell-hackage-security' 'haskell-hashable' 'haskell-hi-file-parser'
-         'haskell-hpack' 'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-conduit'
+         'haskell-companion' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-crypton'
+         'haskell-echo' 'haskell-extra' 'haskell-file-embed' 'haskell-filelock' 'haskell-fsnotify'
+         'haskell-generic-deriving' 'haskell-githash' 'haskell-hi-file-parser' 'haskell-hpack'
+         'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-conduit'
          'haskell-http-download' 'haskell-http-types' 'haskell-memory' 'haskell-microlens'
-         'haskell-mintty' 'haskell-mono-traversable' 'haskell-mustache'
-         'haskell-neat-interpolation' 'haskell-network-uri' 'haskell-open-browser'
+         'haskell-mustache' 'haskell-neat-interpolation' 'haskell-open-browser'
          'haskell-optparse-applicative' 'haskell-optparse-simple' 'haskell-pantry' 'haskell-path'
-         'haskell-path-io' 'haskell-persistent' 'haskell-persistent-sqlite' 'haskell-primitive'
-         'haskell-project-template' 'haskell-random' 'haskell-retry' 'haskell-rio'
-         'haskell-rio-prettyprint' 'haskell-split' 'haskell-streaming-commons' 'haskell-tar'
-         'haskell-text-metrics' 'haskell-th-reify-many' 'haskell-tls'
-         'haskell-typed-process' 'haskell-unicode-transforms' 'haskell-unix-compat'
-         'haskell-unliftio' 'haskell-unordered-containers' 'haskell-vector' 'haskell-yaml'
-         'haskell-zip-archive' 'haskell-zlib')
-makedepends=('ghc' 'uusi' 'git' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
-             'haskell-raw-strings-qq' 'haskell-smallcheck')
+         'haskell-path-io' 'haskell-persistent' 'haskell-persistent-sqlite'
+         'haskell-project-template' 'haskell-random' 'haskell-rio' 'haskell-rio-prettyprint'
+         'haskell-split' 'haskell-tar' 'haskell-unix-compat' 'haskell-unordered-containers'
+         'haskell-vector' 'haskell-yaml' 'haskell-zlib')
+makedepends=('ghc' 'git' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-discover'
+             'haskell-raw-strings-qq')
 checkdepends=('cabal-install')
 conflicts=('haskell-stack')
 replaces=('haskell-stack')
 install="stack.install"
 source=("git+https://github.com/commercialhaskell/stack.git#tag=v$pkgver")
-sha512sums=('cb29da11214a1581a9d508222a77015e72d3d98c400e1513253b4351f0675c5cd4f4867e5c36f9ac914729ec4db914ace66d2e451c455910480df9c590b72517')
-
-prepare() {
-  cd $pkgname
-  # Support optparse-applicative 0.18 without its removed parser internals.
-  # https://github.com/commercialhaskell/stack/commit/4afcf774d2a821e69b6a1afca67bf34341c84e85
-  git cherry-pick -n 4afcf774d2a821e69b6a1afca67bf34341c84e85
-  uusi -d semigroups -d persistent-template -r cryptonite:crypton -r cryptonite-conduit:crypton-conduit
-}
+sha512sums=('eb13184e7ec271c9ec4c3364376717f738a4628cdfb5dfb19491de9336de62bcaed9b16b0b244f03260a10b78f69d4f799a87e8aae25f258f71c70ce8f90f719')
 
 build() {
   cd $pkgname
