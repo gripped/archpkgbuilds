@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero
-pkgver=0.18.5.1
-pkgrel=2
+pkgver=0.18.5.3
+pkgrel=1
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -40,7 +40,7 @@ source=(
   "monero.sysusers"
   "monero.tmpfiles"
 )
-sha512sums=('6dbd52d307d0fcb4e0395facf4d16015c157cca79ec17c17bba31777430d958423a43e4276f927da7d244bdb4390ce1daeb46eaf06d891900c07d0f7a0ffb642'
+sha512sums=('ef83b9fc73b40a2058a7c7cdb4becfce9bb1d91c4b7e59a4d43899d7cc04ce66a44d59da7e4b01867499a795713c06174c164803375f5a480adc9796f7ca97fe'
             'SKIP'
             'SKIP'
             'SKIP'
