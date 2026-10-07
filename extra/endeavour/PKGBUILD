@@ -2,7 +2,7 @@
 
 pkgname=endeavour
 pkgver=43.0
-pkgrel=9
+pkgrel=10
 pkgdesc="Personal task manager (Formerly GNOME Todo)"
 url="https://wiki.gnome.org/Apps/Todo"
 arch=(x86_64)
