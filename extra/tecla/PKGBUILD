@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=tecla
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 pkgdesc="Keyboard layout viewer"
 url="https://gitlab.gnome.org/GNOME/tecla"
@@ -25,7 +25,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/tecla.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('a01ee02f42a3d3dcdd25632783dbe6fc6591731c6a580e2b2be1fe38c072fe7c5e73cf27fe2093399aa4500ff5d2d7e61cfe91ef058afa970d8ba4566c300c15')
+b2sums=('ecd88115298fb35ce6adfec54e927febae10e1e8594f0a08dea3e099d3010aef9742504b670e1bbe49f9ee4330aeaf3e3957c727fafec81aec54fae906913ad2')
 
 prepare() {
   cd tecla
@@ -41,7 +41,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
