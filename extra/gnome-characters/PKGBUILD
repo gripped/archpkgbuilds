@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-characters
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 pkgdesc="A character map application"
 url="https://apps.gnome.org/Characters/"
@@ -31,7 +31,7 @@ makedepends=(
 checkdepends=(weston)
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-characters.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('a67e1e6d9530970434e1bb5e3834b0bb7f6109e5ba23d23531cefa05068bcaf929e7f60a23e7cebfb82d7357ae21e76aada83d20042d0b2efac1ed3a94237009')
+b2sums=('9785182f01435d0cb691cfe794431f67fe1041cb8e1e131640c30637c06bd19b4846fe64dfa67651460751a7a8980da2c0e57addb13fb2bbd3d93afd3050140f')
 
 prepare() {
   cd $pkgname
@@ -56,7 +56,7 @@ check() (
 )
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
   install -Dt "$pkgdir/usr/share/licenses/$pkgname" -m644 $pkgname/COPYING
 }
 
