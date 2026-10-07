@@ -5,7 +5,7 @@ pkgname=(
   papers
   papers-lib-docs
 )
-pkgver=50.3
+pkgver=51.0
 pkgrel=1
 pkgdesc='Document viewer for PDF and other document formats aimed at the GNOME desktop'
 arch=(x86_64)
@@ -50,7 +50,7 @@ source=(
   "git+https://github.com/gtk-rs/gir-files.git"
   "git+https://gitlab.gnome.org/lbaudin/papers-test-data.git"
 )
-b2sums=('0e54bd4f06b3a833a2fc4c1c2c327c6e0defca2b2bb489d2fcddbeb6caba6608a6dc977e80f0555e36394ac390b2cef18ef4e035a87d0260affe4f249823fc70'
+b2sums=('58df00910acef82da5171229edb097c64768e1ecf15bb4cc4d18055b5914503f0dc51501a24ef27c52beb1a58187b74b6d87fabcbe24d8087389fb9005ca8afa'
         'SKIP'
         'SKIP'
         'SKIP')
@@ -86,7 +86,7 @@ check() {
 package_papers() {
   groups=(gnome)
 
-  meson install -C build --destdir "$pkgdir" --no-rebuild
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/doc
