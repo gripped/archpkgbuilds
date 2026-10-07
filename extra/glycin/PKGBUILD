@@ -7,8 +7,8 @@ pkgname=(
   glycin-gtk4
   glycin-docs
 )
-pkgver=2.1.5
-pkgrel=2
+pkgver=2.2.2
+pkgrel=1
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
 url="https://gnome.pages.gitlab.gnome.org/glycin/"
@@ -46,7 +46,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/glycin.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/sophie-h/test-images.git"
 )
-b2sums=('d3e6740c617fbf33339ec0118e0d6cb9a2bf6ab782d46d9de8f77ffb8b0f4d2132dc09b4decab13c94db341e4aa25ad6a3f47184918f6df732e097944905f848'
+b2sums=('9769dd5f8b679352a37666fe16696c7844b409547c1e08f71889ac19fe7d91aa78f0fee2414e4b7926e23818c20b4afd772cff759230d0c0f72a3cacd6548870'
         'SKIP')
 
 # Use debug
@@ -57,12 +57,6 @@ export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 
 prepare() {
   cd glycin
-
-  # Fix dds loading (shared-mime-info 2.5)
-  git cherry-pick -n 476720131410e80436e65b9e24fcab52467e1b0f
-
-  # Fix xpm loading
-  git cherry-pick -n 590c6d215afb3ed055909d5f208d2db200386409
 
   git submodule init
   git submodule set-url tests/test-images "$srcdir/test-images"
@@ -77,9 +71,7 @@ build() {
   local meson_options=(
     -D capi_docs=true
     -D test_tokio=false
-
-    # heic (image/heif) encoding test hangs
-    -D test_skip_ext=heic
+    -D test_log_level=trace
   )
 
   arch-meson glycin build "${meson_options[@]}"
@@ -106,7 +98,7 @@ package_glycin() {
   )
   provides=(libglycin-2.so)
 
-  meson install -C build --destdir "$pkgdir" --no-rebuild
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 
   cd "$pkgdir"
 
