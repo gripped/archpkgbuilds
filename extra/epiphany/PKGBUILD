@@ -3,8 +3,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=epiphany
-pkgver=50.6
-pkgrel=1
+pkgver=51.1
+pkgrel=2
 pkgdesc="A GNOME web browser based on the WebKit rendering engine"
 url="https://apps.gnome.org/Epiphany"
 arch=(x86_64)
@@ -26,6 +26,7 @@ depends=(
   libgcc
   libportal
   libportal-gtk4
+  libpwquality
   libsecret
   libsoup3
   libxml2
@@ -57,7 +58,7 @@ checkdepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/epiphany.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('ac2c58ab7c4d8a7bd16a069c630ddd8eba8b60f4c6aab199732725e31e65e0e77970fb46dcb13bc1df9e522754bd6fa1847fb21d25d1308102eadffd103b1765')
+b2sums=('5bbaa4fbcc5c6602b07f24e2b1f7d34f947695629305b70d05697464d5d208449d044531af250b9496f4ab9b01e3924c6a04f7da7004788c55b75addedf29c94')
 
 prepare() {
   cd epiphany
@@ -81,7 +82,7 @@ check() (
 )
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
