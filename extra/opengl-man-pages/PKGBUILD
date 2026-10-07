@@ -1,8 +1,8 @@
 # Maintainer: AndyRTR <andyrtr@archlinux.org>
 
 pkgname=opengl-man-pages
-pkgver=20260126
-_commit=121f1891c688e0c75ad46ed83d9cb73712fbbbfc
+pkgver=20261006
+_commit=4bdf67a73d040f79bd7b087f5c1e588809e1f329
 pkgrel=1
 pkgdesc="OpenGL Man Pages - OpenGL 4.x"
 arch=('any')
@@ -11,7 +11,7 @@ license=('SGI-B-2.0' 'OPL-1.0')
 makedepends=('docbook5-xml' 'docbook-xsl' 'libxslt' 'docbook-mathml' 'w3c-mathml2' 'python' 'git')
 source=(${pkgname}::git+https://github.com/KhronosGroup/OpenGL-Refpages#commit=$_commit
         'license-from-upstream')
-sha256sums=('55c4ed408d590bfe800b8c179d95fae4b77098f03606598641296768e62535df'
+sha256sums=('bfe17c6097aa0dd2a5f75e764c4f9943332c1387cfabcf94ad437f7ef24859fa'
             'a7b2f6669d7ead91dcaf5a03620cdf9d37c54d83fd1899b4ef84683c7e6d4024')
 
 build() {
