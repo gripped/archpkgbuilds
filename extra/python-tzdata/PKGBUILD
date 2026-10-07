@@ -3,7 +3,7 @@
 
 _name=tzdata
 pkgname=python-tzdata
-pkgver=2026.4
+pkgver=2026.5
 pkgrel=1
 pkgdesc='Provider of IANA time zone data'
 arch=(any)
@@ -21,8 +21,8 @@ checkdepends=(
   python-pytest-subtests
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('916eb8dd6dd1508fcf261ebd11c1ad62a0b6f02b312f297c8fe80acfbe7776dbb50198ab9f67db9a88f1b0653e197241e43119012bbb2276f4ae489115e76660')
-b2sums=('4b3aef451cbded93e1399dba0f58ea70b5e8dc0049d0be81c7e7a6ce48ef2901235fee53faa0209f7d5c04658de2d991127bbc2d576a3bf1eb2a92ef3a3476a7')
+sha512sums=('587427fac3512bd5f9976606373fcefb2eb7ad6d8fa1a31eb92b3872b761dae99ced778f5bb8418c20c9b8461d9c76ee0a9f8e8e84cead2a4e3eca6115f1fbe0')
+b2sums=('c2d66489b27e73f91c9da2aec933478f6b8d35b5c720919777d1d85cea9aa5d6634a6501914c35ef8cf00273102444c2b0fcb5022375d4688ab4ba0988d76c4e')
 
 build() {
   cd $_name-$pkgver
