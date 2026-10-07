@@ -6,7 +6,7 @@ pkgname=(
   localsearch
   localsearch-testutils
 )
-pkgver=3.11.2
+pkgver=3.12.0
 pkgrel=1
 pkgdesc="Filesystem indexer and metadata extractor"
 url="https://gnome.pages.gitlab.gnome.org/localsearch/"
@@ -32,9 +32,11 @@ depends=(
   libgxps
   libiptcdata
   libjpeg-turbo
+  libmediainfo
   libosinfo
   libpng
   libseccomp
+  libstdc++
   libtiff
   libwebp
   libxml2
@@ -56,7 +58,7 @@ makedepends=(
   python-gobject
 )
 source=("git+https://gitlab.gnome.org/GNOME/localsearch.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('d23b268453d000d66fbdd66fd1a69197ccf4fa2f3d9c455abf5808c5b797ee6bda1cc9f74f3401d26964643cc5b043b1e5a2ce8e6fcceb9f085e66927363e4bf')
+b2sums=('f72e010830ec9a6362a5c265d9322c886ad67f842fd19df48f24e001da57292076c32141e6487b338d461226b7a503fd9940626f8ad56540b1942fd8b4cc6529')
 
 prepare() {
   cd localsearch
@@ -88,7 +90,7 @@ package_localsearch() {
   replaces=('tracker3-miners<=3.7.3-2')
   conflicts=('tracker3-miners<=3.7.3-2')
 
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 
   _pick testutils "$pkgdir"/usr/lib/localsearch-3.0/trackertestutils
 }
