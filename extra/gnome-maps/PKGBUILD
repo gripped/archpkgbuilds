@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-maps
-pkgver=50.5
+pkgver=51.1
 pkgrel=1
 pkgdesc="Find places around the world"
 url="https://apps.gnome.org/Maps"
@@ -29,6 +29,7 @@ depends=(
   libshumate
   libxml2
   pango
+  sqlite
 )
 makedepends=(
   blueprint-compiler
@@ -41,7 +42,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-maps.git?signed#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('87588809720b16c52c3361c6171915d6bfb0c1c6f68487d40ac5947cbfb6cf16e2855c72adbe24fbd34b40ff2c41dffebe6a28a63f724e50f5594d144790838c')
+b2sums=('f6d17f3c71ad94e5c230c3c0700902a703bd29452d1e53e42b33246acf8667847469b088394acb81d15f8de1c334a78bef92eb672dc263d8a15e2029a530e1ce')
 validpgpkeys=(
   7448F128A4B18AB2EF87F092FA6624580A420D5D # Marcus Lundblad <ml@update.uu.se>
 )
@@ -60,7 +61,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
