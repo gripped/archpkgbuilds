@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-connections
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 pkgdesc='Remote desktop client for the GNOME desktop environment'
 arch=(x86_64)
@@ -38,7 +38,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gtk-frdp.git
   0001-Use-GApplication-to-parse-command-line-options.patch
 )
-b2sums=('a04bfc97b082008f12f433e0699856b80d4fd5eb39b1094074807cb44af338fff25267970d1213d1899747169ed9bd29a50a871199d062d10aab7439d6f902e7'
+b2sums=('0cf61f7e82dec11cb3d923dfea83fe9dd5379ae2a962896c4e2e8402b508fb7daa247e09fbe4fd909845970dc935120d153f2f6db145407aded86bb4333d08cc'
         'SKIP'
         '5c4026d67d6f5771b7ace9d2c5b4a73d5f4980dcf8ca1b50f9266fe3c110f53d6d08a32373611eae81f2b3fbfd56a91a47445bccb4700e757ddd852d61f2e8e7')
 validpgpkeys=(F55CDAB508C3ACBCB1C8B930C910F152653B1688) # Marek Kasik <mkasik@redhat.com>
@@ -65,7 +65,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
