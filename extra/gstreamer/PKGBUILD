@@ -21,7 +21,6 @@ pkgname=(
   gst-plugin-qsv
   gst-plugin-svthevcenc
   gst-plugin-va
-  gst-plugin-wpe
   gst-plugin-wpe2
   gst-devtools-libs
   gst-devtools
@@ -31,7 +30,7 @@ pkgname=(
   gstreamer-docs
 )
 pkgver=1.28.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
@@ -121,7 +120,6 @@ makedepends=(
   libvpl
   libvpx
   libwebp
-  libwpe
   libx11
   libxcb
   libxdamage
@@ -196,7 +194,6 @@ makedepends=(
   wayland-protocols
   webrtc-audio-processing-1
   wildmidi
-  wpebackend-fdo
   wpewebkit
   x264
   x265
@@ -226,6 +223,12 @@ validpgpkeys=(
   D637032E45B8C6585B9456565D2EEE6F6F349D7C # Tim Müller <tim@gstreamer-foundation.org>
 )
 
+# Use debug
+export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
+
+# Use LTO
+export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+
 prepare() {
   cd gstreamer
 
@@ -238,6 +241,9 @@ prepare() {
     echo "Applying patch $src..."
     git apply -3 < "../$src"
   done
+
+  cargo fetch --locked --target host-tuple \
+    --manifest-path subprojects/gst-devtools/dots-viewer/Cargo.toml
 }
 
 build() {
@@ -275,6 +281,7 @@ build() {
     -D gst-plugins-bad:voamrwbenc=disabled
     -D gst-plugins-bad:wasapi2=disabled
     -D gst-plugins-bad:wasapi=disabled
+    -D gst-plugins-bad:wpe=disabled
     -D gst-plugins-base:libvisual=disabled
     -D gst-plugins-base:tremor=disabled
     -D gst-plugins-good:rpicamsrc=disabled
@@ -291,13 +298,6 @@ build() {
     meson_options+=(-D gst-plugins-bad:svthevcenc=disabled)
   fi
 
-  # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/3197
-  export GI_SCANNER_DISABLE_CACHE=1
-
-  # Cargo sub-build: Use debug and LTO
-  export CARGO_PROFILE_RELEASE_DEBUG=2 CARGO_PROFILE_RELEASE_STRIP=false
-  export CARGO_PROFILE_RELEASE_LTO=true CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-
   arch-meson gstreamer build "${meson_options[@]}"
   meson compile -C build
 }
@@ -311,7 +311,7 @@ check() (
 
   # Flaky due to timeouts
   xvfb-run -s "-nolisten local" \
-    meson test -C build --print-errorlogs -t $CK_TIMEOUT_MULTIPLIER
+    meson test -C build --no-rebuild --print-errorlogs -t $CK_TIMEOUT_MULTIPLIER
 )
 
 _install() {
@@ -337,7 +337,7 @@ package_gstreamer() {
   conflicts=('gstreamer-vaapi<=1.26.10-5')
   install=gstreamer.install
 
-  meson install -C build --destdir "$srcdir/root"
+  meson install -C build --no-rebuild --destdir "$srcdir/root"
 
   cd root; local files=(
     usr/include/gstreamer-1.0/gst/{base,check,controller,net,*.h}
@@ -808,9 +808,11 @@ package_gst-plugins-bad() {
     'gst-plugin-qmlgl: qmlgl plugin'
     'gst-plugin-qsv: qsv plugin'
     'gst-plugin-va: va plugin'
-    'gst-plugin-wpe: wpe plugin'
+    'gst-plugin-wpe2: wpe2 plugin'
   )
-  optdepends_x86_64=('gst-plugin-svthevcenc: svthevcenc plugin')
+  optdepends_x86_64=(
+    'gst-plugin-svthevcenc: svthevcenc plugin'
+  )
 
   cd root; local files=(
     usr/lib/gstreamer-1.0/libgstaes.so
@@ -1123,28 +1125,6 @@ package_gst-plugin-va() {
 
   cd root; local files=(
     usr/lib/gstreamer-1.0/libgstva.so
-  ); _install
-}
-
-package_gst-plugin-wpe() {
-  pkgdesc+=" - wpe plugin"
-  depends=(
-    "gst-plugins-base-libs=$pkgver-$pkgrel"
-    "gstreamer=$pkgver-$pkgrel"
-    glib2
-    glibc
-    libgcc
-    libstdc++
-    libwpe
-    libxkbcommon
-    wayland
-    wpebackend-fdo
-    wpewebkit
-  )
-
-  cd root; local files=(
-    usr/lib/gstreamer-1.0/libgstwpe.so
-    usr/lib/gst-plugins-bad/wpe-extension/libgstwpeextension.so
   ); _install
 }
 
