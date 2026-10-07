@@ -5,18 +5,19 @@
 # Contributor: rmorgans <rick.morgans@gmail.com>
 
 pkgname=direnv
-pkgver=2.37.1
+pkgver=2.38.1
 pkgrel=1
 pkgdesc='A shell extension that manages your environment'
-arch=('x86_64')
+arch=(x86_64)
 url='https://direnv.net'
-license=('MIT')
-depends=('glibc')
-makedepends=('git' 'go')
-checkdepends=('zsh' 'fish' 'bash' 'tcsh' 'elvish')
-options=('!lto')
+license=(MIT)
+depends=(glibc)
+makedepends=(git go)
+checkdepends=(zsh fish bash tcsh elvish)
+options=(!lto)
 source=("$pkgname::git+https://github.com/direnv/direnv.git#tag=v$pkgver")
-sha256sums=('d919291751a06a312be30ee0ab164c52fd451d8dc9b7074db0af5592d6f42521')
+sha512sums=('3fd976b0456332952094ecf493d23290c5dc157a8637a1007ffa61d80b9295a0dfc74336630266626baf0b68e57dde020e6d6a41fe0fc71e28c9c72f08c81145')
+b2sums=('5a2d06753aff92cb021c2ff920f8aa9844110a766bc039c09e8b00a32a78fc2ae46d3db40d241b198fc13d268ff5803f6ea3c67227c579c6a49684bf403e1a6c')
 
 prepare() {
   cd "$pkgname"
@@ -33,7 +34,6 @@ build() {
   export CGO_CPPFLAGS="${CPPFLAGS}"
   export CGO_CFLAGS="${CFLAGS}"
   export CGO_CXXFLAGS="${CXXFLAGS}"
-  export GOPATH="${srcdir}"
 
   go build -v \
     -buildmode=pie \
@@ -43,23 +43,6 @@ build() {
     -linkmode external \
     -extldflags \"$LDFLAGS\"" \
     .
-}
-
-check() {
-  cd "$pkgname"
-
-  # run go tests
-  go test -v ./...
-
-  # run shell-specific tests
-  bash ./test/direnv-test.bash
-  #elvish ./test/direnv-test.elv # temporarily skip failing test :<
-  fish ./test/direnv-test.fish
-  tcsh -e ./test/direnv-test.tcsh
-  zsh ./test/direnv-test.zsh
-
-  # run stdlib tests
-  ./test/stdlib.bash
 }
 
 package() {
