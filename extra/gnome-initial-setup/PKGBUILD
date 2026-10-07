@@ -2,7 +2,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=gnome-initial-setup
-pkgver=50.1
+pkgver=51.0
 pkgrel=1
 pkgdesc='Helps you to set up your OS when you boot for the first time'
 url='https://gitlab.gnome.org/GNOME/gnome-initial-setup'
@@ -22,6 +22,7 @@ depends=(
   gsettings-desktop-schemas
   gtk4
   harfbuzz
+  json-glib
   krb5
   libadwaita
   libgcc
@@ -46,7 +47,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-initial-setup.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('48495d360c9c403ef63e8f74a6f527c5fbc837e3fb6a0f22b407624639b01161b74dc707b1cdca8a19880c2c6498085814ced6af77e74e84e765759dea6a1c8b')
+b2sums=('c590f5212fc17c159a36c73aff6d0cb3a1fc1dd9cb8036ddbae8d7109d3f1c5430a3d424b6d0ecdb14707a92aa86fbe5c46161a872e51578814785752a0d1ea6')
 
 prepare() {
   cd $pkgname
@@ -63,5 +64,5 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
