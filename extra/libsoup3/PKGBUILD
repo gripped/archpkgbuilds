@@ -6,8 +6,8 @@ pkgname=(
   libsoup3
   libsoup3-docs
 )
-pkgver=3.6.6
-pkgrel=2
+pkgver=3.8.0
+pkgrel=1
 pkgdesc="HTTP client/server library for GNOME"
 url="https://libsoup.gnome.org/"
 arch=(x86_64)
@@ -23,6 +23,7 @@ depends=(
   libsysprof-capture
   sqlite
   zlib
+  zstd
 )
 makedepends=(
   gi-docgen
@@ -38,18 +39,18 @@ checkdepends=(
   apache
   php-apache
 )
-source=("git+https://gitlab.gnome.org/GNOME/libsoup.git#tag=$pkgver")
-b2sums=('2578d5f18b5bb633dfa593fc098053f720623cbc98e572539d19109442076f4bd3cb9d81ba952d371fc48511eff3cacd7efc0189910a872914e28c298646e5a6')
+source=(
+  "git+https://gitlab.gnome.org/GNOME/libsoup.git#tag=$pkgver"
+  0001-tests-Remove-AuthDigestQop-none.patch
+)
+b2sums=('140707e698a031d9c801d33c1c5439d04b7bb12490a4aa63d013e388a56e8ef68e569b16d1181388ba9e5943932149bf1371ddc21034615664de29a0bb7359ae'
+        '0ae74e19f3764bc4f02fe2de2099182e0aa37d7b0fce36e67f25076b314b363c055c5accb4c54f18f859b27484d038d20ed5d031c38a8c2f252e35d23cb86079')
 
 prepare() {
   cd libsoup
 
-  # CVE fixes
-  git cherry-pick -n 2e8fd6739b275ae9bc17ccecdab2a970b1ecc081 \
-                     85b1411595e50c2cb816fdf71a70430fb0544efa
-
-  # Fix Rygel
-  git cherry-pick -n 26c647ae5e3d8fcf137b9524bfbfca73cc7dedc8
+  # Fix tests
+  git apply -3 ../0001-tests-Remove-AuthDigestQop-none.patch
 }
 
 build() {
