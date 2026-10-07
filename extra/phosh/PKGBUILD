@@ -5,7 +5,7 @@
 
 pkgname=phosh
 pkgver=0.57.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Wayland shell for GNOME on mobile devices'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/phosh'
@@ -71,7 +71,7 @@ checkdepends=(
 source=(
   "git+https://gitlab.gnome.org/World/Phosh/phosh.git?signed#tag=v$pkgver"
   git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git
-  git+https://gitlab.gnome.org/guidog/libgnome-volume-control.git
+  guidog-gvc::git+https://gitlab.gnome.org/guidog/libgnome-volume-control.git
   phosh.pam
   libical-4.patch
 )
@@ -84,7 +84,7 @@ validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@
 
 prepare() {
   ln -s "$srcdir/libcall-ui" "$pkgname/subprojects/libcall-ui"
-  ln -s "$srcdir/libgnome-volume-control" "$pkgname/subprojects/gvc"
+  ln -s "$srcdir/guidog-gvc" "$pkgname/subprojects/gvc"
   meson subprojects checkout --sourcedir $pkgname
   patch -d $pkgname -p1 < libical-4.patch # Fix build with libical 4
 }
