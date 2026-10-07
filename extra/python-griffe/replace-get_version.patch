@@ -4,8 +4,8 @@
  [build-system]
 -# pdm-backend is left here as a dependency of the version discovery script currently in use.
 -# It may be removed in the future. See mkdocstrings/griffe#430
--requires = ["hatchling", "pdm-backend",]
-+requires = ["hatchling",]
+-requires = ["hatchling", "pdm-backend"]
++requires = ["hatchling"]
  build-backend = "hatchling.build"
  
  [project]
@@ -15,8 +15,8 @@
  [build-system]
 -# pdm-backend is left here as a dependency of the version discovery script currently in use.
 -# It may be removed in the future. See mkdocstrings/griffe#430
--requires = ["hatchling", "pdm-backend",]
-+requires = ["hatchling",]
+-requires = ["hatchling", "pdm-backend"]
++requires = ["hatchling"]
  build-backend = "hatchling.build"
  
  [project]
@@ -26,21 +26,24 @@
  [build-system]
 -# pdm-backend is left here as a dependency of the version discovery script currently in use.
 -# It may be removed in the future. See mkdocstrings/griffe#430
--requires = ["hatchling", "pdm-backend",]
-+requires = ["hatchling",]
+-requires = ["hatchling", "pdm-backend"]
++requires = ["hatchling"]
  build-backend = "hatchling.build"
  
  [project]
 --- a/scripts/get_version.py
 +++ b/scripts/get_version.py
-@@ -1,30 +1,7 @@
- # Get current project version from Git tags or changelog.
+@@ -16,33 +16,9 @@
+ # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  
+-# Get current project version from Git tags or changelog.
+-
 -import re
 -from contextlib import suppress
 -from pathlib import Path
 -
--from pdm.backend.hooks.version import (  # ty:ignore[unresolved-import]
+-from pdm.backend.hooks.version import (  # ty: ignore[unresolved-import]
 -    SCMVersion,
 -    Version,
 -    default_version_formatter,
@@ -52,7 +55,7 @@
 -_changelog_version_re = re.compile(r"^## \[(\d+\.\d+\.\d+)\].*$")
 -_default_scm_version = SCMVersion(Version("0.0.0"), None, False, None, None)  # noqa: FBT003
 -
--
+ 
  def get_version() -> str:
 -    scm_version = get_version_from_scm(_root) or _default_scm_version
 -    if scm_version.version <= Version("0.1"):  # Missing Git tags?
