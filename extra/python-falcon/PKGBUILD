@@ -2,7 +2,7 @@
 
 _name=falcon
 pkgname=python-falcon
-pkgver=4.3.1
+pkgver=4.4.0
 pkgrel=1
 pkgdesc="Web API framework for fast and reliable microservices, proxies, and app backends"
 arch=(x86_64)
@@ -53,8 +53,8 @@ optdepends=(
   'python-pprofile: for falcon-bench'
 )
 source=($_name-$pkgver.tar.gz::$_url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('bcde0bcf3166a431756bd2659222df9d6a22be8220b12d5b8b9cdb50163a8c38fdacc6a9b389d3e02d694b0dd3592d5c3bb5ef15ec389f84451444fb8a44427b')
-b2sums=('bf9bb3cc64a6e55a89f3cdfaa23427944a92fc0590b1d4404752a4a893f7b1a17090bedc39995237ab8a1ec3d71b3e849d5aa7b400df68528fd2c12b839a7e3e')
+sha512sums=('899aaaa83de502be505022f256426536399a80786e0a147a3c1ca9f50882e073831494af5db341827535947810ba0ec7e3467eddda50f981b8d1a886ca8b6904')
+b2sums=('c2271326082a6e9c89969a5a4f7d62c874bde8e24344142853351cae8cb14e0c33441e600f165108f62c279265661a9ba518d007a7df5deae068eb645c056e75')
 
 prepare() {
   cd $_name-$pkgver
