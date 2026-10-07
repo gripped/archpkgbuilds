@@ -6,7 +6,7 @@ pkgname=(
   libdex
   libdex-docs
 )
-pkgver=1.1.0
+pkgver=1.2.0
 pkgrel=1
 pkgdesc="A library supporting 'Deferred Execution'"
 url="https://gitlab.gnome.org/GNOME/libdex"
@@ -16,6 +16,7 @@ depends=(
   glib2
   glibc
   libatomic
+  libgcc
   liburing
   libsysprof-capture
   python
@@ -36,7 +37,7 @@ checkdepends=(
   xorg-server-xvfb
 )
 source=("git+$url.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('6d381e8528fc00daa51acc41fdd2f27167199fa955aa7aa0dad2b6a8f6fa6ce1d92a2168ea5e132629159e00dc1684b9753b5df64f4de9ce91f89d4703ac8332')
+b2sums=('63e4597f5e17ae84b6727447ba3caccecb1aee9799cc68ecbcdf3b2b602d3aadf866152f8ac4d3b474a9d649c0bb53aab5d4b51086275bc937c62a4a9c3ad4e0')
 
 prepare() {
   cd libdex
@@ -60,7 +61,7 @@ check() (
 package_libdex() {
   provides=(libdex-1.so)
 
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 
   mkdir -p doc/usr/share
   mv {"$pkgdir",doc}/usr/share/doc
