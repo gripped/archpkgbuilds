@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=faad2
-pkgver=2.11.3
+pkgver=2.11.4
 pkgrel=1
 pkgdesc="Freeware Advanced Audio (AAC) Decoder"
 arch=(x86_64)
@@ -17,8 +17,8 @@ provides=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz
 )
-sha512sums=('1a468a65b8e738a37b7af5415645e8c45b0c3505fe0794948a6b1f5b17e4f9301c015214584fb534cbfc78f016bfe907a1c88131ab76b728ef1554e4dc7e4551')
-b2sums=('da9f96c30653e5bfa41eb0c01b04128cb1a070d8fd46ac0a297cbfddef9d0f895f8f26e525521d7093949dc4f96b66b401d39b318192cfc3127c48e1f307e202')
+sha512sums=('19f66bf811b3debf2230debba2f9978c06172444be5fbd8046112e4e01736a81ef302bde66221742d132fd06e4c8167bc79f76a1434a6e7ff16fcd13cf5ef9e7')
+b2sums=('7ee3c8a5407e03346600c1499dcabe39e41fb912b29050af3b9f75c07bddbf1258d9b34af5c474e2362090c83693b33220a49feda0c6f99afcd5fd236888b930')
 
 build() {
   local cmake_options=(
