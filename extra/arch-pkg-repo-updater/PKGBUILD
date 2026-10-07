@@ -3,28 +3,21 @@
 
 pkgname=arch-pkg-repo-updater
 _pkgname=repo-updater
-pkgver=0.0.6
+pkgver=0.0.7
 pkgrel=1
 pkgdesc='Arch Linux packaging Git repository updater'
 url='https://gitlab.archlinux.org/archlinux/buildbtw/-/tree/main/src/bin/repo-updater'
 arch=(x86_64)
 license=(GPL-3.0-or-later)
-depends=(
-  glibc
-  libgcc
-  libgit2
-  openssh
-  openssl
-)
-makedepends=(
-  cargo
-  git
-  sqlite
-)
+depends=(glibc libgcc libgit2 openssh openssl)
+makedepends=(cargo git just cargo-nextest just)
 options=(!lto)
-source=(buildbtw::"git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=v${pkgver}?signed")
-sha256sums=('d3064c53578b0c8112609f37c80b88e04a5f701f9c5472d149273fb6f66a0118')
-b2sums=('18f7acd66a8ed403d6afe84e6379bb970daabda5b2731effca46c81a454ee4fee51662b3381563181f39ee1b78d7b290ff6825ee130c9defb0a73753790b4584')
+source=(buildbtw::"git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=v${pkgver}?signed"
+        "${pkgname}-archlinux-common-style::git+https://gitlab.archlinux.org/archlinux/archlinux-common-style.git")
+sha256sums=('e434e6ff919c2901dc28f11ffec74bcb5d4a4968ff0ba8dc352a3f4783a2011e'
+            'SKIP')
+b2sums=('5a2dfdd6342cffa14aeff6b1263243315af75f899333376d71960eb1cc280012f831cdae884c094df2372831aa06f0df774e9dca4342e9801b73f33ca592afb3'
+        'SKIP')
 validpgpkeys=(
   E240B57E2C4630BA768E2F26FC1B547C8D8172C8 # Levente Polyak <anthraxx@archlinux.org>
   AAE2599CE2DFD58B8E884726B4EFE6DC59FAE118 # Rafael Epplée <raffomania@archlinux.org>
@@ -34,7 +27,12 @@ validpgpkeys=(
 
 prepare() {
   cd buildbtw
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  git submodule init
+  git config submodule."common-style".url "${srcdir}/${pkgname}"-archlinux-common-style
+  git -c protocol.file.allow=always submodule update --init --recursive
+
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
@@ -44,7 +42,7 @@ build() {
 
 check() {
   cd buildbtw
-  cargo test --bin ${_pkgname} --frozen
+  just test
 }
 
 package() {

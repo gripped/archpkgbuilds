@@ -1,25 +1,30 @@
 pkgbase = arch-pkg-repo-updater
 	pkgdesc = Arch Linux packaging Git repository updater
-	pkgver = 0.0.6
+	pkgver = 0.0.7
 	pkgrel = 1
 	url = https://gitlab.archlinux.org/archlinux/buildbtw/-/tree/main/src/bin/repo-updater
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = cargo
 	makedepends = git
-	makedepends = sqlite
+	makedepends = just
+	makedepends = cargo-nextest
+	makedepends = just
 	depends = glibc
 	depends = libgcc
 	depends = libgit2
 	depends = openssh
 	depends = openssl
 	options = !lto
-	source = buildbtw::git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=v0.0.6?signed
+	source = buildbtw::git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=v0.0.7?signed
+	source = arch-pkg-repo-updater-archlinux-common-style::git+https://gitlab.archlinux.org/archlinux/archlinux-common-style.git
 	validpgpkeys = E240B57E2C4630BA768E2F26FC1B547C8D8172C8
 	validpgpkeys = AAE2599CE2DFD58B8E884726B4EFE6DC59FAE118
 	validpgpkeys = 8FC15A064950A99DD1BD14DD39E4B877E62EB915
 	validpgpkeys = F00B96D15228013FFC9C9D0393B11DAA4C197E3D
-	sha256sums = d3064c53578b0c8112609f37c80b88e04a5f701f9c5472d149273fb6f66a0118
-	b2sums = 18f7acd66a8ed403d6afe84e6379bb970daabda5b2731effca46c81a454ee4fee51662b3381563181f39ee1b78d7b290ff6825ee130c9defb0a73753790b4584
+	sha256sums = e434e6ff919c2901dc28f11ffec74bcb5d4a4968ff0ba8dc352a3f4783a2011e
+	sha256sums = SKIP
+	b2sums = 5a2dfdd6342cffa14aeff6b1263243315af75f899333376d71960eb1cc280012f831cdae884c094df2372831aa06f0df774e9dca4342e9801b73f33ca592afb3
+	b2sums = SKIP
 
 pkgname = arch-pkg-repo-updater
