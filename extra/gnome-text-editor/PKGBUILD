@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-text-editor
-pkgver=50.1
+pkgver=51.0
 pkgrel=1
 pkgdesc="A simple text editor for the GNOME desktop"
 url="https://apps.gnome.org/TextEditor/"
@@ -30,7 +30,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-text-editor.git#tag=${pkgver/[a-z]/.&}")
-b2sums=('d3c2f074c92fb2dc65ecf76c9848a990b2e8ceafd039efaf29d3308194b8e39766c49924d13d70c315e37cdeb04400ba9d8765e8886ec2f4a2349490c6ab814d')
+b2sums=('162f610d07385f0b1e0470f1489aad96f370061087a784001786aea95dc3b58560da4cdd051f69bb130f64e7a5f3c8be4c99e898e64c82bd3917a14ccbff4b6a')
 
 prepare() {
   cd $pkgname
@@ -50,7 +50,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
