@@ -2,7 +2,7 @@
 
 pkgname=manuals
 pkgver=50.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Developer documentation browser for GNOME'
 arch=(x86_64)
 url='https://apps.gnome.org/Manuals/'
@@ -32,6 +32,13 @@ b2sums=(01c1aeb3235a7c08e8f7b5043150535ccb40c6ec68f5713b69e095232a8042a99d22eb03
 
 prepare() {
   cd $pkgname
+
+  # Fix start with libdex 1.2.0
+  git cherry-pick -n e516710da9e9d586a0b3fa08cf82d7f2e02afb78
+
+  # Minor fixes
+  git cherry-pick -n c9b345b1970f2d4b1c85a5c0d68a440b4a45c220
+  git cherry-pick -n b7e4aa470d3667657ebd0a713d2ee1fe0ba1d07a
 }
 
 build() {
