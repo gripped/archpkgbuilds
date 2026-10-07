@@ -8,7 +8,7 @@ pkgname=(
   evince-lib-docs
 )
 pkgver=48.4
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Document viewer (PDF, PostScript, XPS, djvu, dvi, tiff, cbr, cbz, cb7, cbt)"
 url="https://gitlab.gnome.org/GNOME/evince"
