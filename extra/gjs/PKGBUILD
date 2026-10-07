@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=gjs
-pkgver=1.88.1
+pkgver=1.90.0
 pkgrel=1
 epoch=2
 pkgdesc="Javascript Bindings for GNOME"
@@ -41,7 +41,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gjs.git#tag=$pkgver"
   "git+https://gitlab.gnome.org/GNOME/gobject-introspection-tests.git"
 )
-b2sums=('ae565e0ee6b1ea94800e39aba53dc569deb7d747e263d620030ffd8963ff4511bfc29fcb38e2e6e01f9dda8bfff4e97642e1388e19d77dae7e0ce8c62a11e453'
+b2sums=('b4bb927d222eea006ab9c5c92e0617083e58d171fb73c226ef18b29871e8a87b092d08fbfb52ca14ecc7717667cd99fac885b0731c865765c1b9b2b43d5449d6'
         'SKIP')
 validpgpkeys=(
   53C0524AD3AE115F69C47D2D0E9D857756977391 # Philip Chimento (Signing Key for GNOME Releases) <philip.chimento@gmail.com>
@@ -71,7 +71,7 @@ check() {
 
 package() {
   depends+=(libreadline.so)
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
