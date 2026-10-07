@@ -1,7 +1,7 @@
 # Maintainer: Fabian Bornschein <fabiscafe@archlinux.org>
 
 pkgname=snapshot
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 pkgdesc="Take pictures and videos"
 arch=(x86_64)
@@ -39,7 +39,7 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/snapshot.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('ba6c84081b008feeea2544aed299413bffbf95778f35abee2c588803b242f26dd98e65ea70d43b46c70ab92605447738195656f40c55cd9c3adc9e211f7be112')
+b2sums=('2914cf4ea20ef45140cede3ca3b9bd9e7c30b2a69d58cf73f42df1b6a218a173f4e368013e611604f6696f99198daf0bff3cf5944578d48126d05ceb1b755fa8')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
   D25626D42D675B9C5EAF57DF7F3B4AADE28427AE # Jamie Murphy <hello@itsjamie.dev>
@@ -63,5 +63,5 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir" --no-rebuild
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
