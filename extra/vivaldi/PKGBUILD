@@ -4,8 +4,8 @@
 # Redistribution of Vivaldi is allowed in Linux distribution package repos
 
 pkgname=vivaldi
-_rpmversion=8.2.4133.83-1
-pkgver=8.2.4133.83
+_rpmversion=8.2.4133.84-1
+pkgver=8.2.4133.84
 pkgrel=1
 pkgdesc='An advanced browser made with the power user in mind.'
 url="https://vivaldi.com"
@@ -47,8 +47,8 @@ source_x86_64=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversio
 source_aarch64=("https://downloads.vivaldi.com/stable/vivaldi-stable-${_rpmversion}.aarch64.rpm")
 source=('0001-add-support-for-user-flags.patch')
 sha512sums=('6b230614419416c44adf8fc2a677f8b1f1aca16949d20b7499417737001a6e9e314fc5841afaf402ad55b09910fca4c70fa7b6d38509b0546959bdbefb036726')
-sha512sums_x86_64=('7229d24fe2ece981aa3b7e63657171be39a9d7626dfce17f5d5066beff6b52ed736b12c33532694ecea6a073feafe516e0b09413d3b5ffa208fe6be85e238d94')
-sha512sums_aarch64=('87f1e3e69d1252ffe141dc8c95693ac8543bc40d6392c316ad47ee606f4c637c924f9d042658f4c05c21f7d847a525533dc319d2a357a5aa343e507594688a7c')
+sha512sums_x86_64=('cca3094bec26bf07043bbf60e0b78240349a4de5de7b79483deb5b07742a47a3686be89f2ccba13ca4c3ebb0738a0edb7b47f71c9a36f925ffc67643de115567')
+sha512sums_aarch64=('76de484bef202e7e0de7c5fb4bbeb0c0c3268ee1b58c49d7bb1be7d4a6ca21e8f3baf743f058fe461c7b1e8586911ee251875ffaf6796a0fad9c0fae57e90959')
 
 package() {
     cp --parents -a {opt,usr/bin,usr/share} "$pkgdir"
