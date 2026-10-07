@@ -2,7 +2,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gnome-clocks
-pkgver=50.0
+pkgver=51.0
 pkgrel=2
 pkgdesc="Clocks applications for GNOME"
 url="https://apps.gnome.org/Clocks"
@@ -33,7 +33,7 @@ makedepends=(
 )
 groups=(gnome)
 source=("git+https://gitlab.gnome.org/GNOME/gnome-clocks.git?signed#tag=${pkgver/[a-z]/.&}")
-b2sums=('86217d68bf528cef3c77b5b587713a91a76e85653b664488c60ae790106e1728e3e093dec5431bdaabb6c85c5f355ca8f938ae07597d546370bc775a0470bba3')
+b2sums=('7acee23d02fc4eb0c7a0d8a5be66facba03a1f1f2fc7730c1a6c021224e4a90f5e0c3df167d91356a711b705a150c5638be9c0dbbb1133e277b19534c07b1448')
 validpgpkeys=(
   3475CBA8D3483594C889B470D64A8D747F6FE706 # Maximiliano Sandoval <msandova@gnome.org>
 )
@@ -52,7 +52,7 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --no-rebuild --destdir "$pkgdir"
 }
 
 # vim:set sw=2 sts=-1 et:
