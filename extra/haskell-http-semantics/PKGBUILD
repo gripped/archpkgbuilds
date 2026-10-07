@@ -2,8 +2,8 @@
 
 _hkgname=http-semantics
 pkgname=haskell-http-semantics
-pkgver=0.0.0
-pkgrel=17
+pkgver=0.1.0
+pkgrel=2
 pkgdesc='HTTP semantics library'
 url='https://github.com/kazu-yamamoto/http-semantics'
 license=("BSD-3-Clause")
@@ -12,7 +12,7 @@ depends=('ghc-libs' 'haskell-case-insensitive' 'haskell-http-types' 'haskell-net
          'haskell-network-byte-order' 'haskell-time-manager' 'haskell-utf8-string')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('fc7446e56332ce5e842121c6f9b30999b0064048649bfdd5bf4d780818099113')
+sha256sums=('369913425b76442b809f5c6a5c662591708ab6fcca9eed5e667c1ad96edfd37f')
 
 prepare() {
   cd $_hkgname-$pkgver
