@@ -4,7 +4,7 @@
 
 pkgname=lib32-gtk3
 pkgver=3.24.52
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="GObject-based multi-platform GUI toolkit (32-bit)"
 url="https://www.gtk.org/"
@@ -49,11 +49,13 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/gtk.git#tag=$pkgver"
   gtk-query-immodules-3.0-32.hook
+  gtk-remove-immodules-cache-32.hook
   0001-Allow-disabling-legacy-Tracker-search.patch
 )
 b2sums=('b351d0e48b074ea0b6d75dd8b47bd5ff5897dce01b2c69894a5d20fff0205b8cfc4603ce556331fdf3afe4f0380c58212ebac7cd832c9b6d3fd05cbf822250d8'
-        'c7136723735c4cbfe654851d0ccc1698142fa8f90b724ed9a970ebd6a74b4f59ea558e134e600736a1041417fc7fd9b3baa8bc561ed9598f2fbf45392dcc9159'
-        'f63a30a5823c564861145128a91b6d6ca4f13fd40cf09d1b8897bccaf8664af085b3cbe20ba7da6289439a820440a7af17b6281efea1f84a8c4decd62df00a54')
+        '707f28d0b2158c9f9b2d50eb5d245f580feef99852c55f996aaa9ccb0eda40c4f2958b3429ccc8ed442a27bb5be44fe4f8bd1284aa71afd4ee780b5a369ca4ed'
+        '81564af5baa09f8cb8c19070b276e78c45d47635a615dd43256a2e9404f36edaf4c1b514d247f51ac16302721a7d2146bee19f2ee0656027bb8c02df0ce19955'
+        '72075b7a95b61dacae009310f5884ea4474c2fd248f5cb65d6cc5fdfe2c0e55ea6f954f77d818ff27f531fba61baca13d178b93310a95459e629a9ec11b053c0')
 
 prepare() {
   cd gtk
@@ -89,14 +91,13 @@ package() {
     libgdk-3.so
     libgtk-3.so
   )
-  install=lib32-gtk3.install
 
   meson install -C build --destdir "$pkgdir"
   rm -r "$pkgdir"/{etc,usr/{include,share}}
   find "$pkgdir/usr/bin" -type f -not -name gtk-query-immodules-3.0 -delete
   mv "$pkgdir"/usr/bin/gtk-query-immodules-3.0{,-32}
 
-  install -Dm644 gtk-query-immodules-3.0-32.hook -t "$pkgdir/usr/share/libalpm/hooks"
+  install -Dm644 gtk-*.hook -t "$pkgdir/usr/share/libalpm/hooks"
 }
 
 # vim:set sw=2 sts=-1 et:
