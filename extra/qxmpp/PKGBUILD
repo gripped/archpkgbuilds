@@ -5,8 +5,8 @@
 # Contributor: TimothÃ©e Ravier <tim@siosm.fr>
 
 pkgname=qxmpp
-pkgver=1.16.3
-pkgrel=2
+pkgver=1.17.0
+pkgrel=1
 pkgdesc='Cross-platform C++ XMPP client and server library'
 arch=(x86_64)
 url='https://invent.kde.org/libraries/qxmpp'
@@ -28,7 +28,7 @@ conflicts=(qxmpp-qt6)
 provides=(qxmpp-qt6)
 replaces=(qxmpp-qt6)
 source=(git+https://invent.kde.org/libraries/qxmpp#tag=v$pkgver)
-sha256sums=('178424c2329bde7e058ee2847fc440dfbdbb48b2eb707b049a2696f6ff16a384')
+sha256sums=('c03d323cc0be1b788df28de8fd8fbb57f18971d4866033550c5ede08827d5407')
 
 build() {
   cmake -B build -S $pkgbase \
