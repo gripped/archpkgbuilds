@@ -3,7 +3,7 @@
 
 pkgname=folks
 pkgver=0.15.12
-pkgrel=1
+pkgrel=2
 pkgdesc="Library to aggregates people into metacontacts"
 url="https://gitlab.gnome.org/GNOME/folks"
 arch=(x86_64)
