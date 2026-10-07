@@ -2,7 +2,7 @@
 # Contributor: Erik Kallen <info@erikkallen.nl>
 
 pkgname=sdl3_image
-pkgver=3.4.6
+pkgver=3.4.8
 pkgrel=1
 pkgdesc="SDL3 image loading library"
 arch=("x86_64")
@@ -20,16 +20,17 @@ depends=(
 )
 makedepends=("cmake")
 source=("https://github.com/libsdl-org/SDL_image/releases/download/release-${pkgver}/SDL3_image-${pkgver}.tar.gz")
-sha256sums=('d2e4637ae700f72e5196b8fbd749850ed2e5e1e09c5a5be8d06ff55aaccf3b01')
+sha256sums=('e8223b424bc7541cf84ffff5cf7e4f24ec3711c60462cb1bd6dc1d7bd7f25477')
 
 build() {
 	cmake \
 		-B build \
 		-S "SDL3_image-${pkgver}" \
-		-DSDLIMAGE_SAMPLES=OFF \
-		-DSDLIMAGE_TESTS=OFF \
-		-DCMAKE_BUILD_TYPE=None \
-		-DCMAKE_INSTALL_PREFIX=/usr
+		-D SDLIMAGE_JXL=ON \
+		-D SDLIMAGE_SAMPLES=OFF \
+		-D SDLIMAGE_TESTS=OFF \
+		-D CMAKE_BUILD_TYPE=None \
+		-D CMAKE_INSTALL_PREFIX=/usr
 
 	cmake --build build
 }
