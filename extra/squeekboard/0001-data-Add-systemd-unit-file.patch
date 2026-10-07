@@ -1,4 +1,4 @@
-From e34743a443a368d83e15c81b604a51b99dcd56f3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
 Date: Sun, 5 Oct 2025 17:49:03 +0200
 Subject: [PATCH] data: Add systemd unit file
@@ -20,7 +20,7 @@ Signed-off-by: Guido Günther <agx@sigxcpu.org>
  create mode 100644 data/sm.puri.Squeekboard.service.in
 
 diff --git a/data/meson.build b/data/meson.build
-index 5d0a0879..f9711199 100644
+index 5d0a087987b3..f97111998559 100644
 --- a/data/meson.build
 +++ b/data/meson.build
 @@ -56,3 +56,11 @@ i18n.merge_file(
@@ -37,7 +37,7 @@ index 5d0a0879..f9711199 100644
 +)
 diff --git a/data/sm.puri.Squeekboard.service.in b/data/sm.puri.Squeekboard.service.in
 new file mode 100644
-index 00000000..6525a6be
+index 000000000000..6525a6beb6c7
 --- /dev/null
 +++ b/data/sm.puri.Squeekboard.service.in
 @@ -0,0 +1,16 @@
@@ -58,7 +58,7 @@ index 00000000..6525a6be
 +Restart=on-failure
 +TimeoutStopSec=5
 diff --git a/debian/control b/debian/control
-index 92acf331..f1156bf5 100644
+index 92acf3316b5d..f1156bf5592b 100644
 --- a/debian/control
 +++ b/debian/control
 @@ -39,6 +39,7 @@ Build-Depends:
@@ -70,7 +70,7 @@ index 92acf331..f1156bf5 100644
  Standards-Version: 4.1.3
  Homepage: https://gitlab.gnome.org/World/Phosh/squeekboard
 diff --git a/debian/squeekboard.alternatives b/debian/squeekboard.alternatives
-index 002d3dad..40026e18 100644
+index 002d3dad9445..40026e188259 100644
 --- a/debian/squeekboard.alternatives
 +++ b/debian/squeekboard.alternatives
 @@ -2,3 +2,5 @@ Name: Phosh-OSK
@@ -80,7 +80,7 @@ index 002d3dad..40026e18 100644
 +Dependents:
 +  /usr/lib/systemd/user/mobi.phosh.OSK.service Phosh-OSK.service /usr/share/squeekboard/sm.puri.Squeekboard.service
 diff --git a/debian/squeekboard.install b/debian/squeekboard.install
-index 569b15a6..993c4387 100644
+index 569b15a64b72..993c43879843 100644
 --- a/debian/squeekboard.install
 +++ b/debian/squeekboard.install
 @@ -1,5 +1,6 @@
@@ -91,7 +91,7 @@ index 569b15a6..993c4387 100644
  usr/share/glib-2.0/schemas/
  usr/share/locale/
 diff --git a/meson.build b/meson.build
-index c33a2be4..7524267c 100644
+index fef30ef6089f..52e85dfd5ba0 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -72,6 +72,16 @@ endif
@@ -119,7 +119,7 @@ index c33a2be4..7524267c 100644
 \ No newline at end of file
 +)
 diff --git a/meson_options.txt b/meson_options.txt
-index 0c333858..c5ac20bd 100644
+index 0c333858752a..c5ac20bd1a54 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
 @@ -14,3 +14,7 @@ option('find_orphans',
@@ -130,6 +130,3 @@ index 0c333858..c5ac20bd 100644
 +option('systemd_user_unit_dir',
 +       type: 'string', value: '',
 +       description: 'Directory for systemd user units')
--- 
-GitLab
-

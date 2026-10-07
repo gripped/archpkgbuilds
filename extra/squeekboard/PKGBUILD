@@ -5,7 +5,7 @@
 
 pkgname=squeekboard
 pkgver=1.43.1
-pkgrel=5
+pkgrel=6
 pkgdesc='An on-screen-keyboard input method for Wayland'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/squeekboard'
@@ -38,11 +38,13 @@ conflicts=(stevia)
 provides=(phosh-osk-provider)
 source=(
   "git+https://gitlab.gnome.org/World/Phosh/squeekboard.git#tag=v$pkgver"
-  squeekboard-systemd-unit.patch
+  0001-data-Add-systemd-unit-file.patch
+  0002-Fix-build-with-Rust-1.98.0.patch
 )
 b2sums=(
   2af3a0d790f71b04b682152fadc8fc6ffe8798da951936d84fa40362d3ccb38213239228b778428f5e01fd26cb9bde20ff8cc27550a2bfc565cd8657d58f489e
-  86321efc870002d61e3c75b7f4f1b1e0d6256427a217e4c6f7a71ce7de04d1714db62ffb83713c6679d39e0f8467026b7a5b8fb900cd8bb16360355242fc639a
+  15a7e70056ab16a19630911ecebf04789e81159072e127d29fa3eb432615c07c1c9092119adefbf2da4f6dca8d1e4f155ba5fcca0280ec910aafd7343d1bbb70
+  7f1e9f3b89480a8ac4f5a46b452f536d58d03d11216fc04e1ddf7b61102283eff0abff837b3e2122240738ea674f93b3528cb492bfae24c20b6a49547d28a879
 )
 
 prepare() {
@@ -51,7 +53,10 @@ prepare() {
 
   # Add systemd unit file for compatibility with GNOME 49
   # https://gitlab.gnome.org/World/Phosh/squeekboard/-/merge_requests/712
-  git apply -3 ../squeekboard-systemd-unit.patch
+  git apply -3 ../0001-data-Add-systemd-unit-file.patch
+
+  # Rust 1.98.0 and later lint invalid_runtime_symbol_definitions
+  git apply -3 ../0002-Fix-build-with-Rust-1.98.0.patch
 }
 
 build() {
