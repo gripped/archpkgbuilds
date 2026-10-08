@@ -1,0 +1,328 @@
+From e32712b5fd8b43e7e8d51c5de079169b5d29711e Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Tue, 6 Oct 2026 10:41:24 +0800
+Subject: [PATCH] Add CMake option to disable update checking
+
+Add `DISABLE_CHECK_UPDATES` option (default: NO) to CMake. When enabled:
+- Excludes UpdateChecker and DialogShowUpdateMsg sources from the build
+- Drops QtNetwork dependency from find_package and target_link_libraries
+- Hides the update check menu action and options group box in the UI
+---
+ CMakeLists.txt         | 43 ++++++++++++++++++++++++++++++++----------
+ src/dialogoptions.cpp  | 10 ++++++++++
+ src/dialogoptions.h    |  2 ++
+ src/mainwindowimpl.cpp | 14 ++++++++++++++
+ src/mainwindowimpl.h   |  8 ++++++++
+ 5 files changed, 67 insertions(+), 10 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0ecfc6f..8be6076 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,18 +14,22 @@ set(PROJECT_NAME_CAPITALIZED "Converseen")
+ 
+ option(USE_QT6 "Enable this if you want to use Qt6, instead of Qt5" NO)
+ option(MACOS_DEPLOY "Enable this if you want to deploy the program on MacOS" NO)
++option(DISABLE_CHECK_UPDATES "Enable this if you want to disable checking for updates" NO)
+ 
+ set(GUI "converseen")
+-set(QT_USE_QTNETWORK TRUE)
++if (NOT DISABLE_CHECK_UPDATES)
++    set(QT_NETWORK_COMPONENT Network)
++    set(QT_USE_QTNETWORK TRUE)
++endif()
+ set(CMAKE_CXX_STANDARD 17)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ 
+ include(GNUInstallDirs)
+ 
+ if (USE_QT6)
+-    find_package(Qt6 COMPONENTS Core Gui Network Widgets LinguistTools Concurrent REQUIRED)
++    find_package(Qt6 COMPONENTS Core Gui ${QT_NETWORK_COMPONENT} Widgets LinguistTools Concurrent REQUIRED)
+ else ()
+-    find_package(Qt5 COMPONENTS Core Gui Network Widgets LinguistTools Concurrent REQUIRED)
++    find_package(Qt5 COMPONENTS Core Gui ${QT_NETWORK_COMPONENT} Widgets LinguistTools Concurrent REQUIRED)
+ endif()
+ 
+ find_package(ImageMagick REQUIRED COMPONENTS Magick++ MagickWand MagickCore)
+@@ -76,7 +80,6 @@ set(converseen_SOURCES
+     src/dialogmultipageeditor.cpp
+     src/dialogoptions.cpp
+     src/dialogquality.cpp
+-    src/dialogshowupdatemsg.cpp
+     src/formats.cpp
+     src/globals.cpp
+     src/inisettings.cpp
+@@ -87,7 +90,6 @@ set(converseen_SOURCES
+     src/sizeutil.cpp
+     src/thumbnailgeneratorthread.cpp
+     src/translator.cpp
+-    src/updatechecker.cpp
+     src/magickdefine.cpp
+     src/Modules/multipageconverter.cpp
+ )
+@@ -101,7 +103,6 @@ set(converseen_HEADERS
+     src/dialogmultipageeditor.h
+     src/dialogoptions.h
+     src/dialogquality.h
+-    src/dialogshowupdatemsg.h
+     src/formats.h
+     src/globals.h
+     src/inisettings.h
+@@ -112,7 +113,6 @@ set(converseen_HEADERS
+     src/sizeutil.h
+     src/thumbnailgeneratorthread.h
+     src/translator.h
+-    src/updatechecker.h
+     src/magickdefine.h
+     src/Modules/multipageconverter.h
+ )
+@@ -121,12 +121,27 @@ set(converseen_UIS
+     ui/dialogconversionstatus.ui
+     ui/dialoginfo.ui
+     ui/dialogmultipageeditor.ui
+-    ui/dialogshowupdatemsg.ui
+     ui/dialogoptions.ui
+     ui/dialogquality.ui
+     ui/mainwindow.ui
+ )
+ 
++if (NOT DISABLE_CHECK_UPDATES)
++    list(APPEND converseen_SOURCES
++        src/dialogshowupdatemsg.cpp
++        src/updatechecker.cpp
++    )
++    list(APPEND converseen_HEADERS
++        src/dialogshowupdatemsg.h
++        src/updatechecker.h
++    )
++    list(APPEND converseen_UIS
++        ui/dialogshowupdatemsg.ui
++    )
++else()
++    add_definitions(-DDISABLE_CHECK_UPDATES)
++endif()
++
+ set(converseen_RESOURCES
+     resources.qrc
+ )
+@@ -239,11 +254,19 @@ else()
+ endif()
+ 
+ 
++if (NOT DISABLE_CHECK_UPDATES)
++    if (USE_QT6)
++        set(QT_NETWORK_LIB Qt6::Network)
++    else()
++        set(QT_NETWORK_LIB Qt5::Network)
++    endif()
++endif()
++
+ if (USE_QT6)
+     target_link_libraries(${GUI}
+         Qt6::Core
+         Qt6::Gui
+-        Qt6::Network
++        ${QT_NETWORK_LIB}
+         Qt6::Widgets
+ 		Qt6::Concurrent
+         ${ImageMagick_LIBRARIES}
+@@ -252,7 +275,7 @@ else()
+     target_link_libraries(${GUI}
+         Qt5::Core
+         Qt5::Gui
+-        Qt5::Network
++        ${QT_NETWORK_LIB}
+         Qt5::Widgets
+ 		Qt5::Concurrent
+         ${ImageMagick_LIBRARIES}
+diff --git a/src/dialogoptions.cpp b/src/dialogoptions.cpp
+index 1fbeeb4..7642689 100755
+--- a/src/dialogoptions.cpp
++++ b/src/dialogoptions.cpp
+@@ -44,6 +44,10 @@ DialogOptions::DialogOptions(QWidget *parent) :
+ 
+     populateStyles();
+ 
++#ifdef DISABLE_CHECK_UPDATES
++    groupBox_3->setVisible(false);  // "Updates" group box
++#endif
++
+     loadSettings();
+ }
+ 
+@@ -75,6 +79,7 @@ void DialogOptions::setOverwriteMode()
+         IniSettings::setOverwriteMode(true);
+ }
+ 
++#ifndef DISABLE_CHECK_UPDATES
+ void DialogOptions::setAutoUpdates()
+ {
+     bool enabled;
+@@ -86,6 +91,7 @@ void DialogOptions::setAutoUpdates()
+ 
+     IniSettings::setAutoChechUpdates(enabled);
+ }
++#endif
+ 
+ void DialogOptions::setTheme()
+ {
+@@ -111,7 +117,9 @@ void DialogOptions::saveOptions()
+ {
+     setLanguage();
+     setOverwriteMode();
++#ifndef DISABLE_CHECK_UPDATES
+     setAutoUpdates();
++#endif
+     setTheme();
+ 
+     IniSettings::settings->sync();
+@@ -127,11 +135,13 @@ void DialogOptions::loadSettings()
+     else
+         radioAskFirst->setChecked(true);
+ 
++#ifndef DISABLE_CHECK_UPDATES
+     bool autoUpdates = IniSettings::isAutoChechUpdates();
+     if (autoUpdates)
+         checkCheckUpdates->setCheckState(Qt::Checked);
+     else
+         checkCheckUpdates->setCheckState(Qt::Unchecked);
++#endif
+ 
+     Translator t;
+     
+diff --git a/src/dialogoptions.h b/src/dialogoptions.h
+index d93d600..3a47f93 100755
+--- a/src/dialogoptions.h
++++ b/src/dialogoptions.h
+@@ -35,7 +35,9 @@ public:
+ private:
+     void setLanguage();
+     void setOverwriteMode();
++#ifndef DISABLE_CHECK_UPDATES
+     void setAutoUpdates();
++#endif
+     void setTheme();
+     void loadSettings();
+     void populateStyles();
+diff --git a/src/mainwindowimpl.cpp b/src/mainwindowimpl.cpp
+index 1095435..407c885 100755
+--- a/src/mainwindowimpl.cpp
++++ b/src/mainwindowimpl.cpp
+@@ -36,7 +36,9 @@
+ #include "inisettings.h"
+ #include "sizeutil.h"
+ #include "dialogmultipageeditor.h"
++#ifndef DISABLE_CHECK_UPDATES
+ #include "dialogshowupdatemsg.h"
++#endif
+ #include "globals.h"
+ 
+ using namespace Magick;
+@@ -50,7 +52,9 @@ MainWindowImpl::MainWindowImpl(QWidget * parent)
+     iAList = new QList<ImageAttributes>;
+     convertThread = new Converter(this);
+     dlgCStatus = new DialogConversionStatus(this);
++#ifndef DISABLE_CHECK_UPDATES
+     updateChecker = new UpdateChecker();
++#endif
+ 
+     CachingSystem::init();
+ 
+@@ -84,7 +88,9 @@ MainWindowImpl::MainWindowImpl(QWidget * parent)
+     connect(labelPreview, SIGNAL(previewReady(int, int, double, double)), this, SLOT(showImageInformations(int, int, double, double)));
+ 
+     connect(checkRelative, SIGNAL(stateChanged(int)), this, SLOT(setRelativeSizeCheckboxes(int)));
++#ifndef DISABLE_CHECK_UPDATES
+     connect(updateChecker, SIGNAL(updateAvailable(bool)), this, SLOT(updateAvailable(bool)));
++#endif
+ 
+     createActions();
+     setupMenu();
+@@ -117,7 +123,9 @@ MainWindowImpl::MainWindowImpl(QWidget * parent)
+         spin_geoHeight->setValue(1);
+     }
+ 
++#ifndef DISABLE_CHECK_UPDATES
+     checkForUpdates();
++#endif
+ 
+     checkVersion();
+ }
+@@ -181,7 +189,11 @@ void MainWindowImpl::createActions()
+     connect(actionInfo, SIGNAL(triggered()), this, SLOT(about()));
+     connect(actionDonatePaypal, SIGNAL(triggered()), this, SLOT(openPaypalLink()));
+     connect(actionReportBug, SIGNAL(triggered()), this, SLOT(bugReport()));
++#ifndef DISABLE_CHECK_UPDATES
+     connect(actionCheckForUpdates, SIGNAL(triggered()), this, SLOT(manualCheckForUpdate()));
++#else
++    actionCheckForUpdates->setVisible(false);
++#endif
+     connect(actionHelp, SIGNAL(triggered()), this, SLOT(onlineHelp()));
+ 
+     // Create first toolbar button
+@@ -1366,6 +1378,7 @@ void MainWindowImpl::openPaypalLink()
+     QDesktopServices::openUrl(QUrl("https://converseen.fasterland.net/donate/", QUrl::TolerantMode));
+ }
+ 
++#ifndef DISABLE_CHECK_UPDATES
+ void MainWindowImpl::checkForUpdates()
+ {
+     // Checks for updates at program startup
+@@ -1408,6 +1421,7 @@ void MainWindowImpl::showUpdateDialog()
+         QDesktopServices::openUrl(QUrl(DESTINATION_URL, QUrl::TolerantMode));
+     }
+ }
++#endif
+ 
+ void MainWindowImpl::bugReport()
+ {
+diff --git a/src/mainwindowimpl.h b/src/mainwindowimpl.h
+index 8e2a67b..d411bf1 100755
+--- a/src/mainwindowimpl.h
++++ b/src/mainwindowimpl.h
+@@ -43,7 +43,9 @@
+ #include "pixtreewidget.h"
+ #include "mylabelpreviewer.h"
+ #include "cachingsystem.h"
++#ifndef DISABLE_CHECK_UPDATES
+ #include "updatechecker.h"
++#endif
+ #include "magickdefine.h"
+ 
+ class QDropEvent;
+@@ -83,7 +85,9 @@ private:
+     void checkVersion();
+ 
+     void saveSettings();    // This method is called when the program is closed
++#ifndef DISABLE_CHECK_UPDATES
+     void showUpdateDialog();
++#endif
+ 
+     QString renameFileNameOnPrefixSuffix(QString oldFileName);
+     QString renameFileNameOnProgressiveN(QString oldFileName);
+@@ -93,7 +97,9 @@ private:
+ 
+     Converter *convertThread;
+     DialogConversionStatus *dlgCStatus;
++#ifndef DISABLE_CHECK_UPDATES
+     UpdateChecker *updateChecker;
++#endif
+ 
+     int curr_index;             // Indice dell'immagine che si sta processando dalla lista iAList
+ 
+@@ -167,9 +173,11 @@ private slots:
+ 
+     void openPaypalLink();
+ 
++#ifndef DISABLE_CHECK_UPDATES
+     void checkForUpdates();
+     void manualCheckForUpdate();
+     void updateAvailable(const bool &isAvailable);
++#endif
+     void bugReport();
+     void onlineHelp();
+ 
+-- 
+2.56.0
+
