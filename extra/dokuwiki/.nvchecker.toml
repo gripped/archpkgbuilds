@@ -1,8 +1,14 @@
 [dokuwiki]
 source = "git"
 git = "https://github.com/dokuwiki/dokuwiki.git"
-include_regex="release-.*"
-from_pattern = "-"
-to_pattern = ""
-prefix="release-"
 
+# TODO: fix to work with both types of versions
+#include_regex="release-.*[a-z]"
+#from_pattern = "-"
+#to_pattern = ""
+
+include_regex="release-.*[a-z]"
+from_pattern = "^(\\d{4})-(\\d{2})-(\\d{2})(?:([a-z]))?$"
+to_pattern = "\\1\\2\\3_\\4"
+
+prefix="release-"
