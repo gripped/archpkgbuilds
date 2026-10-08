@@ -2,8 +2,8 @@
 
 _hkgname=tree-diff
 pkgname=haskell-tree-diff
-pkgver=0.3.3
-pkgrel=23
+pkgver=0.3.4
+pkgrel=2
 pkgdesc="Diffing of (expression) trees"
 url="https://github.com/phadej/tree-diff"
 license=('GPL-2.0-or-later')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-ansi-wl-pprint' 'haskell-ansi-termi
 makedepends=('ghc' 'uusi' 'haskell-trifecta' 'haskell-tasty' 'haskell-tasty-golden'
              'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('5338532a458a21c80d42dbf63f0c03c731f547e644a68b2d1f7e9c5d6ec534b1b48eef3aa715b40c67ba4993dc8e1a97cd8fbd8c7e54de3f290da6fbff0059d1')
+sha512sums=('a43ae447715b42efb7b18e83398bfd349fd74ac3126e4ee108831cfb36d28836c245c2ad916dede2f9ac17a71aa04ea30a190b0cd4559e418125b74d28dc0fb8')
 
 prepare() {
     cd $_hkgname-$pkgver
