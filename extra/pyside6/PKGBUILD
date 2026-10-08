@@ -7,7 +7,7 @@ pkgname=(pyside6
          shiboken6
          shiboken6-generator)
 pkgver=6.11.2
-pkgrel=2
+pkgrel=3
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -52,6 +52,7 @@ sha256sums=('ac9040633b153dbc0ffe02f782d54a87842e2d256f33b77603c3290fad962a77')
 prepare() {
   cd pyside-setup
   git cherry-pick -n d252378a3980c99e23340e6b722631182814d8bb 71c4d1750463c99ab9cbff7e1d7162210506f225 # Fix header install dir
+  git cherry-pick -n 6e8b1ab342c4271fa57a9f438c60795946bea519 b179d97dc3368b7ee6fd71602b6901da4ea3dd06 b2de381df0029333c81eb12b5503fb5c864e101b # Fix build with Qt 6.12
 }
 
 build() {
