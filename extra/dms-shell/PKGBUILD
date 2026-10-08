@@ -3,8 +3,8 @@
 pkgname=dms-shell
 _pkg1=DankMaterialShell
 _pkg2=dank-qml-common
-pkgver=1.6.2
-pkgrel=2
+pkgver=1.6.3
+pkgrel=1
 pkgdesc='A Quickshell-based desktop shell with Material 3 design principles'
 arch=(x86_64 aarch64)
 url="https://github.com/AvengeMedia/$_pkg1"
@@ -29,7 +29,7 @@ replaces=($pkgname-bin
           dms-shell-niri)
 source=("git+$url.git#tag=v$pkgver"
         "git+${url/$_pkg1/$_pkg2}")
-sha256sums=('c796c1e3b01eb3edf649acec013af55d2ae79398d7c4b160abee15bf5accc471'
+sha256sums=('a404f657e0f5109d1606797e268ac452989836bfa53e244532ca0c4ea567f71d'
             'SKIP')
 
 prepare() {
