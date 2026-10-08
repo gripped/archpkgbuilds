@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-declarative
-_pkgver=6.11.2
+_pkgver=6.12.0
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=1
 arch=(x86_64)
 url='https://www.qt.io'
 license=(GPL-3.0-only
@@ -29,11 +29,7 @@ optdepends=('qt6-svg: for QtQuickVectorImage and svgtoqml')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('52d45eed2f8907e67d2b03ace60dc6f4ca282971e7be50e762a8fcd9deab274b')
-
-prepare() {
-  git -C $_pkgfn cherry-pick -n 2efb7c60ef45952cc8e04b9c9a07965d14c30446 # Fix QML errors in Plasma
-}
+sha256sums=('2abdb7dc4300da123b730ff70e11f5c3b8643dc27ce9efcb906bd8670fbf17e7')
 
 build() {
   cmake -B build -S $_pkgfn -G Ninja \
