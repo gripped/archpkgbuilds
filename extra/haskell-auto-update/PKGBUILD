@@ -3,8 +3,8 @@
 
 _hkgname=auto-update
 pkgname=haskell-auto-update
-pkgver=0.2.0
-pkgrel=13
+pkgver=0.2.1
+pkgrel=1
 pkgdesc="Efficiently run periodic, on-demand actions"
 url="https://github.com/yesodweb/wai"
 license=("MIT")
@@ -13,7 +13,7 @@ depends=('ghc-libs')
 makedepends=('ghc')
 checkdepends=('haskell-hspec' 'haskell-hspec-discover' 'haskell-retry' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('87b9f3bb8f3c961e82a697a8a9aebcafebdd39fab9ec02a781abcf0e0c20a1698783d64125ce1b8679637c8c700f9b9774c74134415dd5cfc5bbb0f39d0eac33')
+sha512sums=('6f06ead36eaeb0411ea7e730eb469b4eb6cf4791e6a3cfd549493c6a28e700a527b28286255e1d800efb341c68a152cdf351f3cf01993894894399d4ba47b08c')
 
 build() {
     cd $_hkgname-$pkgver
