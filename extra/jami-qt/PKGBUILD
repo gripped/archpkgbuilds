@@ -2,7 +2,7 @@
 
 pkgname=jami-qt
 pkgver=20260917.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Free and universal communication platform which preserves the users’ privacy and freedoms (Qt client)"
 arch=(x86_64)
 url="https://jami.net"
@@ -34,6 +34,8 @@ sha256sums=('fefa69bf2c20aa8d81eac869fa1ed7c0c0d39d9a69d3ed65535d30a8d54bca2c'
 #}
 
 prepare() {
+  # support Qt 6.12
+  git -C jami-client-qt cherry-pick -n 252ad8be45b45bf7d20399016202a137db268d5c
   # Drop strict Qt version check. Qt is ABI stable and jami is not using any private API
   patch -p1 -d jami-client-qt < drop-qt-version-check.patch
   # Fix linking
