@@ -1,0 +1,16 @@
+Fix: Member._lookup() crashes when member.address is None.
+https://gitlab.com/mailman/mailman/-/issues/693
+
+--- a/src/mailman/model/member.py
++++ b/src/mailman/model/member.py
+@@ -175,6 +175,9 @@ class Member:
+     def _lookup(self, preference, default=None):
+         pref = getattr(self.preferences, preference)
+         if pref is not None:
+             return pref
++        if self.address is None:
++            return (default if default is not None
++                    else getattr(system_preferences, preference))
+         pref = getattr(self.address.preferences, preference)
+         if pref is not None:
+             return pref
