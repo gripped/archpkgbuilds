@@ -4,7 +4,7 @@
 
 pkgname=screengrab
 pkgver=3.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Crossplatform tool for grabbing screenshots of your desktop."
 arch=("x86_64")
 groups=("lxqt")
