@@ -1,0 +1,24 @@
+diff --git a/src/models/sortproxymodel.cpp b/src/models/sortproxymodel.cpp
+index be84906..201069c 100644
+--- a/src/models/sortproxymodel.cpp
++++ b/src/models/sortproxymodel.cpp
+@@ -19,6 +19,8 @@
+ #include <QDebug>
+ #include <QVariant>
+ #include <QLoggingCategory>
++#include <QCollator>
++#include <QStandardItemModel>
+ 
+ #include <private/qabstractitemmodel_p.h>
+ 
+@@ -259,7 +261,9 @@ bool SortProxyModel::lessThan(const QModelIndex &source_left, const QModelIndex
+     }
+     else
+     {
+-        return QAbstractItemModelPrivate::isVariantLessThan(lhs, rhs, m_caseSensitivity, false);
++        QCollator sort_collator = QCollator(QLocale::C);
++        sort_collator.setCaseSensitivity(m_caseSensitivity);
++        return QStandardItemModel::compareData(lhs, rhs, sort_collator) < 0;
+     }
+ }
+ 
