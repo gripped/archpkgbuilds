@@ -2,21 +2,22 @@
 # Contributor: Michal Krenek (Mikos) <m.krenek@gmail.com>
 
 pkgname=dsdcc
-pkgver=1.9.4
-pkgrel=2
+pkgver=1.9.6
+pkgrel=1
 pkgdesc='Digital Speech Decoder (DSD) rewritten as a C++ library'
 arch=('x86_64')
 url='https://github.com/f4exb/dsdcc'
-license=('GPL3')
-depends=('mbelib' 'serialdv')
+license=('GPL-3.0-or-later')
+depends=('glibc' 'libgcc' 'libstdc++' 'mbelib' 'serialdv')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('6724ddb867b4664026b1a5f1e004fbd5f57ee0b6e7c7669a83b273a26b362d29d61e7ac16d8908205836f07d413cf1a8808472db84c83f27c7809fc88753309e')
+sha512sums=('86c51d72c4b721bbd1a2a44c8d7e01cb01d32c260703d164fb9e368335f6ea14b2680eee220e0a4e39cdcf7de255c8f19bebb27b82d501894d6df9a908dc0fc2')
 
 prepare() {
   cd $pkgname-$pkgver
 
   sed -i 's|LIBSERIAL_NAMES|LIBSERIALDV_NAMES|g' cmake/Modules/FindSerialDV.cmake
+  sed -i '1 i #include <cstring>' testfec/golay20.cpp
 }
 
 build() {
