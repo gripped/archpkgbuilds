@@ -3,8 +3,8 @@
 
 _hkgname=haskell-ci
 pkgname=haskell-ci
-pkgver=0.18
-pkgrel=53
+pkgver=0.18.1
+pkgrel=1
 pkgdesc="Cabal package script generator for Travis-CI"
 url="https://haskell-ci.rtfd.org/"
 license=('GPL-3.0-or-later')
@@ -17,7 +17,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-base-compat'
          'haskell-unordered-containers' 'haskell-zinza')
 makedepends=('ghc' 'uusi' 'haskell-diff' 'haskell-ansi-terminal' 'haskell-tasty' 'haskell-tasty-golden')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('4367aca425ed35c137e69a0dcdd6e54b48c9f208c834b2132456453d923df6d4b2eb0d9dc79ee69120e48ca81dc9770c631560c659a65b75b76ebb7e144da2ec')
+sha512sums=('a02de9511acdcd42b43176b901cb082be466b95a7d93aa0015da07dd2e2ef13a871ff4f769b27dd5198d8f24a071795927cc28ef70203230467cf3982087bb3c')
 
 prepare(){
   cd $_hkgname-$pkgver
