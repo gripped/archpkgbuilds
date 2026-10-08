@@ -3,11 +3,11 @@
 pkgname=asplib
 _commit=da66f51
 pkgver=20160310.da66f51
-pkgrel=5
+pkgrel=6
 pkgdesc="Achim's Signal Processing LIBrary"
 arch=('x86_64')
 url='https://github.com/AchimTuran/asplib'
-license=('GPL')
+license=('GPL-3.0-or-later')
 depends=(
   'libgcc'
   'libstdc++'
@@ -26,7 +26,8 @@ build() {
 	cmake \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DBUILD_SHARED_LIBS=1
+		-DBUILD_SHARED_LIBS=1 \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 	make
 }
 
