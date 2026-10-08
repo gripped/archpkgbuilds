@@ -1,17 +1,22 @@
-# Maintainer:
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 # Contributor: Tom Gundersen <teg@jklm.no>
 # Contributor: Travis Willard <travis@archlinux.org>
 
 pkgname=nss-mdns
 pkgver=0.15.1
-pkgrel=2
+pkgrel=3
 pkgdesc="glibc plugin providing host name resolution via mDNS"
 arch=('x86_64')
-url="http://0pointer.de/lennart/projects/nss-mdns/"
-license=('LGPL')
+url="https://github.com/avahi/nss-mdns"
+license=('LGPL-2.1-or-later')
 depends=('glibc' 'avahi')
-source=("https://github.com/lathiat/nss-mdns/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
+source=("https://github.com/avahi/nss-mdns/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz")
 sha256sums=('ddf71453d7a7cdc5921fe53ef387b24fd0c3c49f4dcf94a2a437498596761a21')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  autoreconf -fiv
+}
 
 build() {
   cd ${pkgname}-${pkgver}
