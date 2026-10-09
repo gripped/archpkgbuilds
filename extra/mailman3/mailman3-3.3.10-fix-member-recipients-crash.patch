@@ -1,0 +1,26 @@
+Fix: MemberRecipients crashes when a member has no resolvable address.
+https://gitlab.com/mailman/mailman/-/issues/693
+
+--- a/src/mailman/handlers/member_recipients.py
++++ b/src/mailman/handlers/member_recipients.py
+@@ -80,12 +80,15 @@
+ attached.
+ """)
+                 raise RejectMessage(wrap(text))
+-        # Calculate the regular recipients of the message
+-        recipients = set(member.address.email
+-                         for member in mlist.regular_members.members
+-                         if member.delivery_status == DeliveryStatus.enabled)
++        # Calculate the regular recipients of the message
++        recipients = set(regular_member.address.email
++                         for regular_member in mlist.regular_members.members
++                         if regular_member.address is not None
++                         and regular_member.delivery_status
++                             == DeliveryStatus.enabled)
+         # Remove the sender if they don't want to receive their own posts
+-        if not include_sender and member.address.email in recipients:
++        if (not include_sender and member.address is not None
++                and member.address.email in recipients):
+             recipients.remove(member.address.email)
+         # Handle topic classifications
+         # XXX: Disabled for now until we fix it properly

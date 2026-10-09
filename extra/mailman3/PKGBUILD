@@ -3,7 +3,7 @@
 _name=mailman
 pkgname=mailman3
 pkgver=3.3.10
-pkgrel=8
+pkgrel=9
 pkgdesc="The GNU mailing list manager"
 arch=(any)
 url="https://www.list.org/"
@@ -62,6 +62,7 @@ source=(
   $pkgname::git+https://gitlab.com/$_name/$_name?signed#tag=v$pkgver
   $pkgname-3.3.10-stop-modifying-cc-header.patch
   $pkgname-3.3.10-fix-orphaned-member-lookup.patch
+  $pkgname-3.3.10-fix-member-recipients-crash.patch
   $pkgname.service
   $pkgname-digests.service
   $pkgname-digests.timer
@@ -74,7 +75,8 @@ source=(
 )
 sha512sums=('923ae08b99657bf0ea626afc81e97e96e9ccc5b437a9f71a0d91549a3eac2544dfcb60c5a89ce22f2ce251c1a9bcbff6743610ad137d33ace9b4a06999739ce3'
             '63f636acc93cf9605db16e92e6bb6836075109ae746953cbed40a64758cb6b2802d3e8948deac512d7cccc2cd4bd793f53da9477fc23d666860bc793058cb07d'
-            '49604547e83a7fd16cc9f50959a806eacfa97315d5f297b965b1f5570b8c97ab625f08ff008eb78d366629e249233d48ad0d113d839644bdaa3f389f83e28904'
+            '6023b7c146d09753b42bfcd02ac78fe77e594740e5974b622a00e805bc376f5a693e550a5431dc28b6e8685df1658d22e7411d2445f119a70d30eeacb2785330'
+            '8023eb24dd47c540b224ce576d555030e0f0a880a8abce736f40ae250ecef66f7aab9c4596a7bb90d922e12a0bdcd87c392e0c46199b70d57da6cc590f8d2a48'
             '13db8b7fc571725b299e909a289071a1e80502394d3e90f379b3ecd6f014b8adbbffa861903f91cfd0ad6ff2266cbf6539003a5d8559aea9a754012ce10eff96'
             'dccb7bfac560252f6c36ce26149d72d7faa52c1ff283b725deab802b0a94c45692224936b1a099b95dd5d90782dd39ecb15e299303d0264f1c14a6ac8052ee77'
             '5d7ccba8cf1262ab052078f2188ded15e43e1201302c7c24ce763efef9789ec99d8ea9a19e8fbd9bc5a38f47a162fe5cf4b0ade284894cb57af66350f23507bc'
@@ -86,7 +88,8 @@ sha512sums=('923ae08b99657bf0ea626afc81e97e96e9ccc5b437a9f71a0d91549a3eac2544dfc
             '6f4b51fd5eb34ac974b3312c34eb1437d9435cfd50f0cb89db02b94ce514bceca2c6dc7cb172b79b2d6a23d68e7ea391ec58dbd9899938c0fe88c03c67c521b9')
 b2sums=('513404b857ee26d19f8f4c3883cf9eb9d1494377f4c33b88302b7d5ec9f522901481ee0137a036bac2adbee88c66a866757495774a3fe8e388eba7fec50f000e'
         '2faa6486e6cd040e442378c377a316ebfc691ab3d209ac6f3c949693b8af51834fcb78086c403c5516874530d15b0fabe5adba8e3011673bba21f5b93b5d5437'
-        'b2844f4caa6a13c671810ec942827bde132f6f54c5641a68aa4a906db5f134e17bfc5441e72bf21d00cd4918930be46bdc1dbcb985e857b331f4dd98f35b1047'
+        '9da0a5ef2ce8e105a9017447458118f3525ac64584ad1a11ed7b4132b5e0e85702ab68bba0c8bd38c1baba2a7baae9a961e192505dcf49da4255a7fb27c05329'
+        '3e21531de52a258302b1f4f500d0bbfb9f87a5509a75dcafdcd17af6196e068a491e74e087db3038e798a37257a38b4d1bb59458669c1bda71320e8cbc5b67fc'
         '4f8a075748d87822c95ca969680766a5f3d0526bcc49213458a6bb10a46e54e14f2be738a4b20af422d042cdbd4534a0639ef0fb2de77fca97eb1ee4507a1a9f'
         'fc6d6545dad6cecfd4c1197269a3ec025eb0b830e04151bb2dee778b9e357127667c5a65ea401b10e31e2ec6a8509719de29c30471fa50d09634c934bdf50b9b'
         'b0d764dd4f7017c2d5b76e8a52b0c8d75e35b0b0d9025609853d389f8fa0732ea902549ef168f988bf845370cf67aeb7d439af8dec1997127522055b11e64000'
@@ -108,8 +111,11 @@ prepare() {
   git cherry-pick -n 685d9a7bdbd382d9e8d4a2da74bd973e93356e05
   # stop modifying the CC header as it breaks DKIM: https://gitlab.com/mailman/mailman/-/merge_requests/1039
   git apply ../$pkgname-3.3.10-stop-modifying-cc-header.patch
-  # fix orphaned-member crash: https://gitlab.com/mailman/mailman/-/issues/693
+  # fix Member._lookup() None preferences crash: https://gitlab.com/mailman/mailman/-/merge_requests/1503
+  git show d0e5baf0bf13c46ade39c4ab65037e386bb99edd -- src/mailman/model/member.py | git apply
+  # fix orphaned-member crashes: https://gitlab.com/mailman/mailman/-/issues/693
   git apply ../$pkgname-3.3.10-fix-orphaned-member-lookup.patch
+  git apply ../$pkgname-3.3.10-fix-member-recipients-crash.patch
 }
 
 build() {
