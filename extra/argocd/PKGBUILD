@@ -1,30 +1,27 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=argocd
-pkgver=3.4.2
-# find matching argo-ui commit via ui/yarn.lock
-# commit id also needs to be updated in argo-ui.patch
-_argoui_commit=a1c32a45e83fdda4baafc7ca3105c3ead383f8ba
+pkgver=3.5.4
 pkgrel=1
 pkgdesc="Declarative continuous deployment for Kubernetes"
 arch=('x86_64')
 url='https://argo-cd.readthedocs.io/en/stable/'
 license=('Apache-2.0')
-makedepends=('go' 'python' 'yarn')
+makedepends=('go' 'python' 'corepack')
 depends=('glibc')
 provides=('argocd-cli')
 replaces=('argocd-cli')
-source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz"
-        "argo-ui-${_argoui_commit}.tar.gz::https://github.com/argoproj/argo-ui/archive/${_argoui_commit}.tar.gz"
-        "argo-ui.patch")
-sha512sums=('72ec29f4898ce900ff80cb6205ac1f13995d16656ab240b6f72358c1ad68816a20e389f274877c683cb59d2114878354c37cddd19d845b68a321a4b747f08a51'
-            '01dbde93eaa3c7a05744b0fcc2032d598a3fa6539d114aa6559f9570434fbb08fe648dced0d5b80ccbd3a17bb67769dd88018581a812756eb554a6c4bad38260'
-            '9b928601bbd5bb76f927971cf1f2108c5efb5322d2843e2f024df1ab3a6b81f588b861adc6fed8fadb933c73874180e5bce34b391314b8e13cce3d6ca28b6c10')
+source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz")
+sha512sums=('69d694bd6d26f1589ad867fcc5262aa7b276a10d48f9ba045ae8ad52bcb0ecb7731ee33a9db137495cf14ebd06d23569a9aec2b8755c7be27fbb0e262ff08b32')
 
 prepare() {
   cd "argo-cd-$pkgver"
 
-  patch -p0 -i ../argo-ui.patch
+  (
+    cd ui
+    corepack install
+    corepack pnpm install --frozen-lockfile
+  )
 
   export GOPATH="${srcdir}"
   go mod download
@@ -34,10 +31,8 @@ build() {
   cd "argo-cd-$pkgver"
 
   (
-    export YARN_CACHE_FOLDER="${srcdir}/yarn-cache"
     cd ui
-    yarn install
-    ARGO_VERSION="$pkgver" NODE_ENV='production' NODE_ONLINE_ENV='online' yarn run build
+    ARGO_VERSION="$pkgver" NODE_ENV='production' NODE_ONLINE_ENV='online' corepack pnpm run build
   )
 
   export CGO_CPPFLAGS="${CPPFLAGS}"
@@ -60,6 +55,7 @@ build() {
     ./cmd
 
   ./argocd completion bash > argocd.bash
+  ./argocd completion fish > argocd.fish
   ./argocd completion zsh > argocd.zsh
 }
 
@@ -68,13 +64,17 @@ package() {
 
   install -D argocd "$pkgdir/usr/bin/argocd"
   ln -s argocd "$pkgdir/usr/bin/argocd-server"
-  ln -s argocd "$pkgdir/usr/bin/argocd-application-controller"
   ln -s argocd "$pkgdir/usr/bin/argocd-repo-server"
   ln -s argocd "$pkgdir/usr/bin/argocd-cmp-server"
+  ln -s argocd "$pkgdir/usr/bin/argocd-application-controller"
   ln -s argocd "$pkgdir/usr/bin/argocd-dex"
   ln -s argocd "$pkgdir/usr/bin/argocd-notifications"
+  ln -s argocd "$pkgdir/usr/bin/argocd-applicationset-controller"
+  ln -s argocd "$pkgdir/usr/bin/argocd-k8s-auth"
+  ln -s argocd "$pkgdir/usr/bin/argocd-commit-server"
   ln -s argocd "$pkgdir/usr/bin/argocd-git-ask-pass"
 
   install -Dm644 argocd.bash "$pkgdir/usr/share/bash-completion/completions/argocd"
+  install -Dm644 argocd.fish "$pkgdir/usr/share/fish/vendor_completions.d/argocd"
   install -Dm644 argocd.zsh "$pkgdir/usr/share/zsh/site-functions/_argocd"
 }
