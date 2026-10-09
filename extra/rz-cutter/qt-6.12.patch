@@ -1,0 +1,174 @@
+diff --git a/src/widgets/BreakpointWidget.ui b/src/widgets/BreakpointWidget.ui
+index e7d7d5ce..4fb02327 100644
+--- a/src/widgets/BreakpointWidget.ui
++++ b/src/widgets/BreakpointWidget.ui
+@@ -28,7 +28,7 @@
+      <number>0</number>
+     </property>
+     <item>
+-     <widget class="AddressableItemList&lt;&gt;" name="breakpointTreeView">
++     <widget class="AddressableItemListDefault" name="breakpointTreeView">
+       <property name="styleSheet">
+        <string notr="true">CutterTreeView::item
+ {
+@@ -80,7 +80,7 @@
+  </widget>
+  <customwidgets>
+   <customwidget>
+-   <class>AddressableItemList&lt;&gt;</class>
++   <class>AddressableItemListDefault</class>
+    <extends>QTreeView</extends>
+    <header>widgets/AddressableItemList.h</header>
+    <container>1</container>
+diff --git a/src/widgets/FlagsWidget.ui b/src/widgets/FlagsWidget.ui
+index aa1b1249..88201713 100644
+--- a/src/widgets/FlagsWidget.ui
++++ b/src/widgets/FlagsWidget.ui
+@@ -31,7 +31,7 @@
+      <number>0</number>
+     </property>
+     <item>
+-     <widget class="AddressableItemList&lt;&gt;" name="flagsTreeView">
++     <widget class="AddressableItemListDefault" name="flagsTreeView">
+       <property name="styleSheet">
+        <string notr="true">CutterTreeView::item
+ {
+@@ -119,7 +119,7 @@
+  </widget>
+  <customwidgets>
+   <customwidget>
+-   <class>AddressableItemList&lt;&gt;</class>
++   <class>AddressableItemListDefault</class>
+    <extends>QTreeView</extends>
+    <header>widgets/AddressableItemList.h</header>
+    <container>1</container>
+diff --git a/src/widgets/GlobalsWidget.ui b/src/widgets/GlobalsWidget.ui
+index 36b31cf8..533c1666 100644
+--- a/src/widgets/GlobalsWidget.ui
++++ b/src/widgets/GlobalsWidget.ui
+@@ -31,7 +31,7 @@
+      <number>0</number>
+     </property>
+     <item>
+-     <widget class="AddressableItemList&lt;&gt;" name="treeView">
++     <widget class="AddressableItemListDefault" name="treeView">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+@@ -96,7 +96,7 @@
+    <container>1</container>
+   </customwidget>
+   <customwidget>
+-   <class>AddressableItemList&lt;&gt;</class>
++   <class>AddressableItemListDefault</class>
+    <extends>QTreeView</extends>
+    <header>widgets/AddressableItemList.h</header>
+    <container>1</container>
+diff --git a/src/widgets/ListDockWidget.ui b/src/widgets/ListDockWidget.ui
+index 16e63e9c..2c643a71 100644
+--- a/src/widgets/ListDockWidget.ui
++++ b/src/widgets/ListDockWidget.ui
+@@ -28,7 +28,7 @@
+      <number>0</number>
+     </property>
+     <item>
+-     <widget class="AddressableItemList&lt;&gt;" name="treeView">
++     <widget class="AddressableItemListDefault" name="treeView">
+       <property name="styleSheet">
+        <string notr="true">CutterTreeView::item
+ {
+@@ -58,7 +58,7 @@
+  </widget>
+  <customwidgets>
+   <customwidget>
+-   <class>AddressableItemList&lt;&gt;</class>
++   <class>AddressableItemListDefault</class>
+    <extends>QTreeView</extends>
+    <header>widgets/AddressableItemList.h</header>
+    <container>1</container>
+diff --git a/src/widgets/SearchWidget.ui b/src/widgets/SearchWidget.ui
+index 2756367a..12dd13c0 100644
+--- a/src/widgets/SearchWidget.ui
++++ b/src/widgets/SearchWidget.ui
+@@ -31,7 +31,7 @@
+      <number>0</number>
+     </property>
+     <item>
+-     <widget class="AddressableItemList&lt;&gt;" name="searchTreeView">
++     <widget class="AddressableItemListDefault" name="searchTreeView">
+       <property name="styleSheet">
+        <string notr="true">CutterTreeView::item
+ {
+@@ -118,7 +118,7 @@
+  </widget>
+  <customwidgets>
+   <customwidget>
+-   <class>AddressableItemList&lt;&gt;</class>
++   <class>AddressableItemListDefault</class>
+    <extends>QTreeView</extends>
+    <header>widgets/AddressableItemList.h</header>
+    <container>1</container>
+diff --git a/src/widgets/StringsWidget.ui b/src/widgets/StringsWidget.ui
+index cecdca91..f8bb2207 100644
+--- a/src/widgets/StringsWidget.ui
++++ b/src/widgets/StringsWidget.ui
+@@ -31,7 +31,7 @@
+      <number>0</number>
+     </property>
+     <item>
+-     <widget class="AddressableItemList&lt;&gt;" name="stringsTreeView">
++     <widget class="AddressableItemListDefault" name="stringsTreeView">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+@@ -84,7 +84,7 @@
+  </widget>
+  <customwidgets>
+   <customwidget>
+-   <class>AddressableItemList&lt;&gt;</class>
++   <class>AddressableItemListDefault</class>
+    <extends>QTreeView</extends>
+    <header>widgets/AddressableItemList.h</header>
+    <container>1</container>
+diff --git a/src/dialogs/XrefsDialog.ui b/src/dialogs/XrefsDialog.ui
+index 1c4d010f..7c92e578 100644
+--- a/src/dialogs/XrefsDialog.ui
++++ b/src/dialogs/XrefsDialog.ui
+@@ -50,7 +50,7 @@
+         </widget>
+        </item>
+        <item>
+-        <widget class="AddressableItemList&lt;&gt;" name="toTreeWidget">
++        <widget class="AddressableItemListDefault" name="toTreeWidget">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+@@ -73,7 +73,7 @@
+         </widget>
+        </item>
+        <item>
+-        <widget class="AddressableItemList&lt;&gt;" name="fromTreeWidget">
++        <widget class="AddressableItemListDefault" name="fromTreeWidget">
+          <property name="frameShape">
+           <enum>QFrame::Box</enum>
+          </property>
+@@ -142,7 +142,7 @@
+  </widget>
+  <customwidgets>
+   <customwidget>
+-   <class>AddressableItemList&lt;&gt;</class>
++   <class>AddressableItemListDefault</class>
+    <extends>QTreeView</extends>
+    <header>widgets/AddressableItemList.h</header>
+   </customwidget>
+diff --git a/src/widgets/AddressableItemList.h b/src/widgets/AddressableItemList.h
+index 73df3d62..54860cd2 100644
+--- a/src/widgets/AddressableItemList.h
++++ b/src/widgets/AddressableItemList.h
+@@ -110,4 +110,6 @@ private:
+     MainWindow *mainWindow = nullptr;
+ };
+ 
++using AddressableItemListDefault = AddressableItemList<>;
++
+ #endif // ADDRESSABLE_ITEM_LIST_H
