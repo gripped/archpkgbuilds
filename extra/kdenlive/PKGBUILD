@@ -5,7 +5,7 @@
 # Contributor: Gustavo Alvarez <sl1pkn07@gmail.com>
 
 pkgname=kdenlive
-pkgver=26.08.1
+pkgver=26.08.2
 pkgrel=1
 pkgdesc='A non-linear video editor for Linux using the MLT video framework'
 arch=(x86_64)
@@ -65,19 +65,16 @@ optdepends=('bigsh0t: VR360 effects'
 groups=(kde-applications
         kde-multimedia)
 source=(https://download.kde.org/stable/release-service/$pkgver/src/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('8a0e2cc6451de6901fec778a8b6d00165399879233a264ca5bb1b1b283266513'
+sha256sums=('1019cda23429a526e3a2dbdd2ec93406fef0c89ca243af16dfa16ac9ae8a6bf8'
             'SKIP')
 validpgpkeys=(CA262C6C83DE4D2FB28A332A3A6A4DB839EAA6D7  # Albert Astals Cid <aacid@kde.org>
               F23275E4BF10AFC1DF6914A6DBD2CE893E2D1C87  # Christoph Feck <cfeck@kde.org>
               D81C0CB38EB725EF6691C385BB463350D6EF31EF) # Heiko Becker <heiko.becker@kde.org>
 
-prepare() {
-  sed -e '/qmllint/d' -i $pkgname-$pkgver/src/CMakeLists.txt
-}
-
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF
+    -DBUILD_TESTING=OFF \
+    -DBUILD_RUN_QMLLINT=OFF
   cmake --build build
 }
 
