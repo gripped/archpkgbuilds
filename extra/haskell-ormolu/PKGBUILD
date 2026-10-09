@@ -2,8 +2,8 @@
 
 _hkgname=ormolu
 pkgname=haskell-ormolu
-pkgver=0.7.0.0
-pkgrel=52
+pkgver=0.7.1.0
+pkgrel=1
 pkgdesc="A formatter for Haskell source code"
 url="https://github.com/tweag/ormolu"
 license=('BSD-3-Clause')
@@ -14,11 +14,11 @@ depends=('ghc-libs' 'haskell-ansi-terminal' 'haskell-diff' 'haskell-file-embed'
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-hspec' 'haskell-hspec-megaparsec'
              'haskell-path' 'haskell-path-io' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('ac5cb15e15036fa834165c527dd9a973db25080d945b81bce25b9bb6e5be7f16e95dc17c40ee9c5accc0cec08598c4b146b418217c108798ec6238cd4a560568')
+sha512sums=('3ae767125663c0965f2f84f48c0be35ac2423c54ff80617c87c101f35294a048959563c51679a8cbe8a2efb4bdb2323c2d917a0964eb4dbb2300c660d9aacdf7')
 
 prepare() {
   cd $_hkgname-$pkgver
-  uusi -u Diff -u ansi-terminal -u optparse-applicative
+  uusi -u Diff -u ansi-terminal
 }
 
 build() {
