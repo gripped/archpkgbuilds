@@ -2,8 +2,8 @@
 # Contributor: berberman <hatsue@typed.icu>
 
 pkgname=arch-hs
-pkgver=0.16
-pkgrel=13
+pkgver=0.16.1
+pkgrel=2
 pkgdesc="Distribute hackage packages to archlinux"
 arch=('x86_64')
 url="https://github.com/berberman/arch-hs"
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'pacman' 'haskell-diff' 'haskell-aeson' 'haskell-algebraic-g
          'haskell-servant-client' 'haskell-split' 'haskell-tar-conduit' 'haskell-yaml')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$pkgname/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('cd38bccf4640598044fda366c05b0332150b4115f7c4bfbfe7b96082768ec71d321e4d50c0a49aaab8e525127cf1dd0b02883373b078b663bfea1d143bb39783')
+sha512sums=('1cca6e8aa2dd51596d3124d5a351fbde806e6c9d100469b1e03d61520b69a4fb7e4cc5e2679fd2362cf9b4774ab3c737fcea16d4c3719d5ad632c126d35cba42')
 
 _gen_comp(){
   LD_LIBRARY_PATH="$PWD/dist/build" dist/build/arch-hs${1}/arch-hs${1} --bash-completion-script "/usr/bin/arch-hs${1}" > bash${1}
