@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cxxheaderparser
-pkgver=2.0.0
+pkgver=2.0.1
 pkgrel=1
 pkgdesc='Modern C++ header parser'
 arch=('any')
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-hatchling' 'python-hatch-vcs' 'python-
              'python-wheel')
 checkdepends=('python-pcpp' 'python-pytest')
 source=("git+https://github.com/robotpy/cxxheaderparser.git#tag=$pkgver")
-sha512sums=('9f10159d344d77b9d42dd14afa8c6d84b51d97cdd9a42a37568c54b7b35dceecec951354a0578948bab79ef2a360354682baa6005dc35f7e08b1fc8f34d08ebe')
+sha512sums=('51b62c19521b2fbd3604379397853dea9391844061f4e0645a1a610ddf12cbcf080ddd4a973205b6a13f5d7570745af86e87a6d9ccffd597f062fade6df6b61c')
 
 build() {
   cd cxxheaderparser
