@@ -1,7 +1,7 @@
 pkgbase = git-annex
 	pkgdesc = Manage files with git, without checking their contents into git
-	pkgver = 10.20260901
-	pkgrel = 39
+	pkgver = 10.20261006
+	pkgrel = 5
 	url = https://git-annex.branchable.com/
 	arch = x86_64
 	license = AGPL-3.0-only
@@ -59,6 +59,7 @@ pkgbase = git-annex
 	depends = haskell-persistent
 	depends = haskell-persistent-sqlite
 	depends = haskell-quickcheck
+	depends = haskell-ram
 	depends = haskell-random
 	depends = haskell-regex-tdfa
 	depends = haskell-resourcet
@@ -94,7 +95,9 @@ pkgbase = git-annex
 	depends = haskell-yesod-core
 	depends = haskell-yesod-form
 	depends = haskell-yesod-static
-	source = git+https://git.joeyh.name/git/git-annex.git#tag=10.20260901
-	sha256sums = 0b8cfc36924afaca56eb3c5bcf935ed017ac04fce1ad25bfe39721ebc66901fc
+	source = git+https://git.joeyh.name/git/git-annex.git#tag=10.20261006
+	source = magic-2.0.patch
+	sha256sums = 0802f71a4b98f4a6cd3d6af25c339d587b804371c28c7ca220fff711f3247f3f
+	sha256sums = d5e176829e3ffe17b942c457c6f06943dfa64b8c3152be2291a40185117f13ba
 
 pkgname = git-annex

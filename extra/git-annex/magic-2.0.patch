@@ -1,0 +1,57 @@
+diff --git a/Annex/Magic.hs b/Annex/Magic.hs
+index 4771adada4..6834ef4143 100644
+--- a/Annex/Magic.hs
++++ b/Annex/Magic.hs
+@@ -21,21 +21,20 @@ import Common
+ import Types.Mime
+ import Control.Monad.IO.Class
+ #ifdef WITH_MAGICMIME
+-import Magic
++import Magic.FilePath
++import qualified Data.Text as T
+ import Utility.Env
+-import Control.Concurrent
+-import System.IO.Unsafe (unsafePerformIO)
+ #else
+ type Magic = ()
+ #endif
+ 
+ initMagicMime :: IO (Maybe Magic)
+ #ifdef WITH_MAGICMIME
+-initMagicMime = catchMaybeIO $ do
+-	m <- magicOpen [MagicMime]
++initMagicMime = catchMaybeIO $ magicIO $ do
++	m <- magicOpen MagicMime
+ 	liftIO $ getEnv "GIT_ANNEX_DIR" >>= \case
+ 		Nothing -> magicLoadDefault m
+-		Just d -> magicLoad m $ fromOsPath $
++		Just d -> magicLoad m $ (: []) $ fromOsPath $
+ 			toOsPath d
+ 				</> literalOsPath "magic"
+ 				</> literalOsPath "magic.mgc"
+@@ -46,7 +45,7 @@ initMagicMime = return Nothing
+ 
+ getMagicMime :: Magic -> OsPath -> IO (Maybe (MimeType, MimeEncoding))
+ #ifdef WITH_MAGICMIME
+-getMagicMime m f = Just . parse <$> magicConcurrentSafe (magicFile m (fromOsPath f))
++getMagicMime m f = Just . parse . T.unpack <$> magicIO (magicFile m (fromOsPath f))
+   where
+ 	parse s = 
+ 		let (mimetype, rest) = separate (== ';') s
+@@ -65,13 +64,7 @@ getMagicMimeEncoding :: MonadIO m => Magic -> OsPath -> m(Maybe MimeEncoding)
+ getMagicMimeEncoding m f = liftIO $ fmap snd <$> getMagicMime m f
+ 
+ #ifdef WITH_MAGICMIME
+-{-# NOINLINE mutex #-}
+-mutex :: MVar ()
+-mutex = unsafePerformIO $ newMVar ()
+-
+--- Work around a bug, the library is not concurrency safe and will
+--- sometimes access the wrong memory if multiple ones are called at the
+--- same time.
+-magicConcurrentSafe :: IO a -> IO a
+-magicConcurrentSafe = bracket_ (takeMVar mutex) (putMVar mutex ())
++magicIO :: IO a -> IO a
++magicIO action = action `catch` \exception ->
++	ioError $ userError $ displayException (exception :: MagicException)
+ #endif
