@@ -3,7 +3,7 @@
 _hkgname=hls-refactor-plugin
 pkgname=haskell-hls-refactor-plugin
 pkgver=2.4.0.0
-pkgrel=14
+pkgrel=16
 pkgdesc="Exactprint refactorings for Haskell Language Server"
 url="https://github.com/haskell/haskell-language-server.git"
 license=('Apache-2.0')
@@ -23,6 +23,11 @@ sha256sums=('1ed949dabeb56ebbec70e51d5b4489728888459ad3e91d92d76e1ae279b1460b')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+
+  # retrie 2.0.0 no longer re-exports m1; import it directly from ghc-exactprint.
+  # https://github.com/xich/retrie/pull/4
+  sed -i '/^import .*Language\.Haskell\.GHC\.ExactPrint\.Parsers$/a import           Language.Haskell.GHC.ExactPrint.Transform (m1)' \
+    src/Development/IDE/GHC/ExactPrint.hs
 }
 
 build() {
