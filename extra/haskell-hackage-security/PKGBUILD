@@ -3,8 +3,8 @@
 
 _hkgname=hackage-security
 pkgname=haskell-hackage-security
-pkgver=0.6.3.2
-pkgrel=91
+pkgver=0.6.3.3
+pkgrel=2
 pkgdesc="Hackage security library"
 url="https://github.com/well-typed/hackage-security"
 license=('BSD-3-Clause')
@@ -16,7 +16,7 @@ makedepends=('ghc' 'haskell-quickcheck' 'haskell-aeson' 'haskell-tasty' 'haskell
              'haskell-tasty-quickcheck' 'haskell-temporary' 'haskell-unordered-containers'
              'haskell-vector')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('4ba7d66198f10c2937be93e8663558b50bcc4846653182cb0292765e814f4bc5e46d148d9a338dc5436be5858488dfd898a6c19fd324cbf95b27f58b457a9c8b')
+sha512sums=('91ab5d7c40b0a3e5e12072c5b5319dfef758fd1e0aa5578ce083289d39abd26aeed523a12ab3ac8b7701b0d7016155261342e5add92e1b89756a9066d2ee60dd')
 
 build() {
     cd $_hkgname-$pkgver
@@ -24,7 +24,7 @@ build() {
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
-            -f-lukko -fcabal-syntax
+            -fcabal-syntax
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
