@@ -2,8 +2,8 @@
 
 _name=tidal
 pkgname=haskell-tidal
-pkgver=1.9.5
-pkgrel=171
+pkgver=1.10.0
+pkgrel=1
 pkgdesc="A domain specific language for live coding pattern."
 arch=(x86_64)
 url="https://tidalcycles.org/"
@@ -25,17 +25,24 @@ depends=(
   haskell-primitive
   haskell-random
   haskell-splitmix
+  haskell-tidal-core
   haskell-tidal-link
   haskell-vector
   supercollider
 )
-checkdepends=(haskell-microspec)
+makedepends=(uusi)
+checkdepends=(haskell-hspec)
 optdepends=('sc3-plugins: Examples using special UGens')
 conflicts=(tidalcycles)
 replaces=(tidalcycles)
 source=(https://hackage.haskell.org/packages/archive/$_name/$pkgver/$_name-$pkgver.tar.gz)
-sha512sums=('15a963eb17c38678e2d59fa08845cac270bf2a28a9dfe4cf4bfd2fe137c5bb9fbc18439e889743792b3448f0358dee3a787608e7385768616dce8171718fac32')
-b2sums=('6ba4f598be6b3e6800a6af15a72fbb044dcfb6de52e46dfc0db4cc9bd959bfdbf16d7ec74f884b4546ef3fca6a46a6af52a2cd294460436fdfeb97f51c1db3db')
+sha512sums=('5a0a8f95b50bfaad006bac418654c16548b76fe60c7fbad5a7d06e0c7250765fa3a2ad3a71555378b56229acf9dd1b55a44a20d5453ff160d638e2b94d807dd2')
+b2sums=('928bcd4c73e2694fb5ad0aca4e517b77d66aa89004b03c1c8944742921b59b9435b83b206bbc4ed3a7abcb2251be652a04e58fca672aa9e89065b593c2b29ef9')
+
+prepare() {
+  cd $_name-$pkgver
+  uusi -u tidal-core -u tidal-link
+}
 
 build() {
   local configure_options=(
