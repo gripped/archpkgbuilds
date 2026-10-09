@@ -4,13 +4,14 @@
 
 pkgname=cargo-generate
 pkgver=0.25.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Use pre-existing git repositories as templates"
 arch=('x86_64')
 url="https://github.com/cargo-generate/cargo-generate"
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'curl' 'libgit2' 'libssh2' 'openssl')
-makedepends=('cargo-edit')
+depends=('cargo' 'glibc' 'libgcc')
+optdepends=('git: templates from local Git repositories'
+            'openssh: templates from Git repositories over SSH')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('972a7083b97e8a0e6fae8a0c2b2fbc15f15369acebb1902ddadc93dc0deb9c09')
 
@@ -21,21 +22,19 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  export LIBGIT2_NO_VENDOR=1
-  export LIBSSH2_SYS_USE_PKG_CONFIG=1
-  cargo build --release --frozen --no-default-features
+  # Rust's linker needs native code in the GCC LTO objects from aws-lc-sys.
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --release --frozen
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  export LIBGIT2_NO_VENDOR=1
-  export LIBSSH2_SYS_USE_PKG_CONFIG=1
-  RUST_TEST_THREADS=1 cargo test --frozen --lib --no-default-features
+  CFLAGS+=' -ffat-lto-objects'
+  RUST_TEST_THREADS=1 cargo test --frozen --lib
 }
 
 package() {
   cd "$pkgname-$pkgver"
-  depends+=('libgit2.so')
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
