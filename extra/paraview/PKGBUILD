@@ -5,14 +5,15 @@
 # Contributor: <xantares09@hotmail.com>
 
 pkgname=paraview
-pkgver=6.1.1
-pkgrel=9
+pkgver=6.2.0
+pkgrel=1
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
 url="https://www.paraview.org"
 license=(BSD-3-Clause)
 depends=(
   abseil-cpp # libvtkRemotingServerManager.so links to libprotobuf.so.x.y.0 but uses abseil symbols directly
+  anari-sdk
   cgns
   double-conversion
   fmt libfmt.so
@@ -58,6 +59,7 @@ depends=(
 optdepends=(
   python-matplotlib
   python-pandas
+  'uv: for managing virtual environments with pvpython -m paraview.envs'
 )
 makedepends=(
   boost
@@ -73,16 +75,8 @@ makedepends=(
 )
 source=(
   $url/files/v${pkgver%.*}/ParaView-v${pkgver/R/-R}.tar.xz
-  fmt-12.2.patch
 )
-b2sums=('4af5c53a5b8d01ea9b621557fa328bfb5eeccc63ad694bd2c53523def19b5accd89167a6e44bcec7d44df8d5d435a9f743b4484e1ac20f6fd7fdf28b76d1547d'
-        '54e6f8992a196f98c329981a6d6aa9a7a83163712591f344c6ecf6a001d5aab3fd75b3730c17f63a8db67e6c5a2ae67edc24ae80a8a51c6ea9e59ad3555ed359')
-
-prepare() {
-  cd ParaView-v${pkgver/R/-R}
-  # Fix build with fmt 12.2.0 https://gitlab.kitware.com/paraview/paraview/-/work_items/23315
-  patch -p1 < ../fmt-12.2.patch
-}
+b2sums=('c22d3a8bcde53d068dcf0cbb2792f0f23a81a838c8d67d9212b398cadc25482084012fbdabb9000afa2d4643ae20dc704d46f473f6d07431bde5d6771163ba09')
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"
@@ -99,6 +93,7 @@ build() {
     # RPATH is needed for loading plugins
     -DCMAKE_SKIP_INSTALL_RPATH=OFF
     -DPARAVIEW_ENABLE_ADIOS2=ON
+    -DPARAVIEW_ENABLE_ANARI=ON
     -DPARAVIEW_ENABLE_CATALYST=ON
     -DPARAVIEW_ENABLE_FFMPEG=ON
     -DPARAVIEW_ENABLE_FIDES=ON
