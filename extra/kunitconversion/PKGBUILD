@@ -4,7 +4,7 @@
 
 pkgname=kunitconversion
 pkgver=6.30.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Support for unit conversion'
 arch=(x86_64)
 url='https://develop.kde.org/products/frameworks/'
