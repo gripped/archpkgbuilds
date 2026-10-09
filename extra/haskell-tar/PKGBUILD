@@ -3,17 +3,17 @@
 
 _hkgname=tar
 pkgname=haskell-tar
-pkgver=0.6.0.0
-pkgrel=35
+pkgver=0.6.1.0
+pkgrel=1
 pkgdesc="Reading, writing and manipulating \".tar\" archive files."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs')
+depends=('ghc-libs' 'haskell-os-string')
 makedepends=('ghc' 'uusi' 'haskell-quickcheck' 'haskell-file-embed' 'haskell-tasty'
              'haskell-tasty-quickcheck' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('95a93b3054eea4bd22727e279d574dbb737677f4ddf9e31bf0a8c752789f6b043a467ef4ad3a247517624778797ff4e2d09852b110e7db6c8eb5989241457654')
+sha512sums=('d2e3bca8adfac13733804538c95b2935ff9623e06193516b16c9fea232ef65462bead41ee17223b421c89dab8912689fe6fe7dbb73de7fdfd93547702d24d9f2')
 
 prepare() {
     cd $_hkgname-$pkgver
