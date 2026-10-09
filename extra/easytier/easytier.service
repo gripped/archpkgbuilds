@@ -1,16 +1,18 @@
 [Unit]
 Description=EasyTier service
-After=network.target
+Documentation=https://easytier.cn
+After=network.target network-online.target
 
 [Service]
-TimeoutStartSec=10s
-Type=exec
+User=easytier
+StateDirectory=easytier
+WorkingDirectory=/var/lib/easytier
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
 ExecStart=/usr/bin/easytier-core -c /etc/easytier/config.toml
-LimitNPROC=500
-LimitNOFILE=1000000
 Restart=on-failure
 RestartSec=5s
-WorkingDirectory=/var/lib/easytier
+LimitNOFILE=infinity
 
 [Install]
 WantedBy=multi-user.target

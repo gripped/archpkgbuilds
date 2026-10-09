@@ -6,24 +6,40 @@ _pkgname=EasyTier
 pkgbase=easytier
 pkgname=(${pkgbase} ${pkgbase}-core ${pkgbase}-cli ${pkgbase}-web)
 pkgver=2.6.4
-pkgrel=6
+pkgrel=7
 pkgdesc="A simple, decentralized mesh VPN with WireGuard support"
 arch=('x86_64')
 url="https://easytier.cn/"
 license=('LGPL-3.0-only')
-depends=('glibc' 'libgcc' 'zstd')
-makedepends=('cargo' 'protobuf' 'rust-bindgen' 'sqlite'
-             'nodejs' 'pnpm') # for embeded web
+depends=(
+    'glibc'
+    'libgcc'
+    'zstd'
+)
+makedepends=(
+    'cargo'
+    'protobuf'
+    'rust-bindgen'
+    'sqlite'
+    # for embeded web
+    'nodejs'
+    'pnpm'
+)
 options=("!lto") # https://gitlab.archlinux.org/archlinux/packaging/packages/pacman/-/issues/20
 source=(
     "${_pkgname}-${pkgver}.tar.gz::https://github.com/EasyTier/EasyTier/archive/refs/tags/v${pkgver}.tar.gz"
     "0001-build-update-pnpm-config-for-v11-compatibility.patch"
     "easytier.service"
-    "config.toml")
-sha256sums=('352c0866da709415a837405a6ce4f51b8dfae27e5d5c1da1fb4d8f7338e46795'
-            '70049779ad48f5257ecf36a5c92ed92c86e1f5f9e6a74650fe716ffb98a09803'
-            'dd9e71f35055e2442187b630a6ff0c519d6f0bb5d0e206d0cb43e36759ab47fc'
-            '05518beea8b047d5e9b9adb14f26f85a91e4eea81ead7eeb4743f8978e1fd842')
+    "easytier.sysusers"
+    "config.toml"
+)
+sha256sums=(
+    '352c0866da709415a837405a6ce4f51b8dfae27e5d5c1da1fb4d8f7338e46795'
+    '70049779ad48f5257ecf36a5c92ed92c86e1f5f9e6a74650fe716ffb98a09803'
+    'fcc79788a2a3c0953a2d85211347af86656428a80a8592353d17637930e861b0'
+    '3789cdd166a6bfbc942bade52ba743780ffc2d6313a61eda9fdb3f27de29067b'
+    '05518beea8b047d5e9b9adb14f26f85a91e4eea81ead7eeb4743f8978e1fd842'
+)
 
 prepare() {
     cd "${_pkgname}-${pkgver}"
@@ -63,11 +79,15 @@ package_easytier() {
 
 package_easytier-core() {
     pkgdesc+=" - Core daemon"
+    optdepends=(
+        'easytier-cli: Command-line interface'
+        'easytier-web: Web management interface'
+    )
     backup=('etc/easytier/config.toml')
 
-    install -dm755 "${pkgdir}/var/lib/easytier"
-    install -Dm644 "easytier.service" -t "${pkgdir}/usr/lib/systemd/system"
     install -Dm644 "config.toml" -t "${pkgdir}/etc/easytier"
+    install -Dm644 "easytier.service" -t "${pkgdir}/usr/lib/systemd/system"
+    install -Dm644 "easytier.sysusers" "${pkgdir}/usr/lib/sysusers.d/easytier.conf"
 
     cd "${_pkgname}-${pkgver}"
     install -Dm755 "target/release/easytier-core" -t "${pkgdir}/usr/bin"
@@ -81,6 +101,9 @@ package_easytier-core() {
 
 package_easytier-cli() {
     pkgdesc+=" - Command-line interface"
+    optdepends=(
+        'easytier-core: for managing a local EasyTier instance'
+    )
 
     cd "${_pkgname}-${pkgver}"
     install -Dm755 "target/release/easytier-cli" -t "${pkgdir}/usr/bin"
@@ -95,6 +118,9 @@ package_easytier-cli() {
 package_easytier-web() {
     pkgdesc+=" - Web management interface"
     depends+=('sqlite')
+    optdepends=(
+        'easytier-core: to run a local mesh node connected to this server'
+    )
 
     cd "${_pkgname}-${pkgver}"
     install -Dm755 "target/release/easytier-web" -t "${pkgdir}/usr/bin"
