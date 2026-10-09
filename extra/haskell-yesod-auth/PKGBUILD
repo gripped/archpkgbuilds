@@ -3,8 +3,8 @@
 
 _hkgname=yesod-auth
 pkgname=haskell-yesod-auth
-pkgver=1.6.11.3
-pkgrel=402
+pkgver=1.6.12.0
+pkgrel=1
 pkgdesc="Authentication for Yesod."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec-aeson' 'haskell-authenticate'
          'haskell-base16-bytestring' 'haskell-base64-bytestring' 'haskell-blaze-builder'
          'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-conduit' 'haskell-conduit-extra'
-         'haskell-cryptonite' 'haskell-data-default' 'haskell-email-validate' 'haskell-file-embed'
+         'haskell-crypton' 'haskell-data-default' 'haskell-email-validate' 'haskell-file-embed'
          'haskell-http-client' 'haskell-http-client-tls' 'haskell-http-conduit'
          'haskell-http-types' 'haskell-memory' 'haskell-network-uri' 'haskell-nonce'
          'haskell-persistent' 'haskell-random' 'haskell-safe' 'haskell-shakespeare'
@@ -20,7 +20,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec-aeson' 'haskell-authenti
          'haskell-yesod-core' 'haskell-yesod-form' 'haskell-yesod-persistent')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('88be0432e0b0ca5202974da40ea26d40fe4b767415721af63e52456e93c0cf1f65dfcea7b2ce1bc1c179a09011267f69c36d63ffd814896add69cb898a8426a3')
+sha512sums=('0f161e30b385215a19be1be06b3ad3f4853beafae33b9e2a5c57a25d94a424e6a7045ce616802582a975c4685006f0962a67a41e2712e4cd9578e37a270e481e')
 
 build() {
     cd $_hkgname-$pkgver
