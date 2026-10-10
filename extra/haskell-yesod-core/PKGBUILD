@@ -3,8 +3,8 @@
 
 _hkgname=yesod-core
 pkgname=haskell-yesod-core
-pkgver=1.6.28.1
-pkgrel=28
+pkgver=1.6.29.0
+pkgrel=3
 pkgdesc="Creation of type-safe, RESTful web applications."
 url="http://www.yesodweb.com/"
 license=("MIT")
@@ -12,16 +12,17 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec-aeson' 'haskell-auto-update'
          'haskell-blaze-html' 'haskell-blaze-markup' 'haskell-case-insensitive' 'haskell-cereal'
          'haskell-clientsession' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-cookie'
-         'haskell-data-default' 'haskell-entropy' 'haskell-fast-logger' 'haskell-http-types'
-         'haskell-memory' 'haskell-monad-logger' 'haskell-old-locale' 'haskell-path-pieces'
-         'haskell-primitive' 'haskell-random' 'haskell-resourcet' 'haskell-shakespeare'
-         'haskell-unix-compat' 'haskell-unliftio' 'haskell-unordered-containers' 'haskell-vector'
-         'haskell-wai' 'haskell-wai-extra' 'haskell-wai-logger' 'haskell-warp' 'haskell-word8')
+         'haskell-data-default' 'haskell-encoding' 'haskell-entropy' 'haskell-fast-logger'
+         'haskell-http-types' 'haskell-memory' 'haskell-monad-logger' 'haskell-old-locale'
+         'haskell-path-pieces' 'haskell-primitive' 'haskell-random' 'haskell-resourcet'
+         'haskell-shakespeare' 'haskell-unix-compat' 'haskell-unliftio'
+         'haskell-unordered-containers' 'haskell-vector' 'haskell-wai' 'haskell-wai-extra'
+         'haskell-wai-logger' 'haskell-warp' 'haskell-word8')
 makedepends=('ghc' 'haskell-hunit' 'haskell-async' 'haskell-hspec'
              'haskell-hspec-expectations' 'haskell-network' 'haskell-streaming-commons'
              'haskell-th-abstraction')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('311e0a5781b32d6db5f3871cc8027710902d49943fe66ad58b67056eb0a8612c8be4e8ae6d5ccc5fefeb917c98af64a08afe9172254b357e5d560a786086c6dd')
+sha512sums=('2076a76933d1f346db4544797d93cd12cdbd6b72ced1abd9e72bd91bf0bf6e89abea9d29fe627b610904ffff3b563cdceceebbb5c728dcb5d1d36105a836630c')
 
 build() {
     cd $_hkgname-$pkgver
