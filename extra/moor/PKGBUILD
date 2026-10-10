@@ -3,7 +3,7 @@
 # Contributor: Jameson Pugh <imntreal@gmail.com>
 
 pkgname=moor
-pkgver=2.19.2
+pkgver=2.19.3
 pkgrel=1
 pkgdesc="A pager designed to just do the right thing without any configuration."
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('go')
 conflicts=('moar' 'moar-bin' 'moar-git' 'moor-bin' 'moor-git')
 replaces=('moar')
 source=("$pkgname-$pkgver.tar.gz"::"$url/archive/v$pkgver.tar.gz")
-sha256sums=('6a46ba770366b9d4993f1221ca5135f6668f88d64ee99c04e1a0c176e1893023')
+sha256sums=('17acfbe2cf7ea4c067ff010928e41e79a46c8f244596eea82deba99dad023e05')
 
 prepare() {
     cd "$pkgname-$pkgver/cmd/moor"
@@ -26,9 +26,10 @@ build() {
 	export CGO_CPPFLAGS="${CPPFLAGS}"
 	export CGO_CFLAGS="${CFLAGS}"
 	export CGO_CXXFLAGS="${CXXFLAGS}"
-	export CGO_LDFLAGS="${LDFLAGS}"
+	# export CGO_LDFLAGS="${LDFLAGS}"
+	export GOPATH="${srcdir}"
 	export GOFLAGS="-buildmode=pie -trimpath -ldflags=-linkmode=external -ldflags=-buildid= -mod=readonly -modcacherw"
-	go build -o "$pkgname"
+	go build -ldflags="-linkmode=external -extldflags '${LDFLAGS}'" -o "$pkgname"
 }
 
 package() {
