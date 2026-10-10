@@ -3,18 +3,18 @@
 
 _hkgname=hspec-wai
 pkgname=haskell-hspec-wai
-pkgver=0.12.0
-pkgrel=65
+pkgver=0.12.1
+pkgrel=1
 pkgdesc="Experimental Hspec support for testing WAI applications"
 url="https://github.com/hspec/hspec-wai"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-quickcheck' 'haskell-base-compat' 'haskell-case-insensitive'
-         'haskell-hspec' 'haskell-hspec-core' 'haskell-hspec-expectations' 'haskell-http-types'
-         'haskell-wai' 'haskell-wai-extra')
+depends=('ghc-libs' 'haskell-hunit' 'haskell-quickcheck' 'haskell-base-compat'
+         'haskell-case-insensitive' 'haskell-hspec' 'haskell-hspec-core'
+         'haskell-hspec-expectations' 'haskell-http-types' 'haskell-wai' 'haskell-wai-extra')
 makedepends=('ghc' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('ba67f412db28a49c9612a39b6e461aa3511c659378de951c350824831585c6bdac288b3c26ce8ab6f35b33116864755e527b6fe3d276e8eadb82f8c30b515079')
+sha512sums=('2ef2fd1130d51f4e5faf9d907366502f2b43a93c1497b061e5e5223c14f8930aa318ac74efc3f262dd5ab56531fb4cf842d22e76b754b1d0bf3a0d746153b0ab')
 
 build() {
     cd $_hkgname-$pkgver
