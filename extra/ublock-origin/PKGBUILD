@@ -1,4 +1,5 @@
 # Maintainer: Daniel M. Capella <polyzen@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 
 pkgname=(
   firefox-ublock-origin
@@ -6,7 +7,7 @@ pkgname=(
   ublock-origin
 )
 pkgbase=ublock-origin
-pkgver=1.74.0
+pkgver=1.75.0
 pkgrel=1
 pkgdesc='Efficient blocker add-on for various browsers. Fast, potent, and lean'
 arch=(any)
@@ -19,7 +20,7 @@ makedepends=(
   zip
 )
 source=("git+$url.git#commit=$pkgver?signed")
-b2sums=('ee857b32fd865201100795a797360ffbc9190525e29451182535107ce3e0db90fbde1d85b67256cab88ee9c26ed52b6b69f7e0e8b72ee15f28d0594d2423def0')
+b2sums=('22b20c1f1b954678f0b8db7c8b9bcf2b7a5cef85bf763dd8c73c136003426df21fda5f56f04f091d9683a5e1a74b285a6fd9c556bcaef60dd8be0ce88234e028')
 validpgpkeys=(91BFC93FDEC1D00C365C061EF5630CAE62A14316) # gorhill
 
 prepare() {
