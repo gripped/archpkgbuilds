@@ -1,5 +1,4 @@
 [tinc]
-source = 'git'
-git = 'https://tinc-vpn.org/git/tinc'
-prefix = 'release-'
-include_regex = 'release-([\d.]+)'
+source = 'regex'
+url = 'https://www.tinc-vpn.org/download/'
+regex = 'tinc-([\d.]+).tar.gz'
