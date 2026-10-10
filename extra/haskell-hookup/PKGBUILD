@@ -3,16 +3,21 @@
 _hkgname=hookup
 pkgname=haskell-hookup
 pkgver=0.8
-pkgrel=178
+pkgrel=179
 pkgdesc="Abstraction over creating network connections with SOCKS5 and TLS"
 url="https://github.com/glguy/irc-core"
 license=("ISC")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-hsopenssl' 'haskell-hsopenssl-x509-system' 'haskell-async'
          'haskell-attoparsec' 'haskell-network')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('153b85383f8aea86340683ea5159145ad8a9d5b32ccf60cfa643af15ce9a15dd')
+
+prepare() {
+  cd $_hkgname-$pkgver
+  uusi -u network
+}
 
 build() {
   cd $_hkgname-$pkgver
