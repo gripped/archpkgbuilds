@@ -2,32 +2,29 @@
 # Contributor: Marius Lindvall <(firstname) {cat} varden {dog} info>
 
 pkgname=jellyfin-mpv-shim
-pkgver=2.10.0
+pkgver=3.0.0
 pkgrel=2
 pkgdesc='Cast media from Jellyfin Mobile and Web apps to MPV'
 arch=(any)
 url='https://github.com/jellyfin/jellyfin-mpv-shim'
 license=(MIT)
-depends=(mpv 'python>=3.6' hicolor-icon-theme python-mpv python-requests 'python-mpv-jsonipc>=1.1.9' 'python-jellyfin-apiclient>=1.8.1' tk)
+depends=(mpv python hicolor-icon-theme python-mpv python-requests python-mpv-jsonipc python-jellyfin-apiclient python-pillow)
 makedepends=(python-build python-installer python-wheel gettext python-setuptools)
 optdepends=(
   'python-pystray: systray support'
-  'python-pillow: TrickPlay thumbnail previews'
-  'python-jinja: display mirroring support'
-  'python-pywebview>=3.3.1: display mirroring support'
   'mpv-shim-default-shaders: default shader pack'
   'python-pypresence: Discord Rich Presence integration'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-        "shaderpack.patch")
-b2sums=('897daf09d0f01b840ef8a10b04c82e8668b2dd9ce4b0c604408be9caf53edfb302fab3dca1d9724b578ddb33542c5c50c1b0370213e86f193363248b806a2ca8'
-        '268aca6cb4fb7ad1f3aad5e3a13e34f058f1b17539285b6bdae5b001190bbb123ebcca0a85f83a752dd4fd4d0c80846f80cc7213db5a70f6888c2b13faffa3f7')
+  "shaderpack.patch")
+b2sums=('c27d1debfbf2072b4816ec67cc97571e12eb45f912898b8ecc091798bb52f0cd0a8174d46f265c9cad2f552141bc35ff8119a001ea5f09aca399bae674d27c13'
+  '268aca6cb4fb7ad1f3aad5e3a13e34f058f1b17539285b6bdae5b001190bbb123ebcca0a85f83a752dd4fd4d0c80846f80cc7213db5a70f6888c2b13faffa3f7')
 
 prepare() {
   cd jellyfin-mpv-shim-$pkgver
 
   # remove default-shader-pack from packages
-  patch -p1 < ../shaderpack.patch
+  patch -p1 <../shaderpack.patch
 }
 
 build() {
