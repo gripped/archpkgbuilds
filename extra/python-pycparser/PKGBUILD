@@ -4,7 +4,7 @@
 # Contributor: lang2 <wenzhi.liang@gmail.com>
 
 pkgname=python-pycparser
-pkgver=3.01
+pkgver=3.11
 pkgrel=1
 pkgdesc='C parser and AST generator written in Python'
 url='https://github.com/eliben/pycparser'
@@ -13,7 +13,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 arch=('any')
 license=('BSD-3-Clause')
 source=("git+https://github.com/eliben/pycparser.git#tag=release_v$pkgver")
-sha512sums=('8e4d918f13ab22c41c5bddf4703eadddc63c0cbbb3ac1e65a52fe41a20387e6505f82c369fc36b408e5d5ec7e80788e78e33e28ecf2b89fc8c441096e5ae165f')
+sha512sums=('12b60047d912c427c5207b8ab75cf56f772b5c235989d2ac938067db4b5eea4b10677243172a3beedc90b07d70074be49ef10c4d559406702bbcb2bd85474345')
 
 build() {
   cd pycparser
