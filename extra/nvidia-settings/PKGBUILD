@@ -5,7 +5,7 @@
 
 pkgbase=nvidia-settings
 pkgname=('nvidia-settings' 'libxnvctrl')
-pkgver=615.71.09
+pkgver=615.78.08
 pkgrel=1
 pkgdesc='Tool for configuring the NVIDIA graphics driver'
 url='https://github.com/NVIDIA/nvidia-settings'
@@ -15,14 +15,16 @@ makedepends=('jansson' 'gtk3' 'libxv' 'libvdpau' 'nvidia-utils' 'libxext' 'vulka
 options=('staticlibs')
 source=(${pkgbase}-${pkgver}.tar.gz::https://github.com/NVIDIA/nvidia-settings/archive/${pkgver}.tar.gz
         nvidia-settings-libxnvctrl_so.patch)
-sha512sums=('2e54beb8a34219a3d1f6485a7c6607155dee5dcef8b6a272fb33575311aa72ddfda04e00c9ac034b4328f975331e7b07dd7166299a9f51a9318873022c56ee9d'
+sha512sums=('8636d3512f3e1d7d00b482ceb14e1904d4fe416ab1b499acfb9a4bb75ece771925458f64038aba4200f17fcf44188bd8a8b8f683fca80c1636476af31846093e'
             '0303fe615d6ef4e14112998c531a17613b94776f9a6a027ddb81e400fddd5f2ff15583da8b8631c2306aca854edf2f54a8007eb36f1732b4c064c857aaf268ae')
 
-prepare() {
-  export PREFIX=/usr
-  export NV_USE_BUNDLED_LIBJANSSON=0
-  export OUTPUTDIR=out
+_make_opts=(
+  PREFIX=/usr
+  OUTPUTDIR=out
+  NV_USE_BUNDLED_LIBJANSSON=0
+)
 
+prepare() {
   cd ${pkgbase}-${pkgver}
   patch -Np1 -i "${srcdir}"/nvidia-settings-libxnvctrl_so.patch
 }
@@ -30,14 +32,14 @@ prepare() {
 build() {
   cd ${pkgbase}-${pkgver}
   export CFLAGS+=" -ffat-lto-objects"
-  make
+  make "${_make_opts[@]}"
 }
 
 package_nvidia-settings() {
-  depends=('jansson' 'gtk3' 'libxv' 'libvdpau' 'nvidia-utils' 'libxnvctrl')
+  depends=('jansson' 'gtk3' 'libxv' 'libvdpau' 'nvidia-utils')
 
   cd ${pkgbase}-${pkgver}
-  DESTDIR="${pkgdir}" make install
+  make "${_make_opts[@]}" DESTDIR="${pkgdir}" install
 
   install -D -m644 doc/nvidia-settings.desktop "${pkgdir}/usr/share/applications/nvidia-settings.desktop"
   install -D -m644 doc/nvidia-settings.png "${pkgdir}/usr/share/pixmaps/nvidia-settings.png"
@@ -52,6 +54,7 @@ package_nvidia-settings() {
 package_libxnvctrl() {
   depends=('libxext')
   pkgdesc='NVIDIA NV-CONTROL X extension'
+  license=('MIT')
   provides=('libXNVCtrl.so')
 
   cd ${pkgbase}-${pkgver}
@@ -61,6 +64,10 @@ package_libxnvctrl() {
   install -Dm 644 src/libXNVCtrl/*.h -t "${pkgdir}/usr/include/NVCtrl"
   install -d "${pkgdir}/usr/lib"
   cp -Pr src/out/libXNVCtrl.* -t "${pkgdir}/usr/lib"
+
+  install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  sed -n '/Copyright/,/^ \*\//{/^ \*\//d;s/^ \*\( \|$\)//;p}' src/libXNVCtrl/NVCtrl.c \
+    > "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
 # vim: ts=2 sw=2 et:
