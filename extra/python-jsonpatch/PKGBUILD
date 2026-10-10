@@ -3,16 +3,17 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=python-jsonpatch
-pkgver=1.33
-pkgrel=6
+pkgver=1.34
+pkgrel=1
 pkgdesc="An implementation of the JSON Patch format"
 arch=("any")
 url="https://github.com/stefankoegl/python-json-patch"
 license=("BSD-3-Clause")
 depends=("python-jsonpointer")
-makedepends=("git" "python-build" "python-installer" "python-pypandoc" "python-setuptools" "python-wheel")
+makedepends=("git" "python-build" "python-installer" "python-setuptools" "python-wheel")
+checkdepends=("python-hypothesis")
 source=("git+https://github.com/stefankoegl/python-json-patch.git#tag=v$pkgver")
-sha512sums=('c565ef75eb83e2bf6d30c56d4e4a4faee6c21756684468f010c139a8c67d90f1b072565965cca96acabb8fdfe654e8e3ae7477cbe88bde14e87a568dc170a85e')
+sha512sums=('d09fbeae255d578cabb8f043fbfd5a7bee35d8ada477bc63622f420c7f7b1169f61a29bac83a1ad55f46d942fd18803da3fb01b8ada4e797f6d0cfa3c0736c37')
 
 build() {
   cd python-json-patch
@@ -22,6 +23,7 @@ build() {
 check() {
   cd python-json-patch
   PYTHONPATH=. python -m unittest discover -vs .
+  python property_tests.py
 }
 
 package() {
