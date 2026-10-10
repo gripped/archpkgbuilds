@@ -4,7 +4,7 @@
 # Contributor: Bennett Piater <bennett at piater dot name>
 
 pkgname=doctl
-pkgver=1.179.0
+pkgver=1.181.0
 pkgrel=1
 pkgdesc='The official command line interface for the DigitalOcean API'
 url='https://github.com/digitalocean/doctl'
@@ -14,8 +14,8 @@ depends=('glibc')
 makedepends=('go')
 options=('!lto')
 source=(https://github.com/digitalocean/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('3b0a5ba2dbe6edbcd1cdd88fa6dc730ea5eb9768fe21320c08cc38d2ca89b05d')
-b2sums=('351199c2fb1d0df7466ee1b51907ec674cd17c1081ffaba71ee5b2816cfb417c2dcf188cd29d4994aca115d9d8fd379a7e3de8e0d9ed7e9fd3fb8a9ebc563c72')
+sha256sums=('2e66d18ac7464581962be46a29410e0a91aa7f1d12ebe0ede9f730d35d02d743')
+b2sums=('373e10b9a962720462119af820626753da19612a4425f91308a57cfbfa166ee218e001ee736c6818556c12fcfd4c607252116a05507b721d4a0a8acb27143351')
 
 build() {
   cd ${pkgname}-${pkgver}
