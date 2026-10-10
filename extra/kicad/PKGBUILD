@@ -9,7 +9,7 @@
 pkgbase=kicad
 pkgname=('kicad' 'kicad-demos')
 pkgver=10.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Electronic schematic and printed circuit board (PCB) design tools'
 arch=(x86_64)
 url='http://kicad.org/'
@@ -71,6 +71,10 @@ prepare() {
   cd "$pkgname"
 
   patch -p1 -i "$srcdir/fix-version-string.patch"
+
+  # fix assertion failure
+  # https://gitlab.com/kicad/code/kicad/-/issues/25720
+  git cherry-pick --no-commit 33d35a10b274d15f4339d9a0059535e4083698ef
 }
 
 build() {
