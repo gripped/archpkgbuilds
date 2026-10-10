@@ -1,7 +1,4 @@
 [krita]
-source = 'gitlab'
-gitlab = 'graphics/krita'
-host = 'invent.kde.org'
-use_max_tag = true
-prefix = 'v'
-exclude_regex = '.*(beta|rc|\d+.\d+.\d+.\d+).*'
+source = 'regex'
+url = 'https://download.kde.org/stable/krita/'
+regex = 'href="([\d.]+)/"'
