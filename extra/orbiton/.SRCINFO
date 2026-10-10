@@ -1,6 +1,6 @@
 pkgbase = orbiton
 	pkgdesc = Configuration-free text editor and IDE
-	pkgver = 2.74.5
+	pkgver = 2.74.6
 	pkgrel = 1
 	url = https://roboticoverlords.org/orbiton/
 	arch = x86_64
@@ -8,10 +8,9 @@ pkgbase = orbiton
 	makedepends = git
 	makedepends = go
 	makedepends = vte3
-	depends = glibc
 	options = !lto
-	source = git+https://github.com/xyproto/orbiton#tag=v2.74.5
-	b2sums = 21e59a13658530cc57b66dec319791bbd57348952117afca402794696f190278d8b89ca364eb120594847ed6cc546660c9986097b6cf0acde9b859912ddf6a30
+	source = git+https://github.com/xyproto/orbiton#tag=v2.74.6
+	b2sums = 9849daee3d425d268d53b84aae6c72e13f65baf8e6cc3515d1badb6a0f61a211b63c97b956ce155a7faa0de90d64eb998b2f16fbbba24745da9a6b956325ba43
 
 pkgname = orbiton
 	optdepends = abcmidi: for writing music in the ABC notation
@@ -26,6 +25,7 @@ pkgname = orbiton
 	optdepends = dart: for compiling and formatting Dart
 	optdepends = delve: for debugging Go
 	optdepends = erlang: for compiling Erlang
+	optdepends = fennel: for running Fennel
 	optdepends = fpc: for compiling and formatting Object Pascal
 	optdepends = gcc-d: for compiling D
 	optdepends = gcc-fortran: for compiling Fortran
@@ -79,13 +79,17 @@ pkgname = orbiton
 
 pkgname = orbiton-gtk3
 	pkgdesc = Configuration-free text editor and IDE (GTK3/VTE3)
+	depends = glib2
 	depends = glibc
+	depends = gtk3
+	depends = libgcc
+	depends = libstdc++
 	depends = orbiton
+	depends = pango
 	depends = vte3
 
 pkgname = orbiton-nano
 	pkgdesc = Configuration-free text editor and IDE (Nano/Pico Mode)
-	depends = glibc
 	depends = orbiton
 	provides = nano
 	conflicts = nano

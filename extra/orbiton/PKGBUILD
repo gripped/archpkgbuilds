@@ -2,17 +2,16 @@
 
 pkgbase=orbiton
 pkgname=(orbiton orbiton-gtk3 orbiton-nano)
-pkgver=2.74.5
+pkgver=2.74.6
 pkgrel=1
 pkgdesc='Configuration-free text editor and IDE'
 arch=(x86_64)
 url='https://roboticoverlords.org/orbiton/'
 license=(BSD-3-Clause)
 makedepends=(git go vte3)
-depends=(glibc)
 options=(!lto)
 source=("git+https://github.com/xyproto/orbiton#tag=v$pkgver")
-b2sums=('21e59a13658530cc57b66dec319791bbd57348952117afca402794696f190278d8b89ca364eb120594847ed6cc546660c9986097b6cf0acde9b859912ddf6a30')
+b2sums=('9849daee3d425d268d53b84aae6c72e13f65baf8e6cc3515d1badb6a0f61a211b63c97b956ce155a7faa0de90d64eb998b2f16fbbba24745da9a6b956325ba43')
 
 build() {
   export LDFLAGS="$(echo $LDFLAGS | sed 's/ -Wl//g;s/,--sort-common//')"
@@ -39,6 +38,7 @@ package_orbiton() {
               'dart: for compiling and formatting Dart'
               'delve: for debugging Go'
               'erlang: for compiling Erlang'
+              'fennel: for running Fennel'
               'fpc: for compiling and formatting Object Pascal'
               'gcc-d: for compiling D'
               'gcc-fortran: for compiling Fortran'
@@ -93,12 +93,6 @@ package_orbiton() {
   DESTDIR="$pkgdir" make -C $pkgbase install symlinks easteregg license
 }
 
-package_orbiton-gtk3() {
-  pkgdesc='Configuration-free text editor and IDE (GTK3/VTE3)'
-  depends+=(orbiton vte3)
-  DESTDIR="$pkgdir" PROJECT=$pkgname make -C $pkgbase gui-install gui-symlinks license
-}
-
 package_orbiton-nano() {
   pkgdesc='Configuration-free text editor and IDE (Nano/Pico Mode)'
   depends+=(orbiton)
@@ -106,4 +100,10 @@ package_orbiton-nano() {
   provides=(nano)
   install -d "$pkgdir/usr/bin"
   DESTDIR="$pkgdir" PROJECT=$pkgname make -C $pkgbase nano-symlink license
+}
+
+package_orbiton-gtk3() {
+  pkgdesc='Configuration-free text editor and IDE (GTK3/VTE3)'
+  depends+=(glib2 glibc gtk3 libgcc libstdc++ orbiton pango vte3)
+  DESTDIR="$pkgdir" PROJECT=$pkgname make -C $pkgbase gui-install gui-symlinks license
 }
