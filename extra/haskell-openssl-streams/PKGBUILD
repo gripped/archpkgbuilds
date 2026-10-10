@@ -3,7 +3,7 @@
 _hkgname=openssl-streams
 pkgname=haskell-openssl-streams
 pkgver=1.2.3.0
-pkgrel=385
+pkgrel=386
 pkgdesc="OpenSSL network support for io-streams"
 url="https://github.com/snapframework/openssl-streams"
 license=('BSD')
@@ -15,7 +15,7 @@ sha512sums=('86c5f9348af82ad0ac9e8103ee078c78647e61345ecf0c48b02749206147a82a3a7
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u bytestring
+    uusi -u bytestring -u network
 }
 
 build() {
