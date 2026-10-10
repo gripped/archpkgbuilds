@@ -4,19 +4,20 @@
 _hkgname=httpd-shed
 pkgname=haskell-httpd-shed
 pkgver=0.4.1.2
-pkgrel=169
+pkgrel=170
 pkgdesc="A simple web-server with an interact style API"
 url="https://github.com/andygill/httpd-shed/"
 license=("BSD")
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-network' 'haskell-network-bsd' 'haskell-network-uri')
-makedepends=('ghc')
+makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
 sha512sums=('23308ac344b1df8dc50f23f6c5266550e2b1ff652cba62a5ba740289f5226f37dde207305c5a1117f6a5d54bb6bc74d8ce6a28899d5a2ef3cd8703058cd35749')
 
 prepare() {
     cd $_hkgname-$pkgver
-    echo -e "import Distribution.Simple\nmain = defaultMain" > Setup.hs
+    gen-setup
+    uusi -u network
 }
 
 build() {
