@@ -2,9 +2,9 @@
 # Contributor: Kyle Keen <keenerd@gmail.com>
 
 pkgname=cryptominisat
-pkgver=5.16.0
+pkgver=5.17.0
 pkgrel=1
-_cadiback=47a6d821085ef8cb033241659824beafeb798cff
+_cadiback=445ddc2f2b5e54421af64e0652c2eb8444175322
 _cadical=818c9562f114b315a9246ced943b66b60b38e8fb
 pkgdesc='A modern, multi-threaded, feature-rich, simplifying SAT solver'
 arch=(x86_64)
@@ -27,10 +27,10 @@ source=(git+https://github.com/msoos/cryptominisat#tag=release/v$pkgver
         git+https://github.com/meelgroup/cadiback#commit=$_cadiback
         git+https://github.com/meelgroup/cadical#commit=$_cadical
         python-build-cmake.patch)
-sha256sums=('a482aae264a8b439f29d9b5f0120c9b79dba1b2059693765ef27cd0d15c0e099'
-            '9c2eeb42b00c3e737e8dbdda54d97c7d8673fd2732de07569646f4d7c932723e'
+sha256sums=('84248d4607be3456eedda6311389b4af6bd6cd8e4284c0893c897a53d871ff2e'
+            '21b65a7f3091e4571f13e23477bcfad3ac3d60683b3e903aca62213c56b07230'
             '9719c1de5f753daa99f1bac8a13c611d61ba19dd7edf0dae6fa2fdff47a0b337'
-            'aeedc706439cdeb162bedac5dbe90d1a639fa3d378ee833cb59565bc2b97d418')
+            '47e89d73d6107543488e1e7eb3085a5ca61c3dcfb3c3bb7e8f63a9e7dc5272cb')
 options=(!lto)
 
 prepare() {

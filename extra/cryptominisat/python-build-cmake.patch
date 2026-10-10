@@ -1,15 +1,3 @@
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 9e3a33ea3..41a8932e0 100644
---- a/CMakeLists.txt
-+++ b/CMakeLists.txt
-@@ -455,7 +455,6 @@ endif()
- 
- set(cadical_DIR  "" CACHE PATH "cadical install/build prefix (contains lib/cmake/cadical/). Auto-resolved if empty.")
- set(cadiback_DIR "" CACHE PATH "cadiback install/build prefix (contains lib/cmake/cadiback/). Auto-resolved if empty.")
--
- include(FetchContent)
- if(NOT TARGET cadical)
-     if(cadical_DIR)
 diff --git a/pyproject.toml b/pyproject.toml
 index 84a09c50f..d2c794f6b 100644
 --- a/pyproject.toml
@@ -21,7 +9,7 @@ index 84a09c50f..d2c794f6b 100644
  build-backend = "scikit_build_core.build"
  
  [project]
-@@ -34,12 +34,10 @@ cmake.build-type = "Release"
+@@ -34,10 +34,10 @@ cmake.build-type = "Release"
  cmake.args = [
      "-DBUILD_PYTHON_EXTENSION=ON",
      "-DENABLE_TESTING=OFF",
@@ -29,8 +17,6 @@ index 84a09c50f..d2c794f6b 100644
      "-DSTATIC_BINARY=OFF",
 -    "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
      "-DIPASIR=OFF",
--    "-DCMAKE_C_COMPILER_LAUNCHER=ccache",
--    "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache",
 +    "-Dcadical_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../../install-cadical/usr",
 +    "-Dcadiback_DIR=${CMAKE_CURRENT_SOURCE_DIR}/../../install-cadiback/usr",
  ]
