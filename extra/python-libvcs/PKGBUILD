@@ -2,7 +2,7 @@
 
 _name='libvcs'
 pkgname="python-${_name}"
-pkgver=0.45.1
+pkgver=0.46.0
 pkgrel=1
 pkgdesc='Lite, typed, pythonic utilities for git, svn, mercurial, etc'
 arch=('any')
@@ -32,8 +32,8 @@ optdepends=(
   'python-pytest: for pytest plugin'
 )
 source=("https://github.com/vcs-python/libvcs/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('f47d88ae2df7de7ef9d0a87c7f9bdd206f9ae166fbb403850076c2f2d6adb6ebba17d0138277e421ffca24bbb317b25a907665567bcf7eb2acc97d59ef276af6')
-b2sums=('a4f9d93570e721cb94656d18f791b4f9964255773b551b463b607a69d32b0074d9495350516e4fb898f5d31211962d58673ec56d0ba9db7a879b32642adeb10a')
+sha512sums=('362beeb84d32a6775d8ec3ff3845cd5915eaf9725e38d80ca31b71422065abc78e684642abc76d9319d3fcba74c9c05fe844da9ee96ce4855d217dee50a5d2d9')
+b2sums=('0648ba9ebb672d6631c9238d0e671689995ac6e3b2b6a22c3d76e788f789ae6c92ebcfd0bf8ea5d1d79037b57fa1e20e38201a4496768b2787f75f19af2eaba8')
 
 build() {
   cd "${_name}-${pkgver}"
