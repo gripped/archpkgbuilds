@@ -4,7 +4,7 @@
 _hkgname=websockets
 pkgname=haskell-websockets
 pkgver=0.13.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A sensible and clean way to write WebSocket-capable servers in Haskell."
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=("BSD")
@@ -19,7 +19,7 @@ sha512sums=('18642d932496fddd51ba047a6dfa187fb606a0d44e33daf51a2f905d79faa37bc08
 
 prepare() {
     cd $_hkgname-$pkgver
-    uusi -u QuickCheck
+    uusi -u QuickCheck -u network
 }
 
 build() {
