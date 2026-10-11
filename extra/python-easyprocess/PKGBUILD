@@ -3,13 +3,13 @@
 _pkg=EasyProcess
 pkgname=python-${_pkg,,}
 pkgver=1.1
-pkgrel=7
+pkgrel=8
 pkgdesc="Easy to use python subprocess interface"
 arch=(any)
 url="https://github.com/ponty/EasyProcess"
-license=(BSD)
+license=(BSD-2-Clause)
 depends=(python)
-makedepends=(python-setuptools)
+makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-pytest python-pytest-timeout python-entrypoint2
               python-pillow python-pyvirtualdisplay imagemagick iputils
               xorg-server-xvfb)
@@ -18,7 +18,7 @@ sha256sums=('885898302a57aab948973e8b5d32a4229392b9fb2d986ab1d4ffd590e5ba90ec')
 
 build() {
   cd ${_pkg}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -30,6 +30,6 @@ check() {
 
 package() {
   cd ${_pkg}-${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm644 LICENSE.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
