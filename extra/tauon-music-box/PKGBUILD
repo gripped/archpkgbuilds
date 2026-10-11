@@ -4,7 +4,7 @@
 pkgname=tauon-music-box
 _pkgname=tauonmb
 _gitname=Tauon
-pkgver=12.1.0
+pkgver=13.0.0
 pkgrel=1
 pkgdesc="A modern music player"
 arch=("x86_64") # "aarch64"
@@ -28,6 +28,7 @@ depends=(
 	"python-natsort"
 	"python-opengl"
 	"python-websocket-client"
+	"chromaprint"
 	"kissfft"
 	"libnotify"
 	"ffmpeg"
@@ -58,7 +59,6 @@ makedepends=(
 
 optdepends=(
 	"noto-fonts-cjk: Matching font for CJK characters"
-	"picard: Recommended tag editor"
 	"p7zip: 7z archive extraction support"
 	"unrar: RAR archive extraction support"
 	"python-plexapi: Plex streaming support"
@@ -69,7 +69,7 @@ optdepends=(
 )
 
 source=("${_gitname}-${pkgver}.tar.gz::https://github.com/Taiko2k/Tauon/archive/v${pkgver}.tar.gz")
-sha256sums=('39505ad826b32e09b9e8f52d68a88a73fb24f0f0bdde0d1c33ad9ee35532467d')
+sha256sums=('cf54f6d5f51d3f79b83a91eff74aa6de967c62f862a0da18ab8dd070e0fd0653')
 
 prepare() {
 	# Use system kissfft instead of the expected cloned repository
