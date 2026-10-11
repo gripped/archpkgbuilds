@@ -3,12 +3,12 @@
 _name=pytest_qt
 pkgname=python-pytest-qt
 pkgver=4.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc='pytest support for PyQt and PySide applications'
 arch=(any)
 license=('MIT')
 url='https://github.com/pytest-dev/pytest-qt'
-depends=('python-pytest')
+depends=('python-pytest' 'python-typing_extensions')
 makedepends=('python-setuptools-scm' 'python-build' 'python-installer')
 checkdepends=('python-pyqt6')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz)
