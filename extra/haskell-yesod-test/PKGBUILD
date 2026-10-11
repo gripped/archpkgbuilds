@@ -2,8 +2,8 @@
 
 _hkgname=yesod-test
 pkgname=haskell-yesod-test
-pkgver=1.7.0.2
-pkgrel=38
+pkgver=1.7.0.3
+pkgrel=2
 pkgdesc="Integration testing for WAI/Yesod Applications"
 url="https://www.yesodweb.com"
 license=('MIT')
@@ -14,9 +14,10 @@ depends=('ghc-libs' 'haskell-hunit' 'haskell-aeson' 'haskell-attoparsec' 'haskel
          'haskell-memory' 'haskell-network' 'haskell-pretty-show' 'haskell-wai'
          'haskell-wai-extra' 'haskell-xml-conduit' 'haskell-xml-types' 'haskell-yesod-core')
 makedepends=('ghc')
-checkdepends=('haskell-yesod-form' 'haskell-hspec' 'haskell-unliftio' 'haskell-unliftio-core')
+checkdepends=('haskell-clientsession' 'haskell-hspec' 'haskell-unliftio' 'haskell-unliftio-core'
+              'haskell-yesod-form')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('b74ad4c0d11b7517c116216d5449df0eab1b5f2aa5601deb222074e0b073c40e0332a0bff3504e2f8e00bff77a70666d805935aa7ec72a0df02a91519ccb90c8')
+sha512sums=('41378e8d170ae1770ce7ac5f8be2daee55be2e8945063803310f7a2df07e275233dd9de96de9d651fcf2d327371b340a7f109680823dd8300d19640a38184411')
 
 build() {
     cd $_hkgname-$pkgver
