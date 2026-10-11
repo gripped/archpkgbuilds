@@ -2,7 +2,7 @@
 # Contributor: Adrian Groh <adrian[dot]groh[at]t[dash]online[dot]de>
 
 pkgname=pfetch-rs
-pkgver=3.0.0
+pkgver=3.0.2
 pkgrel=1
 pkgdesc="A rewrite of the pfetch system information tool in Rust"
 url="https://github.com/Gobidev/pfetch-rs"
@@ -13,7 +13,7 @@ makedepends=('cargo' 'git')
 provides=('pfetch')
 conflicts=('pfetch')
 source=("git+$url#tag=v$pkgver")
-sha256sums=('e501c71e8b9c3f56846013f44c9c0136f062c186e2dffd1a91e284bdfc775ce4')
+sha256sums=('1a21950e034a1b54b43bdef3eda1cbcd863b1ca8c7d7c42a7fe15b33ac6b6247')
 
 prepare() {
 	cd $pkgname
@@ -22,7 +22,10 @@ prepare() {
 
 build() {
 	cd $pkgname
-	cargo build --frozen --release --all-features
+
+	# default features include bundled sqlite, but upstream was so nice and made it opt-out.
+	# https://github.com/Gobidev/pfetch-rs/issues/79
+	cargo build --frozen --release --no-default-features
 }
 
 package() {
