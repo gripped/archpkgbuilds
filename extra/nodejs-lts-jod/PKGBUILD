@@ -5,7 +5,7 @@
 
 pkgname=nodejs-lts-jod
 pkgver=22.23.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Evented I/O for V8 javascript (LTS release: Jod)'
 arch=(x86_64)
 url=https://nodejs.org/
@@ -15,7 +15,6 @@ makedepends=(python procps-ng ninja)
 optdepends=('npm: nodejs package manager')
 provides=("nodejs=$pkgver")
 conflicts=(nodejs)
-options=(!lto)
 source=(
   "https://nodejs.org/dist/v${pkgver}/node-v${pkgver}.tar.xz"
   update-icu-tests.patch
@@ -43,6 +42,7 @@ build() {
   ./configure \
     --prefix=/usr \
     --ninja \
+    --enable-lto \
     --with-intl=system-icu \
     --without-corepack \
     --without-npm \
