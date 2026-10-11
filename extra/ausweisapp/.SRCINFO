@@ -1,7 +1,7 @@
 pkgbase = ausweisapp
 	pkgdesc = official client for using the German electronic ID card (eID)
-	pkgver = 2.5.5
-	pkgrel = 1
+	pkgver = 2.6.0
+	pkgrel = 2
 	url = https://www.ausweisapp.bund.de/
 	arch = x86_64
 	license = EUPL-1.2
@@ -24,10 +24,12 @@ pkgbase = ausweisapp
 	optdepends = ccid: driver for generic smart card readers
 	optdepends = acsccid: driver for ACS card readers
 	optdepends = pcsc-cyberjack: driver for CyberJack card readers
-	source = https://github.com/Governikus/AusweisApp2/releases/download/2.5.5/AusweisApp-2.5.5.tar.gz
-	source = https://github.com/Governikus/AusweisApp2/releases/download/2.5.5/AusweisApp-2.5.5.tar.gz.asc
+	source = https://github.com/Governikus/AusweisApp2/releases/download/2.6.0/AusweisApp-2.6.0.tar.gz
+	source = https://github.com/Governikus/AusweisApp2/releases/download/2.6.0/AusweisApp-2.6.0.tar.gz.asc
+	source = 2.6.0-disable-beta-testing-img.patch
 	validpgpkeys = 699BF3055B0A49224EFDE7C72D7479A531451088
-	sha256sums = 17584c716e52f2ba96b2a73d0c015fcf4ba081b17d86162a5dd56dd78d98b9c5
+	sha256sums = a82f2094621a4ab53db04adf63ac67c3109802963b8eff8a87f3bbb356f365ea
 	sha256sums = SKIP
+	sha256sums = 89f8c59a707a9da648da32a9c40379043aff3b2ea2774561340799347345e218
 
 pkgname = ausweisapp
