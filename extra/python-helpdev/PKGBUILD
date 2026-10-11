@@ -3,13 +3,13 @@
 _pkg=helpdev
 pkgname=python-${_pkg}
 pkgver=0.7.1
-pkgrel=10
+pkgrel=11
 pkgdesc="Helping users and developers to get information about the environment to report bugs"
 arch=(any)
 url="https://gitlab.com/dpizetta/helpdev"
 license=(MIT CCPL)
 depends=(python-psutil)
-makedepends=(python-setuptools)
+makedepends=(python-build python-installer python-setuptools python-wheel)
 checkdepends=(python-pytest python-pip)
 #PyPi does not have tests nor LICENSE
 #source=(https://files.pythonhosted.org/packages/source/${_pkg::1}/${_pkg}/${_pkg}-${pkgver}.tar.gz)
@@ -18,7 +18,7 @@ sha256sums=('b52f83d6d3935500da42b434747569660d526cd36e88069bd67a8747cca488fc')
 
 build() {
   cd ${_pkg}-v${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -28,6 +28,6 @@ check() {
 
 package() {
   cd ${_pkg}-v${pkgver}
-  python setup.py install --prefix=/usr --root="${pkgdir}" --skip-build --optimize=1
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm644 LICENSE.rst -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
