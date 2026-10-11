@@ -2,7 +2,7 @@
 # Contributor: Fabio 'Lolix' Loli <fabio.loli@disroot.org> -> https://github.com/FabioLolix
 
 pkgname=unordered_dense
-pkgver=5.3.1
+pkgver=5.3.2
 pkgrel=1
 pkgdesc="A fast and densely stored hashmap and hashset"
 arch=(any)
@@ -10,7 +10,7 @@ url="https://github.com/martinus/unordered_dense"
 license=(MIT)
 makedepends=(cmake git)
 source=("git+https://github.com/martinus/unordered_dense.git#tag=v${pkgver}")
-sha256sums=('1d3c3ac84ac53a5e059fc012dfd4fe8ba1b8626ca383a80c53f51a4b1bd1ca95')
+sha256sums=('ab107b6a90cb699afac0abfe2cf275ba345534f9b8c83fd9bca40589ff6b82ba')
 
 build() {
 	cmake \
