@@ -2,18 +2,18 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=librepo
-pkgver=1.21.1
+pkgver=1.21.2
 pkgrel=1
 pkgdesc="Repodata downloading library"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgname"
-license=('GPL')
+license=('LGPL-2.1-or-later')
 depends=('curl' 'glib2' 'gpgme' 'libxml2' 'openssl')
 makedepends=('cmake' 'python')
 checkdepends=('check' 'python-gpgme' 'python-pyxattr' 'python-requests')
 optdepends=('python: for python bindings')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('85a9dec2f48976b0d800aa7692346fc2967b6195c0e524195f02a110535010e0')
+sha256sums=('7ac3ab72529f9bbf49fd68df6f66c5d0daaad4f37a225088664b710c90f13905')
 
 prepare() {
   cd "$pkgname-$pkgver"
