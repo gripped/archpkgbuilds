@@ -1,7 +1,6 @@
 [kea]
-source = "gitlab"
-host = "gitlab.isc.org"
-gitlab = "isc-projects/kea"
+source = "git"
+git = "https://gitlab.isc.org/isc-projects/kea.git"
 prefix = "Kea-"
-use_max_tag = true
-exclude_regex = "stable|Kea-[0-9]+\\.[0-9]?[13579]\\.[0-9]+"
+include_regex = "Kea-.*"
+exclude_regex = "Kea-[0-9]+\\.[0-9]?[13579]\\.[0-9]+"
