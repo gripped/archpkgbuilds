@@ -5,53 +5,51 @@
 pkgname=yaak
 _appid=app.yaak.Yaak
 _appname=yaak-app-client
-pkgver=2026.8.1
+pkgver=2026.9.0
 pkgrel=1
 pkgdesc='A fast, secure, and offline API client'
 arch=('x86_64')
 url='https://yaak.app/'
 license=('MIT')
 depends=(
-    # As reported by namcap
-    bzip2
-    cairo
-    dbus
-    fontconfig
-    gdk-pixbuf2
-    glib2
-    glibc
-    gtk3
-    hicolor-icon-theme
-    libgcc
-    libgit2
-    libsoup3
-    libssh2
-    openssl
-    sqlite
-    webkit2gtk-4.1
-    xz
-    zstd
+    'cairo'
+    'dbus'
+    'fontconfig'
+    'gdk-pixbuf2'
+    'glib2'
+    'glibc'
+    'gtk3'
+    'hicolor-icon-theme'
+    'libgcc'
+    'libgit2'
+    'libsoup3'
+    'openssl'
+    'sqlite'
+    'webkit2gtk-4.1'
+    'zstd'
     # Use system packages
-    nodejs
-    protobuf
+    'nodejs'
+    'protobuf'
 )
 makedepends=(
-    appmenu-gtk-module   # Tauri
-    cargo                # Rust dependencies & Tauri build
-    git                  # Web build
-    imagemagick          # Icon
-    libappindicator-gtk3 # Tauri
-    librsvg              # Tauri
-    npm                  # Node dependencies & web build
-    rust-wasm            # Yaak
-    wasm-pack            # Yaak
+    'appmenu-gtk-module'   # Tauri
+    'cargo'                # Rust dependencies & Tauri build
+    'git'                  # Web build
+    'imagemagick'          # Icon
+    'libappindicator-gtk3' # Tauri
+    'librsvg'              # Tauri
+    'npm'                  # Node dependencies & web build
+    'rust-wasm'            # Yaak
+    'wasm-pack'            # Yaak
 )
-optdepends=('yaak-cli: CLI management paired with AI agents')
+optdepends=(
+    'yaak-cli: CLI management paired with AI agents'
+)
 options=("!lto") # https://gitlab.archlinux.org/archlinux/packaging/packages/pacman/-/issues/20
 provides=("yaak-app" "yaak-app-client")
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mountain-loop/yaak/archive/refs/tags/v${pkgver}.tar.gz"
         "${_appid}.desktop")
-sha256sums=('58c5b659e5eb565fa069009740dd7493ff9204ef8f62223c75afb07a7a5de3fe'
+sha256sums=('d43b77bba58def800b0d0ed7196d3496eba5ef11844c080e492bec65fd976839'
             '228dc02b9ffecef06195e67d5d7d70b1fd64546682ced382cb448f35039997f8')
 
 _setup_env() {
@@ -61,7 +59,6 @@ _setup_env() {
     # Used for dynamic linking
     export LIBGIT2_NO_VENDOR=1
     export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
-    export LIBSSH2_SYS_USE_PKG_CONFIG=1
     export OPENSSL_NO_VENDOR=1
     export ZSTD_SYS_USE_PKG_CONFIG=1
 
