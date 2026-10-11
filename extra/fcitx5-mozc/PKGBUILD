@@ -6,9 +6,9 @@
 # Contributor: Masato TOYOSHIMA <phoepsilonix at phoepsilonix dot love>
 
 ## Mozc compile option
-_mozc_commit=35898ee6c
+_mozc_commit=13ef96d765703805f57f7b1e6cd238e959640282
 
-_bcr_commit=b0cb0e8ec
+_bcr_commit=b0cb0e8ec70689252e3b35f109ffa4a32329b900
 # Following are subject to change if bcr, bazel, and mozc commit changes.
 # The build process does not necessary use all of them, but it is required to allow a no download build process.
 # https://github.com/fcitx/flatpak-fcitx5/blob/master/mozc-deps.yaml has a constantly maintain list of these files
@@ -16,6 +16,7 @@ _bcr_commit=b0cb0e8ec
 # Also jigyosyo.zip and ken_all.zip may be updated without notice.
 _bazel_deps=(
     https://github.com/abseil/abseil-cpp/releases/download/20260107.1/abseil-cpp-20260107.1.tar.gz
+    https://github.com/abseil/abseil-py/archive/refs/tags/v2.1.0.tar.gz
     https://github.com/astral-sh/python-build-standalone/releases/download/20251031/cpython-3.11.14+20251031-aarch64-unknown-linux-gnu-install_only.tar.gz
     https://github.com/astral-sh/python-build-standalone/releases/download/20251031/cpython-3.11.14+20251031-x86_64-unknown-linux-gnu-install_only.tar.gz
     https://github.com/bats-core/bats-core/archive/v1.10.0.tar.gz
@@ -50,7 +51,7 @@ _bazel_deps=(
 _pkgbase=mozc
 pkgname=fcitx5-mozc
 pkgdesc="Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)"
-pkgver=3.34.6239.2
+pkgver=3.34.6345.2
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
@@ -79,9 +80,10 @@ for _bazel_dep in "${_bazel_deps[@]}"; do
   fi
 done
 
-sha512sums=('99bb157ddc794c2a13c314c315f7a6ad4e3e5b67cbbe97fb388183dfe997ea9819524e33037a56b21b44424dd83612f5708ba267d8c659603d9146e2298f9e92'
+sha512sums=('7d4aa8d9caef0c27d2fa60f4d1ea188d1fdc5f2b801b63d62807e8f0037d1b6783d8751e5f6e539d6ee01d98f0425f2c8e58fe897519da3475c181b79a95121a'
             'ed7cd6082f6ca62e4d6564881d383009a8f6f3dd2cf7c0b6bb4733d4b18325d995187fa1539e3dc75a6605577e2a8258a31574d54ac950e4a7a3b5127b188366'
             'f5012885d6b6844a9cf5ed92ad5468b8757db33dfe1364bfb232fff928e06c550c7eb4557f45186a8ac4d18b178df9be267681abab4a6de40823b574afbe9960'
+            '298a876ed850085836cb1ff6fddf98aca6a3283780bece8c0a7d118fd4e16cc258e51f721e4a5fcbe62b23d2da05638475d426bb650b0694ff7c1d0119e3be97'
             '171ecb5ca4c30adc9297245209b2bf4a2d8baa25d3c28e5ef3e415f9cb08367f18cf4a2e39469d1c1eb4e674339f66576c36842d18e5e56c570bbd1e49851983'
             'b484436e5cf51d382264f74435769bdee8910d505ec8995ea18a6e1976de3b1d94bc8b1f03190e02b2c39808d5dfafb298bd1731838eb1e3fba5b2d7525a71d4'
             '31d98e26ff79354e8afd8eba2b19b1ca15ea4f1fbd16ad3936572688f49b33d68d38b6410c794f672572ee72cb535b11901759db67d4fa5656be2d0f6e050a99'
@@ -125,15 +127,12 @@ pkgver(){
 }
 
 prepare() {
-  SHA256_ZIP_CODE_KEN_ALL=$(sha256sum ken_all.zip | cut -d' ' -f1);
-  SHA256_ZIP_CODE_JIGYOSYO=$(sha256sum jigyosyo.zip | cut -d' ' -f1);
-  cd "$srcdir/mozc"
+  cd mozc/src
 
-  # bazel will always download file without checksum, set checksum so bazel will not download it.
-  sed -e "s|SHA256_ZIP_CODE_KEN_ALL = \(.*\)|SHA256_ZIP_CODE_KEN_ALL = \"${SHA256_ZIP_CODE_KEN_ALL}\"|" \
-      -e "s|SHA256_ZIP_CODE_JIGYOSYO = \(.*\)|SHA256_ZIP_CODE_JIGYOSYO = \"${SHA256_ZIP_CODE_JIGYOSYO}\"|" \
-      -i src/config.bzl src/MODULE.bazel
-
+  # Qt 6.12 rejects custom widget class names starting with "::".
+  # https://github.com/google/mozc/issues/1594
+  sed -i 's/::mozc::gui::DictionaryContentTableWidget/mozc::gui::DictionaryContentTableWidget/g' \
+    gui/dictionary_tool/dictionary_tool.ui
 }
 
 build() {

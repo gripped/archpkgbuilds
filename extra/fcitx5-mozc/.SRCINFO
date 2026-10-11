@@ -1,6 +1,6 @@
 pkgbase = fcitx5-mozc
 	pkgdesc = Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)
-	pkgver = 3.34.6239.2
+	pkgver = 3.34.6345.2
 	pkgrel = 1
 	url = https://github.com/google/mozc
 	arch = x86_64
@@ -21,6 +21,7 @@ pkgbase = fcitx5-mozc
 	conflicts = fcitx-mozc
 	replaces = mozc-fcitx
 	noextract = abseil-cpp-20260107.1.tar.gz
+	noextract = v2.1.0.tar.gz
 	noextract = cpython-3.11.14+20251031-aarch64-unknown-linux-gnu-install_only.tar.gz
 	noextract = cpython-3.11.14+20251031-x86_64-unknown-linux-gnu-install_only.tar.gz
 	noextract = v1.10.0.tar.gz
@@ -50,9 +51,14 @@ pkgbase = fcitx5-mozc
 	noextract = protobuf-34.1.bazel.tar.gz
 	noextract = protoc-34.1-linux-aarch_64.zip
 	noextract = protoc-34.1-linux-x86_64.zip
-	source = git+https://github.com/fcitx/mozc.git#commit=35898ee6c
-	source = git+https://github.com/bazelbuild/bazel-central-registry#commit=b0cb0e8ec
+	noextract = cpython-3.11.14+20251031-aarch64-unknown-linux-gnu-install_only.tar.gz
+	noextract = cpython-3.11.14+20251031-x86_64-unknown-linux-gnu-install_only.tar.gz
+	noextract = cpython-3.11.14+20251031-aarch64-unknown-linux-gnu-install_only.tar.gz
+	noextract = cpython-3.11.14+20251031-x86_64-unknown-linux-gnu-install_only.tar.gz
+	source = git+https://github.com/fcitx/mozc.git#commit=13ef96d765703805f57f7b1e6cd238e959640282
+	source = git+https://github.com/bazelbuild/bazel-central-registry#commit=b0cb0e8ec70689252e3b35f109ffa4a32329b900
 	source = https://github.com/abseil/abseil-cpp/releases/download/20260107.1/abseil-cpp-20260107.1.tar.gz
+	source = https://github.com/abseil/abseil-py/archive/refs/tags/v2.1.0.tar.gz
 	source = https://github.com/astral-sh/python-build-standalone/releases/download/20251031/cpython-3.11.14+20251031-aarch64-unknown-linux-gnu-install_only.tar.gz
 	source = https://github.com/astral-sh/python-build-standalone/releases/download/20251031/cpython-3.11.14+20251031-x86_64-unknown-linux-gnu-install_only.tar.gz
 	source = https://github.com/bats-core/bats-core/archive/v1.10.0.tar.gz
@@ -83,9 +89,10 @@ pkgbase = fcitx5-mozc
 	source = https://github.com/protocolbuffers/protobuf/releases/download/v34.1/protoc-34.1-linux-aarch_64.zip
 	source = https://github.com/protocolbuffers/protobuf/releases/download/v34.1/protoc-34.1-linux-x86_64.zip
 	validpgpkeys = 2CC8A0609AD2A479C65B6D5C8E8B898CBF2412F9
-	sha512sums = 99bb157ddc794c2a13c314c315f7a6ad4e3e5b67cbbe97fb388183dfe997ea9819524e33037a56b21b44424dd83612f5708ba267d8c659603d9146e2298f9e92
+	sha512sums = 7d4aa8d9caef0c27d2fa60f4d1ea188d1fdc5f2b801b63d62807e8f0037d1b6783d8751e5f6e539d6ee01d98f0425f2c8e58fe897519da3475c181b79a95121a
 	sha512sums = ed7cd6082f6ca62e4d6564881d383009a8f6f3dd2cf7c0b6bb4733d4b18325d995187fa1539e3dc75a6605577e2a8258a31574d54ac950e4a7a3b5127b188366
 	sha512sums = f5012885d6b6844a9cf5ed92ad5468b8757db33dfe1364bfb232fff928e06c550c7eb4557f45186a8ac4d18b178df9be267681abab4a6de40823b574afbe9960
+	sha512sums = 298a876ed850085836cb1ff6fddf98aca6a3283780bece8c0a7d118fd4e16cc258e51f721e4a5fcbe62b23d2da05638475d426bb650b0694ff7c1d0119e3be97
 	sha512sums = 171ecb5ca4c30adc9297245209b2bf4a2d8baa25d3c28e5ef3e415f9cb08367f18cf4a2e39469d1c1eb4e674339f66576c36842d18e5e56c570bbd1e49851983
 	sha512sums = b484436e5cf51d382264f74435769bdee8910d505ec8995ea18a6e1976de3b1d94bc8b1f03190e02b2c39808d5dfafb298bd1731838eb1e3fba5b2d7525a71d4
 	sha512sums = 31d98e26ff79354e8afd8eba2b19b1ca15ea4f1fbd16ad3936572688f49b33d68d38b6410c794f672572ee72cb535b11901759db67d4fa5656be2d0f6e050a99
