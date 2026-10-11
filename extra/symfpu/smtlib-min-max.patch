@@ -1,0 +1,66 @@
+diff --git a/applications/implementations.h b/applications/implementations.h
+index d0ff8ef..006de17 100644
+--- a/applications/implementations.h
++++ b/applications/implementations.h
+@@ -83,6 +83,12 @@ long double nativeFunctions<long double>::abs (long double f) {
+ 
+ template <>
+ float nativeFunctions<float>::min (float f, float g) {
++  if (isnan(f)) {
++    return g;
++  }
++  if (isnan(g)) {
++    return f;
++  }
+   return fminf(f,g);
+ }
+ 
+@@ -100,6 +106,12 @@ long double nativeFunctions<long double>::min (long double f, long double g) {
+ 
+ template <>
+ float nativeFunctions<float>::max (float f, float g) {
++  if (isnan(f)) {
++    return g;
++  }
++  if (isnan(g)) {
++    return f;
++  }
+   return fmaxf(f,g);
+ }
+ 
+@@ -750,9 +762,6 @@ class sympfuImplementation {
+     return repacked.contents();
+   }
+ 
+-  #define INTELSSEMAXSTYLE true
+-  #define INTELSSEMINSTYLE false
+-  
+   static execBV max (execBV bv1, execBV bv2) {
+     ubv packed1(bitsInExecBV(),bv1);
+     ubv packed2(bitsInExecBV(),bv2);
+@@ -760,7 +769,11 @@ class sympfuImplementation {
+     uf unpacked1(symfpu::unpack<traits>(*format, packed1));
+     uf unpacked2(symfpu::unpack<traits>(*format, packed2));
+     
+-    uf max(symfpu::max<traits>(*format, unpacked1, unpacked2, INTELSSEMAXSTYLE));
++    prop zeroCase(true);
++    if (unpacked1.getZero() && unpacked2.getZero()) {
++      zeroCase = native<execBV, float>::max(bv1, bv2) == bv2;
++    }
++    uf max(symfpu::max<traits>(*format, unpacked1, unpacked2, zeroCase));
+     
+     ubv repacked(symfpu::pack<traits>(*format, max));
+     
+@@ -774,7 +787,11 @@ class sympfuImplementation {
+     uf unpacked1(symfpu::unpack<traits>(*format, packed1));
+     uf unpacked2(symfpu::unpack<traits>(*format, packed2));
+     
+-    uf min(symfpu::min<traits>(*format, unpacked1, unpacked2, INTELSSEMINSTYLE));
++    prop zeroCase(false);
++    if (unpacked1.getZero() && unpacked2.getZero()) {
++      zeroCase = native<execBV, float>::min(bv1, bv2) == bv1;
++    }
++    uf min(symfpu::min<traits>(*format, unpacked1, unpacked2, zeroCase));
+     
+     ubv repacked(symfpu::pack<traits>(*format, min));
+     
