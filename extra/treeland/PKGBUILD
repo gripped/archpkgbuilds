@@ -2,8 +2,8 @@
 # Contributor: zccrs <zhangjide@deepin.org>
 
 pkgname=treeland
-pkgver=0.10.0
-pkgrel=3
+pkgver=0.11.0
+pkgrel=1
 pkgdesc='New wayland compositer for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/treeland"
@@ -20,10 +20,8 @@ makedepends=('git' 'cmake' 'ninja' 'glslang' 'hwdata' 'qt6-tools' 'wayland-proto
 groups=('deepin')
 replaces=('waylib' 'qwlroots')
 conflicts=('waylib' 'qwlroots')
-source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver"
-         qt-6.12.patch)
-sha256sums=('63f190ef95e138b356d7c8f6a080713b31e9962a9ffc7732d5064165c3dbc7bb'
-            '2a78e0a308e816bfd59c805dead78b34c48505386ea882511f52e212479785cc')
+source=("git+https://github.com/linuxdeepin/treeland.git#tag=$pkgver")
+sha256sums=('49b2c5a174baec0b4c8cc28a8fb3dcaa1fee5c0a4762642e08239ae630bbea30')
 
 prepare() {
   cd treeland
@@ -31,8 +29,6 @@ prepare() {
   # Fix wallpaper paths
   sed -i 's|/usr/share/backgrounds/default_background.jpg|/usr/share/backgrounds/deepin/desktop.jpg|' misc/dconfig/org.deepin.dde.treeland{,.user}.json
   sed -i 's|/usr/share/wallpapers/deepin/deepin-default.jpg|/usr/share/wallpapers/deepin/desktop.jpg|' src/wallpaper/wallpapermanager.cpp
-
-  patch -p1 -i ../qt-6.12.patch
 }
 
 build() {
