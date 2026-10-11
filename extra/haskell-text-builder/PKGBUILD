@@ -2,8 +2,8 @@
 
 _hkgname=text-builder
 pkgname=haskell-text-builder
-pkgver=0.6.7.2
-pkgrel=11
+pkgver=0.6.7.3
+pkgrel=2
 pkgdesc="Efficient strict text builder"
 url="https://github.com/nikita-volkov/text-builder"
 license=('MIT')
@@ -12,12 +12,11 @@ depends=('ghc-libs' 'haskell-text-builder-dev')
 makedepends=('ghc' 'uusi' 'haskell-rerebase' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('7056849d5940f710bd2ee4abb521f7fc88922c569153dd1007f384377152596a85dc97b8dc3544383a7c0c5793b5159d2df470026f7eb14af965eb580505bf7b')
+sha512sums=('cadb475931ad83663efbd50cba45d1e6ef570e5d3688b144aaaec34c04b1ea1a2bdd7adcfb2840ef5f6bca0d7aa7d6cf39a7ac051420b66c4d70fc03534fd103')
 
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u tasty-quickcheck
 }
 
 build() {
