@@ -3,8 +3,8 @@
 
 _pkgname=requests-aws4auth
 pkgname=python-requests-aws4auth
-pkgver=1.3.1
-pkgrel=2
+pkgver=1.4.0
+pkgrel=1
 pkgdesc='Amazon Web Services version 4 authentication for the Python Requests module'
 url='https://github.com/sam-washington/requests-aws4auth'
 arch=('any')
@@ -14,8 +14,8 @@ makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel
 checkdepends=('python-pytest' 'python-httpx')
 optdepends=('python-httpx')
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('478842dc91a3aca6ebbc4b3ee7538bd4c0ec2f71fcf6473842c8389570b1ab7ae2ccf3a64e893999173daee714435a7778c8cf362cf709e0d2f9dd642f1891d1')
-b2sums=('f700e71090cc2b69632040471346676ea4de363a640c6b0577158f72afa91679c2f656b3f57fd245829fdf9e8011dd76a0fd655b2fcb78f4d02a10afcc21dc2c')
+sha512sums=('406263b74485638c61cbe47946782c2c3298df89c083a1399c742045b3a5ef89e1d340c2771da435ecfb2cd0aa4b9eab5b42a4938ba01705e80caf3e8cc22df4')
+b2sums=('c4ea5ce854703762de3c9f6560290e34140ed196a60dab2694208dfee1faccb57b0dc919cce8708a20d19a7e0fba429acbbcd617af43432ede14243c616e478a')
 
 prepare() {
   cd ${_pkgname}-${pkgver}
