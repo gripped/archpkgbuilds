@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-opentelemetry-semantic-conventions
-pkgver=1.45.0
+pkgver=1.45.1
 pkgrel=1
 pkgdesc="OpenTelemetry Semantic Conventions"
 arch=('any')
@@ -20,7 +20,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("git+https://github.com/open-telemetry/opentelemetry-python.git#tag=v${pkgver}")
-sha256sums=('3d755f45a07ce6070bf3885012d90a8853685fbf9710fbb84420d2377a313092')
+sha256sums=('c56494b52a4241a2a34e0a6d0f3eb539fddecdd8ebf92f6cd7fda21ee1111851')
 
 build() {
   cd opentelemetry-python/opentelemetry-semantic-conventions
