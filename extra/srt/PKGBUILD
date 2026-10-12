@@ -2,7 +2,7 @@
 
 pkgname=srt
 pkgver=1.5.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Secure Reliable Transport library"
 url="https://www.srtalliance.org/"
 arch=(x86_64)
@@ -20,7 +20,7 @@ makedepends=(
   ninja
 )
 source=("git+https://github.com/Haivision/srt#tag=v$pkgver")
-b2sums=('b2016a1f664ee4c338de5537c4215cc5b8e91e93106801b077c6e3f3f79ac4048173e1dad2bf0b82812db1b134d496d84756b489ee81257197c412783f7d5301')
+b2sums=('6287246e06dcc8d9e9ed7a36df1826f12ea2a15e87a9cca8845744bf127292735861d5c8818b94428d5bd07b28ccf7602f092fe1e4ccfd479bceb8446281296e')
 
 prepare() {
   cd srt
