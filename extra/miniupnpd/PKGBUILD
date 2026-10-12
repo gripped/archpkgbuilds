@@ -3,7 +3,7 @@
 # Contributor: fauno <fauno@parabola.nu>
 
 pkgname=miniupnpd
-pkgver=2.3.10
+pkgver=2.3.11
 pkgrel=1
 pkgdesc='Lightweight UPnP IGD daemon'
 url='https://miniupnp.tuxfamily.org/'
@@ -31,9 +31,9 @@ source=(
   git+https://github.com/miniupnp/miniupnp.git#tag=${pkgname}_${pkgver//./_}
   miniupnpd.service
 )
-sha512sums=('48bb07d5dfd761fd37d43749f9fb8bcb3e2b4f813b22641246fb7159b65b668d24e14928e5a20eadb9ea8626c3b5f179ac339c6f7eff92dc5d889440f621adb2'
+sha512sums=('a37b24e845eca27bd5865c663c9d9794f40169f45462afd149140e6d0143eed7bf1c490188e601e879bb0456b65ee588b2890d624af41b2db40945736cfeb925'
             '6387f646d91257e50159f66c5168830c5c845e1de739e52cc86647baafaa96ed3a5d00b6c7e46080c3dd998a486d81183c3c11ce9bf32e2f6d9fdd40b0ea8bef')
-b2sums=('d2e35d04e643b87dc05f0a792516e4f2f64a47d3f513c462165780553933f75885c5bd835a05317202dcf10161d4ba138212264079fd14ed01cb025e0cd3f99b'
+b2sums=('7951bf051f0696e2fb72cef3a854281757f5ba0435fb28993e8892e67b4bbe81e53adc1d3a9d66cfedebe90a5948d427706694bca010a0465647524202ef24e1'
         '3db5bae2f4624f436a509dfda79183468b7d2112b5351b70f972319f3223722b1d2b5ac44516bb8f76995f04af0bb76b1e3a19e9afe011f5b104aae5f2058638')
 validpgpkeys=(
   '751E9FF6944A3B36A5432216DB511043A31ACAAF' # miniupnp (miniupnp !) <miniupnp@free.fr>
@@ -48,9 +48,10 @@ prepare() {
 build() {
   cd miniupnp/${pkgname}
   ./configure \
+    --firewall=iptables \
     --ipv6 \
     --leasefile
-  CONFIG_OPTIONS="--ipv6 --leasefile" make -f Makefile.linux config.h
+  CONFIG_OPTIONS="--firewall=iptables --ipv6 --leasefile" make -f Makefile.linux config.h
   make -f Makefile.linux
 }
 
