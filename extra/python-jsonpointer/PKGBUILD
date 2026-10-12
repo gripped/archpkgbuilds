@@ -3,7 +3,7 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=python-jsonpointer
-pkgver=3.2.0
+pkgver=3.2.1
 pkgrel=1
 pkgdesc='Identify specific nodes in a JSON document (RFC 6901)'
 arch=(any)
@@ -18,8 +18,8 @@ makedepends=(
   python-wheel
 )
 source=("$pkgname::git+https://github.com/stefankoegl/python-json-pointer#tag=v$pkgver")
-sha512sums=('dba238f966e4e1f54789197865515398b91afba1b570eaf5699a155f2549767578482e627563c0b464a0c9abcaeda59ffd33c18731ad2085b1f4d2ddf9c93152')
-b2sums=('e53a1d53cdabf5384fe6f479ef6a988df85cfde5c297e2f53d6a880ac7bb6a3b0f64c7436f38f7af3b428fae80b43eb41909374d9486721c8b85a6c277962bbf')
+sha512sums=('9eb992b2e7b091caf09408e12b10393f6aca84fceacf6143aea55f5465fabbb3f17c3b0922e6ddaddd7d8472b8909afc2687f987bfd60ab8d423803fc6b2e0bb')
+b2sums=('0381e8d56b8e3d020f28fbc9eed0121bf81b5b78b4510715a6f543fb1da2d43c03690dca6830f0d5c35b5eae4e364213f1759b0704d71477a99d8463063a0a3b')
 
 build() {
   cd "$pkgname"
