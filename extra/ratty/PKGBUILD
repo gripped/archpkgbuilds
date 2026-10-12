@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=ratty
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc="A GPU-rendered terminal emulator with inline 3D graphics"
 arch=('x86_64')
@@ -21,7 +21,7 @@ depends=(
 )
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('11a3a2e3c1c6fd6bb6b3fad7918f98fef0cc2b4531f7f1103f0d269af2936a28e44cb6fe92fc48c45046bcff46a6f01358b014159ea9125a64950e025796390d')
+sha512sums=('9682376587c3c72014e05c4bc0ce156a25d20376f1dc50ee7cb0ac048defc3268e7d153b9a893aea35db1b772c877b0ff505a2945a4c050614b716d3502f2e35')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -41,6 +41,7 @@ build() {
 package() {
   cd "$pkgname-$pkgver"
   install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 755 "target/release/$pkgname-mcp" -t "$pkgdir/usr/bin"
   install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
   install -Dm644 config/ratty.toml "$pkgdir/usr/share/doc/$pkgname/ratty.toml"
