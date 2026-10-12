@@ -3,18 +3,18 @@
 pkgbase=pysmbc
 pkgname=('python-pysmbc')
 pkgver=1.0.25.1
-pkgrel=5
+pkgrel=6
 arch=('x86_64')
 url="http://pypi.python.org/pypi/pysmbc/"
 license=('GPL')
-makedepends=('python' 'smbclient' 'python-setuptools')
+makedepends=('python' 'smbclient' 'python-build' 'python-installer' 'python-setuptools')
 # validpgpkeys=('228521116D3438163C2EA5B916BED1016069BE55')  # Tsukasa Hamano, revoked
 source=(https://pypi.io/packages/source/p/${pkgbase}/${pkgbase}-${pkgver}.tar.gz)
 sha512sums=('29283ee11b2640ff295ae7451119b51db7d86a427c9964e395b5ff53d1c48e23cf939e3c78d51b1904f0b05c9e9045cd71cbd051e6564c9878b2363a40dbf3e1')
 
 build(){
   cd ${pkgbase}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -27,5 +27,5 @@ package_python-pysmbc() {
   depends=('python' 'smbclient')
 
   cd ${pkgbase}-${pkgver}
-  python setup.py install --root="$pkgdir" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
