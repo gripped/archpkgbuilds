@@ -1,10 +1,10 @@
 pkgbase = kew
 	pkgdesc = Music for the Shell
 	pkgver = 4.3.8
-	pkgrel = 1
+	pkgrel = 3
 	url = https://codeberg.org/ravachol/kew
 	arch = x86_64
-	license = GPL-2.0-only
+	license = GPL-2.0-or-later
 	depends = glibc
 	depends = libstdc++
 	depends = libatomic
@@ -20,6 +20,7 @@ pkgbase = kew
 	depends = libogg
 	depends = faad2
 	depends = hicolor-icon-theme
+	optdepends = kew-data: Artist information database
 	source = kew-4.3.8.tar.gz::https://codeberg.org/ravachol/kew/archive/v4.3.8.tar.gz
 	sha512sums = 88db585fa911cde7d77c8b491c405e9e9b246e805d0a085bb69d51d6b399ff7919b620b34a72f427cf61aa2ef1e8e37f68f047b24148b1886e3cef5ab806aa1d
 
