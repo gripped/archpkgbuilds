@@ -7,7 +7,7 @@ pkgbase=python-rpy2
 pkgname=(python-rpy2
          python-rpy2-rinterface
          python-rpy2-robjects)
-pkgver=3.6.8
+pkgver=3.6.9
 pkgrel=1
 pkgdesc='A very simple, yet robust, Python interface to the R Programming Language'
 arch=(x86_64)
@@ -25,7 +25,7 @@ makedepends=(git
 checkdepends=(ipython
               python-pytest)
 source=(git+https://github.com/rpy2/rpy2#tag=RELEASE_${pkgver//./_})
-sha256sums=('36ed229908898b19e2f8ef0f67905f32f8cbdab9cc72d4c138d94f55982dc85c')
+sha256sums=('ef21147bcd3b54bcf2fa222cc249d5ad47db1ba3535b2212e99a06aa4f19ba8a')
 
 build() {
   cd rpy2/rpy2-rinterface
