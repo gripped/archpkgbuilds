@@ -3,8 +3,8 @@
 # Contributor: Cédric Bellegarde <gnumdk@gmail.com>
 
 pkgname=lollypop
-pkgver=1.4.45
-pkgrel=2
+pkgver=1.4.48
+pkgrel=1
 pkgdesc='Music player for GNOME'
 arch=(any)
 url=https://gitlab.gnome.org/World/lollypop
@@ -44,23 +44,16 @@ optdepends=(
   'kid3-common: Store covers in tags'
   'yt-dlp: YouTube support'
 )
-_commit=f97055c225027305514aceeb517738ebdff109a3
-source=(git+https://gitlab.gnome.org/World/lollypop.git#commit=${_commit}
+source=(git+https://gitlab.gnome.org/World/lollypop.git#tag=${pkgver}
         git+https://gitlab.gnome.org/gnumdk/lollypop-po)
-sha256sums=('e6e0b8d11af55a7876fc5c68e8019e08518b5486001d2b3ff40c2f4753d4b2fa'
-            'SKIP')
+b2sums=('1392f3e74b1e802fc9795e2c5d8cd40aaf4b4b06185a393bf136601e45bf177b6b2ced2f8ccf434556f97da41126635a4bcff29b1b3e8a6ec1d5f0784c478f34'
+        'SKIP')
 
 prepare() {
   cd lollypop
-
   git submodule init
   git config submodule.subprojects/po.url "${srcdir}/lollypop-po"
   git -c protocol.file.allow=always submodule update
-}
-
-pkgver() {
-  cd lollypop
-  git describe --tags
 }
 
 build() {
@@ -79,5 +72,3 @@ package() {
   python -m compileall -d /usr/lib "${pkgdir}/usr/lib"
   python -O -m compileall -d /usr/lib "${pkgdir}/usr/lib"
 }
-
-# vim: ts=2 sw=2 et:
