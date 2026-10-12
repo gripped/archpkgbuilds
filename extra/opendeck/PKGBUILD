@@ -2,8 +2,8 @@
 # Co-Maintainer: OmegaRogue <omegarogue@omegavoid.codes>
 
 pkgname=opendeck
-pkgver=2.14.0
-pkgrel=2
+pkgver=2.14.1
+pkgrel=1
 pkgdesc='A desktop application that provides functionality for stream controller devices'
 arch=(x86_64 aarch64)
 url='https://github.com/nekename/OpenDeck'
@@ -42,9 +42,9 @@ source=(
   "${pkgname}::git+https://github.com/nekename/OpenDeck#tag=v${pkgver//_/-}"
   disable-telemetry.patch
 )
-sha512sums=('77b94a75030c0bbfd90459134d0b19b2d487b9089724fdbfe8b76c5e2982916b5c533e1dc45577771a52b1c72f6872852c6b97c14733393581d1fcdeaa85811d'
+sha512sums=('d8c4fbe37f771b1388d9afa69f64e183c79e7da47aa793fd1ba58402dbbd54c8653e14c97eb6859e5ebaae967931c4c5d5c20a8fec25a3c454b610b237a68e22'
             'be35eb5f29431e28f1033b2a7c22a4f6726eb3ecbbd94cf99929eab29af4377887d78bedab73f4d4120c2deb2c9e166c41ac216d08d32b69b676a8f1b3f31884')
-b2sums=('50f239d8c45666c9157deacf1db9dd0324f158b505ac7ee7d2765d896750864097d9e2903e09b7f8df5fc4d83faf03e882c4cc1f3f8cb69dafcdde199d8de25f'
+b2sums=('2dc8f6c1212d7585f69049c65d4cf5132c1c16c23655dc4bfc8513ceb7edfc2a1e539b7505a310d6cd34979fec1d00ab7c8411f0c3024c0bfbb80368c65b67e2'
         '89227a9866f12c40cd559c0359c6b7f335e1e123575b7af9b6337c3759f4af660104072be869c07347c1cbe3c3c511cbc720c6305f331f05460c600a5f157ba4')
 
 prepare() {
