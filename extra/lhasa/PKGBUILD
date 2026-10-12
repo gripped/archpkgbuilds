@@ -5,7 +5,7 @@
 # Contributor: Emmanuel Gil Peyrot <linkmauve@linkmauve.fr>
 
 pkgname=lhasa
-pkgver=0.5.0
+pkgver=0.6.0
 pkgrel=1
 pkgdesc='Free LZH/LHA archive tool'
 url='https://github.com/fragglet/lhasa'
@@ -17,7 +17,7 @@ depends=(
 conflicts=(lha)
 provides=(lha)
 source=(https://github.com/fragglet/lhasa/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz{,.asc})
-sha512sums=('26de1e454230e6ed33919ce0071d1f6aa8d35d2a534ce17956d32b9a73a162db8627bea58db6fef3f359ab88ca8331f991a04d7a6d696e949dd9e189b4835038'
+sha512sums=('250ddd2a2660a1980ceea69ce5dca7006516f8af9b1b5f8077bfd10221ed67be2270218c924bf34c92e624cc5aeb039fab189feb7ec758873e38c26af63fa10e'
             'SKIP')
 validpgpkeys=('6D2C117E0310664497AA9546F6C2EE9C23354344') # Simon Howard <fraggle@soulsphere.org>
 
