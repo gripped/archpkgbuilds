@@ -3,7 +3,7 @@
 # Contributor: darkcoder <mario_vazq@hotmail.com>
 
 pkgname=os-prober
-pkgver=1.84
+pkgver=1.85
 pkgrel=1
 pkgdesc='Utility to detect other OSes on a set of drives'
 url='https://joeyh.name/code/os-prober/'
@@ -13,8 +13,8 @@ depends=(
   sh
 )
 source=(https://deb.debian.org/debian/pool/main/o/${pkgname}/${pkgname}_${pkgver}.tar.xz)
-sha512sums=('b6e3f8997cf647e44582513dcf2b186ca9f3bf76fe97beb49d15feb053ee16606c3600de88e77a1f6e2919b348a49e555c67b6b5453e5ca0033b2cb99e4f3a2b')
-b2sums=('35030940a3913d64ea9b4bda9af64c0490a9bd38a39b069c057ef7cacb0db1af606e70f2b3ed8788d0a458a76b6f63867d55ee9e6b6b6daa1641e88198973751')
+sha512sums=('f54cea1c9683aa2ca9239076f892044c7895185ce74367bbb32851ff9d2df027180da0c48408bc7c6f26747c55207a8828d958f7a53226f1e276002aed8de2bb')
+b2sums=('59e8d29a1731d527ef021a290a7bc7690170e64d40ac2e99b3e73b50504ba07f9abe61deb6f3463aec7daf2b170feb02ddb285a9c60ac51ecc3670f21957d58e')
 
 prepare() {
   cd ${pkgname}-${pkgver}
