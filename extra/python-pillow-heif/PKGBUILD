@@ -6,7 +6,7 @@ pkgname=(
   python-pillow-heif
   python-pillow-heif-docs
 )
-pkgver=1.8.0
+pkgver=1.8.1
 pkgrel=1
 pkgdesc='Python bindings to libheif for working with HEIF images and plugin for Pillow'
 arch=(x86_64)
@@ -32,7 +32,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+https://github.com/bigcat88/pillow_heif.git#tag=v$pkgver")
-b2sums=('5c4239f772ee8aaabc5a9f0d9c8068f7a1e41b4aa0ec33aa4123d437dcd3aed7f97a928597a194df8f62e17cde0b9d4b65c2dde6be85f88ed7862a7e1d48f96f')
+b2sums=('ab61fb7bf1807caaf381c3b70497c8f147f7725772f73cc7e400fe0a0cc88457bd89afe133a9ebc2d66b1f0ca0c695fcb8615b97c28b8a69a18ed1965b67dfb6')
 
 build() {
   cd pillow_heif
