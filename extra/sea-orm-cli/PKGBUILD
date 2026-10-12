@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 #
 pkgname=sea-orm-cli
-pkgver=2.0.0
+pkgver=2.0.4
 pkgrel=1
 pkgdesc='An async & dynamic ORM for Rust'
 url='https://www.sea-ql.org/SeaORM/'
@@ -24,8 +24,8 @@ source=(
   "git+https://github.com/SeaQL/sea-orm.git#tag=${pkgver}"
   Cargo.lock
 )
-sha256sums=('5da18e6fbeca78bcd24ed6c0d51503058813c72e313608110c73199f43ef177b'
-             '16085f6aff434ecffed61c8e2ce2e3c43e90ca48b19ee98ca9e406fd43635bad')
+sha256sums=('b5ec04e11f184d88462f7379ea3a8670e964ac7e2a011630a39ba590821f5751'
+            '2bdd19d14b424b6b3735f4f48e20cc4f83a35b0c37c96bd47e30c3c74e239a28')
 
 prepare() {
     cd sea-orm/sea-orm-cli
