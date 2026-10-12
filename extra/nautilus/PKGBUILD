@@ -8,8 +8,8 @@ pkgname=(
   libnautilus-extension
   libnautilus-extension-docs
 )
-pkgver=51.0.1
-pkgrel=2
+pkgver=51.1
+pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://apps.gnome.org/Nautilus/"
 arch=(x86_64)
@@ -61,7 +61,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/nautilus.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=df896e3412b749947bc6f62a91a1aac8e6b6d19b"
 )
-b2sums=('88b2c7d4915c4aa82aa8b787c51ce0047c1f541d4b74d93400857a6e70624d2232ba88da59fe22e53c8f13fd2896281c7deee844261d424187c8056789f8831f'
+b2sums=('13d7fde576d576c5903f1906263c8bd47e54bedcd88cd297077c4687b74eaef1519c458242ee1cb88ebad871411a44614404f12d21c9a7859d2b064c7e499dd1'
         'f5bd238c316a55784f97b1b7c8b498d3dfa727375cf8a1bf61f4771e306232b36752df8f61edb8d8c5da7c5e1a7acd8c0e85a53725af56e9b18b8dd1a6f284e0')
 validpgpkeys=(
   6B211753AC950672287226800538577822AE4B17 # António Fernandes <antoniof@gnome.org>
@@ -97,7 +97,9 @@ check() (
   trap "kill $_w; wait" EXIT
 
   export NO_AT_BRIDGE=1 GTK_A11Y=none
-  meson test -C build --print-errorlogs ||:
+
+  # Tracker tests cannot set up inner sandbox
+  meson test -C build --print-errorlogs --no-suite tracker
 )
 
 _pick() {
