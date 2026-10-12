@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-utidylib
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='Python wrapper for the HTML cleaning library named TidyLib'
 arch=(any)
@@ -22,8 +22,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2da8154428b12f1bd89c45e2eb2904f300a9143ed5c6f74ec613d41e3168f5744c4e8b717802c1fff637eece30c72bb1bd2afe55c5eca2b63bb2d2f91791a07f')
-b2sums=('e9bc3be6d8cac39a9426dea2c1ff14d63bfa4237aba333b90a3b3a6140431674fd5f43249649ef8d9c7be797c37b61f0a6a4826f93a122b5ae10d01beb5f80af')
+sha512sums=('a67161a4263faaa84b1037fd33011dc30adb5585dc623c42c81262798f52fb35bd944ad841c7f184d0884fb4f758e6f259aede8bffec9f34e1ddb486b977def5')
+b2sums=('1acb0bd0bd3fc187acb88e0bc4a5e6e686abf85ff63ede0e27156aef4519eb315dae851a0d2f747d682966234df759ec79c8bbca357c0571301813f0820cd124')
 
 build() {
   cd "$pkgname"
