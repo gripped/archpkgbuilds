@@ -4,7 +4,7 @@
 
 pkgname=jxrlib
 pkgver=1.4.4
-pkgrel=1
+pkgrel=3
 pkgdesc="Open source implementation of jpegxr"
 arch=('x86_64')
 url='https://github.com/mircomir/jxrlib'
@@ -12,23 +12,23 @@ license=(BSD-2-Clause)
 depends=(glibc)
 makedepends=(cmake
              git)
-source=(git+https://github.com/mircomir/jxrlib#tag=$pkgver
-        CMakeLists.txt)
-sha256sums=('2352722428e94b62c5ef526384a922f8f259e76763dddbc6d69ba098608fb37f'
-            '574ff4c9fb5244c134184335fdd79422cee75bc323c1beca75e066f7f116e50d')
+source=(git+https://github.com/mircomir/jxrlib#tag=$pkgver)
+sha256sums=('2352722428e94b62c5ef526384a922f8f259e76763dddbc6d69ba098608fb37f')
 
 prepare() {
-  mv CMakeLists.txt $pkgname
+  cd $pkgname
+  sed -e "s|^CC=cc|CC=cc $CFLAGS $LDFLAGS|" -i Makefile # Use system build flags
 }
 
 build() {
-  CFLAGS+=" -Wno-incompatible-pointer-types" \
-  cmake -B build -S $pkgname \
-    -DCMAKE_INSTALL_PREFIX=/usr
-  cmake --build build
+  cd $pkgname
+  make SHARED=1 DIR_INSTALL=/usr
 }
 
 package() {
-  DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 $pkgname/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+  cd $pkgname
+  make SHARED=1 DIR_INSTALL="$pkgdir/usr" install
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+# Fix install dir in pc file
+  sed -e 's|/build/jxrlib/pkg/jxrlib||' -i "$pkgdir"/usr/lib/pkgconfig/libjxr.pc
 }
