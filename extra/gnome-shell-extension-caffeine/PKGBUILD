@@ -3,8 +3,8 @@
 
 pkgname=gnome-shell-extension-caffeine
 _uuid=caffeine@patapon.info
-pkgver=60
-pkgrel=2
+pkgver=61
+pkgrel=1
 pkgdesc='Extension for GNOME Shell to disable screensaver and auto suspend'
 arch=(any)
 url='https://github.com/eonpatapon/gnome-shell-extension-caffeine'
@@ -12,14 +12,10 @@ license=(GPL-3.0-or-later)
 depends=(gnome-shell)
 makedepends=(git)
 source=("git+https://github.com/eonpatapon/gnome-shell-extension-caffeine.git#tag=v$pkgver")
-b2sums=(ebcfd73174088054af9ce6b428cc8febf63d71a2fb45e8e8901d0232f6ea0e60b228b14f2b928fc37fb82a87020f8b161bab7264badcfabc473e9b39f7a01681)
+b2sums=(587bdd9f31e3fefb4066a3f6bbc652230bff0aba15251cf5c910f0189669f29f27c1e4978484e6af545e81bc809e7dc2f7f93517a6d37ae4d7ff8a6cdabfd25a)
 
 prepare() {
   cd $pkgname
-
-  # Add support for GNOME Shell 51
-  # https://github.com/eonpatapon/gnome-shell-extension-caffeine/pull/435
-  git cherry-pick -n 7f5f2d37f4d266c562b51041107962b8e1ec0fa6
 }
 
 build() {
