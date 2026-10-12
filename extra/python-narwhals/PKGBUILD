@@ -2,7 +2,7 @@
 
 pkgname=python-narwhals
 _name=${pkgname#python-}
-pkgver=2.27.0
+pkgver=2.27.1
 pkgrel=1
 pkgdesc="Extremely lightweight and extensible compatibility layer between dataframe libraries"
 arch=('any')
@@ -22,11 +22,12 @@ checkdepends=(
 	python-polars
 )
 source=($pkgname-$pkgver.tar.gz::https://github.com/narwhals-dev/narwhals/archive/refs/tags/v$pkgver.tar.gz)
-sha256sums=('8b8eea016678ac85bb75e4831026175e7309ff499aa5ec3e51546f7b0d0b0ef1')
+sha256sums=('56d4165b8f7204c52ff073869202145df562a6a16246ebe4222154d945713d75')
 
 build() {
   cd "$_name-$pkgver"
-  python -m build --wheel --no-isolation
+  # Upstream requires an older version of uvbuild but it's not necessary
+  python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
