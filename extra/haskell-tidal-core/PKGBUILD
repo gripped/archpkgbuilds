@@ -3,7 +3,7 @@
 pkgname=haskell-tidal-core
 _name=${pkgname#haskell-}
 pkgver=1.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Core pattern library for TidalCycles, a pattern language for improvised music"
 arch=(x86_64)
 url="https://tidalcycles.org/"
@@ -44,7 +44,7 @@ build() {
     -O
     --datasubdir=$pkgname
     --disable-library-vanilla
-    --docdir=/usr/share/doc/$pkgname
+    --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname
     --dynlibdir=/usr/lib
     --enable-executable-dynamic
     --enable-shared
