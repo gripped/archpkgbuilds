@@ -4,7 +4,7 @@
 
 _bootstrap=0
 pkgname=pnpm
-pkgver=12.12.0
+pkgver=12.12.1
 pkgrel=1
 pkgdesc='Fast, disk space efficient package manager'
 arch=(any)
@@ -18,7 +18,7 @@ if (( _bootstrap == 1 )); then
   source+=("pnpm-linux-x64-v$pkgver.tar.gz::https://github.com/pnpm/pnpm/releases/download/v$pkgver/pnpm-linux-x64.tar.gz")
   noextract=("pnpm-linux-x64-v$pkgver.tar.gz")
 fi
-b2sums=('570205122c2f5c2a332c24e15fb2992e46616248033203083aa5b8fd36fdf8374f86b5fc9db4ab3ad65c05ea2ce57ab34d511678091eacab8a435ab23b57e4e5')
+b2sums=('4d48d9d15061ddb3e842b1fc4ee391116a200e51fbda4c24fca0f9c80a42b8cb49b641cb8ae13677bd59b831855a32b696b99f7440c1a10c88aa4933478fa64e')
 validpgpkeys=(7B74D1299568B586BA9962B5649E4D4AF74E7DEC) # Zoltan Kochan <z@kochan.io>
 
 prepare() {
