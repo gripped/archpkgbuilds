@@ -4,7 +4,7 @@
 
 pkgname=wifite
 pkgver=2.8.2
-pkgrel=2
+pkgrel=3
 epoch=2
 pkgdesc='Tool to attack multiple WEP and WPA encrypted networks at the same time'
 url='https://github.com/kimocoder/wifite2'
@@ -17,14 +17,15 @@ depends=(
   python-psutil
   aircrack-ng
   iproute2
-  iw)
+  iw
+  wireshark-cli
+)
 makedepends=(
   python-build
   python-installer
   python-poetry-core
 )
 optdepends=(
-  'wireshark-cli: detecting WPS networks and inspecting handshake capture files'
   'reaver: WPS Pixie-Dust & brute-force attacks'
   'bully: WPS Pixie-Dust & brute-force attacks'
   'cowpatty: detect WPA handshakes'
