@@ -3,23 +3,17 @@
 # Contributor: DrZaius <lou[at]fakeoutdoorsman[dot]com>
 
 pkgname=libfdk-aac
-pkgver=2.0.3
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc='Fraunhofer FDK AAC codec library'
 arch=(x86_64)
 url=https://sourceforge.net/projects/opencore-amr/
-license=(custom)
+license=(LicenseRef-Fraunhofer)
 depends=(glibc)
 makedepends=(git)
 provides=(libfdk-aac.so)
-_tag=716f4394641d53f0d79c9ddac3fa93b03a49f278
-source=(git+https://github.com/mstorsjo/fdk-aac.git#tag=${_tag})
-b2sums=(SKIP)
-
-pkgver() {
-  cd fdk-aac
-  git describe --tags | sed 's/^v//'
-}
+source=(git+https://github.com/mstorsjo/fdk-aac.git#tag=v${pkgver})
+b2sums=('a7171040e5e4ba76319698565473610b954a791cace26468e3293567cbbf61b9e75eb0a400d4f5da62062ce0afe00c58751808c7958f3f229031a3d3ce69679a')
 
 prepare() {
   cd fdk-aac
@@ -37,7 +31,5 @@ build() {
 package () {
   cd fdk-aac
   make DESTDIR="${pkgdir}" install
-  install -Dm 644 NOTICE -t "${pkgdir}"/usr/share/licenses/libfdk-aac/
+  install -Dm 644 NOTICE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
-
-# vim: ts=2 sw=2 et:
