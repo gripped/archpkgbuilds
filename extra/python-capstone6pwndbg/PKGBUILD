@@ -3,7 +3,7 @@
 pkgname=python-capstone6pwndbg
 # NOTE: this needs to be kept in compatibility sync with pwndbg
 # https://github.com/pwndbg/pwndbg/blob/dev/pyproject.toml
-pkgver=6.0.0Alpha9
+pkgver=8.0.0
 pkgrel=1
 pkgdesc='Lightweight multi-platform, multi-architecture disassembly framework (pwndbg only)'
 url='https://www.capstone-engine.org/index.html'
@@ -23,9 +23,9 @@ source=(
   "git+https://github.com/pwndbg/capstone6pwndbg.git#tag=v${pkgver/Alpha/-Alpha}"
   git+https://github.com/capstone-engine/capstone.git
 )
-sha512sums=('2a7205ee4834e203b11cf1e3916a8440dfe0287392b40f7983443d92cff23e980b670db7cc95b938d2fdc8197715bfd35bda8c9a0392086ef93f3d1a6bc4a362'
+sha512sums=('326e33dbb5de3597bb3e6139a764a99a0a74d1ca065846192d26233298214d490cc2916edc8cb53458d2418f79cc4e8cbbd50b229443350fd5c80902cb11248a'
             'SKIP')
-b2sums=('0ba0b8bcea3ac36614ee62ca9b970122d2c7cbac19138e4e78535a84e3f7ccd72b959249693505fd617575e127d3f6b32fc208e04e85ddac333516840f8224ec'
+b2sums=('3429dc1c9da997b007c26943749ecec63471f1ac5b8e615abc406cf7336deb78c9df81e89bc5678b0ef2c7350b76faee8153c68ec7778339979b6155c7c030a6'
         'SKIP')
 
 prepare() {
