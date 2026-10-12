@@ -2,8 +2,8 @@
 # Contributor: Maximilian Stahlberg <maximilian.stahlberg tu-berlin de>
 
 pkgname=python-pyscipopt
-pkgver=6.2.1
-pkgrel=2
+pkgver=6.3.0
+pkgrel=1
 pkgdesc='A Python interface to the SCIP Optimization Suite'
 arch=(x86_64)
 url='https://www.scipopt.org/'
@@ -19,12 +19,7 @@ makedepends=(cython
              python-setuptools
              python-wheel)
 source=(git+https://github.com/SCIP-Interfaces/PySCIPOpt#tag=v$pkgver)
-sha256sums=('c41463c10d217759050329360a7605344cec20b5e980076d2869070821618d90')
-
-prepare() {
-  cd PySCIPOpt
-  git show ca6631b551db2e915632232963a68383936afa43 -- src/pyscipopt/matrix.pxi | git apply - # Fix build with cython 3.3
-}
+sha256sums=('70e6afd00ff22aabc5c3d848f11137b96eab6060bd36734b5dcf243d99115781')
 
 build() {
   cd PySCIPOpt
