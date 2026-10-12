@@ -4,7 +4,7 @@
 # Contributor: Daniele Paolella <dp@mcrservice.it>
 
 pkgname=python-virtualenv
-pkgver=21.14.6
+pkgver=21.14.7
 pkgrel=1
 pkgdesc='Virtual Python Environment builder'
 arch=(any)
@@ -54,9 +54,9 @@ source=(
   "$pkgname::git+https://github.com/pypa/virtualenv#tag=$pkgver"
   no-llm-crap.patch
 )
-sha512sums=('de5c3b493bec2b168c8742c0229473808ab9fb76ae30bcaedb2b72c3460a839ad791b139abf11a46504c8fa1e8cc63d5c24dc0114599a6c7d5a8ece5df733c98'
+sha512sums=('5507a8447a45c81733c5b28ea4d15425f9f5468d6595dd1c82cd036e5bdd7019e0d4cf4051b1256002d397acee36f949bfc173a5445fcc64be1f911e748b8b53'
             '095790a6b2ae899cf0ec04dc5cab807320d3f66c34077ded273a284880e9e50032d62c3944712fe8ae5a67a7d62920490663b632edbb9aec5eb53d61b609ccd3')
-b2sums=('6b6cbbbc191808676d1c13e71714e08eabb8e3f58082fabda59d96bdea4e41bd1fdd6ab3655b9fb910c5612c59ea294c41000ade4cb49a48ad935f99378f8d70'
+b2sums=('179cacf6ec46c7d0e3b2b3a03bf91c3042fa742629f7618b33c3f8b04314aa77bd1820980720b797cad2ad8609dafc4b8e137c95323907cfd3ac9ef2642e6fe4'
         'b44b271bf9dc341624ba5cfae16d01fd4ed3893e0003cb85e477d43fc0f4ee11214bf2c9d5147391d14febf7328e1811883cc9eb398517a43cd604fb96e2c2eb')
 
 prepare() {
