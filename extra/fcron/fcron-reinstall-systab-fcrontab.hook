@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Target = fcron
+Type = Package
+
+[Action]
+Depends = fcron
+Description = Reinstalling the fcrontab for user systab...
+Exec = /usr/bin/fcrontab -z -u systab
+When = PostTransaction
