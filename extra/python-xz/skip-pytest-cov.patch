@@ -1,10 +1,12 @@
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -124,7 +124,6 @@ warn_unused_configs = true
+@@ -121,9 +121,6 @@ warn_unused_configs = true
  
  [tool.pytest.ini_options]
  addopts = """
 -    --cov
+-    --cov-report=html
+-    --cov-report=term-missing
      --strict-markers
      """
  filterwarnings = ["error"]
