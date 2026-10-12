@@ -3,7 +3,7 @@
 
 pkgbase="sqlite"
 pkgname=('sqlite' 'sqlite-tcl' 'sqlite-analyzer' 'lemon' 'sqlite-doc')
-pkgver=3.53.4
+pkgver=3.54.0
 _srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 _docver=${_srcver}
 #_docver=3440000
@@ -19,8 +19,8 @@ source=(https://www.sqlite.org/2026/sqlite-src-${_srcver}.zip
         sqlite-lemon-system-template.patch
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('d18fa15aec74d8c17e1463f861095adc01b5ad190256acb4f91d22f0368d232b'
-            'a1d0f5de57485d062796ed7e67daff0758b50d00001a0f233a2c15aaf40bbdc8'
+sha256sums=('8847659821e0c5116bd14a94644c82ba932b2d9a05ac81af2e34af814aad7c58'
+            '76742cbfaaaebea5355c6b474a18ca850ab510625fc33fa42d0250ffcac27a95'
             'ce0083835e458236c83d4f74ad398816e29859cd2f940c7aad9080835b50dcec'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
@@ -60,6 +60,7 @@ build() {
     --fts5 \
     --rtree \
     --soname=legacy
+  sed -i 's/$(B.cc) -o \$@ $(TOP)\/tool\/lemon.c/$(B.cc) $(LDFLAGS) -o $@ $(TOP)\/tool\/lemon.c/' main.mk
   sed -i -e 's/$(LDFLAGS.libsqlite3)/ -Wl,-O1,--as-needed \0/g' main.mk
   make
   # build additional tools - broken build: changeset rbu
