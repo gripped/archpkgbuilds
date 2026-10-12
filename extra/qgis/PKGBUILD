@@ -10,7 +10,7 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=4.2.2
+pkgver=4.2.3
 pkgrel=1
 pkgdesc='Geographic Information System (GIS) that supports vector, raster & database formats'
 arch=(x86_64)
@@ -79,8 +79,16 @@ optdepends=(
   'fcgi: Map server'
   'gpsbabel: GPS Tools plugin'
 )
-source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2")
-sha256sums=('45c3a85b359ec1acd11725a9af8c66b90ee7ca0e85f14df18ed9792f1b9becf0')
+source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2"
+        https://github.com/qgis/QGIS/commit/47ab0643e3c158476dd01dee13e7dff8eab59274.patch)
+sha256sums=('b044889d895c07d9355512cba76973822830153f6f15feb0d5e00077d3d76e59'
+            'ace68c93daf2616913bd34e7a9c17f4969d8dfd97ab94b1280f3246e70226ec8')
+
+prepare() {
+  cd $pkgname-$pkgver
+# Fix build with Qt 6.12
+  patch -p1 -i ../47ab0643e3c158476dd01dee13e7dff8eab59274.patch
+}
 
 build() {
   cmake -S $pkgname-$pkgver -B build -G Ninja \
