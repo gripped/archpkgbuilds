@@ -3,7 +3,7 @@
 
 pkgbase=python-polars
 pkgname=($pkgbase $pkgbase-runtime-{32,64,compat})
-pkgver=1.44.2
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -26,6 +26,8 @@ checkdepends=('python-pytest'
               'python-pytest-xdist'
               'python-matplotlib'
               'python-hypothesis'
+              'python-moto'
+              'python-flask'{,-cors}
               'python-pandas'
               'python-pyarrow'
               'python-pydantic'
@@ -41,7 +43,7 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('0e1f5dc10f83d11b144dd2b63181986054c44e510883b6a6bdd6cc6768e366c37edf4e2a62408835474d098ae40e357556243e1120bf2395bc4d327c37f00c0f')
+b2sums=('245425d225b89f9554e4eb704d0451d3a7ca6054ce6c5f5f88c2d2f9847e32a2b6473b26258f679ca7924dd15c649341903b6a35f88e24b50e18b041f454b5ba')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -88,6 +90,8 @@ check() {
         --ignore tests/unit/io/test_spreadsheet.py
         # Requires unpackaged python-pyiceberg
         --ignore tests/unit/io/test_iceberg.py
+        # Requires unpackaged python-lancedb
+        --ignore tests/unit/io/test_lance.py
         # Requires unpackaged python-connectorx
         --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials"
         # Deprecation warning, yet to be fixed
