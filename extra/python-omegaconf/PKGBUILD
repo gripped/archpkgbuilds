@@ -4,7 +4,7 @@
 
 pkgname=python-omegaconf
 _pkg="${pkgname#python-}"
-pkgver=2.3.1
+pkgver=2.4.0
 pkgrel=1
 pkgdesc='Flexible Python configuration system'
 arch=('any')
@@ -15,8 +15,8 @@ makedepends=('antlr4' 'python-build' 'python-installer' 'python-setuptools' 'pyt
 # checkdepends=('python-pytest' 'python-pytest-mock' 'python-pytest-lazy-fixture')
 source=("$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/o/$_pkg/$_pkg-$pkgver.tar.gz"
         'antlr4-jar.patch')
-sha256sums=('e5e7de64aeebeddaf8e6d3f7a783b32ac2a01c0fbd9c878012caecb891a1f42a'
-            '9e27af3dfc66fbd239f16c000acb73adf872376d1c1b041ff31d1fc5b57389bb')
+sha256sums=('7e219a70bea371da250285b9c01c7db027bc421722799c2cc4ff14bc4a2a753b'
+            '73ce12d45bf1b510461dc7799024f971e17daebf924645ec7048611d50393031')
 
 prepare() {
 	patch -p1 -d "$_pkg-$pkgver" < antlr4-jar.patch
