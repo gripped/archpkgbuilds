@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=openwiki
-pkgver=0.7.1
+pkgver=0.7.2
 pkgrel=1
 pkgdesc='A CLI that writes and maintains agent documentation for your codebase'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(
 )
 options=(!debug)
 source=(git+https://github.com/langchain-ai/openwiki.git#tag=v${pkgver})
-b2sums=('42718a79fc7b483ea976eb18b2202e3129e94060f4e7ab96a84ad95fbcb18a42ba05c598f3854eb8c2c0b4207c786bae4a479fd110a881ac375065843b7e5652')
+b2sums=('d692b52df35178e94e509597e818b00985eba6b14b9ec31df5a9b1b8d105f42dbd5cb76e649f9ad1719539c3adf7d504cc810a00db3e3609465364dcf16efc79')
 
 prepare() {
   cd openwiki
