@@ -1,7 +1,7 @@
 # Maintainer: Massimiliano Torromeo <massimiliano.torromeo@gmail.com>
 
 pkgname=nginx-mod-cache_purge
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 
 _modname="${pkgname#nginx-mod-}"
@@ -13,7 +13,7 @@ url="https://github.com/nginx-modules/ngx_cache_purge"
 license=('BSD-2-Clause')
 
 source=(https://github.com/nginx-modules/ngx_cache_purge/archive/$pkgver/ngx_cache_purge-$pkgver.tar.gz)
-sha256sums=('c8271f3b7d82a22b1c2e5f68810be49cdded450f9a661b39af9938b9170a37ab')
+sha256sums=('d9eefad55c1306af5a9d22d75743240ffb6c6351152c6893fa6144867d7f9087')
 backup=('etc/nginx/modules.d/20-cache_purge.conf')
 
 prepare() {
