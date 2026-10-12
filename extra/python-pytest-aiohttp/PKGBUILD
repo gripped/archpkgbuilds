@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-aiohttp
 _name="${pkgname#python-}"
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='pytest plugin for aiohttp support'
 url='https://github.com/aio-libs/pytest-aiohttp'
@@ -11,8 +11,8 @@ license=('Apache-2.0')
 depends=('python' 'python-pytest' 'python-aiohttp')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
 source=(${pkgname}-${pkgver}.tar.gz::$url/archive/v${pkgver}.tar.gz)
-sha256sums=('8ba7aae079b97c015515918dc6e2f3cc8794e844c15574a688a65b37b53b0b20')
-sha512sums=('7f4362c9ef2ef4b63c5f9ef246f59bef78f4962df9878e81bfd4f70f5dccd1eaae1b08cf1389bcdf6d8b9efc2363415b16bcf071aac5e6a640940da12ffb35c3')
+sha256sums=('cc4f715f0088351e609825f5a0d36ebcfc140e3c8660067df1f18e31ffe02fb6')
+sha512sums=('5afb49583d2f0e30569b5fd1e04a2cbfd45e32481adff2fd3c8de82852ef0e5a1b96130ecf6c904fe35b70e8c1699f20536da752c1126f0bc53e3d553dd330ba')
 
 build() {
   cd ${_name}-${pkgver}
