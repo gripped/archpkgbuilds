@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-xarray
-pkgver=2026.07.0
+pkgver=2026.09.0
 pkgrel=1
 pkgdesc="N-D labeled arrays and datasets in Python"
 arch=(any)
@@ -71,7 +71,7 @@ optdepends=(
   'python-hypothesis: strategies for testing code using xarray objects'
 )
 source=("https://github.com/pydata/xarray/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('aaa3682be82c5dd91ff69fbf8e3e5ffa3d6e21595ece79c5aaa012951635b2c2cdbf6b40b48397ca1ff27e9b44c208fc1a53380752c328f6b90f9a62373637c8')
+b2sums=('ecc2ae0c17f9cfface94c5a94015ae9c92393afdeb35da0d2376e9e2a8b76e4970bc0f1bc8f6aa10c056c2863c1b20884c8d871a3981ad6b74195e0e5553375c')
 
 build() {
   cd ${pkgname#python-}-$pkgver
