@@ -11,9 +11,9 @@
 
 pkgbase=vim
 pkgname=('vim' 'gvim' 'vim-runtime')
-pkgver=9.2.1164
+pkgver=9.2.1178
 _versiondir=92
-pkgrel=2
+pkgrel=1
 pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor'
 url='https://www.vim.org'
 arch=('x86_64')
@@ -38,7 +38,7 @@ source=(git+https://github.com/vim/vim.git?signed#tag=v${pkgver}
         vimrc
         archlinux.vim
         vimdoc.hook)
-sha256sums=('d29eb6542b930e0a5454ca19d8d09612bb2c67250705d28a8e0e5e82039f6b84'
+sha256sums=('325dde8229d60fae59e3dd20804ede09ac3703a3c5b88bd0820d29a463411267'
             'b16e85e457397ab2043a7ee0a3c84307c6b4eac157fd0b721694761f25b3ed5b'
             'cc3d931129854c298eb22e993ec14c2ad86cc1e70a08a64496f5e06559289972'
             '8e9656934d9d7793063230d15a689e10455e6db9b9fe73afa0f294792795d8ae')
