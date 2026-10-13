@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=s2n-tls
-pkgver=1.7.10
+pkgver=1.7.11
 pkgrel=1
 pkgdesc='A C99 implementation of the TLS/SSL protocols that is designed to be simple, small, fast, and with security as a priority'
 arch=(x86_64)
@@ -18,7 +18,7 @@ provides=(s2n) # upstream renamed the project from s2n to s2n-tls
 conflicts=(s2n)
 replaces=(s2n)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('475c343a0887f966c53e06021b73bf24401cab1d0a2ab5a55ae8a9c378a945e93c38347abbd0d27e706f56e1504647efdce30b5e03da35ff49e7a2f3024619d0')
+b2sums=('21382835ffa840f38cef598b80398ee88251612044adac72fbe885792d266af6bc1fb9d7e64a02d33f1a4fbc71b845c5f4bfb08e118c65b88c2de2895db05ae3')
 
 build() {
   cd $pkgname-$pkgver
