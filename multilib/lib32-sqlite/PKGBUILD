@@ -6,19 +6,19 @@
 # Contributor: Kaos < gianlucaatlas dot gmail dot com >
 
 pkgname=('lib32-sqlite')
-pkgver=3.53.4
+pkgver=3.54.0
 _srcver=$(echo "$pkgver" | awk -F. '{ printf "%d%02d%02d00", $1, $2, $3 }')
 pkgrel=1
 pkgdesc="A C library that implements an SQL database engine (32-bit)"
 arch=('x86_64')
 license=('LicenseRef-Sqlite')
 url="https://www.sqlite.org/"
-makedepends=('tcl' 'lib32-readline' 'sqlite')
+makedepends=('lib32-readline' "sqlite=$pkgver")
 options=('!emptydirs')
 source=(https://www.sqlite.org/2026/sqlite-src-${_srcver}.zip
         license.txt)
 # upstream now switched to sha3sums - currently not supported by makepkg
-sha256sums=('d18fa15aec74d8c17e1463f861095adc01b5ad190256acb4f91d22f0368d232b'
+sha256sums=('8847659821e0c5116bd14a94644c82ba932b2d9a05ac81af2e34af814aad7c58'
             '4e57d9ac979f1c9872e69799c2597eeef4c6ce7224f3ede0bf9dc8d217b1e65d')
 
 prepare() {
@@ -63,13 +63,13 @@ build() {
 	--soname=legacy
 	TCLLIBDIR=/usr/lib/sqlite$pkgver
   sed -i -e 's/$(LDFLAGS.libsqlite3)/ -Wl,-O1,--as-needed \0/g' main.mk
-  make
+  make LDFLAGS.libsqlite3.soname=-static-libgcc
 }
 
 package_lib32-sqlite() {
 
  pkgdesc="A C library that implements an SQL database engine (32-bit)"
- depends=('lib32-glibc' 'lib32-gcc-libs' 'sqlite')
+ depends=('lib32-glibc' 'sqlite')
  provides=('libsqlite3.so')
 
   cd sqlite-src-$_srcver
