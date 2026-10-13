@@ -1,12 +1,15 @@
 pkgbase = magnum
-	pkgdesc = C++11/C++14 graphics middleware for games and data visualization
+	pkgdesc = C++11 graphics middleware for games and data visualization
 	pkgver = 2020.06
-	pkgrel = 4
+	pkgrel = 5
 	url = https://magnum.graphics
 	arch = x86_64
 	license = MIT
 	makedepends = cmake
 	makedepends = git
+	depends = glibc
+	depends = libstdc++
+	depends = libgcc
 	depends = corrade>=2020.06
 	depends = glfw
 	depends = openal
