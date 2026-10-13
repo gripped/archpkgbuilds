@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-blosc2
-pkgver=4.13.1
+pkgver=4.14.1
 pkgrel=1
 pkgdesc='Wrapper for the blosc2 compressor'
 arch=(x86_64)
@@ -33,6 +33,8 @@ makedepends=(
   python-setuptools
 )
 checkdepends=(
+  python-fsspec
+  python-h5py
   python-psutil
   python-pytest
   python-pytest-asyncio
@@ -40,25 +42,40 @@ checkdepends=(
   python-requests
   python-aiohttp
 )
+optdepends=(
+  'python-aiohttp: HTTP access through fsspec'
+  'python-fsspec: filesystem URL support'
+  'python-h5py: HDF5 support'
+  'python-numba: Numba integration'
+  'python-pandas: DataFrame conversion'
+  'python-psutil: memory reporting in parquet-to-blosc2'
+  'python-pyarrow: Arrow and Parquet support'
+  'python-pytorch: PyTorch tensor serialization'
+  'python-tensorflow: TensorFlow tensor serialization'
+  'python-textual: b2view terminal viewer'
+  'python-ujson: faster HDF5 index serialization'
+)
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
   argh.patch
 )
-sha512sums=('a30054d917062f337d40d1c732e3103a4c4c33b46ecf0dffb3e4fd96a210b79fc88e577e501dabb43e4342e47e149d589548b6a4ee4b9a92c267d3fe7b915395'
+sha512sums=('07ee3f6035cfcb8ee4ad11d47368696b5cfe6970bb0d0d8a81deffd2e1e2173ea0b074901e78e7cfe2ced9b02d79865bf6d29f23a85c18c8f5aaf1029be3bf10'
             '88f486cd6385055da9bad586bc885ea852c4deb745fd429dc63e104cb579190115746932664ebad1b435df83cc1b6134b42ee5107db3dc92fb67cf7a3fd7acb0')
-b2sums=('313851713e7420111362ef8e0903d90a43d5e0370045f4a0c2c62e0ef5f3fd77876867b92cee67441fe68b39bebd6ddf9960063a7027e1e694f58e47512110c6'
+b2sums=('17cc4ebd5c143b12ca0e353d548605d919ad9c5b8369106334bfc43e12ad3e20f9e84da6ddebf135c2f27f5cccd22196bbbf46de2a6af16c3b9a8d96a1ae5667'
         '1595af3fe29e7410996a180d0456d276abae8f243eb6ec9497cb98979ccf03456f4c94e825375f70c2377987cc7d554e0df794e75c66830a05ecc7f4beb27864')
 
 prepare() {
   cd "$pkgname"
-
   patch -p1 -i "$srcdir/argh.patch"
 }
 
 build() {
   cd $pkgname
   export CMAKE_ARGS="-DUSE_SYSTEM_BLOSC2=ON"
-  python -m build --wheel --no-isolation
+  # Preserve debug symbols and generated sources for makepkg
+  python -m build --wheel --no-isolation \
+    -Cinstall.strip=false \
+    -Cbuild-dir=build
 }
 
 check() {
@@ -67,7 +84,9 @@ check() {
   ./venv-test/bin/python -m installer dist/*.whl
   # Deselect tests failing since v3.4.0, not sure why
   # test_expand_dims: sys.getrefcount() behavior changed in Python 3.14
+  # test_disk_cache_reuses_batch_column_prefixes: C-Blosc2 asserts clevel > 0 for VL blocks
   ./venv-test/bin/python -m pytest \
+    --deselect tests/ctable/test_remote_ctable.py::test_disk_cache_reuses_batch_column_prefixes \
     --deselect tests/ndarray/test_resize.py::test_expand_dims \
     --deselect tests/ndarray/test_lazyexpr.py::test_broadcasting \
     --deselect tests/ndarray/test_lazyexpr.py::test_chain_expressions \
