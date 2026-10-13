@@ -3,7 +3,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-openapi-spec-validator
-pkgver=0.8.4
+pkgver=0.9.0
 pkgrel=1
 pkgdesc="OpenAPI 2.0 (aka Swagger) and OpenAPI 3 spec validator"
 url="https://github.com/p1c2u/openapi-spec-validator"
@@ -25,7 +25,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('7835303ef802df6377e52bd8dedb1ce3a88d2ca0ae4224a4dfc574805524e97c51c0210b931ba31f2b8c734933dceea2dc5424bbf3839c5f4cc7cabd9f5776ab')
+sha512sums=('2652f1743596b8fb5cada7487a6880d9bd9122d63ca221448cd7b61ec87df69495b5f7591064ae8cb756647ad990ecef4a53504848b573dc2dda1978fd2dc5de')
 
 build() {
   cd ${pkgname#python-}-$pkgver
