@@ -3,8 +3,8 @@
 
 pkgname=python-pylatexenc
 _pkgname=${pkgname#python-}
-pkgver=2.10
-pkgrel=6
+pkgver=2.11
+pkgrel=1
 pkgdesc="Simple LaTeX parser providing latex-to-unicode and unicode-to-latex conversion"
 arch=(any)
 url="https://github.com/phfaist/pylatexenc"
@@ -18,7 +18,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('bcb859affea00b5acb25aec780620170ab9d385c8f7dc266b7237ce9f47a59fd')
+sha256sums=('5f622ef586dbffeb8ccd6ac210431ff0acf41d74275de179696e38006c28b862')
 
 build() {
   cd "$_pkgname-$pkgver"
