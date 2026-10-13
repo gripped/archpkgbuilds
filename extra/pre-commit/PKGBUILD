@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname='pre-commit'
-pkgver=4.6.2
+pkgver=4.7.0
 pkgrel=1
 pkgdesc="A framework for managing and maintaining multi-language pre-commit hooks"
 url="https://github.com/pre-commit/pre-commit"
@@ -44,8 +44,8 @@ replaces=(
   python-pre-commit
 )
 source=("https://github.com/pre-commit/pre-commit/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('066c80c31168d7e7fe0b9c6f98cf086b15e8afd64c59cfffcf7137fc11c685ffe9cba7c0b5728f330662641a2e249064058d053e9de79ecea0804915d98b402f')
-b2sums=('d3280c52abca35ee29b92269a1e79ff3d8a2deea8edd665125df9c02e1b9907aee59730216211b9e528c727b9acb12fa31e0155db072fed38ee9d11f2e9ed15d')
+sha512sums=('97100dc232f44f1c1ecc2c6003675065e872e9fae7e611199037da06443ef5b9522a5078c8675afaec81a72f2a54ce8adf208b989222465fb5e134a4d90f0caf')
+b2sums=('a69e8d3d4d57bbd537a50bb52d05713fe9bd1210d9f76ea8803c91af645e1c6d15cdec3500c585a1aeb2b28db93aa4a35cfb2f581c9ee7bfc36c31f71f9bf70d')
 
 build() {
   cd pre-commit-$pkgver
