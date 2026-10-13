@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-py7zr
-pkgver=1.1.3
+pkgver=1.1.4
 pkgrel=1
 pkgdesc='Pure Python 7-zip library'
 arch=(any)
@@ -40,8 +40,8 @@ checkdepends=(
 optdepends=()
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('c61ce14c89918a18c282005b0383ecf703aeca78c165a671579a713662b7b9f1d94fcd74af3038ee8e371c35b9f6231440697fe9ec31ca568dfd03a96b8441c4')
-b2sums=('7160ad1149d1933cad397c7ae46ed82075272108b268455e72ff00ad6727ac69c679df087bbdbc40cd6245e2f5543d3c8e5c5b7ade4468d8ab138ee5e41c0fe1')
+sha512sums=('8dbd9c94e30159ebc29a6436d7fd2467452f0ff3f188b3cfa7065301cc5f90ea60a0549df117fb11240e97c8368882d7f6d409bc6d4670d1c9eb6b204f7635b1')
+b2sums=('fe65cdb1fb84e52b2d3676b83095b226476a5befda5efe464a824f4da398b947a0260f787f0bc157848f4b35372ad0df0a8683e791232ce3a6ba9a06a3af3b07')
 
 build() {
   cd "$pkgname"
