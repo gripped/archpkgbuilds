@@ -1,0 +1,20 @@
+Pandoc 3.11 requires adjacent <pre><code> tags to recognize a code block.
+Keep the importer tests checking code indentation instead of hitting this
+Pandoc HTML reader regression:
+https://github.com/jgm/pandoc/commit/6049ab9c09fb9696e7d40734899402b5122d888f
+
+Assisted-By: Codex-CLI:GPT-6-Astra
+
+diff --git a/pelican/tests/content/wordpressexport.xml b/pelican/tests/content/wordpressexport.xml
+--- a/pelican/tests/content/wordpressexport.xml
++++ b/pelican/tests/content/wordpressexport.xml
+@@ -650,8 +650,7 @@
+     <li>List Item One!</li>
+     <li>List Item Two!</li>
+ <li>This is a code sample
+-<pre>
+-<code>
++<pre><code>
+   a = [1, 2, 3]
+   b = [4, 5, 6]
+   for i in zip(a, b):

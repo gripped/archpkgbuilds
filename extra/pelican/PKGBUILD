@@ -4,8 +4,8 @@
 # Contributor: David Runge <dave@sleepmap.de>
 
 pkgname=pelican
-pkgver=4.11.0
-pkgrel=3
+pkgver=4.12.0
+pkgrel=1
 pkgdesc="A tool to generate a static blog, with restructured text (or markdown) input files."
 arch=('any')
 url="https://blog.getpelican.com/"
@@ -57,19 +57,15 @@ optdepends=(
 )
 source=(
   "git+https://github.com/getpelican/pelican.git#tag=$pkgver"
-  "$pkgname-dont-install-tests.patch"
+  "$pkgname-pandoc-code-block-fixture.patch"
 )
-b2sums=('d1fefe3e1c6134ca920c926f1cbc61764699d17d8b93a565fb313543c9fe6dcb42bbae12deb6c7d5c23721974e607c8dd9092c95f6d48b657bc4033a97da4cd5'
-        '4bc1d735140e9ff344ec232354fa5083f50fb1e0deeb364e31324df8dff970936a3af4fc7857602fe0cc09fa765eb1f0e9c50bc5e399f605bc1e8ffb64136858')
+b2sums=('2937720222a5230fd3a8c2c8c4c878717841d068e11663af15499e6a997202fdcf77c7cdc2954f2ef4221d5dea1e3b4c704e859b9dddfc3e7a0a18249e815151'
+        '8b4272509d5bcbdc3fdec95cc2b29e0141c2d6b07ebed28d58a7407bec475de1881b13572dc1cd7d82afa805b349b1b18e21cef6b1f4aa8add2029be720bdc4d')
 
 prepare() {
   cd $pkgname
-  # Fix docutils PendingDeprecationWarning for Python 3.14 compat
-  git cherry-pick -n 5acf155c328eb10df10507c28a880e47a939de8e
-  # Upgrade Beautiful Soup & adjust tests to conform
-  git cherry-pick -n 88a6f57940f89e141ff66550f59708fc62bde71c
-
-  patch -Np1 -i ../$pkgname-dont-install-tests.patch
+  # Keep code block tags adjacent for Pandoc 3.11's HTML reader
+  patch -Np1 < ../$pkgname-pandoc-code-block-fixture.patch
 }
 
 build() {
