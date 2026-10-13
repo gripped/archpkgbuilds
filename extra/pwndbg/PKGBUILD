@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=pwndbg
-pkgver=2026.07.29
+pkgver=2026.09.15
 pkgrel=1
 pkgdesc='Makes debugging with GDB suck less'
 url='https://github.com/pwndbg/pwndbg'
@@ -51,8 +51,8 @@ optdepends=(
 source=(
   https://github.com/pwndbg/pwndbg/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha512sums=('1373b0fb00e83b96549585c12f0f3e3850aa0f8a638a741ba1b90254c9e1cf5e8d76f4486ea5a39b6630ef47172e9a6e0527e8705ac7526c455de34e55e486a7')
-b2sums=('3f3687c02349a2ee4a7eaeab2c01d935522cd20867cf6e67866048c1cb4396999461a43d528a84b9f3445236d75c11631ff33eddbbd3d95f33ac9466d0ede3f3')
+sha512sums=('a699a6619936f11a9752d48d23c3ae75e048bebf9d1d59744dc6d3996c0abfd91ff181af1180f857c5ad3e321ca70d5cc92e353393001e8f9ede229a103e3a19')
+b2sums=('75ddd2b6bcc81cb8f73a9b14c7d28b04f31d8358a7a5bcff1ae87f98cd5772bab9eeedea151908ab6d3f2777e894d23275df00c64c4f3c195732340caafa9ab0')
 
 prepare() {
   cd ${pkgname}-${pkgver}
@@ -61,8 +61,8 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
-  python -m compileall *.py
-  python -O -m compileall *.py
+  python -m compileall ./*.py
+  python -O -m compileall ./*.py
   python -m build --wheel --no-isolation
 }
 
@@ -71,11 +71,11 @@ package() {
 
   python -m installer --destdir="${pkgdir}" dist/*.whl
 
-  install -d "${pkgdir}/usr/share/pwndbg"
-  cp -r *.py __pycache__ "${pkgdir}/usr/share/pwndbg"
+  install -vd "${pkgdir}/usr/share/pwndbg"
+  cp -r ./*.py __pycache__ "${pkgdir}/usr/share/pwndbg"
 
-  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+  install -vDm 644 LICENSE.md -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
