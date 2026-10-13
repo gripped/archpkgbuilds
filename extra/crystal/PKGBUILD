@@ -6,7 +6,7 @@ pkgname=(
   'crystal'
   'crystal-docs'
 )
-pkgver=1.21.1
+pkgver=1.22.0
 pkgrel=2
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
@@ -16,14 +16,13 @@ depends=(
   'gc'
   'pcre2'
   'libevent'
-  'llvm22-libs'
+  'llvm-libs'
 )
 makedepends=(
   'libxml2'
-  'llvm22'
+  'llvm'
   'asciidoctor'
   'crystal'  # to compile version N we need crystal compiler of N-1 version
-  'llvm22-libs'
 )
 checkdepends=(
   'libyaml'
@@ -41,7 +40,7 @@ optdepends=(
 source=(
   "crystal-${pkgver}.tar.gz::https://github.com/crystal-lang/crystal/archive/${pkgver}.tar.gz"
 )
-sha256sums=('174ad41131a155d0407fb9f66fac4e4baabc5b5d7d030fef9c631a43f553e112')
+sha256sums=('8ed6152d42666777b5019be02168c062b1d7270738613665aa31b7a92433c2a4')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
