@@ -4,8 +4,8 @@
 
 pkgname=android-file-transfer
 _pkgname="${pkgname}-linux"
-pkgver=4.5
-pkgrel=2
+pkgver=4.6
+pkgrel=1
 pkgdesc="Android MTP client with minimalistic UI"
 url="https://whoozle.github.io/android-file-transfer-linux"
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('LGPL-2.1-or-later')
 depends=('qt6-base' 'fuse3' 'hicolor-icon-theme' 'file' 'android-udev' 'taglib')
 makedepends=('cmake' 'qt6-tools' 'ninja')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/whoozle/android-file-transfer-linux/archive/v${pkgver}.tar.gz")
-sha256sums=('0f366a8d659926d3859a8628d4f7592692389b060f67da9a936d19b252b42d96')
+sha256sums=('d8bcbd1ea5854e2653661f7e953c955531eed540ca9aee966ae9bb64149f69e4')
 
 build() {
 	cmake -B build -S "${_pkgname}-${pkgver}" \
