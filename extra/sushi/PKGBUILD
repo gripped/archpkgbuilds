@@ -3,7 +3,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=sushi
-pkgver=51.1
+pkgver=51.2
 pkgrel=1
 pkgdesc="A quick previewer for Nautilus"
 url="https://gitlab.gnome.org/GNOME/sushi"
@@ -42,7 +42,7 @@ groups=(gnome)
 source=(
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('ef9b3314343bf04a0cefdeeeb46b096da963718d300ddda01a4191275ab8084b5b3c23a74e31ca99f5d43d6971b0c3f635be446da5387ff96e46dd2ab2cf54dd')
+b2sums=('f911a6ad955c7cf5e409779051e36c7d6f08e5d65773355bd34b72db245aad7c2316cc4748229f10b2497c8bd46b02d581c3ae86cd0e9129fd90eec63682f7ba')
 
 prepare() {
   cd sushi
