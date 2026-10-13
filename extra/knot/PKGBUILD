@@ -6,7 +6,7 @@
 # Contributor: Otto Sabart <seberm[at]gmail[dot]com>
 
 pkgname=knot
-pkgver=3.5.8
+pkgver=3.6.0
 pkgrel=1
 pkgdesc="High-performance authoritative-only DNS server"
 arch=(x86_64)
@@ -37,7 +37,7 @@ makedepends=(
 )
 backup=('etc/knot/knot.conf')
 source=("git+https://gitlab.nic.cz/knot/knot-dns.git#tag=v${pkgver}?signed")
-b2sums=('58c69e43cbc5793408353e8b42ae47824134b5cb658069a78c12601ea75a42d70aaf2b66525469504602dd2c18ce17d2e4e426b68748183e905396ee19b1621a')
+b2sums=('f54978708189fdeb687ccbc9d864727c764970ed2ebd633a9d36b8c9ece8fa50f3e83a3f23f87f3704175385c0c6787240e0b2ffae43014de4d20e45a5687888')
 validpgpkeys=(742FA4E95829B6C5EAC6B85710BB7AF6FEBBD6AB) # Daniel Salzman <daniel.salzman@nic.cz>
 
 prepare() {
