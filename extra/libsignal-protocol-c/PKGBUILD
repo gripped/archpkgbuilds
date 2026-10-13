@@ -2,11 +2,11 @@
 
 pkgname=libsignal-protocol-c
 pkgver=2.3.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Signal Protocol C Library"
 arch=(x86_64)
-url="https://github.com/WhisperSystems/libsignal-protocol-c"
-license=(GPL3)
+url="https://github.com/signalapp/libsignal-protocol-c"
+license=(GPL-3.0-only)
 depends=(glibc)
 makedepends=(cmake)
 checkdepends=(check openssl)
@@ -15,6 +15,7 @@ sha256sums=('c22e7690546e24d46210ca92dd808f17c3102e1344cd2f9a370136a96d22319d')
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_SHARED_LIBS=ON \
     $( ((CHECKFUNC)) && echo -DBUILD_TESTING=1)
