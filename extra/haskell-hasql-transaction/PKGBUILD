@@ -2,8 +2,8 @@
 
 _hkgname=hasql-transaction
 pkgname=haskell-hasql-transaction
-pkgver=1.0.1.4
-pkgrel=12
+pkgver=1.1
+pkgrel=1
 pkgdesc="A composable abstraction over the retryable transactions for Hasql"
 url="https://github.com/nikita-volkov/hasql-transaction"
 license=('MIT')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-bytestring-tree-builder' 'haskell-contravariant'
 makedepends=('ghc' 'uusi' 'haskell-async' 'haskell-rerebase')
 checkdepends=('postgresql' 'pifpaf')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('15c0d0eb92945cde8d70fb28c0c0050816d8234e1817eefcc7240ac6b94b0ff824f57ff16fd74040976f8edd52c598d757a1ee79a6580b105d51dc45cd7b322f')
+sha512sums=('ee83657a000a28ad83dfd3b43d4eb6ff361991e12d92f0f52dac603ba1aaaddb3b1b28a1c07d742bab105edde5fe0d22b864f3dfde6a16fe49383b8a9c0b6c46')
 
 prepare() {
     cd $_hkgname-$pkgver
