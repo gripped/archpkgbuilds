@@ -3,7 +3,7 @@
 
 pkgname=python-diff-cover
 _pkgname=diff_cover
-pkgver=10.2.0
+pkgver=10.6.0
 pkgrel=1
 pkgdesc="Automatically find diff lines that need test coverage"
 arch=(any)
@@ -18,8 +18,8 @@ depends=(
 )
 makedepends=(
   python-build
+  python-hatchling
   python-installer
-  python-poetry-core
   python-wheel
 )
 checkdepends=(
@@ -33,7 +33,7 @@ checkdepends=(
 )
 optdepends=('python-tomli: for TOML support')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('d4523a154174d490a03c59697db525f6b0458d66eaa7b4d63526e91db52348fded7af70f5f1959d5e4acc6e777961960c9ff82f2607604abc3ef389e39759d07')
+b2sums=('a0bd5e65a0b3806399c768c7125926b569277b6dd3b079a7367a78f73790a687ed4f7a3b2d293a309f82fba8d42a0b8ec740c96e0557008828ad507cd77d20a0')
 
 build() {
   cd $_pkgname-$pkgver
