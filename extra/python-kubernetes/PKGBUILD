@@ -3,7 +3,7 @@
 # Contributor: Ian Beringer <ian@ianberinger.com>
 
 pkgname=python-kubernetes
-pkgver=36.0.3
+pkgver=37.0.1
 pkgrel=1
 license=('Apache-2.0')
 pkgdesc='Python client for the kubernetes API'
@@ -13,6 +13,7 @@ depends=(
   'python'
   'python-adal'
   'python-aiohttp'
+  'python-aiohttp-retry'
   'python-certifi'
   'python-dateutil'
   'python-durationpy'
@@ -23,6 +24,8 @@ depends=(
   'python-urllib3'
   'python-websocket-client'
   'python-yaml'
+  'python-pydantic'
+  'python-typing_extensions'
 )
 makedepends=(
   'python-build'
@@ -35,9 +38,15 @@ checkdepends=(
   'python-pluggy'
   'python-py'
   'python-pytest'
+  'python-pytest-cov'
+  'python-coverage'
+  'python-nose'
+  'python-sphinx'
+  'python-pycodestyle'
+  'autopep8'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('e13720c172db56314e87954c436b18dfe607dd61a1b4309c48eac6d9049f3d79eee2ae288316cf5ec7c081ecab953bb437edf7ee9693e39b1f6122d912bb41ea')
+b2sums=('89854db20a0a5e19ecbc208eed673aedc46be47d2d1814caec161d909266c35a4dff8d3e6ef91d27c19a6dd40b93582744333087444e0d4ec0e8e3944321c38d')
 
 build() {
   cd python-$pkgver
