@@ -3,8 +3,8 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kimageformats
-pkgver=6.30.0
-pkgrel=2
+pkgver=6.31.0
+pkgrel=1
 pkgdesc='Image format plugins for Qt 6'
 arch=(x86_64)
 url='https://develop.kde.org/products/frameworks/'
@@ -32,12 +32,17 @@ optdepends=('imath: EXR format support'
             'openjpeg2: JPEG 2000 format support'
             'openexr: EXR format support')
 groups=(kf6)
-source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f74ea9ede7877afb66f4d7dea567f074bf63d806a824c87a9d9067d05848a316'
-            'SKIP')
-validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
-              90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
-              )
+source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig}
+        find-jxrlib.patch)
+sha256sums=('62a0a92b6b7e117256c0ad115f1c7cc8ef343bb3b80b721cc9240cfa76657c8c'
+            'SKIP'
+            'b00bd96d75669bab54037894279cb25a59ca1351d03740418e322b82bc315039')
+validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB  # David Faure <faure@kde.org>
+              90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1) # Nicolas Fella <nicolas.fella@kde.org>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < find-jxrlib.patch # Fix jxrlib detection
+}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
