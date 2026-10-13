@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=mongo-c-driver
-pkgver=2.4.0
+pkgver=2.5.5
 pkgrel=1
 pkgdesc="A client library written in C for MongoDB"
 arch=(x86_64)
@@ -31,7 +31,7 @@ replaces=(
   libmongoc
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('23cdfbf77da09492ecd5df2133458498543d8a871550a688e63862e5a8cd0235d43489bfa2e792599ab4e81850b3cf0a4fc46c95d318d63513ee26d217923217')
+b2sums=('e920052002463c3a3f9ab858ad82e9355768764d6874d13f13aa7bfacfe24d2fd1d18ecbd5d98e54935d7819c4c5356f0f29f7910bdba9f303c3d78dc2b17807')
 
 build() {
   cd $pkgname-$pkgver
@@ -64,6 +64,10 @@ check() {
     mongoc/MongoDB/handshake/null_args
     mongoc/azure/imds/http/talk
     mongoc/gcp/http/talk
+    # These HTTP tests skip offline, but CTest starts their fixture first.
+    mongoc/http/get
+    mongoc/http/post
+    mongoc/fixtures/simple-http-server-18000
     mongoc/pkg-config/bson-import-static
     mongoc/pkg-config/mongoc-import-shared
     mongoc/pkg-config/mongoc-import-static
