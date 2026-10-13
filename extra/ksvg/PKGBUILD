@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=ksvg
-pkgver=6.30.0
+pkgver=6.31.0
 pkgrel=1
 pkgdesc='Components for handling SVGs'
 arch=(x86_64)
@@ -25,7 +25,7 @@ optdepends=('kirigami: QML bindings'
             'qt6-declarative: QML bindings')
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('7b7aba4e9baa88bfb303977e139e8a105b5cd243443029ee773954307b51eb91'
+sha256sums=('1cacfe9660cdb564edc4c0bf69578776a54001b114ae6fb2a4fa77da25fca2d1'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
