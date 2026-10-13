@@ -2,7 +2,7 @@
 # Contributor: George Woodall <georgewoodall82@gmail.com>
 
 pkgname=tgpt
-pkgver=2.14.0
+pkgver=2.15.0
 pkgrel=1
 pkgdesc="AI Chatbots in terminal without needing API keys"
 arch=(x86_64)
@@ -15,7 +15,7 @@ makedepends=(
 )
 options=(!lto)
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('ac93cda3a27420bb0c3fb26b607e43876160cc1256780234be1dddafc069f2a6a55c32cda3ddcd31ccefea5a5300e3cb4308697d3c44f6f2ff66f24673d4c83b')
+b2sums=('18d718425041c010f59e01278ff4d0853f007a16cba411109431e3d0140d33333c71118d6d29c4c0afd687e51770d27b077a576b85a7459a9f7cbabbe96cda7e')
 
 prepare() {
   cd $pkgname-$pkgver
