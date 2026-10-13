@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kwallet
-pkgver=6.30.0
+pkgver=6.31.0
 pkgrel=1
 pkgdesc='Secure and unified container for user passwords'
 arch=(x86_64)
@@ -36,7 +36,7 @@ optdepends=('kwalletmanager: Configuration GUI')
 provides=(org.freedesktop.secrets)
 groups=(kf6)
 source=(https://download.kde.org/stable/frameworks/${pkgver%.*}/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('93cb9c1df2630807c04bf8c30312e75ae3bb466c77dd9b29bb2c752e71d34a26'
+sha256sums=('ce8915f33c1d3a57d738d83c8082c3a76dcc29a1ddd989bee4ea3961e55166e6'
             'SKIP')
 validpgpkeys=(53E6B47B45CEA3E0D5B7457758D0EE648A48B3BB # David Faure <faure@kde.org>
               90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1 # Nicolas Fella <nicolas.fella@kde.org>
