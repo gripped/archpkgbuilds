@@ -3,7 +3,7 @@
 # Contributor: Joaquim Monteiro <joaquim.monteiro@protonmail.com>
 
 pkgname=mvt
-pkgver=2026.10.5
+pkgver=2026.10.12
 pkgrel=1
 pkgdesc="Mobile Verification Toolkit, a forensics tool looking for signs of device compromise"
 arch=(any)
@@ -42,8 +42,8 @@ makedepends=(
   'python-wheel'
 )
 source=("mvt-${pkgver}.tar.gz::https://github.com/mvt-project/mvt/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('ee198dd4adff8484a92f08ddc584180c8b23f4510ac20af173ab6eda96ff47408372a723a713175dd98613c629d7eb163123aa6fcff4dc0f74f1d13c4d2fdf1c')
-b2sums=('2ba0778bbecf1e3c49517df2458ed452f65be97a042a64ac21ba5941ad9325366f2cd90b4ba5a65e8de2f1008d233cba28451fca2b70dbbce3de77109e8a439b')
+sha512sums=('c170459a06eea585f243cbf9339674809e37cb7c74d42e22584205824cb034bf163820ce0d8824a8a48c4f75e2c24532a1eb15ca3c107f34375dd79b812336f1')
+b2sums=('4da4c155df5bd6f629acb36fe41ae8cbd04299dfcc0beb4e5f9f8f085ce16a31a728c3025ee5374272a6838a66f0e1275bb2c9ff29ad8dd736fcaac058fb0ff5')
 
 build() {
   cd "mvt-${pkgver}"
