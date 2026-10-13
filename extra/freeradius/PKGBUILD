@@ -4,7 +4,7 @@
 
 pkgname=freeradius
 pkgver=3.2.10
-pkgrel=1
+pkgrel=3
 pkgdesc='The premier open source RADIUS server'
 arch=('x86_64')
 url='https://freeradius.org/'
@@ -44,6 +44,7 @@ build() {
     --sysconfdir=/etc \
     --libdir=/usr/lib/freeradius \
     --localstatedir=/var \
+    --with-unixodbc-dir=/usr/lib \
     --enable-heimdal-krb5 \
     --enable-reproducible-builds \
     --without-rlm_python \
