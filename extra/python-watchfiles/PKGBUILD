@@ -2,7 +2,7 @@
 # Contributor: @RubenKelevra <cyrond@gmail.com>
 
 pkgname=python-watchfiles
-pkgver=1.2.0
+pkgver=1.3.0
 pkgrel=1
 pkgdesc='Simple, modern and high performance file watching and code reload in Python'
 arch=(x86_64)
@@ -15,6 +15,7 @@ depends=(
   python-anyio
 )
 makedepends=(
+  git
   python-build
   python-installer
   python-maturin
@@ -25,22 +26,25 @@ checkdepends=(
   python-pytest-mock
   python-pytest-timeout
 )
-source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('5e1de15036e911588293024dcc6c95e752517e23f0023537841074e4eeb9a937c037d5187788c0c9de30350c6a70b324f452b81d11b9a0bab5d875e527aac8b7')
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('31f089f939be16a8ace3321134ee4f73e24545529f2dea89f05d43d6190f011594597f36e211391659ca27bf893e08c94c47da2920d48db8f57d0ac2b735e041')
 
 prepare() {
-  cd ${pkgname#python-}-$pkgver
+  cd ${pkgname#python-}
+  # Fix test collection with pytest >= 9.1
+  git cherry-pick -n fe87d8a3e1cceb7979ca97e94f049ffcfa57c3bf
+
   # This prevents tests from detecting the watchfiles module.
   rm -v tests/__init__.py
 }
 
 build() {
-  cd ${pkgname#python-}-$pkgver
+  cd ${pkgname#python-}
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${pkgname#python-}-$pkgver
+  cd ${pkgname#python-}
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   # Don't add CWD to PYTHONPATH, the watchfiles package in CWD will take
@@ -49,7 +53,7 @@ check() {
 }
 
 package() {
-  cd ${pkgname#python-}-$pkgver
+  cd ${pkgname#python-}
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }
