@@ -2,7 +2,7 @@
 # Contributor: Blair Bonnett <blair.bonnett@gmail.com>
 
 pkgname=python-scikit-build-core
-pkgver=1.0.3
+pkgver=1.1.1
 pkgrel=1
 pkgdesc='Next generation Python CMake adaptor and Python API for plugins'
 arch=(any)
@@ -35,7 +35,7 @@ checkdepends=(
   python-virtualenv
 )
 source=("$url/archive/v$pkgver/${pkgname#python-}-$pkgver.tar.gz")
-b2sums=('89ba46880bc37fa90b6d9ef637c6550b94e7fe64074c5675ff6d0a0a1f4e99a99f08b13b1bb39da725964e50f4d53bdaf441c8e30f351176ca08e252e31a488f')
+b2sums=('4e4a054a97c58015ac0491157325cda92dbd0ab299b23af8a10443be0f78b26eead6cf1b63cd74e76c7e9e58d779a9188ad8480a6a5b11c86d7b1399f6c690d4')
 
 build() {
   cd ${pkgname#python-}-$pkgver
