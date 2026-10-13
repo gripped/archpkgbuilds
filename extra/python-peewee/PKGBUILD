@@ -5,7 +5,7 @@
 # Contributor: juantascon
 
 pkgname=python-peewee
-pkgver=4.5.1
+pkgver=4.5.2
 pkgrel=1
 pkgdesc="A small, expressive orm"
 arch=('x86_64')
@@ -45,7 +45,7 @@ optdepends=(
   'python-pymysql: for MySQL database support'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('e101a69e51d461c359655c87a5d9286c2dd4ca8944b021cc7e22d0531c507ba5801785353590db9ed70eac8902f9aa49e150490b15ed1d3a7ee1007e7c51de0d')
+b2sums=('443adb5429b9a8ca99dddef2b198153a16e5c0fe781f037bc02929658c6832d1057d6283e823a60f740268dec3839ec6772e0839a603345b19615f40dc2fe780')
 
 build() {
   cd ${pkgname#python-}-$pkgver
