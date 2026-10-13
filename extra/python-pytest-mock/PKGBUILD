@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-mock
-pkgver=3.15.1
+pkgver=3.16.0
 pkgrel=1
 pkgdesc="Thin-wrapper around the mock package for easier use with py.test"
 arch=('any')
@@ -22,7 +22,7 @@ makedepends=(
 )
 checkdepends=('python-pytest-asyncio')
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('d30c43bedc60955a53ae214a5aaecd2d18e61dbcabc34fe838b35fafd79370b15f633959a2c32c060865108ace6abf2f439a160507d3da93d4bdd2264ded36ce')
+b2sums=('6bbf3b9e3a9b08646ebee6f6c8e7727797b472935c2dbed5fb892fbeea380e8d7150745e891de2d297bd4cc7c0a2f00acc8037da39efc5a9f1343613bf5e6f69')
 
 prepare() {
   cd ${pkgname#python-}
