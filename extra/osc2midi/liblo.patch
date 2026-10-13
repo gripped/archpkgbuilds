@@ -1,0 +1,33 @@
+diff -ruN osc2midi-0.2.5.orig/src/oscserver.c osc2midi-0.2.5/src/oscserver.c
+--- osc2midi-0.2.5.orig/src/oscserver.c	2026-10-13 02:15:19.157651132 +0200
++++ osc2midi-0.2.5/src/oscserver.c	2026-10-13 02:16:52.877678045 +0200
+@@ -16,9 +16,9 @@
+ void error(int num, const char *m, const char *path);
+
+ int mon_handler(const char *path, const char *types, lo_arg ** argv,
+-                int argc, void *data, void *user_data);
++                int argc, lo_message data, void *user_data);
+ int msg_handler(const char *path, const char *types, lo_arg ** argv,
+-                int argc, void *data, void *user_data);
++                int argc, lo_message data, void *user_data);
+
+
+ lo_server_thread start_osc_server(char* port, CONVERTER* data)
+@@ -54,7 +54,7 @@
+ /* catch any incoming messages and display them. returning 1 means that the
+  * message has not been fully handled and the server should try other methods */
+ int mon_handler(const char *path, const char *types, lo_arg ** argv,
+-                int argc, void *data, void *user_data)
++                int argc, lo_message data, void *user_data)
+ {
+     int i;
+
+@@ -76,7 +76,7 @@
+
+ //this handles the osc to midi conversions
+ int msg_handler(const char *path, const char *types, lo_arg ** argv,
+-                int argc, void *data, void *user_data)
++                int argc, lo_message data, void *user_data)
+ {
+     int i,j,n;
+     uint8_t first = 1;
