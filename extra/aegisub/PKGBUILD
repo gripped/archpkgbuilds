@@ -3,8 +3,8 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=aegisub
-pkgver=3.4.2
-pkgrel=10
+pkgver=3.5.0
+pkgrel=2
 pkgdesc='A general-purpose subtitle editor with ASS/SSA support'
 arch=(x86_64)
 url=http://www.aegisub.org
@@ -15,7 +15,9 @@ depends=(
   curl
   fftw
   fontconfig
+  glib2
   glibc
+  gtk3
   hicolor-icon-theme
   hunspell
   icu
@@ -23,6 +25,8 @@ depends=(
   libffms2.so
   libgcc
   libgl
+  libportal
+  libportal-gtk3
   libpulse
   libstdc++
   uchardet
@@ -39,7 +43,7 @@ makedepends=(
 )
 source=(git+https://github.com/TypesettingTools/Aegisub.git#tag=v${pkgver})
 #validpgpkeys=(6DD9508BCB1CE31AF295FF9B6A889F50A8B00C08) # Thomas Goyne <plorkyeran@aegisub.org>
-b2sums=('9d46d4c296e1d52ffb1abbd2e3ac48b3329618706fad4e76928e733b15d61e3d352b50d0514426b0ab62dadc5ceaf234028a31dec65e10e5b41b0086882ca25b')
+b2sums=('07071ea6f0557dd659d741d560afab157c471c48999e27f29bff3ed9033be58a995a0936e4487649760c40c00afee8e0006e90cce4036f65fea4def727daa7d3')
 
 prepare() {
   cd Aegisub
@@ -63,6 +67,15 @@ build() {
 
 package() {
   meson install -C build --destdir "${pkgdir}"
+  rm -rf "${pkgdir}"/usr/{include,share}/luajit-2.1
+  rm -f "${pkgdir}"/usr/lib/libluajit-5.1.a
+  rm -f "${pkgdir}"/usr/lib/pkgconfig/luajit.pc
+  rm -rf "${pkgdir}"/usr/share/licenses/luajit
+  rm -f "${pkgdir}"/usr/share/man/man1/luajit.1.gz
+  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/lib/pkgconfig
+  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/lib
+  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/share/man/man1
+  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/share/man
   install -dm 755 "${pkgdir}"/usr/share/aegisub/automation/include
   cp -dr --no-preserve=ownership Aegisub/automation/{autoload,demos} "${pkgdir}"/usr/share/aegisub/automation/
   cp -dr --no-preserve=ownership Aegisub/automation/include/{aegisub,*.lua} "${pkgdir}"/usr/share/aegisub/automation/include/
