@@ -4,8 +4,8 @@
 # Contributor: Filippo 'JoeyrS' Civiletti <joeyrs@gmail.com>
 
 pkgname=armagetronad
-pkgver=0.2.9.3.0
-pkgrel=3
+pkgver=0.2.9.3.1
+pkgrel=1
 pkgdesc='A Tron Clone in 3D'
 arch=('x86_64')
 url='http://armagetronad.net/'
@@ -14,7 +14,7 @@ license=('GPL-2.0-only')
 options=('!buildflags')
 depends=('sdl_image' 'libxml2' 'sdl_mixer' 'ftgl' 'hicolor-icon-theme')
 source=("https://launchpad.net/armagetronad/0.2.9/${pkgver}/+download/armagetronad-${pkgver}.tbz")
-sha256sums=('9e0d27048ecfc963c8b07dc31177040561f221ca37e80af832b946b6e0a23fe0')
+sha256sums=('0ff6273cbe552dadbfb682c015c2fef0c999e0bb264e2b3d17a85bcddb6caf3d')
 
 prepare() {
   cd "$srcdir/armagetronad-$pkgver"
