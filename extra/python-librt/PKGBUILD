@@ -1,7 +1,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-librt
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='Mypyc runtime library'
 arch=('x86_64')
@@ -19,7 +19,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('d382f37f4f56689dbdf17d4ce49e07b20e8616d2476fa7f56f210e1c73a736395be6d464f60aade2ba8b460cdb02775da85a06642a31ebaa77a88dbbaaeb61d4')
+b2sums=('8e488a0dfd9035a7ae5d8e61bcff1873f1be56bce28c287925065379f721410de2df924992dee3f55ff4f84d901d9bee777087cabb07cdfd067b2fe3e3ea3722')
 
 prepare() {
   cd ${pkgname#python-}-$pkgver
