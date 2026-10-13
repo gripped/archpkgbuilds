@@ -3,7 +3,7 @@
 # Contributor: TheEdgeOfRage on AUR
 
 pkgname=python-awscrt
-pkgver=0.36.4
+pkgver=0.37.0
 pkgrel=1
 pkgdesc='A common runtime for AWS Python projects'
 arch=(x86_64)
@@ -32,7 +32,7 @@ makedepends=(
 )
 checkdepends=(python-websockets)
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-b2sums=('1cca041d95048996c58055904dc7db18802643f7027643b02da3f80bba18aec38fb418d6453350ed0a152c7cb789427262ea24332f5a9ad90b29e501fa62dace')
+b2sums=('501ccdf9f36ccbccad91d10bde250d3be030f371be64ad9ee11329041eda05661159b9fa24de6fbfe0f31df342f76b715fad4ebd8296e98e994e956fa10bdd8e')
 
 prepare() {
   cd $pkgname
