@@ -6,7 +6,7 @@
 
 _pyname=pypdf
 pkgname=python-$_pyname
-pkgver=6.20.0
+pkgver=6.20.1
 pkgrel=1
 pkgdesc='Python library for manipulating pages of PDF files'
 arch=(any)
@@ -19,7 +19,7 @@ optdepends=(python-cryptography
             python-pillow)
 _archive="$_pyname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('fa58cc21ee8333bd071c1c99fbecf68426fc7cba24b689092a604d66b4b4cbe7')
+sha256sums=('cb1a9d1d154f215406be303a91ed0bf1009da43e79b4c61d790a5ddfbc96285c')
 
 prepare() {
 	cd "$_archive"
