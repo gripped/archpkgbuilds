@@ -9,7 +9,7 @@ pkgname=(
   mutter-devkit
   mutter-docs
 )
-pkgver=51.0
+pkgver=51.1
 pkgrel=1
 pkgdesc="Window manager and compositor for GNOME"
 url="https://gitlab.gnome.org/GNOME/mutter"
@@ -89,7 +89,7 @@ source=(
   "git+$url.git#tag=${pkgver/[a-z]/.&}"
   "git+https://gitlab.gnome.org/GNOME/gvdb.git#commit=b54bc5da25127ef416858a3ad92e57159ff565b3"
 )
-b2sums=('3c7e7159e70b09b91325335c4d13bb0ff51a161e430a0a63c65f380d5d31927cc8812cfb32b38b4964741c65c34ba12decc81274c7f556e7225d4255778689d8'
+b2sums=('0064caf6a85d9cb42d9544ad2dab31ef158a957d20d5a99aabe27f40986f128714f97a5cbe970c1aba1cb9c86f0b94f2f279a22072bbfefb9c0c7e715d7a411f'
         'f989bc2ceb52aad3c6a23c439df3bbc672bc11d561a247d19971d30cc85ed5d42295de40f8e55b13404ed32aa44f12307c9f5b470f2e288d1c9c8329255c43bf')
 
 prepare() {
