@@ -1,0 +1,25 @@
+From caa20be55e4482ce745ed2a48045f4bdab0e07c3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 13 Oct 2026 21:45:33 +0200
+Subject: [PATCH] Update XML URLs
+
+The RadioBrowser URL has been changed. Use https for both sources.
+---
+ src/applet.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/applet.h b/src/applet.h
+index e23f722..8113eeb 100644
+--- a/src/applet.h
++++ b/src/applet.h
+@@ -66,8 +66,8 @@
+ #define APPLET_SQLITE_DB_FILENAME "streamer.sqlite"
+ #define APPLET_SQLITE_DB_VERSION "1"
+ #define DEFAULT_NOTIFICATION_DURATION 5
+-#define ICECAST_URL_XML "http://dir.xiph.org/yp.xml"
+-#define RBROWSER_URL_XML "http://www.radio-browser.info/webservice/xml/stations"
++#define ICECAST_URL_XML "https://dir.xiph.org/yp.xml"
++#define RBROWSER_URL_XML "https://de1.api.radio-browser.info/xml/stations"
+ #define DNLD_TMP_FILE "dnld.xml"
+ // GSettings
+ #define APPLET_GSETTINGS_SCHEMA "org.mate.panel.applet.StreamerApplet"
