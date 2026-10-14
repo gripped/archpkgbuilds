@@ -4,7 +4,7 @@
 pkgname=imagemagick
 pkgver=7.1.2.33
 _pkgver=${pkgver%.*}-${pkgver##*.}
-pkgrel=1
+pkgrel=3
 pkgdesc='An image viewing/manipulation program'
 url='https://www.imagemagick.org/'
 arch=(x86_64)
@@ -73,6 +73,11 @@ replaces=(imagemagick-doc)
 source=(git+https://github.com/ImageMagick/ImageMagick#tag=$_pkgver)
 sha256sums=('e89052ac977ff3bbdfe425e15581df4d53aad8b6fd60f91d763451efeca44093')
 validpgpkeys=(C305FEBD4C4081119CB3C12CE640E67B2C7F96AA)  # Dirk Lemstra <dirk@lemstra.org>
+
+prepare() {
+  cd ImageMagick
+  git cherry-pick -n 2c1021b8a44c282e3da06754ed6985b43d33c244 # Fix mogrify
+}
 
 build() {
   cd ImageMagick
