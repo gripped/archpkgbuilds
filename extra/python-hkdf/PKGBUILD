@@ -4,13 +4,13 @@
 
 pkgname='python-hkdf'
 pkgver=0.0.3
-pkgrel=15
+pkgrel=16
 pkgdesc="HMAC-based Extract-and-Expand Key Derivation Function"
 arch=('any')
 url="https://github.com/casebeer/python-hkdf"
 license=('BSD-2-Clause')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 _name=${pkgname#python-}
 source=(${pkgname}-${pkgver}.tar.gz::"https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz"
         "${pkgname}-tests.py::https://raw.githubusercontent.com/casebeer/python-hkdf/cc3c9dbf0a271b27a7ac5cd04cc1485bbc3b4307/tests.py"
@@ -29,7 +29,7 @@ prepare() {
 
 build() {
 	cd "${_name}-${pkgver}"
-	python setup.py build
+	python -m build --wheel --no-isolation
 }
 
 check() {
@@ -39,6 +39,6 @@ check() {
 
 package() {
 	cd "${_name}-${pkgver}"
-	python setup.py install --root="${pkgdir}/" --optimize=1 --skip-build
+	python -m installer --destdir="${pkgdir}" dist/*.whl
 	install -vDm 644 ../${pkgname}-LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
