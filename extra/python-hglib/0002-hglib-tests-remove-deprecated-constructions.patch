@@ -1,7 +1,47 @@
-diff -aur python-hglib-2.6.2.old/tests/test-annotate.py python-hglib-2.6.2/tests/test-annotate.py
---- python-hglib-2.6.2.old/tests/test-annotate.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-annotate.py	2024-04-10 11:43:35.999240985 +0200
-@@ -8,9 +8,9 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Mathias De Mare <mathias.de_mare@nokia.com>
+Date: Thu, 9 Mar 2023 14:00:02 +0100
+Subject: [PATCH 2/2] hglib tests: remove deprecated constructions
+
+This mostly removes usage of 'assertEquals' (replaced with 'assertEqual'),
+as well as opening files without closing them
+(fixed using a 'with' statement).
+
+(cherry picked from commit 4fb0a7c72715147e3798734fd44bb659fd73242d)
+---
+ tests/test_annotate.py          |  8 +++---
+ tests/test_bookmarks.py         |  8 +++---
+ tests/test_branch.py            | 12 ++++----
+ tests/test_branches.py          |  4 +--
+ tests/test_clone.py             |  2 +-
+ tests/test_commit.py            | 14 ++++-----
+ tests/test_context.py           | 48 +++++++++++++++----------------
+ tests/test_copy.py              |  4 +--
+ tests/test_diff.py              | 13 +++++----
+ tests/test_encoding.py          |  2 +-
+ tests/test_grep.py              | 30 +++++++++----------
+ tests/test_heads.py             |  6 ++--
+ tests/test_import.py            |  7 +++--
+ tests/test_log.py               | 12 ++++----
+ tests/test_manifest.py          |  4 +--
+ tests/test_merge.py             |  6 ++--
+ tests/test_outgoing_incoming.py | 18 ++++++------
+ tests/test_parents.py           |  6 ++--
+ tests/test_paths.py             |  6 ++--
+ tests/test_pull.py              |  2 +-
+ tests/test_push.py              |  2 +-
+ tests/test_resolve.py           |  4 +--
+ tests/test_status.py            |  6 ++--
+ tests/test_summary.py           | 20 ++++++-------
+ tests/test_tags.py              |  2 +-
+ tests/test_update.py            | 51 +++++++++++++++++----------------
+ 26 files changed, 151 insertions(+), 146 deletions(-)
+
+diff --git a/tests/test_annotate.py b/tests/test_annotate.py
+index eca9d60..829bc73 100644
+--- a/tests/test_annotate.py
++++ b/tests/test_annotate.py
+@@ -8,9 +8,9 @@ class test_annotate(common.basetest):
          self.append('a', 'a\n')
          rev, node1 = self.client.commit(b('second'))
  
@@ -13,7 +53,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-annotate.py python-hglib-2.6.2/tests
              self.client.annotate(
                  b('a'), user=True, file=True,
                  number=True, changeset=True, line=True, verbose=True)),
-@@ -22,11 +22,11 @@
+@@ -22,11 +22,11 @@ class test_annotate(common.basetest):
          rev, node0 = self.client.commit(b('first'), addremove=True)
          self.append('b', 'b\n')
          rev, node1 = self.client.commit(b('second'), addremove=True)
@@ -27,10 +67,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-annotate.py python-hglib-2.6.2/tests
 -        self.assertEquals(list(self.client.annotate(b('a'))),
 +        self.assertEqual(list(self.client.annotate(b('a'))),
                            [(b('0'), b('a: b'))])
-diff -aur python-hglib-2.6.2.old/tests/test-bookmarks.py python-hglib-2.6.2/tests/test-bookmarks.py
---- python-hglib-2.6.2.old/tests/test-bookmarks.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-bookmarks.py	2024-04-10 11:43:35.999240985 +0200
-@@ -3,7 +3,7 @@
+diff --git a/tests/test_bookmarks.py b/tests/test_bookmarks.py
+index 02f641b..d73e027 100644
+--- a/tests/test_bookmarks.py
++++ b/tests/test_bookmarks.py
+@@ -3,7 +3,7 @@ from hglib.util import b
  
  class test_bookmarks(common.basetest):
      def test_empty(self):
@@ -39,7 +80,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-bookmarks.py python-hglib-2.6.2/test
  
      def test_basic(self):
          self.append('a', 'a')
-@@ -12,15 +12,15 @@
+@@ -12,15 +12,15 @@ class test_bookmarks(common.basetest):
          rev1, node1 = self.client.commit(b('second'))
  
          self.client.bookmark(b('zero'), rev0)
@@ -58,31 +99,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-bookmarks.py python-hglib-2.6.2/test
 -    #    self.assertEquals(self.client.bookmarks(),
 +    #    self.assertEqual(self.client.bookmarks(),
      #                      ([('s pace', 0, self.rev0.node[:12])], -1))
-diff -aur python-hglib-2.6.2.old/tests/test-branches.py python-hglib-2.6.2/tests/test-branches.py
---- python-hglib-2.6.2.old/tests/test-branches.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-branches.py	2024-04-10 11:43:35.999240985 +0200
-@@ -4,7 +4,7 @@
- 
- class test_branches(common.basetest):
-     def test_empty(self):
--        self.assertEquals(self.client.branches(), [])
-+        self.assertEqual(self.client.branches(), [])
- 
-     def test_basic(self):
-         self.append('a', 'a')
-@@ -19,7 +19,7 @@
-             r = self.client.log(r)[0]
-             expected.append((r.branch, int(r.rev), r.node[:12]))
- 
--        self.assertEquals(branches, expected)
-+        self.assertEqual(branches, expected)
- 
-     def test_active_closed(self):
-         pass
-diff -aur python-hglib-2.6.2.old/tests/test-branch.py python-hglib-2.6.2/tests/test-branch.py
---- python-hglib-2.6.2.old/tests/test-branch.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-branch.py	2024-04-10 11:43:35.999240985 +0200
-@@ -4,17 +4,17 @@
+diff --git a/tests/test_branch.py b/tests/test_branch.py
+index f456bd8..e3216a0 100644
+--- a/tests/test_branch.py
++++ b/tests/test_branch.py
+@@ -4,17 +4,17 @@ from hglib.util import b
  
  class test_branch(common.basetest):
      def test_empty(self):
@@ -104,7 +125,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-branch.py python-hglib-2.6.2/tests/t
                            [(rev.branch, int(rev.rev), rev.node[:12])])
  
      def test_reset_with_name(self):
-@@ -22,7 +22,7 @@
+@@ -22,7 +22,7 @@ class test_branch(common.basetest):
  
      def test_reset(self):
          self.client.branch(b('foo'))
@@ -113,17 +134,40 @@ diff -aur python-hglib-2.6.2.old/tests/test-branch.py python-hglib-2.6.2/tests/t
  
      def test_exists(self):
          self.append('a', 'a')
-@@ -42,5 +42,5 @@
+@@ -42,5 +42,5 @@ class test_branch(common.basetest):
  
          self.assertRaises(hglib.error.CommandError,
                            self.client.branch, b('default'))
 -        self.assertEquals(self.client.branch(b('default'), force=True),
 +        self.assertEqual(self.client.branch(b('default'), force=True),
                            b('default'))
-diff -aur python-hglib-2.6.2.old/tests/test-clone.py python-hglib-2.6.2/tests/test-clone.py
---- python-hglib-2.6.2.old/tests/test-clone.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-clone.py	2024-04-10 11:43:35.999240985 +0200
-@@ -10,7 +10,7 @@
+diff --git a/tests/test_branches.py b/tests/test_branches.py
+index bac9115..16876aa 100644
+--- a/tests/test_branches.py
++++ b/tests/test_branches.py
+@@ -4,7 +4,7 @@ from hglib.util import b
+ 
+ class test_branches(common.basetest):
+     def test_empty(self):
+-        self.assertEquals(self.client.branches(), [])
++        self.assertEqual(self.client.branches(), [])
+ 
+     def test_basic(self):
+         self.append('a', 'a')
+@@ -19,7 +19,7 @@ class test_branches(common.basetest):
+             r = self.client.log(r)[0]
+             expected.append((r.branch, int(r.rev), r.node[:12]))
+ 
+-        self.assertEquals(branches, expected)
++        self.assertEqual(branches, expected)
+ 
+     def test_active_closed(self):
+         pass
+diff --git a/tests/test_clone.py b/tests/test_clone.py
+index 6538659..e3d714f 100644
+--- a/tests/test_clone.py
++++ b/tests/test_clone.py
+@@ -10,7 +10,7 @@ class test_clone(common.basetest):
          cloned = hglib.clone(b('.'), b('cloned'))
          self.assertRaises(ValueError, cloned.log)
          cloned.open()
@@ -132,10 +176,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-clone.py python-hglib-2.6.2/tests/te
  
      def test_clone_uncompressed(self):
          hglib.clone(b('.'), b('cloned'), uncompressed=True)
-diff -aur python-hglib-2.6.2.old/tests/test-commit.py python-hglib-2.6.2/tests/test-commit.py
---- python-hglib-2.6.2.old/tests/test-commit.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-commit.py	2024-04-10 11:43:35.999240985 +0200
-@@ -8,7 +8,7 @@
+diff --git a/tests/test_commit.py b/tests/test_commit.py
+index a6fe52d..f338911 100644
+--- a/tests/test_commit.py
++++ b/tests/test_commit.py
+@@ -8,7 +8,7 @@ class test_commit(common.basetest):
          rev, node = self.client.commit(b('first'), addremove=True,
                                         user=b('foo'))
          rev = self.client.log(node)[0]
@@ -144,7 +189,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-commit.py python-hglib-2.6.2/tests/t
  
      def test_no_user(self):
          self.append('a', 'a')
-@@ -24,10 +24,10 @@
+@@ -24,10 +24,10 @@ class test_commit(common.basetest):
          revclose = self.client.commit(b('closing foo'), closebranch=True)
          rev0, rev1, revclose = self.client.log([node0, node1, revclose[1]])
  
@@ -157,7 +202,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-commit.py python-hglib-2.6.2/tests/t
                            [(revclose.branch, int(revclose.rev),
                              revclose.node[:12]),
                             (rev0.branch, int(rev0.rev), rev0.node[:12])])
-@@ -44,7 +44,7 @@
+@@ -44,7 +44,7 @@ class test_commit(common.basetest):
              b('first'), addremove=True,
              date=now.isoformat(' ').encode('latin-1'))
  
@@ -166,7 +211,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-commit.py python-hglib-2.6.2/tests/t
  
      def test_amend(self):
          self.append('a', 'a')
-@@ -53,12 +53,12 @@
+@@ -53,12 +53,12 @@ class test_commit(common.basetest):
              b('first'), addremove=True,
              date=now.isoformat(' ').encode('latin-1'))
  
@@ -182,10 +227,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-commit.py python-hglib-2.6.2/tests/t
          self.assertEqual(1, len(self.client.log()))
  
      def test_nul_injection(self):
-diff -aur python-hglib-2.6.2.old/tests/test-context.py python-hglib-2.6.2/tests/test-context.py
---- python-hglib-2.6.2.old/tests/test-context.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-context.py	2024-04-10 11:43:35.999240985 +0200
-@@ -21,44 +21,44 @@
+diff --git a/tests/test_context.py b/tests/test_context.py
+index b0826f1..c97df5f 100644
+--- a/tests/test_context.py
++++ b/tests/test_context.py
+@@ -21,44 +21,44 @@ class test_context(common.basetest):
  
          ctx = self.client[node0]
  
@@ -230,14 +276,13 @@ diff -aur python-hglib-2.6.2.old/tests/test-context.py python-hglib-2.6.2/tests/
 -        self.assertEquals([int(c) for c in ctx.parents()], [-1])
 -        self.assertEquals(int(ctx.p1()), -1)
 -        self.assertEquals(int(ctx.p2()), -1)
--
--        self.assertEquals([int(c) for c in ctx.children()], [1])
--        self.assertEquals([int(c) for c in ctx.descendants()], [0, 1])
--        self.assertEquals([int(c) for c in ctx.ancestors()], [0])
 +        self.assertEqual([int(c) for c in ctx.parents()], [-1])
 +        self.assertEqual(int(ctx.p1()), -1)
 +        self.assertEqual(int(ctx.p2()), -1)
-+
+ 
+-        self.assertEquals([int(c) for c in ctx.children()], [1])
+-        self.assertEquals([int(c) for c in ctx.descendants()], [0, 1])
+-        self.assertEquals([int(c) for c in ctx.ancestors()], [0])
 +        self.assertEqual([int(c) for c in ctx.children()], [1])
 +        self.assertEqual([int(c) for c in ctx.descendants()], [0, 1])
 +        self.assertEqual([int(c) for c in ctx.ancestors()], [0])
@@ -253,7 +298,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-context.py python-hglib-2.6.2/tests/
  
      def test_construction(self):
          self.append('a', 'a')
-@@ -67,11 +67,11 @@
+@@ -67,11 +67,11 @@ class test_context(common.basetest):
  
          # from client.revision
          ctx = context.changectx(self.client, tip)
@@ -267,10 +312,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-context.py python-hglib-2.6.2/tests/
  
      def test_in_keyword(self):
          """
-diff -aur python-hglib-2.6.2.old/tests/test-copy.py python-hglib-2.6.2/tests/test-copy.py
---- python-hglib-2.6.2.old/tests/test-copy.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-copy.py	2024-04-10 11:43:35.999240985 +0200
-@@ -8,10 +8,10 @@
+diff --git a/tests/test_copy.py b/tests/test_copy.py
+index 6e2f125..e07ac7d 100644
+--- a/tests/test_copy.py
++++ b/tests/test_copy.py
+@@ -8,10 +8,10 @@ class test_copy(common.basetest):
          self.client.commit(b('first'), addremove=True)
  
          self.assertTrue(self.client.copy(b('a'), b('b')))
@@ -283,10 +329,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-copy.py python-hglib-2.6.2/tests/tes
                            [(b('A'), b('b')), (b('A'), b('c'))])
  
      # hg returns 0 even if there were warnings
-diff -aur python-hglib-2.6.2.old/tests/test-diff.py python-hglib-2.6.2/tests/test-diff.py
---- python-hglib-2.6.2.old/tests/test-diff.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-diff.py	2024-04-10 11:43:35.999240985 +0200
-@@ -11,8 +11,8 @@
+diff --git a/tests/test_diff.py b/tests/test_diff.py
+index 4f4fcc8..3c07ee9 100644
+--- a/tests/test_diff.py
++++ b/tests/test_diff.py
+@@ -11,8 +11,8 @@ class test_diff(common.basetest):
  @@ -0,0 +1,1 @@
  +a
  """)
@@ -297,7 +344,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-diff.py python-hglib-2.6.2/tests/tes
          rev0, node0 = self.client.commit(b('first'))
          diff2 = b("""diff -r 000000000000 -r """) + node0[:12] + b(""" a
  --- /dev/null
-@@ -20,7 +20,7 @@
+@@ -20,7 +20,7 @@ class test_diff(common.basetest):
  @@ -0,0 +1,1 @@
  +a
  """)
@@ -306,7 +353,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-diff.py python-hglib-2.6.2/tests/tes
          self.append('a', 'a\n')
          rev1, node1 = self.client.commit(b('second'))
          diff3 = b("""diff -r """) + node0[:12] + b(""" a
-@@ -30,7 +30,7 @@
+@@ -30,7 +30,7 @@ class test_diff(common.basetest):
   a
  +a
  """)
@@ -315,7 +362,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-diff.py python-hglib-2.6.2/tests/tes
          diff4 = b("""diff -r """) + node0[:12] + b(" -r ") + node1[:12] + b(
              """ a
  --- a/a
-@@ -39,7 +39,7 @@
+@@ -39,9 +39,10 @@ class test_diff(common.basetest):
   a
  +a
  """)
@@ -324,19 +371,25 @@ diff -aur python-hglib-2.6.2.old/tests/test-diff.py python-hglib-2.6.2/tests/tes
                                                    nodates=True))
  
      def test_basic_plain(self):
-diff -aur python-hglib-2.6.2.old/tests/test-encoding.py python-hglib-2.6.2/tests/test-encoding.py
---- python-hglib-2.6.2.old/tests/test-encoding.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-encoding.py	2024-04-10 11:43:35.999240985 +0200
-@@ -5,4 +5,4 @@
+-        open('.hg/hgrc', 'a').write('[defaults]\ndiff=--git\n')
++        with open('.hg/hgrc', 'a') as f:
++            f.write('[defaults]\ndiff=--git\n')
+         self.test_basic()
+diff --git a/tests/test_encoding.py b/tests/test_encoding.py
+index 6385b37..186c0e3 100644
+--- a/tests/test_encoding.py
++++ b/tests/test_encoding.py
+@@ -5,4 +5,4 @@ from hglib.util import b
  class test_encoding(common.basetest):
      def test_basic(self):
          self.client = hglib.open(encoding='utf-8')
 -        self.assertEquals(self.client.encoding, b('utf-8'))
 +        self.assertEqual(self.client.encoding, b('utf-8'))
-diff -aur python-hglib-2.6.2.old/tests/test-grep.py python-hglib-2.6.2/tests/test-grep.py
---- python-hglib-2.6.2.old/tests/test-grep.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-grep.py	2024-04-10 11:43:35.999240985 +0200
-@@ -8,22 +8,22 @@
+diff --git a/tests/test_grep.py b/tests/test_grep.py
+index 8c398dc..e694595 100644
+--- a/tests/test_grep.py
++++ b/tests/test_grep.py
+@@ -8,22 +8,22 @@ class test_grep(common.basetest):
          self.client.commit(b('first'), addremove=True)
  
          # no match
@@ -366,7 +419,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-grep.py python-hglib-2.6.2/tests/tes
                                [(b('b'), b('0'), b('xy'))])
  
      def test_options(self):
-@@ -31,33 +31,33 @@
+@@ -31,33 +31,33 @@ class test_grep(common.basetest):
          self.append('b', 'xy\n')
          rev, node = self.client.commit(b('first'), addremove=True)
  
@@ -408,10 +461,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-grep.py python-hglib-2.6.2/tests/tes
                             (b('b'), b('0'), b('1'), b('+'), b('test'))],
                            list(self.client.grep(b('x'), all=True, user=True,
                                                  line=True,
-diff -aur python-hglib-2.6.2.old/tests/test-heads.py python-hglib-2.6.2/tests/test-heads.py
---- python-hglib-2.6.2.old/tests/test-heads.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-heads.py	2024-04-10 11:43:35.999240985 +0200
-@@ -3,15 +3,15 @@
+diff --git a/tests/test_heads.py b/tests/test_heads.py
+index 708b191..c92ab94 100644
+--- a/tests/test_heads.py
++++ b/tests/test_heads.py
+@@ -3,15 +3,15 @@ from hglib.util import b
  
  class test_heads(common.basetest):
      def test_empty(self):
@@ -430,10 +484,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-heads.py python-hglib-2.6.2/tests/te
  
 -        self.assertEquals(self.client.heads(node0, topological=True), [])
 +        self.assertEqual(self.client.heads(node0, topological=True), [])
-diff -aur python-hglib-2.6.2.old/tests/test-import.py python-hglib-2.6.2/tests/test-import.py
---- python-hglib-2.6.2.old/tests/test-import.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-import.py	2024-04-10 11:43:35.999240985 +0200
-@@ -20,7 +20,7 @@
+diff --git a/tests/test_import.py b/tests/test_import.py
+index 5d604b6..5ce075f 100644
+--- a/tests/test_import.py
++++ b/tests/test_import.py
+@@ -20,7 +20,7 @@ diff -r 000000000000 -r c103a3dec114 a
  class test_import(common.basetest):
      def test_basic_cstringio(self):
          self.client.import_(BytesIO(patch))
@@ -442,12 +497,13 @@ diff -aur python-hglib-2.6.2.old/tests/test-import.py python-hglib-2.6.2/tests/t
  
      def test_basic_file(self):
          f = open('patch', 'wb')
-@@ -29,10 +29,10 @@
+@@ -29,10 +29,11 @@ class test_import(common.basetest):
  
          # --no-commit
          self.client.import_([b('patch')], nocommit=True)
 -        self.assertEquals(open('a').read(), '1\n')
-+        self.assertEqual(open('a').read(), '1\n')
++        with open('a') as f:
++            self.assertEqual(f.read(), '1\n')
  
          self.client.update(clean=True)
          os.remove('a')
@@ -455,10 +511,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-import.py python-hglib-2.6.2/tests/t
          self.client.import_([b('patch')])
 -        self.assertEquals(self.client.cat([b('a')]), b('1\n'))
 +        self.assertEqual(self.client.cat([b('a')]), b('1\n'))
-diff -aur python-hglib-2.6.2.old/tests/test-log.py python-hglib-2.6.2/tests/test-log.py
---- python-hglib-2.6.2.old/tests/test-log.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-log.py	2024-04-10 11:43:35.999240985 +0200
-@@ -13,26 +13,26 @@
+diff --git a/tests/test_log.py b/tests/test_log.py
+index 0df88b6..7f598d3 100644
+--- a/tests/test_log.py
++++ b/tests/test_log.py
+@@ -13,26 +13,26 @@ class test_log(common.basetest):
          revs.reverse()
  
          self.assertTrue(len(revs) == 2)
@@ -491,10 +548,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-log.py python-hglib-2.6.2/tests/test
  
      # def test_errors(self):
      #     self.assertRaisesRegexp(CommandError, 'abort: unknown revision',
-diff -aur python-hglib-2.6.2.old/tests/test-manifest.py python-hglib-2.6.2/tests/test-manifest.py
---- python-hglib-2.6.2.old/tests/test-manifest.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-manifest.py	2024-04-10 11:43:36.002574354 +0200
-@@ -22,6 +22,6 @@
+diff --git a/tests/test_manifest.py b/tests/test_manifest.py
+index e400a49..fd3e1a1 100644
+--- a/tests/test_manifest.py
++++ b/tests/test_manifest.py
+@@ -22,6 +22,6 @@ class test_manifest(common.basetest):
  
          self.client.commit(b('first'), addremove=True)
  
@@ -503,10 +561,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-manifest.py python-hglib-2.6.2/tests
  
 -        self.assertEquals(list(self.client.manifest()), manifest)
 +        self.assertEqual(list(self.client.manifest()), manifest)
-diff -aur python-hglib-2.6.2.old/tests/test-merge.py python-hglib-2.6.2/tests/test-merge.py
---- python-hglib-2.6.2.old/tests/test-merge.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-merge.py	2024-04-10 11:43:36.002574354 +0200
-@@ -28,7 +28,7 @@
+diff --git a/tests/test_merge.py b/tests/test_merge.py
+index 142f663..d18b8e2 100644
+--- a/tests/test_merge.py
++++ b/tests/test_merge.py
+@@ -28,7 +28,7 @@ class test_merge(common.basetest):
  \ No newline at end of file
  """)
  
@@ -515,7 +574,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-merge.py python-hglib-2.6.2/tests/te
  
      def test_merge_prompt_abort(self):
          self.client.update(self.node0)
-@@ -56,7 +56,7 @@
+@@ -56,7 +56,7 @@ class test_merge(common.basetest):
  +aa
  \ No newline at end of file
  """)
@@ -524,16 +583,17 @@ diff -aur python-hglib-2.6.2.old/tests/test-merge.py python-hglib-2.6.2/tests/te
  
      def test_merge_prompt_cb(self):
          self.client.update(self.node0)
-@@ -75,4 +75,4 @@
+@@ -75,4 +75,4 @@ class test_merge(common.basetest):
  +aa
  \ No newline at end of file
  """)
 -        self.assertEquals(diff, self.client.diff(nodates=True))
 +        self.assertEqual(diff, self.client.diff(nodates=True))
-diff -aur python-hglib-2.6.2.old/tests/test-outgoing-incoming.py python-hglib-2.6.2/tests/test-outgoing-incoming.py
---- python-hglib-2.6.2.old/tests/test-outgoing-incoming.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-outgoing-incoming.py	2024-04-10 11:43:36.002574354 +0200
-@@ -10,8 +10,8 @@
+diff --git a/tests/test_outgoing_incoming.py b/tests/test_outgoing_incoming.py
+index 50b692c..19d6615 100644
+--- a/tests/test_outgoing_incoming.py
++++ b/tests/test_outgoing_incoming.py
+@@ -10,8 +10,8 @@ class test_outgoing_incoming(common.basetest):
          self.client.clone(dest=b('other'))
          self.other = hglib.open(b('other'))
  
@@ -544,7 +604,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-outgoing-incoming.py python-hglib-2.
  
      def test_basic(self):
          self.append('a', 'a')
-@@ -22,18 +22,18 @@
+@@ -22,18 +22,18 @@ class test_outgoing_incoming(common.basetest):
          self.client.clone(dest=b('other'))
          other = hglib.open(b('other'))
  
@@ -568,7 +628,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-outgoing-incoming.py python-hglib-2.
  
      def test_bookmarks(self):
          self.append('a', 'a')
-@@ -46,8 +46,8 @@
+@@ -46,8 +46,8 @@ class test_outgoing_incoming(common.basetest):
  
          self.client.bookmark(b('bm1'), 1)
  
@@ -579,10 +639,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-outgoing-incoming.py python-hglib-2.
 -        self.assertEquals(self.client.outgoing(path=b('other'), bookmarks=True),
 +        self.assertEqual(self.client.outgoing(path=b('other'), bookmarks=True),
                            [(b('bm1'), self.client.tip().node[:12])])
-diff -aur python-hglib-2.6.2.old/tests/test-parents.py python-hglib-2.6.2/tests/test-parents.py
---- python-hglib-2.6.2.old/tests/test-parents.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-parents.py	2024-04-10 11:43:36.002574354 +0200
-@@ -3,13 +3,13 @@
+diff --git a/tests/test_parents.py b/tests/test_parents.py
+index 48f27f5..394df3c 100644
+--- a/tests/test_parents.py
++++ b/tests/test_parents.py
+@@ -3,13 +3,13 @@ from hglib.util import b
  
  class test_parents(common.basetest):
      def test_noparents(self):
@@ -599,10 +660,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-parents.py python-hglib-2.6.2/tests/
  
      def test_two_parents(self):
          pass
-diff -aur python-hglib-2.6.2.old/tests/test-paths.py python-hglib-2.6.2/tests/test-paths.py
---- python-hglib-2.6.2.old/tests/test-paths.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-paths.py	2024-04-10 11:43:36.002574354 +0200
-@@ -12,8 +12,8 @@
+diff --git a/tests/test_paths.py b/tests/test_paths.py
+index 9d2d9cd..0271c22 100644
+--- a/tests/test_paths.py
++++ b/tests/test_paths.py
+@@ -12,8 +12,8 @@ class test_paths(common.basetest):
          # hgrc isn't watched for changes yet, have to reopen
          self.client = hglib.open()
          paths = self.client.paths()
@@ -614,10 +676,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-paths.py python-hglib-2.6.2/tests/te
 -        self.assertEquals(self.client.paths(b('foo')),
 +        self.assertEqual(self.client.paths(b('foo')),
                            os.path.abspath('bar').encode('latin-1'))
-diff -aur python-hglib-2.6.2.old/tests/test-pull.py python-hglib-2.6.2/tests/test-pull.py
---- python-hglib-2.6.2.old/tests/test-pull.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-pull.py	2024-04-10 11:43:36.002574354 +0200
-@@ -14,7 +14,7 @@
+diff --git a/tests/test_pull.py b/tests/test_pull.py
+index e0e5fc3..52ce05f 100644
+--- a/tests/test_pull.py
++++ b/tests/test_pull.py
+@@ -14,7 +14,7 @@ class test_pull(common.basetest):
          self.client.commit(b('second'))
  
          self.assertTrue(other.pull())
@@ -626,19 +689,21 @@ diff -aur python-hglib-2.6.2.old/tests/test-pull.py python-hglib-2.6.2/tests/tes
  
      def test_unresolved(self):
          self.append('a', 'a')
-diff -aur python-hglib-2.6.2.old/tests/test-push.py python-hglib-2.6.2/tests/test-push.py
---- python-hglib-2.6.2.old/tests/test-push.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-push.py	2024-04-10 11:43:36.002574354 +0200
-@@ -17,4 +17,4 @@
+diff --git a/tests/test_push.py b/tests/test_push.py
+index d83aea0..94cd804 100644
+--- a/tests/test_push.py
++++ b/tests/test_push.py
+@@ -17,4 +17,4 @@ class test_push(common.basetest):
          self.client.commit(b('second'))
  
          self.assertTrue(self.client.push(b('other')))
 -        self.assertEquals(self.client.log(), other.log())
 +        self.assertEqual(self.client.log(), other.log())
-diff -aur python-hglib-2.6.2.old/tests/test-resolve.py python-hglib-2.6.2/tests/test-resolve.py
---- python-hglib-2.6.2.old/tests/test-resolve.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-resolve.py	2024-04-10 11:43:36.002574354 +0200
-@@ -25,9 +25,9 @@
+diff --git a/tests/test_resolve.py b/tests/test_resolve.py
+index 80842a6..d6d72be 100644
+--- a/tests/test_resolve.py
++++ b/tests/test_resolve.py
+@@ -25,9 +25,9 @@ class test_resolve(common.basetest):
          self.assertRaises(hglib.error.CommandError,
                            self.client.resolve, all=True)
  
@@ -650,10 +715,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-resolve.py python-hglib-2.6.2/tests/
 -        self.assertEquals([(b('R'), b('a')), (b('U'), b('b'))],
 +        self.assertEqual([(b('R'), b('a')), (b('U'), b('b'))],
                            self.client.resolve(listfiles=True))
-diff -aur python-hglib-2.6.2.old/tests/test-status.py python-hglib-2.6.2/tests/test-status.py
---- python-hglib-2.6.2.old/tests/test-status.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-status.py	2024-04-10 11:43:36.002574354 +0200
-@@ -4,7 +4,7 @@
+diff --git a/tests/test_status.py b/tests/test_status.py
+index 7963a71..4b87a12 100644
+--- a/tests/test_status.py
++++ b/tests/test_status.py
+@@ -4,7 +4,7 @@ from hglib.util import b
  
  class test_status(common.basetest):
      def test_empty(self):
@@ -662,7 +728,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-status.py python-hglib-2.6.2/tests/t
  
      def test_one_of_each(self):
          self.append('.hgignore', 'ignored')
-@@ -40,11 +40,11 @@
+@@ -40,11 +40,11 @@ class test_status(common.basetest):
          self.client.commit(b('first'), addremove=True)
          self.client.copy(b('source'), b('dest'))
          l = [(b('A'), b('dest')), (b(' '), b('source'))]
@@ -676,10 +742,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-status.py python-hglib-2.6.2/tests/t
          l = [(b('A'), b('dest')), (b(' '), b('s ource'))]
 -        self.assertEquals(self.client.status(copies=True), l)
 +        self.assertEqual(self.client.status(copies=True), l)
-diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/test-summary.py
---- python-hglib-2.6.2.old/tests/test-summary.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-summary.py	2024-04-10 11:43:36.002574354 +0200
-@@ -10,7 +10,7 @@
+diff --git a/tests/test_summary.py b/tests/test_summary.py
+index d387e41..c62c823 100644
+--- a/tests/test_summary.py
++++ b/tests/test_summary.py
+@@ -10,7 +10,7 @@ class test_summary(common.basetest):
               b('commit') : True,
               b('update') : 0}
  
@@ -688,7 +755,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/
  
      def test_basic(self):
          self.append('a', 'a')
-@@ -23,7 +23,7 @@
+@@ -23,7 +23,7 @@ class test_summary(common.basetest):
          if self.client.version >= (3, 5):
              d[b('phases')] = b('1 draft')
  
@@ -697,7 +764,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/
  
      def test_commit_dirty(self):
          self.append('a', 'a')
-@@ -37,7 +37,7 @@
+@@ -37,7 +37,7 @@ class test_summary(common.basetest):
          if self.client.version >= (3, 5):
              d[b('phases')] = b('1 draft')
  
@@ -706,7 +773,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/
  
      def test_secret_commit_clean(self):
          if self.client.version < (2, 1):
-@@ -62,7 +62,7 @@
+@@ -62,7 +62,7 @@ class test_summary(common.basetest):
          if self.client.version >= (3, 5):
              d[b('phases')] = b('2 draft')
  
@@ -715,7 +782,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/
  
      def test_remote(self):
          self.append('a', 'a')
-@@ -77,17 +77,17 @@
+@@ -77,17 +77,17 @@ class test_summary(common.basetest):
               b('update') : 0,
               b('remote') : (0, 0, 0, 0)}
  
@@ -736,7 +803,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/
  
          other.bookmark(b('bmother'))
          d[b('remote')] = (1, 1, 0, 1)
-@@ -95,7 +95,7 @@
+@@ -95,7 +95,7 @@ class test_summary(common.basetest):
              d[b('parent')] = [(0, node[:12], b('tip bmother'), b('first'))]
          else:
              d[b('bookmarks')] = b('*bmother')
@@ -745,7 +812,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/
  
          self.append('other/a', 'a')
          rev, node = other.commit(b('second in other'))
-@@ -109,7 +109,7 @@
+@@ -109,7 +109,7 @@ class test_summary(common.basetest):
          if self.client.version >= (3, 5):
              d[b('phases')] = b('1 draft')
  
@@ -754,16 +821,17 @@ diff -aur python-hglib-2.6.2.old/tests/test-summary.py python-hglib-2.6.2/tests/
  
      def test_two_parents(self):
          self.append('a', 'a')
-@@ -132,4 +132,4 @@
+@@ -132,4 +132,4 @@ class test_summary(common.basetest):
          if self.client.version >= (3, 5):
              d[b('phases')] = b('3 draft')
  
 -        self.assertEquals(self.client.summary(), d)
 +        self.assertEqual(self.client.summary(), d)
-diff -aur python-hglib-2.6.2.old/tests/test-tags.py python-hglib-2.6.2/tests/test-tags.py
---- python-hglib-2.6.2.old/tests/test-tags.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-tags.py	2024-04-10 11:43:36.002574354 +0200
-@@ -15,7 +15,7 @@
+diff --git a/tests/test_tags.py b/tests/test_tags.py
+index fc54bf8..d936a9a 100644
+--- a/tests/test_tags.py
++++ b/tests/test_tags.py
+@@ -15,7 +15,7 @@ class test_tags(common.basetest):
              self.client = hglib.open()
  
          tags = self.client.tags()
@@ -772,10 +840,11 @@ diff -aur python-hglib-2.6.2.old/tests/test-tags.py python-hglib-2.6.2/tests/tes
                            [(b('tip'), 1, self.client.tip().node[:12], False),
                             (b('my tag'), 0, node[:12], False),
                             (b('local tag'), 0, node[:12], True)])
-diff -aur python-hglib-2.6.2.old/tests/test-update.py python-hglib-2.6.2/tests/test-update.py
---- python-hglib-2.6.2.old/tests/test-update.py	2024-04-10 11:39:03.263003961 +0200
-+++ python-hglib-2.6.2/tests/test-update.py	2024-04-10 11:43:36.002574354 +0200
-@@ -12,19 +12,19 @@
+diff --git a/tests/test_update.py b/tests/test_update.py
+index 150fc1f..394e85a 100644
+--- a/tests/test_update.py
++++ b/tests/test_update.py
+@@ -12,19 +12,19 @@ class test_update(common.basetest):
  
      def test_basic(self):
          u, m, r, ur = self.client.update(self.rev0)
@@ -803,7 +872,14 @@ diff -aur python-hglib-2.6.2.old/tests/test-update.py python-hglib-2.6.2/tests/t
          self.assertTrue((b('M'), b('a')) in self.client.status())
  
      def test_merge(self):
-@@ -38,17 +38,17 @@
+@@ -33,22 +33,23 @@ class test_update(common.basetest):
+         self.append('a', 'b')
+         self.client.commit(b('fourth'))
+         self.client.update(rev2)
+-        old = open('a').read()
++        with open('a') as f:
++            old = f.read()
+         f = open('a', 'wb')
          f.write(b('a') + old.encode('latin-1'))
          f.close()
          u, m, r, ur = self.client.update()
@@ -828,7 +904,7 @@ diff -aur python-hglib-2.6.2.old/tests/test-update.py python-hglib-2.6.2/tests/t
  
          self.client.update(self.rev0)
          self.append('a', 'b')
-@@ -56,7 +56,7 @@
+@@ -56,20 +57,22 @@ class test_update(common.basetest):
          self.client.update(self.rev0)
  
          self.client.update()
@@ -837,18 +913,25 @@ diff -aur python-hglib-2.6.2.old/tests/test-update.py python-hglib-2.6.2/tests/t
  
      def test_check_clean(self):
          self.assertRaises(ValueError, self.client.update, clean=True,
-@@ -68,8 +68,8 @@
+                           check=True)
+ 
+     def test_clean(self):
+-        old = open('a').read()
++        with open('a') as f:
++            old = f.read()
+         self.append('a', 'b')
          self.assertRaises(error.CommandError, self.client.update, check=True)
  
          u, m, r, ur = self.client.update(clean=True)
 -        self.assertEquals(u, 1)
 -        self.assertEquals(old, open('a').read())
 +        self.assertEqual(u, 1)
-+        self.assertEqual(old, open('a').read())
++        with open('a') as f:
++            self.assertEqual(old, f.read())
  
      def test_basic_plain(self):
          f = open('.hg/hgrc', 'a')
-@@ -96,7 +96,7 @@
+@@ -96,7 +99,7 @@ class test_update(common.basetest):
                                  # Keep the 'changed' version
                                 prompt=lambda s, d: 'c\n')
          u, m, r, ur = self.client.update(rev2, clean=True)
@@ -860,3 +943,6 @@ diff -aur python-hglib-2.6.2.old/tests/test-update.py python-hglib-2.6.2/tests/t
 +        self.assertEqual(m, 0)
 +        self.assertEqual(r, 0)
 +        self.assertEqual(ur, 0)
+-- 
+2.51.0
+
