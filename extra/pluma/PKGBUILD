@@ -4,41 +4,71 @@
 
 pkgname=pluma
 pkgver=1.28.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A powerful text editor for MATE"
-url="https://mate-desktop.org"
-arch=('x86_64')
-license=('GPL-2.0-or-later')
-depends=('iso-codes' 'mate-desktop' 'zenity' 'gtksourceview4' 'libpeas' 'python' 'gettext' 'enchant' 'libsm')
-makedepends=('itstool' 'git' 'glib2-devel' 'gobject-introspection' 'python' 'mate-common' 'yelp-tools' 'autoconf-archive')
-optdepends=('python-gobject: to use the python plugins')
-groups=('mate-extra')
-conflicts=('pluma-gtk3')
-replaces=('pluma-gtk3')
-source=("git+https://github.com/mate-desktop/pluma.git#tag=v${pkgver}"
-        git+https://github.com/mate-desktop/mate-submodules.git)
-sha512sums=('8e6f152c92cfba1736f1a95ef027ba8e857ba554955ce6198f083058ee602c3531e3a5ee3e69f191be81a543780c4b4aa0a2c6c8728984f8256e42f3481fdd92'
-            'SKIP')
+arch=(x86_64)
+url='https://github.com/mate-desktop/pluma'
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  dconf
+  enchant
+  gdk-pixbuf2
+  glibc
+  gtk3
+  gtksourceview4
+  iso-codes
+  libice
+  libpeas
+  libsm
+  libx11
+  libxml2
+  mate-desktop
+  pango
+  zenity
+)
+makedepends=(
+  git
+  glib2-devel
+  gobject-introspection
+  gtk-doc
+  mate-common
+  yelp-tools
+)
+optdepends=('python-gobject: for External Tools, Python Console, Quick Open, Snippets plugins')
+groups=(mate-extra)
+source=(
+  "git+https://github.com/mate-desktop/pluma.git#tag=v$pkgver"
+  git+https://github.com/mate-desktop/mate-submodules.git
+)
+b2sums=(
+  ad2789a065bd7b211b35f0f2a6a73006e774558312ffc92b3dbd69e2e1c6c58578ff3c358ba1ec11280f6536b2e4927d82ac3265c9d97057033133ccf1e046e7
+  SKIP
+)
 
 prepare() {
-	cd "${pkgname}"
-	git submodule init
-	git config submodule.mate-submodules.url "${srcdir}/mate-submodules"
-	git -c protocol.file.allow=always submodule update
-	NOCONFIGURE=1 ./autogen.sh
+  cd $pkgname
+
+  git submodule init
+  git config submodule.mate-submodules.url "$srcdir/mate-submodules"
+  git -c protocol.file.allow=always submodule update
+
+  autoreconf -fiv
 }
 
 build() {
-	cd "${pkgname}"
-	./configure \
-	            --prefix=/usr \
-	            --libexecdir="/usr/lib/${pkgname}" \
-	            --enable-gtk-doc=no \
-	            --enable-python
-	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --libexec="/usr/lib/$pkgname" \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-gtk-doc
+  make
 }
 
 package() {
-	cd "${pkgname}"
-	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
