@@ -4,28 +4,50 @@
 pkgname=mate-applet-dock
 _pkgname=mate-dock-applet
 pkgver=21.10.0
-pkgrel=6
+pkgrel=7
 pkgdesc="Application dock for the MATE panel"
-arch=('any')
-url="https://github.com/robint99/dock-applet"
-license=('GPL3')
-depends=('bamf' 'libnotify' 'mate-panel' 'python-cairo' 'python-dbus' 'python-gobject'
-         'python-pillow' 'python-xdg' 'python-xlib')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/robint99/$_pkgname/archive/$pkgver.tar.gz")
-sha256sums=('42f06dcac13aae19a9bbd16272854c896044aa0301a69319cab86ef4ffd8b09c')
+arch=(any)
+url='https://github.com/ubuntu-mate/mate-dock-applet'
+license=(GPL-3.0-or-later)
+depends=(
+  bamf
+  dconf
+  gdk-pixbuf2
+  glib2
+  gtk3
+  libnotify
+  libwnck3
+  mate-panel
+  pango
+  python
+  python-cairo
+  python-dbus
+  python-distro
+  python-gobject
+  python-pillow
+  python-xdg
+  python-xlib
+)
+makedepends=(git)
+source=("git+https://github.com/ubuntu-mate/mate-dock-applet.git#tag=$pkgver")
+b2sums=(33c5f7f93ee2444af16d07238597592c3ff0afd365b877c845b788d2016815526f94aa5cf067cd573f98b68be1c3c2921892a1bac40416619695e7ed5b9e5a93)
 
 prepare() {
-	cd $_pkgname-$pkgver
-  	autoreconf -fi
+  cd $_pkgname
+  autoreconf -fiv
 }
 
 build() {
-  	cd $_pkgname-$pkgver
-  	./configure --prefix=/usr --with-gtk3
-  	make
+  cd $_pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --with-gtk3
+  make
 }
 
 package() {
-  	cd $_pkgname-$pkgver
-  	make DESTDIR="$pkgdir" install
+  cd $_pkgname
+  make DESTDIR="$pkgdir" install
 }
