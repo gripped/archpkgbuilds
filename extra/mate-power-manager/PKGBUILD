@@ -4,38 +4,60 @@
 
 pkgname=mate-power-manager
 pkgver=1.28.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Power management tool for the MATE desktop"
-url="https://mate-desktop.org"
-arch=('x86_64')
-license=('GPL-2.0-or-later')
-depends=('dbus-glib' 'gettext' 'libcanberra' 'libnotify' 'upower' 'polkit' 'libsecret')
-makedepends=('autoconf-archive' 'glib2-devel' 'itstool' 'mate-common' 'mate-panel' 'python' 'yelp-tools')
+arch=(x86_64)
+url='https://github.com/mate-desktop/mate-power-manager'
+license=(GPL-2.0-or-later)
+depends=(
+  cairo
+  dbus
+  dbus-glib
+  dconf
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libcanberra
+  libnotify
+  libsecret
+  libx11
+  libxext
+  libxrandr
+  mate-desktop
+  pango
+  polkit
+  upower
+)
+makedepends=(
+  git
+  glib2-devel
+  mate-common
+  mate-panel
+  yelp-tools
+)
 optdepends=('mate-panel: Set brightness and inhibit power management from the panel')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-power-manager/archive/refs/tags/v${pkgver}.tar.gz")
-groups=('mate-extra')
-sha256sums=('fa64a9590fc83f29ec2c7eb37783ce2125c20f01413246eb7519c1bcc95c98c3')
+source=("git+https://github.com/mate-desktop/mate-power-manager.git#tag=v$pkgver")
+groups=(mate-extra)
+b2sums=(b32b7dda930515c2ea35b90134e2eee977b7b00734a2f6a629561e5cc3f9bf77ec96f3b9cec135e87355d388d1bc165da0b54cc39bcd4734d958123d19259914)
 
 prepare() {
-    	cd "${pkgname}-${pkgver}"
-	./autogen.sh
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-    	cd "${pkgname}-${pkgver}"
-    	./configure \
-        	--prefix=/usr \
-        	--libexecdir="/usr/lib/${pkgname}" \
-        	--sysconfdir=/etc \
-        	--localstatedir=/var \
-        	--sbindir=/usr/bin \
-        	--enable-applets \
-        	--disable-strict \
-        	--without-keyring
-    	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --libexecdir="/usr/lib/$pkgname" \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
