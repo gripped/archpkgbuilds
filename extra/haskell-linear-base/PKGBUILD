@@ -2,8 +2,8 @@
 
 _hkgname=linear-base
 pkgname=haskell-linear-base
-pkgver=0.8.0
-pkgrel=9
+pkgver=0.8.1
+pkgrel=1
 pkgdesc="Standard library for linear types"
 url="https://github.com/tweag/linear-base"
 license=("MIT")
@@ -14,7 +14,7 @@ makedepends=('ghc' 'haskell-cabal-doctest' 'haskell-hedgehog' 'haskell-inspectio
              'haskell-mmorph' 'haskell-tasty' 'haskell-tasty-hedgehog'
              'haskell-tasty-inspection-testing')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('6d661d99b67503c42365930c08bf8b0ad6deffd74e22d9cce35ce9f829ff1448')
+sha256sums=('ec64426d3e799b492888df52f38c78bb5185f784bb42d51ce84a828b2b0d7430')
 
 build() {
   cd $_hkgname-$pkgver
