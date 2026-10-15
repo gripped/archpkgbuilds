@@ -4,13 +4,13 @@
 _pyname=pcapy-ng
 pkgname=python-pcapy
 pkgver=1.0.9
-pkgrel=4
+pkgrel=5
 pkgdesc='Extension module that interfaces with the libpcap packet capture library'
 url='https://github.com/stamparm/pcapy-ng'
 arch=('x86_64')
-license=('Apache')
+license=('Apache-1.1')
 depends=('python' 'libpcap')
-makedepends=('python' 'python-setuptools')
+makedepends=('python' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=(https://github.com/stamparm/pcapy-ng/archive/${pkgver}/${_pyname}-${pkgver}.tar.gz)
 sha256sums=('386a7dedb385154212fd4130632da397e77313b6d6fb3097508a18c99ff56931')
 sha512sums=('4db77ceda661fa63befecc291f5ab231dce74e8b63dc25a9a355d63158101b0ed4f0ff181046597f8ec4e24e4e8aabcd8abddf96b2e6f0d537ed575257dc2432')
@@ -22,7 +22,7 @@ prepare() {
 
 build() {
   cd ${_pyname}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -34,7 +34,7 @@ check() {
 
 package() {
   cd ${_pyname}-${pkgver}
-  python setup.py install -O1 --root="${pkgdir}" --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 pcapy.html ChangeLog -t "${pkgdir}/usr/share/doc/${pkgname}"
   rm -r "${pkgdir}/usr/share/doc/${_pyname}"
 }

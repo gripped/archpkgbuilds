@@ -1,12 +1,15 @@
 pkgbase = python-pcapy
 	pkgdesc = Extension module that interfaces with the libpcap packet capture library
 	pkgver = 1.0.9
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/stamparm/pcapy-ng
 	arch = x86_64
-	license = Apache
+	license = Apache-1.1
 	makedepends = python
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = python
 	depends = libpcap
 	source = https://github.com/stamparm/pcapy-ng/archive/1.0.9/pcapy-ng-1.0.9.tar.gz
