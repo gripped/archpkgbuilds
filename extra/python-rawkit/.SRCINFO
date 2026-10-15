@@ -1,12 +1,15 @@
 pkgbase = python-rawkit
 	pkgdesc = ctypes based libraw bindings
 	pkgver = 0.6.0
-	pkgrel = 16
+	pkgrel = 17
 	url = https://rawkit.readthedocs.io/
 	arch = any
 	license = MIT
 	checkdepends = python-pytest
+	makedepends = python-build
+	makedepends = python-installer
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	depends = libraw
 	depends = python
 	source = rawkit-0.6.0.tar.gz::https://github.com/photoshell/rawkit/archive/v0.6.0.tar.gz
