@@ -5,8 +5,8 @@
 
 pkgname=hplip
 pkgver=3.26.6
-pkgrel=1
-epoch=1
+pkgrel=2
+epoch=2
 pkgdesc="Drivers for HP DeskJet, OfficeJet, Photosmart, Business Inkjet and some LaserJet"
 arch=('x86_64')
 url="https://hplipopensource.com"
@@ -24,7 +24,7 @@ depends=('python-dbus' 'python-distro' 'ghostscript' 'net-snmp'
          'libstdc++' 'libgcc' 'avahi' 'python' 'xdg-utils' 'zlib' 'libcups'
          'glibc' 'sh')
 makedepends=('python-pyqt5' 'sane' 'rpcbind' 'cups' 'libusb'
-             'python-setuptools')
+             'python-setuptools' 'ipp-usb')
 optdepends=('cups: for printing support'
             'sane: for scanner support'
             'python-pillow: for commandline scanning support'
@@ -42,11 +42,11 @@ source=(https://downloads.sourceforge.net/${pkgname}/$pkgname-$pkgver.tar.gz #{,
         0022-Add-include-cups-ppd.h-in-various-places-as-CUPS-2.2.patch
         0023-Fix-handling-of-unicode-filenames-in-sixext.py.patch
         0024-fix-hp-scanui-desktop-file.patch
+        hplip-ipp-usb-quirks-install.patch
         # use the one from Fedora
         hplip-configure-python.patch
         python3.diff
         reproducible-gzip.patch
-        hplip-1_3_23_12-4-python3_12-fix.patch
         hplip-hpaio-gcc14.patch
         hplip-pserror-gcc14.patch
         hplip-gcc15-stdc23.patch
@@ -59,10 +59,10 @@ sha512sums=('1bebae77c6a71029647e391b743dae1b52b0e4ea7ff4a728fbf592160f9f8607e01
             '22aeb5b851f78bc6bc62e0bc3da99fecaf42d7604af41e2f3343f8d3666541f7b06b7d1a7d0ddf24f1731ac7b12dfe582375a98e3b94dfa323d6ce954549ca67'
             '763949a0bc460dcc9faefc86f2a91cf342781bfce696ed0c3826758572dd03ac266bbeb7b6a4f9376ac298d7d3c9c4def42d94921a8e1d1695e39396e36d95ff'
             '78dcc0068c5023e6f32ee7ffec9f246e5fb9bf872f3d051e957daf40db8b471bfd4ca99401f98c2b1a29e3a36511cc9154c0ee96e693f2639672efb89e3243e2'
+            'e31f7802ba527217f5d3e80b924229b62bf884ea7f864d39dbdd25776c1c3ac452e086cbfae41fc04608ad01c0132d8552a1532cc3ac28a5c03f6cbdd5b5c49f'
             '089c102357ea5fd55d81ae76aaff62713f780fd84500c3b92ecd6b2bb11ccdc3a162978548e9a5f9e98a8354a5be3997e416c52daa18eda4621ed79a29d6fea8'
             'b8a4c860e90a52ec566ca5a9c7f3a5ecb7386ae76e17b2c6c878073e60eeaf0cb63883b740b4725794be9914e1ab8fc91313efb288395f3095f599c07f54cf14'
             '379fcbe9dc2986da828a174a0ac4e71a1da43a98408894d5e713e09d7d9cba1e9fac30f9602b81d48d992abe6b65b6402b8a07664efe97400c5d839be33cf15f'
-            'd8c9918a5559fb4cc968607aae9c2b67814240f4d81f703a15e1a23cca0bedd21b3c79c29363bd361f8b4bed169336d2a9e152eb8ca6309bd725dc2aa6a24509'
             '1da56de340104a82747607d33d6aa336fbcca8fa6de25ae244bf52cd64920334bcacf50e3f7b9ddbec1126f322325ce847763b02ff0dae44942fd24478ed466f'
             '63b0ffed2628915f4577932dfdd27a214edfbcf78745eab09cacafe0fa6ed99cdc742a97ac08ce600d202f824a0af790166e25e346f9a51d37c02747e262d742'
             'cd014441b4e47042ddd6b316aa094d6db88131d10a1096f27e6d90a7f871b25dcc0c3f5b7f24a9371661f786841365aa8b0be097bdfdb29c9cb71893a5bb9173'
@@ -100,9 +100,6 @@ prepare() {
  # make gzip creation reproducible by removing the timestamp
  patch -Np1 -i ../reproducible-gzip.patch
 
- # https://gitlab.archlinux.org/archlinux/packaging/packages/hplip/-/issues/3
-# patch -Np1 -i ../hplip-1_3_23_12-4-python3_12-fix.patch
-
  # fix build with gcc14
  patch -Np1 -i ../hplip-hpaio-gcc14.patch 
  patch -Np1 -i ../hplip-pserror-gcc14.patch
@@ -113,7 +110,8 @@ prepare() {
  patch -Np1 -i ../hplip-no-urlopener.patch
  # fix hp-scan crash when --size is omitted
  patch -Np1 -i ../fix-hp-scan-size-crash.patch
-
+ # fix ipp-usb qirks installation #11
+ patch -Np1 -i ../hplip-ipp-usb-quirks-install.patch
 
  export AUTOMAKE='automake --foreign'
  autoreconf --force --install
