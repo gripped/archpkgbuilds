@@ -3,8 +3,8 @@
 # Contributor: L42y <423300@gmail.com>
 
 pkgname=oath-toolkit
-pkgver=2.6.14
-pkgrel=4
+pkgver=2.6.15
+pkgrel=1
 pkgdesc='OATH one-time password toolkit'
 arch=('x86_64')
 url='https://oath-toolkit.codeberg.page/'
@@ -13,7 +13,7 @@ depends=('glibc' 'pam' 'xmlsec')
 provides=('liboath.so' 'libpskc.so')
 validpgpkeys=('B1D2BD1375BECB784CF4F8C4D73CF638C53C06BE') # Simon Josefsson <simon@josefsson.org>
 source=("https://codeberg.org/${pkgname}/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.sig})
-sha256sums=('8b1da365759f1249be57a82aec6e107f7b57dc77d813f96dc0aaf81624f28971'
+sha256sums=('8ad24aa9ff13c0edf3efc2573d90e85cf8b5ce7e82c08042574c1591f9d91eaa'
             'SKIP')
 
 build() {
