@@ -4,40 +4,51 @@
 
 pkgname=mate-media
 pkgver=1.28.1
-pkgrel=3
+pkgrel=4
 pkgdesc="MATE Media Tools"
-url="https://mate-desktop.org"
-arch=('x86_64')
-license=('GPL-2.0-or-later')
-depends=('libcanberra' 'libmatemixer' 'mate-desktop' 'mate-panel' 'gettext')
-makedepends=('autoconf-archive' 'mate-common')
-groups=('mate-extra')
-conflicts=('mate-media-gtk3')
-replaces=('mate-media-gtk3')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mate-media/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('57f60a4685fc2b35a9edb4cf3d967fe5be83df5b716feacabeb9f11b324f8a9b')
+arch=(x86_64)
+url='https://github.com/mate-desktop/mate-media'
+license=(GPL-2.0-or-later)
+depends=(
+  at-spi2-core
+  cairo
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  libcanberra
+  libgcc
+  libmatemixer
+  libxml2
+  mate-desktop
+  pango
+)
+makedepends=(
+  git
+  mate-common
+  mate-panel
+)
+optdepends=('mate-panel: Control volume from the panel')
+groups=(mate-extra)
+source=("git+https://github.com/mate-desktop/mate-media.git#tag=v$pkgver")
+b2sums=(98ef780ff690ab78ec38bfcb9f843c70616628aee58c976dc5b4fb580cd971f3d4ad4bc939344b2ee72f7fa80ed205eac6257b09d28867893959b005673f5354)
 
 prepare() {
-    cd "${pkgname}-${pkgver}"
-    ./autogen.sh
+  cd $pkgname
+  autoreconf -fiv
 }
 
 build() {
-    cd "${pkgname}-${pkgver}"
-    ./configure \
-                --prefix=/usr \
-                --sysconfdir=/etc \
-                --libexecdir="/usr/lib/${pkgname}" \
-                --localstatedir=/var
-    make
-}
-
-check() {
-    cd "${pkgname}-${pkgver}"
-    make check
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --enable-in-process
+  make
 }
 
 package() {
-    cd "${pkgname}-${pkgver}"
-    make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
