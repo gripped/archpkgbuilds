@@ -2,8 +2,8 @@
 
 _pyname=jupyter_server_fileid
 pkgname=jupyter-server-fileid
-pkgver=0.9.3
-pkgrel=3
+pkgver=0.10.0
+pkgrel=1
 pkgdesc='A Jupyter Server extension providing an implementation of the File ID service'
 arch=(any)
 url='https://jupyter.org/'
@@ -21,7 +21,7 @@ makedepends=(git
              python-installer)
 checkdepends=(python-pytest-jupyter)
 source=(git+https://github.com/jupyter-server/$_pyname#tag=v$pkgver)
-sha256sums=('d164e126ce580147f2de6e91b8a5b65bd5e5781934acf5a603b17a9c05235cab')
+sha256sums=('cd255cb3fc03441af5eb28179ddf41c432b6e0402b48c8dfae873ea3074a3302')
 
 build() {
   cd $_pyname
