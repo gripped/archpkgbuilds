@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=hypnotix
-pkgver=5.6
-pkgrel=3
+pkgver=5.7
+pkgrel=1
 pkgdesc='IPTV streaming application with support for live TV, movies and series'
 arch=(any)
 url='https://github.com/linuxmint/hypnotix'
@@ -28,18 +28,10 @@ depends=(
 )
 makedepends=(git)
 source=("git+https://github.com/linuxmint/hypnotix.git#tag=$pkgver")
-b2sums=(fa02d80d39a8a83feda02a77c70cd63163940a38b066d9810be61ea1ab646b57ce719f87137eaf7e82d698a7ba684513b6e5753e6fe36a15cabcf7de85fab288)
+b2sums=(5132204c88d769810fdf0ba4557570c89a7634ff00ffa9f397b70daa6dc51052af3c4371d7812350e73f099df2712d7d0c0ee0721b3faef26b89c62da436cbfd)
 
 prepare() {
   cd $pkgname
-
-  # Set prgname to match with the executable
-  # https://github.com/linuxmint/hypnotix/pull/419
-  git cherry-pick -n 608026942b093ec048a09b591c6fac8fc7b5a3e1
-
-  # Set license type
-  # https://github.com/linuxmint/hypnotix/pull/406
-  git cherry-pick -n 0e0fa1c7596f7925c715c36efb0e4be53a3bde43
 
   # Set mpv video output to 'x11' by default
   # https://github.com/linuxmint/hypnotix/pull/405
