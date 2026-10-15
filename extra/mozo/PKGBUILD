@@ -4,32 +4,46 @@
 
 pkgname=mozo
 pkgver=1.28.0
-pkgrel=5
+pkgrel=6
 pkgdesc="MATE menu editing tool"
-url="https://mate-desktop.org"
-arch=('any')
-license=('LGPL-2.1-or-later')
-depends=('gtk3' 'python>=3.5' 'mate-menus' 'python-gobject' 'gettext' 'mate-panel')
-makedepends=('autoconf-archive' 'mate-common')
-groups=('mate-extra')
-conflicts=('mozo-gtk3')
-replaces=('mozo-gtk3')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/mozo/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('eb1d5af4ac0c72268e78deca888ae00c604ddfd67d50989ab0f7f82bc8fbcbef')
+arch=(any)
+url='https://github.com/mate-desktop/mozo'
+license=(LGPL-2.1-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  gtk3
+  hicolor-icon-theme
+  mate-menus
+  mate-panel
+  python
+  python-gobject
+)
+makedepends=(git)
+groups=(mate-extra)
+source=("git+https://github.com/mate-desktop/mozo.git#tag=v$pkgver")
+b2sums=(f5022b6df01f999cf34075b128dc3dc54f15c11afaa4dcd2f333459f83843bb3451d3af5f94dea4a655fbaa979db5dcc79daf3383ca9890156b1de3def7918fa)
 
 prepare() {
-    	cd "${pkgname}-${pkgver}"
-	autoreconf -fiv -I /usr/share/gettext/m4/
+  cd $pkgname
+
+  # Do not leave behind stale .desktop files
+  # https://github.com/mate-desktop/mozo/pull/99
+  git cherry-pick -n de820bfd5669af5ff890756444459590a7106267
+
+  autoreconf -fiv
 }
 
 build() {
-    	cd "${pkgname}-${pkgver}"
-    	PYTHON=/usr/bin/python ./configure \
-        	--prefix=/usr
-    	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    	cd "${pkgname}-${pkgver}"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }
