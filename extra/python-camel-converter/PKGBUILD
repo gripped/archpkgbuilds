@@ -2,7 +2,7 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-camel-converter
-pkgver=5.1.1
+pkgver=6.0.0
 pkgrel=1
 pkgdesc='Converts a string from snake case to camel case or camel case to snake case'
 arch=(any)
@@ -13,7 +13,7 @@ makedepends=(python-build python-installer python-wheel python-hatchling)
 checkdepends=(python-pytest python-pydantic)
 optdepends=('python-pydantic: provides a base class to automatically convert between snake and camel case')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/sanders41/camel-converter/archive/refs/tags/v${pkgver}.tar.gz)
-sha512sums=('5da0086bf99c1fa965999e4352c8cd2d560342b09b938b00955700144047cd9db878e15844f1bb3dcbb24e88b992b4b20cfb415794c4262ffb8e55b8fa8bfcd4')
+sha512sums=('d4a2c3512b34d5045be7186bd8313db8c3becf1334d582d567ef7527a4ee2b17e5a63e8286ae608e83c6c4eb3c4002d14c3e909d323102bf8de3ea215a96658d')
 
 build() {
   cd "camel-converter-${pkgver}"
