@@ -4,18 +4,18 @@
 
 pkgname=fcrackzip
 pkgver=1.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Zip file password cracker'
 arch=('x86_64')
 url="http://oldhome.schmorp.de/marc/$pkgname.html"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('glibc')
 source=("http://oldhome.schmorp.de/marc/data/$pkgname-$pkgver.tar.gz")
 sha256sums=('4a58c8cb98177514ba17ee30d28d4927918bf0bdc3c94d260adfee44d2d43850')
 
 build() {
   cd "$pkgname-$pkgver"
-
+  export CFLAGS="${CFLAGS} -Wno-error=implicit-int"
   ./configure --prefix=/usr
   make
 }
