@@ -1,7 +1,8 @@
-# Maintainer: Morten Linderud <foxboron@archlinux.org>
+# Maintainer: Bert Peters <bertptrs@archlinux.org>
+# Contributor: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=govulncheck
-pkgver=1.8.0
+pkgver=1.9.0
 pkgrel=1
 pkgdesc='Database client and tools for the Go vulnerability database'
 arch=(x86_64)
@@ -10,7 +11,7 @@ license=(BSD-3-Clause)
 depends=(glibc)
 makedepends=(git go)
 source=(go-vuln::git+https://go.googlesource.com/vuln#tag=v$pkgver)
-sha256sums=('900f2cf9b90e1104744093cfa3ec29571eb8f9683c3a0f829f7c25409b093393')
+sha256sums=('92addffc7b949b8bfec55489ace3e9ce7c730c6e4468b68521fe9b819ccd0554')
 
 prepare() {
   cd "go-vuln"
