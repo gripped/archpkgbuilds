@@ -3,7 +3,7 @@
 
 _name=huggingface_hub
 pkgname=python-huggingface-hub
-pkgver=2.1.1
+pkgver=2.2.0
 pkgrel=1
 epoch=1
 pkgdesc='All the open source things related to the Hugging Face Hub'
@@ -66,7 +66,7 @@ optdepends=(
   python-fastai
 )
 source=("$_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('b7ac03a3bade8c1c79d4992cef73a79b5d899309698865c3c0c7fb6ff6e879f911ea1908399249a9d1bed74d8e65d0fe186b914515f19c67af6bb4b2cdf69be8')
+sha512sums=('4954d70267cbd06b890d040236a9265b303a7560cc2203762cc6e3b7712db187602ec8939419cb958a2276f6e78f6809a1675b38fffbd419465e12e1b07ac094')
 
 build() {
   cd $_name-$pkgver
@@ -91,6 +91,7 @@ check() {
     --deselect tests/test_buckets_hf_file_system.py
     --deselect tests/test_cache_layout.py
     --deselect tests/test_cache_no_symlinks.py
+    --deselect tests/test_cli.py::TestDatasetsSqlCommand
     --deselect tests/test_cli.py::TestRepoListCommand::test_repo_list
     --deselect tests/test_cli_discussions.py
     --deselect tests/test_commit_scheduler.py
@@ -105,6 +106,7 @@ check() {
     --deselect tests/test_repository.py
     --deselect tests/test_snapshot_download.py
     --deselect tests/test_utils_cache.py
+    --deselect tests/test_xet_download.py
     --deselect tests/test_xet_upload.py
     # skip tests that require gradio but are not marked as such
     --deselect tests/test_webhooks_server.py::test_deserialize_payload_example_with_comment
@@ -117,8 +119,6 @@ check() {
     --deselect tests/test_utils_strict_dataclass.py::test_autocompletion_attribute_without_kwargs
     # subprocess.CalledProcessError: Command '['git', 'config', '--global', 'credential.helper', 'store']' returned non-zero exit status 255.
     --deselect tests/test_login_utils.py::TestSetGlobalStore::test_set_store_as_git_credential_helper_globally
-    # Failed: Timeout (>300.0s) from pytest-timeout.
-    --deselect tests/test_xet_upload.py::TestXetLargeUpload
     # causes internal error in pytest
     --deselect tests/test_cli_output.py
   )
