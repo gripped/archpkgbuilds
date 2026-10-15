@@ -3,13 +3,13 @@
 _pyname=sortedcollections
 pkgname=python-${_pyname}
 pkgver=2.1.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Sorted Collections Library'
 url='https://github.com/grantjenks/python-sortedcollections'
 arch=('any')
-license=('Apache')
+license=('Apache-2.0')
 depends=('python' 'python-sortedcontainers')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=(${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
 sha512sums=('7cb95af1791ab8f8c99847c1b9e0b8c1e7cc7dfe8a9df5db8bb3c96ceb2f15d7351ab4ff081d037d34dbb6c3108f4b575ca22c9e9e911a727d31b9ba3bf975f6')
@@ -17,7 +17,7 @@ b2sums=('5de36155858dc055c9412ff410bd70b489aba292a2956216db95641e10dcb249b98e5c0
 
 build() {
   cd "${pkgname}-${pkgver}"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 check() {
@@ -27,7 +27,7 @@ check() {
 
 package() {
   cd "${pkgname}-${pkgver}"
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
