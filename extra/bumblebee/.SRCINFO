@@ -1,12 +1,14 @@
 pkgbase = bumblebee
 	pkgdesc = NVIDIA Optimus support for Linux through VirtualGL
 	pkgver = 3.2.1
-	pkgrel = 21
+	pkgrel = 22
 	url = http://www.bumblebee-project.org
 	install = bumblebee.install
 	arch = x86_64
-	license = GPL3
+	license = GPL-3.0-only
 	makedepends = help2man
+	depends = glibc
+	depends = libx11
 	depends = virtualgl
 	depends = glib2
 	depends = mesa-libgl
