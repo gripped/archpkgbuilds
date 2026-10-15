@@ -4,7 +4,7 @@
 
 _name=playwright-python
 pkgname=python-playwright
-pkgver=1.63.0
+pkgver=1.64.0
 pkgrel=1
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
 arch=(any)
@@ -16,6 +16,7 @@ depends=(nodejs
          python-pyee
          sh)
 makedepends=(git
+             npm
              python-auditwheel
              python-build
              python-installer
@@ -32,8 +33,8 @@ checkdepends=(python-autobahn
               python-requests)
 source=(git+https://github.com/microsoft/$_name#tag=v$pkgver
         https://registry.npmjs.org/playwright-core/-/playwright-core-$pkgver.tgz)
-sha256sums=('5372a9f6625ab4446a7d0591cd8bd2bbcbf0fb3664036c45af28015e13bd254c'
-            '208593d4e1bcd8f8fe5f869cad1cc332dc7f1d70dc1d58c102dc3ac36e30f26c')
+sha256sums=('4f0609f98d93c3ecd12063c5e789b8c5d072304f7d03c274f5e846c33ee70376'
+            '90c8b6b19da0a1b1e9a004cd6ff3e49e82668a0856e01efcc0e2d9c2b4466bb6')
 
 prepare() {
   zip -qr playwright-$pkgver-linux.zip package
@@ -62,5 +63,6 @@ package() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 
 # Replace bundled node with system one
+  rm "$pkgdir"/usr/lib/python*/site-packages/playwright/driver/node
   ln -s /usr/bin/node -t "$pkgdir"/usr/lib/python*/site-packages/playwright/driver/
 }
