@@ -2,7 +2,7 @@
 # Contributor: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=cxxbridge
-pkgver=1.0.202
+pkgver=1.0.205
 pkgrel=1
 pkgdesc='Safe interop between Rust and C++'
 url='https://github.com/dtolnay/cxx'
@@ -16,10 +16,10 @@ makedepends=('cargo')
 options=(!lto)
 source=(https://github.com/dtolnay/cxx/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         Cargo.lock)
-sha256sums=('a234049326b9ebd8569906a582c8c44764452d036b73dc3f790adb7d3dc04c65'
-            'b2e3fc9f38a0985dfad869363d57107597734322193ef88608819d5c91e7008b')
-b2sums=('bd0c3fd26ba376cb52d9340537b08d8e760d4970e6be06b608d95d4923c76f9cf997b290499c924c82e7fe1a00b608884815406c6905d4c472a93a96a916d3e7'
-        'cbe0ecf448abdda1e9e42dc3e8e80637b95a7938c12beaea9bf2c0274a6bf388406abf70a06ab08472d3cbe0101fe71aa335060bc7b0d30a90a4cece0b5797f8')
+sha256sums=('05ea497a7fdcdff5db8afa959a8ddd470b35832bfae33e9906438916930c4205'
+            '512ea590c32adbcd95cb73b51f986c0ebb22597591a707f577e7261eca1765cf')
+b2sums=('b0bbaf52fdad6299ad9e7868a21fa7072dc0ad9a22b6b59e474b45a117d081189273451e66e06c6306deeacd80387382ecd5a36080f42e38902cad59e57ddad2'
+        'cdfafcbd66908acd7e1398841ebe1e3e18b4b279562e1b667834c3e0f0f8f2277a5134a81b1b84b8a2b0059a1311a0786784b32abd4ef7581a239752c977f364')
 
 prepare() {
   cd "cxx-${pkgver}"
