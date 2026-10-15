@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=release-plz
-pkgver=0.3.169
+pkgver=0.3.172
 pkgrel=1
 pkgdesc='Release Rust packages without using the command line'
 arch=(x86_64)
@@ -15,10 +15,11 @@ depends=(curl libcurl.so
          openssl libssl.so
          sqlite libsqlite3.so
          zstd libzstd.so)
-makedepends=(cargo 'git')
+makedepends=(cargo
+             git)
 optdepends=('cargo-semver-checks: check for API breaking changes')
 source=("git+$url.git#tag=$pkgname-v$pkgver")
-sha256sums=('38e0dbc61df3a4008c342c8a70d9fb9f7bf3340455bbcb2002ad6ab06463ffc7')
+sha256sums=('e8e46b3b6ef82968ba674f406ae76e77951d4b54fe5666ca4258269d3433d098')
 
 _srcenv() {
 	cd "$pkgname"
@@ -28,7 +29,8 @@ _srcenv() {
 	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
-	CFLAGS+=' -ffat-lto-objects'
+	CFLAGS+=' -fno-lto -O0'
+	CPPFLAGS+=' -fno-lto -O0'
 	export LIBGIT2_NO_VENDOR=1
 	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 	export ZSTD_SYS_USE_PKG_CONFIG=1
