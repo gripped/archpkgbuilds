@@ -2,7 +2,7 @@
 # Contributor: sum01 <sum01@protonmail.com>
 
 pkgname=cpp-httplib
-pkgver=0.58.0
+pkgver=0.60.1
 pkgrel=1
 pkgdesc='A C++ header-only HTTP/HTTPS server and client library'
 arch=(any)
@@ -28,7 +28,7 @@ optdepends=(
   'zstd: Zstandard compression support'
 )
 source=(git+${url}.git#tag=v${pkgver})
-b2sums=('8138e72f3fe2384504b21ab9b0c39fe3ebebe762eab8141cc1039714295623bfb804879b6f94982a7f3bd65f1c75ea1f99d97e641967325e6dc5ea3de2eaf080')
+b2sums=('685498597e126f4337997a2d5709a1bb958ef3fbf66a4b079bb53123e64f124f9b8df9cc2ff511c88b052e329116fe07837060a9fb48a6191cfa86bde0faed03')
 
 build() {
   arch-meson cpp-httplib build
