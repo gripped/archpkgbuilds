@@ -6,7 +6,7 @@
 
 pkgname=graphicsmagick
 pkgver=1.3.49
-pkgrel=1
+pkgrel=2
 pkgdesc='Image processing system'
 url='http://www.graphicsmagick.org/'
 arch=(x86_64)
@@ -16,7 +16,6 @@ depends=(bzip2
          lcms2
          libltdl
          libpng
-         libsm
          libtiff
          libwebp
          libxext
@@ -35,8 +34,7 @@ optdepends=('jasper: jp2 module'
             'libjxl: jpeg-xl module')
 provides=(libGraphicsMagickWand.so
           libGraphicsMagick.so
-          libGraphicsMagick++.so
-          libGraphicsMagick++-Q16.so)
+          libGraphicsMagick++.so)
 _archive="GraphicsMagick-$pkgver"
 source=("https://downloads.sourceforge.net/project/$pkgname/$pkgname/$pkgver/$_archive.tar.xz")
 sha256sums=('7efa070dc31116b4315061b39f84bc7181e8b060bf61214ec9af851131af9c81')
