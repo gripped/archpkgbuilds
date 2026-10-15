@@ -9,8 +9,8 @@
 pkgname=nextcloud-client
 pkgdesc='Nextcloud desktop client'
 epoch=2
-pkgver=34.0.5
-pkgrel=1
+pkgver=35.0.0
+pkgrel=2
 arch=(x86_64)
 url='https://nextcloud.com/'
 _url=https://github.com/nextcloud/desktop
@@ -29,7 +29,6 @@ depends=(
     qt6-base
     qt6-declarative
     qt6-svg
-    qt6-webengine
     qt6-websockets
     qtkeychain-qt6
     sqlite
@@ -65,7 +64,7 @@ validpgpkeys=(A26B951528EA1BA1678C7AE5D406C75CEE1A36D6  # https://github.com/cam
               3A877D9A896A057948059DEDAD2C27357B2CB11D  # https://github.com/FlexW
               F9A1527B9A2A709350A53ED72A6140D57BE5BB5A  # https://github.com/nilsding
               9E316195095175B8F035EB4FA2C0CF9EBA674764) # https://github.com/Aiiaiiio
-sha256sums=('a040e1c5bf2cab108b0eb3ebf2fe36c0172e584a959c8225766045069d5d075a')
+sha256sums=('c6e945c5c7574a66c3cf10cf25429441edc9a7d6d3f0c5d909291a37990c06ee')
 
 prepare() {
 	# tmpdir for check()
@@ -85,9 +84,6 @@ prepare() {
 		-e '/Capabilities/s/^/#/' \
 		-e '/SecureFileDrop/s/^/#/' \
 		test/CMakeLists.txt
-
-	# Fix the build with Qt 6.10
-	git cherry-pick -n 8a7771dd92afeac20716295aff25cf156a04f972
 }
 
 build() {
