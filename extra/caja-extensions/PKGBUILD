@@ -14,7 +14,7 @@ pkgname=(
   caja-xattr-tags
 )
 pkgver=1.28.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Set of extensions for Caja, the MATE file manager"
 arch=(x86_64)
 url='https://github.com/mate-desktop/caja-extensions'
@@ -46,6 +46,7 @@ build() {
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
+    --enable-gtk-doc \
     --disable-gksu
   make
 }
