@@ -10,6 +10,12 @@ post_install() {
 }
 
 post_upgrade() {
+  # return if old package version greater 0.7.13...
+  (( $(vercmp $2 '0.7.13') > 0 )) && return
+
+  # update pacredir.conf
+  sed -i '/^\[general\]$/s|^|# Removed with version 0.7.13!\n#|' /etc/pacredir.conf
+
   # return if old package version greater 0.7...
   (( $(vercmp $2 '0.7') > 0 )) && return
 
