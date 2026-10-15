@@ -5,7 +5,7 @@ _hkgname=Agda
 pkgname=agda
 # Remember to also update agda-stdlib, which has a versioned dependency on agda.
 pkgver=2.8.0.2
-pkgrel=20
+pkgrel=22
 pkgdesc="A dependently typed functional programming language and proof assistant"
 url="https://wiki.portal.chalmers.se/agda/"
 license=("custom")
@@ -26,7 +26,7 @@ sha512sums=('bc8c83472d84c1e66ee43b904a853673a7d0f772a445361f33abfc8143d918adb17
 prepare() {
     cd $_hkgname-$pkgver
     gen-setup
-    uusi -u parallel -u pqueue
+    uusi -u nonempty-containers -u parallel -u pqueue
     sed -i '/fno-warn-overlapping-patterns/a \        , "-dynamic"' src/full/Agda/Compiler/MAlonzo/Compiler.hs
 }
 
