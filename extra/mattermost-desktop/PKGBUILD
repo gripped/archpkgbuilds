@@ -9,7 +9,7 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=mattermost-desktop
-pkgver=6.3.0
+pkgver=6.3.1
 pkgrel=1
 pkgdesc='Mattermost Desktop application'
 arch=(x86_64)
@@ -29,7 +29,7 @@ _archive="${pkgname#*-}-$pkgver"
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
         "$pkgname.sh"
         "$pkgname.desktop")
-sha256sums=('a78d6480538e23fcfd928b2acd63019b607a74f43cb93d97f0ea8c689e5b1fda'
+sha256sums=('779611b0a1f60374ca1dbbe40368e805635cb48d136dd95c47d25cb10227c154'
             '1c2bf48b6397d04a5a536c5c9f4960db53249c838c380f03f808c612b00ba4c6'
             '13df5ad4c7813986403658f5f88d723907db507703942f3facfb37ceaca657ef')
 
@@ -79,4 +79,7 @@ package() {
 	install -Dm0644 src/assets/linux/app_icon.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/$pkgname.png"
 	install -Dm0755 "$pkgname.sh" "$pkgdir/usr/bin/$pkgname"
 	install -Dm0644 -t "$pkgdir/usr/share/applications/" "$srcdir/$pkgname.desktop"
+
+    # Remove useless stuff
+    find "${pkgdir}"/usr/lib/mattermost-desktop/app.asar.unpacked/node_modules -type f \( -name '*\.md' -o -name '*\.txt' -o -name '\.*' -o -name 'LICENSE' \) -delete -print
 }
