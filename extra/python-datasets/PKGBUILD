@@ -4,7 +4,7 @@
 
 _name=datasets
 pkgname=python-$_name
-pkgver=5.0.1
+pkgver=5.1.0
 pkgrel=1
 pkgdesc="Ready-to-use datasets for ML models with fast, easy-to-use and efficient data manipulation tools"
 arch=(any)
@@ -37,6 +37,7 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  ffmpeg
   python-absl
   python-decorator
   python-librosa
@@ -52,6 +53,7 @@ checkdepends=(
   python-zstandard
 )
 optdepends=(
+  'ffmpeg: Audio datasets'
   'python-librosa: Audio datasets'
   'python-soxr: Audio datasets'
   'python-torchcodec: Audio datasets'
@@ -61,7 +63,7 @@ optdepends=(
   'python-trimesh: for decoding meshes'
 )
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-b2sums=('2cab1279486876120f0cd03a17c471d8c7d0d752add5084d3f932b5a9e4aa9d42320419867b6b9f0e567df9237569aa07fc226ec006293cf56864ec70bb1d06c')
+b2sums=('dcd135c96c2938c663412d438fa3b6afade6c37d2f2f4b2bb2905a7a9541cf8b252968522ea65e1b93bf8bd041d5bd6aa769e472e1d977e87b164bafabb905b1')
 
 prepare() {
   cd $_name-$pkgver
