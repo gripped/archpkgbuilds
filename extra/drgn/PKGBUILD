@@ -2,7 +2,7 @@
 # Contributor: Omar Sandoval <osandov at osandov dot com>
 
 pkgname=drgn
-pkgver=0.2.0
+pkgver=0.3.0
 pkgrel=1
 pkgdesc='Programmable debugger'
 arch=('x86_64')
@@ -31,7 +31,7 @@ optdepends=(
 )
 checkdepends=('check')
 source=("$pkgname::git+https://github.com/osandov/drgn#tag=v${pkgver}")
-sha256sums=('f5807575a386919a7628e4df4d7fa1dc1813956ecc932144e3adb0082c70b99c')
+sha256sums=('02f4bcd57bf4cd8304e377a437fdc2a02960ecf8fc885b8a5099ac98fada3b2d')
 
 build() {
     cd $pkgname
