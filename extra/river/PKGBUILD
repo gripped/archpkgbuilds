@@ -2,8 +2,8 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river
-pkgver=0.4.8
-pkgrel=2
+pkgver=0.5.0
+pkgrel=1
 pkgdesc='a non-monolithic Wayland compositor'
 arch=('x86_64')
 url="https://isaacfreund.com/software/river/"
@@ -44,7 +44,7 @@ source=(git+https://codeberg.org/river/river.git#tag=v${pkgver}?signed)
 noextract=("${source[@]:1}")
 conflicts=('river-classic')
 validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('9890026682b50dc53d8ac05c7f093a66daf932610e8468150ed5c08cd677a017')
+sha256sums=('4ebf58cb64a9cb21838c241233edcde0d2274c2f8175d222cb147b993b2d7e7d')
 
 # prepare() {
 #     zig fetch --global-cache-dir ./zig-global-cache "./${source[1]%%::*}"
