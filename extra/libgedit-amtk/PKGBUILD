@@ -3,7 +3,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=libgedit-amtk
-pkgver=5.10.0
+pkgver=5.11.0
 pkgrel=1
 pkgdesc='Actions, Menus and Toolbars Kit for GTK applications'
 arch=(x86_64)
@@ -25,7 +25,7 @@ replaces=(amtk)
 provides=(libgedit-amtk-5.so)
 conflicts=(amtk)
 source=("git+https://gitlab.gnome.org/World/gedit/libgedit-amtk.git#tag=$pkgver")
-b2sums=(077f7d39a96de2ddce636e7f7231e212902b12eddd4f9b93f7d65ea1ef5b3f08521da02d778f6743de727c3499d597afa6607003ce6bcfd4f9d2dbf1a84b7f90)
+b2sums=(b064771d662ef1a133e87f2629000b7c07b11de10a9211497abdd20bd101a04818058528dcd809c1c29636d6361b6eb9b5d3b46584502983fb6c608d65e283d3)
 validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
