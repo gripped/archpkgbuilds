@@ -2,8 +2,8 @@
 
 _hkgname=base64
 pkgname=haskell-base64
-pkgver=1.0
-pkgrel=92
+pkgver=1.0.1
+pkgrel=1
 pkgdesc="A modern Base64 library"
 url="https://github.com/emilypi/base64"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ makedepends=('ghc' 'haskell-quickcheck' 'haskell-base64-bytestring'
              'haskell-random-bytestring' 'haskell-tasty' 'haskell-tasty-hunit'
              'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('7942239f1804945fd6d319a953f26c53b64518076cd294141fda983f2ff1b2b6')
+sha256sums=('d83b01ef581d707e4fdb1c85e8ffc2b9848c18c1573c9797949e9a69bf4d4ce3')
 
 build() {
   cd $_hkgname-$pkgver
