@@ -2,7 +2,7 @@
 
 pkgname=kudu
 pkgver=0.4.1
-pkgrel=1
+pkgrel=2
 pkgdesc="TUI for creating and managing virtual machines on Linux"
 arch=('x86_64')
 url="https://github.com/pythops/kudu"
@@ -14,7 +14,14 @@ depends=('gcc-libs'
          'qemu-system-x86')
 makedepends=('cargo')
 optdepends=('qemu-system-aarch64: AArch64 virtual machine support'
-            'qemu-system-riscv: RISC-V virtual machine support')
+            'qemu-system-riscv: RISC-V virtual machine support'
+            'xz: extracting compressed VM images, including FreeBSD images'
+            'qemu-ui-egl-headless: headless EGL/OpenGL display support'
+            'qemu-ui-gtk: GTK display support'
+            'qemu-ui-opengl: OpenGL display support'
+            'qemu-ui-sdl: SDL display support'
+            'qemu-hw-display-qxl: QXL display device support'
+            'qemu-hw-display-virtio-gpu: virtio GPU display device support')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
 sha256sums=('7290a1368e8ff01e90b68aaf57233bf5c6c949f3b017b7d51f30f6dd8dab749e')
 options=('!lto')
