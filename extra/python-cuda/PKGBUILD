@@ -4,7 +4,7 @@
 pkgbase=python-cuda
 # NOTE: python-cuda-pathfinder and python-cuda-core are packaged separately
 pkgname=(python-cuda python-cuda-bindings)
-pkgver=13.4.3
+pkgver=13.4.4
 pkgrel=1
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
@@ -32,7 +32,7 @@ options=(!emptydirs)
 source=(
   $pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver
 )
-b2sums=('f44e5b690dcc306ba596854fa6f7bbc87bd292dbcbf0413023f849458611209931df1c5f64e65587f62b15a00c262f17149c976d064c03cf44fcfdbac4669547')
+b2sums=('eb5a2d2c7a488ad2e4fd32ea4222226d012789fc9fdd9e8991518cbb61c0a4ecc1e1b0e65177037ddf52d7ac910df9ec5e86b5e86d24a481cf7e8a46cef02520')
 
 prepare() {
   cd $pkgbase
@@ -45,6 +45,9 @@ build() {
 
   # enable parallel build
   export CUDA_PYTHON_PARALLEL_LEVEL=$(nproc)
+
+  # set correct version in Python package metadata
+  export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
   pushd cuda_bindings
   python -m build --wheel --no-isolation
