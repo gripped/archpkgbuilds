@@ -2,7 +2,7 @@
 
 pkgname=alpm-srcinfo
 _upstream=alpm
-pkgver=0.6.4
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="A CLI for parsing and validation of ALPM SRCINFO files"
 arch=(x86_64)
@@ -29,8 +29,8 @@ optdepends=(
   'alpm-docs: for additional specifications'
 )
 source=($_upstream::git+$_url?signed#tag=$pkgname/$pkgver)
-sha512sums=('018622776b74905d394689462f81244b8bddd9ae2b40c56c07532e4276ab9bcbfc639cbd0b2dbdd9e9f4211e5c513055eb865039187bee956226ccb9c62acd43')
-b2sums=('e7c7c8b3236270a6aedbcc3374e6520324c74d82f4ba05e5ce70da1cd63f6e262bf55b94f578afaf04c977a7eead8cc3f11e9229b5c276f8949c20b6542e5442')
+sha512sums=('2049c7d5e6a608489808928be4d5cdd4a20e3e690be38d43d5f128a7ff7cc47de7ed4ef93b09ba000bcb9bc78a5cac36c5765a75733ee7878443fe203f77785b')
+b2sums=('3ae758fca13413bc6e07a3230bf72bf7e244287181acbb8fb363ab638253df99f1ba2cfc7d39c8b7fc654f4414f2c22bc2f622c43f090f9c8f610a01016b483c')
 validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
 
 prepare() {
