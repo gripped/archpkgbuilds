@@ -3,8 +3,8 @@
 
 _hkgname=wai-app-static
 pkgname=haskell-wai-app-static
-pkgver=3.1.9.1
-pkgrel=62
+pkgver=3.2.1
+pkgrel=1
 pkgdesc="WAI application for static serving"
 url="https://www.yesodweb.com/book/web-application-interface"
 license=("MIT")
@@ -16,7 +16,7 @@ depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-blaze-html' 'haskell-bl
          'haskell-warp' 'haskell-zlib')
 makedepends=('ghc' 'haskell-hspec' 'haskell-mockery' 'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('05cbf0a685a91755bcb89c6cc87ce22e1b069f6fb3694717c98ed49e00700d4760ee4429cd470713016b746b9872a63952e06ac5b813c32f3c34d8fa1d54d3ab')
+sha512sums=('a7e9c918b17002f627911b8aa0b8a021146ce03b3374353065cb25a3563f4f43ac5abcb762a5876ecc43d6f9c3dc4c11cf6e680656284f116c859ceed40c1325')
 
 build() {
     cd $_hkgname-$pkgver
