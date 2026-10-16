@@ -3,11 +3,10 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 # Contributor: Alexey D. <lq07829icatm at rambler.ru>
 
-pkgbase=plasma-workspace
-pkgname=(plasma-workspace plasma-x11-session)
-pkgver=6.7.5
+pkgname=plasma-workspace
+pkgver=6.8.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=1
 pkgdesc='KDE Plasma Workspace'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -83,8 +82,6 @@ depends=(accountsservice
          libxau
          libxcb
          libxcrypt
-         libxcursor
-         libxfixes
          libxft
          libxtst
          milou
@@ -103,6 +100,7 @@ depends=(accountsservice
          sh
          solid
          systemd-libs
+         union
          wayland
          xcb-util
          xcb-util-cursor
@@ -118,9 +116,20 @@ makedepends=(baloo
              networkmanager-qt
              plasma-wayland-protocols
              qcoro)
+optdepends=('appmenu-gtk-module: global menu support for some GTK3 applications'
+            'baloo: Baloo search runner'
+            'discover: manage applications installation from the launcher'
+            'kdepim-addons: displaying PIM events in the calendar'
+            'kwayland-integration: Wayland integration for Qt5 applications'
+            'networkmanager-qt: IP based geolocation'
+            'plasma-workspace-wallpapers: additional wallpapers'
+            'plasma5-integration: use Plasma settings in Qt5 applications'
+            'xdg-desktop-portal-gtk: sync font settings to Flatpak apps')
+conflicts=(plasma-wayland-session
+           plasma-x11-session)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('94ab21e2243b7876f65c315f1e545081c6437f5bd0a041ca4fb6c2533ae874c9'
+sha256sums=('01677cede8a94681a96bd0ee1b211acddaa4678cf7b89aa670b949bdf68c1973'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -129,37 +138,13 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
     -DGLIBC_LOCALE_GEN=OFF \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
 
-package_plasma-workspace() {
-  optdepends=('appmenu-gtk-module: global menu support for some GTK3 applications'
-            'baloo: Baloo search runner'
-            'discover: manage applications installation from the launcher'
-            'kdepim-addons: displaying PIM events in the calendar'
-            'kwayland-integration: Wayland integration for Qt5 applications'
-            'kwin-x11: X session window manager'
-            'networkmanager-qt: IP based geolocation'
-            'plasma-workspace-wallpapers: additional wallpapers'
-            'plasma5-integration: use Plasma settings in Qt5 applications'
-            'xdg-desktop-portal-gtk: sync font settings to Flatpak apps')
+package() {
   depends+=(plasma-integration) # Declare runtime dependency here to avoid dependency cycles at build time
-  conflicts=(plasma-wayland-session)
-  replaces=(plasma-wayland-session)
-
   DESTDIR="$pkgdir" cmake --install build
-
-  rm -r "$pkgdir"/usr/share/xsessions/plasmax11.desktop
-}
-
-
-package_plasma-x11-session() {
-  pkgdesc='Plasma X11 session'
-  depends=(plasma-workspace kwin-x11)
-  groups=()
-
-  install -Dm644 build/login-sessions/plasmax11.desktop -t "$pkgdir"/usr/share/xsessions
 }
