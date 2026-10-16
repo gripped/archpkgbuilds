@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=wiiuse
-pkgver=0.15.7
+pkgver=0.16.0
 pkgrel=1
 pkgdesc="A library written in C that connects with several Nintendo Wii remotes"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
 provides=(libwiiuse.so)
 makedepends=(cmake)
 source=($url/archive/$pkgver/$pkgname-$pkgver.tar.gz)
-sha512sums=('dcd65bc8c5890de85683c7689e55b56204127e78947cf1fbb6ce29ea5b4b0bda20ed721439297cb53163e9f94a7fad0579d90edb172fc4ceacc367fe9fbae742')
-b2sums=('e6d9510058986367d66621676bf75b72cffea4d9382270328092e11a02ec57dd6095cf41b1f33a6e5ea88aea1975bcc6651490088dcd78644c5f7ae08dbf99e0')
+sha512sums=('ca40c11c4e6a466b6d9fdf0446c22f5c8ff87c693c0a6dd8e5c3a35d18e597fc7d1758e4e3c06f6583f5d6c6881e10ae91ed4286ea5a5f8f1bbad1a3b529576a')
+b2sums=('b3e75fdcd6302790757869dba44c063f68c4caa4fe5fa44c0434ddb0e3223d9578262925425612ca530c952bf1798c17bf89e8d1c84e18e3da71c384470a5e15')
 
 build() {
   local cmake_options=(
