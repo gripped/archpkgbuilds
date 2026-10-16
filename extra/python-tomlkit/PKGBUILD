@@ -4,7 +4,7 @@
 
 _pkgname=tomlkit
 pkgname=python-tomlkit
-pkgver=0.15.1
+pkgver=0.15.2
 pkgrel=1
 pkgdesc='Style-preserving TOML library for Python'
 url="https://github.com/sdispater/$_pkgname"
@@ -17,7 +17,7 @@ checkdepends=(python-pytest
               python-yaml)
 _archive="$_pkgname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/$_pkgname/$_archive.tar.gz")
-sha256sums=('e25bbf38843005246210a12982776f27f99cb9be67160e14434d0c0d21ee1e97')
+sha256sums=('83e32755ba1d20d9340bd069ee97e9f6232ba2346b63ffcba425de01f7e327a6')
 
 build() {
 	cd "$_archive"
