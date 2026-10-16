@@ -3,14 +3,13 @@
 # Contributor: dalto <dalto at fastmail.com>
 
 pkgname=btrfs-assistant
-pkgver=2.3.2
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="An application for managing BTRFS subvolumes and Snapper snapshots"
 arch=('x86_64')
 url="https://gitlab.com/${pkgname}/${pkgname}"
 license=('GPL-3.0-or-later')
 depends=(
-	'bash'
 	'btrfs-progs'
 	'diffutils'
 	'glibc'
@@ -26,11 +25,20 @@ optdepends=('snapper: Snapper support'
 makedepends=('cmake' 'qt6-declarative' 'qt6-tools')
 backup=("etc/${pkgname}.conf")
 source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('82458451558e28a5f527a973d3008d0b36ecbf77f2a689d7f42b6a20ff21259c')
+sha256sums=('cb33a9a616fc0f4196b3311ce8ae1ed3f4b24994546713e0dfb958407c8a86ff')
 
 build() {
-	cmake -B build -S "${pkgname}-${pkgver}" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=None
+	cmake -B build \
+		-S "${pkgname}-${pkgver}" \
+		-D CMAKE_INSTALL_PREFIX=/usr \
+		-D CMAKE_BUILD_TYPE=None \
+		-D BTRFS_ASSISTANT_TESTS=ON
+
 	cmake --build build
+}
+
+check() {
+	ctest --test-dir build --output-on-failure
 }
 
 package() {
