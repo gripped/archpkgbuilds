@@ -15,21 +15,4 @@ post_upgrade() {
 
   # update pacredir.conf
   sed -i '/^\[general\]$/s|^|# Removed with version 0.7.13!\n#|' /etc/pacredir.conf
-
-  # return if old package version greater 0.7...
-  (( $(vercmp $2 '0.7') > 0 )) && return
-
-  # upgrade from pre-0.7 version, avahi service names changed
-  cat <<-EOM
-	 > This upgrade to pacredir $1 changes the backend used for service discovery,
-	 > it depends on systemd-resolved now. By default that is used to announce the
-	 > service as well, so disable and stop avahi, and reload systemd-resolved:
-	 >   # systemctl disable avahi-daemon.socket avahi-daemon.service
-	 >   # systemctl stop avahi-daemon.socket avahi-daemon.service
-	 >   # systemctl reload systemd-resolved.service
-	 > Alternatively install the optional avahi compatibility package
-	 > 'pacredir-avahi' on top.
-	 > Finally restart the services:
-	 >   # systemctl restart pacredir.service pacserve.service
-	EOM
 }
