@@ -3,7 +3,7 @@
 # Contributor: Maikel Wever <maikelwever@gmail.com>
 
 pkgname=python-pipenv
-pkgver=2026.8.0
+pkgver=2026.9.1
 pkgrel=1
 pkgdesc="Sacred Marriage of Pipfile, Pip, & Virtualenv."
 url="https://pipenv.pypa.io"
@@ -31,7 +31,7 @@ checkdepends=('git'
               'python-requests'
               'python-semver')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/pypa/pipenv/archive/v${pkgver}.tar.gz")
-b2sums=('204b8b24f8a5a0b6d89139ec8c851ad9e1375eb5013e33b02cd2ec8f54e280bfcc9c29af28da8578a7dd55ac5fd236464aa05e45923b47b2aee7ae7f4516d97f')
+b2sums=('ca3eb0ec49cae0fe1454a061820fc93340a7e5345d6c743c46446fc1eb31401854bbafd50f48980456fd2e82cee7f08567ac981cd25c43578db409b1a0108411')
 
 build() {
   cd "pipenv-${pkgver}"
