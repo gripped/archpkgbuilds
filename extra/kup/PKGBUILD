@@ -4,8 +4,9 @@
 # PKGBUILD base; Simper < simonpersson1 AT gmail DOT com >
 
 pkgname=kup
-pkgver=0.10.0
-pkgrel=3
+pkgver=6.8.0
+_dirver=$(echo $pkgver | cut -d. -f1-3)
+pkgrel=1
 pkgdesc='A backup software for helping people to keep up-to-date backups'
 arch=(x86_64)
 url='https://apps.kde.org/kup/'
@@ -18,6 +19,7 @@ depends=(glibc
          kconfig
          kconfigwidgets
          kcoreaddons
+         kcrash
          kdbusaddons
          ki18n
          kidletime
@@ -26,12 +28,12 @@ depends=(glibc
          kjobwidgets
          knotifications
          kwidgetsaddons
+         kwindowsystem
          kxmlgui
          libgcc
          libgit2
          libplasma
          libstdc++
-         plasma5support
          qt6-base
          qt6-declarative
          solid)
@@ -39,10 +41,14 @@ makedepends=(extra-cmake-modules
              git)
 optdepends=('bup: bup backend'
             'rsync: support for synced backups')
-source=(https://download.kde.org/stable/kup/kup-$pkgver.tar.xz{,.sig})
-sha256sums=('ac58f3f789973cac5f2b70a81683294e90f7f84fa3b399116b398bca6eff1b0a'
+groups=(plasma)
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('0879a8edb3becad34613db8d75cb854caf44a6051a53bcfa4d1fb59d0f510d5c'
             'SKIP')
-validpgpkeys=(CBA1DCD0B06A2B2E9B133E5C5C7D83CE9812E291)
+validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
+              '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
+              'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
+              '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
