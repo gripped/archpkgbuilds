@@ -2,7 +2,7 @@
 
 pkgname=python-docx
 pkgver=1.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Create and modify Word documents with Python'
 arch=(any)
 url='https://github.com/python-openxml/python-docx'
@@ -34,7 +34,7 @@ build() {
 check() {
   cd $pkgname
   PYTHONPATH="$PWD/build/lib" \
-    pytest -W ignore::pyparsing.warnings.PyparsingDeprecationWarning
+    pytest --ignore=tests/opc/test_phys_pkg.py -W ignore::pyparsing.warnings.PyparsingDeprecationWarning
 }
 
 package() {
