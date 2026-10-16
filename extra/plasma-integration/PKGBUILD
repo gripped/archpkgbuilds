@@ -4,9 +4,9 @@
 pkgbase=plasma-integration
 pkgname=(plasma-integration
          plasma5-integration)
-pkgver=6.7.5
+pkgver=6.8.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=3
+pkgrel=1
 pkgdesc='Qt Platform Theme integration plugins for the Plasma workspaces'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -20,6 +20,7 @@ depends=(glibc
          ki18n
          kio
          kjobwidgets
+         knotifications
          kservice
          kstatusnotifieritem
          kwidgetsaddons
@@ -48,7 +49,7 @@ makedepends=(extra-cmake-modules
              qt5-x11extras)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('0786c49f2f357744e0f4cfda49f55284faa1a97da85a667ca6cf1d8ab07aff89'
+sha256sums=('121b0bc88059f61c45415dab12effbd245a5b5bb9be8856603f352c3f93a9adb'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
