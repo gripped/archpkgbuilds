@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org> 
 
 pkgname=discover
-pkgver=6.7.5
+pkgver=6.8.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE and Plasma resources management GUI'
@@ -37,7 +37,6 @@ depends=(appstream-qt
          libstdc++
          purpose
          qcoro
-         qqc2-desktop-style
          qt6-base
          qt6-declarative
          qt6-webview)
@@ -50,7 +49,7 @@ optdepends=('flatpak: Flatpak packages support'
             'packagekit-qt6: to manage packages from Arch Linux repositories (not recommended, use at your own risk)')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('e9830fffebc54c781dcb076db4ab9462ee27ddd7fd3769403a211743636e1f67'
+sha256sums=('db7f4553852e6fbbcaf549fc77fc2c0856e5e7217745ccf1ab8b473e1d5ad6e4'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -59,7 +58,7 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
