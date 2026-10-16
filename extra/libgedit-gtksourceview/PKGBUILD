@@ -4,7 +4,7 @@
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
 pkgname=libgedit-gtksourceview
-pkgver=299.7.1
+pkgver=299.8.0
 pkgrel=1
 pkgdesc='Source code editing widget library'
 arch=(x86_64)
@@ -31,7 +31,7 @@ makedepends=(
 checkdepends=(xorg-server-xvfb)
 provides=(libgedit-gtksourceview-300.so)
 source=("git+https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview.git#tag=${pkgver/[a-z]/.&}")
-b2sums=(ff5c2ed915fd72512b492e4687e54122b457b1e319f9c0e486d8c322330f7c794c136bf7e4116f8aa6ea8524c3685ec4bd8f762fb9eac2778315ff05cd5acbbe)
+b2sums=(1d58aaf73593915d99d4cc156a7e0d5037d7616e6fe351d00cb1b87fe5be122edbab4eaba762dbcbe92cd98b86d31629df722f2073c24a694da069762eb21ae3)
 validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swilmet@mailfence.com>
 
 build() {
