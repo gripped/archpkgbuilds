@@ -1,0 +1,65 @@
+From 8b2be57a17b7ed0b16e3ec5cf40f193cb7fc4388 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 15 Oct 2026 17:19:53 +0200
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Use gtk_window_get_size() instead of querying the allocated size to
+retrieve the window dimensions.
+
+This prevents the window size from increasing each time the applications
+are opened on Wayland.
+---
+ gsearchtool/src/gsearchtool.c      | 3 +--
+ logview/src/logview-window.c       | 6 +++++-
+ mate-dictionary/src/gdict-window.c | 5 +----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/gsearchtool/src/gsearchtool.c b/gsearchtool/src/gsearchtool.c
+index 528f3783..d8305ad9 100644
+--- a/gsearchtool/src/gsearchtool.c
++++ b/gsearchtool/src/gsearchtool.c
+@@ -2703,8 +2703,7 @@ gsearch_window_size_allocate (GtkWidget * widget,
+                               GSearchWindow * gsearch)
+ {
+ 	if (gsearch->is_window_maximized == FALSE) {
+-		gsearch->window_width = allocation->width;
+-		gsearch->window_height = allocation->height;
++		gtk_window_get_size (GTK_WINDOW (gsearch->window), &gsearch->window_width, &gsearch->window_height);
+ 	}
+ }
+ 
+diff --git a/logview/src/logview-window.c b/logview/src/logview-window.c
+index 9be55f80..56641d56 100644
+--- a/logview/src/logview-window.c
++++ b/logview/src/logview-window.c
+@@ -916,9 +916,13 @@ window_size_changed_cb (GtkWidget *widget, GdkEventConfigure *event,
+                         gpointer data)
+ {
+   LogviewWindow *window = data;
++  gint width;
++  gint height;
++
++  gtk_window_get_size (GTK_WINDOW (window), &width, &height);
+ 
+   logview_prefs_store_window_size (window->priv->prefs,
+-                                   event->width, event->height);
++                                   width, height);
+ 
+   return FALSE;
+ }
+diff --git a/mate-dictionary/src/gdict-window.c b/mate-dictionary/src/gdict-window.c
+index 7d6a6bb2..1f2f235d 100644
+--- a/mate-dictionary/src/gdict-window.c
++++ b/mate-dictionary/src/gdict-window.c
+@@ -1640,10 +1640,7 @@ gdict_window_size_allocate (GtkWidget     *widget,
+   GdictWindow *window = GDICT_WINDOW (widget);
+ 
+   if (!window->is_maximized)
+-    {
+-      window->current_width = allocation->width;
+-      window->current_height = allocation->height;
+-    }
++    gtk_window_get_size (GTK_WINDOW (window), &window->current_width, &window->current_height);
+ 
+   if (GTK_WIDGET_CLASS (gdict_window_parent_class)->size_allocate)
+     GTK_WIDGET_CLASS (gdict_window_parent_class)->size_allocate (widget,
