@@ -4,26 +4,32 @@
 # Contributor: K. Piche <kpiche@rogers.com>
 
 pkgname=avfs
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc='Virtual filesystem that allows browsing compressed files'
 arch=('x86_64')
-license=('GPL' 'LGPL')
+license=('GPL-2.0-or-later' 'LGPL-2.0-or-later')
 url='http://avf.sourceforge.net/'
 depends=('fuse3' 'lzlib' 'perl' 'xz' 'zstd')
+makedepends=('git')
 options=('!emptydirs')
-source=("https://downloads.sourceforge.net/sourceforge/avf/$pkgname-$pkgver.tar.bz2")
-sha512sums=('97791f9b2e10aeaba80d7866f2289375c1d1ab20548096f9df67f4e0c70c7ce88d7ef29ae9fe56cdbdec1951e1ccd53a3ed0518947ab70782d6f09fe68914732')
+source=("$pkgname::git+https://git.code.sf.net/p/avf/git#tag=v${pkgver//./_}")
+sha512sums=('e9ccef457526f5fe8c61d087181135cdffb876a9da558eb88f86131f442eb3ce5cd2c027f7332e1acf910871093790f06e9d59b5ebe709202d71e431a0d4bf0c')
+
+prepare() {
+  cd $pkgname
+  autoreconf -fi
+}
 
 build() {
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   ./configure --prefix=/usr --enable-library --enable-fuse --disable-static
   make
 }
 
 package() {
-  make -C $pkgname-$pkgver DESTDIR="$pkgdir" install
+  make -C $pkgname DESTDIR="$pkgdir" install
 }
 
 # vim:set ts=2 sw=2 et:
