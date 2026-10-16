@@ -8,7 +8,7 @@
 pkgname=amule
 epoch=1
 pkgver=3.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='An eMule-like client for ed2k p2p network'
 arch=(x86_64)
 url='https://amule-org.github.io/'
@@ -58,6 +58,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_ALC=ON \
     -DBUILD_ALCC=ON \
+    -DBUILD_AMULEAPI=ON \
     -DBUILD_AMULECMD=ON \
     -DBUILD_CAS=ON \
     -DBUILD_DAEMON=ON \
