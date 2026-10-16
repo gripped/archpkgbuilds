@@ -1,0 +1,28 @@
+From 8d0ced22f896a5f76bc92efb097e74f704679f5d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 15 Oct 2026 12:52:07 +0200
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Use gtk_window_get_size() instead of querying the allocated size to
+retrieve the window dimensions.
+
+This prevents the window size from increasing each time engrampa is opened on
+Wayland.
+---
+ src/fr-window.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/src/fr-window.c b/src/fr-window.c
+index 110367b1..fcdcb348 100644
+--- a/src/fr-window.c
++++ b/src/fr-window.c
+@@ -665,8 +665,7 @@ fr_window_close (FrWindow *window)
+ 	if (gtk_widget_get_realized (GTK_WIDGET (window))) {
+ 		int width, height;
+ 
+-		width = gtk_widget_get_allocated_width (GTK_WIDGET (window));
+-		height = gtk_widget_get_allocated_height (GTK_WIDGET (window));
++		gtk_window_get_size (GTK_WINDOW (window), &width, &height);
+ 		g_settings_set_int (window->priv->settings_ui, PREF_UI_WINDOW_WIDTH, width);
+ 		g_settings_set_int (window->priv->settings_ui, PREF_UI_WINDOW_HEIGHT, height);
+ 
