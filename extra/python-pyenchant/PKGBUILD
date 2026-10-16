@@ -11,10 +11,10 @@ pkgname=(
   python-pyenchant-docs
 )
 pkgver=3.3.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Python bindings for the Enchant spellchecker'
 arch=(any)
-url='https://pyenchant.github.io/pyenchant/'
+url='https://github.com/pyenchant/pyenchant'
 license=(LGPL-2.1-or-later)
 depends=(
   enchant
@@ -36,6 +36,13 @@ checkdepends=(
 source=("git+https://github.com/pyenchant/pyenchant.git#tag=v$pkgver")
 b2sums=('6e2bfcb578c931119f6c9a24b4be26575c5a1fe083a0af16a08ab3475063b283f837242ce0806cd3c1f478ded21a8b71622dceeb62da709bdd256e3657ac6033')
 
+prepare() {
+  cd pyenchant
+
+  # Fix tests
+  sed -i 's/sme/sume/' tests/test_checker.py
+}
+
 build() {
   cd pyenchant
   python -m build --wheel --no-isolation
@@ -44,7 +51,7 @@ build() {
 check() {
   cd pyenchant
   PYTHONPATH="$PWD/build/lib" \
-    pytest --ignore=tests/test_broker.py --ignore=tests/test_pwl.py
+    pytest --ignore=tests/test_broker.py
 }
 
 package_python-pyenchant() {
