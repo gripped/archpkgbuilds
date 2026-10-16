@@ -1,0 +1,52 @@
+Subject: [PATCH] testsuite: replace obsolescent egrep
+
+Backport of https://gitlab.haskell.org/ghc/ghc/-/commit/ab6c1d295cd9f492838dbd481ecc2a66bbd17393
+Limited to the affected tests in GHC 9.6.7.
+
+diff --git a/testsuite/tests/cabal/cabal01/Makefile b/testsuite/tests/cabal/cabal01/Makefile
+index 004e4c7..6ec499c 100644
+--- a/testsuite/tests/cabal/cabal01/Makefile
++++ b/testsuite/tests/cabal/cabal01/Makefile
+@@ -5,7 +5,7 @@ include $(TOP)/mk/test.mk
+ # Find all the env variables starting with CI_ to unset them.
+ # Otherwise, we might run into environment length limitations on Windows.
+ # (See `xargs --show-limits`.)
+-VARS_TO_UNSET := $(shell env | grep ^CI_ | egrep -o '^[^=]+')
++VARS_TO_UNSET := $(shell env | grep ^CI_ | grep -E -o '^[^=]+')
+ unexport $(VARS_TO_UNSET)
+ 
+ clean:
+diff --git a/testsuite/tests/haddock/perf/Makefile b/testsuite/tests/haddock/perf/Makefile
+index 23dec91..e80015d 100644
+--- a/testsuite/tests/haddock/perf/Makefile
++++ b/testsuite/tests/haddock/perf/Makefile
+@@ -4,12 +4,12 @@ include $(TOP)/mk/test.mk
+ 
+ # We accept a 5% increase in parser allocations due to -haddock
+ haddock_parser_perf :
+-	WithHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -haddock -O0 Fold.hs 2>/dev/null | grep Parser | egrep -o 'alloc=[0-9]+' | cut -c7-  ) ; \
+-	WithoutHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -O0 Fold.hs 2>/dev/null | grep Parser | egrep -o 'alloc=[0-9]+' | cut -c7-  ) ;  \
++	WithHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -haddock -O0 Fold.hs 2>/dev/null | grep Parser | grep -E -o 'alloc=[0-9]+' | cut -c7-  ) ; \
++	WithoutHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -O0 Fold.hs 2>/dev/null | grep Parser | grep -E -o 'alloc=[0-9]+' | cut -c7-  ) ;  \
+ 	  awk "BEGIN { ratio = ($$WithHaddock / $$WithoutHaddock); if (ratio > 1.05) {print \"-haddock allocation ratio too high:\", ratio; exit 1} else {exit 0} }"
+ 
+ # Similarly for the renamer
+ haddock_renamer_perf :
+-	WithoutHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -O0 Fold.hs 2>/dev/null | grep Renamer | egrep -o 'alloc=[0-9]+' | cut -c7-  ) ; \
+-	WithHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -haddock -O0 Fold.hs 2>/dev/null | grep Renamer | egrep -o 'alloc=[0-9]+' | cut -c7-  ) ;  \
++	WithoutHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -O0 Fold.hs 2>/dev/null | grep Renamer | grep -E -o 'alloc=[0-9]+' | cut -c7-  ) ; \
++	WithHaddock=$(shell '$(TEST_HC)' $(TEST_HC_OPTS) -fno-code -fforce-recomp -Wno-all -ddump-timings -haddock -O0 Fold.hs 2>/dev/null | grep Renamer | grep -E -o 'alloc=[0-9]+' | cut -c7-  ) ;  \
+ 	  awk "BEGIN { ratio = ($$WithHaddock / $$WithoutHaddock); if (ratio > 1.20) {print \"-haddock allocation ratio too high:\", ratio; exit 1} else {exit 0} }"
+diff --git a/testsuite/tests/simplCore/should_compile/Makefile b/testsuite/tests/simplCore/should_compile/Makefile
+index bf2e8f5..ffc56f8 100644
+--- a/testsuite/tests/simplCore/should_compile/Makefile
++++ b/testsuite/tests/simplCore/should_compile/Makefile
+@@ -61,7 +61,7 @@ T13367:
+ 
+ T8832:
+ 	$(RM) -f T8832.o T8832.hi
+-	'$(TEST_HC)' $(TEST_HC_OPTS) -O -c -ddump-simpl -dsuppress-ticks T8832.hs | egrep '^[a-zA-Z0-9]+ ='
++	'$(TEST_HC)' $(TEST_HC_OPTS) -O -c -ddump-simpl -dsuppress-ticks T8832.hs | grep -E '^[a-zA-Z0-9]+ ='
+ 
+ T12603:
+ 	$(RM) -f T12603.o T12603.hi

@@ -1,0 +1,42 @@
+Subject: [PATCH] testsuite: correct work-stealing thread callback and formats
+
+Adapted from https://gitlab.haskell.org/ghc/ghc/-/commit/a9979f55d0f688fabd25ee318e44b9addd904988
+Upstream merge request: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/12570
+Keep the GHC 9.6.7 deque implementation and existing whitespace.
+
+diff --git a/testsuite/tests/rts/testwsdeque.c b/testsuite/tests/rts/testwsdeque.c
+index 8d3a88c..5272043 100644
+--- a/testsuite/tests/rts/testwsdeque.c
++++ b/testsuite/tests/rts/testwsdeque.c
+@@ -114,12 +114,12 @@ void work(void *p, uint32_t n)
+     if (val != 0) { 
+         fflush(stdout); 
+         fflush(stderr); 
+-        barf("FAIL: %ld %d %d", p, n, val);
++        barf("FAIL: %p %" FMT_Word32 " %" FMT_Word, p, n, val);
+     }
+     *(StgWord*)p = n+10;
+ }
+     
+-void OSThreadProcAttr thief(void *info)
++void* OSThreadProcAttr thief(void *info)
+ {
+     void *p;
+     StgWord n;
+@@ -136,6 +136,7 @@ void OSThreadProcAttr thief(void *info)
+         if (p != NULL) { work(p,n+1); count++; }
+     }
+     debugBelch("thread %ld finished, stole %d", n, count);
++    return NULL;
+ }
+ 
+ int main(int argc, char*argv[])
+@@ -152,7 +153,7 @@ int main(int argc, char*argv[])
+     }
+ 
+     for (n=0; n < THREADS; n++) {
+-        createOSThread(&ids[n], "thief", thief, (void*)(StgWord)n);
++        createOSThread(&ids[n], "thief", (OSThreadProc*)thief, (void*)(StgWord)n);
+     }
+ 
+     for (n=0; n < SCRATCH_SIZE; n++) {

@@ -1,0 +1,20 @@
+Subject: [PATCH] testsuite: serialize T7060 dump checks
+
+T7060a, T7060b, and T7060c each remove the same dump directory and
+compile T7060.hs into the same object and interface files. Running
+these prerequisites concurrently races both dump checks and object
+file renames. Serialize only the prerequisites of T7060 so all three
+checks remain enabled with parallel make.
+
+diff --git a/testsuite/tests/driver/Makefile b/testsuite/tests/driver/Makefile
+index dc45e84..30e3bc0 100644
+--- a/testsuite/tests/driver/Makefile
++++ b/testsuite/tests/driver/Makefile
+@@ -540,6 +540,7 @@ T7060c:
+ 	"$(TEST_HC)" $(TEST_HC_OPTS) -O -c T7060.hs -dumpdir T7060dump -ddump-to-file -ddump-rule-rewrites
+ 	[ -f T7060dump/T7060.dump-rule-rewrites ]
+ 
++.NOTPARALLEL: T7060
+ .PHONY: T7060
+ T7060: T7060a T7060b T7060c
+ 

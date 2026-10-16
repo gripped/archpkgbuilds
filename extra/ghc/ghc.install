@@ -1,14 +1,23 @@
+post_install() {
+  find /usr/share/haskell/register -maxdepth 1 -name '*.sh' -exec /bin/sh {} \; >>/var/log/haskell-register.log 2>&1
+  ghc-pkg recache --global --no-user-package-db
+}
+
 pre_upgrade() {
-  if [[ ${1%-*} != ${2%-*} ]]; then
-    [[ -d /usr/share/haskell ]] && find /usr/share/haskell -maxdepth 2 -name 'unregister.sh' -exec {} \;
+  if [[ ${1%-*} != "${2%-*}" ]]; then
+    find /usr/share/haskell/unregister -maxdepth 1 -name '*.sh' -exec /bin/sh {} \; >>/var/log/haskell-register.log 2>&1
   fi
 }
 
 post_upgrade() {
-  if [[ ${1%-*} != ${2%-*} ]]; then
+  if [[ ${1%-*} != "${2%-*}" ]]; then
     echo '==> If you have custom packages installed, you will need to reinstall them now.'
-    echo "==> See /usr/lib/ghc-${2%-*}/package.conf.d/ for a tentative list of affected packages."
+    echo "==> See /usr/lib/ghc-${2%-*}/lib/package.conf.d/ for a tentative list of affected packages."
   else
-    ghc-pkg recache
+    ghc-pkg recache --global --no-user-package-db
   fi
+}
+
+pre_remove() {
+  find /usr/share/haskell/unregister -maxdepth 1 -name '*.sh' -exec /bin/sh {} \; >>/var/log/haskell-register.log 2>&1
 }

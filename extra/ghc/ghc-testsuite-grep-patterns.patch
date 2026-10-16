@@ -1,0 +1,58 @@
+Subject: [PATCH] testsuite: use valid GNU grep expressions
+
+Backport of https://gitlab.haskell.org/ghc/ghc/-/commit/e305e60cf507808fa31c456ef98295f8f7d00c9d
+Limited to the affected tests in GHC 9.6.7.
+
+diff --git a/testsuite/tests/hsc2hs/Makefile b/testsuite/tests/hsc2hs/Makefile
+index d0b2d24..95b011c 100644
+--- a/testsuite/tests/hsc2hs/Makefile
++++ b/testsuite/tests/hsc2hs/Makefile
+@@ -52,9 +52,9 @@ T11004:
+ T12504:
+ 	'$(HSC2HS)' $(HSC2HS_OPTS) T12504/path/to/$@.hsc
+ ifeq "$(WINDOWS)" "YES"
+-	grep '{-# LINE 1 \"T12504\\\\path\\\\to\\\\$@\.hsc\" #-}' T12504/path/to/$@.hs
++	grep '{-# LINE 1 "T12504\\\\path\\\\to\\\\$@\.hsc" #-}' T12504/path/to/$@.hs
+ else
+-	grep '{-# LINE 1 \"T12504/path/to/$@\.hsc\" #-}' T12504/path/to/$@.hs
++	grep '{-# LINE 1 "T12504/path/to/$@\.hsc" #-}' T12504/path/to/$@.hs
+ endif
+ 
+ .PHONY: T15758
+diff --git a/testsuite/tests/numeric/should_run/Makefile b/testsuite/tests/numeric/should_run/Makefile
+index 26ec990..23f4456 100644
+--- a/testsuite/tests/numeric/should_run/Makefile
++++ b/testsuite/tests/numeric/should_run/Makefile
+@@ -6,5 +6,5 @@ include $(TOP)/mk/test.mk
+ T7014:
+ 	rm -f T7014.simpl T7014.o T7014.hi
+ 	'$(TEST_HC)' -Wall -v0 -O --make T7014.hs -fforce-recomp -ddump-simpl > T7014.simpl
+-	! grep -q -f T7014.primops T7014.simpl
++	! grep -Eq -f T7014.primops T7014.simpl
+ 	./T7014
+diff --git a/testsuite/tests/numeric/should_run/T7014.primops b/testsuite/tests/numeric/should_run/T7014.primops
+index 3243666..8277db5 100644
+--- a/testsuite/tests/numeric/should_run/T7014.primops
++++ b/testsuite/tests/numeric/should_run/T7014.primops
+@@ -2,7 +2,7 @@ and#
+ or#
+ uncheckedShift.*#
+ \+#
+-\-#
++-#
+ \*#
+ quotInt#
+ remInt#
+diff --git a/testsuite/tests/simplCore/should_compile/Makefile b/testsuite/tests/simplCore/should_compile/Makefile
+index ffc56f8..0583cb4 100644
+--- a/testsuite/tests/simplCore/should_compile/Makefile
++++ b/testsuite/tests/simplCore/should_compile/Makefile
+@@ -254,7 +254,7 @@ str-rules:
+ # g should have been collapsed into one defininition by CSE.
+ .PHONY: T13340
+ T13340:
+-	'$(TEST_HC)' $(TEST_HC_OPTS) -c -O T13340.hs -ddump-simpl -dsuppress-all | grep -c '\+#'
++	'$(TEST_HC)' $(TEST_HC_OPTS) -c -O T13340.hs -ddump-simpl -dsuppress-all | grep -Ec '\+#'
+ 
+ 
+ # We expect to see all dictionaries specialized away.

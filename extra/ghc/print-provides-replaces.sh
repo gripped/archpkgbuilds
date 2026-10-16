@@ -45,9 +45,9 @@ print_var() {
 }
 
 # For ghc-libs
-print_var 'provides' '=' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal,Cabal/Cabal-syntax}/*.cabal utils/ghc-pkg/*.cabal.in
-print_var 'replaces' '' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal,Cabal/Cabal-syntax}/*.cabal utils/ghc-pkg/*.cabal.in
+print_var 'provides' '=' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal,Cabal/Cabal-syntax}/*.cabal
+print_var 'replaces' '' libraries/*/*.cabal{,.in} libraries/{containers/containers,Cabal/Cabal,Cabal/Cabal-syntax}/*.cabal
 
 # For ghc
-print_var 'provides' '=' utils/{hpc,hsc2hs,haddock*,hp2ps}/*.cabal
-print_var 'replaces' '' utils/{hpc,hsc2hs,haddock*,hp2ps}/*.cabal
+print_var 'provides' '=' utils/{hpc,hsc2hs,haddock*,hp2ps}/*.cabal utils/ghc-pkg/*.cabal.in
+print_var 'replaces' '' utils/{hpc,hsc2hs,haddock*,hp2ps}/*.cabal utils/ghc-pkg/*.cabal.in
