@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=libplasma
-pkgver=6.7.5
+pkgver=6.8.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma library and runtime components'
@@ -26,11 +26,7 @@ depends=(glibc
          ksvg
          kwidgetsaddons
          kwindowsystem
-         libgcc
-         libglvnd
          libstdc++
-         libx11
-         libxcb
          qt6-5compat
          qt6-base
          qt6-declarative
@@ -43,7 +39,7 @@ conflicts=(plasma-framework)
 replaces=(plasma-framework)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('27b28823254aa489c094c40a314ce1575fd7906eeb521e636bb8fd2dc2981f2f'
+sha256sums=('b547df114ea595260b3c6c8b05935ca389f082842675d92c3859f2551f14dc77'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
