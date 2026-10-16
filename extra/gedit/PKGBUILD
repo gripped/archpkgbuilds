@@ -4,8 +4,8 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gedit
-pkgver=50.0
-pkgrel=3
+pkgver=51.0
+pkgrel=1
 pkgdesc='Easy-to-use general-purpose text editor'
 arch=(x86_64)
 url='https://gedit-text-editor.org/'
@@ -37,16 +37,15 @@ makedepends=(
   itstool
   meson
 )
-optdepends=('gedit-plugins: Additional features')
+conflicts=(gedit-plugins)
+replaces=(gedit-plugins)
 source=(
   "git+https://gitlab.gnome.org/World/gedit/gedit.git#tag=${pkgver/[a-z]/.&}"
-  git+https://gitlab.gnome.org/GNOME/libgd.git
   gedit-new-tab.patch
   gedit-prgname.patch
 )
 b2sums=(
-  012dd39dcb7ecdc45ea6aeed55f75cc0519a8b63f161fba5d606db0c4d4253f81e093b4f787b4291bc1166ffd7aaded1f100f2ffc184c3fde8cd1c751b103bd9
-  SKIP
+  4b658ed30e7cf9326e265cd754befa6a36033c97d204527cd511cfb248d6fbd921fd13f3f958daa580d1ce8baf71a8e023b8b686a178d3647847207515e2104a
   3f30dde7f7141f2992f750fb01f215823f48c384c2e24d66d94d0471b99362024ed76512092e31e1703890d0e4e94384ab599be042405248807b5183ae1e6c1f
   7a7a00699f32fdc6f3e7d64411c0e9158ae92cf1874de7d32cff0249e16368282e147a625897ae02f2ecf153db809619a87fa29beb7c0a4e4d16540053e2af80
 )
@@ -54,10 +53,6 @@ validpgpkeys=(08C0A6B1A08310A45363B328426F014A261FD87F) # Sébastien Wilmet <swi
 
 prepare() {
   cd $pkgname
-
-  git submodule init
-  git submodule set-url subprojects/libgd "$srcdir/libgd"
-  git -c protocol.file.allow=always submodule update
 
   # Don't create new tab unless requested
   git apply -3 ../gedit-new-tab.patch
@@ -80,5 +75,3 @@ check() {
 package() {
   meson install -C build --destdir "$pkgdir"
 }
-
-# vim:set sw=2 sts=-1 et:
