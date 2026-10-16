@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=plasma-desktop
-pkgver=6.7.5
+pkgver=6.8.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='KDE Plasma Desktop'
@@ -32,7 +32,6 @@ depends=(attica
          kirigami
          kirigami-addons
          kitemmodels
-         kitemviews
          kjobwidgets
          kmenuedit
          knewstuff
@@ -41,6 +40,7 @@ depends=(attica
          kpackage
          kpipewire
          krunner
+         kscreenlocker
          kservice
          ksvg
          kwidgetsaddons
@@ -52,8 +52,6 @@ depends=(attica
          libwacom
          libx11
          libxcb
-         libxcursor
-         libxi
          libxkbcommon
          libxkbfile
          libplasma
@@ -91,12 +89,10 @@ makedepends=(extra-cmake-modules
              libibus
              packagekit-qt6
              scim
-             wayland-protocols
-             xf86-input-libinput
-             xorg-server-devel)
+             wayland-protocols)
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('079fcf6b87d7bf65e3f2a4670d605fac9469344c279a285a98ad549332d7b53e'
+sha256sums=('6272ec39d9f4661ca8d043a33c2fb71cc07969c9a290559126b2bed1071343aa'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -105,7 +101,7 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
