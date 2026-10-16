@@ -3,9 +3,9 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=powerdevil
-pkgver=6.7.5
+pkgver=6.8.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='Manages the power consumption settings of a Plasma Shell'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -31,7 +31,6 @@ depends=(ddcutil
          libkscreen
          libplasma
          libstdc++
-         libxcb
          plasma-workspace
          qcoro
          qt6-base
@@ -46,23 +45,17 @@ optdepends=('kinfocenter: for the Energy Information KCM'
             'power-profiles-daemon: power profiles support'
             'tlp: alternative power profiles support')
 groups=(plasma)
-source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
-        https://invent.kde.org/plasma/powerdevil/-/commit/54f8a4a8.patch)
-sha256sums=('6a738fccf01e4d1b10fea68ff8b404a406f95bc36fcb593bcc70fafb1c53258b'
-            'SKIP'
-            'f92b339712096d623c862e31b58d87ce72f381462efeab30893f1937a6634f88')
+source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('2027b43339faeedd29c89520efba54e1c3f46900d275b2d48fc9c69575b1d57e'
+            'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
-prepare() {
-  patch -d $pkgname-$pkgver -p1 < 54f8a4a8.patch # Adapt to solid 6.30 changes
-}
-
 build() {
   cmake -B build  -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
