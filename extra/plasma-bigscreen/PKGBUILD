@@ -1,9 +1,9 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=plasma-bigscreen
-pkgver=6.7.5
+pkgver=6.8.0
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=2
+pkgrel=1
 pkgdesc='Plasma shell for TVs'
 arch=(x86_64)
 url='https://plasma-bigscreen.org/'
@@ -11,6 +11,7 @@ license=(GPL-2.0-or-later)
 depends=(bluez-qt
          glibc
          kcmutils
+         kcolorscheme
          kconfig
          kcoreaddons
          kdbusaddons
@@ -25,11 +26,11 @@ depends=(bluez-qt
          kitemmodels
          kjobwidgets
          knotifications
-         kpackage
          kservice
          ksvg
          kwindowsystem
          layer-shell-qt
+         libcec
          libgcc
          libkscreen
          libplasma
@@ -49,12 +50,10 @@ depends=(bluez-qt
          sh
          solid)
 makedepends=(extra-cmake-modules
-             libcec
              plasma-wayland-protocols)
-optdepends=('libcec: support for CEC devices (ex. TV Remotes)')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('fd00b8ffd6a1c0fd7058acd06098110b00b5ca1dc720167058fad65d2ab50bdc'
+sha256sums=('b9385610f90f19ba0986fc50165d0449dc802bc036a957d8dd503a6dfe1e466e'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
@@ -63,7 +62,7 @@ validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DCMAKE_INSTALL_LIBEXECDIR=lib \
+    -DKDE_INSTALL_LIBEXECDIR=lib \
     -DBUILD_TESTING=OFF
   cmake --build build
 }
