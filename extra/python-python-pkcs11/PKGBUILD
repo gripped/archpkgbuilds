@@ -2,7 +2,7 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 
 pkgname=python-python-pkcs11
-pkgver=0.10.0
+pkgver=0.10.1
 pkgrel=1
 pkgdesc='PKCS#11/Cryptoki support for Python'
 arch=(x86_64)
@@ -30,8 +30,8 @@ checkdepends=(
   softhsm
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('15a0fa58baf21cc75ae161c77b83b58f669d0a3c5f3ed786d6e9d5ea0dea6a8a2a2a25bde3f787fdabb38feb632c6c2efea18030f312b90bbd9d35501562e6a0')
-b2sums=('0322bf35849dfba53f393759e229ebd4f435796da3217eba1f38ceabdb1458027e9709aeffc65de1372c19705dbb2b4682100f8db67d189c67cf907ff813b07d')
+sha512sums=('1111415c2a09656e2fa5eb092d5bac0ce1344d12471b30af45bb4e630163fbd29e112e9883d49cf99ee5203786746933b7896442d530f2a85dc44e08ea95f29f')
+b2sums=('add74bbee9dec22520ebed341958451471799f0b2a1edd47616982b312045d8021215954251afe5b1a50f2eb6894d2b86762e7108f9d0468449253c1e8cdd628')
 
 prepare() {
   cd "$pkgname"
