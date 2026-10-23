@@ -3,7 +3,7 @@
 
 pkgname=stdoutisatty
 pkgver=1.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Make programs think their stdout is a tty / terminal."
 arch=('x86_64')
 url='https://github.com/lilydjwg/stdoutisatty'
@@ -19,7 +19,9 @@ prepare() {
 
 build() {
   cd build
-  cmake -D CMAKE_INSTALL_PREFIX=/usr ../stdoutisatty-$pkgver
+  cmake \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -D CMAKE_INSTALL_PREFIX=/usr ../stdoutisatty-$pkgver
   make
 }
 
