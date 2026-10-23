@@ -6,7 +6,7 @@ pkgname=(
   template-glib-docs
 )
 pkgver=3.40.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Templating library for GLib"
 url="https://gitlab.gnome.org/GNOME/template-glib"
 arch=(x86_64)
