@@ -7,7 +7,7 @@
 _pkg=arrow
 _pkgname=pyarrow
 pkgname=python-$_pkgname
-pkgver=25.0.1
+pkgver=26.0.0
 pkgrel=1
 # parquet-testing and arrow-testing projects have no releases, commits may need to be updated on pkgver bumps
 _parquet_testing_commit=92d45b0752487a4b55fb7f1581c8126ee3e73b0d
@@ -53,7 +53,7 @@ source=(
   git+https://github.com/apache/parquet-testing.git#commit=$_parquet_testing_commit
   git+https://github.com/apache/arrow-testing.git#commit=$_arrow_testing_commit
 )
-sha512sums=('e75d384b4fdbdee29eb8ad29800c731843e7c43d90a43995dcc77390008723537791e212333178625345c718bdab15e0f3d8c12aa86b336918598c7d3fefc6e5'
+sha512sums=('c8769d4198f1c8e309e1e02e3d7e1db82706d98a7b500ae4e563d0ab504373c26de5141a5efa695541275fc95e8f4ef6a245a95f9ada7958f754e8e82145f9fd'
             'SKIP'
             'c7995b54e4aaa69c6a2173e057a58d7cf477b78a06787cb50c1ebe38aeba56c8da138fa1370f0187419a3ee3bd1ac7867f3e3379b0a454c7f55e5c1e335b4fb5'
             '9b85bb0ce492894631ec3a234899dd9b5c22181945ee8682ebd5f279cf275ada21d3e3e74e8509b7c045ee34fc417824a0629993d3b373c813a5069916a2a84c')
