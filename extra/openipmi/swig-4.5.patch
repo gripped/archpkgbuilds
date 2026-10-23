@@ -1,0 +1,153 @@
+diff -ru OpenIPMI-2.0.37.orig/swig/python/OpenIPMI_lang.i OpenIPMI-2.0.37/swig/python/OpenIPMI_lang.i
+--- OpenIPMI-2.0.37.orig/swig/python/OpenIPMI_lang.i	2026-10-17 20:36:56.594358589 +0200
++++ OpenIPMI-2.0.37/swig/python/OpenIPMI_lang.i	2026-10-17 20:42:53.345717819 +0200
+@@ -58,7 +58,7 @@
+ 	    PyErr_SetString(PyExc_ValueError, "Expecting a sequence of ints");
+ 	    return NULL;
+ 	}
+-	if (!PyInt_Check(o)) {
++	if (!PyLong_Check(o)) {
+ 	    free($1.val);
+ 	    PyErr_SetString(PyExc_ValueError,"Expecting a sequence of ints");
+ 	    Py_DECREF(o);
+@@ -85,7 +85,7 @@
+ 	return NULL;
+     }
+     for (i=0; i<$1.len; i++) {
+-	PyObject *o = PyInt_FromLong($1.val[i]);
++	PyObject *o = PyLong_FromLong($1.val[i]);
+ 	if (!o) {
+ 	    int j;
+ 	    for (j=0; j<i; j++) {
+@@ -187,7 +187,7 @@
+     len = PySequence_Size($input);
+     PySequence_DelSlice($input, 0, len);
+     for (i=0; i<$1->len; i++) {
+-	PyObject *o = PyString_FromString($1->val[i]);
++	PyObject *o = PyUnicode_FromString($1->val[i]);
+ 	PyList_Append($input, o);
+ 	Py_DECREF(o);
+     }
+@@ -243,7 +243,7 @@
+ 	PyErr_SetString(PyExc_ValueError, "Expecting an integer number");
+ 	return NULL;
+     }
+-    if (!PyInt_Check(o)) {
++    if (!PyLong_Check(o)) {
+ 	Py_DECREF(o);
+ 	PyErr_SetString(PyExc_ValueError, "expected an integer number");
+ 	return NULL;
+@@ -254,7 +254,7 @@
+ }
+ 
+ %typemap(argout) int * {
+-    PyObject *o = PyInt_FromLong(*$1);
++    PyObject *o = PyLong_FromLong(*$1);
+     if (!o) {
+ 	PyErr_SetString(PyExc_TypeError, "Unable to allocate int object");
+ 	return NULL;
+@@ -278,7 +278,7 @@
+ 	PyErr_SetString(PyExc_ValueError, "Expecting an integer number");
+ 	return NULL;
+     }
+-    if (!PyInt_Check(o)) {
++    if (!PyLong_Check(o)) {
+ 	PyErr_SetString(PyExc_ValueError, "expected an integer number");
+ 	Py_DECREF(o);
+ 	return NULL;
+@@ -289,7 +289,7 @@
+ }
+ 
+ %typemap(argout) unsigned int * {
+-    PyObject *o = PyInt_FromLong(*$1);
++    PyObject *o = PyLong_FromLong(*$1);
+     if (!o) {
+ 	PyErr_SetString(PyExc_TypeError, "Unable to allocate int object");
+ 	return NULL;
+@@ -325,7 +325,7 @@
+ 
+ %typemap(argout) const char ** {
+     if (*$1) {
+-	PyObject *o = PyString_FromString(*$1);
++	PyObject *o = PyUnicode_FromString(*$1);
+ 	if (!o) {
+ 	    PyErr_SetString(PyExc_TypeError,
+ 			    "Unable to allocate string object");
+@@ -358,7 +358,7 @@
+ 
+ %typemap(argout) char ** {
+     if (*$1) {
+-	PyObject *o = PyString_FromString(*$1);
++	PyObject *o = PyUnicode_FromString(*$1);
+ 	if (!o) {
+ 	    PyErr_SetString(PyExc_TypeError, "Unable to allocate string object");
+ 	    return NULL;
+@@ -444,7 +444,7 @@
+ #define PyInt_AS_LONG PyLong_AS_LONG
+ #define OI_PyString_Check PyUnicode_Check
+ #else
+-#define OI_PI_FromStringAndSize PyString_FromStringAndSize
++#define OI_PI_FromStringAndSize PyUnicode_FromStringAndSize
+ #define OI_PI_AsStringAndSize(o, val, len)	\
+   {						\
+     Py_ssize_t nlen;				\
+@@ -782,7 +782,7 @@
+ 	o = NULL;
+ 	switch (*format) {
+ 	case 'd':
+-	    o = PyInt_FromLong(va_arg(ap, int));
++	    o = PyLong_FromLong(va_arg(ap, int));
+ 	    break;
+ 
+ 	case 'f':
+@@ -804,7 +804,7 @@
+ 		    goto out_err;
+ 		}
+ 		for (i=0; i<len; i++, data++) {
+-		    p = PyInt_FromLong(*data);
++		    p = PyLong_FromLong(*data);
+ 		    if (!p) {
+ 			errstr = "cannot allocate uchar list item";
+ 			goto out_err;
+@@ -831,7 +831,7 @@
+ 		    goto out_err;
+ 		}
+ 		for (i=0; i<len; i++, idata++) {
+-		    p = PyInt_FromLong(*idata);
++		    p = PyLong_FromLong(*idata);
+ 		    if (!p) {
+ 			errstr = "cannot allocate uchar list item";
+ 			goto out_err;
+@@ -868,7 +868,7 @@
+ 	    switch(*format) {
+ 	    case 'd':
+ 		/* Long int */
+-		o = PyInt_FromLong(va_arg(ap, long));
++		o = PyLong_FromLong(va_arg(ap, long));
+ 		break;
+ 
+ 	    default:
+@@ -878,7 +878,7 @@
+ 	    
+ 	case 's':
+ 	    /* String */
+-	    o = PyString_FromString(va_arg(ap, char *));
++	    o = PyUnicode_FromString(va_arg(ap, char *));
+ 	    break;
+ 
+ 	case 'p':
+@@ -913,12 +913,12 @@
+ 	if (rv) {
+ 	    switch (rv_type) {
+ 	    case 'i': /* Integer */
+-		*((int *) rv) = PyInt_AsLong(o);
++		*((int *) rv) = PyLong_AsLong(o);
+ 		break;
+ 
+ 	    case 'I': /* Integer, no return value leave alone */
+ 		if (o && (o != Py_None))
+-		    *((int *) rv) = PyInt_AsLong(o);
++		    *((int *) rv) = PyLong_AsLong(o);
+ 		break;
+ 
+ 	    default:
