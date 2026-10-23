@@ -5,8 +5,8 @@ pkgbase=pcp
 pkgname=(pcp pcp-gui pcp-pmda-activemq pcp-pmda-bind2 pcp-pmda-bpftrace pcp-pmda-libvirt
          pcp-pmda-mysql pcp-pmda-nginx pcp-pmda-nutcracker pcp-pmda-openmetrics
          pcp-pmda-podman pcp-pmda-postgresql pcp-pmda-snmp pcp-pmda-json pcp-atop)
-pkgver=7.2.1
-pkgrel=1
+pkgver=7.2.2
+pkgrel=2
 arch=('x86_64')
 url="https://pcp.io"
 license=(GPL-2.0-or-later LGPL-2.1-or-later CC-BY-3.0)
@@ -35,7 +35,7 @@ source=("https://github.com/performancecopilot/pcp/archive/$pkgver/$pkgname-$pkg
         "pcp-rebuild-pmns.hook"
         "check-lto.patch"
         "setuptools.patch")
-sha256sums=('4297c9a75e9710d107593a1915b3fc3cee4c46f98a3caf8f0e5cc6e5d02226a6'
+sha256sums=('2026f6abf7adf927cf24a416d93381b740a3f0668c82af2d645af7d958db9c3a'
             '85fe78e3c481d89017a0ab6e7925308b6649d0356a7ebaa017240901e039fb9d'
             '0166ffea180527de5a48a8e8f145cc80860b93e8f44bc5f96836c3d1cb4b01a2'
             '35247948c8f1787d2b2cd08895149ec10b8a2f903550832ead9958a55978ddbe'
@@ -190,11 +190,9 @@ package_pcp() {
     etc/pcp/pmafm/pcp-gui
     etc/pcp/pmcd/pmcd.conf
     etc/pcp/pmcd/pmcd.options
-    etc/pcp/pmcd/rc.local
     etc/pcp/pmie/class.d/pmfind
     etc/pcp/pmie/control
     etc/pcp/pmie/control.d/local
-    etc/pcp/pmie/rc
     etc/pcp/pmieconf/cisco/in_util
     etc/pcp/pmieconf/cisco/out_util
     etc/pcp/pmieconf/cpu/context_switch
@@ -394,7 +392,6 @@ package_pcp() {
     etc/pcp/pmlogger/control
     etc/pcp/pmlogger/control.d/local
     etc/pcp/pmlogger/options.pmstat
-    etc/pcp/pmlogger/rc
     etc/pcp/pmlogredact/network
     etc/pcp/pmlogredact/usernames
     etc/pcp/pmlogrewrite/cgroup_units.conf
@@ -421,7 +418,6 @@ package_pcp() {
     etc/pcp/pmlogrewrite/proc_scheduler.conf
     etc/pcp/pmproxy/pmproxy.conf
     etc/pcp/pmproxy/pmproxy.options
-    etc/pcp/pmproxy/rc
     etc/pcp/pmrep/00-defaults.conf
     etc/pcp/pmrep/collectl.conf
     etc/pcp/pmrep/iostat.conf
@@ -461,9 +457,11 @@ package_pcp() {
   rsync -vaHAX --exclude-from=../gui.list --exclude-from=../exclude.list \
     "$srcdir"/installskel/ "$pkgdir"/
 
-  install -D -m644 "$srcdir"/sysuser.conf "$pkgdir"/usr/lib/sysusers.d/pcp.conf
-  install -D -m644 "$srcdir"/tmpfile.conf "$pkgdir"/usr/lib/tmpfiles.d/pcp.conf
-  install -vDm 644 ../pcp-rebuild-pmns.hook -t "$pkgdir/usr/share/libalpm/hooks/"
+  install -Dm0644 "$srcdir"/sysuser.conf "$pkgdir"/usr/lib/sysusers.d/pcp.conf
+  install -Dm0644 "$srcdir"/tmpfile.conf "$pkgdir"/usr/lib/tmpfiles.d/pcp.conf
+  install -vDm0644 ../pcp-rebuild-pmns.hook -t "$pkgdir/usr/share/libalpm/hooks/"
+
+  chmod 0775 "$pkgdir/var/log/pcp/pmcd"
 }
 
 package_pcp-gui() {
