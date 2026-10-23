@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackclient
-pkgver=10.4.0
+pkgver=10.5.0
 pkgrel=1
 pkgdesc="OpenStack Command-line Client"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-pbr'
 checkdepends=('python-ddt' 'python-fixtures' 'python-hacking' 'python-requests-mock'
               'python-stestr' 'python-testtools' 'python-wrapt')
 source=("git+https://github.com/openstack/python-openstackclient.git#tag=$pkgver")
-sha512sums=('b010f692a7c318367b786d02e86dec88d19797dfc6da379753452b1eb40f6b0107f3472be060ab5ce5d7a6e920b7278268cc18eaebef1f6c07e1c94634810699')
+sha512sums=('e08f4556162341f0f50384b18b769bdcd231e117c54b9064cc1de1c4769008f83f0cd1a2891d7a3f8b7518d3fe4613b1e5c8ab79c4667450c2ff096437bd2146')
 
 build() {
   cd python-openstackclient
@@ -24,7 +24,6 @@ build() {
 
 check() {
   cd python-openstackclient
-  # https://bugs.launchpad.net/python-openstackclient/+bug/2137223
   # test_endpoint_list_project_with_project_domain has a project_endpoints mock issue
   stestr run --exclude-regex "openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointList.test_endpoint_list_project_with_project_domain|openstackclient.tests.unit.identity.v3.test_endpoint.TestEndpointListServiceWithoutName.test_endpoint_list_project_with_project_domain"
 }
@@ -32,4 +31,7 @@ check() {
 package() {
   cd python-openstackclient
   python -m installer --destdir="$pkgdir" dist/*.whl
+
+  install -dm 755 "$pkgdir/usr/share/bash-completion/completions/"
+  "$pkgdir/usr/bin/openstack" complete --shell bash > "$pkgdir/usr/share/bash-completion/completions/openstack"
 }
