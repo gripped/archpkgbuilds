@@ -3,7 +3,7 @@
 pkgname=perl-class-xsaccessor
 _pkgname=Class-XSAccessor
 pkgver=1.19
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast access generation module for Perl'
 arch=(x86_64)
 url='https://github.com/tsee/Class-XSAccessor'
