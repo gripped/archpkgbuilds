@@ -1,16 +1,24 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=shared_meataxe
-pkgver=1.0.2
+pkgver=1.0.3
 pkgrel=1
 pkgdesc='A set of programs for working with matrix representations over finite fields'
 arch=(x86_64)
 url='https://users.fmi.uni-jena.de/~king/SharedMeatAxe/'
-license=(GPL-2.0-or-later)
-depends=(glibc)
-makedepends=(git)
-source=(git+https://github.com/simon-king-jena/SharedMeatAxe#tag=v$pkgver)
-sha256sums=('dabd9b12b393c5dbb301c47335285633400592f9c3722d15d0dc8f15c3727b24')
+license=(
+  GPL-2.0-or-later
+)
+depends=(
+  glibc
+)
+makedepends=(
+  git
+)
+source=(
+  git+https://github.com/simon-king-jena/SharedMeatAxe#tag=v$pkgver
+)
+sha256sums=('c3c04041b55019fcfab86e405cae971f37dc169f91cf1037373f85a568cfc3fb')
 
 prepare() {
   cd SharedMeatAxe
@@ -19,7 +27,9 @@ prepare() {
 
 build() {
   cd SharedMeatAxe
-  ./configure --prefix=/usr
+  ./configure \
+    --prefix=/usr \
+    --enable-tables
   make
 }
 
@@ -31,13 +41,4 @@ check() {
 package() {
   cd SharedMeatAxe
   make DESTDIR="$pkgdir" install
-
-  mkdir -p "$pkgdir"/usr/share/meataxe
-# Build multiplication tables
-  cd "$pkgdir"/usr/share/meataxe
-  for i in 2 3 4 5 7 8 9 11 13 16 17 19 23 25 27 29 31 32 37 41 43 47 49 53 59 61 64 67 71 73 79 81 83 89 97 101 103 107 109 113 121 125 \
-           127 128 131 137 139 149 151 157 163 167 169 173 179 181 191 193 197 199 211 223 227 229 233 239 241 243 251
-  do
-    LD_PRELOAD=../../lib/libmtx.so ../../bin/zcv <(echo "matrix field=$i rows=0 cols=0") /dev/null
-  done
 }
