@@ -2,8 +2,8 @@
 # Contributor: A. Klitzing <aklitzing@gmail.com>
 
 pkgname=ausweisapp
-pkgver=2.6.0
-pkgrel=2
+pkgver=2.6.1
+pkgrel=1
 pkgdesc="official client for using the German electronic ID card (eID)"
 arch=('x86_64')
 license=('EUPL-1.2')
@@ -20,20 +20,10 @@ optdepends=(
 )
 source=(
 	"https://github.com/Governikus/AusweisApp2/releases/download/${pkgver}/AusweisApp-${pkgver}.tar.gz"{,.asc}
-	"2.6.0-disable-beta-testing-img.patch"
 )
-validpgpkeys=('699BF3055B0A49224EFDE7C72D7479A531451088')
-sha256sums=('a82f2094621a4ab53db04adf63ac67c3109802963b8eff8a87f3bbb356f365ea'
-            'SKIP'
-            '89f8c59a707a9da648da32a9c40379043aff3b2ea2774561340799347345e218')
-
-prepare() {
-	cd "AusweisApp-$pkgver"
-
-	# Disable beta-testing background (accidentally included in 2.6.0 release)
-	# https://github.com/flathub/de.bund.ausweisapp.ausweisapp2/commit/0ffa6d3b966df4cd225b01ac92eedd776424867a
-	patch -Np1 -i ../2.6.0-disable-beta-testing-img.patch
-}
+validpgpkeys=('699BF3055B0A49224EFDE7C72D7479A531451088') # Governikus (AusweisApp2) <ausweisapp2@governikus.de>
+sha256sums=('754acde7b37bd774ccbd588f155dd4bd555e2d141dcc9747c4697ef12a3cc6b0'
+            'SKIP')
 
 build() {
 	local cmake_options=(
