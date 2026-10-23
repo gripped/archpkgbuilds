@@ -1,0 +1,24 @@
+From e5694fc80d5cae24d1a8dea1a8b7200ada0bcaad Mon Sep 17 00:00:00 2001
+From: David Runge <dave@sleepmap.de>
+Date: Tue, 20 Oct 2026 22:56:17 +0200
+Subject: [PATCH] Update build dependency on flit_core to >=4,<5
+
+Signed-off-by: David Runge <dave@sleepmap.de>
+---
+ pyproject.toml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index a6722d1..08d6224 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,5 +1,5 @@
+ [build-system]
+-requires = ["flit_core >=3.11,<4"]
++requires = ["flit_core >=4,<5"]
+ build-backend = "flit_core.buildapi"
+ 
+ [project]
+-- 
+2.56.0
+
