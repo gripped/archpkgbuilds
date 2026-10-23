@@ -3,7 +3,7 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=speedcrunch
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Simple but powerful calculator using Qt"
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(glibc
 makedepends=(cmake
              git)
 source=(git+https://github.com/heldercorreia/speedcrunch#tag=v$pkgver)
-sha256sums=('06c246cef12fcfc9bf2cb9f3a44936dad080179f12417d8ebe7313163130685c')
+sha256sums=('374f319fd23871b7ed3c137925e315ef6214faf0f95f896ccf7ce2d67806450e')
 
 build() {
   cmake -B build -S $pkgname/src \
