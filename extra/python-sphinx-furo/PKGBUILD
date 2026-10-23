@@ -4,7 +4,7 @@
 _pkgname=furo
 pkgname=python-sphinx-$_pkgname
 pkgver=2025.12.19
-pkgrel=1
+pkgrel=2
 pkgdesc='Clean customizable documentation theme for Sphinx'
 arch=(any)
 url=https://github.com/pradyunsg/furo
@@ -18,7 +18,7 @@ depends=(
 makedepends=(
   expac
   git
-  nodejs-lts-iron
+  nodejs-lts-krypton
   npm
   python-build
   python-flit-core
@@ -33,7 +33,7 @@ prepare() {
   cd $_pkgname
 
   # force use of system nodejs
-  local node_ver=$(expac %v nodejs-lts-iron | cut -d - -f 1)
+  local node_ver=$(expac %v nodejs-lts-krypton | cut -d - -f 1)
   sed -i "s/18.20.5/$node_ver/" pyproject.toml
 }
 
