@@ -6,7 +6,7 @@
 # Contributor: Masato TOYOSHIMA <phoepsilonix at phoepsilonix dot love>
 
 ## Mozc compile option
-_mozc_commit=13ef96d765703805f57f7b1e6cd238e959640282
+_mozc_commit=a74b67127d710da4dc6fdbbd17320d04741174de
 
 _bcr_commit=b0cb0e8ec70689252e3b35f109ffa4a32329b900
 # Following are subject to change if bcr, bazel, and mozc commit changes.
@@ -16,10 +16,10 @@ _bcr_commit=b0cb0e8ec70689252e3b35f109ffa4a32329b900
 # Also jigyosyo.zip and ken_all.zip may be updated without notice.
 _bazel_deps=(
     https://github.com/abseil/abseil-cpp/releases/download/20260107.1/abseil-cpp-20260107.1.tar.gz
-    https://github.com/abseil/abseil-py/archive/refs/tags/v2.1.0.tar.gz
+    abseil-py-2.1.0.tar.gz::https://github.com/abseil/abseil-py/archive/refs/tags/v2.1.0.tar.gz
     https://github.com/astral-sh/python-build-standalone/releases/download/20251031/cpython-3.11.14+20251031-aarch64-unknown-linux-gnu-install_only.tar.gz
     https://github.com/astral-sh/python-build-standalone/releases/download/20251031/cpython-3.11.14+20251031-x86_64-unknown-linux-gnu-install_only.tar.gz
-    https://github.com/bats-core/bats-core/archive/v1.10.0.tar.gz
+    bats-core-1.10.0.tar.gz::https://github.com/bats-core/bats-core/archive/v1.10.0.tar.gz
     https://github.com/bazel-contrib/bazel-lib/releases/download/v2.22.5/bazel-lib-v2.22.5.tar.gz
     https://github.com/bazel-contrib/bazel-lib/releases/download/v3.0.0/bazel-lib-v3.0.0.tar.gz
     https://github.com/bazel-contrib/bazel_features/releases/download/v1.42.1/bazel_features-v1.42.1.tar.gz
@@ -51,11 +51,11 @@ _bazel_deps=(
 _pkgbase=mozc
 pkgname=fcitx5-mozc
 pkgdesc="Fcitx5 Module of A Japanese Input Method for Chromium OS, Windows, Mac and Linux (the Open Source Edition of Google Japanese Input)"
-pkgver=3.34.6345.2
+pkgver=3.35.6354.2
 pkgrel=1
 arch=('x86_64')
 url="https://github.com/google/mozc"
-license=('BSD-3-Clause AND Apache-2.0 AND LGPL-2.0-or-later AND LicenseRef-Unicode-DFS-2015 AND LicenseRef-NAIST-2003')
+license=('BSD-3-Clause' 'Apache-2.0' 'LGPL-2.0-or-later' 'LicenseRef-Unicode-DFS-2015' 'LicenseRef-NAIST-2003')
 depends=(
   'qt6-base'
   'fcitx5'
@@ -75,12 +75,13 @@ for _bazel_dep in "${_bazel_deps[@]}"; do
   if [[ ! " ${source[*]} " =~ [[:space:]]${_bazel_dep}[[:space:]] ]]; then
     source+=("$_bazel_dep")
   fi
+  _bazel_dep=${_bazel_dep%%::*}
   if [[ ! " ${noextract[*]} " =~ [[:space:]]${_bazel_dep##*/}[[:space:]] ]]; then
     noextract+=("${_bazel_dep##*/}")
   fi
 done
 
-sha512sums=('7d4aa8d9caef0c27d2fa60f4d1ea188d1fdc5f2b801b63d62807e8f0037d1b6783d8751e5f6e539d6ee01d98f0425f2c8e58fe897519da3475c181b79a95121a'
+sha512sums=('8a301ed40ad041a37cfbf916c659aa1d3a62faa167a6dc0aaff5a12c64ab8802c2a4842c6595bba3dc1b9c6fdc8e1a6197ae6c2831f8a4881261fc52b33ad093'
             'ed7cd6082f6ca62e4d6564881d383009a8f6f3dd2cf7c0b6bb4733d4b18325d995187fa1539e3dc75a6605577e2a8258a31574d54ac950e4a7a3b5127b188366'
             'f5012885d6b6844a9cf5ed92ad5468b8757db33dfe1364bfb232fff928e06c550c7eb4557f45186a8ac4d18b178df9be267681abab4a6de40823b574afbe9960'
             '298a876ed850085836cb1ff6fddf98aca6a3283780bece8c0a7d118fd4e16cc258e51f721e4a5fcbe62b23d2da05638475d426bb650b0694ff7c1d0119e3be97'
@@ -127,12 +128,9 @@ pkgver(){
 }
 
 prepare() {
-  cd mozc/src
-
-  # Qt 6.12 rejects custom widget class names starting with "::".
-  # https://github.com/google/mozc/issues/1594
-  sed -i 's/::mozc::gui::DictionaryContentTableWidget/mozc::gui::DictionaryContentTableWidget/g' \
-    gui/dictionary_tool/dictionary_tool.ui
+  # Bazel's distdir lookup uses the original URL basenames.
+  ln -sf abseil-py-2.1.0.tar.gz "$srcdir/v2.1.0.tar.gz"
+  ln -sf bats-core-1.10.0.tar.gz "$srcdir/v1.10.0.tar.gz"
 }
 
 build() {
