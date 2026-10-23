@@ -6,16 +6,16 @@
 
 pkgname=zita-convolver
 pkgver=4.0.3
-pkgrel=5
+pkgrel=6
 pkgdesc="A fast, partitioned convolution engine library."
 arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/"
 license=(GPL-3.0-or-later)
 depends=(
   fftw
+  glibc
   libgcc
   libstdc++
-  glibc
 )
 provides=(libzita-convolver.so)
 source=(https://kokkinizita.linuxaudio.org/linuxaudio/downloads/$pkgname-$pkgver.tar.bz2)
