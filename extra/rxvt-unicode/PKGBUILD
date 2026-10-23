@@ -8,7 +8,7 @@
 pkgbase=rxvt-unicode
 pkgname=(rxvt-unicode rxvt-unicode-terminfo)
 pkgver=9.31
-pkgrel=9
+pkgrel=11
 arch=(x86_64)
 url='https://software.schmorp.de/pkg/rxvt-unicode.html'
 license=(GPL-3.0-only)
@@ -66,6 +66,12 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
+
+  # With >=GCC-16 memsets before constructor invocation are optimized away.
+  # Together with LTO this breaks internal assumptions about object initialization,
+  # leading to segfaults.
+  # Disable those optimizations. 
+  export CXXFLAGS+=" -fno-lifetime-dse"
 
   # we disable smart-resize (FS#34807)
   # do not specify --with-terminfo (FS#46424)
