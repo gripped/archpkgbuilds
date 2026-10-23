@@ -4,7 +4,7 @@
 pkgname=perl-unicode-linebreak
 _dist=Unicode-LineBreak
 pkgver=2019.001
-pkgrel=9
+pkgrel=10
 pkgdesc="UAX #14 Unicode Line Breaking Algorithm"
 arch=('x86_64')
 url="https://metacpan.org/release/${_dist}"
