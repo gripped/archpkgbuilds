@@ -5,11 +5,11 @@
 pkgname=python-pyaes
 _pipname=pyaes
 pkgver=1.6.1
-pkgrel=13
+pkgrel=14
 pkgdesc="Pure-Python Implementation of the AES block-cipher and common modes of operation"
 arch=('any')
 depends=('python')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 url="https://github.com/ricmoo/pyaes"
 license=('MIT')
 source=(https://pypi.org/packages/source/${_pipname:0:1}/$_pipname/$_pipname-$pkgver.tar.gz)
@@ -17,11 +17,11 @@ sha256sums=('02c1b1405c38d3c370b085fb952dd8bea3fadcee6411ad99f312cc129c536d8f')
 
 build() {
   cd "$_pipname-$pkgver"
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package_python-pyaes() {
   cd $_pipname-$pkgver
-  python setup.py install --root="$pkgdir/" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
   install -D -m644 LICENSE.txt "${pkgdir}"/usr/share/licenses/${pkgname}/LICENSE.txt
 }
