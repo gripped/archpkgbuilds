@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=kdeplasma-addons
-pkgver=6.8.0
+pkgver=6.8.1
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='All kind of addons to improve your Plasma experience'
@@ -58,7 +58,7 @@ optdepends=('networkmanager-qt: POTD wallpaper'
             'quota-tools: disk quota applet')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f8d6000fb4cb0ce7f172bd9bfe4dbd4763200b71f36c87c39005189075af7486'
+sha256sums=('b850f9a3d071e4e4a02814ff731d96818580108ada36f05c0533185bd0cf6ff5'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
