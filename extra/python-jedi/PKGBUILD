@@ -6,48 +6,48 @@
 # Contributor: Jesus Alvarez
 
 pkgname=python-jedi
-pkgver=0.20.0
+pkgver=0.20.1
 pkgrel=1
 pkgdesc="Awesome autocompletion for python"
 arch=('any')
 url="https://github.com/davidhalter/jedi"
-license=('MIT')
-depends=('python' 'python-parso')
-makedepends=(
-  'git'
-  'python-build'
-  'python-installer'
-  'python-setuptools'
-  'python-wheel'
-  'python-sphinx'
-  'python-sphinx_rtd_theme'
+license=(MIT)
+depends=(
+  python
+  python-parso
 )
-checkdepends=('python-pytest' 'python-parso')
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+  python-sphinx
+  python-sphinx_rtd_theme
+)
+checkdepends=(
+  python-pytest
+)
 source=(
-  "git+https://github.com/davidhalter/jedi.git#tag=v$pkgver"
+  git+https://github.com/davidhalter/jedi.git#tag=v$pkgver
   git+https://github.com/davidhalter/typeshed.git
   git+https://github.com/davidhalter/django-stubs.git
 )
-b2sums=('dbe53ad8f10bbe7c3757cb231c675a2ed8cbb73c720e87c32ea9da3fc07088daa5c7d1fc088c1ac3e62306e385d73b21048459ece3398f68fed2b03f884b70fd'
-        'SKIP'
-        'SKIP')
-
-pkgver() {
-  cd jedi
-  git describe --tags --match 'v*' | sed 's/^v//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
+sha256sums=('d5ae8b9efb2cb4ea2ffec49adc3487e3b57b96030f53b9fba91e7d87396939cc'
+            'SKIP'
+            'SKIP')
 
 prepare() {
   cd jedi
   git submodule init
-  git config submodule."jedi/third_party/typeshed".url "$srcdir/typeshed"
-  git config submodule."jedi/third_party/django-stubs".url "$srcdir/django-stubs"
-  git -c protocol.file.allow=always submodule update --recursive
+  git config submodule.jedi/third_party/typeshed.url "$srcdir/typeshed"
+  git config submodule.jedi/third_party/django-stubs.url "$srcdir/django-stubs"
+  git -c protocol.file.allow=always submodule update jedi/third_party/typeshed jedi/third_party/django-stubs
 }
 
 build() {
   cd jedi
-  python -m build --wheel --skip-dependency-check --no-isolation
+  python -m build --wheel --no-isolation
   sphinx-build -b text docs docs/_build/text
   sphinx-build -b man docs docs/_build/man
 }
@@ -71,11 +71,9 @@ package() {
   install -Dm 644 CHANGELOG.rst README.rst docs/_build/text/*.txt -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm 644 docs/_build/man/jedi.1 "$pkgdir/usr/share/man/man1/$pkgname.1"
 
-  # Symlink license file
+# Symlink license file
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   install -d "$pkgdir"/usr/share/licenses/$pkgname
   ln -s "$site_packages"/jedi-$pkgver.dist-info/LICENSE.txt \
     "$pkgdir"/usr/share/licenses/$pkgname/LICENSE.txt
 }
-
-# vim: ts=2 sw=2 et:
