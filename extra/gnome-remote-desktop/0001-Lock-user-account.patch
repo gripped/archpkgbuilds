@@ -1,0 +1,17 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Sun, 18 Oct 2026 08:25:49 +0200
+Subject: [PATCH] Lock user account
+
+---
+ data/gnome-remote-desktop-sysusers.conf.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/data/gnome-remote-desktop-sysusers.conf.in b/data/gnome-remote-desktop-sysusers.conf.in
+index 70234ecf670c..31e44e710ee6 100644
+--- a/data/gnome-remote-desktop-sysusers.conf.in
++++ b/data/gnome-remote-desktop-sysusers.conf.in
+@@ -1,2 +1,2 @@
+ # sysusers.d file to ensure the existence of the gnome-remote-desktop user
+-u @GRD_USERNAME@ - "GNOME Remote Desktop" @GRD_HOMEDIR@
++u! @GRD_USERNAME@ - "GNOME Remote Desktop" @GRD_HOMEDIR@
