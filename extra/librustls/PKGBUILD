@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=librustls
-pkgver=0.15.5
+pkgver=0.15.6
 pkgrel=1
 pkgdesc="Use rustls from languages other than Rust"
 arch=('x86_64')
@@ -22,8 +22,8 @@ provides=(
 )
 options=(!lto)
 source=(https://github.com/rustls/rustls-ffi/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha256sums=('5be0a6abd612e067349f6f4f1469672685a582d40c1469c28662edceb9273786')
-b2sums=('99e9832cc80b4f68a07911fde44d09a5f0f46915ad3feb6a142e4fc43d003f8256b816c2d7e43acc582f0b438f408c04caa6a4a7534b8e7a92eb9af95f87b930')
+sha256sums=('f56aecad524653138c1e46b90b3dcb65403716ce48db7b7954bdf0a14a051a86')
+b2sums=('b93734090193ce8128209ece424220c05ab74aad5caf6cf316cbf06966b61ba19f31034807f58dae4641ae1ac72ff0ac2d6ee537249a785a47b47b07d98a17be')
 
 prepare() {
   cd rustls-ffi-${pkgver}
