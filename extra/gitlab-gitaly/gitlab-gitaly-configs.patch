@@ -1,5 +1,5 @@
---- config.toml.example.orig	2025-04-16 06:58:04.000000000 +0300
-+++ config.toml.example	2025-04-16 10:19:17.088007978 +0300
+--- config.toml.example.orig	2026-10-21 01:59:56.000000000 +0300
++++ config.toml.example	2026-10-22 10:52:52.268934977 +0300
 @@ -2,15 +2,15 @@
  # For Gitaly documentation, see https://docs.gitlab.com/administration/gitaly/.
  
@@ -19,7 +19,7 @@
  
  # # Optional if socket_path is set. TCP address for Gitaly to listen on. This is insecure (unencrypted connection).
  # listen_addr = "localhost:9999"
-@@ -35,9 +35,9 @@
+@@ -45,9 +45,9 @@
  # # Gitaly supports TLS encryption. You must bring your own certificates because this isn’t provided automatically.
  # [tls]
  # # Path to the certificate.
@@ -31,7 +31,7 @@
  # Minimum offered TLS version. Options: ["TLS 1.2", "TLS 1.3"].
  # min_version = "TLS 1.2"
  
-@@ -60,7 +60,7 @@
+@@ -68,7 +68,7 @@
  # # The name of the storage
  name = "default"
  # # The path to the storage.
@@ -40,13 +40,16 @@
  
  # # You can optionally configure more storages for this Gitaly instance to serve up
  #
-@@ -91,18 +91,18 @@
+@@ -99,7 +99,7 @@
  # # Custom Git hooks that are used to perform tasks based on changes performed in any repository.
  [hooks]
  # # Directory where custom Git hooks are installed. If left unset, no custom hooks are used.
 -custom_hooks_dir = "/home/git/custom_hooks"
-+custom_hooks_dir = "/var/lib/gitlab/custom_hooks"
- 
++custom_hooks_dir = "/run/gitlab/custom_hooks"
+ # # Maximum time the post-receive hook waits for Praefect to finish transaction
+ # # coordination (including the database generation update) before failing the push.
+ # # Only applies when running through Praefect with the post-receive signal feature
+@@ -109,13 +109,13 @@
  # # Gitaly must connect to the GitLab application to perform access checks when a user performs a change.
  [gitlab]
  # # URL of the GitLab server.
