@@ -3,18 +3,18 @@
 
 pkgbase=kid3
 pkgname=('kid3-common' 'kid3-qt' 'kid3')
-pkgver=3.10.1
-pkgrel=2
+pkgver=3.10.2
+pkgrel=1
 pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor"
 arch=('x86_64')
 url="https://kid3.kde.org/"
 license=('GPL-2.0-or-later')
-makedepends=('cmake' 'extra-cmake-modules' 'chromaprint' 'id3lib' 'python' 'taglib' 'libmp4v2'
+makedepends=('cmake' 'extra-cmake-modules' 'chromaprint' 'python' 'taglib' 'libmp4v2'
              'qt6-tools' 'clang' 'qt6-declarative' 'qt6-multimedia' 'kdoctools' 'kxmlgui' 'kio')
 changelog=$pkgbase.changelog
 source=(https://prdownloads.sourceforge.net/$pkgbase/$pkgbase-$pkgver.tar.gz{,.sig})
 validpgpkeys=('7D09794C2812F62194B081C14CAD34426E354DD2') # Urs Fleisch
-sha256sums=('688a04bb0f484260c9aa4822d9387885e5805b9021d83a9db45cb486597ea498'
+sha256sums=('a9bef0e4f90cf5d5626658ac4b34f6cac23c3b2749b3a91470ad506864316104'
             'SKIP')
 
 build() {
@@ -31,7 +31,7 @@ build() {
 
 package_kid3-common() {
   pkgdesc="An MP3, Ogg/Vorbis and FLAC tag editor, CLI version and common files"
-  depends=('chromaprint' 'flac' 'id3lib' 'libmp4v2' 'libvorbis' 'qt6-base' 'taglib')
+  depends=('chromaprint' 'flac' 'libmp4v2' 'libvorbis' 'qt6-base' 'taglib')
   optdepends=('qt6-declarative: GUI support library'
               'qt6-multimedia: GUI support library')
 
