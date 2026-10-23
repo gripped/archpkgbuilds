@@ -5,12 +5,12 @@
 
 pkgname=tolua++
 pkgver=1.0.93
-pkgrel=5
+pkgrel=6
 pkgdesc="Tool to integrate C/C++ code with Lua"
 arch=('x86_64')
 url="https://github.com/LuaDist/toluapp"
 license=('MIT')
-depends=('lua51')
+depends=('glibc' 'lua51')
 makedepends=('cmake' 'git')
 options=('staticlibs')
 source=(git+https://github.com/LuaDist/toluapp.git#tag=${pkgver})
@@ -22,7 +22,9 @@ build() {
     rm -rf build && mkdir build
     cd build
 
-    cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+    cmake \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+        -DCMAKE_INSTALL_PREFIX=/usr ..
 }
 
 package() {
