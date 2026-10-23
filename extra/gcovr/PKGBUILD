@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@vdwaa.nl>
 
 pkgname=gcovr
-pkgver=8.6
+pkgver=8.7
 pkgrel=1
 pkgdesc='provides a utility for managing the use of the GNU gcov utility'
 arch=(any)
@@ -12,7 +12,7 @@ makedepends=('python-hatchling' 'python-hatch-vcs' 'python-hatch-fancy-pypi-read
              'python-build' 'python-installer' 'python-wheel' 'git')
 checkdepends=('python-pytest')
 source=("git+https://github.com/gcovr/gcovr.git#tag=${pkgver}")
-sha256sums=('256fa0cd538daa7f2719c8f539d878dc93a18d8381f0d3d7f5411c2d2c566a0a')
+sha256sums=('abd3db2070fb4c6d9114b02757edb0a6c0e9a57fcb52ee3be7e90ac3dee31bc2')
 
 prepare() {
   cd ${pkgname}
