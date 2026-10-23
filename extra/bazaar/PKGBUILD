@@ -2,7 +2,7 @@
 # Contributor: Rafael Dominiquini <rafaeldominiquini at gmail dot com>
 
 pkgname=bazaar
-pkgver=0.9.8
+pkgver=0.9.9
 pkgrel=1
 pkgdesc="A fast and modern store for GNOME with focus on Flatpaks, particularly from Flathub"
 arch=(x86_64)
@@ -48,7 +48,7 @@ makedepends=(
   vala
 )
 source=("git+https://gitlab.gnome.org/World/bazaar.git#tag=v${pkgver}")
-b2sums=('acdf22d76dbc15eafcb0205ef1452a2445572374e7004470fbb3166f20de84099e494bb1fbe4e8f8939405822754349ef55e32bbc7b70c9725e987bcc94958cb')
+b2sums=('1744e313160bb4fb9d05bb5e31f6e571df046979c380a0e5575735f78c75bc5e4fce7d835aadd5b1b558b92e79ce937a24891c63065a0cba2d99fe1bab0649f6')
 
 prepare() {
   cd $pkgname
