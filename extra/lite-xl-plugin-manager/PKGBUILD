@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=lite-xl-plugin-manager
-pkgver=1.4.9
+pkgver=1.5.0
 pkgrel=1
 pkgdesc='Lite XL Plugin Manager'
 arch=(x86_64 aarch64)
@@ -19,7 +19,7 @@ makedepends=(meson)
 replaces=(lpm)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('c5e3651313712fcf89255eb121b93ecb2655e8a5c31e101627e40f168d8cd4dc')
+sha256sums=('c4a61a1d0589b40ed651fb4968108c3036ba0ed746dc9173cdc5fcc2666c02b9')
 
 build() {
 	local meson_opts=(
