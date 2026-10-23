@@ -3,8 +3,8 @@
 
 _hkgname=simple-smt
 pkgname=haskell-simple-smt
-pkgver=0.9.9
-pkgrel=2
+pkgver=1.0.1
+pkgrel=1
 pkgdesc="A simple way to interact with an SMT solver process"
 url="https://github.com/yav/simple-smt"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-simple-get-opt')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('b75cb94ea7d26692e589f4b9b72cd0b415d38677173c0d014b0e9fbaaf1c7c155633ccf143b4d9cce3653c41de239f7a91a3dfa2114fbd999b619dd34b1b820f')
+sha512sums=('fc466c61398fefd5eb469954f5e6a82ee52d5258ca7a29305dbeea34a82c245cf23acb301a6821acc531c68dec3352b0160e34ac8d84f4d000c9bdd25467e204')
 
 build() {
     cd $_hkgname-$pkgver
