@@ -3,8 +3,8 @@
 
 _hkgname=postgresql-binary
 pkgname=haskell-postgresql-binary
-pkgver=0.13
-pkgrel=4
+pkgver=0.13.1
+pkgrel=6
 pkgdesc="Encoders and decoders for the PostgreSQL's binary format"
 url="https://github.com/nikita-volkov/postgresql-binary"
 license=("MIT")
@@ -16,7 +16,7 @@ makedepends=('ghc' 'uusi' 'haskell-postgresql-libpq' 'haskell-tasty' 'haskell-ta
              'haskell-tasty-hunit' 'haskell-quickcheck' 'haskell-quickcheck-instances'
              'haskell-rerebase' 'pifpaf' 'postgresql')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('56109b1526d90dafa780130998a945f7ad5c35c0c22fc3a17af4b7d470197cc756dd52d05e13c3b56c3044d7dcf4ff3bd18c41212abb84379f3baf85184714dc')
+sha512sums=('7cb1fbadca4725980abde6b01999e19167e833021e56d73818ce92213329b05f9e2ee89edfd3a9f38b10f952eefccb0e2fed9a1865b8650650265240c93927d0')
 
 prepare() {
     cd $_hkgname-$pkgver
