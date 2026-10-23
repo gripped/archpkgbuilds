@@ -6,8 +6,8 @@ pkgname=(
   'crystal'
   'crystal-docs'
 )
-pkgver=1.22.0
-pkgrel=2
+pkgver=1.22.1
+pkgrel=1
 pkgdesc='The Crystal Programming Language'
 arch=(x86_64)
 url='https://crystal-lang.org'
@@ -40,7 +40,7 @@ optdepends=(
 source=(
   "crystal-${pkgver}.tar.gz::https://github.com/crystal-lang/crystal/archive/${pkgver}.tar.gz"
 )
-sha256sums=('8ed6152d42666777b5019be02168c062b1d7270738613665aa31b7a92433c2a4')
+sha256sums=('134da23412c2493ec34ae2dda2d5dc10310d8e0c83ba7463bdc4a4269b392002')
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
