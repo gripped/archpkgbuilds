@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero-gui
-pkgver=0.18.5.3
+pkgver=0.18.5.4
 pkgrel=1
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
@@ -48,7 +48,7 @@ source=(
   "git+https://github.com/tevador/RandomX.git"
   "git+https://github.com/monero-project/supercop.git"
 )
-sha512sums=('002cbd917ce78df09741d53d406ad65b0f1654b5cc4d3bc60b280c60491d4659475897c4f5ea3d086a5ec39f8dd7765d72a222ec3ebc941b1995e3ae5bffdfb6'
+sha512sums=('936895f6276f47a1ab669dd96f018a178430776228badf83d62d1f6f73c7eda746b796970216462c65f212007f149420fc0444a9eba06f3bb403f0736cadfa3b'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -59,6 +59,7 @@ sha512sums=('002cbd917ce78df09741d53d406ad65b0f1654b5cc4d3bc60b280c60491d4659475
 validpgpkeys=(
   '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
   '487277A8BD0A209C16B700F3C64552D877C32479' # Alexander Blair (Snipa / Snipa22) <snipa@jagtech.io>
+  'E87BD921CDD885C9D78A38C5E45B10DD027D2472' # tobtoht <tob@featherwallet.org>
 )
 
 prepare() {
