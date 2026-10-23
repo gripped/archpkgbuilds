@@ -2,16 +2,16 @@
 
 pkgname=zita-njbridge
 pkgver=0.4.8
-pkgrel=4
+pkgrel=5
 pkgdesc="Jack client to transmit audio over a local IP network"
 arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/"
 license=(GPL-3.0-or-later)
 groups=(pro-audio)
 depends=(
+  glibc
   libgcc
   libstdc++
-  glibc
 )
 makedepends=(
   jack
