@@ -4,8 +4,8 @@
 # Contributor: Stefan Husmann <stefan-husmann@t-online.de>
 
 pkgname=python-pyx
-pkgver=0.17
-pkgrel=2
+pkgver=0.18
+pkgrel=1
 pkgdesc='Python library for the creation of PostScript and PDF files'
 arch=('any')
 url="https://pyx-project.org/"
@@ -14,7 +14,7 @@ depends=('python' 'texlive-latex')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('ghostscript' 'python-pillow' 'python-testfixtures' 'texlive-fontsrecommended')
 source=("git+https://github.com/pyx-project/pyx.git#tag=$pkgver")
-sha512sums=('dce81fd0214728a0719f4074f4db5df1677bdcbbe1e91f943df9472c2fb4692d8b7380a04adad0e5ca86249e4e8d3010fe98cc4b0239286b2a09d03106a7e415')
+sha512sums=('c40470934aec906d7c0c72cedc4575a260b8db36d98d7ea76268128e120b200f160f1b537570da030a44523c641e3251a833ddf1d1a06747bc1aaeb125b555d4')
 
 prepare() {
   cd pyx/pyx/data
