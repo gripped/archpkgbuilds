@@ -3,7 +3,7 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@barrera.io>
 
 pkgname=rootlesskit
-pkgver=3.2.0
+pkgver=3.3.0
 pkgrel=1
 pkgdesc='Native "fake root" for implementing rootless containers'
 arch=(x86_64)
@@ -14,8 +14,8 @@ makedepends=(git go)
 checkdepends=(openbsd-netcat)
 options=(!lto)
 source=("$pkgname::git+https://github.com/rootless-containers/rootlesskit.git#tag=v$pkgver")
-sha512sums=('682b0e78b0118f4bcace16dcf20767e17fd59bc9b238da1f97a82b199829f4ef0f67135a95efe55b153fb52e09c5a493bca806c45aa5dfd5910863a6636ee80f')
-b2sums=('b733a8741f360d52dd86945a92b1717b82d736eb86172f118cb7a4d512f32ab5a8f944d464080fb4d49e6a40d193a357f08f421addab86cbae91606a39359e8a')
+sha512sums=('2172c02578e258e0edfad66b56a239b99fa08bfce748e9cc276c1919c6d27c3808f7c29d1311fe4808708b850dedb9839256caa0756b75dd81a045aa910f7db9')
+b2sums=('ce773b697cfd0d1fc3ee10310eaea769592e22f0a4878d63064eadc81a00edb9524ee6f4b03b0729d6ff2219858b63d1f8d33a5df096d82a09990769d2ad81c7')
 
 prepare(){
   cd "$pkgname"
