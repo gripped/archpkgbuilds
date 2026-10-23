@@ -4,7 +4,7 @@
 _rockname=std-_debug
 pkgbase=lua-std-debug
 pkgname=("$pkgbase" "lua51-${pkgbase#lua-}" "lua52-${pkgbase#lua-}" "lua53-${pkgbase#lua-}" "lua54-${pkgbase#lua-}")
-pkgver=1.1.0
+pkgver=1.2
 _rockrel=1
 pkgrel=1
 pkgdesc='Lua-stdlib project’s debug hints library'
@@ -20,7 +20,7 @@ makedepends=(lua
 # checkdepends=(specl)
 _archive="${_rockname#std-}-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('4ccb6a6f193698b9d37a62e7c1628d7ec1ec0998177595e235b399cb58dd15d7')
+sha256sums=('eee132807623845371998787b58601588ad974ac403a7a17c3738b9315e2b149')
 
 
 _package() {
