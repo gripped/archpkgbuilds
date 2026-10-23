@@ -1,24 +1,21 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=box2d
-pkgver=3.1.1
-pkgrel=2
+pkgver=3.2.0
+pkgrel=1
 pkgdesc="2D rigid body simulation library for games"
 url="http://www.box2d.org/"
 license=('MIT')
 arch=('x86_64')
 depends=('glibc')
-makedepends=('cmake' 'ninja' 'git' 'wayland'
+makedepends=('cmake' 'ninja' 'git' 'wayland' 'gtk3'
              'libxinerama' 'libxkbcommon' 'libxkbcommon-x11' 'libxt'
              'xorg-xrandr' 'libxcursor' 'xorg-xinput' 'glfw')
-# We're going to this alternate fork until the patches are upstreamed.
-# See https://github.com/erincatto/box2d/issues/621
 source=("$pkgname-$pkgver.tar.gz::https://github.com/erincatto/Box2D/archive/v${pkgver}.tar.gz")
-sha512sums=('7367640e7f2ff395b8ca48766c71f57c96e08c298627c996eba76899a149ee28b0e3ecacfa4a224fdb5d160c7e25c6069bb8414fd1575787727d796097aa347b')
+sha512sums=('874bde300e7e33e950152f1d86cb4e2989cd7e30b2d89ac29d9596d9251b514972285eaba19b2d2941870f6d0e446265bf22e4d2a6df287f2c9807e0a82c8ed1')
 
 build() {
   cd $pkgname-$pkgver
 
-  export CXXFLAGS="$CXXFLAGS -Wno-error=unused-result"
   cmake \
     -Bbuild \
     -GNinja \
