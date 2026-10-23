@@ -2,16 +2,16 @@
 
 _hkgname=time-manager
 pkgname=haskell-time-manager
-pkgver=0.1.0
-pkgrel=18
+pkgver=0.1.1
+pkgrel=4
 pkgdesc="Scalable timer"
 url="https://github.com/yesodweb/wai"
 license=('MIT')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-auto-update' 'haskell-unliftio')
+depends=('ghc-libs' 'haskell-auto-update')
 makedepends=('ghc' 'uusi')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('c00600dcd790ce0ae49a0e0c51ca723864ae04e468ffe91d72313b97193c7ccaac75d2dece248cb725b2c6a4e8a283e1314d15bb3758b1a380cc8b8ac8949c2a')
+sha512sums=('d13c91b281a9b151113122e6c8bd84579c46f60816d83a8710c487d921d454035eea3b8072b150f5d08cf75e6398188da26e453363fbfc7edd52cfc088315260')
 
 prepare() {
     cd $_hkgname-$pkgver
