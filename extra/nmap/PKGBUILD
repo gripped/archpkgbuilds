@@ -10,7 +10,7 @@ pkgname=(
   ndiff
   zenmap
 )
-pkgver=7.991
+pkgver=7.992
 pkgrel=1
 pkgdesc="Utility for network discovery and security auditing"
 url='https://nmap.org/'
@@ -44,27 +44,19 @@ makedepends=(
 source=(
   "https://nmap.org/dist/$pkgname-$pkgver.tar.bz2"
   "https://nmap.org/dist/sigs/$pkgname-$pkgver.tar.bz2.asc"
-  "$pkgbase-ndiff-fix-tests.patch"
 )
-sha512sums=('d87836eedd453f4f5e55075b50640a6ad61cb5dbc1f887dbaf725fa8c32b6a472d838d174c68a2efa749b3b028512d2f0467aea0ff0b5f5752df714db62f8320'
-            'SKIP'
-            '9836b2f2df95e8a6d1af6cef99ba27ebaaafa16c97d7945887adf00b3022302f730eaf93e81b1e37462bad8f6a6bfef0130670d827d68e61b9f60c8c66497b34')
-b2sums=('883713c80cf44067f0c586c88fffee7ef656b3e02aa70dfd0bdd31916e91066165b2e8218b273869d2a37fd46e1c956688d34f4d5a4bc98a80e7212ebb84391a'
-        'SKIP'
-        '73e2cc10a2addec4cb7ea5df2f6129527733546fb30d412ae27b961840b2876eb19214be308217152bcbd81f27f1fbcfe1c83db7c8214338ae7a93abc4f12ced')
+sha512sums=('0c38610b78190b1865d5adb900e9bdc5813a29f6f5d47b768f4b1c9d0d36a26de476f7c7fc55b04e2421c6e6b149890ab0207ea1740786158bbf594a834fedc7'
+            'SKIP')
+b2sums=('378d50ee44657877f8a0ba4bb3c06f70790692da79e5e601c18dd73926ea7779ac6633cea126583d241205d0bfda890a8dea750cbbef388d4ffbd25d91e058a6'
+        'SKIP')
 validpgpkeys=('436D66AB9A798425FDA0E3F801AF9F036B9355D0') # Nmap Project Signing Key (http://www.insecure.org/)
 
 prepare() {
   cd $pkgbase-$pkgver
   # Ensure we build de-vendored deps
   rm -r liblua libpcap libpcre macosx mswin32 libssh2 libz
-  # Fix build
-  sed -e '/strlcat/d' -i libdnet-stripped/acconfig.h
   # Keep zenmap from installing ndiff; Arch packages it separately
   sed -e '/^ndiff = "ndiff:run_main"$/d' -e '/^py-modules = \["ndiff"\]$/d' -i zenmap/pyproject.toml
-  # Remove usage of Python module imp (removed in Python 3.13) &
-  # remove import-time unittest.main() invocation
-  patch -Np1 < ../$pkgbase-ndiff-fix-tests.patch
 
   autoreconf -fiv -I /usr/share/gettext/m4
 }
@@ -95,7 +87,7 @@ check() {
   python -m unittest discover -p '*.py'
 
   cd ../ndiff
-  python -m unittest discover -p '*.py'
+  python ndifftest.py
 }
 
 package_nmap() {
