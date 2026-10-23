@@ -9,7 +9,7 @@
 pkgname=prosody
 epoch=1
 pkgver=13.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc="Lightweight and extensible Jabber/XMPP server written in Lua"
 arch=('x86_64')
 url="https://prosody.im/"
@@ -19,7 +19,7 @@ depends=('lua54'
          'lua54-socket'
          'lua54-expat'
          'lua54-filesystem'
-         'libidn'
+         'icu'
          'openssl')
 optdepends=(#'lua-event: libevent support'
             'lua54-dbi: SQL storage support'
@@ -58,7 +58,6 @@ build() {
     --prefix=/usr \
     --sysconfdir=/etc/prosody \
     --datadir=/var/lib/prosody \
-    --idn-library=idn \
     --cflags="${CPPFLAGS} ${CFLAGS} -fPIC -D_GNU_SOURCE" \
     --ldflags="${LDFLAGS} -shared" \
     --no-example-certs \
