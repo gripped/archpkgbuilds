@@ -2,7 +2,7 @@
 #Contributor: Pete Morris <pete dot morris at gmail dot com>
 pkgname=perl-crypt-des
 pkgver=2.09
-pkgrel=1
+pkgrel=2
 pkgdesc="Perl DES encryption module"
 arch=('x86_64')
 url="https://search.cpan.org/~dparis/Crypt-DES"
