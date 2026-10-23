@@ -2,16 +2,16 @@
 
 _hkgname=boring
 pkgname=haskell-boring
-pkgver=0.2.2
-pkgrel=5
+pkgver=0.2.2.1
+pkgrel=1
 pkgdesc="Boring and Absurd types"
 url="https://github.com/phadej/boring"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-tagged')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('928baf1fff69b17658fb7014a1cc3e220b3b69b52271ae9c0452f82d67b3ef86')
+sha256sums=('a96edc1d8a782ca888068a9bc971452dc7fbed03b90e5e0d71bd733c5684e62d')
 
 prepare() {
   cd $_hkgname-$pkgver
@@ -32,6 +32,11 @@ build() {
   runhaskell Setup unregister --gen-script
   sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
   sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+  cd $_hkgname-$pkgver
+  runhaskell Setup test --show-details=direct
 }
 
 package() {
