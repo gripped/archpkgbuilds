@@ -2,7 +2,7 @@
 
 pkgname=perl-params-someutil
 pkgver=1.12
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple, compact and correct parameter-checking functions'
 arch=('x86_64')
 url='https://metacpan.org/dist/Params-SomeUtil'
