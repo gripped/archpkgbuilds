@@ -1,12 +1,12 @@
 pkgbase = networkmanager-vpnc
 	pkgdesc = NetworkManager VPN plugin for VPNC
 	pkgver = 1.4.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://networkmanager.dev/docs/vpn/
 	arch = x86_64
 	license = GPL-2.0-or-later
-	makedepends = gcc-libs
 	makedepends = git
+	makedepends = libgcc
 	makedepends = libnma-gtk4
 	makedepends = python
 	makedepends = vpnc
@@ -28,13 +28,13 @@ pkgname = networkmanager-vpnc
 	depends = libnm
 	depends = libnma
 	depends = libsecret
-	depends = networkmanager-vpn-plugin-vpnc=1.4.0-2
+	depends = networkmanager-vpn-plugin-vpnc=1.4.0-3
 	optdepends = libnma-gtk4: GUI support (GTK 4)
 
 pkgname = networkmanager-vpn-plugin-vpnc
 	pkgdesc = NetworkManager VPN plugin for VPNC (VPN plugin only)
-	depends = gcc-libs
 	depends = glib2
 	depends = glibc
+	depends = libgcc
 	depends = libnm
 	depends = vpnc
