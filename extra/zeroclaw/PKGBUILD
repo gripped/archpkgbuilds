@@ -9,8 +9,8 @@ pkgname=(
   zeroclaw-acp-bridge
   zerocode
 )
-pkgver=0.8.5
-pkgrel=3
+pkgver=0.8.6
+pkgrel=1
 pkgdesc='Zero overhead. Zero compromise. 100% Rust. The fastest, smallest AI assistant.'
 arch=(x86_64)
 url=https://github.com/zeroclaw-labs/zeroclaw
@@ -32,7 +32,7 @@ makedepends=(
   rust
 )
 source=(git+https://github.com/zeroclaw-labs/zeroclaw.git#tag=v${pkgver})
-b2sums=('6022e873c2f0747bfbefe70c25f664178ccb4bce21541af1a32ffd50f4b1f01f55101f128a74c6652dbd76f3b86b3497b88ae36cf75531b3ba40044dbda63730')
+b2sums=('3f43edf805b5aa718b5e53572a3c69eb35cceeb74bb6e7c607b799b98d2fd7e0573da90af6223f31fe787cd8bf6b50c1d065bd6c6b933056dc50a22869a73d9e')
 
 prepare() {
   cd zeroclaw
@@ -49,7 +49,7 @@ build() {
   cargo build \
     --release \
     --frozen \
-    --features "acp-bridge,channel-acp-server,channel-git,channel-matrix,channel-mattermost,embedded-web,plugins-wasm,provider-github,sandbox-bubblewrap,sandbox-landlock,webauthn"
+    --features "acp-bridge,browser-native,channel-acp-server,channel-git,channel-matrix,channel-mattermost,embedded-web,plugins-wasm-cranelift,provider-github,sandbox-bubblewrap,sandbox-landlock,webauthn"
   cd apps/zerocode
   cargo build \
     --release \
