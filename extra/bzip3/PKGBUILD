@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=bzip3
-pkgver=1.5.4
+pkgver=1.5.5
 pkgrel=1
 pkgdesc='A better and stronger spiritual successor to BZip2'
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(clang)
 provides=("lib$pkgname.so")
 _archive="$pkgname-$pkgver"
 source=("$url/releases/download/$pkgver/$_archive.tar.xz")
-sha256sums=('fac65d7f39ae73c1c9221a97075eebeb27696299b02ad1e01ec039ab0eca9fca')
+sha256sums=('dc4e30d4581e5b2c46ed32f4320f03ba21474afc1e89e24dda3879307a61b010')
 
 build() {
 	cd "$_archive"
