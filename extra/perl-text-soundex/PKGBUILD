@@ -3,7 +3,7 @@
 
 pkgname=perl-text-soundex
 pkgver=3.05
-pkgrel=14
+pkgrel=15
 pkgdesc='Implementation of the soundex algorithm'
 arch=('x86_64')
 url="https://metacpan.org/release/Text-Soundex"
