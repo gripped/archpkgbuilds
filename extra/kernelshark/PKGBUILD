@@ -2,7 +2,7 @@
 
 pkgname=kernelshark
 pkgver=2.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc="GUI frontend for trace-cmd based Linux kernel Ftrace captures"
 arch=(x86_64)
 url="https://kernelshark.org/"
@@ -12,11 +12,11 @@ license=(
 )
 depends=(
   freeglut
+  glibc
+  glu
   libgcc
   libgomp
   libstdc++
-  glibc
-  glu
   qt6-base
   qt6-scxml
   ttf-fira-sans
