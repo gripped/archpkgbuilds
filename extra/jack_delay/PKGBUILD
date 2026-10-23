@@ -2,17 +2,17 @@
 
 pkgname=jack_delay
 pkgver=0.4.2
-pkgrel=3
+pkgrel=4
 pkgdesc="Measure the round-trip latency of a soundcard"
 arch=(x86_64)
 url="https://kokkinizita.linuxaudio.org/linuxaudio/"
 license=(GPL-2.0-or-later)
 groups=(pro-audio)
 depends=(
-  libgcc
-  libstdc++
   glibc
   jack
+  libgcc
+  libstdc++
 )
 source=(https://kokkinizita.linuxaudio.org/linuxaudio/downloads/$pkgname-$pkgver.tar.bz2)
 sha512sums=('12ba971abe8a99211bf6bc8b1a1c17ee18707fb3ebf09b5320cb0a83e8698183365ca6fefb651ac6dd337eb8c620e8fe804d7353c86a6f1d04455d9e2c319728')
