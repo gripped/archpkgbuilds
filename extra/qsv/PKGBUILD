@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=qsv
-pkgver=23.0.1
+pkgver=26.0.0
 pkgrel=1
 pkgdesc='quicksilver data-wrangling toolkit (fork of xsv) for tabular data such as CSV'
 arch=(x86_64)
@@ -9,6 +9,7 @@ url="https://github.com/dathere/$pkgname"
 license=(MIT Unlicense)
 depends=(bzip2 libbz2.so
          glibc # libc.so libm.so
+         jemalloc
          libgcc
          libstdc++
          python # libpython3.13.so
@@ -22,7 +23,7 @@ makedepends=(cargo
 replaces=(qsv-bin)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('90dcf4853a91184411c8f92cbe8e438769965cafa7b445f6b1de933a3e845b04')
+sha256sums=('166d3e9c9133098ba4705671e0dd68644c6daa343dc454f33718a6ba18963eec')
 
 _srcenv() {
 	cd "$_archive"
@@ -32,15 +33,16 @@ _srcenv() {
 	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
-	CFLAGS+=' -ffat-lto-objects'
-	CXXFLAGS+=' -ffat-lto-objects'
+	CFLAGS+=' -ffat-lto-objects -O0'
+	CXXFLAGS+=' -ffat-lto-objects -O0'
+	export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
+	export CARGO_FEATURE_UNPREFIXED_MALLOC_ON_SUPPORTED_PLATFORMS=1
 	export WEBDRIVER_PATH=/usr/bin/chromedriver
 }
 
 prepare() {
 	_srcenv
 	cargo fetch --locked --target host-tuple
-	sed -i -e '/^lto/s/true/false/' Cargo.toml
 }
 
 build() {
@@ -54,6 +56,7 @@ check() {
 }
 
 package() {
+	depends+=(libjemalloc.so)
 	cd "$_archive"
 	install -Dm0755 -t "$pkgdir/usr/bin/" "target/release/$pkgname"
 	pushd contrib/completions/examples
