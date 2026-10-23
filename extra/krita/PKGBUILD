@@ -3,7 +3,7 @@
 pkgname=krita
 pkgver=6.0.4.1
 _pkgver=${pkgver/beta/-beta}
-pkgrel=1
+pkgrel=2
 pkgdesc='Edit and paint images'
 arch=(x86_64)
 url='https://krita.org'
@@ -74,10 +74,12 @@ optdepends=('kimageformats: PSD support'
             'poppler-qt6: PDF filter'
             'python-pyqt6: for the Python plugins')
 source=(https://download.kde.org/stable/krita/$_pkgver/$pkgname-$_pkgver.tar.xz{,.sig}
-        https://invent.kde.org/graphics/krita/-/commit/3f5b2882.patch)
+        https://invent.kde.org/graphics/krita/-/commit/3f5b2882.patch
+        https://invent.kde.org/graphics/krita/-/commit/c8028b3e.patch)
 sha256sums=('bd0568754417ffca0ef60448d1cc7fb153658af1fb9796f027fa7e69b69098df'
             'SKIP'
-            '4dc8b77911b5b1fe8c3a53c2035dab7d318528bb961ebab0e6538e6a010b6dff')
+            '4dc8b77911b5b1fe8c3a53c2035dab7d318528bb961ebab0e6538e6a010b6dff'
+            '2ceb4bbbb8e9bc82682c02871228028c338b142d849e6c010d5b85e8d0d8b8de')
 validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <foundation@krita.org>
               'E9FB29E74ADEACC5E3035B8AB69EB4CF7468332F'  # Dmitry Kazakov (main key) <dimula73@gmail.com>
               '064182440C674D9F8D0F6F8B4DA79EDA231C852B') # Stichting Krita Foundation <foundation@krita.org>
@@ -85,6 +87,7 @@ validpgpkeys=('05D00A8B73A686789E0A156858B9596C722EA3BD'  # Boudewijn Rempt <fou
 prepare() {
   sed -e 's|13.0|13.8|' -i $pkgname-$_pkgver/cmake/modules/SIPMacros.cmake # Update SIP ABI version
   patch -d $pkgname-$_pkgver -p1 < 3f5b2882.patch # Fix build with Qt 6.12
+  patch -d $pkgname-$_pkgver -p1 < c8028b3e.patch # Fix global menu
 }
 
 build() {
