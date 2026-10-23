@@ -3,21 +3,23 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=i3status-rust
-pkgver=0.36.1
+pkgver=0.36.2
 pkgrel=1
 pkgdesc='Resourcefriendly and feature-rich replacement for i3status, written in pure Rust'
 arch=('x86_64')
 url='https://github.com/greshake/i3status-rust'
 license=('GPL-3.0-only')
 depends=(
-  'libpipewire'
-  'libpulse'
-  'lm_sensors'
+  libpipewire
+  libpulse
+  lm_sensors
 )
 makedepends=(
-  'clang'
-  'rust'
-  'pandoc'
+  clang
+  cmake
+  git
+  rust
+  pandoc
 )
 optdepends=('alsa-utils: for the volume block'
             'bluez: for the bluetooth block'
@@ -30,7 +32,7 @@ optdepends=('alsa-utils: for the volume block'
             'upower: for the battery block')
 options=(!lto)
 source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/greshake/i3status-rust/archive/refs/tags/v${pkgver}.tar.gz")
-b2sums=('54218848df022488a3517647535f02894db20499cb99d08f374002e976a48f1385e383c3732a0dde541423b4826dcc7db4915de741035541c8b001a88719e662')
+b2sums=('d5f8c3b34f86b9cf8bb58ff9af5d9301a83ab120385da950b7baaa45b3f464dfe113aa58c38bcd802291970f4cae8a37771e15a3ff6011e9857375515d2bc443')
 
 prepare() {
   cd ${pkgname}-${pkgver}
