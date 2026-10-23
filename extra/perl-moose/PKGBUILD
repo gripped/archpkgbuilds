@@ -2,7 +2,7 @@
 
 pkgname=perl-moose
 pkgver=2.4001
-pkgrel=1
+pkgrel=2
 pkgdesc="A postmodern object system for Perl 5"
 arch=('x86_64')
 url="https://metacpan.org/dist/Moose"
