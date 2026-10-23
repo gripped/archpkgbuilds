@@ -3,7 +3,7 @@
 
 pkgname=python-zope-i18nmessageid
 _pkgname=zope.i18nmessageid
-pkgver=8.3
+pkgver=8.4
 pkgrel=1
 pkgdesc="Message Identifiers for internationalization"
 arch=('x86_64')
@@ -12,6 +12,7 @@ license=('ZPL-2.1')
 depends=(
   'glibc'
   'python'
+  'python-zope-interface'
 )
 makedepends=(
   'git'
@@ -22,11 +23,11 @@ makedepends=(
 )
 checkdepends=('python-zope-testrunner')
 source=("git+https://github.com/zopefoundation/zope.i18nmessageid.git#tag=$pkgver")
-sha512sums=('d0e65b187e752d80c9ce30d98742f38ef7de857f1eb5f83a700d53a57de208a90ed9da37fda94db53b503687319147f8af387687a724e62ccbbd13f92c676ebf')
+sha512sums=('684fc91236550ea4ba2b8157945a63eacd9669f12b536ecf80362f5d5058b51d0a9aa84ca91b24152ade07cac66cc31ccecaaff497abc08c16490cdd307006d2')
 
 build() {
   cd $_pkgname
-  python -m build --wheel --no-isolation --skip-dependency-check
+  python -m build --wheel --no-isolation
 }
 
 check() {
