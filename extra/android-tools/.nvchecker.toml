@@ -1,3 +1,6 @@
 [android-tools]
-source = "git"
-git = "https://github.com/nmeum/android-tools.git"
+source = "github"
+github = "nmeum/android-tools"
+use_latest_tag = true
+from_pattern = '(\d)(p\d+)$'
+to_pattern = '\1.\2'
