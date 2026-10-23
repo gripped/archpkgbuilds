@@ -2,8 +2,8 @@
 
 _hkgname=minisat
 pkgname=haskell-minisat
-pkgver=0.1.3
-pkgrel=68
+pkgver=0.1.4
+pkgrel=5
 pkgdesc="A Haskell bundle of the Minisat SAT solver"
 url="https://github.com/jbransen/minisat-bundle"
 license=("BSD-3-Clause")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-async')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('22fa30d320f8521aed0a0b54dd2638b42f420a29163cd52b01a2373139c11cc6e6ae8487c70e0cc1b4fee6805b3806e8510bf862f7281f9087d38dd4266691de')
+sha512sums=('4afa44d640deb1ce80ed02c92d6c905c7d8f1eedc648d067eb97e923671f4eaef6fe81a533b87bfe2ac077fa18a85689230df957350b57534c66ee0833145cc1')
 
 prepare() {
   cd $_hkgname-$pkgver
