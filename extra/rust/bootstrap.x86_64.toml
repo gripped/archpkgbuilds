@@ -72,7 +72,7 @@ compression-profile = "fast"
 
 [target.x86_64-unknown-linux-gnu]
 llvm-config = "/usr/bin/llvm-config"
-optimized-compiler-builtins = "%clangdir%/lib/linux/libclang_rt.builtins-x86_64.a"
+optimized-compiler-builtins = "%clangdir%/lib/x86_64-pc-linux-gnu/libclang_rt.builtins.a"
 
 [target.x86_64-unknown-linux-musl]
 musl-root = "/usr/lib/musl"
@@ -80,7 +80,7 @@ cc = "musl-gcc"
 sanitizers = false
 
 [target.i686-unknown-linux-gnu]
-optimized-compiler-builtins = "%clangdir%/lib/linux/libclang_rt.builtins-i386.a"
+optimized-compiler-builtins = "%clangdir%/lib/i386-pc-linux-gnu/libclang_rt.builtins.a"
 
 [target.aarch64-unknown-linux-gnu]
 cc = "aarch64-linux-gnu-gcc"
