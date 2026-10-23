@@ -1,0 +1,141 @@
+--- a/packages/griffecli/pyproject.toml
++++ b/packages/griffecli/pyproject.toml
+@@ -1,7 +1,5 @@
+ [build-system]
+-# pdm-backend is left here as a dependency of the version discovery script currently in use.
+-# It may be removed in the future. See mkdocstrings/griffe#430
+-requires = ["hatchling", "pdm-backend", "uv-dynamic-versioning>=0.7.0"]
++requires = ["hatchling"]
+ build-backend = "hatchling.build"
+ 
+ [project]
+@@ -49,9 +47,6 @@ Funding = "https://github.com/sponsors/pawamoy"
+ [project.scripts]
+ griffecli = "griffecli:main"
+ 
+-[tool.uv-dynamic-versioning]
+-pattern = '(?P<base>\d+\.\d+\.\d+)'
+-
+ [tool.hatch.version]
+ source = "code"
+ path = "../../scripts/get_version.py"
+@@ -62,12 +57,5 @@ expression = "get_version()"
+ "../../LICENSE" = "LICENSE"
+ "../../README.md" = "README.md"
+ 
+-[tool.hatch.metadata.hooks.uv-dynamic-versioning]
+-# Dependencies are dynamically versioned; {{version}} is substituted at build time.
+-dependencies = ["griffelib=={{version}}", "colorama>=0.4"]
+-
+ [tool.hatch.build.targets.wheel]
+ packages = ["src/griffecli"]
+-
+-[tool.uv.sources]
+-griffelib = { workspace = true }
+--- a/packages/griffelib/pyproject.toml
++++ b/packages/griffelib/pyproject.toml
+@@ -1,7 +1,5 @@
+ [build-system]
+-# pdm-backend is left here as a dependency of the version discovery script currently in use.
+-# It may be removed in the future. See mkdocstrings/griffe#430
+-requires = ["hatchling", "pdm-backend", "uv-dynamic-versioning>=0.7.0"]
++requires = ["hatchling"]
+ build-backend = "hatchling.build"
+ 
+ [project]
+@@ -57,9 +55,6 @@ pypi = ["pip>=24.0", "platformdirs>=4.2", "wheel>=0.42"]
+ [dependency-groups]
+ dev = ["pytest>=8.2", "pytest-gitconfig>=0.8.0", "jsonschema>=4.18"]
+ 
+-[tool.uv-dynamic-versioning]
+-pattern = '(?P<base>\d+\.\d+\.\d+)'
+-
+ [tool.hatch.version]
+ source = "code"
+ path = "../../scripts/get_version.py"
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -1,7 +1,5 @@
+ [build-system]
+-# pdm-backend is left here as a dependency of the version discovery script currently in use.
+-# It may be removed in the future. See mkdocstrings/griffe#430
+-requires = ["hatchling", "pdm-backend", "uv-dynamic-versioning>=0.7.0"]
++requires = ["hatchling"]
+ build-backend = "hatchling.build"
+ 
+ [project]
+@@ -50,25 +48,11 @@ Funding = "https://github.com/sponsors/pawamoy"
+ [project.scripts]
+ griffe = "griffecli:main"
+ 
+-[tool.uv-dynamic-versioning]
+-pattern = '(?P<base>\d+\.\d+\.\d+)'
+-
+ [tool.hatch.version]
+ source = "code"
+ path = "scripts/get_version.py"
+ expression = "get_version()"
+ 
+-[tool.hatch.metadata.hooks.uv-dynamic-versioning]
+-# Dependencies are dynamically versioned; {{version}} is substituted at build time.
+-# This ensures griffe, griffelib, and griffecli versions are always 1:1.
+-dependencies = ["griffelib=={{version}}", "griffecli=={{version}}"]
+-
+-[tool.hatch.metadata.hooks.uv-dynamic-versioning.optional-dependencies]
+-# The 'faster' extra re-exports griffelib[faster].
+-faster = ["griffelib[faster]=={{version}}"]
+-# The 'pypi' extra re-exports griffelib[pypi] for backward compatibility.
+-pypi = ["griffelib[pypi]=={{version}}"]
+-
+ [tool.hatch.build]
+ # Include as much as possible in the source distribution, to help redistributors.
+ ignore-vcs = true
+@@ -128,11 +112,3 @@ ci = [
+     "pydeps>=1.12",
+     "zensical>=0.0.21",
+ ]
+-
+-[tool.uv]
+-default-groups = ["maintain", "ci", "docs"]
+-workspace = { members = ["packages/*"] }
+-
+-[tool.uv.sources]
+-griffelib = { workspace = true }
+-griffecli = { workspace = true }
+--- a/scripts/get_version.py
++++ b/scripts/get_version.py
+@@ -16,33 +16,9 @@
+ # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ 
+-# Get current project version from Git tags or changelog.
+-
+-import re
+-from contextlib import suppress
+-from pathlib import Path
+-
+-from pdm.backend.hooks.version import (  # ty: ignore[unresolved-import]
+-    SCMVersion,
+-    Version,
+-    default_version_formatter,
+-    get_version_from_scm,
+-)
+-
+-_root = Path(__file__).parent.parent
+-_changelog = _root / "CHANGELOG.md"
+-_changelog_version_re = re.compile(r"^## \[(\d+\.\d+\.\d+)\].*$")
+-_default_scm_version = SCMVersion(Version("0.0.0"), None, False, None, None)  # noqa: FBT003
+-
+ 
+ def get_version() -> str:
+-    scm_version = get_version_from_scm(_root) or _default_scm_version
+-    if scm_version.version <= Version("0.1"):  # Missing Git tags?
+-        with suppress(OSError, StopIteration):  # noqa: SIM117
+-            with _changelog.open("r", encoding="utf8") as file:
+-                match = next(filter(None, map(_changelog_version_re.match, file)))
+-                scm_version = scm_version._replace(version=Version(match.group(1)))
+-    return default_version_formatter(scm_version)
++    return "@pkgver@"
+ 
+ 
+ if __name__ == "__main__":

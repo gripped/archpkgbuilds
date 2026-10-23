@@ -6,7 +6,7 @@ pkgname=(
   python-griffelib
   python-griffecli
 )
-pkgver=2.3.2
+pkgver=2.4.0
 pkgrel=1
 pkgdesc='Signatures for entire Python programs'
 arch=(any)
@@ -20,26 +20,21 @@ makedepends=(
 )
 source=(
   "$pkgbase::git+https://github.com/mkdocstrings/griffe#tag=$pkgver"
-  static-version.patch
-  replace-get_version.patch
+  simple-version.patch
 )
-sha512sums=('c90614f6d319e3059b1f10686c9380889f297e879d8947db00a897c325dd5bb6d579f0b1e79b3de770c034fb80bbf7b9c6accc23402862c782b5b165522aea87'
-            '25e190e21e983239228e236288d372c1600fc946b432d3da825d232b4bc15294d5834a079b1b37010af167ec23f8074b4dd0b0ed14c956fe8d2a0769f5d25243'
-            'b653bc4a7866a950c71e473aca1776024e9236eac90d6827a6f0f20cbbdd21ca197ea9c749110120c175f79b099f9f3a0a8e4d05afca3982f1924329f5b26df8')
-b2sums=('360f72e0819555e77977518fc58252369c370cce88c211c6f1b58bc5c0f2425c035e0e8ce81cc56e02be47f12f9f50c0b1d84fbf2584e23ae00742c3ed4fc89c'
-        '39f9e6465e53fd76619542a162c328afae94be4d4d80d7be8735f99e114cf0f4b18cd6c3477acb1d8ea8b795d3114e604f24cd45263b1086e5a51aca160d6026'
-        '3197f551a037a970ca2a22660f43da29cc2715ce2a22dc3cf5a630f93a9115d0431a8f30f144afd40af2e682d6849323c5a2bd76f724a9af4cd58a6570e41297')
+sha512sums=('aa8222ceb1d7049919c2d53f17f4a788b662c1797aec18eb014054b102ae1656e54928a7c578d7368f4c9ad5229946a9ec096d5c81d1f065e5b750ff9803f4a7'
+            'cfc9a0fb1742711dd82ed612241a8553cd4d65d64aadf1f3f6cc716d2318fb2b9860e1a8ce6be23d76a69909ddea85b85b180cd502f2c8e80a8f54907b9ad2f9')
+b2sums=('175ef628aee67b664a90a9b8ce539a94d1cc81318d765ef13d348d44b9c733b3bbab752e9d0d4acf39155f776ca229460f936bfc24b095b7beb559a2ca018eba'
+        '45e007f8858f4e18ca0767bf99116e9b69946081543bfdd2395dfd52d7ac16d92721a5763a6dcd02e620005b7ba4b61ebf51ee3a79f94f248bc480716eb5572a')
 
 prepare() {
   cd "$pkgbase"
 
-  # avoid pulling in an entire dependency tree just so some
+  # * avoid pulling in an entire dependency tree just so some
   # python project can magically set a simple number
-  patch -p1 -i "$srcdir/static-version.patch"
-
-  # replace get_version() with a simpler implementation
-  # also remove pdm-backend dependency
-  patch -p1 -i "$srcdir/replace-get_version.patch"
+  # * replace get_version() with a simpler implementation
+  # * remove pdm-backend dependency
+  patch -p1 -i "$srcdir/simple-version.patch"
   sed -e "s/@pkgver@/$pkgver/" -i scripts/get_version.py
 }
 
