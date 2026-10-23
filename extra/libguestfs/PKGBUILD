@@ -18,7 +18,7 @@ pkgname=(
   ruby-libguestfs
 )
 pkgver=1.60.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Access and modify virtual machine disk images"
 arch=(x86_64)
 url="https://libguestfs.org/"
