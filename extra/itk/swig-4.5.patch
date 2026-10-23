@@ -1,0 +1,211 @@
+--- a/Wrapping/Generators/Python/PyBase/pyBase.i	2026-10-17 12:16:21.384289273 +0200
++++ b/Wrapping/Generators/Python/PyBase/pyBase.i	2026-10-17 12:16:54.213403355 +0200
+@@ -61,7 +61,7 @@
+ //}
+ 
+ %typemap(out)  unsigned char &, const unsigned char &, signed char &, const signed char &, unsigned short &, const unsigned short &, signed short &, const signed short &, unsigned int &, const unsigned int &, signed int &, const signed int &, signed long &, const signed long &, unsigned long &, const unsigned long &
+-  {$result = PyInt_FromLong( *$1 );}
++  {$result = PyLong_FromLong( *$1 );}
+ 
+ %typemap(out) float &, const float &, double &, const double &
+   {$result = PyFloat_FromDouble( *$1 );}
+@@ -1059,8 +1059,8 @@
+             if (PySequence_Check($input) && PyObject_Length($input) == dim) {
+                 for (int i =0; i < dim; i++) {
+                     PyObject *o = PySequence_GetItem($input,i);
+-                    if (PyInt_Check(o)) {
+-                        itks[i] = PyInt_AsLong(o);
++                    if (PyLong_Check(o)) {
++                        itks[i] = PyLong_AsLong(o);
+                     } else if (PyFloat_Check(o)) {
+                         itks[i] = (type)PyFloat_AsDouble(o);
+                     } else {
+@@ -1071,9 +1071,9 @@
+                     SWIG_Py_DECREF(o);
+                 }
+                 $1 = &itks;
+-            }else if (PyInt_Check($input)) {
++            }else if (PyLong_Check($input)) {
+                 for (int i =0; i < dim; i++) {
+-                    itks[i] = PyInt_AsLong($input);
++                    itks[i] = PyLong_AsLong($input);
+                 }
+                 $1 = &itks;
+             }else if (PyFloat_Check($input)) {
+@@ -1092,7 +1092,7 @@
+         void *ptr;
+         if (SWIG_ConvertPtr($input, &ptr, $1_descriptor, 0) == -1
+             && ( !PySequence_Check($input) || PyObject_Length($input) != dim )
+-            && !PyInt_Check($input) && !PyFloat_Check($input) ) {
++            && !PyLong_Check($input) && !PyFloat_Check($input) ) {
+             _v = 0;
+             PyErr_Clear();
+         } else {
+@@ -1107,8 +1107,8 @@
+             if (PySequence_Check($input) && PyObject_Length($input) == dim) {
+                 for (int i =0; i < dim; i++) {
+                     PyObject *o = PySequence_GetItem($input,i);
+-                    if (PyInt_Check(o)) {
+-                        itks[i] = PyInt_AsLong(o);
++                    if (PyLong_Check(o)) {
++                        itks[i] = PyLong_AsLong(o);
+                     } else if (PyFloat_Check(o)) {
+                         itks[i] = (type)PyFloat_AsDouble(o);
+                     } else {
+@@ -1119,9 +1119,9 @@
+                     SWIG_Py_DECREF(o);
+                 }
+                 $1 = itks;
+-            }else if (PyInt_Check($input)) {
++            }else if (PyLong_Check($input)) {
+                 for (int i =0; i < dim; i++) {
+-                    itks[i] = PyInt_AsLong($input);
++                    itks[i] = PyLong_AsLong($input);
+                 }
+                 $1 = itks;
+             }else if (PyFloat_Check($input)) {
+@@ -1145,7 +1145,7 @@
+         void *ptr;
+         if (SWIG_ConvertPtr($input, &ptr, $descriptor(swig_name *), 0) == -1
+             && ( !PySequence_Check($input) || PyObject_Length($input) != dim )
+-            && !PyInt_Check($input) && !PyFloat_Check($input) ) {
++            && !PyLong_Check($input) && !PyFloat_Check($input) ) {
+             _v = 0;
+             PyErr_Clear();
+         } else {
+@@ -1183,8 +1183,8 @@
+             itks = type( PyObject_Length($input) );
+             for (unsigned int i =0; i < itks.Size(); i++) {
+                 PyObject *o = PySequence_GetItem($input,i);
+-                if (PyInt_Check(o)) {
+-                    itks[i] = (value_type)PyInt_AsLong(o);
++                if (PyLong_Check(o)) {
++                    itks[i] = (value_type)PyLong_AsLong(o);
+                 } else if (PyFloat_Check(o)) {
+                     itks[i] = (value_type)PyFloat_AsDouble(o);
+                 } else {
+@@ -1216,8 +1216,8 @@
+             itks = type( PyObject_Length($input) );
+             for (unsigned int i =0; i < itks.Size(); i++) {
+                 PyObject *o = PySequence_GetItem($input,i);
+-                if (PyInt_Check(o)) {
+-                    itks[i] = (value_type)PyInt_AsLong(o);
++                if (PyLong_Check(o)) {
++                    itks[i] = (value_type)PyLong_AsLong(o);
+                 } else if (PyFloat_Check(o)) {
+                     itks[i] = (value_type)PyFloat_AsDouble(o);
+                 } else {
+@@ -1272,8 +1272,8 @@
+             if (PySequence_Check($input) && PyObject_Length($input) == dim) {
+                 for (int i =0; i < dim; i++) {
+                     PyObject *o = PySequence_GetItem($input,i);
+-                    if (PyInt_Check(o) || PyLong_Check(o)) {
+-                        itks[i] = PyInt_AsLong(o);
++                    if (PyLong_Check(o)) {
++                        itks[i] = PyLong_AsLong(o);
+                     } else {
+                         SWIG_Py_DECREF(o);
+                         PyErr_SetString(PyExc_ValueError,"Expecting a sequence of int (or long)");
+@@ -1282,9 +1282,9 @@
+                     SWIG_Py_DECREF(o);
+                 }
+                 $1 = &itks;
+-            }else if (PyInt_Check($input) || PyLong_Check($input)) {
++            }else if (PyLong_Check($input)) {
+                 for (int i =0; i < dim; i++) {
+-                    itks[i] = PyInt_AsLong($input);
++                    itks[i] = PyLong_AsLong($input);
+                 }
+                 $1 = &itks;
+             } else {
+@@ -1298,7 +1298,7 @@
+         void *ptr;
+         if (SWIG_ConvertPtr($input, &ptr, $1_descriptor, 0) == -1
+             && ( !PySequence_Check($input) || PyObject_Length($input) != dim )
+-            && !PyInt_Check($input) ) {
++            && !PyLong_Check($input) ) {
+             _v = 0;
+             PyErr_Clear();
+         } else {
+@@ -1313,8 +1313,8 @@
+             if (PySequence_Check($input) && PyObject_Length($input) == dim) {
+                 for (int i =0; i < dim; i++) {
+                     PyObject *o = PySequence_GetItem($input,i);
+-                    if (PyInt_Check(o) || PyLong_Check(o)) {
+-                        itks[i] = PyInt_AsLong(o);
++                    if (PyLong_Check(o)) {
++                        itks[i] = PyLong_AsLong(o);
+                     } else {
+                         SWIG_Py_DECREF(o);
+                         PyErr_SetString(PyExc_ValueError,"Expecting a sequence of int (or long)");
+@@ -1323,9 +1323,9 @@
+                     SWIG_Py_DECREF(o);
+                 }
+                 $1 = itks;
+-            }else if (PyInt_Check($input) || PyLong_Check($input)) {
++            }else if (PyLong_Check($input)) {
+                 for (int i =0; i < dim; i++) {
+-                    itks[i] = PyInt_AsLong($input);
++                    itks[i] = PyLong_AsLong($input);
+                 }
+                 $1 = itks;
+             } else {
+@@ -1344,7 +1344,7 @@
+         void *ptr;
+         if (SWIG_ConvertPtr($input, &ptr, $descriptor(swig_name *), 0) == -1
+             && ( !PySequence_Check($input) || PyObject_Length($input) != dim )
+-            && !(PyInt_Check($input) || PyLong_Check($input)) ) {
++            && !(PyLong_Check($input)) ) {
+             _v = 0;
+             PyErr_Clear();
+         } else {
+--- a/Modules/Bridge/NumPy/include/itkPyVnl.hxx	2026-10-17 12:16:21.385046050 +0200
++++ b/Modules/Bridge/NumPy/include/itkPyVnl.hxx	2026-10-17 12:16:54.213498484 +0200
+@@ -94,7 +94,7 @@
+   dimension = PySequence_Size(obj);
+ 
+   item = PySequence_GetItem(shapeseq, 0); // Only one dimension
+-  numberOfElements = (size_t)PyInt_AsLong(item);
++  numberOfElements = (size_t)PyLong_AsLong(item);
+   Py_DECREF(item);
+ 
+   len = numberOfElements * elementSize;
+@@ -184,7 +184,7 @@
+   for (unsigned int i = 0; i < 2; ++i)
+   {
+     item = PySequence_GetItem(shapeseq, i);
+-    size[i] = static_cast<unsigned int>(PyInt_AsLong(item));
++    size[i] = static_cast<unsigned int>(PyLong_AsLong(item));
+     Py_DECREF(item);
+     numberOfElements *= size[i];
+   }
+--- a/Modules/Bridge/NumPy/include/itkPyVectorContainer.hxx	2026-10-17 12:16:21.385035640 +0200
++++ b/Modules/Bridge/NumPy/include/itkPyVectorContainer.hxx	2026-10-17 12:16:54.213538590 +0200
+@@ -95,7 +95,7 @@
+   dimension = PySequence_Size(obj);
+ 
+   item = PySequence_GetItem(shapeseq, 0); // Only one dimension
+-  numberOfElements = (size_t)PyInt_AsLong(item);
++  numberOfElements = (size_t)PyLong_AsLong(item);
+   Py_DECREF(item);
+ 
+   len = numberOfElements * elementSize;
+--- a/Modules/Bridge/NumPy/include/itkPyBuffer.hxx	2026-10-17 12:16:21.385024670 +0200
++++ b/Modules/Bridge/NumPy/include/itkPyBuffer.hxx	2026-10-17 12:16:54.213577553 +0200
+@@ -109,13 +109,13 @@
+   shapeseq = PySequence_Fast(shape, "expected sequence");
+   dimension = PySequence_Size(shape);
+ 
+-  numberOfComponents = PyInt_AsLong(numOfComponent);
++  numberOfComponents = PyLong_AsLong(numOfComponent);
+ 
+   for (unsigned int i = 0; i < dimension; ++i)
+   {
+     item = PySequence_GetItem(shapeseq, i);
+-    size[i] = (SizeValueType)PyInt_AsLong(item);
+-    sizeFortran[dimension - 1 - i] = (SizeValueType)PyInt_AsLong(item);
++    size[i] = (SizeValueType)PyLong_AsLong(item);
++    sizeFortran[dimension - 1 - i] = (SizeValueType)PyLong_AsLong(item);
+     Py_DECREF(item);
+     numberOfPixels *= size[i];
+   }

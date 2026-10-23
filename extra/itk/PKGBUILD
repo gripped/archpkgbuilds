@@ -4,7 +4,7 @@
 pkgbase=itk
 pkgname=(itk python-itk)
 pkgver=5.4.7
-pkgrel=1
+pkgrel=2
 pkgdesc="An open-source toolkit for multidimensional image analysis"
 arch=(x86_64)
 url="https://www.itk.org"
@@ -35,8 +35,10 @@ makedepends=(
 )
 source=(
   ${pkgbase^^}-$pkgver.tar.gz::https://github.com/InsightSoftwareConsortium/ITK/archive/refs/tags/v$pkgver.tar.gz
+  swig-4.5.patch
 )
-b2sums=('4316b3a594ee1502cb64d74b3f260af5040891c8cc4ef61ad1bc4aedfd5f59f5e1e5c24ae56218b90b1b2b671b8ad245d0b8df3b2c4b8054a506a288638dc1b3')
+b2sums=('4316b3a594ee1502cb64d74b3f260af5040891c8cc4ef61ad1bc4aedfd5f59f5e1e5c24ae56218b90b1b2b671b8ad245d0b8df3b2c4b8054a506a288638dc1b3'
+        'be49c0d79081444e4ebbd0887aa05900c8adb1d8356b3cf19f41097657468ff781dd900558dfa4e5426c3060b02fb2a667443aee5fc04441083e76481cf72f5d')
 
 _pick() {
   local p="$1" f d; shift
@@ -46,6 +48,12 @@ _pick() {
     mv "$f" "$d"
     rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
   done
+}
+
+prepare() {
+  cd ${pkgbase^^}-$pkgver
+  # fix build with SWIG 4.5, which dropped the PyInt_* compatibility macros from the generated code
+  patch -p1 < ../swig-4.5.patch
 }
 
 build() {
