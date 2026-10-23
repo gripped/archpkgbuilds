@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-http1
-pkgver=0.41.0
+pkgver=0.41.1
 pkgrel=1
 pkgdesc='A low level implementation of the HTTP/1 protocol'
 arch=(any)
@@ -26,7 +26,7 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/socketry/protocol-http1.git#tag=v$pkgver)
-sha512sums=('c81afe0c0ea1696621e1a6576f55792fc703a6802526fe8b31a475c2f121fdb6b32d6ef5d5e7a44e381543736829e817b7ebd67df764e65defb0896c3191c921')
+sha512sums=('c62e6af60c604debe7fb4bdd0b30ac4b191a4e0a87c4fb9f6554731122bb51380b9cc773ef5b8fe373732561ffa0b6b96e4e3a262d4e19b0afa6745ad25aaec9')
 
 prepare() {
   cd protocol-http1
