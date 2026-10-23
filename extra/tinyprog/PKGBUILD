@@ -3,7 +3,7 @@
 _pkgname=TinyFPGA-Bootloader
 pkgname=tinyprog
 pkgver=1.0.23
-pkgrel=7
+pkgrel=8
 pkgdesc='TinyFPGA CLI Programmer'
 arch=('any')
 url='https://github.com/tinyfpga/TinyFPGA-Bootloader'
@@ -11,7 +11,7 @@ license=('Apache2')
 depends=('python')
 depends=('python-pyserial' 'python-jsonmerge' 'python-intelhex' 'python-tqdm' 'python-six'
          'python-packaging' 'python-pyusb')
-makedepends=('python-setuptools-scm')
+makedepends=('python-setuptools-scm' 'python-build' 'python-installer')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-$pkgver.tar.gz")
 sha512sums=('3225f161dc41799c87e73ff03f6ed7f077a0f7e7432af600d1be288fa330ec5cc8449c46ad168ad44342884fe71722766e188b197a61a65b427ad01839f2ca12')
 
@@ -20,7 +20,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 build() {
   cd $_pkgname-$pkgname-$pkgver/programmer
 
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
@@ -30,7 +30,7 @@ package() {
 
   cd programmer
 
-  python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim:set ts=2 sw=2 et:
