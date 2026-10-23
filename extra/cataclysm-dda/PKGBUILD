@@ -4,7 +4,8 @@
 pkgbase=cataclysm-dda
 pkgname=(cataclysm-dda cataclysm-dda-tiles)
 pkgname=cataclysm-dda
-pkgver=0.I
+pkgver=0.I1
+_pkgver=0.I-1
 pkgrel=1
 pkgdesc="A post-apocalyptic roguelike"
 url="https://cataclysmdda.org/"
@@ -12,11 +13,11 @@ arch=('x86_64')
 license=("CC-BY-NC-SA-3.0")
 depends=('sdl2' 'sdl2_image' 'sdl2_ttf' 'sdl2_mixer' 'ncurses' 'hicolor-icon-theme' 'gettext' 'libbacktrace' 'libgcc' 'libstdc++' 'zlib' 'glibc')
 makedepends=('freetype2' 'astyle')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/CleverRaven/Cataclysm-DDA/archive/$pkgver.tar.gz")
-sha256sums=('1e4a6e1f70d805d01c97c71294eb45aad47f56f1e895fa783127e20298ee3249')
+source=("$pkgname-$_pkgver.tar.gz::https://github.com/CleverRaven/Cataclysm-DDA/archive/$_pkgver.tar.gz")
+sha256sums=('27e35a0a5181f88f0929bef180ca0465d00e606e569911cb02d97b59b8b5768a')
 
 build() {
-  cd "Cataclysm-DDA-$pkgver"
+  cd "Cataclysm-DDA-$_pkgver"
 
   export LDFLAGS=${LDFLAGS/-Wl,-z,pack-relative-relocs}
   export CXXFLAGS+=" -Wno-error=maybe-uninitialized"
@@ -31,7 +32,7 @@ build() {
 }
 
 package_cataclysm-dda() {
-  cd "Cataclysm-DDA-$pkgver"
+  cd "Cataclysm-DDA-$_pkgver"
 
   make DESTDIR="$pkgdir" PREFIX=/usr PCH=0 RELEASE=1 USE_XDG_DIR=1 LTO=1 RUNTESTS=0 TESTS=0 LOCALIZE=1 LANGUAGES=all install
 
@@ -57,7 +58,7 @@ package_cataclysm-dda() {
 package_cataclysm-dda-tiles() {
   pkgdesc="A graphical post-apocalyptic roguelike."
   depends=('cataclysm-dda' 'sdl2_image' 'sdl2_ttf' 'freetype2' 'sdl2_mixer')
-  cd "Cataclysm-DDA-$pkgver"
+  cd "Cataclysm-DDA-$_pkgver"
 
   make DESTDIR="$pkgdir" PREFIX=/usr PCH=0 RELEASE=1 USE_XDG_DIR=1 LTO=1 LOCALIZE=1 LANGUAGES=all TILES=1 SOUND=1 install
 
