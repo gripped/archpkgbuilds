@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-wallpapers
-pkgver=1.9.0
+pkgver=1.10.0
 pkgrel=1
 epoch=2
 pkgdesc='Wallpapers for the COSMIC Desktop Environment'
@@ -16,7 +16,7 @@ makedepends=(
   git-lfs
 )
 source=(git+https://github.com/pop-os/cosmic-wallpapers.git#tag=epoch-${pkgver})
-b2sums=('691d1487027c9c8c0859927871d63e42698c8543a0e32c760dcc8ef489307362e6091f7296f0f89f8b2e1f623251bafacc6e29ab7837fbd3199875278c7b69f9')
+b2sums=('3417048472aa110625c5c18164f8d417b5a8624f111e17d682bfc7ce11322a177e207ef8ba3cf16aabe38a9c9bca70c6c1bb97390c2bcda3ebf09eec3d5d92e9')
 
 prepare() {
   cd cosmic-wallpapers
