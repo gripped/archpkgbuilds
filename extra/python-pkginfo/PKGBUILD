@@ -5,7 +5,7 @@
 
 pkgname=python-pkginfo
 _pkgname="${pkgname#python-}"
-pkgver=1.13
+pkgver=1.13.3
 pkgrel=1
 pkgdesc='Query metadata from sdists / bdists / installed packages'
 arch=(any)
@@ -27,9 +27,9 @@ source=(
   "$pkgname-$pkgver.tar.gz::https://pypi.io/packages/source/p/pkginfo/pkginfo-$pkgver.tar.gz"
   remove-pkg_resources.patch
 )
-sha512sums=('f8c1451f5cb1b7ce1ea95b3eec2d7b24103e96d472b9c76e93fc8993d0272611424cf01bd002f4714984be2bb8b7d0ff907f0c536baf825cb107a2b6f806e5f8'
+sha512sums=('38390a841a8576c2b2a68eb9ed87d9d54d9c696f7f3dfe8d5d91d6e751d4655cdc6dc7f353b2d5eb72abffd00d4f0b17a32773720b651556feb08218d7c4942d'
             'b568f86ed50c02f6f6c08b5f79327d9729278a4677d117a2b1f255951c281e0348d24eeb23bde87b9a40e60d684620bec95c404f013e6756c8cee89aec575f8f')
-b2sums=('2d8d6ac3a03f920fb9b1567e832291e8abed92ea7d0c8e0dd4613ddeeaa0841f3014ef52ceab2a26000924051ba3666721b7bed093e8700f3353975157fe2d5d'
+b2sums=('0f5e14c9715b7ccbc22c6a3ce189b25db511b8498513514c4f5dfd108a15a68d12e2a30376845a66d5a3168d98b3d743b761e65a76420e5466bef57b1b17f7c8'
         'e7ef432acb7db3f16dc9f6b011a713dfe4ac281ff5a895d18d7b287360cd4281e18650a0b3a153e7aa58a3d05c874fe8a8e26b6b12a83df012d0e915c675dbf3')
 
 prepare() {
