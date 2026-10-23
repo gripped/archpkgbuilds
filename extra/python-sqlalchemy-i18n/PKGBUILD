@@ -5,13 +5,13 @@
 _name=sqlalchemy-i18n
 pkgname=python-sqlalchemy-i18n
 pkgver=1.1.0
-pkgrel=9
+pkgrel=10
 pkgdesc='Internationalization extension for SQLAlchemy models'
 url='https://github.com/kvesteri/sqlalchemy-i18n'
 arch=('any')
 license=(BSD-3-Clause)
 depends=('python' 'python-sqlalchemy' 'python-sqlalchemy-utils')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest' 'python-psycopg2' 'python-flexmock' 'python-jinja' 'python-docutils')
 source=(https://github.com/kvesteri/sqlalchemy-i18n/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz
         remove-python-six-leftovers.patch)
@@ -29,12 +29,12 @@ prepare() {
 
 build() {
   cd ${_name}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd ${_name}-${pkgver}
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
   install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
   install -Dm 644 README.rst -t "${pkgdir}/usr/share/doc/${pkgname}"
 }
