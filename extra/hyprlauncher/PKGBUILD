@@ -1,8 +1,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=hyprlauncher
-pkgver=0.1.6
-pkgrel=9
+pkgver=0.1.7
+pkgrel=1
 pkgdesc='A multipurpose and versatile launcher / picker for Hyprland'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
@@ -23,7 +23,7 @@ depends=(fontconfig libfontconfig.so
 makedepends=(cmake)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('f02f93584e1017d7a466d0cafed910f630be39eba6b433922e645c834c4abf59')
+sha256sums=('66a8b893c13fbf6c523bdf2974ef65101a0ca94f25e020f4f53f043470418340')
 
 build() {
 	cd "$_archive"
