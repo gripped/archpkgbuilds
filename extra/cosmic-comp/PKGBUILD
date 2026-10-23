@@ -4,7 +4,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-comp
-pkgver=1.9.0
+pkgver=1.10.0
 pkgrel=1
 epoch=1
 pkgdesc='Compositor for the COSMIC desktop environment'
@@ -29,10 +29,11 @@ depends=(
 makedepends=(
   cargo
   git
+  just
   lld
 )
 source=(git+https://github.com/pop-os/cosmic-comp.git#tag=epoch-${pkgver})
-b2sums=('93a27c3d1ac6b4e65f1842357ea7296e136ac2ce30102381e3382d440d9e043eff7c2e49e8d7f973a6b56283ee2313f4701a3e0955681d5e93297bc7ef37fcb9')
+b2sums=('c9a441625542a3bac126085033843e4864dbc3256f77027e514b5042e25763d65528d0027786da242f88e286ef04c1e6fd478e15f9f135b0d2a45819094c5f45')
 
 prepare() {
   cd cosmic-comp
@@ -44,12 +45,12 @@ prepare() {
 build() {
   cd cosmic-comp
   RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
-  make ARGS+=" --frozen --release"
+  just build-release --frozen
 }
 
 package() {
   cd cosmic-comp
-  make prefix='/usr' libexecdir='/usr/lib' DESTDIR="${pkgdir}" install
+  just rootdir="${pkgdir}" install
 }
 
 # vim: ts=2 sw=2 et:
