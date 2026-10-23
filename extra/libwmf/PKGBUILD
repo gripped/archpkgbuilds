@@ -1,7 +1,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=libwmf
-pkgver=0.2.16
+pkgver=0.2.17
 pkgrel=1
 pkgdesc="A library for reading vector images in Microsoft's native Windows Metafile Format (WMF)"
 arch=('x86_64')
@@ -11,10 +11,12 @@ depends=('expat' 'freetype2' 'glibc' 'libjpeg-turbo' 'libpng' 'libx11' 'zlib')
 makedepends=('gdk-pixbuf2' 'git')
 optdepends=('gdk-pixbuf2: for pixbuf loader')
 source=("git+https://github.com/caolanm/libwmf.git#tag=v$pkgver")
-sha256sums=('8857f71405ed84e95476c611880b722f24e09b2a73273452eafc4c4713a1c941')
+sha256sums=('4ae2257a86fcc7ca2d09caeccb1a5fa812a5dd1ad59313050a9600ec1bf8a747')
 
 prepare() {
   cd ${pkgname}
+  # The new BMP bounds checks use uint64_t without including its defining header.
+  sed -i '/#include <stdlib.h>/i #include <stdint.h>' src/ipa/ipa.c
   autoreconf -fi
 }
 
