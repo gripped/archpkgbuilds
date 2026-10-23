@@ -4,7 +4,7 @@
 
 pkgname=python-pytimeparse
 _pyname=${pkgname#python-}
-pkgver=1.1.9
+pkgver=1.1.10
 pkgrel=1
 pkgdesc='A small library to parse various kinds of time expressions'
 arch=(any)
@@ -15,7 +15,7 @@ makedepends=(python-{build,installer,wheel}
              python-setuptools)
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('1f1c0bedcfbe481b78f7cb11dba7d81039455af8ba014eafc6df060c9c0ab156')
+sha256sums=('ecf0ee613a72cb0b1d3d5404bd398a64266576fc36ccf3149178af6f2ec6f736')
 
 build() {
 	cd "$_archive"
