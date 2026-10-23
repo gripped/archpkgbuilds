@@ -9,7 +9,7 @@
 # Contributor: TIanyi Cui <tianyicui@gmail.com>
 
 pkgname=nodejs
-pkgver=26.11.1
+pkgver=26.12.0
 pkgrel=1
 pkgdesc='Evented I/O for V8 javascript ("Current" release)'
 arch=('x86_64')
@@ -35,6 +35,7 @@ depends=(
   'zstd'
 )
 makedepends=(
+  'cargo'
   'git'
   'ninja'
   'procps-ng'
@@ -43,7 +44,7 @@ makedepends=(
 optdepends=('npm: nodejs package manager')
 source=("git+https://github.com/nodejs/node.git#tag=v$pkgver?signed")
 
-sha512sums=('d7a0735b925f2585b00b6de699498d76338729c39bb6c3e551736a3771cc28bd10fc59085cf85e741543073ae21e35bc49a5f100b71f1f6537ae295227a9db1b')
+sha512sums=('a7f0b65f7b0ca610348c45afe32c3aba2ceb774f4e2a6cab650643416969b4b4110e404c82d5bbf9356f8979dbfea03e6a0516623a5e065fea00fb556b02fa36')
 validpgpkeys=(
   '8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600' # Michaël Zasso (Targos) <targos@protonmail.com>
   '890C08DB8579162FEE0DF9DB8BEAB4DFCF555EF4' # RafaelGSS <rafael.nunu@hotmail.com>
@@ -69,6 +70,7 @@ build() {
     --prefix=/usr \
     --with-intl=system-icu \
     --without-npm \
+    --v8-enable-temporal-support \
     --shared-abseil \
     --shared-ada \
     --shared-brotli \
