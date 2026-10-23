@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langgraph-sdk
-pkgver=0.4.6
+pkgver=0.4.8
 pkgrel=1
 pkgdesc="SDK for interacting with LangGraph API"
 arch=('any')
@@ -25,6 +25,7 @@ makedepends=(
 )
 checkdepends=(
   'python-anyio'
+  'python-langgraph'
   'python-pydantic'
   'python-pytest'
   'python-pytest-asyncio'
@@ -47,10 +48,7 @@ build() {
 
 check() {
   cd langgraph/libs/sdk-py
-
-  # Remove this ignore once python-langgraph is packaged; this integration test
-  # imports langgraph at collection time before upstream's marker deselects it.
-  python -m pytest --ignore=tests/integration/test_remote_graph_v3.py
+  python -m pytest
 }
 
 package() {
