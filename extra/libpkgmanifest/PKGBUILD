@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=libpkgmanifest
-pkgver=0.6.0
+pkgver=0.6.1
 # Sins copied from https://src.fedoraproject.org/rpms/libpkgmanifest/blob/rawhide/f/libpkgmanifest.spec#_5
 IFS='.' read -r major_version minor_version patch_version <<< "$pkgver"
 pkgrel=1
@@ -13,7 +13,7 @@ depends=(yaml-cpp)
 makedepends=(cmake swig python yaml-cpp rpm-tools)
 checkdepends=(gtest)
 source=($pkgname-$pkgver.tar.gz::"$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('b0b89c59931dcff0e619f71f94a366b32c613d937f4053e8f7cc6d8e706bdf9c')
+sha256sums=('e3c3fd26587604c85fde505e957006c5d4e5592cd14bf6a19490369d9915c75d')
 
 prepare() {
   cd "$pkgname-$pkgver"
