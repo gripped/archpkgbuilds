@@ -1,7 +1,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=rainfrog
-pkgver=0.4.5
+pkgver=0.4.6
 pkgrel=1
 pkgdesc="A database management TUI for Postgres"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('duckdb' 'libgcc' 'sqlite')
 makedepends=('cargo' 'clang')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('a08849c7a7ccff621c318b0abb407c68dc85f700874dea0b21585f4e58e76b9171543b35414ab4486c2ee2bb510d5daacadb5654433e613a8df59536ac5e102a')
+sha512sums=('92563a6cd5b1084c5d040c209f7a80bae824c1a65e3da7e011158848e809cf5afe8e638fa4099d3923ede5573b700e5c44c248f04e2dbe179750c690387d7f57')
 options=('!lto')
 
 prepare() {
