@@ -4,7 +4,7 @@
 
 pkgname=perl-digest-nilsimsa
 pkgver=0.06
-pkgrel=26
+pkgrel=27
 pkgdesc="Perl version of Nilsimsa code"
 arch=('x86_64')
 license=('LGPL')
