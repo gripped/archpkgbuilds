@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-services
-pkgver=1.0.44
+pkgver=1.0.46
 pkgrel=1
 pkgdesc='Manage DBus service on Deepin'
 arch=('x86_64')
@@ -11,11 +11,12 @@ depends=(glibc libgcc libstdc++ systemd-libs qt6-base qt6-wayland dtk6core dtk6g
          libx11 libxcb libxext libxss libxtst polkit-qt6 python wayland xcb-util-keysyms
          deepin-service-manager deepin-power-control)
 makedepends=(git cmake ninja qt6-tools treeland-protocols wayland-protocols wlr-protocols)
+checkdepends=(dbus xorg-server-xvfb xorg-xauth)
 optdepends=('deepin-daemon: for power-event sound effects'
             'deepin-screensaver: for idle screensaver support')
 groups=(deepin)
 source=(git+https://github.com/linuxdeepin/dde-services.git#tag=$pkgver)
-sha512sums=('9d578f6fc1db84e5f9953682ebc19526567cd1ab88a9451379e49871f4e4758a72e4b914fe103d3ef25035b0556f7a8c5ad4038b3291f47d2d23b5c048e8ed84')
+sha512sums=('b242774296228663682a6fa0ec2382fbf82b285d923693c791700a7b7a82a5f127db431094a084cd63b4c93f04304d86939ac24548fca8355f6ed4b3c1f93702')
 
 build() {
   cd dde-services
@@ -23,6 +24,11 @@ build() {
     -DENABLE_PLUGIN_IPWATCHD=OFF \
     -DBUILD_SHORTCUT_DEBUG_BINARY=OFF
   ninja
+}
+
+check() {
+  cd dde-services
+  xvfb-run -a ctest --output-on-failure
 }
 
 package() {
