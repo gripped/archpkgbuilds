@@ -1,0 +1,28 @@
+From eb96fa71ee02db429a7b0174f3944aee16298adf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Oct 2026 20:42:37 +0200
+Subject: [PATCH] Remove unavailable zenity options
+
+The --display and --class options were removed from recent versions of
+zenity, and refuses to run if these options are specified.
+
+Closes: https://github.com/mate-desktop/marco/issues/755
+---
+ src/core/util.c | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/src/core/util.c b/src/core/util.c
+index baf485ae8..5837bc391 100644
+--- a/src/core/util.c
++++ b/src/core/util.c
+@@ -553,10 +553,6 @@ meta_show_dialog (const char *type,
+ 
+   argvl[i++] = "zenity";
+   argvl[i++] = type;
+-  argvl[i++] = "--display";
+-  argvl[i++] = display;
+-  argvl[i++] = "--class";
+-  argvl[i++] = "marco-dialog";
+   argvl[i++] = "--title";
+   /* Translators: This is the title used on dialog boxes */
+   argvl[i++] = _("Marco");
