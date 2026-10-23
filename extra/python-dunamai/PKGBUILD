@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-dunamai
-pkgver=1.26.2
+pkgver=1.26.3
 pkgrel=1
 pkgdesc='A library for producing dynamic version strings, derived from VCS tags'
 arch=('any')
@@ -19,8 +19,8 @@ makedepends=(
 )
 checkdepends=('python-pytest' 'python-setuptools')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('4dc6b3f585f6d863d2a9b183f7dcc7fe61bf78c0c35175190dd60cb018c2723659ef162768fae886bb1a3db20cbf5adf93d8503294874893638a9b6c6114398b')
-b2sums=('2b79604c85a2e7c881002653ba340013ade89d0124cc589d498482445635bde5199610926caae82d179cd4819b6caac3f961ecb1f40e2ee4e76e74f3f14c31a0')
+sha512sums=('c2ce11cf91e538ccbf3676906400d17587ec63fee9dbbe67dd0297b6b6a7f972bba483c12452696fc00a91ed500face0c55e2bdb1441d87aa4f71e734af7be95')
+b2sums=('2ed86a839692711ba32782ae6af1b3440f66abd3c267cd46143430cfa97d8305e9b362c8a3a3ea9f023cea85d72a39bc0a181b662c27a6d3bb9a920feffedbcd')
 
 build() {
   cd "$pkgname"
