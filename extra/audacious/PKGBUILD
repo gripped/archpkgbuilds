@@ -5,8 +5,8 @@
 # Contributor: Giovanni Scafora <giovanni@archlinux.org>
 
 pkgname=audacious
-pkgver=4.6.1
-pkgrel=2
+pkgver=4.6.2
+pkgrel=1
 pkgdesc='Lightweight, advanced audio player focused on audio quality'
 arch=(x86_64)
 url='https://audacious-media-player.org/'
@@ -32,7 +32,7 @@ makedepends=(
 )
 optdepends=('unzip: zipped skins support')
 source=("git+https://github.com/audacious-media-player/audacious.git#tag=$pkgname-$pkgver")
-b2sums=(be95274e3ea80103aa61113bc034ecf9c3bcebf55db9146c3e7517adbd1b72bcdda816a9abe73c4da1809e20b7d0d2926f904bc3d19417b4269202bdd5b76749)
+b2sums=(b73d439799bcdf9f48462c7a7765fffa8ef6e0e13c90c179a5371bb526c772a5a0817b3a86bae1fad43895ba990774f822ffbb6dfc8f47e3cacc355d5137c07c)
 
 build() {
   _PRETTY_NAME=`sed -n 's/^PRETTY_NAME="\([^"]*\)"/\1/p' /etc/os-release`
