@@ -2,8 +2,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=stack
-pkgver=2.13.1
-pkgrel=20
+pkgver=2.15.1
+pkgrel=6
 pkgdesc="The Haskell Tool Stack"
 url="https://github.com/commercialhaskell/stack"
 license=('BSD-3-Clause')
@@ -27,8 +27,17 @@ checkdepends=('cabal-install')
 conflicts=('haskell-stack')
 replaces=('haskell-stack')
 install="stack.install"
-source=("git+https://github.com/commercialhaskell/stack.git#tag=v$pkgver")
-sha512sums=('eb13184e7ec271c9ec4c3364376717f738a4628cdfb5dfb19491de9336de62bcaed9b16b0b244f03260a10b78f69d4f799a87e8aae25f258f71c70ce8f90f719')
+source=("git+https://github.com/commercialhaskell/stack.git#tag=v$pkgver"
+        stack-support-tar-0.6.2.0.patch)
+sha512sums=('4c442978b28f33ffe0f8f29b3e498aee0d8c5e331cf2de2ca9284d75b93e9c9509d2a9323b57fef6b0e4dcab42377aeb4d781a42f7efe73174884dee06492e29'
+            '689c964010d8b84759d5b20c5a4437bd2af7f3664d3e66742c57dbf0ec0ee2d9f98e2702a8427c54f695733b363dc64548d3ee4bbf9116923471bce7dd25ba45')
+
+prepare() {
+  cd $pkgname
+  patch -p1 -i ../stack-support-tar-0.6.2.0.patch
+  sed -i "s/      Codec.Archive.Tar.Utf8//" stack.cabal
+  rm src/Codec/Archive/Tar/Utf8.hs
+}
 
 build() {
   cd $pkgname
