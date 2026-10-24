@@ -1,7 +1,7 @@
 pkgbase = switcheroo-control
 	pkgdesc = D-Bus service to check the availability of dual-GPU
 	pkgver = 3.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.freedesktop.org/hadess/switcheroo-control
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -13,10 +13,10 @@ pkgbase = switcheroo-control
 	makedepends = python-dbus
 	makedepends = python-dbusmock
 	makedepends = systemd
-	depends = libgcc
 	depends = glib2
 	depends = glibc
 	depends = libdrm
+	depends = libgcc
 	depends = libgudev
 	depends = python
 	depends = python-gobject
@@ -25,3 +25,7 @@ pkgbase = switcheroo-control
 	b2sums = 25ccf0ba490088c4155bb0eec527ad2f87d25a8241e914cf2a3032665b0e28f1088d9f00bb120d9889530dace044e746ac5d4ca7f54445574723cf3f3b985b61
 
 pkgname = switcheroo-control
+
+pkgname = switcheroo-control-docs
+	pkgdesc = D-Bus service to check the availability of dual-GPU (documentation)
+	depends = 
