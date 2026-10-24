@@ -3,7 +3,7 @@
 # Contributor: Alex Gentilucci <alexander.gentilucci@gmail.com>
 
 pkgname=ft2-clone
-pkgver=2.25
+pkgver=2.26.1
 pkgrel=1
 pkgdesc='Portable Fasttracker II clone'
 arch=(x86_64)
@@ -32,10 +32,10 @@ source=(
   "$pkgname::git+https://github.com/8bitbubsy/ft2-clone#tag=v$pkgver"
   templatify-build-date.patch
 )
-sha512sums=('39ba120d5dc2c6514f610ddc341e56e189604fabffb04e5fabb303311414e9a12a2713d9adc507a3b885c006ca31d8e401f95cfa1f2208ebf87261f7f74ce0d3'
-            '0c0c31c396107079839698569b0b5ccaf19728794bec321e52e56fc30a9243a881468897385ef04eb051998460fd88ae75253ea49d531403254a0c2426941440')
-b2sums=('e8f15e733f3a39effd8665a7bcfe0eddfa1d59eb5fc26b9f62d7af482b6e59d9df03981f47dc1e664213d014008d62dabf95ed9b84222e129ff990772b1b9df2'
-        'bf66c1fa1a4357292f0fb8970d576835146a59a54843707e1745210b22c676b059090099a60f85cdb88b8153995c74d24bdd132007cb4b91887169c0a3883312')
+sha512sums=('93490b4f64c2f5d292115d3ee624a07be0a79e5bc61fda1d515b3a485d7e5918b0f9c0e3bd00e038c50fbd27e672233e96b404f608a58961d93053a66a427c89'
+            '2489200d5dde49119c6f506d89275f7632afe55424ff51273ec2be3023ac8c4a801d694556f5862afef67cbf14873ab9f8a0ec6129dda15e92f350974b7c8e63')
+b2sums=('ac280aa9654533e28690b3b6937e191912e259796c9dc6d6a03ab8334b7804ffd1fa80d96f9835ccfa7f39aa85742c44c55f647793513427d39bf8497ac0d74d'
+        '6fb37a4996324b654298d0566387dba1e9926404bd7a9c98aa02fa5ac063765dbdf6b0428f1d85fa068b41133f6e665611238d5c54a4d00931a9509614d958eb')
 
 prepare() {
   cd "$pkgname"
@@ -57,6 +57,7 @@ prepare() {
   local commit_date="$(git show --no-patch --format=%cd --date=format:'%d %B %Y')"
 
   # modify + apply template
+  sed -e "s/2.26/2.26.1/" -i src/ft2_header.h # current workaround due to mismatching versions
   sed -e "s/@PKGVER@/$pkgver/" -i "$srcdir/templatify-build-date.patch"
   patch -p1 -i "$srcdir/templatify-build-date.patch"
 
