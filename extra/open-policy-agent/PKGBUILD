@@ -4,7 +4,7 @@
 # Contributor: David Birks <david@birks.dev>
 
 pkgname=open-policy-agent
-pkgver=1.21.3
+pkgver=1.21.4
 pkgrel=1
 pkgdesc='Command-line utility and REPL for Open Policy Agent'
 arch=(x86_64)
@@ -16,7 +16,7 @@ makedepends=(
   go
 )
 source=("git+https://github.com/open-policy-agent/opa.git#tag=v$pkgver")
-b2sums=('6f3360e7da7453a1487d05aabc877162f2e956d7eed83585038ec53989a5282b491e1a3e7b1a99fc17994f362c56126fbfe1e921e22429a668a824924f7bcf7c')
+b2sums=('f67428ad136ca7e0bfefd18b3a4574c632c3534acbba39e903e1b0b32664ae8d77d40480411abb2a79f6c439f17314ed710ec6da6b43dfc2d232db470b3c9081')
 
 build() {
   cd opa
