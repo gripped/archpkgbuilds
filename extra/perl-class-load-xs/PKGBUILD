@@ -4,7 +4,7 @@
 pkgname=perl-class-load-xs
 _pkgname=Class-Load-XS
 pkgver=0.10
-pkgrel=14
+pkgrel=15
 pkgdesc="XS implementation of parts of Class::Load"
 arch=('x86_64')
 license=('PerlArtistic2')
