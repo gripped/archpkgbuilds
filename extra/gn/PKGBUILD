@@ -2,8 +2,8 @@
 # Contributor: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=gn
-pkgver=0.2385.9ece3f52
-_commit=9ece3f5254c273cb46606a6571963f931c3b012d
+pkgver=0.2540.150a9d6b
+_commit=150a9d6ba0aa7f407aa4feeabc5f03ce9aa7e04b
 pkgrel=1
 pkgdesc="Meta-build system that generates build files for Ninja"
 arch=('x86_64')
@@ -12,7 +12,7 @@ license=('BSD-3-Clause')
 depends=('libgcc')
 makedepends=('clang' 'ninja' 'python' 'git')
 source=(git+https://gn.googlesource.com/gn#commit=$_commit)
-sha256sums=('37a17310ed6250f3f6a4150f6dfb485c4ffa01e2ecce3ed9afa6c613ca98be8c')
+sha256sums=('155b8190346a433119352d3cbb35dd08dc66807ade9eb186f340b089160f9a56')
 
 pkgver() {
   cd $pkgname
@@ -21,6 +21,7 @@ pkgver() {
 
 build() {
   cd $pkgname
+  export CLANG_FORMAT=/usr/bin/clang-format
   ./build/gen.py
   ninja -C out
 }
