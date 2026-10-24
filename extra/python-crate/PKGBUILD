@@ -2,8 +2,8 @@
 
 _pyname=crate
 pkgname=python-$_pyname
-pkgver=2.2.1
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc='A Python client library for CrateDB'
 arch=(any)
 url="https://github.com/crate/crate-python"
@@ -19,7 +19,7 @@ makedepends=(python-{build,installer,wheel}
 optdepends=(python-sqlalchemy)
 _archive="$_pyname-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('dd329ed1d83f678d2f5ecba1adafb4673ef7006c76aa1d7ac8e9e2b9e091975d')
+sha256sums=('04737e3722e12c5779b00e085152f48332d4b11461caaf0015e29a97139c93ee')
 
 build() {
 	cd "$_archive"
