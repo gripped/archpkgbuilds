@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=monero
-pkgver=0.18.5.3
+pkgver=0.18.5.4
 pkgrel=1
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
@@ -40,7 +40,7 @@ source=(
   "monero.sysusers"
   "monero.tmpfiles"
 )
-sha512sums=('ef83b9fc73b40a2058a7c7cdb4becfce9bb1d91c4b7e59a4d43899d7cc04ce66a44d59da7e4b01867499a795713c06174c164803375f5a480adc9796f7ca97fe'
+sha512sums=('ae6d10759b4bd33eea5b4dd8324166656c0a49d66922d563461632ebc72b733ba84522302b4b6e3553584b1a78fb0215d92b8eb2fbe8b67e2c9434330603d0ee'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -53,6 +53,7 @@ validpgpkeys=(
   '8777AB8F778EE89487A2F8E7F4ACA0183641E010' # luigi1111 <luigi1111w@gmail.com>
   'BDA6BD7042B721C467A9759D7455C5E3C0CDCEB9' # Riccardo Spagni <ric@spagni.net>
   '487277A8BD0A209C16B700F3C64552D877C32479' # Alexander Blair (Snipa / Snipa22) <snipa@jagtech.io>
+  'E87BD921CDD885C9D78A38C5E45B10DD027D2472' # tobtoht <tob@featherwallet.org>
 )
 
 prepare() {
