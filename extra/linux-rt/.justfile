@@ -219,9 +219,7 @@ check-formatting:
 [group('dev')]
 fetch-sources:
     just ensure-command git
-    just git fetch --tags
-    just git fetch upstream --tags
-    just git fetch distribution --tags
+    just git fetch --all --tags
 
 [group('dev')]
 get-source-dir:
