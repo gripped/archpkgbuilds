@@ -2,7 +2,7 @@
 # Contributor: Jameson Pugh <imntreal@gmail.com>
 
 pkgname=jc
-pkgver=1.26.0
+pkgver=1.26.1
 pkgrel=1
 pkgdesc='Converts the output of popular command-line tools and file-types to JSON'
 arch=(any)
@@ -22,8 +22,8 @@ makedepends=(
   python-setuptools
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('2e1c08a64e892595caa1e59a8b6d34c6ef69f037036d911f390b81c9c75729fc84148ad9848ff6b096e2736e84f00aa9c32127311faf88c025cb8b5a37e33bcb')
-b2sums=('100da13ed7286bc753dcb97a6fe81a9e86699a80fa0020ef05e2594fd796cb8d172e07986abb73867ac1b4d3c60f9f5eb0029864f0469afdaa7cbc577f88d83d')
+sha512sums=('4ddae0d9cb285faff1da1506009266bddd77771cb5af0a6a500fbd665cc56a7565a7dabc5130c367dfb105a9ed3e8e0859981cc34bedad40a6798cb54148923e')
+b2sums=('25aeebeb56c5c7ad441bbff74a7111f749fbb2a8de2f92ecd7aa50c2dbc5dd3c18df94c381b3bab6bb97dbec60b2057f42ff21a966a78b56d3bda2e62835d67d')
 
 build(){
   cd "$pkgname"
