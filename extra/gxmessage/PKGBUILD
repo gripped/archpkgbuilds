@@ -3,17 +3,17 @@
 # Contributor: Jaroslav Lichtblau <tu@dragonlord.cz>
 
 pkgname=gxmessage
-pkgver=3.4.3
-pkgrel=5
+pkgver=4.1.0
+pkgrel=1
 pkgdesc="A GTK3 based xmessage clone."
 arch=('x86_64')
 url="https://trmusson.dreamhosters.com/programs.html#gxmessage"
 license=('GPL')
-depends=('gtk3' 'desktop-file-utils')
+depends=('gtk4' 'desktop-file-utils')
 makedepends=('pkgconfig' 'intltool')
 source=(https://trmusson.dreamhosters.com/stuff/$pkgname-$pkgver.tar.gz
         $pkgname.desktop)
-sha256sums=('db4e1655fc58f31e5770a17dfca4e6c89028ad8b2c8e043febc87a0beedeef05'
+sha256sums=('f1702bedc696f27630f4005afef33933145c017ccab551ec59160ae003b6dd2b'
             '000720db335fd742dd1d3cdc3fb3892fbf12c7604dfcc99fcada61b5dbd4e60a')
 
 build() {
