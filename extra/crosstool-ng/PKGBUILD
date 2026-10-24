@@ -5,7 +5,7 @@
 # Contributor: Bernhard Walle <bernhard@bwalle.de>
 
 pkgname=crosstool-ng
-pkgver=1.28.0
+pkgver=1.29.0
 pkgrel=1
 pkgdesc='A versatile (cross-)toolchain generator'
 arch=(x86_64)
@@ -26,18 +26,12 @@ depends=(
   rsync
   unzip
 )
-_tag=d427a7ca41690f9d50c04049df6b9b1fe35810d7
-source=(git+https://github.com/crosstool-ng/crosstool-ng.git#tag=${_tag})
-b2sums=('8b7ea9c5694dea147352467d71f20f76f571eb92fb182c2ffa6350b83f11a951c69fcb1a5349f0437f9b4613726c5ea90d637772adbb9cc1381ad8ce19e9b338')
+source=(git+https://github.com/crosstool-ng/crosstool-ng.git#tag=crosstool-ng-${pkgver})
+b2sums=('90152c82a0b3f3b848f92b576ae6bef2517d9953c11b7f42df9b527567f65850bc3d4d96d5369bbb14fb49cc2581ba588c6089518a1eb4f18e2f3c94d8442ed2')
 
 prepare() {
   cd crosstool-ng
   ./bootstrap
-}
-
-pkgver() {
-  cd crosstool-ng
-  git describe --tags | sed 's/^crosstool-ng-//'
 }
 
 build() {
@@ -54,5 +48,3 @@ package() {
   cd crosstool-ng
   make DESTDIR="${pkgdir}" install
 }
-
-# vim: ts=2 sw=2 et:
