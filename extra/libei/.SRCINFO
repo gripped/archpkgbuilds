@@ -1,15 +1,13 @@
 pkgbase = libei
 	pkgdesc = Library for Emulated Input
 	pkgver = 1.6.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://libinput.pages.freedesktop.org/libei/
 	arch = x86_64
 	license = MIT
 	checkdepends = python-pytest-xdist
-	checkdepends = valgrind
 	makedepends = doxygen
 	makedepends = git
-	makedepends = libxkbcommon
 	makedepends = meson
 	makedepends = python-attrs
 	makedepends = python-dbusmock
@@ -18,9 +16,10 @@ pkgbase = libei
 	makedepends = python-structlog
 	makedepends = python-yaml
 	makedepends = systemd
-	depends = libgcc
 	depends = glibc
 	depends = libevdev
+	depends = libgcc
+	depends = libxkbcommon
 	depends = systemd-libs
 	source = git+https://gitlab.freedesktop.org/libinput/libei.git?signed#tag=1.6.0
 	source = nemequ-munit::git+https://github.com/nemequ/munit#commit=fbbdf1467eb0d04a6ee465def2e529e4c87f2118
