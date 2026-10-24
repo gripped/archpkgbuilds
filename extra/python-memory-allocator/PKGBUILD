@@ -2,20 +2,29 @@
 
 pkgname=python-memory-allocator
 _pyname=memory_allocator
-pkgver=0.2.0
-pkgrel=2
+pkgver=0.2.1
+pkgrel=1
 pkgdesc='An extension class to allocate memory easily with cython'
 arch=(x86_64)
 url='https://github.com/sagemath/memory_allocator'
-license=(GPL-3.0-or-later)
-depends=(python)
-makedepends=(cython
-             git
-             meson-python
-             python-build
-             python-installer)
-source=(git+https://github.com/sagemath/memory_allocator#tag=v$pkgver)
-sha256sums=('759af706843a344e6ab5f9fbe5ac059527ecf3dd008077b2dda80fe0c9685fb3')
+license=(
+  GPL-3.0-or-later
+)
+depends=(
+  python
+)
+makedepends=(
+  cython
+  git
+  glibc
+  meson-python
+  python-build
+  python-installer
+)
+source=(
+  git+https://github.com/sagemath/memory_allocator#tag=v$pkgver
+)
+sha256sums=('088491a2dc10f287a59440051af6e57fcc3986d8cdacffb599dfa850c2ffa932')
 
 build() {
   cd $_pyname
