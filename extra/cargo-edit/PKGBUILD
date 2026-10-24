@@ -3,7 +3,7 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=cargo-edit
-pkgver=0.13.13
+pkgver=0.13.14
 pkgrel=1
 pkgdesc='Managing cargo dependencies from the command line'
 url='https://github.com/killercup/cargo-edit/releases'
@@ -11,8 +11,8 @@ arch=('x86_64')
 license=('MIT' 'Apache-2.0')
 depends=('cargo' 'libssh2' 'openssl')
 source=(https://github.com/killercup/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz)
-sha512sums=('aa1a679d24c8f12f7c2785e575830502098bf5e999d8cc0ea77c6c9fc137f565b784ca5b2be7583f9bcf854ac954def0697aa16412551f7cc0a87e840fe831cb')
-b2sums=('b86f55de2559e99ff03597b298c5737fc0354b25cdeb3aa53488332803a457653a1fcd9bb26a4a7f5522807d1f79bcd9bd298815b9480e57b248fb7d2cbb0467')
+sha512sums=('115e9fdc889ad2fb4eca4368b77991f158c3b9cd201501a7f29125f66f3375bf99202a9845986ae117146248c34d7041390bce9471356e3ae1bb1b7cd6900991')
+b2sums=('fb6cfdd78de91bf9b37d71c1abbd9af14d748411203867512e0fa6064736432964b6c35d17c0f163a96649c07c168d7dc1445e8227b31a7b84b63be2f6972023')
 
 _srcenv() {
   cd ${pkgname}-${pkgver}
@@ -66,7 +66,7 @@ package() {
     -t "${pkgdir}/usr/bin"
 
   install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
-  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 LICENSE-{APACHE,MIT} -t "${pkgdir}/usr/share/licenses/${pkgname}"
 }
 
 # vim: ts=2 sw=2 et:
