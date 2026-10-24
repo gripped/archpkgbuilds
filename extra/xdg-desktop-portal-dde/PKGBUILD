@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=xdg-desktop-portal-dde
-pkgver=1.1.10
-pkgrel=3
+pkgver=1.1.12
+pkgrel=1
 pkgdesc='A backend implementation for xdg-desktop-portal on Deepin desktop environment'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/xdg-desktop-portal-dde"
@@ -14,7 +14,7 @@ makedepends=('git' 'cmake' 'ninja' 'python' 'qt6-tools'
 provides=(xdg-desktop-portal-impl)
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/xdg-desktop-portal-dde.git#tag=$pkgver")
-sha512sums=('c788f04af5b3289a86b9cb63f7d788a7e075108a8d0daf780dd96ea6bdd68f6265de4c868f5074fa8ef6ee8b89a4d282c07d862d957512184135fd18e40383bb')
+sha512sums=('730eaffe4063394e4d698d2b39f2f57c5a63de919b0af95aade94037505b74e33d46949ac3ec3141e7a2fe9cc5196d55240694acef50ca1966fa59d141375ed5')
 
 build() {
   cd xdg-desktop-portal-dde
