@@ -3,15 +3,15 @@
 
 pkgname=vtable-dumper
 pkgver=1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Lists content of virtual tables in a C++ shared library"
 url="https://github.com/lvc/vtable-dumper"
 arch=(x86_64)
 license=(LGPL-2.1-or-later)
 depends=(
-  libstdc++
   glibc
   libelf
+  libstdc++
 )
 makedepends=(git)
 source=("git+$url#tag=$pkgver")
