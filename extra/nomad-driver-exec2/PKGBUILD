@@ -2,7 +2,7 @@
 
 pkgname="nomad-driver-exec2"
 pkgdesc="An official Nomad task driver plugin for sandboxing workloads using native Linux kernel features"
-pkgver=0.1.2
+pkgver=0.2.0
 pkgrel=1
 arch=("x86_64")
 url="https://developer.hashicorp.com/nomad/plugins/drivers/exec2"
@@ -12,7 +12,7 @@ makedepends=(go git)
 source=(
     "${pkgname}::git+https://github.com/hashicorp/${pkgname}.git#tag=v${pkgver}"
 )
-sha256sums=('43e18b67d4caa3e9017a87064e1db09e4eb72bab324a8b4dd3c681e8dba482d9')
+sha256sums=('769cd10f6f2f1a34c5c29793b1f252aba45c75702c120e6d73a5b31a676049dc')
 
 prepare() {
   cd "${pkgname}"
@@ -49,6 +49,5 @@ package() {
   install -Dm755 "${pkgname}" "${pkgdir}/usr/lib/nomad/plugins/${pkgname}"
 
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
-  # Note: Examples are only available in versions post 0.1.2
-  #cp -vr examples "$pkgdir/usr/share/doc/$pkgname"
+  cp -vr examples "$pkgdir/usr/share/doc/$pkgname"
 }
