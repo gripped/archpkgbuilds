@@ -5,8 +5,8 @@
 # Contributor: William Rea <sillywilly@gmail.com>
 
 pkgname=audacious-plugins
-pkgver=4.6.1
-pkgrel=5
+pkgver=4.6.2
+pkgrel=1
 pkgdesc='Plugins for Audacious'
 arch=(x86_64)
 url='https://audacious-media-player.org/'
@@ -72,7 +72,7 @@ source=(
   sidplay-rom-paths.patch
 )
 b2sums=(
-  41574a2bc9b954c1cbb27f7a071319cc8390c846895702e23a8faf744a32c1debd2af5ceb4c6121c9384debb32a5dde418a4f5e0bb2550e9b5f561d803619cd8
+  1cf684925209e00cc20b0501c78c7c68d8f05a040792b8a9a3c898c68d36949785f5dba9e4ef072dd3490dd256cc35469004a93d91c1f1510bbf8181013b4bcf
   1b8fa3ecc1954de27ecd41fa364d9c59f07810dd6265e9b2865b267792040082852955b6819fb627c4f9a5146f13051685dfd84b149bdee6699a304a807e4197
 )
 
