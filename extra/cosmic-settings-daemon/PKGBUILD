@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-settings-daemon
-pkgver=1.9.0
+pkgver=1.10.0
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic settings daemon'
@@ -33,6 +33,7 @@ makedepends=(
   clang
   cargo
   git
+  just
   libxkbcommon
   mold
 )
@@ -44,14 +45,13 @@ source=(
   git+https://github.com/pop-os/cosmic-settings-daemon.git#tag=epoch-${pkgver}
   cosmic-settings-daemon-lto.patch
 )
-b2sums=('941304a271f8eca0553061ab091ae5e4be67dcc21f5db3a2b26f07e9f19083efdb754de8d77751f159db171a050191424afa2412ba711795e1f93ca8a9b9a3d4'
+b2sums=('ca6ddbc50af438bb420493e3d83ef54ac1d9e6cfdd54003c029137854ca9d413822be160f65958e14d6184397086a27cc8adb1699b45243b35a1bc7f2f8109d5'
         '935604b934c6fb805fdef20a716838373c1c9463ddc215af9c9bd162ebacc422181f1c227f37b59bc617496a60b88f8b16132fac001f61a2c777179abd8c634a')
 
 prepare() {
   cd cosmic-settings-daemon
   patch -Np1 -i ../cosmic-settings-daemon-lto.patch
   cargo fetch --locked
-  sed 's/libexec/lib/g' -i Makefile src/main.rs
   sed 's/sudo/wheel/g' -i data/polkit-1/rules.d/cosmic-settings-daemon.rules
 }
 
@@ -60,12 +60,12 @@ build() {
   export GEOCLUE_AGENT="/usr/lib/geoclue-2.0/demos/agent"
 
   RUSTFLAGS+=" -C link-arg=-fuse-ld=mold"
-  make ARGS+=" --frozen --release" geoclue_agent='/usr/lib/geoclue-2.0/demos/agent'
+  just build-release --frozen
 }
 
 package() {
   cd cosmic-settings-daemon
-  make DESTDIR="${pkgdir}" install
+  just rootdir="${pkgdir}" install
 }
 
 # vim: ts=2 sw=2 et:
