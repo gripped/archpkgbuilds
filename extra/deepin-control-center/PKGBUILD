@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-control-center
-pkgver=6.1.91
+pkgver=6.1.93
 pkgrel=1
 pkgdesc='Control panel of Deepin Desktop Environment'
 arch=('x86_64')
@@ -22,7 +22,7 @@ conflicts=('dde-control-center' 'dde-dock-applets')
 replaces=('dde-control-center' 'dde-dock-applets')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-control-center.git#tag=$pkgver")
-sha512sums=('7b8922b73790a84adce0391d0dcef8262da7fabaf0cc0668bdf5d7d7782ea8547aca7600f87a083632c7c8ebd0e27ffda29d87cdf7195c820bacd214bda087e7')
+sha512sums=('3da1b2cc2689724548249eaf82e549a1421061dedc0723a008cad6a7fe5f594b80ec07a0d8518a5fa0ab315f03faa3a1a867a920fffcefd787edc45da8888752')
 
 prepare() {
   mkdir -p build
@@ -34,6 +34,13 @@ prepare() {
   git diff f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f^ f0e7e4067a90e1a5a2a80c7a96f76354423e6f8f -- \
     src/plugin-personalization/operation/treelandworker.cpp \
     src/plugin-personalization/operation/treelandworker.h | git apply
+
+  # Keep the wrapper aligned with Arch's /usr/lib executable directory.
+  sed -i 's|/usr/libexec/deepin/dde-control-center|/usr/lib/deepin/dde-control-center|' \
+    misc/dde-control-center-loader-wrapper
+
+  # The direct-launch fallback stays in the foreground; wait for its D-Bus name.
+  sed -i 's/^Type=forking$/Type=dbus/' misc/systemd/dde-control-center.service.in
 }
 
 build() {
@@ -44,6 +51,7 @@ build() {
     -DDISABLE_PRIVACY_PLUGIN=YES \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib \
     ../dde-control-center
   ninja
 }
