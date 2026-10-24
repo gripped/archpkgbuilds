@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-python-discovery
-pkgver=1.6.2
+pkgver=1.6.4
 pkgrel=1
 pkgdesc='Python interpreter discovery'
 arch=(any)
@@ -27,9 +27,9 @@ source=(
   "$pkgname::git+https://github.com/tox-dev/python-discovery#tag=$pkgver"
   no-vermin.patch
 )
-sha512sums=('df2025723f55220f6118641c851383e0cb136ab396c256df852f9d91e48e9ef5c374efcc14bfdd7e5f1273424bb67836cdc8b2106dcc36e0df36e97f600dd4ca'
+sha512sums=('fc0696304109b867f8c3ff7e58d7460ae9e09b86ec121e691fbe4076d708d4fbbb5da42a10cc19c8fbffc7b5a5e340ee049bcab02e1548fec30257edb7f5763c'
             'c9057e2e74dde6819b2f43cf6f29c6f0903da9f12784fc1e84fc24b972a8d114fb55c60630f65106cee1e2c02e043ddfff08f5729c98d3e35a32c0b83ec184cd')
-b2sums=('11b9c69a6bfce0b4c546357f8e1bdb45884193918f2f1f631db65117a8cad8ce7fc712492afccd28573c9c657308fe6523a1fa21fead901c2c9dd3708c834408'
+b2sums=('8caf5dba0c7bac061970745be409128027f1e392d0b5cacd4e4ee07c72e6b1fa62e14153f1434d05f6959578a3f551aef8e80e9c96df046819fb0492d958d946'
         'e23fac44ff0fe6dc0eb4f19da9bef5410c0e4d03b2992d2f79eba45a4b69c81173c11feb13e84d8d440938b67aa65f3ada6fe6583f627f828a83fa70863ec507')
 
 prepare() {
