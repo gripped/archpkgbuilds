@@ -2,31 +2,31 @@
 # Contributor: Jonathan Liu <net147@gmail.com>
 
 pkgname=python-pyicu
-pkgver=2.16.2
+pkgver=2.17
 pkgrel=1
 pkgdesc="Python binding for ICU"
 arch=('x86_64')
 license=('MIT')
-url="http://pyicu.osafoundation.org/"
+url="https://gitlab.pyicu.org/main/pyicu"
 depends=('python' 'icu')
-makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-fonttools' 'python-pytest' 'python-six')
-source=("https://pypi.io/packages/source/p/pyicu/pyicu-$pkgver.tar.gz")
-sha512sums=('779331e0d7ec1003c9b2754631f619c523d8c5e86e3f47b7ce5bcf5d6a8308d07a97f912fe3872b802e6031afdf184ef19969dbc80f96dc57f5b1f3849cbf0fe')
+source=("git+https://gitlab.pyicu.org/main/pyicu.git#tag=v$pkgver")
+sha512sums=('0b73aa632c4e6786cb592ef8ff7b1fe30280c0f7b5ed85a1b26dca269b8d0ea4decc34a635188fda5a591f823e82b7a0270af6151f87c3f614fb72fab6e29831')
 
 build() {
-  cd pyicu-$pkgver
+  cd pyicu
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd pyicu-$pkgver
+  cd pyicu
   local python_version=$(python -c 'import sys; print("".join(map(str, sys.version_info[:2])))')
   PYTHONPATH="$PWD/build/lib.linux-$CARCH-cpython-$python_version" pytest
 }
 
 package() {
-  cd pyicu-$pkgver
+  cd pyicu
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -D -m644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }

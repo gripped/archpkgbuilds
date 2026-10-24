@@ -1,20 +1,21 @@
 pkgbase = python-pyicu
 	pkgdesc = Python binding for ICU
-	pkgver = 2.16.2
+	pkgver = 2.17
 	pkgrel = 1
-	url = http://pyicu.osafoundation.org/
+	url = https://gitlab.pyicu.org/main/pyicu
 	arch = x86_64
 	license = MIT
 	checkdepends = python-fonttools
 	checkdepends = python-pytest
 	checkdepends = python-six
+	makedepends = git
 	makedepends = python-setuptools
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	depends = python
 	depends = icu
-	source = https://pypi.io/packages/source/p/pyicu/pyicu-2.16.2.tar.gz
-	sha512sums = 779331e0d7ec1003c9b2754631f619c523d8c5e86e3f47b7ce5bcf5d6a8308d07a97f912fe3872b802e6031afdf184ef19969dbc80f96dc57f5b1f3849cbf0fe
+	source = git+https://gitlab.pyicu.org/main/pyicu.git#tag=v2.17
+	sha512sums = 0b73aa632c4e6786cb592ef8ff7b1fe30280c0f7b5ed85a1b26dca269b8d0ea4decc34a635188fda5a591f823e82b7a0270af6151f87c3f614fb72fab6e29831
 
 pkgname = python-pyicu
