@@ -1,0 +1,55 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-pytest-mypy-plugins
+pkgver=4.1.0
+pkgrel=1
+pkgdesc='Pytest plugin for writing tests for mypy plugins'
+arch=(any)
+url='https://github.com/TypedDjango/pytest-mypy-plugins'
+license=(MIT)
+depends=(
+  mypy
+  python
+  python-decorator
+  python-jinja
+  python-jsonschema
+  python-packaging
+  python-pytest
+  python-regex
+  python-tomlkit
+  python-yaml
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+)
+source=("git+https://github.com/TypedDjango/pytest-mypy-plugins.git#tag=$pkgver")
+b2sums=('263381e8a328c9100c0c34ab337b0ea9472b5fe394f7eebaa7855034e63105805b0ffeaf4bfcb9ba966360de2ba65e6f81e92c772e06a9a3154638d103fb5aaf')
+
+prepare() {
+  cd pytest-mypy-plugins
+  # Keep subprocess pytest calls in the interpreter where this plugin is installed.
+  sed -i -e '/^import subprocess$/a import sys' \
+    -e 's/"pytest",/sys.executable, "-m", "pytest",/g' \
+    pytest_mypy_plugins/tests/test_*.py
+}
+
+build() {
+  cd pytest-mypy-plugins
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd pytest-mypy-plugins
+  python -m venv --system-site-packages "$srcdir/test-env"
+  "$srcdir/test-env/bin/python" -m installer dist/*.whl
+  "$srcdir/test-env/bin/python" -m pytest
+}
+
+package() {
+  cd pytest-mypy-plugins
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
