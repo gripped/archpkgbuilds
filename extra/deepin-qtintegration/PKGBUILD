@@ -1,0 +1,60 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgbase=deepin-qtintegration
+pkgname=(deepin-qt5integration deepin-qt6integration)
+pkgver=6.7.51
+pkgrel=3
+pkgdesc='Qt platform theme integration plugins for DDE'
+arch=('x86_64')
+url="https://github.com/linuxdeepin/dde-qtintegration"
+license=('LGPL-3.0-or-later')
+groups=('deepin')
+makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'xcb-util-renderutil' 'gtest'
+             'dtkcore' 'dtk6core' 'dtkgui' 'dtk6gui' 'dtkwidget' 'dtk6widget'
+             'libqt5xdg' 'libqtxdg' 'qt5-base' 'qt5-x11extras' 'qt6-base')
+source=("git+https://github.com/linuxdeepin/dde-qtintegration.git#tag=$pkgver")
+sha512sums=('0beb32b906f4ba36be03f529a60e4faf9c244b7b070e27aac923b07858cde198676fe96a6a3cd190af8d11f2bff1e8afbf9fb8211437e18700cfb74fccd3d461')
+
+prepare() {
+  # Use separate source directories for Qt5 and Qt6 builds
+  mkdir -p build-qt5 build-qt6
+  cp -r dde-qtintegration build-qt5/dde-qtintegration
+  cp -r dde-qtintegration build-qt6/dde-qtintegration
+}
+
+build() {
+  # Build Qt5 variant
+  cd build-qt5/dde-qtintegration
+  cmake . -GNinja \
+    -DDTK5=ON \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DPLUGIN_INSTALL_BASE_DIR=lib/qt/plugins
+  ninja
+
+  cd "$srcdir"
+  # Build Qt6 variant
+  cd build-qt6/dde-qtintegration
+  cmake . -GNinja \
+    -DDTK5=OFF \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  ninja
+}
+
+package_deepin-qt5integration() {
+  pkgdesc='Qt 5 platform theme integration plugins for DDE'
+  depends=('dtkcore' 'dtkgui' 'dtkwidget' 'libqt5xdg' 'qt5-x11extras' 'qt5-base' 'libx11' 'glibc'
+           'libgcc' 'libstdc++')
+
+  cd build-qt5/dde-qtintegration
+  DESTDIR="$pkgdir" ninja install
+}
+
+package_deepin-qt6integration() {
+  pkgdesc='Qt 6 platform theme integration plugins for DDE'
+  depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'glibc' 'libgcc' 'libstdc++' 'libx11' 'libqtxdg')
+
+  cd build-qt6/dde-qtintegration
+  DESTDIR="$pkgdir" ninja install
+}
