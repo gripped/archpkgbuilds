@@ -1,8 +1,8 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=muse
-pkgver=4.2.1
-pkgrel=8
+pkgver=4.3.0
+pkgrel=1
 pkgdesc="A digital audio workstation with support for both Audio and MIDI"
 arch=(x86_64)
 url="https://github.com/muse-sequencer/muse"
@@ -47,27 +47,13 @@ provides=(
 )
 source=(
   $url/archive/$pkgver/$pkgname-$pkgver.tar.gz
-  $pkgname-4.2.1-remove-python-six.patch
-  $pkgname-4.2.1-port-to-pyro5.patch
 )
-sha512sums=('cf033cf77cb328a2aa704bf04d69dd515108e9c789e2ec9321a577b5b3b3bb73ce738142903b69b2c9c3ec5c27e921adc52511932f48809149f5a5cf5fd7deb2'
-            '911536ffd63c819ef4a979aa3b3c6141cd3df0dc61d89c666215817bd54d51d48679e27a25b1cdd55d68297954391079f7585ca5f31a9de52fac4a58888d6e9e'
-            '43294d48f7157036c704a78a6661265c6741ac3cd7d2d2f92ca0b5ed7fe8d000a45baee28aff06897beb57045f6ac972554864dac65400fbbf9219ac6eb12f60')
-b2sums=('09edaed143d689ec909829b586c5edd57488e4d70c091f75c952a79cdfeefd6adaa0f3eb408898a6de506f916d3a7c2853e20d24619df151f4f880814d454921'
-        '37da7a6eea44bb3dbace2948bcab87f1fa1e717c11cb2281633a97b9e17ff0c779fcb7e205ac30c9a8208de7c268a0d00ff81ab99d5d1c93c3c60504d111357f'
-        '325c00eb8f8091398447e109b5fec178803102a5abc9ceef38fbad4f670514d71fe9426811e070ec12576ba7cedcaef6145270b797748690fce1b554703f01fc')
+sha512sums=('f3cc3f46987f86716026ae777d2da31c9cb4ecdca8b972fd8a03e56b545e15d51b7cfcbe538898b2f90d06d693585f98d0d9da29fedf8722cadbe0702a1b7604')
+b2sums=('245a5ca60cc1b82bdc78a1a899e84576648e34d265843d84be5d31d4936197d7d991d7190b9b1a34a0cd492eeeaa95172979d93efcbbe4af4468c6fb884df8aa')
 
 prepare() {
-  # remove the use of python-six: https://github.com/muse-sequencer/muse/issues/1296
-  # backport of https://github.com/muse-sequencer/muse/commit/fdfaabcc858e33582b2605cb5c7dbf24ffff9335
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-4.2.1-remove-python-six.patch
-
-  # backport to pyro5
-  # https://github.com/muse-sequencer/muse/issues/1271
-  patch -Np1 -d $pkgname-$pkgver -i ../$pkgname-4.2.1-port-to-pyro5.patch
-
   # rename MusE-INSTALL_NAME to muse, because this reflects the package name
-  sed -e 's/muse-4.2/muse/g' -i $pkgname-$pkgver/src/CMakeLists.txt
+  sed -e 's/muse-4.3/muse/g' -i $pkgname-$pkgver/src/CMakeLists.txt
 }
 
 build() {
