@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=fluidd
-pkgver=1.37.6
+pkgver=1.37.7
 pkgrel=1
 pkgdesc='A free and open-source Klipper web interface for managing your 3d printer'
 arch=(any)
@@ -15,7 +15,7 @@ makedepends=(
 optdepends=('ustreamer: webcam streaming support')
 source=(git+https://github.com/fluidd-core/fluidd.git#tag=v${pkgver})
 validpgpkeys=(4C717BDC0E452F5B13490409AB4C64C58BA9C3ED) # Pedro Lamas <pedrolamas@gmail.com>
-b2sums=('f43df7080ec6818b309711ca5c18b9e7c085c5fcfca9cf75e74baecb24a445bbb1f4867ee5b534f5e32f5ab72b155c5abda2ec510514834489668ed7faef019f')
+b2sums=('6a5f22f55842af4aa09ab02e1a7cad1857d03bb40ae17b1365640f5b73945763c636ce52026b380b038cab6041ffce9a323d03c60ad4a6a6143a9aca704e1eb8')
 
 build() {
   cd fluidd
