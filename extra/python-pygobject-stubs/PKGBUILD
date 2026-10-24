@@ -1,7 +1,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-pygobject-stubs
-pkgver=2.17.0
+pkgver=2.19.0
 pkgrel=1
 pkgdesc="PEP 561 Typing Stubs for PyGObject"
 arch=("any")
@@ -10,7 +10,7 @@ url="https://github.com/pygobject/pygobject-stubs"
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=($pkgname-$pkgver.tar.gz::https://github.com/pygobject/pygobject-stubs/archive/refs/tags/v${pkgver}.tar.gz)
-sha256sums=('25150fdac46210ee84632e9e3731f27e74aaca0ebce279c370898ab851b56373')
+sha256sums=('91409f6ed628d2275fcfa8a0a7a521d83889383d28cd51b9a46efa55f2e37576')
 
 build() {
   cd "pygobject-stubs-${pkgver}"
