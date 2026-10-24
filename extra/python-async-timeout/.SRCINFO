@@ -1,20 +1,21 @@
 pkgbase = python-async-timeout
 	pkgdesc = Asyncio-compatible timeout class
-	pkgver = 4.0.3
-	pkgrel = 6
+	pkgver = 5.0.1
+	pkgrel = 1
 	url = https://github.com/aio-libs/async-timeout
 	arch = any
 	license = Apache-2.0
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
-	checkdepends = python-pytest-aiohttp
+	checkdepends = python-pytest-cov
+	makedepends = git
 	makedepends = python-setuptools
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-wheel
 	depends = python
-	source = https://github.com/aio-libs/async-timeout/archive/v4.0.3/python-async-timeout-4.0.3.tar.gz
-	sha256sums = c63f1252d5fa878fdceb7a6894f1df6a73f92546e52a0b7999a5de429fd64ff8
-	sha512sums = cb5913647e99783ab6ef07901808baa09d7221fc5f1c6e49e7a3e35bf8b627a866277c6503418a00913c1a8f841514b0878a9469719ed7623d9d199de8df9ae8
+	source = git+https://github.com/aio-libs/async-timeout.git#tag=v5.0.1
+	sha256sums = 94ae5e7d6fb71a9ad3082a3bb43676abd44aa949ee27f408b52645dbc79b543b
+	sha512sums = 6b69e81f810a2a91ffe6aeaf7c4e5581d8dc398e10ef2ae21c28214bfc376db3411ad971cd2e240010769cdc60d48b5c86cfff8092c54694c8f942110f219bbb
 
 pkgname = python-async-timeout
