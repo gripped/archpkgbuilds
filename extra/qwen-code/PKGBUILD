@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.21.14
+pkgver=0.22.1
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,8 +29,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('e2900ae5e36046acef8d420c69c4020c95e33120dcbf727be5b36e555f0bcb1a')
-b2sums=('702dc9a8ef4920ea6b05c494be462edf66612489f0ffa071cb6d609e2ea152093eed781568b9be0319f5f5e68bd860dfa05c8fd47a87e6c0d4bfa905ef8903c7')
+sha256sums=('886c1829ddb4d79670187794e1b0bf5c201f62ebddfd1d74de9fc67d8b2a4891')
+b2sums=('fae13a7396e4b7a42e6d093fb759dda3226d966f4c20bdfe21c38b40b97d5a1f571c932bbaf793275dc9292d5dc2fac7d357b00251fc4c84d1e3d10f60f9375c')
 
 prepare() {
   cd $pkgname
@@ -38,6 +38,17 @@ prepare() {
   # https://github.com/npm/cli/pull/9247
   sed -i 's/const packs = JSON\.parse(stdout)/const packs = Object.values(JSON.parse(stdout))/' \
     integrations/external-context/src/provider-extension-local.test.ts
+  # Node 26.8 fixes ANSI stripping, preserving printable 'b' in this fixture.
+  # https://github.com/nodejs/node/pull/64319
+  # https://nodejs.org/en/blog/release/v26.8.0
+  sed -i "/stripVTControlCharacters matches/,+2d; s/toBe('a[.]md')/toBe('ab.md')/" \
+    packages/core/src/memory/memoryDiscovery.test.ts
+  # Expect Node 26's Proxy(...) wrappers in the REPL serialization fixture.
+  # https://github.com/nodejs/node/pull/61029
+  sed -i \
+    -e "s/'\[Function (anonymous)\]'/'Proxy([Function (anonymous)])'/" \
+    -e "s/'{}'/'Proxy({})'/" \
+    packages/node-repl/src/kernel-manager.test.ts
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
@@ -80,9 +91,6 @@ check() {
       .exports["./yargs"][1] = "./yargs.cjs"' \
     node_modules/yargs/package.json > yargs-package.json
   mv yargs-package.json node_modules/yargs/package.json
-  # mobile-mcp tests run from the workspace source tree, so point them at npm's
-  # hoisted mobilecli binary instead of the package-local path used after install.
-  export MOBILECLI_PATH="$PWD/node_modules/mobilecli/bin/mobilecli-linux-amd64"
   npm run test --workspace=@qwen-code/mobile-mcp
   # mobile-mcp uses Playwright; run it above without passing Vitest-only flags.
   npm pkg set 'workspaces[]=!packages/mobile-mcp'
