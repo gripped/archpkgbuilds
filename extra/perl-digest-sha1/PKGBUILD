@@ -4,7 +4,7 @@
 
 pkgname=perl-digest-sha1
 pkgver=2.13
-pkgrel=22
+pkgrel=23
 pkgdesc="Perl interface to the SHA-1 Algorithm"
 arch=(x86_64)
 license=('PerlArtistic')
