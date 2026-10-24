@@ -5,7 +5,7 @@
 # Contributor: Jose Riha
 
 pkgname=dd_rescue
-pkgver=1.99.22
+pkgver=1.99.25
 pkgrel=1
 pkgdesc="A dd version that is very useful for data-recovery"
 url="http://www.garloff.de/kurt/linux/ddrescue/"
@@ -15,9 +15,9 @@ optdepends=('lzo: for libddr_lzo')
 arch=('x86_64')
 source=("http://www.garloff.de/kurt/linux/ddrescue/$pkgname-${pkgver}.tar.bz2"{,.asc}
         "gzip_reproducible.patch")
-sha512sums=('585e748a6e3d2071f86ade55b27808a8313e0795abd147d91d0a7616b38438ab23f32ac3148d2ce580a300f58f6c4e98f25a1dadb3c41978147fddb7860bd7cc'
+sha512sums=('11cbecba480e8462198c1ba93f58cbf7ecd08782abfe1756984c714f0e12ee137a13961fdce1438915585f85288bd69e3db6b5e1e8cd89ba7973e8c752fdb814'
             'SKIP'
-            '6c29100cfd138ae8c2105161ca03da199ba68d9a2561a6a6876656d138d94df2b17ff048eabddf1bfab5b7a94cd5466845b6395184439ab8be8ae8901b0362c4')
+            '3b984b16f3ab6edb732efc69c96a41d9f1e1665452e6cb943588c61e029c8ef16129a5588fa4430b03ea7b1b351f907fda73da51761e08515f4e5076cd59ea90')
 validpgpkeys=('6669F7340D31E95EC5565490DE4F1B3A2BFFC5BF') # Kurt Garloff <kurt@garloff.de>
 
 prepare() {
