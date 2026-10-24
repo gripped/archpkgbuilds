@@ -1,0 +1,13 @@
+post_install() {
+	cat <<EOM
+
+:: To allow scores files to be written in "/var/games/<game_name>_scores" (default location),
+   your user needs to be part to the "games" group.
+   To do so, run the following command (requires a logout / login to take effect):
+
+   # usermod -aG games <username>
+
+   Otherwise, scores files are written in "$HOMEDIR/.<game_name>_scores".
+
+EOM
+}
