@@ -3,8 +3,8 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=aegisub
-pkgver=3.5.0
-pkgrel=2
+pkgver=3.5.1
+pkgrel=1
 pkgdesc='A general-purpose subtitle editor with ASS/SSA support'
 arch=(x86_64)
 url=http://www.aegisub.org
@@ -43,7 +43,7 @@ makedepends=(
 )
 source=(git+https://github.com/TypesettingTools/Aegisub.git#tag=v${pkgver})
 #validpgpkeys=(6DD9508BCB1CE31AF295FF9B6A889F50A8B00C08) # Thomas Goyne <plorkyeran@aegisub.org>
-b2sums=('07071ea6f0557dd659d741d560afab157c471c48999e27f29bff3ed9033be58a995a0936e4487649760c40c00afee8e0006e90cce4036f65fea4def727daa7d3')
+b2sums=('eef449e66148a338f54e2192f5e87bb4ee7eb174e3bcf737a62a4321cda28c2dc8937ed366722248b015f6a01540d1bc5ba1e799939579d129920a7a918abab3')
 
 prepare() {
   cd Aegisub
@@ -66,16 +66,7 @@ build() {
 }
 
 package() {
-  meson install -C build --destdir "${pkgdir}"
-  rm -rf "${pkgdir}"/usr/{include,share}/luajit-2.1
-  rm -f "${pkgdir}"/usr/lib/libluajit-5.1.a
-  rm -f "${pkgdir}"/usr/lib/pkgconfig/luajit.pc
-  rm -rf "${pkgdir}"/usr/share/licenses/luajit
-  rm -f "${pkgdir}"/usr/share/man/man1/luajit.1.gz
-  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/lib/pkgconfig
-  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/lib
-  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/share/man/man1
-  rmdir --ignore-fail-on-non-empty "${pkgdir}"/usr/share/man
+  meson install -C build --destdir "${pkgdir}" --skip-subprojects luajit
   install -dm 755 "${pkgdir}"/usr/share/aegisub/automation/include
   cp -dr --no-preserve=ownership Aegisub/automation/{autoload,demos} "${pkgdir}"/usr/share/aegisub/automation/
   cp -dr --no-preserve=ownership Aegisub/automation/include/{aegisub,*.lua} "${pkgdir}"/usr/share/aegisub/automation/include/
