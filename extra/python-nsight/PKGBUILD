@@ -2,7 +2,7 @@
 
 _name=nsight
 pkgname=python-$_name
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="Python kernel profiling interface based on NVIDIA Nsight Tools"
 arch=(any)
@@ -29,7 +29,7 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::https://github.com/NVIDIA/nsight-python/archive/refs/tags/v$pkgver.tar.gz
 )
-b2sums=('d73d63c2c0d28355e6de44626986970e4d7f4c6fe22875058efa7c45eaacc6fa044dedf785932f8354bb9209653df2ca23f1470726fb832c43de8426642e2a58')
+b2sums=('5ca356f0d878d103bf431be4d3f71c981db316fed20f753f3fb43eea1a4b52b121ed4f971619ec908a52398bd73b64a839f5921463479783e68c36dcefacd9d4')
 
 build() {
   cd $_name-python-$pkgver
