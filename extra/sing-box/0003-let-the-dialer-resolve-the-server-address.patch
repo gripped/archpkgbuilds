@@ -1,0 +1,498 @@
+From fa319c4f3b554bd7c647c6e0f18a7195ac1497a6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E4=B8=96=E7=95=8C?= <i@sekai.icu>
+Date: Fri, 23 Oct 2026 11:57:53 +0800
+Subject: [PATCH] Let the dialer resolve the server address
+
+---
+ naive_client.go          |  14 ++-
+ naive_dns.go             |  94 ++++---------------
+ test/integration_test.go | 195 +--------------------------------------
+ test/quic_test.go        |  56 +----------
+ 4 files changed, 32 insertions(+), 327 deletions(-)
+
+diff --git a/naive_client.go b/naive_client.go
+index 70a3fcf8..2221f86b 100644
+--- a/naive_client.go
++++ b/naive_client.go
+@@ -207,11 +207,7 @@ func (c *NaiveClient) Start() error {
+ 	c.proxyCancel = proxyCancel
+ 
+ 	dnsServerAddress := M.ParseSocksaddrHostPort("127.0.0.1", 53)
+-	dnsResolver := c.dnsResolver
+-
+-	if c.serverName != c.serverAddress.AddrString() {
+-		dnsResolver = wrapDNSResolverForServerRedirect(dnsResolver, c.serverName, c.serverAddress)
+-	}
++	dnsResolver := wrapDNSResolverWithFakeServerAddress(c.dnsResolver, c.serverName)
+ 
+ 	if c.echEnabled {
+ 		echQueryServerName := c.echQueryServerName
+@@ -237,6 +233,10 @@ func (c *NaiveClient) Start() error {
+ 		}
+ 
+ 		destination := M.ParseSocksaddrHostPort(address, port)
++		if destination.Addr == fakeServerAddress {
++			destination = c.serverAddress
++			destination.Port = port
++		}
+ 		c.logger.DebugContext(c.ctx, "open TCP connection to ", destination)
+ 		conn, err := c.dialer.DialContext(proxyContext, N.NetworkTCP, destination)
+ 		if err != nil {
+@@ -294,6 +294,10 @@ func (c *NaiveClient) Start() error {
+ 		}
+ 
+ 		destination := M.ParseSocksaddrHostPort(address, port)
++		if destination.Addr == fakeServerAddress {
++			destination = c.serverAddress
++			destination.Port = port
++		}
+ 		c.logger.DebugContext(c.ctx, "open UDP connection to ", destination)
+ 		conn, err := c.dialer.DialContext(proxyContext, N.NetworkUDP, destination)
+ 		if err != nil {
+diff --git a/naive_dns.go b/naive_dns.go
+index 15dfc5ba..8bd8ea8c 100644
+--- a/naive_dns.go
++++ b/naive_dns.go
+@@ -4,10 +4,6 @@ package cronet
+ //
+ // Priority: serverName (SNI) = ServerName config > ServerAddress
+ //
+-// A/AAAA queries for serverName:
+-//   - If ServerAddress is a domain (different from serverName): redirect query to ServerAddress
+-//   - If ServerAddress is an IP: return synthetic response (mismatched type returns empty SUCCESS)
+-//
+ // HTTPS queries for serverName (ECH):
+ //   - If fixed ECHConfigList exists: return synthetic response immediately
+ //   - Otherwise: forward query (priority: ECHQueryServerName > serverName)
+@@ -25,7 +21,6 @@ import (
+ 
+ 	"github.com/sagernet/sing/common/bufio"
+ 	"github.com/sagernet/sing/common/logger"
+-	M "github.com/sagernet/sing/common/metadata"
+ 
+ 	mDNS "github.com/miekg/dns"
+ )
+@@ -39,6 +34,8 @@ type DNSResolverFunc func(ctx context.Context, request *mDNS.Msg) (response *mDN
+ 
+ const chromiumDNSUDPMaxSize = 512
+ 
++var fakeServerAddress = netip.AddrFrom4([4]byte{192, 0, 2, 1})
++
+ func serveDNSPacketConn(ctx context.Context, conn net.PacketConn, resolver DNSResolverFunc) error {
+ 	defer conn.Close()
+ 
+@@ -401,86 +398,29 @@ func filterIPHintsFromSVCB(svcb *mDNS.SVCB) {
+ 	svcb.Value = filtered
+ }
+ 
+-func wrapDNSResolverForServerRedirect(
+-	resolver DNSResolverFunc,
+-	serverName string,
+-	serverAddress M.Socksaddr,
+-) DNSResolverFunc {
++func wrapDNSResolverWithFakeServerAddress(resolver DNSResolverFunc, serverName string) DNSResolverFunc {
++	serverFQDN := mDNS.Fqdn(serverName)
+ 	return func(ctx context.Context, request *mDNS.Msg) *mDNS.Msg {
+ 		if len(request.Question) == 0 {
+ 			return resolver(ctx, request)
+ 		}
+-
+ 		question := request.Question[0]
+-		if question.Qtype != mDNS.TypeA && question.Qtype != mDNS.TypeAAAA {
++		if question.Qtype != mDNS.TypeA && question.Qtype != mDNS.TypeAAAA || !strings.EqualFold(question.Name, serverFQDN) {
+ 			return resolver(ctx, request)
+ 		}
+-
+-		queryName := strings.TrimSuffix(question.Name, ".")
+-		if !strings.EqualFold(queryName, serverName) {
+-			return resolver(ctx, request)
+-		}
+-
+-		if serverAddress.IsIP() {
+-			return synthesizeAddressResponse(request, serverAddress.Addr)
+-		}
+-
+-		redirectedRequest := request.Copy()
+-		redirectedRequest.Question[0].Name = mDNS.Fqdn(serverAddress.AddrString())
+-
+-		response := resolver(ctx, redirectedRequest)
+-		if response != nil {
+-			response = response.Copy()
+-			response.Question = request.Question
+-			rewriteAddressAnswerNames(response, serverAddress.AddrString(), serverName)
+-		}
+-		return response
+-	}
+-}
+-
+-func rewriteAddressAnswerNames(response *mDNS.Msg, fromDomain, toDomain string) {
+-	fromDomain = strings.TrimSuffix(fromDomain, ".")
+-	toDomain = strings.TrimSuffix(toDomain, ".")
+-	toFQDN := toDomain + "."
+-
+-	for _, rr := range response.Answer {
+-		hdrName := strings.TrimSuffix(rr.Header().Name, ".")
+-		if strings.EqualFold(hdrName, fromDomain) {
+-			rr.Header().Name = toFQDN
++		response := new(mDNS.Msg)
++		response.SetReply(request)
++		if question.Qtype == mDNS.TypeA {
++			response.Answer = append(response.Answer, &mDNS.A{
++				Hdr: mDNS.RR_Header{
++					Name:   question.Name,
++					Rrtype: mDNS.TypeA,
++					Class:  mDNS.ClassINET,
++					Ttl:    300,
++				},
++				A: fakeServerAddress.AsSlice(),
++			})
+ 		}
+-	}
+-}
+-
+-func synthesizeAddressResponse(request *mDNS.Msg, address netip.Addr) *mDNS.Msg {
+-	response := new(mDNS.Msg)
+-	response.SetReply(request)
+-
+-	if len(request.Question) == 0 {
+ 		return response
+ 	}
+-
+-	question := request.Question[0]
+-	if question.Qtype == mDNS.TypeA && address.Is4() {
+-		response.Answer = append(response.Answer, &mDNS.A{
+-			Hdr: mDNS.RR_Header{
+-				Name:   question.Name,
+-				Rrtype: mDNS.TypeA,
+-				Class:  mDNS.ClassINET,
+-				Ttl:    300,
+-			},
+-			A: address.AsSlice(),
+-		})
+-	} else if question.Qtype == mDNS.TypeAAAA && address.Is6() {
+-		response.Answer = append(response.Answer, &mDNS.AAAA{
+-			Hdr: mDNS.RR_Header{
+-				Name:   question.Name,
+-				Rrtype: mDNS.TypeAAAA,
+-				Class:  mDNS.ClassINET,
+-				Ttl:    300,
+-			},
+-			AAAA: address.AsSlice(),
+-		})
+-	}
+-
+-	return response
+ }
+diff --git a/test/integration_test.go b/test/integration_test.go
+index d2d772d0..c347be4b 100644
+--- a/test/integration_test.go
++++ b/test/integration_test.go
+@@ -528,10 +528,9 @@ func TestDNSTCFallbackToTCP(t *testing.T) {
+ 		return response
+ 	}
+ 
+-	serverAddress := M.ParseSocksaddrHostPort("proxy.invalid", naiveServerPort)
+ 	client := env.newNaiveClient(t, cronet.NaiveClientOptions{
+-		ServerAddress: serverAddress,
+-		DNSResolver:   largeDNSResolver,
++		DNSResolver: largeDNSResolver,
++		ECHEnabled:  true,
+ 	})
+ 
+ 	// Make a connection - this will trigger DNS resolution
+@@ -585,10 +584,9 @@ func TestDNSInterceptionUDPLoopbackFallback(t *testing.T) {
+ 		return response
+ 	}
+ 
+-	serverAddress := M.ParseSocksaddrHostPort("proxy.invalid", naiveServerPort)
+ 	client := env.newNaiveClient(t, cronet.NaiveClientOptions{
+-		ServerAddress:        serverAddress,
+ 		DNSResolver:          countingResolver,
++		ECHEnabled:           true,
+ 		TestForceUDPLoopback: true, // Force UDP loopback path
+ 	})
+ 
+@@ -644,10 +642,9 @@ func TestDNSInterceptionDefaultPath(t *testing.T) {
+ 		return response
+ 	}
+ 
+-	serverAddress := M.ParseSocksaddrHostPort("proxy.invalid", naiveServerPort)
+ 	client := env.newNaiveClient(t, cronet.NaiveClientOptions{
+-		ServerAddress:        serverAddress,
+ 		DNSResolver:          countingResolver,
++		ECHEnabled:           true,
+ 		TestForceUDPLoopback: false, // Use default path (Unix SOCK_DGRAM or Windows UDP loopback)
+ 	})
+ 
+@@ -731,190 +728,6 @@ func TestNaiveInsecureConcurrencySessionCount(t *testing.T) {
+ 		sessionCount, netLogPath)
+ }
+ 
+-// TestServerAddressDomainWithDifferentServerName verifies that when ServerAddress
+-// is a domain and ServerName is a different domain, the connection uses ServerAddress's
+-// resolved IP, not ServerName's IP.
+-//
+-// This tests the DNS redirect logic in wrapDNSResolverForServerRedirect.
+-func TestServerAddressDomainWithDifferentServerName(t *testing.T) {
+-	env := setupTestEnv(t)
+-	startEchoServer(t, 18100)
+-
+-	// Track which domains were queried
+-	var queriedDomains sync.Map
+-
+-	// Create a DNS resolver that returns different IPs for different domains:
+-	// - proxy.example.com -> 127.0.0.1 (correct server address)
+-	// - example.org -> 10.255.255.1 (unreachable address, used as ServerName for TLS SNI)
+-	dnsResolver := func(ctx context.Context, request *mDNS.Msg) *mDNS.Msg {
+-		response := new(mDNS.Msg)
+-		response.SetReply(request)
+-
+-		for _, question := range request.Question {
+-			name := strings.TrimSuffix(question.Name, ".")
+-			t.Logf("DNS query for: %s (type %d)", name, question.Qtype)
+-			queriedDomains.Store(name, true)
+-
+-			var ip net.IP
+-			switch {
+-			case strings.EqualFold(name, "proxy.example.com"):
+-				ip = net.ParseIP("127.0.0.1")
+-			case strings.EqualFold(name, "example.org"):
+-				// Use an unreachable IP to ensure we detect if wrong IP is used
+-				ip = net.ParseIP("10.255.255.1")
+-			default:
+-				ip = net.ParseIP("127.0.0.1")
+-			}
+-
+-			switch question.Qtype {
+-			case mDNS.TypeA:
+-				if ip.To4() != nil {
+-					t.Logf("Resolving %s to %s", name, ip)
+-					response.Answer = append(response.Answer, &mDNS.A{
+-						Hdr: mDNS.RR_Header{
+-							Name:   question.Name,
+-							Rrtype: mDNS.TypeA,
+-							Class:  mDNS.ClassINET,
+-							Ttl:    300,
+-						},
+-						A: ip.To4(),
+-					})
+-				}
+-			case mDNS.TypeAAAA:
+-				// Return empty for AAAA to force IPv4
+-			}
+-		}
+-		return response
+-	}
+-
+-	// Configure with ServerAddress as domain, ServerName as different domain
+-	// ServerName = example.org (matches server certificate CN)
+-	// ServerAddress = proxy.example.com (the actual server to connect to)
+-	config := cronet.NaiveClientOptions{
+-		ServerAddress:           M.ParseSocksaddrHostPort("proxy.example.com", naiveServerPort),
+-		ServerName:              "example.org",
+-		Username:                "test",
+-		Password:                "test",
+-		TrustedRootCertificates: string(env.caPEM),
+-		DNSResolver:             dnsResolver,
+-	}
+-
+-	client, err := cronet.NewNaiveClient(config)
+-	require.NoError(t, err)
+-	require.NoError(t, client.Start())
+-	t.Cleanup(func() { client.Close() })
+-
+-	// If DNS redirect works correctly, this should connect to 127.0.0.1 (proxy.example.com)
+-	// If DNS redirect fails, it would try to connect to 10.255.255.1 (example.org) and fail
+-	conn, err := client.DialEarly(context.Background(), M.ParseSocksaddrHostPort("127.0.0.1", 18100))
+-	require.NoError(t, err, "Connection failed - DNS redirect may not be working correctly")
+-	defer conn.Close()
+-
+-	// Verify the connection works
+-	testData := []byte("DNS redirect test!")
+-	_, err = conn.Write(testData)
+-	require.NoError(t, err)
+-
+-	buf := make([]byte, len(testData))
+-	_, err = io.ReadFull(conn, buf)
+-	require.NoError(t, err)
+-	require.Equal(t, testData, buf)
+-
+-	// Verify that proxy.example.com was queried (DNS redirect worked)
+-	_, proxyQueried := queriedDomains.Load("proxy.example.com")
+-	require.True(t, proxyQueried, "DNS redirect failed: proxy.example.com was not queried")
+-
+-	t.Log("DNS redirect test passed: connection used ServerAddress IP, not ServerName IP")
+-}
+-
+-// TestServerAddressDomainWithNXDomainServerName verifies that when ServerAddress
+-// is a domain and ServerName returns NXDOMAIN, the connection still works by
+-// using ServerAddress's resolved IP.
+-//
+-// This tests user scenario 5: server=domain(resolvable), tls.server_name=domain(NXDOMAIN)
+-func TestServerAddressDomainWithNXDomainServerName(t *testing.T) {
+-	env := setupTestEnv(t)
+-	startEchoServer(t, 18101)
+-
+-	// Track which domains were queried
+-	var queriedDomains sync.Map
+-
+-	// Create a DNS resolver:
+-	// - proxy.example.com -> 127.0.0.1 (correct server address)
+-	// - example.org -> NXDOMAIN (ServerName has no DNS records)
+-	dnsResolver := func(ctx context.Context, request *mDNS.Msg) *mDNS.Msg {
+-		response := new(mDNS.Msg)
+-		response.SetReply(request)
+-
+-		for _, question := range request.Question {
+-			name := strings.TrimSuffix(question.Name, ".")
+-			t.Logf("DNS query for: %s (type %d)", name, question.Qtype)
+-			queriedDomains.Store(name, true)
+-
+-			switch {
+-			case strings.EqualFold(name, "proxy.example.com"):
+-				switch question.Qtype {
+-				case mDNS.TypeA:
+-					t.Logf("Resolving %s to 127.0.0.1", name)
+-					response.Answer = append(response.Answer, &mDNS.A{
+-						Hdr: mDNS.RR_Header{
+-							Name:   question.Name,
+-							Rrtype: mDNS.TypeA,
+-							Class:  mDNS.ClassINET,
+-							Ttl:    300,
+-						},
+-						A: net.ParseIP("127.0.0.1").To4(),
+-					})
+-				}
+-			case strings.EqualFold(name, "example.org") ||
+-				strings.HasSuffix(strings.ToLower(name), ".example.org"):
+-				// Return NXDOMAIN for example.org (simulating empty DNS)
+-				t.Logf("Returning NXDOMAIN for %s", name)
+-				response.Rcode = mDNS.RcodeNameError
+-				return response
+-			}
+-		}
+-		return response
+-	}
+-
+-	// Configure with ServerAddress as domain, ServerName returns NXDOMAIN
+-	config := cronet.NaiveClientOptions{
+-		ServerAddress:           M.ParseSocksaddrHostPort("proxy.example.com", naiveServerPort),
+-		ServerName:              "example.org",
+-		Username:                "test",
+-		Password:                "test",
+-		TrustedRootCertificates: string(env.caPEM),
+-		DNSResolver:             dnsResolver,
+-	}
+-
+-	client, err := cronet.NewNaiveClient(config)
+-	require.NoError(t, err)
+-	require.NoError(t, client.Start())
+-	t.Cleanup(func() { client.Close() })
+-
+-	// If DNS redirect works correctly, this should still connect to 127.0.0.1 (proxy.example.com)
+-	// even though example.org returns NXDOMAIN
+-	conn, err := client.DialEarly(context.Background(), M.ParseSocksaddrHostPort("127.0.0.1", 18101))
+-	require.NoError(t, err, "Connection failed - DNS redirect may not be working when ServerName returns NXDOMAIN")
+-	defer conn.Close()
+-
+-	// Verify the connection works
+-	testData := []byte("NXDOMAIN redirect test!")
+-	_, err = conn.Write(testData)
+-	require.NoError(t, err)
+-
+-	buf := make([]byte, len(testData))
+-	_, err = io.ReadFull(conn, buf)
+-	require.NoError(t, err)
+-	require.Equal(t, testData, buf)
+-
+-	// Verify that proxy.example.com was queried (DNS redirect worked)
+-	_, proxyQueried := queriedDomains.Load("proxy.example.com")
+-	require.True(t, proxyQueried, "DNS redirect failed: proxy.example.com was not queried")
+-
+-	t.Log("NXDOMAIN redirect test passed: connection used ServerAddress IP despite ServerName NXDOMAIN")
+-}
+-
+ func TestCloseAllConnectionsBeforeStart(t *testing.T) {
+ 	engine := cronet.NewEngine()
+ 	done := make(chan struct{})
+diff --git a/test/quic_test.go b/test/quic_test.go
+index 9bc487e0..c0522f80 100644
+--- a/test/quic_test.go
++++ b/test/quic_test.go
+@@ -184,58 +184,6 @@ func TestNaiveQUICLargeTransfer(t *testing.T) {
+ 	require.Equal(t, testData, receivedData, "data mismatch in large transfer over QUIC")
+ }
+ 
+-func TestNaiveQUICDomainNon443DoesNotIssueHTTPSDNSQueryByDefault(t *testing.T) {
+-	naiveQUICServerPort := reserveUDPPort(t)
+-	caPem, certPem, keyPem := generateCertificate(t, "example.org")
+-	caPemContent, err := os.ReadFile(caPem)
+-	require.NoError(t, err)
+-
+-	startNaiveQUICServer(t, certPem, keyPem, naiveQUICServerPort)
+-
+-	queryObservation := &dnsQueryObservation{}
+-	dnsResolver := makeQUICDomainResolver(queryObservation, 0, mDNS.RcodeNameError)
+-
+-	client, err := cronet.NewNaiveClient(cronet.NaiveClientOptions{
+-		ServerAddress:           M.ParseSocksaddrHostPort("example.org", naiveQUICServerPort),
+-		ServerName:              "example.org",
+-		Username:                "test",
+-		Password:                "test",
+-		TrustedRootCertificates: string(caPemContent),
+-		DNSResolver:             dnsResolver,
+-
+-		QUIC: true,
+-	})
+-	require.NoError(t, err)
+-	require.NoError(t, client.Start())
+-	t.Cleanup(func() { client.Close() })
+-	_ = startNetLogForTest(t, client, "quic_non443_default_netlog.json", false)
+-
+-	echoPort := reserveTCPPort(t)
+-	startEchoServer(t, echoPort)
+-
+-	conn, err := client.DialEarly(context.Background(), M.ParseSocksaddrHostPort("127.0.0.1", echoPort))
+-	require.NoError(t, err)
+-	defer conn.Close()
+-
+-	testData := []byte("quic non-443 dns query test")
+-	_, err = conn.Write(testData)
+-	require.NoError(t, err)
+-
+-	buffer := make([]byte, len(testData))
+-	_, err = io.ReadFull(conn, buffer)
+-	require.NoError(t, err)
+-	require.Equal(t, testData, buffer)
+-
+-	require.Greater(t, queryObservation.aQueryCount.Load(), int64(0))
+-	require.Equal(
+-		t,
+-		int64(0),
+-		queryObservation.httpsQueryCount.Load(),
+-		"unexpected HTTPS DNS query in default QUIC mode: %v",
+-		queryObservation.queryNames(),
+-	)
+-}
+-
+ func TestNaiveQUICDomainNon443ECHHTTPSDNSDelayAffectsHandshake(t *testing.T) {
+ 	naiveQUICServerPort := reserveUDPPort(t)
+ 	caPem, certPem, keyPem := generateCertificate(t, "example.org")
+@@ -248,7 +196,7 @@ func TestNaiveQUICDomainNon443ECHHTTPSDNSDelayAffectsHandshake(t *testing.T) {
+ 	dnsResolver := makeQUICDomainResolver(queryObservation, 2*time.Second, mDNS.RcodeNameError)
+ 
+ 	client, err := cronet.NewNaiveClient(cronet.NaiveClientOptions{
+-		ServerAddress:           M.ParseSocksaddrHostPort("example.org", naiveQUICServerPort),
++		ServerAddress:           M.ParseSocksaddrHostPort("127.0.0.1", naiveQUICServerPort),
+ 		ServerName:              "example.org",
+ 		Username:                "test",
+ 		Password:                "test",
+@@ -309,7 +257,7 @@ func TestNaiveQUICDomainNon443ECHFixedConfigDisablesHTTPSLookup(t *testing.T) {
+ 	dnsResolver := makeQUICDomainResolver(queryObservation, 2*time.Second, mDNS.RcodeNameError)
+ 
+ 	client, err := cronet.NewNaiveClient(cronet.NaiveClientOptions{
+-		ServerAddress:           M.ParseSocksaddrHostPort("example.org", naiveQUICServerPort),
++		ServerAddress:           M.ParseSocksaddrHostPort("127.0.0.1", naiveQUICServerPort),
+ 		ServerName:              "example.org",
+ 		Username:                "test",
+ 		Password:                "test",
