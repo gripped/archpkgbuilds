@@ -4,7 +4,7 @@
 # Contributor: Johannes Dewender   arch at JonnyJD dot net
 
 pkgname=distro-info-data
-pkgver=2026.08.20
+pkgver=2026.10.12
 pkgrel=1
 pkgdesc="Information about all releases of Debian and Ubuntu (data files)"
 arch=('any')
@@ -14,7 +14,7 @@ makedepends=('git')
 checkdepends=('python')
 options=(!emptydirs)
 source=("git+https://salsa.debian.org/debian/distro-info-data.git#tag=debian/$pkgver-1")
-sha256sums=('8a6c004ef74d440b468e403ac2f90959e192bb6563b4dd4de3abdc26ac02a4ea')
+sha256sums=('8e301af5ef18a15270474be3bc7c6ff084e1fe3949d91c3b50a4596867ecec14')
 
 check() {
   cd $pkgname
