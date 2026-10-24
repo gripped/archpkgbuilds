@@ -4,7 +4,7 @@
 pkgname=perl-file-fcntllock
 _perlmod=File-FcntlLock
 pkgver=0.22
-pkgrel=3
+pkgrel=4
 pkgdesc='Perl module for file locking with fcntl(2)'
 arch=(x86_64)
 url='http://search.cpan.org/dist/$_perlmod/'
