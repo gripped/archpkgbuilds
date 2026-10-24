@@ -6,7 +6,7 @@
 # Contributor: Roman Kyrylych <roman@archlinux.org>
 
 pkgname=virtualbox-guest-iso
-pkgver=7.2.20
+pkgver=7.2.22
 pkgrel=1
 pkgdesc='The official VirtualBox Guest Additions ISO image'
 arch=('any')
@@ -17,7 +17,7 @@ replaces=('virtualbox-additions' 'virtualbox-iso-additions')
 conflicts=('virtualbox-additions' 'virtualbox-iso-additions')
 noextract=("VBoxGuestAdditions_${pkgver}.iso")
 source=("https://download.virtualbox.org/virtualbox/${pkgver}/VBoxGuestAdditions_${pkgver}.iso")
-sha256sums=('4c6ba898e37b307cf9088be8ff480d9aec13bb0e395aaf31c78d564bb35916e7')
+sha256sums=('fc41354d8b974051fa33ca5a4f9c999a58c6e0dfc595b02a924a544392234b3d')
 
 package() {
   install -D -m 0644 "VBoxGuestAdditions_${pkgver}.iso" \
