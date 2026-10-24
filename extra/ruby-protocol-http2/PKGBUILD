@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-protocol-http2
-pkgver=0.29.1
+pkgver=0.29.2
 pkgrel=1
 pkgdesc='A low level implementation of the HTTP/2 protocol'
 arch=(any)
@@ -28,16 +28,15 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('52096aa75cddded6125ad8dc07e412427f69feecce76d72220b804a31c55a7ce')
+sha256sums=('990e725dc77b443a7c37438ad87b1c318b97780f68e1e132aaa558be3771f520')
 
 prepare() {
   cd protocol-http2
 
-  sed -r \
-    -e 's|~>|>=|g' \
-    -e '/signing_key/d' \
-    -i protocol-http2.gemspec
+  # Allow the system gem versions to satisfy runtime dependencies.
+  sed -i 's|~>|>=|g' protocol-http2.gemspec
 
+  # Keep release tooling and lint-only dependencies out of the test bundle.
   sed -i \
     -e '/group :maintenance/,/end/d' \
     -e '/rubocop/d' \
