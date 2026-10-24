@@ -1,29 +1,29 @@
 # Maintainer: Johannes Löthberg <johannes@kyriasis.com>
 
 pkgname=python-txredisapi
-pkgver=1.4.11
+pkgver=1.4.12
 pkgrel=2
 
 pkgdesc='Non-blocking redis client for python'
 url='https://pypi.python.org/pypi/txredisapi/'
 arch=('any')
-license=('Apache')
+license=('Apache-2.0')
 
 depends=('python' 'python-twisted' 'python-six')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 
 source=("https://pypi.org/packages/source/t/txredisapi/txredisapi-$pkgver.tar.gz")
 
-sha256sums=('3eb1af99aefdefb59eb877b1dd08861efad60915e30ad5bf3d5bf6c5cedcdbc6')
+sha256sums=('98e2440ff2e297c9048c5f9d516e7b1302d447cd9cd4568c986c35a8523de3c7')
 
 build() {
 	cd "$srcdir"/txredisapi-$pkgver
-	python setup.py build
+	python -m build --wheel --no-isolation
 }
 
 package() {
 	cd txredisapi-$pkgver
-	python setup.py install --root="$pkgdir" --optimize=1 --skip-build
+	python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
 # vim: set ts=4 sw=4 tw=0 ft=PKGBUILD :
