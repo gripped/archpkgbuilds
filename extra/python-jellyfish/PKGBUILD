@@ -2,8 +2,8 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-jellyfish
-pkgver=1.2.1
-pkgrel=2
+pkgver=1.3.0
+pkgrel=1
 pkgdesc='A python library for doing approximate and phonetic matching of strings'
 arch=(x86_64)
 url='https://github.com/jamesturk/jellyfish'
@@ -15,9 +15,8 @@ makedepends=(
   python-build
   python-installer
 )
-_tag=7d50927c7d63cf4ed8bb16286dd21e34f4bb5641
-source=(git+https://github.com/jamesturk/jellyfish.git#tag=${_tag})
-b2sums=('265c2d7bf4560ecfac4a9fc7dc91a8543ceb1e06a05e08da65c8b476dfaaf3e9cbbd75c07e37209dffe511d5892468f250880e41e469fdd68181be0f07d98c64')
+source=("git+https://github.com/jamesturk/jellyfish.git#tag=v${pkgver}")
+b2sums=('8cd7cde2e7152fce52a22b5048d8736c923a383a650fe3fc13cb65248b7c339a00ea1f08a69871b91213b06ed767b96b7b9f74d719e9b0264d46b1ce83c87312')
 
 pkgver() {
   cd jellyfish
