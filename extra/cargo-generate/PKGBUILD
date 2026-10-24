@@ -3,8 +3,8 @@
 # Contributor: Philipp A. <flying-sheep@web.de>
 
 pkgname=cargo-generate
-pkgver=0.25.0
-pkgrel=2
+pkgver=0.25.1
+pkgrel=1
 pkgdesc="Use pre-existing git repositories as templates"
 arch=('x86_64')
 url="https://github.com/cargo-generate/cargo-generate"
@@ -13,7 +13,7 @@ depends=('cargo' 'glibc' 'libgcc')
 optdepends=('git: templates from local Git repositories'
             'openssh: templates from Git repositories over SSH')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('972a7083b97e8a0e6fae8a0c2b2fbc15f15369acebb1902ddadc93dc0deb9c09')
+sha256sums=('a36b52c52a8a1c62f8f53a7e9d6d88ea84dd917dc8b2e6523a423b1fc32d5c53')
 
 prepare() {
   cd "$pkgname-$pkgver"
