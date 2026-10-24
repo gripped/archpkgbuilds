@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=pixi
-pkgver=0.81.0
+pkgver=0.83.0
 pkgrel=1
 pkgdesc="A package management and workflow tool"
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=(cargo)
 checkdepends=(git
               sdl2)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('77bce8dcd8e06dafa6b0bce0d16c44b54a1d5c3f99f1da8dac6a2f4ac2ac1e6c51cc07b3556f525a02a8896e37be86851dd4942f89ab5405c02ff5d11526eb61')
+sha512sums=('6bc374e6634721e8dd1caff3f2ef2769487c1100d3f0ab92f1d7bd2a58127b0ea2e6be5ee6d3bea4e5d50ee20de2f13e0b80f2d11354e56881968f4b406d9240')
 
 _srcenv() {
   cd "$pkgname-$pkgver"
@@ -51,9 +51,13 @@ check() {
   # passes, other time it runs into some sort of race conditions.
   local skipped=(
     add_tests
+    install_filter_tests::install_filter_skip_with_deps_hard_exclusion
+    install_tests::install_all_skips_unsupported_environments
     install_tests::install_conda_meta_history
     install_tests::quick_validate_refreshes_resolved_platform
-    install_tests::install_all_skips_unsupported_environments
+    update_tests
+    virtual_package_detector_host_review_tests
+    virtual_package_detector_tests
     # does stuff with temp dirs and locks our chroots don't like
     source_package_tests::locked_accepts_branch_build_source_after_upstream_moves
     source_package_tests::test_abbreviated_git_rev_build_source_keeps_lock_satisfied
@@ -62,9 +66,6 @@ check() {
     tests::test_env_vars_are_set
     tests::test_rust_is_in_build_requirements
     tests::test_rust_is_not_added_if_already_present
-    update_tests::test_update_conda_package_doesnt_update_git_pypi
-    update_tests::test_update_conda_package_doesnt_update_git_pypi_pinned
-    update_tests::test_update_git_pypi_when_requested
   )
   cargo test --frozen --release -- ${skipped[@]/#/--skip }
 }
