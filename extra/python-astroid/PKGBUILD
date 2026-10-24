@@ -6,7 +6,7 @@
 
 _pyname=astroid
 pkgname=python-$_pyname
-pkgver=4.2.0
+pkgver=4.3.4
 pkgrel=1
 pkgdesc='A common base representation of python source code'
 arch=(any)
@@ -26,8 +26,16 @@ checkdepends=(mypy
 replaces=(python-logilab-astng)
 conflicts=(python-logilab-astng)
 _archive="$_pyname-$pkgver"
-source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('896274d7fae440746bdf1f4c262dc0c0e2971ef5bb89e66223410df409b6ce09')
+source=("$url/archive/v$pkgver/$_archive.tar.gz"
+        "astroid-4.2.0-pkg_resources-removal.patch")
+sha256sums=('8cd3fb0e084c89d69688d3aa4a1abcaf22c84a8167ebb06895bf5f335779a4f5'
+            'ac45d2fb054f9b911866192e1a4843786fb8f1eff8d869c4d0f1dccde54465b4')
+
+prepare() {
+	cd "$_archive"
+	# Skip tests requiring pkg_resources
+	patch -Np1 -i ../astroid-4.2.0-pkg_resources-removal.patch
+}
 
 build() {
 	cd "$_archive"

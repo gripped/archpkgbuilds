@@ -1,0 +1,16 @@
+diff --git a/tests/test_manager.py b/tests/test_manager.py
+index 482ea20..34276b2 100644
+--- a/tests/test_manager.py
++++ b/tests/test_manager.py
+@@ -161,9 +161,11 @@ class AstroidManagerTest(resources.SysPathSetup, unittest.TestCase):
+         self._test_ast_from_old_namespace_package_protocol("pkgutil")
+ 
+     def test_ast_from_namespace_pkg_resources(self) -> None:
++        pytest.importorskip("pkg_resources")
+         self._test_ast_from_old_namespace_package_protocol("pkg_resources")
+ 
+     def test_identify_old_namespace_package_protocol(self) -> None:
++        pytest.importorskip("pkg_resources")
+         # Like the above cases, this package follows the old namespace package protocol
+         # astroid currently assumes such packages are in sys.modules, so import it
+         with warnings.catch_warnings():
