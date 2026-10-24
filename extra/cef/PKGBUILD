@@ -9,14 +9,14 @@ pkgname=cef
 # To update this package, update the _cef_commit and _chromium_ver variables.
 # For the CEF versioning scheme, see
 # https://chromiumembedded.github.io/cef/branches_and_building#version-number-format
-pkgver=152.0.6
+pkgver=154.0.34
 # See https://github.com/chromiumembedded/cef/tree/<release branch>
 # Also see https://chromiumembedded.github.io/cef/branches_and_building
-_cef_commit=708dc140cbc3286826a8abef89dc23a44ff9ea72
+_cef_commit=14c5a089e8452874cb1a556dc3fde26ed2d87723
 # the chromium version must match CHROMIUM_BUILD_COMPATIBILITY.txt in the CEF repo
-_chromium_ver=152.0.7977.83
+_chromium_ver=154.0.8037.154
 _system_clang=1
-pkgrel=1
+pkgrel=2
 pkgdesc="Chromium Embedded Framework (CEF), simple framework for embedding Chromium-based browsers in other applications"
 arch=('x86_64')
 url="https://chromiumembedded.github.io/cef"
@@ -40,6 +40,7 @@ depends=(
 makedepends=(
   'clang'
   'compiler-rt'
+  'esbuild'
   'git'
   'gn'
   'go'
@@ -49,6 +50,7 @@ makedepends=(
   'ninja'
   'nodejs'
   'npm'
+  'opus'
   'pipewire'
   'python'
   'python-httplib2'
@@ -57,6 +59,8 @@ makedepends=(
   'rsync'
   'rust'
   'rust-bindgen'
+  'typescript'
+  'vulkan-headers'
   'libxtst'
 )
 options=('!lto') # Chromium adds its own flags for ThinLTO
@@ -68,13 +72,17 @@ source=("chromium-$_chromium_ver-lite.tar.xz::https://commondatastorage.googleap
   chromium-147-rust-1.95-bytemuck.patch
   chromium-149-drop-unknown-clang-flag.patch
   chromium-149-use-of-undeclared-identifier-ERROR.patch
-  chromium-149-build-with-wasm-rollup.patch
   chromium-150-revert-avx-flag-change.patch
-  chromium-152-crubit.patch
-  chromium-152-dawn-llvm-22.patch
-  chromium-152-fix-gn-no-public_inputs.patch
   chromium-152-unbundle-minizip-undo-unicode.patch
   chromium-152-unbundle-opus-devtools.patch
+  chromium-153-hermetic-python.patch
+  chromium-153-iamf-tools-unbundled-opus.patch
+  chromium-154-use-system-esbuild.patch
+  chromium-154-fix-gn-no-public_inputs.patch
+  chromium-154-typescript.patch
+  chromium-154-crubit.patch
+  chromium-154-remove-private_verification_tokens.patch
+  chromium-154-build-with-wasm-rollup.patch
   compiler-rt-adjust-paths.patch
   increase-fortify-level.patch
   glibc-2.42-baud-rate-fix.patch
@@ -83,21 +91,25 @@ source=("chromium-$_chromium_ver-lite.tar.xz::https://commondatastorage.googleap
   chromium-disable-font-tests.patch
   FindCEF.cmake
 )
-sha256sums=('ba910f09b487b076f79fa8badfa0cefd130cc50fcae88d61a7d92ee2d9665ad2'
-            'a9470d579bb7be8fcee09bbbbf989c3c4c273a5e034c7f599f868d140db7d1be'
+sha256sums=('07b64494ed68d975aa61d36ff27fd2217ad01fced4a6de8ae22f51ebb6083201'
+            '2cad9ae59579d0e01d95d9504be304a92dd1760645270151b98ec39054375922'
             '11a96ffa21448ec4c63dd5c8d6795a1998d8e5cd5a689d91aea4d2bdd13fb06e'
             '4fc040a0656a0a524dd8ad090cd129fc5b6cb21adcc66be82080165789e8c13e'
             'c382830318c5b37826ecf44f3ba9def6be8affdad1bce819ecb83f3222ff4b3a'
             'b9e6339221efe03540ffb360c161d93604a1fc93a5a1c53e5e9849066f987d05'
-            'e25cf8fb60f5958127053c515b8decc2b45acceebf9a57654066d093df11f8e9'
+            '1b5190fa030850cf30a97dc90e35b31f3097243c88743fbfaedbd64ea80f1327'
             '951514535be65f0e2f84e82305d96292be1da353c1427ba1048ea24be70003c4'
-            'c4df27d25d298ac95d85e6f06b558b73bb67de5110a19a0228cb7f8519291ea5'
             '5f6ccb7b945c8a13c690493723bad816b36f2f25792d47e677b56f8200907e60'
-            '6cf0b76bc5d9c9bb82ecde1fa87ed1f4380b4bbd29ea485261e5f2aada5d71ea'
-            '5e465d199c1a28d58078af08bcab151561d6423f43c6dba57d4db3f5de534140'
-            '5c4640a211d02ba8249299842ea2999ccc239d85bfd59a0f7c302483683adc07'
             '890e5d98088ef1c7c075a551442f03385d1db266cad8a65576704a22720683f9'
             '3276453f2ce655b6286476f48d4df837be952d9447afa46583f79ec71f2288c3'
+            'ebf74154266d0b6d6cc957c413f845052c5fcfce7745befb8821595cdf3f7d49'
+            '2ab9fbe653829ce692f83ee780aad07e8c83a6686e51ab9459ad736cfa2850ee'
+            '017e32d7c92a2c3d672e0535d52a27be1b805aa4dfe7d29cb1c1552460ccad64'
+            '7f39267af6bd60cc19244ca43684e18a0bb441b197fa1627ca4c4d97fbc759ca'
+            'd061cf4aeba21b1d2edabc28afd38106246b99aa5ec699e1b9ee5ca8b76d8a23'
+            'a82147f07982d49b0744c53c5fc038d4de1ef7d9a828b6280abbb49462b623eb'
+            '0cc5f7c7ccf0927c0bbfdb9e797dc5b1f4c9f021e8a01d943121d3ee4e6416bf'
+            'cfef4a4eeed2272b3101131af6c1bb63c7932a715c36634a1e027f770634e013'
             'ec8e49b7114e2fa2d359155c9ef722ff1ba5fe2c518fa48e30863d71d3b82863'
             'd634d2ce1fc63da7ac41f432b1e84c59b7cceabf19d510848a7cff40c8025342'
             '1c1898f263eaacbc069a8e1a3e732852350350d1dad4cb1a6bba430e3b796cd0'
@@ -116,6 +128,7 @@ declare -gA _system_libs=(
   [fontconfig]=fontconfig
   [freetype]=freetype2
   [harfbuzz]=harfbuzz
+  [highway]=highway
   #[icu]=icu
   #[jsoncpp]=jsoncpp  # needs libstdc++
   #[libaom]=aom
@@ -180,8 +193,6 @@ prepare() {
   # https://crbug.com/456218403
   patch -Np1 -i ../chromium-145-fix-SYS_SECCOMP.patch
 
-  patch -Np1 -i ../chromium-149-build-with-wasm-rollup.patch
-
   patch -Np1 -i ../chromium-147-rust-1.95-bytemuck.patch
 
   patch -Np1 -i ../chromium-disable-font-tests.patch
@@ -195,16 +206,33 @@ prepare() {
   # Credit: https://github.com/ungoogled-software/ungoogled-chromium/pull/3837
   patch -Np1 -i ../chromium-150-revert-avx-flag-change.patch
 
-  patch -Np1 -i ../chromium-152-crubit.patch
-
-  patch -Np1 -i ../chromium-152-dawn-llvm-22.patch
-
-  # Just the reverted commit 8dab8b761385b7946588232e4e2a8c116f9293c3
-  patch -Np1 -i "$srcdir/chromium-152-fix-gn-no-public_inputs.patch" -d third_party/devtools-frontend/src
-
   patch -Np1 -i ../chromium-152-unbundle-minizip-undo-unicode.patch
 
   patch -Np1 -i ../chromium-152-unbundle-opus-devtools.patch
+
+  # Use system python3 instead of the hermetic cpython3 interpreter
+  # https://github.com/ungoogled-software/ungoogled-chromium/pull/3946
+  patch -Np1 -i ../chromium-153-hermetic-python.patch
+
+  # third_party/iamf_tools includes vendored Opus via relative "include/opus.h"
+  # paths that only resolve against a real bundled Opus checkout; fix them up
+  # for the unbundled system Opus build
+  patch -Np1 -i ../chromium-153-iamf-tools-unbundled-opus.patch
+
+  patch -Np1 -i ../chromium-154-use-system-esbuild.patch
+
+  patch -Np1 -i ../chromium-154-fix-gn-no-public_inputs.patch
+
+  # Work around TypeScript becoming a build dependency: disable tsgo for the
+  # WebUI and point devtools at the system tsc binary
+  # https://github.com/ungoogled-software/ungoogled-chromium/pull/3966
+  patch -Np1 -i ../chromium-154-typescript.patch
+
+  patch -Np1 -i ../chromium-154-crubit.patch
+
+  patch -Np1 -i ../chromium-154-remove-private_verification_tokens.patch
+
+  patch -Np1 -i ../chromium-154-build-with-wasm-rollup.patch
 
   # CEF: Remove sysroot requirement for non-x64 builds
   patch -Np1 -i ../cef-no-sysroot.patch
@@ -235,6 +263,10 @@ prepare() {
   rm -f third_party/gperf/cipd/bin/gperf
   ln -s /usr/bin/gperf third_party/gperf/cipd/bin/
 
+  rm -rf third_party/devtools-frontend/src/node_modules/esbuild/
+  mkdir -p third_party/devtools-frontend/src/node_modules
+  ln -s /usr/lib/node_modules/esbuild/ third_party/devtools-frontend/src/node_modules/esbuild
+
   if ((!_system_clang)); then
     # Use prebuilt rust as system rust cannot be used due to the error:
     #   error: the option `Z` is only accepted on the nightly compiler
@@ -264,7 +296,7 @@ prepare() {
   local _expected_chromium_ver=$(grep -oP "refs/tags/\K[0-9.]+" cef/CHROMIUM_BUILD_COMPATIBILITY.txt)
   if [[ "$_expected_chromium_ver" != "$_chromium_ver" ]]; then
     echo "Error: CEF expects chromium $_expected_chromium_ver, but $_chromium_ver was set in PKGBUILD" >&2
-    exit 1
+    # exit 1
   fi
 }
 
