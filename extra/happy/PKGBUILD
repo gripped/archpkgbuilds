@@ -4,8 +4,8 @@
 # Contributor: Vesa Kaihlavirta <vegai@iki.fi>
 
 pkgname=happy
-pkgver=2.1.6
-pkgrel=5
+pkgver=2.1.7
+pkgrel=1
 pkgdesc="The Parser Generator for Haskell"
 url="https://hackage.haskell.org/package/happy"
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=("BSD-2-Clause")
 depends=('ghc-libs' 'haskell-happy-lib')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${pkgname}/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a00dd06645dd7658f8675d68365e96460479e50760d395707f688d8d4a157d114c6a0228ff16068fb584ab9cb15149def111140539387795c6385e72362ac30a')
+sha512sums=('3579fd3217f28b8269afcb21b46d74ce160a2ddbe3e6edc7018e945851be8c573c77d7e0884a47ea90e1320bcec9d3f9be8fc284143c4477428f7f65560cd308')
 
 build() {
   cd $pkgname-$pkgver
