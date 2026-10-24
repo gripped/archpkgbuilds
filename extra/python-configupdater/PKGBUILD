@@ -1,21 +1,17 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-configupdater
-pkgver=3.2
-pkgrel=3
+pkgver=4.0
+pkgrel=1
 pkgdesc="Parser like ConfigParser but for updating configuration files"
 url="https://github.com/pyscaffold/configupdater"
 license=('MIT')
 arch=('any')
 depends=('python')
-makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
+makedepends=('git' 'python-hatchling' 'python-hatch-vcs' 'python-build' 'python-installer')
 checkdepends=('python-pytest')
 source=("git+https://github.com/pyscaffold/configupdater.git#tag=v$pkgver")
-sha512sums=('1cdcce14b8d5445b3c10dde49f3887868db0cf85a1841a4735be36385508c5042418f5b4237e978c6a2136578836b4882c8a62966d6005de6e650f9a85cad5f0')
-
-prepare() {
-  sed -i '/--cov configupdater/d' configupdater/setup.cfg
-}
+sha512sums=('227a11a3ca6edefa4a939073c50377096ef4e904b0457ee64716f5418b59552f283b8685a977009155cda221276e026f0387a405c542db0517e614222441ceaa')
 
 build() {
   cd configupdater
@@ -24,7 +20,9 @@ build() {
 
 check() {
   cd configupdater
-  PYTHONPATH="$PWD"/build/lib pytest
+  python -m venv --system-site-packages test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
 }
 
 package() {
