@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=himalaya
-pkgver=2.1.0
+pkgver=2.2.1
 pkgrel=2
 pkgdesc='A CLI email client'
 arch=(x86_64)
@@ -15,7 +15,7 @@ depends=(glibc # libc.so
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/v$pkgver/$_archive.tar.gz")
-sha256sums=('491c7e51aa58874e2b70b4a0377e1770a1d3522392b9a9b867f965ac9d75aaa5')
+sha256sums=('261b6d3bce4f0de6399b347525fc3c687f309d83840b4e10a58ab7ad70c03544')
 
 _features='maildir'
 
@@ -42,7 +42,7 @@ _compgen() {
 }
 
 _mangen() {
-    target/release/$pkgname man $1
+    target/release/$pkgname man --dir $1
 }
 
 build() {
