@@ -5,7 +5,7 @@
 
 pkgname=perl-template-toolkit
 pkgver=3.106
-pkgrel=1
+pkgrel=2
 pkgdesc="Perl template processing system"
 arch=('x86_64')
 url="https://metacpan.org/release/Template-Toolkit"
