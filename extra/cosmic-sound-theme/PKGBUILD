@@ -2,7 +2,7 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=cosmic-sound-theme
-pkgver=1.9.0
+pkgver=1.10.0
 pkgrel=1
 pkgdesc='Sound theme for the COSMIC desktop environment'
 arch=(any)
@@ -17,7 +17,7 @@ makedepends=(
 )
 options=(!strip)
 source=(git+https://github.com/pop-os/cosmic-sound-theme.git#tag=epoch-${pkgver})
-b2sums=('df9d7cccfd64e1f09b39afb21a6d3093f7577573d349c71d74e44c8c05f567f2805c43a1bb000c7cdffc3f17d7802b8161b9f3d58d7906d1933bee282e2ba2e9')
+b2sums=('5f2976511d8f321edb1d0779dbea77ec26c066a008156aef76b06922697f046be57827be6462dce2b439b6c31306fea20df6fabb804c57033b923f9d4d4f1e20')
 
 build() {
   arch-meson cosmic-sound-theme build
