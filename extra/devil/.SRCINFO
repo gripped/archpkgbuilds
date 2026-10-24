@@ -1,11 +1,15 @@
 pkgbase = devil
 	pkgdesc = Library for reading several different image formats
 	pkgver = 1.8.0
-	pkgrel = 9
+	pkgrel = 10
 	url = https://sourceforge.net/projects/openil/
 	arch = x86_64
-	license = GPL
+	license = LGPL-2.1-only
 	makedepends = cmake
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = libtiff
 	depends = libpng
 	depends = jasper
 	depends = lcms2
