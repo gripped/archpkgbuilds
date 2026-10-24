@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-workspaces
-pkgver=1.9.0
+pkgver=1.10.0
 pkgrel=1
 epoch=2
 pkgdesc='Cosmic workspaces'
@@ -28,7 +28,7 @@ makedepends=(
 source=(
   git+https://github.com/pop-os/cosmic-workspaces-epoch.git#tag=epoch-${pkgver}
 )
-b2sums=('3bd36e3923350c03d4c9bd95605842fc7ee52b4d0193bdf4af6fbb4a178a67599fac8916a48d2f9b5170b50c55a5317320e0e7f49cc9fe43912214896fdc90cf')
+b2sums=('f23ad07332c59bd38c12b603d33208db4ddb64fe69fd5e7181be66fb57afe53315546830f9240d23ecfb585c486bb12f130a612f64c8fa36db85562727149c5f')
 
 prepare() {
   cd cosmic-workspaces-epoch
