@@ -2,8 +2,8 @@
 
 _hkgname=persistent-postgresql
 pkgname=haskell-persistent-postgresql
-pkgver=2.13.6.2
-pkgrel=13
+pkgver=2.13.7.0
+pkgrel=1
 pkgdesc="Backend for the persistent library using postgresql."
 url="http://www.yesodweb.com/book/persistent"
 license=("MIT")
@@ -19,7 +19,7 @@ makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-fast-logger' 'h
              'haskell-unordered-containers' 'haskell-vector')
 checkdepends=('pifpaf' 'postgresql')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('8a60710f3a400596034ff368834e3f68413358906778138edab8189dad4908976dd9557673ce3b790c0426d354e2aa10a358f1f82ee1409362701554717e1b1a')
+sha512sums=('9a3c732da85dd2644f09aa82d3eb5b660b68969a1cfde9cc250568f345296b59404e5e45829d1a369e833e43f28db50be51422508747d9fa40fd06709b5ee4e0')
 
 prepare() {
   cd $_hkgname-$pkgver
