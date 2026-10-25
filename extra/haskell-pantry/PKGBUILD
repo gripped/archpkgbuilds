@@ -3,7 +3,7 @@
 _hkgname=pantry
 pkgname=haskell-pantry
 pkgver=0.9.3.1
-pkgrel=13
+pkgrel=19
 pkgdesc="Content addressable Haskell package management"
 url="https://github.com/commercialhaskell/pantry"
 license=('BSD-3-Clause')
@@ -29,6 +29,14 @@ prepare() {
     cd $_hkgname-$pkgver
     gen-setup
     uusi -d persistent-template
+
+    # static-bytes 0.2 uses ram, while crypton 1.0 still uses memory.
+    # Convert through ByteString until the full ram migration is available:
+    # https://github.com/commercialhaskell/pantry/pull/150
+    sed -i -e 's/StaticBytesException, toStaticExact/StaticBytesException, fromStatic, toStaticExact/' \
+           -e 's/toHexBytes (SHA256 x) = Mem.convertToBase Mem.Base16 x/toHexBytes = Mem.convertToBase Mem.Base16 . toRaw/' \
+           -e 's/toRaw (SHA256 x) = Data.ByteArray.convert x/toRaw (SHA256 x) = fromStatic x/' \
+           int/Pantry/SHA256.hs
 }
 
 build() {
