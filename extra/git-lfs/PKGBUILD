@@ -2,7 +2,7 @@
 # Contributor: Morten Linderud <foxboron@archlinux.org>
 
 pkgname=git-lfs
-pkgver=3.8.0
+pkgver=3.8.1
 pkgrel=1
 pkgdesc="Git extension for versioning large files"
 arch=('x86_64' 'aarch64')
@@ -13,7 +13,7 @@ depends=('git')
 source=("git+https://github.com/git-lfs/git-lfs.git#tag=v${pkgver}?signed")
 validpgpkeys=('88ACE9B29196305BA9947552F1BA225C0223B187'  # brian m. carlson <sandals@crustytoothpaste.net>
               '86CD3297749375BCF8206715F54FE648088335A9') # Chris Darroch (CODE SIGNING KEY) <chrisd@apache.org>
-sha256sums=('7362eec72029f67820ce775114d0df0ed961ea82f3f457c58beec74be118ac20')
+sha256sums=('fde0660b2ce6edf1beda7cf226d1db882f152d4c5d1001547223e867a4fcbf2c')
 
 build(){
   cd "$pkgname"
