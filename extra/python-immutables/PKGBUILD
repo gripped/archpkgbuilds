@@ -1,0 +1,35 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-immutables
+pkgver=0.21
+pkgrel=1
+pkgdesc="Immutable collections for Python"
+arch=('x86_64')
+url="https://github.com/MagicStack/immutables"
+license=('Apache-2.0' '0BSD')
+depends=('glibc' 'python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-pytest')
+source=("git+https://github.com/MagicStack/immutables.git#tag=v$pkgver")
+sha512sums=('2a98183b6cfd537d01f718d2255a28ea9ce2fbce27c91d5ccbc701cc911e20a6b642ba5de6f7d975fe4e5d982745e6cfcb3b1910b6ea0aee5327ee3bf44bdc35')
+
+build() {
+  cd immutables
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd immutables
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Arch's mypy package omits mypy.test, used only by the typing tests and their
+  # conftest plugin loader. Keep all C and Python runtime tests enabled.
+  # Avoid shadowing the wheel's C extension with the source checkout.
+  test-env/bin/python -P -m pytest --noconftest --ignore=tests/test_mypy.py
+}
+
+package() {
+  cd immutables
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE LICENSE-APACHE NOTICE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
