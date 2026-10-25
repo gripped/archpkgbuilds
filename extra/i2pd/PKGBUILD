@@ -9,8 +9,8 @@
 # Contributor: r4sas
 
 pkgname=i2pd
-pkgver=2.61.0
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc='A full-featured C++ implementation of the I2P router'
 arch=('x86_64')
 url='https://i2pd.website/'
@@ -39,7 +39,7 @@ source=("https://github.com/PurpleI2P/i2pd/archive/${pkgver}/${pkgname}-${pkgver
         '040-i2pd-tunnels-d-readme.patch'
         'i2pd.sysusers'
         'i2pd.tmpfiles')
-sha256sums=('409cd3c0257491286611ab6aaf690940c7248fb898377c13fadb65a836e2a0ab'
+sha256sums=('3bebc9567658944d388c382fbec61b7bc583dfa9982028b42b96eeb354f79bd3'
             '2ddf15f1c1cdf5d747a0af667145238023fd126ab00c65f2897cacae935015b1'
             'ed1bde650139731921bf3c8091b3332620404e7700fb9c486a4a806fe34e2d3b'
             '3168e9bc1b15885b1658fac6efcd0741f7f82b571798380ecffa54eaa84aadde'
@@ -66,7 +66,7 @@ build() {
         -DBUILD_SHARED_LIBS:BOOL='ON' \
         -DWITH_UPNP:BOOL='ON' \
         -DBUILD_TESTING:BOOL='ON' \
-        -Wno-dev
+        -Wno-author
     cmake --build build
 }
 
@@ -96,9 +96,6 @@ package() {
     
     # tunnels.d examples
     install -D -m644 contrib/tunnels.d/{*.conf,README} -t "${pkgdir}/usr/share/doc/i2pd/tunnels.d"
-    
-    # headers
-    install -D -m644 {i18n,libi2pd{,_client}}/*.h -t "${pkgdir}/usr/include/i2pd"
     
     # man page
     install -D -m644 debian/i2pd.1 -t "${pkgdir}/usr/share/man/man1"
