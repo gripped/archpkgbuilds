@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-update-checker
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="A python module that will check for package updates"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-uv-build')
 checkdepends=('python-aiohttp' 'python-pytest' 'python-pytest-asyncio')
 optdepends=('python-aiohttp: async API support')
 source=("git+https://github.com/bboe/update_checker.git#tag=v$pkgver")
-sha512sums=('b384331d9de5a15ecde8232f3e5a4ccb00a6b35fe23046102d4ad9c7a0a46109d5abe28ece0f26cfe6b8258f426b5a493a90a9d4a8d7accbac2c44c8b605754d')
+sha512sums=('92ec3f1034b5c67dca341e1a32ee5a2d5941fb7d749b73df2449434ef7e6f3c6914bf6a30b8681eb13f3a336ed77c5bb46d694822b409b618c188534fb1a49d9')
 
 build() {
   cd update_checker
