@@ -5,7 +5,7 @@
 
 _origname=reportlab
 pkgname=python-reportlab
-pkgver=5.0.1
+pkgver=5.1.0
 pkgrel=1
 pkgdesc="A proven industry-strength PDF generating solution"
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python' 'python-charset-normalizer' 'python-pillow')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 license=('BSD-3-Clause')
 source=(https://files.pythonhosted.org/packages/source/${_origname::1}/${_origname}/${_origname}-${pkgver}.tar.gz)
-sha256sums=('ebd13154be1c8515e665de70bd2d303ae9ddc3ef47e44afd5116441ca0283a26')
+sha256sums=('6878200464527e87672d19e9f7cfc6bb890e3a6931e74ac6a1a8d1754aa55671')
 
 build() {
     cd ${_origname}-${pkgver}
