@@ -1,0 +1,15 @@
+diff --git a/third_party/skcms/src/Transform_inl.h b/third_party/skcms/src/Transform_inl.h
+index 2dcf717f3b..e4fdebf98c 100644
+--- a/third_party/skcms/src/Transform_inl.h
++++ b/third_party/skcms/src/Transform_inl.h
+@@ -159,8 +159,8 @@ SI F F_from_Half(U16 half) {
+ #elif defined(USING_AVX512F)
+     return (F)_mm512_cvtph_ps((__m256i)half);
+ #elif defined(USING_AVX_F16C)
+-    typedef int16_t __attribute__((vector_size(16))) I16;
+-    return __builtin_ia32_vcvtph2ps256((I16)half);
++    typedef _Float16 __attribute__((vector_size(16))) F16;
++    return __builtin_convertvector((F16)half, F);
+ #else
+     U32 wide = cast<U32>(half);
+     // A half is 1-5-10 sign-exponent-mantissa, with 15 exponent bias.
