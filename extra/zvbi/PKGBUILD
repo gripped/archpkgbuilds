@@ -3,7 +3,7 @@
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=zvbi
-pkgver=0.2.45
+pkgver=0.2.46
 pkgrel=1
 pkgdesc='VBI capture and decoding library'
 url=http://zapping.sourceforge.net/cgi-bin/view/ZVBI/WebHome
@@ -19,20 +19,14 @@ license=(
   LGPL-2.1-or-later
   MIT
 )
-_tag=45138a87f86b683f9c3611793752ac08795d836f
-#source=(git+https://github.com/zapping-vbi/zvbi.git?signed#tag=${_tag})
-source=(git+https://github.com/zapping-vbi/zvbi.git#tag=${_tag})
-b2sums=('feaad69f28c4e2e5db4d938933b848c1d7e39e470f47d857e76c01b637326febda6594dbd9a1bd6f59baff9262523e734bc76ebe224de0af0b2e62b5a526a493')
+#source=(git+https://github.com/zapping-vbi/zvbi.git?signed#tag=v${pkgver})
+source=(git+https://github.com/zapping-vbi/zvbi.git#tag=v${pkgver})
+b2sums=('195bb43271e125fd52afa2711708978180da3a60efb943940f81010632f1d2f690ca4523685e1fbc09c78bd049b8c78f7d7f25466ec4207e2797aedbd84bd543')
 validpgpkeys=(FA26CA784BE188927F22B99F6570EA01146F7354) # Ileana Dumitrescu <ileanadumitrescu95@gmail.com>
 
 prepare() {
   cd zvbi
   NOCONFIGURE=1 ./autogen.sh
-}
-
-pkgver() {
-  cd zvbi
-  git describe --tags | sed 's/^v//'
 }
 
 build() {
