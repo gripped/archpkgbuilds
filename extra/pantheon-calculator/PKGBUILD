@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-calculator
-pkgver=8.0.1
+pkgver=9.0.0
 pkgrel=1
 pkgdesc='The Pantheon Calculator'
 arch=(x86_64)
@@ -22,14 +22,8 @@ makedepends=(
   meson
   vala
 )
-_tag=989f6632daaf6f9c22542cd08136abc40c08679b
-source=(pantheon-calculator::git+https://github.com/elementary/calculator.git#tag=${_tag})
-sha256sums=('f495c21c1661db6bd8b61340f19782e5f992ba3ca911c2616685703cf5594521')
-
-pkgver() {
-  cd pantheon-calculator
-  git describe --tags
-}
+source=(pantheon-calculator::git+https://github.com/elementary/calculator.git#tag=${pkgver})
+b2sums=('47ea190958b4a1c25524947c075a33a9d5f281b535745fcc708522c0ec63fdc598e1a9ca264d64a1ff2a614fa1fb221dd99196de5ed4bceaa9f376f140dfba61')
 
 build() {
   arch-meson pantheon-calculator build
