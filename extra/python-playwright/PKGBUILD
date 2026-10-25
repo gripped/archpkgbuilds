@@ -4,7 +4,7 @@
 
 _name=playwright-python
 pkgname=python-playwright
-pkgver=1.64.0
+pkgver=1.64.1
 pkgrel=1
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
 arch=(any)
@@ -33,8 +33,8 @@ checkdepends=(python-autobahn
               python-requests)
 source=(git+https://github.com/microsoft/$_name#tag=v$pkgver
         https://registry.npmjs.org/playwright-core/-/playwright-core-$pkgver.tgz)
-sha256sums=('4f0609f98d93c3ecd12063c5e789b8c5d072304f7d03c274f5e846c33ee70376'
-            '90c8b6b19da0a1b1e9a004cd6ff3e49e82668a0856e01efcc0e2d9c2b4466bb6')
+sha256sums=('a375c7e33314a432bafd63c3efb59a51823d6587fcb233036bb5eaa646ced6c0'
+            '3af03703c967c95037454f2283f709d53ce804a4776d4219d319f5bbcc2a0185')
 
 prepare() {
   zip -qr playwright-$pkgver-linux.zip package
