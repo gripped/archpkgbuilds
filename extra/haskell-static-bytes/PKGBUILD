@@ -2,16 +2,16 @@
 
 _hkgname=static-bytes
 pkgname=haskell-static-bytes
-pkgver=0.1.1
-pkgrel=9
+pkgver=0.2.0
+pkgrel=1
 pkgdesc="A Haskell library to provide companion threads."
 url="https://github.com/commercialhaskell/companion"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-memory' 'haskell-primitive' 'haskell-rio' 'haskell-vector')
+depends=('ghc-libs' 'haskell-primitive' 'haskell-ram' 'haskell-rio' 'haskell-vector')
 makedepends=('ghc' 'haskell-hspec' 'haskell-quickcheck')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('5994a9a345592d16f04812bfeb77512b8e0769b1601d4fc2b035a4dab6f040eb513dd0e8ab88e2cfc77c47f0a461b7e399a281362f32fd0e713cbe2aff323bf3')
+sha512sums=('56e74bbf71b9c0959dbbd754a29817a8bea3c48d158a26380a3ef3ba73508203227a3ffd495a945bcc0ec070fddf4a3366780ecc463641bdb5a4753474e78e57')
 
 build() {
   cd $_hkgname-$pkgver
