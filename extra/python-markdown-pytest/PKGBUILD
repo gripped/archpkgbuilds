@@ -1,0 +1,47 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-markdown-pytest
+pkgver=0.6.6
+pkgrel=1
+pkgdesc="Pytest plugin for running tests directly from Markdown files"
+arch=('any')
+url="https://github.com/mosquito/markdown-pytest"
+license=('Apache-2.0')
+depends=('python' 'python-pytest')
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+  'python-wheel'
+)
+checkdepends=('python-pytest-asyncio')
+optdepends=('python-pytest-asyncio: async Markdown tests')
+source=("git+https://github.com/mosquito/markdown-pytest.git#tag=$pkgver")
+sha512sums=('f275bb72912178dbefaccbf0f1fe0d6d713144ce14bfa0fd45a3a1fb23aea967c5ba71516c468fc8b53419c233bcbe0c58a4247c1130c6851cb6f5a8aa546a6e')
+
+prepare() {
+  cd markdown-pytest
+  # Upstream stamps the release version after checking out the tag.
+  # https://github.com/mosquito/markdown-pytest/blob/0.6.6/.github/workflows/publish.yml
+  sed -i "s/^version = .*/version = \"$pkgver\"/" pyproject.toml
+}
+
+build() {
+  cd markdown-pytest
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd markdown-pytest
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Match upstream CI; docs/ contains illustrative examples outside the test suite.
+  test-env/bin/python -m pytest README.md tests/
+}
+
+package() {
+  cd markdown-pytest
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
