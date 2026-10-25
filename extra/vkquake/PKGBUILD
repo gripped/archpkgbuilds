@@ -5,14 +5,15 @@
 
 pkgname=vkquake
 pkgver=1.37.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Quake for Vulkan'
 arch=(x86_64)
 url='https://github.com/Novum/vkquake'
 license=(GPL-2.0-or-later)
-depends=(flac glibc librequake libvorbis mpg123 opusfile sdl3 vulkan-icd-loader)
+depends=(flac glibc libvorbis mpg123 opusfile sdl3 vulkan-icd-loader)
 makedepends=(gendesk glslang meson spirv-tools vulkan-headers vulkan-validation-layers)
-optdepends=('quake: quake command and desktop shortcut')
+optdepends=('quake: quake command and desktop shortcut'
+            'librequake: open source quake resources')
 provides=(quake-engine)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
 b2sums=('d2253469cc8f9b1a3796ea2d27e84abf905b40ccf7715417b8886f07f53d085982b594e8b8d362de3e744190ef59703e7c05ebc4fd529ebcb77dd049bc1458d7')
