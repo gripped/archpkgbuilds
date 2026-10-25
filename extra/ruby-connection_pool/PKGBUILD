@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-connection_pool
-pkgver=2.4.1
-pkgrel=5
+pkgver=2.5.0
+pkgrel=1
 pkgdesc='Generic connection pool for Ruby'
 arch=(any)
 url='https://github.com/mperham/connection_pool'
@@ -11,6 +11,7 @@ depends=(
   ruby
 )
 makedepends=(
+  git
   ruby-minitest
   ruby-rake
 )
@@ -18,17 +19,18 @@ checkdepends=(
   ruby-bundler
 )
 options=(!emptydirs)
-source=(https://github.com/mperham/connection_pool/archive/v$pkgver/$pkgname-$pkgver.tar.gz)
-sha256sums=('434649e14ffec71b46789f28198df008b51b314a378158a4aa577a0e3c5f2740')
+source=("git+https://github.com/mperham/connection_pool.git#tag=v$pkgver")
+sha256sums=('af57e90f51f874f965c220067b299df94ec2c4d9807f836e8bc2bbcdacac9885')
 
 prepare() {
-  cd connection_pool-$pkgver
+  cd connection_pool
+  # Avoid loading the upstream formatter when running the test suite.
   sed '/standard/d' -i Rakefile
 }
 
 build() {
   local _gemdir="$(gem env gemdir)"
-  cd connection_pool-$pkgver
+  cd connection_pool
   gem build connection_pool.gemspec
   gem install \
     --local \
@@ -54,12 +56,12 @@ build() {
 
 check() {
   local _gemdir="$(gem env gemdir)"
-  cd connection_pool-$pkgver
+  cd connection_pool
   GEM_HOME="tmp_install/$_gemdir" rake test
 }
 
 package() {
-  cd connection_pool-$pkgver
+  cd connection_pool
   cp -a tmp_install/* "$pkgdir"/
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
