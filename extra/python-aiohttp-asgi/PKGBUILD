@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-aiohttp-asgi
+pkgver=0.6.1
+pkgrel=1
+pkgdesc="Adapter for running ASGI applications on aiohttp"
+arch=('any')
+url="https://github.com/mosquito/aiohttp-asgi"
+license=('Apache-2.0')
+depends=('python' 'python-aiohttp')
+makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
+checkdepends=('python-fastapi' 'python-pytest' 'python-pytest-asyncio')
+# Upstream has no 0.6.1 tag; this commit matches the PyPI release and includes tests.
+# https://github.com/mosquito/aiohttp-asgi/issues/16
+source=("git+https://github.com/mosquito/aiohttp-asgi.git#commit=b4ead4e7052e61548a34c18b72ebe19f198a2393")
+sha512sums=('9e9178171bd981a56d470bc5b11e5808576e061263e9fcf8681dd5a2aa1887f6ec96388625cdd25540a020b26fbe0062d326f8b46c97059c48572bb930eac7b9')
+
+build() {
+  cd aiohttp-asgi
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd aiohttp-asgi
+  python -m pytest
+}
+
+package() {
+  cd aiohttp-asgi
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.md -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
