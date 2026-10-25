@@ -1,0 +1,38 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-aiocarbon
+pkgver=0.16.0
+pkgrel=1
+pkgdesc="Asynchronous client for Carbon"
+arch=('any')
+url="https://github.com/mosquito/aiocarbon"
+license=('Apache-2.0')
+depends=('python' 'python-immutables')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-pytest' 'python-pytest-asyncio')
+source=("git+https://github.com/mosquito/aiocarbon.git#tag=$pkgver"
+        'python-asyncio.patch')
+sha512sums=('4f6b2b34f93a1726591e06098970e3112cfa96bc57328a5f07a5bb2d58da44eb7e0bd3ec9873ea6f6c0da87235f98f4922cf184a0272aa1cff76926a1d17cfcf'
+            'e3afcbd28c7702c9696e44ffeb2dcf132c2ee4c324e14ef91ec9aa5991924514ef4c7145d6e78981b36a750d8af99a19b3b741b8becff15de60add288c6333b3')
+
+prepare() {
+  cd aiocarbon
+  # Remove obsolete asyncio loop arguments and use pytest-asyncio's running loop.
+  patch -Np1 -i "$srcdir/python-asyncio.patch"
+}
+
+build() {
+  cd aiocarbon
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd aiocarbon
+  python -m pytest
+}
+
+package() {
+  cd aiocarbon
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENCE.md -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
