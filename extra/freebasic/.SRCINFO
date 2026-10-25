@@ -1,19 +1,20 @@
 pkgbase = freebasic
 	pkgdesc = A free BASIC compiler
-	pkgver = 1.10.2
-	pkgrel = 2
+	pkgver = 1.10.3
+	pkgrel = 1
 	url = https://www.freebasic.net/
 	arch = x86_64
 	license = GPL-2.0-or-later
 	license = LGPL-2.1-or-later
 	makedepends = freebasic
+	makedepends = git
 	makedepends = libxpm
 	makedepends = gpm
 	makedepends = libxrandr
 	makedepends = mesa
 	depends = ncurses
 	options = !lto
-	source = https://downloads.sourceforge.net/fbc/FreeBASIC-1.10.2-source.tar.xz
-	sha512sums = 6b770f02e0703fda97a38e941f7029af735867d88cf9ae5934b4a3dc166bd3d28db746f75b85de83c3ace8cef2d014be308fa4ed45a932e4fada95be1969c37f
+	source = freebasic::git+https://git.code.sf.net/p/fbc/code#tag=1.10.3
+	sha512sums = 9f32e734afaa096bd8f87bcf14b122beeb25c07c850e77ae7ada4dd212ded168862336fc92b585bba62edc211391b8611757ba507dc1dcf70b1539d12e33c0e2
 
 pkgname = freebasic
