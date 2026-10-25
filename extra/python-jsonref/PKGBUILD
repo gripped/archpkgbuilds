@@ -1,0 +1,44 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-jsonref
+pkgver=1.1.0
+pkgrel=1
+pkgdesc='Automatic dereferencing of JSON Reference objects for Python'
+arch=(any)
+url='https://github.com/gazpachoking/jsonref'
+license=(MIT)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-pdm-backend
+)
+checkdepends=(python-pytest)
+optdepends=('python-requests: improved encoding detection for HTTP references')
+source=("git+https://github.com/gazpachoking/jsonref.git#tag=v$pkgver")
+b2sums=('f410754efc822bbcfcf9c8dc3109b032be3e549092b97c88050f9bdfb82cbba2372b2c65467031ed79e62f818637c583b8719cd70087a90bde938152d205d92a')
+
+prepare() {
+  cd jsonref
+  # Replace the deprecated pdm-pep517 build backend with pdm-backend.
+  # https://github.com/gazpachoking/jsonref/commit/f18f30772df086bebdcc9b1b76a35558b4a0a897
+  git cherry-pick -n f18f30772df086bebdcc9b1b76a35558b4a0a897
+}
+
+build() {
+  cd jsonref
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd jsonref
+  # Upstream's suite filename is outside pytest's default discovery patterns.
+  python -m pytest tests.py
+}
+
+package() {
+  cd jsonref
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
