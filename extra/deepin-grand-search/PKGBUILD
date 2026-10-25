@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-grand-search
-pkgver=6.0.19
+pkgver=6.0.21
 pkgrel=1
 pkgdesc='System-wide desktop search for DDE'
 arch=('x86_64')
@@ -11,10 +11,11 @@ license=('GPL-3.0-or-later')
 depends=(deepin-anything deepin-application-manager deepin-service-manager deepin-util-dfm deepin-shell taglib ffmpeg icu deepin-pdfium ffmpegthumbnailer lucene++
          deepin-qt-dbus-factory dtk6core dtk6gui dtk6widget qt6-base qt6-5compat)
 makedepends=(git cmake deepin-desktop-base deepin-tray-loader ninja qt6-tools boost)
+optdepends=('deepin-manual: for viewing the bundled help manual')
 groups=(deepin-extra)
 source=("git+https://github.com/linuxdeepin/dde-grand-search.git#tag=$pkgver"
          dfm-search-sync.patch)
-sha512sums=('28862a07729cbe1afcd46fa82d99e83f4470c117f9d6bb88e048a1c2d3a8086d3809277ddd955b8be89c6b2c1125712460984db556fb424c6afffeb301da6715'
+sha512sums=('4c94ff33d9209d476032e8b3ffadbb814bebcb5559162d65ec1f64f75c61204cd29c6fcab6cf08de164549c067dfa29a6220d1cf2f00ddda8aaa3b17d22fb517'
             '5a04f3800bef8e1309a31f6641678661247a03c16b6f412b9452142b269919a752a16386247cb69d8e36ce39b0344cc8acd5918363a509c09c43ba69ce3b7f8f')
 
 prepare() {
