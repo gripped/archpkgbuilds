@@ -4,7 +4,7 @@
 
 pkgname=caja
 pkgver=1.28.0
-pkgrel=5
+pkgrel=6
 pkgdesc="File manager for the MATE desktop"
 arch=(x86_64)
 url='https://github.com/mate-desktop/caja'
@@ -43,12 +43,10 @@ groups=(mate)
 source=(
   "git+https://github.com/mate-desktop/caja.git#tag=v$pkgver"
   git+https://github.com/mate-desktop/mate-submodules.git
-  caja-csd-window-position.patch
 )
 b2sums=(
   0d45b556f962d9bbfe9803257af5c8114bf8d2ec26d3fb46e05c53ed09c9dd65ef19bd28b290b79e0bba8f21042d1913e1a2451b0eeb7e9e3e62b5b3059e7cce
   SKIP
-  1a0971fda0fef3e6c77ea07facda5cbdb112990e8e20218d965136896a9acfc4e14d3c2702e470a4c52232475c663265f9812ab69fa5e3577a4cbbd5be5ddc26
 )
 
 prepare() {
@@ -69,7 +67,11 @@ prepare() {
 
   # Fix desktop window position with client-side decorations
   # https://github.com/mate-desktop/caja/pull/1912
-  git apply -3 ../caja-csd-window-position.patch
+  git cherry-pick -n f9d032e7da27c9f23ae57e626ed9cb2a9965146f
+
+  # Use standard icon name
+  # https://github.com/mate-desktop/caja/pull/1914
+  git cherry-pick -n 4de76eb28dd3a4198dbca9199b37c596684bddcf
 
   # Remove OnlyShowIn from caja-browser.desktop
   # https://github.com/mate-desktop/caja/pull/1913
