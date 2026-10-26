@@ -1,6 +1,6 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=(clpeak clpeak-cuda)
-pkgver=3.0.3
+pkgver=3.0.4
 pkgrel=1
 pkgdesc="A tool which profiles OpenCL devices to find their peak capacities (OpenCL/Vulkan support)"
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=("Unlicense")
 depends=('ocl-icd' 'libgcc' 'libstdc++' 'glibc' 'vulkan-icd-loader')
 makedepends=('cmake' 'opencl-headers' 'ninja' 'git' 'vulkan-headers' 'shaderc' 'cuda' 'clang')
 source=(git+https://github.com/krrishnarraj/clpeak#tag=$pkgver)
-sha512sums=('3408c4641e4e1c3fd37e1c851b5a9c8c93f88af899f9ffe4a0a31f829c85c2bbcb673277ee714b320ddf3690b9f7518f950194952f07cece477e1b61d4ddfc47')
+sha512sums=('40323875b5d780e15c2103ad5bceef6740b90086e31b5f3c967595b74b62476496b2564fa7bcaa423cd8e69c2986e9d66d0c2821cb08d0865fb59db347b43ea2')
 
 build() {
   cd clpeak
