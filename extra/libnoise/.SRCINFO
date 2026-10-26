@@ -1,11 +1,14 @@
 pkgbase = libnoise
 	pkgdesc = A portable, open-source, coherent noise-generating library for C++
 	pkgver = 1.0.0
-	pkgrel = 7
+	pkgrel = 8
 	url = http://libnoise.sourceforge.net/
 	arch = x86_64
-	license = LGPL
+	license = LGPL-2.0-only
 	makedepends = cmake
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
 	source = https://prdownloads.sourceforge.net/libnoise/libnoisesrc-1.0.0.zip
 	source = CMakeLists.txt
 	sha512sums = 02fd600ad60d668d230ecc9d2f34020c0e3b8d1365c9ec78ae795c7031224fc2624080764824a4f899571d848587578c80a70e879b22463774435f16c3d06529
