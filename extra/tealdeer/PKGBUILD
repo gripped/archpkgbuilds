@@ -3,7 +3,7 @@
 # Contributor: Maxim Andersson <thesilentboatman@gmail.com>
 
 pkgname=tealdeer
-pkgver=1.9.0
+pkgver=1.9.1
 pkgrel=1
 pkgdesc='A fast tldr client in Rust'
 arch=(x86_64)
@@ -15,8 +15,8 @@ provides=(tldr)
 conflicts=(tldr)
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('643be84ae30c44d4bf33d0e3418c5947253f931027c4184da8580a427bcb879b9174d9002804aa3c7d771fbf78ce80299aaceca37fad50e8ae4cae988a29c8c5')
-b2sums=('e7d7e8e7adf62d582958dd4d07e8b1dbdff152590fa233fe0a3a66281548500cf226d0d8c9079f9de72c4548e188fe63a46937ed2d7360615ace8dda3687e6e6')
+sha512sums=('bfe51ca889dbd825f727c3ffd7065e9e91e474b7180297de38b48d70496eccbbb42978e0301d3113a5e982b4ead3b070bfdca75e60d735f11049d8e9b93e6d7c')
+b2sums=('0e7f99a94d3385039d7de146661f63b2aef90b0a7a7c2976a9fa3f1f249942d6721658eedd4c7afe152f1ba10aa4de36c3bd95b4eba16bd18880fd87b30083b3')
 
 prepare() {
   cd "$pkgname"
