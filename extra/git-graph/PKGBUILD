@@ -1,7 +1,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-graph
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc='show clear git graphs arranged following different branching model'
 arch=(x86_64)
@@ -14,7 +14,7 @@ depends=(glibc # libc.so
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('129880bcf23a15653c72fbaa831c326a9009fff94892173fc1b281ef63f59beb')
+sha256sums=('0694bcf963c7a0ba865303fa03f1b7382031271e651625ac55a97aeb340f36b4')
 
 prepare() {
 	cd "$_archive"
