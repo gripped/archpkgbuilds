@@ -1,9 +1,9 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-websocket
-pkgver=0.30.1
+pkgver=0.30.2
 pkgrel=1
-pkgdesc='An async websocket library on top of websocket-driver'
+pkgdesc='An async websocket library on top of protocol-websocket'
 arch=(any)
 url='https://github.com/socketry/async-websocket'
 license=(MIT)
@@ -30,11 +30,11 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=("git+${url}.git#tag=v${pkgver}")
-sha256sums=('9a31ffa7ead5c9793ad51a03a9ddc4efdc1fdc550a581a8df2ede3b57d48283e')
+sha256sums=('d24094357b69fa9599755fd72b940d025e0fedbda44ff2d0704da83857128937')
 
 prepare() {
   cd async-websocket
-  sed -r -e 's|~>|>=|g' -e '/signing_key/d' -i async-websocket.gemspec
+  sed -r -e 's|~>|>=|g' -i async-websocket.gemspec
   sed --in-place \
     --expression '/group :maintenance/,/end/d' \
     --expression '/rubocop/d' \
