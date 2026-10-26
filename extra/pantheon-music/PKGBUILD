@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-music
-pkgver=8.1.0
+pkgver=9.0.0
 pkgrel=1
 pkgdesc='The Pantheon Music Player'
 arch=(x86_64)
@@ -33,14 +33,8 @@ optdepends=(
   'gst-plugins-bad: "Bad" plugin libraries'
   'gst-plugins-ugly: "Ugly" plugin libraries'
 )
-_tag=17a8a701d65c0fd88e1a7b6fa4e4668dd7fa228e
-source=(pantheon-music::git+https://github.com/elementary/music.git#tag=${_tag})
-b2sums=('88f079014b975353ee33e65a44f887e23c41ed8d7a58a70e689ca79d865d7d17f5180e6a8be5e70e7d7ac0fa2fe23cc72400b5f55de181039e4ee837bc95fc02')
-
-pkgver() {
-  cd pantheon-music
-  git describe --tags
-}
+source=(pantheon-music::git+https://github.com/elementary/music.git#tag=${pkgver})
+b2sums=('5218ba7d669c34651374f5ed4a8992eba70771b3abd952e3158a7d29ef1600f9efc3b50bdd737e3cfc1b314586d68cc748c54d25299c5ea44f37c55382a3fad4')
 
 build() {
   arch-meson pantheon-music build
