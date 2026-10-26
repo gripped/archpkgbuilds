@@ -1,6 +1,6 @@
 pkgbase = pantheon-screenshot
 	pkgdesc = The Pantheon Screenshot Tool
-	pkgver = 8.0.4
+	pkgver = 9.0.0
 	pkgrel = 1
 	url = https://github.com/elementary/screenshot
 	arch = x86_64
@@ -11,13 +11,17 @@ pkgbase = pantheon-screenshot
 	makedepends = intltool
 	makedepends = meson
 	makedepends = vala
+	depends = dconf
 	depends = gdk-pixbuf2
 	depends = glib2
+	depends = glibc
 	depends = gtk4
+	depends = hicolor-icon-theme
 	depends = libcanberra
 	depends = libgranite-7.so
 	depends = libportal
-	source = pantheon-screenshot::git+https://github.com/elementary/screenshot.git#tag=8.0.4
-	b2sums = 2c9b93a915469d35dbc96b98379042b35f97c93fa68fc630ed890361d92a6717ae21fe6ba586ca2ce6498f2153f91445482da4bb75866213557c28198398f672
+	depends = pango
+	source = pantheon-screenshot::git+https://github.com/elementary/screenshot.git#tag=9.0.0
+	b2sums = 8296310473807c7f6d6be167d6ef94dce171f586b29ad5316825f2a4699b239f985977c2ee79962b584f8f2d42220b1d0c67b6ba04a52f4effa45d16173e011f
 
 pkgname = pantheon-screenshot
