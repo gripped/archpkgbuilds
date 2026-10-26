@@ -3,7 +3,7 @@
 # Contributor: gilbus
 
 pkgname=swayidle
-pkgver=1.9.0
+pkgver=1.9.1
 pkgrel=1
 license=('MIT')
 pkgdesc="Idle management daemon for Wayland"
@@ -22,7 +22,7 @@ url="https://github.com/swaywm/swayidle"
 source=(
     "git+$url.git#tag=v$pkgver?signed"
 )
-sha256sums=('8451569ab48eb24286281c5f5e124a6d68ed1008b7911426b0f5521df03adf29')
+sha256sums=('e4408e63747883c62695f53d76f801eddecfaa0aa7e3a17ec2eb6ea76ac27015')
 validpgpkeys=('34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48'  # Simon Ser
               '9DDA3B9FA5D58DD5392C78E652CB6609B22DA89A') # Drew DeVault
 
