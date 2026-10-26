@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=libretro-beetle-supergrafx
-pkgver=20260420.173343.g3c6fcd3deded
+pkgver=20261006.014627.g9c11dcd213a7
 pkgrel=1
 pkgdesc='NEC SuperGrafx core'
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(
 )
 makedepends=(git)
 source=(libretro-beetle-supergrafx::git+https://github.com/libretro/beetle-supergrafx-libretro.git#commit=${pkgver##*.g})
-b2sums=('70c15e9d20f0fca0a3c5643aeb29adeedf76ce7e5b69349ce6a473e3e40cbef1575a9d0185b831729c4144762cb87708290e51925b532bb2230b88f592593ed8')
+b2sums=('0a8f72e5e87b948607f4652b3bb058ad18b64fde41d71e75f883ec6267d61a897c1ef6dcac1f382d0de9bed64ae8be0f906a946524489cd028434e0b0c89a064')
 
 build() {
   make \
