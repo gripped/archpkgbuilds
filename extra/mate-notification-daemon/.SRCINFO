@@ -1,7 +1,7 @@
 pkgbase = mate-notification-daemon
 	pkgdesc = Notification daemon for MATE
 	pkgver = 1.29.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/mate-desktop/mate-notification-daemon
 	arch = x86_64
 	groups = mate
@@ -26,6 +26,8 @@ pkgbase = mate-notification-daemon
 	depends = libxml2
 	optdepends = mate-panel: Panel applet
 	source = git+https://github.com/mate-desktop/mate-notification-daemon.git#tag=v1.29.0
+	source = mate-notification-daemon-fix-in-process.patch
 	b2sums = 362719e89592ca256aeacd8a7a84597c98b85710a0cb6fd0f47282725dff3ae64796b215237f7074c61d0a68db1f2378248d12175c2aff8d742bf4b22d05c925
+	b2sums = 764302674a53167e33919f0b089d337203738601aab6d6c597a369e74e0b7224a702292ccb50b8286f60f03ba049f3d90e38d222d77f9e625f4e5490aa9d9203
 
 pkgname = mate-notification-daemon

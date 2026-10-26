@@ -1,0 +1,64 @@
+From 9a81446d2b84569736ecfcd6449ffba94ce83463 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Oct 2026 13:36:09 +0200
+Subject: [PATCH] capplet: Fixes for the panel applet in in-process mode
+
+Don't use gtk_show_about_dialog(), and don't set default icon if build as
+in-process, because these will interfere with other applets.
+
+Also, use glib/gi18n-lib.h instead of glib/gi18n.h in
+mate-notification-applet-history to ensure that translations use proper
+gettext domain.
+---
+ src/capplet/mate-notification-applet-history.c | 2 +-
+ src/capplet/mate-notification-applet.c         | 9 +++++++--
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/src/capplet/mate-notification-applet-history.c b/src/capplet/mate-notification-applet-history.c
+index 5cbafdea..63cfe3a5 100644
+--- a/src/capplet/mate-notification-applet-history.c
++++ b/src/capplet/mate-notification-applet-history.c
+@@ -20,7 +20,7 @@
+ 
+ #include "config.h"
+ 
+-#include <glib/gi18n.h>
++#include <glib/gi18n-lib.h>
+ #include <gtk/gtk.h>
+ #include <gdk/gdkkeysyms.h>
+ 
+diff --git a/src/capplet/mate-notification-applet.c b/src/capplet/mate-notification-applet.c
+index 8d1f6c79..d2ac376e 100644
+--- a/src/capplet/mate-notification-applet.c
++++ b/src/capplet/mate-notification-applet.c
+@@ -188,7 +188,8 @@ show_about (GtkAction              *action,
+   (void) action;
+   (void) applet;
+ 
+-  gtk_show_about_dialog (NULL,
++  GtkWidget *about = g_object_new (GTK_TYPE_ABOUT_DIALOG,
++                         "program-name", _("Notification Status"),
+                          "title", _("About Notification Status"),
+                          "version", VERSION,
+                          "copyright", _("Copyright \xc2\xa9 2021 MATE developers"),
+@@ -197,6 +198,10 @@ show_about (GtkAction              *action,
+                          "translator-credits", _("translator-credits"),
+                          "logo_icon_name", "mate-notification-properties",
+                          NULL);
++
++  g_signal_connect_swapped (about, "response",
++                            G_CALLBACK (gtk_widget_destroy), about);
++  gtk_widget_show (about);
+ }
+ 
+ static void
+@@ -401,8 +406,8 @@ applet_main (MatePanelApplet *applet_widget)
+ 
+ #ifndef ENABLE_IN_PROCESS
+   g_set_application_name (_("Notification Status"));
+-#endif
+   gtk_window_set_default_icon_name ("mate-notification-properties");
++#endif
+ 
+   applet = g_new (MateNotificationApplet, 1);
+   applet->applet = applet_widget;
