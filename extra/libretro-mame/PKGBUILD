@@ -2,7 +2,7 @@
 # Contributor: Oliver Jaksch <arch-aur@com-in.de>
 
 pkgname=libretro-mame
-pkgver=20260924.184211.g9069f39340f2
+pkgver=20261009.123435.g5f5a07748ce5
 pkgrel=1
 arch=(x86_64)
 pkgdesc='MAME Arcade core'
@@ -22,7 +22,7 @@ makedepends=(
   python
 )
 source=(libretro-mame::git+https://github.com/libretro/mame.git#commit=${pkgver##*.g})
-b2sums=('e0032a7e7cd06f1b8358b8d50354268a618955b078bb905b2118305715228420769b1c20dea46d5a9defe01ed703210af1feda9e38eafe7b69e283c711ab64fa')
+b2sums=('812349e2e451e6888178bdc31037b5eafa2ac4ede26b7c565bd785573e5bd42c4791b1ecb9abdf62abf262431a6e5f46a5b58701fb110b7b11f0e01fb4207fde')
 
 build() {
   cd libretro-mame
