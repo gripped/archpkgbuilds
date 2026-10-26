@@ -2,7 +2,7 @@
 # Contributor: Tatsuyuki Ishi <ishitatsuyuki@gmail.com>
 
 pkgname=python-blessed
-pkgver=1.50
+pkgver=1.52
 pkgrel=1
 pkgdesc='A thin, practical wrapper around terminal styling, screen positioning, and keyboard input'
 arch=(any)
@@ -26,7 +26,7 @@ checkdepends=(
   python-pytest-xdist
 )
 source=(git+https://github.com/jquast/blessed.git#tag=${pkgver})
-b2sums=('93464495960c975bfb83a3976e2ea7d74afdf96169024fd97de6731ccb706267a6a85d9f9e19a0926fd8c9a322fada8b248d90883dba452ed7e8b8dda96ea1df')
+b2sums=('d734c423d862445f879d041d27a3924dd19faf13d77036373430e9700e0819f9d02fa491e5acf9d079a8df8da6f1db43da2bf417c4f590a837d50e3227f993a1')
 
 prepare() {
   cd blessed
