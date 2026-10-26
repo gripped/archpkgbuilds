@@ -14,7 +14,7 @@ pkgname=(
   caja-xattr-tags
 )
 pkgver=1.28.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Set of extensions for Caja, the MATE file manager"
 arch=(x86_64)
 url='https://github.com/mate-desktop/caja-extensions'
@@ -37,6 +37,11 @@ b2sums=(d9ec75038f763c4c5f9522b5cc92297d7fb92aca8da68c532c6281416d045ecbab046d20
 
 prepare() {
   cd $pkgbase
+
+  # image-converter: Fix UI translations
+  # https://github.com/mate-desktop/caja-extensions/pull/136
+  git cherry-pick -n bb163a5e58baa66edcef9158ad15de886bd9dca3
+
   autoreconf -fiv
 }
 
