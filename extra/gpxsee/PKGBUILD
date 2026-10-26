@@ -6,7 +6,7 @@
 
 pkgname=gpxsee
 _pkgname=GPXSee
-pkgver=16.17
+pkgver=16.18
 pkgrel=1
 pkgdesc='GPS log file viewer and analyzer'
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=('qt6-base' 'qt6-imageformats' 'qt6-positioning' 'qt6-svg'
          'glibc' 'libgcc' 'libstdc++' 'zlib')
 makedepends=('qt6-tools')
 source=(https://downloads.sourceforge.net/$pkgname/$_pkgname-$pkgver.tar.gz)
-sha256sums=('aa9d829b05cd1c7d7371aaaf7612e9bce770e649e81b65a5edbec092efb559ba')
+sha256sums=('b7e7176a754475c8b0628ec8bdb8a45438cd00fc96145e3281b1168d04bdee23')
 
 build() {
   cd $_pkgname-$pkgver
