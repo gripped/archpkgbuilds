@@ -1,0 +1,23 @@
+From 0dab7037ae708be767129b1dcb45081f42db755f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 5 Oct 2026 23:32:04 +0200
+Subject: [PATCH] font-viewer: Keep titlebar visible when maximized
+
+Do not hide the header bar when the window is maximized, as this
+causes it to disappear when client-side decorations are enabled.
+---
+ font-viewer/font-view.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/font-viewer/font-view.c b/font-viewer/font-view.c
+index dcbcb6580..c1880d146 100644
+--- a/font-viewer/font-view.c
++++ b/font-viewer/font-view.c
+@@ -881,7 +881,6 @@ font_view_application_startup (GApplication *application)
+     gtk_window_set_resizable (GTK_WINDOW (window), TRUE);
+     gtk_window_set_default_size (GTK_WINDOW (window), 800, 600);
+     gtk_window_set_icon_name (GTK_WINDOW (window), FONT_VIEW_ICON_NAME);
+-    gtk_window_set_hide_titlebar_when_maximized (GTK_WINDOW (window), TRUE);
+     gtk_window_set_title (GTK_WINDOW (window), _("Font Viewer"));
+ 
+     self->main_grid = gtk_box_new (GTK_ORIENTATION_VERTICAL, 0);

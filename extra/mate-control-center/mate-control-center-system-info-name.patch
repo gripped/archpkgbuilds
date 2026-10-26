@@ -1,0 +1,49 @@
+From b537b14b3824b06e361a386226b87c2bc0864ddb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 5 Oct 2026 04:38:21 +0200
+Subject: [PATCH] system-info: Use a generic title
+
+This aligns the naming with other dialogs.
+---
+ capplets/system-info/mate-system-info.c          | 2 +-
+ capplets/system-info/mate-system-info.desktop.in | 2 +-
+ org.mate.control-center.gschema.xml.in           | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/capplets/system-info/mate-system-info.c b/capplets/system-info/mate-system-info.c
+index 00b0d8a37..b79825907 100644
+--- a/capplets/system-info/mate-system-info.c
++++ b/capplets/system-info/mate-system-info.c
+@@ -767,7 +767,7 @@ mate_system_info_new (void)
+     dialog = g_object_new (MATE_TYPE_SYSTEM_INFO,
+                            "use-header-bar", use_header,
+                            NULL);
+-    gtk_window_set_title (GTK_WINDOW (dialog), _("Mate System Info"));
++    gtk_window_set_title (GTK_WINDOW (dialog), _("System Information"));
+     gtk_widget_set_size_request (GTK_WIDGET (dialog), 600, 500);
+     gtk_window_set_resizable  (GTK_WINDOW (dialog), FALSE);
+ 
+diff --git a/capplets/system-info/mate-system-info.desktop.in b/capplets/system-info/mate-system-info.desktop.in
+index 96408538e..e73821357 100644
+--- a/capplets/system-info/mate-system-info.desktop.in
++++ b/capplets/system-info/mate-system-info.desktop.in
+@@ -1,5 +1,5 @@
+ [Desktop Entry]
+-Name=system-info
++Name=System Information
+ Comment=View mate desktop system info
+ Exec=mate-system-info
+ # Translators: Do NOT translate or transliterate this text (this is an icon file name)!
+diff --git a/org.mate.control-center.gschema.xml.in b/org.mate.control-center.gschema.xml.in
+index 46b3d00d9..cf37cdeee 100644
+--- a/org.mate.control-center.gschema.xml.in
++++ b/org.mate.control-center.gschema.xml.in
+@@ -2,7 +2,7 @@
+     <schema id="org.mate.control-center" path="/org/mate/control-center/">
+         <child name="appearance" schema="org.mate.control-center.appearance" />
+         <key name="cc-actions-list" type="as">
+-            <default l10n="messages">[ 'Change Theme;mate-appearance-properties.desktop', 'Set Preferred Applications;mate-default-applications-properties.desktop', 'Mate System Info;mate-system-info.desktop' ]</default>
++            <default l10n="messages">[ 'Change Theme;mate-appearance-properties.desktop', 'Set Preferred Applications;mate-default-applications-properties.desktop', 'Show System Information;mate-system-info.desktop' ]</default>
+             <summary>Task names and associated .desktop files</summary>
+             <description>The task name to be displayed in the control-center followed by a ";" separator then the filename of an associated .desktop file to launch for that task.</description>
+         </key>

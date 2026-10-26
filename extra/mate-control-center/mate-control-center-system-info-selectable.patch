@@ -1,0 +1,22 @@
+From c60e6ab2737d76e79b376fb9add389daa15cde22 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 5 Oct 2026 04:45:38 +0200
+Subject: [PATCH] system-info: Mark the values as selectable
+
+This allows the users to select and copy the field values if they want.
+---
+ capplets/system-info/mate-system-info.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/capplets/system-info/mate-system-info.c b/capplets/system-info/mate-system-info.c
+index 00b0d8a37..7efee4cca 100644
+--- a/capplets/system-info/mate-system-info.c
++++ b/capplets/system-info/mate-system-info.c
+@@ -118,6 +118,7 @@ mate_system_info_row_fill (GtkWidget  *row,
+     gtk_box_pack_start (GTK_BOX (box), label, FALSE, FALSE, 6);
+ 
+     label = gtk_label_new (NULL);
++    gtk_label_set_selectable (GTK_LABEL (label), TRUE);
+     gtk_box_pack_end (GTK_BOX (box), label, FALSE, FALSE, 6);
+     g_object_set_data (G_OBJECT (row), "labelvalue", label);
+ 

@@ -1,0 +1,1586 @@
+From 53a372fc96e0c6076677c38d8d644fd7d6d95171 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 13 Oct 2026 03:16:39 +0200
+Subject: [PATCH] mouse: Move drag-and-drop and double-click settings to a
+ separate tab
+
+Move the Drag and Drop and Double Click sections to a new Behavior
+tab to reduce the vertical space required by the Mouse tab.
+
+This allows the preferences dialog to fit on a standard 1024x768
+display.
+---
+ capplets/mouse/mate-mouse-properties.c  |    2 +-
+ capplets/mouse/mate-mouse-properties.ui | 1211 ++++++++++++-----------
+ 2 files changed, 619 insertions(+), 594 deletions(-)
+
+diff --git a/capplets/mouse/mate-mouse-properties.c b/capplets/mouse/mate-mouse-properties.c
+index 15e812925..d4a80e573 100644
+--- a/capplets/mouse/mate-mouse-properties.c
++++ b/capplets/mouse/mate-mouse-properties.c
+@@ -321,7 +321,7 @@ setup_dialog (GtkBuilder *dialog)
+ 
+ 	/* Trackpad page */
+ 	if (touchpad_is_present () == FALSE)
+-		gtk_notebook_remove_page (GTK_NOTEBOOK (gtk_builder_get_object (dialog, "prefs_widget")), -1);
++		gtk_notebook_remove_page (GTK_NOTEBOOK (gtk_builder_get_object (dialog, "prefs_widget")), 1);
+ 	else {
+ 		g_settings_bind (touchpad_settings, "touchpad-enabled",
+ 		                 gtk_builder_get_object (dialog, "touchpad_enable"), "active",
+diff --git a/capplets/mouse/mate-mouse-properties.ui b/capplets/mouse/mate-mouse-properties.ui
+index f6469f6b9..f7b3d8dcb 100644
+--- a/capplets/mouse/mate-mouse-properties.ui
++++ b/capplets/mouse/mate-mouse-properties.ui
+@@ -635,137 +635,86 @@ Author: Wolfgang Ulbrich
+                     <property name="position">2</property>
+                   </packing>
+                 </child>
++              </object>
++            </child>
++            <child type="tab">
++              <object class="GtkLabel" id="label1">
++                <property name="visible">True</property>
++                <property name="can-focus">False</property>
++                <property name="label" translatable="yes">Mouse</property>
++                <property name="justify">center</property>
++              </object>
++              <packing>
++                <property name="tab-fill">False</property>
++              </packing>
++            </child>
++            <child>
++              <object class="GtkBox" id="vbox3">
++                <property name="visible">True</property>
++                <property name="can-focus">False</property>
++                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                <property name="border-width">12</property>
++                <property name="orientation">vertical</property>
++                <property name="spacing">18</property>
+                 <child>
+-                  <object class="GtkBox" id="dnd_vbox">
++                  <object class="GtkCheckButton" id="touchpad_enable">
++                    <property name="label" translatable="yes">Enable _touchpad</property>
++                    <property name="visible">True</property>
++                    <property name="can-focus">True</property>
++                    <property name="receives-default">False</property>
++                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                    <property name="halign">start</property>
++                    <property name="use-underline">True</property>
++                    <property name="draw-indicator">True</property>
++                  </object>
++                  <packing>
++                    <property name="expand">False</property>
++                    <property name="fill">False</property>
++                    <property name="position">0</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkBox" id="vbox_touchpad_general">
+                     <property name="visible">True</property>
+                     <property name="can-focus">False</property>
+                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                     <property name="orientation">vertical</property>
+                     <child>
+-                      <object class="GtkLabel" id="label8">
++                      <object class="GtkLabel" id="label18">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="halign">start</property>
+-                        <property name="label" translatable="yes">Drag and Drop</property>
++                        <property name="valign">start</property>
++                        <property name="label" translatable="yes">General</property>
+                         <attributes>
+                           <attribute name="weight" value="bold"/>
+                         </attributes>
+                       </object>
+                       <packing>
+-                        <property name="expand">True</property>
+-                        <property name="fill">True</property>
++                        <property name="expand">False</property>
++                        <property name="fill">False</property>
+                         <property name="position">0</property>
+                       </packing>
+                     </child>
+                     <child>
+-                      <object class="GtkAlignment" id="alignment6">
++                      <object class="GtkAlignment" id="alignment10">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="top-padding">6</property>
+                         <property name="left-padding">12</property>
+                         <child>
+-                          <object class="GtkBox" id="vbox7">
++                          <object class="GtkCheckButton" id="disable_w_typing_toggle">
++                            <property name="label" translatable="yes">Disable touchpad _while typing</property>
+                             <property name="visible">True</property>
+-                            <property name="can-focus">False</property>
++                            <property name="can-focus">True</property>
++                            <property name="receives-default">False</property>
+                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                            <property name="orientation">vertical</property>
+-                            <property name="spacing">12</property>
+-                            <child>
+-                              <object class="GtkBox" id="cursor_hbox2">
+-                                <property name="visible">True</property>
+-                                <property name="can-focus">False</property>
+-                                <property name="spacing">12</property>
+-                                <child>
+-                                  <object class="GtkLabel" id="threshold_label">
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="label" translatable="yes">Thr_eshold:</property>
+-                                    <property name="use-underline">True</property>
+-                                    <property name="justify">center</property>
+-                                    <property name="mnemonic-widget">drag_threshold_scale</property>
+-                                    <property name="xalign">0</property>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">False</property>
+-                                    <property name="fill">False</property>
+-                                    <property name="position">0</property>
+-                                  </packing>
+-                                </child>
+-                                <child>
+-                                  <object class="GtkBox" id="hbox9">
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="spacing">6</property>
+-                                    <child>
+-                                      <object class="GtkLabel" id="threshold_small_label">
+-                                        <property name="visible">True</property>
+-                                        <property name="can-focus">False</property>
+-                                        <property name="label" translatable="yes" comments="small threshold">Small</property>
+-                                        <property name="justify">center</property>
+-                                        <property name="xalign">1</property>
+-                                        <attributes>
+-                                          <attribute name="style" value="italic"/>
+-                                          <attribute name="scale" value="0.82999999999999996"/>
+-                                        </attributes>
+-                                      </object>
+-                                      <packing>
+-                                        <property name="expand">False</property>
+-                                        <property name="fill">False</property>
+-                                        <property name="position">0</property>
+-                                      </packing>
+-                                    </child>
+-                                    <child>
+-                                      <object class="GtkScale" id="drag_threshold_scale">
+-                                        <property name="visible">True</property>
+-                                        <property name="can-focus">True</property>
+-                                        <property name="adjustment">adjustment3</property>
+-                                        <property name="digits">0</property>
+-                                        <property name="draw-value">False</property>
+-                                        <child internal-child="accessible">
+-                                          <object class="AtkObject" id="drag_threshold_scale-atkobject">
+-                                            <property name="AtkObject::accessible-description" translatable="yes">Cursor blinks speed</property>
+-                                          </object>
+-                                        </child>
+-                                      </object>
+-                                      <packing>
+-                                        <property name="expand">True</property>
+-                                        <property name="fill">True</property>
+-                                        <property name="position">1</property>
+-                                      </packing>
+-                                    </child>
+-                                    <child>
+-                                      <object class="GtkLabel" id="threshold_large_label">
+-                                        <property name="visible">True</property>
+-                                        <property name="can-focus">False</property>
+-                                        <property name="label" translatable="yes" comments="large threshold">Large</property>
+-                                        <property name="xalign">0</property>
+-                                        <attributes>
+-                                          <attribute name="style" value="italic"/>
+-                                          <attribute name="scale" value="0.82999999999999996"/>
+-                                        </attributes>
+-                                      </object>
+-                                      <packing>
+-                                        <property name="expand">False</property>
+-                                        <property name="fill">False</property>
+-                                        <property name="position">2</property>
+-                                      </packing>
+-                                    </child>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">True</property>
+-                                    <property name="fill">True</property>
+-                                    <property name="position">1</property>
+-                                  </packing>
+-                                </child>
+-                              </object>
+-                              <packing>
+-                                <property name="expand">True</property>
+-                                <property name="fill">True</property>
+-                                <property name="position">0</property>
+-                              </packing>
+-                            </child>
++                            <property name="halign">start</property>
++                            <property name="use-underline">True</property>
++                            <property name="active">True</property>
++                            <property name="draw-indicator">True</property>
+                           </object>
+                         </child>
+                       </object>
+@@ -775,263 +724,163 @@ Author: Wolfgang Ulbrich
+                         <property name="position">1</property>
+                       </packing>
+                     </child>
+-                  </object>
+-                  <packing>
+-                    <property name="expand">False</property>
+-                    <property name="fill">True</property>
+-                    <property name="position">3</property>
+-                  </packing>
+-                </child>
+-                <child>
+-                  <object class="GtkBox" id="double_click_timeout_vbox">
+-                    <property name="visible">True</property>
+-                    <property name="can-focus">False</property>
+-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                    <property name="orientation">vertical</property>
+                     <child>
+-                      <object class="GtkLabel" id="label31">
++                      <object class="GtkAlignment" id="alignment11">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                        <property name="halign">start</property>
+-                        <property name="label" translatable="yes">Double-Click Timeout</property>
+-                        <attributes>
+-                          <attribute name="weight" value="bold"/>
+-                        </attributes>
++                        <property name="top-padding">6</property>
++                        <property name="left-padding">12</property>
++                        <child>
++                          <object class="GtkCheckButton" id="tap_to_click_toggle">
++                            <property name="label" translatable="yes">Enable _mouse clicks with touchpad</property>
++                            <property name="visible">True</property>
++                            <property name="can-focus">True</property>
++                            <property name="receives-default">False</property>
++                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                            <property name="halign">start</property>
++                            <property name="use-underline">True</property>
++                            <property name="active">True</property>
++                            <property name="draw-indicator">True</property>
++                          </object>
++                        </child>
+                       </object>
+                       <packing>
+                         <property name="expand">True</property>
+                         <property name="fill">True</property>
+-                        <property name="position">0</property>
++                        <property name="position">2</property>
+                       </packing>
+                     </child>
+                     <child>
+-                      <object class="GtkAlignment" id="alignment7">
++                      <object class="GtkAlignment" id="alignment12">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="top-padding">6</property>
+                         <property name="left-padding">12</property>
+                         <child>
+-                          <object class="GtkBox" id="vbox32">
++                          <!-- n-columns=3 n-rows=3 -->
++                          <object class="GtkGrid" id="table1">
+                             <property name="visible">True</property>
+                             <property name="can-focus">False</property>
+-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                            <property name="orientation">vertical</property>
+-                            <property name="spacing">12</property>
++                            <property name="row-spacing">3</property>
++                            <property name="column-spacing">3</property>
+                             <child>
+-                              <object class="GtkBox" id="cursor_hbox4">
++                              <object class="GtkLabel" id="label6">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
+-                                <property name="spacing">12</property>
+-                                <child>
+-                                  <object class="GtkLabel" id="timeout_label">
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="label" translatable="yes">_Timeout:</property>
+-                                    <property name="use-underline">True</property>
+-                                    <property name="justify">center</property>
+-                                    <property name="mnemonic-widget">delay_scale</property>
+-                                    <property name="xalign">0</property>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">False</property>
+-                                    <property name="fill">False</property>
+-                                    <property name="position">0</property>
+-                                  </packing>
+-                                </child>
+-                                <child>
+-                                  <object class="GtkBox" id="hbox21">
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="spacing">6</property>
+-                                    <child>
+-                                      <object class="GtkLabel" id="timeout_short_label">
+-                                        <property name="visible">True</property>
+-                                        <property name="can-focus">False</property>
+-                                        <property name="label" translatable="yes">Short</property>
+-                                        <property name="xalign">1</property>
+-                                        <attributes>
+-                                          <attribute name="style" value="italic"/>
+-                                          <attribute name="scale" value="0.82999999999999996"/>
+-                                        </attributes>
+-                                      </object>
+-                                      <packing>
+-                                        <property name="expand">False</property>
+-                                        <property name="fill">False</property>
+-                                        <property name="position">0</property>
+-                                      </packing>
+-                                    </child>
+-                                    <child>
+-                                      <object class="GtkScale" id="delay_scale">
+-                                        <property name="visible">True</property>
+-                                        <property name="can-focus">True</property>
+-                                        <property name="adjustment">adjustment4</property>
+-                                        <property name="draw-value">False</property>
+-                                        <child internal-child="accessible">
+-                                          <object class="AtkObject" id="delay_scale-atkobject">
+-                                            <property name="AtkObject::accessible-description" translatable="yes">Cursor blinks speed</property>
+-                                          </object>
+-                                        </child>
+-                                      </object>
+-                                      <packing>
+-                                        <property name="expand">True</property>
+-                                        <property name="fill">True</property>
+-                                        <property name="position">1</property>
+-                                      </packing>
+-                                    </child>
+-                                    <child>
+-                                      <object class="GtkLabel" id="timeout_long_label">
+-                                        <property name="visible">True</property>
+-                                        <property name="can-focus">False</property>
+-                                        <property name="label" translatable="yes">Long</property>
+-                                        <property name="xalign">0</property>
+-                                        <attributes>
+-                                          <attribute name="style" value="italic"/>
+-                                          <attribute name="scale" value="0.82999999999999996"/>
+-                                        </attributes>
+-                                      </object>
+-                                      <packing>
+-                                        <property name="expand">False</property>
+-                                        <property name="fill">False</property>
+-                                        <property name="position">2</property>
+-                                      </packing>
+-                                    </child>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">True</property>
+-                                    <property name="fill">True</property>
+-                                    <property name="position">1</property>
+-                                  </packing>
+-                                </child>
++                                <property name="halign">start</property>
++                                <property name="label" translatable="yes">Two-finger click emulation:</property>
+                               </object>
+                               <packing>
+-                                <property name="expand">True</property>
+-                                <property name="fill">True</property>
+-                                <property name="position">0</property>
++                                <property name="left-attach">0</property>
++                                <property name="top-attach">0</property>
+                               </packing>
+                             </child>
+                             <child>
+-                              <object class="GtkBox" id="hbox22">
++                              <object class="GtkBox" id="hbox_three_finger_click">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
+-                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                                <property name="spacing">12</property>
++                                <property name="hexpand">True</property>
+                                 <child>
+-                                  <object class="GtkLabel" id="label33">
+-                                    <property name="width-request">180</property>
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                                    <property name="halign">start</property>
+-                                    <property name="label" translatable="yes">To test your double-click settings, try to double-click on the triangle and you must see the mate desktop logo with both rings showing.</property>
+-                                    <property name="wrap">True</property>
+-                                    <attributes>
+-                                      <attribute name="style" value="italic"/>
+-                                    </attributes>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">True</property>
+-                                    <property name="fill">True</property>
+-                                    <property name="position">0</property>
+-                                  </packing>
++                                  <placeholder/>
+                                 </child>
++                              </object>
++                              <packing>
++                                <property name="left-attach">1</property>
++                                <property name="top-attach">1</property>
++                              </packing>
++                            </child>
++                            <child>
++                              <object class="GtkBox" id="hbox_two_finger_click">
++                                <property name="visible">True</property>
++                                <property name="can-focus">False</property>
++                                <property name="hexpand">True</property>
+                                 <child>
+-                                  <object class="GtkEventBox" id="double_click_eventbox">
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                                    <property name="visible-window">False</property>
+-                                    <child>
+-                                      <object class="GtkImage" id="double_click_image">
+-                                        <property name="visible">True</property>
+-                                        <property name="can-focus">False</property>
+-                                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                                        <property name="icon-name">image-missing</property>
+-                                      </object>
+-                                    </child>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">True</property>
+-                                    <property name="fill">True</property>
+-                                    <property name="position">1</property>
+-                                  </packing>
++                                  <placeholder/>
+                                 </child>
+                               </object>
+                               <packing>
+-                                <property name="expand">True</property>
+-                                <property name="fill">True</property>
+-                                <property name="position">1</property>
++                                <property name="left-attach">1</property>
++                                <property name="top-attach">0</property>
+                               </packing>
+                             </child>
++                            <child>
++                              <object class="GtkLabel" id="label9">
++                                <property name="visible">True</property>
++                                <property name="can-focus">False</property>
++                                <property name="halign">start</property>
++                                <property name="label" translatable="yes">Three-finger click emulation:</property>
++                              </object>
++                              <packing>
++                                <property name="left-attach">0</property>
++                                <property name="top-attach">1</property>
++                              </packing>
++                            </child>
++                            <child>
++                              <placeholder/>
++                            </child>
++                            <child>
++                              <placeholder/>
++                            </child>
++                            <child>
++                              <placeholder/>
++                            </child>
++                            <child>
++                              <placeholder/>
++                            </child>
++                            <child>
++                              <placeholder/>
++                            </child>
+                           </object>
+                         </child>
+                       </object>
+                       <packing>
+                         <property name="expand">True</property>
+                         <property name="fill">True</property>
+-                        <property name="position">1</property>
++                        <property name="position">3</property>
++                      </packing>
++                    </child>
++                    <child>
++                      <object class="GtkLabel" id="multi_finger_warning">
++                        <property name="visible">True</property>
++                        <property name="can-focus">False</property>
++                        <property name="halign">start</property>
++                        <property name="margin-start">12</property>
++                        <property name="margin-top">5</property>
++                        <property name="hexpand">True</property>
++                        <property name="label" translatable="yes">Warning: multi-finger emulation may disable software buttons</property>
++                        <attributes>
++                          <attribute name="style" value="italic"/>
++                        </attributes>
++                      </object>
++                      <packing>
++                        <property name="expand">False</property>
++                        <property name="fill">True</property>
++                        <property name="position">4</property>
+                       </packing>
+                     </child>
+-                  </object>
+-                  <packing>
+-                    <property name="expand">False</property>
+-                    <property name="fill">True</property>
+-                    <property name="position">4</property>
+-                  </packing>
+-                </child>
+-              </object>
+-            </child>
+-            <child type="tab">
+-              <object class="GtkLabel" id="label1">
+-                <property name="visible">True</property>
+-                <property name="can-focus">False</property>
+-                <property name="label" translatable="yes">Mouse</property>
+-                <property name="justify">center</property>
+-              </object>
+-              <packing>
+-                <property name="tab-fill">False</property>
+-              </packing>
+-            </child>
+-            <child>
+-              <object class="GtkBox" id="vbox3">
+-                <property name="visible">True</property>
+-                <property name="can-focus">False</property>
+-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                <property name="border-width">12</property>
+-                <property name="orientation">vertical</property>
+-                <property name="spacing">18</property>
+-                <child>
+-                  <object class="GtkCheckButton" id="touchpad_enable">
+-                    <property name="label" translatable="yes">Enable _touchpad</property>
+-                    <property name="visible">True</property>
+-                    <property name="can-focus">True</property>
+-                    <property name="receives-default">False</property>
+-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                    <property name="halign">start</property>
+-                    <property name="use-underline">True</property>
+-                    <property name="draw-indicator">True</property>
+                   </object>
+                   <packing>
+                     <property name="expand">False</property>
+                     <property name="fill">False</property>
+-                    <property name="position">0</property>
++                    <property name="position">1</property>
+                   </packing>
+                 </child>
+                 <child>
+-                  <object class="GtkBox" id="vbox_touchpad_general">
++                  <object class="GtkBox" id="vbox_touchpad_scrolling">
+                     <property name="visible">True</property>
+                     <property name="can-focus">False</property>
+                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                     <property name="orientation">vertical</property>
+                     <child>
+-                      <object class="GtkLabel" id="label18">
++                      <object class="GtkLabel" id="label34">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="halign">start</property>
+                         <property name="valign">start</property>
+-                        <property name="label" translatable="yes">General</property>
++                        <property name="label" translatable="yes">Scrolling</property>
+                         <attributes>
+                           <attribute name="weight" value="bold"/>
+                         </attributes>
+@@ -1043,22 +892,21 @@ Author: Wolfgang Ulbrich
+                       </packing>
+                     </child>
+                     <child>
+-                      <object class="GtkAlignment" id="alignment10">
++                      <object class="GtkAlignment" id="alignment13">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="top-padding">6</property>
+                         <property name="left-padding">12</property>
+                         <child>
+-                          <object class="GtkCheckButton" id="disable_w_typing_toggle">
+-                            <property name="label" translatable="yes">Disable touchpad _while typing</property>
++                          <object class="GtkCheckButton" id="vert_edge_scroll_toggle">
++                            <property name="label" translatable="yes">_Vertical edge scrolling</property>
+                             <property name="visible">True</property>
+                             <property name="can-focus">True</property>
+                             <property name="receives-default">False</property>
+                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                             <property name="halign">start</property>
+                             <property name="use-underline">True</property>
+-                            <property name="active">True</property>
+                             <property name="draw-indicator">True</property>
+                           </object>
+                         </child>
+@@ -1070,22 +918,21 @@ Author: Wolfgang Ulbrich
+                       </packing>
+                     </child>
+                     <child>
+-                      <object class="GtkAlignment" id="alignment11">
++                      <object class="GtkAlignment" id="alignment14">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="top-padding">6</property>
+                         <property name="left-padding">12</property>
+                         <child>
+-                          <object class="GtkCheckButton" id="tap_to_click_toggle">
+-                            <property name="label" translatable="yes">Enable _mouse clicks with touchpad</property>
++                          <object class="GtkCheckButton" id="horiz_edge_scroll_toggle">
++                            <property name="label" translatable="yes">H_orizontal edge scrolling</property>
+                             <property name="visible">True</property>
+                             <property name="can-focus">True</property>
+                             <property name="receives-default">False</property>
+                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                             <property name="halign">start</property>
+                             <property name="use-underline">True</property>
+-                            <property name="active">True</property>
+                             <property name="draw-indicator">True</property>
+                           </object>
+                         </child>
+@@ -1097,7 +944,115 @@ Author: Wolfgang Ulbrich
+                       </packing>
+                     </child>
+                     <child>
+-                      <object class="GtkAlignment" id="alignment12">
++                      <object class="GtkAlignment" id="alignment15">
++                        <property name="visible">True</property>
++                        <property name="can-focus">False</property>
++                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                        <property name="top-padding">6</property>
++                        <property name="left-padding">12</property>
++                        <child>
++                          <object class="GtkCheckButton" id="vert_twofinger_scroll_toggle">
++                            <property name="label" translatable="yes">V_ertical two-finger scrolling</property>
++                            <property name="visible">True</property>
++                            <property name="can-focus">True</property>
++                            <property name="receives-default">False</property>
++                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                            <property name="halign">start</property>
++                            <property name="use-underline">True</property>
++                            <property name="draw-indicator">True</property>
++                          </object>
++                        </child>
++                      </object>
++                      <packing>
++                        <property name="expand">True</property>
++                        <property name="fill">True</property>
++                        <property name="position">3</property>
++                      </packing>
++                    </child>
++                    <child>
++                      <object class="GtkAlignment" id="alignment16">
++                        <property name="visible">True</property>
++                        <property name="can-focus">False</property>
++                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                        <property name="top-padding">6</property>
++                        <property name="left-padding">12</property>
++                        <child>
++                          <object class="GtkCheckButton" id="horiz_twofinger_scroll_toggle">
++                            <property name="label" translatable="yes">Hor_izontal two-finger scrolling</property>
++                            <property name="visible">True</property>
++                            <property name="can-focus">True</property>
++                            <property name="receives-default">False</property>
++                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                            <property name="halign">start</property>
++                            <property name="use-underline">True</property>
++                            <property name="draw-indicator">True</property>
++                          </object>
++                        </child>
++                      </object>
++                      <packing>
++                        <property name="expand">True</property>
++                        <property name="fill">True</property>
++                        <property name="position">4</property>
++                      </packing>
++                    </child>
++                    <child>
++                      <object class="GtkAlignment" id="alignment17">
++                        <property name="visible">True</property>
++                        <property name="can-focus">False</property>
++                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                        <property name="top-padding">6</property>
++                        <property name="left-padding">12</property>
++                        <child>
++                          <object class="GtkCheckButton" id="natural_scroll_toggle">
++                            <property name="label" translatable="yes">Enable _natural scrolling</property>
++                            <property name="visible">True</property>
++                            <property name="can-focus">True</property>
++                            <property name="receives-default">False</property>
++                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                            <property name="halign">start</property>
++                            <property name="use-underline">True</property>
++                            <property name="draw-indicator">True</property>
++                          </object>
++                        </child>
++                      </object>
++                      <packing>
++                        <property name="expand">True</property>
++                        <property name="fill">True</property>
++                        <property name="position">5</property>
++                      </packing>
++                    </child>
++                  </object>
++                  <packing>
++                    <property name="expand">False</property>
++                    <property name="fill">False</property>
++                    <property name="position">2</property>
++                  </packing>
++                </child>
++                <child>
++                  <object class="GtkBox" id="vbox_touchpad_pointer_speed">
++                    <property name="visible">True</property>
++                    <property name="can-focus">False</property>
++                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                    <property name="orientation">vertical</property>
++                    <child>
++                      <object class="GtkLabel" id="label40">
++                        <property name="visible">True</property>
++                        <property name="can-focus">False</property>
++                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                        <property name="halign">start</property>
++                        <property name="label" translatable="yes">Pointer Speed</property>
++                        <attributes>
++                          <attribute name="weight" value="bold"/>
++                        </attributes>
++                      </object>
++                      <packing>
++                        <property name="expand">True</property>
++                        <property name="fill">True</property>
++                        <property name="position">0</property>
++                      </packing>
++                    </child>
++                    <child>
++                      <object class="GtkAlignment" id="alignment18">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+@@ -1105,17 +1060,20 @@ Author: Wolfgang Ulbrich
+                         <property name="left-padding">12</property>
+                         <child>
+                           <!-- n-columns=3 n-rows=3 -->
+-                          <object class="GtkGrid" id="table1">
++                          <object class="GtkGrid" id="table3">
+                             <property name="visible">True</property>
+                             <property name="can-focus">False</property>
+-                            <property name="row-spacing">3</property>
+-                            <property name="column-spacing">3</property>
++                            <property name="row-spacing">6</property>
++                            <property name="column-spacing">12</property>
+                             <child>
+-                              <object class="GtkLabel" id="label6">
++                              <object class="GtkLabel" id="touchpad_acceleration_label">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
+-                                <property name="halign">start</property>
+-                                <property name="label" translatable="yes">Two-finger click emulation:</property>
++                                <property name="label" translatable="yes">_Acceleration:</property>
++                                <property name="use-underline">True</property>
++                                <property name="justify">center</property>
++                                <property name="mnemonic-widget">touchpad_accel_scale</property>
++                                <property name="xalign">0</property>
+                               </object>
+                               <packing>
+                                 <property name="left-attach">0</property>
+@@ -1123,39 +1081,140 @@ Author: Wolfgang Ulbrich
+                               </packing>
+                             </child>
+                             <child>
+-                              <object class="GtkBox" id="hbox_three_finger_click">
++                              <object class="GtkBox" id="hbox30">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
++                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                 <property name="hexpand">True</property>
++                                <property name="spacing">6</property>
+                                 <child>
+-                                  <placeholder/>
++                                  <object class="GtkLabel" id="touchpad_acceleration_slow_label">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="label" translatable="yes" comments="slow acceleration">Slow</property>
++                                    <property name="justify">center</property>
++                                    <property name="xalign">1</property>
++                                    <attributes>
++                                      <attribute name="style" value="italic"/>
++                                      <attribute name="scale" value="0.82999999999999996"/>
++                                    </attributes>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="fill">True</property>
++                                    <property name="position">0</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkScale" id="touchpad_accel_scale">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">True</property>
++                                    <property name="adjustment">adjustment11</property>
++                                    <property name="draw-value">False</property>
++                                    <property name="value-pos">right</property>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">True</property>
++                                    <property name="fill">True</property>
++                                    <property name="position">1</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkLabel" id="touchpad_acceleration_fast_label">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="label" translatable="yes" comments="fast acceleration">Fast</property>
++                                    <property name="justify">center</property>
++                                    <property name="xalign">0</property>
++                                    <attributes>
++                                      <attribute name="style" value="italic"/>
++                                      <attribute name="scale" value="0.82999999999999996"/>
++                                    </attributes>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="fill">True</property>
++                                    <property name="position">2</property>
++                                  </packing>
+                                 </child>
+                               </object>
+                               <packing>
+                                 <property name="left-attach">1</property>
+-                                <property name="top-attach">1</property>
++                                <property name="top-attach">0</property>
+                               </packing>
+                             </child>
+                             <child>
+-                              <object class="GtkBox" id="hbox_two_finger_click">
++                              <object class="GtkBox" id="hbox31">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
++                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                 <property name="hexpand">True</property>
++                                <property name="spacing">6</property>
+                                 <child>
+-                                  <placeholder/>
++                                  <object class="GtkLabel" id="touchpad_sensitivity_low_label">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="label" translatable="yes" comments="low sensitivity">Low</property>
++                                    <property name="justify">center</property>
++                                    <property name="xalign">1</property>
++                                    <attributes>
++                                      <attribute name="style" value="italic"/>
++                                      <attribute name="scale" value="0.82999999999999996"/>
++                                    </attributes>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="fill">True</property>
++                                    <property name="position">0</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkScale" id="touchpad_sensitivity_scale">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">True</property>
++                                    <property name="adjustment">adjustment22</property>
++                                    <property name="digits">0</property>
++                                    <property name="draw-value">False</property>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">True</property>
++                                    <property name="fill">True</property>
++                                    <property name="position">1</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkLabel" id="touchpad_sensitivity_high_label">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="label" translatable="yes" comments="high sensitivity">High</property>
++                                    <property name="justify">center</property>
++                                    <property name="xalign">0</property>
++                                    <attributes>
++                                      <attribute name="style" value="italic"/>
++                                      <attribute name="scale" value="0.82999999999999996"/>
++                                    </attributes>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="fill">True</property>
++                                    <property name="position">2</property>
++                                  </packing>
+                                 </child>
+                               </object>
+                               <packing>
+                                 <property name="left-attach">1</property>
+-                                <property name="top-attach">0</property>
++                                <property name="top-attach">1</property>
+                               </packing>
+                             </child>
+                             <child>
+-                              <object class="GtkLabel" id="label9">
++                              <object class="GtkLabel" id="touchpad_sensitivity_label">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
+-                                <property name="halign">start</property>
+-                                <property name="label" translatable="yes">Three-finger click emulation:</property>
++                                <property name="label" translatable="yes">_Sensitivity:</property>
++                                <property name="use-underline">True</property>
++                                <property name="justify">center</property>
++                                <property name="mnemonic-widget">touchpad_sensitivity_scale</property>
++                                <property name="xalign">0</property>
+                               </object>
+                               <packing>
+                                 <property name="left-attach">0</property>
+@@ -1183,209 +1242,201 @@ Author: Wolfgang Ulbrich
+                       <packing>
+                         <property name="expand">True</property>
+                         <property name="fill">True</property>
+-                        <property name="position">3</property>
+-                      </packing>
+-                    </child>
+-                    <child>
+-                      <object class="GtkLabel" id="multi_finger_warning">
+-                        <property name="visible">True</property>
+-                        <property name="can-focus">False</property>
+-                        <property name="halign">start</property>
+-                        <property name="margin-start">12</property>
+-                        <property name="margin-top">5</property>
+-                        <property name="hexpand">True</property>
+-                        <property name="label" translatable="yes">Warning: multi-finger emulation may disable software buttons</property>
+-                        <attributes>
+-                          <attribute name="style" value="italic"/>
+-                        </attributes>
+-                      </object>
+-                      <packing>
+-                        <property name="expand">False</property>
+-                        <property name="fill">True</property>
+-                        <property name="position">4</property>
++                        <property name="position">1</property>
+                       </packing>
+                     </child>
+                   </object>
+                   <packing>
+                     <property name="expand">False</property>
+-                    <property name="fill">False</property>
+-                    <property name="position">1</property>
++                    <property name="fill">True</property>
++                    <property name="position">3</property>
+                   </packing>
+                 </child>
++              </object>
++              <packing>
++                <property name="position">1</property>
++              </packing>
++            </child>
++            <child type="tab">
++              <object class="GtkLabel" id="label4">
++                <property name="visible">True</property>
++                <property name="can-focus">False</property>
++                <property name="label" translatable="yes">Touchpad</property>
++                <property name="justify">center</property>
++              </object>
++              <packing>
++                <property name="position">2</property>
++                <property name="tab-fill">False</property>
++              </packing>
++            </child>
++            <child>
++              <object class="GtkBox" id="behavior_vbox">
++                <property name="visible">True</property>
++                <property name="can-focus">False</property>
++                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                <property name="border-width">12</property>
++                <property name="orientation">vertical</property>
++                <property name="spacing">18</property>
+                 <child>
+-                  <object class="GtkBox" id="vbox_touchpad_scrolling">
++                  <object class="GtkBox" id="dnd_vbox">
+                     <property name="visible">True</property>
+                     <property name="can-focus">False</property>
+                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                     <property name="orientation">vertical</property>
+                     <child>
+-                      <object class="GtkLabel" id="label34">
++                      <object class="GtkLabel" id="label8">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="halign">start</property>
+-                        <property name="valign">start</property>
+-                        <property name="label" translatable="yes">Scrolling</property>
++                        <property name="label" translatable="yes">Drag and Drop</property>
+                         <attributes>
+                           <attribute name="weight" value="bold"/>
+                         </attributes>
+                       </object>
+-                      <packing>
+-                        <property name="expand">False</property>
+-                        <property name="fill">False</property>
+-                        <property name="position">0</property>
+-                      </packing>
+-                    </child>
+-                    <child>
+-                      <object class="GtkAlignment" id="alignment13">
+-                        <property name="visible">True</property>
+-                        <property name="can-focus">False</property>
+-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                        <property name="top-padding">6</property>
+-                        <property name="left-padding">12</property>
+-                        <child>
+-                          <object class="GtkCheckButton" id="vert_edge_scroll_toggle">
+-                            <property name="label" translatable="yes">_Vertical edge scrolling</property>
+-                            <property name="visible">True</property>
+-                            <property name="can-focus">True</property>
+-                            <property name="receives-default">False</property>
+-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                            <property name="halign">start</property>
+-                            <property name="use-underline">True</property>
+-                            <property name="draw-indicator">True</property>
+-                          </object>
+-                        </child>
+-                      </object>
+-                      <packing>
+-                        <property name="expand">True</property>
+-                        <property name="fill">True</property>
+-                        <property name="position">1</property>
+-                      </packing>
+-                    </child>
+-                    <child>
+-                      <object class="GtkAlignment" id="alignment14">
+-                        <property name="visible">True</property>
+-                        <property name="can-focus">False</property>
+-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                        <property name="top-padding">6</property>
+-                        <property name="left-padding">12</property>
+-                        <child>
+-                          <object class="GtkCheckButton" id="horiz_edge_scroll_toggle">
+-                            <property name="label" translatable="yes">H_orizontal edge scrolling</property>
+-                            <property name="visible">True</property>
+-                            <property name="can-focus">True</property>
+-                            <property name="receives-default">False</property>
+-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                            <property name="halign">start</property>
+-                            <property name="use-underline">True</property>
+-                            <property name="draw-indicator">True</property>
+-                          </object>
+-                        </child>
+-                      </object>
+-                      <packing>
+-                        <property name="expand">True</property>
+-                        <property name="fill">True</property>
+-                        <property name="position">2</property>
+-                      </packing>
+-                    </child>
+-                    <child>
+-                      <object class="GtkAlignment" id="alignment15">
+-                        <property name="visible">True</property>
+-                        <property name="can-focus">False</property>
+-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                        <property name="top-padding">6</property>
+-                        <property name="left-padding">12</property>
+-                        <child>
+-                          <object class="GtkCheckButton" id="vert_twofinger_scroll_toggle">
+-                            <property name="label" translatable="yes">V_ertical two-finger scrolling</property>
+-                            <property name="visible">True</property>
+-                            <property name="can-focus">True</property>
+-                            <property name="receives-default">False</property>
+-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                            <property name="halign">start</property>
+-                            <property name="use-underline">True</property>
+-                            <property name="draw-indicator">True</property>
+-                          </object>
+-                        </child>
+-                      </object>
+-                      <packing>
+-                        <property name="expand">True</property>
+-                        <property name="fill">True</property>
+-                        <property name="position">3</property>
+-                      </packing>
+-                    </child>
+-                    <child>
+-                      <object class="GtkAlignment" id="alignment16">
+-                        <property name="visible">True</property>
+-                        <property name="can-focus">False</property>
+-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                        <property name="top-padding">6</property>
+-                        <property name="left-padding">12</property>
+-                        <child>
+-                          <object class="GtkCheckButton" id="horiz_twofinger_scroll_toggle">
+-                            <property name="label" translatable="yes">Hor_izontal two-finger scrolling</property>
+-                            <property name="visible">True</property>
+-                            <property name="can-focus">True</property>
+-                            <property name="receives-default">False</property>
+-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                            <property name="halign">start</property>
+-                            <property name="use-underline">True</property>
+-                            <property name="draw-indicator">True</property>
+-                          </object>
+-                        </child>
+-                      </object>
+                       <packing>
+                         <property name="expand">True</property>
+                         <property name="fill">True</property>
+-                        <property name="position">4</property>
++                        <property name="position">0</property>
+                       </packing>
+                     </child>
+                     <child>
+-                      <object class="GtkAlignment" id="alignment17">
++                      <object class="GtkAlignment" id="alignment6">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="top-padding">6</property>
+                         <property name="left-padding">12</property>
+                         <child>
+-                          <object class="GtkCheckButton" id="natural_scroll_toggle">
+-                            <property name="label" translatable="yes">Enable _natural scrolling</property>
++                          <object class="GtkBox" id="vbox7">
+                             <property name="visible">True</property>
+-                            <property name="can-focus">True</property>
+-                            <property name="receives-default">False</property>
++                            <property name="can-focus">False</property>
+                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                            <property name="halign">start</property>
+-                            <property name="use-underline">True</property>
+-                            <property name="draw-indicator">True</property>
++                            <property name="orientation">vertical</property>
++                            <property name="spacing">12</property>
++                            <child>
++                              <object class="GtkBox" id="cursor_hbox2">
++                                <property name="visible">True</property>
++                                <property name="can-focus">False</property>
++                                <property name="spacing">12</property>
++                                <child>
++                                  <object class="GtkLabel" id="threshold_label">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="label" translatable="yes">Thr_eshold:</property>
++                                    <property name="use-underline">True</property>
++                                    <property name="justify">center</property>
++                                    <property name="mnemonic-widget">drag_threshold_scale</property>
++                                    <property name="xalign">0</property>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">False</property>
++                                    <property name="fill">False</property>
++                                    <property name="position">0</property>
++                                  </packing>
++                                </child>
++                                <child>
++                                  <object class="GtkBox" id="hbox9">
++                                    <property name="visible">True</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="spacing">6</property>
++                                    <child>
++                                      <object class="GtkLabel" id="threshold_small_label">
++                                        <property name="visible">True</property>
++                                        <property name="can-focus">False</property>
++                                        <property name="label" translatable="yes" comments="small threshold">Small</property>
++                                        <property name="justify">center</property>
++                                        <property name="xalign">1</property>
++                                        <attributes>
++                                          <attribute name="style" value="italic"/>
++                                          <attribute name="scale" value="0.82999999999999996"/>
++                                        </attributes>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="fill">False</property>
++                                        <property name="position">0</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkScale" id="drag_threshold_scale">
++                                        <property name="visible">True</property>
++                                        <property name="can-focus">True</property>
++                                        <property name="adjustment">adjustment3</property>
++                                        <property name="digits">0</property>
++                                        <property name="draw-value">False</property>
++                                        <child internal-child="accessible">
++                                          <object class="AtkObject" id="drag_threshold_scale-atkobject">
++                                            <property name="AtkObject::accessible-description" translatable="yes">Cursor blinks speed</property>
++                                          </object>
++                                        </child>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">True</property>
++                                        <property name="fill">True</property>
++                                        <property name="position">1</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkLabel" id="threshold_large_label">
++                                        <property name="visible">True</property>
++                                        <property name="can-focus">False</property>
++                                        <property name="label" translatable="yes" comments="large threshold">Large</property>
++                                        <property name="xalign">0</property>
++                                        <attributes>
++                                          <attribute name="style" value="italic"/>
++                                          <attribute name="scale" value="0.82999999999999996"/>
++                                        </attributes>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="fill">False</property>
++                                        <property name="position">2</property>
++                                      </packing>
++                                    </child>
++                                  </object>
++                                  <packing>
++                                    <property name="expand">True</property>
++                                    <property name="fill">True</property>
++                                    <property name="position">1</property>
++                                  </packing>
++                                </child>
++                              </object>
++                              <packing>
++                                <property name="expand">True</property>
++                                <property name="fill">True</property>
++                                <property name="position">0</property>
++                              </packing>
++                            </child>
+                           </object>
+                         </child>
+                       </object>
+                       <packing>
+                         <property name="expand">True</property>
+                         <property name="fill">True</property>
+-                        <property name="position">5</property>
++                        <property name="position">1</property>
+                       </packing>
+                     </child>
+                   </object>
+                   <packing>
+                     <property name="expand">False</property>
+-                    <property name="fill">False</property>
+-                    <property name="position">2</property>
++                    <property name="fill">True</property>
++                    <property name="position">3</property>
+                   </packing>
+                 </child>
+                 <child>
+-                  <object class="GtkBox" id="vbox_touchpad_pointer_speed">
++                  <object class="GtkBox" id="double_click_timeout_vbox">
+                     <property name="visible">True</property>
+                     <property name="can-focus">False</property>
+                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                     <property name="orientation">vertical</property>
+                     <child>
+-                      <object class="GtkLabel" id="label40">
++                      <object class="GtkLabel" id="label31">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="halign">start</property>
+-                        <property name="label" translatable="yes">Pointer Speed</property>
++                        <property name="label" translatable="yes">Double-Click Timeout</property>
+                         <attributes>
+                           <attribute name="weight" value="bold"/>
+                         </attributes>
+@@ -1397,66 +1448,97 @@ Author: Wolfgang Ulbrich
+                       </packing>
+                     </child>
+                     <child>
+-                      <object class="GtkAlignment" id="alignment18">
++                      <object class="GtkAlignment" id="alignment7">
+                         <property name="visible">True</property>
+                         <property name="can-focus">False</property>
+                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                         <property name="top-padding">6</property>
+                         <property name="left-padding">12</property>
+                         <child>
+-                          <!-- n-columns=3 n-rows=3 -->
+-                          <object class="GtkGrid" id="table3">
++                          <object class="GtkBox" id="vbox32">
+                             <property name="visible">True</property>
+                             <property name="can-focus">False</property>
+-                            <property name="row-spacing">6</property>
+-                            <property name="column-spacing">12</property>
+-                            <child>
+-                              <object class="GtkLabel" id="touchpad_acceleration_label">
+-                                <property name="visible">True</property>
+-                                <property name="can-focus">False</property>
+-                                <property name="label" translatable="yes">_Acceleration:</property>
+-                                <property name="use-underline">True</property>
+-                                <property name="justify">center</property>
+-                                <property name="mnemonic-widget">touchpad_accel_scale</property>
+-                                <property name="xalign">0</property>
+-                              </object>
+-                              <packing>
+-                                <property name="left-attach">0</property>
+-                                <property name="top-attach">0</property>
+-                              </packing>
+-                            </child>
++                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                            <property name="orientation">vertical</property>
++                            <property name="spacing">12</property>
+                             <child>
+-                              <object class="GtkBox" id="hbox30">
++                              <object class="GtkBox" id="cursor_hbox4">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
+-                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                                <property name="hexpand">True</property>
+-                                <property name="spacing">6</property>
++                                <property name="spacing">12</property>
+                                 <child>
+-                                  <object class="GtkLabel" id="touchpad_acceleration_slow_label">
++                                  <object class="GtkLabel" id="timeout_label">
+                                     <property name="visible">True</property>
+                                     <property name="can-focus">False</property>
+-                                    <property name="label" translatable="yes" comments="slow acceleration">Slow</property>
++                                    <property name="label" translatable="yes">_Timeout:</property>
++                                    <property name="use-underline">True</property>
+                                     <property name="justify">center</property>
+-                                    <property name="xalign">1</property>
+-                                    <attributes>
+-                                      <attribute name="style" value="italic"/>
+-                                      <attribute name="scale" value="0.82999999999999996"/>
+-                                    </attributes>
++                                    <property name="mnemonic-widget">delay_scale</property>
++                                    <property name="xalign">0</property>
+                                   </object>
+                                   <packing>
+                                     <property name="expand">False</property>
+-                                    <property name="fill">True</property>
++                                    <property name="fill">False</property>
+                                     <property name="position">0</property>
+                                   </packing>
+                                 </child>
+                                 <child>
+-                                  <object class="GtkScale" id="touchpad_accel_scale">
++                                  <object class="GtkBox" id="hbox21">
+                                     <property name="visible">True</property>
+-                                    <property name="can-focus">True</property>
+-                                    <property name="adjustment">adjustment11</property>
+-                                    <property name="draw-value">False</property>
+-                                    <property name="value-pos">right</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="spacing">6</property>
++                                    <child>
++                                      <object class="GtkLabel" id="timeout_short_label">
++                                        <property name="visible">True</property>
++                                        <property name="can-focus">False</property>
++                                        <property name="label" translatable="yes">Short</property>
++                                        <property name="xalign">1</property>
++                                        <attributes>
++                                          <attribute name="style" value="italic"/>
++                                          <attribute name="scale" value="0.82999999999999996"/>
++                                        </attributes>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="fill">False</property>
++                                        <property name="position">0</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkScale" id="delay_scale">
++                                        <property name="visible">True</property>
++                                        <property name="can-focus">True</property>
++                                        <property name="adjustment">adjustment4</property>
++                                        <property name="draw-value">False</property>
++                                        <child internal-child="accessible">
++                                          <object class="AtkObject" id="delay_scale-atkobject">
++                                            <property name="AtkObject::accessible-description" translatable="yes">Cursor blinks speed</property>
++                                          </object>
++                                        </child>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">True</property>
++                                        <property name="fill">True</property>
++                                        <property name="position">1</property>
++                                      </packing>
++                                    </child>
++                                    <child>
++                                      <object class="GtkLabel" id="timeout_long_label">
++                                        <property name="visible">True</property>
++                                        <property name="can-focus">False</property>
++                                        <property name="label" translatable="yes">Long</property>
++                                        <property name="xalign">0</property>
++                                        <attributes>
++                                          <attribute name="style" value="italic"/>
++                                          <attribute name="scale" value="0.82999999999999996"/>
++                                        </attributes>
++                                      </object>
++                                      <packing>
++                                        <property name="expand">False</property>
++                                        <property name="fill">False</property>
++                                        <property name="position">2</property>
++                                      </packing>
++                                    </child>
+                                   </object>
+                                   <packing>
+                                     <property name="expand">True</property>
+@@ -1464,62 +1546,52 @@ Author: Wolfgang Ulbrich
+                                     <property name="position">1</property>
+                                   </packing>
+                                 </child>
+-                                <child>
+-                                  <object class="GtkLabel" id="touchpad_acceleration_fast_label">
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="label" translatable="yes" comments="fast acceleration">Fast</property>
+-                                    <property name="justify">center</property>
+-                                    <property name="xalign">0</property>
+-                                    <attributes>
+-                                      <attribute name="style" value="italic"/>
+-                                      <attribute name="scale" value="0.82999999999999996"/>
+-                                    </attributes>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">False</property>
+-                                    <property name="fill">True</property>
+-                                    <property name="position">2</property>
+-                                  </packing>
+-                                </child>
+                               </object>
+                               <packing>
+-                                <property name="left-attach">1</property>
+-                                <property name="top-attach">0</property>
++                                <property name="expand">True</property>
++                                <property name="fill">True</property>
++                                <property name="position">0</property>
+                               </packing>
+                             </child>
+                             <child>
+-                              <object class="GtkBox" id="hbox31">
++                              <object class="GtkBox" id="hbox22">
+                                 <property name="visible">True</property>
+                                 <property name="can-focus">False</property>
+                                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+-                                <property name="hexpand">True</property>
+-                                <property name="spacing">6</property>
++                                <property name="spacing">12</property>
+                                 <child>
+-                                  <object class="GtkLabel" id="touchpad_sensitivity_low_label">
++                                  <object class="GtkLabel" id="label33">
++                                    <property name="width-request">180</property>
+                                     <property name="visible">True</property>
+                                     <property name="can-focus">False</property>
+-                                    <property name="label" translatable="yes" comments="low sensitivity">Low</property>
+-                                    <property name="justify">center</property>
+-                                    <property name="xalign">1</property>
++                                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                                    <property name="halign">start</property>
++                                    <property name="label" translatable="yes">To test your double-click settings, try to double-click on the triangle and you must see the mate desktop logo with both rings showing.</property>
++                                    <property name="wrap">True</property>
+                                     <attributes>
+                                       <attribute name="style" value="italic"/>
+-                                      <attribute name="scale" value="0.82999999999999996"/>
+                                     </attributes>
+                                   </object>
+                                   <packing>
+-                                    <property name="expand">False</property>
++                                    <property name="expand">True</property>
+                                     <property name="fill">True</property>
+                                     <property name="position">0</property>
+                                   </packing>
+                                 </child>
+                                 <child>
+-                                  <object class="GtkScale" id="touchpad_sensitivity_scale">
++                                  <object class="GtkEventBox" id="double_click_eventbox">
+                                     <property name="visible">True</property>
+-                                    <property name="can-focus">True</property>
+-                                    <property name="adjustment">adjustment22</property>
+-                                    <property name="digits">0</property>
+-                                    <property name="draw-value">False</property>
++                                    <property name="can-focus">False</property>
++                                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                                    <property name="visible-window">False</property>
++                                    <child>
++                                      <object class="GtkImage" id="double_click_image">
++                                        <property name="visible">True</property>
++                                        <property name="can-focus">False</property>
++                                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
++                                        <property name="icon-name">image-missing</property>
++                                      </object>
++                                    </child>
+                                   </object>
+                                   <packing>
+                                     <property name="expand">True</property>
+@@ -1527,60 +1599,13 @@ Author: Wolfgang Ulbrich
+                                     <property name="position">1</property>
+                                   </packing>
+                                 </child>
+-                                <child>
+-                                  <object class="GtkLabel" id="touchpad_sensitivity_high_label">
+-                                    <property name="visible">True</property>
+-                                    <property name="can-focus">False</property>
+-                                    <property name="label" translatable="yes" comments="high sensitivity">High</property>
+-                                    <property name="justify">center</property>
+-                                    <property name="xalign">0</property>
+-                                    <attributes>
+-                                      <attribute name="style" value="italic"/>
+-                                      <attribute name="scale" value="0.82999999999999996"/>
+-                                    </attributes>
+-                                  </object>
+-                                  <packing>
+-                                    <property name="expand">False</property>
+-                                    <property name="fill">True</property>
+-                                    <property name="position">2</property>
+-                                  </packing>
+-                                </child>
+-                              </object>
+-                              <packing>
+-                                <property name="left-attach">1</property>
+-                                <property name="top-attach">1</property>
+-                              </packing>
+-                            </child>
+-                            <child>
+-                              <object class="GtkLabel" id="touchpad_sensitivity_label">
+-                                <property name="visible">True</property>
+-                                <property name="can-focus">False</property>
+-                                <property name="label" translatable="yes">_Sensitivity:</property>
+-                                <property name="use-underline">True</property>
+-                                <property name="justify">center</property>
+-                                <property name="mnemonic-widget">touchpad_sensitivity_scale</property>
+-                                <property name="xalign">0</property>
+                               </object>
+                               <packing>
+-                                <property name="left-attach">0</property>
+-                                <property name="top-attach">1</property>
++                                <property name="expand">True</property>
++                                <property name="fill">True</property>
++                                <property name="position">1</property>
+                               </packing>
+                             </child>
+-                            <child>
+-                              <placeholder/>
+-                            </child>
+-                            <child>
+-                              <placeholder/>
+-                            </child>
+-                            <child>
+-                              <placeholder/>
+-                            </child>
+-                            <child>
+-                              <placeholder/>
+-                            </child>
+-                            <child>
+-                              <placeholder/>
+-                            </child>
+                           </object>
+                         </child>
+                       </object>
+@@ -1594,19 +1619,19 @@ Author: Wolfgang Ulbrich
+                   <packing>
+                     <property name="expand">False</property>
+                     <property name="fill">True</property>
+-                    <property name="position">3</property>
++                    <property name="position">4</property>
+                   </packing>
+                 </child>
+               </object>
+               <packing>
+-                <property name="position">1</property>
++                <property name="position">2</property>
+               </packing>
+             </child>
+             <child type="tab">
+-              <object class="GtkLabel" id="label4">
++              <object class="GtkLabel" id="label2">
+                 <property name="visible">True</property>
+                 <property name="can-focus">False</property>
+-                <property name="label" translatable="yes">Touchpad</property>
++                <property name="label" translatable="yes">Behavior</property>
+                 <property name="justify">center</property>
+               </object>
+               <packing>

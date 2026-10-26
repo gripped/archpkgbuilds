@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -20,3 +23,18 @@ path = [
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "mate-control-center-appearance-gtk-theme-thumbnail-size.patch",
+    "mate-control-center-default-applications-standard-icons.patch",
+    "mate-control-center-font-viewer-titlebar-maximized.patch",
+    "mate-control-center-mouse-dialog-height.patch",
+    "mate-control-center-selected-section-background.patch",
+    "mate-control-center-slab-section-title-color.patch",
+    "mate-control-center-system-info-name.patch",
+    "mate-control-center-system-info-scrollable.patch",
+    "mate-control-center-system-info-selectable.patch",
+]
+SPDX-FileCopyrightText = "mate-control-center contributors"
+SPDX-License-Identifier = "GPL-2.0-or-later"

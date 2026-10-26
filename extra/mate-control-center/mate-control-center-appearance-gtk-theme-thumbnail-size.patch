@@ -1,0 +1,44 @@
+From 068ea4ff347d7ea6ab98d8e9e844360148e6fe13 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 5 Oct 2026 20:12:19 +0200
+Subject: [PATCH] appearance: Fix GTK theme thumbnail aspect ratio
+
+Use the preferred size of the offscreen window when calculating
+the GTK theme thumbnail aspect ratio instead of the window size.
+
+This prevents theme thumbnails from being vertically compressed
+for some GTK themes.
+---
+ capplets/common/theme-thumbnail.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/capplets/common/theme-thumbnail.c b/capplets/common/theme-thumbnail.c
+index 8c92d386d..3432a6fe5 100644
+--- a/capplets/common/theme-thumbnail.c
++++ b/capplets/common/theme-thumbnail.c
+@@ -284,7 +284,6 @@ create_gtk_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
+   GtkRequisition requisition;
+   GtkAllocation allocation;
+   GdkPixbuf *pixbuf, *retval;
+-  gint width, height;
+ 
+   settings = gtk_settings_get_default ();
+   g_object_set (settings, "gtk-theme-name", (char *) theme_thumbnail_data->control_theme_name->data,
+@@ -328,8 +327,6 @@ create_gtk_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
+   gtk_widget_size_allocate (window, &allocation);
+   gtk_widget_get_preferred_size (window, &requisition, NULL);
+ 
+-  gtk_window_get_size (GTK_WINDOW (window), &width, &height);
+-
+   gtk_widget_queue_draw (window);
+   while (gtk_events_pending ())
+     gtk_main_iteration ();
+@@ -338,7 +335,7 @@ create_gtk_theme_pixbuf (ThemeThumbnailData *theme_thumbnail_data)
+ 
+   retval = gdk_pixbuf_scale_simple (pixbuf,
+                                     GTK_THUMBNAIL_SIZE,
+-                                    (int) GTK_THUMBNAIL_SIZE * (((double) height) / ((double) width)),
++                                    (int) GTK_THUMBNAIL_SIZE * (((double) requisition.height) / ((double) requisition.width)),
+                                     GDK_INTERP_BILINEAR);
+   g_object_unref (pixbuf);
+   gtk_widget_destroy (window);

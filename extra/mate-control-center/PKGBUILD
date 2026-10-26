@@ -4,7 +4,7 @@
 
 pkgname=mate-control-center
 pkgver=1.28.2
-pkgrel=1
+pkgrel=2
 pkgdesc="The Control Center for MATE"
 arch=(x86_64)
 url='https://github.com/mate-desktop/mate-control-center'
@@ -49,8 +49,30 @@ makedepends=(
   yelp-tools
 )
 groups=(mate)
-source=("git+https://github.com/mate-desktop/mate-control-center.git#tag=v$pkgver")
-b2sums=(318e6fb1e835833ccfe914bee6441a489cb5b43fc04f28544b4493af86295ac3c1ddd4e33519cd16da8402c62f2265bf647f29bd13d37b10ced1cb5c93c901e0)
+source=(
+  "git+https://github.com/mate-desktop/mate-control-center.git#tag=v$pkgver"
+  mate-control-center-system-info-scrollable.patch
+  mate-control-center-system-info-name.patch
+  mate-control-center-system-info-selectable.patch
+  mate-control-center-slab-section-title-color.patch
+  mate-control-center-selected-section-background.patch
+  mate-control-center-appearance-gtk-theme-thumbnail-size.patch
+  mate-control-center-mouse-dialog-height.patch
+  mate-control-center-default-applications-standard-icons.patch
+  mate-control-center-font-viewer-titlebar-maximized.patch
+)
+b2sums=(
+  318e6fb1e835833ccfe914bee6441a489cb5b43fc04f28544b4493af86295ac3c1ddd4e33519cd16da8402c62f2265bf647f29bd13d37b10ced1cb5c93c901e0
+  7a7190892425798ce66c7133fcc34aaabe06ab06a52fb215857433aebcd65f62ca840e81a457e2d5f469f39aa7bbd2a1e72169d3293662bb08a969dcbef22ac4
+  a176f04ee19a57dc5decce55715981385c9d1ff12aefe5b688aaf9601315e5ff93e7df4164293d04d55739677e3614144d037f84f1735e90d6c306b1e6125bd4
+  3e954370c496318b9524860acb69c9f229cfade636f970661e41e094b745f86125ecdf304b9b35695a2842c65cc28eb365a013cb410310e751de084e2f4696bf
+  5c28d72b9aacc483cc7b39b051866882726796ea7b321dce666dd5fefa44a068b6a634142c0ea9ef17e7b5cb0849897b6ba4eb643d5cf40fa0ba79b1990ca03e
+  5923c6eda3b5d3811a41935a6fd9aabffca4479bcd070a04b820146c6104880088702eb2a7a5b426142d1780b7667fd80eb3630b41f8fd70122acff9085b2de2
+  b47f8ccbbc44afc0b7ae083f134194da3a18ebaa2cfcc16d200edfc7c9d01acadbb6601401f284d4abc88e7688cb7837d7908cc11c38bf189b0050fe6a2a3f59
+  d843e3d5e115cf81b049548781eb3350159a2fe019d303faa9c7069ef5a3a4487c8a4cc2ec925203e12e07e651eb9981ef8451998d93168d889a4c944b3db9d3
+  7ef25d5e30532dbf3cdb27b26a3f0c15c5eba2a41f8ea0ce046db1a706fcaeca26a679dbf18d6059145206921a0c33a32f5b140c6385444d9c51dbcb1277e86b
+  ef0dbbe94f357d38cfe16f548e113a42dafa931806b648d62a5d3ffef5e998502222baeddc08d7ea9bc0d842bb97333445034da7ca2efce9e2d95bea6d8525a5
+)
 
 prepare() {
   cd $pkgname
@@ -58,6 +80,42 @@ prepare() {
   # Verify if theme is GTK3
   # https://github.com/mate-desktop/mate-control-center/pull/814
   git cherry-pick -n 2ab1577a0fb754042ea95847ab5e44adc0a1a1b3
+
+  # system-info: Make the window scrollable
+  # https://github.com/mate-desktop/mate-control-center/pull/823
+  git apply -3 ../mate-control-center-system-info-scrollable.patch
+
+  # system-info: Use a generic title
+  # https://github.com/mate-desktop/mate-control-center/pull/824
+  git apply -3 ../mate-control-center-system-info-name.patch
+
+  # system-info: Mark the values as selectable
+  # https://github.com/mate-desktop/mate-control-center/pull/825
+  git apply -3 ../mate-control-center-system-info-selectable.patch
+
+  # control-center: Fix selected slab section title color
+  # https://github.com/mate-desktop/mate-control-center/pull/828
+  git apply -3 ../mate-control-center-slab-section-title-color.patch
+
+  # control-center: Fix selected section background position
+  # https://github.com/mate-desktop/mate-control-center/pull/829
+  git apply -3 ../mate-control-center-selected-section-background.patch
+
+  # appearance: Fix GTK theme thumbnail aspect ratio
+  # https://github.com/mate-desktop/mate-control-center/pull/830
+  git apply -3 ../mate-control-center-appearance-gtk-theme-thumbnail-size.patch
+
+  # mouse: Move drag-and-drop and double-click settings to a separate tab
+  # https://github.com/mate-desktop/mate-control-center/pull/831
+  git apply -3 ../mate-control-center-mouse-dialog-height.patch
+
+  # default-applications: Use standard icon names
+  # https://github.com/mate-desktop/mate-control-center/pull/832
+  git apply -3 ../mate-control-center-default-applications-standard-icons.patch
+
+  # font-viewer: Keep titlebar visible when maximized
+  # https://github.com/mate-desktop/mate-control-center/pull/834
+  git apply -3 ../mate-control-center-font-viewer-titlebar-maximized.patch
 
   autoreconf -fiv
 }

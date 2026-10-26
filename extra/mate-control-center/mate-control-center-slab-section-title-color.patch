@@ -1,0 +1,30 @@
+From 6f2b922fbb2ff04f339189fb51d4e4ae9689eb33 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 5 Oct 2026 19:06:25 +0200
+Subject: [PATCH] control-center: Fix selected slab section title color
+
+The selected section title was using the selected background color
+as its foreground color, resulting in poor contrast with some
+themes, such as Adwaita.
+
+Use the normal text color for selected titles and keep the
+insensitive text color for unselected titles.
+---
+ shell/slab-section.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/shell/slab-section.c b/shell/slab-section.c
+index f86820cf5..d182b413b 100644
+--- a/shell/slab-section.c
++++ b/shell/slab-section.c
+@@ -86,8 +86,8 @@ slab_section_set_title_color (GtkWidget * widget)
+ 		if (SLAB_SECTION (widget)->selected)
+ 		{
+ 			gtk_style_context_get (context,
+-			                       GTK_STATE_FLAG_SELECTED,
+-			                       "background-color", &rgba,
++			                       GTK_STATE_FLAG_NORMAL,
++			                       "color", &rgba,
+ 			                       NULL);
+ 			set_override_color (SLAB_SECTION (widget)->title, rgba);
+ 		}
