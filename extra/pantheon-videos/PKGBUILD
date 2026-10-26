@@ -2,7 +2,7 @@
 # Contributor: Ner0 <darkelfdarkelf666@yahoo.co.uk>
 
 pkgname=pantheon-videos
-pkgver=8.0.2
+pkgver=9.0.0
 pkgrel=1
 pkgdesc='The Pantheon Video Player'
 arch=(x86_64)
@@ -35,14 +35,8 @@ optdepends=(
   'gst-plugins-bad: "Bad" plugin libraries'
   'gst-plugins-ugly: "Ugly" plugin libraries'
 )
-_tag=ad7906835fe12839e0bc04cfbcc091aacb3a8b8e
-source=(pantheon-videos::git+https://github.com/elementary/videos.git#tag=${_tag})
-sha256sums=('adc2f22e19b678031efa17ffc8431550b6f2d231a341ce2f43a6f58dd069c2ec')
-
-pkgver() {
-  cd pantheon-videos
-  git describe --tags
-}
+source=(pantheon-videos::git+https://github.com/elementary/videos.git#tag=${pkgver})
+b2sums=('705c0a8b76c4fdaea6d0dd1f8ec729a261a9c9d21f4caa0693bc7a3fd57dfb0698b81d23c4e0428b111f803e9757b9ef55156f9a839cac4dfc70da84ea4da067')
 
 build() {
   arch-meson pantheon-videos build
