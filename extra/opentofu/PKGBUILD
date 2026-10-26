@@ -3,7 +3,7 @@
 # Contributor: Marcel Campello <marcel@prafrentex.com.br>
 
 pkgname=opentofu
-pkgver=1.13.1
+pkgver=1.13.2
 pkgrel=1
 pkgdesc="Lets you declaratively manage your cloud infrastructure"
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(
 provides=(terragrunt-iac-provider)
 options=(!lto)
 source=("git+$url.git#tag=v$pkgver")
-b2sums=('47fa6392dd40ebf1972bb9c78628d2a95e80c8228e38cf20386ea7ed72878132e16b2217a2ffc86ef9c6d8340cf388c4e8b46f3a84205b7e39327cf4032a1785')
+b2sums=('e555147bb84b0cf662931ad7df71303510db864e5ce1e024c77ab46ca42160a5c04e2681c4ee7c9d373f7384493f545ce133b40a624789311d74654549a078ed')
 
 prepare() {
   cd $pkgname
