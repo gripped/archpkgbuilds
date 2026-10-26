@@ -1,4 +1,4 @@
-From 86c7783afda3199c8dc17a718a07a18ca6a763de Mon Sep 17 00:00:00 2001
+From 182e736f1e57dcb723ba038df2114bacf369a399 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sat, 17 Oct 2026 02:33:06 +0200
 Subject: [PATCH] Fix undecorating maximized windows
@@ -9,11 +9,11 @@ for windows that are maximized when restored from the minimized state.
 
 Also, skip undecorating windows that are excluded by the existing rules.
 ---
- maximus/maximus-app.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ maximus/maximus-app.c | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
 diff --git a/maximus/maximus-app.c b/maximus/maximus-app.c
-index e1967a9..083d2a5 100644
+index e1967a9..3130e12 100644
 --- a/maximus/maximus-app.c
 +++ b/maximus/maximus-app.c
 @@ -305,9 +305,10 @@ is_excluded (MaximusApp *app, WnckWindow *window)
@@ -30,12 +30,31 @@ index e1967a9..083d2a5 100644
      ; /* Is good to maximise */
    else
      return TRUE;
-@@ -375,7 +376,7 @@ on_window_opened (WnckScreen  *screen,
+@@ -355,6 +356,7 @@ on_window_opened (WnckScreen  *screen,
+   MaximusAppPrivate *priv;
+   WnckWindowType type;
+   gboolean decorated = FALSE;
++  gboolean excluded = FALSE;
+   GdkDisplay *gdk_display = gdk_display_get_default ();
+   
+   g_return_if_fail (MAXIMUS_IS_APP (app));
+@@ -365,7 +367,9 @@ on_window_opened (WnckScreen  *screen,
+   if (type != WNCK_WINDOW_NORMAL)
+     return;
+ 
+-  if (!is_excluded (app, window) && !no_maximize && !priv->no_maximize)
++  excluded = is_excluded (app, window);
++
++  if (!excluded && !no_maximize && !priv->no_maximize)
+     wnck_window_maximize (window);
+ 
+   /* Ignore undecorated windows */
+@@ -375,7 +379,7 @@ on_window_opened (WnckScreen  *screen,
      return;
    g_object_set_data (G_OBJECT (window), "exclude", GINT_TO_POINTER (!decorated));
  
 -  if (decorated && priv->undecorate)
-+  if (!is_excluded (app, window) && priv->undecorate)
++  if (!excluded && decorated && priv->undecorate)
    {
      /* Only undecorate right now if the window is smaller than the screen */
      if (wnck_window_is_maximized (window) && !window_is_too_large_for_screen (window))
