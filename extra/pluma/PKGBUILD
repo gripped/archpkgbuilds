@@ -4,7 +4,7 @@
 
 pkgname=pluma
 pkgver=1.28.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A powerful text editor for MATE"
 arch=(x86_64)
 url='https://github.com/mate-desktop/pluma'
@@ -53,6 +53,10 @@ prepare() {
   git submodule init
   git config submodule.mate-submodules.url "$srcdir/mate-submodules"
   git -c protocol.file.allow=always submodule update
+
+  # Use standard icon names
+  # https://github.com/mate-desktop/pluma/pull/745
+  git cherry-pick -n bf73b8a83b34c308f854f996d3685d10ccf93157
 
   autoreconf -fiv
 }
