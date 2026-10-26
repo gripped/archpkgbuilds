@@ -1,7 +1,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=python-patiencediff
-pkgver=0.2.19
+pkgver=1.0.2
 pkgrel=1
 pkgdesc='Patiencediff Python and C implementations'
 arch=(x86_64)
@@ -9,6 +9,7 @@ url=https://www.breezy-vcs.org/
 license=(GPL-2.0-only)
 depends=(
   glibc
+  libgcc
   python
 )
 makedepends=(
@@ -20,7 +21,7 @@ makedepends=(
   python-wheel
 )
 source=(git+https://github.com/breezy-team/patiencediff.git#tag=v${pkgver})
-sha256sums=('5a46331731121377bf8533f39d4387020fb78063bf6bbcd683a6613e18f280b3')
+b2sums=('e483b1e2e01180be6b56f377ed21f293342f182881cd9bc60baba4e083fb38eea519d15b019da298528b0680b85e3e758cff594a03a8e4c1b38a444ed3160590')
 
 build() {
   cd patiencediff
