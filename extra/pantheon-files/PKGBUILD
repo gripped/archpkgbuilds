@@ -1,8 +1,8 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=pantheon-files
-pkgver=7.3.2
-pkgrel=2
+pkgver=7.3.3
+pkgrel=1
 pkgdesc='The Pantheon File Browser'
 arch=(x86_64)
 url=https://github.com/elementary/files
@@ -39,7 +39,7 @@ optdepends=(
   'tumbler: Thumbnails generation'
 )
 source=(pantheon-files::git+https://github.com/elementary/files.git#tag=${pkgver})
-b2sums=('2eda765fcad6409f926d8194783c894d28775ce1218106599b418d07d4420a6e97cb883877363b994ac522504d0414972180474482fd75cbd579c0b59f308b8a')
+b2sums=('580b3a59019468dd99c19a26a5f75f35169ffc87e7dcdbd9475dbc62573bc6fda67102cfbe3ee4604eaeaddc544bc76fcf8e8b2a92f8ea4bb3a95d53879b54ee')
 
 build() {
   export CFLAGS+=" -Wno-implicit-function-declaration"
