@@ -1,0 +1,23 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-forklib
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="Fork and supervise Python processes"
+arch=('any')
+url="https://github.com/mosquito/forklib"
+license=('Apache-2.0')
+depends=('python')
+makedepends=('python-build' 'python-installer' 'python-setuptools')
+source=("https://files.pythonhosted.org/packages/source/f/forklib/forklib-$pkgver.tar.gz")
+sha256sums=('54c682a1223b50be5b0570f0f32d13f07a19db9bb6e83d9fa8a7e837ffbc3b1f')
+
+build() {
+  cd forklib-$pkgver
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd forklib-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
