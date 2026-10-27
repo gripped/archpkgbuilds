@@ -2,7 +2,7 @@
 
 pkgname=linenoise-ng
 pkgver=1.0.1
-pkgrel=3
+pkgrel=4
 pkgdesc='A small self-contained alternative to readline and libedit that supports UTF-8 and Windows'
 arch=(x86_64)
 url='https://github.com/arangodb/linenoise-ng'
@@ -16,6 +16,7 @@ build() {
   cmake -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_CXX_FLAGS="$CXXFLAGS -ffat-lto-objects" \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -S . \
         -B build
   cmake --build build
