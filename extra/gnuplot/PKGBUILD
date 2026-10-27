@@ -6,7 +6,7 @@
 pkgbase=gnuplot
 pkgname=(gnuplot
          gnuplot-demos)
-pkgver=6.0.5
+pkgver=6.0.6
 pkgrel=1
 pkgdesc='Plotting package which outputs to X11, PostScript, PNG, GIF, and others' 
 arch=(x86_64)
@@ -36,7 +36,7 @@ makedepends=(emacs
              qt6-tools
              texlive-latexextra)
 source=(git+https://git.code.sf.net/p/gnuplot/gnuplot-main#tag=$pkgver)
-sha256sums=('5e233554287cb0cf301a80161e626bf0be68f73d6b2a5bedcde1f0416c3cca1a')
+sha256sums=('6f1315339779a70a19c450ab429fa0bf0c1721f928beddc323719699642ed527')
 
 prepare() {
   cd gnuplot-main
