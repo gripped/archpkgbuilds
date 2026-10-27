@@ -2,7 +2,7 @@
 
 pkgname=dagger
 pkgver=0.21.11
-pkgrel=1
+pkgrel=2
 pkgdesc='A portable devkit for CI/CD pipelines'
 arch=(x86_64)
 url='https://dagger.io'
@@ -10,7 +10,7 @@ license=(Apache-2.0)
 depends=(glibc)
 makedepends=(
   git
-  'go=2:1.26.6'
+  go
 )
 options=(!lto)
 source=("$pkgname::git+https://github.com/dagger/dagger.git#tag=v$pkgver")
