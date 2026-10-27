@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=python-gaphas
-pkgver=5.1.2
+pkgver=5.1.3
 pkgrel=1
 pkgdesc='Diagramming widget library for Python'
 arch=(any)
@@ -28,7 +28,7 @@ checkdepends=(
   xorg-server-xvfb
 )
 source=("git+https://github.com/gaphor/gaphas.git#tag=$pkgver")
-b2sums=(0c9e536a1016189b525ec1ae10806ab76602f7bb891c5193a57710929cd5a809ca0bf651574b1999337e784e0156d4d80f0e94c5cf8c969efb9b0d9c665786cd)
+b2sums=(4de7671316579956a8568535aab48ef4f1899b4c5ea2744e10d9d84cb9e9bf1838ee6808ec221526b31953e99c8cc1543db89c48b0e071fa3ccb4e61019fd57d)
 
 build() {
   cd gaphas
