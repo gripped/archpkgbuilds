@@ -1,0 +1,210 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgbase=python-opentelemetry
+pkgname=(
+  'python-opentelemetry-api'
+  'python-opentelemetry-sdk'
+  'python-opentelemetry-semantic-conventions'
+  'python-opentelemetry-proto'
+  'python-opentelemetry-test-utils'
+  'python-opentelemetry-exporter-http-transport'
+  'python-opentelemetry-exporter-otlp'
+  'python-opentelemetry-exporter-otlp-common'
+  'python-opentelemetry-exporter-otlp-proto-common'
+  'python-opentelemetry-exporter-otlp-proto-grpc'
+  'python-opentelemetry-exporter-otlp-proto-http'
+)
+pkgver=1.45.1
+pkgrel=3
+pkgdesc="OpenTelemetry Python API, SDK and exporters"
+arch=('any')
+url="https://github.com/open-telemetry/opentelemetry-python"
+license=('Apache-2.0')
+depends=('python')
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+)
+checkdepends=(
+  'python-asgiref'
+  'python-flaky'
+  'python-googleapis-common-protos'
+  'python-grpcio'
+  'python-mocket'
+  'python-protobuf'
+  'python-psutil'
+  'python-pytest'
+  'python-pytest-benchmark'
+  'python-requests'
+  'python-typing_extensions'
+  'python-urllib3'
+)
+source=("git+https://github.com/open-telemetry/opentelemetry-python.git#tag=v$pkgver")
+sha256sums=('c56494b52a4241a2a34e0a6d0f3eb539fddecdd8ebf92f6cd7fda21ee1111851')
+
+_components=(
+  opentelemetry-api
+  opentelemetry-sdk
+  opentelemetry-semantic-conventions
+  opentelemetry-proto
+  tests/opentelemetry-test-utils
+  exporter/opentelemetry-exporter-http-transport
+  exporter/opentelemetry-exporter-otlp
+  exporter/opentelemetry-exporter-otlp-common
+  exporter/opentelemetry-exporter-otlp-proto-common
+  exporter/opentelemetry-exporter-otlp-proto-grpc
+  exporter/opentelemetry-exporter-otlp-proto-http
+)
+
+build() {
+  local component
+  for component in "${_components[@]}"; do
+    cd "$srcdir/opentelemetry-python/$component"
+    python -m build --wheel --no-isolation
+  done
+}
+
+check() {
+  local component
+  cd "$srcdir"
+  python -m venv --system-site-packages --without-pip test-env
+
+  # Install all siblings together to resolve the SDK/test-utils dependency cycle.
+  for component in "${_components[@]}"; do
+    test-env/bin/python -m installer "opentelemetry-python/$component"/dist/*.whl
+  done
+
+  for component in "${_components[@]}"; do
+    cd "$srcdir/opentelemetry-python/$component"
+    PATH="$srcdir/test-env/bin:$PATH" "$srcdir/test-env/bin/python" -m pytest
+  done
+}
+
+package_python-opentelemetry-api() {
+  pkgdesc="OpenTelemetry Python API"
+  depends+=('python-typing_extensions')
+
+  cd opentelemetry-python/opentelemetry-api
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-sdk() {
+  pkgdesc="OpenTelemetry Python SDK"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-semantic-conventions'
+    'python-typing_extensions'
+  )
+
+  cd opentelemetry-python/opentelemetry-sdk
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-semantic-conventions() {
+  pkgdesc="OpenTelemetry Semantic Conventions"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-typing_extensions'
+  )
+
+  cd opentelemetry-python/opentelemetry-semantic-conventions
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-proto() {
+  pkgdesc="OpenTelemetry Python Proto"
+  depends+=('python-protobuf')
+
+  cd opentelemetry-python/opentelemetry-proto
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-test-utils() {
+  pkgdesc="Test utilities for OpenTelemetry unit tests"
+  depends+=(
+    'python-asgiref'
+    'python-opentelemetry-api'
+    'python-opentelemetry-sdk'
+    'python-requests'
+  )
+
+  cd opentelemetry-python/tests/opentelemetry-test-utils
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-exporter-http-transport() {
+  pkgdesc="OpenTelemetry Exporters HTTP transport"
+  depends+=('python-opentelemetry-api')
+  optdepends=(
+    'python-requests: requests HTTP transport'
+    'python-urllib3: urllib3 HTTP transport'
+  )
+
+  cd opentelemetry-python/exporter/opentelemetry-exporter-http-transport
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-exporter-otlp() {
+  pkgdesc="OpenTelemetry Collector Exporters"
+  depends+=(
+    'python-opentelemetry-exporter-otlp-proto-grpc'
+    'python-opentelemetry-exporter-otlp-proto-http'
+  )
+
+  cd opentelemetry-python/exporter/opentelemetry-exporter-otlp
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-exporter-otlp-common() {
+  pkgdesc="OpenTelemetry OTLP HTTP export utilities"
+  depends+=('python-opentelemetry-sdk')
+  optdepends=('python-opentelemetry-exporter-http-transport: OTLP HTTP client support')
+
+  cd opentelemetry-python/exporter/opentelemetry-exporter-otlp-common
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-exporter-otlp-proto-common() {
+  pkgdesc="OpenTelemetry Protobuf encoding"
+  depends+=('python-opentelemetry-proto')
+
+  cd opentelemetry-python/exporter/opentelemetry-exporter-otlp-proto-common
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-exporter-otlp-proto-grpc() {
+  pkgdesc="OpenTelemetry Collector Protobuf over gRPC Exporter"
+  depends+=(
+    'python-googleapis-common-protos'
+    'python-grpcio'
+    'python-opentelemetry-api'
+    'python-opentelemetry-exporter-otlp-common'
+    'python-opentelemetry-exporter-otlp-proto-common'
+    'python-opentelemetry-proto'
+    'python-opentelemetry-sdk'
+    'python-typing_extensions'
+  )
+
+  cd opentelemetry-python/exporter/opentelemetry-exporter-otlp-proto-grpc
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-exporter-otlp-proto-http() {
+  pkgdesc="OpenTelemetry Collector Protobuf over HTTP Exporter"
+  depends+=(
+    'python-googleapis-common-protos'
+    'python-opentelemetry-api'
+    'python-opentelemetry-exporter-http-transport'
+    'python-opentelemetry-exporter-otlp-common'
+    'python-opentelemetry-exporter-otlp-proto-common'
+    'python-opentelemetry-proto'
+    'python-opentelemetry-sdk'
+    'python-requests'
+    'python-typing_extensions'
+  )
+
+  cd opentelemetry-python/exporter/opentelemetry-exporter-otlp-proto-http
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
