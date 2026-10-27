@@ -2,28 +2,34 @@
 # Contributor: Sam Stuewe <halosghost at archlinux dot info>
 
 pkgname=hashcat
-pkgver=7.1.2
-pkgrel=2
+pkgver=8.0.0
+pkgrel=1
 epoch=1
 pkgdesc='Multithreaded advanced password recovery utility'
 url='https://hashcat.net/hashcat'
 arch=('x86_64')
-depends=('ocl-icd' 'xxhash' 'zlib' 'minizip')
-makedepends=('opencl-headers' 'rust')
+depends=(
+  clang-libs
+  minizip
+  ocl-icd
+  xxhash
+  zlib
+)
+makedepends=(
+  opencl-headers
+  rust
+)
 provides=('libhashcat.so')
 license=('MIT')
 source=(
   https://hashcat.net/files/${pkgname}-${pkgver}.tar.gz{,.asc}
-  hashcat-fix-wrong-crc-include-on-m17220_a3-pure.cl.patch::https://github.com/hashcat/hashcat/commit/66d2f3b9c0e3e75c62c9f10f766d042fecf8f457.patch
 )
-sha512sums=('89213058aaa2be3aa62dfab8acd5c61a7c8bd58a63ce2c3c1472960e122ca554f63482cb201f4e285acb97d94b1c1038bc93a203d66bd5a428f31ad8c709873c'
-            'SKIP'
-            '070a83c853716a56adf74ba779c07c4e4850df569116ea58f0ee2adda5c72e0e6b2b452847b6913c46cb5df3ea9f548345d40eb47ad1777cf28767cbb7407ec0')
+sha512sums=('8059a20d59852d1bcfcbcd4f36825b71568000c87e3d821e67dd115e17aeecd43d346072a7aee5d6c4de05dccbb395462f6a12c7481691ea60d5ffe3de5e08f3'
+            'SKIP')
 validpgpkeys=('A70833229D040B4199CC00523C17DA8B8A16544F') # Hashcat signing key <signing@hashcat.net>
 
 prepare() {
   cd ${pkgname}-${pkgver}
-  patch -Np1 < ../hashcat-fix-wrong-crc-include-on-m17220_a3-pure.cl.patch
   sed -ri 's!^(HASHCAT_ROOT=).*!\1\"/usr/bin\"!' extra/tab_completion/${pkgname}.sh
 }
 
