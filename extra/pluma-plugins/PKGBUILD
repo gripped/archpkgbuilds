@@ -1,0 +1,53 @@
+# Maintainer: Alexander Epaneshnikov <alex19ep@archlinux.org>
+# Contributor: Brad Fanella <cesura@archlinux.org>
+# Contributor: Martin Wimpress <code@flexion.org>
+
+pkgname=pluma-plugins
+pkgver=1.28.0
+pkgrel=2
+pkgdesc="A set of plugins for Pluma"
+arch=(x86_64)
+url='https://github.com/mate-desktop/pluma-plugins'
+license=(GPL-2.0-or-later)
+depends=(
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  gtksourceview4
+  libgcc
+  libpeas
+  pango
+  pluma
+  python
+  python-dbus
+  python-gobject
+  vte3
+)
+makedepends=(
+  git
+  yelp-tools
+)
+groups=(mate-extra)
+source=("git+https://github.com/mate-desktop/pluma-plugins.git#tag=v$pkgver")
+b2sums=(85b1b7edb15e11156ce3cde343696b49b0f8af90ae98e43f3b4976a6e1fc49569f4e1e2041137571874f27d54678abe5ddfed77026ffbc5cd9bd7358d66d63c1)
+
+prepare() {
+  cd $pkgname
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}
