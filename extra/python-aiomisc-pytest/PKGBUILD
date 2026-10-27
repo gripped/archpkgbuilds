@@ -1,0 +1,35 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-aiomisc-pytest
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="Pytest integration for aiomisc"
+arch=('any')
+url="https://github.com/aiokitchen/aiomisc-pytest"
+license=('MIT')
+depends=('python' 'python-aiomisc' 'python-pytest')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-uvloop')
+optdepends=('python-uvloop: uvloop event loop support')
+# Upstream publishes without release tags; this commit matches PyPI 2.0.0 and includes tests.
+# https://github.com/aiokitchen/aiomisc-pytest/issues/6
+source=("git+https://github.com/aiokitchen/aiomisc-pytest.git#commit=b6f974d9ce1dc892b6c33d6e5b04a36f092b9c57")
+b2sums=('abf487a67a3fa5046efd41e0a280acbb1cdc38677e8337761f20f304503e7b2e1f57e8255a98d1beb9cee89e8a6726064a58cf6f52915feb330bea9fa2bd0d91')
+
+build() {
+  cd aiomisc-pytest
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd aiomisc-pytest
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
+}
+
+package() {
+  cd aiomisc-pytest
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+}
