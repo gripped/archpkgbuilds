@@ -1,17 +1,17 @@
 pkgbase = coffeescript
 	pkgdesc = CoffeeScript is a little language that compiles into JavaScript
-	pkgver = 2.7.0
-	pkgrel = 2
+	pkgver = 2.7.1
+	pkgrel = 1
 	url = https://coffeescript.org
 	arch = any
 	license = MIT
+	makedepends = git
 	makedepends = npm
 	depends = nodejs
-	provides = coffee-script=2.7.0
+	provides = coffee-script=2.7.1
 	conflicts = coffee-script
 	replaces = coffee-script
-	noextract = coffeescript-2.7.0.tgz
-	source = https://registry.npmjs.org/coffeescript/-/coffeescript-2.7.0.tgz
-	sha512sums = 8735a9e93504d9dfe309c37aecbad6d5e8796ffad20ca40aea80fa54c2e582061551415ec604c7f73ddd3588a1cd7e11321cdee454d4b1498e5d5889285411fc
+	source = git+https://github.com/jashkenas/coffeescript.git#tag=2.7.1
+	sha512sums = 8cdb3ed2f2152a90ce4cb2bbc2dbc57e3b5b98107b0dc511471d1a7a1f4446c6d0bba07e7a7b18166a72b00a54ce6759f7bdf9d1dbf49ee26ab56b25eeee624e
 
 pkgname = coffeescript
