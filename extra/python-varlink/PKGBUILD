@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=python-varlink
-pkgver=32.0.0
-pkgrel=2
+pkgver=32.1.0
+pkgrel=1
 pkgdesc='Python implementation of the Varlink protocol'
 url='https://github.com/varlink/python'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-setuptools' 'python-setuptools-scm' 'python-build' 'python-installer' 'python-wheel')
 checkdepends=('python-pytest')
 source=(python-varlink::git+https://github.com/varlink/python.git#tag=$pkgver)
-sha256sums=('9525b5f2572a7050281ff361e560e5e9ce0f4152f3e5385df3a38d965396916a')
+sha256sums=('f080a0d9f1e08da9b43dd8393703ac8e94137dc82daf6d9d20c4f3468a6bd0bb')
 validpgpkeys=('E499C79F53C96A54E572FEE1C06086337C50773E')  # Jelle van der Waa
 
 build() {
