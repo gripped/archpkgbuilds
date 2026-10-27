@@ -1,7 +1,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=manora
-pkgver=2.2.8
+pkgver=2.2.10
 pkgrel=1
 pkgdesc="A simple CLI & TUI tool to display, download and save man pages as PDF files"
 url="https://github.com/Antiz96/manora"
@@ -14,7 +14,7 @@ optdepends=("zathura: fallback PDF reader"
             "zathura-pdf-mupdf: PDF support for zathura (mupdf backend)")
 options=(!lto) # aws-lc crates cause linking errors with lto enabled
 source=("git+${url}.git#tag=v${pkgver}?signed")
-sha256sums=('f3c7751d74b113724349f58bb23ce0f76eb8fe5a361d1d2129894269f7920c9a')
+sha256sums=('4e0f8fc3f464cc34da17c84c700b121e92231e0e4cdc2bef0399fddc9cbe7aa0')
 validpgpkeys=(A67CCEEBF9613C17FDE96E4ED33FAA16B937F3B2) # Robin Candau <robincandau@mailbox.org>
 
 prepare() {
