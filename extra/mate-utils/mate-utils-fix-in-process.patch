@@ -1,0 +1,148 @@
+From ad5dea2fa815454bdc1ac1412037c05f23aba82e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 22 Oct 2026 12:12:56 +0200
+Subject: [PATCH] dictionary: Fixes for the panel applet in in-process mode
+
+Set gettext domain for GtkBuilder, and use glib/gi18n-lib.h instead of
+glib/gi18n.h to ensure that translations use proper gettext domain.
+
+Also, don't use gtk_show_about_dialog(), and don't set default icon if
+build as in-process, because these will interfere with other applets.
+---
+ mate-dictionary/src/gdict-about.c         | 14 ++++++++++++--
+ mate-dictionary/src/gdict-applet.c        |  4 +++-
+ mate-dictionary/src/gdict-common.c        |  2 +-
+ mate-dictionary/src/gdict-pref-dialog.c   |  3 ++-
+ mate-dictionary/src/gdict-print.c         |  2 +-
+ mate-dictionary/src/gdict-source-dialog.c |  3 ++-
+ 6 files changed, 21 insertions(+), 7 deletions(-)
+
+diff --git a/mate-dictionary/src/gdict-about.c b/mate-dictionary/src/gdict-about.c
+index 914324ea0..b121217a2 100644
+--- a/mate-dictionary/src/gdict-about.c
++++ b/mate-dictionary/src/gdict-about.c
+@@ -25,7 +25,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include <glib/gi18n.h>
++#include <glib/gi18n-lib.h>
+ #include <gdk-pixbuf/gdk-pixbuf.h>
+ 
+ #include "gdict-about.h"
+@@ -78,7 +78,7 @@ gdict_show_about_dialog (GtkWidget *parent)
+     *p = _(*p);
+ #endif
+ 
+-  gtk_show_about_dialog (GTK_IS_WINDOW (parent) ? GTK_WINDOW (parent) : NULL,
++  GtkWidget *about = g_object_new (GTK_TYPE_ABOUT_DIALOG,
+ 			 "program-name", _("Dictionary"),
+   			 "version", VERSION,
+ 			 "title", _("About Dictionary"),
+@@ -94,5 +94,15 @@ gdict_show_about_dialog (GtkWidget *parent)
+ 			 "screen", gtk_widget_get_screen (parent),
+   			 NULL);
+ 
++  if (GTK_IS_WINDOW (parent))
++    {
++      gtk_window_set_modal (GTK_WINDOW (about), TRUE);
++      gtk_window_set_transient_for (GTK_WINDOW (about), GTK_WINDOW(parent));
++      gtk_window_set_destroy_with_parent (GTK_WINDOW (about), TRUE);
++    }
++
++  g_signal_connect_swapped (about, "response",
++                            G_CALLBACK (gtk_widget_destroy), about);
++  gtk_widget_show (about);
+   g_free(license_trans);
+ }
+diff --git a/mate-dictionary/src/gdict-applet.c b/mate-dictionary/src/gdict-applet.c
+index b635456ad..743855d6a 100644
+--- a/mate-dictionary/src/gdict-applet.c
++++ b/mate-dictionary/src/gdict-applet.c
+@@ -25,7 +25,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include <glib/gi18n.h>
++#include <glib/gi18n-lib.h>
+ #include <gio/gio.h>
+ #include <gtk/gtk.h>
+ #include <gdk/gdkkeysyms.h>
+@@ -1169,7 +1169,9 @@ gdict_applet_init (GdictApplet *applet)
+   gdict_source_loader_add_search_path (priv->loader, data_dir);
+   g_free (data_dir);
+ 
++#ifndef ENABLE_IN_PROCESS
+   gtk_window_set_default_icon_name ("accessories-dictionary");
++#endif
+ 
+   mate_panel_applet_set_flags (MATE_PANEL_APPLET (applet),
+ 			  MATE_PANEL_APPLET_EXPAND_MINOR);
+diff --git a/mate-dictionary/src/gdict-common.c b/mate-dictionary/src/gdict-common.c
+index 5a78d95d3..a9bb68f1e 100644
+--- a/mate-dictionary/src/gdict-common.c
++++ b/mate-dictionary/src/gdict-common.c
+@@ -29,7 +29,7 @@
+ #include <errno.h>
+ 
+ #include <glib.h>
+-#include <glib/gi18n.h>
++#include <glib/gi18n-lib.h>
+ #include <glib/gstdio.h>
+ 
+ #include <gtk/gtk.h>
+diff --git a/mate-dictionary/src/gdict-pref-dialog.c b/mate-dictionary/src/gdict-pref-dialog.c
+index 5552ebeca..c5b3af551 100644
+--- a/mate-dictionary/src/gdict-pref-dialog.c
++++ b/mate-dictionary/src/gdict-pref-dialog.c
+@@ -30,7 +30,7 @@
+ #include <unistd.h>
+ #endif
+ 
+-#include <glib/gi18n.h>
++#include <glib/gi18n-lib.h>
+ #include <gio/gio.h>
+ 
+ #include "gdict-source-dialog.h"
+@@ -680,6 +680,7 @@ gdict_pref_dialog_init (GdictPrefDialog *dialog)
+ 
+   /* get the UI from the GtkBuilder file */
+   dialog->builder = gtk_builder_new ();
++  gtk_builder_set_translation_domain (dialog->builder, GETTEXT_PACKAGE);
+   gtk_builder_add_from_file (dialog->builder, GDICT_PREFERENCES_UI, &error);
+ 
+   if (error) {
+diff --git a/mate-dictionary/src/gdict-print.c b/mate-dictionary/src/gdict-print.c
+index 587729688..0955facd4 100644
+--- a/mate-dictionary/src/gdict-print.c
++++ b/mate-dictionary/src/gdict-print.c
+@@ -25,7 +25,7 @@
+ #include <string.h>
+ #include <math.h>
+ 
+-#include <glib/gi18n.h>
++#include <glib/gi18n-lib.h>
+ #include <gio/gio.h>
+ #include <gtk/gtk.h>
+ 
+diff --git a/mate-dictionary/src/gdict-source-dialog.c b/mate-dictionary/src/gdict-source-dialog.c
+index d8fefb64d..baf3bc729 100644
+--- a/mate-dictionary/src/gdict-source-dialog.c
++++ b/mate-dictionary/src/gdict-source-dialog.c
+@@ -30,7 +30,7 @@
+ #include <unistd.h>
+ #endif
+ 
+-#include <glib/gi18n.h>
++#include <glib/gi18n-lib.h>
+ #include <gio/gio.h>
+ 
+ #include "gdict-source-dialog.h"
+@@ -583,6 +583,7 @@ gdict_source_dialog_constructor (GType                  type,
+ 
+   /* get the UI from the GtkBuilder file */
+   dialog->builder = gtk_builder_new ();
++  gtk_builder_set_translation_domain (dialog->builder, GETTEXT_PACKAGE);
+   gtk_builder_add_from_file (dialog->builder, GDICT_SOURCE_UI, &error);
+ 
+   if (error) {
