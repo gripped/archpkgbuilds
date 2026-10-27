@@ -3,11 +3,11 @@
 
 pkgname=libreplaygain
 pkgver=475
-pkgrel=5
+pkgrel=6
 pkgdesc="A library to adjust audio gain"
 arch=('x86_64')
 url="https://www.musepack.net/index.php?pg=src"
-license=('LGPL')
+license=('LGPL-2.1-or-later')
 depends=('glibc')
 makedepends=('cmake')
 source=("https://files.musepack.net/source/${pkgname}_r${pkgver}.tar.gz")
@@ -19,6 +19,7 @@ build() {
   mkdir build
   cd build
   cmake ../${pkgname}_r${pkgver}/ \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
   make
