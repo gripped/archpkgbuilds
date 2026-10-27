@@ -3,7 +3,7 @@
 
 _pkgname=noctalia
 pkgname=noctalia
-pkgver=5.3.0
+pkgver=5.4.0
 pkgrel=1
 pkgdesc='A sleek, customizable desktop shell crafted for Wayland'
 arch=('x86_64' 'aarch64')
@@ -59,7 +59,7 @@ makedepends=(
   'wayland-protocols'
 )
 source=("${_pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver//_/-}.tar.gz")
-sha256sums=('7677b5d7da80cf89c7a8232de26d25380aa5fcaf34fb38abddd4fe7cb676161a')
+sha256sums=('47130d9cf1cdd637f5fe6f88f1706e7be900faa3e62c83390499d3daef32de59')
 
 build() {
   CXXFLAGS+=" -Wno-unused-result"
@@ -67,6 +67,9 @@ build() {
     -Db_ndebug=true \
     -Dtests=disabled
   meson compile -C build-release
+  for shell in bash fish zsh; do
+    build-release/noctalia completions "$shell" > "${shell}-completion"
+  done
 }
 
 package() {
@@ -74,4 +77,12 @@ package() {
 
   install -Dm644 "${_pkgname}-${pkgver//_/-}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install -Dm644 "${_pkgname}-${pkgver//_/-}/README.md" "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+  # shell completions
+  install -vDm644 bash-completion \
+    "$pkgdir/usr/share/bash-completion/completions/noctalia"
+  install -vDm644 fish-completion \
+    "$pkgdir/usr/share/fish/vendor_completions.d/noctalia.fish"
+  install -vDm644 zsh-completion \
+    "$pkgdir/usr/share/zsh/site-functions/_noctalia"
+
 }
