@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=refine
-pkgver=0.8.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='Tweak various aspects of GNOME'
 arch=(any)
@@ -25,7 +25,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.gnome.org/TheEvilSkeleton/Refine.git?signed#tag=$pkgver")
-b2sums=(23e79d7092ec2077aff2a5c6f1bf7e0a6bc5fc68c42d29d3e56a9a29ef27530fb6485f2372cc1aae366704db129661a49d9dd0f118f7bff896364eefc6d92724)
+b2sums=(1b80ba15f015c6f02376448475ab072d143a424f3e77a00731530f287aa942f58217b43fc6dfbb1f6beacf71ea4aba46f38f102afe707faf34ac96258ef85f43)
 validpgpkeys=(78EA2EFEF2F55C87D776F0BAFA9B0DB2217599CA) # TheEvilSkeleton <theevilskeleton@riseup.net>
 
 prepare() {
