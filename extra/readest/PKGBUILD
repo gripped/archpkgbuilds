@@ -4,16 +4,17 @@
 pkgname=readest
 _Packagename=Readest
 pkgver=0.12.16
-pkgrel=1
+pkgrel=3
 pkgdesc="Modern, feature-rich ebook reader"
 arch=('x86_64')
 url='https://github.com/readest/readest'
 license=('AGPL-3.0-or-later')
-depends=('cairo' 'desktop-file-utils' 'libgcc' 'fontconfig' 'gdk-pixbuf2' 'glib2' 'glibc' 'gtk3'
-         'hicolor-icon-theme' 'libsoup3' 'openssl' 'pango' 'webkit2gtk-4.1' 'gst-plugins-good')
+depends=('cairo' 'libgcc' 'fontconfig' 'gdk-pixbuf2' 'glib2' 'glibc' 'gtk3' 'hicolor-icon-theme' 'pango')
 makedepends=('git' 'librsvg' 'pnpm' 'npm' 'nodejs' 'rust')
-source=("git+https://github.com/readest/readest.git#tag=v$pkgver")
-sha256sums=('01c3c22c5dbc2eab32208ad134f401655eb6a2f0518de2fe22b60b4a95eb51ba')
+source=("git+https://github.com/readest/readest.git#tag=v$pkgver"
+        readest.sh)
+sha256sums=('01c3c22c5dbc2eab32208ad134f401655eb6a2f0518de2fe22b60b4a95eb51ba'
+            '4be824107dbbe6c3d18d1f3ef4c93de5101ba8ae060061f29df82bc1e1b9a590')
 options=(!lto)  # Disable Link Time Optimization. Otherwise build fails with some 'cc' linking error.
 
 prepare() {
@@ -39,5 +40,8 @@ package() {
   cd $pkgname
   cp -a target/release/bundle/deb/$_Packagename_*/data/* "${pkgdir}"
   mv "$pkgdir"/usr/share/applications/{$_Packagename,com.bilingify.readest}.desktop
+  # Replace the /usr/bin symlink with a launcher working around a CEF crash
+  rm "$pkgdir"/usr/bin/readest
+  install -Dm755 "$srcdir"/readest.sh "$pkgdir"/usr/bin/readest
   install -Dm644 data/metainfo/appdata.xml "$pkgdir"/usr/share/metainfo/com.bilingify.readest.appdata.xml
 }
