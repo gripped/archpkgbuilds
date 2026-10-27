@@ -1,0 +1,42 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-uncalled-for
+pkgver=0.4.1
+pkgrel=1
+pkgdesc='Async dependency injection for Python functions'
+arch=('any')
+url='https://github.com/chrisguidry/uncalled-for'
+license=('MIT')
+depends=('python')
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatch-vcs'
+  'python-hatchling'
+  'python-installer'
+)
+checkdepends=(
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-cov'
+  'python-pytest-randomly'
+  'python-pytest-timeout'
+)
+source=("git+https://github.com/chrisguidry/uncalled-for.git#tag=$pkgver")
+sha512sums=('5021d63e9008bdeb299e792070179ea5fedf67b089bead0a5d6bce77306ca6827969b048d4c6011ba28b4aa646dc7061dd06202935e96f1784490129900dcc48')
+
+build() {
+  cd uncalled-for
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd uncalled-for
+  PYTHONPATH=src python -m pytest
+}
+
+package() {
+  cd uncalled-for
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
