@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-daemon
-pkgver=6.1.110
+pkgver=6.1.111
 pkgrel=1
 pkgdesc='Daemon handling the DDE session settings'
 arch=('x86_64')
@@ -19,7 +19,7 @@ depends=('deepin-desktop-schemas' 'deepin-api' 'deepin-app-services'
          'accountsservice'
          # accounts/grub
          'deepin-polkit-agent' 'deepin-polkit-agent-ext-gnomekeyring'
-         # accounts/keybinding/systeminfo
+         # accounts/systeminfo
          'deepin-desktop-base'
          # accounts1/user
          'deepin-desktop-theme'
@@ -43,9 +43,7 @@ depends=('deepin-desktop-schemas' 'deepin-api' 'deepin-app-services'
          'imwheel' 'libxkbfile' 'procps-ng' 'psmisc'
          # iw
          'libnl'
-         # keybinding
-         'gvfs'
-         # keybinding/default-terminal, keybinding/shortcuts/system_shortcut.go
+         # bin/default-terminal and bin/default-file-manager
          'deepin-application-manager'
          # misc
          'librsvg'
@@ -69,14 +67,10 @@ replaces=('startdde')
 groups=('deepin')
 install="$pkgname.install"
 source=("git+https://github.com/linuxdeepin/dde-daemon.git#tag=$pkgver")
-sha512sums=('51af4747ef2f84cade534bfcf161047841c8ec4ec5c5021d2302088eb78fe25bc79db3a7514c808e044743cbba4973a7cb6b5edbe578c8e6b9f190d7231bf6e5')
+sha512sums=('826606b5248e0a80a791e2b2d1635d0c1ff9b2d69ad92a0d76bc94209de62c79afe5e5f7647442fbe368538404a88a871244d437faf3a1e976d9db50a78a2eaa')
 
 prepare() {
   cd dde-daemon
-
-  # Use Arch's /usr/lib location for shortcut helper scripts.
-  # https://github.com/linuxdeepin/developer-center/discussions/3327
-  sed -i 's#/usr/libexec#/usr/lib#' keybinding1/shortcuts/system_shortcut.go
 
   # Install helper binaries and systemd units under /usr/lib on Arch.
   # https://github.com/linuxdeepin/developer-center/discussions/3327
@@ -85,10 +79,6 @@ prepare() {
   # Keep loader wrappers pointing at the relocated helper binaries.
   # https://github.com/linuxdeepin/developer-center/discussions/3327
   sed -i 's#/usr/libexec/deepin/#/usr/lib/deepin/#' misc/scripts/*-loader-wrapper
-
-  # Read the version file installed by Arch's deepin-desktop-base package.
-  # https://github.com/linuxdeepin/dde-daemon/commit/4b2883d58d0b4eec24288ef5aa4ae1ef7b2965d5
-  sed -i 's|/etc/os-version|/etc/uos-version|' keybinding1/shortcuts/shortcut_manager.go
 
   # Use the background directory provided by Arch's deepin-wallpapers package.
   # https://github.com/linuxdeepin/dde-daemon/pull/768
