@@ -2,7 +2,7 @@
 
 _name=trimesh
 pkgname=python-$_name
-pkgver=5.1.1
+pkgver=5.2.0
 pkgrel=1
 pkgdesc="Python library for loading and using triangular meshes"
 arch=(any)
@@ -54,7 +54,7 @@ optdepends=(
   #'python-svg.path: handle SVG format path strings'
 )
 source=($_name-$pkgver.tar.gz::https://github.com/mikedh/trimesh/archive/refs/tags/$pkgver.tar.gz)
-b2sums=('b41410a4d7101158515a0e62051bcd7c7951b7a724ca0033692ad9efad50b59e896020646fea863c40688c554e4a5e0abce496f5ea53ca76264a3fe433f31f69')
+b2sums=('be7f8add0b02f1d67a682cc17ba1a28b82edc89d828bf0c30d8bbf536eba923f86d995bcf52f25fd2d53cbb54e30c06a7e7654904a94e2b444b7fa96b97eb68f')
 
 build() {
   cd $_name-$pkgver
