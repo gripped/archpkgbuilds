@@ -4,7 +4,7 @@
 
 pkgname=mozo
 pkgver=1.28.0
-pkgrel=6
+pkgrel=7
 pkgdesc="MATE menu editing tool"
 arch=(any)
 url='https://github.com/mate-desktop/mozo'
@@ -30,6 +30,10 @@ prepare() {
   # Do not leave behind stale .desktop files
   # https://github.com/mate-desktop/mozo/pull/99
   git cherry-pick -n de820bfd5669af5ff890756444459590a7106267
+
+  # Use standard icon names
+  # https://github.com/mate-desktop/mozo/pull/108
+  git cherry-pick -n 89b443b9e082bc62d0726e0ca0664e3b17ad37af
 
   autoreconf -fiv
 }
