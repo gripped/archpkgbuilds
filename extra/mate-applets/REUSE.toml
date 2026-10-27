@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -20,3 +23,20 @@ path = [
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "mate-applets-about-dialog.patch",
+    "mate-applets-command-settings-bind.patch",
+    "mate-applets-default-icon.patch",
+    "mate-applets-empty-trash-icon.patch",
+    "mate-applets-gettext-domain.patch",
+    "mate-applets-gi18n-lib.patch",
+    "mate-applets-icon-names.patch",
+    "mate-applets-netspeed-details-window.patch",
+    "mate-applets-ngettext-replace.patch",
+    "mate-applets-stickynotes-fix-hide.patch",
+    "mate-applets-stickynotes-properties-reopen.patch",
+]
+SPDX-FileCopyrightText = "mate-applets contributors"
+SPDX-License-Identifier = "GPL-2.0-or-later"
