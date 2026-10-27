@@ -1,0 +1,74 @@
+From f22acec7543c9994508a36bc0c2b5146fa59aba5 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 24 Oct 2026 19:50:00 +0200
+Subject: [PATCH] clock: Fix calendar popup positioning
+
+This fixes the problem that the calendar popup jumps into wrong position in
+some specific cases on update:
+
+- When the position is right or bottom, use the window size rather than the
+preferred size to calculate the distance from the panel.
+
+- Ensure that the position is within the screen.
+---
+ applets/clock/clock.c | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
+
+diff --git a/applets/clock/clock.c b/applets/clock/clock.c
+index 0c104f316..cf9cace32 100644
+--- a/applets/clock/clock.c
++++ b/applets/clock/clock.c
+@@ -969,9 +969,7 @@ position_calendar_popup (ClockData *cd)
+                                        &x, &y);
+ 
+                 gtk_window_get_size (GTK_WINDOW (cd->calendar_popup), &w, &h);
+-                gtk_widget_get_preferred_size (cd->calendar_popup, &req, NULL);
+-                w = req.width;
+-                h = req.height;
++                gtk_widget_get_preferred_size (cd->calendar_popup, NULL, &req);
+ 
+                 gtk_widget_get_allocation (cd->panel_button, &allocation);
+                 button_w = allocation.width;
+@@ -1007,8 +1005,8 @@ position_calendar_popup (ClockData *cd)
+                 switch (cd->orient) {
+                 case MATE_PANEL_APPLET_ORIENT_RIGHT:
+                         x += button_w;
+-                        if ((y + h) > monitor.y + monitor.height)
+-                                y -= (y + h) - (monitor.y + monitor.height);
++                        if ((y + req.height) > monitor.y + monitor.height)
++                                y = MAX (monitor.y, y - ((y + req.height) - (monitor.y + monitor.height)));
+ 
+                         if ((y + h) > (monitor.height / 2))
+                                 gravity = GDK_GRAVITY_SOUTH_WEST;
+@@ -1018,8 +1016,8 @@ position_calendar_popup (ClockData *cd)
+                         break;
+                 case MATE_PANEL_APPLET_ORIENT_LEFT:
+                         x -= w;
+-                        if ((y + h) > monitor.y + monitor.height)
+-                                y -= (y + h) - (monitor.y + monitor.height);
++                        if ((y + req.height) > monitor.y + monitor.height)
++                                y = MAX (monitor.y, y - ((y + req.height) - (monitor.y + monitor.height)));
+ 
+                         if ((y + h) > (monitor.height / 2))
+                         gravity = GDK_GRAVITY_SOUTH_EAST;
+@@ -1029,16 +1027,16 @@ position_calendar_popup (ClockData *cd)
+                         break;
+                 case MATE_PANEL_APPLET_ORIENT_DOWN:
+                         y += button_h;
+-                        if ((x + w) > monitor.x + monitor.width)
+-                                x -= (x + w) - (monitor.x + monitor.width);
++                        if ((x + req.width) > monitor.x + monitor.width)
++                                x = MAX (monitor.x, x - ((x + req.width) - (monitor.x + monitor.width)));
+ 
+                         gravity = GDK_GRAVITY_NORTH_WEST;
+ 
+                         break;
+                 case MATE_PANEL_APPLET_ORIENT_UP:
+                         y -= h;
+-                        if ((x + w) > monitor.x + monitor.width)
+-                                x -= (x + w) - (monitor.x + monitor.width);
++                        if ((x + req.width) > monitor.x + monitor.width)
++                                x = MAX (monitor.x, x - ((x + req.width) - (monitor.x + monitor.width)));
+ 
+                         gravity = GDK_GRAVITY_SOUTH_WEST;
+ 
