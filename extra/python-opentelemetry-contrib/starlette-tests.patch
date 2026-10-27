@@ -1,0 +1,66 @@
+diff --git a/instrumentation/opentelemetry-instrumentation-starlette/tests/test_starlette_instrumentation.py b/instrumentation/opentelemetry-instrumentation-starlette/tests/test_starlette_instrumentation.py
+index d75a8c793..5a12910c7 100644
+--- a/instrumentation/opentelemetry-instrumentation-starlette/tests/test_starlette_instrumentation.py
++++ b/instrumentation/opentelemetry-instrumentation-starlette/tests/test_starlette_instrumentation.py
+@@ -7,7 +7,7 @@ from unittest.mock import patch
+ 
+ from starlette import applications
+ from starlette.responses import PlainTextResponse
+-from starlette.routing import Host, Mount, Route
++from starlette.routing import Host, Mount, Route, WebSocketRoute
+ from starlette.testclient import TestClient
+ from starlette.websockets import WebSocket
+ 
+@@ -48,9 +48,9 @@ _expected_metric_names = [
+ ]
+ _recommended_attrs = {
+     "http.server.active_requests": _active_requests_count_attrs,
+-    "http.server.duration": _duration_attrs,
+-    "http.server.response.size": _duration_attrs,
+-    "http.server.request.size": _duration_attrs,
++    "http.server.duration": _duration_attrs | {HTTP_TARGET},
++    "http.server.response.size": _duration_attrs | {HTTP_TARGET},
++    "http.server.request.size": _duration_attrs | {HTTP_TARGET},
+ }
+ 
+ SCOPE = "opentelemetry.instrumentation.starlette"
+@@ -194,6 +194,7 @@ class TestStarletteManualInstrumentation(TestBase):
+             "http.scheme": "http",
+             "http.server_name": "testserver",
+             "http.status_code": 405,
++            HTTP_TARGET: "/foobar",
+             "net.host.port": 80,
+         }
+         expected_requests_count_attributes = {
+@@ -580,9 +581,6 @@ class TestBaseWithCustomHeaders(TestBase):
+ 
+     @staticmethod
+     def create_starlette_app():
+-        app = applications.Starlette()
+-
+-        @app.route("/foobar")
+         def _foobar(request):
+             return PlainTextResponse(
+                 content="hi",
+@@ -595,7 +593,6 @@ class TestBaseWithCustomHeaders(TestBase):
+                 },
+             )
+ 
+-        @app.websocket_route("/foobar_web")
+         async def _foobar_web(websocket: WebSocket) -> None:
+             message = await websocket.receive()
+             if message.get("type") == "websocket.connect":
+@@ -622,7 +619,12 @@ class TestBaseWithCustomHeaders(TestBase):
+             if message.get("type") == "websocket.disconnect":
+                 pass
+ 
+-        return app
++        return applications.Starlette(
++            routes=[
++                Route("/foobar", _foobar),
++                WebSocketRoute("/foobar_web", _foobar_web),
++            ]
++        )
+ 
+ 
+ class TestHTTPAppWithCustomHeaders(TestBaseWithCustomHeaders):
