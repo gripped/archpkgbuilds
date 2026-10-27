@@ -1,0 +1,53 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-beartype
+pkgver=0.23.1
+pkgrel=1
+pkgdesc="Fast pure-Python runtime type checker"
+arch=('any')
+url="https://github.com/beartype/beartype"
+license=('MIT')
+depends=('python')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=(
+  'mypy'
+  'pyright'
+  'python-click'
+  'python-coverage'
+  'python-docutils'
+  # 'python-fastmcp'  # Temporarily omitted to break the FastMCP bootstrap cycle.
+  'python-langchain'
+  'python-numba'
+  'python-numpy'
+  'python-pygments'
+  'python-pytest'
+  'python-pytorch'
+  'python-redis'
+  'python-rich-click'
+  'python-sqlalchemy'
+  'python-typing_extensions'
+  'python-xarray'
+)
+source=("git+https://github.com/beartype/beartype.git#tag=v$pkgver")
+sha512sums=('db3243107ebe093f78118b2519883f00c8f646b923b0d68465ada80a786c61f0ad5931f87027ae4d44e492561a47ba624169c3b065e8916fb0c6ea90a9b88540')
+
+build() {
+  cd beartype
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd beartype
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+
+  # Poetry downloads build dependencies from PyPI even with --dry-run.
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
+    --deselect=beartype_test/a90_func/a50_external/test_poetry.py::test_poetry
+}
+
+package() {
+  cd beartype
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
