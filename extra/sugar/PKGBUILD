@@ -1,8 +1,8 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=sugar
-pkgver=0.121
-pkgrel=7
+pkgver=0.122
+pkgrel=1
 pkgdesc='Sugar GTK shell'
 arch=(any)
 url='https://github.com/sugarlabs/sugar'
@@ -51,7 +51,7 @@ source=(
   dont-overwrite-settings.patch
 )
 b2sums=(
-  3573456d8a9a13d20185f2cd152d7da0890ac25e80f2318d1c5453f73805e905b8fa3a6885bf82124b11907d991ecc541af8b55453c118407533a4d528d31958
+  706d2769cf9f946abd68ab3560bbc50dadfa6b11dbe5a6bb40fdffa671a733a97d0deff84cfcd4de5c4d7e8496d3392a052983ba9369d30965576c7b4a561788
   aaf88f96a69d0c53b551b2e8e81bf5ed30e41a5711212fd7f80b08f0722eaa8528dc6d236cfc382b8457a90fb48d10c995694bebe797260e7fdfe4a1daba6166
 )
 
@@ -64,18 +64,6 @@ prepare() {
   # DSA keys are no longer supported by OpenSSH
   # https://github.com/sugarlabs/sugar/issues/1004
   sed -i 's/-t dsa/-t rsa/' src/jarabe/intro/window.py
-
-  # Replace deprecated ConfigParser readfp with read_file
-  # https://github.com/sugarlabs/sugar/pull/1005
-  sed -i 's/cp.readfp/cp.read_file/' src/jarabe/model/update/microformat.py
-
-  # Don't raise error when country name not found
-  # https://github.com/sugarlabs/sugar/pull/1006
-  sed -i 's/return self\._data\[country_code\]/return self._data.get(country_code, country_code)/' extensions/cpsection/modemconfiguration/model.py
-
-  # Port to GtkSource 4
-  # https://github.com/sugarlabs/sugar/pull/1007
-  sed -i "s/'GtkSource', '3.0'/'GtkSource', '4'/" src/jarabe/view/viewsource.py
 
   # Use correct D-Bus config location
   sed -i '/^nmservicedir =/ s/sysconfdir/datadir/' data/Makefile.am
