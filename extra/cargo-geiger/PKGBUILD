@@ -2,25 +2,25 @@
 # Contributor: Bert Peters <bert@bertptrs.nl>
 
 pkgname=cargo-geiger
-pkgver=0.13.0
+pkgver=0.14.0
 pkgrel=1
 pkgdesc="Detects usage of unsafe Rust in a Rust crate and its dependencies"
 arch=('x86_64')
-url="https://github.com/rust-secure-code/cargo-geiger"
+url="https://github.com/geiger-rs/cargo-geiger"
 license=('MIT' 'Apache-2.0')
-depends=('cargo' 'openssl' 'curl' 'libssh2' 'sqlite')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgname-$pkgver.tar.gz")
-sha256sums=('02a3999b58e45527932cc9fa60503b3197f011778dc1954909fb5fe9dd168f72')
-options=('!lto')
+depends=('cargo' 'openssl' 'curl' 'libgit2' 'libssh2' 'sqlite')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/geiger-$pkgver.tar.gz")
+sha256sums=('60bc6aa6e0169aa9be755188fd42f496b92cf8fb3b6c9e9c1c10be48fe2ea82c')
 
 prepare() {
-  mv "$pkgname-$pkgname-$pkgver" "$pkgname-$pkgver"
+  mv "$pkgname-geiger-$pkgver" "$pkgname-$pkgver"
   cd "$pkgname-$pkgver"
-  cargo fetch --locked --target "$(rustc --print host-tuple)"
+  cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd "$pkgname-$pkgver/$pkgname"
+  export LIBGIT2_NO_VENDOR=1
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
   export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   cargo build --release --frozen
@@ -28,6 +28,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
+  export LIBGIT2_NO_VENDOR=1
   export LIBSSH2_SYS_USE_PKG_CONFIG=1
   export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   cargo test --frozen
