@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-file-manager
-pkgver=6.5.49
+pkgver=6.5.49.1
 pkgrel=1
 epoch=1
 pkgdesc='Deepin File Manager'
@@ -15,7 +15,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget'
          'deepin-anything' 'deepin-util-dfm' 'deepin-shell' 'qt6-base' 'qt6-svg'
          'deepin-pdfium' 'docparser' 'libsecret' 'zlib' 'dconf' 'openssl' 'glib2'
          'libxcb' 'libx11' 'qt6-multimedia' 'cryptsetup' 'device-mapper' 'lucene++' 'avfs'
-         'polkit-qt6' 'poppler' 'taglib' 'util-linux-libs' 'icu' 'pcre2' 'glibc' 'libgcc' 'libstdc++'
+         'polkit-qt6' 'poppler' 'taglib' 'util-linux-libs' 'icu' 'pcre' 'glibc' 'libgcc' 'libstdc++'
          'deepin-appearance' 'deepin-qt-dbus-factory' 'cryfs' 'socat' 'dtklog' 'deepin-service-manager')
 makedepends=('git' 'boost' 'cmake' 'ninja' 'qt6-tools' 'deepin-tray-loader' 'deepin-movie'
              'deepin-gettext-tools')
@@ -33,7 +33,7 @@ replaces=('deepin-desktop')
 # https://github.com/linuxdeepin/developer-center/issues/5725
 options=('!lto')
 source=("git+https://github.com/linuxdeepin/dde-file-manager.git#tag=$pkgver")
-sha512sums=('1d2d4c254e10fcb5314ab54592c9748e71501fddc4083952b06d2c69ef4b3ac654e43ad93535196d96e3a8d181002ccc05befe9e9cf0c284effd862dee33e7e2')
+sha512sums=('1e6af71ea0178903922cc7b678f805f590da2c95e785dd06e1ea574af38396dad398a88c3913433233efe019dfeaf3712e5ea8aaa1db5ec166fd27968b1403f6')
 
 prepare() {
   cd dde-file-manager
@@ -41,11 +41,6 @@ prepare() {
   # Include <cstdint> where required when building with GCC 15.
   # https://github.com/linuxdeepin/dde-file-manager/pull/2928
   git cherry-pick -n baa88b600c4398bc49c36a3547077cd8d3a4e5cf
-
-  # These searchers use QElapsedTimer but still include the old QTime header.
-  sed -i 's|#include <QTime>|#include <QElapsedTimer>|' \
-    src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/iterator/iteratorsearcher.h \
-    src/plugins/filemanager/dfmplugin-search/searchmanager/searcher/fulltext/fulltextsearcher_p.h
 
   # Backport upstream's Qt 6.10+ private-header target links.
   # https://github.com/linuxdeepin/dde-file-manager/pull/3245
