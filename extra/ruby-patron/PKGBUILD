@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-patron
-pkgver=0.13.4
+pkgver=0.14.0
 pkgrel=1
 pkgdesc='Ruby HTTP client library based on libcurl'
 arch=(x86_64)
@@ -13,28 +13,30 @@ depends=(
 )
 makedepends=(
   git
+  ruby-bundler
+  ruby-rake-compiler
   ruby-rdoc
+  ruby-rspec
+  ruby-yard
 )
 checkdepends=(
   ruby-base64
-  ruby-bundler
-  ruby-rake-compiler
   ruby-rack
-  ruby-rspec
   ruby-puma
-  ruby-yard
+  ruby-webrick
 )
 options=(!emptydirs)
-source=(git+https://github.com/toland/patron#tag=v$pkgver
-        $pkgname-puma-5.patch)
-sha256sums=('e9b86510d82b0aed8d57077fdb18fc7557150db24c76f958e510d9fd28562adc'
-            '85977d0082234adb7b31308c4338f870a6ae30c3f2182c81d7c1736c33c0dc25')
+source=(git+https://github.com/toland/patron#tag=v$pkgver)
+sha256sums=('2558a859cc6b932e81c6243255ddfa998b4ed8bfeb3ab49829f6d4439aa03ad5')
 
 prepare() {
   cd patron
-  patch -p1 -i ../$pkgname-puma-5.patch
-  # we don't do version pinning
-  sed -r -e 's|~>|>=|g' -i patron.gemspec
+  # Rack 3 removed Rack::File: https://github.com/toland/patron/pull/208
+  sed -i 's/Rack::File\b/Rack::Files/g' spec/support/config.ru
+  # Allow COPY in Puma's test server: https://github.com/toland/patron/pull/208
+  sed -i 's/:Host => host)/:Host => host, :supported_http_methods => Puma::Const::SUPPORTED_HTTP_METHODS + ["COPY"])/' spec/support/test_server.rb
+  # Puma 7 lowercases response headers: https://github.com/puma/puma/pull/3704
+  sed -i -E "s/(response\.headers)\['([^']+)'\]/\1.transform_keys(\&:downcase)['\L\2']/g" spec/{response,session}_spec.rb
 }
 
 build() {
@@ -80,8 +82,7 @@ build() {
 check() {
   local _gemdir="$(gem env gemdir)"
   cd patron
-  # https://github.com/toland/patron/pull/193
-  GEM_HOME="tmp_install/$_gemdir" rake spec || echo "Tests failed"
+  GEM_HOME="tmp_install/$_gemdir" rake spec
 }
 
 package() {
