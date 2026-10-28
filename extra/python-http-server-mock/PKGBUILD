@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-http-server-mock
+pkgver=1.7
+pkgrel=1
+pkgdesc="Mock HTTP servers using Flask"
+arch=('any')
+url="https://github.com/ezequielramos/http-server-mock"
+license=('GPL-3.0-only')
+depends=('python' 'python-flask' 'python-requests' 'python-werkzeug')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-pytest')
+source=("https://files.pythonhosted.org/packages/source/h/http_server_mock/http_server_mock-$pkgver.tar.gz")
+sha256sums=('a53986042414bb95506e2b486e7ab27e6ea0889160cdff794b5004ee79313907')
+
+build() {
+  cd "http_server_mock-$pkgver"
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "http_server_mock-$pkgver"
+  python -m pytest
+}
+
+package() {
+  cd "http_server_mock-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
