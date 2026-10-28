@@ -1,8 +1,8 @@
 # Maintainer: Leonidas Spyropoulos <artafinde@archlinux.org>
 
 pkgname=gitlab-exporter
-pkgver=0.5.2
-pkgrel=2
+pkgver=0.5.3
+pkgrel=1
 pkgdesc='A Gitlab prometheus metric exporter'
 arch=('x86_64')
 url='https://gitlab.archlinux.org/archlinux/gitlab-exporter'
@@ -10,16 +10,19 @@ license=('MIT')
 depends=('libgcc' 'libstdc++' 'openssl')
 makedepends=('cargo')
 source=("https://gitlab.archlinux.org/archlinux/${pkgname}/-/releases/v${pkgver}/downloads/${pkgname}-${pkgver}.tar".gz{,.sig})
-sha256sums=('aa6f3ef81afcca34f53bd73ce6869371b9f84b09db70a0c11ceaf871cf3b5d25'
+sha256sums=('b0faf6598d328d774a49353674b5e586bf3e06757c1d990c3bf0b01abf41a065'
             'SKIP')
-b2sums=('f1ec1318b7f9f5d3e0c619ec10fbf9f8058a938c67b4676052baed7a612a90a287a2d85925310ceaec2b3cc36c5b7f37e7b8167a25695b00a31df465d28d8a59'
+b2sums=('05ed4caab9f9a3fbb2d37baa834b3f6659d180f466e76457af41c112b1062c77abdb3d5a366847736240b89802acf62abbc0fb14a67073b9c095ae6bab18f243'
         'SKIP')
 validpgpkeys=(
-  'B4B759625D4633430B74877059E43E106B247368' # Leonidas Spyropoulos <artafinde@archlinux.org>
-) 
+  '2191B89431BAC0A8B96DE93D244740D17C7FD0EC' # Leonidas Spyropoulos <artafinde@archlinux.org>
+)
 
 prepare() {
   cd "${pkgname}-${pkgver}"
+  # Update the locked OpenSSL bindings for compatibility with system OpenSSL 4.
+  # https://github.com/rust-openssl/rust-openssl/pull/2591
+#  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
@@ -41,3 +44,4 @@ package() {
   install -Dm644 README.md -t "${pkgdir}"/usr/share/doc/${pkgname}
   install -Dm644 LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}
 }
+
