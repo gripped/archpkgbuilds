@@ -1,13 +1,14 @@
 diff --git a/pyproject.toml b/pyproject.toml
-index 5343732..3771963 100644
+index be1af06..7162be8 100644
 --- a/pyproject.toml
 +++ b/pyproject.toml
-@@ -76,7 +76,7 @@ dev = [
+@@ -128,9 +128,6 @@ jax = [
+ # 3.0.0 was yanked for incorrectly advertising Python 3.9 support.
+ requires = [
+     "setuptools>=64",
+-    "cmake>=3.26",
+-    "ninja==1.11.1.1; sys_platform != 'win32' or platform_machine != 'ARM64'",
+-    "ninja>=1.13.0; sys_platform == 'win32' and platform_machine == 'ARM64'",
+     "nanobind>=3.0.1,<4",
  ]
- 
- [build-system]
--requires = ["setuptools>=64", "cmake>=3.18", "ninja==1.11.1.1", "pybind11[global]>=2.13,<3"]
-+requires = ["setuptools>=64"]
  build-backend = "setuptools.build_meta"
- 
- [tool.setuptools]
