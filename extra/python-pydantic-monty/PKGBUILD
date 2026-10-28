@@ -1,0 +1,89 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgbase=python-pydantic-monty
+pkgname=('python-pydantic-monty' 'python-pydantic-monty-client' 'python-pydantic-monty-runtime')
+pkgver=1.4.0
+pkgrel=1
+pkgdesc="A Python sandbox written in Rust"
+arch=('x86_64')
+url="https://github.com/pydantic/monty"
+license=('MIT')
+depends=('glibc' 'libgcc' 'python' 'python-typing_extensions')
+makedepends=('cmake' 'git' 'maturin' 'python-build' 'python-hatchling' 'python-installer' 'rust' 'zstd')
+checkdepends=('python-anyio' 'python-dirty-equals' 'python-inline-snapshot'
+              'python-opentelemetry-sdk' 'python-pytest' 'python-pytest-examples' 'python-websockets')
+source=("git+https://github.com/pydantic/monty.git#tag=$pkgver")
+sha512sums=('fffdb8326a073a8621d2d9fb8a65faa1628c55160d714f7023288b5166f7bdfda79a53fc4287a120d1bf4fff1f4d9f1482b047be7ff880201e45d8112d30335e')
+
+prepare() {
+  cd monty
+  # pytest 9.1 deprecates generators passed to parametrize.
+  sed -i 's/find_examples(\*paths)/list(find_examples(*paths))/' \
+    crates/monty-python/tests/test_readme_examples.py
+  # Examples use nested contexts and bare expressions, rejected by Ruff's new defaults.
+  # https://github.com/astral-sh/ruff/pull/27035
+  sed -i "s/'FA102'/'B018', 'FA102', 'SIM117'/" \
+    crates/monty-python/tests/test_readme_examples.py
+  cargo fetch --locked
+}
+
+build() {
+  cd monty
+  # Rust's linker needs native code in the GCC LTO objects from aws-lc-sys.
+  CFLAGS+=' -ffat-lto-objects'
+  # System zstd avoids GCC LTO objects that Rust's linker cannot consume.
+  # https://github.com/gyscos/zstd-rs/issues/201
+  export ZSTD_SYS_USE_PKG_CONFIG=1
+  maturin build --frozen --release --manifest-path crates/monty-runtime/Cargo.toml
+  maturin build --frozen --release --manifest-path crates/monty-python/Cargo.toml --interpreter python
+  python -m build --wheel --no-isolation packages/pydantic-monty
+}
+
+check() {
+  cd monty
+  # Test builds also need native code in aws-lc-sys's GCC LTO objects.
+  CFLAGS+=' -ffat-lto-objects'
+  # Test builds also need system zstd to avoid the LTO linker failure.
+  export ZSTD_SYS_USE_PKG_CONFIG=1
+  # Timeout tests assume upstream's unoptimized test profile.
+  MONTY_TEST_BIN="$PWD/target/debug/monty" cargo test --frozen \
+    -p monty -p monty-fs -p monty-types -p monty-type-checking -p monty-typeshed \
+    -p monty-proto -p monty-runtime -p monty-pool --features monty-pool/telemetry
+  cargo run --frozen -p monty-datatest
+  cargo test --frozen -p pydantic-monty-client --lib
+
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer target/wheels/pydantic_monty_runtime-*.whl
+  test-env/bin/python -m installer target/wheels/pydantic_monty_client-*.whl
+  test-env/bin/python -m installer packages/pydantic-monty/dist/*.whl
+  # Documentation examples resolve their paths from the workspace root.
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
+    -c crates/monty-python/pyproject.toml crates/monty-python/tests
+}
+
+package_python-pydantic-monty() {
+  depends=('python' 'python-pydantic-monty-client' 'python-pydantic-monty-runtime')
+  optdepends=('python-opentelemetry-api: telemetry support')
+
+  cd monty
+  python -m installer --destdir="$pkgdir" packages/pydantic-monty/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
+
+package_python-pydantic-monty-client() {
+  pkgdesc="Python client for the Monty sandbox"
+  optdepends=('python-opentelemetry-api: telemetry support')
+
+  cd monty
+  python -m installer --destdir="$pkgdir" target/wheels/pydantic_monty_client-*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
+
+package_python-pydantic-monty-runtime() {
+  pkgdesc="Monty sandbox runtime and command-line interface"
+  depends=('glibc' 'libgcc' 'python')
+
+  cd monty
+  python -m installer --destdir="$pkgdir" target/wheels/pydantic_monty_runtime-*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

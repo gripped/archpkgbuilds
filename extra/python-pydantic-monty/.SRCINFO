@@ -1,0 +1,44 @@
+pkgbase = python-pydantic-monty
+	pkgdesc = A Python sandbox written in Rust
+	pkgver = 1.4.0
+	pkgrel = 1
+	url = https://github.com/pydantic/monty
+	arch = x86_64
+	license = MIT
+	checkdepends = python-anyio
+	checkdepends = python-dirty-equals
+	checkdepends = python-inline-snapshot
+	checkdepends = python-opentelemetry-sdk
+	checkdepends = python-pytest
+	checkdepends = python-pytest-examples
+	checkdepends = python-websockets
+	makedepends = cmake
+	makedepends = git
+	makedepends = maturin
+	makedepends = python-build
+	makedepends = python-hatchling
+	makedepends = python-installer
+	makedepends = rust
+	makedepends = zstd
+	depends = glibc
+	depends = libgcc
+	depends = python
+	depends = python-typing_extensions
+	source = git+https://github.com/pydantic/monty.git#tag=1.4.0
+	sha512sums = fffdb8326a073a8621d2d9fb8a65faa1628c55160d714f7023288b5166f7bdfda79a53fc4287a120d1bf4fff1f4d9f1482b047be7ff880201e45d8112d30335e
+
+pkgname = python-pydantic-monty
+	depends = python
+	depends = python-pydantic-monty-client
+	depends = python-pydantic-monty-runtime
+	optdepends = python-opentelemetry-api: telemetry support
+
+pkgname = python-pydantic-monty-client
+	pkgdesc = Python client for the Monty sandbox
+	optdepends = python-opentelemetry-api: telemetry support
+
+pkgname = python-pydantic-monty-runtime
+	pkgdesc = Monty sandbox runtime and command-line interface
+	depends = glibc
+	depends = libgcc
+	depends = python
