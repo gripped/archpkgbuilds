@@ -2,7 +2,7 @@
 
 pkgname=signstar-configure
 _name=signstar
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="Runtime configuration for Signstar hosts"
 arch=(x86_64)
@@ -21,9 +21,12 @@ makedepends=(
   rust-script
 )
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha512sums=('8b982962472ed85e9363c2224bf95092a4053313dd1258a25c71684e280a882e4eb3747a321a69ffada09eb50ac23a3a72c1b0c290ce51868a5da62ce28615b8')
-b2sums=('cbb1411c31f18ca75a7bcddd92c0c3325aa67843a9a66b3ee1dfacd5386e8d1dc56b7acf3ba33a4b489629ab02b34b9df897471422c48866e1ac13130d84fc9a')
-validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+sha512sums=('d94d222379219c8d0e99c411cb84995b9f02eb22048e2d2cb70f8f12026874c4684b7e453fea7314832485f4f90e9c6de6d54a640b8db2749fadc5afe46244ca')
+b2sums=('c7cbb3a61697ad37b3545a7f813376b8637294488fc13da0cdf3f4f048641ae2c02fb1443c8e6a5d2f0f9fa0a636d46db8efbb90b159b93595f70df354c720ab')
+validpgpkeys=(
+  991F6E3F0765CF6295888586139B09DA5BF0D338  # David Runge <dvzrv@archlinux.org>
+  653909A2F0E37C106F5FAF546C8857E0D8E8F074  # Wiktor Kwapisiewicz <wiktor@metacode.biz>
+)
 
 prepare() {
   cd $_name
