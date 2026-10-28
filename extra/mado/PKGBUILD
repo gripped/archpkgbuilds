@@ -1,37 +1,42 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=mado
-pkgver=0.3.2
+pkgver=0.4.0
 pkgrel=1
 pkgdesc="A fast Markdown linter written in Rust"
 arch=(x86_64)
 url="https://github.com/akiomik/mado"
 license=(Apache-2.0)
 depends=(
-  libgcc
   glibc
+  jemalloc
+  libgcc
 )
 makedepends=(rust)
 options=(!lto)
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
 )
-sha512sums=('ce76256c1e3ea20a931d239de80ff2940dd36e3c0e09ea1c2b15a09abf4ef6f77e1fa6aba8a25af6cb447b74bc0b885ad0b6ca44aa40f073704300aa13d754c7')
-b2sums=('60b12d5e02bd87e5fa9635e57fa4f8a5a3bb9be94289618924eb1523add2b4a8996c72c825aea191e0eb4d0b0b20e9b93a2dbbe29c3904d383d494f9cb8cfdea')
+sha512sums=('4d3000b2bcbe7be472aa7e1c8831c14724a6593332df2d1a4a1849f6b1219f4cccd89c8c0ad0be2e79a63d87042751942401a242a0e85a90e0a5ba2ecb965deb')
+b2sums=('6cb7c40f59d963e04718ce765b92475f2a9ed1ce55045f65dbe0b6fcbc120c6267e89ffb3f5503dcdca9b01bab954ba29348faa23d8185211c1f391088a4dbc4')
 
 prepare() {
   cd $pkgname-$pkgver
+  # Specifically add the tikv-jemalloc-sys dependency with a feature that unsets the prefix (as jemalloc is built without symbol prefix).
+  cargo add tikv-jemalloc-sys --features unprefixed_malloc_on_supported_platforms
   cargo fetch --locked --target host-tuple
 }
 
 build() {
   cd $pkgname-$pkgver
-  cargo build --frozen --release --all-features
+  # Enforce the use of system-provided jemalloc
+  export JEMALLOC_OVERRIDE=/usr/lib/libjemalloc.so
+  cargo build --frozen --release
 }
 
 check() {
   cd $pkgname-$pkgver
-  cargo test --frozen --all-features
+  cargo test --frozen
 }
 
 package() {
