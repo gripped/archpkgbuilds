@@ -1,12 +1,13 @@
 pkgbase = libosmosdr
 	pkgdesc = Library to communicate with OsmoSDR devices
 	pkgver = 0.1.r10.gba4fd96
-	pkgrel = 4
+	pkgrel = 5
 	url = https://sdr.osmocom.org/trac/
 	arch = x86_64
-	license = GPL3
+	license = GPL-2.0-or-later
 	makedepends = git
 	makedepends = cmake
+	depends = glibc
 	depends = libusb
 	source = git+https://git.osmocom.org/osmo-sdr#commit=ba4fd96622606620ff86141b4d0aa564712a735a
 	sha512sums = SKIP
