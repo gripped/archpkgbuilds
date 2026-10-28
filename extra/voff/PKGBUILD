@@ -1,0 +1,38 @@
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+
+pkgname=voff
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="A workflow builder for coding agents"
+arch=('x86_64')
+url="https://github.com/orhun/voff"
+license=('MIT' 'Apache-2.0')
+depends=('gcc-libs')
+makedepends=('cargo')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
+sha256sums=('472f095d0e034783f30b1910592e532b5f8d7cbad6f6180ccbb5681b4b3c6d56')
+options=('!lto')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  cargo build --release --frozen
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  cargo test --frozen
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm 755 "target/release/$pkgname" -t "$pkgdir/usr/bin"
+  install -Dm 644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm 644 LICENSE-MIT LICENSE-APACHE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim:set ts=2 sw=2 et:
