@@ -1,0 +1,28 @@
+pkgbase = ccsm
+	pkgdesc = Graphical manager for CompizConfig settings
+	pkgver = 0.8.18
+	pkgrel = 2
+	url = https://gitlab.com/compiz/ccsm
+	arch = any
+	license = GPL-2.0-or-later
+	makedepends = git
+	makedepends = intltool
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = gdk-pixbuf2
+	depends = glib2
+	depends = gtk3
+	depends = hicolor-icon-theme
+	depends = pango
+	depends = python
+	depends = python-cairo
+	depends = python-compizconfig
+	depends = python-gobject
+	source = git+https://gitlab.com/compiz/ccsm.git#tag=v0.8.18
+	source = ccsm-pep-517.patch
+	b2sums = 47c00356465e98938c72369a0f0cc7a39f6f4e94bf021d9665ab2a14c7b4032be328c4df7708c7209a6e8053815c51d3b20c26d24e5a92d79d19b9e51668679e
+	b2sums = SKIP
+
+pkgname = ccsm

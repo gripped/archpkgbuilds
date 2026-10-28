@@ -1,0 +1,53 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=ccsm
+pkgver=0.8.18
+pkgrel=2
+pkgdesc='Graphical manager for CompizConfig settings'
+arch=(any)
+url='https://gitlab.com/compiz/ccsm'
+license=(GPL-2.0-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  gtk3
+  hicolor-icon-theme
+  pango
+  python
+  python-cairo
+  python-compizconfig
+  python-gobject
+)
+makedepends=(
+  git
+  intltool
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(
+  "git+https://gitlab.com/compiz/ccsm.git#tag=v$pkgver"
+  ccsm-pep-517.patch
+)
+b2sums=(
+  47c00356465e98938c72369a0f0cc7a39f6f4e94bf021d9665ab2a14c7b4032be328c4df7708c7209a6e8053815c51d3b20c26d24e5a92d79d19b9e51668679e
+  SKIP
+)
+
+prepare() {
+  cd $pkgname
+
+  # Fix build with PEP 517
+  git apply -3 ../ccsm-pep-517.patch
+}
+
+build() {
+  cd $pkgname
+  PREFIX=/usr python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
