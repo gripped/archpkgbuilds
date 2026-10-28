@@ -1,10 +1,11 @@
 pkgbase = gpaste
 	pkgdesc = Clipboard management system
-	pkgver = 51.1
+	pkgver = 51.2
 	pkgrel = 1
 	url = https://www.imagination-land.org/tags/GPaste.html
 	arch = x86_64
 	license = BSD-2-Clause
+	checkdepends = xorg-server-xvfb
 	makedepends = dbus
 	makedepends = git
 	makedepends = gjs
@@ -25,13 +26,15 @@ pkgbase = gpaste
 	depends = libpwquality
 	depends = libsecret
 	depends = libsodium
+	depends = libx11
+	depends = libxfixes
 	depends = mutter
 	depends = pango
 	depends = sqlite
 	optdepends = curl: Upload clipboard contents
-	source = git+https://github.com/keruspe/gpaste#tag=v51.1
-	source = 0001-tests-Disconnect-signal-handlers-in-history-tests.patch
-	b2sums = c776e40bb1d32fa4fca4067335eb7b9c35004be2f9afed96e6da9458aca3a4c00ebbd0ec8ad39c89508670a7db6ea11c885debadcf94fa56b44163a83c155688
-	b2sums = ddd7de50520c2abc81b9815252a02045f98b3fc1c6369e39c07915ca485dacae4289f8828587f36126ae88d852e861727c5c85f627300257cc460db11ef28179
+	source = git+https://github.com/keruspe/gpaste#tag=v51.2
+	source = 0001-Account-for-window-decorations-in-the-graphical-tool.patch
+	b2sums = 9bc11c32be8f32baa76062846b3e1a24175a28558f157e85ea08c395dd2c1e81e9786ef7a09490543b01090ff39a79edeaf37eecaa53e1f52919e97b37dee057
+	b2sums = 1f3a3dcb18e84541a3231d6c865bb989470404f7e9c48050a6332b42c3d31c3757cb1d6caf85f825cd0042dd8e9c17369720cfc46eb167c7b62e4ca83c01c447
 
 pkgname = gpaste
