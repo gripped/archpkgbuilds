@@ -2,7 +2,7 @@
 
 _name=unearth
 pkgname=python-unearth
-pkgver=0.18.3
+pkgver=0.19.0
 pkgrel=1
 pkgdesc="A utility to fetch and download python packages"
 arch=(any)
@@ -11,7 +11,7 @@ license=(MIT)
 depends=(
   python
   python-packaging
-  python-httpx
+  python-httpx2
 )
 makedepends=(
   python-build
@@ -34,8 +34,8 @@ optdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('e59ba77de69ae29ea41efad2336f8fa2ad1352a19dd33bb4d6a7c411427b9a72c45ef9259991304c4c34019e9fcfaf2d216c3d92ef8721a64b86329342f9ff04')
-b2sums=('43e857730f4ed04057f1d804cfeceb9ab7363fba253495d26748ed3fb5dbac3f1f0305838f2ab7681349433f227488bef96f2f6abe5024ef2fba9420b097f3de')
+sha512sums=('84ee7b8c9208bd20dc7ff11c4d33ca3ee249b0a9fd206aa03950e21bd1e98378950c8d812bc58165b60050f712ed83898b976f506442cab8249f3bc3840c3a10')
+b2sums=('5001b9b30da2ad45aea3713b86c351a3a2baa71bd464ab4af7e2cbbeb878b8ad6b46c160f9cf075926a4f91c7598917bed85229a7017bc8c0509d1fb8217e92d')
 
 build() {
   cd $_name-$pkgver
