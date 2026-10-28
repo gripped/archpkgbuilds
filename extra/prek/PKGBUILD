@@ -1,0 +1,115 @@
+# Maintainer: Frederik Schwan <freswa at archlinux dot org>
+# Contributor: Jamison Lahman <jamison+aur@lahman.dev>
+
+pkgname=prek
+pkgver=0.5.7
+pkgrel=4
+pkgdesc="Better 'pre-commit', re-engineered in Rust"
+arch=('x86_64')
+url='https://github.com/j178/prek'
+license=('MIT')
+depends=(
+  glibc
+  libgcc
+)
+makedepends=(
+  git
+  rust
+  libxml2
+)
+checkdepends=(
+  cargo-nextest
+  composer
+  dart
+  julia
+  lua
+  luarocks
+  nodejs
+  npm
+  php
+  pixi
+  r
+  ruby
+  ruby-erb
+)
+options=(
+  !lto
+)
+source=(
+  "git+$url.git#tag=v${pkgver}"
+  aws-lc-rs.patch
+)
+b2sums=('eb86fdc344922e7de108099f81c6820d25e781d556c3d8883b8ea8112d0847038130e4fad2ba9595f1f930eec354de36a479f64f9459bb8d286beb5c85a924f0'
+        '6cb3dced1113ec3a1de0bab4195817a478231c490c4722ae300f026adbc87c8fd57cffab62a9165213b81d8ab3dd04b6e1dbda2387263e8b327342dc3bac6875')
+
+prepare() {
+  cd ${pkgname}
+
+  # The locked aws-lc-sys 0.45.0 cannot build when CFLAGS carries an
+  # optimization level: cc 1.6+ snapshots the environment before aws-lc-sys
+  # filters it, so that -O lands after the -O0 jitterentropy requires and wins.
+  # 0.46.0 holds the filter for the builder's lifetime instead.
+  # https://github.com/aws/aws-lc-rs/issues/1252
+  # https://github.com/j178/prek/pull/2933
+  patch -Np1 -i "${srcdir}"/aws-lc-rs.patch
+
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd ${pkgname}
+
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release --features docker,schemars
+}
+
+check() {
+  cd ${pkgname}
+
+  # Docker needs a daemon unavailable in the systemd-nspawn build container.
+  # Coursier is not packaged in the official repositories. Haskell fixtures
+  # need base >= 4.19 (GHC >= 9.8) and a pre-populated Cabal package index.
+  # Lua and Ruby snapshots hard-code 5.4 and 3.4, respectively.
+  # Hiding system Node removes /usr/bin from PATH, also hiding Git on Arch.
+  cargo nextest run --locked --workspace --no-fail-fast -- \
+    --skip check_signed_commit_hook_verifies_ssh_signatures \
+    --skip coursier::additional_dependencies \
+    --skip coursier::local_pre_commit_channel_is_ignored \
+    --skip coursier::pre_commit_channel \
+    --skip docker::docker \
+    --skip docker::workspace_docker \
+    --skip docker_image::docker_image \
+    --skip haskell::local_hook \
+    --skip haskell::additional_dependencies \
+    --skip haskell::remote_hook \
+    --skip lua::lua_environment \
+    --skip node::additional_dependencies_without_system_node \
+    --skip ruby::language_version_default
+}
+
+package() {
+  cd ${pkgname}
+
+  # binary
+  install -Dm755 -t "${pkgdir}"/usr/bin target/release/${pkgname}
+
+  # shell completion
+  install -Dm644 <("${pkgdir}"/usr/bin/${pkgname} util generate-shell-completion bash) \
+    "${pkgdir}"/usr/share/bash-completion/completions/${pkgname}
+  install -Dm644 <("${pkgdir}"/usr/bin/${pkgname} util generate-shell-completion zsh) \
+    "${pkgdir}"/usr/share/zsh/site-functions/_${pkgname}
+  install -Dm644 <("${pkgdir}"/usr/bin/${pkgname} util generate-shell-completion fish) \
+    "${pkgdir}"/usr/share/fish/vendor_completions.d/${pkgname}.fish
+  install -Dm644 <("${pkgdir}"/usr/bin/${pkgname} util generate-shell-completion elvish) \
+    "${pkgdir}"/usr/share/elvish/lib/${pkgname}.elv
+  install -Dm644 <("${pkgdir}"/usr/bin/${pkgname} util generate-shell-completion nushell) \
+    "${pkgdir}"/usr/share/nu/scripts/${pkgname}.nu
+
+  # documentation
+  install -Dm644 -t "${pkgdir}"/usr/share/doc/${pkgname} README.md
+
+  # license
+  install -Dm644 -t "${pkgdir}"/usr/share/licenses/${pkgname} LICENSE
+}
