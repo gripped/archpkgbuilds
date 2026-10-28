@@ -1,0 +1,51 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-prefab-ui
+pkgver=0.21.1
+pkgrel=1
+pkgdesc='Python framework for building generative user interfaces'
+arch=('any')
+url='https://github.com/PrefectHQ/prefab'
+license=('Apache-2.0')
+depends=(
+  'python'
+  'python-cyclopts'
+  'python-pydantic'
+  'python-rich'
+  'python-typing_extensions'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+  'python-uv-dynamic-versioning'
+)
+checkdepends=(
+  'deno'
+  'python-jsonschema'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-timeout'
+  'uv'
+)
+optdepends=('deno: sandbox execution of generated Python code')
+source=("git+https://github.com/PrefectHQ/prefab.git#tag=v$pkgver")
+sha512sums=('cf337ffef84a5a3bfb7cc9521984c7ca6293a3f66d668a84cb4ff30ec1441a60ce339181613166c1bf5276971fc2605f38ee3421925bd8222f341726dca906b5')
+
+build() {
+  cd prefab
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd prefab
+  python -m venv --system-site-packages --without-pip "$srcdir/test-env"
+  "$srcdir/test-env/bin/python" -m installer dist/*.whl
+  "$srcdir/test-env/bin/python" -m pytest
+}
+
+package() {
+  cd prefab
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
