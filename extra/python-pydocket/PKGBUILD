@@ -1,0 +1,76 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-pydocket
+pkgver=0.27.1
+pkgrel=1
+pkgdesc='Distributed background task system for Python functions'
+arch=('any')
+url='https://github.com/chrisguidry/docket'
+license=('MIT')
+depends=(
+  'python'
+  'python-burner-redis'
+  'python-cachetools'
+  'python-cloudpickle'
+  'python-cronsim'
+  'python-json-logger'
+  'python-opentelemetry-api'
+  'python-prometheus_client'
+  'python-py-key-value-aio'
+  'python-redis'
+  'python-rich'
+  'python-typer'
+  'python-typing_extensions'
+  'python-uncalled-for'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatch-vcs'
+  'python-hatchling'
+  'python-installer'
+)
+checkdepends=(
+  'python-docker'
+  'python-opentelemetry-sdk'
+  'python-packaging'
+  'python-psutil'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-cov'
+  'python-pytest-timeout'
+  'python-pytest-xdist'
+  'valkey'
+)
+optdepends=('python-opentelemetry-sdk: metrics export')
+source=("git+https://github.com/chrisguidry/docket.git#tag=python/v$pkgver"
+        'local-valkey-tests.patch')
+sha512sums=('58ca4c57f30694af64f8fe85dff20ef2c2c171f20eb3af0c271db5654d9b3aeadef7f57e4feb0cb683b9d64f5d413955d6dbc8ffe8cb530afbbe17e19341e3fe'
+            '02d616c753559fa1d0e4c1ea6fd9729b0441e2d0be8b331f7f57e886327b8b5194ff62c7489994fdbeb3fd11cf9cf6827a3e7dfac43bc4164b6a1a424545b00f')
+
+prepare() {
+  cd docket
+  # Use local Valkey processes because the build chroot has no Docker daemon.
+  git apply "$srcdir/local-valkey-tests.patch"
+  # Keep packaging changes out of the version derived from the release tag.
+  sed -i 's/git describe --dirty/git describe/' python/pyproject.toml
+}
+
+build() {
+  cd docket/python
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd docket/python
+  python -m venv --system-site-packages --without-pip "$srcdir/test-env"
+  "$srcdir/test-env/bin/python" -m installer dist/*.whl
+  # Use source paths for coverage and the installed wheel for package metadata.
+  PYTHONPATH=src "$srcdir/test-env/bin/python" -m pytest
+}
+
+package() {
+  cd docket/python
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

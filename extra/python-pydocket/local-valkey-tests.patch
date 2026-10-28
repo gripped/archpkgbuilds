@@ -1,0 +1,171 @@
+diff --git a/python/tests/conftest.py b/python/tests/conftest.py
+index c6d805c..2dc51d7 100644
+--- a/python/tests/conftest.py
++++ b/python/tests/conftest.py
+@@ -5,10 +5,10 @@ import inspect
+ import logging
+ import os
+ import socket
+-import sys
++import subprocess
+ from datetime import datetime, timedelta, timezone
+ from functools import partial, wraps
+-from typing import TYPE_CHECKING, Any, AsyncGenerator, Awaitable, Callable, Generator
++from typing import Any, AsyncGenerator, Awaitable, Callable, Generator
+ from unittest.mock import AsyncMock
+ from uuid import uuid4
+ 
+@@ -23,7 +23,9 @@ from tests._container import (
+     BASE_VERSION,
+     CLUSTER_ENABLED,
+     PROVIDER_ENABLED,
++    setup_acl,
+     sync_redis,
++    wait_for_redis,
+ )
+ from tests._key_leak_checker import KeyCountChecker
+ from tests._rotating_provider import RotatingProvider
+@@ -108,22 +110,6 @@ async def wait_for_event(
+     )
+ 
+ 
+-if sys.platform != "win32" or TYPE_CHECKING:
+-    from docker import DockerClient
+-    from docker.models.containers import Container
+-
+-    from tests._container import (
+-        build_cluster_image,
+-        cleanup_stale_containers,
+-        run_cluster_container,
+-        setup_acl,
+-        setup_cluster_acl,
+-        wait_for_cluster,
+-        wait_for_redis,
+-        with_image_retry,
+-    )
+-
+-
+ @pytest.fixture(scope="session")
+ def acl_credentials(worker_id: str) -> ACLCredentials:
+     """Session-scoped ACL credentials for consistent test isolation."""
+@@ -181,90 +167,39 @@ def now() -> Callable[[], datetime]:
+ 
+ 
+ @pytest.fixture(scope="session")
+-def redis_server(
+-    worker_id: str,
++def redis_port(
++    tmp_path_factory: pytest.TempPathFactory,
+     acl_credentials: ACLCredentials,
+-) -> Generator[Container | None, None, None]:
+-    """Each xdist worker gets its own Redis container.
+-
+-    This eliminates cross-worker coordination complexity and allows using
+-    FLUSHALL between tests since each worker owns its Redis instance.
+-    """
+-    if BASE_VERSION == "memory":
+-        yield None
+-        return
+-
+-    docker_client = DockerClient.from_env()
+-
+-    # Clean up stale containers from previous runs
+-    cleanup_stale_containers(docker_client)
+-
+-    # Unique label per worker
+-    container_label = f"docket-test-{worker_id or 'main'}-{os.getpid()}"
+-
+-    # Determine base image
+-    if BASE_VERSION.startswith("valkey-"):
+-        base_image = f"valkey/valkey:{BASE_VERSION.replace('valkey-', '')}"
+-    else:
+-        base_image = f"redis:{BASE_VERSION}"
+-
+-    container: Container
+-    cluster_ports: tuple[int, int, int] | None = None
+-
+-    if CLUSTER_ENABLED:
+-        cluster_image = build_cluster_image(docker_client, base_image)
+-        container, cluster_ports = run_cluster_container(
+-            docker_client,
+-            cluster_image,
+-            labels={
+-                "source": "docket-unit-tests",
+-                "container_label": container_label,
+-            },
+-        )
+-
+-        wait_for_cluster(cluster_ports[0])
+-
+-        if ACL_ENABLED:
+-            setup_cluster_acl(cluster_ports, acl_credentials)
+-    else:
+-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+-            s.bind(("127.0.0.1", 0))
+-            redis_port = s.getsockname()[1]
+-
+-        container = with_image_retry(docker_client.containers.run)(
+-            base_image,
+-            detach=True,
+-            ports={"6379/tcp": redis_port},
+-            labels={
+-                "source": "docket-unit-tests",
+-                "container_label": container_label,
+-            },
+-            auto_remove=True,
+-        )
+-
+-        wait_for_redis(redis_port)
+-
+-        if ACL_ENABLED:
+-            setup_acl(redis_port, acl_credentials)
+-
++) -> Generator[int, None, None]:
++    """Each xdist worker owns a local Valkey server, so FLUSHALL stays isolated."""
++    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
++        s.bind(("127.0.0.1", 0))
++        port = s.getsockname()[1]
++
++    process = subprocess.Popen(
++        [
++            "valkey-server",
++            "--bind",
++            "127.0.0.1",
++            "--port",
++            str(port),
++            "--save",
++            "",
++            "--appendonly",
++            "no",
++            "--dir",
++            str(tmp_path_factory.mktemp("valkey")),
++        ],
++        stdout=subprocess.DEVNULL,
++    )
+     try:
+-        yield container
++        wait_for_redis(port)
++        if ACL_ENABLED:
++            setup_acl(port, acl_credentials)
++        yield port
+     finally:
+-        container.stop()
+-
+-
+-@pytest.fixture(scope="session")
+-def redis_port(redis_server: Container | None) -> int:
+-    if redis_server is None:
+-        return 0
+-    if CLUSTER_ENABLED:
+-        env_list = redis_server.attrs["Config"]["Env"]
+-        for env in env_list:
+-            if env.startswith("CLUSTER_PORT_0="):
+-                return int(env.split("=")[1])
+-        raise RuntimeError("CLUSTER_PORT_0 not found in container environment")
+-    port_bindings = redis_server.attrs["HostConfig"]["PortBindings"]["6379/tcp"]
+-    return int(port_bindings[0]["HostPort"])
++        process.terminate()
++        process.wait(timeout=10)
+ 
+ 
+ @pytest.fixture
