@@ -1,0 +1,40 @@
+diff --git a/tests/otel_integrations/test_sqlalchemy.py b/tests/otel_integrations/test_sqlalchemy.py
+index 90c8cc41..1f0eea5d 100644
+--- a/tests/otel_integrations/test_sqlalchemy.py
++++ b/tests/otel_integrations/test_sqlalchemy.py
+@@ -1,8 +1,8 @@
+ from __future__ import annotations
+ 
+ import importlib
+-from collections.abc import Generator
+-from contextlib import contextmanager
++from collections.abc import AsyncGenerator, Generator
++from contextlib import asynccontextmanager, contextmanager
+ from pathlib import Path
+ from typing import Any
+ from unittest import mock
+@@ -401,20 +401,21 @@ CREATE TABLE auth_records (
+     )
+ 
+ 
+-@contextmanager
+-def sqlite_async_engine(path: Path) -> Generator[AsyncEngine]:
++@asynccontextmanager
++async def sqlite_async_engine(path: Path) -> AsyncGenerator[AsyncEngine]:
+     path.unlink(missing_ok=True)
+     engine = create_async_engine(f'sqlite+aiosqlite:///{path}')
+     try:
+         yield engine
+     finally:
++        await engine.dispose()
+         path.unlink(missing_ok=True)
+ 
+ 
+ @pytest.mark.anyio
+ @pytest.mark.parametrize('parameter', ['engine', 'engines'])
+ async def test_sqlalchemy_async_instrumentation(parameter: str, exporter: TestExporter, tmp_path: Path):
+-    with sqlite_async_engine(tmp_path / f'test_{parameter}.db') as engine:
++    async with sqlite_async_engine(tmp_path / f'test_{parameter}.db') as engine:
+         if parameter == 'engine':
+             logfire.instrument_sqlalchemy(engine=engine)
+         else:

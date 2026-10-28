@@ -1,0 +1,62 @@
+diff --git a/tests/otel_integrations/cassettes/test_anthropic/test_async_beta_messages.yaml b/tests/otel_integrations/cassettes/test_anthropic/test_async_beta_messages.yaml
+index 3e1d6834..87cc5684 100644
+--- a/tests/otel_integrations/cassettes/test_anthropic/test_async_beta_messages.yaml
++++ b/tests/otel_integrations/cassettes/test_anthropic/test_async_beta_messages.yaml
+@@ -40,7 +40,7 @@ interactions:
+       x-stainless-timeout:
+       - '600'
+     method: POST
+-    uri: https://api.anthropic.com/v1/messages?beta=true
++    uri: https://api.anthropic.com/v1/messages
+   response:
+     body:
+       string: !!binary |
+diff --git a/tests/otel_integrations/cassettes/test_anthropic/test_sync_messages_beta_stream.yaml b/tests/otel_integrations/cassettes/test_anthropic/test_sync_messages_beta_stream.yaml
+index 08b0be5c..7a8e0f33 100644
+--- a/tests/otel_integrations/cassettes/test_anthropic/test_sync_messages_beta_stream.yaml
++++ b/tests/otel_integrations/cassettes/test_anthropic/test_sync_messages_beta_stream.yaml
+@@ -41,7 +41,7 @@ interactions:
+       x-stainless-timeout:
+       - NOT_GIVEN
+     method: POST
+-    uri: https://api.anthropic.com/v1/messages?beta=true
++    uri: https://api.anthropic.com/v1/messages
+   response:
+     body:
+       string: !!binary |
+diff --git a/tests/otel_integrations/test_anthropic.py b/tests/otel_integrations/test_anthropic.py
+index 33a6d3ec..089b7cab 100644
+--- a/tests/otel_integrations/test_anthropic.py
++++ b/tests/otel_integrations/test_anthropic.py
+@@ -335,6 +335,7 @@ async def test_async_messages(instrumented_async_client: anthropic.AsyncAnthropi
+                             'output_tokens_details': None,
+                             'server_tool_use': None,
+                             'service_tier': None,
++                            'speed': None,
+                         },
+                     },
+                     'gen_ai.output.messages': [
+@@ -1095,6 +1096,7 @@ def test_messages_without_stop_reason(instrumented_client: anthropic.Anthropic,
+                             'output_tokens_details': None,
+                             'server_tool_use': None,
+                             'service_tier': None,
++                            'speed': None,
+                         },
+                     },
+                     'gen_ai.output.messages': [
+@@ -1295,6 +1297,7 @@ def test_request_parameters(instrumented_client: anthropic.Anthropic, exporter:
+                             'output_tokens_details': None,
+                             'server_tool_use': None,
+                             'service_tier': None,
++                            'speed': None,
+                         },
+                     },
+                     'gen_ai.output.messages': [
+@@ -1608,6 +1611,7 @@ def test_sync_messages_version_v1_only(exporter: TestExporter) -> None:
+                             'output_tokens_details': None,
+                             'server_tool_use': None,
+                             'service_tier': IsStr(),
++                            'speed': None,
+                         },
+                     },
+                     'gen_ai.response.model': 'claude-sonnet-4-20250514',

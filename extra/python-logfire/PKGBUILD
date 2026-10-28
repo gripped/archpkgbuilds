@@ -1,0 +1,215 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgbase=python-logfire
+pkgname=('python-logfire' 'python-logfire-api' 'python-logfire-sdk')
+pkgver=5.4.0
+pkgrel=3
+pkgdesc='Pydantic Logfire Python SDK and command-line interface'
+arch=('any')
+url='https://github.com/pydantic/logfire'
+license=('MIT')
+depends=(
+  'python'
+  'python-certifi'
+  'python-executing'
+  'python-opentelemetry-api'
+  'python-opentelemetry-exporter-otlp-proto-http'
+  'python-opentelemetry-instrumentation'
+  'python-opentelemetry-sdk'
+  'python-opentelemetry-semantic-conventions'
+  'python-protobuf'
+  'python-requests'
+  'python-rich'
+  'python-typing_extensions'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+)
+checkdepends=(
+  'python-aiohttp'
+  'python-aiosqlite'
+  'python-anthropic'
+  'python-anyio'
+  'python-asyncpg'
+  'python-attrs'
+  'python-beartype'
+  'python-boto3'
+  'python-botocore'
+  'python-cloudpickle'
+  'python-dirty-equals'
+  'python-django'
+  'python-elasticsearch'
+  'python-fastapi'
+  'python-flask'
+  'python-genai-prices'
+  'python-httpx'
+  'python-httpx2'
+  'python-inline-snapshot'
+  'python-langchain'
+  'python-langchain-openai'
+  'python-langgraph'
+  'python-loguru'
+  'python-mcp'
+  'python-numpy'
+  'python-openai'
+  'python-opentelemetry-instrumentation-aiohttp-client'
+  'python-opentelemetry-instrumentation-aiohttp-server'
+  'python-opentelemetry-instrumentation-asgi'
+  'python-opentelemetry-instrumentation-asyncpg'
+  'python-opentelemetry-instrumentation-aws-lambda'
+  'python-opentelemetry-instrumentation-django'
+  'python-opentelemetry-instrumentation-fastapi'
+  'python-opentelemetry-instrumentation-flask'
+  'python-opentelemetry-instrumentation-httpx'
+  'python-opentelemetry-instrumentation-psycopg'
+  'python-opentelemetry-instrumentation-psycopg2'
+  'python-opentelemetry-instrumentation-pymongo'
+  'python-opentelemetry-instrumentation-requests'
+  'python-opentelemetry-instrumentation-sqlalchemy'
+  'python-opentelemetry-instrumentation-sqlite3'
+  'python-opentelemetry-instrumentation-starlette'
+  'python-opentelemetry-instrumentation-system-metrics'
+  'python-opentelemetry-instrumentation-wsgi'
+  'python-packaging'
+  'python-pandas'
+  'python-psutil'
+  'python-psycopg'
+  'python-psycopg2'
+  'python-pyarrow'
+  'python-pydantic'
+  'python-pydantic-handlebars'
+  'python-pymongo'
+  'python-pymysql'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-django'
+  'python-pytest-examples'
+  'python-pytest-recording'
+  'python-pytest-timeout'
+  'python-pytest-xdist'
+  'python-requests-mock'
+  'python-sqlalchemy'
+  'python-sqlmodel'
+  'python-starlette'
+  'python-structlog'
+  'python-wrapt'
+  'ruff'
+  'uv'
+  'uvicorn'
+)
+source=("git+https://github.com/pydantic/logfire.git#tag=v$pkgver"
+        sqlalchemy-tests.patch
+        anthropic-tests.patch)
+sha512sums=('35c6ca856b31a1a16e785b1f5ba8556f156f83ebba592db479301d0527df0a8e3c1f90063b6986338f5a1bcbfab7438e6f0a068362990b8146c70ddbb62b14c1'
+            'a0878ce73bcce449cbaa759efa8ba6a0e4d780853a9837a13c37accac08270e5467d06e235b5428182f43817076464f97a6e2062d781521efc428bb42aa73d62'
+            '1b7cf93f4b96db328fe161c1eadd1e3eb1e97173a3b296b4e5f09e0ffcc34de67ad7f432e8ebdaaa6986fafdaff869de1df6e7f37d29c45e3dad4375e1aec8fd')
+
+prepare() {
+  cd logfire
+  # Close async SQLite connections before test teardown.
+  patch -p1 -i "$srcdir/sqlalchemy-tests.patch"
+  # Update usage.speed snapshots and beta cassette URLs for current Anthropic.
+  # Beta URL change: https://github.com/anthropics/anthropic-sdk-python/pull/1076
+  patch -p1 -i "$srcdir/anthropic-tests.patch"
+}
+
+build() {
+  cd logfire
+  python -m build --wheel --no-isolation logfire-sdk
+  python -m build --wheel --no-isolation logfire
+  python -m build --wheel --no-isolation logfire-api
+}
+
+check() {
+  cd logfire
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer logfire-sdk/dist/*.whl
+  test-env/bin/python -m installer logfire/dist/*.whl
+  test-env/bin/python -m installer logfire-api/dist/*.whl
+
+  # Skip integrations with unpackaged dependencies.
+  # The editable-install test requires a source install.
+  PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
+    --ignore=tests/otel_integrations/test_celery.py \
+    --ignore=tests/otel_integrations/test_claude_agent_sdk.py \
+    --ignore=tests/otel_integrations/test_dspy.py \
+    --ignore=tests/otel_integrations/test_google_genai.py \
+    --ignore=tests/otel_integrations/test_litellm.py \
+    --ignore=tests/otel_integrations/test_litestar.py \
+    --ignore=tests/otel_integrations/test_monty.py \
+    --ignore=tests/otel_integrations/test_mysql.py \
+    --ignore=tests/otel_integrations/test_openai_agents.py \
+    --ignore=tests/otel_integrations/test_openai_agents_mcp.py \
+    --ignore=tests/otel_integrations/test_pydantic_ai.py \
+    --ignore=tests/otel_integrations/test_pydantic_ai_mcp.py \
+    --ignore=tests/otel_integrations/test_redis.py \
+    --ignore=tests/otel_integrations/test_snowflake.py \
+    --ignore=tests/otel_integrations/test_surrealdb.py \
+    --ignore=tests/test_agent_sandboxes.py \
+    --deselect=tests/test_distribution_metadata.py::test_editable_sdk_uses_the_source_tree \
+    --deselect=tests/test_docs.py::test_runnable \
+    --deselect=tests/test_logfire_api.py::test_runtime
+}
+
+package_python-logfire() {
+  pkgdesc='Pydantic Logfire command-line interface'
+  depends=('python' 'python-logfire-sdk')
+
+  cd logfire
+  python -m installer --destdir="$pkgdir" logfire/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-logfire-api() {
+  pkgdesc='Pydantic Logfire API shim'
+  depends=('python')
+  optdepends=('python-logfire-sdk: Logfire SDK integration')
+
+  cd logfire
+  python -m installer --destdir="$pkgdir" logfire-api/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-logfire-sdk() {
+  pkgdesc='Pydantic Logfire Python SDK'
+  optdepends=(
+    'python-anthropic: Anthropic instrumentation'
+    'python-genai-prices: LLM usage cost calculation'
+    'python-httpx: query clients and gateway support'
+    'python-loguru: Loguru logging integration'
+    'python-mcp: MCP 1 instrumentation'
+    'python-openai: OpenAI instrumentation'
+    'python-opentelemetry-instrumentation-aiohttp-client: aiohttp client instrumentation'
+    'python-opentelemetry-instrumentation-aiohttp-server: aiohttp server instrumentation'
+    'python-opentelemetry-instrumentation-asgi: ASGI instrumentation'
+    'python-opentelemetry-instrumentation-asyncpg: asyncpg instrumentation'
+    'python-opentelemetry-instrumentation-aws-lambda: AWS Lambda instrumentation'
+    'python-opentelemetry-instrumentation-django: Django instrumentation'
+    'python-opentelemetry-instrumentation-fastapi: FastAPI instrumentation'
+    'python-opentelemetry-instrumentation-flask: Flask instrumentation'
+    'python-opentelemetry-instrumentation-httpx: HTTPX instrumentation'
+    'python-opentelemetry-instrumentation-psycopg: Psycopg 3 instrumentation'
+    'python-opentelemetry-instrumentation-psycopg2: Psycopg 2 instrumentation'
+    'python-opentelemetry-instrumentation-pymongo: PyMongo instrumentation'
+    'python-opentelemetry-instrumentation-requests: Requests instrumentation'
+    'python-opentelemetry-instrumentation-sqlalchemy: SQLAlchemy instrumentation'
+    'python-opentelemetry-instrumentation-sqlite3: SQLite3 instrumentation'
+    'python-opentelemetry-instrumentation-starlette: Starlette instrumentation'
+    'python-opentelemetry-instrumentation-system-metrics: system metrics'
+    'python-opentelemetry-instrumentation-wsgi: WSGI instrumentation'
+    'python-pyarrow: Arrow query results'
+    'python-pydantic: Pydantic validation instrumentation'
+    'python-pydantic-handlebars: managed variables and templates'
+    'python-pytest: pytest fixtures and instrumentation'
+    'python-starlette: gateway and ASGI forwarding support'
+    'python-structlog: structlog logging integration'
+    'uvicorn: gateway server'
+  )
+
+  cd logfire
+  python -m installer --destdir="$pkgdir" logfire-sdk/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
