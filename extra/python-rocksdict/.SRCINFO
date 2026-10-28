@@ -1,0 +1,33 @@
+pkgbase = python-rocksdict
+	pkgdesc = Persistent dictionary backed by RocksDB
+	pkgver = 0.3.29
+	pkgrel = 1
+	url = https://github.com/Congyuwang/RocksDict
+	arch = x86_64
+	license = MIT
+	license = Apache-2.0
+	license = BSD-3-Clause
+	makedepends = clang
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-maturin
+	makedepends = rust
+	depends = bzip2
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = lz4
+	depends = python
+	depends = snappy
+	depends = zlib
+	depends = zstd
+	options = !lto
+	source = git+https://github.com/Congyuwang/RocksDict.git#tag=v0.3.29
+	source = git+https://github.com/Congyuwang/rust-rocksdb.git#commit=4cf3c68a993b807bc54ff1c5293cdf49e62aaf72
+	source = git+https://github.com/facebook/rocksdb.git#commit=44e95d8af5d7ec503b3f1d5754c3379ab6c29a9d
+	sha512sums = 9858bd09ecacfe8280b8135e7b824d1bbea1efb0d0b9fa47d0e692c156c2e27c2add13d36149b407ee56d131455b3b28de01f30e5942979cae7a3562ade5338c
+	sha512sums = 69287828bce0145763f062a460d13aa144a10d9fb558915ec7d935bf59fae9bc642b85617fd0379d8a62d93e8ce8f3238734fe382adfeb5d95e52828faef9c4d
+	sha512sums = cba187f48cc4da082b0640e56db5e3170c339a1e45e4ecbdb46f37022770a584c4e94360694691369a2b7678c9e4d91d46d9622c59e07c8df2420d55680a871f
+
+pkgname = python-rocksdict

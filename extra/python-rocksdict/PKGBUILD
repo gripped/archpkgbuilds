@@ -1,0 +1,72 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-rocksdict
+pkgver=0.3.29
+pkgrel=1
+pkgdesc="Persistent dictionary backed by RocksDB"
+arch=('x86_64')
+url="https://github.com/Congyuwang/RocksDict"
+license=('MIT' 'Apache-2.0' 'BSD-3-Clause')
+depends=('bzip2' 'glibc' 'libgcc' 'libstdc++' 'lz4' 'python' 'snappy' 'zlib' 'zstd')
+makedepends=('clang' 'git' 'python-build' 'python-installer' 'python-maturin' 'rust')
+# GCC LTO loses native symbols when Rust bundles the RocksDB archive.
+# https://github.com/rust-lang/rust/issues/138681
+options=('!lto')
+source=("git+https://github.com/Congyuwang/RocksDict.git#tag=v$pkgver"
+        'git+https://github.com/Congyuwang/rust-rocksdb.git#commit=4cf3c68a993b807bc54ff1c5293cdf49e62aaf72'
+        'git+https://github.com/facebook/rocksdb.git#commit=44e95d8af5d7ec503b3f1d5754c3379ab6c29a9d')
+sha512sums=('9858bd09ecacfe8280b8135e7b824d1bbea1efb0d0b9fa47d0e692c156c2e27c2add13d36149b407ee56d131455b3b28de01f30e5942979cae7a3562ade5338c'
+            '69287828bce0145763f062a460d13aa144a10d9fb558915ec7d935bf59fae9bc642b85617fd0379d8a62d93e8ce8f3238734fe382adfeb5d95e52828faef9c4d'
+            'cba187f48cc4da082b0640e56db5e3170c339a1e45e4ecbdb46f37022770a584c4e94360694691369a2b7678c9e4d91d46d9622c59e07c8df2420d55680a871f')
+
+prepare() {
+  cd RocksDict
+  # Correct the stale package version in Cargo.lock so --locked works.
+  # https://github.com/rocksdict/RocksDict/commit/1bd93b23f66757b28b57d5a524deb3e4b744b2e5
+  git cherry-pick -n 1bd93b23f66757b28b57d5a524deb3e4b744b2e5
+
+  # The wide-column C bindings require the bundled RocksDB internals.
+  git -c submodule.rust-rocksdb.url="$srcdir/rust-rocksdb" -c protocol.file.allow=always \
+    submodule update --init rust-rocksdb
+  git -C rust-rocksdb -c submodule.rocksdb_sys/rocksdb.url="$srcdir/rocksdb" \
+    -c protocol.file.allow=always submodule update --init librocksdb-sys/rocksdb
+
+  # Use system compression libraries instead of the crates' bundled copies.
+  local target=$(rustc -vV | sed -n 's/^host: //p')
+  mkdir -p .cargo
+  cat > .cargo/config.toml <<EOF
+[target.$target.lz4]
+rustc-link-lib = ["lz4"]
+include = "/usr/include"
+
+[target.$target.bzip2]
+rustc-link-lib = ["bz2"]
+include = "/usr/include"
+
+[target.$target.zstd]
+rustc-link-lib = ["zstd"]
+include = "/usr/include"
+EOF
+  cargo fetch --locked
+}
+
+build() {
+  cd RocksDict
+  CARGO_NET_OFFLINE=true SNAPPY_LIB_DIR=/usr/lib python -m build --wheel --no-isolation \
+    -C build-args="--no-default-features --features bindgen-runtime"
+}
+
+check() {
+  cd RocksDict
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m unittest discover -v test
+}
+
+package() {
+  cd RocksDict
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -Dm644 rust-rocksdb/librocksdb-sys/rocksdb/LICENSE.leveldb \
+    -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
