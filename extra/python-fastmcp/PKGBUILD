@@ -1,0 +1,182 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgbase=python-fastmcp
+pkgname=('python-fastmcp' 'python-fastmcp-slim' 'python-fastmcp-tasks' 'python-fastmcp-remote')
+pkgver=4.1.3
+pkgrel=1
+pkgdesc="The fast, Pythonic way to build MCP servers and clients"
+arch=('any')
+url="https://github.com/PrefectHQ/fastmcp"
+license=('Apache-2.0')
+depends=(
+  'python'
+  'python-aiofile'
+  'python-anyio'
+  'python-authlib'
+  'python-cachetools'
+  'python-certifi'
+  'python-cyclopts'
+  'python-dotenv'
+  'python-email-validator'
+  'python-exceptiongroup'
+  'python-griffelib'
+  'python-httpx2'
+  'python-joserfc'
+  'python-jsonref'
+  'python-jsonschema-path'
+  'python-keyring'
+  'python-mcp'
+  'python-mcp-types'
+  'python-openapi-pydantic'
+  'python-opentelemetry-api'
+  'python-packaging'
+  'python-platformdirs'
+  'python-py-key-value-aio'
+  'python-pydantic'
+  'python-pydantic-settings'
+  'python-pyperclip'
+  'python-python-multipart'
+  'python-rich'
+  'python-starlette'
+  'python-typing_extensions'
+  'python-uncalled-for'
+  'python-watchfiles'
+  'python-websockets'
+  'python-yaml'
+  'uvicorn'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatchling'
+  'python-installer'
+  'python-uv-dynamic-versioning'
+  'python-wheel'
+)
+checkdepends=(
+  'npm'
+  'python-anthropic'
+  'python-cryptography'
+  'python-dirty-equals'
+  'python-fastapi'
+  'python-google-genai'
+  'python-httpx'
+  'python-inline-snapshot'
+  'python-jsonschema'
+  'python-openai'
+  'python-opentelemetry-sdk'
+  'python-prefab-ui'
+  'python-psutil'
+  'python-pydantic-monty'
+  'python-pydocket'
+  'python-pyjwt'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-env'
+  'python-pytest-examples'
+  'python-pytest-retry'
+  'python-pytest-timeout'
+  'uv'
+)
+optdepends=(
+  'python-anthropic: Anthropic sampling handler'
+  'python-fastmcp-tasks: background task execution'
+  'python-google-genai: Google GenAI sampling handler'
+  'python-openai: OpenAI sampling handler'
+  'python-prefab-ui: MCP app interfaces'
+  'python-pydantic-monty: code-mode sandbox'
+  'uv: isolated environments for MCP servers'
+)
+source=("git+https://github.com/PrefectHQ/fastmcp.git#tag=v$pkgver"
+        "git+https://github.com/APIs-guru/openapi-directory.git#commit=f7207cf0a5c56081d275ebae4cf615249323385d")
+sha512sums=('ba5f8728307628ab0c8e3cd2531a920a4aac40a9d1f53db1faf0aea5c3df4e2cb7f884db1e7b63e913889ddda1ecd83a2273865de2181585eea7d1c8bafc0af6'
+            'SKIP')
+
+prepare() {
+  cd fastmcp
+  # Anthropic 2.x defines MessageParam as a union, so construct plain dictionaries.
+  sed -i 's/MessageParam(/dict(/g' fastmcp_slim/fastmcp/client/sampling/handlers/anthropic.py
+  # The dictionary payloads also support Anthropic 2.x.
+  sed -i 's/anthropic>=0.48.0,<2/anthropic>=0.48.0,<3/' fastmcp_slim/pyproject.toml
+}
+
+build() {
+  cd fastmcp
+  python -m build --wheel --no-isolation
+  python -m build --wheel --no-isolation fastmcp_slim
+  python -m build --wheel --no-isolation fastmcp_tasks
+  python -m build --wheel --no-isolation fastmcp_remote
+}
+
+check() {
+  cd fastmcp
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m installer fastmcp_slim/dist/*.whl
+  test-env/bin/python -m installer fastmcp_tasks/dist/*.whl
+  test-env/bin/python -m installer fastmcp_remote/dist/*.whl
+
+  # Local GitHub OAuth tests use dummy app credentials; remote MCP needs a real token.
+  FASTMCP_TEST_AUTH_GITHUB_CLIENT_ID=test-client \
+    FASTMCP_TEST_AUTH_GITHUB_CLIENT_SECRET=test-secret \
+    OPENAPI_DIRECTORY_PATH="$srcdir/openapi-directory" \
+    RUN_REAL_WORLD_SCHEMA_TEST=1 \
+    PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
+    --ignore=tests/integration_tests/test_github_mcp_remote.py
+}
+
+package_python-fastmcp() {
+  depends+=('python-fastmcp-slim')
+
+  cd fastmcp
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-fastmcp-slim() {
+  pkgdesc="FastMCP library with minimal dependencies"
+  depends=(
+    'python'
+    'python-dotenv'
+    'python-email-validator'
+    'python-mcp-types'
+    'python-platformdirs'
+    'python-pydantic'
+    'python-pydantic-settings'
+    'python-rich'
+    'python-typing_extensions'
+  )
+  optdepends+=('python-fastmcp: client, server and CLI support')
+
+  cd fastmcp
+  python -m installer --destdir="$pkgdir" fastmcp_slim/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-fastmcp-tasks() {
+  pkgdesc="Background task execution for FastMCP servers"
+  depends=(
+    'python'
+    'python-cryptography'
+    'python-fastmcp'
+    'python-pydocket'
+  )
+  optdepends=()
+
+  cd fastmcp
+  python -m installer --destdir="$pkgdir" fastmcp_tasks/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-fastmcp-remote() {
+  pkgdesc="Python stdio bridge for remote MCP servers"
+  depends=(
+    'python'
+    'python-fastmcp'
+  )
+  optdepends=()
+
+  cd fastmcp
+  python -m installer --destdir="$pkgdir" fastmcp_remote/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
