@@ -2,7 +2,7 @@
 
 _pyname=jupyter-builder
 pkgname=python-$_pyname
-pkgver=1.2.3
+pkgver=1.2.4
 pkgrel=1
 pkgdesc='Build tools for JupyterLab'
 arch=(any)
@@ -18,7 +18,7 @@ makedepends=(git
              python-installer)
 checkdepends=(python-pytest)
 source=(git+https://github.com/jupyterlab/jupyter-builder#tag=v$pkgver)
-sha256sums=('72f75f3053b74b858502bf579ee3e78ee8aef7da6c043980f90567e701aa90bf')
+sha256sums=('bbe3a2fe0f746b6474a60c7006ab73461e43a075119c4a4ee635d97f0cf29946')
 
 build() {
   cd $_pyname
