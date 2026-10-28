@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-allpairspy
+pkgver=2.5.1
+pkgrel=1
+pkgdesc="Pairwise test combinations generator"
+arch=('any')
+url="https://github.com/thombashi/allpairspy"
+license=('MIT')
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
+checkdepends=('python-pytest')
+source=("git+https://github.com/thombashi/allpairspy.git#tag=v$pkgver")
+sha512sums=('d70d2b365403d7bac47a114f3ebb544da4a1033bf20d434e0d0160ac052442ad1ffb0d17dcd4eab8d31698bc09a1b8793ee30a704de9758a0b3651a8b2206953')
+
+build() {
+  cd allpairspy
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd allpairspy
+  python -m pytest
+}
+
+package() {
+  cd allpairspy
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
