@@ -2,7 +2,7 @@
 
 pkgname=python-aiomisc
 pkgver=18.0.37
-pkgrel=1
+pkgrel=2
 pkgdesc="Miscellaneous utilities for asyncio"
 arch=('any')
 url="https://github.com/aiokitchen/aiomisc"
@@ -27,7 +27,7 @@ checkdepends=(
   'python-aiocarbon'
   'python-aiohttp'
   'python-aiohttp-asgi'
-  # 'python-aiomisc-pytest'
+  'python-aiomisc-pytest'
   'python-asgiref'
   'python-async-timeout'
   # 'python-croniter'
@@ -55,19 +55,31 @@ optdepends=(
 source=("git+https://github.com/aiokitchen/aiomisc.git#commit=23c40824d59353c3e2fa5b32f2903ac82e6ee04c")
 sha512sums=('13018a77a9c42d1c2273ec2d897fee825ba48445e9430a7ba1946159e2447463248f15c33bebe4378a6bcdb04574da7b2930dd5fdf44f94fdf8c650bad4b13c3')
 
+prepare() {
+  cd aiomisc
+  # Defer the optional gRPC import so the other entrypoint tests can collect.
+  sed -i \
+    -e '/^from aiomisc.service.grpc_server import GRPCService$/d' \
+    -e '/^def test_grpc_service(/a\    from aiomisc.service.grpc_server import GRPCService' \
+    tests/test_entrypoint.py
+}
+
 build() {
   cd aiomisc
   python -m build --wheel --no-isolation
 }
 
-# The required python-aiomisc-pytest plugin depends on python-aiomisc itself.
-# Re-enable once it and the other check dependencies are available.
-# check() {
-#   cd aiomisc
-#   python -m venv --system-site-packages --without-pip test-env
-#   test-env/bin/python -m installer dist/*.whl
-#   test-env/bin/python -m pytest --aiomisc-test-timeout=120
-# }
+check() {
+  cd aiomisc
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  # python-croniter, python-raven and python-grpcio-reflection are unavailable.
+  test-env/bin/python -m pytest --aiomisc-test-timeout=120 \
+    --ignore=tests/test_cron.py \
+    --ignore=tests/test_cron_service.py \
+    --ignore=tests/test_raven_service.py \
+    --deselect=tests/test_entrypoint.py::test_grpc_service
+}
 
 package() {
   cd aiomisc
