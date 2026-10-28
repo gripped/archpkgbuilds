@@ -1,0 +1,31 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-pathvalidate
+pkgver=3.3.1
+pkgrel=1
+pkgdesc="Sanitize and validate filenames and file paths"
+arch=('any')
+url="https://github.com/thombashi/pathvalidate"
+license=('MIT')
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm')
+checkdepends=('python-allpairspy' 'python-click' 'python-faker' 'python-pytest' 'python-tcolorpy')
+optdepends=('python-click: Click parameter validation')
+source=("git+https://github.com/thombashi/pathvalidate.git#tag=v$pkgver")
+sha512sums=('1d8fb47f733200566a1b2a013490890a8bb2ed5c6f8c5b236dd804c6e0da3f64518958f951afdcf4bd2136ed0ae2837840cdd0f9883d2d5528ac2633b7c8f982')
+
+build() {
+  cd pathvalidate
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd pathvalidate
+  python -m pytest
+}
+
+package() {
+  cd pathvalidate
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
