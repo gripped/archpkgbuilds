@@ -1,0 +1,95 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-py-key-value-aio
+pkgver=0.4.6
+pkgrel=1
+pkgdesc="Asynchronous interface for pluggable key-value stores"
+arch=('any')
+url="https://github.com/strawgate/py-key-value"
+license=('Apache-2.0')
+depends=('python' 'python-beartype' 'python-typing_extensions')
+makedepends=('git' 'python-build' 'python-installer' 'python-uv-build')
+checkdepends=(
+  'python-aiofile'
+  'python-aiohttp'
+  'python-anyio'
+  'python-asyncpg'
+  'python-cachetools'
+  'python-cryptography'
+  'python-dirty-equals'
+  'python-diskcache'
+  'python-duckdb'
+  'python-elasticsearch'
+  'python-hvac'
+  'python-inline-snapshot'
+  'python-keyring'
+  'python-pathvalidate'
+  'python-pydantic'
+  'python-pymongo'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-dotenv'
+  'python-pytest-mock'
+  'python-pytest-timeout'
+  'python-pytest-xdist'
+  'python-pytz'
+  'python-redis'
+  'python-rocksdict'
+  'python-testcontainers'
+)
+optdepends=(
+  'python-aiofile: file tree backend'
+  'python-aiohttp: Elasticsearch backend'
+  'python-anyio: file tree backend'
+  'python-asyncpg: PostgreSQL backend'
+  'python-cachetools: memory backend'
+  'python-cryptography: encryption wrappers'
+  'python-diskcache: disk backend'
+  'python-duckdb: DuckDB backend'
+  'python-elasticsearch: Elasticsearch backend'
+  'python-hvac: HashiCorp Vault backend'
+  'python-keyring: system keyring backend'
+  'python-pathvalidate: disk backend'
+  'python-pydantic: Pydantic adapters'
+  'python-pymongo: MongoDB backend'
+  'python-pytz: DuckDB backend'
+  'python-redis: Redis backend'
+  'python-rocksdict: RocksDB backend'
+)
+source=("git+https://github.com/strawgate/py-key-value.git#tag=$pkgver")
+sha512sums=('8094ba542f4a3ffffbd74ba5d56e91e42ee4ac49c3c71913aef0887e83570e4d46944cdc93f97db624a52aba4f6e7fa980bd6f5ceb68ca16a322e6111f3254e1')
+
+prepare() {
+  cd py-key-value
+  # uv 0.12 and 0.13 retain build-backend configuration compatibility.
+  # https://github.com/astral-sh/uv/releases/tag/0.13.0
+  sed -i 's/uv_build>=0.11.4,<0.12/uv_build>=0.11.4,<0.14/' pyproject.toml
+}
+
+build() {
+  cd py-key-value
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd py-key-value
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+
+  # These backends still require unpackaged optional clients.
+  test-env/bin/python -m pytest \
+    --ignore=tests/stores/aerospike \
+    --ignore=tests/stores/azure_tables \
+    --ignore=tests/stores/dynamodb \
+    --ignore=tests/stores/firestore \
+    --ignore=tests/stores/memcached \
+    --ignore=tests/stores/opensearch \
+    --ignore=tests/stores/s3 \
+    --ignore=tests/stores/valkey
+}
+
+package() {
+  cd py-key-value
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
