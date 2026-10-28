@@ -4,16 +4,25 @@
 
 pkgname=shake
 pkgver=1.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Userspace defragmenter that can be run while system is in use"
 arch=('x86_64')
 url="https://vleu.net/shake/"
-license=('GPL3')
-depends=('attr')
+license=('GPL-3.0-or-later')
+depends=('glibc' 'attr')
 makedepends=('cmake' 'help2man')
 install=$pkgname.install
-source=($pkgname-$pkgver.tar.gz::https://github.com/unbrice/shake/archive/v$pkgver.tar.gz)
-sha512sums=('f73601ebf37ac934b2cfb5bcedd530e38bd6873615e80eae01c690bf935ed3924abb1d06fb31c46397b5804d47a36584ac5e11b4c7142b46e570ddbf3abe1775')
+source=($pkgname-$pkgver.tar.gz::https://github.com/unbrice/shake/archive/v$pkgver.tar.gz
+        $pkgname-cmake-update.patch::https://github.com/unbrice/shake/commit/8dca2c8eec28759ca8d1d091f356e7915b8fffbe.patch)
+sha512sums=('f73601ebf37ac934b2cfb5bcedd530e38bd6873615e80eae01c690bf935ed3924abb1d06fb31c46397b5804d47a36584ac5e11b4c7142b46e570ddbf3abe1775'
+            '000754f4f8039fe028de21f37eda75296c9ce89604cd9adfac73b874b093d27ce9b890aeefe1925d266cc754975ba41c860f82fc0275c265bc6f17fc1927d738')
+
+prepare() {
+  cd "${srcdir}"/${pkgname}-${pkgver}
+
+  # Upstream fixes for CMake 4
+  patch -Np1 -i ../$pkgname-cmake-update.patch
+}
 
 build() {
   cd "${srcdir}"/${pkgname}-${pkgver}/build
