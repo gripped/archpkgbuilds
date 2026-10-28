@@ -1,0 +1,41 @@
+pkgbase = sentencepiece
+	pkgdesc = Unsupervised text tokenizer and detokenizer
+	pkgver = 0.2.2
+	pkgrel = 1
+	url = https://github.com/google/sentencepiece
+	arch = x86_64
+	license = Apache-2.0
+	checkdepends = python-numpy
+	checkdepends = python-protobuf
+	checkdepends = python-pytest
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	makedepends = pybind11
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = abseil-cpp
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = protobuf
+	source = git+https://github.com/google/sentencepiece.git#tag=v0.2.2
+	source = python-shared-libraries.patch
+	sha512sums = 8a1b21e382b7e4649e406ed6d9cc2121df12c4c8b3e35524eaedc794539d1031afbd06e826aa25463ceb71ed556b2a4cd804253c4eb012b6ceca9ba79e644f42
+	sha512sums = 2c24b446ca3639d608034b2711dbbfe86ca3175148256cf34fa070e6f77421c24a40915796f103a6b94ae11f3907f5b18df5b1d85300e4ee3133b1d26aa5584c
+
+pkgname = sentencepiece
+
+pkgname = python-sentencepiece
+	pkgdesc = Python bindings for SentencePiece
+	depends = abseil-cpp
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = protobuf
+	depends = python
+	depends = sentencepiece
+	optdepends = python-numpy: NumPy array support
+	optdepends = python-protobuf: model and token protocol buffers
