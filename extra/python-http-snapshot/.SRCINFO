@@ -1,0 +1,24 @@
+pkgbase = python-http-snapshot
+	pkgdesc = Pytest plugin for snapshotting requests made with Python HTTP clients
+	pkgver = 0.1.9
+	pkgrel = 1
+	url = https://github.com/karpetrosyan/http-snapshot
+	arch = any
+	license = MIT
+	checkdepends = python-anyio
+	checkdepends = python-httpx
+	checkdepends = python-requests
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
+	depends = python-inline-snapshot
+	depends = python-pytest
+	optdepends = python-httpx: HTTPX integration
+	optdepends = python-requests: Requests integration
+	source = git+https://github.com/karpetrosyan/http-snapshot.git#tag=0.1.9
+	sha256sums = f08930a4b56bacde1fd71b6f4cebe9cddc57c1c9681aa50c69c4b0da3fe0ba2b
+
+pkgname = python-http-snapshot
