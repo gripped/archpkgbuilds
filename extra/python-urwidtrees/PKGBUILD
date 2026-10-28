@@ -3,8 +3,8 @@
 
 _pkgname=urwidtrees
 pkgname=python-urwidtrees
-pkgver=1.0.4
-pkgrel=3
+pkgver=1.1.0
+pkgrel=1
 pkgdesc="Tree widgets for urwid."
 arch=(any)
 url="https://github.com/pazz/$_pkgname"
@@ -12,7 +12,7 @@ license=('GPL-3.0-or-later')
 makedepends=(python-build python-installer python-setuptools python-wheel python-sphinx)
 depends=(python 'python-urwid>=1.1.0')
 source=("$_pkgname-$pkgver.tar.gz::https://github.com/pazz/$_pkgname/archive/$pkgver.tar.gz")
-sha256sums=('db7344de2c03257698c9fc12f140d46cee505241b0df378e6f76925d22c32eaa')
+sha256sums=('f968aa3ce4e907394ad77afd481ba54ee4927f9c3146393bd7c363fde4bbf8d4')
 
 build() {
 	cd "$srcdir/$_pkgname-$pkgver"
