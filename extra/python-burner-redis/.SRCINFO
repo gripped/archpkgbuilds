@@ -1,0 +1,26 @@
+pkgbase = python-burner-redis
+	pkgdesc = Embedded, in-process Redis-compatible database
+	pkgver = 0.1.7
+	pkgrel = 2
+	url = https://github.com/prefectlabs/burner-redis
+	arch = x86_64
+	license = MIT
+	checkdepends = python-pydocket
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-redis
+	makedepends = cargo
+	makedepends = git
+	makedepends = pkgconf
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-maturin
+	depends = glibc
+	depends = libgcc
+	depends = lua54
+	depends = python
+	optdepends = python-redis: redis-py compatible exceptions
+	source = git+https://github.com/prefectlabs/burner-redis.git#tag=v0.1.7
+	sha512sums = 894efed326c26c83d8c6db2e0c782cda395b15fb727e4638cf067381dc9512430410f3d8ad01685fdd61108ad51171d1f45fdc408cb1102a09767660b8af1cfe
+
+pkgname = python-burner-redis
