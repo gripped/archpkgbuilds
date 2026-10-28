@@ -1,6 +1,6 @@
 pkgbase = fooyin
 	pkgdesc = A customisable music player
-	pkgver = 0.14.0
+	pkgver = 0.14.1
 	pkgrel = 1
 	url = https://fooyin.org/
 	arch = x86_64
@@ -19,6 +19,8 @@ pkgbase = fooyin
 	makedepends = libebur128
 	makedepends = libprojectm
 	makedepends = libsoxr
+	makedepends = libcdio
+	makedepends = libcdio-paranoia
 	makedepends = soundtouch
 	makedepends = vulkan-headers
 	depends = glibc
@@ -42,9 +44,11 @@ pkgbase = fooyin
 	optdepends = libebur128: For the ReplayGain scanner plugin
 	optdepends = libsoxr: For the SoX-based DSP plugin
 	optdepends = libprojectm: For the ProjectM visualisation plugin
+	optdepends = libcdio: For the Audio CD plugin
+	optdepends = libcdio-paranoia: For the Audio CD plugin
 	optdepends = soundtouch: For the SoundTouch-based DSP plugin
-	source = fooyin::git+https://github.com/fooyin/fooyin#tag=v0.14.0
-	sha512sums = e691f69edcfb40c810597f365d82d6d2fc999a4bec6fa77e238cdc0a9299d1775ca098c7dd12438a3062d6f0fbb0e213c74c12b251e0ac6a1ffe2fa7161a3f45
-	b2sums = 2fc1d298bf564cc0b443c8f7615e791fde0bb019ec2d768cece0263f6a6c515d1ca126b7fe148de7d66f5abdc6792d90e81fa84ae4e6527707240a4919b98c38
+	source = fooyin::git+https://github.com/fooyin/fooyin#tag=v0.14.1
+	sha512sums = 68999e306c8d622a2f6463c68163f97db45bd2e6d6553b53fa8ecf7ec72ae3b64ee2651cb10bfc83d1b3e8304d1383640cfe4beb1535bbce5f74431659091408
+	b2sums = b2515164a36ec02974064eb0ce5ec54b7dde5ee94f83dba69e0695468985a2f87cb77ea8259b25eb560080d4a25086ccab9451568103a228760da73a57f81eca
 
 pkgname = fooyin
