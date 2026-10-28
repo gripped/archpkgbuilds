@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=python-ulid
-pkgver=4.0.1
+pkgver=4.1.0
 pkgrel=1
 pkgdesc="ULID implementation for Python"
 arch=(any)
@@ -23,8 +23,8 @@ checkdepends=(
 )
 optdepends=('python-pydantic: for pydantic integration')
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('80a1727440ace2a57af00041303a2e519390c875a334d6dd17f70f5eaf7dd4394d0a5ef063ca38fc6f4aa2a9c6eb3f5f4658a3d18f6323e60afd85ba1bfaef2d')
-b2sums=('6cd0eba4298f7e05ce1d44427943efcd3759a0c7d555926545fd34ea52280e61795abaee375746d358e3036dc1104b9eb2b0bc555fd841cc46c5ec43ee2e280a')
+sha512sums=('202b2fd63134e27c424f50ffcbf5af97f213d4f4fbd8f8b7c01176d964ae6660646f632eb37d9b200499bf8f51f2611b85ee4909a5bea78c42bf1b12389f8bc0')
+b2sums=('2fde5c72e7e3658a091a2349308eaf5f74fd6d9e68387cc246111abd76bc03c5b0aecf3124aa2cbf2a195b9560ba54dfb1108802be8da06197af1894459e7e68')
 
 build() {
   cd $pkgname-$pkgver
