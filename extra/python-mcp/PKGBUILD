@@ -1,21 +1,21 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
-pkgname=python-mcp
-pkgver=1.30.0
-pkgrel=1
-pkgdesc='Model Context Protocol SDK'
+pkgbase=python-mcp
+pkgname=(python-mcp python-mcp-types)
+pkgver=2.3.0
+pkgrel=2
 arch=(any)
 url='https://github.com/modelcontextprotocol/python-sdk'
 license=(MIT)
 depends=(
   python
   python-anyio
+  python-cryptography
   python-dotenv
-  python-httpx
-  python-httpx-sse
+  python-httpx2
   python-jsonschema
+  python-opentelemetry-api
   python-pydantic
-  python-pydantic-settings
   python-pyjwt
   python-python-multipart
   python-sse-starlette
@@ -33,44 +33,58 @@ makedepends=(
   python-uv-dynamic-versioning
 )
 checkdepends=(
+  python-blockbuster
+  python-coverage
   python-dirty-equals
+  python-griffelib
   python-inline-snapshot
+  python-logfire-sdk
+  python-opentelemetry-sdk
   python-pytest
   python-pytest-examples
   python-pytest-xdist
-  python-requests
-  python-websockets
+  python-trio
+  python-yaml
   ruff
-  uv
-)
-optdepends=(
-  'python-rich: rich logging support'
-  'python-websockets: deprecated websocket transport support'
 )
 source=("git+https://github.com/modelcontextprotocol/python-sdk.git#tag=v$pkgver")
-b2sums=('f6cc562ac57eab4a4a1748d7c52a9d659432b019303ecf92e95b671af301245861d10488293ce6935df4bb946115b38f0d76e4ae8833528332d29750d2a1429d')
-
-prepare() {
-  cd python-sdk
-  # uv may take longer than the hardcoded subprocess timeout while creating its
-  # transient environment in a clean build.
-  sed -i 's/, timeout=20//' tests/client/test_config.py
-}
+b2sums=('13a48f64e4347a2def79cb2e7bfd834da2ac8418db5deb625d9c572ed7d55dcc7ae255b14d0123fb59bd39408f32b2fa8a06b46dd5ef6bd8dad5dbc676a25bbe')
 
 build() {
   cd python-sdk
+  python -m build --wheel --no-isolation
+  cd src/mcp-types
   python -m build --wheel --no-isolation
 }
 
 check() {
   cd python-sdk
   python -m venv --system-site-packages test-env
-  test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -m pytest
+  test-env/bin/python -m installer dist/*.whl src/mcp-types/dist/*.whl
+  # Translation-tool tests require the unpackaged Zensical module.
+  PYTHONPATH="$PWD/examples" test-env/bin/python -m pytest \
+    --ignore tests/docs/test_translations.py
 }
 
-package() {
+package_python-mcp() {
+  pkgdesc='Model Context Protocol SDK'
+  depends+=(python-mcp-types)
+  optdepends=('python-rich: rich logging support')
+
   cd python-sdk
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
+
+package_python-mcp-types() {
+  pkgdesc='Model Context Protocol wire types'
+  depends=(
+    python
+    python-pydantic
+    python-typing_extensions
+  )
+
+  cd python-sdk/src/mcp-types
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 ../../LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
