@@ -1,15 +1,16 @@
 # Maintainer: Orhun Parmaksız <orhun@archlinux.org>
 
 pkgname=esp-generate
-pkgver=1.4.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc="Template generation tool to create no_std applications for Espressif's chips"
 arch=('x86_64')
 url="https://github.com/esp-rs/esp-generate"
 license=('MIT' 'Apache-2.0')
 makedepends=('cargo')
+checkdepends=('git')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('d6048a46966623883ae9904d3052b629fd98f2d387a5d0d3a71fc04cf34b7cd2')
+sha256sums=('2aff49fdbc951a5359d12cde936c105e28f8ea19dcbdf730b271aaafcea40d95')
 options=('!lto')
 
 prepare() {
