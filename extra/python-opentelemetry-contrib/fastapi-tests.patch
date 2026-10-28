@@ -1,0 +1,26 @@
+diff --git a/instrumentation/opentelemetry-instrumentation-fastapi/tests/test_fastapi_instrumentation.py b/instrumentation/opentelemetry-instrumentation-fastapi/tests/test_fastapi_instrumentation.py
+index 63211e31d..006b237d9 100644
+--- a/instrumentation/opentelemetry-instrumentation-fastapi/tests/test_fastapi_instrumentation.py
++++ b/instrumentation/opentelemetry-instrumentation-fastapi/tests/test_fastapi_instrumentation.py
+@@ -218,8 +218,8 @@ class TestBaseFastAPI(TestBase):
+ 
+     @staticmethod
+     def _create_fastapi_app():
+-        app = fastapi.FastAPI()
+-        sub_app = fastapi.FastAPI()
++        app = fastapi.FastAPI(telemetry={"tracing": False, "metrics": False, "logs": False})
++        sub_app = fastapi.FastAPI(telemetry={"tracing": False, "metrics": False, "logs": False})
+         custom_router = fastapi.APIRouter(route_class=CustomRoute)
+ 
+         @sub_app.get("/home")
+@@ -1095,8 +1095,8 @@ class TestFastAPIManualInstrumentation(TestBaseManualFastAPI):
+ 
+     @staticmethod
+     def _create_fastapi_app():
+-        app = fastapi.FastAPI()
+-        sub_app = fastapi.FastAPI()
++        app = fastapi.FastAPI(telemetry={"tracing": False, "metrics": False, "logs": False})
++        sub_app = fastapi.FastAPI(telemetry={"tracing": False, "metrics": False, "logs": False})
+         custom_router = fastapi.APIRouter(route_class=CustomRoute)
+ 
+         @sub_app.get("/home")
