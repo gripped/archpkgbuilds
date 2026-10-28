@@ -4,31 +4,78 @@
 
 pkgname=caja-actions
 pkgver=1.28.0
-pkgrel=4
+pkgrel=5
 pkgdesc="Extension for Caja which allows the user to add arbitrary program to be launched"
-url="https://mate-desktop.org"
-arch=('x86_64')
-license=('GPL-2.0-or-later AND LGPL-2.0-or-later')
-depends=('caja' 'libgtop')
-makedepends=('autoconf-archive' 'glib2-devel' 'itstool' 'mate-common' 'python-packaging' 'yelp-tools')
-groups=('mate-extra')
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mate-desktop/caja-actions/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('26de83562a7cab208c3871285f287cb2cd94beaf18fecbfefcd9a541c531d748')
+arch=(x86_64)
+url='https://github.com/mate-desktop/caja-actions'
+license=(GPL-2.0-or-later)
+depends=(
+  caja
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libgtop
+  libice
+  libsm
+  util-linux-libs
+)
+makedepends=(
+  git
+  glib2-devel
+  mate-common
+  yelp-tools
+)
+groups=(mate-extra)
+source=(
+  "git+https://github.com/mate-desktop/caja-actions.git#tag=v$pkgver"
+  caja-actions-fix-wayland.patch
+  caja-actions-fix-quit.patch
+  caja-actions-desktop-file-name.patch
+  caja-actions-icon-chooser-size.patch
+)
+b2sums=(
+  ac927b7b47c2521612f54df88e6141ac6b3ce5a703a2dcee69e3c6fcb4ee5e692753058a1aef51a7c0e64cd4ee5c3799f54ec93a0047dffc23709ab2edfce763
+  6fc0fd96d75d558bcee414ba927d11ea75f4ed6c5cff5f1f24774760d7a91c95307063110afc6ee82689da2e4a7982314e0f5232c242fbec923d572a702612ca
+  6f66dd72072a6ad9d3a8cd0cd2c4805696c2ba6e7f0d2f1def9303b92b56df5cfc3fbf7e31d2fc8bc171dd4bf6a1876280e171eda3ec35667692357dea255806
+  2bae7b2aa3de880c07440ac91bce5d274029ce7bee2e9582a56764c2cf93c3394d198147916381559f9fab2bf9125702deb45cd22bcb70e29fd5bcd9cc16d2ff
+  9ebc0d8cebb5dc95e2e8439d001037837a057e6b28ba00c92f1cf9568ede20ffca6ed47e1ff33bcc2c753c2aca178f2b21c64dab22f1c45472306a6699cf90b4
+)
 
 prepare() {
-	cd "${pkgname}-${pkgver}"
-	NOCONFIGURE=1 ./autogen.sh
+  cd $pkgname
+
+  # Fix window position restoration on Wayland
+  # https://github.com/mate-desktop/caja-actions/pull/34
+  git apply -3 ../caja-actions-fix-wayland.patch
+
+  # Fix use-after-free when disconnecting signals
+  # https://github.com/mate-desktop/caja-actions/pull/35
+  git apply -3 ../caja-actions-fix-quit.patch
+
+  # Rename desktop file to match program name
+  # https://github.com/mate-desktop/caja-actions/pull/36
+  git apply -3 ../caja-actions-desktop-file-name.patch
+
+  # Fix icon chooser
+  # https://github.com/mate-desktop/caja-actions/pull/37
+  git apply -3 ../caja-actions-icon-chooser-size.patch
+
+  autoreconf -fiv
 }
 
 build() {
-	cd "${pkgname}-${pkgver}"
-    	./configure \
-        	--prefix=/usr \
-		--libexecdir="/usr/lib/${pkgname}"
-    	make
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --libexecdir="/usr/lib/$pkgname" \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
 }
 
 package() {
-    	cd "$pkgname-$pkgver"
-    	make DESTDIR="${pkgdir}" install
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
 }

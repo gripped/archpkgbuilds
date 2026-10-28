@@ -1,0 +1,24 @@
+From 2b92631f53b685507cb9b78b954bc7b11975a8fe Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 26 Oct 2026 19:45:01 +0100
+Subject: [PATCH] cact: Fix icon chooser
+
+Allow the GtkPaned to expand and fill the available space.
+
+Closes: https://github.com/mate-desktop/caja-actions/issues/25
+---
+ src/cact/cact-icon-chooser.ui | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/cact/cact-icon-chooser.ui b/src/cact/cact-icon-chooser.ui
+index 1c6c1adc..27a60681 100644
+--- a/src/cact/cact-icon-chooser.ui
++++ b/src/cact/cact-icon-chooser.ui
+@@ -156,6 +156,7 @@
+                             <property name="can_focus">False</property>
+                             <child>
+                               <object class="GtkPaned" id="IconPaned">
++                                <property name="expand">True</property>
+                                 <property name="visible">True</property>
+                                 <property name="can_focus">True</property>
+                                 <child>

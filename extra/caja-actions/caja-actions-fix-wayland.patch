@@ -1,0 +1,32 @@
+From 0d88a6b6aec7c92349b5a2f705a97ffaf93c99cd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 26 Oct 2026 17:54:59 +0100
+Subject: [PATCH] na-gtk-utils: Fix window position restoration on Wayland
+
+Replace the X11-specific screen dimension queries with GDK
+screen dimension queries in na_gtk_utils_restore_window_position().
+
+Calling gdk_x11_screen_get_xscreen() under Wayland returns no
+usable X11 screen, causing a segmentation fault when restoring
+the saved window position.
+
+This fixes a crash at startup under Wayland.
+---
+ src/core/na-gtk-utils.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/core/na-gtk-utils.c b/src/core/na-gtk-utils.c
+index 94a6d811..46d3f58a 100644
+--- a/src/core/na-gtk-utils.c
++++ b/src/core/na-gtk-utils.c
+@@ -173,8 +173,8 @@ na_gtk_utils_restore_window_position( GtkWindow *toplevel, const gchar *wsp_name
+ 		} else {
+ 			display = gdk_display_get_default();
+ 			screen = gdk_display_get_default_screen( display );
+-			screen_width = WidthOfScreen (gdk_x11_screen_get_xscreen (screen));
+-			screen_height = HeightOfScreen (gdk_x11_screen_get_xscreen (screen));
++			screen_width = gdk_screen_get_width (screen);
++			screen_height = gdk_screen_get_height (screen);
+ 			g_debug( "%s: screen=(%d,%d), DEFAULT_HEIGHT=%d",
+ 					thisfn, screen_width, screen_height, DEFAULT_HEIGHT );
+ 

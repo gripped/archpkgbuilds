@@ -1,0 +1,51 @@
+From f190dc046333f42015cd4dfc75a1fc90d1a43d6d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 26 Oct 2026 18:20:08 +0100
+Subject: [PATCH] cact: Rename desktop file to match program name
+
+This allows Wayland compositors to match the window with the
+application and display the appropriate icon.
+---
+ po/POTFILES.in                                                  | 2 +-
+ src/cact/Makefile.am                                            | 2 +-
+ .../{cact.desktop.in => caja-actions-config-tool.desktop.in}    | 0
+ 3 files changed, 2 insertions(+), 2 deletions(-)
+ rename src/cact/{cact.desktop.in => caja-actions-config-tool.desktop.in} (100%)
+
+diff --git a/po/POTFILES.in b/po/POTFILES.in
+index a16bf146..cdde0602 100644
+--- a/po/POTFILES.in
++++ b/po/POTFILES.in
+@@ -34,7 +34,6 @@ src/cact/cact-assistant-export.c
+ src/cact/cact-assistant-export.ui
+ src/cact/cact-assistant-import.c
+ src/cact/cact-assistant-import.ui
+-src/cact/cact.desktop.in
+ src/cact/cact-export-ask.c
+ src/cact/cact-iaction-tab.c
+ src/cact/cact-ibasenames-tab.c
+@@ -58,6 +57,7 @@ src/cact/cact-schemes-list.c
+ src/cact/cact-tree-model.c
+ src/cact/cact-tree-model-dnd.c
+ src/cact/cact-tree-view.c
++src/cact/caja-actions-config-tool.desktop.in
+ src/cact/caja-actions-config-tool.ui
+ src/plugin-menu/caja-actions.c
+ src/test/test-reader.c
+diff --git a/src/cact/Makefile.am b/src/cact/Makefile.am
+index 9b001fb7..9a49d5bd 100644
+--- a/src/cact/Makefile.am
++++ b/src/cact/Makefile.am
+@@ -200,7 +200,7 @@ ui_data_DATA = \
+ 	$(NULL)
+ 
+ applicationsdir = $(datadir)/applications
+-applications_in_files = cact.desktop.in
++applications_in_files = caja-actions-config-tool.desktop.in
+ applications_DATA = $(applications_in_files:.desktop.in=.desktop)
+ 
+ %.desktop: %.desktop.in
+diff --git a/src/cact/cact.desktop.in b/src/cact/caja-actions-config-tool.desktop.in
+similarity index 100%
+rename from src/cact/cact.desktop.in
+rename to src/cact/caja-actions-config-tool.desktop.in
