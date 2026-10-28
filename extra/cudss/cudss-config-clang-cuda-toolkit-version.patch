@@ -1,0 +1,21 @@
+diff --git a/usr/lib/cmake/cudss/cudss-config.cmake b/usr/lib/cmake/cudss/cudss-config.cmake
+index 88e9cc8..1248f55 100644
+--- a/usr/lib/cmake/cudss/cudss-config.cmake
++++ b/usr/lib/cmake/cudss/cudss-config.cmake
+@@ -140,10 +140,14 @@ unset(_cudss_search_prefix)
+ # the mismatch here and report it at find_package() time.
+ set(_cudss_built_ctk_major "13")
+ set(_cudss_consumer_ctk_major "")
+-if(DEFINED CMAKE_CUDA_COMPILER_VERSION AND NOT CMAKE_CUDA_COMPILER_VERSION STREQUAL "")
+-    string(REGEX MATCH "^[0-9]+" _cudss_consumer_ctk_major "${CMAKE_CUDA_COMPILER_VERSION}")
++if(DEFINED CMAKE_CUDA_COMPILER_TOOLKIT_VERSION AND NOT CMAKE_CUDA_COMPILER_TOOLKIT_VERSION STREQUAL "")
++    string(REGEX MATCH "^[0-9]+" _cudss_consumer_ctk_major "${CMAKE_CUDA_COMPILER_TOOLKIT_VERSION}")
+ elseif(DEFINED CUDAToolkit_VERSION_MAJOR AND NOT CUDAToolkit_VERSION_MAJOR STREQUAL "")
+     set(_cudss_consumer_ctk_major "${CUDAToolkit_VERSION_MAJOR}")
++elseif(CMAKE_CUDA_COMPILER_ID STREQUAL "NVIDIA"
++       AND DEFINED CMAKE_CUDA_COMPILER_VERSION
++       AND NOT CMAKE_CUDA_COMPILER_VERSION STREQUAL "")
++    string(REGEX MATCH "^[0-9]+" _cudss_consumer_ctk_major "${CMAKE_CUDA_COMPILER_VERSION}")
+ endif()
+ 
+ if(_cudss_consumer_ctk_major STREQUAL "")
