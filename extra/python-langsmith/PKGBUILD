@@ -2,7 +2,7 @@
 
 pkgname=python-langsmith
 pkgver=0.12.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Client library to connect to the LangSmith Observability and Evaluation Platform"
 arch=('any')
 url="https://github.com/langchain-ai/langsmith-sdk"
@@ -70,6 +70,9 @@ prepare() {
   # Avoid deprecated asyncio.iscoroutinefunction on Python 3.14.
   # https://github.com/langchain-ai/langsmith-sdk/commit/eba0d4b31976aebbaba15de899b37ccbb191274a
   git cherry-pick -n eba0d4b31976aebbaba15de899b37ccbb191274a
+
+  # Export JSON strings with OTel 1.45: https://github.com/langchain-ai/langsmith-sdk/pull/3636
+  git diff 715bb6d5e042859772fe85be59fa57f7c54a8a8f^ 715bb6d5e042859772fe85be59fa57f7c54a8a8f -- langsmith | git apply
 
   # uuid-utils 1.0 replaces timestamp/nanos with a single nanoseconds argument.
   # https://github.com/aminalaee/uuid-utils/pull/194
