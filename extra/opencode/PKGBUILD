@@ -1,54 +1,74 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
-pkgname=opencode
-pkgver=2.1.4
+pkgbase=opencode
+pkgname=(
+  'opencode'
+  'opencode-desktop'
+)
+pkgver=2.2.0
 pkgrel=1
 pkgdesc='The open source coding agent'
 arch=('x86_64')
 url='https://github.com/anomalyco/opencode'
 license=('MIT')
-depends=(
-  'curl'
-  'glibc'
-  'icu'
-  'ripgrep'
-  'tar'
-)
 #checkdepends=(
 #  'nodejs-lts-jod'
 #)
 makedepends=(
   'bun'
+  'electron44'
   'git'
-)
-optdepends=(
-  'wl-clipboard: clipboard support on Wayland'
-  'xclip: clipboard support on X11'
+  'nodejs'
 )
 options=(
   '!debug'
   '!strip'
 )
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('3353c725e03da0bd1162d4b381330851daace5dc936fcd3320dd46749c3c7041595d4c51bc9409150e262c772c4dd97eae50e9126b899c879f3d710270c886e7')
+source=(
+  "git+$url.git#tag=v$pkgver"
+  'opencode-desktop.sh'
+  'ai.opencode.desktop.desktop'
+)
+b2sums=('e36d3c1731dd99d9a27fae6527ebfdab878e14a753670f2266b92286fb2f4aa0727c2f325c385602cae9d227441b5d42d6b271ec62701d47ae904d8cb2c07eab'
+        '8d2c68196b909f9dff23c9411ab4d7b21e6c1867be5dbf53e63bb6675dcf98baf368315def113ca178a15c87f0b794a16eaff3065368d6f23e222c0d230fb1b2'
+        '54a28c8a5343ebd0da166859ef1bb8fc875b16dfb990fdf1345cce556eb1231671c87ce6d17c8f7668acdfd261ac8ecf2bd5fe2db404f002455ccde8f4d439f9')
 
 prepare() {
-  cd $pkgname
+  cd $pkgbase
   bun install --frozen-lockfile --ignore-scripts
+
+  # resourcesPath points to the system electron dir, use our install dir instead
+  grep -rl 'process\.resourcesPath' packages/desktop/src/main \
+    | xargs sed -i 's|process\.resourcesPath|"/usr/lib/opencode-desktop"|g'
 }
 
 build() {
-  cd $pkgname/packages/cli
+  # build CLI
+  cd "$srcdir/$pkgbase/packages/cli"
   case $CARCH in
     aarch64) target=linux-arm64 ;;
     x86_64) target=linux-x64-baseline ;;
   esac
-  OPENCODE_VERSION=$pkgver bun run ./script/build.ts --skip-install --target="opencode-$target"
+  OPENCODE_TARGET=$target OPENCODE_VERSION=$pkgver bun run ./script/build.ts --skip-install
+
+  # build desktop, see packages/desktop/README.md and script/build.ts
+  # (picks up the CLI from packages/cli/dist)
+  cd "$srcdir/$pkgbase/packages/desktop"
+  export OPENCODE_CHANNEL=prod
+  export OPENCODE_VERSION=$pkgver
+  bun run build
+  # drop sourcemaps (only used for sentry upstream)
+  find out -name '*.map' -delete
+  node_modules/.bin/electron-builder --linux --dir --publish never \
+    --config electron-builder.config.ts \
+    -c.electronDist=/usr/lib/electron44 \
+    -c.electronVersion="$(< /usr/lib/electron44/version)" \
+    -c.npmRebuild=false
 }
 
 #check() {
-#  cd $pkgname/packages/opencode
+#  cd $pkgbase/packages/opencode
 
   # I _really_ tried to make the tests work but I'm getting 100s of failures, mostly due to this I think:
   # https://github.com/oven-sh/bun/issues/30014
@@ -60,8 +80,20 @@ build() {
   # bun test --timeout=20000 --parallel
 #}
 
-package() {
-  cd $pkgname
+package_opencode() {
+  depends=(
+    'curl'
+    'glibc'
+    'icu'
+    'ripgrep'
+    'tar'
+  )
+  optdepends=(
+    'wl-clipboard: clipboard support on Wayland'
+    'xclip: clipboard support on X11'
+  )
+
+  cd $pkgbase
   case $CARCH in
     aarch64) target=linux-arm64 ;;
     x86_64) target=linux-x64-baseline ;;
@@ -76,4 +108,39 @@ package() {
     | install -vDm644 /dev/stdin "$pkgdir/usr/share/fish/vendor_completions.d/opencode.fish"
   "$pkgdir/usr/bin/opencode" --completions zsh \
     | install -vDm644 /dev/stdin "$pkgdir/usr/share/zsh/site-functions/_opencode"
+}
+
+package_opencode-desktop() {
+  pkgdesc+=' (desktop app)'
+  depends=(
+    'electron44'
+    'gcc-libs'
+    'glibc'
+    "opencode=$pkgver"
+    'sh'
+  )
+
+  cd $pkgbase/packages/desktop
+
+  local resources=dist/linux-unpacked/resources
+  install -vDm644 -t "$pkgdir/usr/lib/$pkgname" $resources/app.asar $resources/opencode-cli.version
+  cp -vr --no-preserve=ownership $resources/app.asar.unpacked "$pkgdir/usr/lib/$pkgname/"
+  install -vDm644 -t "$pkgdir/usr/lib/$pkgname/icons" resources/icons/icon.png
+  ln -vs /usr/bin/opencode "$pkgdir/usr/lib/$pkgname/opencode-cli"
+
+  install -vDm755 "$srcdir/opencode-desktop.sh" "$pkgdir/usr/bin/opencode-desktop"
+  # upstream's .desktop file is a hidden legacy entry, the real one is only
+  # generated for the deb/rpm/AppImage targets
+  install -vDm644 -t "$pkgdir/usr/share/applications" "$srcdir/ai.opencode.desktop.desktop"
+  install -vDm644 -t "$pkgdir/usr/share/metainfo" resources/ai.opencode.desktop.metainfo.xml
+
+  local size
+  for size in 32 64 128; do
+    install -vDm644 icons/prod/${size}x${size}.png \
+      "$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/ai.opencode.desktop.png"
+  done
+  install -vDm644 icons/prod/128x128@2x.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/ai.opencode.desktop.png"
+  install -vDm644 icons/prod/icon.png "$pkgdir/usr/share/icons/hicolor/512x512/apps/ai.opencode.desktop.png"
+
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" ../../LICENSE
 }

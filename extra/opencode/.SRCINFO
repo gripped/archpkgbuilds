@@ -1,12 +1,24 @@
 pkgbase = opencode
 	pkgdesc = The open source coding agent
-	pkgver = 2.1.4
+	pkgver = 2.2.0
 	pkgrel = 1
 	url = https://github.com/anomalyco/opencode
 	arch = x86_64
 	license = MIT
 	makedepends = bun
+	makedepends = electron44
 	makedepends = git
+	makedepends = nodejs
+	options = !debug
+	options = !strip
+	source = git+https://github.com/anomalyco/opencode.git#tag=v2.2.0
+	source = opencode-desktop.sh
+	source = ai.opencode.desktop.desktop
+	b2sums = e36d3c1731dd99d9a27fae6527ebfdab878e14a753670f2266b92286fb2f4aa0727c2f325c385602cae9d227441b5d42d6b271ec62701d47ae904d8cb2c07eab
+	b2sums = 8d2c68196b909f9dff23c9411ab4d7b21e6c1867be5dbf53e63bb6675dcf98baf368315def113ca178a15c87f0b794a16eaff3065368d6f23e222c0d230fb1b2
+	b2sums = 54a28c8a5343ebd0da166859ef1bb8fc875b16dfb990fdf1345cce556eb1231671c87ce6d17c8f7668acdfd261ac8ecf2bd5fe2db404f002455ccde8f4d439f9
+
+pkgname = opencode
 	depends = curl
 	depends = glibc
 	depends = icu
@@ -14,9 +26,11 @@ pkgbase = opencode
 	depends = tar
 	optdepends = wl-clipboard: clipboard support on Wayland
 	optdepends = xclip: clipboard support on X11
-	options = !debug
-	options = !strip
-	source = git+https://github.com/anomalyco/opencode.git#tag=v2.1.4
-	b2sums = 3353c725e03da0bd1162d4b381330851daace5dc936fcd3320dd46749c3c7041595d4c51bc9409150e262c772c4dd97eae50e9126b899c879f3d710270c886e7
 
-pkgname = opencode
+pkgname = opencode-desktop
+	pkgdesc = The open source coding agent (desktop app)
+	depends = electron44
+	depends = gcc-libs
+	depends = glibc
+	depends = opencode=2.2.0
+	depends = sh
