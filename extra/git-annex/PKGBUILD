@@ -3,8 +3,8 @@
 # Contributor: Arch Haskell Team <arch-haskell@haskell.org>
 
 pkgname=git-annex
-pkgver=10.20261020
-pkgrel=9
+pkgver=10.20261026
+pkgrel=1
 pkgdesc="Manage files with git, without checking their contents into git"
 url="https://git-annex.branchable.com/"
 license=("AGPL-3.0-only")
@@ -21,7 +21,7 @@ depends=('git' 'lsof' 'rsync' 'ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal'
          'haskell-monad-control' 'haskell-monad-logger' 'haskell-mountpoints' 'haskell-network'
          'haskell-network-info' 'haskell-network-multicast' 'haskell-network-uri'
          'haskell-old-locale' 'haskell-optparse-applicative' 'haskell-path-pieces'
-         'haskell-persistent' 'haskell-persistent-sqlite' 'haskell-quickcheck' 'haskell-ram'
+         'haskell-persistent' 'haskell-persistent-sqlite' 'haskell-quickcheck'
          'haskell-random' 'haskell-regex-tdfa' 'haskell-resourcet' 'haskell-safesemaphore'
          'haskell-sandi' 'haskell-securemem' 'haskell-servant' 'haskell-servant-client'
          'haskell-servant-client-core' 'haskell-servant-server' 'haskell-shakespeare'
@@ -34,7 +34,7 @@ depends=('git' 'lsof' 'rsync' 'ghc-libs' 'haskell-aeson' 'haskell-ansi-terminal'
 makedepends=('chrpath' 'ghc' 'uusi')
 source=("git+https://git.joeyh.name/git/git-annex.git#tag=$pkgver"
         'magic-2.0.patch')
-sha256sums=('f14d1e4344e5b11a2405c0472ffdc73f6d8a2a2842a040f2e7a7a9c169762d44'
+sha256sums=('729c729ea07af8f18bec008ab15e9b80bc0327be50cd1155ff15647883aabd21'
             'd5e176829e3ffe17b942c457c6f06943dfa64b8c3152be2291a40185117f13ba')
 
 prepare() {
