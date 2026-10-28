@@ -5,25 +5,26 @@
 
 pkgname=libnfc
 pkgver=1.8.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Platform independent Near Field Communication (NFC) library"
 arch=(x86_64)
-url="http://nfc-tools.org/"
-license=(LGPL3)
-depends=(libusb-compat pcsclite)
+url="https://nfc-tools.github.io/"
+license=(LGPL-3.0-or-later)
+depends=(glibc libusb-compat pcsclite)
 makedepends=(cmake)
 optdepends=('acsccid: acr122_pcsc support')
 source=(https://github.com/nfc-tools/libnfc/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.bz2)
 sha256sums=('6d9ad31c86408711f0a60f05b1933101c7497683c2e0d8917d1611a3feba3dd5')
 
 prepare() {
-  # Use uaccess 
+  # Use uaccess
   sed -i "s|MODE=\"0664\", GROUP=\"plugdev\"|TAG+=\"uaccess\"|g" ${pkgname}-${pkgver}/contrib/udev/93-pn53x.rules
   mv ${pkgname}-${pkgver}/contrib/udev/{93,70}-pn53x.rules
 }
 
 build() {
   cmake -B build -S ${pkgname}-${pkgver} \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DLIBNFC_DRIVER_PCSC=ON \
     -DLIBNFC_DRIVER_ACR122_PCSC=ON \
