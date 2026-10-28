@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-pydantic-handlebars
+pkgver=0.2.1
+pkgrel=1
+pkgdesc="Handlebars template engine for composing LLM prompts, built on Pydantic"
+arch=('any')
+url="https://github.com/pydantic/pydantic-handlebars"
+license=('MIT')
+depends=('python' 'python-pydantic')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-hypothesis' 'python-pytest' 'python-pytest-examples')
+source=("git+https://github.com/pydantic/pydantic-handlebars.git#tag=v$pkgver")
+sha512sums=('9d1934d7627bfc1960615da032bcfff1112b1e7906bbf215ef7d6449f432c984d5329a34986b1784f8ac076db9306228391628ecd1ae39ea71729b1874f79eb6')
+
+build() {
+  cd pydantic-handlebars
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd pydantic-handlebars
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
+}
+
+package() {
+  cd pydantic-handlebars
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
