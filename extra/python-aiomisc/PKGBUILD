@@ -1,0 +1,76 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-aiomisc
+pkgver=18.0.37
+pkgrel=1
+pkgdesc="Miscellaneous utilities for asyncio"
+arch=('any')
+url="https://github.com/aiokitchen/aiomisc"
+license=('MIT')
+depends=(
+  'python'
+  'python-aiothreads'
+  'python-colorlog'
+  'python-logging-journald'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-installer'
+  'python-setuptools'
+  'python-setuptools-scm'
+  'python-wheel'
+)
+# Unarchiving old packages is a slow process; unavailable check dependencies
+# remain commented out until they are back in the repositories.
+checkdepends=(
+  'python-aiocarbon'
+  'python-aiohttp'
+  'python-aiohttp-asgi'
+  # 'python-aiomisc-pytest'
+  'python-asgiref'
+  'python-async-timeout'
+  # 'python-croniter'
+  'python-dnslib'
+  'python-fastapi'
+  'python-grpcio'
+  # 'python-grpcio-reflection'
+  'python-grpcio-tools'
+  'python-pytest'
+  # 'python-raven'
+  'python-rich'
+  'python-setproctitle'
+  'python-uvloop'
+  'uvicorn'
+)
+optdepends=(
+  'python-aiohttp: HTTP services'
+  'python-asgiref: ASGI services with uvicorn'
+  'python-dnslib: DNS services'
+  'python-rich: rich log formatting'
+  'python-uvloop: uvloop event loop support'
+  'uvicorn: ASGI services'
+)
+# Upstream uses commit-distance versions; this commit produced PyPI 18.0.37.
+source=("git+https://github.com/aiokitchen/aiomisc.git#commit=23c40824d59353c3e2fa5b32f2903ac82e6ee04c")
+sha512sums=('13018a77a9c42d1c2273ec2d897fee825ba48445e9430a7ba1946159e2447463248f15c33bebe4378a6bcdb04574da7b2930dd5fdf44f94fdf8c650bad4b13c3')
+
+build() {
+  cd aiomisc
+  python -m build --wheel --no-isolation
+}
+
+# The required python-aiomisc-pytest plugin depends on python-aiomisc itself.
+# Re-enable once it and the other check dependencies are available.
+# check() {
+#   cd aiomisc
+#   python -m venv --system-site-packages --without-pip test-env
+#   test-env/bin/python -m installer dist/*.whl
+#   test-env/bin/python -m pytest --aiomisc-test-timeout=120
+# }
+
+package() {
+  cd aiomisc
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 COPYING -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
