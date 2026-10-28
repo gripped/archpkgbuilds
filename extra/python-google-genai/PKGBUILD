@@ -1,0 +1,56 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-google-genai
+pkgver=2.33.0
+pkgrel=1
+pkgdesc="Google Gen AI Python SDK"
+arch=('any')
+url="https://github.com/googleapis/python-genai"
+license=('Apache-2.0')
+depends=('python' 'python-anyio' 'python-distro' 'python-google-auth' 'python-httpx'
+         'python-pydantic' 'python-requests' 'python-sniffio' 'python-tenacity'
+         'python-typing_extensions' 'python-websockets')
+makedepends=('git' 'python-build' 'python-installer' 'python-packaging' 'python-pkginfo'
+             'python-setuptools' 'python-wheel' 'twine')
+checkdepends=('python-aiohttp' 'python-httpx2' 'python-mcp' 'python-pillow' 'python-protobuf'
+              'python-pyopenssl' 'python-pytest' 'python-pytest-asyncio' 'python-sentencepiece')
+optdepends=('python-aiohttp: asynchronous HTTP transport'
+            'python-httpx2: alternative HTTP transport'
+            'python-mcp: automatic function calling with MCP tools'
+            'python-pillow: image inputs'
+            'python-protobuf: local token counting'
+            'python-pyopenssl: asynchronous mutual TLS authentication'
+            'python-pytorch: Gemma 4 local token counting'
+            'python-sentencepiece: local token counting'
+            'python-torchvision: Gemma 4 local token counting'
+            'python-transformers: Gemma 4 local token counting')
+source=("git+https://github.com/googleapis/python-genai.git#tag=v$pkgver"
+        'tenacity-and-mtls.patch')
+sha512sums=('a5334ea314e422d8f71ebb77efb73831311babd504a9cccfc23ae54225e993913fbf8efdb7100d567777172d132c68e14d46ac8c9378f0e843f9881da64a2b4d'
+            '10d6288f5388ca0482d6a5c1a829b01213d6d418c6cd1fbffde33735b8f39a739fd1c62c0a85922e6e99741ef5ce2df12531b503ee9234c4eff1498d76ddb6f3')
+
+prepare() {
+  cd python-genai
+  # Support Tenacity 9.2 and test retry delays without relying on its attributes.
+  # Mock the mTLS retry transport without requiring a local client certificate.
+  patch -p1 -i "$srcdir/tenacity-and-mtls.patch"
+}
+
+build() {
+  cd python-genai
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd python-genai
+  # API tests require private replay files or Google credentials.
+  # The timeout test imports a removed module: https://github.com/googleapis/python-genai/issues/3122
+  GOOGLE_GENAI_REPLAYS_DIRECTORY="$srcdir/replays" python -m pytest -k 'not -tests/' \
+    --deselect=google/genai/tests/interactions/test_integration.py::test_interactions_default_timeout
+}
+
+package() {
+  cd python-genai
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
