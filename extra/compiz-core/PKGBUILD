@@ -1,0 +1,83 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=compiz-core
+pkgver=0.8.18
+pkgrel=2
+pkgdesc='OpenGL window and compositing manager'
+arch=(x86_64)
+url='https://gitlab.com/compiz/compiz-core'
+license=('GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT')
+depends=(
+  at-spi2-core
+  bash
+  cairo
+  dbus
+  dbus-glib
+  dconf
+  gdk-pixbuf2
+  glib2
+  glibc
+  glu
+  gtk3
+  hicolor-icon-theme
+  libglvnd
+  libice
+  libpng
+  librsvg
+  libsm
+  libwnck3
+  libx11
+  libxcomposite
+  libxcursor
+  libxdamage
+  libxext
+  libxfixes
+  libxi
+  libxinerama
+  libxml2
+  libxrandr
+  libxrender
+  marco
+  pango
+  startup-notification
+)
+makedepends=(
+  git
+  intltool
+  libxslt
+)
+optdepends=('libcompizconfig: Configuration backend')
+source=("git+https://gitlab.com/compiz/compiz-core.git#tag=v$pkgver")
+b2sums=(511a6b87f1d6e45be86ecff04b2187581228d88011e743c5b0323f69d60f345802ae74c443a544893c9f3383831791fa7bf711472454da935d462a7befc04169)
+
+prepare() {
+  cd $pkgname
+
+  # Fix building against librsvg 2.51.0+
+  git cherry-pick -n c0c605dd1fcb5afe8dfee3e7609f83a8b0e64820
+
+  # Fix compatibility with libxml 2.12
+  # https://gitlab.com/compiz/compiz-core/-/merge_requests/175
+  git cherry-pick -n ea7b3731b1a8a0f2fb7aa765a84374658b67b1b7
+
+  # Fixed compilation with gcc-14
+  # https://gitlab.com/compiz/compiz-core/-/merge_requests/177
+  git cherry-pick -n d4213fa4fe6bdd44ba652f5407cefc83def2b14e
+
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname" COPYING.MIT
+}
