@@ -3,7 +3,7 @@
 
 _name=pydantic-settings
 pkgname=python-pydantic-settings
-pkgver=2.16.1
+pkgver=2.16.2
 pkgrel=1
 pkgdesc="Settings management using pydantic"
 arch=(any)
@@ -31,8 +31,8 @@ optdepends=(
   'python-pyyaml: for YAML support'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('13c0e04e6302d25975d3db158ea1ada74017689cee04ccadb09fe74ede42010e5b726a54e13cb96e1745e9ed70cfca444b737eaace0ebdbf87c0bb8fa98508e4')
-b2sums=('88cfbb42d7cec585a3a44c790cd51722aba4e9bc97742936770d2f0145f070d14327c87092eab5d1eb003c5c64ed0601f148aec6b9f6e6812fc45115e585fdee')
+sha512sums=('b74afb452013ca4cc0b2a8d21d53c4bcc762c7acde8b4a6bc23a4f6579febe601b87b7e39345c442caa5bb3f2c8663aa6403c617ad8125042003554e762f474f')
+b2sums=('e56bf29264fac5a9acff8cf57d28d904840457dd0bc18c3fd43eaeeadde75645ebff1306f00e486bf5a3fdca9f0d1ad6bf37428bf44db046fcb3c75325e50808')
 
 build() {
   cd $_name-$pkgver
