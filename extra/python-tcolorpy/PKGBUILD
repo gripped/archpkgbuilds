@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-tcolorpy
+pkgver=0.1.7
+pkgrel=1
+pkgdesc="Apply true color to terminal text"
+arch=('any')
+url="https://github.com/thombashi/tcolorpy"
+license=('MIT')
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-setuptools-scm')
+checkdepends=('python-pytest')
+source=("git+https://github.com/thombashi/tcolorpy.git#tag=v$pkgver")
+sha512sums=('052042234b8b50f4c6bab74ea336d4bf08424f874ce25ca5aa5cfce0ef134ae15a8263e2e25362e87fd1125343dea32811c349964376e88de4468a41ed39ddc0')
+
+build() {
+  cd tcolorpy
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd tcolorpy
+  python -m pytest
+}
+
+package() {
+  cd tcolorpy
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
