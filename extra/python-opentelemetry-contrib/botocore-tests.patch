@@ -1,0 +1,166 @@
+--- a/instrumentation/opentelemetry-instrumentation-botocore/tests/test_botocore_dynamodb.py
++++ b/instrumentation/opentelemetry-instrumentation-botocore/tests/test_botocore_dynamodb.py
+@@ -368,65 +368,75 @@
+     def test_query(self):
+         self._create_prepared_table()
+ 
+-        self.client.query(
+-            TableName=self.default_table_name,
+-            IndexName="lsi",
+-            Select="ALL_ATTRIBUTES",
+-            AttributesToGet=["id"],
+-            Limit=42,
+-            ConsistentRead=True,
+-            KeyConditions={
+-                "id": {
+-                    "AttributeValueList": [{"S": "123"}],
+-                    "ComparisonOperator": "EQ",
+-                }
+-            },
+-            ScanIndexForward=True,
+-            ProjectionExpression="PE",
+-            ReturnConsumedCapacity="TOTAL",
+-        )
+-
+-        span = self.assert_span("Query")
+-        self.assert_table_names(span, self.default_table_name)
+-        self.assertTrue(span.attributes[aws_attributes.AWS_DYNAMODB_SCAN_FORWARD])
+-        self.assert_attributes_to_get(span, "id")
+-        self.assert_consistent_read(span, True)
+-        self.assert_index_name(span, "lsi")
+-        self.assert_limit(span, 42)
+-        self.assert_projection(span, "PE")
+-        self.assert_select(span, "ALL_ATTRIBUTES")
+-        self.assert_consumed_capacity(span, self.default_table_name)
++        # Legacy attribute selection and projection expressions cannot be combined.
++        for selection in ({"AttributesToGet": ["id"]}, {"ProjectionExpression": "id"}):
++            with self.subTest(selection=selection):
++                self.memory_exporter.clear()
++                self.client.query(
++                    TableName=self.default_table_name,
++                    IndexName="lsi",
++                    Select="SPECIFIC_ATTRIBUTES",
++                    Limit=42,
++                    ConsistentRead=True,
++                    KeyConditions={
++                        "idl": {
++                            "AttributeValueList": [{"S": "123"}],
++                            "ComparisonOperator": "EQ",
++                        }
++                    },
++                    ScanIndexForward=True,
++                    ReturnConsumedCapacity="TOTAL",
++                    **selection,
++                )
++
++                span = self.assert_span("Query")
++                self.assert_table_names(span, self.default_table_name)
++                self.assertTrue(span.attributes[aws_attributes.AWS_DYNAMODB_SCAN_FORWARD])
++                if "AttributesToGet" in selection:
++                    self.assert_attributes_to_get(span, "id")
++                else:
++                    self.assert_projection(span, "id")
++                self.assert_consistent_read(span, True)
++                self.assert_index_name(span, "lsi")
++                self.assert_limit(span, 42)
++                self.assert_select(span, "SPECIFIC_ATTRIBUTES")
++                self.assert_consumed_capacity(span, self.default_table_name)
+ 
+     @mock_aws
+     def test_scan(self):
+         self._create_prepared_table()
+ 
+-        self.client.scan(
+-            TableName=self.default_table_name,
+-            IndexName="lsi",
+-            AttributesToGet=["id", "idl"],
+-            Limit=42,
+-            Select="ALL_ATTRIBUTES",
+-            TotalSegments=17,
+-            Segment=16,
+-            ProjectionExpression="PE",
+-            ConsistentRead=True,
+-            ReturnConsumedCapacity="TOTAL",
+-        )
+-
+-        span = self.assert_span("Scan")
+-        self.assert_table_names(span, self.default_table_name)
+-        self.assertEqual(16, span.attributes[aws_attributes.AWS_DYNAMODB_SEGMENT])
+-        self.assertEqual(17, span.attributes[aws_attributes.AWS_DYNAMODB_TOTAL_SEGMENTS])
+-        self.assertEqual(0, span.attributes[aws_attributes.AWS_DYNAMODB_COUNT])
+-        self.assertEqual(0, span.attributes[aws_attributes.AWS_DYNAMODB_SCANNED_COUNT])
+-        self.assert_attributes_to_get(span, "id", "idl")
+-        self.assert_consistent_read(span, True)
+-        self.assert_index_name(span, "lsi")
+-        self.assert_limit(span, 42)
+-        self.assert_projection(span, "PE")
+-        self.assert_select(span, "ALL_ATTRIBUTES")
+-        self.assert_consumed_capacity(span, self.default_table_name)
++        # Legacy attribute selection and projection expressions cannot be combined.
++        for selection in ({"AttributesToGet": ["id", "idl"]}, {"ProjectionExpression": "id, idl"}):
++            with self.subTest(selection=selection):
++                self.memory_exporter.clear()
++                self.client.scan(
++                    TableName=self.default_table_name,
++                    IndexName="lsi",
++                    Limit=42,
++                    Select="SPECIFIC_ATTRIBUTES",
++                    TotalSegments=17,
++                    Segment=16,
++                    ConsistentRead=True,
++                    ReturnConsumedCapacity="TOTAL",
++                    **selection,
++                )
++
++                span = self.assert_span("Scan")
++                self.assert_table_names(span, self.default_table_name)
++                self.assertEqual(16, span.attributes[aws_attributes.AWS_DYNAMODB_SEGMENT])
++                self.assertEqual(17, span.attributes[aws_attributes.AWS_DYNAMODB_TOTAL_SEGMENTS])
++                self.assertEqual(0, span.attributes[aws_attributes.AWS_DYNAMODB_COUNT])
++                self.assertEqual(0, span.attributes[aws_attributes.AWS_DYNAMODB_SCANNED_COUNT])
++                if "AttributesToGet" in selection:
++                    self.assert_attributes_to_get(span, "id", "idl")
++                else:
++                    self.assert_projection(span, "id, idl")
++                self.assert_consistent_read(span, True)
++                self.assert_index_name(span, "lsi")
++                self.assert_limit(span, 42)
++                self.assert_select(span, "SPECIFIC_ATTRIBUTES")
++                self.assert_consumed_capacity(span, self.default_table_name)
+ 
+     @mock_aws
+     def test_update_item(self):
+--- a/instrumentation/opentelemetry-instrumentation-botocore/tests/test_botocore_instrumentation.py
++++ b/instrumentation/opentelemetry-instrumentation-botocore/tests/test_botocore_instrumentation.py
+@@ -109,9 +109,9 @@
+     def test_traced_client(self):
+         ec2 = self._make_client("ec2")
+ 
+-        ec2.describe_instances()
+-
+-        request_id = "fdcdcab1-ae5c-489e-9c33-4637c5dda355"
++        response = ec2.describe_instances()
++
++        request_id = response["ResponseMetadata"]["RequestId"]
+         self.assert_span("EC2", "DescribeInstances", request_id=request_id)
+ 
+     @mock_aws
+@@ -382,14 +382,14 @@
+ 
+             ec2 = self._make_client("ec2")
+             ec2.meta.events.register_first("before-send.ec2.DescribeInstances", check_headers)
+-            ec2.describe_instances()
+-
+-            request_id = "fdcdcab1-ae5c-489e-9c33-4637c5dda355"
++            response = ec2.describe_instances()
++
++            request_id = response["ResponseMetadata"]["RequestId"]
+             span = self.assert_span("EC2", "DescribeInstances", request_id=request_id)
+ 
+             # only x-ray propagation is used in HTTP requests
+             self.assertIn(TRACE_HEADER_KEY, headers)
+-            xray_context = headers[TRACE_HEADER_KEY]
++            xray_context = headers[TRACE_HEADER_KEY].decode("ascii")
+             formated_trace_id = format_trace_id(span.get_span_context().trace_id)
+             formated_trace_id = formated_trace_id[:8] + "-" + formated_trace_id[8:]
+ 

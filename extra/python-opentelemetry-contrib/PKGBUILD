@@ -4,30 +4,58 @@ pkgbase=python-opentelemetry-contrib
 pkgname=(
   'python-opentelemetry-instrumentation'
   'python-opentelemetry-distro'
+  'python-opentelemetry-exporter-credential-provider-gcp'
+  'python-opentelemetry-exporter-richconsole'
+  'python-opentelemetry-processor-baggage'
   'python-opentelemetry-propagator-aws-xray'
+  'python-opentelemetry-propagator-ot-trace'
+  'python-opentelemetry-resource-detector-azure'
+  'python-opentelemetry-resource-detector-containerid'
+  'python-opentelemetry-resourcedetector-gcp'
+  'python-opentelemetry-sdk-extension-aws'
   'python-opentelemetry-util-http'
   'python-opentelemetry-instrumentation-aiohttp-client'
   'python-opentelemetry-instrumentation-aiohttp-server'
+  'python-opentelemetry-instrumentation-aiopg'
   'python-opentelemetry-instrumentation-asgi'
+  'python-opentelemetry-instrumentation-asyncio'
   'python-opentelemetry-instrumentation-asyncpg'
   'python-opentelemetry-instrumentation-aws-lambda'
+  'python-opentelemetry-instrumentation-boto3sqs'
+  'python-opentelemetry-instrumentation-botocore'
+  'python-opentelemetry-instrumentation-click'
   'python-opentelemetry-instrumentation-dbapi'
   'python-opentelemetry-instrumentation-django'
+  'python-opentelemetry-instrumentation-exceptions'
+  'python-opentelemetry-instrumentation-falcon'
   'python-opentelemetry-instrumentation-fastapi'
   'python-opentelemetry-instrumentation-flask'
+  'python-opentelemetry-instrumentation-grpc'
   'python-opentelemetry-instrumentation-httpx'
+  'python-opentelemetry-instrumentation-jinja2'
+  'python-opentelemetry-instrumentation-logging'
+  'python-opentelemetry-instrumentation-mysql'
+  'python-opentelemetry-instrumentation-mysqlclient'
+  'python-opentelemetry-instrumentation-pika'
   'python-opentelemetry-instrumentation-psycopg'
   'python-opentelemetry-instrumentation-psycopg2'
   'python-opentelemetry-instrumentation-pymongo'
+  'python-opentelemetry-instrumentation-pymysql'
+  'python-opentelemetry-instrumentation-redis'
   'python-opentelemetry-instrumentation-requests'
   'python-opentelemetry-instrumentation-sqlalchemy'
   'python-opentelemetry-instrumentation-sqlite3'
   'python-opentelemetry-instrumentation-starlette'
+  'python-opentelemetry-instrumentation-structlog'
   'python-opentelemetry-instrumentation-system-metrics'
+  'python-opentelemetry-instrumentation-threading'
+  'python-opentelemetry-instrumentation-tornado'
+  'python-opentelemetry-instrumentation-urllib'
+  'python-opentelemetry-instrumentation-urllib3'
   'python-opentelemetry-instrumentation-wsgi'
 )
 pkgver=0.66b1
-pkgrel=4
+pkgrel=5
 pkgdesc="OpenTelemetry Python instrumentation and utilities"
 arch=('any')
 url="https://github.com/open-telemetry/opentelemetry-python-contrib"
@@ -40,70 +68,130 @@ makedepends=(
   'python-installer'
 )
 checkdepends=(
+  'protobuf'
+  'python-aiobotocore'
   'python-aiohttp'
+  'python-aiopg'
   'python-aiosqlite'
   'python-asgiref'
   'python-asyncpg'
+  'python-aws-xray-sdk'
+  'python-boto3'
+  'python-botocore'
+  'python-click'
   'python-django'
+  'python-docker'
+  'python-fakeredis'
+  'python-falcon'
   'python-fastapi'
   'python-flask'
   'python-gevent'
+  'python-google-auth'
+  'python-grpcio'
   'python-http-server-mock'
   'python-httpx'
   'python-httpx2'
+  'python-jinja'
   'python-mocket'
+  'python-moto'
+  'python-mysql-connector'
+  'python-mysqlclient'
   'python-opentelemetry-api'
   'python-opentelemetry-exporter-otlp-proto-grpc'
+  'python-opentelemetry-exporter-otlp-proto-http'
   'python-opentelemetry-sdk'
   'python-opentelemetry-semantic-conventions'
   'python-opentelemetry-test-utils'
   'python-packaging'
+  'python-pika'
+  'python-protobuf'
   'python-psutil'
   'python-psycopg'
   'python-psycopg2'
   'python-pymongo'
+  'python-pymysql'
   'python-pytest'
   'python-pytest-aiohttp'
   'python-pytest-asyncio'
   'python-pytest-benchmark'
+  'python-pytest-timeout'
+  'python-pytest-vcr'
+  'python-redis'
   'python-requests'
   'python-respx'
+  'python-rich'
   'python-sqlalchemy'
   'python-starlette'
+  'python-structlog'
+  'python-syrupy'
+  'python-tornado'
+  'python-typing_extensions'
+  'python-urllib3'
   'python-wrapt'
+  'python-yaml'
 )
 source=("git+https://github.com/open-telemetry/opentelemetry-python-contrib.git#tag=v$pkgver"
         starlette-tests.patch
         fastapi-tests.patch
-        aiohttp-client-tests.patch)
+        aiohttp-client-tests.patch
+        botocore-tests.patch)
 sha256sums=('ed8caaa8a7134a1c7d2ddcaa133e31223eacebe99f740e6f24253fd8420931d6'
             'a7047e5551989461f6aa3d22c3266a9a14e88e802159b69697d7f54b282aa653'
             '596c9a7ed89337d25ae88bf778152a3f1d40e883a14ae99bfc8230d2b9d034e3'
-            'd75e93c5c003dd51bf98142108b6a835ce38bed1cee3e3756451d89cc22470cc')
+            'd75e93c5c003dd51bf98142108b6a835ce38bed1cee3e3756451d89cc22470cc'
+            '9758dbe3ae4285797028170c597fdbd073d302224b277ffcd956d612d1c21ba9')
 
 _components=(
   opentelemetry-instrumentation
   opentelemetry-distro
+  exporter/opentelemetry-exporter-credential-provider-gcp
+  exporter/opentelemetry-exporter-richconsole
+  processor/opentelemetry-processor-baggage
   propagator/opentelemetry-propagator-aws-xray
+  propagator/opentelemetry-propagator-ot-trace
+  resource/opentelemetry-resource-detector-azure
+  resource/opentelemetry-resource-detector-containerid
+  resource/opentelemetry-resourcedetector-gcp
+  sdk-extension/opentelemetry-sdk-extension-aws
   util/opentelemetry-util-http
   instrumentation/opentelemetry-instrumentation-aiohttp-client
   instrumentation/opentelemetry-instrumentation-aiohttp-server
+  instrumentation/opentelemetry-instrumentation-aiopg
   instrumentation/opentelemetry-instrumentation-asgi
+  instrumentation/opentelemetry-instrumentation-asyncio
   instrumentation/opentelemetry-instrumentation-asyncpg
   instrumentation/opentelemetry-instrumentation-aws-lambda
+  instrumentation/opentelemetry-instrumentation-boto3sqs
+  instrumentation/opentelemetry-instrumentation-botocore
+  instrumentation/opentelemetry-instrumentation-click
   instrumentation/opentelemetry-instrumentation-dbapi
   instrumentation/opentelemetry-instrumentation-django
+  instrumentation/opentelemetry-instrumentation-exceptions
+  instrumentation/opentelemetry-instrumentation-falcon
   instrumentation/opentelemetry-instrumentation-fastapi
   instrumentation/opentelemetry-instrumentation-flask
+  instrumentation/opentelemetry-instrumentation-grpc
   instrumentation/opentelemetry-instrumentation-httpx
+  instrumentation/opentelemetry-instrumentation-jinja2
+  instrumentation/opentelemetry-instrumentation-logging
+  instrumentation/opentelemetry-instrumentation-mysql
+  instrumentation/opentelemetry-instrumentation-mysqlclient
+  instrumentation/opentelemetry-instrumentation-pika
   instrumentation/opentelemetry-instrumentation-psycopg
   instrumentation/opentelemetry-instrumentation-psycopg2
   instrumentation/opentelemetry-instrumentation-pymongo
+  instrumentation/opentelemetry-instrumentation-pymysql
+  instrumentation/opentelemetry-instrumentation-redis
   instrumentation/opentelemetry-instrumentation-requests
   instrumentation/opentelemetry-instrumentation-sqlalchemy
   instrumentation/opentelemetry-instrumentation-sqlite3
   instrumentation/opentelemetry-instrumentation-starlette
+  instrumentation/opentelemetry-instrumentation-structlog
   instrumentation/opentelemetry-instrumentation-system-metrics
+  instrumentation/opentelemetry-instrumentation-threading
+  instrumentation/opentelemetry-instrumentation-tornado
+  instrumentation/opentelemetry-instrumentation-urllib
+  instrumentation/opentelemetry-instrumentation-urllib3
   instrumentation/opentelemetry-instrumentation-wsgi
 )
 
@@ -115,6 +203,17 @@ prepare() {
   patch -p1 -i "$srcdir/fastapi-tests.patch"
   # Handle current aiohttp errors: https://github.com/open-telemetry/opentelemetry-python-contrib/issues/2917
   patch -p1 -i "$srcdir/aiohttp-client-tests.patch"
+  # Follow the HTTP session's new location: https://github.com/open-telemetry/opentelemetry-python/pull/5389
+  sed -i 's/http_exporter\._session/http_exporter._client._transport._session/' \
+    exporter/opentelemetry-exporter-credential-provider-gcp/tests/test_credential_provider.py
+  # Wait for ASGI user-agent subtests to finish: https://github.com/open-telemetry/opentelemetry-python-contrib/pull/5018
+  sed -i '/^                await self.send_default_request()$/a\                await self.communicator.wait()' \
+    instrumentation/opentelemetry-instrumentation-asgi/tests/test_asgi_middleware.py
+  # Mock a parsed SQS response for current botocore: https://github.com/open-telemetry/opentelemetry-python-contrib/pull/5214
+  sed -i 's/_mocked_endpoint(None)/_mocked_endpoint({})/' \
+    instrumentation/opentelemetry-instrumentation-boto3sqs/tests/test_boto3sqs_instrumentation.py
+  # Fix DynamoDB inputs and EC2 response/header assertions for current moto/botocore.
+  patch -p1 -i "$srcdir/botocore-tests.patch"
 }
 
 build() {
@@ -127,6 +226,10 @@ build() {
 
 check() {
   local component dependency
+  cd "$srcdir/opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-grpc/tests/protobuf"
+  # Regenerate test messages for current protobuf: https://github.com/open-telemetry/opentelemetry-python-contrib/pull/1109
+  protoc --python_out=. test_server.proto
+
   for component in "${_components[@]}"; do
     cd "$srcdir/opentelemetry-python-contrib/$component"
     # Auto-instrumentation tests expect only this component's entry points.
@@ -172,11 +275,105 @@ package_python-opentelemetry-distro() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
+package_python-opentelemetry-exporter-credential-provider-gcp() {
+  pkgdesc="Google Cloud credential providers for OpenTelemetry exporters"
+  depends+=(
+    'python-google-auth'
+    'python-grpcio'
+    'python-requests'
+  )
+
+  cd opentelemetry-python-contrib/exporter/opentelemetry-exporter-credential-provider-gcp
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-exporter-richconsole() {
+  pkgdesc="Rich console exporter for OpenTelemetry"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-sdk'
+    'python-opentelemetry-semantic-conventions'
+    'python-rich'
+  )
+
+  cd opentelemetry-python-contrib/exporter/opentelemetry-exporter-richconsole
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-processor-baggage() {
+  pkgdesc="Baggage span processor for OpenTelemetry"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-sdk'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/processor/opentelemetry-processor-baggage
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
 package_python-opentelemetry-propagator-aws-xray() {
   pkgdesc="AWS X-Ray propagators for OpenTelemetry"
   depends+=('python-opentelemetry-api')
 
   cd opentelemetry-python-contrib/propagator/opentelemetry-propagator-aws-xray
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-propagator-ot-trace() {
+  pkgdesc="OT Trace propagator for OpenTelemetry"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-sdk'
+  )
+
+  cd opentelemetry-python-contrib/propagator/opentelemetry-propagator-ot-trace
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-resource-detector-azure() {
+  pkgdesc="Azure resource detectors for OpenTelemetry"
+  depends+=(
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-sdk'
+  )
+
+  cd opentelemetry-python-contrib/resource/opentelemetry-resource-detector-azure
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-resource-detector-containerid() {
+  pkgdesc="Container ID resource detector for OpenTelemetry"
+  depends+=('python-opentelemetry-sdk')
+
+  cd opentelemetry-python-contrib/resource/opentelemetry-resource-detector-containerid
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-resourcedetector-gcp() {
+  pkgdesc="Google Cloud resource detector for OpenTelemetry"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-sdk'
+    'python-requests'
+    'python-typing_extensions'
+  )
+
+  cd opentelemetry-python-contrib/resource/opentelemetry-resourcedetector-gcp
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-sdk-extension-aws() {
+  pkgdesc="AWS SDK extensions for OpenTelemetry"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-sdk'
+    'python-opentelemetry-semantic-conventions'
+    'python-requests'
+  )
+
+  cd opentelemetry-python-contrib/sdk-extension/opentelemetry-sdk-extension-aws
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
@@ -223,6 +420,20 @@ package_python-opentelemetry-instrumentation-aiohttp-server() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
+package_python-opentelemetry-instrumentation-aiopg() {
+  pkgdesc="OpenTelemetry instrumentation for aiopg"
+  depends+=(
+    'python-aiopg'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-instrumentation-dbapi'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-aiopg
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
 package_python-opentelemetry-instrumentation-asgi() {
   pkgdesc="OpenTelemetry instrumentation for ASGI applications"
   depends+=(
@@ -234,6 +445,19 @@ package_python-opentelemetry-instrumentation-asgi() {
   )
 
   cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-asgi
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-asyncio() {
+  pkgdesc="OpenTelemetry instrumentation for asyncio"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-asyncio
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
@@ -263,6 +487,50 @@ package_python-opentelemetry-instrumentation-aws-lambda() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
+package_python-opentelemetry-instrumentation-boto3sqs() {
+  pkgdesc="OpenTelemetry instrumentation for Boto3 SQS"
+  depends+=(
+    'python-boto3'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-boto3sqs
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-botocore() {
+  pkgdesc="OpenTelemetry instrumentation for Botocore"
+  depends+=(
+    'python-botocore'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-propagator-aws-xray'
+    'python-opentelemetry-semantic-conventions'
+    'python-wrapt'
+  )
+  optdepends=('python-aiobotocore: asynchronous AWS SDK instrumentation')
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-botocore
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-click() {
+  pkgdesc="OpenTelemetry instrumentation for Click"
+  depends+=(
+    'python-click'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-click
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
 package_python-opentelemetry-instrumentation-dbapi() {
   pkgdesc="OpenTelemetry instrumentation for Python DB-API"
   depends+=(
@@ -289,6 +557,34 @@ package_python-opentelemetry-instrumentation-django() {
   optdepends=('python-opentelemetry-instrumentation-asgi: ASGI support')
 
   cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-django
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-exceptions() {
+  pkgdesc="OpenTelemetry instrumentation for unhandled exceptions"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-exceptions
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-falcon() {
+  pkgdesc="OpenTelemetry instrumentation for Falcon"
+  depends+=(
+    'python-falcon'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-instrumentation-wsgi'
+    'python-opentelemetry-semantic-conventions'
+    'python-opentelemetry-util-http'
+    'python-packaging'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-falcon
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
@@ -323,6 +619,20 @@ package_python-opentelemetry-instrumentation-flask() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
+package_python-opentelemetry-instrumentation-grpc() {
+  pkgdesc="OpenTelemetry instrumentation for gRPC"
+  depends+=(
+    'python-grpcio'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-grpc
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
 package_python-opentelemetry-instrumentation-httpx() {
   pkgdesc="OpenTelemetry instrumentation for HTTPX"
   depends+=(
@@ -338,6 +648,72 @@ package_python-opentelemetry-instrumentation-httpx() {
   )
 
   cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-httpx
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-jinja2() {
+  pkgdesc="OpenTelemetry instrumentation for Jinja2"
+  depends+=(
+    'python-jinja'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-jinja2
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-logging() {
+  pkgdesc="OpenTelemetry instrumentation for Python logging"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-logging
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-mysql() {
+  pkgdesc="OpenTelemetry instrumentation for MySQL Connector/Python"
+  depends+=(
+    'python-mysql-connector'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-instrumentation-dbapi'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-mysql
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-mysqlclient() {
+  pkgdesc="OpenTelemetry instrumentation for mysqlclient"
+  depends+=(
+    'python-mysqlclient'
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-instrumentation-dbapi'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-mysqlclient
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-pika() {
+  pkgdesc="OpenTelemetry instrumentation for Pika"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-packaging'
+    'python-pika'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-pika
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
@@ -377,6 +753,33 @@ package_python-opentelemetry-instrumentation-pymongo() {
   )
 
   cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-pymongo
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-pymysql() {
+  pkgdesc="OpenTelemetry instrumentation for PyMySQL"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-instrumentation-dbapi'
+    'python-pymysql'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-pymysql
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-redis() {
+  pkgdesc="OpenTelemetry instrumentation for Redis"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-redis'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-redis
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
@@ -436,6 +839,19 @@ package_python-opentelemetry-instrumentation-starlette() {
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
+package_python-opentelemetry-instrumentation-structlog() {
+  pkgdesc="OpenTelemetry instrumentation for structlog"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-structlog'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-structlog
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
 package_python-opentelemetry-instrumentation-system-metrics() {
   pkgdesc="OpenTelemetry instrumentation for system metrics"
   depends+=(
@@ -446,6 +862,60 @@ package_python-opentelemetry-instrumentation-system-metrics() {
   )
 
   cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-system-metrics
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-threading() {
+  pkgdesc="OpenTelemetry instrumentation for Python threading"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-threading
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-tornado() {
+  pkgdesc="OpenTelemetry instrumentation for Tornado"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-opentelemetry-util-http'
+    'python-tornado'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-tornado
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-urllib() {
+  pkgdesc="OpenTelemetry instrumentation for urllib"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-opentelemetry-util-http'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-urllib
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
+
+package_python-opentelemetry-instrumentation-urllib3() {
+  pkgdesc="OpenTelemetry instrumentation for urllib3"
+  depends+=(
+    'python-opentelemetry-api'
+    'python-opentelemetry-instrumentation'
+    'python-opentelemetry-semantic-conventions'
+    'python-opentelemetry-util-http'
+    'python-urllib3'
+    'python-wrapt'
+  )
+
+  cd opentelemetry-python-contrib/instrumentation/opentelemetry-instrumentation-urllib3
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
 
