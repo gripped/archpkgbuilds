@@ -4,7 +4,7 @@
 # PKGBUILD base; Simper < simonpersson1 AT gmail DOT com >
 
 pkgname=kup
-pkgver=6.8.1
+pkgver=6.8.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='A backup software for helping people to keep up-to-date backups'
@@ -43,7 +43,7 @@ optdepends=('bup: bup backend'
             'rsync: support for synced backups')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('867483361720b389fa9d4219e77fd51486157e1fd410587a86ab58b180607a77'
+sha256sums=('413d5edebd5590d47a274f26d8a5e92bb17808263e25e78fd6fe0b28ca0923f2'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
