@@ -2,7 +2,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=breeze-grub
-pkgver=6.8.1
+pkgver=6.8.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Breeze theme for GRUB'
@@ -12,7 +12,7 @@ license=(GPL-2.0-or-later)
 depends=(grub)
 makedepends=()
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('f4d778a68c50976cfd9e188bec6abd04549778bbf302d29991c8e966786484da'
+sha256sums=('ce98d248aea634d2f9c2e5cb2a0021b7b0c041f65f621fe0f5b80f44cdd38732'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
