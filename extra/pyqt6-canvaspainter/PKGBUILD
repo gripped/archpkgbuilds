@@ -1,0 +1,37 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgbase=pyqt6-canvaspainter
+pkgname=(python-pyqt6-canvaspainter)
+pkgver=6.12.0
+pkgrel=1
+pkgdesc='Python bindings for QtCanvasPainter'
+arch=(x86_64)
+url='https://www.riverbankcomputing.com/software/pyqtcanvaspainter/intro'
+license=(GPL3)
+groups=(pyqt6)
+depends=(glibc
+         libstdc++
+         python
+         python-pyqt6
+         qt6-base
+         qt6-canvaspainter)
+makedepends=(pyqt-builder
+             qt6-declarative
+             sip)
+source=(https://pypi.python.org/packages/source/P/PyQt6-CanvasPainter/pyqt6_canvaspainter-$pkgver.tar.gz)
+sha256sums=('bcac7a57e485b03cae1e9fcda3e59cc07dbc7db34773493b0995c018233f3dec')
+
+build() {
+  cd pyqt6_canvaspainter-$pkgver
+  sip-build \
+    --no-make \
+    --qmake=/usr/bin/qmake6 \
+    --pep484-pyi
+  cd build
+  make
+}
+
+package_python-pyqt6-canvaspainter(){
+  cd pyqt6_canvaspainter-$pkgver/build
+  make INSTALL_ROOT="$pkgdir" install
+}
