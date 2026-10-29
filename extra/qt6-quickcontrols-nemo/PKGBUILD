@@ -1,19 +1,24 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickcontrols-nemo
-pkgver=6.2.8
+pkgver=6.3.0
 pkgrel=1
 pkgdesc="Qt 6 QML components for Nemomobile"
 arch=('x86_64')
 url="https://github.com/nemomobile-ux/qtquickcontrols-nemo"
 license=('LGPL-2.1-or-later' 'BSD-3-Clause' 'Apache-2.0')
-depends=('mlite' 'qt6-base' 'qt6-declarative' 'ttf-opensans')
+depends=('mlite' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'ttf-opensans')
 makedepends=('cmake' 'git' 'qt6-shadertools')
+checkdepends=('nemo-theme-glacier' 'xorg-server-xvfb')
 source=("git+https://github.com/nemomobile-ux/qtquickcontrols-nemo.git#tag=$pkgver")
-sha512sums=('907f9aafd757871917609ddf2782503ca00fc3a5b2c8cffa36d6eb968544c134715445440b21d606cd5830de13cd44063287e3ed60bc8771608b18e165720c4e')
+sha512sums=('25ac1f62d2596d8a27232b8cb73a16a4dc34f02cfc1d5675e01dd527d015446a8df4030b8a101a5425ea09f5f3749dca4debf2db380ae9c905ccbe2055ca9fca')
 
 prepare() {
   cd qtquickcontrols-nemo
+
+  # QSignalSpy is not a QObject and has no setParent() method.
+  # https://github.com/nemomobile-ux/qtquickcontrols-nemo/pull/48
+  git cherry-pick -n aff4352e9dc7e3239d5eac9e6eeb8e4334e196e0
 
   # Use Arch's Open Sans directory for the fallback and installed default theme.
   # https://github.com/nemomobile-ux/qtquickcontrols-nemo/pull/41
@@ -25,6 +30,11 @@ build() {
   cd qtquickcontrols-nemo
   cmake . -DCMAKE_INSTALL_PREFIX=/usr
   make
+}
+
+check() {
+  cd qtquickcontrols-nemo
+  xvfb-run -a ctest --output-on-failure
 }
 
 package() {
