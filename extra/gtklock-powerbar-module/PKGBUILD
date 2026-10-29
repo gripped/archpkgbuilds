@@ -2,7 +2,7 @@
 # Contributor: Jovan Lanik <jox969@gmail.com>
 
 pkgname=gtklock-powerbar-module
-pkgver=4.0.0
+pkgver=5.0.0
 pkgrel=1
 pkgdesc="gtklock module adding power controls to the lockscreen"
 url="https://github.com/jovanlanik/gtklock-powerbar-module"
@@ -11,7 +11,7 @@ license=('GPL-3.0-only')
 depends=('gtk3' 'gtklock')
 makedepends=('meson')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('7fefa48ddb9a60e58b5c72df6da2005e1dd38fdc779c5d535aac80da9b508e9e')
+sha256sums=('9bd0ceeaf53204a0b320c206e3683276cf02d97e4264129a680ca26035d715bb')
 
 build() {
         arch-meson "${pkgname}-${pkgver}" build
