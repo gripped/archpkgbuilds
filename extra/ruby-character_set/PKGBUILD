@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-character_set
-pkgver=1.8.0
-pkgrel=3
+pkgver=1.9.0
+pkgrel=1
 pkgdesc='Build, read, write and compare sets of Unicode codepoints'
 arch=(x86_64)
 url='https://github.com/jaynetics/character_set'
@@ -19,6 +19,7 @@ checkdepends=(
   ruby-bundler
   ruby-csv
   ruby-get_process_mem
+  ruby-leto
   ruby-rake
   ruby-rake-compiler
   ruby-range_compressor
@@ -29,12 +30,11 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/jaynetics/character_set.git#tag=v$pkgver)
-sha256sums=('f5521012d9dadae5a05b575d4eb5b65c772a1b14d3f9712584e89e2d58fa57dd')
+sha256sums=('e17254aeb4f421779991ee3bad0c0a47876068a5a61d4e2a2e2be4782dafb50d')
 
 prepare() {
   cd character_set
-  sed -i -e 's|~>|>=|' character_set.gemspec
-  sed -i -e '/codecov/d' -e '/gouteur/d' Gemfile
+  sed -i '/gouteur/d' Gemfile
   # Don't recompile
   sed -i '/compile/d' Rakefile
   sed -i '/bundler/d' spec/spec_helper.rb
