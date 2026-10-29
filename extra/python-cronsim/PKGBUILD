@@ -1,0 +1,29 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-cronsim
+pkgver=2.7
+pkgrel=1
+pkgdesc='Cron expression parser and evaluator'
+arch=('any')
+url='https://github.com/cuu508/cronsim'
+license=('BSD-3-Clause')
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
+source=("git+https://github.com/cuu508/cronsim.git#tag=$pkgver")
+sha512sums=('3908af2257fc783580d254fa1b7e90398ae4a4665ec5a49ca17f1890790c57ac59e767b624810e061c5aa80e9f5e0ff0b49762ae97b2882bcf90ea1b9a20384b')
+
+build() {
+  cd cronsim
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd cronsim
+  python -m unittest discover -s tests
+}
+
+package() {
+  cd cronsim
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
