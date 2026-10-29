@@ -1,20 +1,25 @@
 pkgbase = python-aiohttp-asgi
 	pkgdesc = Adapter for running ASGI applications on aiohttp
-	pkgver = 0.7.0
+	pkgver = 0.7.1
 	pkgrel = 1
 	url = https://github.com/mosquito/aiohttp-asgi
 	arch = any
 	license = Apache-2.0
 	checkdepends = python-fastapi
+	checkdepends = python-httpx
 	checkdepends = python-pytest
+	checkdepends = python-pytest-aiohttp
 	checkdepends = python-pytest-asyncio
+	checkdepends = python-uvloop
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
-	makedepends = python-poetry-core
+	makedepends = python-uv-build
 	depends = python
 	depends = python-aiohttp
-	source = git+https://github.com/mosquito/aiohttp-asgi.git#tag=0.7.0
-	sha512sums = 089056d4e608423f7f94413d482415e9aeb912c0418756fa99952098dc23bb91226f50f0f15d9c9cbe835daa8b2d8f343980420afadd68262c636baeeadfba0e
+	depends = python-forklib
+	optdepends = python-uvloop: alternative event loop for the CLI server
+	source = git+https://github.com/mosquito/aiohttp-asgi.git#tag=0.7.1
+	sha512sums = 39ce05fa7ff6d435579d03e5a5b7df103c5fdbbe03c548b60d4a4324f9e1fcec0d243a7a9a42e4dc77d072d2c9e66678e0c7ec2979141f77d6a1b7e5ae254429
 
 pkgname = python-aiohttp-asgi

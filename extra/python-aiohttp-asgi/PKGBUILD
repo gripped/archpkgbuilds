@@ -1,17 +1,28 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-aiohttp-asgi
-pkgver=0.7.0
+pkgver=0.7.1
 pkgrel=1
 pkgdesc="Adapter for running ASGI applications on aiohttp"
 arch=('any')
 url="https://github.com/mosquito/aiohttp-asgi"
 license=('Apache-2.0')
-depends=('python' 'python-aiohttp')
-makedepends=('git' 'python-build' 'python-installer' 'python-poetry-core')
-checkdepends=('python-fastapi' 'python-pytest' 'python-pytest-asyncio')
+depends=('python' 'python-aiohttp' 'python-forklib')
+makedepends=('git' 'python-build' 'python-installer' 'python-uv-build')
+checkdepends=('python-fastapi' 'python-httpx' 'python-pytest' 'python-pytest-aiohttp'
+              'python-pytest-asyncio' 'python-uvloop')
+optdepends=('python-uvloop: alternative event loop for the CLI server')
 source=("git+https://github.com/mosquito/aiohttp-asgi.git#tag=$pkgver")
-sha512sums=('089056d4e608423f7f94413d482415e9aeb912c0418756fa99952098dc23bb91226f50f0f15d9c9cbe835daa8b2d8f343980420afadd68262c636baeeadfba0e')
+sha512sums=('39ce05fa7ff6d435579d03e5a5b7df103c5fdbbe03c548b60d4a4324f9e1fcec0d243a7a9a42e4dc77d072d2c9e66678e0c7ec2979141f77d6a1b7e5ae254429')
+
+prepare() {
+  cd aiohttp-asgi
+
+  # Match the version set by upstream's release workflow.
+  sed -i "s/^version = .*/version = \"$pkgver\"/" pyproject.toml
+  # Allow the newer uv_build backend packaged by Arch.
+  sed -i 's/uv_build>=0.12.19,<0.13/uv_build>=0.12.19/' pyproject.toml
+}
 
 build() {
   cd aiohttp-asgi
