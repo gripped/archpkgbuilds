@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=parla
-pkgver=0.10.0
+pkgver=0.10.2
 pkgrel=1
 pkgdesc="Native Gnome DeltaChat client"
 arch=(x86_64)
@@ -18,6 +18,7 @@ depends=(
   libgcc
   libadwaita
   libsoup3
+  libzip
   pango
   webkitgtk-6.0
 )
@@ -29,8 +30,8 @@ optdepends=(
   'python-openai-whisper: for voice message transcribing'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('9b03c878bf27a2de07e386b35743c3eea8d1830ed95eed4bda733aeae43f6e5fdd2f99aa274e5bee318d3e48508cf7d3bbd9f11fa8011da09dfc1ef70479c3ea')
-b2sums=('3854f0dcb5fb3d7efd63898eb1584e154e64a12986b4ef67567a9d40eed38bd9ecde3be9d668b0073fce9ef7c51a819d2a77b564a5dd8d1e9019c275814b24c2')
+sha512sums=('e28836f464169855c67f355e75f9fa95b63156b703cfccdebb2094d8b97ead9af293dd09b142c9e855ac071868f75195141ebd5af33f825a90ed3f73aa1ba890')
+b2sums=('05b6f1cddd15bf1651a52eeec9f2e38391e7a389f5867aefd470d9d9e94e8c2f83a74cfadd5248b377bcf33e7d68ffbdd6cff0761b2585421a69821789aee762')
 
 build() {
   arch-meson build -D webxdc=true $pkgname-$pkgver
