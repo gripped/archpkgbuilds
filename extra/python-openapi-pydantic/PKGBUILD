@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-openapi-pydantic
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="Type-safe OpenAPI schemas in Python using Pydantic"
+arch=('any')
+url="https://github.com/mike-oakley/openapi-pydantic"
+license=('MIT')
+depends=('python' 'python-pydantic')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-openapi-spec-validator' 'python-pytest')
+source=("git+https://github.com/mike-oakley/openapi-pydantic.git#tag=v$pkgver")
+sha512sums=('af78318a85efd8385a20985e0364ab18481f791da36f8ef5b2192f4af2978f4e3c98834300190b4ece395f391ff443567583b9ba0cba695e36a1cd5bed39efbb')
+
+build() {
+  cd openapi-pydantic
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd openapi-pydantic
+  python -m pytest
+}
+
+package() {
+  cd openapi-pydantic
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
