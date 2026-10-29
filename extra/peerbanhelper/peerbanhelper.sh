@@ -26,6 +26,8 @@ exec "${JAVA_BIN}" \
     -Dpbh.logsdir="${PEERBANHELPER_LOGSDIR:-$DEFAULT_LOGSDIR}" \
     -Dpbh.log.level="${PEERBANHELPER_LOG_LEVEL:-WARN}" \
     -Djdk.attach.allowAttachSelf=true \
+    -Dcom.sun.net.ssl.checkRevocation=true \
+    -Dcom.sun.security.enableCRLDP=true \
     -XX:MaxRAMPercentage="${PEERBANHELPER_MAX_RAM_PERCENT:-85.0}" \
     -Xmx"${PEERBANHELPER_MAX_HEAP:-1G}" \
     -XX:SoftMaxHeapSize="${PEERBANHELPER_SOFT_MAX_HEAP:-386M}" \
