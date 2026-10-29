@@ -1,0 +1,83 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-anthropic
+pkgver=2.3.0
+pkgrel=1
+pkgdesc="Python client library for the Anthropic API"
+arch=('any')
+url="https://github.com/anthropics/anthropic-sdk-python"
+license=('Apache-2.0' 'MIT' 'BSD-3-Clause')
+depends=(
+  'python'
+  'python-anyio'
+  'python-docstring-parser'
+  'python-httpx2'
+  'python-jiter'
+  'python-opentelemetry-api'
+  'python-pydantic'
+  'python-sniffio'
+  'python-typing_extensions'
+)
+makedepends=(
+  'git'
+  'python-build'
+  'python-hatch-fancy-pypi-readme'
+  'python-hatchling'
+  'python-installer'
+)
+checkdepends=(
+  'curl'
+  'lsof'
+  'nodejs'
+  'npm'
+  'python-aiohttp'
+  'python-boto3'
+  'python-dirty-equals'
+  'python-google-auth'
+  'python-http-snapshot'
+  'python-inline-snapshot'
+  'python-mcp'
+  'python-opentelemetry-sdk'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-xdist'
+  'python-requests'
+  'python-respx'
+  'python-rich'
+  'ruff'
+)
+optdepends=(
+  'python-aiohttp: aiohttp HTTP backend'
+  'python-boto3: AWS Bedrock support'
+  'python-google-auth: Google Cloud and Vertex AI support'
+  'python-mcp: MCP tool integration'
+  'python-requests: Google Cloud and Vertex AI support'
+)
+source=("git+https://github.com/anthropics/anthropic-sdk-python.git#tag=v$pkgver")
+sha256sums=('3f89e197c1676ec5b7102d8e2bf44e806cd67d1bd724704bb4311b7c5ef7351b')
+
+build() {
+  cd anthropic-sdk-python
+  python -m build --wheel --no-isolation --skip-dependency-check
+}
+
+check() {
+  cd anthropic-sdk-python
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+
+  trap 'kill $(lsof -t -i tcp:4010 -sTCP:LISTEN)' EXIT
+  npm_config_yes=true ./scripts/mock --daemon
+
+  # python-standardwebhooks is currently unavailable.
+  DEFER_PYDANTIC_BUILD=false test-env/bin/python -m pytest \
+    --ignore=tests/api_resources/beta/test_webhooks.py
+}
+
+package() {
+  cd anthropic-sdk-python
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -Dm644 src/anthropic/_vendor/httpx_aiohttp/LICENSE \
+    "$pkgdir/usr/share/licenses/$pkgname/LICENSE-httpx-aiohttp"
+}
