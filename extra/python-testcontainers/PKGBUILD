@@ -1,0 +1,80 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-testcontainers
+pkgver=4.15.0
+pkgrel=1
+pkgdesc="Python library for throwaway instances of services in Docker containers"
+arch=('any')
+url="https://github.com/testcontainers/testcontainers-python"
+license=('Apache-2.0')
+depends=('python' 'python-docker' 'python-dotenv' 'python-packaging' 'python-typing_extensions'
+         'python-urllib3' 'python-wrapt')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('docker' 'docker-compose' 'python-paramiko' 'python-pytest' 'python-pytest-mock')
+optdepends=(
+  'docker: local container engine'
+  'docker-compose: Docker Compose support'
+  'python-bcrypt: registry containers'
+  'python-boto3: AWS and LocalStack containers'
+  'python-cryptography: Mailpit and SFTP containers'
+  'python-httpx: generic and AWS containers'
+  'python-kubernetes: K3s containers'
+  'python-pika: RabbitMQ containers'
+  'python-pymongo: MongoDB containers'
+  'python-pymysql: MySQL containers'
+  'python-redis: Redis and generic containers'
+  'python-selenium: Selenium containers'
+  'python-sqlalchemy: SQL containers'
+  'python-yaml: K3s containers'
+)
+source=("git+https://github.com/testcontainers/testcontainers-python.git#tag=testcontainers-v$pkgver")
+sha512sums=('a1bb625f3b2184b440a419a50741ba7e747df1364f8c7b6f79d37602d57a4d70db6d0da4634815b4c4d82ef571fdb806a4a4589afca98acc684b1d0aae7b3214')
+
+build() {
+  cd testcontainers-python
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd testcontainers-python
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+
+  # Follow upstream's core suite; integration tests need a separately configured Docker daemon.
+  # Keep legacy import checks for adapters without optional client dependencies.
+  test-env/bin/python -m pytest tests/core \
+    --ignore=tests/core/test_container.py \
+    --ignore=tests/core/test_core.py \
+    --ignore=tests/core/test_core_ports.py \
+    --ignore=tests/core/test_core_registry.py \
+    --ignore=tests/core/test_docker_in_docker.py \
+    --ignore=tests/core/test_image.py \
+    --ignore=tests/core/test_inspect.py \
+    --ignore=tests/core/test_network.py \
+    --ignore=tests/core/test_new_docker_api.py \
+    --ignore=tests/core/test_ryuk.py \
+    --ignore=tests/core/test_socat.py \
+    --ignore=tests/core/test_wait_strategies_integration.py \
+    --deselect=tests/core/test_compose.py::test_compose \
+    --deselect=tests/core/test_compose.py::test_container_info \
+    -k "(not test_legacy_module_imports or cassandra or cockroachdb or elasticsearch or kafka \
+         or memcached or milvus or mqtt or nginx or ollama or postgres or valkey or vault) \
+        and not (test_host or test_get_connection_mode or test_find_host_network \
+         or test_run_uses_found_network or test_copy_ or test_wait_for_logs \
+         or test_timeout_is_raised_when_waiting_for_logs \
+         or test_wait_container_is_ready_decorator_with_container \
+         or test_docker_container_implements_wait_strategy_target or test_protocol_typing_compatibility \
+         or test_exec_str_command or test_exec_list_command or test_exec_nonzero \
+         or test_str_command or test_exec_config_workdir or test_exec_config_environment \
+         or test_exec_config_user or test_exec_config_privileged \
+         or test_compose_stop or test_compose_start_stop or test_start_stop_multiple \
+         or test_compose_logs or test_compose_volumes or test_compose_ports \
+         or test_compose_multiple_containers_and_ports or test_exec_in_container \
+         or test_compose_profile_support or test_container_info_network_details)"
+}
+
+package() {
+  cd testcontainers-python
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
