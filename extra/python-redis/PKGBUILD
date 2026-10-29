@@ -6,7 +6,7 @@
 
 pkgname=python-redis
 pkgver=8.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='The Python interface to the Redis key-value store'
 arch=(any)
 url='https://github.com/redis/redis-py'
@@ -44,6 +44,9 @@ b2sums=('a3ece7c0664d3ad213cb5e3dd407ea0f1a40becfc8005aadc1a9c855565a9495144b714
 
 prepare() {
   cd "$pkgname"
+  # Reconnect pooled asyncio connections closed by the server.
+  # https://github.com/redis/redis-py/pull/4260
+  git cherry-pick -n 0d2ce3b5a777ae57974b4e5f29eab71fca9b5ce8
   # Compatibiltiy with recent python-pytest-asyncio.
   sed -i 's/@pytest.mark.asyncio(forbid_global_loop=True)/@pytest.mark.asyncio/g' \
     tests/test_asyncio/test_scripting.py
