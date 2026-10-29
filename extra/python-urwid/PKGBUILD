@@ -4,6 +4,7 @@
 # Contributor: Sergej Pupykin <sergej@aur.archlinux.org>
 # Contributor: Douglas Soares de Andrade <dsandrade@gmail.com>
 
+epoch=1
 pkgname=python-urwid
 pkgver=4.2.5
 pkgrel=1
