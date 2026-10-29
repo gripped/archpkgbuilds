@@ -2,7 +2,7 @@
 
 pkgname=python-pytest-benchmark
 pkgver=5.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A py.test fixture for benchmarking code'
 arch=('any')
 license=('BSD-2-Clause')
@@ -16,6 +16,9 @@ sha512sums=('9b6ddfeba718130adad9ddc439f8ce20db81d93cde08d24c2af0b5514e548ac58cd
 
 prepare() {
   cd pytest-benchmark
+  # Use pytest's public nodeid attribute after _nodeid was removed in pytest 9.2.
+  # https://github.com/ionelmc/pytest-benchmark/pull/323
+  git cherry-pick -n 7d7290726189c574e3b7fb8b26675bb10473a2be
   # Do not treat warnings as errors
   sed -i '/^    error$/d' pytest.ini
   # Remove --nbmake option (nbmake plugin not packaged in Arch)
