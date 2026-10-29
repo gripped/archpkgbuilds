@@ -1,6 +1,6 @@
 pkgbase = python-fastmcp
 	pkgdesc = The fast, Pythonic way to build MCP servers and clients
-	pkgver = 4.1.3
+	pkgver = 4.1.4
 	pkgrel = 1
 	url = https://github.com/PrefectHQ/fastmcp
 	arch = any
@@ -28,6 +28,7 @@ pkgbase = python-fastmcp
 	checkdepends = python-pytest-retry
 	checkdepends = python-pytest-timeout
 	checkdepends = uv
+	checkdepends = valkey
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
@@ -49,7 +50,6 @@ pkgbase = python-fastmcp
 	depends = python-joserfc
 	depends = python-jsonref
 	depends = python-jsonschema-path
-	depends = python-keyring
 	depends = python-mcp
 	depends = python-mcp-types
 	depends = python-openapi-pydantic
@@ -76,10 +76,10 @@ pkgbase = python-fastmcp
 	optdepends = python-prefab-ui: MCP app interfaces
 	optdepends = python-pydantic-monty: code-mode sandbox
 	optdepends = uv: isolated environments for MCP servers
-	source = git+https://github.com/PrefectHQ/fastmcp.git#tag=v4.1.3
+	source = git+https://github.com/PrefectHQ/fastmcp.git#tag=v4.1.4
 	source = git+https://github.com/APIs-guru/openapi-directory.git#commit=f7207cf0a5c56081d275ebae4cf615249323385d
-	sha512sums = ba5f8728307628ab0c8e3cd2531a920a4aac40a9d1f53db1faf0aea5c3df4e2cb7f884db1e7b63e913889ddda1ecd83a2273865de2181585eea7d1c8bafc0af6
-	sha512sums = SKIP
+	sha512sums = 6094df221a0de1332f4690681f4dc2f85b22c5e86e9955f2b6cd97c7c9dadc0cf205d5209a2b359a841bfd7fb61e8c4b942988940d7aa62aeaa9bcb8258cb2e8
+	sha512sums = a5638323be06c50c953b886ffbc40884fdf45dd3aaa73f83b9ce421ba9e7c699a9e1fb9a7da0ef0a18b546f454794ed414d77a8f5998b72ed6e77a8325247a4a
 
 pkgname = python-fastmcp
 	depends = python
@@ -97,7 +97,6 @@ pkgname = python-fastmcp
 	depends = python-joserfc
 	depends = python-jsonref
 	depends = python-jsonschema-path
-	depends = python-keyring
 	depends = python-mcp
 	depends = python-mcp-types
 	depends = python-openapi-pydantic
@@ -145,6 +144,7 @@ pkgname = python-fastmcp-tasks
 	depends = python-cryptography
 	depends = python-fastmcp
 	depends = python-pydocket
+	depends = python-redis
 	optdepends = 
 
 pkgname = python-fastmcp-remote
