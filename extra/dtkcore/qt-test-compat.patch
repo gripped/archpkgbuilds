@@ -1,0 +1,96 @@
+diff --git a/tests/ut_dcapfsfileengine.cpp b/tests/ut_dcapfsfileengine.cpp
+index 0a1a8a9..c8cb0c9 100644
+--- a/tests/ut_dcapfsfileengine.cpp
++++ b/tests/ut_dcapfsfileengine.cpp
+@@ -291,10 +291,16 @@ TEST(ut_DCapFSFileEngine, cloneToWithoutPermission)
+     DCapFSFileEngine dstEngine("/nonexistent/path/clone_dst");
+ 
+     DCapManager::instance()->removePath(tempDir.path());
+-    bool result = srcEngine.cloneTo(&dstEngine);
++    auto result = srcEngine.cloneTo(&dstEngine);
++#if QT_VERSION >= QT_VERSION_CHECK(6, 10, 0)
++    EXPECT_EQ(result, QAbstractFileEngine::TriStateResult::Failed);
++#else
+     EXPECT_FALSE(result);
++#endif
+ }
+ 
++// QAbstractFileEngine::entryList was removed in Qt 6.11.
++#if QT_VERSION < QT_VERSION_CHECK(6, 11, 0)
+ TEST(ut_DCapFSFileEngine, entryListWithPermission)
+ {
+     QTemporaryDir tempDir("/var/tmp/dcap_test_XXXXXX");
+@@ -326,6 +332,7 @@ TEST(ut_DCapFSFileEngine, entryListWithoutPermission)
+     QStringList list = engine.entryList(QDir::Files, filters);
+     EXPECT_TRUE(list.isEmpty());
+ }
++#endif
+ 
+ TEST(ut_DCapFSFileEngine, beginEntryList)
+ {
+@@ -341,8 +348,17 @@ TEST(ut_DCapFSFileEngine, beginEntryList)
+     DCapFSFileEngine engine(dirPath);
+     QStringList filters;
+     filters << "*.txt";
++#if QT_VERSION >= QT_VERSION_CHECK(6, 8, 1)
++    auto it = engine.beginEntryList(dirPath, QDirListing::IteratorFlag::FilesOnly, filters);
++#elif QT_VERSION >= QT_VERSION_CHECK(6, 8, 0)
+     auto it = engine.beginEntryList(dirPath, QDir::Files, filters);
++#else
++    auto it = engine.beginEntryList(QDir::Files, filters);
++#endif
+     EXPECT_NE(it, nullptr);
++#if QT_VERSION < QT_VERSION_CHECK(6, 8, 0)
++    delete it;
++#endif
+ }
+ 
+ TEST(ut_DCapFSFileEngine, handlerCreate)
+diff --git a/tests/ut_ddci.cpp b/tests/ut_ddci.cpp
+index a1610bd..ba5022d 100644
+--- a/tests/ut_ddci.cpp
++++ b/tests/ut_ddci.cpp
+@@ -977,17 +977,9 @@ TEST_F(ut_DCI, FileEngine_extension_supportsExtension) {
+     char buf[16];
+     engine.read(buf, 5);
+     EXPECT_TRUE(engine.extension(QAbstractFileEngine::AtEndExtension));
+-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+-    EXPECT_FALSE(engine.extension(QAbstractFileEngine::CopyExtension));
+-#else
+     EXPECT_FALSE(engine.extension(static_cast<QAbstractFileEngine::Extension>(0xFF)));
+-#endif
+     EXPECT_TRUE(engine.supportsExtension(QAbstractFileEngine::AtEndExtension));
+-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+-    EXPECT_FALSE(engine.supportsExtension(QAbstractFileEngine::CopyExtension));
+-#else
+     EXPECT_FALSE(engine.supportsExtension(static_cast<QAbstractFileEngine::Extension>(0xFF)));
+-#endif
+     engine.close();
+ }
+ 
+diff --git a/tests/ut_dfilesystemwatcher.cpp b/tests/ut_dfilesystemwatcher.cpp
+index a4ec877..0f7779f 100644
+--- a/tests/ut_dfilesystemwatcher.cpp
++++ b/tests/ut_dfilesystemwatcher.cpp
+@@ -10,6 +10,7 @@
+ #include <QSignalSpy>
+ #include <QTest>
+ #include <QCoreApplication>
++#include <QElapsedTimer>
+ #include <QTimer>
+ #include <QFile>
+ #include <unistd.h>
+diff --git a/tests/ut_dlog.cpp b/tests/ut_dlog.cpp
+index 65868b1..92174c8 100644
+--- a/tests/ut_dlog.cpp
++++ b/tests/ut_dlog.cpp
+@@ -493,7 +493,8 @@ TEST_F(ut_DLogManager, testShouldSkipConsoleAppenderJournalStreamMatch)
+     struct stat st;
+     ASSERT_EQ(fstat(STDOUT_FILENO, &st), 0);
+ 
+-    QByteArray matchStream = QByteArray::number(st.st_dev) + ":" + QByteArray::number(st.st_ino);
++    QByteArray matchStream = QByteArray::number(static_cast<qulonglong>(st.st_dev)) + ":"
++                          + QByteArray::number(static_cast<qulonglong>(st.st_ino));
+ 
+     EnvGuard guard;
+     guard.set("JOURNAL_STREAM", matchStream, false);

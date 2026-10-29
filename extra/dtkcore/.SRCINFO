@@ -1,6 +1,6 @@
 pkgbase = dtkcore
 	pkgdesc = DTK core modules
-	pkgver = 6.7.51
+	pkgver = 6.7.52
 	pkgrel = 1
 	epoch = 1
 	url = https://github.com/linuxdeepin/dtkcore
@@ -29,8 +29,10 @@ pkgbase = dtkcore
 	makedepends = qt5-base
 	makedepends = qt6-base
 	makedepends = uchardet
-	source = git+https://github.com/linuxdeepin/dtkcore.git#tag=6.7.51
-	sha512sums = 668a44686086f8adbb744ee8a1f1886dadecc5798e7078532374b3cc7a67e0a95bcabb46b71ec48fffd1eddb1e8c49d864f596c934b5bd0e6449ee35f5553881
+	source = git+https://github.com/linuxdeepin/dtkcore.git#tag=6.7.52
+	source = qt-test-compat.patch
+	sha512sums = d68378d54578e75e3068efbe01c14ed3725c7fdf2a4d57b9b6de51082b248f0c199d59617ed757340627291c338386bd0d2ec09ce3aaa7fbc534840335409df1
+	sha512sums = 8fa89c725fa53b5a0b91be5db3be1a8cd54b54ee38e4a7efb0188ef6cc0f7a71f04e2298dce8449f3eaf34776ace164b27d3049f6fa33beb83fc7eb217f8b5f5
 
 pkgname = dtkcore
 	pkgdesc = DTK core modules (Qt5 build)
