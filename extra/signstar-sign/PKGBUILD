@@ -2,7 +2,7 @@
 
 pkgname=signstar-sign
 _name=signstar
-pkgver=0.2.0
+pkgver=0.3.0
 pkgrel=1
 pkgdesc="A command line tool for creating signatures for signing requests"
 arch=(x86_64)
@@ -22,9 +22,12 @@ makedepends=(
   rust-script
 )
 source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
-sha512sums=('c71f8ca28776a20d69eea97cca9a195b3dd9d65ae1bc64bd61166883b422db0b0dbc6fbf31c55528acbb40d4cd8fbc82666283f4024432c07bcad3ea75d95312')
-b2sums=('0009c68bf429d34942873ce8d6658fefaafe774b2c770e6f98527fc578efdcef5bdd79bccc91a9581911a53fe6129e6802b42346335ebd09597ec6d4847c3163')
-validpgpkeys=(991F6E3F0765CF6295888586139B09DA5BF0D338)  # David Runge <dvzrv@archlinux.org>
+sha512sums=('cca33c44d4a3f9a640f70fc89e351810448dbb4b7e3737f17c7525db3891a0a6dcfcbe9bb1c1591c41a06f4318aaf087e778876067a2bcd6b53161999ab9aa38')
+b2sums=('d527f116744193d12fb12b504942329c53a19214d4fb9b318138d871f71735a43c6186012d85a55c56531275ac7e06da179c2172d4fe5f56b5f403939dc150f2')
+validpgpkeys=(
+  991F6E3F0765CF6295888586139B09DA5BF0D338  # David Runge <dvzrv@archlinux.org>
+  653909A2F0E37C106F5FAF546C8857E0D8E8F074  # Wiktor Kwapisiewicz <wiktor@metacode.biz>
+)
 
 prepare() {
   cd $_name
