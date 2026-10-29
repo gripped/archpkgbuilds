@@ -2,7 +2,7 @@
 
 pkgname=python-langchain-tests
 pkgver=1.1.9
-pkgrel=1
+pkgrel=2
 pkgdesc="Standard tests for LangChain implementations"
 arch=('any')
 url="https://github.com/langchain-ai/langchain"
@@ -36,6 +36,9 @@ prepare() {
 
   # makepkg's git fragment parser treats "=" inside tag values as separators.
   git checkout -q "langchain-tests==$pkgver"
+
+  # Allow VCR.py 9 (https://github.com/langchain-ai/langchain/pull/41407).
+  sed -i 's/vcrpy>=8.0.0,<9.0.0/vcrpy>=8.2.1/' libs/standard-tests/pyproject.toml
 }
 
 build() {
