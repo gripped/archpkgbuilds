@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.22.2
+pkgver=0.22.3
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -16,6 +16,7 @@ depends=(
   libstdc++
   glibc
   nodejs
+  procps-ng
   ripgrep
 )
 makedepends=(
@@ -29,8 +30,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('4feecf0a40f0e565e55f92db676223c37c3c5822fe6cc47d3952d2d0975d721e')
-b2sums=('6690d94aa1c8df6971e53641b842c16b54835e4a56ebd18987789727f14bfbc7380bd3346a98954b9ad58832e51a68a6ee593322cfdf3a4cbb139bafec82d126')
+sha256sums=('3e50d6c0a726b162d2767c53d661734bd8bffc14f11498b54770fbbdcfaeb718')
+b2sums=('bad3948d9a3ffa633521b4b2c2af28a5f6392ffb5f329589a58b4ec6fd6d1481b57b42b448dbc7e275130b92b02bb84e031c1da896e5e566131d997ddb5b1c4c')
 
 prepare() {
   cd $pkgname
@@ -49,6 +50,13 @@ prepare() {
     -e "s/'\[Function (anonymous)\]'/'Proxy([Function (anonymous)])'/" \
     -e "s/'{}'/'Proxy({})'/" \
     packages/node-repl/src/kernel-manager.test.ts
+  # Finish the interrupted journal clear so its test releases the directory handle.
+  sed -i '/rejects journal directory replacement while clearing phases/,/^  });/ {
+    /openMock.mockImplementation(originalOpen);/a\
+      await fs.rmdir(journalDirectory);\
+      await fs.rename(originalDirectory, journalDirectory);\
+      await journal.clear(SESSION_ID, root);
+  }' packages/cli/src/serve/conversations/standalone-deletion-journal.test.ts
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
@@ -77,7 +85,7 @@ check() {
   export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--localstorage-file=$PWD/.node-localstorage"
   # Skip remaining clean-chroot failures; no narrow upstream fixes are available.
   # Keep one glob because sdk-typescript's Vitest rejects repeated --exclude.
-  local test_exclude='**/{qwenConnectionHandler,useAtCompletion,pid-descendants,'
+  local test_exclude='**/{qwenConnectionHandler,useAtCompletion,'
   test_exclude+='serve/acp-http/transport,i18n/index,ui/auth/AuthDialog,'
   test_exclude+='ui/utils/clipboardUtils,'
   # mock-fs fails at import time on Node 26.8+:
