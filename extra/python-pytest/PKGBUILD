@@ -4,7 +4,7 @@
 
 pkgname=python-pytest
 _name=${pkgname#python-}
-pkgver=9.1.1
+pkgver=9.2.0
 pkgrel=1
 epoch=1
 pkgdesc='Simple powerful testing with Python'
@@ -42,7 +42,7 @@ checkdepends=(
   python-twisted
 )
 source=("git+https://github.com/$_name-dev/$_name.git#tag=$pkgver")
-b2sums=('f1cb4dc91f6dc31b17f96957331f7a859388f31ff3c92edf65a563e57c9164bba2e93cb0b9221b7c793a0f2e7e96e6f4fcfe4c4b0c8fcfb24d1430095a8e7c9e')
+b2sums=('d263e358cc0d9180510771990e7034b3ba1255147698b88f6ccfbe9d390d8ba5944426af6fdafabeebd8808a329ef52c45acf07fd50600ba34f4e4b3c5b94771')
 
 build() {
   cd "$_name"
