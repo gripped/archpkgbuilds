@@ -1,0 +1,43 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=libcompizconfig
+pkgver=0.8.18
+pkgrel=1
+pkgdesc='Configuration backend for Compiz'
+arch=(x86_64)
+url='https://gitlab.com/compiz/libcompizconfig'
+license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
+depends=(
+  abseil-cpp
+  glibc
+  libgcc
+  libstdc++
+  libx11
+  libxml2
+  protobuf
+)
+makedepends=(
+  compiz-core
+  git
+)
+source=("git+https://gitlab.com/compiz/libcompizconfig.git#tag=v$pkgver")
+b2sums=(36ec89fd340a07057fb5832ec0845f647d21c53dd6df6d465642ff9ca72d774db9af3fd85cbb9569975a81718b1eb09c7e72fe04693eb6e6b3999e3817314281)
+
+prepare() {
+  cd $pkgname
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}
