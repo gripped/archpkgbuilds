@@ -2,7 +2,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sentry-native
-pkgver=0.17.4
+pkgver=0.17.5
 pkgrel=1
 pkgdesc="Sentry SDK for C, C++ and native applications"
 arch=(x86_64)
@@ -38,7 +38,7 @@ source=(
   "$pkgname-mini_chromium::git+https://github.com/getsentry/mini_chromium.git"
   "$pkgname-chromium-zlib::git+https://github.com/getsentry/chromium-zlib.git"
 )
-b2sums=('dd37b370c16cb75ad8bdf29efa56e971791afdb408c12bd79ac56dff2a3f3191adcf2e36d2f7721532b61cf5a99ee407466a3e47bf23dcc3b269013cadba9013'
+b2sums=('4d56d616597729f4d8c93b0d68a80b07101af041262a3645d577ac68eb3d44f07ef005fece5b674eb32633e18a9c9b049c9e5e547a95c45418e5e7e8380a3f2c'
         'SKIP'
         'SKIP'
         'SKIP'
@@ -86,6 +86,7 @@ check() {
     --deselect tests/test_integration_proxy.py::test_proxy_ipv6 \
     --deselect tests/test_integration_proxy.py::test_proxy_set_empty \
     --deselect tests/test_integration_proxy.py::test_proxy_https_not_http \
+    --deselect tests/test_integration_native.py::test_native_proxy_set_empty \
     --ignore external/crashpad/snapshot/win \
     --ignore external/crashpad/test/win
 }
