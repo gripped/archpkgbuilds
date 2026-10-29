@@ -2,8 +2,8 @@
 # Contributor: Max Gautier <mg@max.gautier.name>
 
 pkgname=xdg-terminal-exec
-pkgver=0.14.3
-pkgrel=2
+pkgver=0.14.4
+pkgrel=1
 pkgdesc="Proposal for XDG Default Terminal Execution Specification and shell-based reference implementation"
 url="https://github.com/Vladimir-csp/xdg-terminal-exec"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('bash')
 makedepends=('scdoc')
 checkdepends=('bats')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('82ac2dfdb357361d15f5163cdeb3cfd457bbb30bf5d2e14436393f493bd32afe')
+sha256sums=('10e079032396a386dabcec5627893db17dc3c76c12318b3719d78f3b70aa7ef4')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
