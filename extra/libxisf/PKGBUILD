@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libxisf
-pkgver=0.2.14
+pkgver=0.2.15
 pkgrel=1
 pkgdesc='Library to load and write XISF format from PixInsight'
 url='https://gitea.nouspiro.space/nou/libXISF'
@@ -17,7 +17,7 @@ depends=(glibc
 makedepends=(cmake
              git)
 source=(git+https://gitea.nouspiro.space/nou/libXISF#tag=v$pkgver)
-sha256sums=('8f3aa999f0160e9d26bce26e4d6ef1d59b8a4f46d06b140a1676d909ad6b37e0')
+sha256sums=('197962b258acc3b5d1c1585fb4bcf2131dbd78d87bc35fc666dc784590f151a1')
 
 build() {
   cmake -B build -S libXISF \
