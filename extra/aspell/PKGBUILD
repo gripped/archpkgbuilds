@@ -5,29 +5,30 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=aspell
-pkgver=0.60.8.2
+pkgver=0.60.8.3
 _pkgmajorver=0.60
-pkgrel=2
+pkgrel=1
 pkgdesc="A spell checker designed to eventually replace Ispell"
 arch=('x86_64')
 url="http://aspell.net/"
-license=('LGPL-2.0-or-later AND LGPL-2.1-only AND GPL-2.0-or-later AND BSD-2-Clause')
+license=('LGPL-2.0-or-later' 'LGPL-2.1-only' 'GPL-2.0-or-later' 'BSD-2-Clause')
 depends=('glibc' 'libstdc++' 'ncurses')
+makedepends=('git')
 optdepends=('perl: to import old dictionaries')
 provides=(libaspell.so libpspell.so)
 source=(
-  "https://github.com/GNUAspell/aspell/archive/rel-$pkgver.tar.gz"
+  "git+https://github.com/GNUAspell/aspell.git#tag=rel-$pkgver"
 )
-sha512sums=('ff379222ef33b4ffcca68fbcc0350004e9490add7ecbe13e73b16db961167db19c427731e0d7f8d465f1c78d2ea8aa07738de8c531a7a25e518d3cf4a604a96c')
-b2sums=('508ec5d8ca46b042d98a8c34e2065c4468f3d6dd5f1aa4d756ecfae91a82ead5c15252f0bcfdee479545c4808cb39896efb3f634ffe02c6bd8040f46dcb3cf04')
+sha512sums=('014135a111bc9acdeeafc534a36e753a95caf6d401135073bb7d5da7f015fcb09d3ca7a109bbab008ce8693a193502f3109f20a0e762674764e3ae1b8e20d36b')
+b2sums=('4d1959748ec8d9409c56a14a6e2d0c001419c95da8e439977c27a4e26db4ff2cff880e7baf48bfdff248a0c1ec992292e6cdd8589c01370cfbaf0db0c4f9f03a')
 
 prepare() {
-  cd $pkgname-rel-$pkgver
+  cd $pkgname
   PERL_USE_UNSAFE_INC=1 ./autogen
 }
 
 build() {
-  cd $pkgname-rel-$pkgver
+  cd $pkgname
   ./configure --prefix=/usr --sysconfdir=/etc
 
   # prevent excessive overlinking due to libtool
@@ -38,7 +39,7 @@ build() {
 package() {
   depends+=(libncursesw.so)
 
-  cd $pkgname-rel-$pkgver
+  cd $pkgname
   make DESTDIR="$pkgdir" install
   ln -s $pkgname-$_pkgmajorver "$pkgdir"/usr/lib/$pkgname
 
