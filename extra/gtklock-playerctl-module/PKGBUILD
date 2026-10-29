@@ -2,7 +2,7 @@
 # Contributor: Jovan Lanik <jox969@gmail.com>
 
 pkgname=gtklock-playerctl-module
-pkgver=4.0.0
+pkgver=5.0.0
 pkgrel=1
 pkgdesc="gtklock module adding media player controls to the lockscreen"
 url="https://github.com/jovanlanik/gtklock-playerctl-module"
@@ -11,7 +11,7 @@ license=('GPL-3.0-only')
 depends=('gtk3' 'playerctl' 'libsoup3' 'gtklock')
 makedepends=('meson')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('e2da10ed032cf3af57929f022ffc5e6120c486fc2e0586736f845cf0a68b5f03')
+sha256sums=('86762d035ca3b073de3e88c2c4048085a4f9bf98f0a862cb35daf6f227f5cd3c')
 
 build() {
         arch-meson "${pkgname}-${pkgver}" build
