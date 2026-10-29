@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain-core
-pkgver=1.6.3
+pkgver=1.6.4
 pkgrel=1
 pkgdesc="Building applications with LLMs through composability"
 arch=('any')
@@ -40,14 +40,26 @@ checkdepends=(
   'python-responses'
   'python-syrupy'
 )
-source=("git+https://github.com/langchain-ai/langchain.git")
-sha512sums=('SKIP')
+source=("git+https://github.com/langchain-ai/langchain.git"
+        uuid-utils-1.0.patch
+        mock-tracer-client.patch)
+sha512sums=('SKIP'
+            '11a563d56dc99eff43ac58479703b1ce9c171a9fea8e4dca328e31015954d72d0c3ec79953c22a9fa8c75c0f8d02f8fa676e656ba1064e2f4e6d17efcfd7efa2'
+            '729a152a436f0e644eb5abbdbb893311f8049eea3b748d02b03ce473d8f9fd9d65f4921702d7652041450df83f4ad0791cd9c94930bc90137d80ba144567abf2')
 
 prepare() {
   cd langchain
 
   # makepkg's git fragment parser treats "=" inside tag values as separators.
   git checkout -q "langchain-core==$pkgver"
+
+  # uuid-utils 1.0 replaces timestamp/nanos with a single nanoseconds argument.
+  # https://github.com/aminalaee/uuid-utils/pull/194
+  git apply "$srcdir/uuid-utils-1.0.patch"
+
+  # Keep the test collector offline and avoid synchronous LangSmith profile reads.
+  # https://github.com/langchain-ai/langsmith-sdk/pull/2835
+  git apply "$srcdir/mock-tracer-client.patch"
 }
 
 build() {

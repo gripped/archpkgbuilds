@@ -1,6 +1,6 @@
 pkgbase = python-langchain-core
 	pkgdesc = Building applications with LLMs through composability
-	pkgver = 1.6.3
+	pkgver = 1.6.4
 	pkgrel = 1
 	url = https://github.com/langchain-ai/langchain
 	arch = any
@@ -33,6 +33,10 @@ pkgbase = python-langchain-core
 	depends = python-uuid-utils
 	depends = python-yaml
 	source = git+https://github.com/langchain-ai/langchain.git
+	source = uuid-utils-1.0.patch
+	source = mock-tracer-client.patch
 	sha512sums = SKIP
+	sha512sums = 11a563d56dc99eff43ac58479703b1ce9c171a9fea8e4dca328e31015954d72d0c3ec79953c22a9fa8c75c0f8d02f8fa676e656ba1064e2f4e6d17efcfd7efa2
+	sha512sums = 729a152a436f0e644eb5abbdbb893311f8049eea3b748d02b03ce473d8f9fd9d65f4921702d7652041450df83f4ad0791cd9c94930bc90137d80ba144567abf2
 
 pkgname = python-langchain-core

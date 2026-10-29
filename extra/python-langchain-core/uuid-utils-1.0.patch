@@ -1,0 +1,27 @@
+diff --git a/libs/core/langchain_core/utils/uuid.py b/libs/core/langchain_core/utils/uuid.py
+index 3d895edaba..4e500dbe72 100644
+--- a/libs/core/langchain_core/utils/uuid.py
++++ b/libs/core/langchain_core/utils/uuid.py
+@@ -50,8 +50,7 @@ def uuid7(nanoseconds: int | None = None) -> UUID:
+     # For now, just delegate to the uuid_utils implementation
+     if nanoseconds is None:
+         return _uuid_utils_uuid7()
+-    seconds, nanos = _to_timestamp_and_nanos(nanoseconds)
+-    return _uuid_utils_uuid7(timestamp=seconds, nanos=nanos)
++    return _uuid_utils_uuid7(nanoseconds=nanoseconds)
+ 
+ 
+ __all__ = ["uuid7"]
+diff --git a/libs/core/pyproject.toml b/libs/core/pyproject.toml
+index eb46e38403..6f6702492b 100644
+--- a/libs/core/pyproject.toml
++++ b/libs/core/pyproject.toml
+@@ -32,7 +32,7 @@ dependencies = [
+     "typing-extensions>=4.7.0,<5.0.0",
+     "packaging>=23.2.0",
+     "pydantic>=2.7.4,<3.0.0",
+-    "uuid-utils>=0.12.0,<1.0",
++    "uuid-utils>=1.0.0,<2.0",
+     "langchain-protocol>=0.0.17",
+ ]
+ 
