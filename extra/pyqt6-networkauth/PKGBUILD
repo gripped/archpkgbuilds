@@ -2,7 +2,7 @@
 
 pkgbase=pyqt6-networkauth
 pkgname=(python-pyqt6-networkauth)
-pkgver=6.11.0
+pkgver=6.12.0
 pkgrel=1
 pkgdesc='Python bindings for QtNetworkAuth'
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(glibc
 makedepends=(pyqt-builder
              sip)
 source=(https://pypi.python.org/packages/source/P/PyQt6-NetworkAuth/pyqt6_networkauth-$pkgver.tar.gz)
-sha256sums=('03650f0b0d709284f4ede3b31170d78b996864406bf34a4a0e76474b9144ed2a')
+sha256sums=('e2c5fd09a8eb2a536199203ae97d7b42b9ae1578b3db20fd46e8c4f7ec117803')
 
 build() {
   cd pyqt6_networkauth-$pkgver
