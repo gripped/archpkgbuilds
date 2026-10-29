@@ -4,54 +4,57 @@
 # Contributor: Gabriel Fox <inbox@gabrielfox.dev>
 
 pkgname=(hyprland hyprpm)
-pkgver=0.56.2
-pkgrel=4
+pkgver=0.57.0
+pkgrel=1
 pkgdesc='a highly customizable dynamic tiling Wayland compositor'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/${pkgname^}"
 license=(BSD-3-Clause)
 depends=(cairo # libcairo.so
-         aquamarine libaquamarine.so
+         aquamarine
          libgcc # libgcc_s.so
          'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
-         glib2 libgio-2.0.so libgobject-2.0.so
+         glib2
          glslang # libglslang-default-resource-limits.so libglslang.so
-         hyprcursor libhyprcursor.so
-         hyprgraphics libhyprgraphics.so
+         hyprcursor
+         hyprgraphics
          hyprland-guiutils
-         hyprlang libhyprlang.so
-         hyprutils libhyprutils.so
-         hyprwire libhyprwire.so
-         lcms2 liblcms2.so
+         hyprlang
+         hyprutils
+         hyprwire
+         lcms2
+         libcanberra
          libdrm # libdrm.so
-         libglvnd libEGL.so libGLESv2.so
+         libei
+         libglvnd
          libinput # libinput.so
          libx11
          libxcb # libxcb-dri3.so libxcb-present.so libxcb-render.so libxcb-res.so libxcb-shm.so libxcb.so libxcb-xfixes.so libxcb-xinput.so
          libxcomposite # libxcb-composite.so
          libxcursor # libXcursor.so
          libxfixes
-         libxkbcommon libxkbcommon.so
+         libxkbcommon
          libxrender
          lua # liblua.so
          mesa # libgbm.so
          muparser # libmuparser.so
          opengl-driver
-         pango libpango-1.0.so libpangocairo-1.0.so
-         pixman libpixman-1.so
-         re2 libre2.so
-         tomlplusplus libtomlplusplus.so
-         util-linux-libs libuuid.so
-         wayland libwayland-server.so
+         pango
+         pixman
+         re2
+         sdbus-cpp
+         tomlplusplus
+         util-linux-libs
+         wayland
          wayland-protocols
          xcb-proto
          xcb-util
          xcb-util-errors # libxcb-errors.so
          xcb-util-image
          xcb-util-keysyms
-         xcb-util-renderutil # libxcb-render-util.so 
-         xcb-util-wm # libxcb-ewmh.so  libxcb-icccm.so 
+         xcb-util-renderutil # libxcb-render-util.so
+         xcb-util-wm # libxcb-ewmh.so  libxcb-icccm.so
          xorg-xwayland)
 makedepends=(cmake
              glaze
@@ -66,7 +69,7 @@ optdepends=('hyprpm: build and install plugins'
 provides=(wayland-compositor)
 _archive="${pkgname^}-$pkgver"
 source=("$_archive.tar.gz::$url/releases/download/v$pkgver/source-v$pkgver.tar.gz")
-sha256sums=('03ad3f5ef152ff44116ffd56fcf808486211ecabf4f0ba567108ee746ba5cd2e')
+sha256sums=('82d006ba9264fe67266c7d583c16f1a6c64d51424dbdc472c3e9c9d5ddfcd559')
 
 prepare() {
 	ln -sf hyprland-source "$_archive"
@@ -81,6 +84,29 @@ build() {
 }
 
 package_hyprland() {
+	depends+=(libEGL.so
+	          libGLESv2.so
+	          libaquamarine.so
+	          libcanberra.so
+	          libeis.so
+	          libgio-2.0.so
+	          libgobject-2.0.so
+	          libhyprcursor.so
+	          libhyprgraphics.so
+	          libhyprlang.so
+	          libhyprutils.so
+	          libhyprwire.so
+	          liblcms2.so
+	          libpango-1.0.so
+	          libpangocairo-1.0.so
+	          libpixman-1.so
+	          libre2.so
+	          libreadline.so
+	          libsdbus-c++.so
+	          libtomlplusplus.so
+	          libuuid.so
+	          libwayland-server.so
+	          libxkbcommon.so)
 	cd "$_archive"
 	make DESTDIR="$pkgdir" install
 	rm -fv "$pkgdir/usr/include/hyprland/src/version.h.in"
