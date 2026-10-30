@@ -2,7 +2,7 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=librepo
-pkgver=1.21.2
+pkgver=1.21.3
 pkgrel=1
 pkgdesc="Repodata downloading library"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('cmake' 'python')
 checkdepends=('check' 'python-gpgme' 'python-pyxattr' 'python-requests')
 optdepends=('python: for python bindings')
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('7ac3ab72529f9bbf49fd68df6f66c5d0daaad4f37a225088664b710c90f13905')
+sha256sums=('64fa3b6226b7789ee19f722ed23b0ee214e96f2ed0b705cdbd3af516cc0b7924')
 
 prepare() {
   cd "$pkgname-$pkgver"
