@@ -3,7 +3,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=libslirp
-pkgver=4.9.6
+pkgver=4.9.7
 pkgrel=1
 pkgdesc='General purpose TCP-IP emulator'
 arch=(x86_64)
@@ -13,8 +13,8 @@ depends=(glib2)
 makedepends=(meson)
 provides=('libslirp.so')
 source=("${url}/-/archive/v${pkgver}/libslirp-v${pkgver}.tar.gz")
-sha512sums=('15592d5015e2ccee6a096a907cde3ec2aad423f9815ae2831b61f41d366322e1865e8fbb3b6cf61608aeb991f2039a5e80ed7c367cce9cfb71e35102eeb8c836')
-b2sums=('ed017fa2561b040cd4e121e6e60bff72df26d02a4dcb99acc0d83ff82e6d48f257506c2d7714d9dfdce87133b4872bb71c997b42222c5054d912e15765505218')
+sha512sums=('e7ab5bae9696a5b3f9bc0a846757a5d7a9dd24407c04f1c3483730baa0b0269fb9574c5f26569f1718a4b51023a62a5c4b8826a82e5c44b8d14a1ede5fb7e566')
+b2sums=('12df06926f2fbcb1cdb45c4e3b086e8df0d1c520646185eb608f6aa97e53a94bca43a182909470a806ff0f20da0e710212b9e9d82197422faf7d3da922544e29')
 
 build() {
   arch-meson "$pkgname-v${pkgver}" build
