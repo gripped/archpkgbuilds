@@ -1,0 +1,56 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=compiz-plugins-experimental
+pkgver=0.8.18
+pkgrel=1
+pkgdesc='Experimental plugins for Compiz'
+arch=(x86_64)
+url='https://gitlab.com/compiz/compiz-plugins-experimental'
+license=(GPL-2.0-or-later)
+depends=(
+  cairo
+  compiz-core
+  compiz-plugins-extra
+  compiz-plugins-main
+  curl
+  glew
+  glibc
+  glu
+  libgcc
+  libglvnd
+  libstdc++
+  libx11
+  libxext
+  libxss
+)
+makedepends=(
+  compiz-bcop
+  git
+  intltool
+)
+source=("git+https://gitlab.com/compiz/compiz-plugins-experimental.git#tag=v$pkgver")
+b2sums=(976d1a12e685051c7b251e3690741b9326a709ba482b3c5601982f06ea6ed278b496b9f8fe58bfe1b09e52863ccf4ff0182a82009b14576f2e9a0fe326c8dab0)
+
+prepare() {
+  cd $pkgname
+
+  # Fixed compilation with gcc-14
+  # https://gitlab.com/compiz/compiz-plugins-experimental/-/merge_requests/48
+  git cherry-pick -n 82c05c421b48240e28cd350e2eafa803c7039eac
+
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}
