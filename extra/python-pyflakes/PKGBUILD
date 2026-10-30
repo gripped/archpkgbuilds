@@ -7,7 +7,7 @@
 # Contributor: Tiago Pierezan Camargo <tcamargo@gmail.com>
 
 pkgname=python-pyflakes
-pkgver=4.0.3
+pkgver=4.1.0
 pkgrel=1
 pkgdesc='A lint-like tool for Python to identify common errors quickly without executing code'
 arch=('any')
@@ -16,7 +16,7 @@ license=('MIT')
 depends=('python')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz")
-sha512sums=('286ef5c011eae75911f8460dc3666c5148aac5898d702c5d0428ec3c6ad4f944778a4c82b1927dd49b4652a46b16e5486513e9d819a02e6c986d471201574505')
+sha512sums=('691fde67fd3ddd67ecc0a7ddfeda1be86726a568378df443883947a84519998a7e10e7c2a2912412305c83db2476a324d3a9b7b2e5906041205866c527e93adf')
 
 build() {
   cd pyflakes-$pkgver
