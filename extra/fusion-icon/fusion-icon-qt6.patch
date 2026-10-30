@@ -1,0 +1,139 @@
+From c69566de6f8c385af218726d5eb7fd5711d542ea Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 28 Oct 2026 13:44:29 +0100
+Subject: [PATCH] Qt: Port to Qt6
+
+Drop Qt4 support, and simplify the built to try Qt6 first, then fall back
+to Qt5.
+---
+ .../interface_qt/{main.py.in => main.py}      | 38 +++++++++----------
+ setup.py                                      | 24 ------------
+ 2 files changed, 18 insertions(+), 44 deletions(-)
+ rename FusionIcon/interface_qt/{main.py.in => main.py} (80%)
+
+diff --git a/FusionIcon/interface_qt/main.py.in b/FusionIcon/interface_qt/main.py
+similarity index 80%
+rename from FusionIcon/interface_qt/main.py.in
+rename to FusionIcon/interface_qt/main.py
+index f9695d3..7f7cf98 100644
+--- a/FusionIcon/interface_qt/main.py.in
++++ b/FusionIcon/interface_qt/main.py
+@@ -18,16 +18,16 @@
+ 
+ import sys, os, time
+ try:
+-	from PySide@pysidever@ import QtCore, QtGui, QtGui as QtWidgets
++	from PySide6 import QtCore, QtGui, QtWidgets
+ except ImportError:
+-	from PyQt@qtver@ import QtCore, QtGui, QtGui as QtWidgets
+-if int(QtCore.qVersion().split('.')[0]) >= 5:
+ 	try:
+-		from PySide@pysidever@ import QtWidgets
++		from PyQt6 import QtCore, QtGui, QtWidgets
+ 	except ImportError:
+-		from PyQt@qtver@ import QtWidgets
+-elif tuple(map(int, (QtCore.qVersion().split('.')))) < (4, 6, 0):
+-	raise ImportError('Qt 4.6.x or later required')
++		try:
++			from PySide2 import QtCore, QtGui, QtWidgets
++		except ImportError:
++			from PyQt5 import QtCore, QtGui, QtWidgets
++
+ from FusionIcon.start import wms, apps, options, decorators, init
+ from FusionIcon.execute import run
+ 
+@@ -49,7 +49,7 @@ class Build(QtWidgets.QApplication):
+ 		decorators.active = decorator
+ 
+ 	def __init__(self, parent=None):
+-		QtWidgets.QApplication.__init__(self, parent)
++		super().__init__(sys.argv)
+ 		self.setApplicationName('Fusion Icon')
+ 		image = QtGui.QIcon()
+ 		for iconName in ('fusion-icon', 'image-missing'):
+@@ -61,8 +61,13 @@ class Build(QtWidgets.QApplication):
+ 		self.Tray.managerMenu = QtWidgets.QMenu()
+ 		self.Tray.optionsMenu = QtWidgets.QMenu()
+ 		self.Tray.decoratorMenu = QtWidgets.QMenu()
+-		self.groupManager = QtWidgets.QActionGroup(self.Tray.managerMenu)
+-		self.groupDecorator = QtWidgets.QActionGroup(self.Tray.decoratorMenu)
++
++		if int(QtCore.qVersion().split('.')[0]) >= 6:
++			self.groupManager = QtGui.QActionGroup(self.Tray.managerMenu)
++			self.groupDecorator = QtGui.QActionGroup(self.Tray.decoratorMenu)
++		else:
++			self.groupManager = QtWidgets.QActionGroup(self.Tray.managerMenu)
++			self.groupDecorator = QtWidgets.QActionGroup(self.Tray.decoratorMenu)
+ 
+ 		for wm in wms.ordered_list:
+ 			actionWM = self.groupManager.addAction(self.Tray.managerMenu.addAction(wms[wm].label, lambda val=wm : self.toggleWM(val)))
+@@ -106,17 +111,10 @@ class Build(QtWidgets.QApplication):
+ 
+ 	def showMenu(self, reason):
+ 		# Show the menu on left clicking as well.
+-		if reason == QtWidgets.QSystemTrayIcon.Trigger:
+-			pos = None
+-			if self.Tray.geometry().isValid():
+-				rect = self.Tray.geometry()
+-				pos = QtCore.QPoint(rect.left() + (rect.width() / 2),
+-				                    rect.bottom() + 1)
+-			elif int(QtCore.qVersion().split('.')[0]) >= 5:
+-				# With SNI this will be used, unless Qt4 (sni-qt).
+-				pos = QtGui.QCursor.pos()
++		if reason == QtWidgets.QSystemTrayIcon.ActivationReason.Trigger:
++			pos = QtGui.QCursor.pos()
+ 
+ 			if pos:
+ 				self.Tray.contextMenu().popup(pos)
+ 
+-Build(sys.argv).exec_()
++Build(sys.argv).exec()
+diff --git a/setup.py b/setup.py
+index 61c2a01..e129a85 100755
+--- a/setup.py
++++ b/setup.py
+@@ -45,22 +45,10 @@ class uninstall(_install):
+ #Stolen from ccsm's setup.py
+ if sys.argv[1] == 'build':
+ 
+-	qtver = '5.0'
+ 	gtkver = '3.0'
+ 
+ 	if len (sys.argv) > 2:
+ 		i = 0
+-		for o in sys.argv:
+-			if o.startswith('--with-qt'):
+-				if o == '--with-qt':
+-					if len(sys.argv) >= i:
+-						qtver = sys.argv[i + 1]
+-					sys.argv.remove(qtver)
+-				elif o.startswith('--with-qt=') and len(o[10:]):
+-					qtver = o[10:]
+-				sys.argv.remove(o)
+-			i += 1
+-		i = 0
+ 		for o in sys.argv:
+ 			if o.startswith('--with-gtk'):
+ 				if o == '--with-gtk':
+@@ -72,18 +60,6 @@ if sys.argv[1] == 'build':
+ 				sys.argv.remove(o)
+ 			i += 1
+ 
+-	f = open(os.path.join ('FusionIcon/interface_qt/main.py.in'), 'rt')
+-	data = f.read()
+-	f.close()
+-	data = data.replace('@qtver@', qtver.split('.')[0])
+-	if int(qtver.split('.')[0]) >= 5:
+-		data = data.replace('@pysidever@', "%d" % (int(qtver.split('.')[0]) - 3))
+-	else:
+-		data = data.replace('@pysidever@', '')
+-	f = open(os.path.join('FusionIcon/interface_qt/main.py'), 'wt')
+-	f.write(data)
+-	f.close()
+-
+ 	f = open(os.path.join ('FusionIcon/interface_gtk/main.py.in'), 'rt')
+ 	data = f.read()
+ 	f.close()
+-- 
+GitLab
+

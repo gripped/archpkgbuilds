@@ -1,0 +1,28 @@
+From c671825dbbc9dde7949b8a259b57a64ccd07b8fc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 28 Oct 2026 17:40:06 +0100
+Subject: [PATCH] Don't attempt to run in Wayland session
+
+Window managers are specific for X11.
+---
+ fusion-icon | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fusion-icon b/fusion-icon
+index c60a3a8..d22128b 100755
+--- a/fusion-icon
++++ b/fusion-icon
+@@ -46,6 +46,10 @@ if options.reset:
+ 
+ 	sys.exit()
+ 
++if (os.environ.get('XDG_SESSION_TYPE') == 'wayland'
++		or os.environ.get('WAYLAND_DISPLAY')):
++	sys.exit('Fusion Icon does not support Wayland.')
++
+ if options.seconds and 0 < options.seconds <= 60:
+ 	print(' * Sleeping for ' + options.seconds + ' seconds')
+ 	time.sleep(options.seconds)
+-- 
+GitLab
+

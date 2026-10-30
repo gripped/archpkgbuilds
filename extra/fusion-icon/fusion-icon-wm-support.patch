@@ -1,0 +1,111 @@
+From ec36d15c5b6ae262a85deb7f60aa7f627639e30b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 28 Oct 2026 17:18:10 +0100
+Subject: [PATCH] Add support for more window managers
+
+Remove Mutter, because it doesn't support X11 anymore, and even the older
+versions are not supported well outside of GNOME.
+
+Blackbox does not have --replace option, it replaces the existing WM
+without any parameters. Xfwm4 has --replace option, and no need to be
+killed.
+
+Always kill the old WM if a kill command is specified for it, because these
+WMs cannot be replaced without it.
+---
+ FusionIcon/data.py | 42 +++++++++++++++++++++++++++++++++++-------
+ FusionIcon/util.py |  2 +-
+ 2 files changed, 36 insertions(+), 8 deletions(-)
+
+diff --git a/FusionIcon/data.py b/FusionIcon/data.py
+index c2db641..00d81ff 100644
+--- a/FusionIcon/data.py
++++ b/FusionIcon/data.py
+@@ -68,10 +68,6 @@ wms = {
+ 		('metacity', ['metacity', '--replace'],
+ 		 'Metacity', 'gnome', None, None,),
+ 
+-	'mutter':
+-		('mutter', ['mutter', '--replace'],
+-		 'Mutter', 'gnome', None, None,),
+-
+ 	'kwin':
+ 		('kwin_x11', ['kwin_x11', '--replace'],
+ 		 'KWin', 'kde', None, None),
+@@ -81,25 +77,57 @@ wms = {
+ 		 'KWin4', 'kde', None, None),
+ 
+ 	'xfwm4':
+-		('xfwm4', ['xfwm4'],
+-		 'Xfwm4', 'xfce', ['noreplace'], ['killall', 'xfwm4']),
++		('xfwm4', ['xfwm4', '--replace'],
++		 'Xfwm4', 'xfce', None, None,),
+ 
+ 	'openbox':
+ 		('openbox', ['openbox', '--replace'],
+ 		 'Openbox', None, None, None),
+ 
+ 	'blackbox':
+-		('blackbox', ['blackbox', '--replace'],
++		('blackbox', ['blackbox'],
+ 		 'Blackbox', None, None, None),
+ 
++	'ctwm':
++		('ctwm', ['ctwm', '--replace'],
++		 'CTWM', None, None, None),
++
++	'e16':
++		('e16', ['e16'],
++		 'E16', None, ['noreplace'], ['killall', 'e16']),
++
++	'fluxbox':
++		('fluxbox', ['fluxbox'],
++		 'Fluxbox', None, ['noreplace'], ['killall', 'fluxbox']),
++
+ 	'fvwm':
+ 		('fvwm', ['fvwm', '--replace'],
+ 		 'FVWM', None, None, None),
+ 
++	'fvwm3':
++		('fvwm3', ['fvwm3', '--replace'],
++		 'FVWM3', None, None, None),
++
++	'jwm':
++		('jwm', ['jwm'],
++		 'JWM', None, None, None),
++
+ 	'icewm':
+ 		('icewm', ['icewm', '--replace'],
+ 		 'IceWM', None, None, None),
+ 
++	'pekwm':
++		('pekwm', ['pekwm', '--replace'],
++		 'PekWM', None, None, ['killall', 'pekwm']),
++
++	'twm':
++		('twm', ['twm'],
++		 'twm', None, ['noreplace'], ['killall', 'twm']),
++
++	'wmaker':
++		('wmaker', ['wmaker', '--replace'],
++		 'Window Maker', None, None, None),
++
+ }
+ 
+ #decorator
+diff --git a/FusionIcon/util.py b/FusionIcon/util.py
+index bfedf72..0410fd2 100644
+--- a/FusionIcon/util.py
++++ b/FusionIcon/util.py
+@@ -155,7 +155,7 @@ class WindowManagers(dict):
+ 
+ 		self.__set_old()
+ 
+-		if self.active == 'compiz' and self.old and self[self.old].killcmd:
++		if self.active and self.old and self[self.old].killcmd:
+ 			if run(['which', self[self.old].killcmd[0]], 'call', quiet=True) == 0:
+ 				run(self[self.old].killcmd, 'call')
+ 				time.sleep(1)
+-- 
+GitLab
+

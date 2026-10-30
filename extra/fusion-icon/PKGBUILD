@@ -1,0 +1,93 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=fusion-icon
+pkgver=0.2.4
+pkgrel=1
+pkgdesc='Tray icon to start and manage Compiz'
+arch=(any)
+url='https://gitlab.com/compiz/fusion-icon'
+license=(GPL-2.0-or-later)
+depends=(
+  compiz-core
+  hicolor-icon-theme
+  mesa-utils
+  python
+  python-compizconfig
+  which
+  xorg-xvinfo
+)
+makedepends=(
+  git
+  intltool
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+optdepends=(
+  'libappindicator: GTK interface'
+  'python-gobject: GTK interface'
+  'qt6-python-bindings: Qt interface'
+)
+source=(
+  "git+https://gitlab.com/compiz/fusion-icon.git#tag=v$pkgver"
+  fusion-icon-qt6.patch
+  fusion-icon-wm-support.patch
+  fusion-icon-no-wayland.patch
+  fusion-icon-fix-value-type.patch
+  fusion-icon-onlyshowin.patch
+  fusion-icon-decorator-replace.patch
+)
+b2sums=(
+  0ed278332e69564b55b5a451084c87446a18f43c0c06edd2b8b0dc32e76df43602adacf018491b5cd0227cac2252f402ea5c3156e57547de4fbf4f3acdc76ce2
+  de655ed6c8749223fb5c51801cff774bfc984b6489ee38cf4893e720d045da4083528c4c3218d90848378010576f540afa9e189317f96338aea425692cd5216c
+  b9cd95e2df09fe44521807a4d63881eeedfa551f6a549fbe4fd9ecf75b3082e64f36dca46c668ce73511712e0ecf8cd98ab1d474873b92ba64c1a4c3a6ae1c4b
+  207a7d7cb6670f79b2f7ec6ef79a4e289a291fa9430a1ed46753df8f8d1b0382da913234be66e58d8983501200c40c9cced31028d9dcd224defd4af5da7d1999
+  a2fe31718e5d7d365065a42c0b421793a210caebb97e639d493b25be1aa8c5d175090af48a657cb17d91c265c2c94d4ac7d937ad99a29e300fc90605e2318113
+  b9fd9017b8818af769c424e91ea8786167e5c9825e9586ad3cbcc71705d320515ad8c9610e9b96e0f51220a6c69a1d6f82a5bc55fc54ef9d683fc7780808d881
+  ae129dbcf83aa2fc0e023bb2a0584a6f6b3154ac5004b71dbe5bc16a3a4225d2298231528fbc15575189dbb68c620a3f890a83f40b469211b0adabf928d03128
+)
+
+prepare() {
+  cd $pkgname
+
+  # Apply fixes from upstream
+  git cherry-pick -m 1 -n v0.2.4..504f84b35da93cd281512d11da2b7b25401fbde3
+
+  # Port to Qt6
+  # https://gitlab.com/compiz/fusion-icon/-/merge_requests/9
+  git apply -3 ../fusion-icon-qt6.patch
+
+  # Add support for more window managers
+  # https://gitlab.com/compiz/fusion-icon/-/merge_requests/10
+  git apply -3 ../fusion-icon-wm-support.patch
+
+  # Don't attempt to run in Wayland session
+  # https://gitlab.com/compiz/fusion-icon/-/merge_requests/11
+  git apply -3 ../fusion-icon-no-wayland.patch
+
+  # Fix missing type conversation
+  # https://gitlab.com/compiz/fusion-icon/-/merge_requests/12
+  git apply -3 ../fusion-icon-fix-value-type.patch
+
+  # Specify OnlyShowIn in desktop file
+  # https://gitlab.com/compiz/fusion-icon/-/merge_requests/13
+  git apply -3 ../fusion-icon-onlyshowin.patch
+
+  # Don't kill old decorator on replace
+  # https://gitlab.com/compiz/fusion-icon/-/merge_requests/14
+  git apply -3 ../fusion-icon-decorator-replace.patch
+
+  # Fix build with PEP 517
+  sed -i "s/if sys\.argv\[1\] == 'build':/if True:/" setup.py
+}
+
+build() {
+  cd $pkgname
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}

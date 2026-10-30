@@ -1,0 +1,26 @@
+From afdc3ee6f89000a636cfddf1bf00ea46b17bb243 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 28 Oct 2026 18:14:03 +0100
+Subject: [PATCH] Specify OnlyShowIn in desktop file
+
+Show desktop entry only in those desktop environments where it's possible
+to replace the window manager.
+---
+ fusion-icon.desktop.in | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fusion-icon.desktop.in b/fusion-icon.desktop.in
+index 85864fb..40a0a4e 100644
+--- a/fusion-icon.desktop.in
++++ b/fusion-icon.desktop.in
+@@ -6,6 +6,7 @@ Icon=fusion-icon
+ Terminal=false
+ Type=Application
+ Categories=Utility;
++OnlyShowIn=GNOME-Flashback;LXDE;LXQt;MATE;XFCE;
+ X-MATE-Autostart-Phase=WindowManager
+ X-MATE-Provides=windowmanager
+ X-MATE-WMName=fusion-icon
+-- 
+GitLab
+

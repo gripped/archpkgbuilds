@@ -1,0 +1,25 @@
+From c41323f8ae8e884721a1ef7b1bc076786e2a6481 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 28 Oct 2026 17:41:21 +0100
+Subject: [PATCH] Fix missing type conversation
+
+---
+ fusion-icon | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fusion-icon b/fusion-icon
+index c60a3a8..9ff5eb3 100755
+--- a/fusion-icon
++++ b/fusion-icon
+@@ -47,7 +47,7 @@ if options.reset:
+ 	sys.exit()
+ 
+ if options.seconds and 0 < options.seconds <= 60:
+-	print(' * Sleeping for ' + options.seconds + ' seconds')
++	print(' * Sleeping for ' + str(options.seconds) + ' seconds')
+ 	time.sleep(options.seconds)
+ 
+ if options.no_interface:
+-- 
+GitLab
+

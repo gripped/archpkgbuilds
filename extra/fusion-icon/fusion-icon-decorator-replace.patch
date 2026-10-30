@@ -1,0 +1,39 @@
+From 4e6b8a0f6640d0da449b4f601e3249b5c64b7055 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 29 Oct 2026 14:10:48 +0100
+Subject: [PATCH] Don't kill old decorator on replace
+
+This allows more smooth switching between the decorators.
+---
+ FusionIcon/util.py | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/FusionIcon/util.py b/FusionIcon/util.py
+index bfedf72..e0e3c21 100644
+--- a/FusionIcon/util.py
++++ b/FusionIcon/util.py
+@@ -210,12 +210,6 @@ class CompizDecorator(object):
+ 		self.label = installed.decorators[name][2]
+ 		self.desktop = installed.decorators[name][3]
+ 
+-	def kill_others(self):
+-		killall = ['killall']
+-		for decorator in [x for x in self.decorators if x != self.name]:
+-			killall.append(self.decorators[decorator].base)
+-		run(killall, 'call')
+-
+ class CompizDecorators(dict):
+ 
+ 	def __init__(self, installed):
+@@ -248,7 +242,7 @@ class CompizDecorators(dict):
+ 
+ 	def __set(self, decorator):
+ 		if decorator in self:
+-			decorators[decorator].kill_others()
++			run(self[decorator].command.split())
+ 			time.sleep(0.5)
+ 			self.command.Plugin.Context.ProcessEvents()
+ 			print(' * Setting decorator to ' + self[decorator].label + \
+-- 
+GitLab
+
