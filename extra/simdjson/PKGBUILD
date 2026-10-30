@@ -1,6 +1,6 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 pkgname=simdjson
-epoch=1
+epoch=2
 pkgver=5.0.5
 pkgrel=1
 pkgdesc="A C++ library to see how fast we can parse JSON with complete validation."
