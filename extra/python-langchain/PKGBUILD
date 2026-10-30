@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain
-pkgver=1.3.18
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="Building applications with LLMs through composability"
 arch=('any')
@@ -13,6 +13,7 @@ depends=(
   'python-langgraph'
   'python-pydantic'
 )
+optdepends=('python-fastmcp: MCP adapter support')
 makedepends=(
   'git'
   'python-build'
@@ -23,6 +24,7 @@ makedepends=(
 checkdepends=(
   'python-blockbuster'
   'python-dotenv'
+  'python-fastmcp'
   'python-httpx'
   'python-langchain-openai'
   'python-langchain-tests'
@@ -46,6 +48,15 @@ prepare() {
 
   # makepkg's git fragment parser treats "=" inside tag values as separators.
   git checkout -q "langchain==$pkgver"
+
+  # MCPAdapter connects cloned clients; inspect those clients' negotiated sessions.
+  sed -i \
+    -e 's/assert handshake_client\./assert cast("Client[Any]", handshake_adapter.client)./' \
+    -e 's/assert modern_client\./assert cast("Client[Any]", modern_adapter.client)./' \
+    libs/langchain_v1/tests/integration_tests/mcp/test_protocol_eras.py
+  # With loopback hosts allowed, pytest-socket blocks external connections at connect().
+  sed -i 's/pytest_socket.SocketBlockedError/pytest_socket.SocketConnectBlockedError/' \
+    libs/langchain_v1/tests/unit_tests/test_pytest_config.py
 }
 
 build() {
@@ -58,8 +69,10 @@ check() {
 
   # OpenAI integration cases require provider credentials or outbound network;
   # upstream runs them in integration CI with secrets.
+  # MCP integration tests need HTTP connections to local loopback servers.
   LANGGRAPH_TEST_FAST=1 python -m pytest \
     --benchmark-disable --disable-socket --allow-unix-socket \
+    --allow-hosts=127.0.0.1,::1,localhost \
     --deselect=tests/integration_tests/agents/middleware/test_human_in_the_loop_integration.py::test_hitl_reject_does_not_retry[openai] \
     --deselect=tests/integration_tests/agents/middleware/test_shell_tool_integration.py::test_shell_tool_basic_execution[openai] \
     --deselect=tests/integration_tests/chat_models/test_base.py::TestStandard \
