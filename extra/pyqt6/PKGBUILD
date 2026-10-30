@@ -3,8 +3,8 @@
 pkgbase=pyqt6
 pkgname=python-pyqt6
 pkgdesc='A set of Python bindings for the Qt6 toolkit'
-pkgver=6.11.0
-pkgrel=4
+pkgver=6.12.0
+pkgrel=1
 arch=(x86_64)
 url='https://riverbankcomputing.com/software/pyqt/intro'
 license=(GPL)
@@ -52,15 +52,8 @@ makedepends=(dbus-python
              qt6-websockets
              sip)
 provides=(qt6-python-bindings)
-source=(https://pypi.python.org/packages/source/P/PyQt6/pyqt6-$pkgver.tar.gz
-        qt-6.12.patch)
-sha256sums=('45dd60aa69976de1918b5ced6b4e7b6a25abd2a919ecef5fd5826ecc76718889'
-            '3659cf01958007114f2ffb760f53cf0c8e1084f9ee3e5a759a71c89167000687')
-
-prepare() {
-  cd pyqt6-$pkgver
-  patch -p1 -i ../qt-6.12.patch
-}
+source=(https://pypi.python.org/packages/source/P/PyQt6/pyqt6-$pkgver.tar.gz)
+sha256sums=('d3e021b716bae880224422f9d1b894d2d53de7e60e60dbc43f860723f9cc300b')
 
 build() {
   cd pyqt6-$pkgver
