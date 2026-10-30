@@ -2,7 +2,7 @@
 # Contributor: Dominic Meiser [git at msrd0 dot de]
 
 pkgname=cargo-clean-all
-pkgver=0.6.5
+pkgver=0.6.6
 pkgrel=1
 pkgdesc="Recursively clean cargo target folders"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('libgcc' 'glibc')
 makedepends=('cargo' 'git')
 source=("git+$url#tag=v$pkgver")
-sha512sums=('53019401c3bbc708aa2f440feaa879b497865a5fa8d4927578d8cfa470c216aa4d9b121d0b1ba2b662bd5c921ea1e84edc0521d840758ca702af323dd657bdcc')
+sha512sums=('b5ee14ffb2bea6c7fa50e2ef423e84e389b20b477665caaaf4c2084d36a703bbe1f4d4ca7552070e9ae82a8c76af72c4b2a7a580d7d047fc22440432cf0e4a95')
 
 prepare() {
 	cd $pkgname
