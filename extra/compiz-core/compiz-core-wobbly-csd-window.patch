@@ -1,0 +1,39 @@
+From 16a3f6f1c5dbd67b2a616a36537ab096931fd1aa Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 29 Oct 2026 02:28:38 +0100
+Subject: [PATCH] wobbly: Fix CSD window positioning at screen edges
+
+Fix position jumps when CSD windows are released near the top
+edge of the screen, and prevent them from moving almost entirely
+off-screen when dragged past the bottom edge of the work area.
+
+Account for client frame extents when calculating the top
+decoration boundary, and apply an additional offset for CSD
+windows to keep their titlebar area visible.
+---
+ plugins/wobbly.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/plugins/wobbly.c b/plugins/wobbly.c
+index 3383fc20..7617de3c 100644
+--- a/plugins/wobbly.c
++++ b/plugins/wobbly.c
+@@ -1727,9 +1727,14 @@ wobblyPreparePaintScreen (CompScreen *s,
+ 			    }
+ 
+ 			    decorTop = bottommostYPos +
+-				       w->output.top - w->input.top;
++				       w->output.top - w->input.top +
++				       w->clientFrame.top;
++
+ 			    decorTitleBottom = topmostYPos + w->output.top;
+ 
++			    if (w->input.top == 0)
++				decorTitleBottom += 37 + w->clientFrame.top;
++
+ 			    if (ws->grabWindowWorkArea->y > decorTop)
+ 			    {
+ 				/* constrain to work area box top edge */
+-- 
+GitLab
+

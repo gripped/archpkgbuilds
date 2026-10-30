@@ -2,7 +2,7 @@
 
 pkgname=compiz-core
 pkgver=0.8.18
-pkgrel=2
+pkgrel=3
 pkgdesc='OpenGL window and compositing manager'
 arch=(x86_64)
 url='https://gitlab.com/compiz/compiz-core'
@@ -47,8 +47,14 @@ makedepends=(
   libxslt
 )
 optdepends=('libcompizconfig: Configuration backend')
-source=("git+https://gitlab.com/compiz/compiz-core.git#tag=v$pkgver")
-b2sums=(511a6b87f1d6e45be86ecff04b2187581228d88011e743c5b0323f69d60f345802ae74c443a544893c9f3383831791fa7bf711472454da935d462a7befc04169)
+source=(
+  "git+https://gitlab.com/compiz/compiz-core.git#tag=v$pkgver"
+  compiz-core-wobbly-csd-window.patch
+)
+b2sums=(
+  511a6b87f1d6e45be86ecff04b2187581228d88011e743c5b0323f69d60f345802ae74c443a544893c9f3383831791fa7bf711472454da935d462a7befc04169
+  41067488fe13f62f952e073f548857507f10d58afd28de9beb7603cbd61b22e6b1366a7e6f5ce13a48b1c0afe9fd2bf4293eb4d789c36015a59fd09f3ca02e18
+)
 
 prepare() {
   cd $pkgname
@@ -63,6 +69,10 @@ prepare() {
   # Fixed compilation with gcc-14
   # https://gitlab.com/compiz/compiz-core/-/merge_requests/177
   git cherry-pick -n d4213fa4fe6bdd44ba652f5407cefc83def2b14e
+
+  # wobbly: Fix CSD window positioning at screen edges
+  # https://gitlab.com/compiz/compiz-core/-/merge_requests/182
+  git apply -3 ../compiz-core-wobbly-csd-window.patch
 
   autoreconf -fiv
 }
