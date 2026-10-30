@@ -1,0 +1,43 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-primp
+pkgver=2.0.1
+pkgrel=1
+pkgdesc='HTTP client that can impersonate web browsers'
+arch=('x86_64')
+url='https://github.com/deedy5/primp'
+license=('MIT')
+depends=('glibc' 'libgcc' 'python' 'zstd')
+makedepends=('cargo' 'cmake' 'git' 'python-build' 'python-installer' 'python-maturin')
+checkdepends=('python-certifi' 'python-pytest' 'python-pytest-asyncio')
+# GCC LTO objects lose AWS-LC symbols when linked by Rust.
+# https://github.com/rust-lang/rust/issues/138681
+options=('!lto')
+source=("git+https://github.com/deedy5/primp.git#tag=v$pkgver")
+sha512sums=('fdce864b3a73b9c186e2f37e366c81cc503bb7fc1a13fb23d242d264db5b944ea170be3e0943d54a53aa495e4b947a65eb3b605dc09e292c473ac7c59df4c688')
+
+prepare() {
+  cd primp
+  cargo fetch --locked
+}
+
+build() {
+  cd primp/crates/primp-python
+  ZSTD_SYS_USE_PKG_CONFIG=1 python -m build --wheel --no-isolation \
+    -C build-args='--frozen --compatibility linux'
+}
+
+check() {
+  cd primp
+  ZSTD_SYS_USE_PKG_CONFIG=1 cargo test --workspace --frozen
+  cd crates/primp-python
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
+}
+
+package() {
+  cd primp
+  python -m installer --destdir="$pkgdir" crates/primp-python/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

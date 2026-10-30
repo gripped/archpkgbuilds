@@ -1,0 +1,25 @@
+pkgbase = python-primp
+	pkgdesc = HTTP client that can impersonate web browsers
+	pkgver = 2.0.1
+	pkgrel = 1
+	url = https://github.com/deedy5/primp
+	arch = x86_64
+	license = MIT
+	checkdepends = python-certifi
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	makedepends = cargo
+	makedepends = cmake
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-maturin
+	depends = glibc
+	depends = libgcc
+	depends = python
+	depends = zstd
+	options = !lto
+	source = git+https://github.com/deedy5/primp.git#tag=v2.0.1
+	sha512sums = fdce864b3a73b9c186e2f37e366c81cc503bb7fc1a13fb23d242d264db5b944ea170be3e0943d54a53aa495e4b947a65eb3b605dc09e292c473ac7c59df4c688
+
+pkgname = python-primp
