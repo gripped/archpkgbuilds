@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-genai-prices
-pkgver=0.1.13
+pkgver=0.2.0
 pkgrel=1
 pkgdesc='Calculate prices for calling LLM inference APIs'
 arch=('any')
@@ -11,17 +11,19 @@ depends=('python' 'python-httpx2' 'python-pydantic')
 makedepends=('git' 'python-build' 'python-hatchling' 'python-installer' 'python-uv-dynamic-versioning')
 checkdepends=(
   'jq'
+  'nodejs'
   'python-anyio'
+  'python-cassetter'
   'python-dirty-equals'
   'python-inline-snapshot'
   'python-jsonschema'
   'python-packaging'
   'python-pydantic-settings'
   'python-pytest'
-  'python-pytest-recording'
   'python-rich'
   'python-rich-argparse'
   'python-ruamel-yaml'
+  'python-yaml'
 )
 optdepends=(
   'python-pydantic-settings: command-line interface'
@@ -29,7 +31,7 @@ optdepends=(
   'python-rich-argparse: command-line interface'
 )
 source=("git+https://github.com/pydantic/genai-prices.git#tag=v$pkgver")
-sha256sums=('f0f753bc11b13bdf025555f44c1551fdfde5631fed9b010478b8796acb87fc2e')
+sha256sums=('08f96362a796ede29bdc0eb18d9f870a41a9c59ae8a2946026b52dd2ef6da594')
 
 build() {
   cd genai-prices/packages/python
@@ -41,8 +43,7 @@ check() {
   python -m venv --system-site-packages --without-pip test-env
   test-env/bin/python -m installer packages/python/dist/*.whl
 
-  # AWS price-maintenance tests require unpackaged boto3 stubs.
-  test-env/bin/python -m pytest -o pythonpath=prices/src --ignore=tests/test_source_aws.py
+  test-env/bin/python -m pytest -o pythonpath=prices/src
 }
 
 package() {
