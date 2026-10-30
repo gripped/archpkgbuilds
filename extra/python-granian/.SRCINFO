@@ -1,0 +1,30 @@
+pkgbase = python-granian
+	pkgdesc = Rust HTTP server for Python applications
+	pkgver = 2.8.7
+	pkgrel = 1
+	url = https://github.com/emmett-framework/granian
+	arch = x86_64
+	license = BSD-3-Clause
+	checkdepends = python-httpx
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-sniffio
+	checkdepends = python-websockets
+	makedepends = cargo
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-maturin
+	depends = glibc
+	depends = libgcc
+	depends = python
+	depends = python-click
+	optdepends = python-dotenv: load environment files
+	optdepends = python-setproctitle: set worker process names
+	optdepends = python-uvloop: alternative asyncio event loop
+	optdepends = python-watchfiles: automatically reload on source changes
+	options = !lto
+	source = git+https://github.com/emmett-framework/granian.git#tag=v2.8.7
+	sha512sums = db61e100a9322858eddb219e5d74a833a74828d989e747ff9f6aec77daf5be1e001cac3c2062e62a855b5e1259a662133c2b6f31098e31d1ef5977c5841f678b
+
+pkgname = python-granian
