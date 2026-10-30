@@ -1,0 +1,37 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=emerald-themes
+pkgver=0.8.18
+pkgrel=1
+pkgdesc='Themes for Emerald Compiz decorator'
+arch=(any)
+url='https://gitlab.com/compiz/emerald-themes'
+license=(GPL-2.0-or-later)
+depends=(emerald)
+makedepends=(git)
+source=("git+https://gitlab.com/compiz/emerald-themes.git#tag=v$pkgver")
+b2sums=(c338ab4c47c2e9173f8569a622cd827ab1eed1280c967b432e69cf97f03cf5cfa74ad9ecb61fa893a7c5964be8a3998ddb602d029feacae1576dd7259470af8a)
+
+prepare() {
+  cd $pkgname
+
+  # Check if dark dir exists before running chmod on it
+  # https://gitlab.com/compiz/emerald-themes/-/merge_requests/9
+  sed -i 's|chmod 0755 "$theme/dark"|[[ -d "$theme/dark" ]] \&\& &|' themes/import.sh
+
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}
