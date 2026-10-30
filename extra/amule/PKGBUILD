@@ -7,8 +7,8 @@
 
 pkgname=amule
 epoch=1
-pkgver=3.1.0
-pkgrel=3
+pkgver=3.2.0
+pkgrel=1
 pkgdesc='An eMule-like client for ed2k p2p network'
 arch=(x86_64)
 url='https://amule-org.github.io/'
@@ -42,7 +42,7 @@ source=(git+https://github.com/amule-org/amule#tag=$pkgver
         amule.sysusers
         amule.tmpfiles)
 options=(!lto)
-sha256sums=('4ed1c1464cca012cfc68947ac908d9cd8743e74b952b367fba67f4852a7cac37'
+sha256sums=('d4d95597423ac9e85a9435cceefb997b74a57cc363dec830bd10d68bdfaededf'
             '20ac6b60c5f3bf49c0b080dfc02409da3c9d01b154344188008c6a75ca69681e'
             'f4f43b1154ddccc9036a4291a58c6715f097b171fec62ea7aead0c9d9fa654f2'
             '1a1780d3010f338b16ace33fac6af8480bb0830402001f95f12c2e98afbd1b60'
@@ -50,7 +50,6 @@ sha256sums=('4ed1c1464cca012cfc68947ac908d9cd8743e74b952b367fba67f4852a7cac37'
 
 prepare() {
   cd $pkgname
-  rm -fr .git
 }
 
 build() {
