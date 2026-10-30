@@ -3,7 +3,7 @@
 
 pkgname=m4ri
 pkgver=20260122
-pkgrel=2
+pkgrel=3
 pkgdesc='Algorithms for linear algebra over F_2'
 arch=(x86_64)
 url='https://bitbucket.org/malb/m4ri'
@@ -13,13 +13,16 @@ depends=(glibc
          libgomp
          libpng)
 makedepends=(git)
-source=(git+https://github.com/malb/m4ri#tag=$pkgver)
-sha256sums=('c2e05ce87b3e60fdf90781e4c96b88dcbfaf1d4a29324687dde9db38a501d258')
+source=(git+https://github.com/malb/m4ri#tag=$pkgver
+        interrupt_check.patch)
+sha256sums=('c2e05ce87b3e60fdf90781e4c96b88dcbfaf1d4a29324687dde9db38a501d258'
+            '3e8ae4b55efaf05bb370d81c5ba2ff1f90c3fef0721d33fa20b50dde3b14c024')
 
 prepare() {
   cd $pkgname
   sed -e '/AX_EXT/d' -i configure.ac # Disable CPU autodetection
-  autoreconf -vi
+  autoreconf -fiv
+  patch -p1 -i ../interrupt_check.patch # Fix crashes in OpenMP loops
 }
 
 build() {
