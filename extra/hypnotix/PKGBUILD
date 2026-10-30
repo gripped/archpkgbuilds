@@ -2,7 +2,7 @@
 
 pkgname=hypnotix
 pkgver=5.7
-pkgrel=1
+pkgrel=2
 pkgdesc='IPTV streaming application with support for live TV, movies and series'
 arch=(any)
 url='https://github.com/linuxmint/hypnotix'
@@ -33,13 +33,16 @@ b2sums=(5132204c88d769810fdf0ba4557570c89a7634ff00ffa9f397b70daa6dc51052af3c4371
 prepare() {
   cd $pkgname
 
-  # Set mpv video output to 'x11' by default
-  # https://github.com/linuxmint/hypnotix/pull/405
-  sed -i '/options = {}/a\        options["vo"] = "x11"' usr/lib/hypnotix/hypnotix.py
+  # Disable SDL video output
+  git cherry-pick -n 5d1932c4db337eb9c0cf98af3bbfea756abdaece
+
+  # Use GDK_BACKEND environment variable to select x11 backend
+  # https://github.com/linuxmint/hypnotix/pull/418
+  git cherry-pick -n b0398151a48d6bbac1ce8ee134ca47196f448af2
 
   # Fix missing conversion of label values to string
   # https://github.com/linuxmint/hypnotix/pull/432
-  sed -i 's/label=prop_v/label=str(prop_v)/' usr/lib/hypnotix/hypnotix.py
+  git cherry-pick -n 060fffd0661e095c31839e3795c3393dd1d22196
 
   # Set version number
   sed -i "s/__DEB_VERSION__/$pkgver/" usr/lib/hypnotix/hypnotix.py
