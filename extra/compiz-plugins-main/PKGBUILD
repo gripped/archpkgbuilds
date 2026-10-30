@@ -2,7 +2,7 @@
 
 pkgname=compiz-plugins-main
 pkgver=0.8.18
-pkgrel=1
+pkgrel=2
 pkgdesc='Main plugins for Compiz'
 arch=(x86_64)
 url='https://gitlab.com/compiz/compiz-plugins-main'
@@ -39,6 +39,10 @@ prepare() {
   # Fixed build with gcc-14
   # https://gitlab.com/compiz/compiz-plugins-main/-/merge_requests/93
   git cherry-pick -n 568f653a17722062666917b42444d97bb2a76fab
+
+  # snap: Snap to CSD windows border, not their shadow
+  # https://gitlab.com/compiz/compiz-plugins-main/-/merge_requests/92
+  git cherry-pick -n 4035d1f653363da7a122e7483c8208a7cfb7a825
 
   autoreconf -fiv
 }
