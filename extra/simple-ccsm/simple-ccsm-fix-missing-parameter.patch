@@ -1,0 +1,43 @@
+From 4d806ffef3a0e5a698c41e9c4df2478811a074e1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 29 Oct 2026 02:36:20 +0100
+Subject: [PATCH] Fix conflict constructor calls
+
+Pass the required parent argument when creating PluginConflict
+and KeyConflict instances to match the current ccm API.
+---
+ simple-ccsm.in | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/simple-ccsm.in b/simple-ccsm.in
+index d894fdc..7d6ef92 100755
+--- a/simple-ccsm.in
++++ b/simple-ccsm.in
+@@ -269,7 +269,7 @@ class BuilderHandlers(object):
+ def EnablePlugin(plugin, active):
+     # attempt to resolve conflicts...
+     conflicts = (plugin.Enabled and plugin.DisableConflicts) or plugin.EnableConflicts
+-    conflict = ccm.PluginConflict(plugin, conflicts, autoResolve=True)
++    conflict = ccm.PluginConflict(None, plugin, conflicts, autoResolve=True)
+     if conflict.Resolve():
+         plugin.Enabled = active
+     else:
+@@ -882,13 +882,13 @@ class EffectPage:
+         # Set default key binding to Alt-Tab
+         setting = self.SwitcherKeySettings[plugin.Name]
+         settings = self.SwitcherKeySettings.values()
+-        conflict = ccm.KeyConflict(setting, SwitcherKey, settings=settings, autoResolve=True)
++        conflict = ccm.KeyConflict(None, setting, SwitcherKey, settings=settings, autoResolve=True)
+         if conflict.Resolve(ccm.GlobalUpdater):
+             setting.Value = SwitcherKey
+ 
+             setting = self.ReverseSwitcherKeySettings[plugin.Name]
+             settings = self.ReverseSwitcherKeySettings.values()
+-            conflict = ccm.KeyConflict(setting, SwitcherKey, settings=settings, autoResolve=True)
++            conflict = ccm.KeyConflict(None, setting, ReverseSwitcherKey, settings=settings, autoResolve=True)
+             if conflict.Resolve(ccm.GlobalUpdater):
+                 setting.Value = ReverseSwitcherKey
+ 
+-- 
+GitLab
+

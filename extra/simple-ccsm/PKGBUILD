@@ -1,0 +1,83 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=simple-ccsm
+pkgver=0.8.18
+pkgrel=1
+pkgdesc='Simple configuration manager for Compiz'
+arch=(any)
+url='https://gitlab.com/compiz/simple-ccsm'
+license=(GPL-2.0-or-later)
+depends=(
+  ccsm
+  compiz-core
+  glib2
+  gtk3
+  hicolor-icon-theme
+  python
+  python-cairo
+  python-compizconfig
+  python-gobject
+)
+makedepends=(
+  git
+  intltool
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(
+  "git+https://gitlab.com/compiz/simple-ccsm.git#tag=v$pkgver"
+  simple-ccsm-fix-missing-parameter.patch
+  simple-ccsm-fix-zoom-toggle.patch
+  simple-ccsm-fix-reflection-toggle.patch
+  simple-ccsm-fix-shift-mode.patch
+  simple-ccsm-extra-animations.patch
+  simple-ccsm-pep-517.patch
+)
+b2sums=(
+  8cd1c7995261e2125cb6a71b0777f0771d4a26d68a05955e8c6ad9f0ed5b4f68e4531237fc743502f601f2c94ecfcbeb2439a42924438017a32b080e240fba65
+  ad4a43e215530adfc75da8c6ca73d618e5e8dfc7fcaf6c0d57445a45e9bb2c80b31fb69d8cb0e21808a5ada59a8bc731147befefd8f56b70946ec3f40f0807d8
+  d2ffbf12f1d2a371c71bdea006e18b58cd8546137867687b0ae27d1bcec67a50e756aca43b0e49e8e07835ad750091b5bea5a0800495056d69c6d742361ee3e3
+  0eb575d1b1029d772f9d7ddd43c57cd3c2f84056ddac7ad1111a784f010a248ed2f3f2c99f072a2a625e04c07692552443850bb0a482a09fb68eaccc17263dc2
+  ada46987bcda672955d4d7c6922e7158ca5734f7bd5f04b8e79eb4560a6b66402302f34394529eddd1dedd21f6139530a8ecb7053dfb8f0430a48c46c3f0b67c
+  77a406dc8a5d9fe0987fdc4b0c5bf9e823cf18ac3ba54d64534b3705bbd86796bf4aa39f3b783dd4fefa1f9e470378f334bfcce0f270f93d3cd433df3760bc0a
+  149bebfd94f8881e284db89530ef6fa8b1932edd8d47d7e37393c188279f02687c9a6769d4d81b193cd328f41e5393a846f803232699517979276c083c0a337d
+)
+
+prepare() {
+  cd $pkgname
+
+  # Fix conflict constructor calls
+  # https://gitlab.com/compiz/simple-ccsm/-/merge_requests/8
+  git apply -3 ../simple-ccsm-fix-missing-parameter.patch
+
+  # Fix zoom plugin handling
+  # https://gitlab.com/compiz/simple-ccsm/-/merge_requests/9
+  git apply -3 ../simple-ccsm-fix-zoom-toggle.patch
+
+  # Disable reflection toggle when plugin is unavailable
+  # https://gitlab.com/compiz/simple-ccsm/-/merge_requests/10
+  git apply -3 ../simple-ccsm-fix-reflection-toggle.patch
+
+  # Fix shift switcher mode selection
+  # https://gitlab.com/compiz/simple-ccsm/-/merge_requests/11
+  git apply -3 ../simple-ccsm-fix-shift-mode.patch
+
+  # Fix extra animations checkbox sensitivity
+  # https://gitlab.com/compiz/simple-ccsm/-/merge_requests/12
+  git apply -3 ../simple-ccsm-extra-animations.patch
+
+  # Fix build with PEP 517
+  git apply -3 ../simple-ccsm-pep-517.patch
+}
+
+build() {
+  cd $pkgname
+  PREFIX=/usr python -m build --wheel --no-isolation
+}
+
+package() {
+  cd $pkgname
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}

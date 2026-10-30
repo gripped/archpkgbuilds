@@ -1,0 +1,40 @@
+From b4ecef02bb829cc2f2901e5a0c2515a014663714 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 27 Oct 2026 22:56:38 +0100
+Subject: [PATCH] Fix build with PEP 517
+
+---
+ setup.py | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index c815271..080c1fe 100755
+--- a/setup.py
++++ b/setup.py
+@@ -69,12 +69,6 @@ class uninstall (_install):
+             except:
+                 self.warn ("Could not remove file %s" % file)
+ 
+-ops = ("install", "build", "sdist", "uninstall", "clean")
+-
+-if len (sys.argv) < 2 or sys.argv[1] not in ops:
+-    print("Please specify operation : %s" % " | ".join (ops))
+-    raise SystemExit(1)
+-
+ prefix = None
+ gtkver = "3.0"
+ enableDesktopEffects = False
+@@ -187,9 +181,7 @@ if os.path.isdir (podir):
+     for name in os.listdir (podir):
+         if name[-2:] == "po":
+             name = name[:-3]
+-            if sys.argv[1] == "build" \
+-               or (sys.argv[1] == "install" and \
+-                   not os.path.exists (mopath % name)):
++            if not os.path.exists (mopath % name):
+                 if not os.path.isdir ("build/locale/" + name):
+                     os.makedirs ("build/locale/" + name)
+                 os.system (buildcmd % (name, name))
+-- 
+2.56.0
+

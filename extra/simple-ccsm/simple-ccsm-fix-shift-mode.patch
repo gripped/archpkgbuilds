@@ -1,0 +1,44 @@
+From 55a97f6b2bc35bdd0534464767ac46e576802720 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 29 Oct 2026 20:17:49 +0100
+Subject: [PATCH] Fix shift switcher mode selection
+
+Fix saving and restoring the shift switcher mode by matching the
+complete switcher description instead of searching for a substring.
+---
+ simple-ccsm.in | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/simple-ccsm.in b/simple-ccsm.in
+index d894fdc..dbf5998 100755
+--- a/simple-ccsm.in
++++ b/simple-ccsm.in
+@@ -896,9 +896,9 @@ class EffectPage:
+             if plugin.Name == 'shift':
+                 setting = plugin.Screens[0]['mode']
+ 
+-                if text.find(_("Cover")) != -1:
++                if text == _("%s (Cover)") % plugin.ShortDesc:
+                     setting.Value = 0
+-                elif text.find(_("Flip")) != -1:
++                elif text == _("%s (Flip)") % plugin.ShortDesc:
+                     setting.Value = 1
+ 
+         self.Context.Write()
+@@ -1004,10 +1004,11 @@ class EffectPage:
+             box.append_text(shortDesc)
+             if plugin.Enabled:
+                 if plugin.Name == 'shift':
+-                    modes = [_("Cover"), _("Flip")]
++                    modes = [_("%s (Cover)") % plugin.ShortDesc,
++                             _("%s (Flip)") % plugin.ShortDesc]
+                     setting = plugin.Screens[0]['mode']
+                     mode = modes[setting.Value]
+-                    if mode in shortDesc:
++                    if mode == shortDesc:
+                         box.set_active(i)
+                 else:
+                     box.set_active(i)
+-- 
+GitLab
+

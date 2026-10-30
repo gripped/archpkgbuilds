@@ -1,0 +1,56 @@
+From dd2eec03d9b6ec10b11e1521b31a12e815118b97 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 29 Oct 2026 18:52:03 +0100
+Subject: [PATCH] Fix zoom plugin handling
+
+Handle missing plugins when checking accessibility settings.
+
+Use EnablePlugin() to toggle zoom and magnifier plugins so that
+plugin dependencies and conflicts are handled correctly. Also
+include the legacy zoom plugin when checking available plugins.
+---
+ simple-ccsm.in | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+
+diff --git a/simple-ccsm.in b/simple-ccsm.in
+index d894fdc..0fffdd2 100755
+--- a/simple-ccsm.in
++++ b/simple-ccsm.in
+@@ -634,8 +634,7 @@ class ProfilePage:
+     def CheckAccessibility(self, widget=None):
+         enabled = False
+         for name in ('ezoom', 'zoom', 'mag'):
+-            plugin = self.Context.Plugins[name]
+-            if plugin.Enabled:
++            if name in self.Context.Plugins and self.Context.Plugins[name].Enabled:
+                 enabled = True
+                 break
+         self.ZoomCheck.set_value(enabled)
+@@ -1157,20 +1156,20 @@ class ZoomPage:
+             return
+ 
+         available = {}
+-        for name in ('ezoom', 'mag'):
++        for name in ('ezoom', 'zoom', 'mag'):
+             if name in self.Context.Plugins:
+                 plugin = self.Context.Plugins[name]
+                 available[name] = plugin
+ 
+         widget = self.Builder.get_object("enableZoom")
+         if 'ezoom' in available:
+-            available['ezoom'].Enabled = widget.get_active()
++            EnablePlugin(available['ezoom'], widget.get_active())
+         elif 'zoom' in available:
+-            available['ezoom'].Enabled = widget.get_active()
++            EnablePlugin(available['zoom'], widget.get_active())
+ 
+         widget = self.Builder.get_object("enableMag")
+         if 'mag' in available:
+-            available['mag'].Enabled = widget.get_active()
++            EnablePlugin(available['mag'], widget.get_active())
+ 
+         self.Context.Write()
+         for identifier, data in self.Settings.items():
+-- 
+GitLab
+

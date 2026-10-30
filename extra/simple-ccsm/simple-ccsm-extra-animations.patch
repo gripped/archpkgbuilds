@@ -1,0 +1,35 @@
+From 50f44e5ae34071c8966d012825dbcfc647514b2b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 29 Oct 2026 20:35:43 +0100
+Subject: [PATCH] Fix extra animations checkbox sensitivity
+
+Only enable the extra animations checkbox when animations are
+enabled and animation extension plugins are available.
+---
+ simple-ccsm.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/simple-ccsm.in b/simple-ccsm.in
+index d894fdc..54331f9 100755
+--- a/simple-ccsm.in
++++ b/simple-ccsm.in
+@@ -701,7 +701,7 @@ class AnimationPage:
+             widget = self.Builder.get_object(name)
+             widget.set_sensitive(active)
+         widget = self.Builder.get_object('enableExtraAnim')
+-        widget.set_sensitive(active)
++        widget.set_sensitive(active and bool(self.AnimExtensionPlugins))
+         if active:
+             if widget.get_active():
+                 # If enableExtraAnim is checked, enable the extension plugins
+@@ -773,6 +773,7 @@ class AnimationPage:
+                 atLeastOneActive = True
+                 break
+         widget.set_active(atLeastOneActive)
++        widget.set_sensitive(active and bool(self.AnimExtensionPlugins))
+ 
+         for prefix in ("open", "close", "minimize", "focus"):
+             name = prefix + "AnimationBox"
+-- 
+GitLab
+
