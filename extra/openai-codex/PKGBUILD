@@ -5,7 +5,7 @@
 
 pkgbase=openai-codex
 pkgname=(openai-codex openai-codex-voice)
-pkgver=0.165.0
+pkgver=0.166.0
 pkgrel=1
 _v8ver=152.2.0
 pkgdesc='OpenAIs lightweight coding agent that runs in your terminal'
@@ -44,7 +44,7 @@ source=(
   'voice-system-libraries.patch'
 )
 noextract=("librusty_v8-$_v8ver.a.gz")
-b2sums=('97664d33848feaf3bb73e040e9cf06f3ae7ed6b8b8c1a1c58ca9fbd11815de64755bde1a82064df30417ac2f1f02c8e380f1862d30c477ab10f3cf2bb5b31531'
+b2sums=('a344a8cc746ff6f2315609e0798a0bf7d6bd20399aa4864b7d2ca7de768716ed5e75a1ade989e6c08a1e19d0eddfd894bff24d76d2b11289599b39395c058252'
         '95c4f4aef03e09d8103f9b0ae109d03fc40ee2ed913ae7e6887b88d3254e7a68ab20c8a262bf19bb1b0ffc05461fbc512eb22c432f0bc46a551e1f139fe46fe3'
         '53c74672990e2044b60bda41f1b53981c85afd1b2b50ab1fe648d7bf7571db19743af2e2b6e5c0fabd44a260b0075fe761afc73f6eb3398e0830391c4b0f841c'
         'cb7b3b87c46e14199e1c9c89b7b985b241e281bd266f44c0722d72cef4095fa937952525d5f3c71cb5e9a704ef64c24817bf5b634ed02e46432bc0cb705bfc69')
@@ -53,6 +53,8 @@ prepare() {
   patch -d codex-rust-v$pkgver/codex-rs -Np1 \
     -i "$srcdir/voice-system-libraries.patch"
   cd codex-rust-v$pkgver/codex-rs
+  # Update the locked bindings for OpenSSL 4: https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --target "$(rustc --print host-tuple)"
 }
 
