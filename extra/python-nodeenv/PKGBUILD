@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-nodeenv
-pkgver=1.11.0
+pkgver=1.11.1
 pkgrel=1
 pkgdesc="Node.js virtual environment builder"
 url="https://github.com/ekalinin/nodeenv"
@@ -13,7 +13,7 @@ optdepends=('nodejs: for --node=system and --prefer-system'
             'python-certifi: certificate bundle for --with-certifi')
 checkdepends=('dash' 'fish' 'nodejs' 'python-pytest' 'python-coverage' 'zsh')
 source=("git+https://github.com/ekalinin/nodeenv.git#tag=$pkgver")
-sha512sums=('fc7d2232cb50fda6b5fd6bf3a1631dcf02bb8d9275b1fba348a1b8958a9671753bde170cc93cfcb1206ee090dc3ef3f0dcba110c4e35bf732c0ef12d8e5337de')
+sha512sums=('aec23e4ce2e88c960c80d77fe427c8ff4e0d0ffdfff3ca62d3b5b65adc1ee48c3b5836f3c4ee062629305c5b6e173fd1c4414fbd3d45c66397150454959911d2')
 
 prepare() {
   cd nodeenv
