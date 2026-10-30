@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-google-genai
-pkgver=2.33.0
+pkgver=2.34.0
 pkgrel=1
 pkgdesc="Google Gen AI Python SDK"
 arch=('any')
@@ -26,7 +26,7 @@ optdepends=('python-aiohttp: asynchronous HTTP transport'
             'python-transformers: Gemma 4 local token counting')
 source=("git+https://github.com/googleapis/python-genai.git#tag=v$pkgver"
         'tenacity-and-mtls.patch')
-sha512sums=('a5334ea314e422d8f71ebb77efb73831311babd504a9cccfc23ae54225e993913fbf8efdb7100d567777172d132c68e14d46ac8c9378f0e843f9881da64a2b4d'
+sha512sums=('b1db1fa1e0300ee0d7aea5626dce94a955c1d99beb22da8d9187a1fe5f8bc322ab2365a3d33b94ef720b3d24be2e6d186226b15334e6756f35ca4e60736ebc7c'
             '10d6288f5388ca0482d6a5c1a829b01213d6d418c6cd1fbffde33735b8f39a739fd1c62c0a85922e6e99741ef5ce2df12531b503ee9234c4eff1498d76ddb6f3')
 
 prepare() {
@@ -44,9 +44,7 @@ build() {
 check() {
   cd python-genai
   # API tests require private replay files or Google credentials.
-  # The timeout test imports a removed module: https://github.com/googleapis/python-genai/issues/3122
-  GOOGLE_GENAI_REPLAYS_DIRECTORY="$srcdir/replays" python -m pytest -k 'not -tests/' \
-    --deselect=google/genai/tests/interactions/test_integration.py::test_interactions_default_timeout
+  GOOGLE_GENAI_REPLAYS_DIRECTORY="$srcdir/replays" python -m pytest -k 'not -tests/'
 }
 
 package() {
