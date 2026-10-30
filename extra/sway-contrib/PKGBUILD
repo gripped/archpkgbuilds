@@ -2,8 +2,8 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=sway-contrib
-pkgver=1.11
-pkgrel=4
+pkgver=1.12
+pkgrel=1
 pkgdesc="A collection of user-contributed scripts for sway"
 arch=('any')
 url="https://github.com/OctopusET/sway-contrib"
@@ -21,8 +21,8 @@ depends=(
 makedepends=(
     'scdoc'
 )
-source=("$pkgname-$pkgver::https://github.com/OctopusET/$pkgname/archive/refs/tags/$pkgver.tar.gz")
-sha256sums=('cba416852de5e3db92c36d2444a709d2c87cf7c631f40e3e2b615bd4ab1b3eab')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/OctopusET/$pkgname/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('b662bf7e90bc1fbe06894656716d020f69c1e274f1212b07890e6b9e5a45318d')
 
 package() {
     cd "$pkgname-$pkgver"
@@ -34,6 +34,7 @@ package() {
                 float-window-manager/float-window-managerd.sh \
                 inactive-windows-transparency.py \
                 layout-per-window.py \
+                sort-container.py \
                 swaystack.py \
                 switch-top-level.py; do
         install -Dm755 "$util" -t \
