@@ -3,7 +3,7 @@
 
 pkgname=perl-net-idn-encode
 _cpanname=Net-IDN-Encode
-pkgver=2.502
+pkgver=2.600
 pkgrel=1
 pkgdesc="Net::IDN::Encode provides an easy-to-use interface for encoding and decoding Internationalized Domain Names (IDNs)."
 arch=('any')
@@ -12,8 +12,8 @@ license=('GPL-1.0-or-later' 'Artistic-1.0-Perl')
 depends=('perl')
 checkdepends=('perl-test-nowarnings' 'perl-test-pod' 'perl-test-pod-coverage')
 options=('!emptydirs')
-source=(https://cpan.metacpan.org/authors/id/R/RR/RRWO/${_cpanname}-${pkgver}.tar.gz)
-sha512sums=('2de45ff4aac60659f757ab8216956c7ece3811a710c030f447ce080dea5336d86b029f3db2ebc1c0cddf79cd2a8639efb311df7c11d999f45ba15a13465383a8')
+source=(https://cpan.metacpan.org/authors/id/P/PJ/PJCJ/${_cpanname}-${pkgver}.tar.gz)
+sha512sums=('126d06946b7e65f81b1253d934ce513ad500b9c86afa42542d0263ea504d760b8f97129bb81fbbe7d087d45f99b73523ba8debe357d6f5ce8a39615caf2ba641')
 
 build() {
   cd "$srcdir/${_cpanname}-${pkgver}"
