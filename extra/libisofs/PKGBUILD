@@ -5,7 +5,7 @@
 pkgname=libisofs
 pkgver=1.5.8.2
 _pkgver=$(echo $pkgver | sed -e 's/\.\([0-9]*.\)$/.pl0\1/')
-pkgrel=1
+pkgrel=2
 pkgdesc='Library to pack up hard disk files and directories into a ISO 9660 disk image'
 arch=(x86_64)
 url='https://dev.lovelyhq.com/libburnia/libisofs'
@@ -29,6 +29,7 @@ build() {
     --prefix=/usr \
     --enable-libacl \
     --enable-xattr \
+    --enable-year2038 \
     --disable-static
 
   make
