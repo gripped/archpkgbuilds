@@ -3,8 +3,8 @@
 
 _pyname=cylp
 pkgname=python-$_pyname
-pkgver=0.94.0
-pkgrel=3
+pkgver=0.94.1
+pkgrel=1
 pkgdesc='A Python interface to CLP, CBC, and CGL to solve LPs and MIPs'
 arch=(x86_64)
 url='https://github.com/coin-or/CyLP'
@@ -28,7 +28,7 @@ makedepends=(cython
              python-wheel)
 checkdepends=(python-pytest)
 source=(git+https://github.com/coin-or/CyLP#tag=v$pkgver)
-sha256sums=('52035e08dce40919da8342a679fb5813eddb78ddb219203bdd217cc6496514fe')
+sha256sums=('cb41130f5ecaa97bd3bb88f0303b16c772b8a10bfc281b68904a21bdc3022805')
 
 build() {
   cd CyLP
@@ -40,10 +40,9 @@ check() {
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
 # Prevent from loading the uncompiled cylp
-  mv cylp/tests .
+  mv cylp/tests cylp/input .
   rm -r cylp
-# Many tests segfault https://github.com/coin-or/CyLP/issues/105
-# test-env/bin/python -m pytest -v'
+  test-env/bin/python -m pytest -v
 }
   
 package() {
