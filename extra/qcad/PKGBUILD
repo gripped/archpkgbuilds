@@ -5,8 +5,8 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=qcad
-pkgver=3.33.1.0
-pkgrel=2
+pkgver=27.0.1.0
+pkgrel=1
 pkgdesc='A 2D CAD package based upon Qt'
 arch=('x86_64')
 url="https://www.qcad.org"
@@ -28,9 +28,9 @@ source=(
     "qcadjsapi-$pkgver.tar.gz::https://github.com/qcad/qcadjsapi/archive/refs/tags/v$pkgver.tar.gz"
     "qcad-launcher"
 )
-sha512sums=('9ae356ffa3ae4d0f0ffc8397ae49fe12f4afb4a8a1ea82d0c3a65e6d5a389fe47022f0aae26eba3ff4db6edb9237cf7c8be38b2bda412e8e6b41d27ebad57689'
-            '6e5492e36ee46ce2b29d7412beadbc29e539ecce49a35df6ddd37073cd41f45630f3c01e4d84b4d7cac90cc72955ccf21431921dc8c639f5a46c4f687f93c7e6'
-            'b21c97ff93724cfad5e9cb53ee79cfb6bf3f856b708dd2a5a401a4a53951f1d9363d460c054f19cde3045103b996f8300395025dfdab7999c7f65d91fc300095'
+sha512sums=('1cc123c18f7d10fc99462c2598c7df19512d8e545c88d3e90ce4ab6995db37456e041e85042c504f14d9ce8627d7b1c792949e9adc1cd64e329f5e3c4591e0f7'
+            '90622e08dd4d1db3829370428387dbf18d8ece064cfb822d221f92bc13db1757b6cddf998e175cc9e79c80641bf22c6dc78ad36fa470dcc6ad28df20fd63ed3b'
+            '9e882894d6f1a4b026b558ff93484f01f321938146bdca3a8d27ed9d86b1fd615143dc290eb2e33629386f122d343592d68322f46dcfcba8cd4b4fe42f4c6c8c'
             'de4002ea72e17f89911fdf32f1c36c3c3d5bff040ca79be74530bfbdb4b65e7da2345923d1cfc7da245f9bc8308d24027e984c0ffbbb7a8cf85c1e1a163aca6f')
 
 prepare() {
@@ -98,7 +98,7 @@ package() {
   # desktop
   install -Dm644 scripts/qcad_icon.png "$pkgdir"/usr/share/pixmaps/org.qcad.QCAD.png
   install -Dm644 scripts/qcad_icon.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/org.qcad.QCAD.svg
-  install -Dm644 qcad.desktop "$pkgdir"/usr/share/applications/qcad.desktop
+  install -Dm644 qcad.desktop "$pkgdir"/usr/share/applications/org.qcad.QCAD.desktop
 
   # qcad launcher
   install -dm755 "$pkgdir/usr/bin"
