@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-xmlsec
-pkgver=1.3.17
-pkgrel=3
+pkgver=1.3.18
+pkgrel=1
 pkgdesc="Python bindings for the XML Security Library"
 url="https://github.com/mehcode/python-xmlsec"
 license=('MIT')
@@ -11,16 +11,8 @@ depends=('glibc' 'libxml2' 'python-lxml' 'xmlsec')
 makedepends=('git' 'python-build' 'python-installer' 'python-pkgconfig' 'python-setuptools' 'python-setuptools-scm' 'python-wheel')
 checkdepends=('python-hypothesis' 'python-pytest')
 source=("git+https://github.com/mehcode/python-xmlsec.git#tag=$pkgver")
-sha512sums=('25867c1c316c24a104af575ec62ae1170de6141544e7c523e34e1a7e9feaa19edfdf48787cb7f6f99ed3d70866d58813b673efdb5f3fd30f479bec623c6527c0')
+sha512sums=('b6d2e24eb16b8100c3768f40deb714ba3a16865f4771b74c693e4a92dccbe8c2aac4099e7811e9818925774e1052aca53cc5895151477498d08fd6f88ea72090')
 options=(!makeflags)
-
-prepare() {
-  cd python-xmlsec
-  sed -i 's/setuptools==80\.9\.0/setuptools/' pyproject.toml
-  sed -i 's/lxml==/lxml>=/' pyproject.toml
-  # sed -i 's/lxml==6.0.2/lxml==6.1.0/' requirements.txt
-  # sed -i 's/lxml==6.0.2/lxml==6.1.0/' doc/source/requirements.txt
-}
 
 build() {
   cd python-xmlsec
@@ -28,16 +20,13 @@ build() {
 }
 
 check() {
-  local pytest_options=(
-    # https://github.com/xmlsec/python-xmlsec/issues/203 ?
-     --deselect tests/test_xmlsec.py::TestModule::test_reinitialize_module
-  )
-  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
-
   cd python-xmlsec
-  python -m installer --destdir=test_dir dist/*.whl
-  export PYTHONPATH="test_dir/$site_packages:$PYTHONPATH"
-  pytest -vv "${pytest_options[@]}"
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  # Isolate process-final OpenSSL cleanup from pytest's Hypothesis summary hook.
+  # https://github.com/xmlsec/python-xmlsec/pull/422
+  test-env/bin/python -m unittest tests.test_xmlsec.TestModule.test_init_shutdown_module
+  test-env/bin/python -m pytest --deselect tests/test_xmlsec.py::TestModule::test_init_shutdown_module
 }
 
 package() {
