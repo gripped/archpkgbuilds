@@ -3,21 +3,30 @@
 
 pkgname=gtklock-playerctl-module
 pkgver=5.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="gtklock module adding media player controls to the lockscreen"
 url="https://github.com/jovanlanik/gtklock-playerctl-module"
 arch=('x86_64')
 license=('GPL-3.0-only')
 depends=('gtk3' 'playerctl' 'libsoup3' 'gtklock')
 makedepends=('meson')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('86762d035ca3b073de3e88c2c4048085a4f9bf98f0a862cb35daf6f227f5cd3c')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
+	"fix_version_mismatch.patch")
+sha256sums=('86762d035ca3b073de3e88c2c4048085a4f9bf98f0a862cb35daf6f227f5cd3c'
+            '52d63c4202537242453d35943d407f45975c52a4277f6591b307c57be8206ddb')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	# Fix version mismatch by backporting the version bump commit that was omitted in the last release
+	# See https://github.com/jovanlanik/gtklock-playerctl-module/commit/5a51d8d93c4be9fd13786bb9f0fe48f8ef95f424
+	patch -Np1 -i "${srcdir}/fix_version_mismatch.patch"
+}
 
 build() {
-        arch-meson "${pkgname}-${pkgver}" build
-        meson compile -C build
+	arch-meson "${pkgname}-${pkgver}" build
+	meson compile -C build
 }
 
 package() {
-        meson install -C build --destdir "${pkgdir}"
+	meson install -C build --destdir "${pkgdir}"
 }

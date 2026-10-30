@@ -1,0 +1,36 @@
+From 5a51d8d93c4be9fd13786bb9f0fe48f8ef95f424 Mon Sep 17 00:00:00 2001
+From: Jovan Lanik <jox969@gmail.com>
+Date: Tue, 27 Oct 2026 21:56:22 +0100
+Subject: [PATCH] update
+
+---
+ meson.build      | 2 +-
+ source.c         | 2 +-
+ 3 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 4a5517c459905bbd5f5937d717f34ad768124a15..cbc2fb651bdc584bee25caa2515ec6015c8c4389 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3,7 +3,7 @@
+ 
+ project(
+   'gtklock-playerctl-module', 'c',
+-  version : '4.0.0',
++  version : '5.0.0',
+   license : 'GPLv3',
+   default_options : ['c_std=c11'],
+ )
+diff --git a/source.c b/source.c
+index 0f6fbb293c243cd0eb430f35232594f8808ec521..62a5a0b9bc5ecd348260b0984cd5b98aebc0f03e 100644
+--- a/source.c
++++ b/source.c
+@@ -21,7 +21,7 @@ struct playerctl {
+ };
+ 
+ const gchar module_name[] = "playerctl";
+-const guint module_major_version = 4;
++const guint module_major_version = 5;
+ const guint module_minor_version = 0;
+ 
+ static int self_id;
