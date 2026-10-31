@@ -5,7 +5,7 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=electrum
-pkgver=4.8.2
+pkgver=4.8.3
 pkgrel=1
 pkgdesc="Lightweight Bitcoin wallet"
 arch=('any')
@@ -17,7 +17,6 @@ depends=(
   'python-aiohttp'
   'python-aiohttp-socks'
   'python-aiorpcx'
-  'python-attrs'
   'python-certifi'
   'python-cryptography'
   'python-dnspython'
@@ -55,14 +54,14 @@ optdepends=(
   'python-qdarkstyle: optional dark theme in graphical mode'
   'python-rpyc: send commands to Electrum Python console from an external script'
   'qt6-multimedia: camera QR code scanning in the QML interface'
-  'zbar: QR code reading support'
+  'zxing-cpp: QR code reading support'
 )
 source=(
   "git+https://github.com/spesmilo/electrum.git#tag=$pkgver?signed"
   "git+https://github.com/spesmilo/electrum-locale.git"
   "git+https://github.com/spesmilo/electrum-http.git"
 )
-b2sums=('06801f30da35bccac08b113111009bf7e4ce27f2860bdfefb0cd495abebe68bc2aaba02c878b51eda32d0f5be9ab981413ddcb5574bfa737548dfc88af9c601e'
+b2sums=('5c90971a88e5b165e574d9869832bffc9d1bab4fb5667701495fb8c775a219f23286c01f6ba24c1c70f730e8757eee17401f9b68b29488ebbdadae64abb5250c'
         'SKIP'
         'SKIP')
 validpgpkeys=(
