@@ -7,7 +7,7 @@
 # Contributor: Bogdan Burlacu <bogdan.burlacu AT pm.me>
 
 pkgname=onetbb
-pkgver=2023.1.0
+pkgver=2023.2.0
 pkgrel=1
 pkgdesc='oneAPI Threading Building Blocks - a high level abstract threading library'
 arch=('x86_64')
@@ -30,14 +30,18 @@ conflicts=('intel-tbb' 'tbb')
 provides=("intel-tbb=${pkgver}" "tbb=${pkgver}")
 replaces=('intel-tbb' 'tbb')
 source=("https://github.com/uxlfoundation/oneTBB/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        '010-onetbb-fix-linkage-of-test-malloc-pure-c.patch')
-sha512sums=('c8e9b9100873d6f8514da18ca700165466a9c042d24a6ce9e8901c8996c348f2e58f0251b1eca47d33cc5f382783bfc7693bc6c451716540d4caa57339b3b535'
-            'ea5480e7995f4c20ac66ca589ce1f98edb85e70eb1af498df04df09461c9a6175bcd2bf0dea7038f992528d8fd3e47932e16dedee0831436cb046c9fb23b4fb3')
+        '010-onetbb-fix-linkage-of-test-malloc-pure-c.patch'
+        '020-onetbb-fix-python-test.patch'::'https://github.com/uxlfoundation/oneTBB/commit/518d57b48adb48fec3aaf18b931d11d868ec646b.patch')
+sha512sums=('4a960b9a8011e30887c71ce6bc7be429d57bc0de22435b5d6c3247e6b3d783c0a053adc6fa189a41076c6e913733bab417456a21d98633cc2f33283e1be58c87'
+            'a54db2c8f5381c4172e9c5b02b425618f8e5773ced8befa5ac7af4f924c79db549f0e56677683dd7aab4ffa3f12ed376260fe5b32d365267051775e03a7b915f'
+            '02ffc1d0d1ed0e7b7d9c04e9e4d7591568ea71b830b590ee78c38928ccd2b5f43b244755e9436e9814c2ebc17c2060ad6dc15185fd800d1c8337f20e3158466b')
 
 prepare() {
     # https://github.com/uxlfoundation/oneTBB/issues/1735
     # https://gitlab.archlinux.org/archlinux/packaging/packages/onetbb/-/merge_requests/2
     patch -d "oneTBB-${pkgver}" -Np1 -i "${srcdir}/010-onetbb-fix-linkage-of-test-malloc-pure-c.patch"
+    
+    patch -d "oneTBB-${pkgver}" -Np1 -i "${srcdir}/020-onetbb-fix-python-test.patch"
 }
 
 build() {
@@ -47,6 +51,7 @@ build() {
         -DCMAKE_INSTALL_PREFIX:PATH='/usr' \
         -DTBB_STRICT:BOOL='OFF' \
         -DTBB4PY_BUILD:BOOL='ON' \
+        -DTCM_STRICT:BOOL='OFF' \
         -Wno-author
     cmake --build build
 }
