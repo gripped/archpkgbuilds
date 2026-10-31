@@ -1,5 +1,6 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 # Contributor: Gaetan Bisson <bisson@archlinux.org>
 # Contributor: Angel Velasquez <angvp@archlinux.org>
 # Contributor: Hugo Doria <hugo@archlinux.org>
@@ -10,7 +11,7 @@ pkgname=(
   ndiff
   zenmap
 )
-pkgver=7.992
+pkgver=7.993
 pkgrel=1
 pkgdesc="Utility for network discovery and security auditing"
 url='https://nmap.org/'
@@ -45,9 +46,9 @@ source=(
   "https://nmap.org/dist/$pkgname-$pkgver.tar.bz2"
   "https://nmap.org/dist/sigs/$pkgname-$pkgver.tar.bz2.asc"
 )
-sha512sums=('0c38610b78190b1865d5adb900e9bdc5813a29f6f5d47b768f4b1c9d0d36a26de476f7c7fc55b04e2421c6e6b149890ab0207ea1740786158bbf594a834fedc7'
+sha512sums=('782e53591aff0e87e8a4685f439f7a74fec64d69a5052fd45b76a2ba0cdb848d7a7b8b9dc302424de826a3731a634ce4cfa08c49ac38a2cf8832433f0f7bdb3a'
             'SKIP')
-b2sums=('378d50ee44657877f8a0ba4bb3c06f70790692da79e5e601c18dd73926ea7779ac6633cea126583d241205d0bfda890a8dea750cbbef388d4ffbd25d91e058a6'
+b2sums=('569c9d5da6eab9548d26a684f4c75d7b214d556f8b881973d71b887139888c5ac77e01c859e8bd1c35c898e56c9763764c5b0fc2b2f68b733fc9bcf906257240'
         'SKIP')
 validpgpkeys=('436D66AB9A798425FDA0E3F801AF9F036B9355D0') # Nmap Project Signing Key (http://www.insecure.org/)
 
