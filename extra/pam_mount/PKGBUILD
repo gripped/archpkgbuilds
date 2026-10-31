@@ -3,7 +3,7 @@
 # Contributor: Sirius Bakke <sirius\at/nonline.org>
 
 pkgname=pam_mount
-pkgver=2.22
+pkgver=2.23
 pkgrel=1
 pkgdesc='A PAM module that can mount volumes for a user session'
 arch=(x86_64)
@@ -21,7 +21,7 @@ depends=(cryptsetup
 backup=('etc/security/pam_mount.conf.xml')
 options=(!emptydirs)
 source=(https://inai.de/files/pam_mount/$pkgname-$pkgver.tar{.zst,.asc})
-sha256sums=('26c1c73550ee2dcf65e30a988d65a3e0b72e516a817ac0051c46a03bd435ff82'
+sha256sums=('e912f6de878e82d750de50b1b5de82ef08559b8f34055b83e17e605a31b00b72'
             'SKIP')
 validpgpkeys=(2F8BFE96D14F8B560FBC1F1DA28BDFEEB5A2B2FF  # Jan Engelhardt <jengelh@inai.de>
               23686C10A45691BE7A425109D6388181F35A0938
