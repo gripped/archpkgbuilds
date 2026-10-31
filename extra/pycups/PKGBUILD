@@ -4,23 +4,23 @@
 pkgbase=pycups
 pkgname=('python-pycups')
 pkgver=2.0.4
-pkgrel=4
+pkgrel=5
 arch=('x86_64')
 url="https://github.com/OpenPrinting/pycups"
 license=('GPL-2.0-or-later')
 pkgdesc="Python bindings for libcups"
 depends=('libcups' 'python' 'glibc')
-makedepends=('python-setuptools')
+makedepends=('python-build' 'python-installer' 'python-setuptools')
 provides=('pycups')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/OpenPrinting/pycups/archive/v${pkgver}.tar.gz)
 sha256sums=('31d9cf62df7884fe430d11970a8c9278282a47a0ff6b1529c58c7d26e8eb4789')
 
 build() {
   cd ${pkgbase}-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
 package() {
   cd ${pkgbase}-${pkgver}
-  python setup.py install --root="${pkgdir}" --optimize=1
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
