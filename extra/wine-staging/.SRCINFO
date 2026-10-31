@@ -1,6 +1,6 @@
 pkgbase = wine-staging
 	pkgdesc = A compatibility layer for running Windows programs - Staging branch
-	pkgver = 11.20
+	pkgver = 11.21
 	pkgrel = 1
 	url = https://www.wine-staging.com
 	install = wine.install
@@ -74,18 +74,18 @@ pkgbase = wine-staging
 	optdepends = vulkan-icd-loader
 	optdepends = wine-gecko
 	optdepends = wine-mono
-	provides = wine=11.20
+	provides = wine=11.21
 	conflicts = wine
 	options = !lto
 	options = pestrip
-	source = git+https://gitlab.winehq.org/wine/wine.git?signed#tag=wine-11.20
-	source = git+https://gitlab.winehq.org/wine/wine-staging.git#tag=v11.20
+	source = git+https://gitlab.winehq.org/wine/wine.git?signed#tag=wine-11.21
+	source = git+https://gitlab.winehq.org/wine/wine-staging.git#tag=v11.21
 	source = 30-win32-aliases.conf
 	source = wine-binfmt.conf
 	validpgpkeys = 5AC1A08B03BD7A313E0A955AF5E6E9EEB9461DD7
 	validpgpkeys = DA23579A74D4AD9AF9D3F945CEFAC8EAAF17519D
-	sha512sums = 31fdb5de2c3cf57daa9080a875b5b8531f310a6e352e3f0ad517e437608bc958ee14ea130e201cb9258bed57be549c08ba9ecc6453ca0a397981166493612307
-	sha512sums = 8401129d70913a5dbea06443267fb4caf31003b9307dc41d9d280acd8202138316c3a0ae5af2503483651d286afd9ef0951592e37c560606107f161f1a749714
+	sha512sums = 9c06abd56c6f27bc88a375b919e9fade088b89b69badbde27c768d635965389deeae1e63be85976010ad400eca84c2d3afd5becaaec0dc83b81dfcfc06242890
+	sha512sums = e7febee06e576bec4731cdc0f2d7e2270c028ae593c3af317d42420fd86998d0040f3045eb6213c5cdf94c0fcd4ed98e4a37f2244630937bc112c4ee8db3354a
 	sha512sums = 6e54ece7ec7022b3c9d94ad64bdf1017338da16c618966e8baf398e6f18f80f7b0576edf1d1da47ed77b96d577e4cbb2bb0156b0b11c183a0accf22654b0a2bb
 	sha512sums = bdde7ae015d8a98ba55e84b86dc05aca1d4f8de85be7e4bd6187054bfe4ac83b5a20538945b63fb073caab78022141e9545685e4e3698c97ff173cf30859e285
 
