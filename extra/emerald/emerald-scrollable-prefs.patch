@@ -1,0 +1,63 @@
+From 6c4f4155b83d293742e0f8d637afec9259773cbc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 29 Oct 2026 14:54:41 +0100
+Subject: [PATCH] themer: Make shadows and extra mouse grabs scrollable
+
+Follow the same approach as the active and inactive window frames
+to improve usability on smaller screens, allowing the themer window
+to fit on a 1024x768 display.
+---
+ themer/main.c | 28 ++++++++++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
+
+diff --git a/themer/main.c b/themer/main.c
+index 9aad0b4..7436685 100644
+--- a/themer/main.c
++++ b/themer/main.c
+@@ -856,8 +856,20 @@ void add_float_range_row(GtkWidget * vbox, gchar * title, gchar * key,
+ }
+ void layout_shadows_frame(GtkWidget * vbox)
+ {
++    GtkWidget * scrollwin;
++
++    scrollwin = gtk_scrolled_window_new(NULL,NULL);
++    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollwin),
++            GTK_POLICY_NEVER,GTK_POLICY_ALWAYS);
++    gtk_box_pack_startC(vbox,scrollwin,TRUE,TRUE,0);
++
+     table_new(2,FALSE,FALSE);
+-    gtk_box_pack_startC(vbox,get_current_table(),FALSE,FALSE,0);
++#if GTK_CHECK_VERSION(3, 8, 0)
++    gtk_container_add(GTK_CONTAINER(scrollwin),GTK_WIDGET(get_current_table()));
++#else
++    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollwin),
++            GTK_WIDGET(get_current_table()));
++#endif
+     add_color_button_row(vbox,_("Color"),"shadow_color","shadow");
+     add_float_range_row(vbox,_("Opacity"),"shadow_opacity",0.01,6.0,0.01,"shadow");
+     add_float_range_row(vbox,_("Radius"),"shadow_radius",0.0,48.0,0.1,"shadow");
+@@ -876,8 +888,20 @@ void add_extra_grab_slider(gchar * text,gchar * key,gint value)
+ }
+ void layout_extra_grab_frame(GtkWidget * vbox)
+ {
++    GtkWidget * scrollwin;
++
++    scrollwin = gtk_scrolled_window_new(NULL,NULL);
++    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollwin),
++            GTK_POLICY_NEVER,GTK_POLICY_ALWAYS);
++    gtk_box_pack_startC(vbox,scrollwin,TRUE,TRUE,0);
++
+     table_new(2,FALSE,FALSE);
+-    gtk_box_pack_startC(vbox,get_current_table(),FALSE,FALSE,0);
++#if GTK_CHECK_VERSION(3, 8, 0)
++    gtk_container_add(GTK_CONTAINER(scrollwin),GTK_WIDGET(get_current_table()));
++#else
++    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollwin),
++            GTK_WIDGET(get_current_table()));
++#endif
+     table_append(gtk_label_new(_("Grab")),FALSE);
+     table_append(gtk_label_new(_("Size")),FALSE);
+     add_extra_grab_slider(_("Top"),"top",0);
+-- 
+GitLab
+

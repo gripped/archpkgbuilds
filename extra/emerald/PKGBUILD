@@ -1,0 +1,63 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=emerald
+pkgver=0.8.18
+pkgrel=1
+pkgdesc='Window decorator for Compiz'
+arch=(x86_64)
+url='https://gitlab.com/compiz/emerald'
+license=(GPL-2.0-or-later)
+depends=(
+  cairo
+  compiz-core
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  hicolor-icon-theme
+  libwnck3
+  libx11
+  libxi
+  libxrender
+  pango
+)
+makedepends=(
+  git
+  intltool
+)
+source=(
+  "git+https://gitlab.com/compiz/emerald.git#tag=v$pkgver"
+  emerald-scrollable-prefs.patch
+)
+b2sums=(
+  fc9f5bc8bd9a30c1e648be686a2e312a6511f252b9b8d76999d4169893e083c7ede83cfd0eaa378d82792dda044a576038d727b17dac01c0ba0eeb2d43d5d243
+  4652d64c5b69eac43e83c203cf6949d2a20cc261143ccd76a20fdffd1487ba707eb63c0ba8657efe30091bad24efbf1d5c633a3576b34d00f40d3da655fb8211
+)
+
+prepare() {
+  cd $pkgname
+
+  # Fix compatiblity with newer versions of tar
+  # https://gitlab.com/compiz/emerald/-/merge_requests/37
+  git cherry-pick -n ddc504ea11ee9f16202be0aa5fb104bae1273643
+
+  # themer: Make shadows and extra mouse grabs scrollable
+  # https://gitlab.com/compiz/emerald/-/merge_requests/39
+  git apply -3 ../emerald-scrollable-prefs.patch
+
+  autoreconf -fiv
+}
+
+build() {
+  cd $pkgname
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var
+  make
+}
+
+package() {
+  cd $pkgname
+  make DESTDIR="$pkgdir" install
+}
