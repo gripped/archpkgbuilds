@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-osd
-pkgver=1.10.0
+pkgver=1.11.0
 pkgrel=1
 epoch=1
 pkgdesc='COSMIC On-Screen Display'
@@ -32,7 +32,7 @@ makedepends=(
 source=(
   git+https://github.com/pop-os/cosmic-osd.git#tag=epoch-${pkgver}
 )
-b2sums=('195c8b35746d534b01dd9db72160972225e9acc93e6fd490ba4f90c07423c5e520921036c64f9b09ed5b68e9c04c0e443ca0da2ca5efad92c884ae909987135c')
+b2sums=('6dc01174646657607df4b9100f55cb51157cd10c71946e52cefbc4e18951cc7a188320fb368a6ce59d3bfd12f1081bc29f9e89e41b7adc08142da437415a9c7b')
 
 prepare() {
   cd cosmic-osd
