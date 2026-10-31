@@ -3,13 +3,14 @@
 
 pkgname=ppp
 pkgver=2.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A daemon which implements the Point-to-Point Protocol for dial-up networking"
 arch=(x86_64)
 url="https://www.samba.org/ppp/"
 license=('GPL-2.0-or-later' 'BSD-3-Clause')
 depends=('glibc' 'libpcap' 'libxcrypt' 'openssl')
 makedepends=('git')
+checkdepends=('iproute2' 'iputils' 'kmod' 'procps-ng' 'python' 'util-linux')
 backup=(etc/ppp/{chap-secrets,ip-down,ip-down.d/00-dns.sh,ip-up,ip-up.d/00-dns.sh,ipv6-down,ipv6-up,ipv6-up.d/00-iface-config.sh,options,pap-secrets})
 source=(git+https://github.com/ppp-project/ppp.git?signed#tag=v$pkgver
         options
@@ -38,6 +39,13 @@ validpgpkeys=('631E179E370CD727A7F2A33A9E4295D605F66CE9'  # Paul Mackerras (Sign
 prepare() {
   cd $pkgname
 
+  # Fix forked script crashes, EAP-TLS logging and PPP_SCRIPT_INSTANCE names.
+  # https://github.com/ppp-project/ppp/pull/638
+  git cherry-pick -n bafd1f300006993800f3e6a5661bae8380fdf0c7
+  git cherry-pick -n 553145c70923917b64b19c96037d422b42063433
+  git cherry-pick -n 26093eeea8c251625b6c674c849268e87f933500
+  git cherry-pick -n 0f97ddf885fc83a5552bca9510bc7c779987f790
+
   autoreconf -i
 }
 
@@ -46,6 +54,12 @@ build() {
   ./configure --prefix=/usr --sbindir=/usr/bin --sysconfdir=/etc --runstatedir=/run \
               --enable-systemd --enable-cbcp --enable-multilink
   make
+}
+
+check() {
+  cd ppp
+  make check
+  make check-integration
 }
 
 package() {
