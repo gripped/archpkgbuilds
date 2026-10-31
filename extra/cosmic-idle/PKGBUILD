@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-idle
-pkgver=1.10.0
+pkgver=1.11.0
 pkgrel=1
 epoch=1
 pkgdesc='Cosmic idle daemon'
@@ -27,7 +27,7 @@ makedepends=(
 source=(
   git+https://github.com/pop-os/cosmic-idle.git#tag=epoch-${pkgver}
 )
-b2sums=('4bdd89487aa752631de0268b53bc1b5c0784d845578c3f3ed08304da0abfeb2d214a393b256416d65cf635f32eb8647b883751daf693b45b9d749059a21242f4')
+b2sums=('cd312ae7c10995b1ba79ef13f7bc48c0e8913a9e73a2887d3715a69a8b0c4a7206357beebec1edf600da71e094716056a8a5379e0e4a4222e38c1db0a75acd8c')
 
 prepare() {
   cd $pkgname
