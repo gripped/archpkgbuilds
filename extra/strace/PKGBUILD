@@ -1,10 +1,11 @@
 # Maintainer: Anatol Pomozov
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
-# Ctonributor: Giovanni Scafora <giovanni@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
+# Contributor: Giovanni Scafora <giovanni@archlinux.org>
 # Contributor: Tom Newsom <Jeepster@gmx.co.uk>
 
 pkgname=strace
-pkgver=7.2
+pkgver=7.3
 pkgrel=1
 pkgdesc='A diagnostic, debugging and instructional userspace tracer'
 arch=(x86_64)
@@ -15,10 +16,9 @@ depends=(
   libunwind
 )
 source=("https://github.com/strace/strace/releases/download/v$pkgver/strace-$pkgver.tar.xz"{,.asc})
-sha256sums=('4bde6246926890dcee824f6e6ac42a06752f47d77e5097d86e3c0d6d4b709fe5'
+sha256sums=('529634c40910895a9a1f3c5c1e65da2ca9ed72fb158dfc4bcc89efdf05e39b72'
             'SKIP')
 validpgpkeys=(
-  '296D6F29A020808E8717A8842DB5BD89A340AEB7' # Dmitry V. Levin <ldv@altlinux.org>
   '7BECFE3AF7B280BB52FF77F104BA4521C996DDE1' # Dmitry V. Levin <ldv@strace.io>
 )
 
