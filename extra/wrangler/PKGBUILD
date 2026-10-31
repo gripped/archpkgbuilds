@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=wrangler
-pkgver=4.149.0
+pkgver=4.156.0
 pkgrel=1
 _esbuild_ver='0.28.2'
 pkgdesc="The CLI for Cloudflare Workers"
@@ -27,9 +27,9 @@ makedepends=(
 options=(!lto)
 source=(https://github.com/cloudflare/workers-sdk/archive/refs/tags/wrangler@${pkgver}.tar.gz
         "esbuild-${_esbuild_ver}.tar.gz::https://github.com/evanw/esbuild/archive/v${_esbuild_ver}.tar.gz")
-sha256sums=('d4a9dc6a3b9d76ccfee6fbb2feb2ba379f27083f6d1d4422cbe3f52ab4456232'
+sha256sums=('9aa3aec42a76516f1ee13fe6b26f1814ec564744056484497d3dbe51e639a718'
             '300162f899361d9f0263065f8728ef9086dcfc1a3d36bcbc4e0abe5de9c58bf8')
-b2sums=('c8bbb3b291c26bb9e979240750ff56f0da8940e080b9a963d1a0826063d3a0b0315335298907d729ada8202c8278f330845f70098e94c8adeea1407d53e7fe86'
+b2sums=('4d2f704be9ee70fdcbef227e0aac2c3034eeaa4086db5f7f0d7abffef157f17879b83804d2c4de7409203f7f97745b163debba26326d93f9674586df5da5bf77'
         '1ab99f6a65f06eafd517d5e05be498867d8ec0fd7d1235afae371e3bdb6f0eef65da9399da37eb69fdec7c3bca16e0a94ea88e9c506491497bfa8e1cd886f9f8')
 
 prepare() {
@@ -76,7 +76,16 @@ build() {
 
 package() {
   npm install -g --prefix "${pkgdir}/usr" "workers-sdk-wrangler-${pkgver}/packages/wrangler/wrangler-${pkgver}.tgz"
-  install -Dm644 "workers-sdk-wrangler-${pkgver}/LICENSE-MIT"  -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -vDm644 "workers-sdk-wrangler-${pkgver}/LICENSE-MIT"  -t "${pkgdir}/usr/share/licenses/${pkgname}"
+
+  # Add shell completions
+  install -vd "${pkgdir}/usr/share/bash-completion/completions" \
+             "${pkgdir}/usr/share/zsh/site-functions" \
+             "${pkgdir}/usr/share/fish/vendor_completions.d"
+
+  "${pkgdir}/usr/lib/node_modules/wrangler/bin/wrangler.js" complete bash > "${pkgdir}/usr/share/bash-completion/completions/wrangler"
+  "${pkgdir}/usr/lib/node_modules/wrangler/bin/wrangler.js" complete zsh > "${pkgdir}/usr/share/zsh/site-functions/_wrangler"
+  "${pkgdir}/usr/lib/node_modules/wrangler/bin/wrangler.js" complete fish > "${pkgdir}/usr/share/fish/vendor_completions.d/wrangler.fish"
 
   # This file is very big
   rm "${pkgdir}/usr/lib/node_modules/wrangler/wrangler-dist/cli.js.map"
@@ -89,14 +98,14 @@ package() {
     "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/esbuild/bin/esbuild"
 
   # Add symlinks to workerd package
-  ln -s "../../../../../../../bin/workerd" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/@cloudflare/workerd-linux-64/bin/"
-  ln -s "../../../../../../bin/workerd" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/workerd/bin/"
+  ln -vs "../../../../../../../bin/workerd" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/@cloudflare/workerd-linux-64/bin/"
+  ln -vs "../../../../../../bin/workerd" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/workerd/bin/"
 
   # Add esbuild binary
-  install -Dm755 -t "${pkgdir}/usr/lib/wrangler/bin/" \
+  install -vDm755 -t "${pkgdir}/usr/lib/wrangler/bin/" \
     "esbuild-${_esbuild_ver}/esbuild"
-  ln -s "../../../../../../wrangler/bin/esbuild" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/@esbuild/linux-x64/bin/"
-  ln -s "../../../../../wrangler/bin/esbuild" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/esbuild/bin/"
+  ln -vs "../../../../../../wrangler/bin/esbuild" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/@esbuild/linux-x64/bin/"
+  ln -vs "../../../../../wrangler/bin/esbuild" "${pkgdir}/usr/lib/node_modules/wrangler/node_modules/esbuild/bin/"
 }
 
 # vim: ts=2 sw=2 et:
