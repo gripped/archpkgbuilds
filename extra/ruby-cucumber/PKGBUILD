@@ -2,7 +2,7 @@
 # Maintainer: Bert Peters <bertptrs@archlinux.org>
 
 pkgname=ruby-cucumber
-pkgver=11.1.1
+pkgver=12.0.0
 pkgrel=1
 pkgdesc="Behaviour Driven Development with elegance and joy"
 arch=(any)
@@ -18,6 +18,7 @@ depends=(
   ruby-cucumber-gherkin
   ruby-cucumber-html-formatter
   ruby-cucumber-messages
+  ruby-cucumber-query
   ruby-diff-lcs
   ruby-logger
   ruby-mime-types
@@ -40,30 +41,13 @@ options=(!emptydirs)
 source=(
   "git+https://github.com/cucumber/cucumber-ruby.git#tag=v$pkgver"
 )
-sha512sums=('f2f5d80a83486433343dbb527351f32fe2ce87cf83fad28ec3761aaf9029376db3be08cfd71188526a646ff10c31d2ce62908cb98a12f759663b687f4a038c5b')
-b2sums=('092336b8bd2cd899148f4a7d844b02ce44a44a8fdd04eaa3d48bb30435d25da97a5fbb05f10f2cdb894086f759cc962607570e4f4bc4240256854e51068068f0')
+sha512sums=('ba088c2a84c1b53fc516a63f2986d48590f14fd82afffe5fde02e848038e66bc2d3e20f8c917905ce08a1e71d813500a7a3f7223aa427764cf16dcb9bd94626f')
+b2sums=('b68309833cffee5232d503ad4bfa18611c1ace80d9e647d0d06eab7e8c55e7e21256af506dda9d87417bd2126500c97d6add400ffee7484790fcb7edd00669e6')
 
 prepare() {
   cd cucumber-ruby
 
-  # Remove strict-mode code no longer provided by cucumber-core 19.
-  # https://github.com/cucumber/cucumber-ruby/pull/1848
-  git cherry-pick -n -X theirs d597b819714534d2b691096e149e3d7ce6795ccb
-
-  # Match the newer cucumber component dependency bounds used in Arch.
-  # https://github.com/cucumber/cucumber-ruby/pull/1897
-  git cherry-pick -n -X theirs 3d02a342e50333730e2ed9bb13ccd76993943994
-
-  # Backport compatibility with cucumber-core 19.
-  # https://github.com/cucumber/cucumber-ruby/pull/1904
-  git cherry-pick -n -X theirs 433b4aa1b092e0a46dd74b18210cb7680e84df48
-
-  # Let cucumber-core 19 generate message formatter lifecycle envelopes.
-  # https://github.com/cucumber/cucumber-ruby/pull/1882
-  git cherry-pick -n -X theirs f50e7e2c97df4b13c72f95077a6cdcf67dd63669
-
   sed -i \
-    -e '/capybara/d' \
     -e 's|~>|>=|' \
     -e "s/, '< [0-9]\+'//" \
     cucumber.gemspec
