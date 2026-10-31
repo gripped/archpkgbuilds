@@ -3,12 +3,12 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-validate-pyproject
-pkgver=0.26
+pkgver=0.27
 pkgrel=1
 pkgdesc="Validation library and CLI tool for checking on 'pyproject.toml' files using JSON Schema"
 arch=('any')
 url="https://github.com/abravalheri/validate-pyproject"
-license=('MPL-2.0')
+license=('MPL-2.0' 'MIT')
 depends=(
   'python'
   'python-fastjsonschema'
@@ -22,9 +22,17 @@ makedepends=(
   'python-setuptools-scm'
   'python-wheel'
 )
-checkdepends=('python-pytest')
-source=("git+$url.git#tag=$pkgver")
-b2sums=('e48adc8783d0f6912e829403bcd059635de5e54a8683d9e77af28f8d8b91d4e965a79027863c07688084413ebf2f5792d0a69e786af5a6540d467c349cb46694')
+checkdepends=('python-pytest' 'python-repo-review')
+source=("git+$url.git#tag=v$pkgver"
+        double-format.patch)
+b2sums=('0028c2e11c79b2d5fe230b9fa1a6181f541d97e1966bae10da5e955033f8c3415fc82259937695504a4905f4e181465cf66542720afbaf469bbee5d16a6ab577'
+        '5f56fa01a4b9d55c40e34cadbdec10038798e49aedaf5fbbfb4ce132e8849cc7964d9a5d2d4c64eab6cebd7de8c9517e2f2cc133c909f75b13321811d6797930')
+
+prepare() {
+  cd ${pkgname#python-}
+  # Support the double format used by Ruff's SchemaStore schema.
+  patch -Np1 -i ../double-format.patch
+}
 
 build() {
   cd ${pkgname#python-}
@@ -41,4 +49,5 @@ check() {
 package() {
   cd ${pkgname#python-}
   python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 NOTICE.txt -t "$pkgdir/usr/share/licenses/$pkgname"
 }
