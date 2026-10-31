@@ -2,29 +2,28 @@
 
 pkgname=python-rfc6555
 pkgver=0.1.0
-pkgrel=6
+pkgrel=7
 arch=('any')
 url="https://pypi.org/project/rfc6555/"
-license=('Apache')
+license=('Apache-2.0')
 pkgdesc="Python implementation of the Happy Eyeballs Algorithm described in RFC 6555."
 depends=('python')
-makedepends=('python-setuptools')
-#checkdepends=('python-tox')
-source=("https://pypi.io/packages/source/r/rfc6555/rfc6555-$pkgver.tar.gz")
-sha256sums=('123905b8f68e2bec0c15f321998a262b27e2eaadea29a28bd270021ada411b67')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-pytest')
+source=("https://github.com/sethmlarson/rfc6555/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('8a15da0f619227c6938be27c64e844668701bca65205002eda789a4fd883b23f')
 
 build() {
   cd rfc6555-${pkgver}
-  python setup.py build
+  python -m build --wheel --no-isolation
 }
 
-# failing for now
-# check() {
-#   cd "${srcdir}/rfc6555-${pkgver}"
-#   tox
-# }
+check() {
+  cd rfc6555-${pkgver}
+  pytest
+}
 
 package() {
   cd rfc6555-${pkgver}
-  python setup.py install --root="${pkgdir}" --optimize=1 --skip-build
+  python -m installer --destdir="${pkgdir}" dist/*.whl
 }
