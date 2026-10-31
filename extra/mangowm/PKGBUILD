@@ -2,7 +2,7 @@
 # Contributor: Matt Quintanilla <matt @ matt quintanilla .xyz>
 pkgname=mangowm
 _pkgname=mango
-pkgver=0.18.3
+pkgver=0.18.4
 pkgrel=1
 pkgdesc="Lightweight, feature rich modern wayland compositor"
 url="https://mangowm.github.io"
@@ -13,7 +13,7 @@ depends=('glibc' 'wayland-protocols' 'pango' 'wayland' 'libinput' 'libdrm' 'cair
          'libxcb' 'libxkbcommon' 'pcre2' 'wlroots0.20' 'scenefx' 'cjson' 'xcb-util-wm')
 makedepends=('meson')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mangowm/mango/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('9b9c66c55ba83131cc2e7b847239f0f7520207f448a8c580c8ca796ec9e13e41')
+sha256sums=('e4ec09a020b8227dc7044cf9e16f4563d28a24d99a08a51aed05cc8b95cbbbfa')
 
 build() {
 	arch-meson "${_pkgname}-${pkgver}" build
