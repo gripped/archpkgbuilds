@@ -2,7 +2,7 @@
 
 _gemname='io-stream'
 pkgname="ruby-${_gemname}"
-pkgver=0.13.2
+pkgver=0.14.0
 pkgrel=1
 pkgdesc='Provides a generic stream wrapper for IO instances'
 arch=('any')
@@ -12,6 +12,7 @@ depends=(
   ruby
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -27,12 +28,12 @@ checkdepends=(
   ruby-sus-fixtures-openssl
 )
 options=('!emptydirs')
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('7bcf23ce5c93c63e319c3042a65673134c3a11b1c7a631dda01ed8cfb85597afe18705980fee99406734a92114474865303e1713629c3170dc40622b159f8cad')
-b2sums=('62c4d09957a72ec9e9b9180097f58c55a174b87b10f19a6b806c7753d1a49e1174b796a5ecb00637577f53b3090ea9ce72db3aed8e11df82c9970bdbb86e04fc')
+source=("git+https://github.com/socketry/io-stream.git#tag=v${pkgver}")
+sha512sums=('8f8fe6a2e4d6dd9c9632877ebd8d289309bf157a9abe9de7839228de6990a473fbba3faaf3181ed4bc9819daaf11c042bfe6a543577865a041614f386dfd6623')
+b2sums=('56394c850cfcf466bfc9f62e2ccc4c95acb5f8a32cd94e9feeaab2fb463c37900c8d76e6a56ef56ebac4bb281a2cc3fa1a8c1da79acae3b2380297d23fb7ede6')
 
 prepare() {
-  cd "${_gemname}-${pkgver}"
+  cd io-stream
 
   # update gemspec/Gemfile to allow newer version of the dependencies
   sed --in-place --regexp-extended \
@@ -47,7 +48,7 @@ prepare() {
 }
 
 build() {
-  cd "${_gemname}-${pkgver}"
+  cd io-stream
 
   local _gemdir="$(gem env gemdir)"
 
@@ -90,7 +91,7 @@ build() {
 }
 
 check() {
-  cd "${_gemname}-${pkgver}"
+  cd io-stream
 
   local _gemdir="$(gem env gemdir)"
 
@@ -98,7 +99,7 @@ check() {
 }
 
 package() {
-  cd "${_gemname}-${pkgver}"
+  cd io-stream
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
