@@ -4,7 +4,7 @@
 
 pkgname=mate-panel
 pkgver=1.28.7
-pkgrel=3
+pkgrel=4
 pkgdesc="The MATE Panel"
 arch=(x86_64)
 url='https://github.com/mate-desktop/mate-panel'
@@ -47,6 +47,7 @@ source=(
   mate-panel-clear-icon.patch
   mate-panel-calendar-popup-position.patch
   mate-panel-no-weather-info.patch
+  mate-panel-applet-wayland-compat.patch
 )
 b2sums=(
   9a92b0f76cfc0b48f517944863a932694b42bf0e8373e55de873115ad72ebd20c36527e6c56c9ec5ad28ad7a1f1a4968a15af00ace6adca14c132fa1bedaf83c
@@ -55,6 +56,7 @@ b2sums=(
   12ef614dbfa73f10fb8bb6798146a0e483538f439c74ebb4be76983c3e6011026e46e2d2e629356cc5f83c202e8c8a0c9d25b113fd30afa06bd7f4c6245b30d3
   c6d2a31b4d2082a24650444b076a97cebed32b408d7935bc7fa2f8ced308d400cde5c57546b2dbf067d365d90527694d6c41e9af98f3b608c3c20e3bacc2dc47
   c0a42a9360d626aa8ac704ae04f348547b40ded47909a797f1f9614fae1bbcde7bede3d0b7d48d2ecb3dc60b81bbff7ec30a8aa8e6d4fe79644c488d971e8a97
+  9df609d43a77e946f14c15fbb59353cfe488e7726a77322d9783afc63ce860198e525e2bf44a4a5a17285b4b4c2b245a675ea7d5c2ec2765699823163b7358c7
 )
 
 prepare() {
@@ -79,6 +81,10 @@ prepare() {
   # clock: Hide weather conditions if no weather info
   # https://github.com/mate-desktop/mate-panel/pull/1593
   git apply -3 ../mate-panel-no-weather-info.patch
+
+  # Mark out-of-process applets as unsupported on Wayland
+  # https://github.com/mate-desktop/mate-panel/pull/1595
+  git apply -3 ../mate-panel-applet-wayland-compat.patch
 
   autoreconf -fiv
 }
