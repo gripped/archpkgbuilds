@@ -5,7 +5,7 @@
 
 pkgname=gnome-shell-extension-desktop-icons-ng
 _pkgname=desktop-icons-ng
-pkgver=51.1.1
+pkgver=51.2.0
 pkgrel=1
 pkgdesc='Desktop icons extension for GNOME Shell'
 arch=(any)
@@ -30,7 +30,7 @@ makedepends=(
   meson
 )
 source=("git+https://gitlab.com/rastersoft/$_pkgname.git#tag=$pkgver")
-b2sums=(21aa79e06aaff989588388f8d3ba541c958415442f66e0ac4e32e046947a3ca08e7b9c671795e37e93e96c41e1066cc03acaddfa42afad963f68a94356bda8ec)
+b2sums=(9bd468da549990572a8b10ba555c2c67859bf7d6ad5e32fe293d7962a5780a65a5640a97c975a0cbc468a23da01f3fb2026ec9a50bdcda7e0317c64944f55fa6)
 
 prepare() {
   cd $_pkgname
