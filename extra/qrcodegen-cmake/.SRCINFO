@@ -1,7 +1,7 @@
 pkgbase = qrcodegen-cmake
 	pkgdesc = High-quality C and C++ QR Code generator library with CMake and pkgconfig
 	pkgver = 1.8.0
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/nayuki/QR-Code-generator
 	arch = x86_64
 	license = MIT
@@ -21,6 +21,7 @@ pkgname = qrcodegen-cmake
 pkgname = qrcodegencpp-cmake
 	pkgdesc = High-quality C++ QR Code generator library with CMake and pkgconfig
 	depends = glibc
-	depends = gcc-libs
+	depends = libstdc++
+	depends = libgcc
 	provides = qrcodegencpp
 	conflicts = qrcodegencpp
