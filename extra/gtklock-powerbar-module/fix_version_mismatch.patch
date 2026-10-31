@@ -1,0 +1,36 @@
+From: Jovan Lanik <jox969@gmail.com>
+Date: Tue, 27 Oct 2026 21:57:23 +0100
+Subject: [PATCH] update
+
+---
+ meson.build      | 2 +-
+ source.c         | 2 +-
+ 3 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 2ae7dd2..f4f12e1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3,7 +3,7 @@
+ 
+ project(
+   'gtklock-powerbar-module', 'c',
+-  version : '4.0.0',
++  version : '5.0.0',
+   license : 'GPLv3',
+   default_options : ['c_std=c11'],
+ )
+diff --git a/source.c b/source.c
+index b3f7192..0e09c2c 100644
+--- a/source.c
++++ b/source.c
+@@ -21,7 +21,7 @@ struct powerbar {
+ };
+ 
+ const gchar module_name[] = "powerbar";
+-const guint module_major_version = 4;
++const guint module_major_version = 5;
+ const guint module_minor_version = 0;
+ 
+ static int self_id;
+

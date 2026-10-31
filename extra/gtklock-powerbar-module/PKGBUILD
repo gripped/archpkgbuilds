@@ -3,15 +3,24 @@
 
 pkgname=gtklock-powerbar-module
 pkgver=5.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="gtklock module adding power controls to the lockscreen"
 url="https://github.com/jovanlanik/gtklock-powerbar-module"
 arch=('x86_64')
 license=('GPL-3.0-only')
 depends=('gtk3' 'gtklock')
 makedepends=('meson')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('9bd0ceeaf53204a0b320c206e3683276cf02d97e4264129a680ca26035d715bb')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
+        "fix_version_mismatch.patch")
+sha256sums=('9bd0ceeaf53204a0b320c206e3683276cf02d97e4264129a680ca26035d715bb'
+            '76715ac8c41e41c014445af9350f710da71386f8e116ed5272dcd1b16a1ed762')
+
+prepare() {
+	cd "${pkgname}-${pkgver}"
+	# Fix version mismatch by backporting the version bump commit that was omitted in the last release
+	# See https://github.com/jovanlanik/gtklock-playerctl-module/commit/5a51d8d93c4be9fd13786bb9f0fe48f8ef95f424
+	patch -Np1 -i "${srcdir}/fix_version_mismatch.patch"
+}
 
 build() {
         arch-meson "${pkgname}-${pkgver}" build
