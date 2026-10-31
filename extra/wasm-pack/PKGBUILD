@@ -2,8 +2,8 @@
 # Contributor: Dario Ostuni <dario.ostuni@gmail.com>
 
 pkgname=wasm-pack
-pkgver=0.15.0
-pkgrel=2
+pkgver=0.15.1
+pkgrel=1
 pkgdesc="Your favorite rust -> wasm workflow tool!"
 arch=('x86_64')
 url="https://github.com/rustwasm/wasm-pack"
@@ -11,7 +11,7 @@ license=('MIT' 'Apache-2.0')
 depends=('bzip2' 'glibc' 'libgcc' 'xz' 'zstd')
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha384sums=('297859652721b439d04bd6cfcfc5920c9be19eb825c73123511739869308445776b1b95e2f6c2efd6b62e15c2d819afb')
+sha384sums=('863133a9ce3990d7ad16f4919c7558a5b5e26a12ecd196665b285f5dacf1ca5a0a5e63ace2efb9ecb3818df9fae3dc81')
 options=('!lto')
 
 prepare() {
