@@ -1,7 +1,7 @@
 # Maintainer: Peter Jung <ptr1337@archlinux.org>
 
 pkgname=cosmic-viewer
-pkgver=1.10.0
+pkgver=1.11.0
 pkgrel=1
 pkgdesc='Image viewer for the COSMIC desktop environment'
 arch=(x86_64)
@@ -27,7 +27,7 @@ makedepends=(
   lld
 )
 source=(git+https://github.com/pop-os/cosmic-viewer.git#tag=epoch-${pkgver})
-b2sums=('c0bb78f21520b1656645ac91be81a19d33639830b1a39cee5888fd2176c044b3d398a4f5afa46fd6ff001a1194b7a1974d4ab03d86000699607efc7ae80809f9')
+b2sums=('5c9a910f286bd6c34561cdb50db88ea128542cd150485dae9a04468577c49c6338b79559aea65c97725526b5e6266120b908e8f02499028b64fcb5e1990daf09')
 
 prepare() {
   cd "$pkgname"
