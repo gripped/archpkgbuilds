@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=komikku
-pkgver=51.1.0
+pkgver=51.2.1
 pkgrel=1
 pkgdesc='Manga and comics reader for GNOME'
 arch=(any)
@@ -23,6 +23,7 @@ depends=(
   python-beautifulsoup4
   python-brotli
   python-cairo
+  python-colorlog
   python-colorthief
   python-cryptography
   python-dateparser
@@ -59,7 +60,7 @@ optdepends=(
   'python-pytesseract: OCR translator'
 )
 source=("git+https://codeberg.org/valos/Komikku.git#tag=v$pkgver")
-b2sums=(600e2bd0bfe9eaabbb9578d5e44028d500ec3eacef0f9127f0a4b78ac9b29e109b4163504f6d9227fd5951baab564c779e85c49fb8962184dc435fa6c7f1b994)
+b2sums=(78ec70538d133fdc462e65ceeb336cb5e07cf1feb600313583465a80dbf85a0d926887a2183d461c55158707de4266e58b0879b1ddeea30e45333583365b6586)
 
 prepare() {
   cd Komikku
