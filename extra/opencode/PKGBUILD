@@ -6,7 +6,7 @@ pkgname=(
   'opencode'
   'opencode-desktop'
 )
-pkgver=2.2.1
+pkgver=2.2.3
 pkgrel=1
 pkgdesc='The open source coding agent'
 arch=('x86_64')
@@ -30,7 +30,7 @@ source=(
   'opencode-desktop.sh'
   'ai.opencode.desktop.desktop'
 )
-b2sums=('1b0dac6b0bf18ef011359f9a21ef3ac77f544a597afb38e870d9a0ce27337f37a3c2e9c8fe67aae24717ede9fbffe48823d5968d81ff80cbec40bc6d944452e6'
+b2sums=('76f413e5ce73d92e30a9f687682ad8f6ba14a5c84c1fb7922f9476f93c30c855b35718d2885a7068f615b26e9c7ec96f120dbca5c1af6b3c07f0d618baac3bae'
         '8d2c68196b909f9dff23c9411ab4d7b21e6c1867be5dbf53e63bb6675dcf98baf368315def113ca178a15c87f0b794a16eaff3065368d6f23e222c0d230fb1b2'
         '54a28c8a5343ebd0da166859ef1bb8fc875b16dfb990fdf1345cce556eb1231671c87ce6d17c8f7668acdfd261ac8ecf2bd5fe2db404f002455ccde8f4d439f9')
 
@@ -122,7 +122,9 @@ package_opencode-desktop() {
 
   cd $pkgbase/packages/desktop
 
-  local resources=dist/linux-unpacked/resources
+  # electron-builder names the --dir output linux-unpacked on x64 but
+  # linux-<arch>-unpacked elsewhere (e.g. linux-arm64-unpacked)
+  local resources=(dist/linux*-unpacked/resources)
   install -vDm644 -t "$pkgdir/usr/lib/$pkgname" $resources/app.asar $resources/opencode-cli.version
   cp -vr --no-preserve=ownership $resources/app.asar.unpacked "$pkgdir/usr/lib/$pkgname/"
   install -vDm644 -t "$pkgdir/usr/lib/$pkgname/icons" resources/icons/icon.png
