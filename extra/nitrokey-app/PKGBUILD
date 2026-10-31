@@ -4,22 +4,26 @@
 
 pkgname=nitrokey-app
 pkgver=1.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Nitrokey management application'
 url='https://www.nitrokey.com'
 arch=('x86_64')
-license=('GPL3')
-depends=('qt5-base' 'qt5-svg' 'hicolor-icon-theme' 'libnitrokey' 'libnitrokey.so')
+license=('GPL-3.0-or-later')
+depends=('glibc' 'libstdc++' 'libgcc' 'qt5-base' 'qt5-svg' 'hicolor-icon-theme' 'libnitrokey' 'libnitrokey.so')
 makedepends=('cmake' 'qt5-tools' 'bash-completion' 'cppcodec')
-source=(https://github.com/Nitrokey/nitrokey-app/releases/download/v${pkgver}/nitrokey-app-v${pkgver}.tar.gz{,.sig})
+source=(https://github.com/Nitrokey/nitrokey-app/releases/download/v${pkgver}/nitrokey-app-v${pkgver}.tar.gz{,.sig}
+        nitrokey-app-cmake4.patch::https://github.com/Nitrokey/nitrokey-app/commit/0abc0588482978be931e7e76c8b50865151963f5.patch)
 sha512sums=('5a8d1219cedb59737634ce9eee4c0b50a67471e55736e5255085b3c08f8aea0a716ae5ad817d39e40f67519f4987cde43b2d26e622f56c5d88d9104c59a31462'
-            'SKIP')
+            'SKIP'
+            'a0788d1a170ceab6e79eabce6e6515ddbe6415848058a5ba2782ee8d8191e95b7273e46581db15e4fe7b147bde766a8a3a38fc538c80b26d56afa1e096ec6185')
 validpgpkeys=('868184069239FF65DE0BCD7DD9BAE35991DE5B22') # Szczepan Zalega <szczepan.zalega@gmail.com>
 
 prepare() {
   cd ${pkgname}-v${pkgver}
   rm -r data/icons/ubuntu-mono-{dark,light} 3rdparty/cppcodec
   ln -s /usr/include/cppcodec 3rdparty/cppcodec
+  # Support CMake 4.0
+  patch -Np1 < ../nitrokey-app-cmake4.patch
 }
 
 build() {
