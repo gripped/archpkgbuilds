@@ -3,7 +3,7 @@
 # Contributor: Mark Wagie <mark.wagie@proton.me>
 
 pkgname=cosmic-files
-pkgver=1.10.0
+pkgver=1.11.0
 pkgrel=1
 epoch=1
 pkgdesc='File manager for the COSMIC desktop environment'
@@ -32,7 +32,7 @@ source=(
   git+https://github.com/pop-os/cosmic-files.git#tag=epoch-${pkgver}
   cosmic-files-lto.patch
 )
-b2sums=('fb64367ef6cc4a8bc2f34c89b0d8b9c12de27594d0a83547bd5951eb71d0dbcca51432eb8a429aa1083e414f444785d6f30175ea31a4acb3bd33088c3a814d0c'
+b2sums=('461fa757dec1cd2abac59465199162a3f27bb1e65a7c0e7af72ccfe67cc19968531873287b9968b84f00969e781b60773c478c17cd32e067515610f90e82aee2'
         '105231f886affb3274d18bbe95d0fc27ba33cb557245ca567caccc9b0f5fbae0b7d92a81c0b2784130659e81b73e374ac735f8ad9b06adad18b4e4fd227164b5')
 
 prepare() {
