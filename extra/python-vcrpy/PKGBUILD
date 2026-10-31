@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-vcrpy
-pkgver=9.0.0
+pkgver=9.1.0
 pkgrel=1
 pkgdesc='Automatically mock your HTTP interactions to simplify and speed up testing'
 arch=('any')
@@ -11,7 +11,7 @@ depends=('python' 'python-pyyaml' 'python-wrapt')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-aiohttp' 'python-boto3' 'python-httpx' 'python-pytest' 'python-pytest-aiohttp' 'python-pytest-asyncio' 'python-pytest-httpbin' 'python-requests' 'python-tornado')
 source=("git+https://github.com/kevin1024/vcrpy.git#tag=v$pkgver")
-sha512sums=('eff5e59cd3b2f5b80346d4a90d705a92663e6819fbc33e86c845992aab6b8c152912f5faf73a07135cbd7d82801aecae8309320f9a14c771f128cc8e257c74d7')
+sha512sums=('9d23647fb526f16bcb6738cd36a7fef89dfbfa8ae960f4f556f847ad4baa82470c7b49f90b0c9dc35414a32dbe21c503fd1b4efc4294f5772a39a06364e63543')
 
 build() {
   cd vcrpy
