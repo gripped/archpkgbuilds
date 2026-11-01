@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-benchmark
-pkgver=5.3.0
-pkgrel=2
+pkgver=5.3.1
+pkgrel=1
 pkgdesc='A py.test fixture for benchmarking code'
 arch=('any')
 license=('BSD-2-Clause')
@@ -12,13 +12,10 @@ makedepends=('git' 'python-setuptools' 'python-build' 'python-installer' 'python
 checkdepends=('python-pygal' 'python-pygaljs' 'python-freezegun' 'mercurial' 'python-aspectlib'
               'python-pytest-xdist' 'python-elasticsearch' 'git')
 source=("git+https://github.com/ionelmc/pytest-benchmark.git#tag=v$pkgver")
-sha512sums=('9b6ddfeba718130adad9ddc439f8ce20db81d93cde08d24c2af0b5514e548ac58cd0042b998d7e7c1b98fd70c3c219af251bb07d9e52df4be5937043182d0a3c')
+sha512sums=('2bc39404f8aa1b74edf085aa53b308a41cca53949238c57d15433ed42224b1e32714200ff2db85bcad6a8f4472fe6233a8fe74188eec6f4f90cf4a4af2d68743')
 
 prepare() {
   cd pytest-benchmark
-  # Use pytest's public nodeid attribute after _nodeid was removed in pytest 9.2.
-  # https://github.com/ionelmc/pytest-benchmark/pull/323
-  git cherry-pick -n 7d7290726189c574e3b7fb8b26675bb10473a2be
   # Do not treat warnings as errors
   sed -i '/^    error$/d' pytest.ini
   # Remove --nbmake option (nbmake plugin not packaged in Arch)
