@@ -1,7 +1,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=lungo
-pkgver=1.0.9
+pkgver=1.0.10
 pkgrel=1
 pkgdesc="A simple systray applet to prevent the system from going idle or suspending on demand"
 url="https://github.com/Antiz96/lungo"
@@ -10,7 +10,7 @@ license=('GPL-3.0-or-later')
 depends=('glibc' 'libgcc' 'systemd' 'hicolor-icon-theme')
 makedepends=('cargo' 'scdoc' 'git')
 source=("git+${url}.git#tag=v${pkgver}?signed")
-sha256sums=('97b317a29fc105a68cc1055bf91261f2da8eb7fec0bb3a9dd053c77dfc0bc12f')
+sha256sums=('25e51e607b1047ca17b185ee4099f83db8021162fec3d08e8cc37a3e4d042bb0')
 validpgpkeys=(A67CCEEBF9613C17FDE96E4ED33FAA16B937F3B2) # Robin Candau <robincandau@mailbox.org>
 
 prepare() {
