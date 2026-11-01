@@ -1,3 +1,25 @@
+diff --git a/spec/lib/http/client_spec.rb b/spec/lib/http/client_spec.rb
+index 88822f3..ded152b 100644
+--- a/spec/lib/http/client_spec.rb
++++ b/spec/lib/http/client_spec.rb
+@@ -113,7 +113,7 @@ RSpec.describe HTTP::Client do
+ 
+       it "works like a charm in real world" do
+         expect(HTTP.follow.get("https://bit.ly/2UaBT4R").parse(:json)).
+-          to include("url" => "https://httpbin.org/anything/könig")
++          to include("url" => "https://httpbin.org/anything/k%C3%B6nig")
+       end
+     end
+   end
+@@ -278,7 +278,7 @@ RSpec.describe HTTP::Client do
+       it "works like a charm in real world" do
+         url = "https://httpbin.org/anything/ö無"
+ 
+-        expect(HTTP.follow.get(url).parse(:json)).to include("url" => url)
++        expect(HTTP.follow.get(url).parse(:json)).to include("url" => "https://httpbin.org/anything/%C3%B6%E7%84%A1")
+       end
+     end
+ 
 diff --git a/spec/lib/http/headers_spec.rb b/spec/lib/http/headers_spec.rb
 index abf6226..576652b 100644
 --- a/spec/lib/http/headers_spec.rb
