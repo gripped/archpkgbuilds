@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-configupdater
-pkgver=4.0.1
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="Parser like ConfigParser but for updating configuration files"
 url="https://github.com/pyscaffold/configupdater"
@@ -11,7 +11,7 @@ depends=('python')
 makedepends=('git' 'python-hatchling' 'python-hatch-vcs' 'python-build' 'python-installer')
 checkdepends=('python-pytest')
 source=("git+https://github.com/pyscaffold/configupdater.git#tag=v$pkgver")
-sha512sums=('ebaf862a06f05bcf3c8ef731ba9ad82099b944d22d4f80f730f2a903799082041d2be2d50441d7048f70c0a06697397a1dc60edb92a2024003d9d52fb42ae119')
+sha512sums=('6d382979a960076de8a3941ed5c9991d7c220dd5d792bb573e0958ba2ffdfcd1df09717979682df38d23071ea7d891aa4a1bd01ef7f8ecd6346af9dfb28d0100')
 
 build() {
   cd configupdater
