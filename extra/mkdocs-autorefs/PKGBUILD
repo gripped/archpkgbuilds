@@ -1,8 +1,9 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 
 pkgname=mkdocs-autorefs
 _pkgname=autorefs
-pkgver=1.4.4
+pkgver=1.4.5
 pkgrel=1
 pkgdesc="Automatically link across pages in MkDocs"
 arch=(any)
@@ -28,7 +29,7 @@ checkdepends=(
   python-pytest
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('fb0e7c6c3129aa45ed63ca562b4a0c792d5d1dd15fac0499e6a92d55b04b009bf093c7b6ad61ae169d2f13dd71865dabfba6950fa8f4de6ac89c3481287f3cf5')
+b2sums=('7f08521663dcc88b5dedf9c092c62431b9bae956b18ebc5f28582f06275684dc06f84f739592bc5d055655854cd3b108a462daa5ae39a64284e3b4e631410c95')
 
 build() {
   cd $_pkgname-$pkgver
