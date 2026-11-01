@@ -2,21 +2,25 @@
 
 _pkgbasename=libxtst
 pkgname=lib32-$_pkgbasename
-pkgver=1.2.5
-pkgrel=2
+pkgver=1.2.6
+pkgrel=1
 pkgdesc="X11 Testing -- Resource extension library (32-bit)"
 arch=(x86_64)
 url="https://xorg.freedesktop.org/"
-license=('custom')
+license=('MIT-open-group' 'HPND-sell-variant' 'X11' 'HPND-doc' 'HPND-doc-sell')
 depends=('lib32-libxext' 'lib32-libxi' 'lib32-libxfixes' $_pkgbasename)
-makedepends=('gcc-multilib' 'xorg-util-macros')
-source=(${url}/releases/individual/lib/libXtst-${pkgver}.tar.xz{,.sig})
-sha256sums=('b50d4c25b97009a744706c1039c598f4d8e64910c9fde381994e1cae235d9242'
-            'SKIP')
-validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+makedepends=('gcc-multilib' 'git' 'xorg-util-macros')
+source=(git+https://gitlab.freedesktop.org/xorg/lib/libXtst.git?signed#tag=libXtst-${pkgver})
+sha256sums=('930db33ad21b1df83cc58098118d81d5a0969155a83ecbb3fdaa31eb498c1ed4')
+validpgpkeys=('3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2') # Alan Coopersmith <alan.coopersmith@oracle.com>
+
+prepare() {
+  cd libXtst
+  autoreconf -vfi
+}
 
 build() {
-  cd "${srcdir}/libXtst-${pkgver}"
+  cd libXtst
 
   export CC="gcc -m32"
   export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
@@ -27,7 +31,7 @@ build() {
 }
 
 package() {
-  cd "${srcdir}/libXtst-${pkgver}"
+  cd libXtst
 
   make DESTDIR="${pkgdir}" install
 
