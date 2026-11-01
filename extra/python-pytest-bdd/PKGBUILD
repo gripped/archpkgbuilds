@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-pytest-bdd
-pkgver=9.0.0
+pkgver=9.0.1
 pkgrel=1
 pkgdesc='BDD library for the pytest runner'
 arch=('any')
@@ -27,7 +27,13 @@ makedepends=(
 )
 checkdepends=('python-setuptools')
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('3fdd564619771a6b109c1eade9718f8745bec7d87f27d7075a0875221a670644bbdb87734cd3c9c1d94feca7a8c0e1629f08334bbe4e6319a74a18cb184dac1c')
+sha512sums=('ddf6e6134784d58242c95ca5530d4b831124d368b70e1db2b073d79195d0f8201d90a7d6ccf047d1d5413d859218f50786217691ffb336c5ed10dc2405825287')
+
+prepare() {
+  cd ${pkgname#python-}
+  # Allow the packaged uv-build 0.13 series.
+  sed -i 's/uv_build>=0.12.13,<0.13.0/uv_build>=0.12.13,<0.14.0/' pyproject.toml
+}
 
 build() {
   cd ${pkgname#python-}
