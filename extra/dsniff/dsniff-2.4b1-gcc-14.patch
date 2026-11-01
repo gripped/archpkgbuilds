@@ -1,0 +1,35 @@
+diff --git a/ssh.c b/ssh.c
+index 7b2fba2..2c8a607 100644
+--- a/ssh.c
++++ b/ssh.c
+@@ -156,7 +156,7 @@ ssh_crc32(const unsigned char *p, u_int len)
+ }
+ 
+ static ssize_t
+-atomicio(ssize_t (*f)(), int fd, void *_s, size_t n)
++atomicio(ssize_t (*f)(int, void *, size_t), int fd, void *_s, size_t n)
+ {
+ 	char *s = _s;
+ 	ssize_t res, pos = 0;
+@@ -576,7 +576,7 @@ SSH_send(SSH *ssh, u_char *buf, int len)
+ 		ssh->encrypt(pkt + 4, pkt + 4, i - 4, ssh->estate);
+ 	}
+ 	/* Send it. */
+-	if (atomicio(write, ssh->fd, pkt, i) != i)
++	if (atomicio((ssize_t (*)(int, void *, size_t))write, ssh->fd, pkt, i) != i)
+ 		return (-1);
+ 	
+ 	return (len);
+diff --git a/urlsnarf.c b/urlsnarf.c
+index f46ccf8..d57b9dd 100644
+--- a/urlsnarf.c
++++ b/urlsnarf.c
+@@ -341,7 +341,7 @@ main(int argc, char *argv[])
+ 	}
+ 
+ 	struct pcap_pkthdr *h;
+-	u_char *d;
++	const u_char *d;
+ 	int rc;
+ 	while ((rc = pcap_next_ex(p, &h, &d)) == 1) {
+ 		tt = h->ts.tv_sec;

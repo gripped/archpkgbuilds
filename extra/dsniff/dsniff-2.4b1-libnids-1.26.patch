@@ -1,0 +1,195 @@
+diff --git a/filesnarf.c b/filesnarf.c
+index 721593f..11995ab 100644
+--- a/filesnarf.c
++++ b/filesnarf.c
+@@ -329,7 +329,7 @@ decode_nfs(struct tuple4 *addr, u_char *buf, int len)
+ }
+ 
+ static void
+-decode_udp_nfs(struct libnet_ipv4_hdr *ip)
++decode_udp_nfs(struct ip *ip, int data_len)
+ {
+ 	static struct tuple4 addr;
+ 	struct libnet_udp_hdr *udp;
+diff --git a/mailsnarf.c b/mailsnarf.c
+index 47ba18d..b667712 100644
+--- a/mailsnarf.c
++++ b/mailsnarf.c
+@@ -227,7 +227,7 @@ process_smtp_client(struct smtp_info *smtp, char *data, int len)
+ }
+ 
+ static void
+-sniff_pop_session(struct tcp_stream *ts, struct pop_info **pop_save)
++sniff_pop_session(struct tcp_stream *ts, void **conn_save)
+ {
+ 	struct pop_info *pop;
+ 	int i;
+@@ -247,11 +247,11 @@ sniff_pop_session(struct tcp_stream *ts, struct pop_info **pop_save)
+ 			nids_params.no_mem("sniff_pop_session");
+ 		
+ 		pop->state = POP_NONE;
+-		*pop_save = pop;
++		*conn_save = pop;
+ 		break;
+ 
+ 	case NIDS_DATA:
+-		pop = *pop_save;
++		pop = (struct pop_info *)*conn_save;
+ 		
+ 		if (ts->server.count_new > 0) {
+ 			i = process_pop_client(pop, ts->server.data,
+@@ -268,7 +268,7 @@ sniff_pop_session(struct tcp_stream *ts, struct pop_info **pop_save)
+ 		break;
+ 		
+ 	default:
+-		pop = *pop_save;
++		pop = (struct pop_info *)*conn_save;
+ 		
+ 		if (ts->server.count > 0)
+ 			process_pop_client(pop, ts->server.data,
+@@ -285,7 +285,7 @@ sniff_pop_session(struct tcp_stream *ts, struct pop_info **pop_save)
+ 
+ /* XXX - Minimal SMTP FSM. We don't even consider server responses. */
+ static void
+-sniff_smtp_client(struct tcp_stream *ts, struct smtp_info **smtp_save)
++sniff_smtp_client(struct tcp_stream *ts, void **conn_save)
+ {
+ 	struct smtp_info *smtp;
+ 	int i;
+@@ -303,11 +303,11 @@ sniff_smtp_client(struct tcp_stream *ts, struct smtp_info **smtp_save)
+ 		
+ 		smtp->state = SMTP_NONE;
+ 		smtp->from = NULL;
+-		*smtp_save = smtp;
++		*conn_save = smtp;
+ 		break;
+ 		
+ 	case NIDS_DATA:
+-		smtp = *smtp_save;
++		smtp = (struct smtp_info *)*conn_save;
+ 		
+ 		if (ts->server.count_new > 0) {
+ 			i = process_smtp_client(smtp, ts->server.data,
+@@ -318,7 +318,7 @@ sniff_smtp_client(struct tcp_stream *ts, struct smtp_info **smtp_save)
+ 		break;
+ 		
+ 	default:
+-		smtp = *smtp_save;
++		smtp = (struct smtp_info *)*conn_save;
+ 		
+ 		if (ts->server.count > 0) {
+ 			process_smtp_client(smtp, ts->server.data,
+diff --git a/sshow.c b/sshow.c
+index 060161e..280709c 100644
+--- a/sshow.c
++++ b/sshow.c
+@@ -556,8 +556,9 @@ process_data(struct tcp_stream *ts, struct session *session)
+ }
+ 
+ static void
+-process_event(struct tcp_stream *ts, struct session **session)
++process_event(struct tcp_stream *ts, void **conn_save)
+ {
++	struct session *sess;
+ 	struct tms buf;
+ 	char *what;
+ 	
+@@ -572,11 +573,12 @@ process_event(struct tcp_stream *ts, struct session **session)
+ 			printf("- %s -> %s: ESTABLISHED\n",
+ 			       s_saddr(ts), s_daddr(ts));
+ 		}
+-		if (!(*session = calloc(1, sizeof(**session)))) {
++		if (!(sess = calloc(1, sizeof(*sess)))) {
+ 			err(1, "calloc");
+ 		}
+-		(*session)->history.timestamps[0] = now;
+-		(*session)->history.timestamps[1] = now;
++		sess->history.timestamps[0] = now;
++		sess->history.timestamps[1] = now;
++		*conn_save = sess;
+ 		return;
+ 		
+ 	case NIDS_CLOSE:
+@@ -587,7 +589,8 @@ process_event(struct tcp_stream *ts, struct session **session)
+ 		
+ 	case NIDS_TIMED_OUT:
+ 		if (!what) what = "TIMED OUT";
+-		if ((*session)->protocol > 0) {
++		sess = (struct session *)*conn_save;
++		if (sess->protocol > 0) {
+ 			printf("+ %s -- %s: %s\n",
+ 			       s_saddr(ts), s_daddr(ts), what);
+ 		}
+@@ -595,11 +598,12 @@ process_event(struct tcp_stream *ts, struct session **session)
+ 			printf("- %s -- %s: %s\n",
+ 			       s_saddr(ts), s_daddr(ts), what);
+ 		}
+-		free(*session);
++		free(sess);
+ 		return;
+ 		
+ 	case NIDS_DATA:
+-		process_data(ts, *session);
++		sess = (struct session *)*conn_save;
++		process_data(ts, sess);
+ 		return;
+ 	}
+ }
+diff --git a/trigger.c b/trigger.c
+index 33d569c..1ea6d24 100644
+--- a/trigger.c
++++ b/trigger.c
+@@ -276,7 +276,7 @@ trigger_dump(void)
+ }
+ 	
+ void
+-trigger_ip(struct libnet_ipv4_hdr *ip)
++trigger_ip(struct ip *ip, int data_len)
+ {
+ 	struct trigger *t, tr;
+ 	u_char *buf;
+@@ -305,7 +305,7 @@ trigger_ip(struct libnet_ipv4_hdr *ip)
+ 
+ /* libnids needs a nids_register_udp()... */
+ void
+-trigger_udp(struct libnet_ipv4_hdr *ip)
++trigger_udp(struct ip *ip, int data_len)
+ {
+ 	struct trigger *t, tr;
+ 	struct libnet_udp_hdr *udp;
+@@ -437,7 +437,7 @@ trigger_tcp(struct tcp_stream *ts, void **conn_save)
+ }
+ 
+ void
+-trigger_tcp_raw(struct libnet_ipv4_hdr *ip)
++trigger_tcp_raw(struct ip *ip, int data_len)
+ {
+ 	struct trigger *t, tr;
+ 	struct libnet_tcp_hdr *tcp;
+@@ -462,7 +462,7 @@ trigger_tcp_raw(struct libnet_ipv4_hdr *ip)
+ 		if (t == NULL && !Opt_magic)
+ 			return;
+ 	}
+-	if ((iov = tcp_raw_input(ip, tcp, len)) == NULL)
++	if ((iov = tcp_raw_input((struct libnet_ipv4_hdr *)ip, tcp, len)) == NULL)
+ 		return;
+ 
+ 	if (t == NULL && Opt_magic)
+diff --git a/trigger.h b/trigger.h
+index d138e51..d6a73bd 100644
+--- a/trigger.h
++++ b/trigger.h
+@@ -24,10 +24,10 @@ int	trigger_set_udp(int port, char *name);
+ int	trigger_set_tcp(int port, char *name);
+ int	trigger_set_rpc(int program, char *name);
+ 
+-void	trigger_ip(struct libnet_ipv4_hdr *ip);
+-void	trigger_udp(struct libnet_ipv4_hdr *ip);
++void	trigger_ip(struct ip *ip, int len);
++void	trigger_udp(struct ip *ip, int len);
+ void	trigger_tcp(struct tcp_stream *ts, void **conn_save);
+-void	trigger_tcp_raw(struct libnet_ipv4_hdr *ip);
++void	trigger_tcp_raw(struct ip *ip, int len);
+ void	trigger_tcp_raw_timeout(int signal);
+ void	trigger_rpc(int program, int proto, int port);
+ 
