@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langsmith
-pkgver=0.12.6
+pkgver=0.13.0
 pkgrel=1
 pkgdesc="Client library to connect to the LangSmith Observability and Evaluation Platform"
 arch=('any')
@@ -62,7 +62,7 @@ optdepends=(
   'python-opentelemetry-exporter-otlp-proto-http: OpenTelemetry export support'
 )
 source=("git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v$pkgver")
-sha512sums=('770cc2f6b56f72d6542d095f9f351e8de4967436c4a3b537e5ed2aa426855dbe6d503813a1f1eee10246c888e4b5d40f385c150c79e5d2664dc65690c43dc7e5')
+sha512sums=('94f5f64111dc786ba189a84b2287f0e58f124fa4947a28d6d41f217f5e6d48c1bc0d789e6767fe25015f13474a3f19cc19ea7f98a41885c6b5d1183854ba6b3d')
 
 prepare() {
   cd langsmith-sdk/python
@@ -81,6 +81,9 @@ prepare() {
     -e 's/_uuid_utils_uuid7(timestamp=seconds, nanos=nanos)/_uuid_utils_uuid7(nanoseconds=nanoseconds)/' \
     langsmith/_internal/_uuid.py
   sed -i 's/uuid-utils>=0.12.0,<1.0/uuid-utils>=1.0.0,<2.0/' pyproject.toml
+
+  # Snapshot VCR pools before teardown; background uploads can add pools.
+  sed -i 's/self\._connection_pool_to_connections\.items()/self._connection_pool_to_connections.copy().items()/' conftest.py
 }
 
 build() {
