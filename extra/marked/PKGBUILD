@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=marked
-pkgver=17.0.2
+pkgver=17.0.3
 pkgrel=1
 pkgdesc="A markdown parser built for speed"
 arch=('any')
@@ -11,7 +11,7 @@ depends=('nodejs')
 makedepends=('npm')
 source=(https://registry.npmjs.org/$pkgname/-/$pkgname-$pkgver.tgz)
 noextract=($pkgname-$pkgver.tgz)
-sha512sums=('b391d918541e6bb1eebf9cd97001a124b4f7a8ba407e763bbfb196908094af4f967794c512d765451d9750be4683e447eeed837f9f7989faf1474de605ac3b80')
+sha512sums=('8edd6fd8e6e9c8e291f29e17694255937616449e67fa2e3eae3428a71bd5df6ad29dd4c95ef233b94756588cbfd69150324426bd35dac330cda8e1ff0949b1e8')
 
 package() {
   npm install -g --prefix "$pkgdir"/usr "$srcdir"/$pkgname-$pkgver.tgz
