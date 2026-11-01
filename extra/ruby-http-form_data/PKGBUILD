@@ -2,7 +2,7 @@
 
 pkgname=ruby-http-form_data
 pkgver=3.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Utility-belt to build form data request bodies'
 arch=(any)
 url='https://github.com/httprb/form_data'
@@ -24,6 +24,8 @@ prepare() {
   cd form_data
   # v3.0.x references Pathname unguarded but does not require the stdlib.
   sed -i '/# frozen_string_literal/a require "pathname"' lib/http/form_data/file.rb
+  # Use the standard library's URI module even when HTTP::URI is defined.
+  sed -i 's/URI\.encode_www_form_component/::URI.encode_www_form_component/' lib/http/form_data/urlencoded.rb
 }
 
 build() {
