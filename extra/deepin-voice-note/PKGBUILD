@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-voice-note
-pkgver=6.6.1
+pkgver=6.6.2
 pkgrel=1
 pkgdesc='A lightweight memo tool to make text notes and voice recordings'
 arch=('x86_64')
@@ -14,7 +14,7 @@ depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-multimedia' 'qt6-decl
 makedepends=('git' 'cmake' 'gmock' 'gtest' 'ninja' 'qt6-tools' 'vlc')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-voice-note.git#tag=$pkgver")
-sha512sums=('61aa97325a1e76a01105f35c10886d2afda1ccee9fd3085ec22d3cf143a805d900e3a5771d4db77441aac8e205b89a05619c7c6974c81e92760701fa0f745612')
+sha512sums=('bd4343f82ee4da7ba8569c0bf4af4a6bd08883119096a4892f97900af04822f99dd5327b9fccf185bcd71e9d91bcc21012ad8d650bc30822a549e8a61f77b2e5')
 
 prepare() {
   cd deepin-voice-note
