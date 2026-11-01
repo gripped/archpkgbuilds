@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.23.0
+pkgver=0.23.1
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -30,8 +30,8 @@ optdepends=(
   'sox: voice dictation recording'
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('e0856c5cc37b1ed80adcb4f826f4658fd08c2eb40290072ac9ad84dcb5dcc6ed')
-b2sums=('842a4a49bbae530aeb7624ac349dad43183a6094750d3806b8bb828595fd7dad4f45b439a6862aaf9c4782e637b94c1e4a831f0e97e2a2e8d103105c22726cbc')
+sha256sums=('51c6506b8422a6b4f945a25e751aaef9a4e19858c13f96043cc6712837cce451')
+b2sums=('09556175df8587b076f3f040260abd2982f61ea9662ee295faa856fa658aeef779eccc9dd2e816d44549659015b6c83f9c62bcf9c2311ce0efe70a989d61ed0c')
 
 prepare() {
   cd $pkgname
@@ -99,6 +99,9 @@ check() {
       .exports["./yargs"][1] = "./yargs.cjs"' \
     node_modules/yargs/package.json > yargs-package.json
   mv yargs-package.json node_modules/yargs/package.json
+  # mobilewright's older Playwright CLI cannot run the newer @playwright/test.
+  # https://github.com/QwenLM/qwen-code/pull/11371
+  npm pkg set 'scripts.test=c8 node ../../node_modules/@playwright/test/cli.js test' --workspace=@qwen-code/mobile-mcp
   npm run test --workspace=@qwen-code/mobile-mcp
   # mobile-mcp uses Playwright; run it above without passing Vitest-only flags.
   npm pkg set 'workspaces[]=!packages/mobile-mcp'
