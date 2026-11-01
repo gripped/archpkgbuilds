@@ -1,7 +1,7 @@
 pkgbase = kudu
 	pkgdesc = TUI for creating and managing virtual machines on Linux
-	pkgver = 0.4.1
-	pkgrel = 2
+	pkgver = 0.5.0
+	pkgrel = 1
 	url = https://github.com/pythops/kudu
 	arch = x86_64
 	license = GPL-3.0-or-later
@@ -10,6 +10,7 @@ pkgbase = kudu
 	depends = glibc
 	depends = libisoburn
 	depends = passt
+	depends = qemu-img
 	depends = qemu-system-x86
 	optdepends = qemu-system-aarch64: AArch64 virtual machine support
 	optdepends = qemu-system-riscv: RISC-V virtual machine support
@@ -21,7 +22,7 @@ pkgbase = kudu
 	optdepends = qemu-hw-display-qxl: QXL display device support
 	optdepends = qemu-hw-display-virtio-gpu: virtio GPU display device support
 	options = !lto
-	source = kudu-0.4.1.tar.gz::https://github.com/pythops/kudu/archive/v0.4.1.tar.gz
-	sha256sums = 7290a1368e8ff01e90b68aaf57233bf5c6c949f3b017b7d51f30f6dd8dab749e
+	source = kudu-0.5.0.tar.gz::https://github.com/pythops/kudu/archive/v0.5.0.tar.gz
+	sha256sums = 447f2e68c7ed6949e7564625570afed73f15fa2b70139e7543432c20b7a03dcf
 
 pkgname = kudu
