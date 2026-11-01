@@ -1,0 +1,12 @@
+diff --git a/acinclude.m4 b/acinclude.m4
+index 1b2e08c..37d58b0 100644
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -151,6 +151,7 @@ AC_DEFUN(AC_NETTOP_CHECK_WORKING_RESOLVER,[
+ AC_MSG_CHECKING([if "localhost" resolves])
+ AC_TRY_RUN([
+ #include <string.h>
++#include <stdlib.h>
+ #include <sys/types.h>
+ #include <netdb.h>
+ 
