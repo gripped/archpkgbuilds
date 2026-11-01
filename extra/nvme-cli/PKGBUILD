@@ -7,19 +7,17 @@
 # Contributor: Martin Schrodt <martin@schrodt.org>
 
 pkgname=nvme-cli
-pkgver=3.1
+pkgver=3.2
 pkgrel=1
 pkgdesc="NVM-Express user space tooling for Linux"
 arch=('x86_64')
 url="https://github.com/linux-nvme/nvme-cli"
 license=('GPL-2.0-or-later')
 makedepends=(
-    'asciidoc'
     'git'
     'meson'
     'swig'
     'systemd'
-    'xmlto'
 )
 depends=(
     'libgcc'
@@ -31,12 +29,13 @@ depends=(
 install=nvme-cli.install
 # checkdepends=('python2-nose' 'python-nose')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/linux-nvme/${pkgname}/archive/v${pkgver}.tar.gz")
-sha256sums=('8a6879f1f2af53743c03a8f77f247261306300d3f3b0edfd242c5f646bdfdccb')
+sha256sums=('8ad36c9fe68a01e73e0dd542afdc38cc51309ed185fa9b80e4b0a8c61831a235')
 
 build() {
     local meson_options=(
         --sysconfdir /etc
-        -D docs=man -D docs-build=true
+        -D docs=man
+        -D kmip=disabled # Optional component of the `nvme-keysd` technology preview (which is currently disabled by default)
         -D systemddir=lib/systemd/system/
         -D udevrulesdir=lib/udev/rules.d
         build
