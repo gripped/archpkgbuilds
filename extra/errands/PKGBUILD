@@ -1,51 +1,44 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=errands
-pkgver=46.2.10
+pkgver=51.0.1
 pkgrel=1
 pkgdesc='Todo application for those who prefer simplicity'
-arch=(any)
+arch=(x86_64)
 url='https://apps.gnome.org/List/'
 license=(MIT)
 groups=(gnome-circle)
 depends=(
-  dconf
+  cairo
+  evolution-data-server
   glib2
+  glibc
   gtk4
   gtksourceview5
   hicolor-icon-theme
+  json-glib
   libadwaita
-  libgoa
+  libgcc
+  libical
   libportal
   libsecret
-  python
-  python-caldav
-  python-gobject
-  python-requests
-  python-urllib3
+  libsoup3
 )
 makedepends=(
-  appstream
+  blueprint-compiler
   git
-  meson
+  libportal-gtk4
 )
 source=("git+https://github.com/mrvladus/Errands.git#tag=$pkgver")
-b2sums=(55b274ee4a669fdbd40180a2cd07a257771e57ac4e67194e03c5a9b029a73894d74c8e1b769f259af666eab4aa2454640b7d40da8129327d654af27eddb9425e)
+b2sums=(c95b2526c4e09760da98c8340338e1f64280f4126a769a9e828fee6df6b5e0df005ddae5193801daaf5c722e3277f835cf2df2ec94fc69b591c421b2f12bef95)
 
 build() {
-  arch-meson Errands build
-  meson compile -C build
-}
-
-check() {
-  meson test -C build --print-errorlogs
+  cd Errands
+  make
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
-
-  python -m compileall -d /usr/share "$pkgdir/usr/share"
-  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
-
-  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" Errands/LICENSE
+  cd Errands
+  make DESTDIR="$pkgdir" prefix=/usr install
+  install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }
