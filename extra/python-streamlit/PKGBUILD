@@ -3,7 +3,7 @@
 _name=streamlit
 pkgname=python-$_name
 pkgver=1.66.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A faster way to build and share data apps"
 arch=(any)
 url="https://streamlit.io"
@@ -77,6 +77,12 @@ source=(
   git+https://github.com/streamlit/streamlit#tag=$pkgver
 )
 b2sums=('75bf12628ba3fff46241c28a9b5a0245b333a49a55dc45c24b66e36e7f2e7ed224e37c2d7c6bfde7f79b1952787e53f4df4e718aad9dcd569deedcea9882d64b')
+
+prepare() {
+  cd $_name
+  # Allow watchdog 7.
+  sed -i 's/watchdog>=2.1.5,<7/watchdog>=2.1.5,<8/' lib/pyproject.toml
+}
 
 # based on https://github.com/streamlit/streamlit/blob/develop/Makefile
 build() {
