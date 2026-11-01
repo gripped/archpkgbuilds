@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-rapidjson
-pkgver=1.25
+pkgver=1.26
 pkgrel=1
 pkgdesc="Python wrapper around rapidjson"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('python-setuptools' 'python-build' 'python-installer' 'python-wheel
 checkdepends=('python-pytest' 'python-pytz')
 # The sdist includes the upstream-pinned RapidJSON headers.
 source=("https://pypi.io/packages/source/p/python-rapidjson/python_rapidjson-$pkgver.tar.gz")
-sha512sums=('54696fcff78e4f70e4abca75b1156971628ecc5dca134cd621cd6a537ed595182824d3fe3286378f138b0b10a2ce000e6f3edcfd960a69a1f95b5cdbc0461219')
+sha512sums=('4b06c04ac48687d6874ed9af2f0295fa856ab3de1cefbdf81ebe8a23446db80d1c01bdcbcd3fdb9e2eab77ded8cd09aefecd39c5ddeac631ad4646c4e61a1d1a')
 
 build() {
   cd python_rapidjson-$pkgver
