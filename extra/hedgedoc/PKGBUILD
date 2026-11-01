@@ -3,13 +3,13 @@
 
 pkgname=hedgedoc
 pkgver=1.12.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Platform to write and share markdown"
 arch=('any')
 url='https://github.com/hedgedoc/hedgedoc'
 license=('AGPL3')
-depends=('nodejs-lts-jod')
-makedepends=('nodejs-lts-jod' 'sqlite' 'python' 'node-gyp' 'git' 'yarn' 'npm')
+depends=('nodejs-lts-krypton')
+makedepends=('nodejs-lts-krypton' 'sqlite' 'python' 'node-gyp' 'git' 'yarn' 'npm')
 optdepends=('postgresql: postgresql database support'
             'mariadb: mariadb database support'
             'sqlite: sqlite database support')
@@ -26,7 +26,7 @@ sha256sums=('a6841a6d664793a9c12e0b766c504f400f82433f2df9d3f0163ef8a47b91869b'
 
 prepare() {
   cd "${pkgname}-${pkgver}"
-  sed -i 's/16.x/18.x/g' package.json
+  #sed -i 's/16.x/18.x/g' package.json
   export NODE_OPTIONS=--openssl-legacy-provider
 }
 
@@ -82,6 +82,8 @@ package() {
          -iname '*.tm_properties' -o \
          -iname '*.wotanrc.yaml' -o \
          -iname '*tsconfig.json' -o \
+         -iname '*musl.node' -o \
+         -iname '*esbuild*' -o \
          -iname '*yarn.lock' \
          \) \
          -delete
@@ -99,7 +101,11 @@ package() {
          -iwholename '*/linux-armv7' -o \
          -iwholename '*/win32-ia32' -o \
          -iwholename '*/win32-x64' -o \
-         -iwholename '*/darwin-x64' \
+         -iwholename '*/darwin-x64' -o \
+         -iwholename '*/android-arm64' -o \
+         -iwholename '*/android-arm' -o \
+         -iwholename '*/android-x64' -o \
+         -iwholename '*/android-ia32' \
          \) \
          -exec rm -rvf {} +
 
