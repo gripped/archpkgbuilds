@@ -4,8 +4,8 @@
 # Contributor: Mathieu Wespthal <mathieu.westphal+aur@gmail.com>
 
 pkgname=f3d
-pkgver=4.0.0
-pkgrel=4
+pkgver=4.0.1
+pkgrel=1
 pkgdesc='A fast and minimalist 3D viewer'
 arch=(x86_64)
 url="https://github.com/${pkgname}-app/${pkgname}"
@@ -53,7 +53,7 @@ makedepends=(cmake
              utf8cpp)
 source=("https://github.com/$pkgname-app/$pkgname/archive/refs/tags/v$pkgver/$pkgname-$pkgver.tar.gz"
         f3d-usd-find-cudatoolkit.patch)
-sha256sums=('3edb481a5ab7bb6689fc3f37689895465eceecf1052bc30e4f86ad14f4ee1d71'
+sha256sums=('336dd26581a0a9b0bf9e6e9c900e3f103cf6df58971cfd5bbaf6fa93cd285560'
             'a5249c0766168f91be160ab09622f4bf8b7bf26552285c2f24566b9a9d10f8b7')
 
 prepare() {
