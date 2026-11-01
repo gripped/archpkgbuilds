@@ -2,7 +2,7 @@
 # Contributor: Kenneth Endfinger <kaendfinger@gmail.com>
 
 pkgname=throttled
-pkgver=0.12.1
+pkgver=0.12.2
 pkgrel=1
 pkgdesc="Workaround for Intel throttling issues in Linux."
 arch=('any')
@@ -13,11 +13,10 @@ makedepends=('git')
 backup=('etc/throttled.conf')
 install=$pkgname.install
 source=("git+https://github.com/erpalma/$pkgname.git#tag=v$pkgver")
-sha512sums=('7fc3557c6adc1bb2bfac9574e99fafde22b42461019e7ceec0e7e12c1e4bed1e5c8f1e0a33b1f5df1382109d65fac1173ff7bab94f4fc898c2340a9cf45c1b8f')
+sha512sums=('44b83a3e87b0b1765ba4acc316ca48c89d0aaa4c8a322b1e75e860546ede96c76df2d3666f6e3c393bb1fa1ad35a55df7454cf4bb71d698268976bfbebd8ca55')
 
 prepare() {
   cd $pkgname
-  sed -i "s|ExecStart=.*|ExecStart=/usr/lib/$pkgname/throttled.py|" systemd/throttled.service
   # Skip Debian packaging tests.
   rm tests/test_build_deb.py
 }
@@ -36,8 +35,12 @@ package() {
   cd $pkgname
   install -Dm644 etc/throttled.conf "$pkgdir"/etc/throttled.conf
   install -Dm644 systemd/throttled.service "$pkgdir"/usr/lib/systemd/system/throttled.service
+  # Use the packaged launcher instead of upstream's virtualenv.
+  sed -i 's|/opt/throttled/venv/bin/throttled|/usr/bin/throttled|' "$pkgdir"/usr/lib/systemd/system/throttled.service
+  install -Dm755 packaging/throttled "$pkgdir"/usr/bin/throttled
   install -Dm755 throttled.py "$pkgdir"/usr/lib/$pkgname/throttled.py
   install -Dm755 mmio.py "$pkgdir"/usr/lib/$pkgname/mmio.py
+  install -Dm644 throttled_version.py "$pkgdir"/usr/lib/$pkgname/throttled_version.py
   cp -a __pycache__ "$pkgdir"/usr/lib/$pkgname/
   install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
