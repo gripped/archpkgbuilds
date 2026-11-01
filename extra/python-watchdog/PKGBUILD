@@ -3,40 +3,42 @@
 # Contributor: Francois Boulogne <fboulogne at april dot org>
 
 pkgname=python-watchdog
-pkgver=6.0.0
-pkgrel=2
+pkgver=7.0.0
+pkgrel=1
 pkgdesc="Python API and shell utilities to monitor file system events"
 arch=('any')
 url="https://github.com/gorakhargosh/watchdog"
-license=('Apache-2.0')
+license=('Apache-2.0' 'PSF-2.0')
 depends=('python')
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-setuptools'
   'python-wheel'
 )
 checkdepends=(
+  'python-flaky'
   'python-pytest'
   'python-pytest-timeout'
+  'python-yaml'
 )
 optdepends=('python-yaml: for watchmedo')
-source=("https://github.com/gorakhargosh/watchdog/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('4a13e1f5b27d1f2d063018ced423709d58ca2a6a77a8d34f59a0bd29b1e34368d38ad0c3b1aa3fbdbf358f72f25da9ba0bbce6d7e23418cb4864cbf1cd4df8bd')
+source=("git+https://github.com/gorakhargosh/watchdog.git#tag=v$pkgver")
+sha512sums=('2d842de15ee89e32ec4e5d68ed1eb93f40c708951394aff4deb74f6000c74f62e430320095cc46327f85f29c6ae0b896cb41bfc20626bbe5e566e75a70b811f9')
 
 build() {
-  cd ${pkgname#python-}-$pkgver
+  cd watchdog
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd ${pkgname#python-}-$pkgver
-  # Invokes sudo
-  pytest --override-ini="addopts=" \
-    --deselect tests/test_inotify_c.py::test_select_fd
+  cd watchdog
+  python -m pytest
 }
 
 package() {
-  cd ${pkgname#python-}-$pkgver
+  cd watchdog
   python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 THIRD_PARTY_LICENSES.md -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
