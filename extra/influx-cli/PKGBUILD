@@ -7,9 +7,9 @@
 # Contributor: Ben Alex <ben.alex@acegi.com.au>
 
 pkgname=influx-cli
-pkgver=2.8.0
+pkgver=2.9.1
 _commit_sha=8b962c7
-pkgrel=3
+pkgrel=1
 pkgdesc='CLI for managing resources in InfluxDB'
 arch=('x86_64')
 url='https://github.com/InfluxData/influx-cli'
@@ -18,7 +18,7 @@ makedepends=('go' 'go-tools' 'git')
 options=('!lto')
 backup=('etc/influxdb/influxdb.conf')
 source=("git+https://github.com/influxdata/influx-cli.git#tag=v${pkgver}")
-sha256sums=('e1feb0788d3871059f252b9efe382a5d0c5b218ca7aa0e2154981e82ee613dc7')
+sha256sums=('7d4d4f79a4ac019f7522556342d4e96482123fa79cb7493964975b8053f2e938')
 
 prepare() {
   cd "$pkgname"
