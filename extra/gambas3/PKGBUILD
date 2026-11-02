@@ -30,7 +30,7 @@ pkgname=('gambas3-gb-args'
          'gambas3-gb-web-feed' 'gambas3-gb-web-form' 'gambas3-gb-web-gui' 'gambas3-gb-web'
          'gambas3-runtime' 'gambas3-dev-tools' 'gambas3-ide' 'gambas3-script')
 pkgver=3.22.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A free development environment based on a Basic interpreter."
 arch=('x86_64')
 url="http://gambas.sourceforge.net/"
@@ -656,7 +656,7 @@ package_gambas3-gb-qt5-opengl() {
 package_gambas3-gb-qt5() {
   depends=('gambas3-gb-image' 'qt5-base' 'qt5-svg' 'qt5-x11extras')
   pkgdesc="Qt5 toolkit component"
-  provides=('gambas3-gui')
+  provides=('gambas3-gui' 'gambas3-gb-qt5-ext')
 
   _install fakeinstall/usr/lib/gambas3/gb.qt5.*
   _install fakeinstall/usr/share/gambas3/info/gb.qt5.*
@@ -681,7 +681,7 @@ package_gambas3-gb-qt6-webview() {
 package_gambas3-gb-qt6() {
   depends=('gambas3-gb-image' 'qt6-base' 'qt6-svg' 'qt6-webengine')
   pkgdesc="Qt6 toolkit component"
-  provides=('gambas3-gui')
+  provides=('gambas3-gui' 'gambas3-gb-qt6-ext')
 
   _install fakeinstall/usr/lib/gambas3/gb.qt6.*
   _install fakeinstall/usr/share/gambas3/info/gb.qt6.*
