@@ -1,6 +1,6 @@
 pkgbase = nano
 	pkgdesc = Pico editor clone with enhancements
-	pkgver = 9.2
+	pkgver = 9.3
 	pkgrel = 1
 	url = https://www.nano-editor.org
 	arch = x86_64
@@ -8,11 +8,12 @@ pkgbase = nano
 	depends = ncurses
 	depends = file
 	depends = glibc
+	optdepends = nano-syntax-highlighting
 	backup = etc/nanorc
-	source = https://www.nano-editor.org/dist/v9/nano-9.2.tar.xz
-	source = https://www.nano-editor.org/dist/v9/nano-9.2.tar.xz.asc
+	source = https://www.nano-editor.org/dist/v9/nano-9.3.tar.xz
+	source = https://www.nano-editor.org/dist/v9/nano-9.3.tar.xz.asc
 	validpgpkeys = 168E6F4297BFD7A79AFD4496514BBE2EB8E1961F
-	sha256sums = 05ecb99247b782e8a5b3a25ed4101dd034b0236902f7449bc9795b717642f7e9
+	sha256sums = a9affc52c9596ee0682bcdd4ceb3c0b235eb221d83d733dfd9b0dff45897cb0d
 	sha256sums = SKIP
 
 pkgname = nano
