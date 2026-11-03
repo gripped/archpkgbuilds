@@ -2,7 +2,7 @@
 
 pkgname=python-ini2toml
 pkgver=0.16
-pkgrel=2
+pkgrel=3
 pkgdesc="Automatically conversion of .ini/.cfg files to TOML equivalents"
 url="https://github.com/abravalheri/ini2toml"
 license=('MPL')
@@ -16,6 +16,10 @@ sha512sums=('fe406bf6aadf3a9aff661f4a9acc7f9501c63d7aa9db23cd99d0e9b59f959ba8d90
 
 prepare() {
   cd ini2toml
+  # https://github.com/abravalheri/ini2toml/pull/134
+  # https://github.com/abravalheri/ini2toml/pull/134/commits/fe6e2432b47dd82dc713680d666de137ccf0695d.p
+  # Fix extra leading newlines in multiline strings
+  git cherry-pick -n fe6e2432b47dd82dc713680d666de137ccf0695d
 }
 
 build() {
