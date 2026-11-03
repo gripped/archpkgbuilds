@@ -4,11 +4,11 @@
 
 pkgname=zzuf
 pkgver=0.15
-pkgrel=3
+pkgrel=4
 pkgdesc='Transparent application input fuzzer'
 url='https://github.com/samhocevar/zzuf'
 arch=('x86_64')
-license=('custom:WTF')
+license=('WTFPL')
 depends=('glibc')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/samhocevar/zzuf/archive/v${pkgver}.tar.gz)
 sha256sums=('8886e90f9a7b48ff77836e270da1a86ffeb844e99da6e52e656d4dabf12d2680')
@@ -16,11 +16,14 @@ sha512sums=('7eb67b3531ceec68ec9cac2d3c7f5212dcf63a3bd706bd9d40e9b7f762e8f0e2256
 
 prepare() {
   cd ${pkgname}-${pkgver}
+  # autoconf
+  sed -i '/#define HAVE_STDINT_H 1/a #define HAVE_STDIO_H 1' msvc/config.h
   autoreconf -fiv
 }
 
 build() {
   cd ${pkgname}-${pkgver}
+  CFLAGS+=' -Wno-error=implicit-function-declaration'
   CFLAGS="${CFLAGS} ${CPPFLAGS}" \
     ./configure --prefix=/usr
   make
