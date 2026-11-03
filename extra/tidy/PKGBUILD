@@ -4,30 +4,29 @@
 
 pkgname=tidy
 pkgver=5.8.0
-_commit=9f8d957e4d9c164b0aea10a36c7933d67517abb1
-pkgrel=3
+pkgrel=4
 pkgdesc="A tool to tidy down your HTML code to a clean style"
 arch=(x86_64)
 url="https://www.html-tidy.org/"
 license=(custom)
 depends=(glibc)
-makedepends=(cmake libxslt)
+makedepends=(cmake git libxslt)
 conflicts=(tidyhtml)
 provides=(tidyhtml)
 replaces=(tidyhtml)
-source=("$pkgname-$_commit.tar.gz::https://github.com/htacg/tidy-html5/archive/$_commit.tar.gz")
-sha512sums=('085da1bc97ab20a65d1104bd13e39ba7eb7a51407553e9237e8efda0a2c3b6efcb2e957a670731482ac17b639f12fe59a1f52740e82d4367410fe41e62afc8a2')
+source=("git+https://github.com/htacg/tidy-html5.git#tag=$pkgver")
+sha512sums=('f1618ee2ec72e2e635c4d529b19c2d08eb7a47c6daf5639677b1bcb4e32ce50ffe277ef3cf33cf1f476dc0211ee912c0fda33e9699ca0b5e1a803eb5381c9736')
 
 prepare() {
-  mv tidy-html5-{$_commit,$pkgver}
   mkdir -p build
+  sed -i 's/cmake_minimum_required (VERSION 2.8.12)/cmake_minimum_required (VERSION 3.5)/' tidy-html5/CMakeLists.txt
 }
 
 build() {
   cd build
   export CFLAGS+=" -ffat-lto-objects"
   export CXXFLAGS+=" -ffat-lto-objects"
-  cmake ../tidy-html5-$pkgver \
+  cmake ../tidy-html5 \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=Release
   make
@@ -41,5 +40,5 @@ package() {
   ln -s tidybuffio.h "$pkgdir"/usr/include/buffio.h
   ln -s tidyplatform.h "$pkgdir"/usr/include/platform.h
 
-  install -Dm644 "$srcdir"/$pkgname-html5-$pkgver/README/LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+  install -Dm644 "$srcdir"/tidy-html5/README/LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
