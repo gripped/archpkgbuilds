@@ -2,8 +2,8 @@
 # Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=hyprlock
-pkgver=0.9.6
-pkgrel=3
+pkgver=0.9.7
+pkgrel=1
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -28,7 +28,7 @@ makedepends=(cmake
 backup=("etc/pam.d/$pkgname")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('7f653b87765bcfff7c1f8e04af326a7e73bbcacd1fb7d4436f6a16624a2247bb')
+sha256sums=('01145790570ffabd31e9b528c517bdccae76f36e72d733f00c2696d9c3bf2c88')
 
 build() {
 	cd "$_archive"
