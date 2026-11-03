@@ -1,0 +1,31 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-standardwebhooks
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Python library for verifying and signing Standard Webhooks"
+arch=('any')
+url="https://github.com/standard-webhooks/standard-webhooks"
+license=('MIT')
+depends=('python')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-pytest')
+# Missing 1.1.0 tag: https://github.com/standard-webhooks/standard-webhooks/issues/352
+source=("git+https://github.com/standard-webhooks/standard-webhooks.git#commit=01d6eb75702229a0927c07d52fda7223e201c03d")
+b2sums=('1129b48f627ce91f1987856f56b0cd82bc8095ddfaad2f781ac6df82b37803fa752dafcc357d4d9dae52fa06bd16ed14ffde553516dfeabd93c787de180bc115')
+
+build() {
+  cd standard-webhooks/libraries/python
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd standard-webhooks/libraries/python
+  python -m pytest
+}
+
+package() {
+  cd standard-webhooks/libraries/python
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
