@@ -4,7 +4,7 @@
 
 pkgname=link-grammar
 pkgver=5.13.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Grammar checking library'
 arch=(x86_64)
 url='https://opencog.github.io/link-grammar-website/'
@@ -37,6 +37,11 @@ validpgpkeys=(
 
 prepare() {
   cd $pkgname
+
+  # Fix build with SWIG 4.5
+  # https://github.com/opencog/link-grammar/pull/1543
+  git cherry-pick -n 5611221d83fc6571418e86374bbfa5daf5e5428a
+
   autoreconf -fiv
 }
 
