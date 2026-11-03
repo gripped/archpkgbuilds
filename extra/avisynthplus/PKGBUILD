@@ -2,7 +2,7 @@
 
 pkgname=avisynthplus
 pkgver=3.7.6
-pkgrel=1
+pkgrel=2
 pkgdesc='An improved version of the AviSynth frameserver'
 arch=('x86_64')
 url='https://avs-plus.net/'
@@ -18,14 +18,19 @@ optdepends=(
 makedepends=(
     'cmake'
     'devil'
+    'patchutils'
     'soundtouch')
 provides=('libavisynth.so')
-# https://github.com/AviSynth/AviSynthPlus/issues/531
-options=('!lto')
 source=("https://github.com/AviSynth/AviSynthPlus/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+        '010-avisynthplus-fix-lto.patch'::'https://github.com/AviSynth/AviSynthPlus/commit/b37efbea3c65611db454dc515861f9ac38cf1537.patch'
         'avisynthplus.xml')
 sha256sums=('8c019a934189688e73fe1cd85e6768cc0bc120fe1f4a3310c889060283c9e083'
+            '0d09b1b57a88b7e2dd3b618e4f197c6ff950dbc65359923289b9422aae9886a5'
             'c4b270a3df7fbe1c153400215169c4ae4cae3b7a8710c843393e3a6ed0fd8a3e')
+
+prepare() {
+    filterdiff -x '*.txt' -x '*.rst' 010-avisynthplus-fix-lto.patch | patch -d "AviSynthPlus-${pkgver}" -Np1
+}
 
 build() {
     cmake -B build -S "AviSynthPlus-${pkgver}" \
