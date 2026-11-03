@@ -2,8 +2,8 @@
 
 _hkgname=ech-config
 pkgname=haskell-ech-config
-pkgver=0.0.1
-pkgrel=27
+pkgver=0.0.2
+pkgrel=1
 pkgdesc='Config for TLS Encrypted Client Hello'
 url='https://github.com/haskell-tls/hs-tls'
 license=("BSD-3-Clause")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-base16-bytestring' 'haskell-network-byte-order')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('b236b6d7ea1385c280b76051edc7d8f6db31c9cb7b35df5c06f5a0bd75b4feba')
+sha256sums=('3bc6c3ff4a640fe9873d9776553d90dce5db4ee844c31133ecd8fbbb09d5567b')
 
 prepare() {
   cd $_hkgname-$pkgver
