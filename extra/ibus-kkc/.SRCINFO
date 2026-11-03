@@ -1,10 +1,10 @@
 pkgbase = ibus-kkc
 	pkgdesc = libkkc (Japanese Kana Kanji input method) engine for ibus
 	pkgver = 1.5.22
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/ueno/ibus-kkc
 	arch = x86_64
-	license = GPL
+	license = GPL-2.0-or-later
 	makedepends = vala
 	makedepends = intltool
 	depends = ibus
@@ -12,6 +12,8 @@ pkgbase = ibus-kkc
 	depends = libkkc-data
 	depends = skk-jisyo
 	source = https://github.com/ueno/ibus-kkc/releases/download/v1.5.22/ibus-kkc-1.5.22.tar.gz
+	source = 0001-setup-Fix-compilation-error-with-Vala-0.36.patch
 	sha512sums = 767a995cb97ca7cf5434f64094351c4fcf1d3de9f31da6f6642ccec2d199ddfb58e27f281b4dd3c63f44dc29cd46b36808ecd1aacfe0b1320d0688d567eb6fd4
+	sha512sums = 21aa8243cb8bded04ff93389924cbf5d1a060a2a1f5f305affc9b355011a2fd718ee06b892ad90a80fd4acbe3fc3799fb2956de4ea121798221b4b91d48ffdfe
 
 pkgname = ibus-kkc

@@ -3,19 +3,29 @@
 
 pkgname=ibus-kkc
 pkgver=1.5.22
-pkgrel=3
+pkgrel=4
 pkgdesc="libkkc (Japanese Kana Kanji input method) engine for ibus"
 arch=('x86_64')
 url="https://github.com/ueno/ibus-kkc"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('ibus' 'libkkc' 'libkkc-data' 'skk-jisyo')
 makedepends=('vala' 'intltool')
-source=(https://github.com/ueno/ibus-kkc/releases/download/v$pkgver/ibus-kkc-$pkgver.tar.gz)
-sha512sums=('767a995cb97ca7cf5434f64094351c4fcf1d3de9f31da6f6642ccec2d199ddfb58e27f281b4dd3c63f44dc29cd46b36808ecd1aacfe0b1320d0688d567eb6fd4')
+source=(https://github.com/ueno/ibus-kkc/releases/download/v$pkgver/ibus-kkc-$pkgver.tar.gz
+        0001-setup-Fix-compilation-error-with-Vala-0.36.patch)
+sha512sums=('767a995cb97ca7cf5434f64094351c4fcf1d3de9f31da6f6642ccec2d199ddfb58e27f281b4dd3c63f44dc29cd46b36808ecd1aacfe0b1320d0688d567eb6fd4'
+            '21aa8243cb8bded04ff93389924cbf5d1a060a2a1f5f305affc9b355011a2fd718ee06b892ad90a80fd4acbe3fc3799fb2956de4ea121798221b4b91d48ffdfe')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  patch -Np1 -i ../0001-setup-Fix-compilation-error-with-Vala-0.36.patch
+  autoreconf -vif
+}
 
 build() {
   cd "${pkgname}-${pkgver}"
   ./configure --prefix=/usr --libexecdir=/usr/lib/ibus-kkc --disable-static
+  # Cause generated C files to be rebuilt
+  touch src/*.vala
   make
 }
 

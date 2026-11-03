@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Daiki Ueno <ueno@gnu.org>
+Date: Wed, 7 Jun 2017 15:02:51 +0200
+Subject: [PATCH] setup: Fix compilation error with Vala 0.36
+
+Fixes Issue#4.
+
+(cherry picked from commit f7516ae20cb648cd8b0904aec5853d3a3d2611c4)
+---
+ src/setup.vala | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/src/setup.vala b/src/setup.vala
+index 0ccdd66..df9630b 100644
+--- a/src/setup.vala
++++ b/src/setup.vala
+@@ -402,7 +402,11 @@ class SetupDialog : Gtk.Dialog {
+             } catch (Error e) {
+                 warning ("can't write shortcut: %s", e.message);
+             }
++#if VALA_0_36
++            model.remove (ref iter);
++#else
+             model.remove (iter);
++#endif
+         }
+     }
+ 
+@@ -439,7 +443,11 @@ class SetupDialog : Gtk.Dialog {
+                         continue;
+                     keymap.set (old_event, null);
+                 }
++#if VALA_0_36
++                ((Gtk.ListStore)model).remove (ref iter);
++#else
+                 ((Gtk.ListStore)model).remove (iter);
++#endif
+             }
+         }
+         try {
+@@ -524,8 +532,13 @@ class SetupDialog : Gtk.Dialog {
+         var rows = selection.get_selected_rows (out model);
+         foreach (var row in rows) {
+             Gtk.TreeIter iter;
+-            if (model.get_iter (out iter, row))
++            if (model.get_iter (out iter, row)) {
++#if VALA_0_36
++                ((Gtk.ListStore)model).remove (ref iter);
++#else
+                 ((Gtk.ListStore)model).remove (iter);
++#endif
++            }
+         }
+         save_dictionaries ("system_dictionaries");
+     }
