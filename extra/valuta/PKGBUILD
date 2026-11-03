@@ -2,7 +2,7 @@
 
 pkgname=valuta
 pkgver=1.4.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple application for converting currencies'
 arch=(any)
 url='https://apps.gnome.org/Valuta/'
@@ -30,6 +30,10 @@ b2sums=(83b9e67759d7cc3fe46a6a27c0a555847490dd78134197ebb22cfd008a735ff026e97a20
 
 prepare() {
   cd Valuta
+
+  # Add '--no-net' option to appstream validation
+  # https://github.com/ideveCore/Valuta/pull/74
+  sed -i "s/'validate'/'validate', '--no-net'/" data/meson.build
 }
 
 build() {
