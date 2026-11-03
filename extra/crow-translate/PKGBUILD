@@ -2,7 +2,7 @@
 
 pkgname=crow-translate
 pkgver=4.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Application that allows you to translate and speak text'
 arch=(x86_64)
 url='https://apps.kde.org/crowtranslate/'
@@ -33,7 +33,7 @@ makedepends=(
 )
 source=(
   "git+https://invent.kde.org/office/crow-translate.git#tag=v$pkgver"
-  git+https://invent.kde.org/pillowtrucker/SingleApplication.git
+  git+https://github.com/itay-grudev/SingleApplication.git
   git+https://github.com/Skycoder42/QHotkey.git
   git+https://invent.kde.org/frameworks/breeze-icons.git
   git+https://github.com/espeak-ng/espeak-ng.git
@@ -48,6 +48,9 @@ b2sums=(
 
 prepare() {
   cd $pkgname
+
+  # Drop vendored SingleApplication workaround, use upstream v3.5.6
+  git cherry-pick -n 93331be70e3af66a0553cd1e4079b6b39204db75
 
   git submodule init
   git submodule set-url src/3rdparty/singleapplication "$srcdir/SingleApplication"
