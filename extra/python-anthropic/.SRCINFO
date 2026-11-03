@@ -1,7 +1,7 @@
 pkgbase = python-anthropic
 	pkgdesc = Python client library for the Anthropic API
 	pkgver = 2.3.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/anthropics/anthropic-sdk-python
 	arch = any
 	license = Apache-2.0
@@ -25,6 +25,7 @@ pkgbase = python-anthropic
 	checkdepends = python-requests
 	checkdepends = python-respx
 	checkdepends = python-rich
+	checkdepends = python-standardwebhooks
 	checkdepends = ruff
 	makedepends = git
 	makedepends = python-build
@@ -45,6 +46,7 @@ pkgbase = python-anthropic
 	optdepends = python-google-auth: Google Cloud and Vertex AI support
 	optdepends = python-mcp: MCP tool integration
 	optdepends = python-requests: Google Cloud and Vertex AI support
+	optdepends = python-standardwebhooks: webhook signature verification
 	source = git+https://github.com/anthropics/anthropic-sdk-python.git#tag=v2.3.0
 	sha256sums = 3f89e197c1676ec5b7102d8e2bf44e806cd67d1bd724704bb4311b7c5ef7351b
 

@@ -2,7 +2,7 @@
 
 pkgname=python-anthropic
 pkgver=2.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Python client library for the Anthropic API"
 arch=('any')
 url="https://github.com/anthropics/anthropic-sdk-python"
@@ -44,6 +44,7 @@ checkdepends=(
   'python-requests'
   'python-respx'
   'python-rich'
+  'python-standardwebhooks'
   'ruff'
 )
 optdepends=(
@@ -52,6 +53,7 @@ optdepends=(
   'python-google-auth: Google Cloud and Vertex AI support'
   'python-mcp: MCP tool integration'
   'python-requests: Google Cloud and Vertex AI support'
+  'python-standardwebhooks: webhook signature verification'
 )
 source=("git+https://github.com/anthropics/anthropic-sdk-python.git#tag=v$pkgver")
 sha256sums=('3f89e197c1676ec5b7102d8e2bf44e806cd67d1bd724704bb4311b7c5ef7351b')
@@ -69,9 +71,7 @@ check() {
   trap 'kill $(lsof -t -i tcp:4010 -sTCP:LISTEN)' EXIT
   npm_config_yes=true ./scripts/mock --daemon
 
-  # python-standardwebhooks is currently unavailable.
-  DEFER_PYDANTIC_BUILD=false test-env/bin/python -m pytest \
-    --ignore=tests/api_resources/beta/test_webhooks.py
+  DEFER_PYDANTIC_BUILD=false test-env/bin/python -m pytest
 }
 
 package() {
