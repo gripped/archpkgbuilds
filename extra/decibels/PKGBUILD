@@ -2,7 +2,7 @@
 
 pkgname=decibels
 pkgver=49.6.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Audio player for GNOME'
 arch=(any)
 url='https://apps.gnome.org/Decibels/'
@@ -36,10 +36,14 @@ optdepends=(
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/decibels.git#tag=${pkgver/[a-z]/.&}"
-  "git+https://gitlab.gnome.org/BrainBlasted/gi-typescript-definitions.git"
+  git+https://gitlab.gnome.org/BrainBlasted/gi-typescript-definitions.git
+  decibels-typescript6.patch
 )
-b2sums=('1ad0258d85be24d824ea9f12a32041fd133edf3e60a5b90fa551887bcac94b23759dba5fd4055cd5fda07adc9e4d6b1001adc6076742948c20e91bdb1b8ab44b'
-        'SKIP')
+b2sums=(
+  1ad0258d85be24d824ea9f12a32041fd133edf3e60a5b90fa551887bcac94b23759dba5fd4055cd5fda07adc9e4d6b1001adc6076742948c20e91bdb1b8ab44b
+  SKIP
+  e485c0bbe203cf4c796c8a74fcfeda59e89f9de9b7d9f9f4056c2ecbc0c7f8910dab876ecdbd9948e7f8b296b398a569c7e0360071db885d2d1da871caf7ba9f
+)
 
 prepare() {
   cd $pkgname
@@ -47,6 +51,10 @@ prepare() {
   git submodule init
   git submodule set-url gi-types "$srcdir/gi-typescript-definitions"
   git -c protocol.file.allow=always -c protocol.allow=never submodule update
+
+  # Fix build with typescript 6.0
+  # https://gitlab.gnome.org/GNOME/decibels/-/work_items/157
+  patch -Np1 -i ../decibels-typescript6.patch
 }
 
 build() {
