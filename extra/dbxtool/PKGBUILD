@@ -2,17 +2,22 @@
 
 pkgname=dbxtool
 pkgver=8
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool for UEFI Secure Boot DBX updates'
 arch=('x86_64')
 url='https://github.com/rhboot/dbxtool'
-license=('GPL2')
+license=('GPL-2.0-only')
 options=('!emptydirs')
-depends=('efivar' 'popt')
+depends=('glibc' 'efivar' 'popt')
 makedepends=('git')
 validpgpkeys=('B00B48BC731AA8840FED9FB0EED266B70F4FEF10') # Peter Jones <pjones@redhat.com>
 source=("git+$url.git#tag=$pkgname-$pkgver?signed")
 sha512sums=('SKIP')
+
+prepare() {
+  cd $pkgname
+  sed -i -e 's/-Werror //' -e 's/-Wp,-D_FORTIFY_SOURCE=2 //' Make.defaults
+}
 
 build() {
   cd $pkgname
