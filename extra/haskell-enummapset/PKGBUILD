@@ -2,23 +2,23 @@
 
 _hkgname=enummapset
 pkgname=haskell-enummapset
-pkgver=0.7.3.0
-pkgrel=224
+pkgver=0.7.4.0
+pkgrel=1
 pkgdesc="IntMap and IntSet with Enum keys/elements."
 url="https://github.com/Mikolaj/enummapset"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-aeson')
 makedepends=('ghc' 'haskell-hunit' 'haskell-quickcheck' 'haskell-test-framework'
              'haskell-test-framework-hunit' 'haskell-test-framework-quickcheck2')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('74c805415005f065379d644b2f2530d297b1cff650e5ef269a479220afdf7070')
+sha256sums=('6c7448d6fa3e8837d159f0cebc568d3dace11e7db944c7f9b12851ae845ea849')
 
 build() {
   cd $_hkgname-$pkgver
 
   runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --datasubdir=haskell-enummapset --enable-tests \
+    --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
     --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid \
     --ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
     --ghc-option='-pie' \
