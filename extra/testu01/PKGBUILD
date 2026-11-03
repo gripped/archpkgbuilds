@@ -5,18 +5,27 @@
 pkgname=testu01
 _pkgname=TestU01
 pkgver=1.2.3
-pkgrel=4
+pkgrel=5
 pkgdesc="A library offering a collection of utilities for the empirical statistical testing of uniform random number generators"
 arch=('x86_64')
-url="http://simul.iro.umontreal.ca/testu01/tu01.html"
+url="https://www.iro.umontreal.ca/~simul/testu01/tu01.html"
 license=('Apache')
 depends=('glibc')
-source=(http://simul.iro.umontreal.ca/$pkgname/$_pkgname.zip)
-sha256sums=('bc1d1dd2aea7ed3b3d28eaad2c8ee55913f11ce67aec8fe4f643c1c0d2ed1cac')
+source=(https://www.iro.umontreal.ca/~simul/$pkgname/$_pkgname.zip
+        0001-Fix-Update-fprintf-sprintf-and-printf-to-avoid-a-sec.patch)
+sha256sums=('bc1d1dd2aea7ed3b3d28eaad2c8ee55913f11ce67aec8fe4f643c1c0d2ed1cac'
+            'a7a212ea0a4a1e6c5a339b7aa93e7c425c786a6170a015479ce005b3562aef9b')
+
+prepare() {
+  cd $_pkgname-$pkgver
+  patch -Np1 -i ../0001-Fix-Update-fprintf-sprintf-and-printf-to-avoid-a-sec.patch
+  autoreconf -fiv
+}
 
 build() {
   cd $_pkgname-$pkgver
-  ./configure --prefix=/usr
+  CFLAGS+=' -std=gnu17' \
+    ./configure --prefix=/usr
   make
 }
 
