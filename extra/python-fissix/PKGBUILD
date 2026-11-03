@@ -2,15 +2,15 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-fissix
-pkgver=24.4.24
-pkgrel=3
+pkgver=26.10.29
+pkgrel=1
 pkgdesc='Backport of lib2to3, with enhancements'
 arch=(any)
 url="https://github.com/amyreese/fissix"
 license=(PSF-2.0)
 depends=(
   python
-  python-appdirs
+  python-platformdirs
 )
 makedepends=(
   git
@@ -26,10 +26,10 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   remove-version-constraints.patch
 )
-sha512sums=('cc8a94812e7dee1d47f067b3f35e5634d2e8ba70533425985d677e03bf8d0cb9c2ccd439af83a0c8c4c62fb9b2044202423fd11729f179deb3fcb8f8cc3ba980'
-            '0c38d36ff481acccde9f64f88cadb0cc01d727a7d4a2022669f0bed5379ffb3cb0dbf847ef10fb6a5054976ca429954b3aa4da57b2f516383d48ae12590ef3be')
-b2sums=('4baea7a0818aecbfb60bb310bfa4cec8ef2cdad16d6dd73cddd416d48751b7253d52f92d0880d24d6cbb5a5dd0f896fe18fabd3818cb6bbcd18d61b645ab0793'
-        '5144a9affb441d22802e158d9748c38055625c9b00e579155d51d4ce8e454721830245e0bbbc654b248bdfb39d62da83c8c9cfbb7c781ae017d05a4a09711cda')
+sha512sums=('61bec7a8c0402d64b7a694e7370f3cc476edd648ded4d0cedddb4772aceebe4a94417993e165885d53f8caf0cc84334d5442e6251c47e2dfe2a78d6170121c6e'
+            '269f6beb84ee7f302c3e1c157410ab1d825a0cd1998cb100ccc05f36eae87e81710c95e8ae790dd1617f5ac462df42cc98bb9a7cf3f1a2bbc50ece2eb8fb1e43')
+b2sums=('67807a148bcae068c91463e0ccaf18bda6db5849f2e0706bef8a324c299959a7520b63e5ede3a96302124ddb2403a02897812b8fa0a2eea26826d565d231593c'
+        '7aab63a27049dfdff59482792ff2924c8227b3f576ad83351163e06e68729ce2e0a09ca0ac65c25f6210f5224edcfad40ee4da60ce2b489d35c5a90a06aaec69')
 
 prepare() {
   cd "$pkgname"
