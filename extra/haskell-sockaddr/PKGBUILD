@@ -2,16 +2,16 @@
 
 _hkgname=sockaddr
 pkgname=haskell-sockaddr
-pkgver=0.0.1
-pkgrel=219
+pkgver=0.1.0
+pkgrel=1
 pkgdesc="Printing SockAddr"
 url="https://github.com/kazu-yamamoto/sockaddr"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-byteorder' 'haskell-network')
-makedepends=('ghc' 'uusi')
+depends=('ghc-libs' 'haskell-network')
+makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('e4a1e071d9be61cf0409cd2d8fcceb99af81284d655d121861e6d8252c73f56b')
+sha256sums=('13f2b5fa35478a0e9cf4b5b45b5c9c472b8dc8a4cda48715ad9412d09ea4e22f')
 
 prepare() {
   cd $_hkgname-$pkgver
