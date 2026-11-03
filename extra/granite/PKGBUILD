@@ -3,18 +3,20 @@
 
 pkgname=granite
 pkgver=6.2.0
-pkgrel=1
+pkgrel=2
 epoch=1
-pkgdesc='Library that extends Gtk+'
+pkgdesc='Library that extends GTK'
 arch=(x86_64)
 url=https://github.com/elementary/granite
-license=(LGPL3)
+license=(LGPL-3.0-or-later)
 groups=(pantheon)
 depends=(
   cairo
   gdk-pixbuf2
   glib2
+  glibc
   gtk3
+  hicolor-icon-theme
   libgee
   pango
 )
@@ -25,18 +27,11 @@ makedepends=(
   vala
 )
 provides=(libgranite.so)
-_tag=4ab145c28bb3db6372fe519e8bd79c645edfcda3
-source=(git+https://github.com/elementary/granite.git#tag=${_tag})
-sha256sums=(SKIP)
-
-pkgver() {
-  cd granite
-  git describe --tags
-}
+source=(git+https://github.com/elementary/granite.git#tag=${pkgver})
+b2sums=('84df5efa9643f62966935e4cc213edd520b212087ea92c2a2a26f86c61941a2be436c107b79ae4ba5416310c5cca758524cd33eb449d484aadbc0cc216fe8722')
 
 build() {
-  arch-meson granite build \
-    -D b_pie=false
+  arch-meson granite build
   ninja -C build
 }
 
