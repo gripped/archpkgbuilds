@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-anyio
-pkgver=4.15.1
-pkgrel=2
+pkgver=4.16.0
+pkgrel=1
 pkgdesc='High level compatibility layer for multiple asynchronous event loop implementations'
 arch=(any)
 url='https://github.com/agronholm/anyio'
@@ -39,7 +39,7 @@ optdepends=(
   'python-uvloop: use uvloop for asyncio backend'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('98fd369a43a469da4c62b2e9b475d944dfc5e885b19c13d10832243c5c798c986bc172de4bfdaccee0003238dfe509c79ff9274b4aa4891003eb61271ad23d79')
+b2sums=('1b8209f3559d60888dedac9677de7a205b265aba50973ac05d71a70bc1a62d32a67e82563d3a566002136be1cadec9dad3da603366c04bdf546b050cfee12a1a')
 
 prepare() {
   cd ${pkgname#python-}
