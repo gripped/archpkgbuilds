@@ -2,7 +2,7 @@
 
 pkgname=openexr
 pkgver=3.5.3
-pkgrel=1
+pkgrel=3
 pkgdesc='A high dynamic-range image file format library'
 url='https://www.openexr.com/'
 arch=(x86_64)
@@ -24,8 +24,8 @@ sha256sums=('3d1b14e7cedc2cf50aec4209cfdc38ce9323050c1315b0c82e257fdfb0b0bd94')
 prepare() {
 # unpin scikit-build-core version
   sed 's|scikit-build-core[^"]*|scikit-build-core|' -i openexr/pyproject.toml
-# Fix python module install dir
-  git -C $pkgname cherry-pick -n 30345db72944b38926f13b5114b9a01b4b553890
+# Fix building with system OpenJPH
+  sed -i -E 's/(find_package\(openjph) +[0-9][0-9.]*/\1/' openexr/cmake/OpenEXRSetup.cmake
 }
 
 build() {
