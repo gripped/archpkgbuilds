@@ -2,8 +2,8 @@
 # Contributor: Nathaniel Chin <thegamingorangutans+aur at gmail.com>
 
 pkgname=av1an
-pkgver=0.5.2
-pkgrel=2
+pkgver=0.6.0
+pkgrel=1
 pkgdesc='Cross-platform command-line encoding framework with per scene quality encoding'
 arch=('x86_64')
 url='https://github.com/rust-av/Av1an'
@@ -19,7 +19,7 @@ optdepends=('svt-av1: SVT-AV1 encoder support'
             'vapoursynth-plugin-bestsource: Preferred chunk detection plugin'
             'vapoursynth-plugin-lsmashsource: L-SMASH chunk detection support')
 source=("git+https://github.com/master-of-zen/Av1an#tag=v$pkgver")
-sha256sums=('01c7e71296c60b1584fb1ecaf5cca9ecef849ba65bbd8a765be195432e445695')
+sha256sums=('edd02494363aa9550055ceb6b5651c3520a89c682df29a7ff05f647e3fdda2d9')
 
 build() {
   cd "Av1an"
