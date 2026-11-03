@@ -4,8 +4,8 @@
 
 pkgname=fakeroot
 epoch=1
-pkgver=1.37.2
-pkgrel=3
+pkgver=2.1.4
+pkgrel=1
 pkgdesc='Tool for simulating superuser privileges'
 arch=('x86_64')
 license=('GPL-3.0-or-later')
@@ -13,14 +13,15 @@ url='https://tracker.debian.org/pkg/fakeroot'
 depends=('glibc' 'filesystem' 'sed' 'util-linux' 'sh')
 makedepends=('git' 'systemd' 'po4a')
 checkdepends=('sharutils')
-# Build from my mirror with original commit and historical tags
-# unter upstream manages to do a proper release...
-source=("fakeroot-archive::git+https://github.com/eworm-de/fakeroot.git#tag=upstream/${pkgver}-2026-01-17-8d7bc2eb")
-sha256sums=('46f44681cc939dd3f127761717830c0bfa72e1568191d4df071ae297013591e3')
+source=("git+https://salsa.debian.org/clint/fakeroot.git#tag=upstream/${pkgver}")
+sha256sums=('803efdb4e491b4d9872f1a8c5ec61cdf52409e4592c665b172d3baf2d9f1ab83')
 
 prepare() {
   ln -s fakeroot-archive fakeroot
   cd "${pkgname}"
+
+  # Disable t.xattr2 because it fails consistently on the buildds.
+  git cherry-pick -n 'f69674a9ba64de50b723b5c9b7ae76e72b9ff245'
 
   autoreconf -fi
 }
