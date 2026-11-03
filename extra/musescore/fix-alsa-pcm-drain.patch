@@ -1,0 +1,13 @@
+diff --git a/src/framework/audio/driver/platform/lin/alsaaudiodriver.cpp b/src/framework/audio/driver/platform/lin/alsaaudiodriver.cpp
+index 2471b19af6..81d3ee2a90 100644
+--- a/src/framework/audio/driver/platform/lin/alsaaudiodriver.cpp
++++ b/src/framework/audio/driver/platform/lin/alsaaudiodriver.cpp
+@@ -92,7 +92,7 @@ static void alsaCleanup()
+         pthread_join(s_alsaData->threadHandle, nullptr);
+     }
+     if (nullptr != s_alsaData->alsaDeviceHandle) {
+-        snd_pcm_drain(s_alsaData->alsaDeviceHandle);
++        snd_pcm_drop(s_alsaData->alsaDeviceHandle);
+         snd_pcm_close(s_alsaData->alsaDeviceHandle);
+     }
+ 
