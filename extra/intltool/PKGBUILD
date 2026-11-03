@@ -2,11 +2,11 @@
 
 pkgname=intltool
 pkgver=0.51.0
-pkgrel=6
+pkgrel=7
 pkgdesc="The internationalization tool collection"
 arch=('any')
 url="https://launchpad.net/intltool"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=('perl-xml-parser')
 source=(https://launchpad.net/intltool/trunk/${pkgver}/+download/${pkgname}-${pkgver}.tar.gz{,.asc}
         intltool-0.51.0-perl-5.26.patch
