@@ -5,8 +5,8 @@
 # Contributor: Matthew Gamble <internet@matthewgamble.net>
 
 pkgname=sad
-pkgver=0.4.32
-pkgrel=3
+pkgver=0.4.33
+pkgrel=1
 pkgdesc='Space Age seD'
 arch=(x86_64)
 url='https://github.com/ms-jpq/sad'
@@ -27,8 +27,8 @@ optdepends=(
 )
 options=(!lto)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('224150e979c3dab38e4ca8f39b1108a8828b79caee394d595ab112dc5d03270492e87065be09ba79380ccd3c1c648f2de20b8e2017d0c0ed721a51917b1d334c')
-b2sums=('e4f3d04f63f4fb85e021046091e66754edc413552ea819fd6adf3ed74093c903fba169a5faa709af32c9f854aa25dd58be107205ce40bc1738da3acd332fccbf')
+sha512sums=('8bb2c234277b84ba0b6b72c986d53c0f2449608f849d477cd23ea8db69503bca55761f033762583f4d3abef31b4ee25a4b349ccb26e548cf62d7ef666977512a')
+b2sums=('68fb091f4675d02caf81a61b9e043cf60e6486738cdec6c405dde498888e7bdb4d0580fa9fbb1240d715e64d257c8b018d4305aae4e3300c93862f536404fd6f')
 
 prepare() {
   cd "$pkgname"
