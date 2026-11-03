@@ -2,12 +2,12 @@
 
 pkgname=netstat-nat
 pkgver=1.4.10
-pkgrel=5
+pkgrel=6
 pkgdesc="Small program written in C displaying NAT connections, managed by netfilter."
 url="https://tweegy.nl/projects/netstat-nat/"
 license=("GPL-2.0-or-later")
 arch=(x86_64)
-depends=(iptables)
+depends=(glibc iptables)
 source=(https://tweegy.nl/download/netstat-nat-$pkgver.tar.gz
         netstat-nat-1.4.10-gcc14.patch)
 sha512sums=('2089119b26039e656fbe76701e556f7d766159c96b18968195f255e15072af37972c83a8f05edb0b767a12f0521598975673d10d8ba5e6ed6b754a927d4f069d'
