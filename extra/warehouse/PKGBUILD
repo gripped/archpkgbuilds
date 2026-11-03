@@ -2,7 +2,7 @@
 
 pkgname=warehouse
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Versatile toolbox for viewing Flatpak info, managing user data, and batch managing installed Flatpaks'
 arch=(any)
 url='https://github.com/flattool/warehouse'
@@ -39,7 +39,8 @@ prepare() {
 
   # Use appstreamcli for metainfo validation
   # https://github.com/flattool/warehouse/pull/242
-  sed -i 's/appstream[_-]util/appstreamcli/g' data/meson.build
+  sed -i "s/appstream[_-]util/appstreamcli/g
+          s/'validate'/'validate', '--no-net'/" data/meson.build
 
   # Run commands directly without flatpak-spawn
   sed -i -E \
