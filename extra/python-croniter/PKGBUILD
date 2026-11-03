@@ -3,32 +3,39 @@
 # Contributor: Thomas Andrejak <thomas.andrejak@gmail.com>
 
 pkgname=python-croniter
-_name=${pkgname#python-}
-# https://github.com/kiorky/croniter/blob/master/CHANGELOG.rst
-pkgver=6.0.0
+# https://github.com/pallets-eco/croniter/blob/main/CHANGELOG.rst
+pkgver=6.2.4
 pkgrel=1
 pkgdesc="A Python module to provide iteration for datetime object."
 arch=('any')
-url="https://github.com/kiorky/croniter"
+url="https://github.com/pallets-eco/croniter"
 license=('MIT')
-depends=('python' 'python-dateutil' 'python-pytz')
-makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
-checkdepends=('python-pytest')
-source=("https://github.com/kiorky/croniter/archive/refs/tags/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('5b13012a70272e484f4644669ddae75e84a5597c41b44a5f628337e7c6acf329')
+depends=('python' 'python-dateutil')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-pytest' 'python-pytz')
+source=("git+https://github.com/pallets-eco/croniter.git#tag=$pkgver")
+sha256sums=('b0774fa7e78e5a36837599b15a44368ea54a5b8b9c332aa2ae3a72500e7dbf7d')
+
+prepare() {
+  cd croniter
+  # Allow Arch's build tools instead of upstream's exact version pins.
+  sed -i '/^\[build-system\]/,/^\[project\]/s/==[^"]*//g' pyproject.toml
+}
 
 build() {
-  cd "$_name-$pkgver"
+  cd croniter
   python -m build --wheel --no-isolation
 }
 
 check() {
-  cd "$_name-$pkgver"
-  pytest src
+  cd croniter
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
 }
 
 package() {
-  cd "$_name-$pkgver"
+  cd croniter
   python -m installer --destdir="$pkgdir" dist/*.whl
 
   install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
