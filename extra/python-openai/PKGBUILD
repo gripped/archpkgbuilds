@@ -5,12 +5,12 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=2.53.0
+pkgver=2.54.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
 url="https://github.com/openai/openai-python"
-license=('MIT')
+license=('Apache-2.0')
 depends=(
   'python'
   'python-anyio'
@@ -25,6 +25,7 @@ depends=(
   'python-typing_extensions'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-hatch-fancy-pypi-readme'
   'python-hatchling'
@@ -56,29 +57,18 @@ optdepends=(
   'python-websockets: Realtime support'
   'python-botocore: AWS Bedrock OpenAI-compatible API support'
 )
-# Defined in .stats.yml
-# curl -s https://raw.githubusercontent.com/openai/openai-python/refs/tags/v2.53.0/.stats.yml | grep openapi_spec_url | cut -d- -f5 | cut -d. -f1
-_openai_openapi_spec=31fcc3c97e5c432754bf0b72c5d5abbe1493573f0ca888af914baf81188b453e
 source=(
-  "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
-  "https://storage.googleapis.com/stainless-sdk-openapi-specs/openai%2Fopenai-${_openai_openapi_spec}.yml"
+  "git+${url}.git#tag=v${pkgver}"
 )
-b2sums=('a3e548bf237bb5f478c40bfddc1e21d136a3a495e9c96d4e75c285b3f3469fd4f5f58e03ba197d664e787e96189b771fb4d2d70e41311404915ab553938f1748'
-        '50b4f38a9375894568fb59cf3dde24b34fcf01157ae9440eca56783555c9f7d7ca39ad37bc7ba051643be74c0e8bc0c14f43674491c43bbc4d05d8cd3199f76d')
-
-prepare() {
-  cd "${_name}-${pkgver}"
-  grep -q "openai-$_openai_openapi_spec.yml" .stats.yml \
-    || { echo "Update _openai_openapi_spec"; exit 1; }
-}
+b2sums=('5f5b2c4ad58ea1eb110903d04b91ff19f3ad7edcaa62cbcec9430d74c18c43656bcd62d240bf2021c7166837aa830a3e49ab286c5ed1b3d7d3e7d65919a5de91')
 
 build() {
-  cd "${_name}-${pkgver}"
+  cd "${_name}"
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd "${_name}-${pkgver}"
+  cd "${_name}"
   python -m installer --destdir=tmp_install dist/*.whl
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
   export PYTHONPATH="$PWD/tmp_install/${site_packages}"
@@ -86,7 +76,7 @@ check() {
   # Start mock server and make sure it's cleaned up on exit
   export npm_config_yes=true
   trap 'pkill "npm exec steady"' EXIT
-  ./scripts/mock --daemon "${srcdir}/openai-${_openai_openapi_spec}.yml"
+  ./scripts/mock --daemon
 
   # Randomly generated mock API key
   export OPENAI_API_KEY=sk-dBAe8c5a9bc4294cca9bed292cd61e0ff9030bB94647adfb
@@ -101,7 +91,7 @@ check() {
 }
 
 package() {
-  cd "${_name}-${pkgver}"
+  cd "${_name}"
   python -m installer --destdir="${pkgdir}" dist/*.whl
   install -vDm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
 }

@@ -1,10 +1,10 @@
 pkgbase = python-openai
 	pkgdesc = Python client library for the OpenAI API
-	pkgver = 2.53.0
+	pkgver = 2.54.0
 	pkgrel = 1
 	url = https://github.com/openai/openai-python
 	arch = any
-	license = MIT
+	license = Apache-2.0
 	checkdepends = nodejs-lts-jod
 	checkdepends = npm
 	checkdepends = procps-ng
@@ -20,6 +20,7 @@ pkgbase = python-openai
 	checkdepends = python-rich
 	checkdepends = python-botocore
 	checkdepends = python-jsonschema
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatch-fancy-pypi-readme
 	makedepends = python-hatchling
@@ -42,9 +43,7 @@ pkgbase = python-openai
 	optdepends = python-pandas: Datalib support
 	optdepends = python-websockets: Realtime support
 	optdepends = python-botocore: AWS Bedrock OpenAI-compatible API support
-	source = https://github.com/openai/openai-python/archive/v2.53.0/python-openai-2.53.0.tar.gz
-	source = https://storage.googleapis.com/stainless-sdk-openapi-specs/openai%2Fopenai-31fcc3c97e5c432754bf0b72c5d5abbe1493573f0ca888af914baf81188b453e.yml
-	b2sums = a3e548bf237bb5f478c40bfddc1e21d136a3a495e9c96d4e75c285b3f3469fd4f5f58e03ba197d664e787e96189b771fb4d2d70e41311404915ab553938f1748
-	b2sums = 50b4f38a9375894568fb59cf3dde24b34fcf01157ae9440eca56783555c9f7d7ca39ad37bc7ba051643be74c0e8bc0c14f43674491c43bbc4d05d8cd3199f76d
+	source = git+https://github.com/openai/openai-python.git#tag=v2.54.0
+	b2sums = 5f5b2c4ad58ea1eb110903d04b91ff19f3ad7edcaa62cbcec9430d74c18c43656bcd62d240bf2021c7166837aa830a3e49ab286c5ed1b3d7d3e7d65919a5de91
 
 pkgname = python-openai
