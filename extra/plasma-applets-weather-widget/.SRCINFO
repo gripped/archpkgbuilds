@@ -1,13 +1,14 @@
 pkgbase = plasma-applets-weather-widget
 	pkgdesc = Plasma applet for displaying weather information
 	pkgver = 3.0.4
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/blackadderkate/weather-widget-2
 	arch = x86_64
 	license = GPL-2.0-only
 	makedepends = extra-cmake-modules
 	makedepends = vulkan-headers
-	depends = gcc-libs
+	depends = glibc
+	depends = libstdc++
 	depends = kcmutils
 	depends = kirigami
 	depends = ksvg
