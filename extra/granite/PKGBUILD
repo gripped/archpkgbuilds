@@ -3,7 +3,7 @@
 
 pkgname=granite
 pkgver=6.2.0
-pkgrel=2
+pkgrel=3
 epoch=1
 pkgdesc='Library that extends GTK'
 arch=(x86_64)
@@ -15,6 +15,7 @@ depends=(
   gdk-pixbuf2
   glib2
   glibc
+  gsettings-desktop-schemas
   gtk3
   hicolor-icon-theme
   libgee
