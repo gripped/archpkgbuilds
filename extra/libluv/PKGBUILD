@@ -3,8 +3,8 @@
 # Contributor: jprjr <john@jrjrtech.com>
 pkgname=('libluv' 'lua-luv' 'lua51-luv' 'lua52-luv' 'lua53-luv' 'lua54-luv')
 pkgbase=libluv
-pkgver=1.52.1
-_pkgver=1.52.1-0
+pkgver=1.53.0.1
+_pkgver=1.53.0-1
 pkgrel=1
 pkgdesc='Bare libuv bindings for lua'
 arch=('x86_64')
@@ -13,7 +13,7 @@ license=('Apache-2.0')
 depends=('libuv')
 makedepends=('cmake' 'libuv' 'ninja' 'luajit' 'lua>=5.5.0' 'lua<5.6.0' 'lua51' 'lua52' 'lua53' 'lua54')
 source=("https://github.com/luvit/luv/releases/download/${_pkgver}/luv-${_pkgver}.tar.gz")
-sha256sums=('3e6eb820a3aee034f85f9cce9bd77b5d42f34d128a1ccec877adf28c913577c7')
+sha256sums=('569b488d5d31609ea466a6c70e008a42661ec773ea1584d3d766d46280ab7cf4')
 
 build() {
   # build per-lua versions
