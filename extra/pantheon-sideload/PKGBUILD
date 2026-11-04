@@ -2,32 +2,30 @@
 
 pkgname=pantheon-sideload
 pkgver=6.3.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Sideload Flatpaks on elementary OS'
 arch=(x86_64)
 url=https://github.com/elementary/sideload
-license=(GPL3)
+license=(GPL-3.0-or-later)
 depends=(
+  dconf
   flatpak
+  glib2
+  glibc
   gtk4
+  hicolor-icon-theme
+  libgee
   libgranite-7.so
   libxml2
 )
 makedepends=(
   git
-  intltool
   meson
   vala
 )
 groups=(pantheon)
-_tag=0b9c20ba480a12b51fa5865969698cab6a959593
-source=(pantheon-sideload::git+https://github.com/elementary/sideload.git#tag=${_tag})
-sha256sums=('b5e01480a4a0cf021d1afbcecd4cd849917edbfdcf44b38304caecfe73f8d5f4')
-
-pkgver() {
-  cd pantheon-sideload
-  git describe --tags
-}
+source=(pantheon-sideload::git+https://github.com/elementary/sideload.git#tag=${pkgver})
+b2sums=('f5a2fee5161c005f7de661ac88e47d7765d02c4a5008dd5bf2fa9fe3ab7f42cd8fedac0758aa822b771621885532d4541a705175910be27ed9755b5095e1711e')
 
 build() {
   arch-meson pantheon-sideload build
