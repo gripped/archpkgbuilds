@@ -1,21 +1,35 @@
 # Maintainer: Eric Bélanger <eric@archlinux.org>
 
 pkgname=fluxbox
-_commit='36f99b92464abd389d815dbf29a65d740b8145c6'
-pkgver=1.3.7+221+g36f99b92
+_commit='5ba8c92163b9ece224dd16d23ca590091c16e4af'
+pkgver=1.3.7+248+g5ba8c921
 pkgrel=1
 pkgdesc='A lightweight and highly-configurable window manager'
 arch=('x86_64')
 url='http://www.fluxbox.org/'
 license=('MIT')
-depends=('fontconfig' 'libfontconfig.so' 'fribidi' 'libfribidi.so' 'imlib2'
-         'libxft' 'libxinerama' 'libxpm' 'libxrandr')
+depends=(
+  'bash'
+  'fontconfig' 'libfontconfig.so'
+  'fribidi' 'libfribidi.so'
+  'glibc'
+  'imlib2' 'libImlib2.so'
+  'libgcc' 'libgcc_s.so'
+  'libstdc++' 'libstdc++.so'
+  'libx11' #'libX11.so'
+  'libxext' #'libXext.so'
+  'libxft' #'libXft.so'
+  'libxinerama' #'libXinerama.so'
+  'libxpm' #'libXpm.so'
+  'libxrandr' #'libXrandr.so'
+  'libxrender' #'libXrender.so'
+)
 makedepends=('git')
 optdepends=('xorg-xmessage: for using the fbsetbg and fluxbox-generate_menu utilities')
 options=('!makeflags')
 source=("git+https://github.com/fluxbox/fluxbox.git#commit=${_commit}"
         'fluxbox.desktop')
-sha256sums=('a605cfd58693c5703053bb2cb96598cf316e940a03f6bacae807706062167403'
+sha256sums=('17b06e4df3d2ca6871d2a89f0c3ce0a4f7d8ef6c709421990ad3f7a38ea6fb33'
             '2148a90aca653b596e9632264dbdbd8c7e673d732e4b04eee66a8ac1e68b3c5d')
 
 pkgver() {
