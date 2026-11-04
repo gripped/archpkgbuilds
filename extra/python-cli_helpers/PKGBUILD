@@ -2,7 +2,7 @@
 # Contributor: fzerorubigd <fzero@rubi.gd>
 
 pkgname=python-cli_helpers
-pkgver=2.15.2
+pkgver=2.15.3
 pkgrel=1
 pkgdesc='Python helpers for common CLI tasks'
 arch=(any)
@@ -24,8 +24,8 @@ makedepends=(
 checkdepends=(python-pytest python-pygments)
 optdepends=('python-pygments: for styles extras')
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('edf9ac179e5f2aa0e24e3dbffa78bfea7454dd0d65826ffc7ae27d110f93fd537a3a84ccaf508535fc6beff4255fbb4e91c180fb707e7251f961d0dde39127df')
-b2sums=('9277608601f8b3a7c5f7aa0c72f5a40095a4648f5c918828d133ea22c14af50954a465fbb5e38ff916289083afe58f72f089f7570282c3a859fe1d4ed922bc64')
+sha512sums=('71f47159bf00829d6cdd1bc8e538811870e8ac73f96cef2b4664664798b8d650c8441c056c1bcbb8bc8ae5282dc475f62246ddd04abf993d6c1179db6621434d')
+b2sums=('cc36a8de4d57eea361944ef73b5b9137463dfe24a0924addfd1f24dd6dab8bc8f367c97611c15fca6e890fbc6b8ef8a016157f8415884869943e4934011a2898')
 
 build() {
   cd "$pkgname"
