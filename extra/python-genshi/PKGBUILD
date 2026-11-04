@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-genshi
-pkgver=0.7.11
+pkgver=0.7.12
 pkgrel=1
 pkgdesc='Toolkit for stream-based generation of output for the web'
 arch=(x86_64)
@@ -21,14 +21,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+https://github.com/edgewall/genshi#tag=$pkgver")
-sha512sums=('3f672e57aaf98a6238055574ed6d3aaeef0aedef472a4739c0938201da9698115f4faabe8095c688e000cf09adfa6a306b70fb3eac61760e8bebe0a69d6312ec')
-b2sums=('8179d5cc21da81d8321841fb4bade24da061d4d7f05c97f65a2dc401ace8b618f2a5c7e5cf49799244c4616ba474e57533e5622220308871befec31af5de5336')
-
-prepare() {
-  cd "$pkgname"
-  # Port from pkg_resources to importlib.resources (#97)
-  git cherry-pick -n a31979dcc8d1b974ddff36301472b348664414a3
-}
+sha512sums=('f0a21cba857635b21a1dc6fd1c694c04fe278196e9e8fb91846a42bbf70c8ca4f2dade4355cfb7917a1a72e4ac97cba8fd77a58910ce64da43482366c75b857e')
+b2sums=('de2c65d95c559d079d3a8d2e2d480195b1bad7317d6287f50605301dd875e9e811f7689a50815400531c2e716c9ddc98cd2eaf0a8e7b4f0ac7b5b1eba1fdad63')
 
 build() {
   cd "$pkgname"
