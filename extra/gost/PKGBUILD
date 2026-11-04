@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=gost
-pkgver=3.3.2
+pkgver=3.3.3
 pkgrel=1
 pkgdesc="GO Simple Tunnel"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc')
 makedepends=('go' 'git')
 source=("git+https://github.com/go-gost/gost.git#tag=v$pkgver")
-sha512sums=('72b75920fe33efc7e4189449685f052c97dd348ade93b126d2521bb79cfddb0e6244aec600b9525669027e0b68a9378fd8756abdfe6e2d0ad759941911738149')
+sha512sums=('a5101e2a188a85467640dfde30770ff340ebee2267b7536c5f69b89f23c63e915f1cf733da93a06fad6723f1c795997af74408e27415a8622368f56a578f28ec')
 
 prepare() {
   cd gost
