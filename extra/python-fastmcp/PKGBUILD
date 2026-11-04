@@ -2,7 +2,7 @@
 
 pkgbase=python-fastmcp
 pkgname=('python-fastmcp' 'python-fastmcp-slim' 'python-fastmcp-tasks' 'python-fastmcp-remote')
-pkgver=4.1.5
+pkgver=4.1.6
 pkgrel=1
 pkgdesc="The fast, Pythonic way to build MCP servers and clients"
 arch=('any')
@@ -89,11 +89,14 @@ optdepends=(
 )
 source=("git+https://github.com/PrefectHQ/fastmcp.git#tag=v$pkgver"
         "git+https://github.com/APIs-guru/openapi-directory.git#commit=f7207cf0a5c56081d275ebae4cf615249323385d")
-sha512sums=('18ce9fcf477192cc51d70bef88272ab4100ac605809ce65f5b018aef2afa270648166851b8de712968ff4803ddd6ced8fcc95eacadcc65cda2ed9d57cd633c11'
+sha512sums=('5486e513a372c2a0bd511135a06d72ddee58aed62e59ec040c8b01ec527c6adefc95fcf9d0bc92afbb1527ff39ef17a7c66bee548f71c744619c78f08710afaa'
             'a5638323be06c50c953b886ffbc40884fdf45dd3aaa73f83b9ce421ba9e7c699a9e1fb9a7da0ef0a18b546f454794ed414d77a8f5998b72ed6e77a8325247a4a')
 
 prepare() {
   cd fastmcp
+  # Mock OpenAPI test requests to avoid api.example.com DNS timeouts.
+  # https://github.com/PrefectHQ/fastmcp/pull/6249
+  git cherry-pick -n cd88f8c04d4f9f246ba1a2dd89821a82d0816f00
   # Anthropic 2.x defines MessageParam as a union, so construct plain dictionaries.
   sed -i 's/MessageParam(/dict(/g' fastmcp_slim/fastmcp/client/sampling/handlers/anthropic.py
   # The dictionary payloads also support Anthropic 2.x.
