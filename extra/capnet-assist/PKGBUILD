@@ -1,17 +1,20 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=capnet-assist
-pkgver=8.0.2
+pkgver=9.0.0
 pkgrel=1
 pkgdesc='Captive Portal Assistant'
 arch=(x86_64)
 url=https://github.com/elementary/capnet-assist
-license=(GPL3)
+license=(GPL-3.0-or-later)
 groups=(pantheon)
 depends=(
+  dconf
   gcr-4
   glib2
+  glibc
   gtk4
+  hicolor-icon-theme
   libadwaita-1.so
   libgranite-7.so
   networkmanager
@@ -19,22 +22,14 @@ depends=(
 )
 makedepends=(
   git
-  intltool
   meson
   vala
 )
-_tag=016580415b2d3fcf843c53f664ead99f0f8bf819
-source=(git+https://github.com/elementary/capnet-assist.git#tag=${_tag})
-b2sums=('d4ada45cdfaa1d384af3aff4ad0811355f2de64292216c9bce9bebe9849c0d6821247dc0fa3a3913d8fca966aea1a6a8e3c98d574106ffad84030320a44d4603')
-
-pkgver() {
-  cd capnet-assist
-  git describe --tags
-}
+source=(git+https://github.com/elementary/capnet-assist.git#tag=${pkgver})
+b2sums=('76286936b075fec68cd9f866e13f132cd751b019f023d40eb6926346cf205ef58ffd3a8c03441ccc495f9b93593a474a679cd33de1cdf1a40c2d3b67231ff8b0')
 
 build() {
-  arch-meson capnet-assist build \
-    -D b_pie=false
+  arch-meson capnet-assist build
   ninja -C build
 }
 
