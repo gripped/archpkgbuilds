@@ -1,12 +1,13 @@
 pkgbase = python-langsmith
 	pkgdesc = Client library to connect to the LangSmith Observability and Evaluation Platform
-	pkgver = 0.14.0
+	pkgver = 0.14.1
 	pkgrel = 1
 	url = https://github.com/langchain-ai/langsmith-sdk
 	arch = any
 	license = MIT
 	checkdepends = python-attrs
 	checkdepends = python-cachetools
+	checkdepends = python-cryptography
 	checkdepends = python-dataclasses-json
 	checkdepends = python-httpx
 	checkdepends = python-langchain-core
@@ -14,6 +15,7 @@ pkgbase = python-langsmith
 	checkdepends = python-opentelemetry-api
 	checkdepends = python-opentelemetry-exporter-otlp-proto-http
 	checkdepends = python-opentelemetry-sdk
+	checkdepends = python-pyjwt
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-httpx
@@ -51,7 +53,7 @@ pkgbase = python-langsmith
 	optdepends = python-opentelemetry-api: OpenTelemetry tracing support
 	optdepends = python-opentelemetry-sdk: OpenTelemetry tracing support
 	optdepends = python-opentelemetry-exporter-otlp-proto-http: OpenTelemetry export support
-	source = git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v0.14.0
-	sha512sums = 2f02854b29469d997a42e39cdabf5bddf5a290c79ad1f85dc34986bb90eae034c13ffb58636c8dea2cea6e1e84ace4c567a423761e270325ff3d676626799a48
+	source = git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v0.14.1
+	sha512sums = 2d9cbd07223581a819640afcee99d6eb1e44a338021986c5cc42455d45355e0271e08a1391e7d4028b67fe17dac89221c0539a64800265ab70d302d825129181
 
 pkgname = python-langsmith
