@@ -1,0 +1,67 @@
+--- a/autotests/unit_test_libnm_icon_kylin/unit_test_libnm_icon_kylin.pro
++++ b/autotests/unit_test_libnm_icon_kylin/unit_test_libnm_icon_kylin.pro
+@@ -9,9 +9,9 @@
+ 
+ DEFINES += LIBNMICONKYLIN_LIBRARY
+ 
+-CONFIG += c++14 qt link_pkgconfig no_keywords
++CONFIG += c++17 qt link_pkgconfig no_keywords
+ 
+-PKGCONFIG += gsettings-qt \
++PKGCONFIG += gsettings-qt6 \
+              kysdk-qtwidgets \
+              kylin-nm-base
+ 
+@@ -37,14 +37,18 @@
+ 
+ SOURCES +=  main.cpp \
+             ../../libnm-kylin/libnm-icon-kylin/kynetworkicon.cpp \
++            ../../libnm-kylin/libnm-icon-kylin/imageutil.cpp \
+             unit_test_libnm_icon_kylin.cpp \
+             ../../plugins/component/DeviceFrame/deviceframe.cpp \
+             unit_test_plugin_deviceframe.cpp \
+             ../../plugins/component/Divider/divider.cpp \
+             unit_test_plugin_divier.cpp \
+             ../../plugins/component/FixLabel/fixlabel.cpp \
++            ../../plugins/component/FixLabel/freqlabel.cpp \
+             unit_test_plugin_fixlabel.cpp \
+             ../../plugins/netconnect/itemframe.cpp \
++            ../../plugins/netconnect/lanitem.cpp \
++            ../../plugins/component/InfoButton/infobutton.cpp \
+             unit_test_plugin_itemframe.cpp \
+             ../../plugins/component/RadioItemButton/radioitembutton.cpp \
+             unit_test_plugin_radioitembutton.cpp
+@@ -63,10 +67,14 @@
+ 
+ 
+ HEADERS +=  ../../libnm-kylin/libnm-icon-kylin/kynetworkicon.h \
++            ../../libnm-kylin/libnm-icon-kylin/imageutil.h \
+             ../../plugins/component/DeviceFrame/deviceframe.h \
+             ../../plugins/component/Divider/divider.h \
+             ../../plugins/component/FixLabel/fixlabel.h \
++            ../../plugins/component/FixLabel/freqlabel.h \
+             ../../plugins/netconnect/itemframe.h \
++            ../../plugins/netconnect/lanitem.h \
++            ../../plugins/component/InfoButton/infobutton.h \
+             ../../plugins/component/RadioItemButton/radioitembutton.h
+ #            ../../plugins/component/DrownLabel/drownlabel.h
+ 
+--- a/autotests/unit_test_libnm_icon_kylin/unit_test_plugin_divier.cpp
++++ b/autotests/unit_test_libnm_icon_kylin/unit_test_plugin_divier.cpp
+@@ -19,6 +19,7 @@
+  */
+ #include <gtest/gtest.h>
+ #include <gtest/gtest-death-test.h>
++#include <QPaintEvent>
+ 
+ #include "../../plugins/component/Divider/divider.h"
+ 
+@@ -48,6 +49,6 @@
+ 
+ TEST_F(DividerTest, testAllFunc)
+ {
+-    QPaintEvent * e;
+-    m_pDividerTest->paintEvent(e);
++    QPaintEvent event(m_pDividerTest->rect());
++    m_pDividerTest->paintEvent(&event);
+ }

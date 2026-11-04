@@ -1,0 +1,60 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=kylin-nm-plugin
+pkgver=4.0.0.2
+pkgrel=1
+pkgdesc="Network connection plugins and status icon library for UKUI"
+arch=('x86_64')
+license=('GPL-2.0-or-later')
+url="https://gitee.com/openkylin/kylin-nm-plugin"
+groups=('ukui')
+depends=('glib2' 'glibc' 'gsettings-qt6' 'libgcc' 'libkylin-nm-base'
+         'libkysdk-applications' 'libnm' 'libsecret' 'libstdc++' 'networkmanager-qt'
+         'qt6-base' 'qt6-svg' 'qt6-ukui-platformtheme')
+makedepends=('git' 'qt6-tools')
+checkdepends=('gtest')
+provides=('liblibnm-icon-kylin.so')
+source=("git+https://gitee.com/openkylin/kylin-nm-plugin.git#tag=debian/$pkgver-1"
+        'qt6-tests.patch')
+sha512sums=('a426facf9716ee2e4a97053407d925fd18d6b2935a68df83f85b3df8f6e08b68f57e10274ada60643349c74ce3ac18a8552b40a61e5c67c69f3891fe32b07c32'
+            '036e0150955c85c1ce46cac6566d696a61a41d2ba4c88546ce701cb334c8f6bb79ce9b6c3106137a72608167c5a133db57234838a7db22c5bf8029396903a870')
+
+prepare() {
+  cd kylin-nm-plugin
+  # Fix stale test dependencies, missing sources and an uninitialized paint event.
+  patch -Np1 -i ../qt6-tests.patch
+  # Use the installed pkg-config name and expose the public Qt widget headers.
+  sed -i -e "s/^Version:.*/Version: $pkgver/" \
+    -e 's/^Requires:.*/Requires: kylin-nm-base Qt6Widgets/' \
+    libnm-kylin/libnm-icon-kylin/kylin-nm-plugin.pc.in
+  sed -i 's|pcfile.path = /usr/share/pkgconfig|pcfile.path = /usr/lib/pkgconfig|' \
+    libnm-kylin/libnm-icon-kylin/libnm-icon-kylin.pro
+}
+
+build() {
+  cd kylin-nm-plugin
+  qmake6 kylin-nm.pro \
+    QMAKE_CFLAGS_RELEASE="$CPPFLAGS $CFLAGS" \
+    QMAKE_CXXFLAGS_RELEASE="$CPPFLAGS $CXXFLAGS" \
+    QMAKE_LFLAGS_RELEASE="$LDFLAGS"
+  make
+}
+
+check() {
+  cd kylin-nm-plugin/autotests
+  # Regenerate the Qt 5 Makefile shipped in the test subdirectory.
+  qmake6 -recursive autotests.pro \
+    QMAKE_CFLAGS_RELEASE="$CPPFLAGS $CFLAGS" \
+    QMAKE_CXXFLAGS_RELEASE="$CPPFLAGS $CXXFLAGS" \
+    QMAKE_LFLAGS_RELEASE="$LDFLAGS"
+  make
+  QT_QPA_PLATFORM=offscreen GSETTINGS_BACKEND=memory \
+    unit_test_libnm_icon_kylin/unit_test_libnm_icon_kylin
+}
+
+package() {
+  cd kylin-nm-plugin
+  make INSTALL_ROOT="$pkgdir" install
+  install -Dm644 man/kylin-nm-plugin.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 COPYING -t "$pkgdir/usr/share/licenses/$pkgname"
+}

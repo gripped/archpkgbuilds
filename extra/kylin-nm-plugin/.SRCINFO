@@ -1,0 +1,31 @@
+pkgbase = kylin-nm-plugin
+	pkgdesc = Network connection plugins and status icon library for UKUI
+	pkgver = 4.0.0.2
+	pkgrel = 1
+	url = https://gitee.com/openkylin/kylin-nm-plugin
+	arch = x86_64
+	groups = ukui
+	license = GPL-2.0-or-later
+	checkdepends = gtest
+	makedepends = git
+	makedepends = qt6-tools
+	depends = glib2
+	depends = glibc
+	depends = gsettings-qt6
+	depends = libgcc
+	depends = libkylin-nm-base
+	depends = libkysdk-applications
+	depends = libnm
+	depends = libsecret
+	depends = libstdc++
+	depends = networkmanager-qt
+	depends = qt6-base
+	depends = qt6-svg
+	depends = qt6-ukui-platformtheme
+	provides = liblibnm-icon-kylin.so
+	source = git+https://gitee.com/openkylin/kylin-nm-plugin.git#tag=debian/4.0.0.2-1
+	source = qt6-tests.patch
+	sha512sums = a426facf9716ee2e4a97053407d925fd18d6b2935a68df83f85b3df8f6e08b68f57e10274ada60643349c74ce3ac18a8552b40a61e5c67c69f3891fe32b07c32
+	sha512sums = 036e0150955c85c1ce46cac6566d696a61a41d2ba4c88546ce701cb334c8f6bb79ce9b6c3106137a72608167c5a133db57234838a7db22c5bf8029396903a870
+
+pkgname = kylin-nm-plugin
