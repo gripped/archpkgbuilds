@@ -2,25 +2,21 @@
 # Co-Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=libqtxdg
-pkgver=4.4.0
-pkgrel=4
+pkgver=4.5.0
+pkgrel=1
 pkgdesc="Library providing freedesktop.org XDG specs implementations for Qt"
 arch=("x86_64")
 url="https://github.com/lxqt/$pkgname"
-license=("LGPL" "custom")
+license=("LGPL-2.1-or-later" "LGPL-2.1-only WITH Qt-LGPL-exception-1.1")
 depends=("qt6-base" "qt6-svg")
-makedepends=("cmake" "lxqt-build-tools")
+makedepends=("cmake" "git" "lxqt-build-tools")
 checkdepends=("xorg-server-xvfb")
 optdepends=(
   'xterm: the default terminal for running .desktop files'
 )
 provides=("libQt6Xdg.so" "libQt6XdgIconLoader.so")
-source=(
-  "https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
-  "https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
-)
-sha256sums=('34d25949ae7b6275fb54da46187dd8ba41771600353405b15e53bdc90b9e287a'
-            'SKIP')
+source=("git+https://github.com/lxqt/$pkgname.git#tag=$pkgver?signed")
+sha256sums=('d03dbe1a2e99c311161cfb6511cec03d3dd3898b58db3c4fb32b52e8bfb745ac')
 validpgpkeys=(
   "169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
   "7C733BA5F585AAD669E4D23A42C9C8D3AF5EA5E3"  # Alf Gaida <agaida@siduction.org>
@@ -31,7 +27,7 @@ validpgpkeys=(
 build() {
   mkdir -p build
   cd build
-  cmake "$srcdir/$pkgname-$pkgver" \
+  cmake "$srcdir/$pkgname" \
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DBUILD_TESTS=ON
   make
@@ -46,6 +42,6 @@ check() {
 package() {
   cd build
   make DESTDIR="$pkgdir" install
-  install -Dm644 "$srcdir/$pkgname-$pkgver"/{AUTHORS,COPYING,Digia-Qt-LGPL-Exception-1.1} \
+  install -Dm644 "$srcdir/$pkgname"/{AUTHORS,COPYING,Digia-Qt-LGPL-Exception-1.1} \
     -t "$pkgdir"/usr/share/licenses/$pkgname
 }
