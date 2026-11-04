@@ -3,7 +3,7 @@
 # Contributor: Tobias Roettger <toroettg@gmail.com>
 
 pkgname=python-platformdirs
-pkgver=4.13.5
+pkgver=4.14.3
 pkgrel=1
 pkgdesc='A library to determine platform-specific system directories'
 arch=(any)
@@ -16,6 +16,7 @@ makedepends=(
   python-installer
   python-hatchling
   python-hatch-vcs
+  python-hatch-fancy-pypi-readme
 )
 checkdepends=(
   python-pytest
@@ -23,8 +24,8 @@ checkdepends=(
   python-appdirs
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('7eb8b4b0677b01bff3da0b67b00fe6ba1c31afb5db5d20eed3029bea9cb22f1078e907b4d0b1eddecd1813d4bee975be153c051c5bba548c24327fcfbf12487b')
-b2sums=('28663c38317a7d747bb0cb38f0f13717607a898601679bf6b24bc6d4570b456b353e1c708f5bc85f0f749b39165295fce0295c88b9cf329a2ff32fd35b534bac')
+sha512sums=('793a0938f63fc4cd21f2015dba9d633222c429decac81186bf77d8ba3c215c27eb06f5fb9b0109a11312a662de8e71593662dc394b1956b8d9389ed758d54ba8')
+b2sums=('0d40c3f1cfbc39ba3048ed8c9203f621f8ca4fef30028f48aae65b19b9abe738d46200d9397f2a20e10a986a98611787362c0d4514b989c659f5aa039c02679b')
 
 build() {
   cd "$pkgname"
