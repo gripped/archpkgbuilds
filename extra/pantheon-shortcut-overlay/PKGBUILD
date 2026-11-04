@@ -2,14 +2,19 @@
 
 pkgname=pantheon-shortcut-overlay
 pkgver=8.1.0
-pkgrel=1
-pkgdesc='A native, OS-wide shortcut overlay'
+pkgrel=2
+pkgdesc='A native, OS-wide shortcut overlay for Pantheon'
 arch=(x86_64)
 url=https://github.com/elementary/shortcut-overlay
 license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
+  gala
   glib2
+  glibc
+  gnome-settings-daemon
+  gsettings-desktop-schemas
+  gtk4
   libgee
   libgranite-7.so
   pantheon-wayland
@@ -19,19 +24,8 @@ makedepends=(
   meson
   vala
 )
-_tag=f831f994c36295fb236cf87c722cf733f43d32eb
-source=(pantheon-shortcut-overlay::git+https://github.com/elementary/shortcut-overlay.git#tag=${_tag})
+source=(pantheon-shortcut-overlay::git+https://github.com/elementary/shortcut-overlay.git#tag=${pkgver})
 b2sums=('66d8d2ab9ebf77906191e18d7f857c3771e6134437bba4874edef22025b45da54eea84b7c0824d9f03e981a80ec724f3372c39437e8fbbd5b0a842a07a91de3f')
-
-prepare() {
-  cd pantheon-shortcut-overlay
-  git cherry-pick -n 130f78eb4b7770586ea98ba0a5fdbbf5bb116f3f
-}
-
-pkgver() {
-  cd pantheon-shortcut-overlay
-  git describe --tags
-}
 
 build() {
   arch-meson pantheon-shortcut-overlay build
