@@ -3,19 +3,20 @@
 
 pkgname=lib32-vkd3d
 _pkgname=vkd3d
-pkgver=1.19
+pkgver=2.0
 pkgrel=1
 pkgdesc='Direct3D 12 to Vulkan translation library By WineHQ'
 arch=('x86_64')
 url='https://wiki.winehq.org/Vkd3d'
-license=('LGPL')
-depends=('lib32-vulkan-icd-loader' 'perl-json')
-makedepends=('spirv-headers' 'vulkan-headers'  'lib32-xcb-util-keysyms' 'lib32-ncurses' 'xorgproto')
-source=("https://dl.winehq.org/vkd3d/source/vkd3d-$pkgver.tar.xz")
-sha512sums=('97502ee4340648feaf19919710310db5fe87909bb4e71150987595cd7fa85031d7eadfd5cb09285d2a41dd8a0e4664813631b636e4ccd561f4ed818ce9bc8682')
+license=('LGPL-2.1-or-later')
+depends=('lib32-vulkan-icd-loader')
+makedepends=('git' 'perl-json' 'spirv-headers' 'vulkan-headers' 'wine' 'lib32-xcb-util-keysyms' 'lib32-ncurses' 'xorgproto')
+source=("git+https://gitlab.winehq.org/wine/vkd3d.git#tag=vkd3d-$pkgver")
+sha512sums=('4b03ada92cafc95a598c66354ca78c379626cb1f6d6d169dee57bb7dbf3b01c5e80fe1305316381b7a6debaf877f711b30709aed761319da66704fd6c63cbf80')
 
 prepare() {
-  cd vkd3d-$pkgver
+  cd $_pkgname
+  ./autogen.sh
   export CC='gcc -m32'
   export CXX='g++ -m32'
 
@@ -26,12 +27,12 @@ prepare() {
 }
 
 build() {
-  cd vkd3d-$pkgver
+  cd $_pkgname
   make
 }
 
 package() {
-  cd vkd3d-$pkgver
+  cd $_pkgname
   make DESTDIR="$pkgdir" install
 
   rm -r "$pkgdir"/usr/{bin,include}
