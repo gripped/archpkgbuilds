@@ -5,18 +5,18 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=2.54.0
+pkgver=3.0.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
 url="https://github.com/openai/openai-python"
-license=('Apache-2.0')
+license=('Apache-2.0' 'BSD-3-Clause')
 depends=(
   'python'
   'python-anyio'
   'python-distro'
   'python-h2'
-  'python-httpx'
+  'python-httpx2'
   'python-jiter'
   'python-pydantic'
   'python-pydantic-core'
@@ -33,25 +33,23 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=(
-  'nodejs-lts-jod'
+  'nodejs-lts-krypton'
   'npm'
   'procps-ng'
   'python-dirty-equals'
-  'python-httpx-aiohttp'
-  'python-httpx2'
+  'python-aiohttp'
   'python-inline-snapshot'
   'python-nest-asyncio'
   'python-pytest'
   'python-pytest-asyncio'
   'python-pytest-xdist'
-  'python-respx'
   'python-rich'
   'python-botocore'
   'python-jsonschema'
 )
 optdepends=(
-  'python-httpx-aiohttp: Use aiohttp as HTTP backend'
-  'python-httpx2: Use HTTPX2 as HTTP backend'
+  'python-aiohttp: Use aiohttp as HTTP backend'
+  'python-httpx: Compatibility with legacy custom HTTP clients'
   'python-numpy: Datalib support'
   'python-pandas: Datalib support'
   'python-websockets: Realtime support'
@@ -60,7 +58,7 @@ optdepends=(
 source=(
   "git+${url}.git#tag=v${pkgver}"
 )
-b2sums=('5f5b2c4ad58ea1eb110903d04b91ff19f3ad7edcaa62cbcec9430d74c18c43656bcd62d240bf2021c7166837aa830a3e49ab286c5ed1b3d7d3e7d65919a5de91')
+b2sums=('43ee533d96d58ff4827014d30c15201f32a1859c00956ed7edf75d346d0fdb7646478cd6d018b6de8b675b83ebaaa7df8ad86020b115fa6dd464e19da7385fe3')
 
 build() {
   cd "${_name}"
@@ -94,4 +92,6 @@ package() {
   cd "${_name}"
   python -m installer --destdir="${pkgdir}" dist/*.whl
   install -vDm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}/"
+  install -vDm644 src/openai/_vendor/httpx_aiohttp/LICENSE \
+    "${pkgdir}/usr/share/licenses/${pkgname}/httpx-aiohttp-LICENSE"
 }
