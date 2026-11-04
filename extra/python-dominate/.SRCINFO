@@ -1,19 +1,18 @@
 pkgbase = python-dominate
 	pkgdesc = A Python library for creating and manipulating HTML documents using an elegant DOM API
-	pkgver = 2.9.1
-	pkgrel = 4
+	pkgver = 3.1.0
+	pkgrel = 1
 	url = https://github.com/Knio/dominate
 	arch = any
-	license = LGPL-2.1-or-later
+	license = LGPL-3.0-or-later
 	checkdepends = python-pytest
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	source = python-dominate-2.9.1.tar.gz::https://github.com/Knio/dominate/archive/2.9.1.tar.gz
-	source = python-3.13-compat.patch::https://github.com/Knio/dominate/commit/58f7d7fdb171f80ed6ce97e6ca4409723975c47f.patch
-	sha512sums = d13b3fcc22176b2ad0c393887b6b3fa896252f9c4126a017eb696a973c05090cbbf0b0437495761987e1f08b76d0e2901d06c61b02b6b20a4aac652ec2867297
-	sha512sums = 233530f471a00b637a0d866bd415994f88d5e5a90d76bf780f4da48995d96527e9255fce9daf91eb44d6da1e7f0d6ece67e1cfb5f649e635d83f9fc14c451476
+	source = git+https://github.com/Knio/dominate.git#tag=3.1.0
+	sha512sums = 3dc4d4a91d47d3552368610d876a1804f3e6e5666533653b70381cc1d65f8d8e96a222497e3d32bd53f5899580cdd3f88e5a02c9fd6f3b157cd2c84cfab65fc1
 
 pkgname = python-dominate
