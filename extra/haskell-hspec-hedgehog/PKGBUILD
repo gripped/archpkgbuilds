@@ -3,8 +3,8 @@
 
 _hkgname=hspec-hedgehog
 pkgname=haskell-hspec-hedgehog
-pkgver=0.2.0.0
-pkgrel=7
+pkgver=0.3.0.0
+pkgrel=1
 pkgdesc="Integrate Hedgehog and Hspec!"
 url="https://github.com/hspec/hspec-hedgehog"
 license=('BSD-3-Clause')
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-hspec' 'haskell-hspec-core' 'haskell-hedgehog'
          'haskell-quickcheck' 'haskell-splitmix')
 makedepends=('ghc' 'haskell-hunit' 'haskell-hspec-discover')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('53dd5cb645d99b2d8553e1e4cafc74621c05124db05c6e183b3147aa0dd5c0f5')
+sha256sums=('fe430fa658fe3aad3608f6ace7e75a29b2cdaa26bdd2edce40b0e1ddb90ca7df')
 
 build() {
   cd $_hkgname-$pkgver    
