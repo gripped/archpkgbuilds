@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickcontrols-nemo
-pkgver=6.4.0
+pkgver=6.4.1
 pkgrel=1
 pkgdesc="Qt 6 QML components for Nemomobile"
 arch=('x86_64')
@@ -11,22 +11,14 @@ depends=('mlite' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'ttf-opensans')
 makedepends=('cmake' 'git' 'qt6-shadertools')
 checkdepends=('nemo-theme-glacier' 'xorg-server-xvfb')
 source=("git+https://github.com/nemomobile-ux/qtquickcontrols-nemo.git#tag=$pkgver")
-sha512sums=('40d35bafe1d60b6215a041258757d95f7b0324264e960cd17f58c28a8325411dce6185d0fcb188deb2ad6ae07e1a96c5140e8b0c7c75a426b40208f1b965b66d')
+sha512sums=('569fb4ca08686f172272a19c953631d9897a231632ddae48436c92ffc5ba56b8354edbdf93185de3e7d9d9a4601b6d4cecd86253eec764ffad6d1a49b8822a49')
 
 prepare() {
   cd qtquickcontrols-nemo
 
-  # Restore absolute image URLs to avoid QML load warnings.
-  # https://github.com/nemomobile-ux/qtquickcontrols-nemo/commit/e474aaf701c9170ea05ef100fdbc99e7df81ff25
-  git cherry-pick -n e474aaf701c9170ea05ef100fdbc99e7df81ff25
   # Use correctly formed qrc URLs for bundled control images.
   # https://github.com/nemomobile-ux/qtquickcontrols-nemo/commit/d27c9f0e5a4ea4c603e967bd049637652427b46c
   git cherry-pick -n d27c9f0e5a4ea4c603e967bd049637652427b46c
-
-  # Use Arch's Open Sans directory for the fallback and installed default theme.
-  # https://github.com/nemomobile-ux/qtquickcontrols-nemo/pull/41
-  sed -i 's|/usr/share/fonts/google-opensans/|/usr/share/fonts/TTF/|' \
-    src/core/theme.cpp src/core/nemo.json
 }
 
 build() {
