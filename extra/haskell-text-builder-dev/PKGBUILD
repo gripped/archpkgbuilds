@@ -2,8 +2,8 @@
 
 _hkgname=text-builder-dev
 pkgname=haskell-text-builder-dev
-pkgver=0.3.4.2
-pkgrel=12
+pkgver=0.3.4.3
+pkgrel=1
 pkgdesc='Edge of developments for "text-builder"'
 url="https://github.com/nikita-volkov/text-builder-dev"
 license=("MIT")
@@ -13,12 +13,12 @@ depends=('ghc-libs' 'haskell-quickcheck' 'haskell-deferred-folds' 'haskell-isomo
 makedepends=('ghc' 'uusi' 'haskell-base-compat' 'haskell-quickcheck-classes' 'haskell-rerebase'
              'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('36fdff5e23a98a26e2ebb9328d66c2a9eb6c54810935bc942785951d56d81c60')
+sha256sums=('fe5a157cdeded8aa41e744caff46c1bd39782f8ea53239ed296ad374ae2759c3')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u base-compat -u tasty-quickcheck
+  uusi -u tasty-quickcheck
 }
 
 build() {
