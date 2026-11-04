@@ -1,29 +1,29 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickcontrols-nemo
-pkgver=6.4.1
+pkgver=6.4.2
 pkgrel=1
 pkgdesc="Qt 6 QML components for Nemomobile"
 arch=('x86_64')
 url="https://github.com/nemomobile-ux/qtquickcontrols-nemo"
 license=('LGPL-2.1-or-later' 'BSD-3-Clause' 'Apache-2.0')
 depends=('mlite' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'ttf-opensans')
-makedepends=('cmake' 'git' 'qt6-shadertools')
+makedepends=('cmake' 'git')
 checkdepends=('nemo-theme-glacier' 'xorg-server-xvfb')
 source=("git+https://github.com/nemomobile-ux/qtquickcontrols-nemo.git#tag=$pkgver")
-sha512sums=('569fb4ca08686f172272a19c953631d9897a231632ddae48436c92ffc5ba56b8354edbdf93185de3e7d9d9a4601b6d4cecd86253eec764ffad6d1a49b8822a49')
+sha512sums=('6a8d2e907072bad6cb2f5eadaae89ab9c3cff3748488fd1d114bf676a0ca618861e0829094bf50629df61f2678dd24d3497c95370e28bfaaf14e1d0fe900779b')
 
 prepare() {
   cd qtquickcontrols-nemo
 
-  # Use correctly formed qrc URLs for bundled control images.
-  # https://github.com/nemomobile-ux/qtquickcontrols-nemo/commit/d27c9f0e5a4ea4c603e967bd049637652427b46c
-  git cherry-pick -n d27c9f0e5a4ea4c603e967bd049637652427b46c
+  # Stop installing shaders removed by the MultiEffect conversion.
+  # https://github.com/nemomobile-ux/qtquickcontrols-nemo/commit/d68e50f3826d53dc64d4a6eff06844a58e2c4614
+  git cherry-pick -n d68e50f3826d53dc64d4a6eff06844a58e2c4614
 }
 
 build() {
   cd qtquickcontrols-nemo
-  cmake . -DCMAKE_INSTALL_PREFIX=/usr
+  cmake . -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TESTS=ON
   make
 }
 
