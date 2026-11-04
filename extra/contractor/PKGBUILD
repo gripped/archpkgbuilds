@@ -2,22 +2,24 @@
 
 pkgname=contractor
 pkgver=0.3.5
-pkgrel=3
-pkgdesc=' A desktop-wide extension service'
-arch=('x86_64')
-url='https://github.com/elementary/contractor'
-license=('GPL3')
-groups=('pantheon')
-depends=('glib2' 'libgee')
-makedepends=('git' 'meson' 'vala')
-_tag=8d7ae1940930a4b4777599bbac3954e67b45caa0
-source=(git+https://github.com/elementary/contractor.git#tag=${_tag})
-b2sums=(SKIP)
-
-pkgver() {
-  cd contractor
-  git describe --tags
-}
+pkgrel=4
+pkgdesc='A desktop-wide extension service'
+arch=(x86_64)
+url=https://github.com/elementary/contractor
+license=(GPL-3.0-or-later)
+groups=(pantheon)
+depends=(
+  glib2
+  glibc
+  libgee
+)
+makedepends=(
+  git
+  meson
+  vala
+)
+source=(git+https://github.com/elementary/contractor.git#tag=${pkgver})
+b2sums=('7f37a0c084fe83287977502593a147f13ad5f1529d33258b8907d153d3d508102d1bded0baa60a63086154b1ed65276ae1d7b156c481d83fe31145cc1bc4032f')
 
 build() {
   arch-meson contractor build
