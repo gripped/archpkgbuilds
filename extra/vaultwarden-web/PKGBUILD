@@ -5,7 +5,7 @@
 pkgname=vaultwarden-web
 # note: upstream has build scripts in dani-garcia/bw_web_builds, and
 # keeps all code in vaultwarden/vw_web_builds
-pkgver=2026.7.0
+pkgver=2026.10.1
 pkgrel=1
 pkgdesc='Bitwarden web vault with the patches to make it work with Vaultwarden'
 arch=(any)
@@ -19,8 +19,8 @@ makedepends=(
 )
 install=$pkgname.install
 source=("$pkgname::git+$url#tag=v${pkgver}+0")
-sha512sums=('9787b7c3deafe6b715e6937ad75e1765a3ed25170e3a377d683dc7b4167713e791c145cc4aeef2dc7bbb8f4eb36c391a81ac8c3f5b2b0e678cf597f9a3e1036a')
-b2sums=('178dffbe529889b06133be3e3569c6078fa08f6639ddbc83717d93e51ab134aaa20a0a5a795ad1ec57af2055b56cf006c4d05da90cc0fb64ede80c2ac250cc30')
+sha512sums=('732a6515f442ed99e20cefe6030c2b8efcf189a6f3ce0c08c2ad7b783989a5095156aab04a95319db5c01206917a562711c7ef9acd52cb25e48a949163486037')
+b2sums=('696dc97192b80eb6d0d970a189aadf82c17ff80d3ba1223b56663169bc18abacb92fcee787f998408dceb04081b8700ed8d3dafd605f60f128c25ebda857c0e9')
 
 prepare() {
   cd "$pkgname"
