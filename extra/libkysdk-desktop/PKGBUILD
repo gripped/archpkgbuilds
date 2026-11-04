@@ -1,0 +1,50 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libkysdk-desktop
+pkgver=3.0.1.1
+pkgrel=1
+pkgdesc="Kylin SDK desktop libraries and shortcut service"
+arch=('x86_64')
+license=('LGPL-3.0-or-later')
+url="https://gitee.com/openkylin/libkysdk-desktop"
+depends=('dconf' 'glib2' 'glibc' 'gsettings-qt6' 'kconfig' 'kglobalaccel' 'libgcc' 'libstdc++'
+         'qt6-base' 'qt6-multimedia')
+makedepends=('git')
+optdepends=('kglobalacceld: global shortcut service')
+source=("git+https://gitee.com/openkylin/libkysdk-desktop.git#tag=debian/$pkgver-1")
+sha512sums=('14b7bf23457acd004513171bcae841e73df2932ccd095ab904bd62c671b736d6e27c4e99426ccca33c9535a1d23858dae228623779fae87c481b5c274d9d545a')
+
+prepare() {
+  cd libkysdk-desktop
+  # Upstream metadata still advertises the previous release.
+  sed -i "s/^Version:.*/Version: $pkgver/" development-files/*.pc
+  # Restrict shortcut autostart to UKUI sessions.
+  sed -i '/^NoDisplay=true$/aOnlyShowIn=UKUI;' kysdk-shortcut/configs/kysdk-shortcut.desktop
+  # Use Arch's library path instead of Debian's multiarch directory.
+  sed -i 's|-L/usr/lib/\$\$QMAKE_HOST.arch-linux-gnu|-L/usr/lib|g' \
+    kysdk-shortcut/kdkshortcut/kdkshortcut.pro kysdk-shortcut/libkyshortcut/libkyshortcut.pro
+}
+
+build() {
+  cd libkysdk-desktop
+  qmake6 CONFIG+=release CONFIG-=debug \
+    QMAKE_CFLAGS_RELEASE="$CPPFLAGS $CFLAGS" \
+    QMAKE_CXXFLAGS_RELEASE="$CPPFLAGS $CXXFLAGS" \
+    QMAKE_LFLAGS_RELEASE="$LDFLAGS"
+  make
+}
+
+# Tests still use KF5 qmake modules and require UKUI schemas and Atril fixtures.
+
+package() {
+  cd libkysdk-desktop
+  make INSTALL_ROOT="$pkgdir" install
+
+  install -Dm644 development-files/*.pc -t "$pkgdir/usr/lib/pkgconfig"
+  install -Dm644 kysdk-shortcut/configs/kysdk-shortcut.desktop -t "$pkgdir/etc/xdg/autostart"
+  install -Dm644 kysdk-shortcut/configs/com.kylin.kysdk.keybinding.gschema.xml \
+    -t "$pkgdir/usr/share/glib-2.0/schemas"
+  install -Dm644 doxygen/man/man3/*.3 -t "$pkgdir/usr/share/man/man3"
+  install -Dm644 doxygen/man/man8/*.8 -t "$pkgdir/usr/share/man/man8"
+  install -Dm644 COPYING -t "$pkgdir/usr/share/licenses/$pkgname"
+}

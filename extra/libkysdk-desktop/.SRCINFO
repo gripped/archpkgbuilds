@@ -1,0 +1,23 @@
+pkgbase = libkysdk-desktop
+	pkgdesc = Kylin SDK desktop libraries and shortcut service
+	pkgver = 3.0.1.1
+	pkgrel = 1
+	url = https://gitee.com/openkylin/libkysdk-desktop
+	arch = x86_64
+	license = LGPL-3.0-or-later
+	makedepends = git
+	depends = dconf
+	depends = glib2
+	depends = glibc
+	depends = gsettings-qt6
+	depends = kconfig
+	depends = kglobalaccel
+	depends = libgcc
+	depends = libstdc++
+	depends = qt6-base
+	depends = qt6-multimedia
+	optdepends = kglobalacceld: global shortcut service
+	source = git+https://gitee.com/openkylin/libkysdk-desktop.git#tag=debian/3.0.1.1-1
+	sha512sums = 14b7bf23457acd004513171bcae841e73df2932ccd095ab904bd62c671b736d6e27c4e99426ccca33c9535a1d23858dae228623779fae87c481b5c274d9d545a
+
+pkgname = libkysdk-desktop
