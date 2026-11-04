@@ -3,8 +3,8 @@
 
 _hkgname=pandoc-server
 pkgname=haskell-pandoc-server
-pkgver=0.1.4.1
-pkgrel=49
+pkgver=0.1.4.2
+pkgrel=3
 pkgdesc="Pandoc document conversion as an HTTP servant-server"
 url="https://pandoc.org"
 license=('GPL-2.0-or-later')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-base64-bytestring' 'haskell-data-de
          'haskell-skylighting' 'haskell-unicode-collation' 'haskell-wai' 'haskell-wai-cors')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1c9061b02186990f7953d9d6a27a5ec7c8a182e88f6ffa3c67530ea4e0f2fd42')
+sha256sums=('aa9d845aa5bbc2a39b25e3d7cf9879a20ab14b7f7a47f456932b2721ca7c0bca')
 
 prepare() {
   cd $_hkgname-$pkgver
