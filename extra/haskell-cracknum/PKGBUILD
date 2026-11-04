@@ -3,8 +3,8 @@
 
 _hkgname=crackNum
 pkgname=haskell-cracknum
-pkgver=3.9
-pkgrel=9
+pkgver=3.10
+pkgrel=1
 pkgdesc="Crack various integer and floating-point data formats"
 url="https://github.com/LeventErkok/crackNum"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-libbf' 'haskell-sbv' 'haskell-tasty' 'haskell-tasty-golden')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('9e7800948b6abaed3ae1908da5e63773b6df32e30c118f726aa2f4e1c18c72386a164316922599ebc65ba731aa36349cbaa321b2fc581562bba19d14abca44db')
+sha512sums=('c0981bf41cb861ca5ffe203b3d5d8c1c99342c7d27980cfaa3c7c15783672b5a848e0db90279813e360d385540699273b3b577b13cd6e743ddd2b7e1a0413619')
 
 build() {
     cd $_hkgname-$pkgver
