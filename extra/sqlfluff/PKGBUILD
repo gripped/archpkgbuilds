@@ -3,7 +3,7 @@
 # Contributor: Morteza NourelahiAlamdari <m@0t1.me>
 
 pkgname=sqlfluff
-pkgver=4.4.0
+pkgver=4.5.0
 pkgrel=1
 pkgdesc='A dialect-flexible and configurable SQL linter'
 arch=(x86_64)
@@ -40,8 +40,8 @@ checkdepends=(
   python-pytest-xdist
 )
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('be0cf157d30fba957195a2a450df8f00f9735b7f8ce51bfbd63cc967dd96d47b8879e083bd54289cef4889282448f4be3d51eab3ed446791612737b577ed3dd8')
-b2sums=('9b649f6725db6ff5a1ee4864c7709e843bfeb9267fa5819924d2c58e978e4315419df89464581cae2b9742a04dd979f81f6945306721e2173b0412bd14114353')
+sha512sums=('3c81705d8a33beb75845613776046a75f93c89b3d8fb1117ca8841867f711f064ff9e081e652e1dfdad7bb419f881f9e57cc2f56fbe1ef31bde3c4384a1a5909')
+b2sums=('ca4f9ec21d9ed5808f886d798fbdf7f4cab50adae96fb93d5647204ec51be52c38854dadc7b4c447bbe7a9f81dd2582412c555f0f1203fe800c9908a3026c14d')
 
 prepare() {
   cd "$pkgname"
