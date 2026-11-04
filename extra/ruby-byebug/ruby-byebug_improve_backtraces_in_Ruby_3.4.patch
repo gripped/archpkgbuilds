@@ -1,0 +1,418 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?David=20Rodr=C3=ADguez?=
+ <2887858+deivid-rodriguez@users.noreply.github.com>
+Date: Sat, 25 Apr 2026 02:52:01 +0200
+Subject: [PATCH] Improve backtraces in Ruby 3.4 (#967)
+
+Make them look more similar to "native" Ruby 3.4 backtraces.
+
+Co-authored-by: Ryan Davis <ryand-ruby@zenspider.com>
+(cherry picked from commit ec3ceccacfa28bdc38e267284aea91a46114bab8)
+---
+ .github/workflows/build.yml               |   3 +-
+ .github/workflows/ubuntu.yml              |   1 +
+ .github/workflows/windows.yml             |   1 +
+ CHANGELOG.md                              |   4 +
+ docker/manager.rb                         |   1 +
+ lib/byebug/frame.rb                       |  31 +++-
+ test/commands/where_test.rb               | 167 ++++++++++++++++------
+ test/processors/command_processor_test.rb |   7 +-
+ 8 files changed, 159 insertions(+), 56 deletions(-)
+
+diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
+index 5f4014b9..61378d0b 100644
+--- a/.github/workflows/build.yml
++++ b/.github/workflows/build.yml
+@@ -18,6 +18,7 @@ jobs:
+         version:
+           - { name: 3.2, value: 3.2.9 }
+           - { name: 3.3, value: 3.3.9 }
++          - { name: 3.4, value: 3.4.9 }
+ 
+         compiler: [clang, gcc]
+ 
+@@ -26,7 +27,7 @@ jobs:
+ 
+       - uses: ruby/setup-ruby@v1
+         with:
+-          ruby-version: 3.3.9
++          ruby-version: 3.4.9
+           bundler-cache: true
+ 
+       - name: Build and push docker image
+diff --git a/.github/workflows/ubuntu.yml b/.github/workflows/ubuntu.yml
+index b3bfd036..cc161d2c 100644
+--- a/.github/workflows/ubuntu.yml
++++ b/.github/workflows/ubuntu.yml
+@@ -38,6 +38,7 @@ jobs:
+         version:
+           - { name: 3.2, value: 3.2.9 }
+           - { name: 3.3, value: 3.3.9 }
++          - { name: 3.4, value: 3.4.9 }
+ 
+         compiler: [clang, gcc]
+ 
+diff --git a/.github/workflows/windows.yml b/.github/workflows/windows.yml
+index a643a052..3ec631af 100644
+--- a/.github/workflows/windows.yml
++++ b/.github/workflows/windows.yml
+@@ -22,6 +22,7 @@ jobs:
+         version:
+           - { name: 3.2, value: 3.2.9 }
+           - { name: 3.3, value: 3.3.9 }
++          - { name: 3.4, value: 3.4.9 }
+ 
+     steps:
+       - uses: actions/checkout@v5
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 93895d06..a72c9769 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,10 @@
+ 
+ ## [Unreleased]
+ 
++### Changed
++
++* [#967](https://github.com/deivid-rodriguez/byebug/pull/967): Backtraces now look more similar to "native" backtraces in Ruby 3.4.
++
+ ## [13.0.0] - 2026-01-15
+ 
+ ### Fixed
+diff --git a/docker/manager.rb b/docker/manager.rb
+index 7eb6112c..6f14990c 100644
+--- a/docker/manager.rb
++++ b/docker/manager.rb
+@@ -12,6 +12,7 @@ module Docker
+     VERSIONS = %w[
+       3.2.9
+       3.3.9
++      3.4.9
+     ].freeze
+ 
+     COMPILERS = %w[
+diff --git a/lib/byebug/frame.rb b/lib/byebug/frame.rb
+index 4272dd33..dbbf664f 100644
+--- a/lib/byebug/frame.rb
++++ b/lib/byebug/frame.rb
+@@ -40,6 +40,14 @@ module Byebug
+       @context.frame_method(pos)
+     end
+ 
++    def _unqualified_method
++      if RUBY_VERSION >= "3.4"
++        _method[/(?:#|\.)?(\w+)$/, 1] || _method
++      else
++        _method
++      end
++    end
++
+     def current?
+       @context.frame.pos == pos
+     end
+@@ -66,11 +74,10 @@ module Byebug
+     end
+ 
+     #
+-    # Returns the current class in the frame or an empty string if the current
+-    # +callstyle+ setting is 'short'
++    # Returns the current class in the frame
+     #
+     def deco_class
+-      Setting[:callstyle] == "short" || _class.to_s.empty? ? "" : "#{_class}."
++      _class.to_s.empty? ? "" : "#{_class}."
+     end
+ 
+     def deco_block
+@@ -78,7 +85,13 @@ module Byebug
+     end
+ 
+     def deco_method
+-      _method[/((?:block(?: \(\d+ levels\))?|rescue) in )?(.*)/]
++      if callstyle_short?
++        _unqualified_method[/(?:(?:block(?: \(\d+ levels\))?|rescue) in )?(.*)/, 1]
++      elsif RUBY_VERSION >= "3.4"
++        _method[/(?:(?:block(?: \(\d+ levels\))?|rescue) in )?(.*)/, 1]
++      else
++        deco_class + _method[/(?:(?:block(?: \(\d+ levels\))?|rescue) in )?(.*)/, 1]
++      end
+     end
+ 
+     #
+@@ -104,7 +117,7 @@ module Byebug
+     # Builds a formatted string containing information about current method call
+     #
+     def deco_call
+-      deco_block + deco_class + deco_method + deco_args
++      deco_block + deco_method + deco_args
+     end
+ 
+     #
+@@ -158,7 +171,7 @@ module Byebug
+     def c_args
+       return [] unless _self.to_s != "main"
+ 
+-      _class.instance_method(_method).parameters
++      _class.instance_method(_unqualified_method).parameters
+     end
+ 
+     def ruby_args
+@@ -172,7 +185,11 @@ module Byebug
+     end
+ 
+     def use_short_style?(arg)
+-      Setting[:callstyle] == "short" || arg[1].nil? || locals.empty?
++      callstyle_short? || arg[1].nil? || locals.empty?
++    end
++
++    def callstyle_short?
++      Setting[:callstyle] == "short"
+     end
+ 
+     def prefix_and_default(arg_type)
+diff --git a/test/commands/where_test.rb b/test/commands/where_test.rb
+index c73f9ae6..73d45a27 100644
+--- a/test/commands/where_test.rb
++++ b/test/commands/where_test.rb
+@@ -39,14 +39,25 @@ module Byebug
+       enter "where"
+       debug_code(program)
+ 
+-      expected_output = prepare_for_regexp <<-TXT
+-        --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
+-            #1  #{example_full_class}.encode(str#String) at #{example_path}:11
+-            #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
+-            ͱ-- #3  Class.new(*args) at #{example_path}:20
+-            #4  <module:Byebug> at #{example_path}:20
+-            #5  <top (required)> at #{example_path}:1
+-      TXT
++      expected_output = if RUBY_VERSION >= "3.4"
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}#to_int(str#String) at #{example_path}:16
++              #1  #{example_full_class}#encode(str#String) at #{example_path}:11
++              #2  #{example_full_class}#initialize(l#String) at #{example_path}:7
++              ͱ-- #3  Class#new(*args) at #{example_path}:20
++              #4  <module:Byebug> at #{example_path}:20
++              #5  <top (required)> at #{example_path}:1
++                          TXT
++                        else
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
++              #1  #{example_full_class}.encode(str#String) at #{example_path}:11
++              #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
++              ͱ-- #3  Class.new(*args) at #{example_path}:20
++              #4  <module:Byebug> at #{example_path}:20
++              #5  <top (required)> at #{example_path}:1
++                          TXT
++                        end
+ 
+       check_output_includes(*expected_output)
+     end
+@@ -55,14 +66,25 @@ module Byebug
+       enter "where"
+       debug_code(program)
+ 
+-      expected_output = prepare_for_regexp <<-TXT
+-        --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
++      expected_output = if RUBY_VERSION >= "3.4"
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}#to_int(str#String) at #{example_path}:16
++              #1  #{example_full_class}#encode(str#String) at #{example_path}:11
++              #2  #{example_full_class}#initialize(l#String) at #{example_path}:7
++              ͱ-- #3  Class#new\(*args) at #{example_path}:20
++              #4  <module:Byebug> at #{example_path}:20
++              #5  <top (required)> at #{example_path}:1
++                          TXT
++                        else
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
+             #1  #{example_full_class}.encode(str#String) at #{example_path}:11
+             #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
+             ͱ-- #3  Class.new\(*args) at #{example_path}:20
+             #4  <module:Byebug> at #{example_path}:20
+             #5  <top (required)> at #{example_path}:1
+-      TXT
++                          TXT
++                        end
+ 
+       check_output_includes(*expected_output)
+     end
+@@ -100,13 +122,23 @@ module Byebug
+       RUBY
+       debug_code(program)
+ 
+-      expected_output = prepare_for_regexp <<-TXT
+-        --> #0  block in #{example_full_class}.block in foo at #{example_path}:6
+-            #1  BasicObject.instance_exec(*args) at #{example_path}:4
+-            #2  #{example_full_class}.foo at #{example_path}:4
+-            #3  <module:Byebug> at #{example_path}:10
+-            #4  <top (required)> at #{example_path}:1
+-      TXT
++      expected_output = if RUBY_VERSION >= "3.4"
++                          prepare_for_regexp <<-TXT
++          --> #0  block in #{example_full_class}#foo at #{example_path}:6
++              #1  BasicObject#instance_exec(*args) at #{example_path}:4
++              #2  #{example_full_class}#foo at #{example_path}:4
++              #3  <module:Byebug> at #{example_path}:10
++              #4  <top (required)> at #{example_path}:1
++                          TXT
++                        else
++                          prepare_for_regexp <<-TXT
++          --> #0  block in #{example_full_class}.foo at #{example_path}:6
++              #1  BasicObject.instance_exec(*args) at #{example_path}:4
++              #2  #{example_full_class}.foo at #{example_path}:4
++              #3  <module:Byebug> at #{example_path}:10
++              #4  <top (required)> at #{example_path}:1
++                          TXT
++                        end
+ 
+       check_output_includes(*expected_output)
+     end
+@@ -115,11 +147,19 @@ module Byebug
+       enter "where 3"
+       debug_code(program)
+ 
+-      expected_output = prepare_for_regexp <<-TXT
+-        --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
+-            #1  #{example_full_class}.encode(str#String) at #{example_path}:11
+-            #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
+-      TXT
++      expected_output = if RUBY_VERSION >= "3.4"
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}#to_int(str#String) at #{example_path}:16
++              #1  #{example_full_class}#encode(str#String) at #{example_path}:11
++              #2  #{example_full_class}#initialize(l#String) at #{example_path}:7
++                          TXT
++                        else
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
++              #1  #{example_full_class}.encode(str#String) at #{example_path}:11
++              #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
++                          TXT
++                        end
+ 
+       check_output_includes(*expected_output)
+     end
+@@ -128,14 +168,25 @@ module Byebug
+       enter "where 20"
+       debug_code(program)
+ 
+-      expected_output = prepare_for_regexp <<-TXT
+-        --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
+-            #1  #{example_full_class}.encode(str#String) at #{example_path}:11
+-            #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
+-            ͱ-- #3  Class.new(*args) at #{example_path}:20
+-            #4  <module:Byebug> at #{example_path}:20
+-            #5  <top (required)> at #{example_path}:1
+-      TXT
++      expected_output = if RUBY_VERSION >= "3.4"
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}#to_int(str#String) at #{example_path}:16
++              #1  #{example_full_class}#encode(str#String) at #{example_path}:11
++              #2  #{example_full_class}#initialize(l#String) at #{example_path}:7
++              ͱ-- #3  Class#new(*args) at #{example_path}:20
++              #4  <module:Byebug> at #{example_path}:20
++              #5  <top (required)> at #{example_path}:1
++                          TXT
++                        else
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
++              #1  #{example_full_class}.encode(str#String) at #{example_path}:11
++              #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
++              ͱ-- #3  Class.new(*args) at #{example_path}:20
++              #4  <module:Byebug> at #{example_path}:20
++              #5  <top (required)> at #{example_path}:1
++                          TXT
++                        end
+ 
+       check_output_includes(*expected_output)
+     end
+@@ -155,14 +206,25 @@ module Byebug
+         enter "set nofullpath", "where", "set fullpath"
+         debug_code(program)
+ 
+-        expected_output = prepare_for_regexp <<-TXT
+-          --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
+-              #1  #{example_full_class}.encode(str#String) at #{example_path}:11
+-              #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
+-              ͱ-- #3  Class.new(*args) at #{example_path}:20
+-              #4  <module:Byebug> at #{example_path}:20
+-              #5  <top (required)> at #{example_path}:1
+-        TXT
++        expected_output = if RUBY_VERSION >= "3.4"
++                            prepare_for_regexp <<-TXT
++            --> #0  #{example_full_class}#to_int(str#String) at #{example_path}:16
++                #1  #{example_full_class}#encode(str#String) at #{example_path}:11
++                #2  #{example_full_class}#initialize(l#String) at #{example_path}:7
++                ͱ-- #3  Class#new(*args) at #{example_path}:20
++                #4  <module:Byebug> at #{example_path}:20
++                #5  <top (required)> at #{example_path}:1
++                            TXT
++                          else
++                            prepare_for_regexp <<-TXT
++            --> #0  #{example_full_class}.to_int(str#String) at #{example_path}:16
++                #1  #{example_full_class}.encode(str#String) at #{example_path}:11
++                #2  #{example_full_class}.initialize(l#String) at #{example_path}:7
++                ͱ-- #3  Class.new(*args) at #{example_path}:20
++                #4  <module:Byebug> at #{example_path}:20
++                #5  <top (required)> at #{example_path}:1
++                            TXT
++                          end
+ 
+         check_output_includes(*expected_output)
+       end
+@@ -190,14 +252,25 @@ module Byebug
+       enter "set nofullpath", "where", "set fullpath"
+       debug_code(program)
+ 
+-      expected_output = prepare_for_regexp <<-TXT
+-        --> #0  #{example_full_class}.to_int(str#String) at ...
+-            #1  #{example_full_class}.encode(str#String) at ...
+-            #2  #{example_full_class}.initialize(l#String) at ...
+-            ͱ-- #3  Class.new(*args) at ...
+-            #4  <module:Byebug> at ...
+-            #5  <top (required)> at ...
+-      TXT
++      expected_output = if RUBY_VERSION >= "3.4"
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}#to_int(str#String) at ...
++              #1  #{example_full_class}#encode(str#String) at ...
++              #2  #{example_full_class}#initialize(l#String) at ...
++              ͱ-- #3  Class#new(*args) at ...
++              #4  <module:Byebug> at ...
++              #5  <top (required)> at ...
++                          TXT
++                        else
++                          prepare_for_regexp <<-TXT
++          --> #0  #{example_full_class}.to_int(str#String) at ...
++              #1  #{example_full_class}.encode(str#String) at ...
++              #2  #{example_full_class}.initialize(l#String) at ...
++              ͱ-- #3  Class.new(*args) at ...
++              #4  <module:Byebug> at ...
++              #5  <top (required)> at ...
++                          TXT
++                        end
+ 
+       check_output_includes(*expected_output)
+     end
+diff --git a/test/processors/command_processor_test.rb b/test/processors/command_processor_test.rb
+index 16413ec2..761b7005 100644
+--- a/test/processors/command_processor_test.rb
++++ b/test/processors/command_processor_test.rb
+@@ -121,7 +121,12 @@ module Byebug
+       enter "set stack_on_error", "2 / 0"
+       debug_code(minimal_program)
+ 
+-      check_error_includes(/\s*from \S+:in \`eval\'/)
++      if RUBY_VERSION >= "3.4"
++        check_error_includes(/\s*from \S+:in \'Binding.eval\'/)
++      else
++        check_error_includes(/\s*from \S+:in \`eval\'/)
++      end
++
+       check_error_doesnt_include "ZeroDivisionError Exception: divided by 0"
+     end
+ 
+-- 
+2.51.0
+
