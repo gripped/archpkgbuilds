@@ -2,7 +2,7 @@
 # Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=aquamarine
-pkgver=0.15.1
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='a very light linux rendering backend library'
 arch=(x86_64 aarch64)
@@ -28,7 +28,7 @@ makedepends=(cmake
 provides=("lib$pkgname.so")
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('2f9de98c0bd1b7b1b09c576e390a2fef436449762fb334163c414f0c300296f2')
+sha256sums=('42339c3096c9de6582c0d71bc86b7e63334a3faf6a2b917d385ad093caf66c3c')
 
 build() {
 	cd "$_archive"
