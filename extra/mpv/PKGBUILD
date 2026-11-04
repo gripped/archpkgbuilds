@@ -6,7 +6,7 @@
 pkgname=mpv
 epoch=1
 pkgver=0.41.0
-pkgrel=6
+pkgrel=7
 pkgdesc='a free, open source, and cross-platform media player'
 arch=('x86_64')
 license=('GPL-2.0-or-later AND LGPL-2.1-or-later')
@@ -24,8 +24,18 @@ optdepends=('yt-dlp: for video-sharing websites playback')
 provides=('libmpv.so')
 options=('!emptydirs')
 validpgpkeys=('145077D82501AA20152CACCE8D769208D5E31419') # sfan5 <sfan5@live.de>
-source=("git+https://github.com/mpv-player/mpv.git?signed#tag=v${pkgver}")
-sha256sums=('6d591780b86f20397697d8847e30b9bf864798b62615fa995395b7ce03a1e4f2')
+source=("git+https://github.com/mpv-player/mpv.git?signed#tag=v${pkgver}"
+        "fix_GL_fence_leak.patch::https://github.com/mpv-player/mpv/commit/f74adc4243bd9e1a8ee96d187c939e6232510650.patch?full_index=1")
+sha256sums=('6d591780b86f20397697d8847e30b9bf864798b62615fa995395b7ce03a1e4f2'
+            'd40ddd8ac6cce779aac72d6eb8718386b52250420b12b4a100351554e92630f2')
+
+prepare() {
+  cd "${pkgname}"
+  # Fix file descriptor leak (fence) with GL renderer
+  # See https://github.com/mpv-player/mpv/issues/17217
+  # and https://github.com/mpv-player/mpv/commit/f74adc4243bd9e1a8ee96d187c939e6232510650
+  patch -Np1 -i "${srcdir}/fix_GL_fence_leak.patch"
+}
 
 build() {
   local _meson_options=(
