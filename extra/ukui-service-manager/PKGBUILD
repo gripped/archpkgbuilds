@@ -1,0 +1,35 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ukui-service-manager
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="UKUI session and system service management tools"
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+url="https://gitee.com/openkylin/ukui-service-manager"
+groups=('ukui')
+depends=('bash' 'dbus' 'glibc' 'libgcc' 'libstdc++' 'qt6-base' 'systemd')
+makedepends=('git')
+source=("git+https://salsa.debian.org/kylin-team/ukui-service-manager.git#tag=upstream/$pkgver")
+sha512sums=('fbaa0c9bb9442ff698f66b839502fa0917dc12bdfb367a996569e5ccecfd5a0a8908d3c39088fef00675154e740b94671e8e39b8741df3a16a2be3f9445d281d')
+
+prepare() {
+  cd ukui-service-manager
+  # The demo installs into /usr/local and is not a runtime service.
+  sed -i '/    service-plugin-demo/d; s/    src \\/    src/' ukui-service-manager.pro
+}
+
+build() {
+  cd ukui-service-manager
+  qmake6 \
+    QMAKE_CFLAGS_RELEASE="$CPPFLAGS $CFLAGS" \
+    QMAKE_CXXFLAGS_RELEASE="$CPPFLAGS $CXXFLAGS" \
+    QMAKE_LFLAGS_RELEASE="$LDFLAGS"
+  make
+}
+
+package() {
+  cd ukui-service-manager
+  make INSTALL_ROOT="$pkgdir" install
+  install -Dm644 man/*.1 -t "$pkgdir/usr/share/man/man1"
+}
