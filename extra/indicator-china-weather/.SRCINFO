@@ -1,15 +1,22 @@
 pkgbase = indicator-china-weather
 	pkgdesc = Indicator that displays China weather information
-	pkgver = 3.0.4
+	pkgver = 3.1.2
 	pkgrel = 2
 	url = https://github.com/UbuntuKylin/indicator-china-weather
 	arch = x86_64
 	groups = ukui
-	license = GPL
+	license = BSD-3-Clause
+	license = GPL-3.0-only
+	makedepends = git
 	makedepends = qt5-tools
 	depends = geoip
+	depends = gsettings-qt5
+	depends = kwindowsystem5
+	depends = libx11
 	depends = qt5-base
-	source = https://github.com/UbuntuKylin/indicator-china-weather/archive/v3.0.4/indicator-china-weather-3.0.4.tar.gz
-	sha512sums = 79f3944591e6d1988b745e9567d9a3ef023a53d435b5164376d7295c4419edc75fb62a8c970552ea34fe66d1b13ff263d5948e9a6f418a6d3a596a88f85c4501
+	depends = qt5-svg
+	depends = qt5-x11extras
+	source = git+https://github.com/UbuntuKylin/indicator-china-weather.git#commit=1838fd5a1a26e9e306f6ade139fe738a0c81705a
+	sha512sums = 7fafa483b291df7caa515df8093d1afeb94924adcde74ce3b5e05a715b633c0cf13a06ecdb24eca30a97b760af7360f1fdf9e1d7534d126c02b9e59ac8b4c730
 
 pkgname = indicator-china-weather

@@ -1,31 +1,42 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=indicator-china-weather
-pkgver=3.0.4
+pkgver=3.1.2
 pkgrel=2
 pkgdesc="Indicator that displays China weather information"
 arch=('x86_64')
-license=('GPL')
+license=('BSD-3-Clause' 'GPL-3.0-only')
 url="https://github.com/UbuntuKylin/indicator-china-weather"
 groups=('ukui')
-depends=('geoip' 'qt5-base')
-makedepends=('qt5-tools')
-source=("https://github.com/UbuntuKylin/indicator-china-weather/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('79f3944591e6d1988b745e9567d9a3ef023a53d435b5164376d7295c4419edc75fb62a8c970552ea34fe66d1b13ff263d5948e9a6f418a6d3a596a88f85c4501')
+depends=('geoip' 'gsettings-qt5' 'kwindowsystem5' 'libx11' 'qt5-base' 'qt5-svg' 'qt5-x11extras')
+makedepends=('git' 'qt5-tools')
+# Upstream's Debian branch contains the untagged 3.1.2 release and API v3 client.
+source=("git+https://github.com/UbuntuKylin/indicator-china-weather.git#commit=1838fd5a1a26e9e306f6ade139fe738a0c81705a")
+sha512sums=('7fafa483b291df7caa515df8093d1afeb94924adcde74ce3b5e05a715b633c0cf13a06ecdb24eca30a97b760af7360f1fdf9e1d7534d126c02b9e59ac8b4c730')
 
 prepare() {
-  cd indicator-china-weather-$pkgver
-  sed -i '/#include <QPainter>/a #include <QPainterPath>' src/{tooltip,cityitemwidget,texttip}.cpp
+  cd indicator-china-weather
+  # Use makepkg's build flags instead of Debian's packaging tools.
   sed -i '/dpkg-buildflags/d' indicator-china-weather.pro
+  # The UKUI log handler is Qt 6-only in Arch, while this client uses Qt 5.
+  # Keep Qt's default logging rather than mixing Qt major versions.
+  sed -i '/ukui-log4qt.h/d;/init log module/d;/initUkuiLog4qt/d' src/main.cpp
+  sed -i '/-lukui-log4qt/d' indicator-china-weather.pro
+  # The icon moved with the redesigned interface.
+  sed -i 's|res/indicator-china-weather.png|res/control_icons/indicator-china-weather.png|' indicator-china-weather.pro
+  # The launcher accepts a fixed argument, not a URL, and needs valid categories.
+  sed -i 's/showmainwindow%u/showmainwindow/;s/^Categories=.*/Categories=Utility;/' indicator-china-weather.desktop
+  # Fall back to the light theme when the UKUI settings schema is unavailable.
+  sed -i 's/QString nowThemeStyle = m_pGsettingThemeData->get("styleName").toString();/QString nowThemeStyle = m_pGsettingThemeData ? m_pGsettingThemeData->get("styleName").toString() : QString();/' src/menumodule.cpp
 }
 
 build() {
-  cd indicator-china-weather-$pkgver
+  cd indicator-china-weather
   qmake-qt5 PREFIX=/usr
   make
 }
 
 package() {
-  cd indicator-china-weather-$pkgver
+  cd indicator-china-weather
   make INSTALL_ROOT="$pkgdir" install
 }
