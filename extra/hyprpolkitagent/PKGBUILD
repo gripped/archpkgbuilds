@@ -3,7 +3,7 @@
 
 pkgname=hyprpolkitagent
 pkgver=0.2.0
-pkgrel=1
+pkgrel=3
 pkgdesc='Simple polkit authentication agent for Hyprland, written in QT/QML'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
