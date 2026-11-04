@@ -1,11 +1,12 @@
 pkgbase = splint
 	pkgdesc = A tool for statically checking C programs for security vulnerabilities and coding mistakes
 	pkgver = 3.1.2.git20180129
-	pkgrel = 3
+	pkgrel = 4
 	url = https://repo.or.cz/splint-patched.git
 	arch = x86_64
 	license = GPL-2.0-or-later
 	makedepends = git
+	depends = glibc
 	depends = flex
 	options = !makeflags
 	source = git+https://repo.or.cz/splint-patched.git#commit=3fb908d0d8a4daa26dc770e1f2aa133f93100503
