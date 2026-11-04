@@ -3,7 +3,7 @@
 # Contributor: Josip Ponjavic <josipponjavic at gmail dot com>
 
 pkgname=python-pycryptodome
-pkgver=4.2.0
+pkgver=4.3.0
 pkgrel=1
 license=('BSD-2-Clause' 'Unlicense' 'MIT')
 arch=('x86_64')
@@ -16,7 +16,7 @@ conflicts=('python-crypto')
 provides=('python-crypto')
 replaces=('python-crypto')
 source=("git+https://github.com/Legrandin/pycryptodome.git#tag=v$pkgver")
-sha512sums=('e444a96c8d8e67577e28218cbbfb030525f04a4365deed91a909ebe787378712b81ff8e61e7e0a1ec94879ee67b95e5d58aa7c7895764c88d04af0725b9e7abd')
+sha512sums=('02dd267d35938a177115c96cfc2ae32e4a9cde99c8968f2a64da0ec24c7e3252c33a7a25f3727825cf973dc52c8669178768d15dbb9eecf0cc4f1515ed6868f0')
 
 build() {
   cd pycryptodome
