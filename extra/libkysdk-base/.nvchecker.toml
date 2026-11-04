@@ -1,4 +1,7 @@
 [libkysdk-base]
 source = "git"
 git = "https://gitee.com/openkylin/libkysdk-base.git"
-prefix = "upstream/"
+include_regex = 'debian/\d+(\.\d+)*-\d+'
+prefix = "debian/"
+from_pattern = '-\d+$'
+to_pattern = ''

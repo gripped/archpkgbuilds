@@ -1,32 +1,53 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libkysdk-base
-pkgver=3.0.1.0
-pkgrel=2
+pkgver=3.0.1.1
+pkgrel=1
 pkgdesc="Kylin SDK basic library"
 arch=('x86_64')
-license=('LGPL-3.0-or-later')
+license=('Apache-2.0' 'LGPL-3.0-or-later' 'MIT')
 url="https://gitee.com/openkylin/libkysdk-base"
-depends=('dbus' 'glibc' 'gtk3' 'libgcc' 'libstdc++' 'glib2' 'openssl' 'qt5-base' 'sqlite' 'systemd-libs' 'yaml-cpp')
+depends=('dbus' 'glibc' 'gtk3' 'libgcc' 'libstdc++' 'glib2' 'openssl' 'python' 'python-dbus' 'python-gobject' 'python-watchdog' 'python-yaml' 'qt6-base' 'sqlite' 'systemd-libs' 'yaml-cpp')
 makedepends=('git' 'cmake' 'ninja')
-source=("git+https://gitee.com/openkylin/libkysdk-base.git#tag=upstream/$pkgver")
-sha512sums=('e982f08d816d1212590f0ae74d7d8a8a64e3b88d3b6b8d4b991643ded951d6507ad0be14f6d5b1704bb92f00c5342bcd74b38013e6c98ef6e9d52015fc3ead35')
+optdepends=('tk: graphical configuration editor')
+backup=('etc/kylin-config/basic/com.kylin.kysdk.conf2.yaml'
+        'etc/kylin-config/conf2.yaml'
+        'etc/kysdk/kysdk-base/kylog-default.conf'
+        'etc/kysdk/kysdk-base/kylog-rotate-default')
+source=("git+https://gitee.com/openkylin/libkysdk-base.git#tag=debian/$pkgver-1")
+sha512sums=('3a50c9dca360dfed962950ff53b043c8ff17114d48c260146397c9464a5c283c0d3aec8f5e5eebaea5d03a7435e1b785b094c8e9e61edb12531e8d5ee4523cb0')
 
 prepare() {
   cd libkysdk-base
-  sed -i 's/loadFormatOptions();/loadFormatOptions(int id);/' src/log/format.h
-  sed -i 's/(VersionData\*)g_hash_table_lookup/g_hash_table_lookup/' src/conf2/api/libkysettings.c
-  sed -i 's/VersionData \*version = (AppData\*)curr->data;/VersionData *version = curr->data;/' src/conf2/api/libkysettings.c
-  sed -i 's|/usr/lib/${CMAKE_HOST_SYSTEM_PROCESSOR}-linux-gnu/|/usr/lib/|g; s|/usr/lib/${CMAKE_HOST_SYSTEM_PROCESSOR}-linux-gnu"|/usr/lib"|g' src/*/CMakeLists.txt src/utils/data-structure/CMakeLists.txt
+  # Start the SDK session services only in UKUI.
+  sed -i '/^Type=Application$/a OnlyShowIn=UKUI;' src/conf2/{service,sync-config}/*.desktop
 }
 
 build() {
   cd libkysdk-base
-  cmake . -GNinja -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+  cmake . -GNinja -DCMAKE_BUILD_TYPE=None -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBDIR=lib
   ninja
 }
 
 package() {
   cd libkysdk-base
   DESTDIR="$pkgdir" ninja install
+
+  install -Dm644 development-files/*.pc -t "$pkgdir/usr/lib/pkgconfig"
+  install -Dm644 src/log/kylog-default.conf -t "$pkgdir/etc/kysdk/kysdk-base"
+  install -Dm644 src/conf2/configs/com.kylin.kysdk.conf2.yaml -t "$pkgdir/etc/kylin-config/basic"
+  install -Dm644 src/conf2/configs/conf2.yaml -t "$pkgdir/etc/kylin-config"
+  install -Dm644 src/conf2/{configs,service,sync-config}/*.service -t "$pkgdir/usr/lib/systemd/system"
+  install -Dm644 src/conf2/{service,sync-config}/*.conf -t "$pkgdir/usr/share/dbus-1/system.d"
+  install -Dm644 src/conf2/{service,sync-config}/*.desktop -t "$pkgdir/etc/xdg/autostart"
+  install -Dm755 src/conf2/service/conf2-{session,system}.py -t "$pkgdir/usr/share/kysdk/kysdk-base"
+  install -Dm644 src/conf2/service/conf2Utils.py -t "$pkgdir/usr/share/kysdk/kysdk-base"
+  install -Dm755 src/conf2/tools/{gschema_xml2yaml,health-check,ini2yaml,json2yaml} -t "$pkgdir/usr/bin"
+  install -Dm755 src/conf2/tools/kconf2-editor -t "$pkgdir/usr/share/kysdk/kysdk-base"
+  ln -s ../share/kysdk/kysdk-base/kconf2-editor "$pkgdir/usr/bin/kconf2-editor"
+  install -Dm644 src/conf2/tools/kconf2-completion.sh "$pkgdir/usr/share/bash-completion/completions/kconf2"
+  install -Dm644 man/conf2/*.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 man/{config,diagnostics}/*.3 -t "$pkgdir/usr/share/man/man3"
+  install -Dm644 man/conf2/*.8 -t "$pkgdir/usr/share/man/man8"
+  install -Dm644 debian/copyright -t "$pkgdir/usr/share/licenses/$pkgname"
 }
