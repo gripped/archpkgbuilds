@@ -3,7 +3,7 @@
 # Contributor: Frederik “Freso” S. Olesen <freso.dk@gmail.com>
 
 pkgname=python-confuse
-pkgver=2.3.0
+pkgver=2.3.1
 pkgrel=1
 pkgdesc='Painless YAML config files for Python'
 arch=(any)
@@ -26,7 +26,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+https://github.com/beetbox/confuse#tag=v$pkgver")
-b2sums=('d9b3a9fd89ddc8ae10f01285565c6a056aa6a5835d3cf3f9192eba3ef113100a9585d4492d71fff9c2d84137abee92ca393f829624d9adfa18b6a21663c151d4')
+b2sums=('80f069e85f6fc979b7380422f9b1c29cd58116e56e65ccd27248d2d3b415fa06928ebdb9cffa1c9fe3d2a95ac29a2a873c0d1d86590f961c68eb914c35430874')
 
 build() {
   cd "$pkgname"
