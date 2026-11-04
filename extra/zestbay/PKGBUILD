@@ -2,7 +2,7 @@
 # Contributor: lemonxah <lemonxah@gmail.com>
 
 pkgname=zestbay
-pkgver=0.8.6
+pkgver=1.1.2
 pkgrel=1
 pkgdesc='A PipeWire patchbay and audio routing manager with integrated LV2/VST3/CLAP plugin hosting'
 arch=(x86_64)
@@ -35,8 +35,8 @@ optdepends=(
 )
 options=(!lto !debug)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('834e3fc77b387155b3aa14e2a54a25123acbb43cd9ea05745f2ba13373b900ae444c1e9b7a0d0f314c9e57aac517f9280320b2c1e54d5412b9d4b25d63d8654b')
-b2sums=('cb916b25c05cb1716585a270230a02da6948c574fc6b3776f4470beb1286b26272d03e8f0173d1d1aa409221c95808632490b8c5685f9a27e0a5625e10145fdd')
+sha512sums=('de54b35a74e14c3004f5bffe85ccbf43927ef8ba7592a923194e7a44e6424aabdcdb0d51913bde5364c00286e65a144d301fa8e83f71ae369e2020ba129883e0')
+b2sums=('b5679bb06d8e449591f655f9adcf2f2cf822c9ea854bbb87dabb60bf9e7d34b8414668ecee9393437963f38852257c56b87fb4daa06a93a947721c9e0228ce41')
 
 prepare() {
   cd "$pkgname"
