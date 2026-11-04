@@ -2,7 +2,7 @@
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-xlsxwriter
-pkgver=3.3.0
+pkgver=3.3.1
 pkgrel=1
 pkgdesc='A Python module for creating Excel XLSX files'
 arch=(any)
@@ -17,8 +17,8 @@ makedepends=(
   python-setuptools
 )
 source=("$pkgname::git+$url#tag=RELEASE_$pkgver")
-sha512sums=('e39afaa3f9099a3542efe7eb82b4c8b6526da0072975019e789c2d7a7b6ea60c3e1d4a0a2c5e09452cc0a380270f40ff163baa562e47eed5981ac29a97664b7e')
-b2sums=('d06277cb2f1cf3fcd3522e007b0f81a9bd1376efd57426616a61151e15d65234b624183e419f71ff6905be94e7b0afd62e4465166987c0f3e5f7ee521b2a5a1b')
+sha512sums=('54540f1eac484bb41e9c08f542d9fd151c5bb07867be2aaa103695d1f5d4a39401d97633cc49d87f868ba721aea7640d3bf3de7fa2f686526c86977e5ab6ec5f')
+b2sums=('34086feb16da71febfecbcb324b8dd65b68c9c3295dac7ecbd8a8403a94d51978370f635bc2f1feaf5eda7ce84971694ac81b1b6f21efadd91083bdb511dafa1')
 
 build() {
   cd "$pkgname"
