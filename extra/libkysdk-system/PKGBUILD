@@ -1,0 +1,123 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libkysdk-system
+pkgver=3.0.1.4
+pkgrel=1
+pkgdesc="Kylin SDK system libraries and services"
+arch=('x86_64')
+license=('LGPL-3.0-or-later' 'LGPL-2.1-only OR LGPL-3.0-only' 'LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR LGPL-3.0-only WITH Qt-LGPL-exception-1.1' 'MIT')
+url="https://gitee.com/openkylin/libkysdk-system"
+depends=('alsa-lib' 'bluez-libs' 'cjson' 'curl' 'dbus' 'dbus-glib' 'file' 'glib2' 'glibc'
+         'gtk3' 'hwinfo' 'imagemagick' 'json-c' 'kmod' 'libarchive' 'libcups' 'libgcc'
+         'libkysdk-base' 'libnl' 'libnm' 'libsoup3' 'libstdc++' 'libusb' 'libx11'
+         'libxrandr' 'libzip' 'lm_sensors' 'logrotate' 'lz4' 'opencv' 'openssl'
+         'parted' 'pciutils' 'polkit' 'python' 'python-dbus' 'python-gobject'
+         'python-requests' 'qt6-base' 'qt6-webchannel' 'qt6-websockets' 'sqlite'
+         'systemd' 'systemd-libs' 'util-linux-libs' 'xz' 'zlib' 'zstd')
+makedepends=('cmake' 'git' 'libexif' 'ninja')
+optdepends=('dmidecode: chassis manufacturer and asset information'
+            'iptables: firewall rule queries'
+            'libkscreen: Wayland display resolution queries'
+            'smartmontools: disk SMART information and temperatures')
+backup=('etc/kydate/dateform.conf' 'etc/kysdk/kysdk.conf' 'etc/logrotate.d/kysdk')
+source=("git+https://gitee.com/openkylin/libkysdk-system.git#tag=debian/$pkgver-1"
+        'kysdk.logrotate')
+sha512sums=('bf97881fe1713828249c4d63005a6e1570d2099a93a1933cb016be08882d9b3fa4b77a3cd92d03d6e3abd1c71c04832d8c634cf8a391a34eaebc9cffbcce3d50'
+            '23344c693b1c1ac3bf1e3a98e4273d0b345d03f8376cfbef40de320602481be6e03bbac00a000ee245fb5eb0874875414874c656604804b76b949abec17a5167')
+
+prepare() {
+  cd libkysdk-system
+  # Honor Arch build flags instead of forcing Debug.
+  sed -i '/^set(CMAKE_BUILD_TYPE Debug)$/d' CMakeLists.txt
+  # Limit helpers to UKUI and drop unsupported MATE delay keys.
+  sed -i -e '/^NoDisplay=true$/aOnlyShowIn=UKUI;' -e '/^X-MATE_Autostart-Delay=/d' \
+    src/kysdkdbus/kysdk-dbus-session.desktop \
+    src/systemtime/kysdk-systime-date.desktop \
+    src/libkysdk-system-javascript-http/conf/kysdkHttpServer.desktop \
+    src/libkysdk-system-javascript-websocket/kysdk-dbus-websocket.desktop
+  # Upstream pkg-config files advertise older releases.
+  sed -i "s/^Version:.*/Version: $pkgver/" development-files/*.pc
+}
+
+build() {
+  cmake -S libkysdk-system -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DDEBUG=OFF
+  cmake --build build
+
+  local po
+  for po in libkysdk-system/po/*.po; do
+    msgfmt "$po" -o "${po%.po}.mo"
+  done
+}
+
+# Tests require /home/kylin fixtures, specific hardware, and live package installs.
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  cd libkysdk-system
+
+  install -Dm755 bin/kySdkDbus bin/kySdkDbus-session bin/kylin-sysinfo \
+    bin/kysdk-logrotate bin/kysdk-net bin/sdk-date bin/sdk-powermanager bin/systime \
+    src/libkysdk-system-javascript-http/httpServer \
+    src/libkysdk-system-javascript-websocket/kysdk-dbus-websocket \
+    src/location/kylin-location -t "$pkgdir/usr/bin"
+  install -Dm644 src/command/shell-completion/bash/* -t "$pkgdir/usr/share/bash-completion/completions"
+  install -Dm644 src/python/kysdk.py -t "$pkgdir$(python -c 'import sysconfig; print(sysconfig.get_path("purelib"))')"
+
+  install -Dm644 src/kysdkdbus/com.kylin.kysdk.service.conf \
+    src/location/com.kysdk.location.conf src/logrotate/com.kysdk.base.conf \
+    src/net/dbus/com.kylin.kysdk.Net.conf src/systemtime/com.kylin.kysdk.TimeServer.conf \
+    -t "$pkgdir/usr/share/dbus-1/system.d"
+  install -Dm644 src/kysdkdbus/kysdk-dbus.service src/logrotate/kysdk-logrotate.service \
+    src/net/dbus/kysdk-net.service src/systemtime/kysdk-systime.service \
+    -t "$pkgdir/usr/lib/systemd/system"
+  install -Dm644 src/location/com.kysdk.location.service -t "$pkgdir/usr/share/dbus-1/system-services"
+  install -Dm644 src/powermanagement/com.kylin.kysdk.PowerManagerServer.service -t "$pkgdir/usr/share/dbus-1/services"
+  install -Dm644 src/kysdkdbus/kysdk-dbus-session.desktop \
+    src/systemtime/kysdk-systime-date.desktop \
+    src/libkysdk-system-javascript-http/conf/kysdkHttpServer.desktop \
+    src/libkysdk-system-javascript-websocket/kysdk-dbus-websocket.desktop \
+    -t "$pkgdir/etc/xdg/autostart"
+
+  install -Dm644 src/systemtime/dateform.conf -t "$pkgdir/etc/kydate"
+  install -Dm644 src/libkysdk-system-javascript-http/conf/kysdk.conf -t "$pkgdir/etc/kysdk"
+  install -Dm644 src/packages/libkysdk-package.yaml -t "$pkgdir/usr/share/kylin-config/basic"
+  # Use Arch's logrotate schedule for the SDK's per-application rules.
+  install -Dm644 "$srcdir/kysdk.logrotate" "$pkgdir/etc/logrotate.d/kysdk"
+  install -dm755 "$pkgdir/etc/logrotate.d/kylog-rotate"
+
+  install -dm755 "$pkgdir/usr/lib/kysdk-dbus-http" "$pkgdir/usr/lib/kysdk-dbus-websocket"
+  cp -a src/libkysdk-system-javascript-http/html "$pkgdir/usr/lib/kysdk-dbus-http/"
+  cp -a src/libkysdk-system-javascript-websocket/html "$pkgdir/usr/lib/kysdk-dbus-websocket/"
+
+  install -Dm644 src/powermanagement/libkylockscreen.h src/powermanagement/libkypowermanager.h \
+    -t "$pkgdir/usr/include/kysdk/kysdk-system"
+  local pc page section po locale domain
+  # Upstream removed OCR but retained its metadata and manual pages.
+  for pc in development-files/*.pc; do
+    [[ $pc == development-files/kysdk-ocr.pc ]] && continue
+    install -Dm644 "$pc" -t "$pkgdir/usr/lib/pkgconfig"
+  done
+  for section in 1 3 8; do
+    for page in man/*/*.$section; do
+      [[ $page == man/kdkocr/* ]] && continue
+      install -Dm644 "$page" -t "$pkgdir/usr/share/man/man$section"
+    done
+  done
+
+  for po in po/*.po; do
+    locale=${po#po/}
+    locale=${locale%.po}
+    case $locale in
+      kysdk-hardware_*) domain=kysdk-hardware; locale=${locale#kysdk-hardware_} ;;
+      kysdk-sysinfo_*) domain=kysdk-sysinfo; locale=${locale#kysdk-sysinfo_} ;;
+      *) domain=kysdk-date ;;
+    esac
+    install -Dm644 "${po%.po}.mo" "$pkgdir/usr/share/locale/$locale/LC_MESSAGES/$domain.mo"
+  done
+
+  install -Dm644 COPYING debian/copyright -t "$pkgdir/usr/share/licenses/$pkgname"
+}
