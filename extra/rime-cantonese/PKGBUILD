@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=rime-cantonese
-pkgver=0.0.0.20250924
+pkgver=0.0.0.20260813
 pkgrel=1
 pkgdesc="Cantonese input for rime"
 arch=('x86_64')
@@ -10,8 +10,8 @@ license=('CC-BY-4.0' 'ODbL-1.0')
 # dependency for reverse lookup
 depends=('rime-cangjie' 'rime-emoji' 'rime-loengfan' 'rime-luna-pinyin' 'rime-stroke')
 makedepends=('git' 'librime' 'rime-prelude' 'rime-essay')
-source=("git+https://github.com/rime/rime-cantonese.git#commit=41816434b0b2457c772eae5e7dfd85054e8f5e24")
-sha512sums=('784b98579ac353cee80fb1ce8099b6ce5b9536d5c0aca8a33b914c4ddc15fc18d68a6be72a9bd554f48fa0b25fea2f964e90f3cee35a2f81fb219c51b7af35fe')
+source=("git+https://github.com/rime/rime-cantonese.git#commit=259f0e48bba840c3a2e0d117539e96937f3d89bc")
+sha512sums=('7b958f3cab7258493d8e5ba7e52b5646b0862e6d5e0d10830f12636cd96ac45166ddc150702f2d7a5b1912fcc87224d3644d551ba5563a937f3ed5a0e39a15c5')
 
 prepare() {
   cd $pkgname
