@@ -3,7 +3,7 @@
 
 _name=pyproject-api
 pkgname=python-pyproject-api
-pkgver=1.12.2
+pkgver=1.12.3
 pkgrel=1
 pkgdesc="API to interact with the python pyproject.toml based projects"
 arch=(any)
@@ -27,8 +27,8 @@ checkdepends=(
   python-virtualenv
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('55e42ba73828eebe62f2bdf1a5968eb44060bf4dac00ea47abfae7e62104b1949d75532f22e3b6aea7c8d3751296fc100de48f4b887757e23beb6aa4078350c1')
-b2sums=('dcefc2adbad83ebe6fa1d6d2823a9aa251b255cf80b6e876f7b2bb6601c39f9aa61cb0bc9f637d2ee7cb52ea3c6fe025a0a943b21fcc918b48539c6d92159d24')
+sha512sums=('71a11589372938cfd6f1a1eaa15b903b05f099c81ff9082465d4fe9d276028a7ea51c0bf45d8ac94c4483cbd465b51226a1a001de2d278694a4af3d74d62d824')
+b2sums=('94dcb8a3661d0be95734a393185fa4f75ff791fed3bf68da40d77444ded99d18a4a101957ba96e920fd371b86747ccf1a97e8b6df174cf7a7a1c43286eb93788')
 
 build() {
   cd $_name-$pkgver
