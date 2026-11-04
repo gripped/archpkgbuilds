@@ -6,7 +6,7 @@
 
 pkgname=(libvirt libvirt-storage-gluster libvirt-storage-iscsi-direct)
 epoch=1
-pkgver=12.8.0
+pkgver=12.9.0
 pkgrel=1
 pkgdesc="API for controlling virtualization engines (openvz,kvm,qemu,virtualbox,xen,etc)"
 arch=('x86_64')
@@ -14,7 +14,7 @@ url="https://libvirt.org/"
 license=(
   'LGPL-2.1-or-later'
   'GPL-3.0-or-later' # libvirt_parthelper links to libparted
-) 
+)
 depends=(
   acl
   audit
@@ -130,7 +130,7 @@ backup=(
 source=(
   "git+https://gitlab.com/libvirt/libvirt.git#tag=v${pkgver}"
 )
-sha256sums=('66c9dc02b0663458e1aba60a747c61fcf6412fc8c73be4d4461947ff9fb9417d')
+sha256sums=('c25a2758829dbdc9bc6310413598ed192dd2d57c277b8787c9d09b416de8fe51')
 
 prepare() {
   cd ${pkgname}
@@ -203,6 +203,7 @@ package_libvirt() {
     "${pkgdir}"/etc/libvirt/qemu/networks/default.xml
   chmod 700 "${pkgdir}"/etc/libvirt/secrets
   chmod 711 "${pkgdir}"/var/lib/libvirt/swtpm
+  chmod 730 "${pkgdir}"/var/log/swtpm/libvirt/qemu
 
   rm -rf \
     "${pkgdir}"/run \
