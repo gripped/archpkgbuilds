@@ -1,0 +1,97 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgbase=kylin-wayland-compositor
+pkgname=(kylin-wayland-compositor libkywc xdg-desktop-portal-wlcom)
+pkgver=1.3.2
+pkgrel=1
+pkgdesc="Wayland compositor and control tools for UKUI"
+arch=('x86_64')
+license=('MIT')
+url="https://gitee.com/openkylin/kylin-wayland-compositor"
+depends=('cairo' 'glib2' 'glibc' 'json-c' 'libdisplay-info' 'libdrm' 'libei'
+         'libepoxy' 'libglvnd' 'libinput' 'libjpeg-turbo' 'libpng' 'librsvg'
+         'libunwind' 'libxcb' 'libxkbcommon' 'mesa' 'openssl' 'pango' 'pixman'
+         'systemd-libs' 'wayland' 'wlroots0.20')
+makedepends=('git' 'hwdata' 'meson' 'scdoc' 'vulkan-headers' 'wayland-protocols')
+source=("git+https://gitee.com/openkylin/kylin-wayland-compositor.git#tag=debian/$pkgver-1")
+sha512sums=('8a742f4601ab27985687e4949b8a069b3532cae932d6768f6303f08a7fc782f4fa2fed180ff02a6a295e40281928b73bf7c11ea0964dd4d34ce2baed2003ed3c')
+
+_pick() {
+  local p="$1" f d
+  shift
+  for f; do
+    d="$srcdir/$p/${f#$pkgdir/}"
+    mkdir -p "$(dirname "$d")"
+    mv "$f" "$d"
+    rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+  done
+}
+
+prepare() {
+  cd kylin-wayland-compositor
+  # Upstream's Meson version still identifies the release as 1.3.0.
+  sed -i "s/version: '1.3.0'/version: '$pkgver'/" meson.build
+  # Arch installs libexec programs under /usr/lib.
+  sed -i -e 's|/usr/bin/xdg-desktop-portal-wlcom|/usr/lib/xdg-desktop-portal-wlcom|g' \
+    -e 's|/usr/libexec/xdg-desktop-portal-wlcom|/usr/lib/xdg-desktop-portal-wlcom|g' \
+    portal/data/*.service
+  # Retain video-group access without making framebuffer devices world-writable.
+  sed -i 's/MODE="0666"/MODE="0660"/' data/udev-rules/90-framebuffer.rules
+
+  local protocol
+  for protocol in protocols/*.xml; do
+    sed -n '/<copyright>/,/<\/copyright>/p' "$protocol" > "$protocol.license"
+  done
+}
+
+build() {
+  arch-meson kylin-wayland-compositor build \
+    -Dexamples=false \
+    -Dukui_theme=true \
+    -Dlibunwind=enabled \
+    -Dnls=enabled
+  meson compile -C build
+}
+
+package_kylin-wayland-compositor() {
+  depends+=('libkywc')
+  optdepends=('ukui-session-manager: UKUI session for the display manager entry'
+              'xdg-desktop-portal-wlcom: desktop portal integration'
+              'xorg-xwayland: X11 application support')
+  license+=('CC0-1.0' 'GPL-3.0-or-later' 'HPND-sell-variant' 'LGPL-2.1-or-later' 'MIT-CMU')
+  backup=('etc/kylin-wlcom/config.json')
+
+  meson install -C build --destdir "$pkgdir" --no-rebuild
+  cd "$pkgdir"
+  _pick libkywc usr/include/libkywc.h usr/lib/libkywc.so* usr/lib/pkgconfig/kywc.pc
+  _pick xdg-desktop-portal-wlcom usr/lib/xdg-desktop-portal-wlcom \
+    usr/lib/systemd/user/xdg-desktop-portal-wlcom.service \
+    usr/share/dbus-1/services/org.freedesktop.impl.portal.desktop.wlcom.service \
+    usr/share/xdg-desktop-portal/portals/wlcom.portal \
+    usr/share/xdg-desktop-portal/ukui-portals.conf
+  cd "$srcdir/kylin-wayland-compositor"
+  install -Dm644 LICENSE NOTICE LICENSES/*.txt debian/copyright protocols/*.license \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_libkywc() {
+  pkgdesc="Kylin Wayland compositor client library"
+  depends=('glibc' 'wayland')
+  provides=('libkywc.so')
+
+  mv "$srcdir/libkywc"/* "$pkgdir/"
+  cd kylin-wayland-compositor
+  install -Dm644 LICENSE debian/copyright \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+package_xdg-desktop-portal-wlcom() {
+  pkgdesc="xdg-desktop-portal backend for the Kylin Wayland compositor"
+  depends=('glibc' 'libkywc' 'systemd-libs' 'wayland' 'xdg-desktop-portal')
+  provides=('xdg-desktop-portal-impl')
+
+  mv "$srcdir/xdg-desktop-portal-wlcom"/* "$pkgdir/"
+  cd kylin-wayland-compositor
+  install -Dm644 LICENSE debian/copyright \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
