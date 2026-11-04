@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-pam
-pkgver=2.1.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc='Pure Python interface to the Pluggable Authentication Modules system'
 arch=(any)
@@ -17,8 +17,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('b8ad916b7355b79629f89738a55747858639e3da42525878604f217587361952c47900a0feeed129f3e3a4884c96997e08c603a4f0cb3e1c0d46c56f7d2188cc')
-b2sums=('51042dfdf6aedea748b049cee7687ee8ac9fd53740f967916686689200c343e07b7ffee3f513ae473ee372f87c8205571dcac0e584f3e1c97e2856269b262923')
+sha512sums=('39a32fbf04b373c0d62af20a80e277ba076aee9b8d80c85ea9a90a8cdc4d03049aa08e79b760fe9c752b4284354595cbf493c590b20e232b19806d5b40ad01bf')
+b2sums=('e5b834c6e2d24ec1b60a75c6a0ca43acea81f5e56cdb3cd9503230772f1c7365541736a7e5a81c77bdff077064f89ef89d5bc94521d1b4f29448242edcb1f0dc')
 
 build() {
   cd "$pkgname"
