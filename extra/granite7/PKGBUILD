@@ -2,7 +2,7 @@
 
 pkgname=granite7
 pkgver=7.8.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Library that extends GTK'
 arch=(x86_64)
 url=https://github.com/elementary/granite
@@ -11,6 +11,7 @@ groups=(pantheon)
 depends=(
   glib2
   glibc
+  gsettings-desktop-schemas
   gtk4
   hicolor-icon-theme
   libgee
