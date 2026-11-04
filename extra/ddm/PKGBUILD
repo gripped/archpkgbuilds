@@ -3,7 +3,7 @@
 
 pkgname=ddm
 pkgver=0.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='New Display Manager for DDE'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/ddm"
@@ -33,9 +33,13 @@ sha512sums=('0b5e7b9338950e13d45a864ff43bf6e4b2355d6ef3b87b8221e388ab84f6bda26ac
 
 prepare() {
   cd ddm
-  # Fix PAM fork children hanging in Qt atexit cleanup:
-  # https://github.com/linuxdeepin/ddm/pull/88
-  git cherry-pick -n 25d277f84837537446e6b42363a53ef20b32795e
+  # Run PAM in a separate helper to avoid Qt cleanup deadlocks after fork.
+  # https://github.com/linuxdeepin/ddm/pull/116
+  git cherry-pick -n ef33746f073fab5ce96d21783a554af7f6b9089a
+
+  # Keep login/logout accounting in the helper with the PAM session.
+  # https://github.com/linuxdeepin/ddm/pull/116
+  git cherry-pick -n 76be35a60ab9574849e0166b69d94a4ebf59ce69
 
   # Use Arch PAM stack names for the non-Debian autologin service.
   sed -i \
