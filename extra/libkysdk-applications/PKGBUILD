@@ -1,0 +1,49 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libkysdk-applications
+pkgver=3.0.1.2
+pkgrel=1
+pkgdesc="Kylin SDK application libraries and Qt widgets"
+arch=('x86_64')
+license=('BSD-3-Clause' 'GPL-3.0-or-later' 'LGPL-2.1-or-later' 'LGPL-3.0-or-later' 'MIT' 'MulanPSL-2.0')
+url="https://gitee.com/openkylin/libkysdk-applications"
+depends=('glibc' 'gsettings-qt6' 'kiconthemes' 'kwayland' 'kwindowsystem' 'libgcc' 'libkysdk-base' 'libstdc++' 'libx11' 'libxcb' 'openssl' 'qt6-base' 'qt6-svg' 'systemd-libs' 'wayland' 'waylandpp')
+makedepends=('git' 'qt6-tools')
+source=("git+https://gitee.com/openkylin/libkysdk-applications.git#tag=debian/$pkgver-1"
+        "https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/MulanPSL-2.0.txt")
+sha512sums=('3376caa82c46a6a7cff9d00f930ff2655d3d67404fa194f8dfe69afe4a751c9844cb457dc516165cbd250feb117282f796c15325f5e5d01cb818a6ca1d9e144c'
+            '664826dd7e535f4b701af3423b126850bb49f256b75bbb7ad7c0d796699b9228a5ee2586442e66c87300748abc181314951164560c235e88b73c21f214bdb009')
+
+prepare() {
+  cd libkysdk-applications
+  # Image codecs were removed upstream; Arch has no libstb.
+  sed -i -e '/LIBS += -lstb/d' -e 's/ -lgif//' kysdk-kabase/kabase/kabase.pro
+  # Use Arch's Qt 6 translation tool and pass the .qm files as outputs.
+  sed -i -e 's/system(lrelease /system(lrelease6 /' \
+    -e 's/\.ts \(\.\/translations\/.*\.qm\)/.ts -qm \1/' kysdk-qtwidgets/kysdk-qtwidgets.pro
+  # Upstream pkg-config files still advertise 2.x releases.
+  sed -i "s/^Version:.*/Version: $pkgver/" development-files/*.pc
+}
+
+build() {
+  cd libkysdk-applications
+  qmake6 CONFIG+=release CONFIG-=debug \
+    QMAKE_CFLAGS_RELEASE="$CPPFLAGS $CFLAGS" \
+    QMAKE_CXXFLAGS_RELEASE="$CPPFLAGS $CXXFLAGS" \
+    QMAKE_LFLAGS_RELEASE="$LDFLAGS"
+  make
+}
+
+# Tests still use Qt 5 KWindowSystem and mix live X11/Wayland clients.
+
+package() {
+  cd libkysdk-applications
+  make INSTALL_ROOT="$pkgdir" install
+  install -Dm644 development-files/*.pc -t "$pkgdir/usr/lib/pkgconfig"
+  install -Dm644 doxygen/man/man3/*.3 -t "$pkgdir/usr/share/man/man3"
+
+  install -Dm644 "$srcdir/MulanPSL-2.0.txt" -t "$pkgdir/usr/share/licenses/$pkgname"
+  sed -n '1,/\*\//p' kysdk-alm/src/singleapplication/singleapplication.cpp > "$pkgdir/usr/share/licenses/$pkgname/BSD-3-Clause.txt"
+  sed -n '1,/\*\//p' kysdk-waylandhelper/src/windowmanager/netwm.h > "$pkgdir/usr/share/licenses/$pkgname/MIT.txt"
+  sed -n '/<copyright>/,/<\/copyright>/p' kysdk-waylandhelper/protocols/*.xml > "$pkgdir/usr/share/licenses/$pkgname/wayland-protocols.txt"
+}
