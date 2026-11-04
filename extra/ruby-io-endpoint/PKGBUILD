@@ -2,7 +2,7 @@
 
 _gemname='io-endpoint'
 pkgname="ruby-${_gemname}"
-pkgver=0.17.2
+pkgver=0.18.0
 pkgrel=1
 pkgdesc='Provides a separation of concerns interface for IO endpoints'
 arch=('any')
@@ -12,6 +12,7 @@ depends=(
   ruby
 )
 makedepends=(
+  git
   ruby-rdoc
 )
 checkdepends=(
@@ -27,17 +28,18 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=(
-  "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "git+${url}.git#tag=v${pkgver}"
   "${pkgname}_fix_tests.patch"
 )
-sha512sums=('a48e679d1ad0d1ac1a4ab11e4caadc15dd48a7f42f3dbfc9aaa135776781689bf9601789f0c79d1888986f4b4203049f5a02af2c3db80dfc8a5ab7848115b184'
+sha512sums=('9796fdbeda71104aa1f2d5968397f71f26944309ef094dc324cf44971302c44e85bb15e3b9e35d68dc71282324a0b57bca6930cf9854baea51fcc122323075f2'
             '6f3f41b9facda424a4c4cad9ce1be0a1164383bead72352ab1c17b7042d230671d551e48f35011bedbf7e8236f0df6896477bedc524bb667d211007389506226')
-b2sums=('1d26cf15204ca40967315dd9e56c87daeb4439b359e6461f09155245fc13a4cc273609efe5f80b47177bf6815c9bbf9efdf8a4eeb71f5f9779086cfcf9b06f34'
+b2sums=('f66f59950e3b3a8ebeb6cebba9acf42b61ebd6b02c199a56bdccab82b5e0eae9cac1294c395bdc4920ffe5f2056e493ad11e6d50cb34bdbca4eab16757f574c9'
         '36619dfcbfce6b5bdd533ead12cdf5b7be535351f5b47b4c82a12201930a4ce900dfcb168b39c4878af5fe41f0ac65b8a0ac027bba2354048fa277828c7a0461')
 
 prepare() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
+  # Skip the address string assertion that assumes localhost resolves to IPv6.
   patch --verbose --strip=1 --input="../${pkgname}_fix_tests.patch"
 
   # update gemspec/Gemfile to allow newer version of the dependencies
@@ -53,7 +55,7 @@ prepare() {
 }
 
 build() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -96,7 +98,7 @@ build() {
 }
 
 check() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   local _gemdir="$(gem env gemdir)"
 
@@ -104,7 +106,7 @@ check() {
 }
 
 package() {
-  cd "${_gemname}-${pkgver}"
+  cd "${_gemname}"
 
   cp --archive --verbose tmp_install/* "${pkgdir}"
 
