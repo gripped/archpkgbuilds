@@ -4,10 +4,10 @@
 
 pkgname=zh-autoconvert
 pkgver=0.3.16
-pkgrel=5
+pkgrel=6
 pkgdesc="An intelligent Chinese Encoding converter"
 url="https://code.google.com/archive/p/libhz/"
-license=('LGPL')
+license=('GPL-2.0-or-later')
 arch=('x86_64')
 depends=('glibc')
 source=(https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libhz/${pkgname}-${pkgver}.tar.gz
@@ -19,7 +19,10 @@ build() {
   cd "${srcdir}/autoconvert-${pkgver}"
 
   patch -Np1 -i ../autoconvert.patch
-  make
+  # rename CFLAG->CFLAGS, pass LDFLAGS
+  sed -i 's/\bCFLAG\b/CFLAGS/g; s/\$(CFLAGS)/& $(LDFLAGS)/' Makefile
+  sed -i 's/-shared/$(LDFLAGS) &/' hzconvert/Makefile
+  make CFLAGS="$CFLAGS -std=gnu17 -fpermissive -Iinclude"
 }
 
 package() {
