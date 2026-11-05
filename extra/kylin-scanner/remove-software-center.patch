@@ -1,0 +1,75 @@
+diff --git a/src/scanSet.cpp b/src/scanSet.cpp
+index 42571ed..3b3ff00 100644
+--- a/src/scanSet.cpp
++++ b/src/scanSet.cpp
+@@ -622,12 +622,7 @@ void ScanSet::onBtnMailClicked()
+     if(!maillist)
+     {
+         NoMail *dialog = new NoMail(this);
+-        int ret= dialog->exec();// 以模态方式显示对话框，用户关闭对话框时返回 DialogCode值
+-        if(ret==QDialog::Accepted)
+-        {
+-            QProcess *process = new QProcess();
+-            process->start("/usr/bin/ubuntu-kylin-software-center");
+-        }
++        dialog->exec();
+         delete dialog; //删除对话框
+     }
+     else
+diff --git a/src/sendMail.cpp b/src/sendMail.cpp
+index 693ce74..db1e295 100644
+--- a/src/sendMail.cpp
++++ b/src/sendMail.cpp
+@@ -28,7 +28,6 @@ NoMail::NoMail(QWidget *parent) :
+     labTitle = new QLabel();
+     textEdit = new QTextEdit();
+     line = new QFrame();
+-    btnOk = new QPushButton();
+     btnCancel = new QPushButton();
+     hBoxLayout = new QHBoxLayout();
+     hBoxLayoutClose = new QHBoxLayout();
+@@ -74,21 +73,15 @@ NoMail::NoMail(QWidget *parent) :
+     line->setFrameShape(QFrame::HLine);
+     line->setStyleSheet("QFrame{color:rgb(32,30,29)}");
+ 
+-    btnOk->setText(tr("Go to install"));
+-    btnOk->setFixedSize(120,36);
+     btnCancel->setText(tr("Cancel"));
+     btnCancel->setFixedSize(120,36);
+ 
+-    btnOk->setStyleSheet("QPushButton{background-color:rgb(32,30,29);border:1px solid #939393;color:rgb(232,232,232);border-radius:18px;}"
+-                              "QPushButton:hover{border:none;background-color:rgb(39,208,127);border:rgb(147,147,147);color:rgb(232,232,232);border-radius:18px;}"
+-                                "QPushButton:checked{border:none;background-color:rgb(39,208,127);border:rgb(147,147,147);color:rgb(232,232,232);border-radius:18px;}");
+     btnCancel->setStyleSheet("QPushButton{background-color:rgb(32,30,29);border:1px solid #939393;color:rgb(232,232,232);border-radius:18px;}"
+                               "QPushButton:hover{border:none;background-color:rgb(39,208,127);color:rgb(232,232,232);border-radius:18px;}"
+                                 "QPushButton:checked{border:none;background-color:rgb(39,208,127);color:rgb(232,232,232)border-radius:18px;}");
+ 
+     hBoxLayout->setSpacing(0);
+-    hBoxLayout->addWidget(btnOk);
+-    hBoxLayout->addSpacing(16);
++    hBoxLayout->addStretch();
+     hBoxLayout->addWidget(btnCancel);
+     hBoxLayout->setContentsMargins(0,0,32,0);
+ 
+@@ -117,9 +110,6 @@ NoMail::NoMail(QWidget *parent) :
+     setMask(bitMap);
+     setLayout(vBoxLayout);
+ 
+-    // For ok button
+-    connect(btnOk,SIGNAL(clicked()),this,SLOT(accept()));
+-
+     // For cancel button
+     connect(btnCancel,SIGNAL(clicked()),this,SLOT(reject()));
+ 
+diff --git a/src/sendMail.h b/src/sendMail.h
+index c1fd3a4..01fd24f 100644
+--- a/src/sendMail.h
++++ b/src/sendMail.h
+@@ -71,7 +71,6 @@ private:
+     QLabel *labTitle;
+     QTextEdit *textEdit;
+     QFrame *line;
+-    QPushButton *btnOk;
+     QPushButton *btnCancel;
+     QHBoxLayout *hBoxLayout;
+     QHBoxLayout *hBoxLayoutClose; // 关闭按钮水平布局

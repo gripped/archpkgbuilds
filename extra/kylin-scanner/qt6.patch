@@ -1,0 +1,149 @@
+diff --git a/src/funcBar.cpp b/src/funcBar.cpp
+index 7f3ca86..10d3248 100644
+--- a/src/funcBar.cpp
++++ b/src/funcBar.cpp
+@@ -364,7 +364,7 @@ void FuncBar::onBtnScanClicked()
+ 
+ void FuncBar::onBtnRectifyClicked()
+ {
+-    qDebug()<<"send_Rectify_Begin"<<endl;
++    qDebug()<<"send_Rectify_Begin"<<Qt::endl;
+     if(flagRectify == 0)
+     {
+         flagRectify = 1;
+diff --git a/src/scanDisplay.cpp b/src/scanDisplay.cpp
+index d4ed78b..5227665 100644
+--- a/src/scanDisplay.cpp
++++ b/src/scanDisplay.cpp
+@@ -16,6 +16,7 @@
+ *
+ */
+ #include "scanDisplay.h"
++#include <QTransform>
+ 
+ QString outText;
+ 
+@@ -144,7 +145,7 @@ ScanDisplay::ScanDisplay(QWidget *parent)
+     vStackedLayout->addWidget(labInit);
+ 
+     QPalette pal(palette());
+-    pal.setColor(QPalette::Background, QColor(15, 8, 1));
++    pal.setColor(QPalette::Window, QColor(15, 8, 1));
+     setAutoFillBackground(true);
+     setPalette(pal);
+     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+@@ -318,7 +319,7 @@ void ScanDisplay::timerEvent(QTimerEvent *e)
+ void ScanDisplay::rotating()
+ {
+ 
+-    QMatrix matrix;
++    QTransform matrix;
+     *imgStack = imgEditLayout->copy();
+     stack.push(*imgStack);
+     matrix.rotate(270);
+@@ -415,7 +416,7 @@ void ScanDisplay::onOrc()
+         thread.start();
+         *imgBackup = imgBackup->scaled(120,166);
+         QPalette palette;
+-        palette.setColor(QPalette::Background, QColor(192,253,123,100));
++        palette.setColor(QPalette::Window, QColor(192,253,123,100));
+         labOrcLeft->setPalette(palette);
+         labOrcLeft->setPixmap(QPixmap::fromImage(*imgBackup));
+         labOrcLeft->setAlignment(Qt::AlignTop);
+@@ -797,7 +798,7 @@ EditBar::EditBar(QWidget *parent)
+     btnWatermark = new QPushButton();
+ 
+     QPalette pal(palette());
+-    pal.setColor(QPalette::Background, QColor(232, 232, 232));
++    pal.setColor(QPalette::Window, QColor(232, 232, 232));
+     setAutoFillBackground(true);
+     setPalette(pal);
+ 
+diff --git a/src/scanSet.cpp b/src/scanSet.cpp
+index 42571ed..2d57216 100644
+--- a/src/scanSet.cpp
++++ b/src/scanSet.cpp
+@@ -120,7 +120,7 @@ ScanSet::ScanSet(QWidget *parent)
+     vBoxScanSet->setContentsMargins(0,0,0,0);
+ 
+     QPalette pal(palette());
+-    pal.setColor(QPalette::Background, QColor(32, 30, 29));
++    pal.setColor(QPalette::Window, QColor(32, 30, 29));
+     setAutoFillBackground(true);
+     setPalette(pal);
+ 
+diff --git a/src/sendMail.cpp b/src/sendMail.cpp
+index 693ce74..27e7118 100644
+--- a/src/sendMail.cpp
++++ b/src/sendMail.cpp
+@@ -93,7 +93,7 @@ NoMail::NoMail(QWidget *parent) :
+     hBoxLayout->setContentsMargins(0,0,32,0);
+ 
+     QPalette pal(palette());
+-    pal.setColor(QPalette::Background, QColor(47, 44, 43));
++    pal.setColor(QPalette::Window, QColor(47, 44, 43));
+     setAutoFillBackground(true);
+     setPalette(pal);
+ 
+@@ -177,7 +177,7 @@ SendMail::SendMail(QWidget *parent) :
+     hBoxLayout1->setContentsMargins(0, 0, 0, 0);
+ 
+     QPalette pal(palette());
+-    pal.setColor(QPalette::Background, QColor(47, 44, 43));
++    pal.setColor(QPalette::Window, QColor(47, 44, 43));
+     setAutoFillBackground(true);
+     setPalette(pal);
+ 
+diff --git a/src/waterMarkDlg.cpp b/src/waterMarkDlg.cpp
+index 4f01050..88e95cd 100644
+--- a/src/waterMarkDlg.cpp
++++ b/src/waterMarkDlg.cpp
+@@ -69,7 +69,7 @@ WaterMarkDialog::WaterMarkDialog(QWidget *parent) :
+     hBoxLayout->setContentsMargins(16,0,16,0);
+ 
+     QPalette pal(palette()); // 水印对话框背景
+-    pal.setColor(QPalette::Background, QColor(47, 44, 43));
++    pal.setColor(QPalette::Window, QColor(47, 44, 43));
+     setAutoFillBackground(true);
+     setPalette(pal);
+ 
+diff --git a/src/widget.cpp b/src/widget.cpp
+index 29f85a8..c5aaaa7 100644
+--- a/src/widget.cpp
++++ b/src/widget.cpp
+@@ -34,7 +34,7 @@ Widget::Widget(QWidget *parent)
+ //    setStyleSheet("QWidget{border-bottom-left-radius:5px;border-bottom-right-radius:5px;}");
+     // 设置窗口背景
+     QPalette pal(palette());
+-    pal.setColor(QPalette::Background, QColor(47, 44, 43));
++    pal.setColor(QPalette::Window, QColor(47, 44, 43));
+     setAutoFillBackground(true);
+     setPalette(pal);
+ 
+@@ -196,7 +196,7 @@ void Widget::saveToPdf(QImage img, QString pathName)
+  */
+ void Widget::resultDetail(bool ret)
+ {
+-    qDebug()<<"result_detail"<<endl;
++    qDebug()<<"result_detail"<<Qt::endl;
+ 
+     if(ret)
+     {
+@@ -274,7 +274,7 @@ void Widget::saveScanFile()
+  */
+ void Widget::scanResult(bool ret)
+ {
+-    qDebug()<<"scan_result"<<endl;
++    qDebug()<<"scan_result"<<Qt::endl;
+     KylinSane &instance = KylinSane::getInstance();
+ 
+     if(ret)
+@@ -311,7 +311,7 @@ void Widget::scanResult(bool ret)
+  */
+ void Widget::scanResultDetail(bool ret)
+ {
+-    qDebug()<<"scan_result_detail"<<endl;
++    qDebug()<<"scan_result_detail"<<Qt::endl;
+ 
+     if(ret)
+     {
