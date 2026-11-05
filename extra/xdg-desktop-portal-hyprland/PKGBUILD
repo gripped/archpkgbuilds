@@ -2,9 +2,9 @@
 # Contributor: Aaron Blasko <blaskoazzolaaaron [at] gmail.com>
 
 pkgname=xdg-desktop-portal-hyprland
-pkgver=1.4.1
-_protocolver=4d29e48433270a2af06b8bc711ca1fe5109746cd
-pkgrel=2
+pkgver=1.5.0
+_protocolver=044a434ec371f985655389bcef09286b1af3d77c
+pkgrel=1
 pkgdesc='xdg-desktop-portal backend for hyprland'
 url="https://github.com/hyprwm/$pkgname"
 arch=(x86_64)
@@ -16,6 +16,7 @@ depends=(
          glibc
          hyprlang libhyprlang.so
          hyprutils libhyprutils.so
+         hyprtoolkit
          libinih
          pipewire
          qt6-base
@@ -33,8 +34,8 @@ optdepends=('grim: required for the screenshot portal to function'
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz"
         "https://github.com/hyprwm/hyprland-protocols/archive/$_protocolver.tar.gz")
-sha256sums=('3652c14f63a9666acea2c841e196782dbc0f74ea5b4783622dd04a32f08b709f'
-            '5f6be4d870e94314f05ec7ff9c9c1f028748230ff80a7f89aeaf66c08e5c70e0')
+sha256sums=('8f9eddad706b0bbca2dc24f9894e07969ec5aed163249d6eac3932cfaf38e6a9'
+            'da075667ab2aecb271f6cbd49490f14c725f417d7522c49269decf7f14431d3e')
 
 prepare() {
 	cd "$_archive/subprojects"
