@@ -3,13 +3,13 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=gajim
-pkgver=2.6.0
-pkgrel=4
+pkgver=2.7.0
+pkgrel=1
 pkgdesc="Full featured and easy to use XMPP (Jabber) client"
 url="https://gajim.org/"
 arch=('any')
 license=('GPL-3.0-only')
-depends=('gtk4' 'gtksourceview5' 'gstreamer' 'libadwaita' 'python-cairo' 'python-gobject' 'python-keyring' 'python-nbxmpp' 'python-cryptography' 'python-precis_i18n' 'python-css-parser' 'python-distro' 'hicolor-icon-theme' 'python-pillow' 'python-gssapi' 'python-netifaces' 'python-qrcode' 'python-omemo-dr' 'python-packaging' 'pango' 'sqlite' 'python-sqlalchemy' 'python-emoji' 'python-httpx' 'python-truststore' 'python-h2' 'python-socksio' 'emoji-font' 'python-pysequoia')
+depends=('gtk4' 'gtksourceview5' 'gstreamer' 'libadwaita' 'python-cairo' 'python-gobject' 'python-keyring' 'python-nbxmpp' 'python-cryptography' 'python-precis_i18n' 'python-css-parser' 'python-distro' 'hicolor-icon-theme' 'python-pillow' 'python-gssapi' 'python-netifaces' 'python-qrcode' 'python-omemo-dr' 'python-packaging' 'pango' 'sqlite' 'python-sqlalchemy' 'python-emoji' 'python-httpx2' 'python-truststore' 'python-h2' 'python-socksio' 'emoji-font' 'python-pysequoia')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 optdepends=('python-dbus: to have gajim-remote working'
             'python-sentry_sdk: for Sentry error reporting (users decide whether to send reports or not)'
@@ -27,8 +27,8 @@ optdepends=('python-dbus: to have gajim-remote working'
             'libxss: for idle time checking on X11'
             'python-gpgme: encrypting chat messages with OpenPGP')
 source=("https://gitlab.com/gajim/gajim/-/archive/${pkgver}/gajim-${pkgver}.tar.gz")
-sha512sums=('8cc3678da8c7d73b9bce58afc242cf71608b59ac210fd170d128868505d95a3f9788fb69571e476c0ad325f3bc0476016a9cc6670604c72317b7dbd4f0a40f4e')
-b2sums=('0a7caf9b95c1bf7f739cfa43fd70d08951b59f46a9c7ed54198c6cf6778d3ce59265ff8d62360f76d5db612ce5dac651b0f4d4e51d0cb86531b6773909dccbbc')
+sha512sums=('a6082e9911da2621c51b8f40447ffa0d73f596106df9c5fcf554aa1777fa457aa122c75dd40c1b69669edd68a65b56f03661e5a71db4f34866ce0e108d16d4f8')
+b2sums=('963c7e05b69c83274b6a98a0cefff398c66edd5b9c7695a94972015714081a8415c0ab679c5d8c44922337bd74a55a7477ff37343eee3f8006b1f8593d1be1e1')
 
 
 build() {
@@ -39,7 +39,11 @@ build() {
 
 check() {
 	cd "${pkgname}-${pkgver}"
-	python -m unittest discover -s test
+	python -m installer --destdir=tmp_install dist/*.whl
+	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+	export PATH="$PWD/tmp_install/usr/bin:$PATH"
+	export PYTHONPATH="$PWD/tmp_install/$site_packages"
+	python -m unittest discover -s tests
 }
 
 package() {
