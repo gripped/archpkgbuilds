@@ -2,7 +2,7 @@
 
 pkgname=dux-gop
 _pkgname=dgop
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='System monitoring CLI + REST API'
 arch=(x86_64 aarch64 armv7h)
@@ -15,7 +15,7 @@ replaces=(dgop)
 makedepends=(go)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('e5d2cee5b34c9be5098423b4ee5b602c0cc1503adbfe227df1d732c5d614837e')
+sha256sums=('141dbd1972ef149a6efce962a4741ddab5000c8813e245fb9b28b92f1c2b0bc6')
 
 prepare() {
 	cd "$_archive"
