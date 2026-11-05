@@ -1,0 +1,33 @@
+pkgbase = libkylin-nm-base
+	pkgdesc = NetworkManager integration and credential libraries for UKUI
+	pkgver = 4.20.0.2
+	pkgrel = 2
+	url = https://gitee.com/openkylin/libkylin-nm-base
+	arch = x86_64
+	groups = ukui
+	license = GPL-2.0-or-later
+	makedepends = dbus-glib
+	makedepends = git
+	makedepends = qt6-tools
+	depends = glib2
+	depends = glibc
+	depends = gsettings-qt6
+	depends = gtk3
+	depends = kwindowsystem
+	depends = libcap
+	depends = libgcc
+	depends = libkysdk-applications
+	depends = libnm
+	depends = libnma
+	depends = libsecret
+	depends = libstdc++
+	depends = networkmanager
+	depends = networkmanager-qt
+	depends = qt6-base
+	depends = qt6-svg
+	provides = libkylin-nm-base.so
+	provides = libkylin-keyring.so
+	source = git+https://gitee.com/openkylin/libkylin-nm-base.git#tag=debian/4.20.0.2-1
+	sha512sums = c78891cddc87e9a8742e09cb62d43e00503eb188f29b73f2ec2a7c826bddef962a2736c66b25d7777d824a2f6a9f70cb671c33d2906f7dd2601093f67f0c40e8
+
+pkgname = libkylin-nm-base
