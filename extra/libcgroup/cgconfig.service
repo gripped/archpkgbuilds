@@ -1,0 +1,11 @@
+[Unit]
+Description=Control group configuration
+Documentation=man:cgconfigparser(8) man:cgconfig.conf(5)
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/cgconfigparser -l /etc/cgconfig.conf -L /etc/cgconfig.d
+
+[Install]
+WantedBy=multi-user.target

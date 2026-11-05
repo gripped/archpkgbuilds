@@ -1,0 +1,11 @@
+[Unit]
+Description=Control group rules engine
+Documentation=man:cgrulesengd(8) man:cgrules.conf(5)
+After=cgconfig.service
+
+[Service]
+ExecStart=/usr/bin/cgrulesengd --nodaemon --socket-group=cgred --logfile=-
+ExecReload=/usr/bin/kill -USR2 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

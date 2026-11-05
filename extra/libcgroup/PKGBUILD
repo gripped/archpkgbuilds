@@ -1,0 +1,70 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libcgroup
+pkgver=3.2.0
+pkgrel=1
+pkgdesc="Library and tools for managing Linux control groups"
+arch=('x86_64')
+license=('LGPL-2.1-only' 'BSD-3-Clause')
+url="https://github.com/libcgroup/libcgroup"
+depends=('glibc' 'pam' 'systemd-libs' 'util-linux')
+checkdepends=('gtest')
+backup=('etc/cgconfig.conf' 'etc/cgrules.conf' 'etc/cgsnapshot_denylist.conf')
+# LTO reorders tests that share state: https://github.com/libcgroup/libcgroup/issues/487
+options=('!lto')
+source=("https://github.com/libcgroup/libcgroup/releases/download/v$pkgver/libcgroup-$pkgver.tar.gz"{,.asc}
+        'cgconfig.service'
+        'cgred.service'
+        'libcgroup.sysusers'
+        'libcgroup.tmpfiles')
+validpgpkeys=('F18591503928B6296EED4882E050B79D5B290D03') # Kamalesh Babulal
+sha512sums=('69fb2bbb8838d97fb65183ce4811a34ea899c88bccba02b8f28522ee4435b73effddd47c40733065dc2fd291db823bd428b20a18dce5e7dc9976194c08a56aaa'
+            'SKIP'
+            '84261d5591ed9f4d43114a4d0d796acd46eac497d8d9dbcc95836b10801f2ce70557c8c7c213c0363af0bc5a275972e65dd541625ff03299e2f827ef52e46bb4'
+            'e9f42896c9a6744524234b9046c9b7ab4f66fb9b61154e099fefa76598d1812c2dc9d798128d955296888169903d08e2ccb01beeaf9620c37f82f51821b874d8'
+            '0ef4e76ba59a700e3fd165b1522d89f1d5474f5eb216e3266a32e0555b219e78b4e41f0bf29d8486ae4fd26ce9546f4512f0d62f6fb61f1a0c1d462589b9aef7'
+            '99c42741be996afbf73f055598dd40708c3f134e2700b2ecb86aa6849c777951fe69b6002a5e7f84f23d5aceee44c88a765089e4ca9c162872165a6e24005d11')
+
+prepare() {
+  cd libcgroup-$pkgver
+  # Use Arch's system gtest, which requires C++17.
+  sed -i -e 's/-std=c++11/-std=c++17/' \
+    -e '/^gtest_LDFLAGS = /,+1c gtest_LDADD = $(LDADD) -lgtest' tests/gunit/Makefile.am
+  autoreconf -fi
+}
+
+build() {
+  cd libcgroup-$pkgver
+  ./configure \
+    --prefix=/usr \
+    --sbindir=/usr/bin \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --disable-static \
+    --enable-cgred-socket=/run/cgred.socket \
+    --enable-opaque-hierarchy=name=systemd \
+    --enable-unittests
+  make
+}
+
+check() {
+  cd libcgroup-$pkgver
+  # Functional tests require privileged LXD setup or modify live cgroup hierarchies.
+  make check VERBOSE=1
+}
+
+package() {
+  cd libcgroup-$pkgver
+  make DESTDIR="$pkgdir" install
+  # tmpfiles sets the allocated cgred group and setgid mode after installation.
+  chmod 755 "$pkgdir/usr/bin/cgexec"
+  install -Dm644 samples/config/{cgconfig,cgrules,cgsnapshot_denylist}.conf -t "$pkgdir/etc"
+  install -d "$pkgdir/etc/cgconfig.d" "$pkgdir/etc/cgrules.d"
+  install -Dm644 ../{cgconfig,cgred}.service -t "$pkgdir/usr/lib/systemd/system"
+  ln -s cgred.service "$pkgdir/usr/lib/systemd/system/cgrules.service"
+  install -Dm644 ../libcgroup.sysusers "$pkgdir/usr/lib/sysusers.d/libcgroup.conf"
+  install -Dm644 ../libcgroup.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/libcgroup.conf"
+  install -Dm644 samples/config/*.conf -t "$pkgdir/usr/share/doc/$pkgname/examples"
+  install -Dm644 README* -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm644 src/pam/pam_cgroup.c "$pkgdir/usr/share/licenses/$pkgname/pam_cgroup.c"
+}
