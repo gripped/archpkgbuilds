@@ -1,0 +1,23 @@
+pkgbase = ukui-input-gather
+	pkgdesc = Input event distribution service and client library for UKUI
+	pkgver = 4.0.0.0
+	pkgrel = 1
+	url = https://gitee.com/openkylin/ukui-input-gather
+	arch = x86_64
+	groups = ukui
+	license = GPL-3.0-or-later
+	makedepends = git
+	depends = glibc
+	depends = libevdev
+	depends = libgcc
+	depends = libinput
+	depends = libstdc++
+	depends = libx11
+	depends = libxi
+	depends = qt6-base
+	depends = systemd-libs
+	provides = libukuiinputgatherclient.so
+	source = git+https://gitee.com/openkylin/ukui-input-gather.git#tag=debian/4.0.0.0-1
+	sha512sums = 9fa85b47a40a7f5a2d6dc1cf6d1907fbdd6f904aa841455c43a73d5329b06837c214525898b00b927a4dd27bb1b0237d5989bf4bae64a1988f37dc958d5d7924
+
+pkgname = ukui-input-gather
