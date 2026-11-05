@@ -3,8 +3,8 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=keychain
-pkgver=3.0.8
-pkgrel=2
+pkgver=3.0.9
+pkgrel=1
 pkgdesc='A front-end to ssh-agent, allowing one long-running ssh-agent process per system, rather than per login'
 arch=(any)
 url='https://www.funtoo.org/Keychain'
@@ -15,7 +15,7 @@ makedepends=(git
              python-installer
              python-setuptools)
 source=("git+https://github.com/danielrobbins/keychain#tag=$pkgver")
-sha256sums=('533c1e540a1ecbd5498972abbb336de332add3cfcf0f3decbf9a000137c1816c')
+sha256sums=('5825cbb38c7fea71f0f753a018f1e36e7a8129470820da5e47c89efca7de29e7')
 
 build() {
   cd $pkgname
