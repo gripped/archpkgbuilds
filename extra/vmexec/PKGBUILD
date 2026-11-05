@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 
 pkgname=vmexec
-pkgver=0.8.0
+pkgver=0.8.1
 pkgrel=1
 pkgdesc="Run a single command in a speedy virtual machine with zero-setup"
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('libguestfs' 'libgcc' 'glibc')
 makedepends=('rust')
 source=(vmexec-$pkgver.tar.gz::${url}-/archive/v${pkgver}/vmexec-v${pkgver}.tar.gz)
-sha512sums=('22eb1076419994abcac60bb6ab0d991b4520a2e97cd6820d7d08b13b42d6513530ed02bc148b6de70549dacc85a9bdbfe363ab52ba5eb1c49f9da3684c3358a6')
+sha512sums=('407b1a1b4a97d64eac077ec093098ba5b852241e73fa89fcc72c3999254ee7b62d838dceafbddcaa91d6c339687c0a93fb4039267c264eff6871184c909dc170')
 
 prepare() {
   cd $pkgname-v$pkgver
