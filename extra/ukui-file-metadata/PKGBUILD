@@ -1,0 +1,66 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ukui-file-metadata
+pkgver=4.24.0.2
+pkgrel=1
+pkgdesc="File metadata, text, and thumbnail extraction library for UKUI"
+arch=('x86_64')
+license=('GPL-3.0-or-later' 'LGPL-2.1-or-later' 'LGPL-2.1-only OR LGPL-3.0-only')
+url="https://gitee.com/openkylin/ukui-file-metadata"
+depends=('ffmpeg' 'glibc' 'leptonica' 'libgcc' 'libstdc++' 'minizip' 'poppler-qt6'
+         'qt6-base' 'qt6-imageformats' 'qt6-svg' 'shared-mime-info' 'taglib'
+         'tesseract' 'tesseract-data-chi_sim' 'uchardet' 'zlib')
+makedepends=('cmake' 'git' 'ninja' 'qt6-tools')
+provides=('libukui-file-metadata.so')
+source=("git+https://gitee.com/openkylin/ukui-file-metadata.git#tag=debian/$pkgver-1"
+        'ukui-file-metadata.xml')
+sha512sums=('10f9cc8c8f8c2961bc1630061d6fb9d1602420d549f16f5de2e8217f2d0ec891e52ad72d9e37a12f23e9b17ae4cf5f90976ecbf859d98515b30e24eb73bc1b9a'
+            'cfa44c7d43f7c956016dbe62d967ddd6b7ad3ca8deedbec6ac7483afd5f51c1d776d49976aa00b418765a52ff2f3bfadb9216e8acb97c05273ec9d4bb3d28f92')
+
+prepare() {
+  cd ukui-file-metadata
+  # Link the ZIP reader's zlib dependency explicitly.
+  # https://gitee.com/openkylin/ukui-file-metadata/commit/44de5b631e5ca062d3b73c6301cc3cd2faf875a4
+  git cherry-pick -n 44de5b631e5ca062d3b73c6301cc3cd2faf875a4
+  # Honor Qt 6 selection and export the matching CMake dependencies.
+  # https://gitee.com/openkylin/ukui-file-metadata/commit/cce99d1067b6b2561f07a5becf3e7f365fdc93cd
+  git cherry-pick -n cce99d1067b6b2561f07a5becf3e7f365fdc93cd
+  # Backport the Qt Test lookup fix without the accompanying ZIP backend migration.
+  # https://gitee.com/openkylin/ukui-file-metadata/commit/ec9017f1eedbc71e9d26e529f849ca1b2642529f
+  sed -i -e '/find_package(QT NAMES Qt6 Qt5 COMPONENTS Test REQUIRED)/d' \
+    -e 's/ ${REQUIRED_QT_VERSION} CONFIG/ CONFIG/' autotests/CMakeLists.txt
+  # Use Arch's flat library layout for the library, plugins, and pkg-config file.
+  sed -i 's|/\${CMAKE_LIBRARY_ARCHITECTURE}||g' src/CMakeLists.txt
+  sed -i 's|/@CMAKE_LIBRARY_ARCHITECTURE@||g' src/pkgconfig/ukui-file-metadata.pc.in
+  # shared-mime-info now uses video/matroska as the canonical MIME name.
+  sed -i '/QStringLiteral("video\/x-matroska"),/a\    QStringLiteral("video/matroska"),' \
+    src/extractors/ffmpeg-extractor.cpp
+  sed -i '/"video\/x-matroska" :/a\        "video/matroska"   : { "Version" : "0.0" },' \
+    src/extractors/ffmpeg-extractor.json
+  # Register the UOF formats supported by the extractor without requiring WPS Office.
+  install -Dm644 "$srcdir/ukui-file-metadata.xml" mime/packages/ukui-file-metadata.xml
+}
+
+build() {
+  cmake -S ukui-file-metadata -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DBUILD_WITH_QT6=ON \
+    -DBUILD_TESTING=ON
+  cmake --build build
+}
+
+check() {
+  XDG_DATA_DIRS="$srcdir/ukui-file-metadata:/usr/share" update-mime-database ukui-file-metadata/mime
+  XDG_DATA_DIRS="$srcdir/ukui-file-metadata:/usr/share" QT_QPA_PLATFORM=offscreen \
+    ctest --test-dir build --output-on-failure
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 ukui-file-metadata/mime/packages/ukui-file-metadata.xml \
+    -t "$pkgdir/usr/share/mime/packages"
+  install -Dm644 ukui-file-metadata/COPYING ukui-file-metadata/debian/copyright \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
