@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-patron
-pkgver=1.0.0
+pkgver=1.1.0
 pkgrel=1
 pkgdesc='Ruby HTTP client library based on libcurl'
 arch=(x86_64)
@@ -26,14 +26,12 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/toland/patron#tag=v$pkgver)
-sha256sums=('faf41df72483f7e50404ceecfa6b493699cb714dc47f89fedbb38395126967fc')
+sha256sums=('40363e34d41adeb6b3ba28cce0b2505e71fd5446784853bb563eca1f0fc08889')
 
 prepare() {
   cd patron
   # Cookie and certificate paths still need Pathname after the 1.0 rewrite.
   sed -i "/^require 'uri'$/a require 'pathname'" lib/patron/session.rb
-  # Puma 7 lowercases response headers: https://github.com/puma/puma/pull/3704
-  sed -i -E "s/(response\.headers)\[['\"]([^'\"]+)['\"]\]/\1.transform_keys(\&:downcase)['\L\2']/g" spec/{response,session,session_ractor}_spec.rb
 }
 
 build() {
