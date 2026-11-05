@@ -1,0 +1,57 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=kylin-process-manager
+pkgver=4.10.0.1
+pkgrel=1
+pkgdesc="Application and process resource management for UKUI"
+arch=('x86_64')
+license=('GPL-3.0-or-later' 'LGPL-2.1-or-later' 'MulanPSL-2.0')
+url="https://gitee.com/openkylin/kylin-process-manager"
+groups=('ukui')
+depends=('bash' 'glib2' 'glibc' 'gsettings-qt6' 'jsoncpp' 'kconfig' 'kio'
+         'kwindowsystem' 'libcgroup' 'libgcc' 'libkysdk-system' 'libstdc++'
+         'libx11' 'libxext' 'pacman' 'procps-ng' 'qt6-base' 'systemd'
+         'systemd-libs' 'wayland')
+makedepends=('cmake' 'git' 'ninja' 'qt6-tools')
+optdepends=('upower: battery energy and discharge monitoring')
+backup=('etc/kylin-process-manager/kylin-process-manager.json'
+        'etc/kylin-process-manager/policy-rules.json'
+        'etc/kylin-process-manager/resource-sched-configs.json'
+        'etc/kylin-process-manager/scene-rules.json'
+        'etc/kylin-process-manager/task-profiles-v1.json'
+        'etc/kylin-process-manager/task-profiles-v2.json')
+source=("git+https://gitee.com/openkylin/kylin-process-manager.git#tag=debian/$pkgver-1")
+sha512sums=('f3c0cbba5e8738d0c0e6ff5de00a8d6aed7091fe2d0677ae8db35309c7475a6ed7d2406aa944b228b3d22ea4d7fa748bc391b293c00757d37fe31fbec0cb7d45')
+
+prepare() {
+  cd kylin-process-manager
+  # Resolve executables and desktop files through Arch's package database.
+  sed -i -e 's|"/usr/bin/dpkg", {"-S"|"/usr/bin/pacman", {"-Qqo"|' \
+         -e 's|"/usr/bin/dpkg", {"-L"|"/usr/bin/pacman", {"-Qlq"|' \
+    core/data/desktopfilemanager.cpp
+  # Arch installs JsonCpp headers under /usr/include/json.
+  sed -i 's|<jsoncpp/json/json.h>|<json/json.h>|' \
+    utils/jsonhelper.h control/groupmanagementunit.h \
+    core/data/{configmanager,groupmanager}.h \
+    core/{policy/policyruleparser,scene/sceneruleparser}.h \
+    daemon/src/systemresourcemanager.cpp autotests/tst_groupmanagementunit.cpp
+}
+
+build() {
+  # Upstream disables tests, which still reference KF5 and removed source paths.
+  cmake -S kylin-process-manager -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_TEST=OFF
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  cd kylin-process-manager
+
+  # Upstream installs these service helpers without executable permissions.
+  install -Dm755 daemon/configs/kylin-process-manager-{thawer,cleaner} -t "$pkgdir/usr/bin"
+  install -Dm644 debian/manpages/*.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 LICENSE debian/copyright -t "$pkgdir/usr/share/licenses/$pkgname"
+}
