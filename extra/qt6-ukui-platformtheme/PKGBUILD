@@ -1,0 +1,46 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=qt6-ukui-platformtheme
+pkgver=4.20.1.2
+pkgrel=1
+pkgdesc="Qt 6 UKUI platform theme and styles"
+arch=('x86_64')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later' 'GPL-2.0-only OR LGPL-3.0-only')
+url="https://gitee.com/openkylin/qt6-ukui-platformtheme"
+depends=('fontconfig' 'freetype2' 'glib2' 'glibc' 'gsettings-qt6' 'libgcc'
+         'libkysdk-base' 'libstdc++' 'libx11' 'libxcb' 'qt6-5compat' 'qt6-base'
+         'qt6-declarative')
+makedepends=('cmake' 'git' 'ninja' 'qt6-tools')
+backup=('etc/kylin-config/basic/org.ukui.style.yaml')
+source=("git+https://gitee.com/openkylin/qt6-ukui-platformtheme.git#tag=debian/$pkgver-1")
+sha512sums=('9d598dd319510835ca4cad818fa28364671ec9ba6ec0d4b49ed178e8e79c4e1478a98bfb15d4becdedb6a28dc376a05ab9b6dc2fe31bbdeb94369a3a29509055')
+
+prepare() {
+  cd qt6-ukui-platformtheme
+  # Use Arch's flat library layout instead of Debian multiarch paths.
+  sed -i 's|/usr/lib/\${CMAKE_LIBRARY_ARCHITECTURE}|/usr/lib|g' \
+    */CMakeLists.txt
+  # Find Qt 6 private headers in Arch's non-multiarch include directory.
+  sed -i 's|include/x86_64-linux-gnu/qt6/QtGui|include/qt6/QtGui|g' ukui-styles/CMakeLists.txt
+  # Refresh the development metadata for the Qt 6 installation.
+  sed -i -e "s/^Version:.*/Version: $pkgver/" \
+    -e "s|^Home Page:.*|URL: $url|" \
+    -e 's|^Requires:.*|Requires: Qt6Widgets glib-2.0 gio-2.0 gsettings-qt6|' \
+    -e 's|-L/usr/lib -L/usr/lib/x86_64-linux-gnu|-L/usr/lib|' \
+    -e 's|/usr/include/qt5-ukui|/usr/include/qt6-ukui|' \
+    libqt6-ukui-style/development-files/qt6-ukui.pc
+}
+
+build() {
+  cmake -S qt6-ukui-platformtheme -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 qt6-ukui-platformtheme/COPYING qt6-ukui-platformtheme/debian/copyright \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}
