@@ -2,7 +2,7 @@
 # Contributor: Agustin <agustinballesteros04@gmail.com>
 
 pkgname=llmfit
-pkgver=1.1.18
+pkgver=1.1.20
 pkgrel=1
 pkgdesc='CLI tool to tell which LLM models will run best on your hardware'
 arch=(x86_64 aarch64)
@@ -14,7 +14,7 @@ makedepends=(cargo
              git)
 replaces=("$pkgname-bin")
 source=("git+$url.git#tag=v$pkgver")
-sha256sums=('e49c5b5444531ba688c254b092d42da2d4a5803c4f7ff46b56c4b98b979e8800')
+sha256sums=('38260e18a3e8c1b92a66ecce8eaf1d01f087dcf493dff07ef72c423dc849391d')
 
 _srcenv() {
 	cd "$pkgname"
