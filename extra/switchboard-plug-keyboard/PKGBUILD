@@ -2,7 +2,7 @@
 
 pkgname=switchboard-plug-keyboard
 pkgver=8.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Switchboard Keyboard Plug'
 arch=(x86_64)
 url=https://github.com/elementary/switchboard-plug-keyboard
@@ -10,15 +10,18 @@ license=(GPL-2.0-only)
 groups=(pantheon)
 depends=(
   dconf
+  gala
   glib2
   glibc
   gtk4
+  ibus
   libibus
   libadwaita-1.so
   libgee
   libgranite-7.so
   libswitchboard-3.so
   libxml2
+  pantheon-settings-daemon
 )
 makedepends=(
   git
