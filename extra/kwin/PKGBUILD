@@ -5,7 +5,7 @@
 pkgname=kwin
 pkgver=6.8.2
 _dirver=$(echo $pkgver | cut -d. -f1-3)
-pkgrel=1
+pkgrel=2
 pkgdesc='An easy to use, but flexible, Wayland compositor'
 arch=(x86_64)
 url='https://kde.org/plasma-desktop/'
@@ -93,14 +93,20 @@ groups=(
 )
 source=(
   https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig}
+  https://invent.kde.org/plasma/kwin/-/commit/c9d720793bbcef9483ab290673032d39441c0e6f.patch
 )
 sha256sums=('ea5e68d957c7d70abed97222a592d4445fda29129e20942658badd224ee138b4'
-            'SKIP')
+            'SKIP'
+            '667d62447fdbc9fe0a760efee7c44e96c988384a5ad86fac49be7576d52010c2')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
               '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '90A968ACA84537CC27B99EAF2C8DF587A6D4AAC1'  # Nicolas Fella <nicolas.fella@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
+
+prepare() {
+  patch -d $pkgname-$pkgver -p1 < c9d720793bbcef9483ab290673032d39441c0e6f.patch # Fix crashes
+}
 
 build() {
   cmake -B build  -S $pkgname-$pkgver \
