@@ -1,0 +1,48 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=kylin-virtual-keyboard
+pkgver=4.20.1.0
+pkgrel=1
+pkgdesc="On-screen keyboard for UKUI using Fcitx 5"
+arch=('x86_64')
+license=('GPL-3.0-or-later' 'BSD-3-Clause')
+url="https://gitee.com/openkylin/kylin-virtual-keyboard"
+groups=('ukui')
+depends=('bash' 'fcitx5' 'fmt' 'glibc' 'gsettings-qt6' 'kwindowsystem' 'libgcc'
+         'libstdc++' 'qt6-5compat' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'spdlog')
+makedepends=('cmake' 'git' 'ninja' 'qt6-tools')
+checkdepends=('dbus' 'glib2' 'xorg-server-xvfb')
+optdepends=('xorg-xwayland: run the keyboard under Wayland')
+source=("git+https://gitee.com/openkylin/kylin-virtual-keyboard.git#tag=debian/$pkgver-1"
+        'fix-test-build.patch')
+sha512sums=('253b0711d0f433611f9df0079fea1a0ea4790871e89dc920ccbce54f8794f307964fb59288fc082e98748749f55ccf2e94cdc07d45e4ada6de64a13f9fc07808'
+            'ff23ad63ba6d3570be1ebb0194863eb062313ae7869417b2888f12910f19cadb2014430f9c823e18a3c4dd6b4a0d2d22084d3bd10888e1dd7dbc0a1d623f3cdb')
+
+prepare() {
+  cd kylin-virtual-keyboard
+  # Update test dependencies, preserve build flags and keep the test binary uninstalled.
+  patch -Np1 -i ../fix-test-build.patch
+}
+
+build() {
+  lrelease6 kylin-virtual-keyboard/translations/*.ts
+  cmake -S kylin-virtual-keyboard -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DENABLE_TEST=ON
+  cmake --build build
+}
+
+check() {
+  glib-compile-schemas kylin-virtual-keyboard/data
+  GSETTINGS_SCHEMA_DIR="$srcdir/kylin-virtual-keyboard/data" GSETTINGS_BACKEND=memory \
+    QT_QUICK_BACKEND=software xvfb-run -a dbus-run-session -- \
+    ctest --test-dir build --output-on-failure
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 kylin-virtual-keyboard/man/*.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 kylin-virtual-keyboard/LICENSE kylin-virtual-keyboard/debian/copyright \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
+}

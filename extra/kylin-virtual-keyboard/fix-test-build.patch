@@ -1,0 +1,31 @@
+--- a/test/CMakeLists.txt
++++ b/test/CMakeLists.txt
+@@ -20,7 +20,7 @@
+ include_directories(${CMAKE_SOURCE_DIR}/src)
+ 
+ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage -fno-access-control")
+-set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage -fno-access-control")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -fno-access-control")
+ 
+ add_executable(runTests
+     test.cpp
+@@ -40,6 +40,7 @@
+     ../src/appinputareamanager.cpp
+     ../src/ipc/fcitxvirtualkeyboardserviceproxy.cpp
+     ../src/localsettings/viewlocalsettings.cpp
++    ../src/log.cpp
+ )
+ 
+ target_link_libraries(runTests
+@@ -54,10 +55,9 @@
+     Qt${QT_VERSION_MAJOR}::QuickControls2
+     KF${QT_VERSION_MAJOR}::WindowSystem
+     Fcitx5::Core
+-    Fcitx5Qt${QT_VERSION_MAJOR}::DBusAddons
++    spdlog::spdlog
+     ${GSettings_QT_LIBRARIES}
+ )
+ 
+ add_test(NAME test COMMAND runTests)
+ 
+-install(TARGETS runTests DESTINATION ${CMAKE_INSTALL_BINDIR})

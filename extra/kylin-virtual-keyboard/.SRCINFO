@@ -1,0 +1,36 @@
+pkgbase = kylin-virtual-keyboard
+	pkgdesc = On-screen keyboard for UKUI using Fcitx 5
+	pkgver = 4.20.1.0
+	pkgrel = 1
+	url = https://gitee.com/openkylin/kylin-virtual-keyboard
+	arch = x86_64
+	groups = ukui
+	license = GPL-3.0-or-later
+	license = BSD-3-Clause
+	checkdepends = dbus
+	checkdepends = glib2
+	checkdepends = xorg-server-xvfb
+	makedepends = cmake
+	makedepends = git
+	makedepends = ninja
+	makedepends = qt6-tools
+	depends = bash
+	depends = fcitx5
+	depends = fmt
+	depends = glibc
+	depends = gsettings-qt6
+	depends = kwindowsystem
+	depends = libgcc
+	depends = libstdc++
+	depends = qt6-5compat
+	depends = qt6-base
+	depends = qt6-declarative
+	depends = qt6-svg
+	depends = spdlog
+	optdepends = xorg-xwayland: run the keyboard under Wayland
+	source = git+https://gitee.com/openkylin/kylin-virtual-keyboard.git#tag=debian/4.20.1.0-1
+	source = fix-test-build.patch
+	sha512sums = 253b0711d0f433611f9df0079fea1a0ea4790871e89dc920ccbce54f8794f307964fb59288fc082e98748749f55ccf2e94cdc07d45e4ada6de64a13f9fc07808
+	sha512sums = ff23ad63ba6d3570be1ebb0194863eb062313ae7869417b2888f12910f19cadb2014430f9c823e18a3c4dd6b4a0d2d22084d3bd10888e1dd7dbc0a1d623f3cdb
+
+pkgname = kylin-virtual-keyboard
