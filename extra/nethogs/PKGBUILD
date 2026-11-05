@@ -1,13 +1,16 @@
-# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Maintainer: Orhun Parmaksız <orhun@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
+# Contributor: Kyle Keen <keenerd@gmail.com>
 # Contributor: ViNS <gladiator@fastwebnet.it>
 # Contributor: Daenyth
 pkgname=nethogs
-pkgver=0.8.8
-pkgrel=2
+pkgver=0.9.0
+pkgrel=1
 pkgdesc="A net top tool which displays traffic used per process instead of per IP or interface"
 url="https://github.com/raboof/nethogs"
-license=('GPL')
+license=('GPL-2.0-or-later')
 depends=(
+  'glibc'
   'libpcap'
   'ncurses'
   'libgcc'
@@ -17,7 +20,7 @@ arch=('x86_64')
 install=nethogs.install
 #source=(https://downloads.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz
 source=(nethogs-$pkgver.tgz::https://github.com/raboof/nethogs/archive/v$pkgver.tar.gz)
-sha256sums=('111ade20cc545e8dfd7ce4e293bd6b31cd1678a989b6a730bd2fa2acc6254818')
+sha256sums=('5961bef2155c05695d2fe7e79aa11194981b5afd1cad9bf1f259c7f30d5487c3')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
@@ -29,7 +32,7 @@ prepare() {
 build() {
   cd "$srcdir/$pkgname-$pkgver"
   make prefix="/usr"
-  make prefix="/usr" libnethogs
+  CXXFLAGS+=" -fPIC" make prefix="/usr" libnethogs
 }
 
 package() {
