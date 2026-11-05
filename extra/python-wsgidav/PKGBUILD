@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-wsgidav
-pkgver=4.3.5
+pkgver=4.4.0
 pkgrel=1
 pkgdesc='Generic WebDAV server based on WSGI'
 arch=(any)
@@ -41,8 +41,8 @@ optdepends=(
   'python-lxml: performance improvements for PROPPATCH requests'
 )
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('32131c61cc2dec1df597365f06c137d3141ebf00a4da94d9d76ada5e38ba1c463887a67432fa2110152847774814efbcacb360909b529be4f0d04ffd91728a55')
-b2sums=('806de3a92c8d769f90018d84426be044f2c202b45c256e211d3fe0da8e96b38aa0d1d4ada59ebce7297477c17ec236298f6fc1d5bf03f0126bd698e189f5fc01')
+sha512sums=('6cbb2077dc3b5942ea4265b49cbba0c59c6a46bd08475dc4724ee526a59cbf049325a9f12abb069c39731ade1ce5250b2023e45768572aba4ac2c3e3e6184d8d')
+b2sums=('1be2867714aa95db207fac2d1734c140ab0cf877e7df23f89e184121e7b31a0718115441008e1ea429ed465d8fbdb18e5713cf3e3ddfc3ff40bd7e04b5737ae4')
 
 build() {
   cd "$pkgname"
