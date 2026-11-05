@@ -1,0 +1,27 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libkylin-ai-system-private
+pkgver=1.2.0.1
+pkgrel=1
+pkgdesc="Headers and protocol definitions for Kylin AI system interfaces"
+arch=('any')
+license=('Apache-2.0' 'GPL-3.0-or-later')
+url="https://gitee.com/openkylin/libkylin-ai-system-private"
+makedepends=('cmake' 'git' 'ninja')
+optdepends=('glib2-devel: generate D-Bus bindings'
+            'grpc: generate gRPC service bindings'
+            'protobuf: generate Protocol Buffers bindings')
+source=("git+https://gitee.com/openkylin/libkylin-ai-system-private.git#tag=debian/$pkgver-1")
+sha512sums=('9eb0b2af531abbcbef7092c5bbd4f1377cd5cbddd7cfb9ca99bbf42138d7d90f4239d904846e8cf30396e0245ce7ab2f16a9031059ce482392014889679b2ffa')
+
+build() {
+  cmake -S libkylin-ai-system-private -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 libkylin-ai-system-private/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
