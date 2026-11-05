@@ -2,7 +2,7 @@
 
 pkgname=switchboard-plug-network
 pkgver=8.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Switchboard Network Plug'
 arch=(x86_64)
 url=https://github.com/elementary/switchboard-plug-network
@@ -19,23 +19,16 @@ depends=(
   libnma-gtk4
   libswitchboard-3.so
   networkmanager
+  nm-connection-editor
   polkit
 )
 makedepends=(
-  cmake
   git
-  gobject-introspection
   meson
   vala
 )
-_tag=6183aff9ad8def721840ee6b00f70e0eb78e58bd
-source=(git+https://github.com/elementary/switchboard-plug-network.git#tag=${_tag})
+source=(git+https://github.com/elementary/switchboard-plug-network.git#tag=${pkgver})
 b2sums=('54c55afb592f57a397c6b4c564d28fc29de29a268df0638bd260657cfa744ddd1adeda0a54970691fb0121a64056b13f721824b1db23c8f4949b49d522c6e818')
-
-pkgver() {
-  cd switchboard-plug-network
-  git describe --tags
-}
 
 build() {
   arch-meson switchboard-plug-network build
