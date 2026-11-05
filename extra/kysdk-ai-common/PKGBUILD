@@ -1,0 +1,34 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=kysdk-ai-common
+pkgver=1.1.0.2
+pkgrel=1
+pkgdesc="Common interfaces and types for the Kylin AI subsystem"
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+url="https://gitee.com/openkylin/kysdk-ai-common"
+depends=('bash' 'glibc' 'grep' 'libgcc' 'libstdc++' 'pacman' 'procps-ng')
+makedepends=('cmake' 'git' 'ninja')
+source=("git+https://gitee.com/openkylin/kysdk-ai-common.git#tag=debian/$pkgver-1")
+sha512sums=('58141a1c166345e4b49cc5b4700a4b3d82ddafc4c1067170d617df2942ce9766ded1487dafaef813086ef041266a32d52191044f69b41e9380e210452831859a')
+
+prepare() {
+  cd kysdk-ai-common
+  # Detect the optional AI subsystem through Arch's package database.
+  sed -i -e 's|/usr/bin/dpkg -s|/usr/bin/pacman -Qq|' \
+         -e 's/"Status: install ok installed"/AI_SUBSYSTEM_PACKAGE/' src/common.cpp
+}
+
+build() {
+  cmake -S kysdk-ai-common -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  mv "$pkgdir"/usr/{share,lib}/pkgconfig
+  install -Dm644 kysdk-ai-common/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
