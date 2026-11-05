@@ -2,7 +2,7 @@
 # Contributor: Greg Erwin <first name last name 256 at gmail dot com>
 
 pkgname=libgpiod
-pkgver=2.3.1
+pkgver=2.3.2
 pkgrel=1
 pkgdesc="C library and tools for interacting with the linux GPIO character device"
 url="https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git"
@@ -11,12 +11,13 @@ license=('LGPL-2.1-or-later' 'GPL-2.0-or-later' 'CC-BY-SA-4.0')
 depends=('python')
 makedepends=('git' 'meson' 'ninja' 'help2man')
 source=("git+$url#tag=v$pkgver")
-sha256sums=('7b1f37f975c805c3a4724f303f744a18e8691f3ecd27284d2ccef51c4eb9e320')
+sha256sums=('14fc504cd97f82459bde1c87f3b345237a2c0cbfba1ba36cd7b8a4701346e253')
 
 build() {
   cd $pkgname
 
   arch-meson build \
+    -Ddefault_library=shared \
     -Dtools=enabled \
     -Dgpioset-interactive=disabled \
     -Dtests=disabled \
