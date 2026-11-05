@@ -2,7 +2,7 @@
 
 pkgname=libkysdk-base
 pkgver=3.0.1.1
-pkgrel=1
+pkgrel=3
 pkgdesc="Kylin SDK basic library"
 arch=('x86_64')
 license=('Apache-2.0' 'LGPL-3.0-or-later' 'MIT')
@@ -42,11 +42,12 @@ package() {
   install -Dm644 src/conf2/{service,sync-config}/*.desktop -t "$pkgdir/etc/xdg/autostart"
   install -Dm755 src/conf2/service/conf2-{session,system}.py -t "$pkgdir/usr/share/kysdk/kysdk-base"
   install -Dm644 src/conf2/service/conf2Utils.py -t "$pkgdir/usr/share/kysdk/kysdk-base"
-  install -Dm755 src/conf2/tools/{gschema_xml2yaml,health-check,ini2yaml,json2yaml} -t "$pkgdir/usr/bin"
+  # Omit the optional json2yaml converter to avoid conflicting with haskell-yaml.
+  install -Dm755 src/conf2/tools/{gschema_xml2yaml,health-check,ini2yaml} -t "$pkgdir/usr/bin"
   install -Dm755 src/conf2/tools/kconf2-editor -t "$pkgdir/usr/share/kysdk/kysdk-base"
   ln -s ../share/kysdk/kysdk-base/kconf2-editor "$pkgdir/usr/bin/kconf2-editor"
   install -Dm644 src/conf2/tools/kconf2-completion.sh "$pkgdir/usr/share/bash-completion/completions/kconf2"
-  install -Dm644 man/conf2/*.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 man/conf2/{gschema_xml2yaml,health-check,ini2yaml,kconf2}.1 -t "$pkgdir/usr/share/man/man1"
   install -Dm644 man/{config,diagnostics}/*.3 -t "$pkgdir/usr/share/man/man3"
   install -Dm644 man/conf2/*.8 -t "$pkgdir/usr/share/man/man8"
   install -Dm644 debian/copyright -t "$pkgdir/usr/share/licenses/$pkgname"
