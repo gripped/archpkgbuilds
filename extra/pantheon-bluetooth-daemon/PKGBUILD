@@ -2,7 +2,7 @@
 
 pkgname=pantheon-bluetooth-daemon
 pkgver=1.1.0
-pkgrel=2
+pkgrel=1
 pkgdesc='Send and receive files via Bluetooth for Pantheon'
 arch=(x86_64)
 url=https://github.com/elementary/bluetooth-daemon
@@ -12,8 +12,8 @@ depends=(
   dconf
   glib2
   glibc
-  granite7
-  gtk4
+  granite
+  gtk3
   libgee
   hicolor-icon-theme
 )
@@ -24,17 +24,6 @@ makedepends=(
 )
 source=(pantheon-bluetooth-daemon::git+https://github.com/elementary/bluetooth-daemon.git#tag=${pkgver})
 b2sums=('251172bd0a8788a9211e7d236df558978224da4168ddab4399c629715979921101ae8cfb0390256baa9555bb3370bb000458c3f3393be14a69f0718dc345e4fc')
-
-prepare() {
-  cd pantheon-bluetooth-daemon
-
-  # Port to GTK4
-  git cherry-pick -n 575f6212aff016b448a749d1629cb8fd7e26f096 \
-                     76ab3e53eb38fcf85bb1b6b8f6892d8c952667d3 \
-                     9730d0282ba462a65bc39b83a60e6af2cf9e85b6 \
-                     3658cba12d819bbd5562369ef1173b7db5eb3fb5 \
-                     50e94329792a4be23d118d3c2289c3ffeb3ff9fa
-}
 
 build() {
   arch-meson pantheon-bluetooth-daemon build
