@@ -1,0 +1,53 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ruby-minitest-strict
+pkgver=1.0.1
+pkgrel=1
+pkgdesc='Strict assertions for Minitest'
+arch=(any)
+url='https://github.com/sferik/minitest-strict'
+license=(MIT)
+depends=(ruby ruby-minitest)
+makedepends=(git ruby-rdoc)
+checkdepends=(ruby-simplecov)
+options=(!emptydirs)
+source=("git+https://github.com/sferik/minitest-strict.git#tag=v$pkgver")
+sha256sums=('67b343b47826023fc13b00c8785622b37676fd9f9e8b6bcea4f7e4c64fb93cf9')
+
+prepare() {
+  cd minitest-strict
+
+  # Omit Mutant's mutation testing hooks: its EULA restricts redistribution.
+  # https://github.com/mbj/mutant/blob/v0.17.1/LICENSE (section 3.1)
+  sed -i '/require "mutant\/minitest\/coverage"/d' test/test_helper.rb
+  sed -i '/^  cover /d' test/minitest/strict_test.rb
+}
+
+build() {
+  local _gemdir="$(gem env gemdir)"
+  cd minitest-strict
+
+  gem build minitest-strict.gemspec
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install$_gemdir" \
+    --bindir tmp_install/usr/bin \
+    minitest-strict-$pkgver.gem
+  rm -r "tmp_install$_gemdir/cache"
+}
+
+check() {
+  local _gemdir="$(gem env gemdir)"
+  cd minitest-strict
+
+  GEM_HOME="tmp_install$_gemdir" ruby -Ilib:test -e 'Dir["test/**/*_test.rb"].sort.each { |test| load test }'
+}
+
+package() {
+  cd minitest-strict
+  cp -a tmp_install/* "$pkgdir"/
+  install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
