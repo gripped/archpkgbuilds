@@ -1,0 +1,114 @@
+diff --git a/tests/test_composition.py b/tests/test_composition.py
+index 397c4b6..f83c317 100644
+--- a/tests/test_composition.py
++++ b/tests/test_composition.py
+@@ -227,11 +227,10 @@ def test_mixed_first_benchmark_extracts_equal_nonempty_values(current_oracle):
+ 
+ @pytest.mark.parametrize('query', [r'.\d800::text', r'#\dfff::text', r'[id="\d800"]::text',
+                                    r'[id="\0"]::text', r'[class*="\d800"]::text'])
+-def test_non_executable_css_escapes_cannot_match_replacement_characters(current_oracle, query):
++def test_unsupported_css_escapes_cannot_match_replacement_characters(current_oracle, query):
+     from frostwork import extract
+     body = '<p class="�" id="�">hit</p>'.encode()
+-    with pytest.raises((UnicodeError, ValueError)):
+-        Selector(body=body).css(query).getall()
++    # Frostwork rejects NUL/surrogate escapes; cssselect >= 1.6 normalizes them to U+FFFD.
+     assert not check([query]).ok
+     assert extract(body, [query], strict=False) == [[]]
+ 
+diff --git a/tests/test_python.py b/tests/test_python.py
+index 7000a50..3e20e4e 100644
+--- a/tests/test_python.py
++++ b/tests/test_python.py
+@@ -2718,10 +2718,9 @@ def test_nonsubject_sibling_predicate_matches_parsel():
+ 
+ 
+ def test_has_widened_inners_match_correct_semantics():
+-    # `:has()` with an id/attribute/`:not` inner is valid CSS that cssselect 1.4.0 REJECTS (raises).
+-    # Frostwork implements the correct semantics (a documented divergence in our favor). We can't use
+-    # parsel's `.css(":has(...)")` as the oracle (it errors), so the oracle is a parsel/lxml ancestor
+-    # walk: `E:has(F)` = the E-nodes that are an ancestor (or, for `:has(> F)`, the parent) of some F-node.
++    # cssselect < 1.6 rejects `:has()` with an id/attribute/`:not` inner. Use a parsel/lxml
++    # ancestor walk that works with both old and new cssselect: `E:has(F)` = the E-nodes that
++    # are an ancestor (or, for `:has(> F)`, the parent) of some F-node.
+     parsel = _oracle()
+     html = (
+         b"<html><body>"
+@@ -2737,11 +2736,6 @@ def test_has_widened_inners_match_correct_semantics():
+     )
+     sel = parsel.Selector(body=html, encoding="utf-8")
+ 
+-    # premise check: cssselect really can't parse these, so parsel is not a usable direct oracle
+-    import cssselect
+-    with pytest.raises(cssselect.SelectorSyntaxError):
+-        sel.css("div:has([data-x])")
+-
+     def has_ids(e_css, f_css, child=False):
+         f_roots = [f.root for f in sel.css(f_css)]
+         out = []
+@@ -2776,11 +2770,10 @@ def test_has_widened_inners_match_correct_semantics():
+ 
+ 
+ def test_has_selector_list_matches_the_union_of_its_members():
+-    # `:has(a, img)` is a relative selector LIST — valid CSS that cssselect rejects outright
+-    # (scrapy/cssselect#138). The oracle is the union of the single-member spellings it DOES accept:
++    # `:has(a, img)` is a relative selector LIST, supported by cssselect >= 1.6.
++    # The oracle is the union of single-member spellings, which also works with older cssselect:
+     # `E:has(a, b)` matches exactly the E-nodes matched by `E:has(a)` or `E:has(b)`.
+     parsel = _oracle()
+-    import cssselect
+ 
+     html = (
+         b"<html><body>"
+@@ -2793,10 +2786,6 @@ def test_has_selector_list_matches_the_union_of_its_members():
+     )
+     sel = parsel.Selector(body=html, encoding="utf-8")
+ 
+-    # premise: the list spelling really is a syntax error to cssselect, so parsel cannot answer it
+-    with pytest.raises(cssselect.SelectorSyntaxError):
+-        sel.css("div:has(a, img)")
+-
+     for frost_sel, oracle_sel in [
+         ("div:has(a, img)::attr(id)", "div:has(a), div:has(img)"),
+         ("div:has(img, a)::attr(id)", "div:has(a), div:has(img)"),  # member order is irrelevant
+@@ -2844,10 +2833,9 @@ def test_not_selector_list_matches_the_chained_spelling():
+ 
+ 
+ def test_attribute_case_insensitive_flag_matches_an_lxml_fold():
+-    # `[a=v i]` is Selectors 4; cssselect rejects the flag, so the oracle is the equivalent XPath fold
+-    # evaluated by lxml itself.
++    # `[a=v i]` is Selectors 4, supported by cssselect >= 1.6. The equivalent XPath fold
++    # evaluated by lxml also works with older cssselect.
+     parsel = _oracle()
+-    import cssselect
+ 
+     html = (
+         b"<html><body>"
+@@ -2859,9 +2847,6 @@ def test_attribute_case_insensitive_flag_matches_an_lxml_fold():
+     up, lo = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"
+     fold = f"translate(@type,'{up}','{lo}')"
+ 
+-    with pytest.raises(cssselect.SelectorSyntaxError):
+-        sel.css("[type=submit i]")
+-
+     assert frostwork.extract(html, ["[type=submit i]::attr(id)"])[0] == sel.xpath(
+         f"//a[{fold}='submit']/@id"
+     ).getall()
+@@ -3426,7 +3411,7 @@ def test_selector_grammar_surface_obeys_the_contract():
+     and the test states which, so a change that turns a gap into a WRONG answer fails here.
+ 
+     "The oracle rejects it, so we must be empty" is the rule for everything EXCEPT the handful of valid
+-    CSS constructs Frostwork answers deliberately (docs/COMPATIBILITY.md, "Beyond lxml"). Those are
++    CSS constructs Frostwork answers beyond cssselect 1.5 (docs/COMPATIBILITY.md, "Beyond lxml"). Those are
+     declared with their expected values rather than exempted, because the rule only stays sharp if a new
+     capability has to be written down: loosening the assertion to "or we answer it" would retire the
+     check that catches a genuine over-match.
+@@ -3440,8 +3425,6 @@ def test_selector_grammar_surface_obeys_the_contract():
+         "div:has(p, span) p::text": ["D"],       # `:has()` relative selector list
+     }
+     for sel, want_beyond in beyond.items():
+-        with pytest.raises(Exception):  # premise: the oracle really cannot run these
+-            parsel.Selector(body=html, encoding="utf-8").css(sel)
+         assert frostwork.check([sel]).fields[0].supported, f"{sel!r}: declared beyond, but refused"
+         assert frostwork.extract(html, [sel])[0] == want_beyond, sel
+ 

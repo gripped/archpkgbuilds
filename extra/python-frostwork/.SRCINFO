@@ -1,0 +1,37 @@
+pkgbase = python-frostwork
+	pkgdesc = Streaming HTML extraction with CSS and XPath selectors
+	pkgver = 0.2.2
+	pkgrel = 1
+	url = https://github.com/scrapy/frostwork
+	arch = x86_64
+	license = Apache-2.0
+	checkdepends = mypy
+	checkdepends = python-andi
+	checkdepends = python-attrs
+	checkdepends = python-clear-html
+	checkdepends = python-cssselect
+	checkdepends = python-html-text
+	checkdepends = python-lxml
+	checkdepends = python-parsel
+	checkdepends = python-price-parser
+	checkdepends = python-pytest
+	checkdepends = python-w3lib
+	checkdepends = python-web-poet
+	checkdepends = python-zyte-common-items
+	checkdepends = python-zyte-parsers
+	makedepends = cargo
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-maturin
+	depends = glibc
+	depends = libgcc
+	depends = python
+	depends = python-typing_extensions
+	optdepends = python-web-poet: web-poet page object integration
+	source = git+https://github.com/scrapy/frostwork.git#tag=0.2.2
+	source = cssselect-1.6.patch
+	sha256sums = 28cfc65a22d2ca6045fc29c79d2ded0dd5a752ac526026ab32dec03438d4ef6a
+	sha256sums = f6c787d9cb0ce1bc252d98bfe6ed212f8fd4d8533c48d08d3f5bd11ebf0fea79
+
+pkgname = python-frostwork

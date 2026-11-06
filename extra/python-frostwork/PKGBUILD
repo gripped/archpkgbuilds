@@ -1,0 +1,58 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-frostwork
+pkgver=0.2.2
+pkgrel=1
+pkgdesc="Streaming HTML extraction with CSS and XPath selectors"
+arch=('x86_64')
+url="https://github.com/scrapy/frostwork"
+license=('Apache-2.0')
+depends=('glibc' 'libgcc' 'python' 'python-typing_extensions')
+makedepends=('cargo' 'git' 'python-build' 'python-installer' 'python-maturin')
+checkdepends=(
+  'mypy'
+  'python-andi'
+  'python-attrs'
+  'python-clear-html'
+  'python-cssselect'
+  'python-html-text'
+  'python-lxml'
+  'python-parsel'
+  'python-price-parser'
+  'python-pytest'
+  'python-w3lib'
+  'python-web-poet'
+  'python-zyte-common-items'
+  'python-zyte-parsers'
+)
+optdepends=('python-web-poet: web-poet page object integration')
+source=("git+https://github.com/scrapy/frostwork.git#tag=$pkgver"
+        'cssselect-1.6.patch')
+sha256sums=('28cfc65a22d2ca6045fc29c79d2ded0dd5a752ac526026ab32dec03438d4ef6a'
+            'f6c787d9cb0ce1bc252d98bfe6ed212f8fd4d8533c48d08d3f5bd11ebf0fea79')
+
+prepare() {
+  cd frostwork
+  # cssselect 1.6 accepts selectors that the reference parser previously rejected.
+  patch -Np1 -i ../cssselect-1.6.patch
+  cargo fetch --locked
+}
+
+build() {
+  cd frostwork
+  python -m build --wheel --no-isolation -C build-args='--frozen --compatibility linux'
+}
+
+check() {
+  cd frostwork
+  cargo test --frozen
+  cargo build --release --frozen --bins
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
+}
+
+package() {
+  cd frostwork
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
