@@ -1,0 +1,62 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-log-viewer
+pkgver=6.5.43
+pkgrel=1
+pkgdesc='Deepin system and application log viewer'
+arch=('x86_64')
+url='https://github.com/linuxdeepin/deepin-log-viewer'
+license=('Apache-2.0' 'CC-BY-4.0' 'CC0-1.0' 'GPL-3.0-or-later' 'MIT')
+depends=('bash' 'binutils' 'dbus' 'deepin-qt6integration' 'dmidecode' 'dtk6core'
+         'dtk6gui' 'dtk6widget' 'file' 'gio-qt' 'glib2' 'glibc' 'gzip'
+         'hicolor-icon-theme' 'icu' 'libgcc' 'libstdc++' 'libxlsxwriter' 'lsb-release' 'lshw'
+         'minizip' 'pacman' 'pciutils' 'polkit' 'polkit-qt6' 'procps-ng' 'qt6-5compat'
+         'qt6-base' 'qt6-svg' 'systemd' 'systemd-libs' 'udisks2' 'unzip'
+         'util-linux' 'xerces-c' 'zip' 'zlib')
+makedepends=('git' 'boost' 'cmake' 'deepin-gettext-tools' 'gtest' 'ninja' 'qt6-declarative'
+             'qt6-tools' 'rapidjson')
+optdepends=('alsa-utils: audio device information in diagnostic exports'
+            'audit: system audit logs'
+            'ethtool: network driver information in diagnostic exports'
+            'mesa-utils: graphics information in diagnostic exports'
+            'net-tools: network interface information in diagnostic exports')
+groups=('deepin-extra')
+provides=('liblogviewerplugin.so')
+source=("git+https://github.com/linuxdeepin/deepin-log-viewer.git#tag=$pkgver"
+        "$pkgname-6.5.43-build.patch"
+        "$pkgname-6.5.43-arch.patch")
+sha512sums=('84fa95d85b17de7858c8d6b456dec9ef613eac503144c12517e24052664690c142b04eb0cf6fb173e40d73ab6971965ca4153a63833398aa4d5fed59f1a46e0f'
+            'ce355ff5468abb5817336e5af683b6337fe5431606f5a8224190a268a2f948310df5deb1acc3fad127346284ad892e75614d6950e70dc935fb3ebe1305cc7038'
+            '98b9a9f6d79a2611e4848c0b11309488f5130a7347680d26ffb1eb0204625ab27ee8995cf728d7977f6526e0ef2c279c16bd413b46ba797552d3fb561bffe4a8')
+
+prepare() {
+  cd deepin-log-viewer
+  # Use system libraries, complete the plugin's inputs, and fix CLI installation and tests.
+  # Includes the parser-test authentication fix from:
+  # https://github.com/linuxdeepin/deepin-log-viewer/commit/0bd1919f69bb23e4a0f4721935ceffb27fb154d0
+  git apply ../$pkgname-6.5.43-build.patch
+  # Use pacman for diagnostics and make service paths work on Arch.
+  git apply ../$pkgname-6.5.43-arch.patch
+}
+
+build() {
+  cmake -B build -S deepin-log-viewer -GNinja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DLUPDATE_EXECUTABLE=/usr/lib/qt6/bin/lupdate \
+    -DOPT_ENABLE_BUILD_UT=ON \
+    -DVERSION=$pkgver
+  cmake --build build
+}
+
+check() {
+  dbus-run-session build/tests/deepin-log-viewer-test
+  dbus-run-session build/tests/deepin-log-viewer-plugin-test
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 deepin-log-viewer/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -Dm644 deepin-log-viewer/debian/copyright "$pkgdir/usr/share/licenses/$pkgname/copyright"
+}

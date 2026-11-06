@@ -1,0 +1,158 @@
+diff --git a/application/configs/coredump-reporter.service b/application/configs/coredump-reporter.service
+index b2036c2..22c8e25 100644
+--- a/application/configs/coredump-reporter.service
++++ b/application/configs/coredump-reporter.service
+@@ -4,6 +4,7 @@ Description=deepin-log-viewer coredump report activities
+ [Service]
+ Environment=HOME=/
+ User=root
++LogsDirectory=deepin
+ ExecStart=/usr/bin/deepin-log-viewer --reportcoredump
+ ProtectSystem=strict
+ MemoryMax=512M
+@@ -48,7 +49,7 @@ InaccessiblePaths=-/var/cache
+ InaccessiblePaths=-/var/spool
+ 
+ ReadWritePaths=/var/log/deepin
+-ReadWritePaths=/tmp /var/tmp /media /mnt /home
++ReadWritePaths=/tmp /var/tmp -/media /mnt /home
+ 
+ # V25: Restrict executable paths (recommended for security)
+ ExecPaths=/usr/bin /usr/sbin /sbin /usr/lib
+diff --git a/application/logapplicationhelper.cpp b/application/logapplicationhelper.cpp
+index 1ffb9f8..00587a1 100644
+--- a/application/logapplicationhelper.cpp
++++ b/application/logapplicationhelper.cpp
+@@ -87,9 +87,7 @@ void LogApplicationHelper::initOtherLog()
+     m_other_log_list.clear();
+ 
+     QList<QStringList> m_other_log_list_temp;
+-    m_other_log_list_temp.append(QStringList() << "alternatives.log" << "/var/log/alternatives.log");
+-    m_other_log_list_temp.append(QStringList() << "history.log" << "/var/log/apt/history.log");
+-    m_other_log_list_temp.append(QStringList() << "term.log" << "/var/log/apt/term.log");
++    m_other_log_list_temp.append(QStringList() << "pacman.log" << "/var/log/pacman.log");
+ 
+     m_other_log_list_temp.append(QStringList() << "access_log" << "/var/log/cups/access_log");
+     m_other_log_list_temp.append(QStringList() << "error_log" << "/var/log/cups/error_log");
+diff --git a/application/logbackend.cpp b/application/logbackend.cpp
+index 8f83ecd..5830038 100644
+--- a/application/logbackend.cpp
++++ b/application/logbackend.cpp
+@@ -3278,11 +3278,11 @@ void LogBackend::parseCoredumpDetailInfo(QList<LOG_MSG_COREDUMP> &list)
+             if (!outInfoByte.isEmpty())
+                 data.binaryInfo = outInfoByte;
+             // 获取包名
+-            outInfoByte = Utils::executeCmd("dpkg", QStringList() << "-S" << data.exe);
++            outInfoByte = Utils::executeCmd("pacman", QStringList() << "-Qoq" << "--" << data.exe);
+             // 获取版本号
+             if (!outInfoByte.isEmpty()) {
+-                QString str = outInfoByte;
+-                outInfoByte = Utils::executeCmd("dpkg-query", QStringList() << "--show" << str.split(":").first());
++                QString str = outInfoByte.trimmed();
++                outInfoByte = Utils::executeCmd("pacman", QStringList() << "-Q" << "--" << str);
+                 if (!outInfoByte.isEmpty()) {
+                     data.packgeVersion = QString(outInfoByte).simplified();
+                 }
+diff --git a/application/utils.cpp b/application/utils.cpp
+index 7f0f194..8c9300d 100644
+--- a/application/utils.cpp
++++ b/application/utils.cpp
+@@ -940,7 +940,7 @@ void Utils::exportUserPermissionAppLogs(const QString &outDir, const QString &us
+ 
+     // 窗口管理器
+     appendToFile(outDir + "/app/kwin/glxinfo.log", executeCmd("glxinfo", { "-display", qEnvironmentVariable("DISPLAY"), "-B" }));
+-    appendToFile(outDir + "/app/kwin/kwin_info.log", executeCmd("apt", { "policy", "kwin-x11", "dde-kwin" }));
++    appendToFile(outDir + "/app/kwin/kwin_info.log", executeCmd("pacman", { "-Qi", "kwin", "deepin-kwin" }));
+ 
+     // 安卓容器
+     safeCpSkipSymlinks({userHomeDir + "/log/AospLog.log",
+@@ -995,11 +995,11 @@ void Utils::exportUserPermissionOpsLogs(const QString &outDir, const QString &us
+     Utils::exportUserPermissionKernelLogs(outDir);
+     Utils::exportUserPermissionDDELogs(outDir, userHomeDir);
+ 
+-    // deb version
++    // Installed package versions for diagnostic exports.
+     QStringList args;
+     args.clear();
+-    args << "-l";
+-    appendToFile(outDir + "/deb-version.txt", executeCmd("dpkg", args));
++    args << "-Q";
++    appendToFile(outDir + "/package-versions.txt", executeCmd("pacman", args));
+ }
+ 
+ #ifdef DTKCORE_CLASS_DConfigFile
+diff --git a/logViewerService/assets/data/deepin-log-viewer-daemon.service b/logViewerService/assets/data/deepin-log-viewer-daemon.service
+index 6d762fc..8375fe0 100644
+--- a/logViewerService/assets/data/deepin-log-viewer-daemon.service
++++ b/logViewerService/assets/data/deepin-log-viewer-daemon.service
+@@ -12,6 +12,7 @@ ExecStart=/usr/lib/deepin-daemon/log-view-service
+ # 非root有阻塞，deepin-daemon启动后不能通过/proc/pid/exe获取启动进程全路径，下一阶段再按deepin-dameon启动
+ #User=deepin-daemon
+ User=root
++LogsDirectory=deepin
+ ProtectSystem=strict
+ # exportOpsLog 需要在 /var/log 下创建临时导出目录，须显式放开写权限
+ ReadWritePaths=/var/log
+@@ -53,7 +54,7 @@ ProtectClock=true
+ PrivateMounts=true
+ PrivateTmp=true
+ ReadWritePaths=/var/log/deepin
+-ReadWritePaths=/media /mnt
++ReadWritePaths=-/media /mnt
+ PrivateDevices=true
+ # V25: PrivateIPC recommended, but not effective for AF_UNIX (D-Bus uses AF_UNIX)
+ #PrivateIPC=true
+@@ -70,7 +71,7 @@ LimitMEMLOCK=infinity
+ # V25: Restrict executable paths (recommended for security)
+ # Business requirement: Service needs to execute various system commands for log collection
+ # Commands used: cat, chmod, cp, mkdir, dmesg, journalctl, coredumpctl, readelf,
+-#                udisksctl, apt, uname, lspci, lscpu, df, free, hwfirmware, dmidecode, etc.
++#                udisksctl, uname, lspci, lscpu, df, free, hwfirmware, dmidecode, etc.
+ # Paths from main.cpp: PATH includes /usr/bin, /usr/sbin, /sbin
+ ExecPaths=/usr/bin /usr/sbin /sbin /usr/lib /usr/lib/deepin-daemon
+ NoExecPaths=/var/tmp
+diff --git a/logViewerService/opslogexport.cpp b/logViewerService/opslogexport.cpp
+index 529577b..9f5d4fa 100644
+--- a/logViewerService/opslogexport.cpp
++++ b/logViewerService/opslogexport.cpp
+@@ -282,7 +282,6 @@ void OpsLogExport::createDirStruct()
+         target_dir + "/dde/dde-file-manager",
+         target_dir + "/dde/dde-dock",
+         target_dir + "/system/pulseaudio",
+-        target_dir + "/apt",
+         target_dir + "/uos-ste",
+         target_dir + "/uosste_logs"
+     };
+@@ -335,11 +334,9 @@ void OpsLogExport::exportSystemLogs()
+     execute_command({"journalctl", "-b", "-0"}, target_dir + "/system/journalctl-0.log");
+     execute_command({"journalctl", "-b", "-1"}, target_dir + "/system/journalctl-1.log");
+     execute_command({"journalctl", "-xb"}, target_dir + "/system/journalctl-xb.log");
+-    copy_file_or_dir("/var/log/apt/history.log", target_dir + "/system/");
+-    copy_file_or_dir("/var/log/alternatives.log", target_dir + "/system/");
++    copy_file_or_dir("/var/log/pacman.log", target_dir + "/system/");
+     copy_file_or_dir("/var/log/kern.log", target_dir + "/system/");
+     copy_file_or_dir("/var/log/syslog", target_dir + "/system/");
+-    copy_file_or_dir("/var/log/dpkg.log", target_dir + "/system/");
+     // xorg /var/log/目录下所有log文件
+     {
+         QStringList xorgFiles = expandPathWithWildcardIterator("/var/log/Xorg*");
+@@ -405,7 +402,7 @@ void OpsLogExport::exportOSVersionLogs()
+ {
+     execute_command({"uname", "-a"}, target_dir + "/info-version.txt");
+     execute_command({"echo"}, target_dir + "/info-version.txt");
+-    execute_command({"cat", "/etc/os-version"}, target_dir + "/info-version.txt");
++    execute_command({"cat", "/etc/os-release"}, target_dir + "/info-version.txt");
+     execute_command({"echo"}, target_dir + "/info-version.txt");
+     execute_command({"echo", "-n", "开发者模式开启状态："}, target_dir + "/info-version.txt");
+     execute_command({"cat", "/var/lib/deepin/developer-mode/enabled"}, target_dir + "/info-version.txt");
+@@ -415,8 +412,8 @@ void OpsLogExport::exportOSVersionLogs()
+ 
+ void OpsLogExport::exportAptLogs()
+ {
+-    // apt日志：完整导出/var/log/apt目录下的所有内容
+-    copy_file_or_dir("/var/log/apt", target_dir);
++    // Preserve the native package manager log in diagnostic bundles.
++    copy_file_or_dir("/var/log/pacman.log", target_dir);
+ }
+ 
+ void OpsLogExport::exportUosSteLogs()

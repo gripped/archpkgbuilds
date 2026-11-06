@@ -1,0 +1,391 @@
+diff --git a/3rdparty/DocxFactory/include/DocxFactory/zip/UnzipFile.h b/3rdparty/DocxFactory/include/DocxFactory/zip/UnzipFile.h
+index 5977f7e..04ec73c 100644
+--- a/3rdparty/DocxFactory/include/DocxFactory/zip/UnzipFile.h
++++ b/3rdparty/DocxFactory/include/DocxFactory/zip/UnzipFile.h
+@@ -5,7 +5,7 @@
+ #include "DocxFactory/zip/ZipFunc.h"
+ #include "DocxFactory/util/DocxFactoryDefs.h"
+ 
+-#include "unzip.h"
++#include <minizip/unzip.h>
+ 
+ #include "boost/type_traits.hpp"
+ #include "boost/utility/enable_if.hpp"
+diff --git a/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFile.h b/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFile.h
+index 9c5fc88..414a9ca 100644
+--- a/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFile.h
++++ b/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFile.h
+@@ -5,8 +5,8 @@
+ #include "DocxFactory/zip/ZipFunc.h"
+ #include "DocxFactory/util/DocxFactoryDefs.h"
+ 
+-#include "zip.h"
+-#include "unzip.h"
++#include <minizip/zip.h>
++#include <minizip/unzip.h>
+ 
+ #include "boost/type_traits.hpp"
+ #include "boost/utility/enable_if.hpp"
+diff --git a/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFunc.h b/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFunc.h
+index 94170a1..316133d 100644
+--- a/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFunc.h
++++ b/3rdparty/DocxFactory/include/DocxFactory/zip/ZipFunc.h
+@@ -4,7 +4,7 @@
+ 
+ #include "DocxFactory/util/DocxFactoryDefs.h"
+ 
+-#include "zip.h"
++#include <minizip/zip.h>
+ 
+ #include <string>
+ #include <ctime>
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f2e3d68..d944865 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -32,9 +32,7 @@ add_subdirectory(logViewerTruncate)
+ add_subdirectory(logViewerService)
+ 
+ if (OPT_ENABLE_BUILD_UT)
+-    if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+-        add_subdirectory(tests)
+-    endif()
++    add_subdirectory(tests)
+ endif()
+ 
+ add_subdirectory(liblogviewerplugin)
+diff --git a/application/CMakeLists.txt b/application/CMakeLists.txt
+index 47b4ded..a97b3ec 100755
+--- a/application/CMakeLists.txt
++++ b/application/CMakeLists.txt
+@@ -95,6 +95,8 @@ find_package(XercesC)
+ find_package(ZLIB)
+ find_package(PolkitQt${QT_DESIRED_VERSION}-1)
+ pkg_check_modules(Gio REQUIRED gio-qt${DTK_VERSION_MAJOR})
++pkg_check_modules(Minizip REQUIRED IMPORTED_TARGET minizip)
++pkg_check_modules(XlsxWriter REQUIRED IMPORTED_TARGET xlsxwriter)
+ # IMPORTED_TARGET failed to work for some of libs under flatpak env
+ 
+ set(qt_required_components Core DBus Gui Network Widgets Concurrent)
+@@ -121,6 +123,8 @@ set(LINK_LIBS
+     ${DtkGui_LIBRARIES}
+     PolkitQt${QT_DESIRED_VERSION}-1::Agent
+     ${Gio_LIBRARIES}
++    PkgConfig::Minizip
++    PkgConfig::XlsxWriter
+ )
+ 
+ if (QT_DESIRED_VERSION MATCHES 6)
+@@ -243,22 +247,6 @@ function(include_sub_directories_recursively root_dir)
+     endforeach()
+ endfunction()
+ 
+-#--------------------libxlsx源码引入---------------------------------
+-file(GLOB LXW_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter/src/*.c)
+-file(GLOB_RECURSE LXW_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter/include *.h)
+-
+-set (MINIZIP_SOURCES
+-    ../3rdparty/minizip/ioapi.c
+-#../3rdparty/minizip/miniunz.c
+- ../3rdparty/minizip/minizip.c
+-../3rdparty/minizip/mztools.c
+-../3rdparty/minizip/unzip.c
+-../3rdparty/minizip/zip.c
+-    )
+-
+-file(GLOB TMPFILE_SOURCES  ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/tmpfileplus/*.c)
+-file(GLOB MD5SOURCES   ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/md5/*.c)
+-#---------------------------------------------
+ #---------------DOCXFACTORY源码引入----------------------
+ file(GLOB_RECURSE DOCXFAC_SOURCES  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.cpp" )
+ file(GLOB_RECURSE DOCXFAC_SOURCES_C  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.c" )
+@@ -286,13 +274,9 @@ foreach(_ts_file ${TS_FILES})
+ endforeach()
+ #lupdate end
+ 
+-add_executable (${EXE_NAME} ${APP_CPP_FILES}  ${APP_QRC_FILES} ${DOCX_CPP_FILES} ${MINIZIP_SOURCES} ${LXW_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${TMPFILE_SOURCES} ${MD5SOURCES} )
++add_executable (${EXE_NAME} ${APP_CPP_FILES}  ${APP_QRC_FILES} ${DOCX_CPP_FILES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C})
+ include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/docx")
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter")
+ include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/DocxFactory/include")
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/md5")
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/minizip")
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/tmpfileplus")
+ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+ include_directories( ${Boost_INCLUDE_DIRS})
+ include_directories( ${ZLIB_INCLUDE_DIRS})
+@@ -347,7 +331,7 @@ install(DIRECTORY assets/deepin-log-viewer
+ install(FILES assets/auditRule.conf DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-log-viewer)
+ 
+ # Install cli script deepin-logger
+-install(FILES assets/deepin-logger DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
++install(PROGRAMS assets/deepin-logger DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+ 
+ # Install log json config file.
+ install(FILES configs/logconfig/deepin-log-viewer.json DESTINATION ${CMAKE_INSTALL_PREFIX}/share/deepin-log-viewer/deepin-log.conf.d/)
+diff --git a/application/logallexportthread.h b/application/logallexportthread.h
+index 3a10766..3c66573 100644
+--- a/application/logallexportthread.h
++++ b/application/logallexportthread.h
+@@ -6,7 +6,7 @@
+ #define LOGALLEXPORTTHREAD_H
+ 
+ #include "structdef.h"
+-#include "zip.h"
++#include <minizip/zip.h>
+ 
+ #include <QObject>
+ #include <atomic>
+@@ -53,4 +53,4 @@ private:
+ 
+ };
+ 
+-#endif // LOGALLEXPORTTHREAD_H
+\ No newline at end of file
++#endif // LOGALLEXPORTTHREAD_H
+diff --git a/application/logsegementexportthread.h b/application/logsegementexportthread.h
+index 5bcffca..b828eec 100644
+--- a/application/logsegementexportthread.h
++++ b/application/logsegementexportthread.h
+@@ -6,7 +6,7 @@
+ #define LOGSEGEMENTEXPORTTHREAD_H
+ #include "structdef.h"
+ #include "WordProcessingMerger.h"
+-#include "workbook.h"
++#include <xlsxwriter/workbook.h>
+ 
+ #include <QRunnable>
+ #include <QObject>
+diff --git a/liblogviewerplugin/CMakeLists.txt b/liblogviewerplugin/CMakeLists.txt
+index 3f9bac0..8206ebb 100644
+--- a/liblogviewerplugin/CMakeLists.txt
++++ b/liblogviewerplugin/CMakeLists.txt
+@@ -15,7 +15,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
+ set(CMAKE_AUTOMOC ON)
+ set(CMAKE_AUTORCC ON)
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")#${EXE_NAME}
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--as-needed -fPIE")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wl,--as-needed")
+ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie")
+ #安全测试加固编译参数
+ string(APPEND CMAKE_EXE_LINKER_FLAGS " -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -pie")
+@@ -42,13 +42,16 @@ find_package(RapidJSON)
+ find_package(Boost)
+ find_package(XercesC)
+ find_package(ZLIB)
++find_package(PolkitQt${QT_DESIRED_VERSION}-1 REQUIRED)
+ 
+ pkg_check_modules(Gio REQUIRED gio-qt${DTK_VERSION_MAJOR})
++pkg_check_modules(Minizip REQUIRED IMPORTED_TARGET minizip)
++pkg_check_modules(XlsxWriter REQUIRED IMPORTED_TARGET xlsxwriter)
+ 
+ set(qt_required_components Core DBus Gui Concurrent Xml Widgets)
+ 
+ if (QT_DESIRED_VERSION MATCHES 6)
+-    # list(APPEND qt_required_components Core5Compat)
++    list(APPEND qt_required_components Core5Compat)
+ else()
+     pkg_check_modules(Gsetting REQUIRED gsettings-qt)
+ endif()
+@@ -66,11 +69,14 @@ set(LINK_LIBS
+     ${DtkWidget_LIBRARIES}
+     ${DtkCore_LIBRARIES}
+     ${DtkGui_LIBRARIES}
++    PolkitQt${QT_DESIRED_VERSION}-1::Agent
+     ${Gio_LIBRARIES}
++    PkgConfig::Minizip
++    PkgConfig::XlsxWriter
+ )
+ 
+ if (QT_DESIRED_VERSION MATCHES 6)
+-    # list(APPEND LINK_LIBS Qt${QT_DESIRED_VERSION}::Core5Compat)
++    list(APPEND LINK_LIBS Qt${QT_DESIRED_VERSION}::Core5Compat)
+ else()
+     list(APPEND LINK_LIBS ${Gsetting_LIBRARIES})
+     include_directories(${Gsetting_INCLUDE_DIRS})
+@@ -113,15 +119,23 @@ FILE (GLOB allSources
+     "*/*/*/*.cpp"                           "*/*/*/*.c"
+     "../application/dbusproxy/dldbusinterface.cpp"
+     "../application/dbusproxy/dldbushandler.cpp"
++    "../application/dbusproxy/userlogaccess.cpp"
++    "../application/dbusmanager.cpp"
+     "../application/exportprogressdlg.cpp"
+     "../application/journalbootwork.cpp"
+     "../application/journalwork.cpp"
+     "../application/logapplicationparsethread.cpp"
+     "../application/logoocfileparsethread.cpp"
+     "../application/logexportthread.cpp"
++    "../application/logsegementexportthread.cpp"
+     "../application/logauththread.cpp"
+     "../application/logfileparser.cpp"
+     "../application/sharedmemorymanager.cpp"
++    "../application/logsettings.cpp"
++    "../application/logapplicationhelper.cpp"
++    "../application/parsethread/parsethreadbase.cpp"
++    "../application/parsethread/parsethreadkern.cpp"
++    "../application/parsethread/parsethreadkwin.cpp"
+     "../application/utils.cpp"
+     "../application/wtmpparse.cpp"
+     "../application/wtmpparse.cpp"
+@@ -134,31 +148,16 @@ set(LINK_DIR /usr/lib/)
+ include_directories(${INC_DIR})
+ link_directories(${LINK_DIR})
+ 
+-#--------------------libxlsx源码引入---------------------------------
+-file(GLOB LXW_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter/src/*.c)
+-file(GLOB_RECURSE LXW_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter/include *.h)
+-
+-#set (MINIZIP_SOURCES
+-#    ../3rdparty/minizip/ioapi.c
+-##../3rdparty/minizip/miniunz.c
+-#    ../3rdparty/minizip/minizip.c
+-#    ../3rdparty/minizip/mztools.c
+-#    ../3rdparty/minizip/unzip.c
+-#    ../3rdparty/minizip/zip.c
+-#    )
+-
+-#file(GLOB TMPFILE_SOURCES  ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/tmpfileplus/*.c)
+-#file(GLOB MD5SOURCES   ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/md5/*.c)
+-
+ #---------------DOCXFACTORY源码引入----------------------
+-file(GLOB_RECURSE DOCXFAC_SOURCES  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.cpp" )
+-file(GLOB_RECURSE DOCXFAC_SOURCES_C  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.c" )
++file(GLOB_RECURSE DOCXFAC_SOURCES  "${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/DocxFactory/src/*.cpp" )
++file(GLOB_RECURSE DOCXFAC_SOURCES_C  "${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/DocxFactory/src/*.c" )
+ 
+ #设置不删除生成的文件夹内容文件
+ set_directory_properties(PROPERTIES CLEAN_NO_CUSTOM 1)
+ 
+ #编译为库
+-add_library(logviewerplugin SHARED ${allHeaders} ${allSources} ${RESOURCES} ${LXW_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${QM})
++add_library(logviewerplugin SHARED ${allHeaders} ${allSources} ${RESOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${QM})
++target_include_directories(logviewerplugin PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../application")
+ target_compile_options(logviewerplugin PRIVATE ${COMPILE_OPTIONS})
+ set_target_properties(${TARGET_NAME} PROPERTIES VERSION 0.1.0 SOVERSION 0.1)
+ 
+@@ -175,7 +174,6 @@ include_directories( ${ZLIB_INCLUDE_DIRS})
+ message("ZLIB_INCLUDE_DIRS ${ZLIB_INCLUDE_DIRS}")
+ include_directories( ${RapidJSON_INCLUDE_DIRS})
+ include_directories(${XercesC_INCLUDE_DIRS})
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter")
+ include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/DocxFactory/include")
+ 
+ #引用库
+diff --git a/liblogviewerplugin/src/plugins/logviewerplugin.cpp b/liblogviewerplugin/src/plugins/logviewerplugin.cpp
+index 1ceab68..d7d601d 100644
+--- a/liblogviewerplugin/src/plugins/logviewerplugin.cpp
++++ b/liblogviewerplugin/src/plugins/logviewerplugin.cpp
+@@ -9,6 +9,11 @@
+ #include <DApplication>
+ 
+ #include <qdatetime.h>
++#include <QLoggingCategory>
++
++#ifdef LOGVIEWERPLUGIN_LIBRARY
++Q_LOGGING_CATEGORY(logApp, "org.deepin.log.viewer.plugin")
++#endif
+ 
+ LogViewerPlugin::LogViewerPlugin()
+ {
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index ba6b70f..d2f512d 100755
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -62,6 +62,8 @@ find_package(XercesC)
+ find_package(ZLIB)
+ find_package(PolkitQt${QT_DESIRED_VERSION}-1)
+ pkg_check_modules(Gio REQUIRED gio-qt${DTK_VERSION_MAJOR})
++pkg_check_modules(Minizip REQUIRED IMPORTED_TARGET minizip)
++pkg_check_modules(XlsxWriter REQUIRED IMPORTED_TARGET xlsxwriter)
+ 
+ set(qt_required_components Core DBus Gui Concurrent Test Xml Widgets)
+ 
+@@ -87,6 +89,8 @@ set(LINK_LIBS
+     Dtk${DTK_VERSION_MAJOR}::Gui
+     PolkitQt${QT_DESIRED_VERSION}-1::Agent
+     ${Gio_LIBRARIES}
++    PkgConfig::Minizip
++    PkgConfig::XlsxWriter
+ )
+ 
+ if (QT_DESIRED_VERSION MATCHES 6)
+@@ -97,7 +101,6 @@ else()
+ endif()
+ 
+ include_directories(${Gio_INCLUDE_DIRS})
+-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty)
+ 
+ FILE(GLOB allSource
+      ../application/filtercontent.cpp
+@@ -179,20 +182,6 @@ endfunction()
+ find_library(ICUIL18N_LIB icui18n)
+ find_library(ICUUC_LIB icuuc)
+ 
+-#--------------------libxlsx源码引入---------------------------------
+-file(GLOB LXW_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter/src/*.c)
+-file(GLOB_RECURSE LXW_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter/include *.h)
+-
+-set (MINIZIP_SOURCES
+-    ../3rdparty/minizip/ioapi.c
+- ../3rdparty/minizip/minizip.c
+-../3rdparty/minizip/mztools.c
+-../3rdparty/minizip/unzip.c
+-../3rdparty/minizip/zip.c
+-    )
+-
+-file(GLOB TMPFILE_SOURCES  ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/tmpfileplus/*.c)
+-file(GLOB MD5SOURCES   ${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/md5/*.c)
+ #---------------DOCXFACTORY源码引入----------------------
+ file(GLOB_RECURSE DOCXFAC_SOURCES  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.cpp" )
+ file(GLOB_RECURSE DOCXFAC_SOURCES_C  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.c" )
+@@ -251,11 +240,7 @@ file(GLOB_RECURSE LVP_HEADERS
+     )
+ #---------------------------------------------
+ 
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/libxlsxwriter")
+ include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/DocxFactory/include")
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/md5")
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/minizip")
+-include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../3rdparty/tmpfileplus")
+ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+ include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../application")
+ include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../liblogviewerplugin")
+@@ -269,9 +254,9 @@ include_directories(${GTEST_INCLUDE_DIRS})
+ 
+ include_directories(src)
+ 
+-add_executable (${PROJECT_NAME_TEST} ${allSource} ${APP_QRC_FILES} ${qrcFiles}   ${allTestSource} ${MINIZIP_SOURCES} ${LXW_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${TMPFILE_SOURCES} ${MD5SOURCES})
++add_executable (${PROJECT_NAME_TEST} ${allSource} ${APP_QRC_FILES} ${qrcFiles}   ${allTestSource} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C})
+ #添加插件单元测试进程
+-add_executable (${PROJECT_NAME_PLUGIN_TEST} ${allPluginTestSource} ${LVP_HEADERS} ${LVP_SOURCES} ${MINIZIP_SOURCES} ${LXW_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${TMPFILE_SOURCES} ${MD5SOURCES})
++add_executable (${PROJECT_NAME_PLUGIN_TEST} ${allPluginTestSource} ${LVP_HEADERS} ${LVP_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C})
+ 
+ target_link_libraries(${PROJECT_NAME_TEST} ${LINK_LIBS} -lsystemd -licui18n -licuuc ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread -ldl -fPIC)
+ #当binutils>=2.22时，对于链接的静态库链接的静态库，cmake并不会递归链接，所以需要手动链接libxlsxwriter需要的lzlib
+diff --git a/tests/src/ut_logoocfileparsethread.cpp b/tests/src/ut_logoocfileparsethread.cpp
+index 7bf6bb2..0f6fc98 100644
+--- a/tests/src/ut_logoocfileparsethread.cpp
++++ b/tests/src/ut_logoocfileparsethread.cpp
+@@ -23,6 +23,12 @@ QStringList stub_getOtherFileInfo(const QString &flag)
+     return QStringList() << "test";
+ }
+ 
++bool stub_ooc_checkAuthentication_true(const QString &path)
++{
++    Q_UNUSED(path);
++    return true;
++}
++
+ class LogOOCFileParseThread_UT : public testing::Test
+ {
+ public:
+@@ -77,6 +83,9 @@ TEST_F(LogOOCFileParseThread_UT, UT_DoWork_001)
+     Stub stub;
+     stub.set(ADDR(DLDBusHandler, readLog), stub_ooc_readLog);
+     stub.set(ADDR(DLDBusHandler, getOtherFileInfo), stub_getOtherFileInfo);
++    // pkexec fails in headless CI env (exit 127); stub checkAuthentication
++    // so doWork proceeds to call the stubbed readLog
++    stub.set(ADDR(LogOOCFileParseThread, checkAuthentication), stub_ooc_checkAuthentication_true);
+     QString path("test");
+     m_logThread->setParam(path);
+     m_logThread->doWork();
