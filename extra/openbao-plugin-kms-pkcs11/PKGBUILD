@@ -5,7 +5,7 @@ _plugin_name=pkcs11
 
 pkgname="openbao-plugin-${_plugin_type}-${_plugin_name}"
 pkgdesc="OpenBao Plugin - Auto Unseal KMS using PKCS#11"
-pkgver=0.2.1
+pkgver=0.3.0
 pkgrel=1
 arch=("x86_64")
 url="https://openbao.org/docs/next/configuration/seal/pkcs11/"
@@ -16,7 +16,7 @@ install=openbao-plugin.install
 source=(
     "openbao-plugin-${_plugin_type}-${_plugin_name}::git+https://github.com/openbao/openbao-plugins.git#tag=${_plugin_type}-${_plugin_name}-v${pkgver}"
 )
-sha256sums=('4418779e604baa0db1d7affbfead2bf4f9df7ab52976dfd20da5852af2a2dd99')
+sha256sums=('3abfce67875f7876fe5005756a0c337f17074a9dc8791cadd05fdbe9a8b069d8')
 
 prepare() {
   cd "${pkgname}"
