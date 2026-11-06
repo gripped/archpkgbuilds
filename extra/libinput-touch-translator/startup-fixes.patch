@@ -1,0 +1,50 @@
+diff --git a/src/src.pro b/src/src.pro
+index 7d8da51..44a4b2b 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -27,11 +27,11 @@ SOURCES += \
+         settings-manager.cpp \
+         uinput-helper.cpp
+ 
+-target.path = /usr/libexec
++target.path = /usr/lib
+ !isEmpty(target.path): INSTALLS += target
+ 
+ service.files = systemd/libinput-touch-translator.service
+-service.path = /lib/systemd/system
++service.path = /usr/lib/systemd/system
+ INSTALLS += service
+ 
+ HEADERS += \
+diff --git a/src/systemd/libinput-touch-translator.service b/src/systemd/libinput-touch-translator.service
+index 8124a95..8456010 100644
+--- a/src/systemd/libinput-touch-translator.service
++++ b/src/systemd/libinput-touch-translator.service
+@@ -1,13 +1,13 @@
+ [Unit]
+ Description=Translate touch event to keyborad shortcut
+-After=multi-user.target
+ StartLimitIntervalSec=0
+ 
+ [Service]
+ Type=simple
+ Restart=always
+ RestartSec=1
+-ExecStart=/usr/libexec/libinput-touch-translator
++ExecStartPre=/usr/bin/modprobe uinput
++ExecStart=/usr/lib/libinput-touch-translator
+ 
+ [Install]
+ WantedBy=multi-user.target
+diff --git a/src/uinput-helper.cpp b/src/uinput-helper.cpp
+index 24f2f59..74e9043 100644
+--- a/src/uinput-helper.cpp
++++ b/src/uinput-helper.cpp
+@@ -228,6 +228,7 @@ int creat_user_uinput(void)
+         //close(uinput_fd);
+         return ret;//error process.
+     }
++    return 0;
+ }
+ 
+ int post_event(unsigned int type, unsigned int keycode, unsigned int value)

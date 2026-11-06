@@ -1,0 +1,46 @@
+diff --git a/src/src.pro b/src/src.pro
+index e8f4f8e..7d8da51 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -2,7 +2,7 @@ QT += gui
+ 
+ TARGET = libinput-touch-translator
+ 
+-CONFIG += c++11 console link_pkgconfig
++CONFIG += c++17 console link_pkgconfig
+ CONFIG -= app_bundle
+ 
+ PKGCONFIG += libinput libudev
+diff --git a/src/uinput-helper.cpp b/src/uinput-helper.cpp
+index b7a26ee..24f2f59 100644
+--- a/src/uinput-helper.cpp
++++ b/src/uinput-helper.cpp
+@@ -84,7 +84,7 @@ QList<int> UInputHelper::parseShortcut(const QKeySequence &shortCut)
+ 
+     auto shortcutString = shortCut.toString();
+ 
+-    QStringList stringList = shortcutString.split("+", QString::SkipEmptyParts);
++    QStringList stringList = shortcutString.split("+", Qt::SkipEmptyParts);
+     for (auto string : stringList) {
+         int key = m_hash.value(string);
+         if (key > 0) {
+diff --git a/touch-config/touch-config.pro b/touch-config/touch-config.pro
+index aa67c7e..291503e 100644
+--- a/touch-config/touch-config.pro
++++ b/touch-config/touch-config.pro
+@@ -1,10 +1,13 @@
+-QT       += core gui KXmlGui
++QT       += core gui
++
++INCLUDEPATH += /usr/include/KF6/KXmlGui /usr/include/KF6/KGuiAddons
++LIBS += -lKF6XmlGui
+ 
+ TARGET = ukui-touch-translator-config
+ 
+ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+ 
+-CONFIG += c++11
++CONFIG += c++17
+ 
+ # The following define makes your compiler emit warnings if you use
+ # any Qt feature that has been marked deprecated (the exact warnings

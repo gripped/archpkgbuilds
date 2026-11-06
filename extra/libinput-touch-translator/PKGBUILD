@@ -1,0 +1,42 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libinput-touch-translator
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Translate touchscreen and touchpad gestures into keyboard shortcuts"
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+url="https://github.com/ukui/libinput-touch-translator"
+groups=('ukui')
+depends=('glibc' 'kmod' 'kxmlgui' 'libgcc' 'libinput' 'libstdc++' 'qt6-base' 'systemd-libs')
+makedepends=('git')
+source=("git+https://github.com/ukui/libinput-touch-translator.git#tag=v$pkgver"
+        'qt6.patch'
+        'startup-fixes.patch')
+sha512sums=('f2c4568863b85d9f1bd18cae50b23d1596997fbbb96060c5d097302d36cb1eaaff260c2ba76d8b50e41907493b4a910470c3b3b2a61c383f46571b55476dadcc'
+            'eb5fc28888165e8016e0e155342381a46becb1942f724d253413960dceeb88eae0cbc1f3380b9dd4ee1b939834e45498330c16d39f0ff0bff0b36b222a6f9408'
+            '095d8ad3d134462744e4cec7798aa8a3faf17f76af51cfc0e1cb0cd77b6b0ea8651002a14d2230cae92e60b8a437dc2d2ef85d5b5c267cae22d3b7449db6f9e7')
+
+prepare() {
+  cd libinput-touch-translator
+  # KF6 no longer provides qmake metadata; use Qt 6 and link KF6XmlGui directly.
+  patch -Np1 -i ../qt6.patch
+  # Return success after uinput setup and fix service ordering, module loading, and paths.
+  patch -Np1 -i ../startup-fixes.patch
+}
+
+build() {
+  cd libinput-touch-translator
+  qmake6 \
+    QMAKE_CFLAGS_RELEASE="$CPPFLAGS $CFLAGS" \
+    QMAKE_CXXFLAGS_RELEASE="$CPPFLAGS $CXXFLAGS" \
+    QMAKE_LFLAGS_RELEASE="$LDFLAGS"
+  make
+}
+
+package() {
+  cd libinput-touch-translator
+  make INSTALL_ROOT="$pkgdir" install
+  install -Dm644 man/ukui-touch-translator-config.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
