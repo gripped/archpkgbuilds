@@ -2,27 +2,27 @@
 
 pkgbase=python-pydantic-monty
 pkgname=('python-pydantic-monty' 'python-pydantic-monty-client' 'python-pydantic-monty-runtime')
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc="A Python sandbox written in Rust"
 arch=('x86_64')
 url="https://github.com/pydantic/monty"
 license=('MIT')
-depends=('glibc' 'libgcc' 'python' 'python-typing_extensions')
+depends=('ca-certificates' 'glibc' 'libgcc' 'python' 'python-typing_extensions')
 makedepends=('cmake' 'git' 'maturin' 'python-build' 'python-hatchling' 'python-installer' 'rust' 'zstd')
-checkdepends=('python-anyio' 'python-dirty-equals' 'python-inline-snapshot'
-              'python-opentelemetry-sdk' 'python-pytest' 'python-pytest-examples' 'python-websockets')
-source=("git+https://github.com/pydantic/monty.git#tag=$pkgver")
-sha512sums=('fffdb8326a073a8621d2d9fb8a65faa1628c55160d714f7023288b5166f7bdfda79a53fc4287a120d1bf4fff1f4d9f1482b047be7ff880201e45d8112d30335e')
+checkdepends=('python-anyio' 'python-dirty-equals' 'python-grpcio' 'python-inline-snapshot'
+              'python-opentelemetry-sdk' 'python-pytest' 'python-pytest-examples')
+source=("git+https://github.com/pydantic/monty.git#tag=v$pkgver")
+sha512sums=('585cbbc16c94f7c3c2b45b0043000755af52f2b2c1c51cb5755580752734fae01763942b37b23d74dc67e9c8ad788bc8b951b5c62e9f246dd790dde959afa2f6')
 
 prepare() {
   cd monty
   # pytest 9.1 deprecates generators passed to parametrize.
   sed -i 's/find_examples(\*paths)/list(find_examples(*paths))/' \
     crates/monty-python/tests/test_readme_examples.py
-  # Examples use nested contexts and bare expressions, rejected by Ruff's new defaults.
+  # Examples include syntax rejected by Ruff even though it is under test.
   # https://github.com/astral-sh/ruff/pull/27035
-  sed -i "s/'FA102'/'B018', 'FA102', 'SIM117'/" \
+  sed -i "s/'FA102'/'B018', 'FA102', 'PLC3002', 'RUF018', 'SIM117'/" \
     crates/monty-python/tests/test_readme_examples.py
   cargo fetch --locked
 }
@@ -46,7 +46,9 @@ check() {
   # Test builds also need system zstd to avoid the LTO linker failure.
   export ZSTD_SYS_USE_PKG_CONFIG=1
   # Timeout tests assume upstream's unoptimized test profile.
-  MONTY_TEST_BIN="$PWD/target/debug/monty" cargo test --frozen \
+  # Temporary until regex-automata releases the fixed cache sizing (PR #1409).
+  # https://github.com/rust-lang/regex/pull/1409
+  taskset -c 0-7 env MONTY_TEST_BIN="$PWD/target/debug/monty" cargo test --frozen \
     -p monty -p monty-fs -p monty-types -p monty-type-checking -p monty-typeshed \
     -p monty-proto -p monty-runtime -p monty-pool --features monty-pool/telemetry
   cargo run --frozen -p monty-datatest
