@@ -4,7 +4,7 @@
 
 pkgname=python-kubernetes
 pkgver=37.0.1
-pkgrel=1
+pkgrel=2
 license=('Apache-2.0')
 pkgdesc='Python client for the kubernetes API'
 arch=('any')
@@ -34,16 +34,7 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=(
-  'python-isort'
-  'python-pluggy'
-  'python-py'
   'python-pytest'
-  'python-pytest-cov'
-  'python-coverage'
-  'python-nose'
-  'python-sphinx'
-  'python-pycodestyle'
-  'autopep8'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
 b2sums=('89854db20a0a5e19ecbc208eed673aedc46be47d2d1814caec161d909266c35a4dff8d3e6ef91d27c19a6dd40b93582744333087444e0d4ec0e8e3944321c38d')
