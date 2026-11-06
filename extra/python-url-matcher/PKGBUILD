@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-url-matcher
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="URL matching rules to connect URLs with resources"
+arch=('any')
+url="https://github.com/zytedata/url-matcher"
+license=('BSD-3-Clause')
+depends=('python' 'python-tldextract')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
+checkdepends=('python-pytest')
+source=("git+https://github.com/zytedata/url-matcher.git#tag=$pkgver")
+sha256sums=('f5cc6ece24192db4055124dd05ffcd57d70267cd3a161589ae935491ff633085')
+
+build() {
+  cd url-matcher
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd url-matcher
+  pytest --doctest-modules url_matcher tests
+}
+
+package() {
+  cd url-matcher
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
