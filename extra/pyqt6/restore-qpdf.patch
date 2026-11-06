@@ -1,0 +1,18 @@
+diff -ru pyqt6-6.12.0.orig/project.py pyqt6-6.12.0/project.py
+--- pyqt6-6.12.0.orig/project.py	2026-11-05 08:24:43.870923549 +0100
++++ pyqt6-6.12.0/project.py	2026-11-05 08:24:54.078714171 +0100
+@@ -168,14 +168,6 @@
+                     "Qt v6 is required, not v{0}".format(
+                             self.builder.qt_version_str))
+ 
+-        # QtPdf and QtPdfWidgets were moved to PyQt6-WebEngine in v6.12.
+-        if (self.builder.qt_version >> 8) & 0xff >= 12:
+-            try:
+-                del self.bindings['QtPdf']
+-                del self.bindings['QtPdfWidgets']
+-            except KeyError:
+-                pass
+-
+         # Automatically confirm the license if there might not be a command
+         # line option to do so.
+         if tool == 'pep517':

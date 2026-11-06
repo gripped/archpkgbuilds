@@ -4,7 +4,7 @@ pkgbase=pyqt6
 pkgname=python-pyqt6
 pkgdesc='A set of Python bindings for the Qt6 toolkit'
 pkgver=6.12.0
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url='https://riverbankcomputing.com/software/pyqt/intro'
 license=(GPL)
@@ -52,8 +52,17 @@ makedepends=(dbus-python
              qt6-websockets
              sip)
 provides=(qt6-python-bindings)
-source=(https://pypi.python.org/packages/source/P/PyQt6/pyqt6-$pkgver.tar.gz)
-sha256sums=('d3e021b716bae880224422f9d1b894d2d53de7e60e60dbc43f860723f9cc300b')
+source=(
+  https://pypi.python.org/packages/source/P/PyQt6/pyqt6-$pkgver.tar.gz
+  restore-qpdf.patch
+)
+sha256sums=('d3e021b716bae880224422f9d1b894d2d53de7e60e60dbc43f860723f9cc300b'
+            'ccbe5491996553d37ad474c1d81d4939ecb5acb78b90db363a474e5ebf872250')
+
+prepare() {
+# Temporarily restore QtPdf bindings until QtWebEngine 6.140 is released
+  patch -d pyqt6-$pkgver -p1 < restore-qpdf.patch
+}
 
 build() {
   cd pyqt6-$pkgver
