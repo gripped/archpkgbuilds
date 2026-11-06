@@ -1,0 +1,61 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=biometric-authentication
+pkgver=0.9.72
+pkgrel=1
+pkgdesc="Biometric authentication service and driver framework for UKUI"
+arch=('x86_64')
+license=('LGPL-3.0-or-later')
+url="https://gitee.com/openkylin/biometric-authentication"
+groups=('ukui')
+depends=('bash' 'glib2' 'glibc' 'gtk3' 'libfprint' 'libusb' 'polkit' 'python'
+         'python-dbus' 'python-gobject' 'python-prettytable' 'sqlite' 'systemd'
+         'util-linux-libs')
+makedepends=('git' 'glib2-devel' 'intltool')
+backup=('etc/biometric-auth/biometric-drivers.conf')
+install=biometric-authentication.install
+source=("git+https://gitee.com/openkylin/biometric-authentication.git#tag=debian/$pkgver-1"
+        'https://salsa.debian.org/kylin-team/biometric-authentication/-/raw/debian/0.9.72-2/debian/patches/Fix-segfault-null-getenv.patch')
+sha512sums=('231692e44362c1b62f68baafc81d585399483f2b711dde3b74dc5fbf9d8e0c619d19e2bdb49660dc3fa70c59461350d217c8d3285538330a8e28f408670b5faa'
+            'ace0a83650ac47724ffbb6d41d59a81528559b065fd11ea7574310aaa0e3d696642b5acc42aec927021355b287f506f90021b12638f0cb3e190c89df6a11756d')
+
+prepare() {
+  cd biometric-authentication
+  # Avoid crashing when logging variables are unset: https://bugs.debian.org/1011325
+  patch -Np1 -i "$srcdir/Fix-segfault-null-getenv.patch"
+  # Upstream still reports 0.9.62 in configure and pkg-config metadata.
+  sed -i "s/\[0\.9\.62\]/[$pkgver]/" configure.ac
+  # Drop the mistyped -o0 output option and use Arch's optimization flags.
+  sed -i 's/ -o0 / /' src/drivers/community-multidevice/drivers/Makefile.am
+  ./autogen.sh
+}
+
+build() {
+  cd biometric-authentication
+  ./configure \
+    --prefix=/usr \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --libexecdir=/usr/lib/biometric-authentication \
+    --disable-static \
+    --with-bio-config-dir=/etc/biometric-auth \
+    --with-bio-driver-dir=/usr/lib/biometric-authentication/drivers
+  make
+}
+
+package() {
+  cd biometric-authentication
+  make DESTDIR="$pkgdir" servicedir=/usr/lib/systemd/system \
+    dbusconfdir=/usr/share/dbus-1/system.d dist_initd_SCRIPTS= install
+
+  # Register the bundled drivers in a configuration file managed by pacman.
+  local driver
+  for driver in "$pkgdir"/usr/lib/biometric-authentication/drivers/*.so; do
+    driver=${driver##*/}
+    driver=${driver%.so}
+    printf '\n[%s]\nEnable=true\nDriver=/usr/lib/biometric-authentication/drivers/%s.so\nAESKey=/etc/biometric-auth/key/community-multidevice-aes.key\n' \
+      "$driver" "$driver" >> "$pkgdir/etc/biometric-auth/biometric-drivers.conf"
+  done
+  install -dm700 "$pkgdir/etc/biometric-auth/key"
+  install -Dm644 COPYING -t "$pkgdir/usr/share/licenses/$pkgname"
+}

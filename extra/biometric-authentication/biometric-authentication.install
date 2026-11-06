@@ -1,0 +1,13 @@
+post_install() {
+  # Preserve the key across upgrades so enrolled fingerprints remain readable.
+  if [[ ! -e /etc/biometric-auth/key/community-multidevice-aes.key ]]; then
+    (
+      umask 077
+      head -c 24 /dev/urandom | base64 -w0 > /etc/biometric-auth/key/community-multidevice-aes.key
+    )
+  fi
+}
+
+post_upgrade() {
+  post_install
+}

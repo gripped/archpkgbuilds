@@ -1,0 +1,33 @@
+pkgbase = biometric-authentication
+	pkgdesc = Biometric authentication service and driver framework for UKUI
+	pkgver = 0.9.72
+	pkgrel = 1
+	url = https://gitee.com/openkylin/biometric-authentication
+	install = biometric-authentication.install
+	arch = x86_64
+	groups = ukui
+	license = LGPL-3.0-or-later
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = intltool
+	depends = bash
+	depends = glib2
+	depends = glibc
+	depends = gtk3
+	depends = libfprint
+	depends = libusb
+	depends = polkit
+	depends = python
+	depends = python-dbus
+	depends = python-gobject
+	depends = python-prettytable
+	depends = sqlite
+	depends = systemd
+	depends = util-linux-libs
+	backup = etc/biometric-auth/biometric-drivers.conf
+	source = git+https://gitee.com/openkylin/biometric-authentication.git#tag=debian/0.9.72-1
+	source = https://salsa.debian.org/kylin-team/biometric-authentication/-/raw/debian/0.9.72-2/debian/patches/Fix-segfault-null-getenv.patch
+	sha512sums = 231692e44362c1b62f68baafc81d585399483f2b711dde3b74dc5fbf9d8e0c619d19e2bdb49660dc3fa70c59461350d217c8d3285538330a8e28f408670b5faa
+	sha512sums = ace0a83650ac47724ffbb6d41d59a81528559b065fd11ea7574310aaa0e3d696642b5acc42aec927021355b287f506f90021b12638f0cb3e190c89df6a11756d
+
+pkgname = biometric-authentication
