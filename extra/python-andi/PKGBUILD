@@ -1,0 +1,29 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-andi
+pkgver=0.9.0
+pkgrel=1
+pkgdesc="Library for annotation-based dependency injection"
+arch=('any')
+url="https://github.com/scrapinghub/andi"
+license=('Apache-2.0')
+depends=('python')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-attrs' 'python-pytest')
+source=("git+https://github.com/scrapinghub/andi.git#tag=$pkgver")
+sha256sums=('8e79a1a6bbf35b5dcd40efb64b5e963d277f6764fb7d8442f41bfa4780dce50e')
+
+build() {
+  cd andi
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd andi
+  pytest --doctest-modules andi tests README.rst
+}
+
+package() {
+  cd andi
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
