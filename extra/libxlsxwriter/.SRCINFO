@@ -1,0 +1,20 @@
+pkgbase = libxlsxwriter
+	pkgdesc = C library for creating Excel XLSX files
+	pkgver = 1.2.4
+	pkgrel = 1
+	url = https://libxlsxwriter.github.io/
+	arch = x86_64
+	license = BSD-2-Clause
+	license = BSD-2-Clause-Views
+	license = BSD-3-Clause
+	checkdepends = python-pytest
+	makedepends = git
+	depends = glibc
+	depends = minizip
+	depends = openssl
+	depends = zlib
+	provides = libxlsxwriter.so
+	source = git+https://github.com/jmcnamara/libxlsxwriter.git#tag=v1.2.4
+	sha256sums = d820fa995f3c01d59248f8c93dab78428bce3f36a9670e02c023254ba8b3b765
+
+pkgname = libxlsxwriter

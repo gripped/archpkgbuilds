@@ -1,0 +1,43 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libxlsxwriter
+pkgver=1.2.4
+pkgrel=1
+pkgdesc='C library for creating Excel XLSX files'
+arch=('x86_64')
+url='https://libxlsxwriter.github.io/'
+license=('BSD-2-Clause' 'BSD-2-Clause-Views' 'BSD-3-Clause')
+depends=('glibc' 'minizip' 'openssl' 'zlib')
+makedepends=('git')
+checkdepends=('python-pytest')
+provides=('libxlsxwriter.so')
+source=("git+https://github.com/jmcnamara/libxlsxwriter.git#tag=v$pkgver")
+sha256sums=('d820fa995f3c01d59248f8c93dab78428bce3f36a9670e02c023254ba8b3b765')
+
+prepare() {
+  # Installed headers must also use system minizip without consumer-side defines.
+  sed -i 's|"third_party/zip.h"|<minizip/zip.h>|' libxlsxwriter/include/xlsxwriter/packager.h
+}
+
+build() {
+  cd libxlsxwriter
+  make USE_SYSTEM_MINIZIP=1 USE_OPENSSL_MD5=1 USE_STANDARD_TMPFILE=1 OPT_LEVEL=
+}
+
+check() {
+  cd libxlsxwriter
+  # Parallel unit-test targets race and compile objects without their include paths.
+  make -j1 test_unit USE_SYSTEM_MINIZIP=1 USE_OPENSSL_MD5=1 USE_STANDARD_TMPFILE=1 OPT_LEVEL=
+  make test_functional test_cpp \
+    USE_SYSTEM_MINIZIP=1 USE_OPENSSL_MD5=1 USE_STANDARD_TMPFILE=1 OPT_LEVEL= \
+    PYTEST=pytest
+}
+
+package() {
+  cd libxlsxwriter
+  make install DESTDIR="$pkgdir" PREFIX=/usr \
+    USE_SYSTEM_MINIZIP=1 USE_OPENSSL_MD5=1 USE_STANDARD_TMPFILE=1 OPT_LEVEL=
+  rm "$pkgdir/usr/lib/libxlsxwriter.a"
+  rm "$pkgdir"/usr/include/xlsxwriter/third_party/{emyg_dtoa,ioapi,md5,tmpfileplus,zip}.h
+  install -Dm644 License.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
