@@ -2,7 +2,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-cloudflare
-pkgver=5.9.0
+pkgver=5.10.0
 pkgrel=1
 pkgdesc='The official Python library for the Cloudflare API'
 arch=(any)
@@ -41,15 +41,15 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   remove-unnecessary-dependency.patch
 )
-sha512sums=('ea1776e8062e2f34cc3a9efdce02505f01ee965f2b649f72ff0c843be77fe1100f2d072af08a233fb8ce606cc20ef339df07f4a01429ccd70819465ecfed6e83'
+sha512sums=('27b48942a4afe387802bde247e10453288be3d33e57a3fec07352be6243e69d75005059ddac56fbcf6f575457f2f1baa43554b53d9c7ab5dad7cde376b2fac1b'
             '7d9ba9c4638b3c185c2be27485aafe24edc3c1ba76d2ab6addf3c8bef8dba892e5bec58f1f4262d2618c25517edaaca2ce5062b1cff6066acf59098533c6d74a')
-b2sums=('3652a8e90950f24f8cfecd91244a19c7ab09826910aca5ba18fcccc8168fc6a702fdfe1a7891a3515e5123d2223175addbcc1b196fc5be2499391ae212bac6cd'
+b2sums=('84e00ce56ad1daa8043f803eaae23988b03c44e5dd020c97bf44654e954d22f12fcc27d6f31abc6643ad27579ee4a3e5aea6b2d5f26aad921c31c41d911eb248'
         '7157d2d353966d08fdfc602d4bc5c16b8da257c840572fcfa568736865cf8e92bc749e9bd3ada10f45a2f6d230a5f2b0c7b0a49d383fef4bf2574df78f67f334')
 
 prepare() {
   cd "$pkgname"
 
-  # we don't need no stinkin' readme
+  # Use the packaged Hatchling without the PyPI README metadata hook.
   patch -p1 -i "$srcdir/remove-unnecessary-dependency.patch"
 }
 
@@ -59,8 +59,7 @@ build() {
   python -m build --wheel --no-isolation
 }
 
-# burns up too many cpu cycles to perform tests, not to mention that
-# all the tests fail anyway
+# The upstream suite requires a local Prism mock server, which is not set up here.
 #check() {
 #  cd "$pkgname"
 #
