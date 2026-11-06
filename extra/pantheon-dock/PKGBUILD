@@ -2,7 +2,7 @@
 
 pkgname=pantheon-dock
 pkgver=8.3.3
-pkgrel=1
+pkgrel=2
 pkgdesc='A quick app launcher and window switcher for Pantheon'
 arch=(x86_64)
 url=https://github.com/elementary/dock
@@ -26,6 +26,7 @@ makedepends=(
   meson
   vala
 )
+optdepends=('switcheroo-control: GPU offloading')
 source=(pantheon-dock::git+https://github.com/elementary/dock.git#tag=${pkgver})
 b2sums=('d095fda51a4648a05e2f040362e6e1c1999ea9079307359916dbdf16f8a4a59e7666c844d0145d6cd8038ebe4c7245caf01ddad5fbb366c91ff670441ee87847')
 
