@@ -7,7 +7,7 @@ pkgname=(
   ublock-origin
 )
 pkgbase=ublock-origin
-pkgver=1.75.0
+pkgver=1.75.2
 pkgrel=1
 pkgdesc='Efficient blocker add-on for various browsers. Fast, potent, and lean'
 arch=(any)
@@ -20,7 +20,7 @@ makedepends=(
   zip
 )
 source=("git+$url.git#commit=$pkgver?signed")
-b2sums=('22b20c1f1b954678f0b8db7c8b9bcf2b7a5cef85bf763dd8c73c136003426df21fda5f56f04f091d9683a5e1a74b285a6fd9c556bcaef60dd8be0ce88234e028')
+b2sums=('f115e6f4c937ec497eba823032b41d0c53eb4b12cc8756291b9a626015494a95e4c0c70a6f4018d0dfededd7be3216a4a2574936184c1ea5fb741f6480350eb7')
 validpgpkeys=(91BFC93FDEC1D00C365C061EF5630CAE62A14316) # gorhill
 
 prepare() {
