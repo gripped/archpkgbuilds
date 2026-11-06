@@ -1,32 +1,26 @@
 diff --git a/python/setup.py b/python/setup.py
-index 60e0811..fdc2a00 100755
+index f1d0b29..b026810 100755
 --- a/python/setup.py
 +++ b/python/setup.py
-@@ -104,15 +104,18 @@ class build_ext_unix(_build_ext):
+@@ -99,17 +99,10 @@ class build_ext_unix(_build_ext):
    """Override build_extension to run cmake."""
  
    def build_extension(self, ext):
--    cflags, libs = get_cflags_and_libs('../build/root')
--    abseil_libs = find_abseil_lib('../build/third_party')
--    cflags.extend(find_absl_include(is_msvc=False))
+-    cflags, libs = get_cflags_and_libs('../build')
+-    abseil_libs = find_abseil_lib('../build')
 -
 -    if len(libs) == 0:
--      subprocess.check_call(['./build_bundled.sh', __version__])
--      cflags, libs = get_cflags_and_libs('./build/root')
--      abseil_libs = find_abseil_lib('./build/third_party')
--      cflags.extend(find_absl_include(is_msvc=False))
-+    cflags = [
-+        '-std=c++17',
-+        '-I../build/src/installed_headers',
-+        '-I../build/src',
-+    ]
-+    cflags.extend(subprocess.check_output(
-+        ['pkg-config', '--cflags', 'absl_status', 'protobuf-lite'], text=True
-+    ).split())
+-      cflags, libs = get_cflags_and_libs('./build')
+-      abseil_libs = find_abseil_lib('./build')
+-
+-    if len(libs) == 0:
+-      subprocess.check_call(['./build_bundled.sh'])
+-      cflags, libs = get_cflags_and_libs('./build')
+-      abseil_libs = find_abseil_lib('./build')
++    # Link against the shared libraries built by the parent CMake project.
++    cflags = ['-std=c++20'] + get_build_includes('../build', is_msvc=False)
 +    libs = ['-L../build/src', '-lsentencepiece', '-lsentencepiece_train']
-+    abseil_libs = subprocess.check_output(
-+        ['pkg-config', '--libs', 'absl_status', 'protobuf-lite'], text=True
-+    ).split()
++    abseil_libs = []
  
      # Fix compile on some versions of Mac OSX
      # See: https://github.com/neulab/xnmt/issues/199
