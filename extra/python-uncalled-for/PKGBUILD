@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-uncalled-for
-pkgver=0.4.2
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='Async dependency injection for Python functions'
 arch=('any')
@@ -23,7 +23,7 @@ checkdepends=(
   'python-pytest-timeout'
 )
 source=("git+https://github.com/chrisguidry/uncalled-for.git#tag=$pkgver")
-sha512sums=('0d9a34454d4f493b50e08286a2baff24ac2b71484c474b19fc2b8395557d116fd4906843cd57123f21ddde084dc61e5957e1d8ac673493a0d21d78d685979afc')
+sha512sums=('f89bc7b27ffa20e76bf318fa958d38c0d732a7b9063c108e78a2db724bbb23d1062143c38881c1c6ffff23f8c752390bf51585d965890376ec5d872441231633')
 
 build() {
   cd uncalled-for
