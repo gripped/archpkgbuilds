@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.23.2
+pkgver=0.23.3
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -29,12 +29,18 @@ optdepends=(
   'npm: optional computer-use tools via npx'
   'sox: voice dictation recording'
 )
-source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}")
-sha256sums=('f4f49b718e560c2655626f139d8b8afed40f72e78bd37754a99163d0ed59d5eb')
-b2sums=('d22a11a3e3e9a10e2aff778f6cd656ea22f93ad06e53c81d2d2a52a69589cab1f8f61e7752fd471f6b3178f0e4b221961aa37be5cc46c7961dc53c2b304eb287')
+source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}"
+        'feishu-media-test.patch')
+sha256sums=('45a4a8c982a5ecd581ab6d5ce97a1b88d10690d53e2f3cbb21cffe8e1bf91b75'
+            '85935ee339eb53afac83eba367a97d4032905a1dc77a1ac25ea4fb186ef186a8')
+b2sums=('ba2cee9365c4ca0b133c6fbf08e1c05907298e7df2aa19a1363abede9ce1c6cde2d4c99cc09bce61ba617c16580b21ab401d3b2638a3110a4923d56b2a5279c9'
+        '770fec0cfdc4a0abacd8543edc395ccac7884fa45075e18298abfacab77ded2944fc4407105ef5f2f861b859bdf8d2ec87356340b74680badc3747ed6df77121')
 
 prepare() {
   cd $pkgname
+  # Mock Feishu APIs so the media test cannot leak requests into later tests.
+  # https://github.com/QwenLM/qwen-code/pull/13170
+  patch -p1 -i "$srcdir/feishu-media-test.patch"
   # npm 12 returns pack metadata keyed by package name instead of an array.
   # https://github.com/npm/cli/pull/9247
   sed -i 's/const packs = JSON\.parse(stdout)/const packs = Object.values(JSON.parse(stdout))/' \
@@ -83,6 +89,10 @@ build() {
   # npm refuses to pack bundled modules while overrides target bundled deps.
   npm pkg delete overrides
   npm pack --ignore-scripts
+  # fakeroot 2.1.4 deadlocks on Btrfs directory removal; stage npm outside fakeroot.
+  # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1153064
+  npm install --global --offline --ignore-scripts --prefix "$srcdir/npm/usr" \
+    $pkgname-$pkgname-$pkgver.tgz
 }
 
 check() {
@@ -118,8 +128,7 @@ check() {
 
 package() {
   cd $pkgname
-  npm install --global --offline --ignore-scripts --prefix "$pkgdir/usr" \
-    $pkgname-$pkgname-$pkgver.tgz
+  cp -a "$srcdir/npm/usr" "$pkgdir/"
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
   install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
 }

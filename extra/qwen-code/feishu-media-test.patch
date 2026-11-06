@@ -1,0 +1,72 @@
+Adapted from https://github.com/QwenLM/qwen-code/pull/13170
+Keep the message-prefix assertions used by v0.23.3.
+
+diff --git a/packages/channels/feishu/src/adapter.test.ts b/packages/channels/feishu/src/adapter.test.ts
+index 1c808c19c5a..228409bc917 100644
+--- a/packages/channels/feishu/src/adapter.test.ts
++++ b/packages/channels/feishu/src/adapter.test.ts
+@@ -753,13 +753,58 @@ describe('FeishuChannel', () => {
+       sender: { sender_id: { open_id: 'ou_user' }, sender_type: 'user' },
+     });
+ 
+-    onMessage(event('media-image', 'image', { image_key: 'img_1' }));
+-    await vi.waitFor(() => expect(bridge.prompt).toHaveBeenCalledTimes(1));
++    const image = new Uint8Array([1, 2, 3]);
++    const resourceUrl =
++      'https://open.feishu.cn/open-apis/im/v1/messages/media-image/resources/img_1?type=image';
++    const fetchSpy = vi
++      .spyOn(global, 'fetch')
++      .mockImplementation(async (input) => {
++        const url = String(input);
++        if (url.endsWith('/auth/v3/tenant_access_token/internal')) {
++          return jsonResponse({
++            tenant_access_token: 'test_token',
++            expire: 3600,
++          });
++        }
++        if (url === resourceUrl) {
++          return new Response(image, {
++            headers: { 'Content-Type': 'image/png' },
++          });
++        }
++        return jsonResponse({ code: 0, data: {} });
++      });
+ 
+-    // The control: ordinary text with no prefix stays gated.
+-    onMessage(event('plain-text', 'text', { text: 'no prefix here' }));
+-    await new Promise<void>((resolve) => setImmediate(resolve));
+-    expect(bridge.prompt).toHaveBeenCalledTimes(1);
++    try {
++      onMessage(event('media-image', 'image', { image_key: 'img_1' }));
++      await vi.waitFor(() => expect(bridge.prompt).toHaveBeenCalledTimes(1));
++      expect(fetchSpy).toHaveBeenCalledWith(
++        resourceUrl,
++        expect.objectContaining({
++          method: 'GET',
++          headers: { Authorization: 'Bearer test_token' },
++          signal: expect.any(AbortSignal),
++        }),
++      );
++      expect(bridge.prompt).toHaveBeenCalledWith(
++        'session-1',
++        expect.any(String),
++        expect.objectContaining({
++          images: [
++            {
++              data: Buffer.from(image).toString('base64'),
++              mimeType: 'image/png',
++            },
++          ],
++        }),
++      );
++
++      // The control: ordinary text with no prefix stays gated.
++      onMessage(event('plain-text', 'text', { text: 'no prefix here' }));
++      await new Promise<void>((resolve) => setImmediate(resolve));
++      expect(bridge.prompt).toHaveBeenCalledTimes(1);
++    } finally {
++      fetchSpy.mockRestore();
++    }
+   });
+ 
+   it('matches prefixes after platform-normalized mentions with spaced names', async () => {
