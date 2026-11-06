@@ -1,0 +1,40 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-zyte-common-items
+pkgver=0.31.0
+pkgrel=1
+pkgdesc="Item definitions for the Zyte API schema"
+arch=('any')
+url="https://github.com/zytedata/zyte-common-items"
+license=('BSD-3-Clause')
+depends=(
+  'python'
+  'python-attrs'
+  'python-clear-html'
+  'python-itemadapter'
+  'python-jinja'
+  'python-price-parser'
+  'python-web-poet'
+  'python-zyte-parsers'
+)
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-packaging' 'python-pytest' 'python-pytest-asyncio' 'python-pytest-mypy-testing' 'scrapy')
+optdepends=('scrapy: Scrapy item adapters and pipelines')
+source=("git+https://github.com/zytedata/zyte-common-items.git#tag=$pkgver")
+sha256sums=('ad2a1921e8a39826bf004a3bffd70567c2c89c4917c4346b6295683896cbe443')
+
+build() {
+  cd zyte-common-items
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd zyte-common-items
+  pytest
+}
+
+package() {
+  cd zyte-common-items
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
