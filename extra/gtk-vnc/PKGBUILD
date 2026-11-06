@@ -8,7 +8,7 @@ pkgname=(
   gtk-vnc
   gtk-vnc-docs
 )
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="VNC viewer widget for GTK"
 url="https://gitlab.gnome.org/GNOME/gtk-vnc"
@@ -40,7 +40,7 @@ source=(
   "git+$url.git?signed#tag=$pkgver"
   "git+https://gitlab.com/keycodemap/keycodemapdb.git"
 )
-b2sums=('f83e51ba3be0d16a7ec2516870a135d88583a2614acc9181533fadc408d266b8e9ea6315445d130b7ba2b75fa7737b34a542bf209cb70063f067b7172acbf429'
+b2sums=('a4f10e4c430456e69aaf805dec1b183d96a778e40ba0f79ee11a8df8c403110ea4033eee826bd0fc8443558cd630169d1615b64b579c4445e3a4b933135e6f19'
         'SKIP')
 validpgpkeys=(
   DAF3A6FDB26B62912D0E8E3FBE86EBB415104FDF # Daniel P. Berrange <berrange@redhat.com>
