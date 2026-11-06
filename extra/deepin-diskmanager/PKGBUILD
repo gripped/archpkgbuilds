@@ -1,0 +1,61 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-diskmanager
+pkgver=6.0.28
+pkgrel=2
+pkgdesc='Deepin disk partitioning and health management tool'
+arch=('x86_64')
+url='https://github.com/linuxdeepin/deepin-diskmanager'
+license=('CC-BY-4.0' 'CC0-1.0' 'GPL-2.0-or-later' 'GPL-3.0-only' 'GPL-3.0-or-later')
+depends=('cryptsetup' 'dbus' 'deepin-qt6integration' 'device-mapper' 'dtk6core'
+         'dtk6gui' 'dtk6widget' 'glibc' 'hicolor-icon-theme' 'hwinfo' 'libgcc'
+         'libstdc++' 'lshw' 'parted' 'polkit' 'polkit-qt6' 'procps-ng' 'psmisc'
+         'qt6-base' 'smartmontools' 'systemd' 'udisks2' 'util-linux')
+makedepends=('git' 'cmake' 'deepin-gettext-tools' 'ninja' 'qt6-declarative' 'qt6-tools')
+checkdepends=('gtest' 'qt6-svg' 'xorg-server-xvfb')
+optdepends=('btrfs-progs: Btrfs filesystem operations'
+            'dosfstools: FAT filesystem creation and checking'
+            'e2fsprogs: ext2/ext3/ext4 filesystem operations'
+            'exfatprogs: exFAT filesystem operations'
+            'fatresize: resize FAT filesystems'
+            'hdparm: additional disk identification'
+            'lvm2: logical volume management'
+            'mtools: FAT filesystem information and labels'
+            'ntfsprogs: NTFS filesystem operations'
+            'xfsdump: copy XFS filesystems'
+            'xfsprogs: XFS filesystem operations')
+groups=('deepin-extra')
+source=("git+https://github.com/linuxdeepin/deepin-diskmanager.git#tag=$pkgver"
+        "$pkgname-6.0.28-arch.patch")
+sha512sums=('6ff97bc26510c85e2a4667c9eeee6d85679ea9b351467b9fcd005075ea4d21a1609b3d28fa3f8a679d2268c178fecbd6b318e35568e41b39dec23f989fe1f5d5'
+            'bf5a5d954fbffe0a67617053096e99e855eb2a5ade8d375e4ec29ec857ae4d6951d3d70d5b85e60b19a8b5a0044d9d80be7bc73ece6c990e5bc136d783be8ffe')
+
+prepare() {
+  cd deepin-diskmanager
+  # Fix Qt6 targets, partition selection and GUI tests; adapt hotplug detection for Arch.
+  # D-Bus authorization fix: https://github.com/linuxdeepin/deepin-diskmanager/pull/235
+  git apply ../$pkgname-6.0.28-arch.patch
+
+  # Install hotplug helpers under /usr/lib and keep udev rules in sync.
+  sed -i 's|libexec/deepin-diskmanager|lib/deepin-diskmanager|g' \
+    service/CMakeLists.txt service/udev/99-diskmanager.rules
+}
+
+build() {
+  cmake -B build -S deepin-diskmanager -GNinja \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DLUPDATE_EXECUTABLE=/usr/lib/qt6/bin/lupdate \
+    -DVERSION=$pkgver
+  cmake --build build
+}
+
+check() {
+  # Service tests in test/ format and delete partitions on /dev/sdb and /dev/sdc.
+  cmake -B build -S deepin-diskmanager -DDOTEST=ON
+  cmake --build build --target deepin-diskmanager_app_test
+  dbus-run-session xvfb-run -a build/tests/deepin-diskmanager_app_test
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}

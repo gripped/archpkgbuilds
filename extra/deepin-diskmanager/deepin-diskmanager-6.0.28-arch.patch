@@ -1,0 +1,129 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b05b63c..bde2591 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -5,9 +5,6 @@ find_package(Threads REQUIRED)
+ 
+ option(DOTEST "option for test" OFF)
+ 
+-# 是否开启单元测试编译
+-set(DOTEST OFF)
+-
+ option(DOAPP "option for test app" OFF)
+ set(DOAPP ON)
+ 
+diff --git a/application/CMakeLists.txt b/application/CMakeLists.txt
+index f92fc91..cb240cd 100644
+--- a/application/CMakeLists.txt
++++ b/application/CMakeLists.txt
+@@ -36,6 +36,7 @@ set(LINK_LIBS
+ 
+ # Qt6 has WidgetsPrivate module, Qt5 does not (use private target differently)
+ if (QT_VERSION_MAJOR MATCHES 6)
++    find_package(Qt6 REQUIRED COMPONENTS WidgetsPrivate)
+     list(APPEND LINK_LIBS Qt${QT_VERSION_MAJOR}::WidgetsPrivate)
+ endif()
+ 
+diff --git a/application/widgets/customcontrol/dmtreeview.cpp b/application/widgets/customcontrol/dmtreeview.cpp
+index 30a19ab..91687e0 100644
+--- a/application/widgets/customcontrol/dmtreeview.cpp
++++ b/application/widgets/customcontrol/dmtreeview.cpp
+@@ -295,7 +295,7 @@ void DmTreeview::setRefreshItem(int devicenum, int num) //设置刷新后默认
+     } else {
+ #if QT_VERSION_MAJOR > 5
+         qDebug() << "QT_VERSION_MAJOR > 5, setting current index with devicenum and num";
+-        setCurrentIndex(model()->index(devicenum, 0).model()->index(num, 0));
++        setCurrentIndex(model()->index(num, 0, model()->index(devicenum, 0)));
+ #else
+         setCurrentIndex(model()->index(devicenum, 0).child(num, 0));
+ #endif
+diff --git a/service/udev/USBadd.sh b/service/udev/USBadd.sh
+index aa21db9..982f7c9 100755
+--- a/service/udev/USBadd.sh
++++ b/service/udev/USBadd.sh
+@@ -4,12 +4,12 @@
+ #
+ # SPDX-License-Identifier: GPL-3.0-only
+ 
+-PROC_NAME='deepin-diskmanager'
++PROC_NAME='deepin-diskmanager-service'
+ 
+-# 前端进程'deepin-diskmanager'起来会设置udisks2-inhibit，只有磁盘管理器启动时才需DBus更新挂/卸载
+-ProcNumber=`ps aux |grep udisks2-inhibit |sed '/grep/d' |sed '/tail/d'`
++# Refresh only while the disk manager service is running.
++ProcNumber=$(pidof "$PROC_NAME")
+ if [ -n "$ProcNumber" ];then
+-   /usr/bin/dbus-send --system --type=method_call --dest=com.deepin.diskmanager /com/deepin/diskmanager com.deepin.diskmanager.updateUsb
++   /usr/bin/dbus-send --system --print-reply --type=method_call --dest=com.deepin.diskmanager /com/deepin/diskmanager com.deepin.diskmanager.updateUsb
+ else
+    exit 0
+ fi
+diff --git a/service/udev/USBremove.sh b/service/udev/USBremove.sh
+index bd6ce45..60e0375 100755
+--- a/service/udev/USBremove.sh
++++ b/service/udev/USBremove.sh
+@@ -4,12 +4,12 @@
+ #
+ # SPDX-License-Identifier: GPL-3.0-only
+ 
+-PROC_NAME='deepin-diskmanager'
++PROC_NAME='deepin-diskmanager-service'
+ 
+-# 前端进程'deepin-diskmanager'起来会设置udisks2-inhibit，只有磁盘管理器启动时才需DBus更新挂/卸载
+-ProcNumber=`ps aux |grep udisks2-inhibit |sed '/grep/d' |sed '/tail/d'`
++# Refresh only while the disk manager service is running.
++ProcNumber=$(pidof "$PROC_NAME")
+ if [ -n "$ProcNumber" ];then
+-   /usr/bin/dbus-send --system --type=method_call --dest=com.deepin.diskmanager /com/deepin/diskmanager com.deepin.diskmanager.updateUsbRemove
++   /usr/bin/dbus-send --system --print-reply --type=method_call --dest=com.deepin.diskmanager /com/deepin/diskmanager com.deepin.diskmanager.updateUsbRemove
+ else
+    exit 0
+ fi
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 6193d5a..caa2333 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -8,8 +8,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ set(CMAKE_AUTOMOC ON)
+ set(CMAKE_AUTORCC ON)
+ 
+-#可访问private
+-ADD_COMPILE_OPTIONS(-fno-access-control)
+ ADD_COMPILE_OPTIONS(-fno-inline)
+ #添加-fno-inline编译选项，禁止内联，能获取到函数地址，可以对内联函数进行打桩
+ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-inline")
+@@ -35,6 +33,9 @@ LIST(APPEND SRC_LIST ${MAIN})
+ AUX_SOURCE_DIRECTORY(./ut_application UT_DISKOPERATION)
+ LIST(APPEND SRC_LIST ${UT_DISKOPERATION})
+ 
++# Only test sources need private access; moc must honor Qt's private constructors.
++set_source_files_properties(${SRC_LIST} PROPERTIES COMPILE_OPTIONS -fno-access-control)
++
+ file(GLOB ALL_HEADERS "../application/*.h" "../application/widgets/*.h" "../application/widgets/customcontrol/*.h" "../application/partedproxy/*.h")
+ file(GLOB ALL_SOURCES "../application/*.cpp" "../application/widgets/*.cpp" "../application/widgets/customcontrol/*.cpp" "../application/partedproxy/*.cpp")
+ file(GLOB ALL_QRCS "../application/assets/appicons.qrc")
+@@ -61,6 +62,7 @@ set(LINK_LIBS
+ 
+ # Qt6 has WidgetsPrivate module, Qt5 does not
+ if (QT_VERSION_MAJOR MATCHES 6)
++    find_package(Qt6 REQUIRED COMPONENTS WidgetsPrivate)
+     list(APPEND LINK_LIBS Qt${QT_VERSION_MAJOR}::WidgetsPrivate)
+ endif()
+ 
+diff --git a/tests/ut_application/ut_application.cpp b/tests/ut_application/ut_application.cpp
+index c291e3d..22e8955 100644
+--- a/tests/ut_application/ut_application.cpp
++++ b/tests/ut_application/ut_application.cpp
+@@ -511,6 +511,12 @@ TEST_F(ut_application, resize)
+     Stub stub2;
+     stub2.set(ADDR(DMDbusHandler, resize), resizePartition);
+ 
++    // Accept the shrink confirmation without waiting for user input.
++    typedef int (*fptr)(ResizeDialog*);
++    fptr foo = (fptr)(&MessageBox::exec);
++    Stub stub3;
++    stub3.set(foo, MessageboxExec);
++
+     CenterWidget *centerWidget = MainWindow::instance()->findChild<CenterWidget *>();
+     MainSplitter *mainSplitter = centerWidget->findChild<MainSplitter *>();
+     DeviceListWidget *deviceListWidget = mainSplitter->findChild<DeviceListWidget *>();
