@@ -1,0 +1,20 @@
+pkgbase = ruby-llhttp
+	pkgdesc = Native Ruby bindings for llhttp
+	pkgver = 0.6.2
+	pkgrel = 1
+	url = https://github.com/bryanp/llhttp
+	arch = x86_64
+	license = MPL-2.0
+	checkdepends = curl
+	checkdepends = ruby-async
+	checkdepends = ruby-io-endpoint
+	checkdepends = ruby-rspec
+	makedepends = git
+	makedepends = ruby-rdoc
+	depends = glibc
+	depends = ruby
+	options = !emptydirs
+	source = ruby-llhttp::git+https://github.com/bryanp/llhttp.git#tag=2026-06-28
+	sha256sums = 0ba61e703092e68e14f7969aaefa4ef882f6ef18d153e77e3f622da18e69afd5
+
+pkgname = ruby-llhttp

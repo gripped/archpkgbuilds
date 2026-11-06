@@ -1,0 +1,57 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ruby-llhttp
+pkgver=0.6.2
+pkgrel=1
+pkgdesc='Native Ruby bindings for llhttp'
+arch=(x86_64)
+url='https://github.com/bryanp/llhttp'
+license=(MPL-2.0)
+depends=(glibc ruby)
+makedepends=(git ruby-rdoc)
+checkdepends=(curl ruby-async ruby-io-endpoint ruby-rspec)
+options=(!emptydirs)
+# Avoid colliding with the C llhttp repository in the source cache.
+source=("ruby-llhttp::git+https://github.com/bryanp/llhttp.git#tag=2026-06-28")
+sha256sums=('0ba61e703092e68e14f7969aaefa4ef882f6ef18d153e77e3f622da18e69afd5')
+
+prepare() {
+  cd ruby-llhttp
+
+  # Load extensions from Arch's RubyGems extension directory: https://github.com/bryanp/llhttp/pull/34
+  git cherry-pick -n 770207186a8d337d38b714e0b046df363a90b013
+}
+
+build() {
+  local _gemdir="$(gem env gemdir)"
+  cd ruby-llhttp/mri
+
+  gem build llhttp.gemspec
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install$_gemdir" \
+    --bindir tmp_install/usr/bin \
+    llhttp-$pkgver.gem
+
+  find "tmp_install$_gemdir/gems/" -type f \
+    \( -name '*.o' -o -name '*.c' -o -name '*.time' -o -name Makefile \) -delete
+  find "tmp_install$_gemdir/extensions/" -type f \
+    \( -name mkmf.log -o -name gem_make.out \) -delete
+  rm -r "tmp_install$_gemdir/cache"
+}
+
+check() {
+  local _gemdir="$(gem env gemdir)"
+  cd ruby-llhttp
+
+  GEM_HOME="mri/tmp_install$_gemdir" rspec --require ./spec/initialize
+}
+
+package() {
+  cd ruby-llhttp/mri
+  cp -a tmp_install/* "$pkgdir"/
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
