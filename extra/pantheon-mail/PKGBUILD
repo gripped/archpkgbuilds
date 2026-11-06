@@ -4,27 +4,35 @@
 
 pkgname=pantheon-mail
 pkgver=8.0.1
-pkgrel=2
-pkgdesc='Mail app designed for elementary OS'
+pkgrel=3
+pkgdesc='Mail app designed for Pantheon'
 arch=(x86_64)
 url=https://github.com/elementary/mail
 license=(GPL-3.0-or-later)
 groups=(pantheon)
 depends=(
+  dconf
+  elementary-icon-theme
+  gdk-pixbuf2
   glib2
+  glibc
+  gtk-theme-elementary
   gtk3
+  hicolor-icon-theme
   libcamel-1.2.so
   libedataserver-1.2.so
   libedataserverui-1.2.so
   libfolks.so
+  libgee
   libgranite.so
   libhandy-1.so
+  libportal
   libportal-gtk3
+  pango
   webkit2gtk-4.1
 )
 makedepends=(
   git
-  intltool
   meson
   vala
 )
