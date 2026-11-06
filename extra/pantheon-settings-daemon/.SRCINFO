@@ -1,13 +1,13 @@
 pkgbase = pantheon-settings-daemon
 	pkgdesc = Manage settings and background tasks for Pantheon
 	pkgver = 8.5.0
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/elementary/settings-daemon
 	arch = x86_64
 	groups = pantheon
 	license = GPL-3.0-only
 	makedepends = git
-	makedepends = granite
+	makedepends = granite7
 	makedepends = meson
 	makedepends = vala
 	depends = accountsservice
@@ -19,7 +19,7 @@ pkgbase = pantheon-settings-daemon
 	depends = glibc
 	depends = gnome-settings-daemon
 	depends = gsettings-desktop-schemas
-	depends = gtk3
+	depends = gtk4
 	depends = libgexiv2
 	depends = libpackagekit-glib2.so
 	source = pantheon-settings-daemon::git+https://github.com/elementary/settings-daemon.git#tag=8.5.0

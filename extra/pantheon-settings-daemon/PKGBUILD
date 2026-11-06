@@ -2,7 +2,7 @@
 
 pkgname=pantheon-settings-daemon
 pkgver=8.5.0
-pkgrel=3
+pkgrel=4
 pkgdesc='Manage settings and background tasks for Pantheon'
 arch=(x86_64)
 url=https://github.com/elementary/settings-daemon
@@ -18,18 +18,27 @@ depends=(
   glibc
   gnome-settings-daemon
   gsettings-desktop-schemas
-  gtk3
+  gtk4
   libgexiv2
   libpackagekit-glib2.so
 )
 makedepends=(
   git
-  granite
+  granite7
   meson
   vala
 )
 source=(pantheon-settings-daemon::git+https://github.com/elementary/settings-daemon.git#tag=${pkgver})
 b2sums=('e63cac04468851603d1df74c7c2cd206495195c2e92cbb2d1c64f1460b40baccdf8a0892ce712ca3e3a025d052834e74d610369a3b61dcd63474bf295ff806af')
+
+prepare() {
+  cd pantheon-settings-daemon
+
+  # Bump to Granite 7
+  git cherry-pick -n 145b09b6ff5a1c521453bd862626573586fbfdf9 \
+                     40446077c17074150db5a82bdaf7236d254ae137 \
+                     ad9c288867c155fa972c04d65b8c2e1598762d02
+}
 
 build() {
   arch-meson pantheon-settings-daemon build \
