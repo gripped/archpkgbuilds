@@ -4,7 +4,7 @@
 
 pkgname=gitea-cli
 _binname=gt
-pkgver=1.1.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Official Gitea CLI"
 url="https://gitea.com/gitea/cli"
@@ -15,7 +15,7 @@ makedepends=('git' 'go')
 provides=('tea')
 replaces=('tea')
 source=("${pkgname}::git+${url}#tag=v${pkgver}")
-sha256sums=('c2521f0ae3b789982336e332f598478cb34fc0d0c2467c3af3423557fe2b0e1e')
+sha256sums=('ca8a7457df3659d8f2eaa29bc4a0a37e5d36347edea1fda8fdf8f76798d87cd4')
 
 prepare() {
 	cd "${pkgname}"
