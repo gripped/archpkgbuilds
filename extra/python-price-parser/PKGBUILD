@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-price-parser
+pkgver=0.5.1
+pkgrel=1
+pkgdesc="Extract price and currency from a raw string"
+arch=('any')
+url="https://github.com/scrapinghub/price-parser"
+license=('BSD-3-Clause')
+depends=('python' 'python-attrs')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-pytest')
+source=("git+https://github.com/scrapinghub/price-parser.git#tag=$pkgver")
+sha256sums=('dfd16aa7e0de9c64738ad985f4ab3da2404c12a253dd04945c8e2ffe48f00d41')
+
+build() {
+  cd price-parser
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd price-parser
+  pytest --doctest-modules price_parser tests README.rst
+}
+
+package() {
+  cd price-parser
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
