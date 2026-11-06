@@ -1,0 +1,50 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+# Maintainer: Robin Candau <antiz@archlinux.org>
+# Contributor: John K. Luebs <jkl at johnluebs dot tld>
+
+pkgname=gitea-cli
+_binname=gt
+pkgver=1.1.0
+pkgrel=1
+pkgdesc="Official Gitea CLI"
+url="https://gitea.com/gitea/cli"
+arch=('x86_64')
+license=('MIT')
+depends=('glibc')
+makedepends=('git' 'go')
+provides=('tea')
+replaces=('tea')
+source=("${pkgname}::git+${url}#tag=v${pkgver}")
+sha256sums=('c2521f0ae3b789982336e332f598478cb34fc0d0c2467c3af3423557fe2b0e1e')
+
+prepare() {
+	cd "${pkgname}"
+	mkdir -p build/
+}
+
+build() {
+	cd "${pkgname}"
+	export CGO_CPPFLAGS="${CPPFLAGS}"
+	export CGO_CFLAGS="${CFLAGS}"
+	export CGO_CXXFLAGS="${CXXFLAGS}"
+	export CGO_LDFLAGS="${LDFLAGS}"
+	export GOPATH="${srcdir}"
+	export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
+
+	go build -ldflags "-s -w -buildid='' -linkmode external -X gitea.dev/cli/internal/version.Version=${pkgver}" -o build ./cmd/...
+	env -u GOFLAGS make docs
+}
+
+check() {
+	cd "${pkgname}"
+	go test ./...
+}
+
+package() {
+	cd "${pkgname}"
+	install -Dm 755 "build/${_binname}" "${pkgdir}/usr/bin/${_binname}"
+	env -u GOFLAGS make PREFIX=/usr DESTDIR="${pkgdir}" install-docs
+
+	install -Dm 644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+	install -Dm 644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+}
