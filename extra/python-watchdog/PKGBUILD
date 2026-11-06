@@ -3,7 +3,7 @@
 # Contributor: Francois Boulogne <fboulogne at april dot org>
 
 pkgname=python-watchdog
-pkgver=7.0.0
+pkgver=7.1.0
 pkgrel=1
 pkgdesc="Python API and shell utilities to monitor file system events"
 arch=('any')
@@ -25,7 +25,7 @@ checkdepends=(
 )
 optdepends=('python-yaml: for watchmedo')
 source=("git+https://github.com/gorakhargosh/watchdog.git#tag=v$pkgver")
-sha512sums=('2d842de15ee89e32ec4e5d68ed1eb93f40c708951394aff4deb74f6000c74f62e430320095cc46327f85f29c6ae0b896cb41bfc20626bbe5e566e75a70b811f9')
+sha512sums=('d8e0d6fe88c5f4594ae04171d8c1a151cdcd1b5d1c2326e4fe4e0f77144906a5f27bbd488de4ae580cd666b36df7cd148e1910c00b967d0f98bd3672ebc94453')
 
 build() {
   cd watchdog
