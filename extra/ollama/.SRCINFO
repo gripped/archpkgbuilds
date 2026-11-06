@@ -1,6 +1,6 @@
 pkgbase = ollama
 	pkgdesc = Create, run and share large language models (LLMs)
-	pkgver = 0.40.13
+	pkgver = 0.40.14
 	pkgrel = 1
 	url = https://github.com/ollama/ollama
 	arch = x86_64
@@ -20,16 +20,18 @@ pkgbase = ollama
 	depends = libstdc++
 	depends = glibc
 	options = !lto
-	source = git+https://github.com/ollama/ollama#tag=v0.40.13
+	source = git+https://github.com/ollama/ollama#tag=v0.40.14
 	source = ollama-ld.conf
 	source = ollama.service
 	source = sysusers.conf
 	source = tmpfiles.conf
-	b2sums = 89fc5dfe6e74b73252a4998a1c0d226f0090360e5090ca55ce36ee6a8707818b5e01aa78d621a16bfc927317b2f569ef0a9ab915c9335563527648fcd60756d4
+	source = remove-dependency-installation.patch
+	b2sums = 4a0331016e9b5f38721d2c51851e3559b9ffdef573694fb2a623af7c0667deaab6cb6bcadeddd49c7789475a2428108e732ecf7fb82e0eb24d66421c2323bc28
 	b2sums = 121a7854b5a7ffb60226aaf22eed1f56311ab7d0a5630579525211d5c096040edbcfd2608169a4b6d83e8b4e4855dbb22f8ebf3d52de78a34ea3d4631b7eff36
 	b2sums = 031e0809a7f564de87017401c83956d43ac29bd0e988b250585af728b952a27d139b3cad0ab1e43750e2cd3b617287d3b81efc4a70ddd61709127f68bd15eabd
 	b2sums = 68622ac2e20c1d4f9741c57d2567695ec7b5204ab43356d164483cd3bc9da79fad72489bb33c8a17c2e5cb3b142353ed5f466ce857b0f46965426d16fb388632
 	b2sums = e8f2b19e2474f30a4f984b45787950012668bf0acb5ad1ebb25cd9776925ab4a6aa927f8131ed53e35b1c71b32c504c700fe5b5145ecd25c7a8284373bb951ed
+	b2sums = 91fa5c6c5b714ab215742e3de01c172bb312ec74d5fe6662539ce6dd4ffbd6f1fa5546cfe36485ed5528c4f9ba73008cc11e96a1af0f4bb2f913674a4bbbb60a
 
 pkgname = ollama
 

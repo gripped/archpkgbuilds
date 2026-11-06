@@ -1,0 +1,49 @@
+From 75bf9b56408edc5edf9579a02d2f2963eaf16303 Mon Sep 17 00:00:00 2001
+From: Lubosz Sarnecki <lubosz@gmail.com>
+Date: Fri, 30 Oct 2026 23:47:32 +0100
+Subject: [PATCH] llama/server/CMakeLists: Remove the runtime dependencies from
+ installation.
+
+So CMake doesn't install lots of system dependencies into the target path.
+Avoids bundling ROCm and CUDA libraries on Arch that increase package
+size drastically.
+
+Signed-off-by: Lubosz Sarnecki <lubosz@gmail.com>
+---
+ llama/server/CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/llama/server/CMakeLists.txt b/llama/server/CMakeLists.txt
+index 9153c9bf..35bfd6b7 100644
+--- a/llama/server/CMakeLists.txt
++++ b/llama/server/CMakeLists.txt
+@@ -533,7 +533,7 @@ if(OLLAMA_RUNNER_DIR)
+             install(TARGETS ggml-cuda
+                 RUNTIME_DEPENDENCIES
+                     DIRECTORIES ${_cuda_redist_dir} ${CUDAToolkit_BIN_DIR} ${CUDAToolkit_LIBRARY_DIR}
+-                    PRE_INCLUDE_REGEXES cublas cublasLt cudart
++                    PRE_INCLUDE_REGEXES ""
+                     PRE_EXCLUDE_REGEXES ".*"
+                 RUNTIME DESTINATION "${_base_dest}/${OLLAMA_RUNNER_DIR}" COMPONENT llama-server
+                 LIBRARY DESTINATION "${_base_dest}/${OLLAMA_RUNNER_DIR}" COMPONENT llama-server
+@@ -549,7 +549,7 @@ if(OLLAMA_RUNNER_DIR)
+             )
+             install(RUNTIME_DEPENDENCY_SET rocm_deps
+                 DIRECTORIES ${HIP_BIN_INSTALL_DIR} ${HIP_LIB_INSTALL_DIR}
+-                PRE_INCLUDE_REGEXES hipblas rocblas amdhip64 rocsolver amd_comgr hsa-runtime64 rocsparse tinfo rocprofiler-register roctx64 rocroller drm drm_amdgpu numa elf
++                PRE_INCLUDE_REGEXES ""
+                 PRE_EXCLUDE_REGEXES ".*"
+                 POST_EXCLUDE_REGEXES "system32"
+                 RUNTIME DESTINATION "${_base_dest}/${OLLAMA_RUNNER_DIR}" COMPONENT llama-server
+@@ -577,7 +577,7 @@ if(OLLAMA_RUNNER_DIR)
+                 endif()
+             endif()
+             foreach(_hip_dir IN ITEMS ${HIP_BIN_INSTALL_DIR} ${HIP_LIB_INSTALL_DIR})
+-                if(EXISTS ${_hip_dir}/rocblas)
++                if(FALSE)
+                     install(DIRECTORY ${_hip_dir}/rocblas
+                         DESTINATION "${_base_dest}/${OLLAMA_RUNNER_DIR}"
+                         COMPONENT llama-server)
+-- 
+2.56.0
+
