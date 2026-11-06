@@ -1,0 +1,34 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-clear-html
+pkgver=0.5.0
+pkgrel=1
+pkgdesc="Clean and normalize HTML"
+arch=('any')
+url="https://github.com/zytedata/clear-html"
+license=('MIT')
+depends=('python' 'python-attrs' 'python-html-text' 'python-lxml')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-parsel' 'python-pytest')
+source=("git+https://github.com/zytedata/clear-html.git#tag=$pkgver")
+sha256sums=('383f6c267a7204a24c96ed251ad130783b0bd988a860e83e43bc28bd7d8101a7')
+
+build() {
+  cd clear-html
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd clear-html
+  # libxml2 2.15 changed HTML serialization; these fixtures assert the old output.
+  pytest \
+    --deselect=clear_html/formatted_text/figures.py::clear_html.formatted_text.figures.top_level_media_within_figure \
+    --deselect='tests/test_body_annotations.py::test_body_formatting[0cc0e4c6cc8d06153664be9a194353defdfe0dbb4a37049452a901586c0ab6b0-]' \
+    --deselect='tests/test_body_annotations.py::test_body_formatting[7b53d1eb919996a9168c26d7f10215bb5c54840f436fb7bce43845ba1f403924-]'
+}
+
+package() {
+  cd clear-html
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
