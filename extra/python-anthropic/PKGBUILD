@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-anthropic
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="Python client library for the Anthropic API"
 arch=('any')
@@ -56,7 +56,7 @@ optdepends=(
   'python-standardwebhooks: webhook signature verification'
 )
 source=("git+https://github.com/anthropics/anthropic-sdk-python.git#tag=v$pkgver")
-sha256sums=('5b0a99c034628cdb160e764a50c239f4dcf26b5176eb88925a4b15a8383dfe2b')
+sha256sums=('19dfd4a343a2e2fbe2f7b4ec959b1e099da35102f4570a6b14fa8d2f55dcd0e2')
 
 build() {
   cd anthropic-sdk-python
