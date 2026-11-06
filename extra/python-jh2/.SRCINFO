@@ -1,0 +1,21 @@
+pkgbase = python-jh2
+	pkgdesc = HTTP/2 protocol state machine
+	pkgver = 5.0.15
+	pkgrel = 1
+	url = https://github.com/jawah/h2
+	arch = x86_64
+	license = MIT
+	checkdepends = python-hypothesis
+	checkdepends = python-pytest
+	makedepends = cargo
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-maturin
+	depends = glibc
+	depends = libgcc
+	depends = python
+	source = jh2::git+https://github.com/jawah/h2.git#tag=v5.0.15
+	sha256sums = 9313eae010dff1d81dc1ae2b13032f8ae524be2330a89b5e14bc4ac9b2b5a5fd
+
+pkgname = python-jh2
