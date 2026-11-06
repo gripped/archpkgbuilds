@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@archlinux.org>
 
 pkgname=xtrabackup
-pkgver=9.7.1_rc1
+pkgver=9.7.2_2
 pkgrel=1
 pkgdesc='Non-blocking backup tool for MySQL'
 arch=('x86_64')
@@ -10,11 +10,16 @@ url='https://www.percona.com/software/mysql-database/percona-xtrabackup'
 license=('GPL-2.0-only')
 depends=('libaio' 'libev' 'libgcrypt' 'curl' 'perl-dbd-mysql' 'numactl' 'protobuf' 'libprocps' 'icu' 'zlib' 'zstd' 'lz4')
 makedepends=('cmake' 'python-sphinx' 'vim' 'libedit' 'libevent' 'libfido2')
-source=("https://downloads.percona.com/downloads/Percona-XtraBackup-${pkgver%.*}/Percona-XtraBackup-${pkgver//_/-}/source/tarball/percona-xtrabackup-${pkgver//_/-}.tar.gz")
-sha256sums=('604c797be4040f6ee41905848ae63baded22b36ab085a7fb68b1e207c8d4d73b')
+source=("https://downloads.percona.com/downloads/Percona-XtraBackup-${pkgver%.*}/Percona-XtraBackup-${pkgver//_/-}/source/tarball/percona-xtrabackup-${pkgver//_/-}.tar.gz"
+        'openssl-4.patch')
+sha256sums=('b7d2e4fa7407a000d26870022ac382ae5187523dcecd83037f35d7374be58064'
+            'f8e00b17f0eda8ea47818e8fab5e305fff9c34046ce04fb9fc066428a19a9cd6')
 
 prepare() {
   mkdir build
+
+  # Fix OpenSSL 4 version detection and certificate generation (MySQL Bug #39102340).
+  patch -d "percona-xtrabackup-${pkgver//_/-}" -p1 < "$srcdir/openssl-4.patch"
 }
 
 build() {

@@ -1,0 +1,88 @@
+Backport OpenSSL 4 compatibility from MySQL Bug #39102340.
+
+Upstream: https://github.com/mysql/mysql-server/commit/a045c23214ec225c49d9bc4caeea78d3d1f99ba9
+
+--- a/cmake/ssl.cmake
++++ b/cmake/ssl.cmake
+@@ -132,7 +132,7 @@
+ # #define OPENSSL_VERSION_NUMBER 0x1000103fL
+ # Encoded as MNNFFPPS: major minor fix patch status
+ #
+-# OpenSSL 3:
++# OpenSSL >= 3:
+ # #define OPENSSL_VERSION_NUMBER
+ #   ( (OPENSSL_VERSION_MAJOR<<28)
+ #     |(OPENSSL_VERSION_MINOR<<20)
+@@ -151,8 +151,8 @@
+       ${version_part} "${${version_part}}")
+   ENDFOREACH()
+   SET(OPENSSL_VERSION_MAJOR ${OPENSSL_VERSION_MAJOR} CACHE INTERNAL "" FORCE)
+-  IF(OPENSSL_VERSION_MAJOR VERSION_EQUAL 3)
+-    # OpenSSL 3
++  IF(OPENSSL_VERSION_MAJOR VERSION_GREATER_EQUAL 3)
++    # OpenSSL >= 3
+     SET(OPENSSL_FIX_VERSION "${OPENSSL_VERSION_PATCH}")
+   ELSE()
+     # Verify version number. Version information looks like:
+--- a/sql/auth/sql_authentication.cc
++++ b/sql/auth/sql_authentication.cc
+@@ -2521,7 +2521,8 @@
+       if (!(cert = SSL_get_peer_certificate(ssl))) return true;
+       /* If X509 issuer is specified, we check it... */
+       if (acl_user->x509_issuer) {
+-        char *ptr = X509_NAME_oneline(X509_get_issuer_name(cert), nullptr, 0);
++        char *ptr = X509_NAME_oneline(
++            const_cast<X509_NAME *>(X509_get_issuer_name(cert)), nullptr, 0);
+         DBUG_PRINT("info", ("comparing issuers: '%s' and '%s'",
+                             acl_user->x509_issuer, ptr));
+         if (strcmp(acl_user->x509_issuer, ptr)) {
+@@ -2535,7 +2536,8 @@
+       }
+       /* X509 subject is specified, we check it .. */
+       if (acl_user->x509_subject) {
+-        char *ptr = X509_NAME_oneline(X509_get_subject_name(cert), nullptr, 0);
++        char *ptr = X509_NAME_oneline(
++            const_cast<X509_NAME *>(X509_get_subject_name(cert)), nullptr, 0);
+         DBUG_PRINT("info", ("comparing subjects: '%s' and '%s'",
+                             acl_user->x509_subject, ptr));
+         if (strcmp(acl_user->x509_subject, ptr)) {
+@@ -5342,7 +5344,7 @@
+     if (!X509_set_pubkey(x509, pkey)) goto err;
+ 
+     /** Set CN value in subject */
+-    name = X509_get_subject_name(x509);
++    name = X509_NAME_new();
+     if (!name) goto err;
+ 
+     if (!X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+@@ -5350,10 +5352,19 @@
+                                     0))
+       goto err;
+ 
++    if (!X509_set_subject_name(x509, name)) goto err;
++
+     /** Set Issuer */
+-    if (!X509_set_issuer_name(
+-            x509, self_sign ? name : X509_get_subject_name(ca_x509)))
+-      goto err;
++    {
++      const X509_NAME *issuer_name =
++          self_sign ? name : X509_get_subject_name(ca_x509);
++      if (!issuer_name) goto err;
++      if (!X509_set_issuer_name(x509, const_cast<X509_NAME *>(issuer_name)))
++        goto err;
++    }
++
++    X509_NAME_free(name);
++    name = nullptr;
+ 
+     /** Add X509v3 extensions */
+     X509V3_set_ctx(&v3ctx, self_sign ? x509 : ca_x509, x509, nullptr, nullptr,
+@@ -5373,6 +5384,7 @@
+ 
+     return x509;
+   err:
++    if (name) X509_NAME_free(name);
+     if (x509) X509_free(x509);
+     return nullptr;
+   }
