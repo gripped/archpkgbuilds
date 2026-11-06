@@ -1,0 +1,46 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libkysdk-ai-private
+pkgver=1.1.0.1
+pkgrel=1
+pkgdesc="Kylin AI assistant, configuration and data management client libraries"
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+url="https://gitee.com/openkylin/libkysdk-ai-private"
+depends=('bash' 'coreutils' 'glib2' 'glibc' 'jsoncpp' 'libgcc' 'libstdc++' 'pacman')
+makedepends=('cmake' 'git' 'glib2-devel' 'libkylin-ai-system-private' 'ninja' 'nlohmann-json')
+source=("git+https://gitee.com/openkylin/libkysdk-ai-private.git#tag=debian/$pkgver-1")
+sha512sums=('422955202e0b18b9dd3a92293cb908baa45cae00ac1c482eead0e9b6eb9bc84a719f25c7d0f114374326b0cee9ccb25d3505ae173fa52fe553428324fb069580')
+
+prepare() {
+  cd libkysdk-ai-private
+  # Arch installs JsonCpp headers under /usr/include/json.
+  sed -i 's|<jsoncpp/json/|<json/|' \
+    ai-assistant/{assistantserviceproxy,osassistant}.cpp ai-config/configserviceproxy.cpp
+  # Arch omits JsonCpp's broken CMake config: https://github.com/open-source-parsers/jsoncpp/issues/1568
+  sed -i -e '/^find_package(jsoncpp REQUIRED)$/d' \
+         -e '/^find_package(PkgConfig REQUIRED)$/a pkg_check_modules(JSONCPP REQUIRED IMPORTED_TARGET jsoncpp)' \
+         -e 's/^    jsoncpp$/    PkgConfig::JSONCPP/' \
+    ai-{assistant,config}/CMakeLists.txt
+  # Detect the optional AI subsystem plugin through Arch's package database.
+  sed -i -e 's|/usr/bin/dpkg -s|/usr/bin/pacman -Qq|' \
+         -e 's/popen dpkg/popen pacman/' \
+         -e 's/Status: install ok installed/kylin-ai-subsystem-plugin/' \
+    libkyai-data-management-client/src/datamanagement.cpp
+}
+
+build() {
+  # Tests require the AI data-management service and upstream's private sample documents.
+  cmake -S libkysdk-ai-private -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DENABLE_TEST=OFF
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  mv "$pkgdir"/usr/{share,lib}/pkgconfig
+  install -Dm644 libkysdk-ai-private/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
