@@ -7,26 +7,38 @@ Inject JAVA_HOME and JAVA variables into scripts that end up in /usr/bin
 to also pin the java version for the cli tools that otherwise would use
 the default system JAVA_HOME and JAVA var.
 ---
- integration/client-cli/admin-cli/src/main/bin/kcadm.sh | 3 ++-
+ integration/client-cli/admin-cli/src/main/bin/kcadm.sh | 1 +
+ integration/client-cli/admin-cli/src/main/bin/kcreg.sh | 2 ++
  quarkus/dist/src/main/content/bin/kc.sh                | 1 +
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ 3 files changed, 4 insertions(+)
 
 diff --git a/integration/client-cli/admin-cli/src/main/bin/kcadm.sh b/integration/client-cli/admin-cli/src/main/bin/kcadm.sh
-index fa0e7f86a5..40505e414f 100755
+index 92d5546..29b970c 100644
 --- a/integration/client-cli/admin-cli/src/main/bin/kcadm.sh
 +++ b/integration/client-cli/admin-cli/src/main/bin/kcadm.sh
-@@ -18,7 +18,8 @@ esac
- 
+@@ -19,6 +19,7 @@ esac
  RESOLVED_NAME="${RESOLVED_NAME:-"$0"}"
  
--DIRNAME="$(dirname "$RESOLVED_NAME")"
-+DIRNAME=`dirname "$RESOLVED_NAME"`
+ DIRNAME="$(dirname "$RESOLVED_NAME")"
++. "$DIRNAME/common.sh"
+ 
+ if [ -z "$JAVA" ]; then
+     if [ -n "$JAVA_HOME" ]; then
+diff --git a/integration/client-cli/admin-cli/src/main/bin/kcreg.sh b/integration/client-cli/admin-cli/src/main/bin/kcreg.sh
+index 8fd510f..aebba8a 100644
+--- a/integration/client-cli/admin-cli/src/main/bin/kcreg.sh
++++ b/integration/client-cli/admin-cli/src/main/bin/kcreg.sh
+@@ -17,6 +17,8 @@ case "$(uname)" in
+ esac
+ 
+ RESOLVED_NAME="${RESOLVED_NAME:-"$0"}"
++DIRNAME="$(dirname "$RESOLVED_NAME")"
 +. "$DIRNAME/common.sh"
  
  if [ -z "$JAVA" ]; then
      if [ -n "$JAVA_HOME" ]; then
 diff --git a/quarkus/dist/src/main/content/bin/kc.sh b/quarkus/dist/src/main/content/bin/kc.sh
-index 9a6e62e2dd..ed08bf2c2e 100644
+index 65d67bd..e4ffc7f 100644
 --- a/quarkus/dist/src/main/content/bin/kc.sh
 +++ b/quarkus/dist/src/main/content/bin/kc.sh
 @@ -25,6 +25,7 @@ RESOLVED_NAME="${RESOLVED_NAME:-"$0"}"
@@ -37,6 +49,3 @@ index 9a6e62e2dd..ed08bf2c2e 100644
  
  abs_path () {
    if [ -z "$IS_CYGWIN" ] ; then
--- 
-2.46.0
-

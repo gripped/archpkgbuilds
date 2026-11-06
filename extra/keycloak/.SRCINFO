@@ -1,6 +1,6 @@
 pkgbase = keycloak
 	pkgdesc = Open Source Identity and Access Management For Modern Applications and Services
-	pkgver = 26.8.1
+	pkgver = 26.8.2
 	pkgrel = 1
 	url = https://www.keycloak.org/
 	install = keycloak.install
@@ -8,24 +8,25 @@ pkgbase = keycloak
 	license = Apache-2.0
 	makedepends = maven
 	makedepends = java-environment=21
-	depends = java-runtime-headless=21
+	depends = java-runtime-headless>=17
+	depends = java-runtime-headless<26
 	depends = grep
 	depends = bash
 	depends = coreutils
 	depends = util-linux
 	options = emptydirs
 	backup = etc/keycloak/keycloak.conf
-	source = https://github.com/keycloak/keycloak/archive/26.8.1/keycloak-26.8.1.tar.gz
+	source = https://github.com/keycloak/keycloak/archive/26.8.2/keycloak-26.8.2.tar.gz
 	source = keycloak.service
 	source = keycloak.sysusers
 	source = keycloak.tmpfiles
 	source = common.sh
 	source = pin-java-version.patch
-	sha512sums = 4f9dd8c01ee298cc6df994819d2a45b141b5e94ef442c9c370d54cbcd6c776cce71aef7c51653ce798abf9dd0b375c2d1e2edea6fb732cb7707cb46027f8763a
+	sha512sums = 7c834c85388fe09d3a0360448118323ac874e1a2ae68d45f4dc6b855e3318e456ab5aa86245098e961fa1d2c8aafa578bd04f01cbcef9a2792c4082ed9ebc0d0
 	sha512sums = 850628262b0d641e4284f566593590e6c0e91a6a3854c6817503e2c1dcaa6034aeefbe7e2ea4766f5f5536df279613b1e0472d13b41e8a4c58031f384b5a859a
 	sha512sums = 545b4cafeb67866bf031bbf4e77a2dc14670801759e4a3d7be33aec397c92dea51eaf2e27fbd86b098e3a1bcccf4a83115f3ff4db525cb900b78c9513a96a73a
 	sha512sums = 155db40105c08d0aaa810ca5533dc16fc9f82060280541ede6fafd754d30b4844f6d10ace1417a5ad68d89fc54e1b9e6d906ce7ccf973f4ac964422211ed9a72
-	sha512sums = e8b82a9cb21a028389e9305d4920b1e4cb2ee0cf738f06198dbc9524412b71d11cd21e00ae9cf005305af7ca369606426c86dffb98d9b78f6883b91772f127eb
-	sha512sums = 907ca315537d753ea0c3203487818d5d10a5f4b6f60a117027c6f76ffc4d97bd332a3503621a2f3d053839dc2a3f56b49b83fa7ba5b6fb002bb548285101f1c7
+	sha512sums = 0c097ba525310e5a6d2d1af84182910cb592f85d307591768387a0da50d7bc9076c6ca61a2924613af978a29f6f7dfbedbf48e8336143001bed4324ea8a595b0
+	sha512sums = 8e19418e08f9301b95585dbeeb53ae868b660ad55a49b250375b5c9c1f099db9140f07dba43ed027c9584636e86f26b8e5ce9dc42ea2a0997bb860ccbd1abd03
 
 pkgname = keycloak
