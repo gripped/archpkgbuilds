@@ -1,5 +1,5 @@
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index a945377b..b9981f47 100644
+index 55a33ed4..18e84552 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
 @@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.13)
@@ -31,7 +31,7 @@ index a945377b..b9981f47 100644
  
  qt_add_resources(SRCS res.qrc)
  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wl,--as-need -fPIE")
-@@ -107,10 +102,6 @@ else()
+@@ -108,10 +103,6 @@ else()
              qml/InformationDialog/PropertyActionItemDelegate.qml
              qml/InformationDialog/PropertyItem.qml
              qml/InformationDialog/PropertyItemDelegate.qml
@@ -42,7 +42,7 @@ index a945377b..b9981f47 100644
              qml/ThumbnailDelegate/BaseThumbnailDelegate.qml
              qml/ThumbnailDelegate/MultiThumnailDelegate.qml
              qml/ThumbnailDelegate/NormalThumbnailDelegate.qml
-@@ -148,8 +139,6 @@ target_link_libraries(${BIN_NAME} PRIVATE
+@@ -149,8 +140,6 @@ target_link_libraries(${BIN_NAME} PRIVATE
      Dtk${DTK_VERSION_MAJOR}::Declarative
      GL
      pthread
@@ -92,7 +92,7 @@ index 24d02cd0..2120f724 100644
      if (!cliParam.isEmpty()) {
          qCDebug(logImageViewer) << "Commandline parameter is not empty, processing initial image.";
 diff --git a/src/qml/ImageViewer.qml b/src/qml/ImageViewer.qml
-index da8766d7..e02e0b36 100644
+index f5d3d235..1005f1c6 100644
 --- a/src/qml/ImageViewer.qml
 +++ b/src/qml/ImageViewer.qml
 @@ -10,7 +10,6 @@ import QtQuick.Shapes
@@ -112,9 +112,18 @@ index da8766d7..e02e0b36 100644
      // Image 类型的对象，空图片、错误图片、消失图片等异常为 null
      property alias targetImage: view.currentImage
  
-@@ -518,154 +515,15 @@ Item {
+@@ -521,163 +518,16 @@ Item {
+     Loader {
          id: ltwLoader
  
+-        // ltwLoader 由 onTargetImageReadyChanged 在图片就绪后激活；
+-        // 异步加载完成时补触发一次，此时 targetImageReady 已必然为 true。
+-        onStatusChanged: {
+-            if (Loader.Ready === status) {
+-                recalculateLiveText();
+-            }
+-        }
+-
          function recalculateLiveText() {
 -            if (Loader.Ready === status && (targetImageReady && IV.Types.DynamicImage !== currentImageInfo.type)) {
 -                item.exitLiveText();
@@ -267,7 +276,7 @@ index da8766d7..e02e0b36 100644
      }
  
      Loader {
-@@ -702,9 +560,6 @@ Item {
+@@ -714,9 +564,6 @@ Item {
          sourceComponent: ViewRightMenu {
              id: rightMenu
  
@@ -357,7 +366,7 @@ index 577c0a39..41f74d38 100644
          text: qsTr("Slide show")
  
 diff --git a/src/src/filecontrol.cpp b/src/src/filecontrol.cpp
-index c8593ddd..c2d47cc7 100644
+index 27c565de..0b39be0f 100644
 --- a/src/src/filecontrol.cpp
 +++ b/src/src/filecontrol.cpp
 @@ -7,7 +7,6 @@
@@ -368,7 +377,7 @@ index c8593ddd..c2d47cc7 100644
  #include "imagedata/imageinfo.h"
  
  #include <DSysInfo>
-@@ -92,11 +91,10 @@ FileControl::FileControl(QObject *parent)
+@@ -91,11 +90,10 @@ FileControl::FileControl(QObject *parent)
      : QObject(parent)
  {
      qCDebug(logImageViewer) << "FileControl constructor entered.";
@@ -381,7 +390,7 @@ index c8593ddd..c2d47cc7 100644
  
      QObject::connect(imageFileWatcher, &ImageFileWatcher::imageFileChanged, this, &FileControl::imageFileChanged);
      qCDebug(logImageViewer) << "Connected imageFileWatcher::imageFileChanged signal.";
-@@ -453,41 +451,6 @@ bool FileControl::isCanDelete(const QString &path)
+@@ -452,41 +450,6 @@ bool FileControl::isCanDelete(const QString &path)
      return bRet;
  }
  
@@ -423,7 +432,7 @@ index c8593ddd..c2d47cc7 100644
  QString FileControl::parseCommandlineGetPath()
  {
      qCDebug(logImageViewer) << "Parsing commandline to get path.";
-@@ -829,23 +792,6 @@ bool FileControl::isCheckOnly()
+@@ -848,23 +811,6 @@ bool FileControl::isCheckOnly()
      return true;
  }
  
@@ -447,7 +456,7 @@ index c8593ddd..c2d47cc7 100644
  bool FileControl::isCanRename(const QString &path)
  {
      qCDebug(logImageViewer) << "FileControl::isCanRename() called for path: " << path;
-@@ -949,11 +895,6 @@ QString FileControl::createShortcutString()
+@@ -968,11 +914,6 @@ QString FileControl::createShortcutString()
      shortcut2.insert("value", "Esc");
      qCDebug(logImageViewer) << "Added Exit fullscreen shortcut.";
  
@@ -459,7 +468,7 @@ index c8593ddd..c2d47cc7 100644
      QJsonObject shortcut4;
      shortcut4.insert("name", tr("Slide show"));
      shortcut4.insert("value", "F5");
-@@ -1024,7 +965,6 @@ QString FileControl::createShortcutString()
+@@ -1043,7 +984,6 @@ QString FileControl::createShortcutString()
      QJsonArray shortcutArray1;
      shortcutArray1.append(shortcut1);
      shortcutArray1.append(shortcut2);
@@ -467,7 +476,7 @@ index c8593ddd..c2d47cc7 100644
      shortcutArray1.append(shortcut4);
      shortcutArray1.append(shortcut5);
      shortcutArray1.append(shortcut6);
-@@ -1061,25 +1001,8 @@ QString FileControl::createShortcutString()
+@@ -1080,25 +1020,8 @@ QString FileControl::createShortcutString()
      shortcut_group2.insert("groupName", tr("Settings"));
      shortcut_group2.insert("groupItems", shortcutArray2);
  
@@ -494,7 +503,7 @@ index c8593ddd..c2d47cc7 100644
  
      QJsonObject main_shortcut;
 diff --git a/src/src/filecontrol.h b/src/src/filecontrol.h
-index 3edfec46..c001a90a 100644
+index 826f1316..50c950be 100644
 --- a/src/src/filecontrol.h
 +++ b/src/src/filecontrol.h
 @@ -17,7 +17,6 @@
@@ -519,7 +528,7 @@ index 3edfec46..c001a90a 100644
      Q_INVOKABLE bool isCanRename(const QString &path);
      Q_INVOKABLE bool isCanReadable(const QString &path);
      Q_INVOKABLE bool isRotatable(const QString &path);  // 是否可以被选旋转
-@@ -88,8 +85,6 @@ private:
+@@ -91,8 +88,6 @@ private:
      QString createShortcutString();
  
  private:
