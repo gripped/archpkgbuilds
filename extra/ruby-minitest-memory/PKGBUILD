@@ -1,0 +1,53 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ruby-minitest-memory
+pkgver=1.1.1
+pkgrel=1
+pkgdesc='Memory allocation assertions for Minitest'
+arch=(any)
+url='https://github.com/sferik/minitest-memory'
+license=(MIT)
+depends=(ruby ruby-minitest ruby-minitest-strict)
+makedepends=(git ruby-rdoc)
+checkdepends=(ruby-simplecov)
+options=(!emptydirs)
+source=("git+https://github.com/sferik/minitest-memory.git#tag=v$pkgver")
+sha256sums=('1081b1b744bc188208feaa353b76be59dd2a3ec7d9a71ab705b2ec628cd3a62c')
+
+prepare() {
+  cd minitest-memory
+
+  # Omit Mutant's mutation testing hooks: its EULA restricts redistribution.
+  # https://github.com/mbj/mutant/blob/v0.17.1/LICENSE (section 3.1)
+  sed -i '/require "mutant\/minitest\/coverage"/d' test/test_helper.rb
+  sed -i '/^  cover /d' test/minitest/memory_test.rb
+}
+
+build() {
+  local _gemdir="$(gem env gemdir)"
+  cd minitest-memory
+
+  gem build minitest-memory.gemspec
+  gem install \
+    --local \
+    --verbose \
+    --ignore-dependencies \
+    --no-user-install \
+    --install-dir "tmp_install$_gemdir" \
+    --bindir tmp_install/usr/bin \
+    minitest-memory-$pkgver.gem
+  rm -r "tmp_install$_gemdir/cache"
+}
+
+check() {
+  local _gemdir="$(gem env gemdir)"
+  cd minitest-memory
+
+  GEM_HOME="tmp_install$_gemdir" ruby -Ilib:test -e 'Dir["test/**/*_test.rb"].sort.each { |test| load test }'
+}
+
+package() {
+  cd minitest-memory
+  cp -a tmp_install/* "$pkgdir"/
+  install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
