@@ -1,0 +1,57 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b481463..88142e5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -23,7 +23,7 @@ include_directories(${OPENSSL_INCLUDE_DIR})
+ pkg_check_modules(GIO REQUIRED gio-unix-2.0)
+ pkg_check_modules(AI_COMMON REQUIRED kysdk-ai-common)
+ 
+-find_package(jsoncpp REQUIRED)
++pkg_check_modules(JSONCPP REQUIRED IMPORTED_TARGET jsoncpp)
+ 
+ kylin_ai_generate_gdbus_proto_code(SPEECH_COMMON_PROTO_FILES corespeechservice)
+ kylin_ai_generate_gdbus_proto_code(VISION_COMMON_PROTO_FILES corevisionservice)
+@@ -104,21 +104,21 @@ set_target_properties(kysdk-coreai-embedding PROPERTIES VERSION 1.0.0 SOVERSION
+ 
+ target_link_libraries(
+     kysdk-coreai-speech
+-    jsoncpp
++    PkgConfig::JSONCPP
+     ${GIO_LIBRARIES}
+     ${OPENSSL_LIBRARIES}
+ )
+ 
+ target_link_libraries(
+     kysdk-coreai-vision
+-    jsoncpp
++    PkgConfig::JSONCPP
+     ${GIO_LIBRARIES}
+     ${OPENSSL_LIBRARIES}
+ )
+ 
+ target_link_libraries(
+     kysdk-coreai-embedding
+-    jsoncpp
++    PkgConfig::JSONCPP
+     ${GIO_LIBRARIES}
+     ${OPENSSL_LIBRARIES}
+ )
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 4295d83..2835179 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -47,11 +47,12 @@ add_executable(ModelChange ModelChange.cpp ${SOURCES})
+ add_executable(TestAsrToolFromMic TestAsrToolFromMic.cpp ${SOURCES})
+ add_executable(TestAsrToolOnce TestAsrToolOnce.cpp AudioRecorder.cpp ${SOURCES})
+ add_executable(TestTtsToolOnce TestTtsToolOnce.cpp AudioPlayer.cpp ${SOURCES})
+-add_executable(TestAudioConfig TestAudioConfig.cpp ${SOURCES} ${CATCH2_SOURCES})
++add_executable(TestAudioConfig TestAudioConfig.cpp ${CATCH2_SOURCES})
++target_include_directories(TestAudioConfig PRIVATE ${CMAKE_SOURCE_DIR}/src/speech)
+ 
+ target_link_libraries(testCoreSpeechApi ${LIBRARIES})
+ target_link_libraries(ModelChange ${LIBRARIES})
+ target_link_libraries(TestAsrToolFromMic ${LIBRARIES})
+ target_link_libraries(TestAsrToolOnce ${LIBRARIES})
+ target_link_libraries(TestTtsToolOnce ${LIBRARIES})
+-target_link_libraries(TestAudioConfig ${LIBRARIES})
++target_link_libraries(TestAudioConfig kysdk-coreai-speech)

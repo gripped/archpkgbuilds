@@ -1,0 +1,47 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libkysdk-coreai-speech
+pkgver=1.1.0.1
+pkgrel=1
+pkgdesc="Kylin CoreAI speech, vision and embedding client libraries"
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+url="https://gitee.com/openkylin/libkysdk-coreai-speech"
+depends=('glib2' 'glibc' 'jsoncpp' 'kysdk-ai-common' 'libgcc' 'libstdc++' 'openssl')
+makedepends=('cmake' 'git' 'glib2-devel' 'libkylin-ai-system-private' 'ninja' 'nlohmann-json')
+source=("git+https://gitee.com/openkylin/libkysdk-coreai-speech.git#tag=debian/$pkgver-1"
+        'cmake-fixes.patch')
+sha512sums=('0f7406072b5e3b03d7a7fe354222adc850ffec72b066ab785725a27eb4dd7546d1207ac4647abbcff59ff0a6762c899a2c31022e6e496c46a74aa6b75a79700b'
+            'b2c9e8c336fdafd0f023b874427ba30056c453b538bcdb9bd87c7ffc90cce95318be84a3d18ea78854d51715bc40408b78f1ab5e332c2aa2fd8133b872d1ffe6')
+
+prepare() {
+  cd libkysdk-coreai-speech
+  # Use JsonCpp's pkg-config metadata and link the audio tests to the built library.
+  # Arch omits the broken CMake config: https://github.com/open-source-parsers/jsoncpp/issues/1568
+  patch -Np1 -i "$srcdir/cmake-fixes.patch"
+  # Arch installs JsonCpp headers under /usr/include/json.
+  sed -i 's|<jsoncpp/json/|<json/|' \
+    src/speech/{_speechmodelconfig,audioconfig}.cpp src/vision/_textrecognitionconfig.cpp
+}
+
+build() {
+  cmake -S libkysdk-coreai-speech -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DENABLE_TEST=OFF
+  cmake --build build
+}
+
+check() {
+  # Other test executables are interactive clients requiring AI credentials and audio hardware.
+  cmake -S libkysdk-coreai-speech -B build -DENABLE_TEST=ON
+  cmake --build build --target TestAudioConfig
+  LD_LIBRARY_PATH="$srcdir/build" build/tests/TestAudioConfig
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  mv "$pkgdir"/usr/{share,lib}/pkgconfig
+  install -Dm644 libkysdk-coreai-speech/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}

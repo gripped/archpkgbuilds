@@ -1,0 +1,26 @@
+pkgbase = libkysdk-coreai-speech
+	pkgdesc = Kylin CoreAI speech, vision and embedding client libraries
+	pkgver = 1.1.0.1
+	pkgrel = 1
+	url = https://gitee.com/openkylin/libkysdk-coreai-speech
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = cmake
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = libkylin-ai-system-private
+	makedepends = ninja
+	makedepends = nlohmann-json
+	depends = glib2
+	depends = glibc
+	depends = jsoncpp
+	depends = kysdk-ai-common
+	depends = libgcc
+	depends = libstdc++
+	depends = openssl
+	source = git+https://gitee.com/openkylin/libkysdk-coreai-speech.git#tag=debian/1.1.0.1-1
+	source = cmake-fixes.patch
+	sha512sums = 0f7406072b5e3b03d7a7fe354222adc850ffec72b066ab785725a27eb4dd7546d1207ac4647abbcff59ff0a6762c899a2c31022e6e496c46a74aa6b75a79700b
+	sha512sums = b2c9e8c336fdafd0f023b874427ba30056c453b538bcdb9bd87c7ffc90cce95318be84a3d18ea78854d51715bc40408b78f1ab5e332c2aa2fd8133b872d1ffe6
+
+pkgname = libkysdk-coreai-speech
