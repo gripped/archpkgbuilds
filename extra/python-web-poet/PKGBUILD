@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-web-poet
-pkgver=0.25.0
-pkgrel=1
+pkgver=0.24.1
+pkgrel=2
 pkgdesc="Page Object pattern for web scraping"
 arch=('any')
 url="https://github.com/scrapinghub/web-poet"
@@ -13,7 +13,6 @@ depends=(
   'python-async-lru'
   'python-attrs'
   'python-dateutil'
-  'python-frostwork'
   'python-itemadapter'
   'python-multidict'
   'python-packaging'
@@ -25,22 +24,32 @@ depends=(
 makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
 checkdepends=(
   'python-aiohttp'
+  'python-niquests'
   'python-playwright'
   'python-pytest'
   'python-pytest-asyncio'
-  'python-pytest-codspeed'
   'python-pytest-mypy-testing'
   'python-requests'
   'python-types-python-dateutil'
   'python-zyte-common-items'
 )
 optdepends=(
-  'python-aiohttp: HTTP support for the standalone framework'
+  'python-niquests: HTTP support for the standalone framework'
   'python-playwright: browser support for the standalone framework'
   'python-pytest: page object testing plugin'
 )
 source=("git+https://github.com/scrapinghub/web-poet.git#tag=$pkgver")
-sha256sums=('e92f204befbadc9a9fb710201908ef8300ca428e2abf847060ca0b9e95ed64a7')
+sha256sums=('698ceec0bf3592479f6b915be7ddde911639e284bda2cb31142098829cc9da10')
+
+prepare() {
+  cd web-poet
+  # Support pytest's assertion API changes: https://github.com/scrapinghub/web-poet/pull/276
+  git cherry-pick -n d9c8a93b4f68b021bed027032a1c84f1686919f7
+  # Support pytest 9.2 and itemadapter 0.14: https://github.com/scrapinghub/web-poet/pull/301
+  git cherry-pick -n a233acafb34bf2827e6e172a965f6fcb7faf965e
+  # Adapt mypy's built-in type names: https://github.com/scrapinghub/web-poet/pull/285
+  sed -i 's/# R: builtins\./# R: /' tests_typing/test_{fields,utils}.mypy-testing
+}
 
 build() {
   cd web-poet
@@ -51,7 +60,7 @@ check() {
   cd web-poet
   python -m venv --system-site-packages --without-pip test-env
   test-env/bin/python -m installer dist/*.whl
-  # Skip the ImportError test: python-aiohttp and python-playwright are checkdepends.
+  # Skip the ImportError test: python-niquests and python-playwright are checkdepends.
   test-env/bin/python -m pytest --deselect=tests/test_extras.py::test_framework
 }
 

@@ -1,15 +1,15 @@
 pkgbase = python-web-poet
 	pkgdesc = Page Object pattern for web scraping
-	pkgver = 0.25.0
-	pkgrel = 1
+	pkgver = 0.24.1
+	pkgrel = 2
 	url = https://github.com/scrapinghub/web-poet
 	arch = any
 	license = BSD-3-Clause
 	checkdepends = python-aiohttp
+	checkdepends = python-niquests
 	checkdepends = python-playwright
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
-	checkdepends = python-pytest-codspeed
 	checkdepends = python-pytest-mypy-testing
 	checkdepends = python-requests
 	checkdepends = python-types-python-dateutil
@@ -23,7 +23,6 @@ pkgbase = python-web-poet
 	depends = python-async-lru
 	depends = python-attrs
 	depends = python-dateutil
-	depends = python-frostwork
 	depends = python-itemadapter
 	depends = python-multidict
 	depends = python-packaging
@@ -31,10 +30,10 @@ pkgbase = python-web-poet
 	depends = python-time-machine
 	depends = python-url-matcher
 	depends = python-w3lib
-	optdepends = python-aiohttp: HTTP support for the standalone framework
+	optdepends = python-niquests: HTTP support for the standalone framework
 	optdepends = python-playwright: browser support for the standalone framework
 	optdepends = python-pytest: page object testing plugin
-	source = git+https://github.com/scrapinghub/web-poet.git#tag=0.25.0
-	sha256sums = e92f204befbadc9a9fb710201908ef8300ca428e2abf847060ca0b9e95ed64a7
+	source = git+https://github.com/scrapinghub/web-poet.git#tag=0.24.1
+	sha256sums = 698ceec0bf3592479f6b915be7ddde911639e284bda2cb31142098829cc9da10
 
 pkgname = python-web-poet
