@@ -2,18 +2,18 @@
 # Contributor: Florian Pritz <bluewind@archlinux.org>
 
 pkgname=perl-cgi
-pkgver=4.72
-pkgrel=1
+pkgver=5.02
+pkgrel=2
 pkgdesc='Handle Common Gateway Interface requests and responses'
 arch=('any')
 url='https://metacpan.org/dist/CGI'
 license=('Artistic-2.0')
-depends=('perl>=5.8.1' 'perl-html-parser')
+depends=('perl>=5.8.1' 'perl-html-parser>=3.69' 'perl-uri>=1.76')
 checkdepends=('perl-test-nowarnings' 'perl-test-warn>=0.3')
 options=('!emptydirs')
 source=("$pkgname-$pkgver.tar.gz::https://cpan.metacpan.org/authors/id/L/LE/LEEJO/CGI-$pkgver.tar.gz")
-sha512sums=('ec7f9d3707e6fba766b147625df5c6bda325e9d9d92e677d20c550a52fba919e249ad1242277521efa75985d94685ed60979b591b48b1f02b1846ffe2db71738')
-b2sums=('4ba652057a2eb795c28b44f4e02534c9e0b172d865759b683f2f9830efc4b699e3b38dbc63ee3589e513f8e7fa1a3f3a18a3ba6533ec016fe405a576ad4c2bf4')
+sha512sums=('7eaa9eb63b7ce1a2095189240a62a18c43855d217adcd00985a16f0ae05ed726c1949083e3544e084daf38694c342952900c38f16a4f45c1e9cc6630182850d7')
+b2sums=('de263a0dac35dbab33ef4e1d55eb8adfee72d425c9f07f059a0e6b0b35fadddde4517cd4be224303e90e581342d7aa4b051f264973f94c012eef7e57b8f0a79d')
 
 build() {
   cd "CGI-$pkgver"
