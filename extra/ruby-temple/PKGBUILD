@@ -2,7 +2,7 @@
 
 _gemname='temple'
 pkgname="ruby-${_gemname}"
-pkgver=0.10.4
+pkgver=0.10.7
 pkgrel=1
 pkgdesc='Template compilation framework in Ruby'
 arch=('any')
@@ -23,8 +23,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${pkgname}::git+${url}.git#tag=v${pkgver}")
-sha512sums=('ac99f8d84b7d9c80e6caa241c5b46241dcde82abb2d2791eb7d148af7fdf0fa3e8b1d0a956efc2c30316133abf272444d97bb109a809e7fc8ba76b7f5c5e6350')
-b2sums=('d891dfe154210d206098a584cecc9a805fb2c7ae21b3d98c873f28f5bd0ebdd2fcda31725d3c97694ea58d5c08c293c5ba1b240ef2bbed6c172b3646fd01d467')
+sha512sums=('46b381694460178217ffcfca890ba5ab746168edbeb1a035ff466a34d9487bd2dfc8d32b252c4cab253109857950a70e9cd60d66206de9fff77d0c10d9e863c3')
+b2sums=('4228d0a4d6ae1166d19cb8e9ff748208835989783ddf2ab58a93841f77ef8d81cc5857802abea8ab20b83a4a36431421bb0239909ec92ea988914d0230eb6f93')
 
 prepare() {
   cd "${pkgname}"
