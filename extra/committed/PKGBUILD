@@ -2,8 +2,8 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=committed
-pkgver=1.1.11
-pkgrel=2
+pkgver=1.1.12
+pkgrel=1
 pkgdesc="Nitpicking your commit history"
 arch=('x86_64')
 url="https://github.com/crate-ci/committed"
@@ -11,7 +11,7 @@ license=('Apache-2.0' 'MIT')
 depends=('glibc' 'libgcc' 'libgit2' 'zlib')
 makedepends=('cargo')
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('416aab32bf0cc2012259ee3ba264f3db0493164272694c6c4bef15e9258d4244')
+sha256sums=('790c3d3a4cd65c0587e0aa5cfeebf3ad648bc5476f7d8ba2960dee114a30c3a5')
 
 prepare() {
   cd "$pkgname-$pkgver"
