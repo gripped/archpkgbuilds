@@ -1,0 +1,67 @@
+From 6bc49ac1c17679f4fc305e51da56d1030f0e49dd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 5 Nov 2026 16:19:16 +0100
+Subject: [PATCH] Replace deprecated imghdr module
+
+Replace the imghdr module with manual image format detection
+to maintain compatibility with Python 3.13 and newer.
+
+Detect PNG and GIF images using their file signatures while
+retaining the existing JPEG validation.
+---
+ data/scripts/mobi_lib/mobi_cover.py | 35 ++++++++++++++---------------
+ 1 file changed, 17 insertions(+), 18 deletions(-)
+
+diff --git a/data/scripts/mobi_lib/mobi_cover.py b/data/scripts/mobi_lib/mobi_cover.py
+index 3078ac46..e9f85eb1 100644
+--- a/data/scripts/mobi_lib/mobi_cover.py
++++ b/data/scripts/mobi_lib/mobi_cover.py
+@@ -8,7 +8,6 @@
+ 
+ from .unipath import pathof
+ import os
+-import imghdr
+ 
+ import struct
+ # note:  struct pack, unpack, unpack_from all require bytestring format
+@@ -34,23 +33,23 @@
+ 
+ 
+ def get_image_type(imgname, imgdata=None):
+-    imgtype = unicode_str(imghdr.what(pathof(imgname), imgdata))
+-
+-    # imghdr only checks for JFIF or Exif JPEG files. Apparently, there are some
+-    # with only the magic JPEG bytes out there...
+-    # ImageMagick handles those, so, do it too.
+-    if imgtype is None:
+-        if imgdata is None:
+-            with open(pathof(imgname), 'rb') as f:
+-                imgdata = f.read()
+-        if imgdata[0:2] == b'\xFF\xD8':
+-            # Get last non-null bytes
+-            last = len(imgdata)
+-            while (imgdata[last-1:last] == b'\x00'):
+-                last-=1
+-            # Be extra safe, check the trailing bytes, too.
+-            if imgdata[last-2:last] == b'\xFF\xD9':
+-                imgtype = "jpeg"
++    if imgdata is None:
++        with open(pathof(imgname), 'rb') as f:
++            imgdata = f.read(8)
++
++    if imgdata.startswith(b'\x89PNG\r\n\x1a\n'):
++        imgtype = "png"
++    elif imgdata.startswith((b'GIF87a', b'GIF89a')):
++        imgtype = "gif"
++    elif imgdata.startswith(b'\xFF\xD8'):
++        # Get last non-null bytes
++        last = len(imgdata)
++        while last > 0 and imgdata[last-1:last] == b'\x00':
++            last -= 1
++        # Be extra safe, check the trailing bytes, too.
++        if last >= 2 and imgdata[last-2:last] == b'\xFF\xD9':
++            imgtype = "jpeg"
++
+     return imgtype
+ 
+ 

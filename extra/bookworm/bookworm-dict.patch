@@ -1,0 +1,26 @@
+diff --git a/data/scripts/com.github.babluboy.bookworm.dictionary.sh b/data/scripts/com.github.babluboy.bookworm.dictionary.sh
+index 617a60cf..835a6e58 100755
+--- a/data/scripts/com.github.babluboy.bookworm.dictionary.sh
++++ b/data/scripts/com.github.babluboy.bookworm.dictionary.sh
+@@ -12,16 +12,8 @@ case "$search_word" in
+ esac
+ #
+ #
+-#The section below is for online dictionary. For offline dictionary, comment this section and uncomment the section below
+-curl -s http://wordnetweb.princeton.edu/perl/webwn?s="$search_word" | html2text -o /tmp/bookworm_word_search.txt > /dev/null
+-#split the output to remove unwanted header information i.e anything before **** Noun ****
+-csplit -s -f /tmp/search_result_ /tmp/bookworm_word_search.txt /"[****]*[****]"/ > /dev/null
+-cat /tmp/search_result_01
+-#remove the files created by this script
+-rm -f /tmp/search_result_00 /tmp/search_result_01  /tmp/bookworm_word_search.txt
+-#
+-#
+-#The section below is for offline dictionary.Ensure dictionary is installed by running the following command:
+-#sudo apt-get install dictd dict dict-gcide
+-#Run offline dictionary by enabling the line below:
+-#dict $search_word
++if ! command -v dict >/dev/null 2>&1; then
++    echo "Error: dict is not installed. Please install dictd."
++else
++    dict -h dict.org "$search_word"
++fi

@@ -1,0 +1,49 @@
+From 547a8b6a8139788588ce695b7d3bb0d3df66ec73 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 5 Nov 2026 15:57:45 +0100
+Subject: [PATCH] Fix JavaScript result retrieval
+
+Retrieve the actual JavaScript execution result instead of
+reading the WebView document title.
+
+This fixes reading position retrieval and avoids crashes
+when the JavaScript result is unavailable.
+---
+ src/contentHandler.vala | 3 ++-
+ src/utils.vala          | 6 ++++--
+ 2 files changed, 6 insertions(+), 3 deletions(-)
+
+diff --git a/src/contentHandler.vala b/src/contentHandler.vala
+index 74f35ce8..7d57ef7b 100644
+--- a/src/contentHandler.vala
++++ b/src/contentHandler.vala
+@@ -401,7 +401,8 @@ public class BookwormApp.contentHandler {
+         // (2) Close Bookworm while in reading mode
+         // (3) Move to info view using Info button on Header Bar
+         int scrollPos = -1;
+-        scrollPos = int.parse (BookwormApp.Utils.setWebViewTitle ("document.title = window.scrollY;"));
++        string scrollPosition = BookwormApp.Utils.setWebViewTitle("document.title = window.scrollY;");
++        scrollPos = scrollPosition != null ? int.parse(scrollPosition) : 0;
+         debug ("[START] [FUNCTION:getScrollPos] scrollPos=" + scrollPos.to_string ());
+         return scrollPos;
+     }
+diff --git a/src/utils.vala b/src/utils.vala
+index 3416da1d..29a1f5ae 100644
+--- a/src/utils.vala
++++ b/src/utils.vala
+@@ -843,11 +843,13 @@ namespace BookwormApp.Utils {
+         var loop = new MainLoop ();
+         BookwormApp.AppWindow.aWebView.run_javascript.begin (javascript, null, (obj, res) => {
+             try {
+-                BookwormApp.AppWindow.aWebView.run_javascript.end (res);
++                WebKit.JavascriptResult? jsResult = BookwormApp.AppWindow.aWebView.run_javascript.end (res);
++                if (jsResult != null) {
++                    selectedText = jsResult.get_js_value ().to_string ();
++                }
+             } catch (GLib.Error e) {
+                 warning ("Could not get selected text, javascript error: " + e.message);
+             }
+-            selectedText = BookwormApp.AppWindow.aWebView.get_title ();
+             loop.quit ();
+         });
+         loop.run ();
