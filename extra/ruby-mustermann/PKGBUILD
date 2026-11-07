@@ -2,7 +2,7 @@
 
 _gemname=mustermann
 pkgname=ruby-${_gemname}
-pkgver=4.0.0
+pkgver=4.0.1
 pkgrel=1
 pkgdesc="Your personal string matching expert"
 arch=(any)
@@ -11,7 +11,7 @@ license=('MIT')
 depends=('ruby')
 options=('!emptydirs')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/sinatra/mustermann/archive/v${pkgver}.tar.gz)
-sha256sums=('ca11fee9a0a00202c1be2bf261245f1a2b3692690f252f336a44514cf28b5281')
+sha256sums=('0c82993601a5e7578a6acec671c1594428755b61f3f7a2b687bb9709095de754')
 
 prepare() {
   cd ${_gemname}-${pkgver}/${_gemname}
