@@ -1,12 +1,12 @@
 pkgbase = python-google-genai
 	pkgdesc = Google Gen AI Python SDK
-	pkgver = 2.34.0
+	pkgver = 3.0.0
 	pkgrel = 1
 	url = https://github.com/googleapis/python-genai
 	arch = any
 	license = Apache-2.0
 	checkdepends = python-aiohttp
-	checkdepends = python-httpx2
+	checkdepends = python-httpx
 	checkdepends = python-mcp
 	checkdepends = python-pillow
 	checkdepends = python-protobuf
@@ -26,7 +26,7 @@ pkgbase = python-google-genai
 	depends = python-anyio
 	depends = python-distro
 	depends = python-google-auth
-	depends = python-httpx
+	depends = python-httpx2
 	depends = python-pydantic
 	depends = python-requests
 	depends = python-sniffio
@@ -34,7 +34,7 @@ pkgbase = python-google-genai
 	depends = python-typing_extensions
 	depends = python-websockets
 	optdepends = python-aiohttp: asynchronous HTTP transport
-	optdepends = python-httpx2: alternative HTTP transport
+	optdepends = python-httpx: alternative HTTP transport
 	optdepends = python-mcp: automatic function calling with MCP tools
 	optdepends = python-pillow: image inputs
 	optdepends = python-protobuf: local token counting
@@ -43,9 +43,9 @@ pkgbase = python-google-genai
 	optdepends = python-sentencepiece: local token counting
 	optdepends = python-torchvision: Gemma 4 local token counting
 	optdepends = python-transformers: Gemma 4 local token counting
-	source = git+https://github.com/googleapis/python-genai.git#tag=v2.34.0
+	source = git+https://github.com/googleapis/python-genai.git#tag=v3.0.0
 	source = tenacity-and-mtls.patch
-	sha512sums = b1db1fa1e0300ee0d7aea5626dce94a955c1d99beb22da8d9187a1fe5f8bc322ab2365a3d33b94ef720b3d24be2e6d186226b15334e6756f35ca4e60736ebc7c
+	sha512sums = ff72dd70e34f7c6f8a7e941086c17de90203815fe7154c2f7bea12efd55e55c8db5e28daa621816a59f17144843964aa727e2456d49de1045bd1078f4ce057d3
 	sha512sums = 10d6288f5388ca0482d6a5c1a829b01213d6d418c6cd1fbffde33735b8f39a739fd1c62c0a85922e6e99741ef5ce2df12531b503ee9234c4eff1498d76ddb6f3
 
 pkgname = python-google-genai
