@@ -2,8 +2,8 @@
 
 _name=streamlit
 pkgname=python-$_name
-pkgver=1.66.1
-pkgrel=2
+pkgver=1.67.0
+pkgrel=1
 pkgdesc="A faster way to build and share data apps"
 arch=(any)
 url="https://streamlit.io"
@@ -42,7 +42,8 @@ makedepends=(
   python-setuptools
 )
 checkdepends=(
-  # https://github.com/streamlit/streamlit/blob/develop/lib/test-requirements.txt
+  # https://github.com/streamlit/streamlit/blob/develop/pyproject.toml
+  python-coverage  # imported in conftest.py
   python-httpx
   python-hypothesis
   python-parameterized
@@ -76,7 +77,7 @@ source=(
   # build requires git in frontend/protobuf/scripts/generate-proto.js
   git+https://github.com/streamlit/streamlit#tag=$pkgver
 )
-b2sums=('75bf12628ba3fff46241c28a9b5a0245b333a49a55dc45c24b66e36e7f2e7ed224e37c2d7c6bfde7f79b1952787e53f4df4e718aad9dcd569deedcea9882d64b')
+b2sums=('3211c030d246f6c6ac9d02a3a99f5a0060c49a68a550c4d142f5e3e9a4038af4b558bd3e5f594d084ae99df056e92b06e9518c1243b0139c5e44229a70c3f0fa')
 
 prepare() {
   cd $_name
@@ -131,7 +132,10 @@ check() {
     --override-ini="addopts="
     # ignore tests that require pydeck and cause error during collection
     --ignore tests/streamlit/delta_generator_test.py
+    --ignore tests/streamlit/elements/lib/agent_description_session_test.py
+    --ignore tests/streamlit/elements/lib/agent_spec_coverage_test.py
     --ignore tests/streamlit/elements/pydeck_test.py
+    --ignore tests/streamlit/runtime/agent/snapshot_data_test.py
     --ignore tests/streamlit/runtime/caching/cache_data_api_test.py
     --ignore tests/streamlit/runtime/caching/cache_resource_api_test.py
     --ignore tests/streamlit/runtime/fragment_test.py
