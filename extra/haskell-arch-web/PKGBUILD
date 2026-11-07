@@ -2,8 +2,8 @@
 
 _hkgname=arch-web
 pkgname=haskell-arch-web
-pkgver=0.3.2
-pkgrel=185
+pkgver=0.3.3
+pkgrel=1
 pkgdesc="Arch Linux official and AUR web interface binding"
 url="https://github.com/berberman/arch-web"
 license=("MIT")
@@ -13,7 +13,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-deriving-aeson' 'haskell-http-clien
          'haskell-servant-client' 'haskell-servant-client-core')
 makedepends=('ghc' 'uusi' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('b930bdd66b7e1e64f17e2245cf4c9974909c27375b7da0d8e4f8d85c9a7b133f')
+sha256sums=('383b959be954e1b432c08405947f58a51c5ff6dd35d6ed3d452991a5e95145da')
 
 prepare() {
   cd $_hkgname-$pkgver
