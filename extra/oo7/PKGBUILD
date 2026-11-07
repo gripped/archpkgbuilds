@@ -1,24 +1,32 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=oo7
-pkgver=0.6.0
-pkgrel=5
+pkgver=0.7.0
+pkgrel=1
 pkgdesc='A Secret Service provider'
 arch=(x86_64)
 url='https://linux-credentials.github.io/oo7/oo7/'
 license=(MIT)
-depends=(glibc
-         libgcc)
-makedepends=(git
-             meson
-             python-build
-             python-installer
-             python-maturin
-             rust)
-conflicts=(gnome-keyring)
-provides=(org.freedesktop.secrets)
-source=(git+https://github.com/linux-credentials/oo7#tag=$pkgver)
-sha256sums=('83ba6e03392471f1381d756a10af20915ecab99cea8533bbd42aac995c5fc118')
+depends=(
+  glibc
+  libgcc
+  pam
+)
+makedepends=(
+  git
+  meson
+  python-build
+  python-installer
+  python-maturin
+  rust
+)
+provides=(
+  org.freedesktop.secrets
+)
+source=(
+  git+https://github.com/linux-credentials/oo7#tag=$pkgver
+)
+sha256sums=('ba530a70388284574c49070933d38434ad6f1b5223cc88f73524c0affced193b')
 
 export CARGO_PROFILE_RELEASE_DEBUG=2 \
        CARGO_PROFILE_RELEASE_STRIP=false \
@@ -27,6 +35,7 @@ export CARGO_PROFILE_RELEASE_DEBUG=2 \
 
 prepare() {
   cd oo7
+  rm -fr .git
   export CARGO_HOME="$srcdir"/cargo-home
   cargo fetch --locked --target host-tuple
 }
