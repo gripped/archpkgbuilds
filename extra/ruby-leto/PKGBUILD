@@ -2,7 +2,7 @@
 
 _gemname='leto'
 pkgname="ruby-${_gemname}"
-pkgver=2.2.0
+pkgver=2.4.0
 pkgrel=1
 pkgdesc='Generic object traverser for Ruby'
 arch=('any')
@@ -22,8 +22,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("git+${url}#tag=v${pkgver}")
-sha512sums=('01765207e0e8e83cf9f0c104ea1779a89c73d18e06e93a999d0eeab4c3797b4d69ac127469e1f13e3d61fd01d2859423a83d42722efef2b3bee289a0aa49913d')
-b2sums=('58dffae56abe5ce2dbdc39fc66c7ef939706018fa37ca533555827dd2ec721df79e030b83e1d9f00d5a5a3990144f64ab73b084ee6a918650a0fe1577eec3277')
+sha512sums=('01808967ba10c07446c43e2aca443fb45b8b7973ae150cfcce184fe31ce259714e3679bc7aa55ab9fa382f66076310de75d3489b83c0835239d62f1078f6126c')
+b2sums=('789cd7efacdaf8f94a1734bb93b3eb5988dc12f5a2bc2b241fc5bd98f48bbf91bbeee08416a7669eb5ffc87b70afb53719a1af1113a66fbbe42ac77b22d52ab1')
 
 prepare() {
   cd "${_gemname}"
