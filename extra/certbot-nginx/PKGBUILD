@@ -3,7 +3,7 @@
 # Contributor: Gordian Edenhofer <gordian.edenhofer[at]yahoo[dot]de>
 
 pkgname=certbot-nginx
-pkgver=5.8.0
+pkgver=5.9.0
 pkgrel=1
 pkgdesc='Nginx plugin for Certbot'
 arch=(any)
@@ -27,8 +27,8 @@ makedepends=(
 # hundred tarballs.
 _repo='github.com-certbot-certbot'
 source=("$_repo::git+https://github.com/certbot/certbot#tag=v$pkgver")
-sha512sums=('71d9a98365de26f7a8eeef40116f2afefdb4a539fa6d080024f1f5773299222974d79340d05fac83953aaffaa31ac169220a56001a8e3889b483365a65c8f78c')
-b2sums=('969d082dfd6543e6c62e8374d9cead8889b62c3956b95055a39361423aeaf4f33b879b7b2958d1336b86d5d7d30190de7b0144f4f3e76bc305c73a2576b870e2')
+sha512sums=('3b363b9828b5afa6423c0e77ae405785bb4ae99473d63e8191007023534ae90c5444f7fbca40c3cf08fec69ca1f3ba7141bcc08dc0e1f490af2be4b1771a314f')
+b2sums=('a599de2ceb13aafaad5649d50b2a01268527b4b32fa6ce05668fed811c43c9c8787008ae10de0c61e5f68a5673afdb08cdb5744422d5cbdd2042cb1db600010d')
 
 build() {
   cd "$_repo/$pkgname"
