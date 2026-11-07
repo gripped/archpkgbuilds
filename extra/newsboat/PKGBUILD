@@ -4,7 +4,7 @@
 # Contributor: Sven Pfleiderer <pfleidi@roothausen.de>
 
 pkgname=newsboat
-pkgver=2.45
+pkgver=2.45.1
 pkgrel=1
 pkgdesc="RSS/Atom feed reader for text terminals"
 arch=('x86_64')
@@ -22,7 +22,7 @@ optdepends=(
 replaces=('newsbeuter')
 options=('!makeflags' '!lto')
 source=("git+https://github.com/newsboat/newsboat.git?signed#tag=r${pkgver}")
-sha256sums=('ecf7cd29004952cc6e79a4606dbb8674158e87f4ae1b96f7f3d6baab7c43db58')
+sha256sums=('18338f98f68395dfe20ba48540c4ed0359f7a7d9808077b68861df21c55dcf69')
 validpgpkeys=('B8B1756A0DDBF0760CE67CCF4ED6CD61932B9EBE') # Newsboat project <newsboat@googlegroups.com>
 
 prepare() {
