@@ -3,7 +3,7 @@
 # Contributor: Eric Bélanger <eric@archlinux.org>
 
 pkgname=keychain
-pkgver=3.0.9
+pkgver=3.0.10
 pkgrel=1
 pkgdesc='A front-end to ssh-agent, allowing one long-running ssh-agent process per system, rather than per login'
 arch=(any)
@@ -15,7 +15,7 @@ makedepends=(git
              python-installer
              python-setuptools)
 source=("git+https://github.com/danielrobbins/keychain#tag=$pkgver")
-sha256sums=('5825cbb38c7fea71f0f753a018f1e36e7a8129470820da5e47c89efca7de29e7')
+sha256sums=('600e3e9d1310087031307351b5d560e5bc2ca147450ff28375826f55f1a1001d')
 
 build() {
   cd $pkgname
