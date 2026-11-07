@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-zyte-parsers
+pkgver=0.6.0
+pkgrel=1
+pkgdesc="Parse data from web pages"
+arch=('any')
+url="https://github.com/zytedata/zyte-parsers"
+license=('MIT')
+depends=('python' 'python-attrs' 'python-gtin-validator' 'python-html-text' 'python-lxml' 'python-parsel' 'python-price-parser' 'python-six' 'python-stdnum' 'python-w3lib')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-pytest')
+source=("git+https://github.com/zytedata/zyte-parsers.git#tag=$pkgver")
+sha256sums=('21c42b914541301e249fe5304d5e641668d44350ddf4611f6126337c27bed3f8')
+
+build() {
+  cd zyte-parsers
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd zyte-parsers
+  pytest --doctest-modules zyte_parsers tests
+}
+
+package() {
+  cd zyte-parsers
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
