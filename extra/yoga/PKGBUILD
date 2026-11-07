@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=yoga
-pkgver=3.2.1
+pkgver=3.2.2
 pkgrel=1
 pkgdesc="Cross-platform layout engine"
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('libgcc' 'glibc' 'libstdc++')
 makedepends=('cmake' 'git' 'ninja')
 checkdepends=('gtest')
 source=("git+https://github.com/facebook/yoga.git#tag=v$pkgver")
-sha512sums=('ba61fb833817abfc32a0903a108399a783fdbf89a9f2a10cb3045e27955e7a2be866c40d88b1b13b72e94ddd6f9080d21cf14a0acd4e2c0eab9835db52862807')
+sha512sums=('c7d20a34b276ff02e82ece8bb9e0200587e5a30e2b177561eaa4d77d0b1c13a7f006a9b7659e08aeb369320c7079a74f7ab7ff85bb9476b4a2d10a9c8ffd3db0')
 
 prepare() {
   cd yoga
