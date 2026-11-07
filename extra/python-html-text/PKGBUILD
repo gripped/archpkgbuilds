@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-html-text
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="Extract text from HTML"
+arch=('any')
+url="https://github.com/zytedata/html-text"
+license=('MIT')
+depends=('python' 'python-lxml' 'python-lxml-html-clean')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-parsel' 'python-pytest')
+source=("git+https://github.com/zytedata/html-text.git#tag=$pkgver")
+sha256sums=('05e2c0540e4ab311445a2e97654ffffdfcc093b310fcea401e0331751ce259cc')
+
+build() {
+  cd html-text
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd html-text
+  pytest --doctest-modules --doctest-glob='*.rst'
+}
+
+package() {
+  cd html-text
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
