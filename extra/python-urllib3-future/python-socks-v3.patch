@@ -1,0 +1,199 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 82c34be6..1abddee2 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -60,7 +60,7 @@ zstd = [
+ ]
+ secure = []
+ socks = [
+-  "python-socks>=2,<=2.8.1",
++  "python-socks>=3,<4",
+ ]
+ qh3 = [
+   "qh3>=1.5.4,<3.0.0",
+@@ -99,7 +99,7 @@ common = [
+   "cryptography<40.0.0; python_version <= '3.8'",
+   "cryptography<47; python_version < '3.11'",
+   "cryptography<51; python_version >= '3.11'",
+-  "python-socks>=2,<3",
++  "python-socks>=3,<4",
+ ]
+ mypy = [
+   {include-group = "common"},
+diff --git a/src/urllib3/contrib/_socks_override.py b/src/urllib3/contrib/_socks_override.py
+index 5ae20583..5d5c637d 100644
+--- a/src/urllib3/contrib/_socks_override.py
++++ b/src/urllib3/contrib/_socks_override.py
+@@ -13,24 +13,86 @@ from __future__ import annotations
+ import asyncio
+ import socket
+ import typing
+-import warnings
+ 
+ from python_socks import _abc as abc
+ 
+ # look the other way if unpleasant. No choice for now.
+ # will start discussions once we have a solid traffic.
+ from python_socks._connectors.abc import AsyncConnector
++from python_socks._connectors.factory_sync import create_connector as create_sync_connector
+ from python_socks._connectors.socks4_async import Socks4AsyncConnector
+ from python_socks._connectors.socks5_async import Socks5AsyncConnector
+-from python_socks._errors import ProxyError, ProxyTimeoutError
++from python_socks._errors import IncompleteReadError, ProxyError, ProxyTimeoutError
+ from python_socks._helpers import parse_proxy_url
+ from python_socks._protocols.errors import ReplyError
+ from python_socks._types import ProxyType
++from python_socks.sync import Proxy
++from python_socks.sync._stream import SyncSocketStream
+ 
+ from .ssa import AsyncSocket
+ from .ssa._timeout import timeout as timeout_
+ 
+ 
++class SyncProxy(Proxy):
++    def connect(
++        self,
++        dest_host: str,
++        dest_port: int,
++        timeout: float | None = None,
++        *,
++        _socket: socket.socket,
++    ) -> socket.socket:
++        # python-socks 3 no longer accepts an already connected socket.
++        # Keep urllib3's resolver, source address, options, and timeout intact.
++        stream = SyncSocketStream(_socket)
++        try:
++            connector = create_sync_connector(
++                proxy_type=self._proxy_type,
++                username=self._username,
++                password=self._password,
++                rdns=self._rdns,
++                resolver=self._resolver,
++            )
++            connector.connect(stream=stream, host=dest_host, port=dest_port)
++            return _socket
++        except socket.timeout as e:
++            stream.close()
++            raise ProxyTimeoutError(f"Proxy connection timed out: {timeout}") from e
++        except ReplyError as e:
++            stream.close()
++            raise ProxyError(e, error_code=e.error_code) from e
++        except IncompleteReadError as e:
++            stream.close()
++            raise ProxyError(e) from e
++        except Exception:
++            stream.close()
++            raise
++
++
++class AsyncSocketStream(abc.AsyncSocketStream):
++    def __init__(self, sock: AsyncSocket) -> None:
++        self._socket = sock
++
++    async def write(self, data: bytes) -> None:
++        await self._socket.sendall(data)
++
++    async def read(self, max_bytes: int = 65536) -> bytes:
++        return typing.cast(bytes, await self._socket.recv(max_bytes))
++
++    async def read_exactly(self, n: int) -> bytes:
++        # SOCKS replies may span multiple TCP reads, even for fixed-size fields.
++        data = bytearray()
++        while len(data) < n:
++            chunk = await self.read(n - len(data))
++            if not chunk:
++                raise ProxyError("Connection closed unexpectedly")
++            data.extend(chunk)
++        return bytes(data)
++
++    async def close(self) -> None:
++        self._socket.close()
++
++
+ class Resolver(abc.AsyncResolver):
+     def __init__(self, loop: asyncio.AbstractEventLoop):
+         self._loop = loop
+@@ -114,18 +176,11 @@ class AsyncioProxy:
+ 
+         try:
+             async with timeout_(timeout):
+-                # our dependency started to deprecate passing "_socket"
+-                # which is ... vital for our integration. We'll start by silencing the warning.
+-                # then we'll think on how to proceed.
+-                #   A) the maintainer agrees to revert https://github.com/romis2012/python-socks/commit/173a7390469c06aa033f8dca67c827854b462bc3#diff-e4086fa970d1c98b1eb341e58cb70e9ceffe7391b2feecc4b66c7e92ea2de76fR64
+-                #   B) the maintainer pursue the removal -> do we vendor our copy of python-socks? is there an alternative?
+-                with warnings.catch_warnings():
+-                    warnings.simplefilter("ignore", DeprecationWarning)
+-                    return await self._connect(
+-                        dest_host=dest_host,
+-                        dest_port=dest_port,
+-                        _socket=_socket,  # type: ignore[arg-type]
+-                    )
++                return await self._connect(
++                    dest_host=dest_host,
++                    dest_port=dest_port,
++                    _socket=_socket,  # type: ignore[arg-type]
++                )
+         except asyncio.TimeoutError as e:
+             raise ProxyTimeoutError(f"Proxy connection timed out: {timeout}") from e
+ 
+@@ -141,7 +196,7 @@ class AsyncioProxy:
+                 resolver=self._resolver,
+             )
+             await connector.connect(
+-                stream=_socket,  # type: ignore[arg-type]
++                stream=AsyncSocketStream(_socket),
+                 host=dest_host,
+                 port=dest_port,
+             )
+diff --git a/src/urllib3/contrib/socks.py b/src/urllib3/contrib/socks.py
+index cb5525e1..06da579a 100644
+--- a/src/urllib3/contrib/socks.py
++++ b/src/urllib3/contrib/socks.py
+@@ -52,9 +52,7 @@ try:
+         ProxyTimeoutError,
+         ProxyType,
+     )
+-    from python_socks.sync import Proxy
+-
+-    from ._socks_override import AsyncioProxy
++    from ._socks_override import AsyncioProxy, SyncProxy
+ except ImportError:
+     from ..exceptions import DependencyWarning
+ 
+@@ -146,7 +144,7 @@ if not BYPASS_SOCKS_LEGACY:
+                 assert self._socks_options["proxy_host"] is not None
+                 assert self._socks_options["proxy_port"] is not None
+ 
+-                p = Proxy(
++                p = SyncProxy(
+                     proxy_type=self._socks_options["socks_version"],  # type: ignore[arg-type]
+                     host=self._socks_options["proxy_host"],
+                     port=int(self._socks_options["proxy_port"]),
+@@ -167,20 +165,12 @@ if not BYPASS_SOCKS_LEGACY:
+                     timing_hook=lambda _: setattr(self, "_connect_timings", _),
+                 )
+ 
+-                # our dependency started to deprecate passing "_socket"
+-                # which is ... vital for our integration. We'll start by silencing the warning.
+-                # then we'll think on how to proceed.
+-                #   A) the maintainer agrees to revert https://github.com/romis2012/python-socks/commit/173a7390469c06aa033f8dca67c827854b462bc3#diff-e4086fa970d1c98b1eb341e58cb70e9ceffe7391b2feecc4b66c7e92ea2de76fR64
+-                #   B) the maintainer pursue the removal -> do we vendor our copy of python-socks? is there an alternative?
+-                with warnings.catch_warnings():
+-                    warnings.simplefilter("ignore", DeprecationWarning)
+-                    sock: socket = p.connect(
+-                        self.host,
+-                        self.port,
+-                        self.timeout,
+-                        _socket=_socket,
+-                    )
+-                    return sock
++                return p.connect(
++                    self.host,
++                    self.port,
++                    self.timeout,
++                    _socket=_socket,
++                )
+             except (SocketTimeout, ProxyTimeoutError) as e:
+                 raise ConnectTimeoutError(
+                     self,

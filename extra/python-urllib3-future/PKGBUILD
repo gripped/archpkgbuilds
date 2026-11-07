@@ -1,0 +1,66 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-urllib3-future
+pkgver=2.25.905
+pkgrel=1
+pkgdesc="HTTP/1.1, HTTP/2 and HTTP/3 client with synchronous and asynchronous APIs"
+arch=('any')
+url="https://github.com/jawah/urllib3.future"
+license=('MIT')
+depends=('python' 'python-h11' 'python-jh2' 'python-qh3')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=(
+  'python-aiofile'
+  'python-brotli'
+  'python-coverage'
+  'python-cryptography'
+  'python-idna'
+  'python-pytest'
+  'python-pytest-asyncio'
+  'python-pytest-rerunfailures'
+  'python-pytest-timeout'
+  'python-python-socks'
+  'python-tornado'
+  'python-trustme'
+  'python-websockets'
+  'python-wsproto'
+  'python-zstandard'
+)
+optdepends=(
+  'python-brotli: Brotli decompression'
+  'python-python-socks: SOCKS proxy support'
+  'python-websockets: WebSocket support with compression'
+  'python-wsproto: WebSocket support'
+)
+source=("git+https://github.com/jawah/urllib3.future.git#tag=$pkgver"
+        python-socks-v3.patch)
+sha256sums=('2143c4d88fc722ab7c55755e8ae07b828b297bb52767a50f21f21da1e5862b55'
+            'faa816a2bc791191629c63510f15377fe28e518c3843fced65cbb44df00f3cff')
+
+prepare() {
+  cd urllib3.future
+  # Adapt supplied sockets and async streams to python-socks 3.
+  # https://github.com/jawah/urllib3.future/issues/437
+  patch -p1 < ../python-socks-v3.patch
+}
+
+build() {
+  cd urllib3.future
+  # Use upstream's separate namespace to coexist with python-urllib3.
+  URLLIB3_NO_OVERRIDE=1 python -m build --wheel --no-isolation
+}
+
+check() {
+  cd urllib3.future
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  # pytest-asyncio treats the unset upstream default as an error.
+  URLLIB3_NO_OVERRIDE=1 test-env/bin/python -m pytest \
+    -o asyncio_default_fixture_loop_scope=function
+}
+
+package() {
+  cd urllib3.future
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
