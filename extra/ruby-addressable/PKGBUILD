@@ -5,7 +5,7 @@
 
 _gemname=addressable
 pkgname="ruby-${_gemname}"
-pkgver=2.9.0
+pkgver=2.9.2
 pkgrel=1
 pkgdesc='URI Implementation'
 arch=('any')
@@ -33,8 +33,8 @@ options=('!emptydirs')
 source=(
   "${url}/archive/${_gemname}-${pkgver}/${pkgname}-${_gemname}-${pkgver}.tar.gz"
 )
-sha512sums=('cbad1ff37b028f8b93bf1c128192c42bfeb3fddf324e1500d072178135f07cad7f45e99b93e011b4f92f6e5a5fea498a5e0ab2736e42360728f7867019ed5543')
-b2sums=('468293e063512e37aae83a3b1981bb65ea2e9fc937399987ce71155df8044aa52970cf8a1ccbe600e482fd178005613732ca37ef5167c4328b5d47356b8c9d9e')
+sha512sums=('fc4981f7adf47688cbd33426f9a53e3ba4513135b2d19faa91e2c6b953b8eab9bad00ea6156e3ed56e27dac8dbe3f145d80a6f6f78f999f798b1e78d9498de2d')
+b2sums=('08ed0060eeed2c4f406020ca5851aa5273e4aae38ba9ecc1c6d20bc3285405bd56ad7fdf8ba741b2b5fa162b1e041af97d739e6cc93e4d66543d6632b059c582')
 
 prepare() {
   cd ${_gemname}-${_gemname}-${pkgver}
@@ -49,9 +49,6 @@ prepare() {
   sed --in-place --regexp-extended \
     --expression '/group :coverage/,/end/d' \
     Gemfile
-  sed --in-place --regexp-extended \
-    --expression '/begin/,/end if/d' \
-    spec/spec_helper.rb
 }
 
 build() {
