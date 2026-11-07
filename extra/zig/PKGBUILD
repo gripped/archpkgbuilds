@@ -2,7 +2,7 @@
 # Contributor: Marc Tiehuis <marctiehuis@gmail.com>
 
 pkgname=zig
-pkgver=0.17.0
+pkgver=0.17.1
 pkgrel=1
 pkgdesc='a general-purpose programming language and toolchain for maintaining robust, optimal, and reusable software'
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=('cmake' 'llvm22')
 checkdepends_x86_64=('lib32-glibc')
 source=("https://ziglang.org/download/$pkgver/zig-$pkgver.tar.xz"
         "skip-futex2-test.patch")
-sha256sums=('b6c7f1728f043700d6529bac980800792f824256a9d2f1839b3d62beed0b8abd'
+sha256sums=('1e89bf06610b769a8c77676c6c8d54b093a0db60f4891f2f91014829012f0e24'
             'eb30e0eb00e6ced4c99383f0658a0351f42882e303300ed1828d162d27171cd0')
 
 prepare() {
@@ -37,7 +37,7 @@ build() {
         ZIG_SHARED_LLVM=ON
         ZIG_USE_LLVM_CONFIG=ON
 
-        ZIG_TARGET_TRIPLE=native-linux.6.6-gnu.2.40
+        ZIG_TARGET_TRIPLE=native-linux.6.12-gnu.2.40
         ZIG_TARGET_MCPU=baseline
     )
     cmake -B build "${cmake_vars[@]/#/-D}" .
@@ -46,10 +46,8 @@ build() {
 
 check() {
     cd "$pkgname-$pkgver"
-    # ugly workaround until test target is provided
-    # https://github.com/ziglang/zig/issues/14240
-    DESTDIR="./testinstall" cmake --install build
-    ./testinstall/usr/bin/zig build test \
+
+    ./build/stage3/bin/zig build test \
       -Dconfig_h=build/config.h \
       -Dversion-string="$pkgver" \
       -Dstatic-llvm=false \
@@ -63,4 +61,8 @@ package() {
     install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 
     DESTDIR="$pkgdir" cmake --install build
+
+    # doc install directory doesn't have a config flag
+    mkdir -p "$pkgdir/usr/share/doc/"
+    mv "$pkgdir/usr/doc" "$pkgdir/usr/share/doc/zig"
 }
