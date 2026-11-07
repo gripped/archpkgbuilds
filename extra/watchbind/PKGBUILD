@@ -2,12 +2,13 @@
 
 pkgname=watchbind
 pkgver=0.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Turn any shell command into a powerful TUI with custom keybindings"
 arch=('x86_64')
 url="https://github.com/fritzrehde/watchbind"
-license=('GPL3')
+license=('GPL-3.0-only')
 depends=(
+  'glibc'
   'libgcc'
 )
 makedepends=('cargo')
@@ -16,6 +17,11 @@ sha256sums=('af91b06f03184487f0b8dd2d430c8bef0d65c1ff4d71652865d4cb2d24f1bd23')
 
 prepare() {
   cd "$pkgname-$pkgver"
+
+  # Workaround for Rust 1.80+ type inference breakage in time <0.3.35
+  # Ref: https://github.com/time-rs/time/issues/681
+  cargo update -p time --precise 0.3.35
+
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
