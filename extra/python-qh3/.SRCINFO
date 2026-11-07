@@ -1,0 +1,29 @@
+pkgbase = python-qh3
+	pkgdesc = QUIC and HTTP/3 implementation
+	pkgver = 2.1.0
+	pkgrel = 1
+	url = https://github.com/jawah/qh3
+	arch = x86_64
+	license = BSD-3-Clause
+	checkdepends = python-brotli
+	checkdepends = python-cryptography
+	checkdepends = python-dnspython
+	checkdepends = python-pyarrow
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-pytest-mock
+	makedepends = cargo
+	makedepends = clang
+	makedepends = cmake
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-maturin
+	depends = glibc
+	depends = libgcc
+	depends = python
+	options = !lto
+	source = git+https://github.com/jawah/qh3.git#tag=v2.1.0
+	sha256sums = 1b2169b77dc3c2cd29fa737643ffc71017f32d6e50c7a1cd3adddc99afb81088
+
+pkgname = python-qh3
