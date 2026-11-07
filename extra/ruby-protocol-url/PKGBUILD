@@ -2,7 +2,7 @@
 
 _gemname='protocol-url'
 pkgname="ruby-${_gemname}"
-pkgver=0.4.0
+pkgver=0.19.0
 pkgrel=1
 pkgdesc='Provides abstractions for working with URLs'
 arch=('any')
@@ -26,8 +26,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('e03253f57a251bd88e5b6098f5c40fabf149dba014d747a978e1825b4281b6b5213ac99b3c784da83b5e5dc08af7c1ebcea2ab5d19a079852f7e6136de6d323e')
-b2sums=('de84811f9e7875e8c369422cc7efe2375163c47b6a772c391a9fe99a4bde7705577ca10a3529344601bdb8a3e1790f866000dc4d47726d4ff0ad4039d1842406')
+sha512sums=('efb8a37535df48eff99f99debb1bcf3659e5989aed94a725e3e6a1a23430392258d3ae50f064431cc8ab321aa7435608d4f6895942a954dd1f20b872d4078b1e')
+b2sums=('4c693ad703c4ca17ae2c09877e81c9e2fdba21e03ee4f9334e7ff7f5f282c0a87093320552a73271c8b9cd2a7df35cc2953caeba69ffc7989b79a97e08a08cff')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
