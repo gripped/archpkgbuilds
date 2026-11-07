@@ -1,0 +1,37 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-gtin-validator
+pkgver=1.0.3
+pkgrel=1
+pkgdesc="Validator for Global Trade Item Numbers"
+arch=('any')
+url="https://github.com/charithe/gtin-validator"
+license=('Apache-2.0')
+depends=('python' 'python-six')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
+checkdepends=('python-pytest')
+# Upstream did not tag the 1.0.3 release.
+# https://github.com/charithe/gtin-validator/issues/9
+source=('git+https://github.com/charithe/gtin-validator.git#commit=ee8750ad95298d8e9f00485690cd5ebf7710350e')
+sha256sums=('01f6b078c4b8e89bd74e1f962bc0ea9aebfd179b4af26a53edd3ee3b2bfaba11')
+
+prepare() {
+  cd gtin-validator
+  # Replace unittest aliases removed in Python 3.12: https://github.com/charithe/gtin-validator/pull/8
+  git cherry-pick -n 7fbc64efe96e2ddd6c50b0dca2f2c515a4967185
+}
+
+build() {
+  cd gtin-validator
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd gtin-validator
+  pytest
+}
+
+package() {
+  cd gtin-validator
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
