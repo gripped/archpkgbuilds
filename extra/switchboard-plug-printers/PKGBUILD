@@ -2,13 +2,14 @@
 
 pkgname=switchboard-plug-printers
 pkgver=8.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Switchboard Printers Plug'
 arch=(x86_64)
 url=https://github.com/elementary/switchboard-plug-printers
 license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
+  cups-pk-helper
   glib2
   glibc
   gtk4
@@ -23,14 +24,8 @@ makedepends=(
   meson
   vala
 )
-_tag=96f7b71d79a878de099574ecbefe31ecc25a7171
-source=(git+https://github.com/elementary/switchboard-plug-printers.git#tag=${_tag})
+source=(git+https://github.com/elementary/switchboard-plug-printers.git#tag=${pkgver})
 b2sums=('dee5aa9f7c1e477697955779a1cf0550f71073e853de6a17a3df1a07939a06f9fb5bd870e6f60a48eb52d223dc80815f24f1efc3780a1e8837065cd793506afb')
-
-pkgver() {
-  cd switchboard-plug-printers
-  git describe --tags
-}
 
 build() {
   arch-meson switchboard-plug-printers build
