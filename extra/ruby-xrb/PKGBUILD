@@ -2,7 +2,7 @@
 
 _gemname='xrb'
 pkgname="ruby-${_gemname}"
-pkgver=0.11.2
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='A fast native templating system that compiles directly to Ruby code'
 arch=('any')
@@ -27,8 +27,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('a677d4a482b77a352272392ff26709a6bf7e674f340fc5110346b9a40b97080a67598794eb2c8703920a0abd62659837da8106ad47f5675aac8ef142bc14cb7c')
-b2sums=('7a6637406e816e76cf38a1baa3c4378938cdf1e75b6af55984167e1118a5236cb5aa4ef681466fadb124a11cf138cb2e96a93a88a6d0d05c6df1cc4a9d170f99')
+sha512sums=('998e63c269e325e9ce047cbddd2557d2d460bf56e48c752da07e826f325bffe9eadd3e30bb13c0e569fb5e1f30eaf35202a51f9550bdadc5a5fd5e574bbdf378')
+b2sums=('e0936045e00b3e03b932b178e8a636a7a06e527757679fc955bd3c8038b8b9acac245c78071181e06e86b4d6bcb8cca2b571647861526a7349dc2629de06c9ac')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
