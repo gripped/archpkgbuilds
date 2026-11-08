@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=3.1.0
+pkgver=3.2.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -58,7 +58,7 @@ optdepends=(
 source=(
   "git+${url}.git#tag=v${pkgver}"
 )
-b2sums=('2d93b8b50e2e6bb8b0794a4513908c7feef99e588f91c6e8187c15227502918f557cfb8bfb616a3a0b25ba9019d3fc92f614d176bd7b4c33b273731ed9310a6b')
+b2sums=('5dfe25933123846df787d5e91ee87114a9999058ccda421ce5a3ed63ec3f829deb2be2a96bdac4c7f49c9361a6f775db94de866069d6c7ebd601883dbbcad53d')
 
 build() {
   cd "${_name}"
