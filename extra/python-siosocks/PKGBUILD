@@ -1,0 +1,32 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-siosocks
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="Sans-I/O SOCKS proxy client and server with multiple I/O backends"
+arch=('any')
+url="https://github.com/pohmelie/siosocks"
+license=('MIT')
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-pytest' 'python-pytest-asyncio' 'python-pytest-cov' 'python-pytest-trio'
+              'python-trio')
+optdepends=('python-trio: Trio backend')
+source=("git+https://github.com/pohmelie/siosocks.git#tag=v$pkgver")
+sha512sums=('b20b0ec462acd0a286e53ef2fc0cb4b1a6e8ba6309f1bcfb0da838e8740f4d9c166cfa96d7ce021653fe8fd46d647db3b99572a8a9248bee98ec29df3411f1c2')
+
+build() {
+  cd siosocks
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd siosocks
+  python -m pytest
+}
+
+package() {
+  cd siosocks
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 license.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}

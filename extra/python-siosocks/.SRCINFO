@@ -1,0 +1,23 @@
+pkgbase = python-siosocks
+	pkgdesc = Sans-I/O SOCKS proxy client and server with multiple I/O backends
+	pkgver = 0.3.0
+	pkgrel = 1
+	url = https://github.com/pohmelie/siosocks
+	arch = any
+	license = MIT
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	checkdepends = python-pytest-cov
+	checkdepends = python-pytest-trio
+	checkdepends = python-trio
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
+	optdepends = python-trio: Trio backend
+	source = git+https://github.com/pohmelie/siosocks.git#tag=v0.3.0
+	sha512sums = b20b0ec462acd0a286e53ef2fc0cb4b1a6e8ba6309f1bcfb0da838e8740f4d9c166cfa96d7ce021653fe8fd46d647db3b99572a8a9248bee98ec29df3411f1c2
+
+pkgname = python-siosocks
