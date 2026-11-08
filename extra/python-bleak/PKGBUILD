@@ -2,7 +2,7 @@
 # Contributor: Francesco Minnocci <ascoli.minnocci@gmail.com>
 
 pkgname=python-bleak
-pkgver=3.0.2
+pkgver=3.1.0
 pkgrel=1
 pkgdesc='Bluetooth Low Energy platform Agnostic Klient for Python'
 arch=(any)
@@ -20,10 +20,10 @@ makedepends=(
   python-uv-build
 )
 source=(git+https://github.com/hbldh/bleak.git#tag=v${pkgver})
-b2sums=('SKIP')
+b2sums=('1756788cd5918c6e9d074a9069ea077bce88ef88328cc265ca11fefde3b0c8a157c69e7a6c91237a4fef486609489bd8e78f10f0270212d729b4508c09e969c3')
 
 prepare() {
-  sed -i 's/uv_build>=0.10.9,<0.11.0/uv_build>=0.10.9/' bleak/pyproject.toml
+  sed -i 's/uv_build>=0.10.9,<0.12.0/uv_build>=0.10.9/' bleak/pyproject.toml
 }
 
 build() {
