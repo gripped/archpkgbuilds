@@ -1,7 +1,7 @@
 # Maintainer: Evangelos Foutras <foutrelis@archlinux.org>
 
 pkgname=7zip
-pkgver=26.05
+pkgver=26.06
 pkgrel=1
 pkgdesc='File archiver for extremely high compression'
 arch=(x86_64 aarch64)
@@ -18,8 +18,8 @@ provides=(p7zip)
 conflicts=(p7zip)
 replaces=(p7zip)
 source=("https://github.com/ip7z/7zip/releases/download/${pkgver}/7z${pkgver//./}-src.tar.xz")
-sha512sums=('3c7fd4f00823465e8a1b17bf9ef282ef5a2032f7d5ab16bb059205d0038b9e228183b1915903ffedbf89033ae0648231e220c4585b58089e75241b1c1e2c2e31')
-b2sums=('05f8e2447eae0a485e3e608621def717a5e69cc121542d0f8f5b52ba8046a2c85ddbeb2315747619a0b361311d0acb71a0c75d632d7891023792b879757d84f7')
+sha512sums=('fba4d4b8630d2501fd53a1709231623a1a5d365128eb084ca8ab9aa9f9e04dccf8d97bc47ef50e63a7cf1281e677c43c47c2ee70a706dc67d3def9cfb1761bea')
+b2sums=('23c75453953028bdb175c5f7cec92b19d6008b97905aa9a7c0adf90ad4479cc787d8ac5abbf72bb2c449bbf4cbb78c26363bb7b3fc32bf7889a484e9f8bc4343')
 
 build() {
   local _platform_flags=()
