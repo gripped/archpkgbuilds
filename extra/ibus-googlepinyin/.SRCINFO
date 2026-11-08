@@ -1,0 +1,22 @@
+pkgbase = ibus-googlepinyin
+	pkgdesc = Google Pinyin input method for IBus
+	pkgver = 0.43.0
+	pkgrel = 1
+	url = https://github.com/openSUSE/ibus-googlepinyin
+	arch = any
+	license = GPL-2.0-or-later
+	license = LGPL-3.0-or-later
+	makedepends = cmake
+	makedepends = git
+	depends = glib2
+	depends = gtk3
+	depends = ibus
+	depends = libgooglepinyin
+	depends = python
+	depends = python-gobject
+	optdepends = libsoup3: cloud Pinyin candidates
+	optdepends = opencc: traditional Chinese conversion
+	source = git+https://github.com/openSUSE/ibus-googlepinyin.git#tag=0.43.0
+	sha512sums = f5dcee64ca4c4849640e32e88ff64630acc3ed19a709475e48bee5e4534b0021cb3587112c30298e318377c519542ef8d645aaaba1ccfc5c09ce910bbbcb82a2
+
+pkgname = ibus-googlepinyin

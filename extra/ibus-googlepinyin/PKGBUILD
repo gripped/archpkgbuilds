@@ -1,0 +1,26 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ibus-googlepinyin
+pkgver=0.43.0
+pkgrel=1
+pkgdesc="Google Pinyin input method for IBus"
+arch=('any')
+url="https://github.com/openSUSE/ibus-googlepinyin"
+license=('GPL-2.0-or-later' 'LGPL-3.0-or-later')
+depends=('glib2' 'gtk3' 'ibus' 'libgooglepinyin' 'python' 'python-gobject')
+makedepends=('cmake' 'git')
+optdepends=('libsoup3: cloud Pinyin candidates'
+            'opencc: traditional Chinese conversion')
+source=("git+https://github.com/openSUSE/ibus-googlepinyin.git#tag=$pkgver")
+sha512sums=('f5dcee64ca4c4849640e32e88ff64630acc3ed19a709475e48bee5e4534b0021cb3587112c30298e318377c519542ef8d645aaaba1ccfc5c09ce910bbbcb82a2')
+
+build() {
+  cmake -B build -S $pkgname \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBEXECDIR=/usr/lib/ibus
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
