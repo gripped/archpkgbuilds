@@ -2,8 +2,8 @@
 
 _hkgname=happstack-server
 pkgname=haskell-happstack-server
-pkgver=7.9.4
-pkgrel=17
+pkgver=7.9.5
+pkgrel=1
 pkgdesc="Web related tools and services."
 url="http://happstack.com"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ depends=('ghc-libs' 'haskell-base64-bytestring' 'haskell-blaze-html' 'haskell-hs
          'haskell-transformers-base' 'haskell-utf8-string' 'haskell-zlib')
 makedepends=('ghc' 'haskell-hunit')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('1ce454a25875c521d2c44c280d35a00611afe150888f08bed5f4daa8afdf9737')
+sha256sums=('37befee11c6d31a552a389deb5d43a340090ffb0e98d655475cac100a24c8906')
 
 build() {
   cd $_hkgname-$pkgver
