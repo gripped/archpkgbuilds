@@ -2,7 +2,7 @@
 
 _gemname='tilt'
 pkgname="ruby-${_gemname}"
-pkgver=2.8.0
+pkgver=2.9.0
 pkgrel=1
 pkgdesc='Generic interface to multiple Ruby template engines.'
 arch=('any')
@@ -55,8 +55,8 @@ optdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('3683d7f17b38cb22aadee2811cba309a28601c117d183464d1c9c1d3bbbb4956cf7c04ef4210f276f8b969a67d88bc17d88ddc6904475d1db1e71bf5569fabf1')
-b2sums=('4f2019484688938ef0645304967047b61b1ce906db1e8c2550a17883687477423907ae082690bed48f76090fd2f10d17aaa3f74247ffb0860e94c1dd0916f1e0')
+sha512sums=('32d75437f07c95ee462cf960bccf90b539c7fa97fa584a20e1a9069afc1e9642f4aadc570b2c7cf08265d84319b1c90b04377233ab6790bf6e2975c922eb444e')
+b2sums=('0700298eaccba82d8de32bab2695ec09196d796b9165737acae72410668e0fd77775c380bb5147ad30656171d231d8fba14c075931d632cc19408540cbd037a5')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
