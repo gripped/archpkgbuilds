@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-async-http
-pkgver=0.101.0
+pkgver=0.102.0
 pkgrel=1
 pkgdesc='A HTTP client and server library'
 arch=(any)
@@ -29,7 +29,6 @@ checkdepends=(
   ruby-bake-test-external
   ruby-bundler
   ruby-covered
-  ruby-decode
   ruby-localhost
   ruby-metrics
   ruby-rack-test
@@ -43,16 +42,15 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/socketry/async-http.git#tag=v$pkgver)
-sha512sums=('d2c43c6663b1e9c2388406b4fcd2f86de373e130e4e468d8acd84903e66d27c0dac93bbd397dd3a789572ae14f976354ce1bdaf352cbf7a7c44a3781e6f10b8b')
-b2sums=('c2986a560578bdd61a45a4575f1a803c86da0da2f8b9529501ab88a70afd7da423e4f3c7018d317029f5af35f752e7ad7b512cdbde4400c91b45a277e7df5a1b')
+sha512sums=('aae253ff19cbbba078e6aa74948675403277a6b2ac28b2765ed761876d88fb53c077406052d11b857706fa98740c9ccd9ebd44638c5b603c1f9f1cb476d209d3')
+b2sums=('d9e3a7ef2d1546b5986ff546fc343f8d88ea65182d66447b11a188c1a7096922e0d2f4b4c73042d03535b13c14724fd92bb3ab25663bf616db74ecf7027f6f13')
 
 prepare() {
   cd async-http
 
-  # Reject HTTP/2 closure before headers: https://github.com/socketry/async-http/pull/249
-  git diff 01b255de5d5daf4ee6d24cfe3a7e00bce3cdb23f^ 01b255de5d5daf4ee6d24cfe3a7e00bce3cdb23f -- \
-    lib/async/http/protocol/http2/response.rb \
-    test/async/http/protocol/http2/connection_close_with_active_streams.rb | git apply
+  # Handle orderly HTTP/2 closure and reject closure before response headers.
+  # https://github.com/socketry/async-http/pull/249
+  git cherry-pick -n 01b255de5d5daf4ee6d24cfe3a7e00bce3cdb23f
 
   sed -r \
     -e 's|~>|>=|g' \
