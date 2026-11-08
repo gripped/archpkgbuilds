@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langsmith
-pkgver=0.14.1
+pkgver=0.14.2
 pkgrel=1
 pkgdesc="Client library to connect to the LangSmith Observability and Evaluation Platform"
 arch=('any')
@@ -64,7 +64,7 @@ optdepends=(
   'python-opentelemetry-exporter-otlp-proto-http: OpenTelemetry export support'
 )
 source=("git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v$pkgver")
-sha512sums=('2d9cbd07223581a819640afcee99d6eb1e44a338021986c5cc42455d45355e0271e08a1391e7d4028b67fe17dac89221c0539a64800265ab70d302d825129181')
+sha512sums=('373c92a6e8e0580fa206955b82ce4dad04a3a70218ff5dad7e4e7c7638f55fd51de16cc4122c6e8f4c433ab3997ff9a9e8d69ac5ad5de86bdaf39f0b0af50296')
 
 prepare() {
   cd langsmith-sdk/python
@@ -91,7 +91,14 @@ prepare() {
   sed -i \
     -e 's|Client(api_url="http://localhost:1984", api_key="test")|Client(api_url="http://localhost:1984", api_key="test", auto_batch_tracing=False)|' \
     -e 's|Client(api_key="test", api_url="http://localhost")|Client(api_key="test", api_url="http://localhost", auto_batch_tracing=False)|' \
-    -e '/^def test_env_environment_plus_explicit_agent_id/,$ s|Client(api_url="http://localhost:1984", api_key="123")|Client(api_url="http://localhost:1984", api_key="123", auto_batch_tracing=False)|' \
+    -e '/^class TestAConfiguredProjectTravelsWithTheAgent/,$ s|Client(api_url="http://localhost:1984", api_key="123")|Client(api_url="http://localhost:1984", api_key="123", auto_batch_tracing=False)|' \
+    tests/unit_tests/test_client.py
+
+  # Buffer-only tests must not start background /info retries.
+  sed -i \
+    -e '/^def test_process_buffered_run_ops_core_functionality/,/^    # Test 2:/ s|api_url="http://localhost:1984",|api_url="http://localhost:1984", auto_batch_tracing=False,|' \
+    -e '/^def test_process_buffered_run_ops_advanced_behavior/,/^def test_process_buffered_run_ops_validation_errors/ s/auto_batch_tracing=True/auto_batch_tracing=False/' \
+    -e 's/run_ops_buffer_timeout_ms=1000.0,  # 1 second timeout/run_ops_buffer_timeout_ms=1000.0, auto_batch_tracing=False,  # 1 second timeout/' \
     tests/unit_tests/test_client.py
 }
 
