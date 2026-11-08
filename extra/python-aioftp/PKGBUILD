@@ -1,0 +1,34 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-aioftp
+pkgver=0.28.3
+pkgrel=1
+pkgdesc="FTP client and server for asyncio"
+arch=('any')
+url="https://github.com/aio-libs/aioftp"
+license=('Apache-2.0')
+depends=('python')
+makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+checkdepends=('python-async-timeout' 'python-pytest' 'python-pytest-asyncio'
+              'python-pytest-cov' 'python-pytest-mock' 'python-siosocks' 'python-trustme')
+optdepends=('python-siosocks: SOCKS proxy support')
+source=("git+https://github.com/aio-libs/aioftp.git#tag=$pkgver")
+sha512sums=('e2bb7acfa3aa3072588582fff605d0306bf617a3f6fa56d24d77567ccf9e6056b7823313bb7ad219ada80b672119d29fa7d113e9cd3a511852374103aca1a585')
+
+build() {
+  cd aioftp
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd aioftp
+  python -m venv --system-site-packages --without-pip test-env
+  test-env/bin/python -m installer dist/*.whl
+  test-env/bin/python -m pytest
+}
+
+package() {
+  cd aioftp
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 license.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
