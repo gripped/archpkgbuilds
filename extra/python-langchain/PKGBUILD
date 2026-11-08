@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain
-pkgver=1.4.3
+pkgver=1.4.5
 pkgrel=1
 pkgdesc="Building applications with LLMs through composability"
 arch=('any')
@@ -57,6 +57,16 @@ prepare() {
   # With loopback hosts allowed, pytest-socket blocks external connections at connect().
   sed -i 's/pytest_socket.SocketBlockedError/pytest_socket.SocketConnectBlockedError/' \
     libs/langchain_v1/tests/unit_tests/test_pytest_config.py
+
+  # LangGraph 1.2.19 adds tool names to Mermaid node labels.
+  # https://github.com/langchain-ai/langgraph/pull/9449
+  sed -i "s|tools(tools)|tools(tools<hr/><small><em>__tools = ['my_tool']</em></small>)|" \
+    libs/langchain_v1/tests/unit_tests/agents/middleware/core/__snapshots__/test_framework.ambr
+  sed -i \
+    -e "/^# name: test_agent_graph_with_mixed_tools$/,/^# ---$/s|tools(tools)|tools(tools<hr/><small><em>__tools = ['return_direct_tool', 'normal_tool']</em></small>)|" \
+    -e "/^# name: test_agent_graph_with_return_direct_tool$/,/^# ---$/s|tools(tools)|tools(tools<hr/><small><em>__tools = ['return_direct_tool']</em></small>)|" \
+    -e "/^# name: test_agent_graph_without_return_direct_tools$/,/^# ---$/s|tools(tools)|tools(tools<hr/><small><em>__tools = ['normal_tool']</em></small>)|" \
+    libs/langchain_v1/tests/unit_tests/agents/__snapshots__/test_return_direct_graph.ambr
 }
 
 build() {
