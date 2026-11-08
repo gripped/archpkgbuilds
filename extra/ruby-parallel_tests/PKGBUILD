@@ -2,7 +2,7 @@
 
 _gemname='parallel_tests'
 pkgname="ruby-${_gemname}"
-pkgver=5.7.0
+pkgver=5.9.0
 pkgrel=1
 pkgdesc='Run Test::Unit / RSpec / Cucumber / Spinach in parallel'
 arch=('any')
@@ -17,8 +17,8 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('061be3cbd33519f470982f6458eeba7b27d384625d7161cf4354f8bcfedfadd885d3941fe08bae265c59af6970c22c851ba2f8ebf241664c8d850ed48736f60e')
-b2sums=('693705be984e82e031dfe943ff8b44c31cd9730bc38fa9438beab07c7035744b3ed5fb5e4a8f79a099604c8b071a292855dd610c20a1fb3f114b1c13084552ad')
+sha512sums=('2dda6be1e85a13a96540ec5764c57cede9d8c92332651cc93f94e09908a9c58e7345e0f225d1a5e180b33b5fa2000eaf0bf9c86ac8401575106d0642a5da6aaa')
+b2sums=('b07dc3c9d9c8944ed0c0d5580f1ff0dcacd95bc404118e831047dc566d210a6f6d89b0fd933e266e661f12ed1e465823d1365ff4ef3c70b6ba7f886f4ce87cde')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
