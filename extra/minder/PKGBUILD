@@ -2,8 +2,8 @@
 # Contributor: Dimitris Kiziridis <ragouel at outlook dot com>
 
 pkgname=minder
-pkgver=2.0.9
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc='Mind-mapping application to create, develop and visualize your ideas'
 arch=(x86_64)
 url='https://github.com/phase1geo/Minder'
@@ -20,11 +20,14 @@ depends=(
   gtksourceview5
   hicolor-icon-theme
   json-glib
+  lasem
   libarchive
   libgee
+  librsvg
   libwebp
   libxml2
   pango
+  webkitgtk-6.0
 )
 makedepends=(
   discount
@@ -33,18 +36,10 @@ makedepends=(
   vala
 )
 source=("git+https://github.com/phase1geo/Minder.git#tag=$pkgver")
-b2sums=(1d6c5ff2ea25e2c558dfacc85962acc616587537e6139d1e4a090731bcf8c7dc15f55e972317212c3a9b627bf3e369d148e9367af53c0753299503aa998cdfc7)
+b2sums=(2c6d7a510d04e88726134f245eb563c54560ae60eaac3256e2e559d374d6411aae7509b6e87d9e5d960eec4d4c49ca6a54b430d33bea33d01136f0eb5ddc7801)
 
 prepare() {
   cd Minder
-
-  # Set application name
-  # https://github.com/phase1geo/Minder/pull/734
-  git cherry-pick -n 71f4133a89cfc08d09d8659b66c94d3b4c7863be
-
-  # Reduce height of the Shortcuts page
-  # https://github.com/phase1geo/Minder/pull/735
-  git cherry-pick -n 948cbc47779d2c6b08052c47a2bb8c7a24eb727e
 }
 
 build() {
@@ -54,5 +49,8 @@ build() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
-  ln -s com.github.phase1geo.minder "$pkgdir/usr/bin/$pkgname"
+  ln -s io.github.phase1geo.minder "$pkgdir/usr/bin/$pkgname"
+
+  # Remove bundled fonts
+  rm -r "$pkgdir/usr/share/fonts/"
 }
