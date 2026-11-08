@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-cython-lint
-pkgver=0.22.0
+pkgver=0.22.1
 pkgrel=1
 pkgdesc='A tool to lint Cython files'
 arch=(any)
@@ -23,8 +23,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('c45ab0c5ac843fa1be803ca7cc483b3fc4e3b62f74dbdeed4deee1943cbd6b7ec391b5f12129cb5b85627b1fb868f723a09a9384d6aeafff1cb7fd90a847cb2e')
-b2sums=('022b8983852cfdc763439ceead7251d84fed34e4570d9c12a4811c4d0ac4cbeb305eec0e64905160e735e55450b2630d44fd5a363b5e80b55b0c1ce8ab87c540')
+sha512sums=('3ea8229f60a7fcb03f35b68ed080f1e1996cf6de04fd9047f19b4d5c33ac395729f99fa5f0e0d9838be0bbf027ef36e5de6b3dcc8fa7306b12f8abafdf7a96a8')
+b2sums=('cb44438ff47430b1008b9720355cb4f1c07cdd42ef6b1cf8658072fcea7330eb3c0f54f153137e966f03a5e6db47aaffde8bfa95bab0c1945e3c9d9f9c355375')
 
 build() {
   cd "$pkgname"
@@ -35,7 +35,15 @@ build() {
 check() {
   cd "$pkgname"
 
-  PYTHONPATH="$(pwd)" pytest -v
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  local pytest_options=(
+    -vv
+  )
+  pytest "${pytest_options[@]}"
 }
 
 package() {
