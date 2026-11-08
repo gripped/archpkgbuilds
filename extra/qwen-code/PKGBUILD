@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.23.3
+pkgver=0.23.4
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -31,10 +31,10 @@ optdepends=(
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}"
         'feishu-media-test.patch')
-sha256sums=('45a4a8c982a5ecd581ab6d5ce97a1b88d10690d53e2f3cbb21cffe8e1bf91b75'
-            '85935ee339eb53afac83eba367a97d4032905a1dc77a1ac25ea4fb186ef186a8')
-b2sums=('ba2cee9365c4ca0b133c6fbf08e1c05907298e7df2aa19a1363abede9ce1c6cde2d4c99cc09bce61ba617c16580b21ab401d3b2638a3110a4923d56b2a5279c9'
-        '770fec0cfdc4a0abacd8543edc395ccac7884fa45075e18298abfacab77ded2944fc4407105ef5f2f861b859bdf8d2ec87356340b74680badc3747ed6df77121')
+sha256sums=('9715ec0986648fabf2857ff0612255336c8459a09c4fd486bd93142f571577a0'
+            '3af81e8d4e27c7b7d10ea5615cd1c469df730aaf1e2f6b5dae5ad2fbf6d0280d')
+b2sums=('8c68496a26410af08bd34de98c7f4e519d64b3b8e27e5b8b962970d85fb355d17f2be9942598b822a7764954423a23d9d890a7d85b50ebda7dcd596009dc48a9'
+        '76344e9fd770a54ee0578bc0c66b51dde50aa5dfee0374dcad9860c86608d08c5969785eaf1a04ff371f89aa45e4020027ca8b04f5b318977a4a29c92e360ef8')
 
 prepare() {
   cd $pkgname
@@ -69,6 +69,9 @@ prepare() {
     -e 's/{ createServer as createHttpsServer }/{ Agent, createServer as createHttpsServer }/' \
     -e "/describe('remote same-origin over TLS'/,\$s/\.post('\/probe')/&.agent(new Agent({ servername: 'localhost' }))/" \
     packages/cli/src/serve/server/self-origin.test.ts
+  # Vitest retains Node 26's localStorage alongside jsdom's separate Storage class.
+  sed -i 's/Storage\.prototype/Object.getPrototypeOf(window.localStorage)/' \
+    packages/web-shell/client/main.test.tsx
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
