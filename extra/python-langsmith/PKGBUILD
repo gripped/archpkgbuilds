@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langsmith
-pkgver=0.14.2
+pkgver=0.14.4
 pkgrel=1
 pkgdesc="Client library to connect to the LangSmith Observability and Evaluation Platform"
 arch=('any')
@@ -64,7 +64,7 @@ optdepends=(
   'python-opentelemetry-exporter-otlp-proto-http: OpenTelemetry export support'
 )
 source=("git+https://github.com/langchain-ai/langsmith-sdk.git#tag=v$pkgver")
-sha512sums=('373c92a6e8e0580fa206955b82ce4dad04a3a70218ff5dad7e4e7c7638f55fd51de16cc4122c6e8f4c433ab3997ff9a9e8d69ac5ad5de86bdaf39f0b0af50296')
+sha512sums=('263abab0128f081582a4d3be682d16d51a4e31305eca349f3ffcf8b375c5018c859e938f154e912e9f52a65597001e2d2c4b49ff3eb2e236ec026b8379c48981')
 
 prepare() {
   cd langsmith-sdk/python
@@ -72,9 +72,6 @@ prepare() {
   # Avoid deprecated asyncio.iscoroutinefunction on Python 3.14.
   # https://github.com/langchain-ai/langsmith-sdk/commit/eba0d4b31976aebbaba15de899b37ccbb191274a
   git cherry-pick -n eba0d4b31976aebbaba15de899b37ccbb191274a
-
-  # Export JSON strings with OTel 1.45: https://github.com/langchain-ai/langsmith-sdk/pull/3636
-  git diff 715bb6d5e042859772fe85be59fa57f7c54a8a8f^ 715bb6d5e042859772fe85be59fa57f7c54a8a8f -- langsmith | git apply
 
   # uuid-utils 1.0 replaces timestamp/nanos with a single nanoseconds argument.
   # https://github.com/aminalaee/uuid-utils/pull/194
