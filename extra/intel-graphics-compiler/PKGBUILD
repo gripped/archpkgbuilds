@@ -3,12 +3,12 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-graphics-compiler
-pkgver=2.41.5
+pkgver=2.42.6
 _llvmver=22.1.8
 _vciver=0.25.0
 _spirv_tools_commit=f80351511e9c4672e284842c7b124315c511078a
 _spirv_headers_commit=575b6512579ebde466ed3dfc04e413439d14d95d
-_spirv_llvm_commit=27afcfe385cf542197dfde8c658e1f5ff53fc2fc
+_spirv_llvm_commit=0e67244861402a51b071414d7cb231a052b1ce03
 _opencl_clang_commit=b953eceebb0abc6ea954a14545420e3f97540a77
 pkgrel=1
 epoch=1
@@ -42,14 +42,14 @@ source=("https://github.com/intel/intel-graphics-compiler/archive/v${pkgver}/${p
         "git+https://github.com/intel/opencl-clang.git#commit=${_opencl_clang_commit}"
         "git+https://github.com/llvm/llvm-project.git#tag=llvmorg-${_llvmver}"
         '010-intel-graphics-compiler-disable-werror.patch')
-sha256sums=('a7853d0c32d2cfd6dabd338af6c109d22486a45cf52c376f038d6ab274441767'
+sha256sums=('4fbfddbfe1fa71fc2c1925fafb9f0c1c9922b10f9d4b7e9308745f088cce7467'
             'af6abe889504fc5f0cc61758aa306211ec2be086858e9e39ee96d289a6c0117c'
-            '587da20520635f105126f62e60576d6276d9555e70dda10d3b7ea98f18e5fdab'
+            '9785dce87dfabc6f5250868d697e5288498da5f4d3d5c4fe6f2a3c8a87135ab4'
             '104e1e45413cb4e4a0f513a067c33ea15cdac3e553634be346096c11111bd614'
             '496b5e84549096e19cc33e99d13978a493b4bf7a3c3bfa19cf4a7ec17be70df5'
             'cab1c3d13c417fd78017e4d5388a87c0f54c137aedf30861119a7f2a397f445c'
             '22acb48afcad5f242c5d3fb4da5686d6e0db60b9ac600eb23bb32dc4135ac596'
-            '74b79a64b70a4217627340f30c044838a78829c2dc57d2cc9ad3e492dda01531')
+            '8f905c8e865078b32d75531c1e00322cb0f3d8d8913e18701d9712ee288ecfee')
 
 prepare() {
     # rename to prevent SPIRV-LLVM-Translator from being included
