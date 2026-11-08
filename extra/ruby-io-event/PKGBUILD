@@ -2,7 +2,7 @@
 
 _gemname='io-event'
 pkgname="ruby-${_gemname}"
-pkgver=1.19.2
+pkgver=1.22.3
 pkgrel=1
 pkgdesc='An event loop'
 arch=('x86_64')
@@ -27,8 +27,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('bdfc1250e800e9f607b042834a00196cb868abd1274fd16fb11c7aea1a18cf8433b67b24f999bb11a9273a3f0bd8bcd44a35637f5c63adaa7c114030ecadb1af')
-b2sums=('af04d47ed74b37551da6dff8b375146657fe080898d57d65479081a0ca382929dbe5586b3d2400ed0a15294f947a243cd9a0009590a794d88cd9113a0798968c')
+sha512sums=('aab6d538bbc762f442392dee163afd0171307c91ff65214e610857d9403434cfd5f7cbb96a647ffe2ae9b39d5629613b12d25e0fa31241b9fe12d3917a8aa6bd')
+b2sums=('bd05190186195d5b57ef6695d3afd86f192fd7cd9f65a7cfa32688c23462869007f4004472b6291791b034e9fbf030adef392913297f0860cc3e111c156860cb')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
