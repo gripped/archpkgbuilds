@@ -2,7 +2,7 @@
 # Contributor: Mark Wagie <mark.wagie@tutanota.com>
 
 pkgname=python-moddb
-pkgver=0.15.0
+pkgver=0.16.0
 pkgrel=1
 pkgdesc='A Python scraper to access ModDB mods, games and more as objects'
 arch=(any)
