@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=ty
-pkgver=0.0.98
+pkgver=0.0.99
 pkgrel=1
 pkgdesc='Extremely fast Python type checker and language server, written in Rust'
 arch=(x86_64)
@@ -17,7 +17,7 @@ makedepends=(git
 checkdepends=(uv)
 source=("git+$url.git#tag=$pkgver"
         git+https://github.com/astral-sh/ruff.git)
-b2sums=('ec5ef718a97f7adf68449616b21ceaf3ef6515d55c928523e2f48f13c28317c63b27f6e4fefaed92cc0d8bdb7ff773661c466e1f4190937c9bf82f20a64a24a2'
+b2sums=('804060c2c9e92cf98133298e495c1936937d79c024deff08eadd4f812dc35453608c9853b304a09c0d0e6af092c7d3811de79c67b3f94936ce81fc30f4ccae7d'
         'SKIP')
 
 _srcenv() {
