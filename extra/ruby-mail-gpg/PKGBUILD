@@ -2,7 +2,7 @@
 
 _gemname=mail-gpg
 pkgname=ruby-mail-gpg
-pkgver=0.4.5
+pkgver=0.4.6
 pkgrel=1
 pkgdesc='GPG/MIME extension for the Ruby Mail Library'
 url='https://github.com/jkraemer/mail-gpg'
@@ -19,8 +19,8 @@ makedepends=(
 )
 options=('!emptydirs')
 source=("git+${url}#tag=v${pkgver}")
-sha512sums=('3c3359836311030665abef43e52ba3f151e4e8232d498353f648312afd8edcc24a56a060f2f1665a532c84b6714eab7a30927488a040b7e6366bfd3295cd35ed')
-b2sums=('54c1fc676a68ec29b70d70ed35fffc1a40692012856be3e82f0d61d27bc0f6ea549ae8fe6c6b0c30390f5eb03e732fe3e9eb69b598df8eaf97fe215f8b6e4c07')
+sha512sums=('238ca1bddbb8b05a2192d0a9f5cb544a0207564e237a1a829dc225eb56639f83c2c915b4ac677a7d410dad90804c496a6a1dab941265ea1a42d6aff2daed9be3')
+b2sums=('5ab00878087e2eb614c65d68c8635c35f2c5a835b095ff32c53be973d9b187fad63ed200594846b28f12ea3c24d2099565d635c632814f2771d0169d95932015')
 
 prepare() {
   cd "${_gemname}"
