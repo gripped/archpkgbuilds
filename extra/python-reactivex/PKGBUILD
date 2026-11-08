@@ -3,7 +3,7 @@
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 
 pkgname=python-reactivex
-pkgver=6.0.0
+pkgver=6.1.0
 pkgrel=1
 pkgdesc='Reactive Extensions for Python'
 arch=(any)
@@ -25,7 +25,7 @@ checkdepends=(
   tk
 )
 source=(git+https://github.com/ReactiveX/RxPY.git#tag=v${pkgver})
-b2sums=('f45df0f8a1ad172d5e7230c2a27d946da3cee5dec8b8df54f1c6c0c3f09c4615042a69ffbb7e96297051b8f248ea0fec0e492c2b081f9213a841d02805782392')
+b2sums=('301d6a2c29c45c6c833c0e107ed8d92230ebb5d9ed68c275b4b0efb9f81cbd12337c5242bc758d43b6e415e50a3e300e2351ff6bea0be46d4b73cd419c1fcf74')
 
 prepare() {
   cd "${srcdir}/RxPY"
