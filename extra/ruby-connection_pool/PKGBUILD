@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-connection_pool
-pkgver=2.5.5
+pkgver=3.0.0
 pkgrel=1
 pkgdesc='Generic connection pool for Ruby'
 arch=(any)
@@ -12,20 +12,26 @@ depends=(
 )
 makedepends=(
   git
-  ruby-minitest
   ruby-rake
 )
 checkdepends=(
   ruby-bundler
+  ruby-maxitest
 )
 options=(!emptydirs)
 source=("git+https://github.com/mperham/connection_pool.git#tag=v$pkgver")
-sha256sums=('0a411c6dc3f49aa7d24416d6106f2fcd7933564a1a0b5eee53c9b4290d205bac')
+sha256sums=('219bcea6c2a96b1d2a47b77acad33ce4acf7e7b74b81b9887c63e3bece1222fe')
 
 prepare() {
   cd connection_pool
-  # Avoid loading the upstream formatter when running the test suite.
+
+  # Include the required fork.rb file in the installed gem.
+  # https://github.com/mperham/connection_pool/commit/0dae4dd21acfd5bfbae15c25c7e6031a0bde3fca
+  git diff 0dae4dd21acfd5bfbae15c25c7e6031a0bde3fca^ 0dae4dd21acfd5bfbae15c25c7e6031a0bde3fca -- connection_pool.gemspec | git apply
+
+  # Avoid loading formatter, benchmark, and optional coverage tools for tests.
   sed '/standard/d' -i Rakefile
+  sed '/gem "\(standard\|benchmark-ips\|simplecov\)"/d' -i Gemfile
 }
 
 build() {
