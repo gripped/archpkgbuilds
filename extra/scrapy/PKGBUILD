@@ -3,7 +3,7 @@
 # Contributor: Anibal Pacheco <apacheco.uy@gmail.com>
 
 pkgname=scrapy
-pkgver=2.19.0
+pkgver=2.20.0
 pkgrel=1
 pkgdesc='A fast high-level scraping and web crawling framework'
 arch=(any)
@@ -11,12 +11,15 @@ license=(BSD-3-Clause)
 url='https://scrapy.org'
 depends=(
   python
+  python-aiodns
+  python-aioftp
   python-aiohttp
   python-brotli
-  python-charset-normalizer
   python-cryptography
   python-cssselect
   python-defusedxml
+  python-formerly
+  python-frostwork
   python-itemadapter
   python-itemloaders
   python-lxml
@@ -28,7 +31,6 @@ depends=(
   python-pyopenssl
   python-queuelib
   python-service-identity
-  python-setuptools
   python-tldextract
   python-twisted
   python-w3lib
@@ -72,13 +74,17 @@ optdepends=(
   'python-httpx2: for HTTPX download handler support'
 )
 source=("$pkgname::git+https://github.com/scrapy/scrapy#tag=$pkgver")
-sha512sums=('4154fc45e511850b4f61b1ef454d89a9ca54b9bd555a24127a2d9b07282a17fe91c9abef7730797579d3c2e9970b749cedd8fbe773a1254a7082e8cd943e3b4d')
-b2sums=('aaa20d0cae81bac95c48471dff82e43c4c600fb4c162620e0d60752bdb28b5e83e0631b8e4da37ee74545715ffa1a539ca0b92cede6a69ce2243276c13e0ce83')
+sha512sums=('f937baba5c5bebab367b123644488751c0758f04eda749715bdf9d06d22cb188689038d1660d7578e28e4975d4b53544868494dbad62b6fbfea3b2efc82803aa')
+b2sums=('79a81677f07da86677e6a5c38417d018a575a6567088aebe958f3a539579adf75b2586330eae9fb97722a04fa6a7dc003576b24255b30344195db48390df97de')
 
 build() {
   cd "$pkgname"
 
   python -m build --wheel --no-isolation
+
+  python -m scrapy complete bash > scrapy.bash
+  python -m scrapy complete fish > scrapy.fish
+  python -m scrapy complete zsh > scrapy.zsh
 }
 
 check() {
@@ -119,8 +125,10 @@ package() {
   install -Dm644 docs/intro/install.rst -t "$pkgdir"/usr/share/doc/$pkgname/
 
   # Shell completions
-  install -Dm644 extras/scrapy_bash_completion \
+  install -Dm644 scrapy.bash \
     "$pkgdir"/usr/share/bash-completion/completions/scrapy
-  install -Dm644 extras/scrapy_zsh_completion \
+  install -Dm644 scrapy.fish \
+    "$pkgdir"/usr/share/fish/vendor_completions.d/scrapy.fish
+  install -Dm644 scrapy.zsh \
     "$pkgdir"/usr/share/zsh/site-functions/_scrapy
 }
