@@ -3,7 +3,7 @@
 # Contributor: Jose Fernandez <josef@netflix.com>
 
 pkgname=bpftop
-pkgver=0.8.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc="Dynamic real-time view of running eBPF programs"
 url='https://github.com/jfernandez/bpftop'
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('glibc' 'libelf' 'libgcc' 'zlib')
 makedepends=('cargo' 'clang')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.zip")
-sha256sums=('daa444627e659549f39aac748f040ec61fa083a6bf0775425a60b366d85d62d7')
+sha256sums=('f029180e354f842e7fe448553244d61072bd7d303c6156e0a9ff27a4c911f513')
 options=('!lto')
 
 prepare() {
