@@ -3,7 +3,7 @@
 
 _gemname='zeitwerk'
 pkgname="ruby-${_gemname}"
-pkgver=2.8.2
+pkgver=2.8.3
 pkgrel=1
 pkgdesc="Efficient and thread-safe code loader for Ruby"
 arch=(any)
@@ -24,8 +24,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('c50f0b105cf177f86ed4966d8d116e8838c5afb88e2d921057cd77c256bde0b3d21c827ada4abf2e4df0d05b2d28587d1c4af1be240af3e6f4005b558232a320')
-b2sums=('995d2ff4c061538ea6ccce70fa4fd701e5c4cba5b99c7e07bd6404c3641e2f4fce2fba712003a9eb3d88d029407d62c67d2765c0aff9422c7c49d1ee30c73a23')
+sha512sums=('8bddbef027f29d6de73df45fd473c35d1210ff49528c86165505b9f05309a78ce931c50f8c1045b3482306cbb79f5a007499fde5454993e3d50fe29644ebea80')
+b2sums=('73f2b097906ead95ec58480a6a97795b1002cbd540dd110df7fb7d70723c336e6fbf9b14737989e7a270bdb34574d81c38037808d24e40a3e2665e27e63fe33b')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
