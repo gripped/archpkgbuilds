@@ -1,7 +1,7 @@
 pkgbase = osqp
 	pkgdesc = The Operator Splitting QP Solver
 	pkgver = 1.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://osqp.org/
 	arch = x86_64
 	license = Apache-2.0
@@ -11,6 +11,8 @@ pkgbase = osqp
 	makedepends = python-scipy
 	depends = glibc
 	source = git+https://github.com/osqp/osqp#tag=v1.0.0
+	source = no-static.patch
 	sha256sums = f717a32c7aff62ffae9a4a8bc2a288544ee34efd6a2478a6c23f1f3b592aca60
+	sha256sums = f20266d6d9121ac8b613f58a963297b1d58e99e91ed6f1f995c6bc970cb51ffe
 
 pkgname = osqp

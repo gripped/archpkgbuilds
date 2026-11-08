@@ -1,0 +1,67 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9ed43468..3ff4af9b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -64,11 +64,6 @@ cmake_dependent_option( OSQP_BUILD_DEMO_EXE
+                         ON    # Default to on
+                         OSQP_BUILD_STATIC_LIB OFF ) # Force off if the static library isn't built
+ 
+-cmake_dependent_option( OSQP_BUILD_UNITTESTS
+-                        "Build the unit testing suite"
+-                        OFF    # Default to off
+-                        OSQP_BUILD_STATIC_LIB OFF ) # Force off if the static library isn't built
+-
+ cmake_dependent_option( OSQP_COVERAGE_CHECK
+                         "Check the code coverage of the unit tests"
+                         OFF    # Default to off
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index 2959f86f..0c8e2ad1 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -88,7 +88,7 @@ add_executable(lin_alg_tester
+ 
+ target_include_directories(lin_alg_tester PRIVATE
+                            ${OSQP_LINALG_TESTER_INC_DIRS})
+-target_link_libraries(lin_alg_tester osqpstatic Catch2::Catch2 ${osqplib_link_libs})
++target_link_libraries(lin_alg_tester osqp Catch2::Catch2 ${osqplib_link_libs})
+ 
+ add_test(NAME lin_alg_tester COMMAND lin_alg_tester)
+ 
+@@ -115,7 +115,7 @@ if(OSQP_ALGEBRA_CUDA)
+                              ${CMAKE_CURRENT_SOURCE_DIR}/../../algebra/cuda/include/)
+ endif()
+ 
+-target_link_libraries(osqp_tester osqpstatic Catch2::Catch2 ${osqplib_link_libs})
++target_link_libraries(osqp_tester osqp Catch2::Catch2 ${osqplib_link_libs})
+ 
+ add_test(NAME osqp_tester COMMAND osqp_tester)
+ 
+@@ -137,7 +137,7 @@ if(OSQP_ALGEBRA_BUILTIN)
+                              ${CMAKE_CURRENT_SOURCE_DIR}/utils/
+                              ${CMAKE_CURRENT_SOURCE_DIR}/../include/private
+                              ${osqplib_includes})
+-  target_link_libraries(osqp_tester_custom_memory osqpstatic Catch2::Catch2 ${osqplib_link_libs})
++  target_link_libraries(osqp_tester_custom_memory osqp Catch2::Catch2 ${osqplib_link_libs})
+ 
+   add_test(NAME osqp_tester_custom_memory COMMAND osqp_tester_custom_memory)
+ endif()
+diff --git a/tests/custom_memory/CMakeLists.txt b/tests/custom_memory/CMakeLists.txt
+index c40bec46..dbd99c14 100644
+--- a/tests/custom_memory/CMakeLists.txt
++++ b/tests/custom_memory/CMakeLists.txt
+@@ -9,4 +9,4 @@ set( OSQP_CUSTOM_MEMORY "${CMAKE_CURRENT_SOURCE_DIR}/custom_memory.h" )
+ add_subdirectory( ../../ ${CMAKE_CURRENT_BINARY_DIR}/osqp )
+ 
+ add_executable( osqp_custom_memory ../../examples/osqp_demo.c custom_memory.c )
+-target_link_libraries( osqp_custom_memory osqpstatic m )
++target_link_libraries( osqp_custom_memory osqp m )
+diff --git a/tests/custom_printing/CMakeLists.txt b/tests/custom_printing/CMakeLists.txt
+index e8949161..2ad0f079 100644
+--- a/tests/custom_printing/CMakeLists.txt
++++ b/tests/custom_printing/CMakeLists.txt
+@@ -11,4 +11,4 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+ add_subdirectory( ../../ ${CMAKE_CURRENT_BINARY_DIR}/osqp )
+ 
+ add_executable( osqp_custom_printing ../../examples/osqp_demo.c custom_printing.c )
+-target_link_libraries( osqp_custom_printing osqpstatic m )
++target_link_libraries( osqp_custom_printing osqp m )

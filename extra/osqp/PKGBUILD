@@ -2,23 +2,38 @@
 
 pkgname=osqp
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='The Operator Splitting QP Solver'
 url='https://osqp.org/'
 license=(Apache-2.0)
 arch=(x86_64)
-depends=(glibc)
-makedepends=(cmake
-             git
-             python-numpy
-             python-scipy)
-source=(git+https://github.com/osqp/osqp#tag=v$pkgver)
-sha256sums=('f717a32c7aff62ffae9a4a8bc2a288544ee34efd6a2478a6c23f1f3b592aca60')
+depends=(
+  glibc
+)
+makedepends=(
+  cmake
+  git
+  python-numpy
+  python-scipy
+)
+source=(
+  git+https://github.com/osqp/osqp#tag=v$pkgver
+  no-static.patch
+)
+sha256sums=('f717a32c7aff62ffae9a4a8bc2a288544ee34efd6a2478a6c23f1f3b592aca60'
+            'f20266d6d9121ac8b613f58a963297b1d58e99e91ed6f1f995c6bc970cb51ffe')
+
+prepare() {
+# Link tests against shared library
+  patch -d $pkgname -p1 < no-static.patch
+}
 
 build() {
   cmake -B build -S $pkgname \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DOSQP_BUILD_UNITTESTS=ON
+    -DOSQP_BUILD_UNITTESTS=ON \
+    -DOSQP_BUILD_STATIC_LIB=OFF \
+    -DOSQP_VERSION=$pkgver
   cmake --build build
 }
 
