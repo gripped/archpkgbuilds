@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-http
-pkgver=6.0.1
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='A fast Ruby HTTP client with a chainable API, streaming support, and timeouts'
 arch=(any)
@@ -29,7 +29,7 @@ options=(!emptydirs)
 source=(
   "git+https://github.com/httprb/http.git#tag=v$pkgver"
 )
-sha256sums=('8f422f207b1e154b026fbf88feaf0f51ff3c5db44e63a355aaee8dfa14c3f7ea')
+sha256sums=('b497c6da42e62c3a27928047ec58a264361020e027a92b7a726e1f9f0b2a503e')
 
 prepare() {
   cd http
