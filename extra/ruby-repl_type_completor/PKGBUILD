@@ -2,7 +2,7 @@
 
 _gemname='repl_type_completor'
 pkgname="ruby-${_gemname}"
-pkgver=0.1.15
+pkgver=0.1.17
 pkgrel=1
 pkgdesc='Type based completion for REPL'
 arch=('any')
@@ -24,8 +24,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('77b8a1a312f8c9da34d9d662af85821c848d717d280031b2efbabaa9323617b094a026af2d3aa7a859832e9928c8978f5ae190bf177c375f8526f6e7d30847e4')
-b2sums=('e27d718f094697216f5ee65550d31ff0cc727c9737b8edbd51a00246024480991bffccef5f840467d2cf397da40f47652df84027cab02c903d4e7f49e98f6426')
+sha512sums=('2fd86a0f7d3d0743a91d80f347f4143072b4ad782304e3547054776c55161ffc61890d6253566591c3ed8bda2b8c034b18bcaea15fbc25f5bebcf0f14c07c093')
+b2sums=('c785bce31c3ca5e32d423a16aafed7faf093c984779a9e55c42fa124f593bab8abffc797bf35f6846396c6c77738513defdc14ea43249225d2eaee57b46bff10')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
