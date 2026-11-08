@@ -1,0 +1,19 @@
+diff --git a/tests/otel_integrations/test_openai.py b/tests/otel_integrations/test_openai.py
+index cd9278b2c..8ad2d7007 100644
+--- a/tests/otel_integrations/test_openai.py
++++ b/tests/otel_integrations/test_openai.py
+@@ -2329,11 +2329,14 @@ def test_sync_chat_completions_version_v1_only(exporter: TestExporter) -> None:
+                                 'audio_tokens': 0,
+                                 'reasoning_tokens': 0,
+                                 'rejected_prediction_tokens': 0,
++                                'text_tokens': None,
+                             },
+                             'prompt_tokens_details': {
+                                 'audio_tokens': 0,
+                                 'cache_write_tokens': None,
+                                 'cached_tokens': 0,
++                                'image_tokens': None,
++                                'text_tokens': None,
+                             },
+                         },
+                     },

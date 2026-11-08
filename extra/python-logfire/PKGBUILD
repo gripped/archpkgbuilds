@@ -2,8 +2,8 @@
 
 pkgbase=python-logfire
 pkgname=('python-logfire' 'python-logfire-api' 'python-logfire-sdk')
-pkgver=5.4.0
-pkgrel=3
+pkgver=5.5.0
+pkgrel=1
 pkgdesc='Pydantic Logfire Python SDK and command-line interface'
 arch=('any')
 url='https://github.com/pydantic/logfire'
@@ -60,6 +60,7 @@ checkdepends=(
   'python-opentelemetry-instrumentation-asgi'
   'python-opentelemetry-instrumentation-asyncpg'
   'python-opentelemetry-instrumentation-aws-lambda'
+  'python-opentelemetry-instrumentation-botocore'
   'python-opentelemetry-instrumentation-django'
   'python-opentelemetry-instrumentation-fastapi'
   'python-opentelemetry-instrumentation-flask'
@@ -102,18 +103,18 @@ checkdepends=(
 )
 source=("git+https://github.com/pydantic/logfire.git#tag=v$pkgver"
         sqlalchemy-tests.patch
-        anthropic-tests.patch)
-sha512sums=('35c6ca856b31a1a16e785b1f5ba8556f156f83ebba592db479301d0527df0a8e3c1f90063b6986338f5a1bcbfab7438e6f0a068362990b8146c70ddbb62b14c1'
+        openai-tests.patch)
+sha512sums=('e242174f6c053ff25d0d824e16627f6bf5ba1326fa5492d11281f677264c93f1a13882eedc25159cc9f9dac0d6e0d136ea71dd07e3b87d88ac941c09cc03b4e8'
             'a0878ce73bcce449cbaa759efa8ba6a0e4d780853a9837a13c37accac08270e5467d06e235b5428182f43817076464f97a6e2062d781521efc428bb42aa73d62'
-            '1b7cf93f4b96db328fe161c1eadd1e3eb1e97173a3b296b4e5f09e0ffcc34de67ad7f432e8ebdaaa6986fafdaff869de1df6e7f37d29c45e3dad4375e1aec8fd')
+            '9e2434655e372bca3daf73d635b96f23cb9a7c93bc36a2d6984431617fb09f605cffe5c7c71b912158794784dcd6da0a93e46020136e66e1e271d99cba1ccf6c')
 
 prepare() {
   cd logfire
   # Close async SQLite connections before test teardown.
   patch -p1 -i "$srcdir/sqlalchemy-tests.patch"
-  # Update usage.speed snapshots and beta cassette URLs for current Anthropic.
-  # Beta URL change: https://github.com/anthropics/anthropic-sdk-python/pull/1076
-  patch -p1 -i "$srcdir/anthropic-tests.patch"
+  # Account for OpenAI's added text/image token fields in serialized usage.
+  # https://github.com/openai/openai-python/pull/3617
+  patch -p1 -i "$srcdir/openai-tests.patch"
 }
 
 build() {
