@@ -2,15 +2,20 @@
 # Contributor: gothmog.todi <t.haider@vcnc.org>
 
 pkgname=corkscrew
-pkgver=2.0
-pkgrel=8
+pkgver=3.1
+pkgrel=1
 pkgdesc="A tool for tunneling SSH through HTTP proxies"
 arch=('x86_64')
 url="https://github.com/patpadgett/corkscrew"
-license=('GPL')
-changelog=$pkgname.changelog
-source=($pkgname-$pkgver.tar.gz::https://github.com/patpadgett/$pkgname/archive/v$pkgver.tar.gz)
-sha256sums=('879344d6ba456635525c05982e1590bd5344224c15c413180d371f5e65d43343')
+license=('MIT')
+source=($pkgname-$pkgver.tar.gz::https://github.com/patpadgett/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.gz)
+sha256sums=('dcff7110521d5a3d672ba3c32db95b597a3396eb657deefc64ad47453fa29d6d')
+
+prepare() {
+  cd "${srcdir}"/$pkgname-$pkgver
+
+  autoreconf -fi
+}
 
 build() {
   cd "${srcdir}"/$pkgname-$pkgver
@@ -19,8 +24,15 @@ build() {
   make
 }
 
+check() {
+  cd "${srcdir}"/$pkgname-$pkgver
+
+  make check
+}
+
 package() {
   cd "${srcdir}"/$pkgname-$pkgver
 
   make DESTDIR="${pkgdir}" install
+  install -Dm 644 LICENSE -t "${pkgdir}"/usr/share/licenses/corkscrew
 }
