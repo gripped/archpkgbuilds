@@ -2,8 +2,8 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=lxqt-session
-pkgver=2.4.0
-pkgrel=2
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="The LXQt session manager"
 arch=("x86_64")
 groups=("lxqt")
@@ -24,7 +24,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 	"lxqt-session-import-environment.patch"
 )
-sha256sums=('d77f378ece0bfc7195f1964e88f55919729c3b0a55a858d7155ffaacc57bba44'
+sha256sums=('a9b65cb5ebe0ab9461f01d5810d9ccbd6ca849b60623a149113921b520c66e3f'
             'SKIP'
             '5654521092d75536bf0a80cfa62dad124ae203a52488e41182004ff95ffb65ae')
 validpgpkeys=(
