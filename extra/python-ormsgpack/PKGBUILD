@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-ormsgpack
-pkgver=1.13.0
+pkgver=1.13.1
 pkgrel=1
 pkgdesc="Fast, correct Python msgpack library supporting dataclasses, datetimes, and numpy"
 arch=('x86_64')
@@ -30,7 +30,7 @@ checkdepends=(
   'python-pytz'
 )
 source=("git+https://github.com/ormsgpack/ormsgpack.git#tag=$pkgver")
-sha512sums=('1eaea2cf37a501c2b934375c6324706f89fda935c8c488d2664c6594917461d2a46dd451b4f7f473263398175e9d199f883a5ab5526ebc5d7578a4714bcc6700')
+sha512sums=('cd7d002d60f78381000835c19974819349187d705f463a352479765c2250e97c600991ad8ebb74f3d71b06f0d7154161539b604ff3fd9f8f30e7436a5d9cd220')
 
 prepare() {
   cd ormsgpack
