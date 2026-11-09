@@ -2,17 +2,23 @@
 
 pkgname=python-pallets-sphinx-themes
 _pyname=${pkgname/python-/}
-pkgver=2.3.0
-pkgrel=3
+pkgver=2.5.0
+pkgrel=1
 pkgdesc='Sphinx themes for Pallets and related projects'
 url='https://github.com/pallets/pallets-sphinx-themes'
 arch=('any')
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('python' 'python-sphinx' 'python-sphinx-notfound-page')
 makedepends=('python-build' 'python-installer' 'python-flit-core' 'git')
 source=(git+https://github.com/pallets/pallets-sphinx-themes#tag=${pkgver})
-sha512sums=('7fdc12869fa0243c39ccd476db6f5feaace463f89793804658faa63f5ad4faf3b24bdab3dc643d70cdb412ad4d15c2cb742f2c96a524c5e7ca96704bfaccb38f')
-b2sums=('10efa67c7d413ec0bc4dbe6c6291f65a082c027a70ff1f45f284be74b4747f172f27d5bce02685d5009f9154692dda8e80f565c33c86868c0c6fe4c5f203f493')
+sha512sums=('ebfc31d60b4e45d5fd025f3b5e59e79fcd794dcfb1e9c343521c573c926489664dfde9a5cb4bd2d3ff63b0fe3bc77c726d4b483eac7ac3156c70192af9f79f1d')
+b2sums=('578194a79dfce650d4d5cb722510c3c82ff5908329494437f473e95b9c70361200d456fa8f656b911a73ceb0ade80aa85fa0ce4b551a20a33295fbc6967e07ce')
+
+prepare() {
+  cd ${_pyname}
+  # Remove upper bound on flit-core allowing version 4
+  sed -i 's/<4//' pyproject.toml
+}
 
 build() {
   cd ${_pyname}
