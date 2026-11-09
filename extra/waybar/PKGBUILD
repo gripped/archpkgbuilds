@@ -4,8 +4,8 @@
 # Contributor: Parmjot Singh <parmjotsinghrobot at gmail dot com>
 
 pkgname=waybar
-pkgver=0.15.0
-pkgrel=3
+pkgver=0.16.0
+pkgrel=1
 pkgdesc='Highly customizable Wayland bar for Sway and Wlroots based compositors'
 arch=('x86_64')
 url="https://github.com/Alexays/Waybar/"
@@ -27,6 +27,7 @@ depends=(
     'libevdev'
     'libgcc'
     'libinput'
+    'libmm-glib'
     'libmpdclient'
     'libnl'
     'libpipewire'
@@ -58,7 +59,7 @@ optdepends=(
     'otf-font-awesome: Icons in the default configuration'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Alexays/Waybar/archive/$pkgver.tar.gz")
-b2sums=('3f0eb6cbf4ba189ddd37e82678ef87f877f6f48cf0bb699624c5d697c7164b11c3e25bf8fe382564c1e5891a6070d7c7e6d3009f8461a7087294dffccb78de95')
+b2sums=('8cb2e1fc35219fa507b5d16d9576e5633f1ba5087196dd93868cefd8f07b37865563dbc7bb4116f7a2da326f310381f0b2e735a983f9981df41c59cd32871087')
 
 build() {
     cd "Waybar-$pkgver"
