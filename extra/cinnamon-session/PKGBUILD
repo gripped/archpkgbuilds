@@ -3,7 +3,7 @@
 # Contributor: Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>
 
 pkgname=cinnamon-session
-pkgver=6.6.4
+pkgver=6.8.0
 pkgrel=1
 pkgdesc='The Cinnamon session handler'
 arch=(x86_64)
@@ -23,7 +23,6 @@ depends=(
   libice
   libsm
   libx11
-  libxau
   libxcomposite
   python
   python-gobject
@@ -39,7 +38,7 @@ makedepends=(
   xtrans
 )
 source=("git+https://github.com/linuxmint/cinnamon-session.git#tag=$pkgver")
-b2sums=('3312c5d67c29096e1d9e4af9a226c0b75d39cf863107292882c8e7dcf2d35b434203f3127ef682f2fc95d22ccd3437a12cbd693e534875803abc4ca755fd55ef')
+b2sums=('1c17db0de89aece9a0cf316bb3c15415cbab9db9570529b95a4927b4c3fb494013f95fd44b46ee9916c4a6c741e8d249a0adcf95af05eb4ee7010029ca4f4892')
 
 build() {
   arch-meson $pkgname build \
