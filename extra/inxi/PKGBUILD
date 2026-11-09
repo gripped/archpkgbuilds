@@ -6,7 +6,7 @@
 pkgname=inxi
 _pkgver=3.3.41-1
 pkgver=${_pkgver//-/.}
-pkgrel=1
+pkgrel=2
 pkgdesc="Full featured CLI system information tool"
 arch=(any)
 url="https://smxi.org/docs/inxi.htm"
