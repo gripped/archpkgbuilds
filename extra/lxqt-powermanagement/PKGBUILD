@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-powermanagement
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="LXQt power management daemon"
 arch=("x86_64")
@@ -15,7 +15,7 @@ makedepends=("cmake" "lxqt-build-tools")
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('24dcc7f668e97c8c0f8584115d376190493d47f36c73bab6042814c772280360'
+sha256sums=('3d4a884ef0fc115f153fc631b3d0af811cb0201bc1ce1dcbb1919959f3429625'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
