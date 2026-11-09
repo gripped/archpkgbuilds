@@ -5,17 +5,16 @@
 # Contributor: MatejSpindler <spindler.matej@gmail.com>
 
 pkgname=esptool
-pkgver=5.5.0
+pkgver=5.6.0
 pkgrel=2
 pkgdesc='Espressif SoC serial bootloader utility'
 arch=(any)
 url='https://github.com/espressif/esptool'
-license=(GPL-2.0-only)
+license=('GPL-2.0-or-later AND BSD-3-Clause AND MIT AND (Apache-2.0 OR MIT)')
 makedepends=(git python-build python-installer python-wheel)
 depends=(
   python
   python-pyserial
-  python-bitstring
   python-reedsolo
   python-cryptography
   python-yaml
@@ -25,9 +24,14 @@ depends=(
   python-esp-pylib
   python-rich
 )
-optdepends=('python-python-pkcs11: Support for HSM devices')
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('7a1f1d7f6ccf4f5f9fc3b18eb98952419cb15ac261ba9d888e8ce4095970ab3dccc4ef17a6100508d4b70bc9a3ccc2992f4937860eb168beb5bac86d8d024b24')
+optdepends=(
+  'python-python-pkcs11: Support for HSM devices'
+  'python-websockets: IDE integration (ESP_IDE_WS)'
+)
+source=("git+$url.git#tag=v$pkgver"
+        "pyserial-LICENSE.txt::https://raw.githubusercontent.com/pyserial/pyserial/v3.5/LICENSE.txt")
+b2sums=('091f2b49b8f4db75cb602bae1b766c912eded8ab55bd41cd6c69b69246e5afd5d02e7eb9ff30d22c8d00018a664330bdc9ed7e678fdda24e065ca33a9372afdf'
+        '40dabd96de3160b6754146e97774d8f545410486ad1350c9a4d42248c2aea1f79df7e4bde681aa32926009707827dc6e438968d7a02bf86126561db46cb26f44')
 
 build() {
   cd $pkgname
@@ -37,4 +41,9 @@ build() {
 package() {
   cd $pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 esptool/targets/stub_flasher/2/LICENSE-{APACHE,MIT} -t "$pkgdir"/usr/share/licenses/$pkgname/
+  # esp_rfc2217_server derives from pyserial's rfc2217_server.py
+  install -Dm644 ../pyserial-LICENSE.txt "$pkgdir"/usr/share/licenses/$pkgname/LICENSE-pyserial
+  sed -n '/^# The MIT License/,/^# THE SOFTWARE\.$/s/^# \?//p' espefuse/efuse/bitstring.py \
+    | install -Dm644 /dev/stdin "$pkgdir"/usr/share/licenses/$pkgname/LICENSE-bitstring
 }
