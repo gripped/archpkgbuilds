@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-spyder-kernels
-pkgver=3.1.6
+pkgver=3.1.7
 pkgrel=1
 pkgdesc="Jupyter Kernels for the Spyder console"
 arch=(any)
@@ -50,7 +50,7 @@ checkdepends=(
 )
 optdepends=('python-pydicom: DICOM format import')
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-b2sums=('7a89e05066066259dd9cb0da6410f8009b69547b8192848bceab4cea8ccda6d4fa425d0c9ba06adf3da6c9b350c0a5f96c5cc18d60ce243632ff3314dded3223')
+b2sums=('dc210e7ad329ec008f5f1b3d5cbef197faebbb0c63844685c0cc06b1f5558fd0c27db0d0397f0a4690530192d4eb6f534c72cc2900633b906f5e23ae2b148250')
 
 build() {
   cd ${pkgname#python-}-${pkgver}
