@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=pavucontrol-qt
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="A Pulseaudio mixer in Qt (port of pavucontrol)"
 arch=("x86_64")
@@ -15,7 +15,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('7f813d3029e9f1b66020cf3da143d07196dd8bce01a95bd754489287ca5b6380'
+sha256sums=('90f1187cf2601c499ba9414fe742c69ef30d77337c8492d6669fc624d0d1658c'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
