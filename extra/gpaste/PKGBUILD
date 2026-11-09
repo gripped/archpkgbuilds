@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=gpaste
-pkgver=51.2
+pkgver=51.3
 pkgrel=1
 pkgdesc="Clipboard management system"
 url="https://www.imagination-land.org/tags/GPaste.html"
@@ -40,17 +40,11 @@ checkdepends=(xorg-server-xvfb)
 optdepends=("curl: Upload clipboard contents")
 source=(
   "git+https://github.com/keruspe/gpaste#tag=v${pkgver/[a-z]/.&}"
-  0001-Account-for-window-decorations-in-the-graphical-tool.patch
 )
-b2sums=('9bc11c32be8f32baa76062846b3e1a24175a28558f157e85ea08c395dd2c1e81e9786ef7a09490543b01090ff39a79edeaf37eecaa53e1f52919e97b37dee057'
-        '1f3a3dcb18e84541a3231d6c865bb989470404f7e9c48050a6332b42c3d31c3757cb1d6caf85f825cd0042dd8e9c17369720cfc46eb167c7b62e4ca83c01c447')
+b2sums=('f6d17cdcbeb3fbcb1bd2d0edf75fc285bb1ec7f4edc651d81415d887a47d8a237a2ab1128fb894259f9e531a8df4dd67cd2ee559d3a7df33675e2225f8cb900f')
 
 prepare() {
   cd gpaste
-
-  # Fix tests
-  # https://github.com/Keruspe/GPaste/pull/510
-  git apply -3 ../0001-Account-for-window-decorations-in-the-graphical-tool.patch
 }
 
 build() {
