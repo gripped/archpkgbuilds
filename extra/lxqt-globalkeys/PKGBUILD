@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=lxqt-globalkeys
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="LXQt daemon and library for global keyboard shortcuts registration."
 arch=("x86_64")
@@ -14,7 +14,7 @@ makedepends=("lxqt-build-tools")
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('6f7fb82337bd06823f698df5a1e631059e99e544bfa9a1d7c5b67fd01ff9319a'
+sha256sums=('9f02427103526d24c4eb1e1dd2199421b76f2c8a6705e037232a5a6f49a2316b'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
