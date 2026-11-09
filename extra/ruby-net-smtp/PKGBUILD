@@ -2,7 +2,7 @@
 
 _gemname='net-smtp'
 pkgname="ruby-${_gemname}"
-pkgver=0.5.1
+pkgver=0.5.2
 pkgrel=1
 pkgdesc='Simple Mail Transfer Protocol client library for Ruby'
 arch=('any')
@@ -20,8 +20,8 @@ checkdepends=(
 )
 options=('!emptydirs')
 source=("git+${url}#tag=v${pkgver}")
-sha512sums=('5716fc733ba0c52e613b7bce2e75a9ef4f76b4dea18f64c439cace3e83587e61f2ca80bcc6a6290cfb667b3f4d98025c27e5124ce190fd6b7f3ff41d555661da')
-b2sums=('f27ab2b103dfebaa37d94b5041e60ae01f2efdabae7c7f2aaf9f632ca2b2e4a75959c704ec564772fa3b33152f804e032938115bc69531b90d4bebec6be46d95')
+sha512sums=('7f05eb6c1f7db5c847137bb9525c439455ca13edf2bd60bfe475dafdd10df497c04cd961555264687fbf04dc89f69047470ac36e64e9d7b0f7ce7026a805b353')
+b2sums=('a4b819575fcae3f16bde0830f5ce419f1896811766ef0f265b454d2e36d3e736dfbf62e9d814bae3db68698e54a1dd961a80ac4b8ee796df0262bc36f141aa41')
 
 prepare() {
   cd "${_gemname}"
