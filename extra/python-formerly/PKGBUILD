@@ -1,0 +1,30 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=python-formerly
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Deprecate a class that users inherit from"
+arch=('any')
+url="https://github.com/scrapy/formerly"
+license=('BSD-3-Clause')
+depends=('python')
+makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
+checkdepends=('python-pytest')
+source=("git+https://github.com/scrapy/formerly.git#tag=$pkgver")
+sha512sums=('5aebdbfed18c18d26d6856453279b8e3816f88687e9065b636dbccc658b159e39d1d3d264f4d5f54e2e59d05512aa23ff775b98ec045d1d849a864d1c238c518')
+
+build() {
+  cd formerly
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd formerly
+  python -m pytest
+}
+
+package() {
+  cd formerly
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+}
