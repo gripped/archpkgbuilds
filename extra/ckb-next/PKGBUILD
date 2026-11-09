@@ -4,7 +4,7 @@
 
 pkgname=ckb-next
 pkgver=0.6.2
-pkgrel=4
+pkgrel=5
 pkgdesc="Corsair Keyboard and Mouse RGB Driver"
 arch=(x86_64)
 url='https://github.com/ckb-next/ckb-next'
@@ -29,6 +29,7 @@ b2sums=('bf419ca453735f9ea83483261f675f20c997cb6def323fcb9157509c6ad518b4d8c73c1
 build() {
   local cmake_options=(
     -B build
+    -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
     -D CMAKE_INSTALL_LIBDIR=lib
     -D CMAKE_INSTALL_LIBEXECDIR=lib
