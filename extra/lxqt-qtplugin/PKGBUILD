@@ -2,8 +2,8 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-qtplugin
-pkgver=2.4.0
-pkgrel=4
+pkgver=2.5.0
+pkgrel=1
 pkgdesc="LXQt platform integration for Qt"
 arch=("x86_64")
 groups=("lxqt")
@@ -15,7 +15,7 @@ makedepends=("git" "lxqt-build-tools")
 source=(
 	"git+https://github.com/lxqt/$pkgname?signed#tag=$pkgver"
 )
-sha256sums=('006e886bdcf84d4b4afe6d2e89291c56eeb5adee494e32f12035b0691ac861df')
+sha256sums=('814be52105fae967a8f58d6ae434ed30ad73b473669bea63209e7d64fbae9386')
 validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
 	"48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
