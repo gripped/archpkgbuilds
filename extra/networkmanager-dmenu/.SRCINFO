@@ -1,7 +1,7 @@
 pkgbase = networkmanager-dmenu
 	pkgdesc = Control Networkmanager via dmenu
 	pkgver = 2.7.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/firecat53/networkmanager-dmenu
 	arch = any
 	license = MIT
@@ -13,6 +13,15 @@ pkgbase = networkmanager-dmenu
 	depends = python-gobject
 	optdepends = nm-connection-editor: for connection manager GUI
 	optdepends = libnotify: recieve notifications
+	optdepends = bemenu: menu backend
+	optdepends = dmenu: menu backend
+	optdepends = fuzzel: menu backend
+	optdepends = rofi: menu backend
+	optdepends = wmenu: menu backend
+	optdepends = wofi: menu backend
+	optdepends = bluez-utils: bluetooth toggle
+	optdepends = modemmanager: WWAN support
+	optdepends = pinentry: password prompts
 	source = git+https://github.com/firecat53/networkmanager-dmenu.git#tag=v2.7.2
 	b2sums = a1a050778e85325408affc6196ad2b5319ebb7ca70bc4f458d7b5e45c6bebda3b2eda2728b0c6f7f3a6973b6dad48083e30cb555849715c1619f470268760c47
 

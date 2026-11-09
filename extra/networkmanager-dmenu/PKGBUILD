@@ -3,7 +3,7 @@
 
 pkgname=networkmanager-dmenu
 pkgver=2.7.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Control Networkmanager via dmenu'
 arch=(any)
 url="https://github.com/firecat53/$pkgname"
@@ -13,6 +13,15 @@ makedepends=(git)
 optdepends=(
   'nm-connection-editor: for connection manager GUI'
   'libnotify: recieve notifications'
+  'bemenu: menu backend'
+  'dmenu: menu backend'
+  'fuzzel: menu backend'
+  'rofi: menu backend'
+  'wmenu: menu backend'
+  'wofi: menu backend'
+  'bluez-utils: bluetooth toggle'
+  'modemmanager: WWAN support'
+  'pinentry: password prompts'
 )
 source=("git+https://github.com/firecat53/$pkgname.git#tag=v$pkgver")
 b2sums=('a1a050778e85325408affc6196ad2b5319ebb7ca70bc4f458d7b5e45c6bebda3b2eda2728b0c6f7f3a6973b6dad48083e30cb555849715c1619f470268760c47')
