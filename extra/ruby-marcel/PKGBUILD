@@ -2,21 +2,30 @@
 
 _gemname='marcel'
 pkgname="ruby-${_gemname}"
-pkgver=1.2.1
+pkgver=2.1.0
 pkgrel=1
 pkgdesc='Simple mime type detection using magic numbers, filenames, and extensions'
 arch=('any')
 url='https://github.com/rails/marcel'
 license=('Apache' 'MIT')
 options=(!emptydirs)
-depends=('ruby')
-makedepends=('ruby-bundler' 'ruby-rake')
-checkdepends=('ruby-minitest' 'ruby-rack')
+depends=(
+  ruby
+)
+makedepends=(
+  ruby-bundler
+  ruby-rake
+)
+checkdepends=(
+  ruby-minitest
+  ruby-nokogiri
+  ruby-rack
+)
 source=(
   "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
 )
-sha512sums=('146bca723538bbc1079b799bda2fb66f29ac9596574dc80ec3979fb1ed3a303b87728c592a2b73c6d390e7ab9e87f9b7d988ea7c6fdffa7b882e38f62ba3d5a2')
-b2sums=('60a7e29b2c1ae2f4fb272e79fbd707cc6f4f95dc10a3651b12cd97584cca2cb5b3eadc5aa863e0e0eb46888f222292aeda69e2194ef23619b4da738116e61a1d')
+sha512sums=('75cfcd8c7e02c2714e5ed31d8d691635f7d378233a334cce16748d0120d1f1301c4dcd72448a4c90930c101fadefc68fceabb2587b941dddb6d17d651f1850fb')
+b2sums=('ae73af8b82a8909c994aefc0e951db1fb30e38edd9e42641ddf8e88000a59ef7a6cef984986b7a827ad6ba7193f72eb725caf463d1b9fa38a568801961c8c849')
 
 prepare() {
   cd "${_gemname}-${pkgver}"
