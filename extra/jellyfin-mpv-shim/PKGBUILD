@@ -3,29 +3,21 @@
 
 pkgname=jellyfin-mpv-shim
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Cast media from Jellyfin Mobile and Web apps to MPV'
 arch=(any)
 url='https://github.com/jellyfin/jellyfin-mpv-shim'
-license=(MIT)
+license=('GPL-3.0-or-later AND MIT')
 depends=(mpv python hicolor-icon-theme python-mpv python-requests python-mpv-jsonipc python-jellyfin-apiclient python-pillow)
 makedepends=(python-build python-installer python-wheel gettext python-setuptools)
 optdepends=(
   'python-pystray: systray support'
   'mpv-shim-default-shaders: default shader pack'
   'python-pypresence: Discord Rich Presence integration'
+  'python-gobject: MPRIS media controls'
 )
-source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
-  "shaderpack.patch")
-b2sums=('f68f45133e3dc0ebf66e04b9708b65b839b149189c2b2ae4ce49acfdebf9a7e5396bb0da031db6822f230f77ecfcbe5ad8d4c7af663ad418a3e1cb1869593f1c'
-        '268aca6cb4fb7ad1f3aad5e3a13e34f058f1b17539285b6bdae5b001190bbb123ebcca0a85f83a752dd4fd4d0c80846f80cc7213db5a70f6888c2b13faffa3f7')
-
-prepare() {
-  cd jellyfin-mpv-shim-$pkgver
-
-  # remove default-shader-pack from packages
-  patch -p1 <../shaderpack.patch
-}
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+b2sums=('f68f45133e3dc0ebf66e04b9708b65b839b149189c2b2ae4ce49acfdebf9a7e5396bb0da031db6822f230f77ecfcbe5ad8d4c7af663ad418a3e1cb1869593f1c')
 
 build() {
   cd jellyfin-mpv-shim-$pkgver
