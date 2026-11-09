@@ -1,0 +1,28 @@
+pkgbase = python-smpclient
+	pkgdesc = Simple Management Protocol (SMP) client for remotely managing MCU firmware
+	pkgver = 7.3.0
+	pkgrel = 1
+	url = https://github.com/intercreate/smpclient
+	arch = any
+	license = Apache-2.0
+	checkdepends = python-bleak
+	checkdepends = python-pyserial
+	checkdepends = python-pytest
+	checkdepends = python-pytest-asyncio
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-hatch-vcs
+	makedepends = python-hatchling
+	makedepends = python-installer
+	depends = python
+	depends = python-intelhex
+	depends = python-pydantic
+	depends = python-pydantic-core
+	depends = python-smp
+	depends = python-typing_extensions
+	optdepends = python-bleak: Bluetooth LE transport
+	optdepends = python-pyserial: serial transport
+	source = git+https://github.com/intercreate/smpclient.git#tag=7.3.0
+	b2sums = 7cd51250be9dcf1987ea9d64258903fbc7c94ea834a30f237087ffdaa51f779f29f64829904bdbc961a03f3d3ceec4ac09aaa90b183f39179d596c502b4579ae
+
+pkgname = python-smpclient
