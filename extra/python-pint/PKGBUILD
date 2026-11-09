@@ -3,7 +3,7 @@
 
 pkgname=python-pint
 pkgver=0.26.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A unit library for Python"
 arch=('any')
 license=('BSD-3-Clause')
@@ -26,7 +26,6 @@ checkdepends=(
   'python-numpy'
   'python-pytest'
   'python-pytest-benchmark'
-  'python-pytest-subtests'
   'python-uncertainties'
 )
 source=("git+https://github.com/hgrecco/pint.git#tag=$pkgver")
