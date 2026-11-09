@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=liblxqt
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="Common base library for LXQt components"
 arch=("x86_64")
@@ -13,7 +13,7 @@ makedepends=("lxqt-build-tools")
 source=(
   "https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('6627215644eb370723536274555743db52baed919db6ffc32ebc2bdf3cf8ee4a'
+sha256sums=('b5092b82f77d9de123f30d155e0cf8a53e697397f30e5c8f6a55fc115d698447'
             'SKIP')
 validpgpkeys=(
   "169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
