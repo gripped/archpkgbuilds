@@ -1,7 +1,7 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=python-bracex
-pkgver=3.2.1
+pkgver=3.2.2
 pkgrel=1
 pkgdesc='Bash style brace expansion for Python'
 arch=('any')
@@ -9,7 +9,7 @@ url='https://github.com/facelessuser/bracex'
 license=('MIT')
 makedepends=('python-build' 'python-hatchling' 'python-installer' 'python-wheel')
 source=("https://github.com/facelessuser/bracex/archive/${pkgver}/bracex-${pkgver}.tar.gz")
-b2sums=('ee8a89213624e095fb5f2456c19e68a45f8e845260c30b0e28a21cd67f17be1632644902e8747daab56067c09718b8ff199adbdd6f1e1a382700504c8f4cad2e')
+b2sums=('e2835558b47d96994fb0c5283f7520b4264dd90897cfbc2d75b9c78793d5a753c6fd6517d3335382618b5532e06182b334cf18b9f278bfaaa8eb440be6d1477e')
 
 build() {
   cd bracex-${pkgver}
