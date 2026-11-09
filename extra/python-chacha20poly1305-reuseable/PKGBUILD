@@ -4,13 +4,14 @@
 pkgname=python-chacha20poly1305-reuseable
 _name=${pkgname#python-}
 pkgver=0.13.2
-pkgrel=4
+pkgrel=5
 pkgdesc='A reusable version of ChaCha20Poly1305 for use with cryptography and asyncio'
 arch=(any)
 url='https://github.com/bdraco/chacha20poly1305-reuseable'
-license=(Apache-2.0)
+license=('Apache-2.0 OR BSD-3-Clause')
 depends=(python python-cryptography)
 makedepends=(git python-build python-installer python-wheel python-poetry-core)
+checkdepends=(python-pytest)
 source=("git+$url.git#tag=v$pkgver"
         remove-setuptools-dependency.patch)
 b2sums=('78a2f6006ded87ab065183788f717af690164ff05caee46ba552707a5dd56caa4a38b5c2a535c059e9e02826f9844cad80a63b12e3551215a1a83dbd33a17165'
@@ -26,6 +27,12 @@ prepare() {
 build() {
   cd $_name
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_name
+  # upstream addopts enable pytest-cov; test_data_too_large allocates 4 GiB
+  python -m pytest -o addopts= -k 'not test_data_too_large'
 }
 
 package() {
