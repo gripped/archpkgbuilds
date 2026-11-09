@@ -2,18 +2,18 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=git-bug
-pkgver=0.11.0
-pkgrel=2
+pkgver=0.12.0
+pkgrel=1
 pkgdesc='Distributed, offline-first bug tracker embedded in git repositories'
 arch=(x86_64)
 url='https://github.com/MichaelMure/git-bug'
 license=(GPL-3.0-only)
 depends=(glibc git)
-makedepends=(go pnpm)
+makedepends=(go pnpm nodejs)
 options=(!lto)
 source=("git+$url#tag=v$pkgver")
-sha512sums=('8657e47d941599d5999db81b10878c2c48525560c4f8af772f9b4a0667bdaf07de7ef72edc8addb50aaf6838e0f676f00ab8c57e9ee025e06afc68398a5aa6c9')
-b2sums=('ba28e0d29c919c15a069de6fd0c3e377c86e031397ae186fd80b6d8e98ca45a5a8ee1d587a0720ba569f55a3e2d9cbba541903046434a793b265c127f7d0bf3c')
+sha512sums=('b879c4335f282aa6f9f5d651c8fb5f0aaa0495e849a2a0ab1c4246d3169a377456e363fda66277c05802b336a495e2275380baaf9f3bf8c656febc9bd3a25b42')
+b2sums=('7876f0a0f76424c4d4aebe8a33bea1220eda8a171704538b503b6351dc2c1549e64fb4bc6e2ea117664ecd973104a921e9cf5cfd11b81d5f0fd4b08dd35476dd')
 
 prepare() {
   cd "$pkgname"
