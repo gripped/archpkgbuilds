@@ -1,0 +1,13 @@
+diff --git a/spyder/api/plugins/tests.py b/spyder/api/plugins/tests.py
+index 4d06c9f752..0ab38eade5 100644
+--- a/spyder/api/plugins/tests.py
++++ b/spyder/api/plugins/tests.py
+@@ -157,7 +157,7 @@ def register_plugin(main_window_mock):
+ 
+             return register_plugin
+ 
+-        request._fixturemanager._arg2fixturedefs[fixture_name] = [
++        request._fixturemanager._arg2node2fixturedefs[fixture_name] = [
+             _create_fixturedef(
+                 request,
+                 fixture_name,
