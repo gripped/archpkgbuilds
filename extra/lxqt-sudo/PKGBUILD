@@ -1,7 +1,7 @@
 # Maintainer: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=lxqt-sudo
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="LXQt privilege program (lxsu)."
 arch=("x86_64")
@@ -14,7 +14,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('74aaa1663b288144f1398ff29330ce44715a51a8d7210f1672223c6052856eab'
+sha256sums=('589e298b7165354feeeb7401e4595da07409498faa6e4d42697f435acab1cc72'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
