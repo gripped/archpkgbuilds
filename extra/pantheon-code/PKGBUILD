@@ -3,7 +3,7 @@
 
 pkgname=pantheon-code
 pkgver=8.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Text Editor'
 arch=(x86_64)
 url=https://github.com/elementary/code
@@ -11,11 +11,14 @@ license=(GPL-3.0-or-later)
 groups=(pantheon)
 depends=(
   editorconfig-core-c
+  ctags
   dconf
   fontconfig
   glib2
+  glibc
   gtk3
   gtksourceview4
+  hicolor-icon-theme
   libgee
   libgit2-glib
   libgranite.so
