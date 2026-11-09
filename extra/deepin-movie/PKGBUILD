@@ -2,7 +2,7 @@
 
 pkgname=deepin-movie
 epoch=1
-pkgver=6.5.36
+pkgver=6.5.37
 pkgrel=1
 pkgdesc='Movie player based on mpv'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 optdepends=('pulseaudio: automatic audio output switching on Wayland')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-movie-reborn.git#tag=$pkgver")
-sha512sums=('8aa888c8d2b887745d2a167090f7892e941e17b1efcb18ce1be536e1bf038b731de0475f940bb6fae0c100beb21cd947ca976aca264485630e044693c58f332c')
+sha512sums=('56e764631fd860b826f339b6a0b1572d532b00ce529cf4765354d6718445f99d0c40b0392f45b2c5d85d64024b88da0e7507e1389cc85a052ef1fb65b3b71340')
 
 prepare() {
   cd deepin-movie-reborn
