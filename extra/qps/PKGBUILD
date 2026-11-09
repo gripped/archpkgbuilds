@@ -4,7 +4,7 @@
 # Contributor: David Rosenstrauch <darose@darose.net>
 
 pkgname=qps
-pkgver=2.13.0
+pkgver=2.14.0
 pkgrel=1
 pkgdesc="Qt process viewer and manager"
 url="https://github.com/lxqt/qps"
@@ -14,7 +14,7 @@ arch=('x86_64')
 license=("GPL")
 groups=("lxqt")
 source=("https://github.com/lxqt/qps/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
-sha256sums=('d6f236fcafe16611b88c468502665dd5e9c73aa18eae0666e8ca9062ef5a471e'
+sha256sums=('a988317c68c177ffb50ae51c1a1fd099ab8f2361763073e1d9b79770e9eb090f'
             'SKIP')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan.gpg
