@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-runner
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="The LXQt application launcher"
 arch=("x86_64")
@@ -15,7 +15,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('d0441f18922162db5ef6a5a9617aa20b0b437d2ddc76d0542fb32c7fd68f9029'
+sha256sums=('f9c6b9eb9e1f91f6669436e5cf5e1fd5bcfe279eca75c2f9779b9115aad8108c'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
