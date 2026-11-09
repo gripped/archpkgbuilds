@@ -2,25 +2,36 @@
 
 pkgname=python-esphome-glyphsets
 _name=${pkgname#python-}
-pkgver=0.2.0
-pkgrel=4
+pkgver=0.2.1
+pkgrel=1
 pkgdesc='A lightweight version of glyphsets for ESPHome'
 arch=(any)
-url="https://github.com/esphome/$_name"
+url="https://github.com/esphome-libs/$_name"
 license=(Apache-2.0)
 depends=(python)
 makedepends=(python-build python-installer python-wheel python-setuptools git)
-source=("git+$url.git#tag=v$pkgver")
-b2sums=('8b9f1b67d1080c2e0e58da5b8d6d2e099d327dd01cf293c18150c826997753308e9ea17b6bab39bc2f6ffa8b9b3032699d54d98a13762b4a53e865ca7ac93400')
+checkdepends=(python-pytest)
+source=("git+$url.git#tag=v$pkgver"
+        git+https://github.com/googlefonts/glyphsets.git)
+b2sums=('16a0cbda42e57168b44dddbe81d77154426ab17c49dc922f2481e73c670e1b096a56d6fb014a2a106c397b1cd73ffcf32af019d960d72b37df4782c955bcc390'
+        'SKIP')
 
 prepare() {
   cd $_name
-  git submodule update --init
+  git submodule init
+  git config submodule.src/esphome_glyphsets/glyphsets.url "$srcdir/glyphsets"
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
   cd $_name
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_name
+  # upstream addopts enable pytest-cov
+  python -m pytest -o addopts=
 }
 
 package() {
