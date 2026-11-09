@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=qtermwidget
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="A terminal widget for Qt, used by QTerminal"
 arch=("x86_64")
@@ -19,7 +19,7 @@ optdepends=(
 source=(
   "git+https://github.com/lxqt/qtermwidget.git?signed#tag=$pkgver"
 )
-sha256sums=('f38385ca2fd0ed0fd85410619c80933567a3a1ae7eaaafbd244af1436df4c24d')
+sha256sums=('094495dec9724fd1c83bbfa0c315dd30d920ca1dc5f0c3b0c715863d9e34bfba')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan.gpg
   "48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
