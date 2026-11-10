@@ -6,7 +6,7 @@ _pkgname=EasyTier
 pkgbase=easytier
 pkgname=(${pkgbase} ${pkgbase}-core ${pkgbase}-cli ${pkgbase}-web)
 pkgver=2.6.4
-pkgrel=8
+pkgrel=9
 pkgdesc="A simple, decentralized mesh VPN with WireGuard support"
 arch=('x86_64')
 url="https://easytier.cn/"
@@ -53,6 +53,12 @@ prepare() {
 
     # https://github.com/NixOS/nixpkgs/pull/576942
     patch -Np1 -i "${srcdir}/0002-native-tls.patch"
+
+    # openssl 0.9.114 add OpenSSL 4 support
+    # https://github.com/rust-openssl/rust-openssl/releases/tag/openssl-sys-v0.9.114
+    # https://github.com/rust-openssl/rust-openssl/pull/2609
+    cargo update -p openssl-sys --precise 0.9.114
+    cargo update -p openssl --precise 0.10.78
 
     pnpm -r install --frozen-lockfile
 
