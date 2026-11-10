@@ -3,7 +3,7 @@
 
 pkgname=python-aioesphomeapi
 _name=${pkgname#python-}
-pkgver=46.9.0
+pkgver=46.28.0
 pkgrel=1
 pkgdesc='Python Client for ESPHome native API'
 arch=(x86_64)
@@ -22,18 +22,27 @@ depends=(
   python-tzlocal
 )
 makedepends=(python-build python-installer python-wheel python-setuptools git cython)
+checkdepends=(python-pytest python-pytest-asyncio python-pytest-timeout)
 license=(MIT)
 source=(git+$url.git#tag=v$pkgver)
-b2sums=('3e39cf7116eb60395966c44bec39a48582ab6997075008ed801e0a6bd1937c3be732ecc482fb5334b85ad0a6be5d898209095477bf57ce9d53f3496d0cdee5fa')
+b2sums=('30511eb8338a7b5c0346e537274394ff2dea4532e603ad303e9a5709d1f1f5ecb7ee31e248599cf5229994210db3ddb3624159593ac377ec077e49defbb6098a')
 
 prepare() {
   cd $_name
-  sed -i -E 's/[<>=!~;].*//' requirements/base.txt
+  sed -i -E 's/[<>=!~][^;]*//' requirements/base.txt
 }
 
 build() {
   cd $_name
   python -m build --wheel --no-isolation
+}
+
+check() {
+  cd $_name
+  # test the built Cython extensions; the source tree only has the pure-python fallbacks
+  export PYTHONPATH="$(echo "$PWD"/build/lib.*)"
+  python -P -c 'import aioesphomeapi.connection as m; assert m.__file__.endswith(".so"), m.__file__'
+  python -P -m pytest --import-mode=append --timeout=60 --ignore=tests/benchmarks tests
 }
 
 package() {
