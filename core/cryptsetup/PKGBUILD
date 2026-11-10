@@ -3,7 +3,7 @@
 
 pkgname=cryptsetup
 pkgver=2.8.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Userspace setup tool for transparent encryption of block devices using dm-crypt'
 arch=('x86_64')
 license=('GPL-2.0-or-later')
