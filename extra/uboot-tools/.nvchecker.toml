@@ -1,5 +1,7 @@
 [uboot-tools]
-source = "regex"
-url = "https://ftp.denx.de/pub/u-boot/"
-regex = ">u-boot-(.*)\\.tar\\.bz2"
+source = "gitlab"
+gitlab = "u-boot/u-boot"
+host = "git.u-boot-project.org"
+use_max_tag = true
+prefix = 'v'
 exclude_regex = ".*(rc|beta).*"
