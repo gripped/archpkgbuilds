@@ -5,7 +5,7 @@
 
 pkgname=gitui
 pkgver=0.28.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Blazing fast terminal-ui for git written in Rust'
 url='https://github.com/extrawurst/gitui'
 arch=('x86_64')
@@ -22,6 +22,7 @@ sha256sums=('b0d1ce73db914c752176e9e2c60f350a660c008cfc93186a8b36352717a6bd89')
 
 prepare() {
   cd "$pkgname"
+  cargo update -p openssl-sys --precise 0.9.117 # Support OpenSSL 4
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
