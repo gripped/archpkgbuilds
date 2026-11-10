@@ -11,7 +11,7 @@
 
 pkgname=strongswan
 pkgver=6.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Open source IPsec implementation'
 url='https://www.strongswan.org'
 license=('GPL-2.0-only')
