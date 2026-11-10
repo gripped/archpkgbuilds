@@ -6,7 +6,7 @@
 
 pkgname=mapnik
 pkgver=4.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Open source toolkit for developing mapping applications"
 arch=('x86_64')
 url="https://mapnik.org/"
@@ -74,6 +74,8 @@ prepare() {
     deps/mapbox/geometry \
     deps/mapbox/polylabel \
     deps/mapbox/mapnik-vector-tile
+
+  git cherry-pick -n af6f249333ee1c536a9765da9b90347b304b9e43 # Fix build
 }
 
 build() {
