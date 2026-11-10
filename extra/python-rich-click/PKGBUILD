@@ -2,25 +2,18 @@
 
 pkgname=python-rich-click
 _name=${pkgname#python-}
-pkgver=1.9.7
+pkgver=1.9.9
 pkgrel=1
 pkgdesc='Format click help output nicely with rich.'
 arch=(any)
 url='https://github.com/ewels/rich-click'
-depends=(python python-click python-typing_extensions python-rich python-importlib-metadata)
+depends=(python python-click python-rich)
 makedepends=(python-build python-installer python-wheel python-setuptools git)
-checkdepends=(python-pytest python-typer python-inline-snapshot ruff)
+# python-inline-snapshot 0.36.0 imports typing_extensions but doesn't depend on it
+checkdepends=(python-pytest python-typing_extensions python-typer python-inline-snapshot ruff)
 license=(MIT)
-source=(git+$url.git#tag=v$pkgver
-  coverage.patch)
-b2sums=('22bd625411379fd1ee34f19097cc4b2d2cc652aabcf9d8d9b468902827392664f7bb1d52d0daf3403e3a14a2511b61721c31a7b1527f907e8d54b997baf19275'
-        'ce76531f596c44b9da8b5ae0b462a9a41e1003f46a2b8b7141f75ae127e0c285dcf0ae4cc0655381f839c196f8097789e83c6f236c5661d8cf30b20c455329d8')
-
-prepare() {
-  cd $_name
-  # patch pytest command line args for a newer version
-  patch -p1 <../coverage.patch
-}
+source=(git+$url.git#tag=v$pkgver)
+b2sums=('8ddb6506286b8f3ceecda72450fe307b181c94526aa5eab8cd359a68c4b8bc6470c7a4de647588a045e1a5296e9591539585f0fde67aac9a60f0948481287d02')
 
 build() {
   cd $_name
@@ -31,7 +24,11 @@ check() {
   cd $_name
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
-  test-env/bin/python -P -m pytest -k "not test_markdown_help_rich_12 and not test_markdown_help_text_markup_field_rich_12"
+  # upstream addopts enable pytest-cov; rich ignores the configured width when TERM=dumb
+  # typer_help: patching typer>=0.26 fails upstream, https://github.com/ewels/rich-click/issues/330
+  TERM=xterm-256color test-env/bin/python -P -m pytest -o addopts="-s -rP -v --showlocals" \
+    --ignore=tests/typer_help \
+    -k "not test_markdown_help_rich_12 and not test_markdown_help_text_markup_field_rich_12"
 }
 
 package() {
