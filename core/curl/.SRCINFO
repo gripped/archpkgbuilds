@@ -1,10 +1,14 @@
 pkgbase = curl
 	pkgdesc = command line tool and library for transferring data with URLs
 	pkgver = 8.23.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://curl.se/
 	arch = x86_64
 	license = curl
+	checkdepends = openssh
+	checkdepends = perl
+	checkdepends = python
+	checkdepends = stunnel
 	checkdepends = valgrind
 	makedepends = git
 	makedepends = patchelf
