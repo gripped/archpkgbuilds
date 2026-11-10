@@ -2,7 +2,7 @@
 
 pkgname=monero
 pkgver=0.18.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -65,6 +65,8 @@ prepare() {
   git config submodule.external/randomx.url "$srcdir/RandomX"
   git config submodule.external/supercop.url "$srcdir/supercop"
   git -c protocol.file.allow=always submodule update
+
+  git cherry-pick -n 4f73cfea6d37bc1eccab1e395fc526c94cbb99ba # Fix build with OpenSSL 4
 
   patch -Np1 -i ../fortify-source.patch
   sed -e 's|std=c++11|std=c++17|g' -i contrib/depends/protobuf.mk
