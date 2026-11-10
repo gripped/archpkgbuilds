@@ -2,7 +2,7 @@
 # Co-Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-openssh-askpass
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="LXQt openssh password prompt"
 arch=("x86_64")
@@ -15,7 +15,7 @@ makedepends=("cmake" "lxqt-build-tools")
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('1a4d5c9c9450cc08cacd1646fc55dc9c78c297ab1fbae49b8047df78665b5c55'
+sha256sums=('294a20ea148b4c4c6aff9b6cd7b563d7d2ec0d2fa6c2bc18129b4793f86c8c0f'
             'SKIP')
 validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
