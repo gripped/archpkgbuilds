@@ -13,7 +13,7 @@ pkgname=(
  dotnet-source-built-artifacts-8.0
 )
 pkgver=8.0.33.sdk133
-pkgrel=1
+pkgrel=2
 arch=(x86_64)
 url=https://dotnet.microsoft.com
 license=(MIT)
@@ -33,7 +33,7 @@ makedepends=(
   llvm20
   lttng-ust2.12
   nodejs
-  openssl
+  openssl-3
   systemd
   zlib
 )
@@ -76,6 +76,9 @@ build() {
   export VERBOSE=1
   export OPENSSL_ENABLE_SHA1_SIGNATURES=1
 
+  # Use OpenSSL 3 headers and libraries alongside the system OpenSSL.
+  export PKG_CONFIG_PATH="/usr/lib/openssl-3/pkgconfig${PKG_CONFIG_PATH:+:$PKG_CONFIG_PATH}"
+
   # .NET crashes when compiled with clang 21.1 on Fedora 43 #119706
   # https://github.com/dotnet/runtime/issues/119706
   export PATH="/usr/lib/llvm20/bin:$PATH"
@@ -107,7 +110,7 @@ package_dotnet-runtime-8.0() {
     libstdc++
     libunwind
     zlib
-    openssl
+    openssl-3
   )
   optdepends=('lttng-ust2.12: CoreCLR tracing')
   provides=(dotnet-runtime=${pkgver%.*.sdk*})
