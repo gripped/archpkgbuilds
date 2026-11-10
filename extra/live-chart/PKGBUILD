@@ -1,0 +1,35 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=live-chart
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='A real-time charting library for Vala and GTK4 based on Cairo'
+arch=(x86_64)
+url=https://github.com/elementary/monitor
+license=(MIT)
+groups=(pantheon)
+depends=(
+  cairo
+  glib2
+  glibc
+  gtk4
+  libgee
+)
+makedepends=(
+  git
+  meson
+  vala
+  xorg-server-xvfb
+)
+source=(git+https://github.com/elementary/live-chart.git#tag=${pkgver})
+b2sums=('87002d6b25135be36eb79686a7febf31eccd2397d798d4a9ad3217f63e8e5f86d820fb4150a880fbe4681bae6279e3559af9ab21127a582583c943d4fd3b781a')
+
+build() {
+  arch-meson live-chart build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "${pkgdir}"
+  install -Dm644 -t "${pkgdir}/usr/share/licenses/${pkgname}" live-chart/LICENSE
+}
