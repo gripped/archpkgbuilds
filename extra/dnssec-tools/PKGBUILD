@@ -4,7 +4,7 @@
 
 pkgname=dnssec-tools
 pkgver=2.2.3
-pkgrel=16
+pkgrel=17
 pkgdesc="libval & dnssec management tools"
 arch=('x86_64')
 url="http://www.dnssec-tools.org"
@@ -17,14 +17,23 @@ optdepends=('perl-tk: for GUI components'
             'perl-graphviz: for GUI components')
 options=('!emptydirs')
 source=(https://github.com/DNSSEC-Tools/DNSSEC-Tools/archive/dnssec-tools-$pkgver.tar.gz
-        makefile-dependency.patch)
+        makefile-dependency.patch
+        "dnssec-tools-openssl-compat.patch::https://github.com/DNSSEC-Tools/DNSSEC-Tools/commit/20555635939bca29c12f0786cb2cf5537aa1ec24.patch"
+        "dnssec-tools-openssl-4.patch::https://github.com/DNSSEC-Tools/DNSSEC-Tools/commit/c837fe714f7c930f29d433cdecbd6739d8df0fc1.patch")
 sha256sums=('bc4286beff38c6d951137753b40fb3bd98a2d62d73be094b9ce062dec7b5bcb5'
-            'fb23565ff9afabf85dc812ab500a3652add4537e9519a49214e329de3d2171f9')
+            'fb23565ff9afabf85dc812ab500a3652add4537e9519a49214e329de3d2171f9'
+            '41d2990a346c8117b66065a030133057b43755f323e13e3d0bbdbdde23b5e567'
+            'cf09fa4964a1f796dd720481d432205dcf2a782dc3d597443b86fe2fd7a83803')
 install="dnssec-tools.install"
 
 prepare() {
+  cd DNSSEC-Tools-dnssec-tools-$pkgver
+  # Detect removed OpenSSL functions before applying the OpenSSL 4 fixes.
+  patch -Np1 -i "$srcdir/dnssec-tools-openssl-compat.patch"
+  patch -Np1 -i "$srcdir/dnssec-tools-openssl-4.patch"
+
+  cd dnssec-tools
   # patch for race condition with -j 2+
-  cd DNSSEC-Tools-dnssec-tools-$pkgver/dnssec-tools
   patch -p0 -i "$srcdir/makefile-dependency.patch"
 
   sed -e '/^maninstall:/,+3s:$(MKPATH) $(mandir)/$(man1dir):$(MKPATH) $(DESTDIR)/$(mandir)/$(man1dir):' \
