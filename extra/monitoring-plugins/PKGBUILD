@@ -10,7 +10,7 @@
 
 pkgname=monitoring-plugins
 pkgver=3.0.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Plugins for Icinga, Naemon, Nagios, Shinken, Sensu and other monitoring applications"
 arch=('x86_64')
 url="https://github.com/monitoring-plugins/monitoring-plugins/"
@@ -53,8 +53,16 @@ provides=('nagios-plugins')
 conflicts=('nagios-plugins')
 replaces=('nagios-plugins')
 install=${pkgname}.install
-source=("https://www.monitoring-plugins.org/download/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('a1df32ef4791defd5418907b54be1549c81598fd02e339c4595d2d26107b3280')
+source=("https://www.monitoring-plugins.org/download/${pkgname}-${pkgver}.tar.gz"
+         openssl-4.patch)
+sha256sums=('a1df32ef4791defd5418907b54be1549c81598fd02e339c4595d2d26107b3280'
+            'f9af27fa35b71af62335bdeeb3f37d09b6a227c2a7bbc65491737ba8d651b119')
+
+prepare() {
+	cd $pkgname-$pkgver
+	# Fix build with openssl 4
+	patch -p1 -i ../openssl-4.patch
+}
 
 build() {
 	cd ${pkgname}-${pkgver}
