@@ -2,7 +2,7 @@
 
 pkgname=kwaak
 pkgver=0.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Run a team of autonomous AI agents from your terminal"
 arch=('x86_64')
 url="https://github.com/bosun-ai/kwaak"
@@ -21,6 +21,9 @@ options=('!lto')
 
 prepare() {
   cd "$pkgname-$pkgver"
+  # support OpenSSL 4
+  cargo update -p openssl-sys --precise 0.9.117 
+  cargo update -p openssl --precise 0.10.81 
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
