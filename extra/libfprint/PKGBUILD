@@ -4,7 +4,7 @@
 
 pkgname=libfprint
 pkgver=1.94.100
-pkgrel=1
+pkgrel=2
 pkgdesc="Library for fingerprint readers"
 url="https://fprint.freedesktop.org/"
 arch=(x86_64)
