@@ -4,14 +4,14 @@
 
 pkgname=sslscan
 pkgver=2.2.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Fast tool to scan SSL services such as HTTPS to determine supported ciphers"
 url="https://github.com/rbsec/sslscan"
 arch=(x86_64)
 license=(GPL-3.0-or-later)
 depends=(
   glibc
-  openssl
+  openssl-3
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
 sha512sums=('45818c0b1a3d559ba4eb03156d67f4d3746ca18b072f10ef838b74e20de1cd7ff30ba1bf1c2db73f57d8bbd30ffbbce05076f554168b5f9dc71c5f6874e3a581')
@@ -27,7 +27,10 @@ prepare() {
 
 build() {
   cd "$pkgname-$pkgver"
-  make
+  # OpenSSL 4 removed TLS methods and ASN.1 fields used by sslscan.
+  # https://github.com/rbsec/sslscan/issues/361
+  CFLAGS="$CFLAGS -I/usr/include/openssl-3" \
+    LDFLAGS="$LDFLAGS -L/usr/lib/openssl-3" make
 }
 
 package() {
