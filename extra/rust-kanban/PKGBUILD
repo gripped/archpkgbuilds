@@ -2,7 +2,7 @@
 
 pkgname=rust-kanban
 pkgver=0.10.5
-pkgrel=1
+pkgrel=2
 pkgdesc='A kanban board for the terminal'
 arch=('x86_64')
 url='https://github.com/yashs662/rust_kanban'
@@ -17,6 +17,8 @@ sha512sums=('a14031a8cf3ac8985df26be290ac0334dd4485a4c5219ba49f651f2ef049f91420a
 
 prepare() {
   cd "${pkgname/-/_}-${pkgver}"
+  # Update the locked bindings for OpenSSL 4: https://github.com/yashs662/rust_kanban/issues/26
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
