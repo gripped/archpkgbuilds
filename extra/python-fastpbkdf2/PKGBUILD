@@ -3,7 +3,7 @@
 
 pkgname=python-fastpbkdf2
 pkgver=0.2
-pkgrel=15
+pkgrel=16
 pkgdesc="A faster implementation of PBKDF2"
 arch=('x86_64')
 license=('Apache-2.0')
