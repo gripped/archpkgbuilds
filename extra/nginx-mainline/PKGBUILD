@@ -17,7 +17,7 @@ pkgname=(
   nginx-mainline-src
 )
 pkgver=1.31.8
-pkgrel=1
+pkgrel=2
 _tests_commit=ff61b0ffdb77c4279be2aab1529a5ad06bfcc119
 arch=(x86_64)
 pkgdesc='Lightweight HTTP server and IMAP/POP3 proxy server, mainline release'
@@ -79,6 +79,20 @@ prepare() {
   # the tests are still passing correctly with perl-io-socket-ssl-2.089
   cd nginx-tests
   patch -p1 -i ../perl-io-socket-ssl-2.094-tests-fix.patch
+
+  # OpenSSL 4.1 no longer falls back to the subject CN for hostname checks; give the CN-only test
+  # certificates a matching DNS SAN.
+  sed -i '/openssl\.2\.example\.com\.conf/,/^EOF/{
+    s/^encrypt_key = no$/&\nx509_extensions = v3_req/
+    s/^commonName=2\.example\.com$/&\n\n[ v3_req ]\nsubjectAltName = DNS:2.example.com/
+  }' proxy_ssl_verify.t stream_proxy_ssl_verify.t
+  grep -q 'subjectAltName = DNS:2.example.com' proxy_ssl_verify.t stream_proxy_ssl_verify.t
+  sed -i 's/^default_days = 1$/&\ncopy_extensions = copy/' \
+    proxy_ssl_crl.t ssl_cache.t
+  grep -q 'copy_extensions = copy' proxy_ssl_crl.t ssl_cache.t
+  sed -i 's|-config \$d/openssl\.conf -subj /CN=\$name/ "|-config $d/openssl.conf -subj /CN=$name/ -addext subjectAltName=DNS:$name "|' \
+    grpc_ssl.t proxy_ssl_crl.t ssl_cache.t
+  grep -q 'addext subjectAltName' grpc_ssl.t proxy_ssl_crl.t ssl_cache.t
 }
 
 build() {
