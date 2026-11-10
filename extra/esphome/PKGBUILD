@@ -2,7 +2,7 @@
 # Contributor: sgar < swhaat at github >
 
 pkgname=esphome
-pkgver=2026.9.1
+pkgver=2026.10.2
 pkgrel=1
 pkgdesc='Solution for your ESP8266/ESP32 projects with Home Assistant'
 url='https://github.com/esphome/ESPHome'
@@ -11,8 +11,6 @@ depends=(
   python-voluptuous
   python-yaml
   python-paho-mqtt
-  python-icmplib
-  python-tornado
   python-tzlocal
   python-tzdata
   python-pyserial
@@ -21,34 +19,39 @@ depends=(
   python-click
   python-aioesphomeapi
   python-zeroconf
-  python-magic
   python-ruamel-yaml
-  python-kconfiglib
   python-pyparsing
   python-argcomplete
   python-pillow
-  python-cairosvg
   python-requests
   python-colorama
-  python-packaging
   python-cryptography
   python-puremagic
   python-freetype-py
   python-esphome-glyphsets
   python-jinja
+  python-filelock
+  ninja
+  python-py7zr
+  python-platformdirs
+  python-aiohappyeyeballs
 )
 makedepends=(python-build python-installer python-wheel)
-optdepends=('python-esphome-dashboard: ESPHome dashboard')
+optdepends=(
+  'python-bleak: nRF52 BLE logger and OTA'
+  'python-resvg_py: SVG images'
+  'python-smpclient: nRF52 OTA'
+)
 license=('MIT AND GPL-3.0-only')
 arch=(any)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-b2sums=('2c7b8fd0bf7dd4e66151e9f31e214d3c2e59dd2c895ed5789da54e0b92cd1778ec170e2efeaf3d476f729b076acb49f6cc97132c99d7a9a1c622d3c2071b57f0')
+b2sums=('eaeba065545fecd852045083790bd736d56a12c207493a91c7784cdae7adc5e78faf7a3ec4a9054271c3d7a46370c01edcfac69488384683fdd5c82718244164')
 
 prepare() {
   cd $pkgname-$pkgver
 
-  # relax requirements
-  sed -i 's/==.*//' requirements.txt
+  # relax requirements; strip comments first since some contain ';', keep environment markers
+  sed -i -e 's/[[:space:]]*#.*//' -e 's/[[:space:]]*==[^;]*//' requirements.txt
   sed -i 's/setuptools==[0-9.]\+/setuptools/' pyproject.toml
   sed -i 's/wheel>=[0-9.]\+,<[0-9.]\+/wheel/' pyproject.toml
 }
