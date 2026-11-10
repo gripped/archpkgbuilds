@@ -8,7 +8,7 @@
 
 pkgname=nvme-cli
 pkgver=3.2
-pkgrel=1
+pkgrel=2
 pkgdesc="NVM-Express user space tooling for Linux"
 arch=('x86_64')
 url="https://github.com/linux-nvme/nvme-cli"
