@@ -2,3 +2,6 @@
 source = "git"
 git = "https://salsa.debian.org/clint/fakeroot"
 prefix = "upstream/"
+# Pin to that exact version, every release after that is fundamentally
+# broken, for one reason or another!
+include_regex = 'upstream/1\.37\.2'
