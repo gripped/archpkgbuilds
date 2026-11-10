@@ -2,7 +2,7 @@
 
 pkgname=sslsplit
 pkgver=0.5.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Tool for man-in-the-middle attacks against SSL/TLS encrypted network connections'
 url='https://www.roe.ch/SSLsplit'
 arch=('x86_64')
@@ -11,13 +11,16 @@ depends=('glibc' 'libevent' 'openssl' 'libpcap' 'libpcap.so' 'libnet')
 checkdepends=('check')
 backup=(etc/sslsplit/sslsplit.conf)
 source=(https://mirror.roe.ch/rel/${pkgname}/${pkgname}-${pkgver}.tar.bz2{,.asc}
-        sslsplit-0.5.5-openssl3.patch::https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch)
+        sslsplit-0.5.5-openssl3.patch::https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522.patch
+        sslsplit-0.5.5-openssl4.patch::https://sources.debian.org/data/main/s/sslsplit/0.5.5-3/debian/patches/0004-Compatibility-with-OpenSSL-4.patch)
 sha512sums=('1d4968382659e975cd59692f3de80d79831a7842c9b909bb3cefedb5e2928254394e0f593c3409e3d5b1d0b192d8f8123ae10b08cecfd65584d790437d9f3d2a'
             'SKIP'
-            'dda08637cbe7746a13e88bd28b445958a8b60b129fa3c863429e2c5f3af3714e8f492def1a5468a8e4f52386e3a859190bf50ca65eff6514fb5a2c66047d2ba2')
+            'dda08637cbe7746a13e88bd28b445958a8b60b129fa3c863429e2c5f3af3714e8f492def1a5468a8e4f52386e3a859190bf50ca65eff6514fb5a2c66047d2ba2'
+            'fe18963bf07181300470e2873759888572f90749f39a808494f7f14dd2d3c3ac5dad5c1442f64672950a52ffa100ba56e34c9cce22bf78fb84672792c22e5888')
 b2sums=('c856fb85f2e2dcfdbf354a0d5f8946f836f5bfad6f1eb3d2bd0f01781a23bdbc75337c9c9dfbff53498fc632aa2f758ba5092c37a9b8f84f87d49e65c906751b'
         'SKIP'
-        'd28384de724ba0c52eacb3c93235333286c536fdd79e9b19262217856c564f7eb74b36fa3e0507036c839eb55f868d4c57af4bf3fc0f333e337f3cfea292137a')
+        'd28384de724ba0c52eacb3c93235333286c536fdd79e9b19262217856c564f7eb74b36fa3e0507036c839eb55f868d4c57af4bf3fc0f333e337f3cfea292137a'
+        '8f88ccf0456de39acce0cc438834217b703fe70c99ebcd1724f307af469a00b7dfaaec78f470fc33d6737fa29fee09242bd340b02985932b47fbef7a95d1b678')
 validpgpkeys=(
   'BFF9C7D7EA0EAC7F1AA55B3EFABE3324B5D3397E' # Daniel Roethlisberger <daniel@roe.ch>
   '0C8B798526D8F3210E561548E1520675375F5E35' # Daniel Roethlisberger <daniel@roe.ch>
@@ -26,6 +29,9 @@ validpgpkeys=(
 prepare() {
   cd ${pkgname}-${pkgver}
   patch -Np1 -i ../sslsplit-0.5.5-openssl3.patch
+  # Use accessors for ASN.1 strings, which are opaque in OpenSSL 4.
+  # https://github.com/droe/sslsplit/issues/343
+  patch -Np1 -i ../sslsplit-0.5.5-openssl4.patch
   sed 's|\.conf\.sample|.conf|' -i GNUmakefile
 }
 
