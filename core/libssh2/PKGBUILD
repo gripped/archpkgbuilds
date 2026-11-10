@@ -8,7 +8,7 @@
 
 pkgname=libssh2
 pkgver=1.11.1
-pkgrel=7
+pkgrel=8
 pkgdesc="A library implementing the SSH2 protocol as defined by Internet Drafts"
 url="https://www.libssh2.org/"
 arch=('x86_64')
