@@ -19,7 +19,7 @@ pkgname=(
   rust-aarch64-musl
 )
 pkgver=1.99.1
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc="Systems programming language focused on safety, speed and concurrency"
 url=https://www.rust-lang.org/
