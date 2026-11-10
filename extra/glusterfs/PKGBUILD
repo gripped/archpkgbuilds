@@ -7,11 +7,11 @@ pkgname=glusterfs
 epoch=1
 pkgver=11.2
 _major=${pkgver%%.*}
-pkgrel=2
+pkgrel=3
 pkgdesc='a cluster file-system capable of scaling to several peta-bytes.'
 arch=(x86_64)
 url='https://www.gluster.org/'
-license=(GPL2 LGPL3)
+license=('GPL-2.0-only' 'LGPL-3.0-or-later')
 install=glusterfs.install
 backup=('etc/glusterfs/glusterd.vol'
         'etc/glusterfs/eventsconfig.json'
