@@ -9,7 +9,7 @@ pkgname=(
   postgresql-docs
 )
 pkgver=18.6
-pkgrel=4
+pkgrel=5
 pkgdesc="Sophisticated object-relational DBMS"
 url="https://www.postgresql.org/"
 arch=(x86_64)
