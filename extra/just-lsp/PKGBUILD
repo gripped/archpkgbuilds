@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=just-lsp
-pkgver=0.11.0
+pkgver=0.11.1
 pkgrel=1
 pkgdesc="A language server for just"
 arch=(x86_64)
@@ -13,8 +13,8 @@ depends=(glibc # libc.so libm.so
 makedepends=(cargo)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/refs/tags/$pkgver/$_archive.tar.gz")
-sha512sums=('265fdd722e77269f8037291a14a8f68ea9dc3c2890cca41c8ea21d1e3244ec4f4c26a8533a899a2fc9facba5f7d59661666fb2fb00bd55c7a847c28fa919900f')
-b2sums=('509d2eb3d2e2d2dcd2a97d6225c6b5ca80e6e945569330097fe755c06672a6ce8bb7f116c162614dbd56b2a1ce1ee4184feab7431fe9d0e96f22360a98cab9ab')
+sha512sums=('732a9459d70b57a403a8099cf2ab1c626deba1bef09fccee146bf209a953b2c8eb14a492683f740ba6f3ac41f4548222dbfce36fb18f94c56161067b69e681e2')
+b2sums=('11f50e1a16b049fc1139ac4381f5b9548756c5ce9ea4a22e8812d370f028fb2453fd975c91c6726b75f02b62dd3f1f59e306d03534502220a7144ad0e903af5a')
 
 _srcenv() {
   cd "$_archive"
