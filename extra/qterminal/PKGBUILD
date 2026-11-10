@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=qterminal
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="A lightweight Qt-based terminal emulator"
 arch=("x86_64")
@@ -15,7 +15,7 @@ makedepends=("git" "cmake" "lxqt-build-tools")
 source=(
   "git+https://github.com/lxqt/qterminal.git?signed#tag=$pkgver"
 )
-sha256sums=('dfef29f296a1db92cdadf6f0e2cf4d3133fe520324abdeabecbe4cff3b34710b')
+sha256sums=('94871925b951ea7a12498052c1bb0751302841c366d506b77fca91c4f9be1113')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan.gpg
   "48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
