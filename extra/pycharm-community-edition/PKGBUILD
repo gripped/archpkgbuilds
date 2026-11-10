@@ -6,8 +6,8 @@
 # Contributor: Matthias Mailänder <matthias@mailaender.name>
 
 pkgname=pycharm-community-edition
-pkgver=2026.2.3
-_build=262.10968.92
+pkgver=2026.3
+_build=263.7307.206
 _jrever=21
 _jdkver=21
 pkgrel=1
@@ -31,6 +31,7 @@ makedepends=(
   git
   "java-environment-openjdk=${_jdkver}"
   python-setuptools
+  procps-ng
 )
 source=(
   "git+https://github.com/JetBrains/intellij-community.git#tag=pycharm/${_build}"
@@ -38,8 +39,8 @@ source=(
   pycharm.desktop
   pycharm.sh
 )
-sha256sums=('81c44ef0279fc0adceb29d2ed78c26f99eebd94b186b516e260064b04314fe9f'
-            'c4cdf18a7c4e423d0a4bc5b757ede8cec74eaf8553940b40605624a5c91e6feb'
+sha256sums=('b2882e13ac7daa797f5e0235bb42a6f23b3943653ff408129da55f6cd22b1759'
+            '80642c61db580608aeec23e4809f2d1f5b0dffdde37c482096307c57efdbc904'
             'f30d0a828cfd723e9fe879080343b0e8132ce061014c645b340aacb0ffafa2b6'
             '0dbec010e5c5412ba1f1fd8fc07fcfe373ad174cd54537d125643ef5ef51c8f7')
 
