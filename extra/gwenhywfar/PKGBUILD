@@ -11,7 +11,7 @@ pkgname=(
   gwenhywfar-qt
 )
 pkgver=5.14.1
-pkgrel=3
+pkgrel=4
 pkgdesc="OS abstraction functions for various projects"
 arch=('x86_64')
 url="https://www.aquamaniac.de/rdm"
@@ -30,13 +30,21 @@ makedepends=(
 source=(
   "$url/attachments/download/630/$pkgbase-$pkgver.tar.gz"
   "$url/attachments/download/629/$pkgbase-$pkgver.tar.gz.asc"
+  "gwenhywfar-5.14.1-gcc-16.patch"
 )
 b2sums=('9bea5f80099f0a3ad964e81a48f5d56ea535dbefdb57355965337251c539466704d0f0b7af1f57a691142ba79e72e6301dbdde4242d30803b4af72323d7207c8'
-        'SKIP')
+        'SKIP'
+        'f34d2d0eb60b2cd107e699ee2babfba93eb8b75a273bcdc60863f038136f072c6c90f47fefcfae1aa89ed9cc03c8bc60864c3a10a48865ce56b13328d93e2c9a')
 validpgpkeys=(42400AF5EB2A17F0A69BB551E9899D784A977416) # AqBanking Package Key <packages@aqbanking.de>
+
+prepare() {
+  cd $pkgbase-$pkgver
+  patch -Np1 -i ../gwenhywfar-5.14.1-gcc-16.patch
+}
 
 build() {
   cd $pkgbase-$pkgver
+  autoreconf -fiv
   GPGRT_CONFIG="/usr/bin/gpgrt-config" PATH="/usr/lib/qt6/bin:$PATH" \
     ./configure --prefix=/usr \
     --sysconfdir=/etc \

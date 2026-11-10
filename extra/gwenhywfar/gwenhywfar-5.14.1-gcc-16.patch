@@ -1,0 +1,20 @@
+diff --git a/m4/ax_have_qt.m4 b/m4/ax_have_qt.m4
+index 559cbfc..b17915c 100644
+--- a/m4/ax_have_qt.m4
++++ b/m4/ax_have_qt.m4
+@@ -213,6 +213,7 @@ EOF
+   AC_SUBST(QT_DIR)
+   AC_SUBST(QT_LIBS)
+   AC_SUBST(QT_MAJOR_VERSION)
++  AC_LANG_PUSH([C++])
+ 
+   #### Being paranoid:
+   if test x"$have_qt" = xyes; then
+@@ -279,6 +280,7 @@ EOF
+       fi
+     ])dnl AC_CACHE_VAL ax_cv_qt_test_result
+     AC_MSG_RESULT([$ax_cv_qt_test_result])
++    AC_LANG_POP([C++])
+     if test x"$ax_cv_qt_test_result" = "xfailure"; then
+       AC_MSG_ERROR([Failed to find matching components of a complete
+                   Qt installation. Try using more options,
