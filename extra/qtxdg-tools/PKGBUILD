@@ -1,7 +1,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=qtxdg-tools
-pkgver=4.4.0
+pkgver=4.5.0
 pkgrel=1
 pkgdesc="libqtxdg user tools"
 arch=("x86_64")
@@ -10,7 +10,7 @@ license=("LGPL2.1")
 depends=("qt6-base" "libqtxdg")
 makedepends=("cmake" "qt6-tools" "lxqt-build-tools")
 source=("https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
-sha256sums=('f21ba4308eac0effd417d910cc4916df7b6202aaeee777b51bb120f7abc6c5ac'
+sha256sums=('4532035802a8b08d5475ed8b054e417366327e85f43dd3c1bf1ab1864e422701'
             'SKIP')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
