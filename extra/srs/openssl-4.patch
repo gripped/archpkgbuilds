@@ -1,0 +1,70 @@
+Subject: [PATCH] Use generic TLS methods with explicit protocol bounds
+
+OpenSSL 4 removes the version-specific TLSv1_2_method and DTLSv1_*_method
+entry points. Use the generic methods and set both protocol bounds to
+preserve TLS 1.2 for HTTPS and DTLS 1.0 when explicitly requested.
+
+Keep the existing version-flexible behavior for the other DTLS settings
+and the legacy method calls for OpenSSL older than 1.1.0, which lacks the
+protocol-bound setters.
+
+diff --git a/trunk/src/app/srs_app_conn.cpp b/trunk/src/app/srs_app_conn.cpp
+index 34b0a1244..6ad6d7209 100644
+--- a/trunk/src/app/srs_app_conn.cpp
++++ b/trunk/src/app/srs_app_conn.cpp
+@@ -718,7 +718,11 @@ srs_error_t SrsSslConnection::handshake(string key_file, string crt_file)
+     srs_error_t err = srs_success;
+ 
+     // For HTTPS, try to connect over security transport.
+-#if (OPENSSL_VERSION_NUMBER < 0x10002000L) // v1.0.2
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L // v1.1.0
++    ssl_ctx = SSL_CTX_new(TLS_method());
++    srs_assert(SSL_CTX_set_min_proto_version(ssl_ctx, TLS1_2_VERSION) == 1);
++    srs_assert(SSL_CTX_set_max_proto_version(ssl_ctx, TLS1_2_VERSION) == 1);
++#elif (OPENSSL_VERSION_NUMBER < 0x10002000L) // v1.0.2
+     ssl_ctx = SSL_CTX_new(TLS_method());
+ #else
+     ssl_ctx = SSL_CTX_new(TLSv1_2_method());
+diff --git a/trunk/src/app/srs_app_rtc_dtls.cpp b/trunk/src/app/srs_app_rtc_dtls.cpp
+index 2ff8b146b..7d790d932 100644
+--- a/trunk/src/app/srs_app_rtc_dtls.cpp
++++ b/trunk/src/app/srs_app_rtc_dtls.cpp
+@@ -117,11 +117,21 @@ SSL_CTX* srs_build_dtls_ctx(SrsDtlsVersion version, std::string role)
+     dtls_ctx = SSL_CTX_new(DTLSv1_method());
+ #else
+     if (version == SrsDtlsVersion1_0) {
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L // v1.1.0
++        if (role == "active") {
++            dtls_ctx = SSL_CTX_new(DTLS_client_method());
++        } else {
++            dtls_ctx = SSL_CTX_new(DTLS_server_method());
++        }
++        srs_assert(SSL_CTX_set_min_proto_version(dtls_ctx, DTLS1_VERSION) == 1);
++        srs_assert(SSL_CTX_set_max_proto_version(dtls_ctx, DTLS1_VERSION) == 1);
++#else
+         if (role == "active") {
+             dtls_ctx = SSL_CTX_new(DTLSv1_client_method());
+         } else {
+             dtls_ctx = SSL_CTX_new(DTLSv1_server_method());
+         }
++#endif
+     } else if (version == SrsDtlsVersion1_2) {
+         if (role == "active") {
+             dtls_ctx = SSL_CTX_new(DTLS_client_method());
+diff --git a/trunk/src/protocol/srs_protocol_http_client.cpp b/trunk/src/protocol/srs_protocol_http_client.cpp
+index 2607b1a90..e1c503739 100644
+--- a/trunk/src/protocol/srs_protocol_http_client.cpp
++++ b/trunk/src/protocol/srs_protocol_http_client.cpp
+@@ -61,7 +61,11 @@ srs_error_t SrsSslClient::handshake(const std::string& host)
+     srs_error_t err = srs_success;
+ 
+     // For HTTPS, try to connect over security transport.
+-#if (OPENSSL_VERSION_NUMBER < 0x10002000L) // v1.0.2
++#if OPENSSL_VERSION_NUMBER >= 0x10100000L // v1.1.0
++    ssl_ctx = SSL_CTX_new(TLS_method());
++    srs_assert(SSL_CTX_set_min_proto_version(ssl_ctx, TLS1_2_VERSION) == 1);
++    srs_assert(SSL_CTX_set_max_proto_version(ssl_ctx, TLS1_2_VERSION) == 1);
++#elif (OPENSSL_VERSION_NUMBER < 0x10002000L) // v1.0.2
+     ssl_ctx = SSL_CTX_new(TLS_method());
+ #else
+     ssl_ctx = SSL_CTX_new(TLSv1_2_method());

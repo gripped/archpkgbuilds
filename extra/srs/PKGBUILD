@@ -4,7 +4,7 @@
 
 pkgname=srs
 pkgver=6.0_r2
-pkgrel=1
+pkgrel=2
 pkgdesc="High performance realtime media server"
 arch=('x86_64')
 url="https://github.com/ossrs/srs"
@@ -27,10 +27,19 @@ backup=(etc/srs/srs.conf)
 options=('docs')
 source=("git+https://github.com/ossrs/srs/#tag=v${pkgver/_/-}"
         "srs.conf"
-        "srs.service")
+        "srs.service"
+        "openssl-4.patch")
 sha256sums=('b7b5e96044b8a4878f0ab8216d0ee92378e47ddc80ddd2358f334b5b84e8be66'
             '1d806a8f0d8706e77ec3bf84c9953a76c0bda7003db94a0522784feb77f5774c'
-            '6d1398a3c8919f957eeeef0c254958bd222c00df0598ca3032b873a66142a36f')
+            '6d1398a3c8919f957eeeef0c254958bd222c00df0598ca3032b873a66142a36f'
+            '4a1cdb1b823b8247e0cbab871841c640728657a8b32d83008ca965270575451f')
+
+prepare() {
+  cd "${srcdir}"/srs
+
+  # Replace methods removed in OpenSSL 4 while preserving TLS/DTLS version bounds.
+  patch -Np1 -i ../openssl-4.patch
+}
 
 build() {
   cd "${srcdir}"/srs/trunk
