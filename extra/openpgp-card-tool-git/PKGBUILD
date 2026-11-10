@@ -2,7 +2,7 @@
 
 pkgname=openpgp-card-tool-git
 pkgver=0.1.8
-pkgrel=1
+pkgrel=2
 pkgdesc="A simple tool for Git signing and verification with a focus on OpenPGP cards"
 arch=(x86_64)
 url="https://codeberg.org/openpgp-card/oct-git"
@@ -22,8 +22,8 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz
 )
-sha512sums=('d7b7d88516e705c71ffe9694f07ea3adfc237d303c30289781c745464b558b6c7e720483a21fbfdf30bed1c13e841fe1c6a29f7c8a03aed0fc732bb4aad9347b')
-b2sums=('dd12ab00acba67ef10d3f6e88fcf7c0ae577e71b38f2c057dfba03b79399228b14507b6e751d6f0613b098bdbab3ba0b0cabd4bb43a4701f122150d15e1ac0fe')
+sha512sums=('14e802632a21634b16918c710ae2421a2f8eed9492818a5b14182cc18f9b6ec0ae56660625ed2102371f76e802ef7f6e0eb00008a690c8bcfb4f5da9ec3c02e1')
+b2sums=('78b7fe2f549c33a1900596f9c5de8b7bb3799c865f0811fca2f7681c03501b6d9f4f3ed5e68331c522531cfa54eabe546d31d65eeb0aaf5c6c317ba0d2397624')
 
 prepare() {
   cd $_name
