@@ -7,7 +7,7 @@
 
 pkgname=iperf3
 pkgver=3.22
-pkgrel=1
+pkgrel=2
 pkgdesc='TCP, UDP, and SCTP network bandwidth measurement tool'
 url='https://github.com/esnet/iperf'
 arch=(x86_64)
