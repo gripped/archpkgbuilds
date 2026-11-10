@@ -3,7 +3,7 @@
 
 pkgname=wf-shell
 pkgver=0.11.0
-pkgrel=1
+pkgrel=2
 pkgdesc='GTK-based panel for Wayfire'
 arch=(x86_64)
 url='https://github.com/WayfireWM/wf-shell'
