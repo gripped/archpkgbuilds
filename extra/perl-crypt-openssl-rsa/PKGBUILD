@@ -3,7 +3,7 @@
 
 pkgname=perl-crypt-openssl-rsa
 pkgver=0.41
-pkgrel=2
+pkgrel=3
 pkgdesc='RSA encoding and decoding, using the openSSL libraries'
 arch=(x86_64)
 license=('Artistic-2.0')
