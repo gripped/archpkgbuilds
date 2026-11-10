@@ -10,7 +10,7 @@
 
 pkgname=nodejs-lts-krypton
 pkgver=24.22.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Evented I/O for V8 javascript ("Active LTS" release: Krypton)'
 arch=(x86_64)
 url=https://nodejs.org/
@@ -58,6 +58,12 @@ validpgpkeys=(
   108F52B48DB57BB0CC439B2997B01419BD92F80A # Ruy Adorno <ruyadorno@hotmail.com>
   DD792F5973C6DE52C432CBDAC77ABFA00DDBF2B7 # Juan José Arboleda <soyjuanarbol@gmail.com>
 )
+
+prepare() {
+  cd node
+  # Adjust test expectations for OpenSSL 4.x.
+  git cherry-pick -n c61ba86ed02dc0c80c51b9333d3fe9e3e4e2f887
+}
 
 _set_flags() {
   # /usr/lib/libnode.so uses malloc_usable_size, which is incompatible with fortification level 3
