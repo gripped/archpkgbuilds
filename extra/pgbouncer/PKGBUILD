@@ -3,7 +3,7 @@
 
 pkgname=pgbouncer
 pkgver=1.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Lightweight connection pooler for PostgreSQL'
 url='https://www.pgbouncer.org/'
 arch=(x86_64)
