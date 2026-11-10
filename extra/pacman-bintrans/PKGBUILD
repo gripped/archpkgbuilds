@@ -3,7 +3,7 @@
 pkgbase=pacman-bintrans
 pkgname=('pacman-bintrans' 'pacman-bintrans-tools')
 pkgver=0.5.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Binary transparency for pacman'
 url='https://github.com/kpcyrd/pacman-bintrans'
 arch=('x86_64')
@@ -34,6 +34,9 @@ validpgpkeys=("64B13F7117D6E07D661BBCE0FE763A64F5E54FD6")
 
 prepare() {
   cd "${pkgbase}-${pkgver}"
+  # Update the locked OpenSSL bindings for compatibility with system OpenSSL 4.
+  # https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target host-tuple
 }
 
