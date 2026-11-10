@@ -2,7 +2,7 @@
 
 pkgname=openpace
 pkgver=1.1.4
-pkgrel=2
+pkgrel=3
 pkgdesc="Cryptographic library for EAC version 2"
 arch=(x86_64)
 url="https://frankmorgner.github.io/openpace"
@@ -11,12 +11,9 @@ depends=(
   openssl
 )
 makedepends=(
-  autoconf
   gengetopt
   git
   help2man
-  libtool
-  make
 )
 provides=(
   libeac.so
@@ -26,6 +23,10 @@ sha256sums=('6d4eddae736f169ff0666e54e533953f4a62a5721da21879117e24861961ee99')
 
 prepare() {
   cd $pkgname
+
+  # Fix build failure with OpenSSL 4
+  git cherry-pick -n 40a5181b6abff751f756be980bfa165eb02677be
+
   autoreconf -fi
 }
 
