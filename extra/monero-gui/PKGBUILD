@@ -2,7 +2,7 @@
 
 pkgname=monero-gui
 pkgver=0.18.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt GUI wallet for Monero: the secure, private, untraceable peer-to-peer currency"
 license=('BSD-3-Clause')
 arch=('x86_64')
@@ -71,6 +71,10 @@ prepare() {
 
   sed -i '/<releases>/,/<\/releases>/d' share/org.getmonero.Monero.metainfo.xml
 
+  # abseil-cpp requires C++17
+  find -name CMakeLists.txt | xargs sed -e 's|CMAKE_CXX_STANDARD 14|CMAKE_CXX_STANDARD 17|g' -e 's|CMAKE_CXX_STANDARD 11|CMAKE_CXX_STANDARD 17|g' -i
+  sed -e 's|CMAKE_CXX_STANDARD=11|CMAKE_CXX_STANDARD=17|' -i monero/cmake/CheckTrezor.cmake
+
   cd monero
   git config submodule.external/miniupnp.url "$srcdir/miniupnp"
   git config submodule.external/rapidjson.url "$srcdir/rapidjson"
@@ -78,6 +82,8 @@ prepare() {
   git config submodule.external/randomx.url "$srcdir/RandomX"
   git config submodule.external/supercop.url "$srcdir/supercop"
   git -c protocol.file.allow=always submodule update
+
+  git cherry-pick -n 4f73cfea6d37bc1eccab1e395fc526c94cbb99ba # Fix build with OpenSSL 4
 }
 
 build() {
