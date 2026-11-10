@@ -2,7 +2,7 @@
 
 pkgname=shortwave
 pkgver=5.1.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Internet radio player'
 arch=(x86_64)
 url='https://apps.gnome.org/Shortwave/'
@@ -42,6 +42,9 @@ b2sums=(5172239d703d73f4b283543f62fbb64dae93ebdadc474e9980800082ecf20a2e4576ee45
 prepare() {
   cd Shortwave
 
+  # support openssl 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
