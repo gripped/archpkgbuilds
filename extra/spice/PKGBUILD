@@ -4,7 +4,7 @@
 
 pkgname=spice
 pkgver=0.16.0
-pkgrel=4
+pkgrel=5
 pkgdesc="SPICE server"
 arch=('x86_64')
 url="https://www.spice-space.org"
