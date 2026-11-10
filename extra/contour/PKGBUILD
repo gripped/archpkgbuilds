@@ -3,7 +3,7 @@
 
 pkgname=contour
 pkgver=0.7.0.8982
-pkgrel=1
+pkgrel=2
 pkgdesc="Modern C++ Terminal Emulator"
 arch=(x86_64)
 url="https://github.com/contour-terminal/contour"
@@ -19,6 +19,7 @@ depends=(
   libunicode
   libutempter
   libxcb
+  openssl-3
   qt6-5compat
   qt6-base
   qt6-declarative
@@ -55,6 +56,9 @@ build() {
     -GNinja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DOPENSSL_INCLUDE_DIR=/usr/include/openssl-3 \
+    -DOPENSSL_SSL_LIBRARY=/usr/lib/openssl-3/libssl.so \
+    -DOPENSSL_CRYPTO_LIBRARY=/usr/lib/openssl-3/libcrypto.so \
     -DCONTOUR_QT_VERSION=6 \
     -DCONTOUR_TESTING=ON
   cmake --build build
