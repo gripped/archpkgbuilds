@@ -1,7 +1,7 @@
 # Maintainer: Chih-Hsuan Yen <base64_decode("eXUzYWN0eHQydHR0ZmlteEBjaHllbi5jYwo=")>
 
 pkgname=lxqt-wayland-session
-pkgver=0.4.1
+pkgver=0.5.0
 pkgrel=1
 pkgdesc='Files needed for the LXQt Wayland Session'
 arch=('any')
@@ -39,7 +39,7 @@ optdepends=(
 makedepends=('git' 'cmake' 'qt6-tools' 'lxqt-build-tools')
 source=("https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
         'lxqt-wayland-session-import-environment.patch')
-sha256sums=('22de8fbedc8cb584d0b7d388b53c5ff288f9ad419562602f2f1abcad34c821c5'
+sha256sums=('05f96b6cc27bebfe7776bb62d5375266a310f40996295d0887c3a0c451d21d67'
             'SKIP'
             '339637044f205dbd2c730953166b4ed7acca54efd2b50a1aa2fcfed8d63c3feb')
 validpgpkeys=(
