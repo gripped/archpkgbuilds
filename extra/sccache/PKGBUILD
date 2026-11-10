@@ -4,7 +4,7 @@
 
 pkgname=sccache
 pkgver=0.19.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Shared compilation cache'
 arch=(x86_64)
 url=https://github.com/mozilla/sccache
@@ -43,6 +43,9 @@ b2sums=('1445c943ae12bdce639bc1805ee68769cdc680aaa80f50d19f33e25aa02d51cb97cc7f9
 
 prepare() {
   cd sccache
+  # support openssl 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked
 }
 
