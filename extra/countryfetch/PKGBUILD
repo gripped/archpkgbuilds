@@ -3,7 +3,7 @@
 
 pkgname=countryfetch
 pkgver=0.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A neofetch-like tool for fetching information about your country"
 arch=('x86_64')
 url="https://github.com/nik-rev/countryfetch"
@@ -17,6 +17,9 @@ prepare() {
   cd "${pkgname}-${pkgver}"
   # use the system-provided openssl
   sed -i 's/openssl = { version = "0.10", features = \["vendored"\] }//' Cargo.toml
+  # support OpenSSL 4
+  cargo update -p openssl-sys --precise 0.9.117 
+  cargo update -p openssl --precise 0.10.81 
   cargo fetch --target "$(rustc --print host-tuple)"
 }
 
