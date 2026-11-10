@@ -2,9 +2,9 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
-pkgver=2.21.75
+pkgver=2.25.0
 pkgname=xrt
-pkgrel=14
+pkgrel=2
 epoch=1
 pkgdesc='Runtime for AIE and FPGA based platforms '
 arch=('x86_64')
@@ -38,12 +38,18 @@ optdepends=(
 options=(!lto)
 source=(
   "${pkgname}::git+https://github.com/Xilinx/XRT#tag=${pkgver}"
+  "${pkgname}-Detours::git+https://github.com/microsoft/Detours.git"
   "${pkgname}-ELFIO::git+https://github.com/serge1/ELFIO.git"
   "${pkgname}-GSL::git+https://github.com/microsoft/GSL.git"
+  "${pkgname}-XDP::git+https://github.com/Xilinx/XDP.git"
   "${pkgname}-aiebu::git+https://github.com/Xilinx/aiebu.git"
+  "${pkgname}-dma_ip_drivers::git+https://github.com/Xilinx/dma_ip_drivers.git"
   "install-to-bin.patch"
 )
-sha256sums=('861a24ad46a215c6a015c8652c1473aa00dd6b3e7c881b60c5d64ff70ead1d19'
+sha256sums=('2bebf5325107ede4875d5f7153d8936d4af74880b0290fd7b329bea0223c4a84'
+            'SKIP'
+            'SKIP'
+            'SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -56,10 +62,12 @@ prepare() {
   git config submodule."src/runtime_src/core/common/aiebu".url "${srcdir}/${pkgname}"-aiebu
   git config submodule."src/runtime_src/core/common/elf".url "${srcdir}/${pkgname}"-ELFIO
   git config submodule."src/runtime_src/core/common/gsl".url "${srcdir}/${pkgname}"-GSL
+  git config submodule."src/runtime_src/core/pcie/driver/linux/xocl/lib/libqdma".url "${srcdir}/${pkgname}"-dma_ip_drivers
+  git config submodule."src/runtime_src/core/tools/xbtracer/Detours".url "${srcdir}/${pkgname}"-Detours
+  git config submodule."src/runtime_src/xdp".url "${srcdir}/${pkgname}"-XDP
 
   git -c protocol.file.allow=always submodule update --init --recursive
 
-  git -C src/runtime_src/core/common/aiebu/ checkout 4bf58d5a8d46089847130ecffb8952504482feb5
   patch -Np1 -i ../install-to-bin.patch
 }
 

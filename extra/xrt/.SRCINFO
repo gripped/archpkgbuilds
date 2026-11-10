@@ -1,7 +1,7 @@
 pkgbase = xrt
 	pkgdesc = Runtime for AIE and FPGA based platforms
-	pkgver = 2.21.75
-	pkgrel = 14
+	pkgver = 2.25.0
+	pkgrel = 2
 	epoch = 1
 	url = https://xilinx.github.io/XRT/
 	arch = x86_64
@@ -24,12 +24,18 @@ pkgbase = xrt
 	depends = protobuf
 	optdepends = python: Python bindings
 	options = !lto
-	source = xrt::git+https://github.com/Xilinx/XRT#tag=2.21.75
+	source = xrt::git+https://github.com/Xilinx/XRT#tag=2.25.0
+	source = xrt-Detours::git+https://github.com/microsoft/Detours.git
 	source = xrt-ELFIO::git+https://github.com/serge1/ELFIO.git
 	source = xrt-GSL::git+https://github.com/microsoft/GSL.git
+	source = xrt-XDP::git+https://github.com/Xilinx/XDP.git
 	source = xrt-aiebu::git+https://github.com/Xilinx/aiebu.git
+	source = xrt-dma_ip_drivers::git+https://github.com/Xilinx/dma_ip_drivers.git
 	source = install-to-bin.patch
-	sha256sums = 861a24ad46a215c6a015c8652c1473aa00dd6b3e7c881b60c5d64ff70ead1d19
+	sha256sums = 2bebf5325107ede4875d5f7153d8936d4af74880b0290fd7b329bea0223c4a84
+	sha256sums = SKIP
+	sha256sums = SKIP
+	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
