@@ -9,7 +9,7 @@
 pkgname=prosody
 epoch=1
 pkgver=13.0.7
-pkgrel=2
+pkgrel=3
 pkgdesc="Lightweight and extensible Jabber/XMPP server written in Lua"
 arch=('x86_64')
 url="https://prosody.im/"
