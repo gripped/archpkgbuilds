@@ -3,7 +3,7 @@
 
 pkgname=softhsm
 pkgver=2.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Software PKCS#11 store"
 arch=('x86_64')
 url="https://opendnssec.readthedocs.io/en/latest/softhsm2/"
@@ -18,6 +18,10 @@ sha256sums=('7ac7a5bbeedc0948600228df80a4381452c0eb812b36fc17da2d7064f273e8b5')
 
 prepare() {
   cd "$srcdir/SoftHSMv2"
+  # Fix ASN.1 object leaks, needed by the OpenSSL 4 fix: https://github.com/softhsm/SoftHSMv2/pull/863
+  git cherry-pick -n 57e10cbbe75069be92c7e9720c180a05833481fc
+  # Use ASN.1 accessors for OpenSSL 4: https://github.com/softhsm/SoftHSMv2/pull/858
+  git cherry-pick -n d23ea09d318c03c033420d065f1c64b019cc94ed
   sed -i 's:^full_libdir=":#full_libdir=":g' configure.ac
   autoreconf -vfi
   sed -i "s:libdir)/@PACKAGE@:libdir):" Makefile.in
