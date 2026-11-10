@@ -3,7 +3,7 @@
 pkgname=swayosd
 _name=SwayOSD
 pkgver=0.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A GTK based on screen display for keyboard shortcuts like caps-lock and volume'
 arch=(x86_64)
 url='https://github.com/ErikReider/SwayOSD'
@@ -13,8 +13,6 @@ depends=(
   gtk4
   gtk4-layer-shell
   libinput
-  gdk-pixbuf2
-  pango
   libevdev
   libpulse
   systemd-libs
@@ -30,11 +28,13 @@ b2sums=('19bdb114a08cc37c1cd07ee5ca287d782074147c99ba5a3025ccfd93b9433f5569478df
 prepare() {
   cd $_name-$pkgver
 
-  cargo fetch --target "$(rustc --print host-tuple)"
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
   cd $_name-$pkgver
+  export RUSTUP_TOOLCHAIN=stable CARGO_NET_OFFLINE=true
   arch-meson --buildtype=release build
   ninja -C build
 }
