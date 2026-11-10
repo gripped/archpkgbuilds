@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-randomly
-pkgver=5.0.0
+pkgver=5.1.0
 pkgrel=1
 pkgdesc='Pytest plugin to randomly order tests and control random.seed'
 arch=('any')
@@ -11,7 +11,21 @@ depends=('python-pytest')
 makedepends=('git' 'python-build' 'python-installer' 'python-uv-build')
 checkdepends=('python-factory-boy' 'python-faker' 'python-numpy' 'python-pytest-xdist')
 source=("git+https://github.com/pytest-dev/pytest-randomly.git#tag=$pkgver")
-sha512sums=('e3dda448e7b42097c87e13d264c18779ba3024cac6f02415a56b6aaa67ad014d6fb8d30d596947e46f66f6daecd1f5d729bf30806004c9584e0ecd7d6c1d6987')
+sha512sums=('0b6d3b1c6a307e550ceb3e560c3e7fed56686f10693ab0cf18c35f6530c260265744a5d2bab310d0d1f3a2f96884e6263372411bbf0368060339b4a28895a87b')
+
+prepare() {
+  cd pytest-randomly
+  # Allow uv-build 0.13.
+  sed -i 's/uv-build>=0.12.1,<0.13/uv-build>=0.12.1,<0.14/' pyproject.toml
+
+  # pytest 9.2 raises UsageError during collection.
+  # https://github.com/pytest-dev/pytest/pull/14824
+  sed -i \
+    -e '/^    modcol = testdir.getmodulecol("pytest_plugins=/i\    with pytest.raises((ImportError, pytest.UsageError)):' \
+    -e '/^    modcol = testdir.getmodulecol("pytest_plugins=/s/^/    /' \
+    -e '/^    with pytest.raises(ImportError):/d' \
+    tests/test_pytest_randomly.py
+}
 
 build() {
   cd pytest-randomly
