@@ -2,7 +2,7 @@
 
 pkgname=sheldon
 pkgver=0.8.5
-pkgrel=3
+pkgrel=4
 pkgdesc='A fast and configurable shell plugin manager'
 arch=(x86_64)
 url='https://sheldon.cli.rs'
@@ -26,6 +26,9 @@ b2sums=('779c158aa26e1145c79253077af4ac2bddcef437044590780cad2ec0c0a5a7a90e647d9
 
 prepare() {
   cd "$pkgname"
+
+  # Support OpenSSL 4: https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl-sys --precise 0.9.114
 
   # download dependencies
   cargo fetch --locked --target "$(rustc --print host-tuple)"
