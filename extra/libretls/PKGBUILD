@@ -6,7 +6,7 @@
 
 pkgname=libretls
 pkgver=3.8.1
-pkgrel=3
+pkgrel=4
 pkgdesc="libtls for OpenSSL"
 arch=(x86_64)
 url="https://git.causal.agency/${pkgname}"
