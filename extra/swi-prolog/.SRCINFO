@@ -1,7 +1,7 @@
 pkgbase = swi-prolog
 	pkgdesc = Prolog environment
 	pkgver = 10.0.2
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.swi-prolog.org
 	arch = x86_64
 	license = BSD-2-Clause
@@ -31,6 +31,12 @@ pkgbase = swi-prolog
 	optdepends = python: for using Prolog from Python
 	optdepends = unixodbc: for using the odbc4pl library
 	source = swi-prolog-10.0.2.tar.gz::https://www.swi-prolog.org/download/stable/src/swipl-10.0.2.tar.gz
+	source = openssl-4.patch
+	source = openssl-4-timeout.patch::https://github.com/SWI-Prolog/packages-ssl/commit/7673a282d2868d69172ecfbcc0824eb6b47d373a.patch
+	source = openssl-4.1-tests.patch
 	b2sums = 2dd39c14030f88a6450530d46f95c57917a887bb9da9325bc565ab5f460cfc5894425d0ec84fe7a9539a98b449905534d61b0ef7255a95ebadfd047d2a04bcbe
+	b2sums = 9ad91b463f0af08962da901b4b4c6d19d3595372d49d47ff7883b0052768bfc2f4de56832f05ccecdfca53f09d0b3bd9e917426c104f3d0e32d99b8fdfd711d8
+	b2sums = a5c1516066e24476fc37a568511ba0b025dc1b1ce3b1156a9335604b03d8bfc23527307ebca69056fd19b4a0c0570ff7f078a403cffe2280bb4cf64b1388a7d6
+	b2sums = 0a4e73d7fac28ad6e92a32bbaa843a88c1760774c06ae676cc4890aa90ea61c6bf287bfe3db91f80c407e4bd0d6833fa5bdad66a90ba3b146cd8530224729ea8
 
 pkgname = swi-prolog

@@ -1,0 +1,202 @@
+diff --git a/test_ssl.pl b/test_ssl.pl
+index 6dbbb95..8175468 100644
+--- a/test_ssl.pl
++++ b/test_ssl.pl
+@@ -626,7 +626,16 @@ test_crl_hook(_SSL, Cert, _Chain, _Tail, revoked):-
+     \+memberchk(revoked(Serial, _RevocationTime), Revocations).
+ 
+ 
+-test('Valid certificate, correct hostname in CN, signed by trusted CA', VerificationResults:Status == [verified]:true):-
++test('Certificate with hostname only in CN, signed by trusted CA', VerificationResults:Status == Expected:true):-
++    % OpenSSL 4.1 requires a matching subjectAltName by default.
++    current_prolog_flag(ssl_library_version, Version),
++    (   split_string(Version, " .", "", ["OpenSSL", Major, Minor|_]),
++        number_string(MajorVersion, Major),
++        number_string(MinorVersion, Minor),
++        ( MajorVersion > 4 ; MajorVersion =:= 4, MinorVersion >= 1 )
++    ->  Expected = [hostname_mismatch, verified]
++    ;   Expected = [verified]
++    ),
+     do_verification_test(1, try_ssl_client('www.example.com', test_verify_hook), VerificationResults, Status).
+ 
+ test('Valid certificate, correct hostname in SAN, signed by trusted CA', VerificationResults:Status == [verified]:true):-
+diff --git a/tests/12.cnf b/tests/12.cnf
+index a4243f7..086b9ba 100644
+--- a/tests/12.cnf
++++ b/tests/12.cnf
+@@ -66,6 +66,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/13.cnf b/tests/13.cnf
+index 1864f32..a1f132f 100644
+--- a/tests/13.cnf
++++ b/tests/13.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+ 
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+ 
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/14_tail.cnf b/tests/14_tail.cnf
+index ea6dc79..414f2a4 100644
+--- a/tests/14_tail.cnf
++++ b/tests/14_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/15.cnf b/tests/15.cnf
+index 3f607ad..22644fa 100644
+--- a/tests/15.cnf
++++ b/tests/15.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/17.cnf b/tests/17.cnf
+index 452efc8..e61ea74 100644
+--- a/tests/17.cnf
++++ b/tests/17.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation
+diff --git a/tests/18_tail.cnf b/tests/18_tail.cnf
+index a6ae3e3..8b11875 100644
+--- a/tests/18_tail.cnf
++++ b/tests/18_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/20_tail.cnf b/tests/20_tail.cnf
+index 9ced297..f3e1041 100644
+--- a/tests/20_tail.cnf
++++ b/tests/20_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/21_tail.cnf b/tests/21_tail.cnf
+index 8ac0ba2..a60aea3 100644
+--- a/tests/21_tail.cnf
++++ b/tests/21_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/22_tail.cnf b/tests/22_tail.cnf
+index 4117bd0..544bad8 100644
+--- a/tests/22_tail.cnf
++++ b/tests/22_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/23.cnf b/tests/23.cnf
+index 69c6a82..5fbdafb 100644
+--- a/tests/23.cnf
++++ b/tests/23.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/24.cnf b/tests/24.cnf
+index 69c6a82..5fbdafb 100644
+--- a/tests/24.cnf
++++ b/tests/24.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/25_tail.cnf b/tests/25_tail.cnf
+index 8d479c8..ad08707 100644
+--- a/tests/25_tail.cnf
++++ b/tests/25_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/26_tail.cnf b/tests/26_tail.cnf
+index 60b7de1..f2cef3f 100644
+--- a/tests/26_tail.cnf
++++ b/tests/26_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/27_tail.cnf b/tests/27_tail.cnf
+index 15cffd3..42e22f2 100644
+--- a/tests/27_tail.cnf
++++ b/tests/27_tail.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=www.example.com
+  
+ [ v3_req ]
++subjectAltName = DNS:www.example.com
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+diff --git a/tests/server.cnf b/tests/server.cnf
+index 67bf787..1d21aad 100644
+--- a/tests/server.cnf
++++ b/tests/server.cnf
+@@ -67,6 +67,7 @@ C=UK
+ CN=localhost
+  
+ [ v3_req ]
++subjectAltName = DNS:localhost
+  
+ basicConstraints = CA:FALSE
+ keyUsage = nonRepudiation, digitalSignature, keyEncipherment
