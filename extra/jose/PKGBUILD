@@ -3,7 +3,7 @@
 
 pkgname=jose
 pkgver=15
-pkgrel=2
+pkgrel=3
 pkgdesc='C-language implementation of Javascript Object Signing and Encryption'
 arch=(x86_64)
 url='https://github.com/latchset/jose'
