@@ -1,45 +1,33 @@
-Subject: [PATCH] allow system gradle
+Subject: [PATCH] support reproducible builds
 ---
-Index: gradle/globals.gradle
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/gradle/globals.gradle b/gradle/globals.gradle
---- a/gradle/globals.gradle	(revision 92c5515e2918c22513f7aa527d6c6db943150fea)
-+++ b/gradle/globals.gradle	(date 1681294916077)
-@@ -170,4 +170,8 @@
-     // anything starting with "JENKINS_" or "HUDSON_": Jenkins/Hudson (https://jenkins.thetaphi.de/env-vars.html/)
-     isCIBuild = System.getenv().keySet().find { it ==~ /(?i)((JENKINS|HUDSON)(_\w+)?|CI)/ } != null
+--- a/gradle/globals.gradle
++++ b/gradle/globals.gradle
+@@ -179,4 +179,8 @@
+     minJavaVersion = isSolrJ ? rootProject.minJavaVersionSolrJ : rootProject.minJavaVersionDefault
+     minJavaTestVersion = rootProject.minJavaVersionDefault
    }
 +  tasks.withType(AbstractArchiveTask).configureEach {
 +    preserveFileTimestamps = false
 +    reproducibleFileOrder = true
 +  }
  }
-Index: gradle/java/jar-manifest.gradle
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/gradle/java/jar-manifest.gradle b/gradle/java/jar-manifest.gradle
---- a/gradle/java/jar-manifest.gradle	(revision f8e5a93c11267e13b7b43005a428bfb910ac6e57)
-+++ b/gradle/java/jar-manifest.gradle	(date 1697396671510)
+--- a/gradle/java/jar-manifest.gradle
++++ b/gradle/java/jar-manifest.gradle
 @@ -46,7 +46,7 @@
-                     } else {
-                       def sysProps = System.properties
-                       def manifestUsername = sysProps.getOrDefault('manifest.username', sysProps['user.name'])
--                      return "${project.version} ${gitRev} - ${manifestUsername} - ${buildDate} ${buildTime}"
-+                      return "${project.version} ${gitRev} - ${manifestUsername}"
-                     }
-                 }
+           } else {
+             def sysProps = System.properties
+             def manifestUsername = sysProps.getOrDefault('manifest.username', sysProps['user.name'])
+-            return "${project.version} ${gitRev} - ${manifestUsername} - ${buildDate} ${buildTime}"
++            return "${project.version} ${gitRev} - ${manifestUsername}"
+           }
+         }
  
 @@ -67,7 +67,7 @@
-                             "X-Compile-Target-JDK"  : "${-> project.targetCompatibility}",
+               "X-Compile-Target-JDK": "${-> project.java.targetCompatibility}",
  
-                             "X-Build-JDK"           : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
--                            "X-Build-OS"            : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}"
-+                            "X-Build-OS"            : "${System.properties['os.name']} ${System.properties['os.arch']}"
-                     ])
-                 }
+               "X-Build-JDK": "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+-              "X-Build-OS": "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}"
++              "X-Build-OS": "${System.properties['os.name']} ${System.properties['os.arch']}"
+           ])
+         }
  

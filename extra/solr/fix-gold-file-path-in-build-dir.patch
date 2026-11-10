@@ -1,0 +1,13 @@
+Subject: [PATCH] fix gold file lookup when source dir contains /build/
+---
+--- a/solr/modules/opentelemetry/src/test/org/apache/solr/opentelemetry/GoldFileTraceVerifier.java
++++ b/solr/modules/opentelemetry/src/test/org/apache/solr/opentelemetry/GoldFileTraceVerifier.java
+@@ -421,7 +421,7 @@
+     String testFilesStr = testFilesDir.toString();
+     if (testFilesStr.contains("/build/")) {
+       testFilesDir =
+-          Path.of(testFilesStr.substring(0, testFilesStr.indexOf("/build/")))
++          Path.of(testFilesStr.substring(0, testFilesStr.lastIndexOf("/build/")))
+               .resolve("src/test-files");
+     }
+     return testFilesDir

@@ -1,8 +1,7 @@
 Subject: [PATCH] skip-checks-for-git-repo
 ---
-diff --git a/gradle/validation/precommit.gradle b/gradle/validation/precommit.gradle
---- a/gradle/validation/precommit.gradle	(revision de33f50ce79ec1d156faf204553012037e2bc1cb)
-+++ b/gradle/validation/precommit.gradle	(date 1696857243412)
+--- a/gradle/validation/precommit.gradle
++++ b/gradle/validation/precommit.gradle
 @@ -48,6 +48,5 @@
  
    // Each validation task should be attached to check but make sure
@@ -10,18 +9,17 @@ diff --git a/gradle/validation/precommit.gradle b/gradle/validation/precommit.gr
 -  check.dependsOn precommit
  }
  
-diff --git a/solr/distribution/build.gradle b/solr/distribution/build.gradle
---- a/solr/distribution/build.gradle	(revision de33f50ce79ec1d156faf204553012037e2bc1cb)
-+++ b/solr/distribution/build.gradle	(date 1696857361309)
-@@ -71,7 +71,6 @@
+--- a/solr/distribution/build.gradle
++++ b/solr/distribution/build.gradle
+@@ -69,7 +69,6 @@
  
    files = objects.fileCollection()
    [
 -      tasks.assembleSourceTgz,
        fullDistTarTask,
-       slimDistTarTask,
-   ].each { dep ->
-@@ -135,7 +134,6 @@
+       slimDistTarTask
+   ].each {dep ->
+@@ -146,7 +145,6 @@
    })
  
    from tasks.prepareGitRev
@@ -29,10 +27,9 @@ diff --git a/solr/distribution/build.gradle b/solr/distribution/build.gradle
    from fullDistTarTask
    from slimDistTarTask
  
-diff --git a/solr/distribution/source-release.gradle b/solr/distribution/source-release.gradle
---- a/solr/distribution/source-release.gradle	(revision de33f50ce79ec1d156faf204553012037e2bc1cb)
-+++ b/solr/distribution/source-release.gradle	(date 1696857228905)
-@@ -23,7 +23,6 @@
+--- a/solr/distribution/source-release.gradle
++++ b/solr/distribution/source-release.gradle
+@@ -22,7 +22,6 @@
      description "Assemble source Solr artifact as a .tgz file."
  
      // Make sure no unstaged/ dirty files are present.
