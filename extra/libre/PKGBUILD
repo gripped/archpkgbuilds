@@ -6,7 +6,7 @@
 
 pkgname=libre
 pkgver=4.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Portable library for real-time communications"
 arch=('x86_64')
 url="https://github.com/baresip/re"
@@ -16,8 +16,24 @@ makedepends=('cmake')
 replaces=('re' 'librem')
 conflicts=('re' 'librem')
 provides=(libre.so)
-source=("${pkgname}-${pkgver}.tar.gz"::"https://github.com/baresip/re/archive/v${pkgver}.tar.gz")
-sha256sums=('811f19ed3df60f75070c07fc0eb5f767574e5b6dc2f12a679df04df381a43d88')
+source=(
+  "${pkgname}-${pkgver}.tar.gz"::"https://github.com/baresip/re/archive/v${pkgver}.tar.gz"
+  libre-openssl4.patch
+)
+sha256sums=('811f19ed3df60f75070c07fc0eb5f767574e5b6dc2f12a679df04df381a43d88'
+            'fc79faab67f9fcf0b1e8c25297bcdc5f6c6d6e11edafd8c06bb6816c4ae11009')
+
+prepare() {
+  cd re-${pkgver}
+
+  # Carry the upstream OpenSSL 4 compatibility series through the const fix.
+  # https://github.com/baresip/re/pull/1565
+  # https://github.com/baresip/re/pull/1569
+  # https://github.com/baresip/re/pull/1570
+  # https://github.com/baresip/re/pull/1572
+  # OpenSSL 4.1 no longer checks CN by default; retain libre's existing CN-only behavior.
+  patch -Np1 -i ../libre-openssl4.patch
+}
 
 build() {
   cd re-${pkgver}

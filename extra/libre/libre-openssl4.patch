@@ -1,0 +1,229 @@
+diff --git a/src/tls/openssl/sni.c b/src/tls/openssl/sni.c
+index 344eb00c..8d52067f 100644
+--- a/src/tls/openssl/sni.c
++++ b/src/tls/openssl/sni.c
+@@ -26,51 +26,77 @@
+ struct tls_conn;
+ 
+ 
+-static int x509_match_alt_name(X509 *x509, const char *sni, bool *match)
++static bool x509_match_common_name(X509 *x509, const char *sni)
++{
++	const X509_NAME *nm = X509_get_subject_name(x509);
++
++	int lastpos = -1;
++	for (;;) {
++		lastpos = X509_NAME_get_index_by_NID(nm, NID_commonName,
++						     lastpos);
++		if (lastpos == -1)
++			break;
++
++		const X509_NAME_ENTRY *e = X509_NAME_get_entry(nm, lastpos);
++		const ASN1_STRING *astr	 = X509_NAME_ENTRY_get_data(e);
++		if (!astr)
++			continue;
++
++		struct pl cn = {(char *)ASN1_STRING_get0_data(astr),
++				ASN1_STRING_length(astr)};
++
++		if (!pl_strcasecmp(&cn, sni))
++			return true;
++	}
++
++	return false;
++}
++
++
++static bool x509_match_alt_name(X509 *x509, const char *sni)
+ {
+ 	GENERAL_NAMES *gs = NULL;
+ 	ASN1_STRING *astr = NULL;
+ 	ASN1_OCTET_STRING *octet = NULL;
+-	int err = 0;
++	bool match = false;
+ 
+-	*match = false;
+ 	gs = X509_get_ext_d2i(x509, NID_subject_alt_name, NULL, NULL);
+ 	if (!gs)
+-		return 0;
++		return false;
+ 
+ 	for (int i = 0; i < sk_GENERAL_NAME_num(gs); i++) {
+ 		GENERAL_NAME *g = sk_GENERAL_NAME_value(gs, i);
+ 
+ 		if (g->type == GEN_DNS) {
+ 			astr = ASN1_IA5STRING_new();
+-			if (!astr) {
+-				err = ENOMEM;
++			if (!astr)
+ 				goto out;
+-			}
+ 
+-			if (!ASN1_STRING_set(astr, sni, -1)) {
+-				err = ENOMEM;
++			if (!ASN1_STRING_set(astr, sni, -1))
+ 				goto out;
+-			}
+ 
+ 			if (!ASN1_STRING_cmp(astr, g->d.dNSName)) {
+-				*match = true;
++				match = true;
+ 				break;
+ 			}
+ 		}
+ 		else if (g->type == GEN_IPADD) {
+ 			octet = a2i_IPADDRESS(sni);
++			if (!octet)
++				break;
+ 			if (!ASN1_OCTET_STRING_cmp(octet, g->d.iPAddress)) {
+-				*match = true;
++				match = true;
+ 				break;
+ 			}
++			ASN1_OCTET_STRING_free(octet);
+ 		}
+ 	}
+ 
+ out:
++	GENERAL_NAMES_free(gs);
+ 	ASN1_IA5STRING_free(astr);
+ 	ASN1_OCTET_STRING_free(octet);
+-	return err;
++	return match;
+ }
+ 
+ 
+@@ -95,11 +121,7 @@ struct tls_cert *tls_cert_for_sni(const struct tls *tls, const char *sni)
+ 		return list_head(certs)->data;
+ 
+ 	LIST_FOREACH(certs, le) {
+-		char cn[TLSEXT_MAXLEN_host_name] = "";
+ 		X509 *x509;
+-		X509_NAME *nm;
+-		bool match = false;
+-		int err;
+ 
+ 		tls_cert = le->data;
+ 		x509 = tls_cert_x509(tls_cert);
+@@ -108,20 +130,13 @@ struct tls_cert *tls_cert_for_sni(const struct tls *tls, const char *sni)
+ 			continue;
+ 		}
+ 
+-		nm = X509_get_subject_name(x509);
+-		int n = X509_NAME_get_text_by_NID(nm, NID_commonName,
+-						  cn, (int) sizeof(cn));
+-		if (n > 0 && !str_cmp(sni, cn))
++		if (x509_match_common_name(x509, sni))
+ 			break;
+ 
+-		err = x509_match_alt_name(x509, sni, &match);
+-		if (err) {
+-			tls_cert = NULL;
++		if (x509_match_alt_name(x509, sni))
+ 			break;
+-		}
+ 
+-		if (match)
+-			break;
++		tls_cert = NULL;
+ 	}
+ 
+ 	ERR_clear_error();
+diff --git a/src/tls/openssl/tls.c b/src/tls/openssl/tls.c
+index 99bb757a..d88f0fc5 100644
+--- a/src/tls/openssl/tls.c
++++ b/src/tls/openssl/tls.c
+@@ -1015,7 +1015,7 @@ int tls_peer_fingerprint(const struct tls_conn *tc, enum tls_fingerprint type,
+ int tls_peer_common_name(const struct tls_conn *tc, char *cn, size_t size)
+ {
+ 	X509 *cert;
+-	int n;
++	int n = -1;
+ 
+ 	if (!tc || !cn || !size)
+ 		return EINVAL;
+@@ -1028,8 +1028,19 @@ int tls_peer_common_name(const struct tls_conn *tc, char *cn, size_t size)
+ 	if (!cert)
+ 		return ENOENT;
+ 
+-	n = X509_NAME_get_text_by_NID(X509_get_subject_name(cert),
+-				      NID_commonName, cn, (int)size);
++	const X509_NAME *name = X509_get_subject_name(cert);
++
++	int ix = X509_NAME_get_index_by_NID(name, NID_commonName, -1);
++	if (ix != -1) {
++		const X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, ix);
++		const ASN1_STRING *astr = X509_NAME_ENTRY_get_data(entry);
++
++		if (astr) {
++			str_ncpy(cn, (char *)ASN1_STRING_get0_data(astr),
++				 size);
++			n = ASN1_STRING_length(astr);
++		}
++	}
+ 
+ 	X509_free(cert);
+ 
+@@ -1232,14 +1243,28 @@ int tls_set_verify_server(struct tls_conn *tc, const char *host)
+ 		return 0;
+ 
+ 	if (sa_set_str(&sa, host, 0)) {
++#if OPENSSL_VERSION_MAJOR >= 4
++		SSL_set_hostflags(tc->ssl,
++				X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS |
++				X509_CHECK_FLAG_ALWAYS_CHECK_SUBJECT);
++#else
+ 		SSL_set_hostflags(tc->ssl,
+ 				X509_CHECK_FLAG_NO_PARTIAL_WILDCARDS);
++#endif
+ 
++#if OPENSSL_VERSION_MAJOR >= 4
++		if (!SSL_set1_dnsname(tc->ssl, host)) {
++			DEBUG_WARNING("SSL_set1_dnsname error\n");
++			ERR_clear_error();
++			return EPROTO;
++		}
++#else
+ 		if (!SSL_set1_host(tc->ssl, host)) {
+ 			DEBUG_WARNING("SSL_set1_host error\n");
+ 			ERR_clear_error();
+ 			return EPROTO;
+ 		}
++#endif
+ 
+ 		if (!SSL_set_tlsext_host_name(tc->ssl, host)) {
+ 			DEBUG_WARNING("SSL_set_tlsext_host_name error\n");
+@@ -1300,7 +1325,7 @@ void tls_flush_error(void)
+  *
+  * @return 0 if success, otherwise errorcode
+  */
+-static int convert_X509_NAME_to_mbuf(X509_NAME *field, struct mbuf *mb,
++static int convert_X509_NAME_to_mbuf(const X509_NAME *field, struct mbuf *mb,
+ 	unsigned long flags)
+ {
+ 	BIO *outbio;
+@@ -1350,7 +1375,7 @@ static int tls_get_ca_chain_field(struct tls *tls, struct mbuf *mb,
+ 	tls_get_certfield_h *field_getter, unsigned long flags)
+ {
+ 	X509 *crt = NULL;
+-	X509_NAME *field;
++	const X509_NAME *field;
+ 
+ 	crt = SSL_CTX_get0_certificate(tls->ctx);
+ 	if (!crt)
+diff --git a/src/tls/openssl/tls.h b/src/tls/openssl/tls.h
+index 7363354c..66cd4df8 100644
+--- a/src/tls/openssl/tls.h
++++ b/src/tls/openssl/tls.h
+@@ -20,7 +20,11 @@ typedef int (*SSL_verify_cb)(int preverify_ok, X509_STORE_CTX *x509_ctx);
+ #define SSL_ST_OK TLS_ST_OK
+ #endif
+ 
++#if OPENSSL_VERSION_MAJOR >= 4
++typedef const X509_NAME*(tls_get_certfield_h)(const X509 *);
++#else
+ typedef X509_NAME*(tls_get_certfield_h)(const X509 *);
++#endif
+ 
+ struct tls;
+ struct tls_cert;
