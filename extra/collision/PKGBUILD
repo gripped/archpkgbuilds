@@ -2,7 +2,7 @@
 
 pkgname=collision
 pkgver=3.14.1
-pkgrel=1
+pkgrel=2
 pkgdesc='GUI tool to generate, compare and verify MD5, SHA-1, SHA-256, SHA-512, Blake3, CRC32 and Adler32 hashes'
 arch=(x86_64)
 url='https://apps.gnome.org/Collision/'
@@ -26,6 +26,9 @@ makedepends=(
   git
   gobject-introspection
   shards
+)
+checkdepends=(
+  appstream
 )
 optdepends=('nautilus-python: Nautilus context menu extension')
 source=("git+https://github.com/GeopJr/Collision.git#tag=v$pkgver")
