@@ -3,7 +3,7 @@
 
 pkgname=ripasso
 pkgver=0.7.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A simple password manager written in Rust"
 arch=('x86_64')
 url="https://github.com/cortex/ripasso"
@@ -21,6 +21,9 @@ prepare() {
   cargo upgrade -p git2@0.20.0
 # Update nettle-sys to fix build with clang 22
   cargo update -p nettle-sys --precise 2.3.2
+# Support OpenSSL 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
 
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
