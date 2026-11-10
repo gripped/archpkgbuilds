@@ -63,7 +63,7 @@ pkgname=(
   gst-plugin-whisper
 )
 pkgver=0.15.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Multimedia graph framework"
 url="https://gstreamer.freedesktop.org/"
 arch=(x86_64)
