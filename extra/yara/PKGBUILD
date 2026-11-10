@@ -5,7 +5,7 @@
 
 pkgname=yara
 pkgver=4.5.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Tool aimed at helping malware researchers to identify and classify malware samples'
 url='https://github.com/VirusTotal/yara'
 arch=(x86_64)
