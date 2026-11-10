@@ -1,0 +1,14 @@
+# A running kill switch service keeps owning me.proton.vpn.kill_switch with
+# the old (deleted) binary, which blocks D-Bus activation of the new one.
+# Mirrors upstream's deb postrm / rpm %postun.
+_stop_kill_switch_service() {
+  pkill -f '^/usr/lib/proton-vpn-kill-switch-service' || true
+}
+
+post_upgrade() {
+  _stop_kill_switch_service
+}
+
+post_remove() {
+  _stop_kill_switch_service
+}
