@@ -1,6 +1,6 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=clevis
-pkgver=22
+pkgver=24
 pkgrel=1
 pkgdesc='Automated Encryption Framework'
 arch=('x86_64')
@@ -24,7 +24,7 @@ optdepends=('audit: UDisks2 unlocker support'
             'tpm2-tools: TPM2 pin support'
             'udisks2: UDisks2 unlocker support')
 source=("git+$url.git#tag=v$pkgver")
-sha512sums=('502e719007c070b845f87768452fc28c3e9a52031fc90c22182c928f5dcfcb4c0c116d0be7267a1c1e720928b46008adf23bd993b96c955e0a461950a0fb7ca4')
+sha512sums=('ecbd814961901c11ed5e61639cf4ec7604639c4df54a6bf3cb1e2117e3647092ee0f92078ff4ec656f0c59c6bced43a788ce962f0f6a577c893f03dc7c4aa440')
 validpgpkeys=('7CE2CB3D2AF59FE1EA22F551D0D219ED1F7E762C'  # Sergio Correia <scorreia@redhat.com>
 	      '5DE3E0509C47EA3CF04A42D34AEE18F83AFDEB23')  # Github signing key
 
