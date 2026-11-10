@@ -1,10 +1,10 @@
 pkgbase = icedtea-web
 	pkgdesc = Additional components for OpenJDK - Browser plug-in and Web Start implementation
 	pkgver = 1.8.8
-	pkgrel = 1
+	pkgrel = 4
 	url = https://github.com/AdoptOpenJDK/IcedTea-Web
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-only WITH Classpath-exception-2.0
 	makedepends = java-environment=8
 	makedepends = zip
 	makedepends = libxtst
@@ -24,6 +24,10 @@ pkgbase = icedtea-web
 	sha512sums = 0689abbe5fa5b616a3c71caf038a42bc69a4950e923cce3c658c15a85a140f5d2e19a96429fc82cfe38c42fdc7bca4a305fd613e3483a8f98a6ee3daaf0a8304
 
 pkgname = icedtea-web
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = glib2
 	depends = java-runtime-openjdk
 	depends = desktop-file-utils
 	provides = java-web-start

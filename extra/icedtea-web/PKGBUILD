@@ -5,11 +5,11 @@
 pkgbase=icedtea-web
 pkgname=('icedtea-web' 'icedtea-web-doc')
 pkgver=1.8.8
-pkgrel=1
+pkgrel=4
 pkgdesc='Additional components for OpenJDK - Browser plug-in and Web Start implementation'
 url='https://github.com/AdoptOpenJDK/IcedTea-Web'
 arch=('x86_64')
-license=('GPL2')
+license=('GPL-2.0-only WITH Classpath-exception-2.0')
 makedepends=('java-environment=8' 'zip' 'libxtst' 'npapi-sdk' 'rhino' 'junit'
              'firefox' 'epiphany' 'rust' 'bc')
 optdepends=('rhino: for using proxy auto config files')
@@ -23,6 +23,8 @@ sha512sums=('99f246ce603e3edd4357a2c4d280f1ef92e1f760ca5d843eaccf7ca60950a47defe
 prepare() {
   cd IcedTea-Web-${pkgbase}-${pkgver}
   patch -Np0 < "${srcdir}/compiler-flags.patch"
+  # delete Windows dependency on yanked dunst crate that breaks build
+  sed -i '/dependencies/,/dunce/d'  rust-launcher/Cargo.toml
   autoreconf -fiv
 }
 
@@ -48,7 +50,8 @@ check() {
 
 
 package_icedtea-web() {
-  depends=('java-runtime-openjdk' 'desktop-file-utils')
+  depends=('glibc' 'libgcc' 'libstdc++' 'glib2'
+           'java-runtime-openjdk' 'desktop-file-utils')
   provides=('java-web-start')
 
   cd IcedTea-Web-${pkgbase}-${pkgver}
@@ -70,6 +73,9 @@ package_icedtea-web() {
 
   # remove splitted doc files
   rm -rf "${pkgdir}"/usr/share/doc
+
+  # install license file
+  install -Dm 644 INSTALL -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 package_icedtea-web-doc() {
@@ -77,10 +83,14 @@ package_icedtea-web-doc() {
 
   cd IcedTea-Web-${pkgbase}-${pkgver}
   make DESTDIR="${pkgdir}" install-data-local
+
   # remove javaws about and man page
   rm -rf "${pkgdir}"/usr/lib
   rm -rf "${pkgdir}"/usr/share/man
   rm -rf "${pkgdir}"/usr/share/icedtea-web
+
+  # install license file
+  install -Dm 644 INSTALL -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
 
 # vim: ts=2 sw=2 et:
