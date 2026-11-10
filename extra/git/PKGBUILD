@@ -5,7 +5,7 @@
 pkgbase=git
 pkgname=(git git-zsh-completion)
 pkgver=2.56.0
-pkgrel=1
+pkgrel=2
 pkgdesc='the fast distributed version control system'
 arch=('x86_64')
 url='https://git-scm.com/'
