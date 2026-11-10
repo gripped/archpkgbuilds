@@ -6,7 +6,7 @@
 
 pkgname=znc
 pkgver=1.10.3
-pkgrel=2
+pkgrel=3
 pkgdesc='An IRC bouncer with modules & scripts support'
 url='https://wiki.znc.in/'
 license=('Apache-2.0')
@@ -37,15 +37,20 @@ optdepends=(
 install=$pkgname.install
 source=("https://znc.in/releases/archive/$pkgname-$pkgver.tar.gz"{,.sig}
         "$pkgname.tmpfiles"
-        "$pkgname.sysusers")
+        "$pkgname.sysusers"
+        "openssl-4.patch::https://github.com/znc/znc/commit/94bcf919e1163564e637df8d437585bc7b55e7aa.patch")
 validpgpkeys=('D5823CACB477191CAC0075555AE420CC0209989E')  # Alexey Sokolov <alexey@asokolov.org>
 sha256sums=('68f3f6641b480c041010c5596e1234043e05c9137eda06233845017603095f5b'
             'SKIP'
             '8cd1b5b011c706fea9dc0c70d4daa75a53bf0966d6e96a3fce3a541777aa2771'
-            'bb79f73ce440f96d8250f59c8afc3b8dda5c7b4fe9cc190796393b994af1e3ca')
+            'bb79f73ce440f96d8250f59c8afc3b8dda5c7b4fe9cc190796393b994af1e3ca'
+            '3b161ed359e77437cb6b60f5825bdd256487d77b24aaede10a91d8627f0d92cd')
 
 prepare() {
   mkdir -p build
+
+  # Fix OpenSSL 4 compatibility: https://github.com/znc/znc/pull/2024
+  patch -d "$pkgname-$pkgver" -p1 < "$srcdir/openssl-4.patch"
 }
 
 build() {
