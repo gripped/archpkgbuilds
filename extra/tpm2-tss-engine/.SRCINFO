@@ -1,7 +1,7 @@
 pkgbase = tpm2-tss-engine
 	pkgdesc = OpenSSL engine for Trusted Platform Module 2.0 devices
 	pkgver = 1.2.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/tpm2-software/tpm2-tss-engine
 	arch = x86_64
 	license = BSD-3-Clause
@@ -14,7 +14,7 @@ pkgbase = tpm2-tss-engine
 	makedepends = autoconf-archive
 	makedepends = pandoc
 	depends = glibc
-	depends = openssl
+	depends = openssl-3
 	depends = tpm2-tss
 	options = !lto
 	source = git+https://github.com/tpm2-software/tpm2-tss-engine#tag=1.2.0
@@ -24,7 +24,7 @@ pkgbase = tpm2-tss-engine
 
 pkgname = tpm2-tss-engine
 	depends = glibc
-	depends = openssl
+	depends = openssl-3
 	depends = tpm2-tss
 	depends = libcrypto.so
 	depends = libtss2-esys.so

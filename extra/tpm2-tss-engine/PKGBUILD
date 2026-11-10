@@ -2,14 +2,14 @@
 # Contributor: Jonas Witschel <diabonas@archlinux.org>
 pkgname=tpm2-tss-engine
 pkgver=1.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='OpenSSL engine for Trusted Platform Module 2.0 devices'
 arch=('x86_64')
 url='https://github.com/tpm2-software/tpm2-tss-engine'
 license=('BSD-3-Clause')
 depends=(
   glibc
-  openssl
+  openssl-3
   tpm2-tss
 )
 makedepends=(
@@ -41,7 +41,11 @@ prepare() {
 
 build() {
   cd "${pkgname}"
-  ./configure --prefix=/usr --enable-unit --enable-integration
+  # OpenSSL 4 removed the ENGINE API; use OpenSSL 3 for detection and linking.
+  # https://github.com/tpm2-software/tpm2-tss-engine/issues/300
+  PKG_CONFIG_PATH=/usr/lib/openssl-3/pkgconfig \
+    LDFLAGS="$LDFLAGS -L/usr/lib/openssl-3" \
+    ./configure --prefix=/usr --enable-unit --enable-integration
   make
 }
 
