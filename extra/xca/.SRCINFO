@@ -1,7 +1,7 @@
 pkgbase = xca
 	pkgdesc = Graphical user interface to OpenSSL, RSA/DSA public keys, certificates, signing requests and revokation lists
 	pkgver = 2.9.0
-	pkgrel = 2
+	pkgrel = 3
 	url = https://hohnstaedt.de/xca/
 	arch = x86_64
 	license = BSD-3-Clause
@@ -11,6 +11,8 @@ pkgbase = xca
 	depends = desktop-file-utils
 	depends = gtk-update-icon-cache
 	source = https://github.com/chris2511/xca/releases/download/RELEASE.2.9.0/xca-2.9.0.tar.gz
+	source = xca-openssl-4.patch::https://github.com/chris2511/xca/commit/8d399d574abe4a552b4bf22b18eacd6d90dac13b.patch
 	sha512sums = e635b83668d0053acb1ad5a8a20a2a1854de90a1e2a8806ecd38e83528d17bc87042d44fcea0f75f2e17df1ed135cc473449547fe273e7e3ea1fe175a4ddf054
+	sha512sums = 83c2a62e71531aa622e902941b4697b9c77bddea4549b85a32505a56af2c22f5cb87b1f4067d882100c0096c7576a1114b8d80ee6141eedb120ad52d07dd0a7e
 
 pkgname = xca
