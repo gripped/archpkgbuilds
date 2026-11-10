@@ -5,7 +5,7 @@
 
 pkgname=monolith
 pkgver=2.10.1
-pkgrel=1
+pkgrel=2
 pkgdesc="CLI to save web pages as single HTML files"
 arch=('x86_64')
 url="https://github.com/Y2Z/monolith"
@@ -20,6 +20,9 @@ sha256sums=('1afafc94ba693597f591206938e998fcf2c78fd6695e7dfd8c19e91061f7b44a')
 
 prepare() {
   cd "$pkgname-$pkgver"
+  # Update the locked OpenSSL bindings for compatibility with system OpenSSL 4.
+  # https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
