@@ -1,7 +1,7 @@
 pkgbase = s-nail
 	pkgdesc = Environment for sending and receiving mail
 	pkgver = 14.9.25
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.sdaoden.eu/code.html#s-nail
 	arch = x86_64
 	license = custom:BSD
@@ -21,7 +21,9 @@ pkgbase = s-nail
 	replaces = heirloom-mailx
 	backup = etc/mail.rc
 	source = git+https://git.sdaoden.eu/scm/s-nail.git?signed#tag=v14.9.25
+	source = https://github.com/sdaoden/s-mailx/commit/e18fd33710c13947c702143cc3d5a6464ba57019.patch
 	validpgpkeys = EE19E1C1F2F7054F8D3954D8308964B51883A0DD
 	sha512sums = 9225f543455c5befc88bb7fe9f5267eff43519020e09ffd0a2117f871f2a60487e3292bbede900716a687b7ab68b5c672e314a51b1282f768f2e5e4f9fb3fd3a
+	sha512sums = d8ab06a22a72e6f3c12f98921c54e4980ac35d830295e3e1387829e7c35189a5cc953d490043b35da5f9354939709e36667848101ec45c8e6bef507843b56e4c
 
 pkgname = s-nail
