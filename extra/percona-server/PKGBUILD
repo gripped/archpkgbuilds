@@ -5,7 +5,7 @@ pkgname=('percona-server-clients' 'percona-server')
 pkgver=9.7.2_2
 _pkgver=${pkgver/_/-}
 _myver=${pkgver/_rel*}
-pkgrel=1
+pkgrel=2
 arch=('x86_64')
 makedepends=('cmake' 'zlib' 'lz4' 'zstd' 'libaio' 'systemd-tools' 'pam' 'numactl' 'jemalloc' 'openssl'
              'rpcsvc-proto' 'doxygen' 'graphviz' 'libevent' 'libfido2' 'protobuf' 'editline')
@@ -15,12 +15,14 @@ source=("https://www.percona.com/downloads/Percona-Server-${pkgver%.*_*}/Percona
         'gcc-14.patch'
         'my.cnf'
         'mysql-user.conf'
-        'mysqlrouter-user.conf')
+        'mysqlrouter-user.conf'
+        'percona-server-9.7.2-openssl-4.patch')
 sha256sums=('39bffcd0330c9c260ce97e5cd0f598696aa7943bf1f03f97da3fcc566954f427'
             'eeb9c6c8f70dd5eb05f735df0cdfc294365b393e5819f26029320e38714069a6'
             'b467b04d6d06152b2abc33f2a6de63fef0fc922dd5119d2ee1d07d3c1a489731'
             'b4e357a0e2e3a7dc01f9459efcbed77ce3229f8d94273e3ff464bcd67c9413fc'
-            '4c8bdd0bc71b4ab9d69485b7e51937bf45f1c87323e380290db357483c154505')
+            '4c8bdd0bc71b4ab9d69485b7e51937bf45f1c87323e380290db357483c154505'
+            '6b0ec123bb2dbe8b18c930b1b58571f239a8d5ca1f281a8ce3a5eb8108b3e7e1')
 
 prepare() {
 	cd $pkgbase-$_pkgver
@@ -43,6 +45,9 @@ prepare() {
 	sed 's/-DNDEBUG -D_FORTIFY_SOURCE=2//' -i CMakeLists.txt
 
 	patch -p1 -i ../gcc-14.patch # Fix build with GCC 14
+	# Fix OpenSSL 4 detection and certificate APIs, including NDB (MySQL Bug #39102340).
+	# https://github.com/mysql/mysql-server/commit/a045c23214ec225c49d9bc4caeea78d3d1f99ba9
+	patch -p1 -i ../percona-server-9.7.2-openssl-4.patch
 }
 
 build() {

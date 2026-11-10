@@ -1,0 +1,618 @@
+Backport OpenSSL 4 detection and certificate API compatibility, including NDB.
+Adapted to Percona Server 9.7.2-2.
+
+Upstream: https://github.com/mysql/mysql-server/commit/a045c23214ec225c49d9bc4caeea78d3d1f99ba9
+MySQL Bug #39102340
+
+--- a/cmake/ssl.cmake
++++ b/cmake/ssl.cmake
+@@ -132,7 +132,7 @@
+ # #define OPENSSL_VERSION_NUMBER 0x1000103fL
+ # Encoded as MNNFFPPS: major minor fix patch status
+ #
+-# OpenSSL 3:
++# OpenSSL >= 3:
+ # #define OPENSSL_VERSION_NUMBER
+ #   ( (OPENSSL_VERSION_MAJOR<<28)
+ #     |(OPENSSL_VERSION_MINOR<<20)
+@@ -151,8 +151,8 @@
+       ${version_part} "${${version_part}}")
+   ENDFOREACH()
+   SET(OPENSSL_VERSION_MAJOR ${OPENSSL_VERSION_MAJOR} CACHE INTERNAL "" FORCE)
+-  IF(OPENSSL_VERSION_MAJOR VERSION_EQUAL 3)
+-    # OpenSSL 3
++  IF(OPENSSL_VERSION_MAJOR VERSION_GREATER_EQUAL 3)
++    # OpenSSL >= 3
+     SET(OPENSSL_FIX_VERSION "${OPENSSL_VERSION_PATCH}")
+   ELSE()
+     # Verify version number. Version information looks like:
+--- a/sql/auth/sql_authentication.cc
++++ b/sql/auth/sql_authentication.cc
+@@ -2582,7 +2582,8 @@
+       if (!(cert = SSL_get_peer_certificate(ssl))) return true;
+       /* If X509 issuer is specified, we check it... */
+       if (acl_user->x509_issuer) {
+-        char *ptr = X509_NAME_oneline(X509_get_issuer_name(cert), nullptr, 0);
++        char *ptr = X509_NAME_oneline(
++            const_cast<X509_NAME *>(X509_get_issuer_name(cert)), nullptr, 0);
+         DBUG_PRINT("info", ("comparing issuers: '%s' and '%s'",
+                             acl_user->x509_issuer, ptr));
+         if (strcmp(acl_user->x509_issuer, ptr)) {
+@@ -2596,7 +2597,8 @@
+       }
+       /* X509 subject is specified, we check it .. */
+       if (acl_user->x509_subject) {
+-        char *ptr = X509_NAME_oneline(X509_get_subject_name(cert), nullptr, 0);
++        char *ptr = X509_NAME_oneline(
++            const_cast<X509_NAME *>(X509_get_subject_name(cert)), nullptr, 0);
+         DBUG_PRINT("info", ("comparing subjects: '%s' and '%s'",
+                             acl_user->x509_subject, ptr));
+         if (strcmp(acl_user->x509_subject, ptr)) {
+@@ -5508,7 +5510,7 @@
+     if (!X509_set_pubkey(x509, pkey)) goto err;
+ 
+     /** Set CN value in subject */
+-    name = X509_get_subject_name(x509);
++    name = X509_NAME_new();
+     if (!name) goto err;
+ 
+     if (!X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+@@ -5516,10 +5518,19 @@
+                                     0))
+       goto err;
+ 
++    if (!X509_set_subject_name(x509, name)) goto err;
++
+     /** Set Issuer */
+-    if (!X509_set_issuer_name(
+-            x509, self_sign ? name : X509_get_subject_name(ca_x509)))
+-      goto err;
++    {
++      const X509_NAME *issuer_name =
++          self_sign ? name : X509_get_subject_name(ca_x509);
++      if (!issuer_name) goto err;
++      if (!X509_set_issuer_name(x509, const_cast<X509_NAME *>(issuer_name)))
++        goto err;
++    }
++
++    X509_NAME_free(name);
++    name = nullptr;
+ 
+     /** Add X509v3 extensions */
+     X509V3_set_ctx(&v3ctx, self_sign ? x509 : ca_x509, x509, nullptr, nullptr,
+@@ -5539,6 +5550,7 @@
+ 
+     return x509;
+   err:
++    if (name) X509_NAME_free(name);
+     if (x509) X509_free(x509);
+     return nullptr;
+   }
+--- a/router/src/router/src/certificate_generator.cc
++++ b/router/src/router/src/certificate_generator.cc
+@@ -254,21 +254,26 @@
+   }
+ 
+   // Set CN value in subject
+-  auto name = X509_get_subject_name(cert.get());
+-  if (!name) {
++  X509_NAME *subject_name = X509_NAME_new();
++  if (!subject_name) {
+     return stdx::unexpected(make_error_code(cert_errc::cert_set_cn_failed));
+   }
+ 
+   if (!X509_NAME_add_entry_by_txt(
+-          name, "CN", MBSTRING_ASC,
++          subject_name, "CN", MBSTRING_ASC,
+           reinterpret_cast<const unsigned char *>(common_name.c_str()), -1, -1,
+-          0)) {
++          0) ||
++      !X509_set_subject_name(cert.get(), subject_name)) {
++    X509_NAME_free(subject_name);
+     return stdx::unexpected(make_error_code(cert_errc::cert_set_cn_failed));
+   }
++  X509_NAME_free(subject_name);
+ 
+   // Set Issuer
+-  if (!X509_set_issuer_name(cert.get(),
+-                            ca_cert ? X509_get_subject_name(ca_cert) : name)) {
++  const X509_NAME *issuer_name = ca_cert ? X509_get_subject_name(ca_cert)
++                                         : X509_get_subject_name(cert.get());
++  if (!issuer_name ||
++      !X509_set_issuer_name(cert.get(), const_cast<X509_NAME *>(issuer_name))) {
+     return stdx::unexpected(make_error_code(cert_errc::cert_set_issuer_failed));
+   }
+ 
+--- a/router/src/mock_server/src/classic_mock_session.cc
++++ b/router/src/mock_server/src/classic_mock_session.cc
+@@ -747,7 +747,8 @@
+   }
+ }
+ 
+-stdx::expected<std::string, std::error_code> cert_get_name(X509_NAME *name) {
++static stdx::expected<std::string, std::error_code> cert_get_name(
++    const X509_NAME *name) {
+   std::unique_ptr<BIO, decltype(&BIO_free)> bio{BIO_new(BIO_s_mem()),
+                                                 &BIO_free};
+   // X509_NAME_oneline() is a legacy function and supposed to be not used for
+--- a/router/src/routing/src/router_require.cc
++++ b/router/src/routing/src/router_require.cc
+@@ -78,8 +78,9 @@
+         std::string subject_name;
+         subject_name.resize(512);  // reserve a bit of memory.
+ 
+-        X509_NAME_oneline(X509_get_subject_name(client_x509.get()),
+-                          subject_name.data(), subject_name.size());
++        X509_NAME_oneline(
++            const_cast<X509_NAME *>(X509_get_subject_name(client_x509.get())),
++            subject_name.data(), subject_name.size());
+ 
+         // resize to what is actually used.
+         subject_name.resize(strlen(subject_name.c_str()));
+--- a/router/tests/component/test_bootstrap.cc
++++ b/router/tests/component/test_bootstrap.cc
+@@ -4672,7 +4672,7 @@
+       << router_console_output;
+ }
+ 
+-std::string get_x509_name(X509_NAME *name) {
++static std::string get_x509_name(const X509_NAME *name) {
+   char buffer[256];
+   X509_NAME_oneline(name, buffer, sizeof(buffer));
+   return std::string(buffer);
+--- a/router/tests/component/test_rest_api_enable.cc
++++ b/router/tests/component/test_rest_api_enable.cc
+@@ -348,7 +348,7 @@
+     X509_ptr cert(PEM_read_bio_X509_AUX(input.get(), nullptr, nullptr, nullptr),
+                   X509_free);
+ 
+-    X509_NAME *subject = X509_get_subject_name(cert.get());
++    const X509_NAME *subject = X509_get_subject_name(cert.get());
+     BIO_ptr output_bio(BIO_new(BIO_s_mem()), BIO_free);
+     X509_NAME_print_ex(output_bio.get(), subject, 0, 0);
+ 
+--- a/sql/set_var.cc
++++ b/sql/set_var.cc
+@@ -1639,7 +1639,8 @@
+   cert = SSL_get_peer_certificate(ssl);
+   if (!cert) goto done;
+ 
+-  ptr = X509_NAME_oneline(X509_get_subject_name(cert), nullptr, 0);
++  ptr = X509_NAME_oneline(const_cast<X509_NAME *>(X509_get_subject_name(cert)),
++                          nullptr, 0);
+   if (!ptr) goto done;
+ 
+   result = !strcmp(sys_var_persist_only_admin_x509_subject, ptr);
+--- a/sql/ssl_init_callback.cc
++++ b/sql/ssl_init_callback.cc
+@@ -341,8 +341,10 @@
+       return false;
+     }
+ 
+-    issuer = X509_NAME_oneline(X509_get_issuer_name(ca_cert), nullptr, 0);
+-    subject = X509_NAME_oneline(X509_get_subject_name(ca_cert), nullptr, 0);
++    issuer = X509_NAME_oneline(
++        const_cast<X509_NAME *>(X509_get_issuer_name(ca_cert)), nullptr, 0);
++    subject = X509_NAME_oneline(
++        const_cast<X509_NAME *>(X509_get_subject_name(ca_cert)), nullptr, 0);
+ 
+     /* Suppressing warning which is not relevant during initialization */
+     if (!strcmp(issuer, subject) &&
+--- a/sql/ssl_wrapper_service.cc
++++ b/sql/ssl_wrapper_service.cc
+@@ -146,7 +146,8 @@
+     return;
+   }
+ 
+-  X509_NAME_oneline(X509_get_issuer_name(cert), issuer, (int)issuer_size);
++  X509_NAME_oneline(const_cast<X509_NAME *>(X509_get_issuer_name(cert)), issuer,
++                    (int)issuer_size);
+   X509_free(cert);
+ }
+ 
+@@ -166,7 +167,8 @@
+     return;
+   }
+ 
+-  X509_NAME_oneline(X509_get_subject_name(cert), subject, (int)subject_size);
++  X509_NAME_oneline(const_cast<X509_NAME *>(X509_get_subject_name(cert)),
++                    subject, (int)subject_size);
+   X509_free(cert);
+ }
+ 
+--- a/storage/ndb/include/util/NodeCertificate.hpp
++++ b/storage/ndb/include/util/NodeCertificate.hpp
+@@ -225,7 +225,7 @@
+   size_t timestamp(time_t, char *m, size_t) const;
+   size_t timestamp(char *, size_t) const;
+   size_t print_name(char *, size_t) const;
+-  bool parse_name(struct X509_name_st *);
++  bool parse_name(const struct X509_name_st *);
+   bool parse_name(const struct asn1_string_st *);
+ 
+   /* Member variables */
+--- a/storage/ndb/include/util/ndb_openssl3_compat.h
++++ b/storage/ndb/include/util/ndb_openssl3_compat.h
+@@ -43,6 +43,34 @@
+ #define X509_REQ_VERSION_1 0
+ #endif
+ 
++/* OpenSSL 3 made these X509_NAME arguments const. */
++static inline X509_NAME *ndb_x509_name_dup(const X509_NAME *name) {
++#if OPENSSL_VERSION_NUMBER < 0x30000000L
++  return X509_NAME_dup(const_cast<X509_NAME *>(name));
++#else
++  return X509_NAME_dup(name);
++#endif
++}
++
++static inline int ndb_x509_name_get_index_by_nid(const X509_NAME *name, int nid,
++                                                 int lastpos) {
++#if OPENSSL_VERSION_NUMBER < 0x30000000L
++  return X509_NAME_get_index_by_NID(const_cast<X509_NAME *>(name), nid,
++                                    lastpos);
++#else
++  return X509_NAME_get_index_by_NID(name, nid, lastpos);
++#endif
++}
++
++static inline const X509_NAME_ENTRY *ndb_x509_name_get_entry(
++    const X509_NAME *name, int loc) {
++#if OPENSSL_VERSION_NUMBER < 0x30000000L
++  return X509_NAME_get_entry(const_cast<X509_NAME *>(name), loc);
++#else
++  return X509_NAME_get_entry(name, loc);
++#endif
++}
++
+ #if OPENSSL_VERSION_NUMBER < 0x30000000L && OPENSSL_VERSION_NUMBER > 0x10002000L
+ 
+ EVP_PKEY *EVP_RSA_gen(unsigned int bits);
+--- a/storage/ndb/src/common/util/NodeCertificate.cpp
++++ b/storage/ndb/src/common/util/NodeCertificate.cpp
+@@ -25,9 +25,12 @@
+ #include <sys/stat.h>
+ #include <cassert>
+ #include <cstdlib>
++#include <cstring>
+ #include <ctime>
+ #include <memory>
+ 
++#include <openssl/asn1.h>
++#include <openssl/crypto.h>
+ #include <openssl/err.h>
+ #include <openssl/evp.h>
+ #include <openssl/pem.h>
+@@ -477,7 +480,17 @@
+   /* Set the subject common name */
+   char cn[CN_max_length];
+   print_name(cn, CN_max_length);
+-  set_common_name(X509_REQ_get_subject_name(m_req), cn);
++  X509_NAME *name = X509_NAME_new();
++  if (name == nullptr) return -5;
++  if (set_common_name(name, cn) != 1) {
++    X509_NAME_free(name);
++    return -6;
++  }
++  if (X509_REQ_set_subject_name(m_req, name) != 1) {
++    X509_NAME_free(name);
++    return -7;
++  }
++  X509_NAME_free(name);
+ 
+   /* Set the subject alt names extension */
+   if (bound_hostnames()) {
+@@ -561,8 +574,12 @@
+   if (!cert) return nullptr;
+ 
+   /* Copy name from csr to cert */
+-  X509_NAME *name = X509_REQ_get_subject_name(m_req);
+-  if (X509_set_subject_name(cert, name) != 1) return nullptr;
++  const X509_NAME *req_name = X509_REQ_get_subject_name(m_req);
++  X509_NAME *name = req_name ? ndb_x509_name_dup(req_name) : nullptr;
++  if (name == nullptr) return nullptr;
++  const int set_ok = X509_set_subject_name(cert, name);
++  X509_NAME_free(name);
++  if (set_ok != 1) return nullptr;
+ 
+   /* Set serial number in x509 */
+   ASN1_STRING *serial = SerialNumber::random();
+@@ -581,7 +598,7 @@
+ 
+ bool SigningRequest::parse_name() {
+   if (m_req == nullptr) return false;
+-  X509_NAME *name = X509_REQ_get_subject_name(m_req);
++  const X509_NAME *name = X509_REQ_get_subject_name(m_req);
+   return CertSubject::parse_name(name);
+ }
+ 
+@@ -603,9 +620,18 @@
+ }
+ 
+ int SerialNumber::print(char *buf, int len, const ASN1_STRING *serial) {
++  if (buf == nullptr || len <= 0 || serial == nullptr) return 0;
++
++  const int serial_len = ASN1_STRING_length(serial);
++  const unsigned char *serial_data = ASN1_STRING_get0_data(serial);
++  if (serial_len <= 0 || serial_data == nullptr) {
++    buf[0] = '\0';
++    return 0;
++  }
++
+   int offset = 0;
+-  for (int i = 0; i < serial->length && offset < (len - 4); i++)
+-    offset += sprintf(buf + offset, "%02X:", serial->data[i]);
++  for (int i = 0; i < serial_len && offset < (len - 4); i++)
++    offset += sprintf(buf + offset, "%02X:", serial_data[i]);
+   if (offset) buf[offset - 1] = '\0';
+   return offset;
+ }
+@@ -615,8 +641,14 @@
+ SerialNumber::HexString::HexString(const ASN1_STRING *serial) {
+   buf.append("0x");
+   int truncated [[maybe_unused]] = 0;
+-  for (int i = 0; i < serial->length; i++)
+-    truncated = buf.appendf("%02x", serial->data[i]);
++
++  if (serial == nullptr) return;
++  const int serial_len = ASN1_STRING_length(serial);
++  const unsigned char *serial_data = ASN1_STRING_get0_data(serial);
++  if (serial_len <= 0 || serial_data == nullptr) return;
++
++  for (int i = 0; i < serial_len; i++)
++    truncated = buf.appendf("%02x", serial_data[i]);
+   assert(!truncated);
+ }
+ 
+@@ -641,13 +673,48 @@
+ }
+ 
+ int Certificate::set_common_name(X509 *cert, const char *CN) {
+-  X509_NAME *name = X509_get_subject_name(cert);
+-  return CertSubject::set_common_name(name, CN);
++  if (cert == nullptr || CN == nullptr) return 0;
++
++  const X509_NAME *current = X509_get_subject_name(cert);
++  X509_NAME *name = current ? ndb_x509_name_dup(current) : X509_NAME_new();
++  if (name == nullptr) return 0;
++
++  int ok = X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
++                                      (const unsigned char *)CN, -1, -1, 0);
++  if (ok == 1) ok = X509_set_subject_name(cert, name);
++  X509_NAME_free(name);
++  return ok;
+ }
+ 
+ size_t Certificate::get_common_name(X509 *cert, char *buf, size_t len) {
+-  return X509_NAME_get_text_by_NID(X509_get_subject_name(cert), NID_commonName,
+-                                   buf, len);
++  if (cert == nullptr || buf == nullptr || len == 0) return 0;
++  buf[0] = '\0';
++
++  const X509_NAME *name = X509_get_subject_name(cert);
++  if (name == nullptr) return 0;
++
++  int idx = X509_NAME_get_index_by_NID(const_cast<X509_NAME *>(name),
++                                       NID_commonName, -1);
++  if (idx < 0) return 0;
++
++  const X509_NAME_ENTRY *entry =
++      X509_NAME_get_entry(const_cast<X509_NAME *>(name), idx);
++  if (entry == nullptr) return 0;
++
++  const ASN1_STRING *str = X509_NAME_ENTRY_get_data(entry);
++  if (str == nullptr) return 0;
++
++  unsigned char *utf8 = nullptr;
++  const int utf8_len = ASN1_STRING_to_UTF8(&utf8, str);
++  if (utf8_len <= 0 || utf8 == nullptr) return 0;
++
++  const size_t copy_len = (static_cast<size_t>(utf8_len) < (len - 1))
++                              ? static_cast<size_t>(utf8_len)
++                              : (len - 1);
++  memcpy(buf, utf8, copy_len);
++  buf[copy_len] = '\0';
++  OPENSSL_free(utf8);
++  return copy_len;
+ }
+ 
+ int Certificate::get_signature_prefix(X509 *cert) {
+@@ -655,8 +722,15 @@
+   const ASN1_BIT_STRING *sig = nullptr;
+   const X509_ALGOR *algorithm;
+   X509_get0_signature(&sig, &algorithm, cert);
+-  if (sig && sig->data)
+-    prefix = (sig->data[0] << 16) | (sig->data[1] << 8) | sig->data[2];
++  if (sig == nullptr) return 0;
++
++  const int sig_len =
++      ASN1_STRING_length(reinterpret_cast<const ASN1_STRING *>(sig));
++  const unsigned char *sig_data =
++      ASN1_STRING_get0_data(reinterpret_cast<const ASN1_STRING *>(sig));
++  if (sig_len < 3 || sig_data == nullptr) return 0;
++
++  prefix = (sig_data[0] << 16) | (sig_data[1] << 8) | sig_data[2];
+   return prefix;
+ }
+ 
+@@ -768,8 +842,8 @@
+   if (r1 == 0) return false;
+ 
+   /* Set subject name */
+-  X509_NAME *name = X509_get_subject_name(cert);
+-  r1 = X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, subject, -1, -1, 0);
++  r1 = Certificate::set_common_name(cert,
++                                    reinterpret_cast<const char *>(subject));
+   if (r1 == 0) return false;
+ 
+   /* Add extension */
+@@ -805,7 +879,10 @@
+ }
+ 
+ int ClusterCertAuthority::sign(X509 *issuer, EVP_PKEY *key, X509 *cert) {
+-  if (X509_set_issuer_name(cert, X509_get_subject_name(issuer)) == 0) return 0;
++  const X509_NAME *issuer_name = X509_get_subject_name(issuer);
++  if (issuer_name == nullptr) return 0;
++  if (X509_set_issuer_name(cert, const_cast<X509_NAME *>(issuer_name)) == 0)
++    return 0;
+   return X509_sign(cert, key, my_EVP_sha256());
+ }
+ 
+@@ -898,17 +975,26 @@
+ 
+ int CertSubject::bound_hostname(int n, char *buffer, int size) const {
+   int nwritten = 0;
++  if (buffer == nullptr || size <= 0) return 0;
++
+   if (m_bound_hostnames) {
+     int name_type;
+     if (n < sk_GENERAL_NAME_num(m_bound_hostnames)) {
+       GENERAL_NAME *name = sk_GENERAL_NAME_value(m_bound_hostnames, n);
+-      auto *str =
+-          static_cast<ASN1_STRING *>(GENERAL_NAME_get0_value(name, &name_type));
+-      if (name_type == GEN_DNS) {
+-        if (str->length < size) size = str->length;
+-        memcpy(buffer, str->data, size);
+-        buffer[size] = '\0';
+-        nwritten = size;
++      const auto *str = static_cast<const ASN1_STRING *>(
++          GENERAL_NAME_get0_value(name, &name_type));
++      if (name_type == GEN_DNS && str != nullptr) {
++        const int str_len = ASN1_STRING_length(str);
++        const unsigned char *str_data = ASN1_STRING_get0_data(str);
++        if (str_len > 0 && str_data != nullptr) {
++          const int max_copy = size - 1;
++          const int copy_len = (str_len < max_copy) ? str_len : max_copy;
++          memcpy(buffer, str_data, copy_len);
++          buffer[copy_len] = '\0';
++          nwritten = copy_len;
++        } else {
++          buffer[0] = '\0';
++        }
+       }
+     }
+   }
+@@ -924,11 +1010,13 @@
+   if (sk_GENERAL_NAME_num(m_bound_hostnames) == 1) {
+     int name_type;
+     GENERAL_NAME *name = sk_GENERAL_NAME_value(m_bound_hostnames, 0);
+-    auto *str =
+-        static_cast<ASN1_STRING *>(GENERAL_NAME_get0_value(name, &name_type));
+-    if (name_type == GEN_DNS) {
+-      if ((str->length == 9) &&
+-          (strncmp("localhost", (const char *)str->data, 9) == 0))
++    const auto *str = static_cast<const ASN1_STRING *>(
++        GENERAL_NAME_get0_value(name, &name_type));
++    if (name_type == GEN_DNS && str != nullptr) {
++      const int str_len = ASN1_STRING_length(str);
++      const unsigned char *str_data = ASN1_STRING_get0_data(str);
++      if (str_len == 9 && str_data != nullptr &&
++          memcmp(str_data, "localhost", 9) == 0)
+         return true;
+     }
+   }
+@@ -1002,27 +1090,31 @@
+   return len;
+ }
+ 
+-bool CertSubject::parse_name(X509_NAME *name) {
+-  int idx = X509_NAME_get_index_by_NID(name, NID_commonName, -1);
++bool CertSubject::parse_name(const X509_NAME *name) {
++  int idx = X509_NAME_get_index_by_NID(const_cast<X509_NAME *>(name),
++                                       NID_commonName, -1);
+   if (idx < 0) return false;
+-  X509_NAME_ENTRY *cn = X509_NAME_get_entry(name, idx);
++  const X509_NAME_ENTRY *cn =
++      X509_NAME_get_entry(const_cast<X509_NAME *>(name), idx);
+   if (cn == nullptr) return false;
+-  ASN1_STRING *str = X509_NAME_ENTRY_get_data(cn);
++  const ASN1_STRING *str = X509_NAME_ENTRY_get_data(cn);
+   return parse_name(str);
+ }
+ 
+ bool CertSubject::parse_name(const ASN1_STRING *str) {
+   if (str == nullptr) return false;
+-  if (str->length == 0) return false;
++
++  const int str_len = ASN1_STRING_length(str);
++  const unsigned char *str_data = ASN1_STRING_get0_data(str);
++  if (str_len <= 0 || str_data == nullptr) return false;
+ 
+   int p = 0;  // cursor into name
+-  auto atEnd = [&]() { return (str->length == p); };
+-  auto data = [&]() { return (char *)(str->data) + p; };
++  auto atEnd = [&]() { return (str_len == p); };
++  auto data = [&]() { return reinterpret_cast<const char *>(str_data) + p; };
+   auto find = [&](const char *a, size_t l) {
+-    if (str->length <= p) return false;
+-    int r = strncmp(data(), a, l);
+-    if (r == 0) {
+-      p += l;
++    if ((str_len - p) < static_cast<int>(l)) return false;
++    if (memcmp(data(), a, l) == 0) {
++      p += static_cast<int>(l);
+       return true;
+     }
+     return false;
+@@ -1261,7 +1353,11 @@
+   if (r1 == 0) return -50;
+ 
+   /* Set issuer name */
+-  r1 = X509_set_issuer_name(m_x509, X509_get_subject_name(CA_cert));
++  {
++    const X509_NAME *issuer_name = X509_get_subject_name(CA_cert);
++    if (issuer_name == nullptr) return -60;
++    r1 = X509_set_issuer_name(m_x509, const_cast<X509_NAME *>(issuer_name));
++  }
+   if (r1 == 0) return -60;
+ 
+   /* Set lifetime */
+@@ -1360,12 +1456,12 @@
+ 
+ bool NodeCertificate::parse_name() {
+   if (m_x509 == nullptr) return false;
+-  X509_NAME *name = X509_get_subject_name(m_x509);
+-  int idx = X509_NAME_get_index_by_NID(name, NID_commonName, -1);
++  const X509_NAME *name = X509_get_subject_name(m_x509);
++  int idx = ndb_x509_name_get_index_by_nid(name, NID_commonName, -1);
+   if (idx < 0) return false;
+-  X509_NAME_ENTRY *cn = X509_NAME_get_entry(name, idx);
++  const X509_NAME_ENTRY *cn = ndb_x509_name_get_entry(name, idx);
+   if (cn == nullptr) return false;
+-  ASN1_STRING *str = X509_NAME_ENTRY_get_data(cn);
++  const ASN1_STRING *str = X509_NAME_ENTRY_get_data(cn);
+   return CertSubject::parse_name(str);
+ }
+ 
+--- a/storage/ndb/src/common/util/testSecureSocket.cpp
++++ b/storage/ndb/src/common/util/testSecureSocket.cpp
+@@ -229,9 +229,12 @@
+   X509_set_pubkey(tls_cert, tls_key);
+ 
+   /* Set the names */
+-  X509_NAME *name = X509_get_subject_name(tls_cert);
++  X509_NAME *name = X509_NAME_new();
++  assert(name);
+   X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+                              (const unsigned char *)common_name, -1, -1, 0);
++  X509_set_subject_name(tls_cert, name);
++  X509_NAME_free(name);
+   X509_set_issuer_name(tls_cert, X509_get_subject_name(tls_cert));
+ 
+   /* Set the expiration date */
+--- a/vio/viossl.cc
++++ b/vio/viossl.cc
+@@ -778,9 +778,11 @@
+ 
+     if ((cert = SSL_get_peer_certificate(ssl))) {
+       DBUG_PRINT("info", ("Peer certificate:"));
+-      X509_NAME_oneline(X509_get_subject_name(cert), buf, sizeof(buf));
++      X509_NAME_oneline(const_cast<X509_NAME *>(X509_get_subject_name(cert)),
++                        buf, sizeof(buf));
+       DBUG_PRINT("info", ("\t subject: '%s'", buf));
+-      X509_NAME_oneline(X509_get_issuer_name(cert), buf, sizeof(buf));
++      X509_NAME_oneline(const_cast<X509_NAME *>(X509_get_issuer_name(cert)),
++                        buf, sizeof(buf));
+       DBUG_PRINT("info", ("\t issuer: '%s'", buf));
+       X509_free(cert);
+     } else
