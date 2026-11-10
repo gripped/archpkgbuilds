@@ -3,7 +3,7 @@
 # Contributor: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=xdg-desktop-portal-lxqt
-pkgver=1.4.0
+pkgver=1.5.0
 pkgrel=1
 pkgdesc='A backend implementation for xdg-desktop-portal using Qt/KDE Frameworks/libfm-qt'
 arch=(x86_64)
@@ -13,25 +13,15 @@ url='https://github.com/lxqt/xdg-desktop-portal-lxqt'
 # All C/C++ files include "any later"
 license=('LGPL-2.1-or-later')
 depends=(qt6-base kwindowsystem xdg-desktop-portal libfm-qt)
-makedepends=(cmake)
+makedepends=(cmake lxqt-build-tools)
 provides=(xdg-desktop-portal-impl)
-source=("https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
-        xdg-desktop-portal-lxqt-modal-dialog.patch)
-sha256sums=('4468a068130e5f66a3f61d02833429b71c49b714332f3cf49c540b8d689661c7'
-            'SKIP'
-            '05d296f4528b39d21cd53b64e11d3507cd7a6e9e330d5dda9d819661ad160bd6')
+source=("https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc})
+sha256sums=('ce8c222e0849ad581d86f22609f37ac0cd391443313807bf9a2e0b3b894e971f'
+            'SKIP')
 validpgpkeys=(
   "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
   "48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
 )
-
-prepare() {
-  cd $pkgname-$pkgver
-
-  # Make dialog as modal only for the window
-  # https://github.com/lxqt/xdg-desktop-portal-lxqt/pull/52
-  patch -Np1 -i ../xdg-desktop-portal-lxqt-modal-dialog.patch
-}
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
