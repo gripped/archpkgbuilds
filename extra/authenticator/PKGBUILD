@@ -2,7 +2,7 @@
 
 pkgname=authenticator
 pkgver=4.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Simple application for generating two-factor authentication (2FA) codes'
 arch=(x86_64)
 url='https://apps.gnome.org/Authenticator/'
@@ -51,6 +51,9 @@ b2sums=(
 prepare() {
   cd Authenticator
 
+  # support openssl 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
 
