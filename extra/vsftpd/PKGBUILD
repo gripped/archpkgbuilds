@@ -6,7 +6,7 @@
 
 pkgname=vsftpd
 pkgver=3.0.5
-pkgrel=2
+pkgrel=3
 pkgdesc='Very Secure FTP daemon'
 url='https://security.appspot.com/vsftpd.html'
 arch=('x86_64')
