@@ -3,7 +3,7 @@
 
 pkgname=rng-tools
 pkgver=6.17
-pkgrel=3
+pkgrel=4
 pkgdesc="Random number generator related utilities"
 arch=('x86_64')
 url="https://github.com/nhorman/rng-tools"
