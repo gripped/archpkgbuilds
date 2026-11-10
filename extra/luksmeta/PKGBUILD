@@ -1,6 +1,6 @@
 # Maintainer: Jonas Witschel <diabonas@archlinux.org>
 pkgname=luksmeta
-pkgver=10
+pkgver=11
 pkgrel=1
 pkgdesc='Library for storing metadata in the LUKSv1 header'
 arch=('x86_64')
@@ -9,7 +9,7 @@ license=('LGPL-2.1-or-later')
 depends=('cryptsetup' 'libcryptsetup.so')
 makedepends=('asciidoc')
 source=("$url/releases/download/v$pkgver/$pkgname-$pkgver.tar.bz2")
-sha512sums=('03994598c7d573492eea571677d0e9b61413fc305f5a8efb04985c38e727534c6b484f847cd0dd96a53b3d2982399441bf2e269860dd0bc12bcf690d5829d93b')
+sha512sums=('74d78fcce442fe078586a58d866861b447dc321db9498f0330d08f0a9d38e93d8d50cad486ae9ec9e8aba74a408f7b6ff066492ba9636021031ccb27615c15d8')
 
 build() {
 	cd "$pkgname-$pkgver"
