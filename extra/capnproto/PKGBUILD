@@ -6,7 +6,7 @@
 
 pkgname=capnproto
 pkgver=1.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Cap'n Proto serialization/RPC system"
 arch=(x86_64)
 url="https://capnproto.org/"
