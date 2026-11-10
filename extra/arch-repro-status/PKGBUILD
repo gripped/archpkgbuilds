@@ -2,7 +2,7 @@
 
 pkgname=arch-repro-status
 pkgver=1.4.3
-pkgrel=3
+pkgrel=4
 pkgdesc="Check the reproducibility status of your Arch Linux packages"
 arch=('x86_64')
 url="https://gitlab.archlinux.org/archlinux/arch-repro-status"
@@ -36,6 +36,11 @@ prepare() {
   cd "$pkgname"
   git apply -3 ../0001-fix-deps-update-alpm-for-pacman-7.1.patch
   mkdir completions/
+
+  # support OpenSSL 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
+
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
