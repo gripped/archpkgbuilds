@@ -1,0 +1,24 @@
+diff --git a/ts/routes/card-info/forgetting-curve.ts b/ts/routes/card-info/forgetting-curve.ts
+index c2a9f2580..b094f37ed 100644
+--- a/ts/routes/card-info/forgetting-curve.ts
++++ b/ts/routes/card-info/forgetting-curve.ts
+@@ -8,6 +8,7 @@ import {
+ import * as tr from "@generated/ftl";
+ import { timeSpan } from "@tslib/time";
+ import { axisBottom, axisLeft, line, max, min, pointer, scaleLinear, scaleTime, select } from "d3";
++import "d3-transition";
+ import { type GraphBounds, setDataAvailable } from "../graphs/graph-helpers";
+ import { hideTooltip, showTooltip } from "../graphs/tooltip-utils.svelte";
+ 
+diff --git a/ts/routes/graphs/graph-helpers.ts b/ts/routes/graphs/graph-helpers.ts
+index 47f0249b4..27d905204 100644
+--- a/ts/routes/graphs/graph-helpers.ts
++++ b/ts/routes/graphs/graph-helpers.ts
+@@ -8,6 +8,7 @@
+ import type { GraphPreferences } from "@generated/anki/stats_pb";
+ import type { Bin, Selection } from "d3";
+ import { sum } from "d3";
++import "d3-transition";
+ 
+ import type { PreferenceStore } from "$lib/sveltelib/preferences";
+ 
