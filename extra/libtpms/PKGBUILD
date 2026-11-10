@@ -3,7 +3,7 @@
 
 pkgname=libtpms
 pkgver=0.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Library providing a software emulation of a Trusted Platform Module (TPM 1.2 and TPM 2.0)'
 arch=('x86_64')
 url='https://github.com/stefanberger/libtpms'
@@ -19,6 +19,10 @@ validpgpkeys=('B818B9CADF9089C2D5CEC66B75AD65802A0B4211') # Stefan Berger <stefa
 
 prepare() {
 	cd "$pkgname"
+
+	# Fix build failure with GCC 15 and later
+	git cherry-pick -n a405c830fb2d696c57cbc11695ad297fc18c1207
+
 	autoreconf --install --force
 }
 
