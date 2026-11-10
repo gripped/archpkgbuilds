@@ -3,7 +3,7 @@
 
 pkgname=opendeck
 pkgver=2.14.2
-pkgrel=1
+pkgrel=2
 pkgdesc='A desktop application that provides functionality for stream controller devices'
 arch=(x86_64 aarch64)
 url='https://github.com/nekename/OpenDeck'
@@ -58,6 +58,8 @@ prepare() {
 
   # download rust dependencies
   cd src-tauri
+  # Update the locked bindings for OpenSSL 4: https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target host-tuple
 }
 build() {
