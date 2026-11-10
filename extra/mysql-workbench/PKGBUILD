@@ -4,11 +4,20 @@
 # Contributor: totoloco <totoloco at gmail _dot_com>
 # Contributor: Ionut Biru <ibiru@archlinux.org>
 
+#    /\    WARNING:
+#   /\7\     There's shiny new MySQL Workbench 26 now, built on MySQL Shell
+#  /_()_\    (and ElectronJS). Currently it does not connect to MariaDB,
+#            which is what we have in our repositories. Thus not updating
+#            for now, but sticking to obsolete MySQL Workbench 8.0...
+#
+#            https://blogs.oracle.com/mysql/introducing-mysql-workbench-26
+#            https://github.com/mysql/mysql-shell-plugins/issues/97
+
 pkgname=mysql-workbench
 pkgver=8.0.47
-pkgrel=4
-_mysql_version=8.4.11
-_connector_version=26.7.0
+pkgrel=5
+_mysql_version=8.4.13
+_connector_version=26.10.0
 _boost_version=1.90.0
 # bump the antlr4 version as required, this is to match the jar file name
 _antlr4_version=4.13.2
@@ -40,6 +49,7 @@ depends=('antlr4-runtime' 'libantlr4-runtime.so'
          'libzip' 'libzip.so'
          'ncurses' 'libncursesw.so'
          'openssl' 'libcrypto.so' 'libssl.so'
+         'org.freedesktop.secrets'
          'pango' 'libpango-1.0.so' 'libpangocairo-1.0.so'
          'proj' #'libproj.so'
          'python' #'libpython3.14.so'
@@ -71,9 +81,9 @@ source=("https://cdn.mysql.com/Downloads/MySQLGUITools/mysql-workbench-community
         'arch_linux_profile.xml')
 sha256sums=('c4e9629d6d29355eef75467e1afdc48bd7286cb432225f8af97833eb4b6bb896'
             'SKIP'
-            'eb3051164d625dd346a8203f76e0d5d5d9aec51dbe9d51788e39ec6b3f1394c2'
+            'f6ddc7f7fb6462bab8b533b13c06af3fff57fa9ca12259b81ab13cd9930b9d58'
             'SKIP'
-            '5b84d0b662ad7d5c0e3ac2c6d9cc708065941efe365097fa96bde24b1606b319'
+            '25d83a76164da29592b4e029c6e771cd05139453be2f8fc206cc7c73d19fa9b2'
             'SKIP'
             '49551aff3b22cbc5c5a9ed3dbc92f0e23ea50a0f7325b0d198b705e8ee3fc305'
             'cdf687f23bc6e8d52dbee9fa02b23d755e80f88476f0fc2e7c4c71cdfed3792f'
