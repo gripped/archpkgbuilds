@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=buildbtw-client
 pkgver=0.0.7
-pkgrel=1
+pkgrel=2
 pkgdesc='CLI client for buildbtw (bbtw)'
 url='https://gitlab.archlinux.org/archlinux/buildbtw/'
 arch=(x86_64)
@@ -10,7 +10,7 @@ depends=(libgcc glibc libgit2 openssh openssl sqlite sqlx-cli)
 makedepends=(cargo git just cargo-nextest just)
 options=(!lto)
 provides=('bbtw')
-source=("buildbtw::git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=v${pkgver}"
+source=("buildbtw::git+https://gitlab.archlinux.org/archlinux/buildbtw.git#tag=v${pkgver}?signed"
         "${pkgname}-archlinux-common-style::git+https://gitlab.archlinux.org/archlinux/archlinux-common-style.git")
 sha256sums=('e434e6ff919c2901dc28f11ffec74bcb5d4a4968ff0ba8dc352a3f4783a2011e'
             'SKIP')
