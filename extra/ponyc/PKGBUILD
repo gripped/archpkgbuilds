@@ -2,8 +2,8 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.72.1
-pkgrel=1
+pkgver=0.75.0
+pkgrel=2
 pkgdesc='An actor model, capabilities, high performance programming language'
 arch=('x86_64')
 url='https://ponylang.org/'
@@ -12,7 +12,7 @@ depends=(
   'glibc'
   'libatomic'
   'libgcc'
-  'openssl'
+  'openssl-3'
   'zlib'
 )
 makedepends=(
@@ -26,7 +26,7 @@ source=(
   "git+https://github.com/llvm/llvm-project.git"
   "ponyc-remove-usr-local-refs.patch"
 )
-b2sums=('8ece30a2dd7cd386985065a4a91b137c1c92755586dd1e2cc7450253773f26fc9eb222a03e1ac9fa5b194b3ef60601c3b76a3fd6ec3273c8c303c567e9954057'
+b2sums=('522c5b7a3d2fe2bc0bee0c4dba6cf37663bb6f84ec2b425198d5019a32c9e1636b3f7090201655a14d419f195ec396091486abdcde9082121e298b75d3af4e6e'
         'SKIP'
         '42844af44b7728b0f1cb7886113e52e6a40bb4863215d3637141e26c23e519b16776e692ed8cc437336778fcb5c093ae978bd41f28c41c11b188dec72d47cfe1')
 
@@ -38,6 +38,11 @@ prepare() {
     lib/llvm/src
 
   patch -Np1 < ../ponyc-remove-usr-local-refs.patch
+
+  # PONYPATH is searched after /usr/lib; prefer the selected OpenSSL libraries.
+  sed -i 's/${PONY_SSL_FLAG}/& --lib-path "${PONY_SSL_LIB_DIR}"/' cmake/PonyBinary.cmake
+  sed -i 's/"${PONY_SSL_FLAG}"/& --lib-path "${PONY_SSL_LIB_DIR}"/' \
+    cmake/RunStdlibTest.cmake cmake/RunExamples.cmake
 }
 
 build() {
@@ -51,6 +56,9 @@ build() {
 
   ponyc_cmake_options=(
     "${cmake_options[@]}"
+    -DOPENSSL_INCLUDE_DIR=/usr/include/openssl-3
+    -DOPENSSL_SSL_LIBRARY=/usr/lib/openssl-3/libssl.so
+    -DOPENSSL_CRYPTO_LIBRARY=/usr/lib/openssl-3/libcrypto.so
     -DPONYC_VERSION="$pkgver"
     -DPONY_INSTALL_SYMLINKS=OFF
   )
@@ -98,7 +106,7 @@ check() {
   # Use upstream's SSL flags and certificate fixtures for networking tests.
   PONY_STDLIB_TEST_EXCLUDES='--exclude=net/Broadcast' \
     ctest --test-dir ../build_release --output-on-failure \
-      --tests-regex '^(stdlib-release|examples)$'
+      --tests-regex '^(stdlib|examples)$'
 }
 
 package() {
