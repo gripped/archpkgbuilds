@@ -2,7 +2,7 @@
 
 pkgname=xbuild
 pkgver=0.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Cross compile rust to any platform'
 url='https://github.com/rust-mobile/xbuild'
 arch=('x86_64')
@@ -32,6 +32,9 @@ sha256sums=('f006de3e08cc8a6bb7c67df83b28d63dddb38a4fcd31565f294b7a51b777c82e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
+  # Update the locked OpenSSL bindings for compatibility with system OpenSSL 4.
+  # https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
