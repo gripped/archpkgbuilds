@@ -1,23 +1,29 @@
 pkgbase = kvirc
 	pkgdesc = Qt based IRC client
 	pkgver = 5.2.10
-	pkgrel = 2
+	pkgrel = 3
 	url = https://www.kvirc.net/
 	arch = x86_64
-	license = GPL2
+	license = GPL-2.0-or-later
 	makedepends = cmake
-	makedepends = ninja
+	makedepends = git
 	makedepends = python
 	depends = enchant
-	depends = hicolor-icon-theme
+	depends = glibc
+	depends = libgcc
+	depends = libstdc++
+	depends = openssl
+	depends = qt6-5compat
+	depends = qt6-base
 	depends = qt6-multimedia
 	depends = qt6-webengine
-	depends = qt6-5compat
+	depends = sh
+	depends = zlib
 	optdepends = perl: scripting support
 	optdepends = python: scripting support
-	source = https://github.com/kvirc/KVIrc/archive/5.2.10/kvirc-5.2.10.tar.gz
+	source = git+https://github.com/kvirc/KVIrc#tag=5.2.10
 	source = kvirc.metainfo.xml
-	sha256sums = 6b448b08aeaf5fd3f2b120525c8c87ddad3336f5b750a557b2022aaad0dda626
+	sha256sums = 5bacc792737b9b5c2f41e090d0a8aa22e458c00c42be8f12c631f380ced9acf5
 	sha256sums = 5f90d6161f3ed9527375d210ba30dde5f2d8e68b7c9bef9419d145b3bbbe1d24
 
 pkgname = kvirc

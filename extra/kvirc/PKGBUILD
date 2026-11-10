@@ -2,27 +2,49 @@
 
 pkgname=kvirc
 pkgver=5.2.10
-pkgrel=2
+pkgrel=3
 pkgdesc='Qt based IRC client'
-arch=('x86_64')
+arch=(x86_64)
 url='https://www.kvirc.net/'
-license=('GPL2')
-depends=('enchant' 'hicolor-icon-theme' 'qt6-multimedia' 'qt6-webengine' 'qt6-5compat')
-makedepends=('cmake' 'ninja' 'python')
-optdepends=('perl: scripting support'
-            'python: scripting support')
-source=("https://github.com/kvirc/KVIrc/archive/$pkgver/$pkgname-$pkgver.tar.gz"
-        'kvirc.metainfo.xml')
-sha256sums=('6b448b08aeaf5fd3f2b120525c8c87ddad3336f5b750a557b2022aaad0dda626'
+license=(GPL-2.0-or-later)
+depends=(
+  enchant
+  glibc
+  libgcc
+  libstdc++
+  openssl
+  qt6-5compat
+  qt6-base
+  qt6-multimedia
+  qt6-webengine
+  sh
+  zlib
+)
+makedepends=(
+  cmake
+  git
+  python
+)
+optdepends=(
+  'perl: scripting support'
+  'python: scripting support'
+)
+source=(
+  git+https://github.com/kvirc/KVIrc#tag=$pkgver
+  kvirc.metainfo.xml
+)
+sha256sums=('5bacc792737b9b5c2f41e090d0a8aa22e458c00c42be8f12c631f380ced9acf5'
             '5f90d6161f3ed9527375d210ba30dde5f2d8e68b7c9bef9419d145b3bbbe1d24')
 
 prepare() {
-  cd KVIrc-$pkgver
+  cd KVIrc
   sed -i '/\/share\/pixmaps\//d' data/icons/48x48/CMakeLists.txt
+  git cherry-pick -n d1de244fe7b45355237a871192d2680d9d9f1e86 # Fix build with OpenSSL 4
 }
 
 build() {
-  cmake -S KVIrc-$pkgver -B build -G Ninja -DCMAKE_INSTALL_PREFIX='/usr' \
+  cmake -S KVIrc -B build \
+    -DCMAKE_INSTALL_PREFIX=/usr \
     -DCMAKE_SKIP_RPATH=YES \
     -DWANT_KDE=OFF \
     -DWANT_PHONON=OFF
