@@ -5,7 +5,7 @@
 pkgname=taplo-cli
 _name=${pkgname%-cli}
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc='TOML toolkit written in Rust'
 arch=(x86_64)
 url=https://taplo.tamasfe.dev/cli/introduction.html
@@ -25,6 +25,9 @@ b2sums=('feeca936e65be30109cc4fa6fa3eb915082d1b1d2e44ed05ee9d9e20a0151320e850d24
 
 prepare() {
   cd "$_name"
+  # Update the locked Rust bindings for OpenSSL 4 compatibility.
+  # https://github.com/tamasfe/taplo/commit/af60e64d6db31335d0fcd7523056ea8bedfb3161
+  git cherry-pick -n af60e64d6db31335d0fcd7523056ea8bedfb3161
   mkdir completions/
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
