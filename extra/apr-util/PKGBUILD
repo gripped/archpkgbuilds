@@ -5,7 +5,7 @@
 
 pkgname=apr-util
 pkgver=1.6.6
-pkgrel=1
+pkgrel=2
 pkgdesc="The Apache Portable Runtime"
 arch=(x86_64)
 url="https://apr.apache.org/"
