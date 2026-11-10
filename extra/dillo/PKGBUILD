@@ -1,10 +1,11 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@ærchlinux.org>
 # Contributor: Sergej Pupykin <pupykin.s+arch@gmail.com>
 # Contributor: dorphell <dorphell@archlinux.org>
 
 pkgname=dillo
 pkgver=3.3.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A small, fast graphical web browser built on FLTK"
 arch=(x86_64)
 url="https://dillo-browser.org/"
