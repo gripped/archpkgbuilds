@@ -4,7 +4,7 @@
 
 pkgname=python-croniter
 # https://github.com/pallets-eco/croniter/blob/main/CHANGELOG.rst
-pkgver=6.2.4
+pkgver=7.0.0
 pkgrel=1
 pkgdesc="A Python module to provide iteration for datetime object."
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python' 'python-dateutil')
 makedepends=('git' 'python-build' 'python-hatchling' 'python-installer')
 checkdepends=('python-pytest' 'python-pytz')
 source=("git+https://github.com/pallets-eco/croniter.git#tag=$pkgver")
-sha256sums=('b0774fa7e78e5a36837599b15a44368ea54a5b8b9c332aa2ae3a72500e7dbf7d')
+sha256sums=('b2608e789d649e83d2685a3a0cfa43e076b3962941371ad7908f262061115471')
 
 prepare() {
   cd croniter
