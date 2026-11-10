@@ -2,7 +2,7 @@
 
 pkgname=pika-backup
 pkgver=0.8.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Easy to use backup tool to keep your data safe'
 arch=(x86_64)
 url='https://apps.gnome.org/PikaBackup/'
@@ -35,6 +35,10 @@ b2sums=(0ee23c30844c7ef9ca2f23f271b8e12938f278d875b14991505dffd7ca35374fdbfe568c
 
 prepare() {
   cd $pkgname
+
+  # Update openssl crate for OpenSSL 4.0
+  CARGO_HOME="$srcdir/build/cargo" \
+    cargo update -p openssl --precise 0.10.81
 
   CARGO_HOME="$srcdir/build/cargo" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
