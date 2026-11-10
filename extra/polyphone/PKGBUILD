@@ -2,7 +2,7 @@
 
 pkgname=polyphone
 pkgver=2.6.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A soundfont editor for quickly designing musical instruments"
 arch=(x86_64)
 url="https://polyphone-soundfonts.com/en/"
@@ -33,8 +33,8 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::https://github.com/davy7125/$pkgname/archive/$pkgver.tar.gz
 )
-sha512sums=('fc7081e57260acf31cd612973927d61e63b71b156191ba0942b33cb7d26c30183bd142d3264084f4e8c87d65dceee88be1369db3dfaaeb2cc2873d68d3a90f8b')
-b2sums=('7340441775c2914e40c9969ae3bdddcabf6e7a454d7d6fc4ac966b6aee9819278549eddd3ace22c7c7eacf56989951abcae430ec41ca4ca22268c2c52ffb6e23')
+sha512sums=('71d640f65d23f3c6fb91bffa59c123705318637cd65fb58e143e3996491c278c528bcd2ca6cb4b80c9ebfeac2e0e6dc529d0bb2aa053602219f130ee8077e793')
+b2sums=('b84d409da49382639e07243cbc196081f08d3690c5dc0a0464d093fdfa771cdc13baf78412ce015fe1eb6af98bf6ecc8783829bc8dd9ca4df9c5f9f64a3428e4')
 
 build() {
   cd $pkgname-$pkgver/sources
