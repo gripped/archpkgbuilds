@@ -1,6 +1,6 @@
-diff -Naur open-vm-tools-13.0.10-25056151.old/lib/hgfs/hgfsEscape.c open-vm-tools-13.0.10-25056151/lib/hgfs/hgfsEscape.c
---- open-vm-tools-13.0.10-25056151.old/lib/hgfs/hgfsEscape.c	2026-02-02 11:58:01.824872796 +0100
-+++ open-vm-tools-13.0.10-25056151/lib/hgfs/hgfsEscape.c	2026-02-02 12:09:50.475102308 +0100
+diff -Naur s/open-vm-tools/lib/hgfs/hgfsEscape.c b/open-vm-tools/lib/hgfs/hgfsEscape.c
+--- a/open-vm-tools/lib/hgfs/hgfsEscape.c	2026-02-02 11:58:01.824872796 +0100
++++ b/open-vm-tools/lib/hgfs/hgfsEscape.c	2026-02-02 12:09:50.475102308 +0100
 @@ -198,7 +198,7 @@
        if (outputSpace < 2) {
           return FALSE;
@@ -35,8 +35,8 @@ diff -Naur open-vm-tools-13.0.10-25056151.old/lib/hgfs/hgfsEscape.c open-vm-tool
              bufIn[offset - 1] = HGFS_ILLEGAL_CHARS[substitute - HGFS_SUBSTITUTE_CHARS];
           } else if (bufIn[offset - 1] == HGFS_ESCAPE_SUBSTITUE_CHAR) {
 diff -Naur open-vm-tools-13.0.10-25056151.old/lib/hgfsServer/hgfsServerLinux.c open-vm-tools-13.0.10-25056151/lib/hgfsServer/hgfsServerLinux.c
---- open-vm-tools-13.0.10-25056151.old/lib/hgfsServer/hgfsServerLinux.c	2026-02-02 11:58:01.827518659 +0100
-+++ open-vm-tools-13.0.10-25056151/lib/hgfsServer/hgfsServerLinux.c	2026-02-02 12:15:11.740576465 +0100
+--- a/open-vm-tools/lib/hgfsServer/hgfsServerLinux.c	2026-02-02 11:58:01.827518659 +0100
++++ b/open-vm-tools/lib/hgfsServer/hgfsServerLinux.c	2026-02-02 12:15:11.740576465 +0100
 @@ -1369,7 +1369,7 @@
     ASSERT(fileName);
     ASSERT(attr);
@@ -47,8 +47,8 @@ diff -Naur open-vm-tools-13.0.10-25056151.old/lib/hgfsServer/hgfsServerLinux.c o
     if ((baseName != NULL) &&
         (baseName[1] == '.') &&
 diff -Naur open-vm-tools-13.0.10-25056151.old/lib/misc/strutil.c open-vm-tools-13.0.10-25056151/lib/misc/strutil.c
---- open-vm-tools-13.0.10-25056151.old/lib/misc/strutil.c	2026-02-02 11:58:01.835096409 +0100
-+++ open-vm-tools-13.0.10-25056151/lib/misc/strutil.c	2026-02-02 12:44:41.158649740 +0100
+--- a/open-vm-tools/lib/misc/strutil.c	2026-02-02 11:58:01.835096409 +0100
++++ b/open-vm-tools/lib/misc/strutil.c	2026-02-02 12:44:41.158649740 +0100
 @@ -1467,7 +1467,7 @@
      lenWith = strlen(with);
  
@@ -68,8 +68,8 @@ diff -Naur open-vm-tools-13.0.10-25056151.old/lib/misc/strutil.c open-vm-tools-1
           tokenLen = strlen(list);
        } else { // ! last element
 diff -Naur open-vm-tools-13.0.10-25056151.old/lib/nicInfo/nicInfoPosix.c open-vm-tools-13.0.10-25056151/lib/nicInfo/nicInfoPosix.c
---- open-vm-tools-13.0.10-25056151.old/lib/nicInfo/nicInfoPosix.c	2026-02-02 11:58:01.840536841 +0100
-+++ open-vm-tools-13.0.10-25056151/lib/nicInfo/nicInfoPosix.c	2026-02-02 12:48:22.356533606 +0100
+--- a/open-vm-tools/lib/nicInfo/nicInfoPosix.c	2026-02-02 11:58:01.840536841 +0100
++++ b/open-vm-tools/lib/nicInfo/nicInfoPosix.c	2026-02-02 12:48:22.356533606 +0100
 @@ -266,7 +266,7 @@
     char *p;
     size_t n;
@@ -80,8 +80,8 @@ diff -Naur open-vm-tools-13.0.10-25056151.old/lib/nicInfo/nicInfoPosix.c open-vm
     } else {
        n = strlen(label);
 diff -Naur open-vm-tools-13.0.10-25056151.old/lib/rpcChannel/glib_stubs.c open-vm-tools-13.0.10-25056151/lib/rpcChannel/glib_stubs.c
---- open-vm-tools-13.0.10-25056151.old/lib/rpcChannel/glib_stubs.c	2026-02-02 11:58:01.806085717 +0100
-+++ open-vm-tools-13.0.10-25056151/lib/rpcChannel/glib_stubs.c	2026-02-02 12:53:56.677823841 +0100
+--- a/open-vm-tools/lib/rpcChannel/glib_stubs.c	2026-02-02 11:58:01.806085717 +0100
++++ b/open-vm-tools/lib/rpcChannel/glib_stubs.c	2026-02-02 12:53:56.677823841 +0100
 @@ -33,6 +33,10 @@
  #error "This file should be compiled for RPCI-only channel!"
  #endif
@@ -94,8 +94,8 @@ diff -Naur open-vm-tools-13.0.10-25056151.old/lib/rpcChannel/glib_stubs.c open-v
  void *g_malloc0_n(size_t n, size_t s) { return Util_SafeCalloc(n, s); }
  void g_free(void *p) { free(p); }
 diff -Naur open-vm-tools-13.0.10-25056151.old/libvmtools/i18n.c open-vm-tools-13.0.10-25056151/libvmtools/i18n.c
---- open-vm-tools-13.0.10-25056151.old/libvmtools/i18n.c	2026-02-02 11:58:01.897187658 +0100
-+++ open-vm-tools-13.0.10-25056151/libvmtools/i18n.c	2026-02-02 12:50:57.295350901 +0100
+--- a/open-vm-tools/libvmtools/i18n.c	2026-02-02 11:58:01.897187658 +0100
++++ b/open-vm-tools/libvmtools/i18n.c	2026-02-02 12:50:57.295350901 +0100
 @@ -698,7 +698,7 @@
         * If we couldn't find the catalog file for the user's language, see if
         * we can find a more generic language (e.g., for "en_US", also try "en").
@@ -106,8 +106,8 @@ diff -Naur open-vm-tools-13.0.10-25056151.old/libvmtools/i18n.c open-vm-tools-13
           if (usrlang == NULL) {
              usrlang = Util_SafeStrdup(lang);
 diff -Naur open-vm-tools-13.0.10-25056151.old/services/plugins/vix/vixTools.c open-vm-tools-13.0.10-25056151/services/plugins/vix/vixTools.c
---- open-vm-tools-13.0.10-25056151.old/services/plugins/vix/vixTools.c	2026-02-02 11:58:01.887084576 +0100
-+++ open-vm-tools-13.0.10-25056151/services/plugins/vix/vixTools.c	2026-02-02 12:59:47.407882923 +0100
+--- a/open-vm-tools/services/plugins/vix/vixTools.c	2026-02-02 11:58:01.887084576 +0100
++++ b/open-vm-tools/services/plugins/vix/vixTools.c	2026-02-02 12:59:47.407882923 +0100
 @@ -928,7 +928,7 @@
        char *whereToSplit;
        size_t nameLen;
