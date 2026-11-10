@@ -2,7 +2,7 @@
 
 pkgname=uget
 pkgver=2.2.3
-pkgrel=8
+pkgrel=9
 pkgdesc='GTK download manager featuring download classification and HTML import'
 arch=(x86_64)
 url='https://sourceforge.net/projects/urlget/'
