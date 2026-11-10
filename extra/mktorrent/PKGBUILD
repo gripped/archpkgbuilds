@@ -4,7 +4,7 @@
 
 pkgname=mktorrent
 pkgver=1.1
-pkgrel=7
+pkgrel=9
 pkgdesc="Simple command line utility to create BitTorrent metainfo files"
 arch=(x86_64)
 url="https://github.com/pobrn/mktorrent"
