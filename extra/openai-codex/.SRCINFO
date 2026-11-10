@@ -1,7 +1,7 @@
 pkgbase = openai-codex
 	pkgdesc = OpenAIs lightweight coding agent that runs in your terminal
 	pkgver = 0.167.0
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/openai/codex
 	arch = x86_64
 	license = Apache-2.0
@@ -16,14 +16,11 @@ pkgbase = openai-codex
 	depends = bubblewrap
 	depends = bzip2
 	depends = glibc
-	depends = libcap
 	depends = libgcc
 	depends = oniguruma
 	depends = openssl
 	depends = ripgrep
 	depends = sqlite
-	depends = xz
-	depends = zlib
 	depends = zstd
 	noextract = librusty_v8-152.2.0.a.gz
 	options = !debug
@@ -52,4 +49,4 @@ pkgname = openai-codex-voice
 	depends = gst-plugins-good
 	depends = gstreamer
 	depends = libgcc
-	depends = openai-codex=0.167.0-1
+	depends = openai-codex=0.167.0-3
