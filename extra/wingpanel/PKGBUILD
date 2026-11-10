@@ -2,13 +2,14 @@
 
 pkgname=wingpanel
 pkgver=8.0.4
-pkgrel=4
+pkgrel=5
 pkgdesc='The Pantheon Top Panel'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel
 license=(GPL-3.0-or-later)
 groups=(pantheon)
 depends=(
+  dconf
   gala
   glib2
   glibc
@@ -16,21 +17,46 @@ depends=(
   gtk4
   hicolor-icon-theme
   libgee
-  mutter49
-  pantheon-notifications
+  libx11
+  mutter
   wayland
 )
 makedepends=(
-  cmake
   git
-  gala
   meson
   vala
 )
 provides=(libwingpanel-9.so)
-#source=(git+https://github.com/elementary/wingpanel.git#tag=${pkgver})
-source=(git+https://github.com/elementary/wingpanel.git#commit=8bc5eeb8f97c436494f744211046992d83a5e0b4)
-b2sums=('ec44b2c3f18ebc7ec936ace9db452186fe5e499f23ff40e33cb89034a39131ae4c5eeea5071a9a2adba2bbd1611dc8e05c049829509fd9ccd988fefca3e538a2')
+source=(
+  git+https://github.com/elementary/wingpanel.git#tag=${pkgver}
+  wingpanel-mutter51.patch
+)
+b2sums=('12f93ff4d681fee63555a9b07a1384cfc8c82e7d5fe81b326ab8ecac040892ba45bcb31ad535f557d447712b789f88bc893c0a9e34d3380d9199391a57b9c7b0'
+        'e4067e2cf86bf18050de1abacac7b1ed0746deaef746550a0b7c871ee8390b6a05fa513cf6f37deef2eda7b05e1eba24337371f5ae0c2e60ee7e779e878340d6')
+
+prepare() {
+  cd wingpanel
+
+  # Add Mutter 49 support
+  # https://github.com/elementary/wingpanel/pull/658
+  git cherry-pick -n cd4852e3a28fa5b14dc2ea88810a4754d7e1d226
+
+  # Port to GTK4
+  # https://github.com/elementary/wingpanel/pull/579
+  git cherry-pick -n 1958f5d586bc947212c8822e47f22492d41e56d3
+
+  # Add support for Mutter 50
+  # https://github.com/elementary/wingpanel/pull/679
+  git cherry-pick -n 8bc5eeb8f97c436494f744211046992d83a5e0b4
+
+  # Require Mutter 46
+  # https://github.com/elementary/wingpanel/pull/739
+  git cherry-pick -n 8926c60ac819b12b45cca52ee59b63f7158ee403
+
+  # Add support for Mutter 51
+  # https://github.com/elementary/wingpanel/pull/742
+  git apply -3 ../wingpanel-mutter51.patch
+}
 
 build() {
   arch-meson wingpanel build
