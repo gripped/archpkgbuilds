@@ -3,11 +3,11 @@
 
 pkgname=mpv-shim-default-shaders
 pkgver=3.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Preconfigured set of MPV shaders and configurations for MPV Shim media clients'
 arch=(any)
 url='https://github.com/iwalton3/default-shader-pack'
-license=(MIT GPL-3.0-only LGPL-3.0-or-later Unlicense)
+license=(MIT LGPL-3.0-or-later Unlicense)
 source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
   "FSRCNNX-LICENSE::https://raw.githubusercontent.com/igv/FSRCNN-TensorFlow/master/LICENSE"
@@ -22,7 +22,7 @@ b2sums=('4eff518306f7df23e9be47daa16d0bc9684dae31e71f72a34f00a303dd7716b871be5f8
         '77b0caae87a5e0d576bfd7391006add68816162cc4c2d61842800300c0a9684ee2335e1717c1393ef412973e08197bc7a9fa7010ae64aeb212d45fc6485ba521'
         'c8bcd47fd9e5d8f21b221a12b7747f492f99d6844473523ac9d4ddac80183c121867e626808b156902ec7a2546f3a537da041eb53b6ff422dc5c2335ab51d098'
         '1a3680f6efbc5fef136be8c30dc32a89b46c3fd99c325e05321bbda8281f437e181c635a6481d8dce5960d15ebc03e13383abb060fb8fedcf07955bdda81111b')
-options=(!strip)
+options=(!strip !debug)
 
 prepare() {
   # extract licenses from gist-sourced shaders
