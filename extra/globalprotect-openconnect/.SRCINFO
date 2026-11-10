@@ -1,7 +1,7 @@
 pkgbase = globalprotect-openconnect
 	pkgdesc = A GlobalProtect VPN GUI client based on Openconnect, supports SAML auth mode
-	pkgver = 2.6.5
-	pkgrel = 1
+	pkgver = 3.0.5
+	pkgrel = 2
 	url = https://github.com/yuezk/GlobalProtect-openconnect
 	arch = x86_64
 	license = GPL-3.0-only
@@ -30,13 +30,11 @@ pkgbase = globalprotect-openconnect
 	provides = gpclient
 	provides = gpservice
 	options = !lto
-	source = globalprotect-openconnect::git+https://github.com/yuezk/GlobalProtect-openconnect.git#tag=v2.6.5
-	source = git+https://gitlab.com/openconnect/openconnect.git
+	source = globalprotect-openconnect::git+https://github.com/yuezk/GlobalProtect-openconnect.git#tag=v3.0.5
+	source = openconnect-globalprotect::git+https://github.com/yuezk/openconnect.git
 	source = git+https://gitlab.gnome.org/GNOME/libxml2.git
-	source = globalprotect-openconnect-hipreport-install-location.patch
-	b2sums = 51d2643c8c5a310f6b14bbccfdec785d2770e2d49a272e0b46b3dd0ff40726150c27d61df0b96edb1c32c4106d20c2b920a07694347150bfd0d44fe6d48540c1
+	b2sums = 3b0a13b1445600d5d88bc73ae9891ff4a27f8187ca30d6a0a6f7917c43a6b986dfc243289ac70ca0c3f668c160546ef850819e4a2fd03ccd3b12cf125db779bb
 	b2sums = SKIP
 	b2sums = SKIP
-	b2sums = 2d807731ab30d28a0b14f49bf71014d7fe1b7d012223bb4c834bc1cf25050448429605750f97f63c4eed649efc28fc625b2846f1ac54cf6d0e850297a8f81391
 
 pkgname = globalprotect-openconnect

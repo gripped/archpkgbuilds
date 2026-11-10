@@ -3,8 +3,8 @@
 # Contributor: Keinv Yue <yuezk001@gmail.com>
 
 pkgname=globalprotect-openconnect
-pkgver=2.6.5
-pkgrel=1
+pkgver=3.0.5
+pkgrel=2
 pkgdesc="A GlobalProtect VPN GUI client based on Openconnect, supports SAML auth mode"
 arch=(x86_64)
 url="https://github.com/yuezk/GlobalProtect-openconnect"
@@ -42,21 +42,17 @@ provides=(
 options=(!lto)
 source=(
   "$pkgname::git+$url.git#tag=v$pkgver"
-	"git+https://gitlab.com/openconnect/openconnect.git"
-	"git+https://gitlab.gnome.org/GNOME/libxml2.git"
-  "$pkgname-hipreport-install-location.patch"
+  "openconnect-globalprotect::git+https://github.com/yuezk/openconnect.git"
+  "git+https://gitlab.gnome.org/GNOME/libxml2.git"
 )
-b2sums=('51d2643c8c5a310f6b14bbccfdec785d2770e2d49a272e0b46b3dd0ff40726150c27d61df0b96edb1c32c4106d20c2b920a07694347150bfd0d44fe6d48540c1'
+b2sums=('3b0a13b1445600d5d88bc73ae9891ff4a27f8187ca30d6a0a6f7917c43a6b986dfc243289ac70ca0c3f668c160546ef850819e4a2fd03ccd3b12cf125db779bb'
         'SKIP'
-        'SKIP'
-        '2d807731ab30d28a0b14f49bf71014d7fe1b7d012223bb4c834bc1cf25050448429605750f97f63c4eed649efc28fc625b2846f1ac54cf6d0e850297a8f81391')
+        'SKIP')
 
 prepare() {
   cd $pkgname
-  patch -Np1 < ../$pkgname-hipreport-install-location.patch
-
   git submodule init
-  git config submodule.crates/openconnect/deps/openconnect.url ../openconnect
+  git config submodule.crates/openconnect/deps/openconnect.url ../openconnect-globalprotect
   git config submodule.crates/openconnect/deps/libxml2.url ../libxml2
   git -c protocol.file.allow=always submodule update \
     crates/openconnect/deps/openconnect \
@@ -72,7 +68,10 @@ build() {
 
 check() {
   cd $pkgname
-  cargo test --frozen
+  # Racy: executes a freshly written script while other tests fork, which can
+  # fail with ETXTBSY and make the probe fall through to the next candidate.
+  cargo test --frozen -- \
+    --skip process::gui_launcher::tests::cancellation_stops_a_hung_version_probe_before_other_candidates
 }
 
 package() {
