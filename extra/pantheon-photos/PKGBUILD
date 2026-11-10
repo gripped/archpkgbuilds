@@ -2,7 +2,7 @@
 
 pkgname=pantheon-photos
 pkgver=8.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc='The Pantheon Photos Manager'
 arch=(x86_64)
 url=https://github.com/elementary/photos
@@ -10,12 +10,14 @@ license=(GPL-3.0-only)
 depends=(
   cairo
   dconf
+  elementary-icon-theme
   gdk-pixbuf2
   geocode-glib-2
   glib2
   glibc
   gst-plugins-base-libs
   gstreamer
+  gtk-theme-elementary
   gtk3
   hicolor-icon-theme
   libexif
@@ -34,7 +36,6 @@ depends=(
 )
 makedepends=(
   git
-  intltool
   meson
   vala
 )
@@ -44,10 +45,29 @@ b2sums=('a18aa39920cd1d04e1c3a4e0b9388244b49bac275797e314482c32ba44ce4aef56eeaae
 
 prepare() {
   cd pantheon-photos
+
+  # Add libm dependency
+  # https://github.com/elementary/photos/pull/856
+  git cherry-pick -n 3ebda597f80dac3133f2fb0c5d1cdce2d2be37dd
+
+  # Fix missing close button in plugin about dialogs
+  # https://github.com/elementary/photos/pull/855
+  git cherry-pick -n fefb7605df57b0c917d802d1dfc32542206d681c
+
+  # Fix WebP image loading
+  # https://github.com/elementary/photos/pull/857
+  git cherry-pick -n b762ae5af3e8cc47ee0227163345121685967cfc
+
+  # Hardcode elementary styles
+  # https://github.com/elementary/photos/pull/860
+  git cherry-pick -n 77dc038b7f5feacc9d7006d69bd1da3273ef42b5
+
+  # Fix WebP metadata loading
+  # https://github.com/elementary/photos/pull/858
+  git cherry-pick -n cdbeca1c645d81b8ba18d397a3a6a7f096c4f341
 }
 
 build() {
-  export LDFLAGS+=" -lm"
   arch-meson pantheon-photos build
   meson compile -C build
 }
