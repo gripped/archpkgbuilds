@@ -1,0 +1,44 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=pantheon-monitor
+pkgver=8.0.1
+pkgrel=1
+pkgdesc='Manage processes and monitor system resources'
+arch=(x86_64)
+url=https://github.com/elementary/monitor
+license=(GPL-3.0-or-later)
+groups=(pantheon)
+depends=(
+  dconf
+  flatpak
+  glib2
+  glibc
+  granite7
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+  libgee
+  libgtop
+  libx11
+  libxnvctrl
+  live-chart
+  pciutils
+  udisks2
+)
+makedepends=(
+  git
+  meson
+  sassc
+  vala
+)
+source=(pantheon-monitor::git+https://github.com/elementary/monitor.git#tag=${pkgver})
+b2sums=('0f8688a43fc8ef950423997391cf4a102aeef94875fbd358e6d7fe1e126a490f9e9bbbacfce29fe4e795a3613bc42575cfc1247d774aec39f6a925a3fbe88008')
+
+build() {
+  arch-meson pantheon-monitor build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "${pkgdir}"
+}
