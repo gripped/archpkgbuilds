@@ -4,7 +4,7 @@
 _pkg=filter-dkimsign
 pkgname=opensmtpd-$_pkg
 pkgver=0.6
-pkgrel=5
+pkgrel=6
 pkgdesc="OpenSMTPD filter for signing mail with DKIM"
 license=(ISC)
 url="https://src.imperialat.at/?action=summary&path=filter-dkimsign"
