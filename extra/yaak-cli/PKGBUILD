@@ -2,7 +2,7 @@
 
 pkgname=yaak-cli
 pkgver=0.7.1
-pkgrel=2
+pkgrel=3
 pkgdesc='A fast, secure, and offline API client (CLI)'
 arch=('x86_64')
 url='https://yaak.app/'
@@ -41,6 +41,12 @@ _setup_env() {
 
 prepare() {
     cd "yaak-${pkgname}-${pkgver}"
+
+    # openssl 0.9.114 add OpenSSL 4 support
+    # https://github.com/rust-openssl/rust-openssl/releases/tag/openssl-sys-v0.9.114
+    # https://github.com/rust-openssl/rust-openssl/pull/2609
+    cargo update -p openssl-sys --precise 0.9.114
+    cargo update -p openssl --precise 0.10.78
 
     npm ci
     cargo fetch --locked --target host-tuple
