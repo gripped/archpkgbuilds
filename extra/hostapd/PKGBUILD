@@ -4,7 +4,7 @@
 pkgname=hostapd
 _name=hostap
 pkgver=2.12
-pkgrel=2
+pkgrel=3
 pkgdesc="IEEE 802.11 AP, IEEE 802.1X/WPA/WPA2/EAP/RADIUS Authenticator"
 arch=(x86_64)
 url="https://w1.fi/hostapd/"
