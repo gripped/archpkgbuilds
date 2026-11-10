@@ -1,7 +1,7 @@
 pkgbase = cinnamon
 	pkgdesc = Desktop environment which provides advanced innovative features and a traditional user experience
-	pkgver = 6.6.9
-	pkgrel = 1
+	pkgver = 6.8.0
+	pkgrel = 2
 	url = https://github.com/linuxmint/cinnamon
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -34,6 +34,7 @@ pkgbase = cinnamon
 	depends = gsound
 	depends = gstreamer
 	depends = gtk3
+	depends = gtk4-layer-shell
 	depends = hicolor-icon-theme
 	depends = libgcc
 	depends = libgirepository
@@ -78,11 +79,11 @@ pkgbase = cinnamon
 	optdepends = system-config-printer: printer settings
 	optdepends = touchegg: touch gestures
 	optdepends = wget: cover download support in audio applet
-	source = git+https://github.com/linuxmint/cinnamon.git#tag=6.6.9
+	source = git+https://github.com/linuxmint/cinnamon.git#tag=6.8.0
 	source = cinnamon-menu-button.patch
 	source = cinnamon-set-wheel.patch
 	source = 30_org.archlinux.cinnamon.gschema.override
-	b2sums = 0468e89fb72001431c2eb56f13e11667742a28cc0cc58fc497a410e72abff820b4c9acc466518f5ec30dbb86ee151f676e975add87ab1403b70058b089e87ab1
+	b2sums = 2ea68d9c7887f184dbc4b7f07c918ea7b6034730f73b07a94789e18c17c962b881b78510cc430f5f550fbda4aa791d4ec7f4531115f5fb96545bb1db3985796a
 	b2sums = 716095bf9b74fad22714040dfd3d7b115eb950a81b4ec809f8541d81102bc276532948d1e70c2d022b061cc8e939276b9f51f4fedb01c6ef2940d1232253460d
 	b2sums = 3becf1f40068fc629109e6e7d464c3c484296afacc9ab6328b2ccbb3c9735bcbfa9550f9f73b430ede178ae668e37c660ce322b5b4d1873526de3d3d41185160
 	b2sums = c071ce664c5189883c409d65b1d054ef4526c0283484e936b10500cec13efdaf3e3792459e648817e1c48e0505bc1154950ce3080cd9aafe0f5de8da5b16bafd
