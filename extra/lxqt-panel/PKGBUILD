@@ -2,7 +2,7 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-panel
-pkgver=2.5.0
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="The LXQt desktop panel"
 arch=("x86_64")
@@ -28,7 +28,7 @@ makedepends=(
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"{,.asc}
 )
-sha256sums=('68ea6945ccef21ee52d7e908c2de3a7d4e09672dec05122a8fddcc2dce1897e4'
+sha256sums=('7a96abec41355d2e42d4e4d8a03cfb064647729e9e292781c126f12e2a699e7d'
             'SKIP')
 validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
