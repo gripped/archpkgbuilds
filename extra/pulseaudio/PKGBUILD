@@ -12,7 +12,7 @@ pkgname=(
   pulseaudio-rtp
 )
 pkgver=17.0+r134+g77d25a1e6
-pkgrel=1
+pkgrel=2
 pkgdesc="A featureful, general-purpose sound server"
 url="https://www.freedesktop.org/wiki/Software/PulseAudio/"
 arch=(x86_64)
