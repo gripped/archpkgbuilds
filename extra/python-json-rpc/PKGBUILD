@@ -4,8 +4,8 @@
 # Contributor: Andy Weidenbaum <archbaum@gmail.com>
 
 pkgname=python-json-rpc
-pkgver=1.13.0
-pkgrel=7
+pkgver=1.14.0
+pkgrel=1
 pkgdesc="JSON-RPC transport realisation"
 arch=('any')
 license=('MIT')
@@ -14,7 +14,7 @@ depends=('python')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python-wheel')
 checkdepends=('python-pytest')
 source=("git+https://github.com/pavlov99/json-rpc.git#tag=$pkgver")
-sha256sums=('246e4af3d2c63830962c0c93c905657958c98b381939e62a015364fdb7b1e63a')
+sha256sums=('faac8b78ccc5c82e4a89ad5c80531aa7f1082f6defc68e979311037478cc51e3')
 
 build() {
   cd json-rpc
