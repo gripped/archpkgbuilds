@@ -5,7 +5,7 @@
 
 pkgname=mutt
 pkgver=2.4.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Small but very powerful text-based mail client"
 arch=(x86_64)
 url="http://www.mutt.org/"
