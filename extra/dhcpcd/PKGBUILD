@@ -6,7 +6,7 @@
 
 pkgname=dhcpcd
 pkgver=10.5.2
-pkgrel=1
+pkgrel=2
 pkgdesc="DHCP/ IPv4LL/ IPv6RA/ DHCPv6 client"
 url="https://roy.marples.name/projects/dhcpcd/"
 arch=(x86_64)
