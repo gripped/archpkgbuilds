@@ -2,7 +2,7 @@
 # Co-Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=lxqt-themes
-pkgver=2.4.0
+pkgver=2.5.0
 pkgrel=1
 pkgdesc="LXQt themes, graphics and icons."
 arch=("any")
@@ -16,7 +16,7 @@ replaces=("lxqt-common")
 source=(
 	"git+https://github.com/lxqt/$pkgname.git#tag=$pkgver"
 )
-sha256sums=('393e1d34cfccdabb99463b8c29e61a199fed724eefb92176f404171e2be65385')
+sha256sums=('ce83f222073c99c49b7deccd20b6ffa46d6ee2c5d3f9096c26fbab3997dfc20c')
 validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
 	"48836EB124A1EAAE695EDFEA229CA0A00A17D258"  # the key owned by an email used by https://github.com/stefonarch/, a long-time LXQt contributor, as per keys.openpgp.org
