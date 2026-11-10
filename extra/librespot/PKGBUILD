@@ -6,7 +6,7 @@
 
 pkgname=librespot
 pkgver=0.8.0
-pkgrel=5
+pkgrel=6
 pkgdesc='Open source client library for Spotify'
 arch=('x86_64') # 'armv7h' 'aarch64'
 url='https://github.com/librespot-org/librespot'
@@ -30,11 +30,17 @@ optdepends=(
 	'gst-plugins-good: Audio playback using GStreamer'
 )
 options=(!lto)
-source=("git+${url}#tag=v${pkgver}")
-sha256sums=('7660f8563c11291ee742b917bfa0f3459c7e57761a50fca6c10a44376d5a48dd')
+# patch from https://github.com/librespot-org/librespot/pull/1707
+source=(
+	"git+${url}#tag=v${pkgver}"
+	"openssl4.patch"
+)
+sha256sums=('7660f8563c11291ee742b917bfa0f3459c7e57761a50fca6c10a44376d5a48dd'
+            'ce343d306510821321118fd8044ec8d3e56fa2abb4cbba458f09bfe9f7a03173')
 
 prepare() {
 	cd "${pkgname}"
+	patch -p1 < "${srcdir}/openssl4.patch"
 
 	export RUSTUP_TOOLCHAIN=stable
 	export CARGO_TARGET_DIR=target
