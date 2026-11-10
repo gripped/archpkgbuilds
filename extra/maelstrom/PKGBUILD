@@ -11,14 +11,13 @@ pkgname=(
   maelstrom-worker
 )
 pkgver=0.14.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A fast Rust, Go, and Python test runner that runs every test in its own container"
 arch=(x86_64)
 url="https://maelstrom-software.com/"
 _url="https://github.com/maelstrom-software/maelstrom"
 license=('Apache-2.0 OR MIT')
 makedepends=(
-  gcc-libs
   glibc
   git
   openssl
@@ -63,6 +62,10 @@ prepare() {
   patch -Np1 -i ../$pkgbase-0.13.0-maelstrom-pytest-broken-tests.patch
   patch -Np1 -i ../$pkgbase-0.14.0-maelstrom-pytest-broken-tests.patch
   patch -Np1 -i ../$pkgbase-0.14.0-maelstrom-worker-broken-tests.patch
+
+# support OpenSSL 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
 
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
@@ -130,7 +133,7 @@ package_cargo-maelstrom() {
 package_maelstrom-broker() {
   pkgdesc="Maelstrom broker, coordinating between clients and workers"
   depends=(
-    gcc-libs
+    libgcc
     glibc
     openssl libcrypto.so libssl.so
   )
@@ -145,7 +148,7 @@ package_maelstrom-broker() {
 package_maelstrom-client() {
   pkgdesc="Maelstrom client for creating and submitting jobs on a Maelstrom cluster"
   depends=(
-    gcc-libs
+    libgcc
     glibc
     openssl libcrypto.so libssl.so
   )
@@ -159,7 +162,7 @@ package_maelstrom-client() {
 package_maelstrom-go-test() {
   pkgdesc="Go test runner for Maelstrom"
   depends=(
-    gcc-libs
+    libgcc
     glibc
     go
     openssl libcrypto.so libssl.so
@@ -174,7 +177,7 @@ package_maelstrom-go-test() {
 package_maelstrom-pytest() {
   pkgdesc="Python test runner for Maelstrom"
   depends=(
-    gcc-libs
+    libgcc
     glibc
     openssl libcrypto.so libssl.so
     python
@@ -191,7 +194,7 @@ package_maelstrom-pytest() {
 package_maelstrom-run() {
   pkgdesc="Program for submitting jobs to Maelstrom clusters"
   depends=(
-    gcc-libs
+    libgcc
     glibc
     openssl libcrypto.so libssl.so
   )
@@ -205,7 +208,7 @@ package_maelstrom-run() {
 package_maelstrom-worker() {
   pkgdesc="Maelstrom worker, executing jobs as directed by maelstrom-broker"
   depends=(
-    gcc-libs
+    libgcc
     glibc
     openssl libcrypto.so libssl.so
   )
