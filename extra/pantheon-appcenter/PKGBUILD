@@ -1,0 +1,53 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=pantheon-appcenter
+pkgver=8.4.0
+pkgrel=1
+pkgdesc='App store for Pantheon'
+arch=(x86_64)
+url=https://github.com/elementary/appcenter
+license=(GPL-3.0-or-later)
+groups=(pantheon)
+depends=(
+  appstream
+  dconf
+  flatpak
+  glib2
+  glibc
+  granite7
+  gtk4
+  hicolor-icon-theme
+  json-glib
+  libadwaita
+  libgee
+  libportal
+  libportal-gtk4
+  libsoup3
+  libxml2
+)
+makedepends=(
+  git
+  meson
+  sassc
+  vala
+)
+source=(pantheon-appcenter::git+https://github.com/elementary/appcenter.git#tag=${pkgver})
+b2sums=('5689ee973c99675213b4c9a23dd6f7b73df984163e406f42f8383bbbc15fd77268c4965f158945cdab6de59f16fcee9141ccdb68e1ecf40757040e5b384575cd')
+
+prepare() {
+  cd pantheon-appcenter
+
+  # Fix xml handling with newer libxml
+  # https://github.com/elementary/appcenter/pull/2447
+  git cherry-pick -n c6154de4205a2930b41abaf3b5f07a82b95e1452
+}
+
+build() {
+  arch-meson pantheon-appcenter build \
+    -Dpayments=false
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "${pkgdir}"
+}
