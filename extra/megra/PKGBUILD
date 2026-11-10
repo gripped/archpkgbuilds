@@ -3,7 +3,7 @@
 pkgname=megra
 _name=${pkgname}.rs
 pkgver=0.0.18
-pkgrel=2
+pkgrel=3
 pkgdesc="The Mégra Live Coding Language"
 arch=(x86_64)
 url="https://codeberg.org/parkellipsen/megra.rs"
@@ -28,6 +28,9 @@ b2sums=('bb353b25014a68293fc346077d533c9dff9a9f8e69af9a7d2dcd9064be62678cf7852b1
 
 prepare() {
   cd $_name
+  # Update the locked OpenSSL bindings for compatibility with system OpenSSL 4.
+  # https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target host-tuple
 }
 
