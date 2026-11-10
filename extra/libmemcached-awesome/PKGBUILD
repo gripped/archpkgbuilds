@@ -3,7 +3,7 @@
 pkgname=libmemcached-awesome
 _name=${pkgname/-awesome}
 pkgver=1.1.4
-pkgrel=4
+pkgrel=5
 pkgdesc="C/C++ client library and tools for the memcached server"
 arch=('x86_64')
 url="https://awesomized.github.io/libmemcached/"
@@ -37,7 +37,7 @@ prepare() {
 build() {
   local cmake_options=(
     -B build
-    -D BUILD_DOCS=ON
+    -D BUILD_DOCS=OFF
     -D BUILD_DOCS_MANGZ=OFF
     -D BUILD_TESTING=ON
     -D CMAKE_BUILD_TYPE=None
