@@ -2,7 +2,7 @@
 # Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 
 pkgname=mkdocs-material
-pkgver=9.8.0
+pkgver=9.8.1
 pkgrel=1
 pkgdesc="Documentation that simply works"
 arch=(any)
@@ -33,7 +33,7 @@ optdepends=(
   'python-pillow: for image processing'
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('15fb5eb683d5924e9ed04e7acc176a25f37349bff35edbae552e9ecf4fb920e554dbcb047644e2d328229dbee29f8208cee557c6341026979b328bef6559aa01')
+b2sums=('a5f2ceddf5a8b927cc185cb973e52e3bcce401911f681d1b00a633029ccab69a2012354dfbfdf6b3bac7bdfb75b87a32236905ee70300402ad9c19e1a426b27d')
 
 build() {
   cd $pkgname-$pkgver
