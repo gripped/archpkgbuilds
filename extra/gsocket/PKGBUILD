@@ -2,18 +2,22 @@
 
 pkgname=gsocket
 pkgver=1.4.43
-pkgrel=1
+pkgrel=2
 pkgdesc='Global Socket moving data from here to there securely, fast and trough NAT/Firewalls'
 url='https://www.gsocket.io/'
 arch=('x86_64')
 license=('custom')
 depends=('glibc' 'bash' 'openssl' 'rsync' 'sshfs' 'openssh' 'grep' 'binutils' 'coreutils')
-source=("https://github.com/hackerschoice/gsocket/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('2c58182b52242f275b7597c7214f8f0b09f52d369fee66454a2b00322b9b7075af3f675c7f785ae66ed8f331351ed60a0038e997258df35a938c6b1f4a94b21c')
-b2sums=('92818d932f1d5eddd66a810aaecb800d0ac435d7320912fdb8e485ae7f5398dfb96b1e6c0bbc4edc651414eb912bd90e14e442db904d04aa71b236188a9bff66')
+source=("https://github.com/hackerschoice/gsocket/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+         https://github.com/hackerschoice/gsocket/commit/84ad165fcefd8376ecc997e14338bd7278123b00.patch)
+sha512sums=('2c58182b52242f275b7597c7214f8f0b09f52d369fee66454a2b00322b9b7075af3f675c7f785ae66ed8f331351ed60a0038e997258df35a938c6b1f4a94b21c'
+            'f162bc6d632282f4e80e53ddb3289d5f37a384aa39468cfc8871f85b019021ca109158375ae42ec2cdecc17821b5119e66421b08b49605b46bc38ed77782e591')
+b2sums=('92818d932f1d5eddd66a810aaecb800d0ac435d7320912fdb8e485ae7f5398dfb96b1e6c0bbc4edc651414eb912bd90e14e442db904d04aa71b236188a9bff66'
+        'f3acdcf2dd86ce97691cb131979bf87c83d6b674c40803491f1825702cad4ee4f643cf19e55e3ae4a33dc07f10be1e5062017e962b7373ac9175011c46ea8d97')
 
 prepare() {
   cd ${pkgname}-${pkgver}
+  patch -p1 -i ../84ad165fcefd8376ecc997e14338bd7278123b00.patch # Fix build with openssl 4
   autoreconf -fiv
 }
 
