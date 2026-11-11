@@ -3,18 +3,18 @@
 
 _hkgname=simple-sendfile
 pkgname=haskell-simple-sendfile
-pkgver=0.2.32
-pkgrel=285
+pkgver=0.2.33
+pkgrel=1
 pkgdesc="Cross platform library for the sendfile system call"
 url="https://github.com/kazu-yamamoto/simple-sendfile"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-network')
 makedepends=('ghc')
 checkdepends=('haskell-hunit' 'haskell-conduit' 'haskell-conduit-extra' 'haskell-easy-file'
               'haskell-hspec' 'haskell-hspec-discover' 'haskell-resourcet')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('a6daf74f32d33096409c1650310b79005823b2513531b01b80e8a495af736299fd430db86faf5822464dec5a52ee7d733d49410f106f96a361eceb29b9df570f')
+sha512sums=('220f0bb6cf2a67a19a98b35f961170e9e4a0a7d3418cda44838bc960795949ab0df8ed528f4d9599368164f6b36b74009cc8845b483dd07b0f03c3d555f92966')
 
 build() {
     cd $_hkgname-$pkgver
