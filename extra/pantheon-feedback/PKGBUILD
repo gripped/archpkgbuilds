@@ -1,0 +1,36 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=pantheon-feedback
+pkgver=8.1.1
+pkgrel=1
+pkgdesc='GitHub Issue Reporter for Pantheon'
+arch=(x86_64)
+url=https://github.com/elementary/feedback
+license=(GPL-3.0-or-later)
+groups=(pantheon)
+depends=(
+  appstream
+  dconf
+  glib2
+  glibc
+  granite7
+  gtk4
+  hicolor-icon-theme
+  libadwaita
+)
+makedepends=(
+  git
+  meson
+  vala
+)
+source=(pantheon-feedback::git+https://github.com/elementary/feedback.git#tag=${pkgver})
+b2sums=('8f4a37589549afd35a411b6add87951bbf72bb2bda55907137c6b360d293d2efccba5546c5d8d50f8d4ea84a38833871ac685d9b619a5647360b25d8fc14e6d8')
+
+build() {
+  arch-meson pantheon-feedback build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "${pkgdir}"
+}
