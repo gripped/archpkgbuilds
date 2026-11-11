@@ -5,7 +5,7 @@
 
 pkgname=fossil
 pkgver=2.28
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple, high-reliability, distributed software configuration management'
 arch=(x86_64)
 url='https://www.fossil-scm.org'
