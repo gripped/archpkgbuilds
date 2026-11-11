@@ -2,7 +2,7 @@
 
 pkgname=wingpanel-indicator-bluetooth
 pkgver=8.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Wingpanel Bluetooth Indicator'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel-indicator-bluetooth
@@ -10,12 +10,12 @@ license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
   bluez
-  dconf
   glib2
   glibc
   granite7
   gtk4
   libgee
+  pantheon-bluetooth-daemon
   wingpanel
 )
 makedepends=(
@@ -23,9 +23,15 @@ makedepends=(
   meson
   vala
 )
-#source=(git+https://github.com/elementary/wingpanel-indicator-bluetooth.git#tag=${pkgver})
-source=(git+https://github.com/elementary/wingpanel-indicator-bluetooth.git#tag=cccfecd0ebc24b1d1ed4e9f8ee2aa85765de5910)
-b2sums=('2ccd9fc082f9a5363437b96784dea31d741634adabb49993c2c3b1d6d9cacf42c9b435a1a05525c905f9583797acfa15949d5fd8954860abe0d66f5c0f188e81')
+source=(git+https://github.com/elementary/wingpanel-indicator-bluetooth.git#tag=${pkgver})
+b2sums=('87f748901f5d3db033af7d33bbde1486398fc9d62218bfa4c094eb479f65a562382c63f9c78c6a591155fc0e18bf560a2b24d2fa9600397a0feae22f0a995db2')
+
+prepare() {
+  cd wingpanel-indicator-bluetooth
+
+  # Update for GTK4 port
+  git cherry-pick -n 8.0.0..cccfecd0ebc24b1d1ed4e9f8ee2aa85765de5910
+}
 
 build() {
   arch-meson wingpanel-indicator-bluetooth build
