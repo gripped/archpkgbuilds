@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-aiomisc
-pkgver=18.0.37
-pkgrel=3
+pkgver=18.0.40
+pkgrel=1
 pkgdesc="Miscellaneous utilities for asyncio"
 arch=('any')
 url="https://github.com/aiokitchen/aiomisc"
@@ -49,9 +49,9 @@ optdepends=(
   'python-uvloop: uvloop event loop support'
   'uvicorn: ASGI services'
 )
-# Upstream uses commit-distance versions; this commit produced PyPI 18.0.37.
-source=("git+https://github.com/aiokitchen/aiomisc.git#commit=23c40824d59353c3e2fa5b32f2903ac82e6ee04c")
-sha512sums=('13018a77a9c42d1c2273ec2d897fee825ba48445e9430a7ba1946159e2447463248f15c33bebe4378a6bcdb04574da7b2930dd5fdf44f94fdf8c650bad4b13c3')
+# Upstream uses commit-distance versions; this commit produced PyPI 18.0.40.
+source=("git+https://github.com/aiokitchen/aiomisc.git#commit=09203dd2e0910c4a6de091c23d1193796c1a0ecc")
+sha512sums=('9512c407e913924a2e494e74d958f1e723f5478ce6ebf10def7ecdac993b2115e6c4486a7384b106390b19a11cceff0c59026aa70d9945e6885722877ab907ae')
 
 prepare() {
   cd aiomisc
