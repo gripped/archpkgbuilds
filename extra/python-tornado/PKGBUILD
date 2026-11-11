@@ -2,7 +2,7 @@
 # Contributor: Thomas Dziedzic < gostrc at gmail >
 
 pkgname=python-tornado
-pkgver=6.6.0
+pkgver=6.6.1
 pkgrel=1
 pkgdesc='open source version of the scalable, non-blocking web server and tools'
 arch=('x86_64')
@@ -16,7 +16,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools')
 # https://github.com/tornadoweb/tornado/blob/v6.6.0/docs/caresresolver.rst
 checkdepends=('python-hypothesis' 'python-pycurl' 'python-twisted')
 source=("git+https://github.com/tornadoweb/tornado.git#tag=v$pkgver")
-sha512sums=('c3869ed45aa0c1403edd6f21ea3257438cca23cc836625438d889a6c2fe8e621e0e3980831816419bf860fd381e2bcfc8b4d5d039a2c4021c31f9ca24026402f')
+sha512sums=('8db0d62d4f3f6daddeeb5c9ba8db7a18c37b9025609b9cfa71414b728f9e9c2361231f1a5a658a6bbebbb5a36b986af543b10aa30efc99a9a018aba88529911d')
 
 export TORNADO_EXTENSION=1
 
