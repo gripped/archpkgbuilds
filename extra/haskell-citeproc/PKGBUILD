@@ -3,8 +3,8 @@
 
 _hkgname=citeproc
 pkgname=haskell-citeproc
-pkgver=0.14.1
-pkgrel=15
+pkgver=0.14.1.1
+pkgrel=1
 pkgdesc="Generates citations and bibliography from CSL styles."
 url="https://github.com/jgm/citeproc"
 license=('BSD-2-Clause')
@@ -15,7 +15,7 @@ depends=('ghc-libs' 'haskell-aeson' 'haskell-attoparsec' 'haskell-case-insensiti
          'haskell-xml-conduit' 'haskell-aeson-pretty' 'haskell-text-icu')
 makedepends=('ghc' 'haskell-diff' 'haskell-timeit' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha512sums=('a69e45f11e0493a08c8b0e21a048c5efadd102cc1fdc6d9f3116b22c67c02be992b284efdade9f88cf05c6c47544915b38faf0b3d9c422586b7795cddf7d98de')
+sha512sums=('f48a31dbe334e851b43516dbe8f60d465b98e08f3010082f25ad0b6d2ac8f623fbd78c00cd64f342d0ac9cbcad2028dccb1652c6d63d22b397a2d5a2c737e6fe')
 
 prepare() {
   cd $_hkgname-$pkgver
