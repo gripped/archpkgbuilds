@@ -3,7 +3,7 @@
 
 _name=sqlalchemy-continuum
 pkgname=python-sqlalchemy-continuum
-pkgver=1.8.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc='Versioning and auditing extension for SQLAlchemy'
 url='https://github.com/kvesteri/sqlalchemy-continuum'
@@ -20,8 +20,8 @@ optdepends=('python-flask: flask plugin'
             'python-sqlalchemy-i18n: internationalization')
 options=('!makeflags')
 source=(https://files.pythonhosted.org/packages/source/${_name::1}/${_name//-/_}/${_name//-/_}-${pkgver}.tar.gz)
-sha512sums=('9c6f69ff865aa35d4717068335ce67469aff5beec66e448807f142599957887406b0af1bc85a0fdcadf239d3b6c9b387f343295a0acf41397d0f0e1ffa670824')
-b2sums=('bc144bd6269c1353ea55e68f352b5c224f8ee9d21d23a5d94b811fe049ec6b0348bb61065ffb79363cb1e2e80154d5f118af6b907a1e4baf852916cfea88b122')
+sha512sums=('57c2a1bc3db66e84af38e09656066cd37f551c7b64721f66ea3d2b78983cae2dc2791a61de16d785d022c99c69c4c17681f6de9cdbb52a1c4a05697a0339e403')
+b2sums=('893e14d176eec4884222ee85a1739a1457ffecca521197805df6bbd059b8a696a42e52eaf0f0fdd4939899ae2b5afbf1c332510ce73a77e05ac81de399c11a93')
 
 prepare() {
   cd ${_name/-/_}-${pkgver}
