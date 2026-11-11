@@ -9,7 +9,7 @@
 # Contributor: SanskritFritz (gmail)
 
 pkgname=rofi
-pkgver=2.0.0
+pkgver=2.1.1
 pkgrel=1
 pkgdesc="A window switcher, application launcher and dmenu replacement"
 url="https://davatorium.github.io/rofi"
@@ -24,7 +24,7 @@ source=("git+https://github.com/davatorium/rofi.git#tag=${pkgver}"
         'git+https://github.com/sardemff7/libgwater.git'
         'git+https://github.com/sardemff7/libnkutils.git'
         'fix_xfce4-terminal_binary_name.patch')
-sha256sums=('3ad746f25b373bfa2e49db20c5009ffd4d959dd113e47281e98e7132f7314ac8'
+sha256sums=('343cd7c5087fbd655210bf97670be3a6bfacda398d3e9f2e17ce30dee280b840'
             'SKIP'
             'SKIP'
             '0cd6f1360580f49647ceb7d169ab015f4998e778fd750ce3ad2e861f333824e3')
