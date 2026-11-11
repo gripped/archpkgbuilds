@@ -5,12 +5,12 @@
 
 pkgname=ipmitool
 pkgver=1.8.19
-pkgrel=4
+pkgrel=5
 pkgdesc="Command-line interface to IPMI-enabled devices"
 arch=('x86_64')
 url="https://codeberg.org/IPMITool/ipmitool"
-license=('BSD')
-depends=('openssl')
+license=('BSD-3-Clause-Sun')
+depends=('glibc' 'readline' 'openssl')
 makedepends=('git')
 source=(
   "git+https://codeberg.org/IPMItool/ipmitool.git#tag=IPMITOOL_${pkgver//./_}"
@@ -24,7 +24,7 @@ _srcdir_name="ipmitool-IPMITOOL_${pkgver//./_}"
 build(){
   cd "${pkgname}"
 
-  sed "s|http://www.iana.org/assignments/enterprise-numbers|file://${srcdir}/enterprise-numbers.txt|" -i Makefile.am
+  cp "${srcdir}/enterprise-numbers.txt" enterprise-numbers
 
   ./bootstrap
   ./configure --prefix=/usr --sbindir=/usr/bin --with-kerneldir
