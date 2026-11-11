@@ -2,7 +2,7 @@
 
 pkgname=lib32-libngtcp2
 pkgver=1.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Implementation of IETF QUIC protocol (32-bit)'
 url='https://github.com/ngtcp2/ngtcp2'
 arch=('x86_64')
