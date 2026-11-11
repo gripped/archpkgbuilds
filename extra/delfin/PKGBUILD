@@ -2,24 +2,28 @@
 # Contributor: Avery <aur@avery.cafe>
 pkgname=delfin
 pkgver=0.4.8
-pkgrel=1
+pkgrel=2
 pkgdesc="Stream movies and TV shows from Jellyfin"
 arch=('x86_64')
 url=https://delfin.avery.cafe/
 license=('GPL-3.0-or-later')
 depends=('gtk4' 'libadwaita' 'mpv')
-makedepends=('rust' 'clang' 'meson')
+makedepends=('rust' 'clang' 'meson' 'appstream')
 source=("$pkgname-$pkgver.tar.gz::https://codeberg.org/avery42/delfin/archive/v$pkgver.tar.gz")
 sha256sums=('5075e323b12e4f13c04023be64c658e75b45a43d342cff966fca1020771f8316')
 
 prepare() {
   export CARGO_HOME="$srcdir"
+  cd "$pkgname"
+  # Update the locked OpenSSL crates for OpenSSL 4.
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
 }
 
 build() {
   cd $pkgname
 
-  meson setup build -Dprefix=/usr -Dprofile=release
+  CFLAGS+=' --fat-lto-objects' meson setup build -Dprefix=/usr -Dprofile=release
   cd build
 
   meson compile
