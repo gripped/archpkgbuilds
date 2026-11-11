@@ -2,7 +2,7 @@
 
 pkgname=granite7
 pkgver=7.8.1
-pkgrel=3
+pkgrel=5
 pkgdesc='Library that extends GTK'
 arch=(x86_64)
 url=https://github.com/elementary/granite
@@ -27,8 +27,23 @@ makedepends=(
 )
 optdepends=('libshumate: for granite-7-demo')
 provides=(libgranite-7.so)
-source=(git+https://github.com/elementary/granite.git#tag=${pkgver})
-b2sums=('6b766bece163418c92a7155fefdc09a216040b208ab476cd583312ea149c73f039f182018fa661b4806492ca0ae5a3d45dc7958006452c345cde21d42cfb2ec8')
+source=(
+  git+https://github.com/elementary/granite.git#tag=${pkgver}
+  granite7-gtk4.20.patch
+)
+b2sums=('6b766bece163418c92a7155fefdc09a216040b208ab476cd583312ea149c73f039f182018fa661b4806492ca0ae5a3d45dc7958006452c345cde21d42cfb2ec8'
+        '96bc5ee3ffe276318b427ac8e66c62385e009f7cac2a7000c2aaaba8983a0734babacd4380383673836183c264e9c736d055f887952de9d81ce4b2be83bd9675')
+
+prepare() {
+  cd granite
+
+  # GraniteDemo: Fix app id in order to show up in dock
+  # https://github.com/elementary/granite/pull/1113
+  git cherry-pick -n 6bd8892000d7a70f4a9717939d334f2ae066b1a6
+
+  # Fix color scheme synchronization with GTK 4.20+
+  git apply -3 ../granite7-gtk4.20.patch
+}
 
 build() {
   arch-meson granite build

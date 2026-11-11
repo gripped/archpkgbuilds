@@ -1,0 +1,38 @@
+From b9c315f0551f8ecfc09823cbbec29889d530ed58 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 10 Nov 2026 20:08:07 +0100
+Subject: [PATCH] Fix color scheme synchronization with GTK 4.20+
+
+Update both gtk-application-prefer-dark-theme and
+gtk-interface-color-scheme when changing the preferred
+color scheme to keep GTK styling in sync.
+---
+ lib/StyleManager.vala | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/lib/StyleManager.vala b/lib/StyleManager.vala
+index c895bc9e..b4e1e439 100644
+--- a/lib/StyleManager.vala
++++ b/lib/StyleManager.vala
+@@ -163,8 +163,18 @@ public class Granite.StyleManager : Object {
+         var gtk_settings = Gtk.Settings.get_for_display (display);
+         if (color_scheme == NO_PREFERENCE) {
+             var granite_settings = Granite.Settings.get_default ();
++            if (granite_settings.prefers_color_scheme == DARK) {
++                gtk_settings.gtk_interface_color_scheme = Gtk.InterfaceColorScheme.DARK;
++            } else if (granite_settings.prefers_color_scheme == LIGHT) {
++                gtk_settings.gtk_interface_color_scheme = Gtk.InterfaceColorScheme.LIGHT;
++            } else {
++                gtk_settings.gtk_interface_color_scheme = Gtk.InterfaceColorScheme.DEFAULT;
++            }
+             gtk_settings.gtk_application_prefer_dark_theme = granite_settings.prefers_color_scheme == DARK;
+         } else {
++            gtk_settings.gtk_interface_color_scheme = color_scheme == DARK
++                ? Gtk.InterfaceColorScheme.DARK
++                : Gtk.InterfaceColorScheme.LIGHT;
+             gtk_settings.gtk_application_prefer_dark_theme = color_scheme == DARK;
+         }
+     }
+-- 
+2.56.0
+
