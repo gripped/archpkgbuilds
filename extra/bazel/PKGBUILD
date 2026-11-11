@@ -4,7 +4,7 @@
 # Contributor: Simon Legner <Simon.Legner@gmail.com>
 
 pkgname=bazel
-pkgver=9.3.1
+pkgver=9.3.2
 pkgrel=1
 pkgdesc='Correct, reproducible, and fast builds for everyone'
 arch=('x86_64')
@@ -16,13 +16,13 @@ options=('!debug' '!strip')
 source=(
   "https://github.com/bazelbuild/bazel/releases/download/${pkgver}/bazel-${pkgver}-dist.zip"{,.sig}
 )
-b2sums=('d6ed8e48833404c249c59a75e2e3182ce06099c343eba17299e4c0563d753b49e6f6a9115b10f40ad2a5b65e5baa7286c58c6ab648752639da426be83a40b42d'
+b2sums=('f42da5a6ea9c7ddbd7daf80c6e9ee3555e0ffc91b737095a25a8092f3ac71371d5c78f48beb59cb20c71ccd1f05f9550aa825ec4b8ccb0f16a6d9d95ddb9b790'
         'SKIP')
 validpgpkeys=('71A1D0EFCFEB6281FD0437C93D5919B448457EE0')
 
 build() {
   EMBED_LABEL=$pkgver EXTRA_BAZEL_ARGS="--tool_java_runtime_version=local_jdk" ./compile.sh
-  ./output/bazel build scripts:bazel-complete.bash
+  ./output/bazel build scripts:bazel-complete.bash scripts:bazel.fish
   cd output
   ./bazel shutdown
 }
@@ -34,6 +34,7 @@ package() {
   ln -s bazel-real "${pkgdir}/usr/bin/bazel-$_bazel_major.x-linux-$CARCH"
   install -Dm644 "${srcdir}/bazel-bin/scripts/bazel-complete.bash" "${pkgdir}/usr/share/bash-completion/completions/bazel"
   install -Dm644 "${srcdir}/scripts/zsh_completion/_bazel" "${pkgdir}/usr/share/zsh/site-functions/_bazel"
+  install -Dm644 "${srcdir}/bazel-bin/scripts/bazel.fish" "${pkgdir}/usr/share/fish/vendor_completions.d/bazel.fish"
   mkdir -p "${pkgdir}/usr/share/bazel"
   for d in third_party tools; do
     cp -r "${srcdir}/${d}" "${pkgdir}/usr/share/bazel/"
