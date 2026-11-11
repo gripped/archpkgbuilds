@@ -2,7 +2,7 @@
 
 pkgname=wingpanel-indicator-power
 pkgver=8.0.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Wingpanel Power Indicator'
 arch=(x86_64)
 url=https://github.com/elementary/wingpanel-indicator-power
@@ -15,20 +15,29 @@ depends=(
   granite7
   gtk4
   libgee
-  libgtop
   libnotify
   systemd-libs
   wingpanel
 )
 makedepends=(
   git
-  intltool
+  libgtop
   meson
   vala
 )
-#source=(git+https://github.com/elementary/wingpanel-indicator-power.git#tag=${pkgver})
-source=(git+https://github.com/elementary/wingpanel-indicator-power.git#commit=65e97001da8b7e1bce42c66868c3ebb8594b564d)
-b2sums=('3ae15d3795745615d0d7eccb3da31c025ef7e299c688de414594ac2b828e2fb8c71b4c019cc318f235f6b379dd9a1f92405a93259daf633e8fcf618e50f2dfe8')
+source=(git+https://github.com/elementary/wingpanel-indicator-power.git#tag=${pkgver})
+b2sums=('ff919d21c82ebe36570b4bf4950686f08be8e86768925c72779bbb67c2386326e24f21f731216a1cac5f55c4688a25c1bd2a5cfa2f0243a24a310dbbd403e385')
+
+prepare() {
+  cd wingpanel-indicator-power
+
+  # Update for GTK4 port
+  git cherry-pick -n 8.0.2..65e97001da8b7e1bce42c66868c3ebb8594b564d
+
+  # Update RDNN to io.elementary.panel.power
+  # https://github.com/elementary/panel-power/pull/302
+  git cherry-pick -n d59ea9c3da2be7f2235b8e67140a39bc60950c16
+}
 
 build() {
   arch-meson wingpanel-indicator-power build
