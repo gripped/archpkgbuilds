@@ -4,7 +4,7 @@
 # Contributor: Christoph Gysin <christoph.gysin@gmail.com>
 
 pkgname=aws-vault
-pkgver=7.16.2
+pkgver=7.17.7
 pkgrel=1
 pkgdesc='Vault for securely storing and accessing AWS credentials in development environments'
 url='https://github.com/ByteNess/aws-vault'
@@ -21,8 +21,8 @@ optdepends=(
   'kdialog: graphical prompt'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('4d6b0f262294a6681c45dc743a628bc3854a5cc114160fcb19effccdf08eae99')
-b2sums=('eb18473727c0a0923008f0adb2bcad60f3850fbb361e2587c6c289f170ebdb8ed724b5c844587caa4ceb86e115233d8c8683b1ca34c6f8f88129f89ac192ecde')
+sha256sums=('234f5ea2e88c0a1caf7493c0d958f406d15ee9b9a77aa6c08cdb63d9ed723b4e')
+b2sums=('0d611fe54c4f482fe015be4a1a436308b555039c5743f88114ed944ee911c9b10e438baae3dbba6e2315b4918cca94372fa3eba65714351416d00ce2bf014442')
 
 build() {
   cd "${pkgname}-${pkgver}"
