@@ -3,28 +3,33 @@
 
 _hkgname=http-date
 pkgname=haskell-http-date
-pkgver=0.0.11
-pkgrel=308
+pkgver=0.0.12
+pkgrel=1
 pkgdesc="HTTP Date parser/formatter"
 url="https://hackage.haskell.org/package/${_hkgname}"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' "haskell-attoparsec")
-makedepends=('ghc')
+depends=('ghc-libs' 'haskell-attoparsec')
+makedepends=('ghc' 'haskell-hspec' 'haskell-hspec-discover' 'haskell-old-locale')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('dec4f4fc5f765887fb884a0309648dd3336e2591c05ac89150c7ebe935d1167f3c5996a12c5371f3fab3525b95ca8e46873b6bafc1b937b1b5367c256358a62d')
+sha512sums=('749cf89ecffee43c39d84166cfcf2e1fb8afd50df11aba41bf597ec1dd044097b37ea2d065869470ca3beaa6191ae7e63c23b73c24ef291dca925c7193808c7a')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
