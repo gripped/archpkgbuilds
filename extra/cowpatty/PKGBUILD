@@ -6,7 +6,7 @@
 
 pkgname=cowpatty
 pkgver=4.8
-pkgrel=4
+pkgrel=5
 pkgdesc='Wireless WPA/WPA2 PSK handshake cracking utility'
 url='https://github.com/joswr1ght/cowpatty'
 arch=('x86_64')
@@ -22,6 +22,8 @@ prepare() {
   sed 's|-g3 -ggdb||g' -i Makefile
   sed '/clang/d' -i Makefile
   sed -E "s/(cowpatty.c -o|genpmk.c -o)/${LDFLAGS} \\1/g" -i Makefile
+  # Match signal()'s handler prototype.
+  sed -i 's/void cleanup()/void cleanup(int signum)/' cowpatty.c genpmk.c
 }
 
 build() {
