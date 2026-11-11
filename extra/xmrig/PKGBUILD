@@ -3,7 +3,7 @@
 
 pkgname=xmrig
 pkgver=6.26.0
-pkgrel=1
+pkgrel=2
 pkgdesc='RandomX, KawPow, CryptoNight, AstroBWT and GhostRider unified CPU/GPU miner and RandomX benchmark'
 url='https://github.com/xmrig/xmrig'
 arch=('x86_64')
@@ -18,13 +18,18 @@ makedepends=('cmake')
 backup=("etc/${pkgname}/${pkgname}.conf")
 source=(https://github.com/xmrig/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
         xmrig@.service
-        xmrig.sysusers)
+        xmrig.sysusers
+        "xmrig-openssl4.patch::https://github.com/xmrig/xmrig/commit/2c86216a5ce816237c923e6057c5bc9aaa5387c2.patch")
 sha256sums=('5005144e78571f26586410c2b2ede2b0c72afe22f97f1708ea24cfb253c3939b'
             'bbc54b04a7da5ea473eb7d976307eb995fbfd96f0d012f1553b8c487182d9fb3'
-            'd8f499302fb2b642fe02586c81c410a299e0a6e133aef1cc1c783bcdcb3f44f6')
+            'd604cec6eb23d1e27e406d5a170f5da2416566ba128d6536f530855c02058ed0'
+            '7c0cfee5f2c88aa9eb95983e58581a37f00bc12c156b43ee298617b8eeaa304e')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
+  # OpenSSL 4 returns a const subject name; create and set a mutable name.
+  # https://github.com/xmrig/xmrig/pull/3808
+  patch -Np1 -i "${srcdir}/xmrig-openssl4.patch"
   mkdir -p build
 }
 
