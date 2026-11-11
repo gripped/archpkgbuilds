@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=graphql-client-cli
 pkgver=0.16.0
-pkgrel=2
+pkgrel=3
 pkgdesc='CLI for graphql-client'
 license=('Apache-2.0' 'MIT')
 arch=('x86_64')
@@ -14,6 +14,10 @@ options=('!lto')
 
 prepare() {
     cd "graphql-client-$pkgver"
+    # Update the locked OpenSSL crates for OpenSSL 4.
+    # https://github.com/graphql-rust/graphql-client/issues/571
+    cargo update -p openssl-sys --precise 0.9.117
+    cargo update -p openssl --precise 0.10.81
     cargo fetch --locked --target host-tuple
 }
 
