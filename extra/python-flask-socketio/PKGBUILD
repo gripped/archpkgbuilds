@@ -3,7 +3,7 @@
 
 pkgname=python-flask-socketio
 _pkgname=Flask-SocketIO
-pkgver=5.7.0
+pkgver=5.7.2
 pkgrel=1
 pkgdesc='Socket.IO integration for Flask applications'
 arch=('any')
@@ -29,8 +29,8 @@ checkdepends=(
   'python-redis'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('e3da5cd25e26113d000686b9c78c2633a1c77060a565da00fa03acef48476ac7fb8ce284a9bf3124cf2b132cda87682ed18e60b7f0ce1452118c257a8b360ee5')
-b2sums=('f91f61cd0c5e2848f169a8e738a2779522e7d524a28470744eb49d639a545e47f32647f461b4be25942394fbf6880ed0e6fca15ea2bebb10e8376950c0fb8d54')
+sha512sums=('6873d12454e58ace9f9812f653d40d3358386c484dc741a675cbe704a948fd9bbeb6e402919b28905cb371dfde5ec8a0470a7a001a7c23908b2b87e904886b46')
+b2sums=('b8e8594808177504f34bfd016651ad140c66d7e6139609bedfd7cbe244ab5962dd4cfc55a1eebc7cb6f68eda549667f9056f61fb0b87594097bbf6db03e13672')
 
 build() {
   cd $_pkgname-$pkgver
