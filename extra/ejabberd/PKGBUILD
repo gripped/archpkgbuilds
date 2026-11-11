@@ -4,7 +4,7 @@
 
 pkgname=ejabberd
 pkgver=26.09.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Jabber server written in Erlang"
 arch=('x86_64')
 url="https://www.ejabberd.im/"
