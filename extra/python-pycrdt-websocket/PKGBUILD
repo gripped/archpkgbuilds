@@ -2,7 +2,7 @@
 
 _pyname=pycrdt-websocket
 pkgname=python-$_pyname
-pkgver=0.16.8
+pkgver=0.16.9
 pkgrel=1
 pkgdesc='CRDTs based on Yrs'
 arch=(any)
@@ -24,7 +24,7 @@ checkdepends=(hypercorn
               python-websockets
               uvicorn)
 source=(git+https://github.com/y-crdt/pycrdt-websocket#tag=$pkgver)
-sha256sums=('da05d51d52d11aa24995d8c2358c95088ad396c45d8a70e439479f7d013a3907')
+sha256sums=('8377f4cd90e527c7e3b5ea7ee9d024aaa44ab5c43c1053cc8da6a49d1970957e')
 
 build() {
   cd $_pyname
