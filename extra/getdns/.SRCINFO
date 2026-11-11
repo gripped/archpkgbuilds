@@ -1,7 +1,7 @@
 pkgbase = getdns
 	pkgdesc = Modern asynchronous DNS API
 	pkgver = 1.7.3
-	pkgrel = 2
+	pkgrel = 3
 	url = https://getdnsapi.net
 	arch = x86_64
 	license = BSD
@@ -16,8 +16,10 @@ pkgbase = getdns
 	depends = check
 	source = https://getdnsapi.net/dist/getdns-1.7.3.tar.gz
 	source = https://getdnsapi.net/dist/getdns-1.7.3.tar.gz.asc
+	source = getdns-openssl-4.patch::https://github.com/getdnsapi/getdns/commit/735764d84272cb46f8fd4c3ddfe0cacbda0d9323.patch
 	validpgpkeys = DC34EE5DB2417BCC151E5100E5F8F8212F77A498
 	sha256sums = f1404ca250f02e37a118aa00cf0ec2cbe11896e060c6d369c6761baea7d55a2c
 	sha256sums = SKIP
+	sha256sums = 6979d9a925c6f14324a18ce24c383878cc7ff74d1120c5f7c3fa35c9cb0daa96
 
 pkgname = getdns
