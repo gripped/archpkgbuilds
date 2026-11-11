@@ -4,7 +4,7 @@
 
 pkgname=cosmic-store
 pkgver=1.11.0
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Cosmic App Store'
 arch=(x86_64)
