@@ -2,7 +2,7 @@
 # Contributor: Dan McGee <dan@archlinux.org>
 
 pkgname=dash
-pkgver=0.5.13.4
+pkgver=0.5.13.5
 pkgrel=1
 pkgdesc='POSIX compliant shell that aims to be as small as possible'
 url='http://gondor.apana.org.au/~herbert/dash/'
@@ -20,8 +20,8 @@ install=dash.install
 source=(
   https://git.kernel.org/pub/scm/utils/dash/dash.git/snapshot/${pkgname}-${pkgver}.tar.gz
 )
-sha512sums=('ff0e8a86097bbc39270e7aec9801997f302212e8c81fd24e9d8895830298041916be00a0cfb7a611845703dad4e2cdf51e9909bfcfadc00d4b82772ee5fed33d')
-b2sums=('8555459905a99772830a82c070ce4b1fe1ea8e3a89cf9618505737dce0614cfdafb706e11c82d134fdd6a5150b16ed7a170641cb770625bfc7899d1791430c6d')
+sha512sums=('238b639dc919c786737a8e578ebe7004d0a157512abea2c8e85553ae5fdae7927ff1a3a2b2718197481064229ea2ac914e6fd3b23a632e7d8e66f4c7b6a2e5bc')
+b2sums=('0bcb1d0cc6a6eb1e15e90e33396eb9018b4427e304cf608ada73909b7080f1dfad7b328253e927792532f0410d4dd91ee002385071b37298db1f703b6d9d3ffd')
 
 prepare() {
   cd ${pkgname}-${pkgver}
