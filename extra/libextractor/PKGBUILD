@@ -2,16 +2,17 @@
 # Contributor: damir <damir@archlinux.org>
 
 pkgname=libextractor
-pkgver=1.19
+pkgver=1.20
 pkgrel=1
 pkgdesc="A library used to extract meta-data from files of arbitrary type"
 arch=("x86_64")
 license=('GPL-3.0-or-later')
 url="https://www.gnu.org/software/libextractor/"
 depends=('libltdl')
-makedepends=('exiv2' 'file' 'flac' 'gst-plugins-base-libs' 'libgsf' 'libmpeg2' 'libvorbis'
+makedepends=('exiv2' 'ffmpeg' 'file' 'flac' 'gst-plugins-base-libs' 'libgsf' 'libmpeg2' 'libvorbis'
              'poppler' 'libsmf' 'giflib')
 optdepends=('exiv2: metadata support'
+            'ffmpeg: previewopus/thumbnailffmpeg support'
             'file: mime support'
             'flac: flac support'
             'giflib: GIF support'
@@ -25,7 +26,7 @@ optdepends=('exiv2: metadata support'
 validpgpkeys=('19647543F7861D3BF4E64FF7BF60708B48426C7E'
               'D8423BCB326C7907033929C7939E6BE1E29FC3CC')
 source=("https://ftp.gnu.org/gnu/libextractor/${pkgname}-${pkgver}.tar.gz"{,.sig})
-sha512sums=('41a2c9aaa5a76d367a7ddd024d064cc370ce0260b249fb8895b4ad0d24e7b0325b377768804dc33ac86944ae817d5a1bf48c2224774762db4dd7a90c7141d19a'
+sha512sums=('8bf3631914d999855dd173b6234d23be38eba0dd483e1d5d36fbeba32f1b58dee0d6171a525dbf1f9ecbe44a340ba53e5c1c084f2ceb61c23f0ecf2a9e19c780'
             'SKIP')
 
 build() {
