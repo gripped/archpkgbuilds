@@ -4,7 +4,7 @@
 
 pkgname=lapce
 pkgver=0.4.6
-pkgrel=4
+pkgrel=5
 pkgdesc='Lightning-fast and Powerful Code Editor'
 arch=(x86_64)
 url=https://lapce.dev
@@ -45,6 +45,8 @@ _srcenv() {
 
 prepare() {
 	_srcenv
+        cargo update -p openssl-sys --precise 0.9.117 # Support OpenSSL 4
+        cargo update -p openssl --precise 0.10.81 # Support OpenSSL 4
 	cargo fetch --locked --target host-tuple
 }
 
