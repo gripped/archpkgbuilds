@@ -6,7 +6,7 @@
 
 pkgbase=ollama
 pkgname=(ollama ollama-rocm ollama-cuda ollama-vulkan ollama-docs)
-pkgver=0.40.15
+pkgver=0.40.16
 pkgrel=1
 pkgdesc='Create, run and share large language models (LLMs)'
 arch=(x86_64)
@@ -31,7 +31,7 @@ source=(git+https://github.com/ollama/ollama#tag=v$pkgver
         sysusers.conf
         tmpfiles.conf
         remove-dependency-installation.patch)
-b2sums=('dad72aa446412516f72a036ea358d9acd5df330c0be9794ef075bd7a8e2983ed6ae7599c1a96b8025c9d75ae88dd9f7cf4ae7a5b6fad30655352fdb8d2c12f53'
+b2sums=('9f2e33fa5e6267c8016f265c5d2e237f81bf045765ffe7b0854412fc92838aa79bf86ee76a10bae2ad3f80baa7109210da05455cec4be065433e925914ed1120'
         '121a7854b5a7ffb60226aaf22eed1f56311ab7d0a5630579525211d5c096040edbcfd2608169a4b6d83e8b4e4855dbb22f8ebf3d52de78a34ea3d4631b7eff36'
         '031e0809a7f564de87017401c83956d43ac29bd0e988b250585af728b952a27d139b3cad0ab1e43750e2cd3b617287d3b81efc4a70ddd61709127f68bd15eabd'
         '68622ac2e20c1d4f9741c57d2567695ec7b5204ab43356d164483cd3bc9da79fad72489bb33c8a17c2e5cb3b142353ed5f466ce857b0f46965426d16fb388632'
@@ -62,7 +62,8 @@ build() {
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/usr
     -D OLLAMA_LLAMA_BACKENDS="cuda_v13;rocm_v7_2;vulkan"
-    -D AMDGPU_TARGETS="$(rocm-supported-gfx)"
+    # llama.cpp uses gfx12 WMMA builtins that gfx1250 lacks
+    -D AMDGPU_TARGETS="$(rocm-supported-gfx -e gfx1250)"
     # Sync GPU targets from CMakePresets.json
     # For CUDA 12
     # -D CMAKE_CUDA_ARCHITECTURES="50;52;53;60;61;62;70;72;75;80;86;87;89;90;90a"
