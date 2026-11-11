@@ -3,7 +3,7 @@
 
 pkgname=pwninit
 pkgver=3.3.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Automate starting binary exploit challenges'
 url='https://github.com/io12/pwninit'
 arch=(x86_64)
@@ -31,6 +31,10 @@ validpgpkeys=(
 
 prepare() {
   cd "${pkgname}"
+# Support openssl 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
+
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
