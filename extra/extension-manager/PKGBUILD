@@ -3,16 +3,23 @@
 # Contributor: Bill Sideris <bill88t@feline.gr>
 
 pkgname=extension-manager
-pkgver=0.6.5
+pkgver=0.7.0
 pkgrel=1
 pkgdesc="A native tool for browsing, installing, and managing GNOME Shell Extensions"
 arch=('x86_64')
 url="https://mattjakeman.com/apps/${pkgname}"
 license=('GPL-3.0-or-later')
 depends=(
+	'dconf'
+	'glib2'
+	'glibc'
+	'glycin'
+	'glycin-gtk4'
 	'gtk4'
+	'hicolor-icon-theme'
 	'json-glib'
 	'libadwaita'
+	'libgcc'
 	'libsoup3'
 	'libxml2'
 )
@@ -22,8 +29,8 @@ makedepends=(
 	'gobject-introspection'
 	'meson'
 )
-source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mjakeman/${pkgname}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('5a43c7b9570775948a35f402b1c1d5f0f0401e339ab2144d466f75eae26ef9de')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mjakeman/${pkgname}/archive/v${pkgver}.tar.gz")
+sha256sums=('af4c43b06f5af2d5add8030f06fde1023d2fc213b83673a64519222a619bbcd0')
 
 build() {
 	arch-meson "${pkgname}-${pkgver}" build \
