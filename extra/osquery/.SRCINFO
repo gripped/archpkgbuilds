@@ -1,7 +1,7 @@
 pkgbase = osquery
 	pkgdesc = SQL powered operating system instrumentation, monitoring, and analytics
 	pkgver = 5.23.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://osquery.io
 	arch = x86_64
 	license = Apache-2.0 OR GPL-2.0-only
@@ -76,6 +76,9 @@ pkgbase = osquery
 	source = osquery-gcc-15.patch
 	source = osquery-boost-1.89.0-compatibility.patch
 	source = osquery-rocksdb-11-compatibility.patch
+	source = osquery-openssl-4.1-api-compat.patch
+	source = osquery-openssl-4-certificate-compat.patch
+	source = osquery-openssl-4.1-test-server-san.patch
 	b2sums = 0372fbb93a9c2c345ca74bf18bdee0b82ef66bcdd3f65a59941daff92323bf5a9318149cf6be4064fdca712bf0b4db2702eee41408069cbce7be481732252db1
 	b2sums = SKIP
 	b2sums = SKIP
@@ -89,5 +92,8 @@ pkgbase = osquery
 	b2sums = a62e3dc663d80080a2452a08547a6f7e925c14554dccf4aab78ff582127fb65378d87ed6ec49e409be61791205ce709cf8fc5e204b1b9aa5c5cd756eabdcd748
 	b2sums = 6388f0dafa87cf54cb2b82662196424042af354b4eded070a6f0be33f4e701f8049c6671497b6663b26ef8a5782dd8477e21f742678ada14c6762cd83f32f522
 	b2sums = 00637b29831f9bf64ae93f2f93e6f133f75e7e1d9be3643d420a7882aec3bba98e8372be20db790cb2a741de5fd263cb3066c971535661d3b03451d39923b380
+	b2sums = d219cdd9ca3a0430d1d509b7a020473f2dbfd648b0584ec9f2b79bd9760c533ed5b6177c26186ccc6e6f938e06775a0918bc03f3036e15c6c379409d068a0402
+	b2sums = 67b1309b778530c88e3d1fce56d090ce9bd3e11eeca2bc01a4c30d54e6f454645cdec3ba986d466ad23be8d12e5bc9a618a78a00f049c5b2603893c6ee487979
+	b2sums = 2b71afeaf2d0dccc1d7cfbbb17e690a7a127dfa0e32c926951f6ec0e6b4fc045dc427ffb7613e42832f8ebe1861bbc0bb7bfcd78985fa000b849adc57d2d8858
 
 pkgname = osquery

@@ -1,0 +1,19 @@
+Preserve the bundled OpenSSL API compatibility level with system libraries.
+OPENSSL_NO_DEPRECATED otherwise hides the hostname verification functions
+used by Boost.Asio with OpenSSL 4.1.
+
+Upstream API compatibility setting: https://github.com/osquery/osquery/pull/8081
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -192,6 +192,10 @@
+       NAME OpenSSL
+       LINK_LIBRARIES OpenSSL::SSL OpenSSL::Crypto
+     )
++    # Match the bundled OpenSSL API level so Boost.Asio can verify hostnames.
++    target_compile_definitions(thirdparty_openssl INTERFACE
++      OPENSSL_API_COMPAT=10101
++    )
+     add_system_cmake_dependency(
+       NAME Boost
+       COMPONENTS filesystem chrono thread context

@@ -1,0 +1,76 @@
+Use public certificate APIs for OpenSSL 4 compatibility.
+ASN1_STRING is opaque and certificate names returned by getters are const.
+Use ASN.1 accessors for key IDs and signatures, and create an owned subject
+name for the secure-boot test certificate.
+
+--- a/osquery/tables/networking/curl_certificate.cpp
++++ b/osquery/tables/networking/curl_certificate.cpp
+@@ -67,16 +67,15 @@
+ }
+ 
+ static std::string signature(X509* cert) {
+-  ASN1_BIT_STRING* sign = nullptr;
++  const ASN1_BIT_STRING* sign = nullptr;
+   std::string signature;
+ 
+-  X509_get0_signature(
+-      const_cast<const ASN1_BIT_STRING**>(&sign), nullptr, cert);
++  X509_get0_signature(&sign, nullptr, cert);
+ 
+   auto sig_nid = X509_get_signature_nid(cert);
+   if (sig_nid != NID_undef) {
+-    auto n = sign->length;
+-    auto s = sign->data;
++    auto n = ASN1_STRING_length(sign);
++    auto s = ASN1_STRING_get0_data(sign);
+     auto bio_out = BIO_new(BIO_s_mem());
+     for (auto i = 0; i < n; i++) {
+       BIO_printf(bio_out, "%02x%s", s[i], ((i + 1) == n) ? "" : ":");
+--- a/osquery/tables/system/posix/openssl_utils.cpp
++++ b/osquery/tables/system/posix/openssl_utils.cpp
+@@ -218,7 +218,8 @@
+     return boost::none;
+   }
+ 
+-  return convertBinaryDigestToString(cert_key_id->data, cert_key_id->length);
++  return convertBinaryDigestToString(ASN1_STRING_get0_data(cert_key_id),
++                                     ASN1_STRING_length(cert_key_id));
+ }
+ 
+ boost::optional<std::string> getCertificateSubjectKeyID(X509* cert) {
+@@ -227,7 +228,8 @@
+     return boost::none;
+   }
+ 
+-  return convertBinaryDigestToString(cert_key_id->data, cert_key_id->length);
++  return convertBinaryDigestToString(ASN1_STRING_get0_data(cert_key_id),
++                                     ASN1_STRING_length(cert_key_id));
+ }
+ 
+ boost::optional<std::string> getCertificateIssuerName(
+--- a/osquery/tables/system/tests/linux/secureboot_certificates_tests.cpp
++++ b/osquery/tables/system/tests/linux/secureboot_certificates_tests.cpp
+@@ -195,7 +195,12 @@
+   X509_set_pubkey(cert, pkey);
+ 
+   // Subject and issuer: CN=osquery-test-cert
+-  X509_NAME* name = X509_get_subject_name(cert);
++  X509_NAME* name = X509_NAME_new();
++  if (name == nullptr) {
++    X509_free(cert);
++    EVP_PKEY_free(pkey);
++    return {};
++  }
+   X509_NAME_add_entry_by_txt(
+       name,
+       "CN",
+@@ -204,7 +209,9 @@
+       -1,
+       -1,
+       0);
++  X509_set_subject_name(cert, name);
+   X509_set_issuer_name(cert, name);
++  X509_NAME_free(name);
+ 
+   // Self-sign with SHA-256.
+   if (X509_sign(cert, pkey, EVP_sha256()) == 0) {

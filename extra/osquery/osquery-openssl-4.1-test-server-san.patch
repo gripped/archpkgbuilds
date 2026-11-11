@@ -1,0 +1,36 @@
+Add DNS:localhost to the TLS test server certificate.
+OpenSSL 4.1 no longer accepts its Common Name for hostname verification,
+causing enrollment tests to spend minutes retrying failed TLS requests.
+The fixture retains its existing test key, CA, serial, and validity dates.
+
+--- a/tools/tests/configs/test_server.pem
++++ b/tools/tests/configs/test_server.pem
+@@ -1,5 +1,5 @@
+ -----BEGIN CERTIFICATE-----
+-MIIDkDCCAnigAwIBAgIUUNMfQp5cEH8esNXG9capU4d8kAkwDQYJKoZIhvcNAQEL
++MIIDpjCCAo6gAwIBAgIUUNMfQp5cEH8esNXG9capU4d8kAkwDQYJKoZIhvcNAQEL
+ BQAwWzELMAkGA1UEBhMCVVMxEzARBgNVBAgMCkNhbGlmb3JuaWExGDAWBgNVBAoM
+ D29zcXVlcnktdGVzdGluZzEdMBsGA1UEAwwUb3NxdWVyeS11bml0dGVzdHMtY2Ew
+ HhcNMjMxMjA3MjIwNzMyWhcNMzMxMjA0MjIwNzMyWjBQMQswCQYDVQQGEwJVUzET
+@@ -10,13 +10,13 @@
+ +Ip947vCNTuQzg2z8Vi6DJnC/TN94gVTAS5uZmdg+lX6hoV8yz3RVmMKPkp2wUn0
+ WXzoHNJLrOSSkkQI6S6x5K8ykmbZpoHS6u48ftXIZugIDkg7Xtni/MnDMXETPn4I
+ cgogKX7LpQfuGsHCIz4dqmIVvvLKFA6rTr8bwiz/DZwmlJc2JwJw4a2tNUHGhUWH
+-HJcrpAR2aCUw8kTcxpyDf6vfAgMBAAGjVzBVMBMGA1UdJQQMMAoGCCsGAQUFBwMB
++HJcrpAR2aCUw8kTcxpyDf6vfAgMBAAGjbTBrMBMGA1UdJQQMMAoGCCsGAQUFBwMB
+ MB0GA1UdDgQWBBS+qH8WOgrBNnFB4yo9idKxrRYRlTAfBgNVHSMEGDAWgBTIQG54
+-V+OftpEfgof4nSvXTQdZADANBgkqhkiG9w0BAQsFAAOCAQEAB7Gcu+DXmOn0TYFp
+-WXZEPPrBuPx9Gpbg7vNyuvUKt/bq7rzDuZlwmAjug5qQkFFqlN2+6VKVHA2LWU38
+-YJ2pmZ5CcIzO1/jPiczaIcg8F/ZT8aA6i80RkiRNcUO9WpEO5o5xCxt54y43YQcr
+-SJQ2A/Ez6XInLCC00HWx0uZLkVlJmnQ/cWDrc9bq1UBshDG9QL9bGM9bedbb5rwg
+-9g50e8U+Pp6Xff/rUusp4BN19Du0Xyvofkwyh8+1m8TLKMHx0xNhjpzp1SB7eWh3
+-8Jt/fDYoy277SSAMbdaZwhI/Q6haCw17AgzjoZ415QzB+ImnamAIYWbZIo5r54HE
+-BMqHzA==
++V+OftpEfgof4nSvXTQdZADAUBgNVHREEDTALgglsb2NhbGhvc3QwDQYJKoZIhvcN
++AQELBQADggEBAEoGUPBaEKQr7feA+DzfeN0wi0lw5vCDGmZlJJCRoxrpjYQ5Nnto
++XmisFDVvxiIKaqZYT1Qa0mYFRQpZhxjkTVaPNwEkLCW/LPwnsncdsgEhxY5qX1Qr
++uBjhAVxzCiESnGj6tgaLkXY1KQUv6TUeCHClhxdiNd7k0DXxAlgrIlqH+yXA0Y3X
++N+aELbXyRJMdCFAVUXpIDDDqqVn+JUqGuur53uqQvuaNfDK3se29B+ShTCQvkmOV
++ssKcJ9cD6pP8tPWwhmGhBftMKOmZkOwBUjNmHf8NQS92Ff2MYa4C2dzqw5vxlfvy
++VoFRoOs3o/di6KgL4Tqznj1EhNo2vwtnHRQ=
+ -----END CERTIFICATE-----
