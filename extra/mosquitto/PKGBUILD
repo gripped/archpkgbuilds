@@ -5,7 +5,7 @@
 
 pkgname=mosquitto
 pkgver=2.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc="An Open Source MQTT Broker"
 arch=(x86_64)
 url="https://mosquitto.org/"
