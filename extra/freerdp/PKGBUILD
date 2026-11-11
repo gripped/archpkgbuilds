@@ -3,9 +3,9 @@
 # Contributor: Stijn Segers <francesco dot borromini at gmail dot com>
 
 pkgname=freerdp
-pkgver=3.33.0
+pkgver=3.33.1
 _libver=${pkgver/.*/}
-pkgrel=2
+pkgrel=1
 epoch=2
 pkgdesc="Free implementation of the Remote Desktop Protocol (RDP)"
 arch=(x86_64)
@@ -70,8 +70,8 @@ provides=(
 source=(
   "git+https://github.com/$pkgname/$pkgname#tag=$pkgver"
 )
-sha512sums=('e83a99668463c8ba70d03fb9799f34e3a4eb3e2cb4af564c7ae0c47609d2fbf889a05c31f72037f6ee68307133cfeb97eef21f8085980124df7977ca4402fb21')
-b2sums=('8fc9446679487d11025b9f425e32673648baa3b205820cd92e738f838283d8db388ba57a2c9ab7b0ad503619c10a09af89a2bafc053f0bf0d65f0ccbcc28d814')
+sha512sums=('6b871f9ed565042a8b9b20ac658ae3131ab55618170d3f55e4bd5d25ad7f6fadc01b27aec6ee780eabcd5ae83a83a1b63f67b2176bc37c91610b6573fa32d5d3')
+b2sums=('4c4f77311824dc5f913544e7367b06918de49b4fcf5164216d3e665c716382b21b0e0ddec81a0442ad5e9cc88dbe8a5e2d1b4a0688d9062f58272100d18bf1cc')
 
 build() {
   # gcc14 buildfix
