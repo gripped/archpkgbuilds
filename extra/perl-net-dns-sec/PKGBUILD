@@ -4,15 +4,15 @@
 
 pkgname=perl-net-dns-sec
 pkgver=1.28
-pkgrel=3
+pkgrel=4
 pkgdesc="DNSSEC extensions to Net::DNS"
 arch=('x86_64')
 license=('MIT')
-depends=('perl-crypt-openssl-bignum' 'perl-crypt-openssl-dsa' 'perl-crypt-openssl-rsa' 'perl-digest-bubblebabble' 'perl-mime-base32' 'perl-net-dns' 'perl')
+depends=('perl-net-dns' 'perl' 'openssl')
 checkdepends=('perl-test-pod')
-url='https://search.mcpan.org/dist/Net-DNS-SEC'
+url='https://metacpan.org/dist/Net-DNS-SEC'
 options=('!emptydirs')
-source=("https://search.mcpan.org/CPAN/authors/id/N/NL/NLNETLABS/Net-DNS-SEC-$pkgver.tar.gz")
+source=("https://cpan.metacpan.org/authors/id/N/NL/NLNETLABS/Net-DNS-SEC-$pkgver.tar.gz")
 sha512sums=('0e357c7e000f3d791379d58e388adb3c15d3440d793592624a399115b52d84a71184fa8b4a3850393c1db4e22cfd4df174efd5e165b40ff8b6d2cbf1772d622c')
 _distdir="Net-DNS-SEC-$pkgver"
 
@@ -30,6 +30,7 @@ check() {
 package() {
   cd "$srcdir/$_distdir"
   make DESTDIR="$pkgdir/" install
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
 # vim:set ts=2 sw=2 et:
