@@ -2,7 +2,7 @@
 # Contributor: Jaroslav Lichtblau <dragonlord@aur.archlinux.org>
 
 pkgname=libexttextcat
-pkgver=3.4.8
+pkgver=3.4.9
 pkgrel=1
 pkgdesc="N-Gram-Based Text Categorization library primarily intended for language guessing"
 arch=('x86_64')
@@ -12,14 +12,12 @@ depends=('glibc')
 provides=('libtextcat')
 # options=(!lto)
 source=(#https://dev-www.libreoffice.org/src/$pkgname/$pkgname-$pkgver.tar.xz
-        https://dev-www.libreoffice.org/src/$pkgname-$pkgver.tar.xz
-        Fix-type-mismatch-between-declaration-and-definition.patch)
-sha256sums=('93eb89fd4fc8f565806354e100e778b3ac9a24e5fc04c24e6a83fb1e9b6c9d59'
-            '35b39e2e84aff6e2856e527c1fdbe08a75fa9266c2495fde7c4409c3464a84df')
+        https://dev-www.libreoffice.org/src/$pkgname-$pkgver.tar.xz)
+sha256sums=('71e9a3cc6c4a270efd61d76281664341e1fb0412b591f1939516413a992d1e87')
             
 prepare() {
   cd "${srcdir}"/$pkgname-$pkgver
-  patch -Np1 -i ../Fix-type-mismatch-between-declaration-and-definition.patch
+  autoreconf -vfi
 }
 
 build() {
