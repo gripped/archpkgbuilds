@@ -6,7 +6,7 @@
 
 pkgname=clamav
 pkgver=1.5.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Anti-virus toolkit for Unix'
 url='https://www.clamav.net/'
 license=(GPL-2.0-only)
@@ -24,7 +24,7 @@ depends=(
   libstdc++
   libxml2
   ncurses
-  openssl
+  openssl-3
   pcre2
   systemd-libs
   zlib
@@ -86,6 +86,8 @@ prepare() {
 
 build() {
   cd ${pkgname}-${pkgver}
+  # OpenSSL 4.1 hashing fixes are still unmerged upstream.
+  # CMake also forwards these OpenSSL paths to the Rust bindings.
   cmake \
     -DCMAKE_BUILD_TYPE='None' \
     -DCMAKE_INSTALL_PREFIX=/usr \
@@ -93,6 +95,9 @@ build() {
     -DAPP_CONFIG_DIRECTORY=/etc/clamav \
     -DDATABASE_DIRECTORY=/var/lib/clamav \
     -DENABLE_EXTERNAL_MSPACK=ON \
+    -DOPENSSL_INCLUDE_DIR=/usr/include/openssl-3 \
+    -DOPENSSL_CRYPTO_LIBRARY=/usr/lib/openssl-3/libcrypto.so \
+    -DOPENSSL_SSL_LIBRARY=/usr/lib/openssl-3/libssl.so \
     -Wno-dev \
     -B build \
     -G Ninja \
