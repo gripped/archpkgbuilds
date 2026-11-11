@@ -5,7 +5,7 @@
 
 pkgname=w3m
 pkgver=0.5.6
-pkgrel=1
+pkgrel=2
 pkgdesc='Text-based Web browser as well as pager'
 arch=('x86_64')
 url='https://git.sr.ht/~rkta/w3m'
