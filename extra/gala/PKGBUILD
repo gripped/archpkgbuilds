@@ -2,7 +2,7 @@
 
 pkgname=gala
 pkgver=8.6.2
-pkgrel=2
+pkgrel=3
 pkgdesc='The Pantheon Window Manager'
 arch=(x86_64)
 url=https://github.com/elementary/gala
@@ -49,6 +49,9 @@ prepare() {
 
   # Drop GTK3 daemon
   git cherry-pick -n 89e217eb1b1e17071520fc5d73573e73e6043495
+
+  # Remove unavailable experimental-features setting
+  git cherry-pick -n 7aefbba6b7c35cc5b16efc8d5ea24bc2c6e682ea
 
   # Add support for Mutter 51
   # https://github.com/elementary/gala/pull/2866
