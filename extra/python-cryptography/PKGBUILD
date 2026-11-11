@@ -3,7 +3,7 @@
 
 pkgname=python-cryptography
 pkgver=50.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="A package designed to expose cryptographic recipes and primitives to Python developers"
 arch=('x86_64')
 url="https://github.com/pyca/cryptography"
@@ -39,6 +39,10 @@ b2sums=('5a133dc005375940d4c78730bc4fd7b482deb577abb2538158b45305c4c118cb5684f96
 
 prepare() {
   cd cryptography
+  # Preserve InvalidTag for GCM authentication failures with OpenSSL 4.1.
+  # https://github.com/pyca/cryptography/pull/15596
+  git cherry-pick -n e83bbe58e373536636baaa7c33a64a6e8f04c953
+
   # Drop all benchmark tests, this means we don't have to checkdepends on
   # pytest-benchmark nor are benchmark tests interesting for a distribution.
   rm -rf tests/bench
