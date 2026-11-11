@@ -2,7 +2,7 @@
 # Contributor GI Jack <GI_Jack@hackermail.com>
 
 pkgname=afl++
-pkgver=5.00c
+pkgver=5.03c
 pkgrel=1
 pkgdesc='instrumentation-driven fuzzer for binary format'
 url='https://aflplus.plus/'
@@ -50,9 +50,12 @@ replaces=(
 options=(!lto)
 source=(
   "https://github.com/AFLplusplus/AFLplusplus/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  afl-5.03-fix-unit-test-for-frameshift.patch::https://github.com/AFLplusplus/AFLplusplus/commit/e045c646673f67628b3bbef2ee7306ac240a3c60.patch
 )
-sha256sums=('b0c005a1d28883ad1cad17ac01837d5c6b0cc7a72d19db700823e42ce3848534')
-b2sums=('88fe7ebc95d4f116eb2ed183bc92d6d90fbb2cab03fc12132a5c1c5eabe057deb7dc710cd538159ffe7d1c1f38f05f497e08afa64e69912d9137ff0937cbb0dc')
+sha256sums=('07f089e8591209862898c770a569d8e2b74b459fe967db323fc6a3924dcc82b5'
+            'a323863428fe263a70eeb96c780307e9c2eef6833976252cc5b295def3780d73')
+b2sums=('39b2ec8b31d01a18cbad78cc010d72b97c76ef9108b460b44f046b39798b40788f5af2dcc9c8aebc16633ce90bbf8fc968652d22b08e946273f8eb7606be96ce'
+        '777b5471c5d4f836b3be79d845932ed4edcf73a63c42d324b481004d58aba67737fe231071e85950592872a351193e0b406d4c3d8c29ba708ddf482310e30288')
 
 prepare() {
   # https://github.com/AFLplusplus/AFLplusplus/issues/2643
