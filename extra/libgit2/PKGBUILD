@@ -8,7 +8,7 @@ pkgname=libgit2
 # julia
 epoch=1
 pkgver=1.9.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A linkable library for Git"
 arch=(x86_64)
 url="https://github.com/libgit2/libgit2"
