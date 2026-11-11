@@ -2,7 +2,7 @@
 
 pkgname=openapi-tui
 pkgver=0.10.2
-pkgrel=2
+pkgrel=3
 pkgdesc="Terminal UI to list, browse and run APIs defined with OpenAPI spec"
 arch=('x86_64')
 url="https://github.com/zaghaghi/openapi-tui"
@@ -18,6 +18,9 @@ sha256sums=('e9ca7bc160ca6fdf50f7534318589fcb725564c05b81f40742e37a422f35a191')
 
 prepare() {
   cd "$pkgname-$pkgver"
+  # Update the locked OpenSSL bindings for compatibility with system OpenSSL 4.
+  # https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target host-tuple
 }
 
