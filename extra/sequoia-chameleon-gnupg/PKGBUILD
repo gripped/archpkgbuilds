@@ -2,7 +2,7 @@
 
 pkgname=sequoia-chameleon-gnupg
 pkgver=0.13.1
-pkgrel=2
+pkgrel=3
 pkgdesc="A re-implementation and drop-in replacement of gpg and gpgv"
 arch=(x86_64)
 url="https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg"
@@ -38,6 +38,9 @@ prepare() {
   # https://gitlab.archlinux.org/archlinux/packaging/packages/sequoia-chameleon-gnupg/-/work_items/1
   # Fix missing time corrections
   git cherry-pick -n 90e370fef788980e49aa807ac28531264bb9f404
+  # Update the locked OpenSSL bindings for compatibility with system OpenSSL 4.
+  # https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target host-tuple
 }
 
