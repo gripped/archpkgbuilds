@@ -4,7 +4,7 @@
 
 _pkgname=mdit-py-plugins
 pkgname=python-mdit_py_plugins
-pkgver=0.6.1
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='Collection of core plugins for markdown-it-py'
 arch=('any')
@@ -14,7 +14,7 @@ depends=('python-markdown-it-py')
 makedepends=('python-build' 'python-installer' 'python-flit-core')
 checkdepends=('python-pytest' 'python-pytest-regressions')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('5ad01008fd930a945f9c9bd44d690f23646f08df23ccc4bd5a44e312496f592addfd87e954e511cf6fb207b7758e3044e1fb9acf2821a4285d07bfe527e2ec17')
+sha512sums=('9f7f05d471814735ba1f88173b2af2bd242671fb5f31abb8a1b9f04db7359756cc918f390782ce8f9fa0cbea0e3386a704c6bf8b02698127015b854054e7e699')
 
 prepare() {
   cd $_pkgname-$pkgver
