@@ -2,7 +2,7 @@
 
 pkgname=freetds
 pkgver=1.5.21
-pkgrel=1
+pkgrel=2
 pkgdesc='Library for accessing Sybase and MS SQL Server databases'
 url='https://www.freetds.org'
 arch=(x86_64)
