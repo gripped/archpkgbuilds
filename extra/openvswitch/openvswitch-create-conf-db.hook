@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Target = openvswitch
+Type = Package
+
+[Action]
+Depends = bash
+Depends = openvswitch
+Description = Creating initial configuration database for Open vSwitch...
+Exec = /usr/bin/sh -c '[ -f /etc/openvswitch/conf.db ] && printf "/etc/openvswitch/conf.db exists, skipping...\n" && exit; ovsdb-tool create /etc/openvswitch/conf.db /usr/share/openvswitch/vswitch.ovsschema'
+When = PostTransaction

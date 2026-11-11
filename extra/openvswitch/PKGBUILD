@@ -4,22 +4,30 @@
 
 pkgname=openvswitch
 pkgver=4.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Production Quality, Multilayer Open Virtual Switch"
 url="http://openvswitch.org"
 license=('Apache-2.0')
 arch=(x86_64)
-install=openvswitch.install
 source=("http://openvswitch.org/releases/openvswitch-$pkgver.tar.gz"
   openvswitch.tmpfiles
   ovsdb-server.service
-  ovs-vswitchd.service)
-depends=('openssl' 'libcap-ng' 'dpdk')
-makedepends=('python')
-sha256sums=('6c94e1e019a7f36ef40a9ae34fb21ab2534dbb78e5bea83338452e07a11becf2'
+  ovs-vswitchd.service
+  openvswitch-create-conf-db.hook)
+depends=(
+  bash
+  bpftrace
+  dpdk
+  glibc
+  libcap-ng
+  openssl
+  python
+)
+sha256sums=('b8936c2e95a024d37123536ca843648bc2f1d2520921f991dd3d06248859b70f'
             'e8dc21e50fc886bfd6aa55991bdb3cb66907e11b071045452bb12de01a3ecbd9'
             'fa2412b81c77921418131a4f6fd38956f50ffcc7b908ec91f94d3607a05d060b'
-            '412a8d9a2d71f61b915d5e29c0ba44baae7770f564d885f99460b27a4cf1d398')
+            '412a8d9a2d71f61b915d5e29c0ba44baae7770f564d885f99460b27a4cf1d398'
+            'b2988d4e64242f10f348324b80510a29787c28c3b3e869cf0c9f9116bc2e86e5')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -27,11 +35,12 @@ prepare() {
     -e 's|$(sysconfdir)/bash_completion.d|/usr/share/bash-completion/completions|g' \
     -e '/if grep warning:/d' \
     Makefile.am
+
+  autoreconf -fiv
 }
 
 build() {
   cd "$pkgname-$pkgver"
-  ./boot.sh
   export CFLAGS="$CFLAGS -ffat-lto-objects"
   ./configure \
     --prefix=/usr \
@@ -50,6 +59,7 @@ package() {
   install -Dm0644 ../openvswitch.tmpfiles "$pkgdir/usr/lib/tmpfiles.d/openvswitch.conf"
   install -Dm0644 ../ovsdb-server.service "$pkgdir/usr/lib/systemd/system/ovsdb-server.service"
   install -Dm0644 ../ovs-vswitchd.service "$pkgdir/usr/lib/systemd/system/ovs-vswitchd.service"
+  install -vDm 644 ../openvswitch-create-conf-db.hook -t "$pkgdir/usr/share/libalpm/hooks/"
   install -dm0755 "$pkgdir/etc/openvswitch"
   rm -rf "$pkgdir"/run
 }
