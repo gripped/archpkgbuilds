@@ -14,7 +14,7 @@
 
 pkgname=dovecot23
 pkgver=2.3.21.1
-pkgrel=5
+pkgrel=6
 
 pkgdesc="An IMAP and POP3 server written with security primarily in mind (2.3 branch)"
 url="https://dovecot.org/"
@@ -37,7 +37,7 @@ depends=(
   'libxcrypt'
   'lz4'
   'mariadb-libs'
-  'openssl'
+  'openssl-3'
   'pam'
   'postgresql-libs'
   'sqlite'
@@ -182,6 +182,9 @@ build() {
   # this uses malloc_usable_size, which is incompatible with fortification level 3
   export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
   export CXXFLAGS="${CXXFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+
+  export SSL_CFLAGS="-I/usr/include/openssl-3 ${SSL_CFLAGS}"
+  export SSL_LIBS="-L/usr/lib/openssl-3 ${SSL_LIBS:--lssl -lcrypto}"
 
   ./configure \
     --prefix=/usr \
