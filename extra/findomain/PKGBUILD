@@ -4,7 +4,7 @@
 pkgname=findomain
 _pkgname=Findomain
 pkgver=10.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc='The fastest and cross-platform subdomain enumerator, do not waste your time'
 url='https://github.com/Findomain/Findomain'
 arch=('x86_64')
@@ -24,6 +24,9 @@ options=(!lto)
 
 prepare() {
   cd $_pkgname-$pkgver
+  # upstream OpenSSL 4-compatible dependencies
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
   cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
