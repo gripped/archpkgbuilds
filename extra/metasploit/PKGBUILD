@@ -4,8 +4,8 @@
 # Contributor: Tobias Veit - nIcE <m.on.key.tobi[at]gmail[dot]com>
 
 pkgname=metasploit
-pkgver=6.5.6
-pkgrel=2
+pkgver=6.5.9
+pkgrel=1
 pkgdesc='Advanced open-source platform for developing, testing, and using exploit code'
 url='https://www.metasploit.com/'
 arch=(x86_64)
@@ -30,8 +30,8 @@ options=(
 source=(
   git+https://github.com/rapid7/metasploit-framework.git#tag=${pkgver}
 )
-sha256sums=('846726bab690ddbc2c936a5d6ef5fba56789628a718b093d67063ccb9d1119d9')
-b2sums=('b34d89b67647b50535ee149df637629ceeb3f60cd54ebb99014e428a127a985b65621c39229f23cd639bd28079be183d18efa0656e74d960d4ad12e07220b915')
+sha256sums=('7c965e76c739730492b862c5e677d3564e1291efcdad282436f9cebd16d7df82')
+b2sums=('aa7a9583823478f677017043ffd431f1eacfb3ba488dd9abe1ef5a282db5e94bacef65153c5619591d7dda95adf3aa1802be890ae16e474bdbe6811bb5b537db')
 
 prepare() {
   cd ${pkgname}-framework
