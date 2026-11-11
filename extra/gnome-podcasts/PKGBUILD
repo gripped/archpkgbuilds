@@ -2,7 +2,7 @@
 
 pkgname=gnome-podcasts
 pkgver=25.3
-pkgrel=2
+pkgrel=3
 pkgdesc='Podcast application for GNOME'
 arch=(x86_64)
 url='https://apps.gnome.org/Podcasts/'
@@ -38,6 +38,9 @@ b2sums=(a045340483d62c625bdc633f0116bc204170d3fd4a4ab219b50560864c2ffd7bb2d8807d
 prepare() {
   cd podcasts
 
+  # Fix build with openssl 4
+  cargo update -p openssl-sys --precise 0.9.117
+  cargo update -p openssl --precise 0.10.81
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
