@@ -3,7 +3,7 @@
 
 pkgname=rucola
 pkgver=0.10.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Terminal-based markdown note manager"
 arch=('x86_64')
 url="https://github.com/Linus-Mussmaecher/rucola"
@@ -16,7 +16,9 @@ sha256sums=('afe89fbd51832fa69851b3f0a775f470326f3d583224c2b229a2e0ee49accbf8')
 
 prepare() {
   cd "$pkgname-$pkgver"
-  cargo fetch --target "$(rustc --print host-tuple)" # --locked
+  # Support OpenSSL 4: https://github.com/rust-openssl/rust-openssl/pull/2591
+  cargo update -p openssl-sys --precise 0.9.114
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
 }
 
 build() {
