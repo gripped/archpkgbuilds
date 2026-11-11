@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-importlib-metadata
-pkgver=10.1.0
+pkgver=10.2.0
 pkgrel=1
 pkgdesc="Read metadata from Python packages"
 url="https://importlib-metadata.readthedocs.io"
@@ -9,6 +9,7 @@ license=(Apache-2.0)
 arch=(any)
 depends=(
   python
+  python-lazy-importer
   python-zipp
 )
 makedepends=(
@@ -30,7 +31,7 @@ source=(
   "$pkgname::git+https://github.com/python/importlib_metadata.git#tag=v$pkgver?signed"
   remove-useless-dep.patch
 )
-sha512sums=('770c88473c78718e26849479421fc94076e5bda03cf2b5f48c12c2fca74a92199e921b0f6cc093fd7c2b341d804dbd371ffe0e56857e76c6684ad315b47dee74'
+sha512sums=('a4e07523c236e91aabd1200e77a2dcd0c7f050064ceb46898bad338056ccd008ac5ddfb1df64ec7eea69aabdc3c64cfe653a002e10dd253280bbdb6698c930f5'
             'e5165e1b212f10d56724dc552e2cd75411bbe8c3b0d6b2d930f73e85e22596fade1cd3e84f8c93b4cd73bbf5cce8d3cf22ed489e4fdfe46c73a65d97f76e57b8')
 validpgpkeys=('CE380CF3044959B8F377DA03708E6CB181B4C47E') # Jason R. Coombs <jaraco@jaraco.com>
 
