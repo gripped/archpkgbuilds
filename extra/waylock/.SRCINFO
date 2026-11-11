@@ -1,6 +1,6 @@
 pkgbase = waylock
 	pkgdesc = A simple screenlocker for wayland compositors
-	pkgver = 1.6.0
+	pkgver = 1.7.0
 	pkgrel = 1
 	url = https://codeberg.org/ifreund/waylock
 	arch = x86_64
@@ -13,18 +13,18 @@ pkgbase = waylock
 	depends = libxkbcommon
 	depends = pam
 	depends = wayland
-	noextract = zig-wayland-v0.6.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.6.0.tar.gz
-	noextract = zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz
-	source = git+https://codeberg.org/ifreund/waylock?signed#tag=v1.6.0
-	source = zig-wayland-v0.6.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.6.0.tar.gz
-	source = zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz
+	noextract = wayland-0.7.0-lQa1kuP8AQD5dW7_o-VKLVD_QbqXe7Zob78r2su7Pyex.tar.gz
+	noextract = xkbcommon-0.5.0-VDqIe8y3AgDU-cGL02xZplwABH3WbpTimrrgbgTgD_3g.tar.gz
+	source = git+https://codeberg.org/ifreund/waylock?signed#tag=v1.7.0
+	source = wayland-0.7.0-lQa1kuP8AQD5dW7_o-VKLVD_QbqXe7Zob78r2su7Pyex.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.7.0.tar.gz
+	source = xkbcommon-0.5.0-VDqIe8y3AgDU-cGL02xZplwABH3WbpTimrrgbgTgD_3g.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.5.0.tar.gz
 	validpgpkeys = 5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11
-	sha512sums = 6a372ae283e0bb0c4624452fe093eaa882de07f7efe5bbc33a441478e63a0afd4ed8d0c3045d8cf10dcfd27cb3e861bf7546cf7b06204889b7365e61b0ffa240
-	sha512sums = b2328222e60676b50a5a3445e3e6e74655139c5e6e4f263108846fe0ec79a48b99590f823353e9721d9ce2c6d783681fd75cf6b672de19217db50582df444372
-	sha512sums = fe0dc46a8556f19c2ce1badbeee7576065cb56495b94b6d468ee6ed8667f9fef5377e26864b0c8e81c3a2718cfcaf8a4f5e13aab23a615f3a58ec639372fb758
-	b2sums = fd00b1abcf33a67fc2e8a1ac2367853aacf1841ad4af8d586beb79a2c05f530584a112f85a1ae3bf1a34aaccad868d60ab76bc187e3b3a7edfd92da1c4ed829f
-	b2sums = 5722bd1cdb8734e20dc998b64e3598f5d3bce1cf22388a093216e4a7c795a13d65f8b041b8ec27e2975e3081b3c676b77f281a85b7cd964af9b3c93c48d83579
-	b2sums = 6870fc2465e2b1ef4faa6330183a1dade4a4bcf36130113444e5221ff9c764db488304f2f25a603f2511c2562d55bf1011a5f8fe41a068e7e5b707e1d06c0792
+	sha512sums = 422deb565b4b2a53aff90708559e4c3491b0f366baa555d5db51e9805d8a5f592a9db8d8a20de2b2ed88be70507f997b0c32f6b03eb8647473c29ffe24f67ae2
+	sha512sums = cbf3ae1e3095ba7d61b5d83c5f32cd48f049e8e1a6f5eef85cdd12631d8e237ea7ccf1c6b20368a240ffd539e327232ef7e8328682e4d6b9729a7a2b34ae27e7
+	sha512sums = 60db27f1c10ef7b0b01c97895312a26e53057ccd1da1de844171817d02d01b0ba6356eb14f5864ce6f03ccc817fed57dfc91b2422d980be3dff33dcf149c97f2
+	b2sums = 54d30014686b45bcf3ef17f83f7ec716530f8ccef15ea8ccc1b8bfec87ee2f77f253b18717adb08eb08d75e88dbb5e3d39faa28a6b8f7213b40f750ae19cbac5
+	b2sums = b4ce2979b59ecc75aaf8dc48107157600f0e3cae0a60a96d6c8fc6fad8b1664da4c3c9637712adc5b4528013db00961bb95d490777c46021d6af0040562fa61c
+	b2sums = 4e48e8127f9f736066971fb4941ccc5fcfcf638a36728b804bec6a5add2213909030406a3256453ebc33ec370259a0849143132d7f71b4b7d9b994421cc09f30
 
 pkgname = waylock
 	depends = glibc
