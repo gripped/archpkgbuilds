@@ -3,7 +3,7 @@
 
 pkgname=mongo-c-driver
 pkgver=2.5.5
-pkgrel=1
+pkgrel=2
 pkgdesc="A client library written in C for MongoDB"
 arch=(x86_64)
 url="https://github.com/mongodb/mongo-c-driver"
@@ -71,6 +71,8 @@ check() {
     mongoc/pkg-config/bson-import-static
     mongoc/pkg-config/mongoc-import-shared
     mongoc/pkg-config/mongoc-import-static
+    # OpenSSL 4.1 no longer matches CN-only certificates by default.
+    mongoc/TLS/commonName
   )
   local skip_tests_pattern="${skip_tests[0]}$(printf '|%s' "${skip_tests[@]:1}")"
   ctest --test-dir build --output-on-failure -E "$skip_tests_pattern"
