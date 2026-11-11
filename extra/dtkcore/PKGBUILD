@@ -4,7 +4,7 @@
 
 pkgbase=dtkcore
 pkgname=(dtkcore dtk6core)
-pkgver=6.7.52
+pkgver=6.7.53
 pkgrel=1
 epoch=1
 pkgdesc='DTK core modules'
@@ -17,12 +17,12 @@ makedepends=('git' 'cmake' 'ninja' 'qt5-tools' 'qt6-tools' 'gtest' 'doxygen'
              'gsettings-qt' 'icu' 'lshw' 'qt5-base' 'qt6-base' 'uchardet')
 source=("git+https://github.com/linuxdeepin/dtkcore.git#tag=$pkgver"
         'qt-test-compat.patch')
-sha512sums=('d68378d54578e75e3068efbe01c14ed3725c7fdf2a4d57b9b6de51082b248f0c199d59617ed757340627291c338386bd0d2ec09ce3aaa7fbc534840335409df1'
-            '8fa89c725fa53b5a0b91be5db3be1a8cd54b54ee38e4a7efb0188ef6cc0f7a71f04e2298dce8449f3eaf34776ace164b27d3049f6fa33beb83fc7eb217f8b5f5')
+sha512sums=('12a5ed6229e399dc60dd4c439d7cfe5b016e42edf12476b8d3b50ac70a97378e06781d53e6bf7e7169685bb1cada4fded0ee98d42271930845f8248a4ec15eaa'
+            '6647a6dee0449c6076d6a17f641745800e0bbf0021df217eb07eddfd9e9388ba46ca76c4ff03632c3ca879c8e46e734199b52a24963c7f3df775558eeea56f44')
 
 prepare() {
   cd dtkcore
-  # Fix new tests for Qt5/Qt6 APIs, integer overloads, and missing includes.
+  # Fix remaining Qt API compatibility, iterator cleanup, and missing includes.
   patch -Np1 -i ../qt-test-compat.patch
 
   # deepin-desktop-base uses /etc/uos-version on Arch; keep test fixtures in sync.
