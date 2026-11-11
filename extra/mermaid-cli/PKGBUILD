@@ -2,7 +2,7 @@
 # Contributor: xuhcc <xuhcc at cryptolab dot net>
 
 pkgname=mermaid-cli
-pkgver=12.0.0
+pkgver=12.2.0
 pkgrel=1
 pkgdesc='Generate images from Mermaid files'
 arch=(any)
@@ -18,7 +18,7 @@ _archive="$pkgname-$pkgver"
 source=("https://registry.npmjs.org/@mermaid-js/$pkgname/-/$_archive.tgz"
         "chromium_path.patch")
 noextract=("$_archive.tgz")
-sha256sums=('b5b43bc60c2e6bc87f7d12ab3e6e78883c799213ea5b015363fecdd5e6363c84'
+sha256sums=('5aea6d89f3c54cfdff969430e1bcdc0212459806d74fd450d4a36d3144869a3b'
             'e77efaacc2f0e4f7d7013882bc3b4452e2bcd471bfdfe69fedc08a38f8b52317')
 
 package() {
