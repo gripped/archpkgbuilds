@@ -2,7 +2,7 @@
 
 pkgname=swtpm
 pkgver=0.10.2
-pkgrel=1
+pkgrel=2
 pkgdesc='Libtpms-based TPM emulator with socket, character device, and Linux CUSE interface'
 arch=('x86_64')
 url='https://github.com/stefanberger/swtpm'
