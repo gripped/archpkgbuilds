@@ -1,0 +1,28 @@
+pkgbase = xdg-desktop-portal-pantheon
+	pkgdesc = Backend implementation for xdg-desktop-portal on Pantheon
+	pkgver = 8.2.0
+	pkgrel = 1
+	url = https://github.com/elementary/portals
+	arch = x86_64
+	groups = pantheon
+	license = GPL-3.0-or-later
+	makedepends = git
+	makedepends = meson
+	makedepends = vala
+	depends = accountsservice
+	depends = dconf
+	depends = glib2
+	depends = glibc
+	depends = granite7
+	depends = gtk4
+	depends = libadwaita
+	depends = libgee
+	depends = libx11
+	depends = pango
+	depends = pantheon-wayland
+	depends = xdg-desktop-portal
+	provides = xdg-desktop-portal-impl
+	source = xdg-desktop-portal-pantheon::git+https://github.com/elementary/portals.git#tag=8.2.0
+	b2sums = 83471b4960f9d175f2d7685771f0d3bad08fdac72811c32b79d7aaa2db4ca486b33b115d72b94ec2b82a79640101339078c092823734261ac66bf9c5eab8bceb
+
+pkgname = xdg-desktop-portal-pantheon

@@ -1,0 +1,53 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=xdg-desktop-portal-pantheon
+pkgver=8.2.0
+pkgrel=1
+pkgdesc='Backend implementation for xdg-desktop-portal on Pantheon'
+arch=(x86_64)
+url=https://github.com/elementary/portals
+license=(GPL-3.0-or-later)
+groups=(pantheon)
+depends=(
+  accountsservice
+  dconf
+  glib2
+  glibc
+  granite7
+  gtk4
+  libadwaita
+  libgee
+  libx11
+  pango
+  pantheon-wayland
+  xdg-desktop-portal
+)
+makedepends=(
+  git
+  meson
+  vala
+)
+provides=(xdg-desktop-portal-impl)
+source=(xdg-desktop-portal-pantheon::git+https://github.com/elementary/portals.git#tag=${pkgver})
+b2sums=('83471b4960f9d175f2d7685771f0d3bad08fdac72811c32b79d7aaa2db4ca486b33b115d72b94ec2b82a79640101339078c092823734261ac66bf9c5eab8bceb')
+
+prepare() {
+  cd xdg-desktop-portal-pantheon
+
+  # Initialize gtk later
+  # https://github.com/elementary/portals/pull/190
+  git cherry-pick -n c5f6fa1179bfa51429ddf4b2d268c7f2295dfff8
+
+  # ScreenCast: follow spec naming
+  # https://github.com/elementary/portals/pull/191
+  git cherry-pick -n e66361bfe62c4a44b8909c19a36cfc3e4aa6c4d2
+}
+
+build() {
+  arch-meson xdg-desktop-portal-pantheon build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "${pkgdir}"
+}
