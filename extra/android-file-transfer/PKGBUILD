@@ -5,7 +5,7 @@
 pkgname=android-file-transfer
 _pkgname="${pkgname}-linux"
 pkgver=4.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Android MTP client with minimalistic UI"
 url="https://whoozle.github.io/android-file-transfer-linux"
 arch=('x86_64')
