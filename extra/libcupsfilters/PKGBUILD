@@ -1,8 +1,8 @@
 # Maintainer: Andreas Radke <andyrtr@archlinux.org>
 
 pkgname=libcupsfilters
-pkgver=2.2.1.r57.g9fcc4bf4
-_commit=9fcc4bf49887cd2c6d3cade08257e05c275f10ab # master 2026-10-28
+pkgver=2.2.1.r80.ge1dde819
+_commit=e1dde819ca1f0514818f51c82640687263cec34d # master 2026-11-07
 pkgrel=1
 pkgdesc="OpenPrinting CUPS Filters - contains all the code of the filters of the former cups-filters package as library functions"
 arch=('x86_64')
@@ -22,7 +22,7 @@ source=(#"https://github.com/OpenPrinting/libcupsfilters/releases/download/$pkgv
         "git+https://github.com/OpenPrinting/libcupsfilters#commit=$_commit"
         # libcupsfilters-PR167.patch::https://github.com/OpenPrinting/libcupsfilters/pull/167.patch
         )
-sha256sums=('7a876c606e4374e6cbde651e915a83dad24b8c051d2d0d5a22bcc8f1d547bca2'
+sha256sums=('a4763c4ac2722dc3c40ae7a287aa9d59640ca24d6d433fc7ed0b0da5f4dd172d'
             # 'fa77ba778dcbea8826edcf87c4d022a11c073d288b39a1eaf06e0eaf3376f525')
 )
 
