@@ -3,7 +3,7 @@
 # Contributor: Felix Bühler <account at buehler dot rocks>
 
 pkgname=newsflash
-pkgver=5.2.5
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='Feed reader application designed to complement an already existing web-based RSS reader account'
 arch=(x86_64)
@@ -16,17 +16,15 @@ depends=(
   glib2
   glibc
   graphene
+  gstreamer
   gtk4
   gtksourceview5
   hicolor-icon-theme
-  lcms2
   libadwaita
   libclapper
   libclapper-gtk
   libgcc
   libseccomp
-  libxml2
-  openssl
   pango
   sqlite
 )
@@ -41,14 +39,14 @@ makedepends=(
 )
 options=(!lto)
 source=("git+https://gitlab.com/news-flash/news_flash_gtk.git#tag=v.$pkgver")
-b2sums=(a5210be3ca251e0d7c4e94a7288f851e11609daffcd506cbb0609c1bec680e4895d6a3173487a70a906ac74afe4e972aaad30f2d1f7ff651b9c4b0f973588dea)
+b2sums=(7087d2e2431b7b906b39e0cf836718559f94229f30e8fc7d11fb947572e3a10571b4122e8c7a60fee5e22fa43ef81e94eb24ff62858af41bc166432b5f0b6546)
 
 prepare() {
   cd news_flash_gtk
   sed -i "s/version: '0.0.0'/version: '$pkgver'/" meson.build
 
   CARGO_HOME="$srcdir/build/cargo-home" \
-    cargo fetch --locked --target "$(rustc --print host-tuple)"
+    cargo fetch --target "$(rustc --print host-tuple)"
 }
 
 build() {
@@ -58,7 +56,8 @@ build() {
 
   arch-meson news_flash_gtk build
 
-  CARGO_PROFILE_RELEASE_LTO=true \
+  LIBSQLITE3_SYS_USE_PKG_CONFIG=1 \
+    CARGO_PROFILE_RELEASE_LTO=true \
     CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1 \
     CARGO_PROFILE_RELEASE_DEBUG=2 \
     CARGO_PROFILE_RELEASE_STRIP=false \
