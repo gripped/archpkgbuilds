@@ -3,18 +3,28 @@
 
 _pyname=arpy
 pkgname=python-${_pyname}
-pkgver=2.3.0
-pkgrel=6
+pkgver=2.4.0
+pkgrel=1
 pkgdesc='Library for accessing ar files'
 url='https://github.com/viraptor/arpy'
-arch=('any')
-license=('custom:BSD')
-depends=('python')
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest')
+arch=(any)
+license=(BSD-2-Clause)
+depends=(
+  python
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-pytest-cov
+)
 source=("${url}/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('7479d713df8da3d18fe477c7ae585f476bd1b278ac7a2bb11f9834071148178f17f8a18db3189f6f946f2f3f8f444bf5239c2c01d631d1a575e86b7556d3e835')
-b2sums=('0c22127a8221e02df4814ff23ad13e43968553e4b8a8544a9ed826b57261f1b20bd35212202d02454f3cbfcb3d3ceaac092abb0c0a1b67481f0930d191a5e202')
+sha512sums=('305260fdcb4666b0a331f82be9db2c33e5b8a3cbb22a7adf46c2b82f263d37c536c442e6bd2a2c2d5a9633674ab166da0ae590abe6eaf818c5326db2b7ba6d4e')
+b2sums=('405832888fe2c703ecf6c0e0b17a8763acd597db63dad2b889fd07001cba0fe6777e8651832f0e39a7732a2842993413d9d6a6de5bd67b3a125ff19e62bfc2ca')
 
 prepare() {
   cd ${_pyname}-${pkgver}
