@@ -5,7 +5,7 @@
 
 pkgname=python-openai
 _name=openai-python
-pkgver=3.2.0
+pkgver=3.3.0
 pkgrel=1
 pkgdesc="Python client library for the OpenAI API"
 arch=('any')
@@ -21,7 +21,6 @@ depends=(
   'python-pydantic'
   'python-pydantic-core'
   'python-sniffio'
-  'python-tqdm'
   'python-typing_extensions'
 )
 makedepends=(
@@ -58,7 +57,7 @@ optdepends=(
 source=(
   "git+${url}.git#tag=v${pkgver}"
 )
-b2sums=('5dfe25933123846df787d5e91ee87114a9999058ccda421ce5a3ed63ec3f829deb2be2a96bdac4c7f49c9361a6f775db94de866069d6c7ebd601883dbbcad53d')
+b2sums=('72bfd0c44b4f9b313bd193f94ce2a59bb33b0655a325e7c3cd1d9e7856dbb628c3eb41725ea00c25f28ec5fdb51f7a1f920e4879a271f9fdaae1b7cc82b0841b')
 
 build() {
   cd "${_name}"
