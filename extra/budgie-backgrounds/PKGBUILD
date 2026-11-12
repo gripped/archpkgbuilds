@@ -1,7 +1,7 @@
 # Maintainer: Campbell Jones <serebit at archlinux dot org>
 
 pkgname=budgie-backgrounds
-pkgver=4.1
+pkgver=4.2
 pkgrel=1
 pkgdesc="The default background set for the Budgie Desktop"
 arch=(any)
@@ -17,7 +17,7 @@ makedepends=(
   meson
 )
 source=("git+https://github.com/BuddiesOfBudgie/budgie-backgrounds.git#tag=v$pkgver")
-b2sums=('74a0c31a8d384d30c6e3979e6f3a068f77bb9d524a6587b43e5fa646afff861b2a3bbd78b121eafdbd2f8f2b224bd76c2e06a7cfd829228a0d0bd094b5b7f3f5')
+b2sums=('158e1df890a492f3a9c5e461940317124ab95ee7484b5496a3dda90179fe4b11e089d5bb44db0942c14d7640297010f36271b4c2254bd6be7547abb704df46cc')
 
 build() {
   arch-meson $pkgname build
