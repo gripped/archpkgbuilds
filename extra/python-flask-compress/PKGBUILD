@@ -3,7 +3,7 @@
 # Contributor: Cedric Girard <girard.cedric@gmail.com>
 
 pkgname=python-flask-compress
-pkgver=1.25
+pkgver=1.26
 pkgrel=1
 pkgdesc='Compress responses in your Flask app'
 url='https://github.com/colour-science/flask-compress'
@@ -26,7 +26,7 @@ checkdepends=(
   'python-pytest'
 )
 source=("$url/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('30d5702d3c55b3a2ecde039a8c60c4a6fa86f0463881d6745b803a3d0a3a3ad0760d7f3fcf01922e8f26f9a1f3f612b1c30114e2e8a68f0b09f7c8055b7b0680')
+b2sums=('55551ebdb8391f36b49f22b71a7ab70a076157d52084c3afbe5f2fa8de71e03614dfad55500a5c5ba4c30626e545ab79e8b2f056a1000cf74ade24bc30db1410')
 
 build() {
   cd ${pkgname#python-}-$pkgver
