@@ -3,7 +3,7 @@
 
 _pyname=pyvex
 pkgname=python-${_pyname}
-pkgver=9.2.221
+pkgver=10.0.6
 pkgrel=1
 pkgdesc="Python bindings for Valgrind's VEX IR"
 url='https://github.com/angr/pyvex'
@@ -30,7 +30,7 @@ source=(
   "git+${url}.git#commit=v${pkgver}"
   git+https://github.com/angr/vex.git
 )
-sha512sums=('ee39a23e1287b62729fa4ca9a17c1267e8fb6067d5d59c5beca18726627a27175652fd7fe551b6469cae242a719d03a51f796ba3909225e460c6a8ec4b9d92f1'
+sha512sums=('0a7b6bfc7230f8ac9350100ebbb35599c921ab6ba74fe307222648494e5f61cb535ef3dbce4d36705e9cdc531b865e7e47ea128bd7ad2ca379479234fb07c2e8'
             'SKIP')
 
 prepare() {
@@ -40,6 +40,10 @@ prepare() {
   git -c protocol.file.allow=always submodule update --recursive
 
   sed 's/-shared/$(LDFLAGS) -shared/' -i "${srcdir}"/vex/Makefile-gcc
+
+  # Allow building with newer system scikit-build-core
+  sed -i 's/scikit-build-core ~= 1\.0\.2/scikit-build-core >= 1.0.2/' pyproject.toml
+
 }
 
 build() {
