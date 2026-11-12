@@ -1,0 +1,61 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=pantheon-quick-settings
+pkgver=1.4.0
+pkgrel=1
+pkgdesc='Quick Settings Indicator'
+arch=(x86_64)
+url=https://github.com/elementary/quick-settings
+license=(GPL-3.0-or-later)
+groups=(pantheon)
+depends=(
+  accountsservice
+  dconf
+  glib2
+  glibc
+  gnome-settings-daemon
+  granite7
+  gtk4
+  libadwaita
+  libpackagekit-glib
+  pantheon-settings-daemon
+  wayland
+  wingpanel
+)
+makedepends=(
+  git
+  libportal
+  meson
+  vala
+)
+source=(pantheon-quick-settings::git+https://github.com/elementary/quick-settings.git#tag=${pkgver})
+b2sums=('1c4feadacff9b4bf72b3fcee9425ffedfd44e7d3b594c8ecefc3e75575934ddfc2bd6166a6299091a65e8050fb61992d5cf45c39a4a0acaad1feba1a05857b1f')
+
+prepare() {
+  cd pantheon-quick-settings
+
+  # Port to GTK4
+  # https://github.com/elementary/quick-settings/pull/106
+  git cherry-pick -n ddb7019a38f6265791f3286ed95631f8794dd44a
+
+  # Revert notify when onboard activated in Wayland
+  # https://github.com/elementary/quick-settings/pull/151
+  git cherry-pick -n c9b372932894acf9e101e8342044e06c5ceeba3a
+
+  # Avoid using destroy signal
+  # https://github.com/elementary/quick-settings/pull/156
+  git cherry-pick -n 510f42f2b915e0a1a99887ebb4730f5800fabf08
+
+  # Fix criticals
+  # https://github.com/elementary/quick-settings/pull/155
+  git cherry-pick -n 34d4538176b751dc4fe2266e7cd646d26b927a46
+}
+
+build() {
+  arch-meson pantheon-quick-settings build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "${pkgdir}"
+}
