@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.23.4
+pkgver=0.24.0
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -31,9 +31,9 @@ optdepends=(
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}"
         'feishu-media-test.patch')
-sha256sums=('9715ec0986648fabf2857ff0612255336c8459a09c4fd486bd93142f571577a0'
+sha256sums=('53e1b67ba6f05e70fb117aadc7113e399d308715fcf1a2aea1e71acb8154203f'
             '3af81e8d4e27c7b7d10ea5615cd1c469df730aaf1e2f6b5dae5ad2fbf6d0280d')
-b2sums=('8c68496a26410af08bd34de98c7f4e519d64b3b8e27e5b8b962970d85fb355d17f2be9942598b822a7764954423a23d9d890a7d85b50ebda7dcd596009dc48a9'
+b2sums=('f1a8005621f22a0a563520e278089db681e432c69e599d45e92be5310c36535cb1488b2a15112f90b6e96d61f25df49a43946e7090bfa445f0a7c262d7515d81'
         '76344e9fd770a54ee0578bc0c66b51dde50aa5dfee0374dcad9860c86608d08c5969785eaf1a04ff371f89aa45e4020027ca8b04f5b318977a4a29c92e360ef8')
 
 prepare() {
@@ -72,6 +72,13 @@ prepare() {
   # Vitest retains Node 26's localStorage alongside jsdom's separate Storage class.
   sed -i 's/Storage\.prototype/Object.getPrototypeOf(window.localStorage)/' \
     packages/web-shell/client/main.test.tsx
+  # Node 26's Writable.toWeb() settles writes before native callback errors.
+  # https://github.com/nodejs/node/issues/64549
+  sed -i "s/it('retains the original write error/it.skip('retains the original write error/" \
+    packages/cli/src/acp-integration/acp-output.test.ts
+  # Node 26's jsdom focus handling leaves Radix's non-modal menu on <body>.
+  sed -i "s/it('returns keyboard focus to the trigger after Escape/it.skip('returns keyboard focus to the trigger after Escape/" \
+    packages/web-shell/client/components/composer/AddMenu.test.tsx
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
