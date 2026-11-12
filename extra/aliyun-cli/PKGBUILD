@@ -4,7 +4,7 @@
 
 pkgname=aliyun-cli
 pkgver=3.5.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Alibaba Cloud CLI'
 url='https://github.com/aliyun/aliyun-cli'
 arch=(x86_64)
@@ -44,7 +44,7 @@ build() {
 
   go generate ./bundledmeta
   go build \
-    -ldflags "-linkmode=external -extldflags '${LDFLAGS}' -X 'github.com/aliyun/aliyun-cli/cli.Version=${pkgver}'" \
+    -ldflags "-linkmode=external -extldflags '${LDFLAGS}' -X 'github.com/aliyun/aliyun-cli/v3/cli.Version=${pkgver}'" \
     -tags aliyun_cli_packed_meta \
     -o ./out/aliyun ./main
 }
@@ -58,6 +58,13 @@ check() {
   # for now can't test the `./oss/...` folder, because it needs an env file that is not so easy to have in dev
   go test \
     ./cli/... ./config/... ./i18n/... ./main/... ./openapi/...
+
+  # make sure the aliyun-openapi-meta is bundled and can load
+  cd /tmp
+  "${srcdir}/${pkgname}/out"/aliyun --help
+
+  # make sure the package version is embedded correctly
+  [[ $("${srcdir}/${pkgname}/out"/aliyun version) == "${pkgver}" ]]
 }
 
 package() {
