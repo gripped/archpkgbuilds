@@ -5,7 +5,7 @@
 # Contributor: Vsevolod Balashov <vsevolod at balashov dot name>
 
 pkgname=gunicorn
-pkgver=26.2.2
+pkgver=27.0.0
 pkgrel=1
 pkgdesc='WSGI HTTP Server for UNIX'
 arch=('any')
@@ -36,7 +36,7 @@ optdepends=(
   'python-uvloop: for ASGI event loop performance'
 )
 source=("git+https://github.com/benoitc/$pkgname.git#tag=$pkgver")
-b2sums=('63e849f7f82454df7c5fa4728e11cbe2ced0c95f914b36f47ae507a402a4ca17b6775471f0c1e7e04a45dada017fa666a15179f66cf4ec92c4c5b396fb01c021')
+b2sums=('eae0a78103ec9c78cf3be8b3e0441de8b02a938aa6f810415a9866cc057bba37a527754d00acf51027cdd5ea79c0a02b251120f3cb7e3765ce82305af48c43f6')
 
 build() {
   cd $pkgname
