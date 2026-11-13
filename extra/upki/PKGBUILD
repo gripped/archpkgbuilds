@@ -1,0 +1,71 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=upki
+pkgver=1.0.2
+pkgrel=1
+pkgdesc='Browser-grade certificate infrastructure to Linux'
+url='https://github.com/rustls/upki'
+arch=('x86_64')
+license=('MIT OR Apache-2.0')
+depends=(
+  'glibc'
+  'libgcc' 'libgcc_s.so'
+)
+makedepends=(
+  'cargo'
+)
+backup=('etc/upki/config.toml')
+source=(https://github.com/rustls/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
+        upki-fetch.service
+        upki-fetch.timer
+        upki.sysusers
+        upki.tmpfiles
+        upki.toml)
+sha256sums=('41f22e15eaa85044edb3a291270702e04f46e4d1c464c47459affe964f66bf7e'
+            '2d6b11d560c858c44375d18d500cc52be80e4cbda20efac0175f425c3ec9e710'
+            '4a7f94ea62244ada2647408d1e0de412588c9348150184fbe7e6e66e865fc331'
+            '34a897f12a54353ee58a7e95b6e2b280072badb174f2e4b8f16d366e3a3426ae'
+            '862762214cbf90e675cc9ce75a5cf1f59ec4fae2e158cc0f49aaf9de1b032ccf'
+            '559df7bc5e907b9f8c2ade80aab4d945fc898c4f7aef50f55db0672e0f29a85e')
+b2sums=('231a96a521db854e049b380e6a6af6a991712f6bc927c6aa830d79906f6b7561634cded60f491f13672c41a33658a4d0f5bd38314606e84ed113f8c3cd5524a9'
+        'ff693aef49f68bc010dbe16bcd2b27264c0125efb228caceafefc9e5e757b643d347250a2ad894694d0f19cddc460643533daa7777f663a8c5c9d8328ca4dff0'
+        '43dc8f90c469228a262695437ade17334633f90e130b7a130dddc511d25524907921c247aa0593735fbb0c44680a2d1ae02d84678e15a0e4bac9043833e68213'
+        'dbde7ef3833ef6c1d0dfde9e8a64f1b25aafca29c704875667088af361013a48568498dc01285410132b16fc72a9ccde67b8212ed20bf66350daf44b927ef8d3'
+        '00d210c9694f0ecc313815305af5e53a597e43de53423a71467beb9a33aaf67ceb7600323e2bf1eb4d9b05e64f16b8077a6ac09c61ba89668d74e51ed7306877'
+        'a247db6290fff315cac68b58566e0dcfd66b437b344883979bd5ef96b6b1efa34b12e1c3bddc243ca64dd142ac2e8a6d8d4c9f88e8aae937421ee3490de0000a')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd "${pkgname}-${pkgver}"
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --frozen --release
+}
+
+check() {
+  cd "${pkgname}-${pkgver}"
+  cargo test --frozen
+}
+
+package() {
+  cd "${pkgname}-${pkgver}"
+  install -vDm 755 -t "${pkgdir}/usr/bin" \
+    target/release/upki
+
+  # install configs
+  install -vDm 644 ../upki.toml "${pkgdir}/etc/upki/config.toml"
+
+  # install systemd configs
+  install -vDm 644 -t "${pkgdir}/usr/lib/systemd/system" \
+    ../upki-fetch.{service,timer}
+  install -vDm644 "../${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
+  install -vDm 644 "../${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+
+  # install docs
+  install -vDm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
