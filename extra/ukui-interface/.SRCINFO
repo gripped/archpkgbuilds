@@ -1,15 +1,23 @@
 pkgbase = ukui-interface
 	pkgdesc = UKUI interface for system configuration and related libraries
-	pkgver = 1.0.1
-	pkgrel = 3
-	url = https://github.com/ukui/ukui-interface
+	pkgver = 4.10.0.0
+	pkgrel = 1
+	url = https://gitee.com/openkylin/ukui-interface
 	arch = x86_64
 	groups = ukui
-	license = GPL
+	license = Apache-2.0
+	license = GPL-3.0-or-later
+	makedepends = git
 	depends = dconf
-	depends = gsettings-qt
+	depends = glib2
+	depends = glibc
+	depends = gsettings-qt6
 	depends = iniparser
-	source = https://github.com/ukui/ukui-interface/archive/v1.0.1/ukui-interface-1.0.1.tar.gz
-	sha512sums = b02579c3f02f30a4ab33f5d48d8f77fc0c7353f28b8963de489537b397199bdbab7abcb03c720ec6f60b298e1ff53856d1f6e691c8ef7ec2f5a80da6479cb88e
+	depends = libgcc
+	depends = libstdc++
+	depends = qt6-base
+	depends = systemd
+	source = git+https://gitee.com/openkylin/ukui-interface.git#tag=debian/4.10.0.0-1
+	sha512sums = 1091c1eadad7b8045b0f28d31cf58370529d149844456e1f1652c0fd93664357a8efe3c53e33d9da5322489ba6a64fcc888925e0c922a788265299bfc734b723
 
 pkgname = ukui-interface

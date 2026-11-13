@@ -1,35 +1,39 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ukui-interface
-pkgver=1.0.1
-pkgrel=3
+pkgver=4.10.0.0
+pkgrel=1
 pkgdesc="UKUI interface for system configuration and related libraries"
 arch=('x86_64')
-license=('GPL')
-url="https://github.com/ukui/ukui-interface"
+license=('Apache-2.0' 'GPL-3.0-or-later')
+url="https://gitee.com/openkylin/ukui-interface"
 groups=('ukui')
-depends=('dconf' 'gsettings-qt' 'iniparser')
-source=("https://github.com/ukui/ukui-interface/archive/v$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('b02579c3f02f30a4ab33f5d48d8f77fc0c7353f28b8963de489537b397199bdbab7abcb03c720ec6f60b298e1ff53856d1f6e691c8ef7ec2f5a80da6479cb88e')
+depends=('dconf' 'glib2' 'glibc' 'gsettings-qt6' 'iniparser' 'libgcc' 'libstdc++' 'qt6-base' 'systemd')
+makedepends=('git')
+source=("git+https://gitee.com/openkylin/ukui-interface.git#tag=debian/$pkgver-1")
+sha512sums=('1091c1eadad7b8045b0f28d31cf58370529d149844456e1f1652c0fd93664357a8efe3c53e33d9da5322489ba6a64fcc888925e0c922a788265299bfc734b723')
 
 prepare() {
-  cd $pkgname-$pkgver
+  cd ukui-interface
 
-  NOCONFIGURE=1 ./autogen.sh
+  ./autogen.sh
 }
 
 build() {
-  cd $pkgname-$pkgver
-  ./configure --prefix=/usr --libexecdir=/usr/lib/$pkgname --sysconfdir=/etc
+  cd ukui-interface
+  ./configure --prefix=/usr --includedir=/usr/include/ukuisdk --disable-static
   make
 
   cd src/log4qt
-  qmake-qt5 PREFIX=/usr
+  qmake6 PREFIX=/usr \
+    QMAKE_CFLAGS_RELEASE="$CPPFLAGS $CFLAGS" \
+    QMAKE_CXXFLAGS_RELEASE="$CPPFLAGS $CXXFLAGS" \
+    QMAKE_LFLAGS_RELEASE="$LDFLAGS"
   make
 }
 
 package() {
-  cd $pkgname-$pkgver
+  cd ukui-interface
   make DESTDIR="$pkgdir" install
 
   cd src/log4qt

@@ -1,4 +1,7 @@
 [ukui-interface]
 source = "git"
-git = "https://github.com/ukui/ukui-interface.git"
-prefix = "v"
+git = "https://gitee.com/openkylin/ukui-interface.git"
+include_regex = 'debian/\d+(\.\d+)*-\d+'
+prefix = "debian/"
+from_pattern = '-\d+$'
+to_pattern = ''
