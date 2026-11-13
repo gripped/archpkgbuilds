@@ -5,8 +5,8 @@
 # Contributor: Ivan Sichmann Freitas
 
 pkgname=partclone
-pkgver=0.3.52
-pkgrel=2
+pkgver=0.3.53
+pkgrel=1
 pkgdesc='Utilities to save and restore used blocks on a partition'
 arch=('x86_64')
 url='https://partclone.org'
@@ -14,7 +14,7 @@ license=('GPL-2.0-or-later')
 depends=('e2fsprogs' 'glibc' 'libntfs-3g' 'liburcu' 'ncurses' 'nilfs-utils' 'ntfs-3g' 'openssl' 'util-linux-libs' 'xxhash')
 makedepends=('git' 'docbook-xsl')
 source=("git+https://github.com/Thomas-Tsai/partclone#tag=${pkgver}")
-sha256sums=('37e428739de91857aa4ef2e3206d76e4cd9367af6964fe0d21547055a05b814a')
+sha256sums=('760b94d52b0fca7d2c749b2caef1d5b8fec9c4e51b44f9cc9d7c47d96912a7fd')
 
 prepare() {
   cd "$pkgname"
