@@ -4,45 +4,51 @@
 
 _name=playwright-python
 pkgname=python-playwright
-pkgver=1.64.1
+pkgver=1.65.1
 pkgrel=1
 pkgdesc='A Python library to automate Chromium, Firefox and WebKit browsers with a single API'
 arch=(any)
 url='https://github.com/microsoft/playwright-python'
 license=(Apache-2.0)
-depends=(nodejs
-         python
-         python-greenlet
-         python-pyee
-         sh)
-makedepends=(git
-             npm
-             python-auditwheel
-             python-build
-             python-installer
-             python-setuptools-scm
-             python-wheel
-             zip)
-checkdepends=(python-autobahn
-              python-flaky
-              python-objgraph
-              python-pixelmatch
-              python-pyopenssl
-              python-pytest chromium
-              python-pytest-playwright
-              python-requests)
-source=(git+https://github.com/microsoft/$_name#tag=v$pkgver
-        https://registry.npmjs.org/playwright-core/-/playwright-core-$pkgver.tgz)
-sha256sums=('a375c7e33314a432bafd63c3efb59a51823d6587fcb233036bb5eaa646ced6c0'
-            '3af03703c967c95037454f2283f709d53ce804a4776d4219d319f5bbcc2a0185')
+depends=(
+  nodejs
+  python
+  python-greenlet
+  sh
+)
+makedepends=(
+  git
+  npm
+  python-auditwheel
+  python-build
+  python-installer
+  python-setuptools-scm
+  python-wheel
+)
+checkdepends=(
+  python-autobahn
+  python-flaky
+  python-objgraph
+  python-pixelmatch
+  python-pyee
+  python-pyopenssl
+  python-pytest
+  python-pytest-playwright
+  python-requests
+)
+source=(
+  git+https://github.com/microsoft/$_name#tag=v$pkgver
+  git+https://github.com/microsoft/playwright.git
+)
+sha256sums=('689943058f5b0f9b09f4383212ea064860ed5a7dcdbbdaa4de63153a1f93081f'
+            'SKIP')
 
 prepare() {
-  zip -qr playwright-$pkgver-linux.zip package
-
   cd $_name
   sed -e 's|==.*\"|"|' -i pyproject.toml # Drop dependency version constraints
-  sed -e "s|driver_version = \".*\"|driver_version = \"$pkgver\"|" -i setup.py
-  install -Dm644 "$srcdir"/playwright-$pkgver-linux.zip -t driver
+
+  mv ../playwright .upstream
+  git -C .upstream checkout $(cat DRIVER_VERSION)
 }
 
 build() {
