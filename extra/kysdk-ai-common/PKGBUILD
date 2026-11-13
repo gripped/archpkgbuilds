@@ -2,7 +2,7 @@
 
 pkgname=kysdk-ai-common
 pkgver=1.1.0.2
-pkgrel=1
+pkgrel=3
 pkgdesc="Common interfaces and types for the Kylin AI subsystem"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
@@ -14,6 +14,12 @@ sha512sums=('58141a1c166345e4b49cc5b4700a4b3d82ddafc4c1067170d617df2942ce9766ded
 
 prepare() {
   cd kysdk-ai-common
+  # Add the common error-code aliases required by libkysdk-genai.
+  # https://gitee.com/openkylin/kysdk-ai-common/pulls/9
+  git cherry-pick -n 688cc8ffc7562d2829916738a69f43e7950b0ac0
+  # Add runtime compatibility errors used by GenAI sessions.
+  # https://gitee.com/openkylin/kysdk-ai-common/commit/21938c037fd5e066d447936d1300d30a6c425fd6
+  git cherry-pick -n 21938c037fd5e066d447936d1300d30a6c425fd6
   # Detect the optional AI subsystem through Arch's package database.
   sed -i -e 's|/usr/bin/dpkg -s|/usr/bin/pacman -Qq|' \
          -e 's/"Status: install ok installed"/AI_SUBSYSTEM_PACKAGE/' src/common.cpp
