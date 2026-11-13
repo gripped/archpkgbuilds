@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-genai-prices
-pkgver=0.2.2
+pkgver=0.2.3
 pkgrel=1
 pkgdesc='Calculate prices for calling LLM inference APIs'
 arch=('any')
@@ -31,7 +31,7 @@ optdepends=(
   'python-rich-argparse: command-line interface'
 )
 source=("git+https://github.com/pydantic/genai-prices.git#tag=v$pkgver")
-sha256sums=('2f00de87df8a4e8267edd45e5bcaaf30156b0b9de295f0e74e86bfffb68f911c')
+sha256sums=('09ac6ca6b4d0c5d0fdbd166bb4304f83269ff7a799b90cce28d83ff42833ba36')
 
 build() {
   cd genai-prices/packages/python
