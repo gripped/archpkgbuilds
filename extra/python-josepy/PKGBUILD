@@ -2,8 +2,8 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-josepy
-pkgver=2.2.0
-pkgrel=2
+pkgver=2.3.0
+pkgrel=1
 pkgdesc='JOSE protocol implementation in Python'
 arch=('any')
 url='https://github.com/certbot/josepy'
@@ -23,9 +23,9 @@ source=(
   "$pkgname::git+$url#tag=v$pkgver"
   'no-thanks-poetry.patch'
 )
-sha512sums=('4a64fc036d7626e63d9366083f7a0fe674c95128b40147e5fff68d194914c522e6aa388d1da1e51930fcc4883d0a7b015ef8b195d3f25061c172fd7773c72bda'
+sha512sums=('8019e70caa05e7adc001d7b7346d95b43c8f5106b501bf621c6131d5fc86cf83b22462de6b7c02d14c5a5dbaf24ed9638d2d9e35c119a9390f9c64fdca70a916'
             '5fc9682dbb93a3af76bb07653ec873c40a2acad24484ce64babde7d342390439efad018d5b5fda88df7338b562ba88d4254a32bda77bd1e981a0b312218e9bc8')
-b2sums=('8ca24d2356e6e28949f1132864b9c4e5bd5d466a09a1b37b326232ca2f4c23ae325df49b16e697b09aaac18c195c375f2a25ac66a9670e6f80b3d3f8bef6b551'
+b2sums=('2082ffbadad549156c27cdaae06093e0830cecce2defed19b3cefc331589d796bba4d9c3156a8d5864162f42c88bcf733df8f48dc6820ea071583710c67da682'
         'b7bf362e953247424fadea853b3c7be9977021b7d109d240ced847b9271c739e6dfcf8025efbdd9bb746dc42e21905cb1c9c93982d4e39dab60354ab06c6e76a')
 
 prepare() {
