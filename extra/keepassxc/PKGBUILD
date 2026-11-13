@@ -4,7 +4,7 @@
 
 pkgname=keepassxc
 pkgver=2.8.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Cross-platform community-driven port of Keepass password manager"
 url="https://keepassxc.org/"
 arch=(x86_64)
@@ -17,13 +17,21 @@ checkdepends=('xclip' 'xorg-server-xvfb')
 optdepends=('xclip: keepassxc-cli clipboard support under X server'
             'wl-clipboard: keepassxc-cli clipboard support under Wayland')
 provides=('org.freedesktop.secrets')
-source=("git+https://github.com/keepassxreboot/keepassxc.git#tag=${pkgver}?signed")
-sha256sums=('f74d1992f0fc30e6546de8653a72817cd188e0d5742376958d731b72b19e46bb')
+source=("git+https://github.com/keepassxreboot/keepassxc.git#tag=${pkgver}?signed"
+         botan-3.14.patch)
+sha256sums=('f74d1992f0fc30e6546de8653a72817cd188e0d5742376958d731b72b19e46bb'
+            'c52b2627a7f7d679e572ee17416d3500b80dd2cccebd6f996b0f65186e2ea107')
 validpgpkeys=(3489040C1F0C3EEAB8D556A5440FC65F2E0C6E01  # Jonathan White <support@dmapps.us>
               BF5A669F2272CF4324C1FDA8CFB4C2166397D0D2  # KeePassXC Release <release@keepassxc.org>
               71D4673D73C7F83C17DAE6A2D8538E98A26FD9C4  # KeePassXC Release <release@keepassxc.org>
               AF0AEA44ABAC8F1047733EA7AFF235EEFB5A2517  # KeePassXC Release <release@keepassxc.org>
               C1E4CBA3AD78D3AFD894F9E0B7A66F03B59076A8) # KeePassXC Release <release@keepassxc.org>
+
+prepare() {
+	cd $pkgname
+	# Fix tests with botan 3.14 - backport ChiPass fix
+	patch -p1 -i ../botan-3.14.patch
+}
 
 build() {
 	cmake -S "${pkgname}" -B build \
