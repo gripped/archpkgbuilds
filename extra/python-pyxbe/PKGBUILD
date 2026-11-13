@@ -3,18 +3,30 @@
 
 _pyname=pyxbe
 pkgname=python-${_pyname}
-pkgver=1.0.3
-pkgrel=2
+pkgver=1.0.4
+pkgrel=1
 pkgdesc='Library to work with XBE files, the executable file format for the original Xbox game console'
 url='https://github.com/mborgerson/pyxbe'
-arch=('any')
-license=('custom:MIT')
-depends=('python')
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest')
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('77357e55e33fa76c4d4727debc2d47e742df9a95093fc5c7156e84e9ed032a859f170b77e46ccc72d1654c5da2e7c249851fad08482d024636dedd0ba7cb5a86')
-b2sums=('6b6e50e4197c2d9e3f61b82a1bed2bbcb41ce692fc8107ea2532b972280f30834714b9a75158fd2af3e4459ce010c46dcfa7ed8d2ac5d8f621421eeaac0599b5')
+arch=(any)
+license=(MIT)
+depends=(
+  python
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-pytest-cov
+)
+source=(
+  "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+)
+sha512sums=('cf4025cd4589cf8e9813ded7fecd810d8b28d6e0f047a4d8db0def6637dac38955f485335787a407b6d3baaa2f6ccb5855e814a38f4daff113d69fe0a5a362db')
+b2sums=('7a134fb06150e52f6eac9183477610bb0496811180eafef9c87ba7215f511c9550efdab4721575b3ff48247d60f23d597d2d1726127097c8798626da7e7897b9')
 
 build() {
   cd ${_pyname}-${pkgver}
