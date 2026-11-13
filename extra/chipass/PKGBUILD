@@ -2,7 +2,7 @@
 
 pkgname=chipass
 pkgver=2026.09.0
-pkgrel=6
+pkgrel=7
 pkgdesc="A cross-platform password manager for people with extremely high demands on secure personal data management"
 url="https://chipass.org"
 arch=('x86_64')
@@ -27,6 +27,12 @@ prepare() {
 	# Move to verify() once devtools supports it
 	# https://gitlab.archlinux.org/archlinux/devtools/-/issues/224
 	git -C "${pkgname}" -c gpg.ssh.allowedSignersFile="${srcdir}/ssh_allowed_signers" verify-tag "v${pkgver}"
+
+        # Fix build with Qt 6.12
+        sed -e '/TEST_DISABLE_KEYPAD_NAVIGATION/d' -i $pkgname/tests/gui/*.cpp
+
+	# Fix tests with botan 3.14
+	git -C $pkgname cherry-pick -n 61e8d48334e9f840ea49737b58417fe1f273d8da 387a12b979377cc42a708a3364f349021e06def2
 
 	# Work around some test failures with the TestEntryModel test
 	# See https://gitlab.alpinelinux.org/alpine/aports/-/blob/df401d633cb8812c52c2a33f699b9bdaadff27a1/community/keepassxc/tests.patch
