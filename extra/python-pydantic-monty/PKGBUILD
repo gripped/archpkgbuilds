@@ -2,7 +2,7 @@
 
 pkgbase=python-pydantic-monty
 pkgname=('python-pydantic-monty' 'python-pydantic-monty-client' 'python-pydantic-monty-runtime')
-pkgver=1.5.0
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="A Python sandbox written in Rust"
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('cmake' 'git' 'maturin' 'python-build' 'python-hatchling' 'python-i
 checkdepends=('python-anyio' 'python-dirty-equals' 'python-grpcio' 'python-inline-snapshot'
               'python-opentelemetry-sdk' 'python-pytest' 'python-pytest-examples')
 source=("git+https://github.com/pydantic/monty.git#tag=v$pkgver")
-sha512sums=('585cbbc16c94f7c3c2b45b0043000755af52f2b2c1c51cb5755580752734fae01763942b37b23d74dc67e9c8ad788bc8b951b5c62e9f246dd790dde959afa2f6')
+sha512sums=('3e465be82c7ef344c872dbc425495149c0b3e4d9e1419d366732f754221111fa5a9f8c8f809e3367865898b072c1fcfbed99f08da30b5f8a9fc0af9d7f579e2b')
 
 prepare() {
   cd monty
