@@ -1,0 +1,47 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=libkysdk-genai
+pkgver=1.2.0.4
+pkgrel=1
+pkgdesc="Kylin generative AI text and vision client libraries"
+arch=('x86_64')
+license=('GPL-3.0-or-later')
+url="https://gitee.com/openkylin/libkysdk-genai"
+depends=('glib2' 'glibc' 'jsoncpp' 'kysdk-ai-common' 'libgcc' 'libstdc++')
+makedepends=('cmake' 'git' 'glib2-devel' 'gtest' 'libkylin-ai-system-private' 'ninja' 'python')
+provides=('libkysdk-genai-nlp.so' 'libkysdk-genai-vision.so')
+# Upstream has no release tags; this commit records 1.2.0.4-0k1.1.
+source=('git+https://gitee.com/openkylin/libkysdk-genai.git#commit=80b35a4f571012d50288270dbee1da771973a307'
+        'production-tests.patch')
+sha256sums=('7b72a7d224e2c451e8325f90f77b9042223b0817712fbd46a6509474c6f8b2cc'
+            'dc577c5fc7e6279ec81ce4249dd5656082d5365a70e4be2ee6bd92c5575faea3')
+
+prepare() {
+  cd libkysdk-genai
+  # Test the shipped libraries; disable tests requiring behavior-changing UNIT_TEST hooks.
+  patch -p1 -i ../production-tests.patch
+  # Arch installs JsonCpp headers under /usr/include/json.
+  sed -i 's|<jsoncpp/json/|<json/|' \
+    src/{nlp,vision}/*.{cpp,h} tests/{nlp,vision}/*.cpp
+  # Include the uint8_t declaration explicitly for GCC 16.
+  sed -i '/#include <string>/i #include <cstdint>' src/vision/_imageresult.h
+}
+
+build() {
+  cmake -S libkysdk-genai -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DENABLE_TEST=ON
+  cmake --build build
+}
+
+check() {
+  ctest --test-dir build --output-on-failure
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  mv "$pkgdir"/usr/{share,lib}/pkgconfig
+  install -Dm644 libkysdk-genai/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}

@@ -1,0 +1,28 @@
+pkgbase = libkysdk-genai
+	pkgdesc = Kylin generative AI text and vision client libraries
+	pkgver = 1.2.0.4
+	pkgrel = 1
+	url = https://gitee.com/openkylin/libkysdk-genai
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = cmake
+	makedepends = git
+	makedepends = glib2-devel
+	makedepends = gtest
+	makedepends = libkylin-ai-system-private
+	makedepends = ninja
+	makedepends = python
+	depends = glib2
+	depends = glibc
+	depends = jsoncpp
+	depends = kysdk-ai-common
+	depends = libgcc
+	depends = libstdc++
+	provides = libkysdk-genai-nlp.so
+	provides = libkysdk-genai-vision.so
+	source = git+https://gitee.com/openkylin/libkysdk-genai.git#commit=80b35a4f571012d50288270dbee1da771973a307
+	source = production-tests.patch
+	sha256sums = 7b72a7d224e2c451e8325f90f77b9042223b0817712fbd46a6509474c6f8b2cc
+	sha256sums = dc577c5fc7e6279ec81ce4249dd5656082d5365a70e4be2ee6bd92c5575faea3
+
+pkgname = libkysdk-genai

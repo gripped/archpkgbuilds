@@ -1,0 +1,264 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 771d1a7..46525d8 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -96,12 +96,6 @@ set_target_properties(kysdk-genai-vision PROPERTIES VERSION 1.0.0 SOVERSION 1)
+ 
+ target_link_libraries(kysdk-genai-vision jsoncpp PkgConfig::GIO PkgConfig::KYSDK_AI_COMMON)
+ 
+-if (ENABLE_TEST OR ENABLE_COVERAGE)
+-    foreach (target kysdk-genai-nlp kysdk-genai-vision)
+-        target_compile_definitions(${target} PRIVATE UNIT_TEST)
+-    endforeach ()
+-endif ()
+-
+ if (ENABLE_COVERAGE)
+     foreach (target kysdk-genai-nlp kysdk-genai-vision)
+         target_compile_options(${target} PRIVATE --coverage -O0 -g)
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index c6b3cb5..bb0e881 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -47,7 +47,7 @@ function(add_kyai_test name)
+         ${PROJECT_SOURCE_DIR}/tests/common
+     )
+ 
+-    target_compile_definitions(${name} PRIVATE UNIT_TEST)
++    # Use the same production code paths as the installed libraries.
+ 
+     if (ENABLE_COVERAGE)
+         target_compile_options(${name} PRIVATE --coverage -O0 -g)
+@@ -57,7 +57,7 @@ function(add_kyai_test name)
+     gtest_discover_tests(${name})
+ endfunction()
+ 
+-add_subdirectory(common)
++# The mock-server tests require UNIT_TEST-only reset and failure-injection hooks.
+ add_subdirectory(nlp)
+ add_subdirectory(vision)
+ 
+diff --git a/tests/nlp/CMakeLists.txt b/tests/nlp/CMakeLists.txt
+index 6c1c759..c6496a7 100644
+--- a/tests/nlp/CMakeLists.txt
++++ b/tests/nlp/CMakeLists.txt
+@@ -30,6 +30,7 @@ target_link_libraries(textmodelinfo_test PRIVATE
+     jsoncpp
+ )
+ 
++# The injected-proxy case remains disabled by its UNIT_TEST guard.
+ add_kyai_test(toolchoice_test
+     toolchoice_test.cpp
+ )
+@@ -52,34 +53,4 @@ target_link_libraries(logger_test PRIVATE
+     kysdk-genai-nlp
+ )
+ 
+-add_kyai_test(genaiserver_test
+-    genaiserver_test.cpp
+-)
+-target_link_libraries(genaiserver_test PRIVATE
+-    kysdk-genai-nlp
+-)
+-
+-add_kyai_test(genaitextsession_test
+-    genaitextsession_test.cpp
+-)
+-target_link_libraries(genaitextsession_test PRIVATE
+-    kysdk-genai-nlp
+-    jsoncpp
+-)
+-
+-add_kyai_test(nlpserviceproxy_test
+-    nlpserviceproxy_test.cpp
+-)
+-target_link_libraries(nlpserviceproxy_test PRIVATE
+-    kysdk-genai-nlp
+-    jsoncpp
+-)
+-
+-add_kyai_test(nlpserviceproxy_reconnect_test
+-    nlpserviceproxy_reconnect_test.cpp
+-)
+-target_link_libraries(nlpserviceproxy_reconnect_test PRIVATE
+-    kysdk-genai-nlp
+-    kyai_test_common
+-    PkgConfig::GIO
+-)
++# Server, session and proxy tests require UNIT_TEST-only APIs and altered retry behavior.
+diff --git a/tests/nlp/logger_test.cpp b/tests/nlp/logger_test.cpp
+index bf98536..2cfc27f 100644
+--- a/tests/nlp/logger_test.cpp
++++ b/tests/nlp/logger_test.cpp
+@@ -9,10 +9,19 @@
+ namespace {
+ 
+ template <typename Fn>
+-std::string captureStdout(Fn fn) {
++std::string captureLogOutput(Fn fn) {
++    // The release logger writes to stderr; debug builds use stdout.
++#ifdef RUN_IN_DEBUG
+     testing::internal::CaptureStdout();
++#else
++    testing::internal::CaptureStderr();
++#endif
+     fn();
++#ifdef RUN_IN_DEBUG
+     return testing::internal::GetCapturedStdout();
++#else
++    return testing::internal::GetCapturedStderr();
++#endif
+ }
+ 
+ class ScopedLogLevel {
+@@ -56,7 +65,7 @@ TEST(NlpLoggerTest, CurrentTimeReturnsBracketedText) {
+ 
+ TEST(NlpLoggerTest, LogMacrosEmitDebugInfoWarnAndErrorBranches) {
+     ScopedLogLevel level("DEBUG");
+-    const std::string output = captureStdout([] {
++    const std::string output = captureLogOutput([] {
+         LOGD("debug-message");
+         LOGI("info-message");
+         LOGW("warn-message");
+@@ -75,7 +84,7 @@ TEST(NlpLoggerTest, LogMacrosEmitDebugInfoWarnAndErrorBranches) {
+ 
+ TEST(NlpLoggerTest, FormatMacrosEmitFormattedBranches) {
+     ScopedLogLevel level("DEBUG");
+-    const std::string output = captureStdout([] {
++    const std::string output = captureLogOutput([] {
+         LOGDF("debug-%d", 1);
+         LOGIF("info-%d", 2);
+         LOGWF("warn-%d", 3);
+@@ -125,7 +134,7 @@ TEST(NlpLoggerTest, ParsesEnvironmentLogLevels) {
+ 
+ TEST(NlpLoggerTest, LogLevelFiltersOutput) {
+     ScopedLogLevel level("WARN");
+-    const std::string output = captureStdout([] {
++    const std::string output = captureLogOutput([] {
+         LOGD("debug-hidden");
+         LOGI("info-hidden");
+         LOGW("warn-visible");
+@@ -146,7 +155,7 @@ TEST(NlpLoggerTest, DisabledLogMacrosDoNotEvaluateArguments) {
+         return "hidden";
+     };
+ 
+-    const std::string output = captureStdout([&] {
++    const std::string output = captureLogOutput([&] {
+         LOGD(expensive());
+         LOGI(expensive());
+         LOGW(expensive());
+diff --git a/tests/vision/CMakeLists.txt b/tests/vision/CMakeLists.txt
+index 4d1301c..f2e8ed8 100644
+--- a/tests/vision/CMakeLists.txt
++++ b/tests/vision/CMakeLists.txt
+@@ -6,14 +6,6 @@ target_link_libraries(imageconfig_test PRIVATE
+     jsoncpp
+ )
+ 
+-add_kyai_test(image_test
+-    image_test.cpp
+-)
+-target_link_libraries(image_test PRIVATE
+-    kysdk-genai-vision
+-    jsoncpp
+-)
+-
+ add_kyai_test(imageresult_test
+     imageresult_test.cpp
+ )
+@@ -21,14 +13,6 @@ target_link_libraries(imageresult_test PRIVATE
+     kysdk-genai-vision
+ )
+ 
+-add_kyai_test(imagesession_test
+-    imagesession_test.cpp
+-)
+-target_link_libraries(imagesession_test PRIVATE
+-    kysdk-genai-vision
+-    jsoncpp
+-)
+-
+ add_kyai_test(vision_protocolversion_test
+     protocolversion_test.cpp
+ )
+@@ -43,19 +27,4 @@ target_link_libraries(vision_logger_test PRIVATE
+     kysdk-genai-vision
+ )
+ 
+-add_kyai_test(visionserviceproxy_test
+-    visionserviceproxy_test.cpp
+-)
+-target_link_libraries(visionserviceproxy_test PRIVATE
+-    kysdk-genai-vision
+-    jsoncpp
+-)
+-
+-add_kyai_test(visionserviceproxy_reconnect_test
+-    visionserviceproxy_reconnect_test.cpp
+-)
+-target_link_libraries(visionserviceproxy_reconnect_test PRIVATE
+-    kysdk-genai-vision
+-    kyai_test_common
+-    PkgConfig::GIO
+-)
++# Image, session and proxy tests require UNIT_TEST-only APIs and altered retry behavior.
+diff --git a/tests/vision/logger_test.cpp b/tests/vision/logger_test.cpp
+index d1a24dd..79242e2 100644
+--- a/tests/vision/logger_test.cpp
++++ b/tests/vision/logger_test.cpp
+@@ -9,10 +9,19 @@
+ namespace {
+ 
+ template <typename Fn>
+-std::string captureStdout(Fn fn) {
++std::string captureLogOutput(Fn fn) {
++    // The release logger writes to stderr; debug builds use stdout.
++#ifdef RUN_IN_DEBUG
+     testing::internal::CaptureStdout();
++#else
++    testing::internal::CaptureStderr();
++#endif
+     fn();
++#ifdef RUN_IN_DEBUG
+     return testing::internal::GetCapturedStdout();
++#else
++    return testing::internal::GetCapturedStderr();
++#endif
+ }
+ 
+ class ScopedLogLevel {
+@@ -56,7 +65,7 @@ TEST(VisionLoggerTest, CurrentTimeReturnsBracketedText) {
+ 
+ TEST(VisionLoggerTest, LogMacrosEmitInfoWarnAndErrorBranches) {
+     ScopedLogLevel level("INFO");
+-    const std::string output = captureStdout([] {
++    const std::string output = captureLogOutput([] {
+         LOGI("info-message");
+         LOGW("warn-message");
+         LOGE("error-message");
+@@ -72,7 +81,7 @@ TEST(VisionLoggerTest, LogMacrosEmitInfoWarnAndErrorBranches) {
+ 
+ TEST(VisionLoggerTest, FormatMacrosEmitFormattedBranches) {
+     ScopedLogLevel level("INFO");
+-    const std::string output = captureStdout([] {
++    const std::string output = captureLogOutput([] {
+         LOGIF("info-%d", 2);
+         LOGWF("warn-%d", 3);
+         LOGEF("error-%d", 4);
+@@ -120,7 +129,7 @@ TEST(VisionLoggerTest, ParsesEnvironmentLogLevels) {
+ 
+ TEST(VisionLoggerTest, LogLevelFiltersOutput) {
+     ScopedLogLevel level("WARN");
+-    const std::string output = captureStdout([] {
++    const std::string output = captureLogOutput([] {
+         LOGD("debug-hidden");
+         LOGI("info-hidden");
+         LOGW("warn-visible");
+@@ -141,7 +150,7 @@ TEST(VisionLoggerTest, DisabledLogMacrosDoNotEvaluateArguments) {
+         return "hidden";
+     };
+ 
+-    const std::string output = captureStdout([&] {
++    const std::string output = captureLogOutput([&] {
+         LOGD(expensive());
+         LOGI(expensive());
+         LOGW(expensive());
