@@ -6,14 +6,15 @@ pkgname=(
   libblockdev-{btrfs,crypto,dm,fs,loop,lvm,mdraid,mpath,nvdimm,nvme,part,smart,swap}
   python-libblockdev
 )
-pkgver=3.5.0
-pkgrel=2
+pkgver=3.6.0
+pkgrel=1
 pkgdesc="A library for manipulating block devices"
 arch=('x86_64')
 url="https://github.com/storaged-project/libblockdev"
 license=(LGPL-2.1-or-later)
 makedepends=(
   'autoconf-archive'
+  'automake'
   'btrfs-progs'
   'cryptsetup'
   'device-mapper'
@@ -22,6 +23,7 @@ makedepends=(
   'exfatprogs'
   'glib2'
   'glibc'
+  'git'
   'gobject-introspection'
   'gtk-doc'
   'json-glib'
@@ -30,6 +32,7 @@ makedepends=(
   'libatasmart'
   'libbytesize'
   'libgcc'
+  'libtool'
   'libnvme'
   'libyaml'
   'lvm2'
@@ -43,11 +46,15 @@ makedepends=(
   'util-linux-libs'
   'volume_key'
 )
-source=(
-  "$url/releases/download/$pkgver/$pkgname-$pkgver.tar.gz"
-)
-sha512sums=('bdc22bd2ec23a6e0fcee9e41d6e4ed05645b7c5413874e6ed8bc0f2ad17d5e671ed966e8697a2a2b65738eb49830ade3c302a93f9facb7542685e544ebe9106a')
-b2sums=('d852cd6bf62e4b138a38b4756cb3bf11f7cfc4d5289b021d8b84c1738591609b66b3dbe6d51d53b77e60ac5705568db5d5b6b68f2c88b2ecb0ccea686cf95389')
+source=("git+https://github.com/storaged-project/libblockdev.git#tag=$pkgver")
+sha512sums=('6a3de027fc191b636cb5869199a54b56e3d11a8a445ee0266be7f30b7fc1749ff189bdce3b011ebde2cdbd0bdb9fd64d4f2f824292548a4d27ee1625d44641bd')
+b2sums=('7a439548a67d2bc4c250fe760667d47344a8cddbe703ec05e3c12e47c88838b844431c34a8ea4b85c53507c45f7054823ae51d7a7bfe39f7e9e955a03813aa10')
+
+prepare() {
+  cd $pkgname
+  # Git sources do not include the generated configure script.
+  ./autogen.sh
+}
 
 _pick() {
   local p="$1" f d; shift
@@ -65,7 +72,7 @@ build() {
     --sysconfdir=/etc
   )
 
-  cd $pkgname-$pkgver
+  cd $pkgname
   ./configure "${configure_options[@]}"
   # prevent libtool from overlinking everything
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
@@ -73,7 +80,7 @@ build() {
 }
 
 check() {
-  cd $pkgname-$pkgver
+  cd $pkgname
   make check
 }
 
@@ -107,7 +114,7 @@ package_libblockdev() {
   conflicts=(libblockdev-utils)
   replaces=(libblockdev-utils)
 
-  make DESTDIR="$pkgdir" install -C $pkgname-$pkgver
+  make DESTDIR="$pkgdir" install -C $pkgname
 
   cd "$pkgdir"
 
@@ -176,6 +183,7 @@ package_libblockdev-crypto() {
   pkgdesc+=" - crypto support"
   depends=(
     cryptsetup libcryptsetup.so
+    device-mapper libdevmapper.so
     glib2 libglib-2.0.so
     glibc
     keyutils libkeyutils.so
