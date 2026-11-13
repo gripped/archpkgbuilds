@@ -91,8 +91,25 @@ index 24d02cd0..2120f724 100644
      // 判断命令行数据，在 QML 前优先加载
      if (!cliParam.isEmpty()) {
          qCDebug(logImageViewer) << "Commandline parameter is not empty, processing initial image.";
+diff --git a/src/qml/FullImageView.qml b/src/qml/FullImageView.qml
+index 54884d9b..ff5a8df3 100644
+--- a/src/qml/FullImageView.qml
++++ b/src/qml/FullImageView.qml
+@@ -305,12 +305,6 @@ Item {
+         enabled: !IV.GStatus.delayInit
+         hoverEnabled: true
+ 
+-        onPositionChanged: {
+-            if (!imageViewer.liveTextActive) return;
+-            var pos = mapToItem(imageViewer, mouseX, mouseY);
+-            cursorShape = imageViewer.isMouseOverLiveBlock(pos.x, pos.y) ? Qt.IBeamCursor : Qt.ArrowCursor;
+-        }
+-
+         onEntered: {
+             isEnterCurrentView = true;
+             animationAll();
 diff --git a/src/qml/ImageViewer.qml b/src/qml/ImageViewer.qml
-index f5d3d235..1005f1c6 100644
+index 3cac8558..1005f1c6 100644
 --- a/src/qml/ImageViewer.qml
 +++ b/src/qml/ImageViewer.qml
 @@ -10,7 +10,6 @@ import QtQuick.Shapes
@@ -103,16 +120,24 @@ index f5d3d235..1005f1c6 100644
  import "./InformationDialog"
  import "./Utils"
  
-@@ -20,8 +19,6 @@ Item {
+@@ -20,16 +19,6 @@ Item {
      // 记录图像缩放，用于在窗口缩放时，根据前后窗口变化保持图片缩放比例
      property bool enableChangeDisplay: true
      property real lastDisplayScaleWidth: 0
 -    // current LiveText select text
 -    property bool liveTextSelected: false
+-    // LiveText overlay 是否可见（识别完成并显示文字块）
+-    property bool liveTextActive: false
+-
+-    function isMouseOverLiveBlock(x, y) {
+-        if (!liveTextActive || !ltwLoader.item) return false;
+-        var pos = ltwLoader.item.mapFromItem(imageViewer, x, y);
+-        return ltwLoader.item.isOverBlock(pos.x, pos.y);
+-    }
      // Image 类型的对象，空图片、错误图片、消失图片等异常为 null
      property alias targetImage: view.currentImage
  
-@@ -521,163 +518,16 @@ Item {
+@@ -529,165 +518,16 @@ Item {
      Loader {
          id: ltwLoader
  
@@ -157,6 +182,7 @@ index f5d3d235..1005f1c6 100644
 -                liveTextAnalyzer.breakAnalyze();
 -                ltw.clearLive();
 -                liveTextTimer.stop();
+-                imageViewer.liveTextActive = false;
 -            }
 -
 -            //live text分析函数
@@ -177,6 +203,7 @@ index f5d3d235..1005f1c6 100644
 -                    console.debug("run live start");
 -                    ltw.drawRect(liveTextAnalyzer.liveBlock());
 -                    ltw.visible = true;
+-                    imageViewer.liveTextActive = true;
 -                }
 -            }
 -
@@ -276,7 +303,7 @@ index f5d3d235..1005f1c6 100644
      }
  
      Loader {
-@@ -714,9 +564,6 @@ Item {
+@@ -724,9 +564,6 @@ Item {
          sourceComponent: ViewRightMenu {
              id: rightMenu
  
@@ -287,7 +314,7 @@ index f5d3d235..1005f1c6 100644
              Component.onDestruction: {
                  IV.GStatus.showRightMenu = false;
 diff --git a/src/qml/ThumbnailListView.qml b/src/qml/ThumbnailListView.qml
-index d80119ef..b63e4a64 100644
+index f69db133..c98ae0a8 100644
 --- a/src/qml/ThumbnailListView.qml
 +++ b/src/qml/ThumbnailListView.qml
 @@ -501,32 +501,14 @@ Control {
@@ -366,7 +393,7 @@ index 577c0a39..41f74d38 100644
          text: qsTr("Slide show")
  
 diff --git a/src/src/filecontrol.cpp b/src/src/filecontrol.cpp
-index 27c565de..0b39be0f 100644
+index 61c14ebc..ed137e01 100644
 --- a/src/src/filecontrol.cpp
 +++ b/src/src/filecontrol.cpp
 @@ -7,7 +7,6 @@
@@ -377,7 +404,7 @@ index 27c565de..0b39be0f 100644
  #include "imagedata/imageinfo.h"
  
  #include <DSysInfo>
-@@ -91,11 +90,10 @@ FileControl::FileControl(QObject *parent)
+@@ -92,11 +91,10 @@ FileControl::FileControl(QObject *parent)
      : QObject(parent)
  {
      qCDebug(logImageViewer) << "FileControl constructor entered.";
@@ -390,7 +417,7 @@ index 27c565de..0b39be0f 100644
  
      QObject::connect(imageFileWatcher, &ImageFileWatcher::imageFileChanged, this, &FileControl::imageFileChanged);
      qCDebug(logImageViewer) << "Connected imageFileWatcher::imageFileChanged signal.";
-@@ -452,41 +450,6 @@ bool FileControl::isCanDelete(const QString &path)
+@@ -453,41 +451,6 @@ bool FileControl::isCanDelete(const QString &path)
      return bRet;
  }
  
@@ -432,7 +459,7 @@ index 27c565de..0b39be0f 100644
  QString FileControl::parseCommandlineGetPath()
  {
      qCDebug(logImageViewer) << "Parsing commandline to get path.";
-@@ -848,23 +811,6 @@ bool FileControl::isCheckOnly()
+@@ -849,23 +812,6 @@ bool FileControl::isCheckOnly()
      return true;
  }
  
@@ -456,7 +483,7 @@ index 27c565de..0b39be0f 100644
  bool FileControl::isCanRename(const QString &path)
  {
      qCDebug(logImageViewer) << "FileControl::isCanRename() called for path: " << path;
-@@ -968,11 +914,6 @@ QString FileControl::createShortcutString()
+@@ -969,11 +915,6 @@ QString FileControl::createShortcutString()
      shortcut2.insert("value", "Esc");
      qCDebug(logImageViewer) << "Added Exit fullscreen shortcut.";
  
@@ -468,7 +495,7 @@ index 27c565de..0b39be0f 100644
      QJsonObject shortcut4;
      shortcut4.insert("name", tr("Slide show"));
      shortcut4.insert("value", "F5");
-@@ -1043,7 +984,6 @@ QString FileControl::createShortcutString()
+@@ -1044,7 +985,6 @@ QString FileControl::createShortcutString()
      QJsonArray shortcutArray1;
      shortcutArray1.append(shortcut1);
      shortcutArray1.append(shortcut2);
@@ -476,7 +503,7 @@ index 27c565de..0b39be0f 100644
      shortcutArray1.append(shortcut4);
      shortcutArray1.append(shortcut5);
      shortcutArray1.append(shortcut6);
-@@ -1080,25 +1020,8 @@ QString FileControl::createShortcutString()
+@@ -1081,25 +1021,8 @@ QString FileControl::createShortcutString()
      shortcut_group2.insert("groupName", tr("Settings"));
      shortcut_group2.insert("groupItems", shortcutArray2);
  
