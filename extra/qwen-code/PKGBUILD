@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.24.0
+pkgver=0.24.1
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -31,9 +31,9 @@ optdepends=(
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}"
         'feishu-media-test.patch')
-sha256sums=('53e1b67ba6f05e70fb117aadc7113e399d308715fcf1a2aea1e71acb8154203f'
+sha256sums=('fec1625205b46acd20b7ab1c0b5cc67f3d2b1357c93657f11f9e0c575d17308e'
             '3af81e8d4e27c7b7d10ea5615cd1c469df730aaf1e2f6b5dae5ad2fbf6d0280d')
-b2sums=('f1a8005621f22a0a563520e278089db681e432c69e599d45e92be5310c36535cb1488b2a15112f90b6e96d61f25df49a43946e7090bfa445f0a7c262d7515d81'
+b2sums=('4c1c9992c222d2001a6754fa0f898d458d54bb1c26254e8343fe8b1ee705b3c7c8f3ab9003b5805a6992ca7f44c100b7fdc7a82683d45e0e556a6f5831fa4068'
         '76344e9fd770a54ee0578bc0c66b51dde50aa5dfee0374dcad9860c86608d08c5969785eaf1a04ff371f89aa45e4020027ca8b04f5b318977a4a29c92e360ef8')
 
 prepare() {
@@ -71,14 +71,12 @@ prepare() {
     packages/cli/src/serve/server/self-origin.test.ts
   # Vitest retains Node 26's localStorage alongside jsdom's separate Storage class.
   sed -i 's/Storage\.prototype/Object.getPrototypeOf(window.localStorage)/' \
-    packages/web-shell/client/main.test.tsx
+    packages/web-shell/client/main.test.tsx \
+    packages/web-shell/client/utils/assistantFeedback.test.ts
   # Node 26's Writable.toWeb() settles writes before native callback errors.
   # https://github.com/nodejs/node/issues/64549
   sed -i "s/it('retains the original write error/it.skip('retains the original write error/" \
     packages/cli/src/acp-integration/acp-output.test.ts
-  # Node 26's jsdom focus handling leaves Radix's non-modal menu on <body>.
-  sed -i "s/it('returns keyboard focus to the trigger after Escape/it.skip('returns keyboard focus to the trigger after Escape/" \
-    packages/web-shell/client/components/composer/AddMenu.test.tsx
   # Upstream's ranged override currently resolves newer than package-lock.json.
   npm pkg set 'overrides.@types/react=19.2.10'
   npm clean-install \
