@@ -2,7 +2,7 @@
 
 pkgname=pantheon-default-settings
 pkgver=8.1.1
-pkgrel=3
+pkgrel=4
 pkgdesc='Default settings for Pantheon'
 arch=(any)
 url=https://github.com/elementary/default-settings.git
@@ -10,7 +10,6 @@ license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
   accountsservice
-  dbus
   dconf
   polkit
 )
@@ -22,13 +21,23 @@ source=(pantheon-default-settings::git+https://github.com/elementary/default-set
 b2sums=('8253a7b2135bc4f5f3ee6b6b253e2374c23ffed6ae31d599bfca1391d528b3065c6bf3512d30e8177ec68725a76da86c2d945776bb802d08705fd28d68cb3ec9')
 
 build() {
-  arch-meson pantheon-default-settings build
+  arch-meson pantheon-default-settings build \
+    -Dapparmor-profiles=false \
+    -Dappcenter-flatpak=false \
+    -Dgeoclue=false
   ninja -C build
 }
 
 package() {
   DESTDIR="${pkgdir}" ninja -C build install
-  rm "${pkgdir}"/usr/share/cups/data/default-testpage.pdf
+
+  # Remove settings that are specific for elementary OS
+  rm -r "${pkgdir}"/etc
+  rm -r "${pkgdir}"/usr/share/applications
+  rm -r "${pkgdir}"/usr/share/cups
+
+  # Rename GSettings override file to be unique
+  mv "${pkgdir}"/usr/share/glib-2.0/schemas/{default-settings,00_io.elementary.pantheon}.gschema.override
 }
 
 # vim: ts=2 sw=2 et:
