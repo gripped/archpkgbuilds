@@ -5,7 +5,7 @@
 
 pkgname=python-bitstring
 pkgver=4.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='A Python module to help you manage your bits'
 arch=('any')
 url="https://github.com/scott-griffiths/bitstring"
@@ -13,6 +13,7 @@ license=('MIT')
 depends=(
   'python'
   'python-bitarray'
+  'python-tibs'
 )
 makedepends=(
   'git'
