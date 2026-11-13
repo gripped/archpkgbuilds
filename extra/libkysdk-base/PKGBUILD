@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libkysdk-base
-pkgver=3.0.1.1
-pkgrel=4
+pkgver=3.0.1.2
+pkgrel=1
 pkgdesc="Kylin SDK basic library"
 arch=('x86_64')
 license=('Apache-2.0' 'LGPL-3.0-or-later' 'MIT')
@@ -14,8 +14,8 @@ backup=('etc/kylin-config/basic/com.kylin.kysdk.conf2.yaml'
         'etc/kylin-config/conf2.yaml'
         'etc/kysdk/kysdk-base/kylog-default.conf'
         'etc/kysdk/kysdk-base/kylog-rotate-default')
-source=("git+https://gitee.com/openkylin/libkysdk-base.git#tag=debian/$pkgver-1")
-sha512sums=('3a50c9dca360dfed962950ff53b043c8ff17114d48c260146397c9464a5c283c0d3aec8f5e5eebaea5d03a7435e1b785b094c8e9e61edb12531e8d5ee4523cb0')
+source=("git+https://gitee.com/openkylin/libkysdk-base.git#tag=debian/$pkgver-2")
+sha512sums=('76ced5ad34d492c4f0c2ff46cf53bc0fd2abf6768b43c7957190de75f60dfd34ba0d3eb73e85a04bb9a273016bc1355260055e72793987af1697198479436fb3')
 
 prepare() {
   cd libkysdk-base
@@ -43,11 +43,11 @@ package() {
   install -Dm755 src/conf2/service/conf2-{session,system}.py -t "$pkgdir/usr/share/kysdk/kysdk-base"
   install -Dm644 src/conf2/service/conf2Utils.py -t "$pkgdir/usr/share/kysdk/kysdk-base"
   # Omit the optional json2yaml converter to avoid conflicting with haskell-yaml.
-  install -Dm755 src/conf2/tools/{gschema_xml2yaml,health-check,ini2yaml} -t "$pkgdir/usr/bin"
+  install -Dm755 src/conf2/tools/{gschema_xml2yaml,kylin-conf2-health-check,ini2yaml} -t "$pkgdir/usr/bin"
   install -Dm755 src/conf2/tools/kconf2-editor -t "$pkgdir/usr/share/kysdk/kysdk-base"
   ln -s ../share/kysdk/kysdk-base/kconf2-editor "$pkgdir/usr/bin/kconf2-editor"
   install -Dm644 src/conf2/tools/kconf2-completion.sh "$pkgdir/usr/share/bash-completion/completions/kconf2"
-  install -Dm644 man/conf2/{gschema_xml2yaml,health-check,ini2yaml,kconf2}.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 man/conf2/{gschema_xml2yaml,ini2yaml,kconf2}.1 debian/kylin-conf2-health-check.1 -t "$pkgdir/usr/share/man/man1"
   install -Dm644 man/{config,diagnostics}/*.3 -t "$pkgdir/usr/share/man/man3"
   install -Dm644 man/conf2/*.8 -t "$pkgdir/usr/share/man/man8"
   install -Dm644 debian/copyright -t "$pkgdir/usr/share/licenses/$pkgname"
