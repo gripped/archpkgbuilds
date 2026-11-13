@@ -4,22 +4,23 @@
 
 pkgname=python-routes
 pkgver=2.5.1
-pkgrel=10
+pkgrel=11
 pkgdesc="Routing recognition and generation tools"
 arch=("any")
 url="https://pypi.python.org/pypi/Routes"
 license=("MIT")
-depends=("python-repoze.lru" 'python-six')
+depends=('python-repoze.lru' 'python-six')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 checkdepends=('python-pytest' 'python-webob' 'python-webtest')
-source=("git+https://github.com/bbangert/routes.git#tag=v$pkgver"
-	"replace-nose-with-pytest.patch")
-sha512sums=('f94ed4fab70736a458e2e9df840054ef61a06c3528986d199c9c6c8265bbeeb403105954cafd6da7c1485b32b84d893757123a5c0ec0fe7fc14ec652c72a82c9'
-            '266818b7720b68d6ae1bbd2d6692f10eeb49fd1d94ae2ebc4e5270c52fcab6b68c2f60fd21ba32c4fd61cdd1555f0a4ac0d6952c434a94417d9168fab2bd83df')
+source=("git+https://github.com/bbangert/routes.git#tag=v$pkgver")
+sha512sums=('f94ed4fab70736a458e2e9df840054ef61a06c3528986d199c9c6c8265bbeeb403105954cafd6da7c1485b32b84d893757123a5c0ec0fe7fc14ec652c72a82c9')
 
 prepare() {
   cd routes
-  patch -Np1 -i ${srcdir}/replace-nose-with-pytest.patch
+  # Fix use of undefined variable
+  git cherry-pick -n fd2c90b7547cfbc6adf985b2d98433138eed39a1
+  # switch from nose to pytest
+  git cherry-pick -n b182334575293c7603e0e90fac729a1b7215753c
 }
 
 build() {
