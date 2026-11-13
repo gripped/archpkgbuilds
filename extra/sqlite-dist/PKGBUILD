@@ -1,0 +1,38 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=sqlite-dist
+pkgver=0.0.1.alpha.22
+_pkgver=${pkgver/.alpha/-alpha}
+pkgrel=1
+pkgdesc="CLI tool for packing and distributing pre-compiled SQLite extensions"
+arch=('x86_64')
+url="https://github.com/asg017/sqlite-dist"
+license=('MIT' 'Apache-2.0')
+depends=('bzip2' 'gcc-libs' 'glibc' 'zstd')
+makedepends=('cargo' 'git')
+source=("git+https://github.com/asg017/sqlite-dist.git#tag=v$_pkgver")
+sha512sums=('SKIP')
+
+prepare() {
+  cd sqlite-dist
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
+
+build() {
+  cd sqlite-dist
+  # Avoid bundled zstd's GCC LTO link failure: https://github.com/gyscos/zstd-rs/issues/201
+  ZSTD_SYS_USE_PKG_CONFIG=1 cargo build --release --frozen
+}
+
+check() {
+  cd sqlite-dist
+  ZSTD_SYS_USE_PKG_CONFIG=1 cargo test --frozen
+}
+
+package() {
+  cd sqlite-dist
+  install -Dm755 target/release/sqlite-dist -t "$pkgdir"/usr/bin/
+  install -Dm644 README.md -t "$pkgdir"/usr/share/doc/$pkgname/
+}
+
+# vim:set ts=2 sw=2 et:
