@@ -1,0 +1,29 @@
+From a5fb713e2ba9fff78f96aeaca01bcec0fdb5173c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 11 Nov 2026 22:59:01 +0100
+Subject: [PATCH] Add more desktop components
+
+These components need to be specified in the systemd unit
+file in order to get started with the session if available.
+---
+ meson.build | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 6690262..e235c96 100644
+--- a/meson.build
++++ b/meson.build
+@@ -33,8 +33,12 @@ keyring_components = [
+ ]
+ 
+ desktop_components = [
++    'io.elementary.bluetooth',
++    'io.elementary.desktop.agent-polkit',
++    'io.elementary.settings-daemon',
+     'orca',
+-    'io.elementary.settings-daemon'
++    'pantheon-parental-controls-client',
++    'user-dirs-update-gtk'
+ ]
+ 
+ subdir('po')

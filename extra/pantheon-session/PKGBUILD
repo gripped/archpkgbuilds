@@ -3,42 +3,94 @@
 
 pkgname=pantheon-session
 pkgver=8.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Session settings for Pantheon'
 arch=(any)
 url=https://github.com/elementary/session-settings
 license=(GPL-3.0-only)
 groups=(pantheon)
 depends=(
-  dconf
+  elementary-icon-theme
+  elementary-wallpapers
   gala
-  gnome-keyring
   gnome-session
   gnome-settings-daemon
+  gtk-theme-elementary
+  inter-font
   pantheon-applications-menu
-  orca
-  plank
+  pantheon-default-settings
+  pantheon-dock
+  pantheon-files
+  pantheon-notifications
+  pantheon-polkit-agent
+  pantheon-quick-settings
+  pantheon-settings-daemon
+  sound-theme-elementary
+  ttf-opensans
+  ttf-roboto-mono
   wingpanel
-  xdg-user-dirs-gtk
+  xdg-desktop-portal-gtk
+  xdg-desktop-portal-pantheon
 )
 makedepends=(
   git
   meson
 )
-optdepends=(pantheon-default-settings)
-source=(pantheon-session-settings::git+https://github.com/elementary/session-settings.git#tag=${pkgver})
-b2sums=('3c85a8ada3e340fea40fc0eade4d5a89d3943df6acae10c397fcdcad4222a6392eb5e63dc8fb56b5e01d4d83caaf594e6ac3cb451a91f78f924ebcc0fafaf78a')
+optdepends=(
+  'gnome-keyring: Secrets service backend'
+  'orca: Screen reader'
+  'xdg-user-dirs-gtk: Manage user directories'
+)
+source=(
+  pantheon-session-settings::git+https://github.com/elementary/session-settings.git#tag=${pkgver}
+  pantheon-session-no-x11-conf.patch
+  pantheon-session-papers.patch
+  pantheon-session-gsd-components.patch
+  pantheon-session-desktop-components.patch
+)
+b2sums=('3c85a8ada3e340fea40fc0eade4d5a89d3943df6acae10c397fcdcad4222a6392eb5e63dc8fb56b5e01d4d83caaf594e6ac3cb451a91f78f924ebcc0fafaf78a'
+        '76710738763b4141ab063d8bb98736a03fe1b7bca8de45a43b88ece4bd9accbc60c3289b89adcde9697f2cb3632e0ebae4e9a5573595a5dca015bba33566345a'
+        '1a33a92d09ce5348a36d1f096e67bce85cf7c175b394301be486ca80ec5f155880d8237f26307152722e63bec84f5b088017b934929862fbc470204971f20381'
+        '1ed0fa7d3a1ed4f1583f1894b9cbc8ee4daba7dcdbb4ea309f269d50ebea650e44c7c38b855e51dbb866c405e649f68155a43978836eb749963641d698a65ac7'
+        '9d2a86a4d22ae79c267d90a6fb382e29cdee5c9ce81bd0f23a200aea1b16c66992c6fb1cb54fe42e16fc3697815d505a92e5d9a45c05e20a34c97e194348f401')
 
 prepare() {
   cd pantheon-session-settings
-  # cherry-pick upstream fixes: remove onboard (PR #83), then remove gsd autostarts (PR #100)
-  git cherry-pick --no-commit cfbcda4 6e8eee7
+
+  # Remove onboard
+  # https://github.com/elementary/session-settings/pull/83
+  git cherry-pick -n cfbcda4a045e56e0cb09ab05978598d2e9761372
+
+  # Remove autostarts
+  # https://github.com/elementary/session-settings/pull/100
+  git cherry-pick -n 6e8eee77d0735744630570655d87649547a8f174
+
+  # Default X11 building to false
+  # https://github.com/elementary/session-settings/pull/98
+  git cherry-pick -n 0a69481c20b73d7cd774e88e6fb043c52644e350
+
+  # Don't install session config for X11 if support is disabled
+  # https://github.com/elementary/session-settings/pull/108
+  git apply -3 ../pantheon-session-no-x11-conf.patch
+
+  # Replace Evince with Papers
+  # https://github.com/elementary/session-settings/pull/109
+  git apply -3 ../pantheon-session-papers.patch
+
+  # Update GSD components
+  # https://github.com/elementary/session-settings/pull/110
+  git apply -3 ../pantheon-session-gsd-components.patch
+
+  # Add more desktop components
+  # https://github.com/elementary/session-settings/pull/111
+  git apply -3 ../pantheon-session-desktop-components.patch
+
+  # Rename session to make it identifiable
+  sed -i 's/^Name=Secure Session/Name=Pantheon/' wayland-sessions/pantheon-wayland.desktop.in
 }
 
 build() {
-  arch-meson pantheon-session-settings build \
-    -Dfallback-session=gnome \
-    -Dx11=false
+  arch-meson pantheon-session-settings build
   ninja -C build
 }
 

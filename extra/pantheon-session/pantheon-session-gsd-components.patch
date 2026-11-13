@@ -1,0 +1,24 @@
+From 81595913d8db66faddff46f2fec90a946b4991ea Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 11 Nov 2026 18:45:34 +0100
+Subject: [PATCH] Update GSD components
+
+The Wacom plugin is removed from GSD since version 49.0.
+The WWAN plugin manages SIM cards (unlocking, etc).
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 6690262..b86999d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -23,7 +23,7 @@ gsd_components = [
+     'org.gnome.SettingsDaemon.Smartcard',
+     'org.gnome.SettingsDaemon.Sound',
+     'org.gnome.SettingsDaemon.UsbProtection',
+-    'org.gnome.SettingsDaemon.Wacom',
++    'org.gnome.SettingsDaemon.Wwan',
+     'org.gnome.SettingsDaemon.XSettings',
+ ]
+ 

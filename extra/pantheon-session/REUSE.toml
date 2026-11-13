@@ -6,10 +6,13 @@ path = [
     "README.md",
     "keys/**",
     ".SRCINFO",
+    ".gitignore",
     ".nvchecker.toml",
     "*.install",
     "*.sysusers",
+    "*sysusers.conf",
     "*.tmpfiles",
+    "*tmpfiles.conf",
     "*.logrotate",
     "*.pam",
     "*.service",
@@ -20,3 +23,13 @@ path = [
 ]
 SPDX-FileCopyrightText = "Arch Linux contributors"
 SPDX-License-Identifier = "0BSD"
+
+[[annotations]]
+path = [
+    "pantheon-session-desktop-components.patch",
+    "pantheon-session-gsd-components.patch",
+    "pantheon-session-no-x11-conf.patch",
+    "pantheon-session-papers.patch",
+]
+SPDX-FileCopyrightText = "pantheon-session contributors"
+SPDX-License-Identifier = "GPL-3.0-only"

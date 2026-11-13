@@ -1,0 +1,33 @@
+From c91568e0a70a6caa075ea570f3b5bab48df16926 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 11 Nov 2026 17:58:44 +0100
+Subject: [PATCH] Don't install session config for X11 if support is disabled
+
+The session conf for gnome-session@pantheon.target.d is used only by the
+X11 session.
+---
+ systemd/meson.build | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/systemd/meson.build b/systemd/meson.build
+index 50d53ec..ea1b32a 100644
+--- a/systemd/meson.build
++++ b/systemd/meson.build
+@@ -38,10 +38,12 @@ session_config = configure_file(
+         'requires_component': shell_component[desktop_targets],
+         'wants_required_components': '\n'.join(gnome_session_wanted_targets, gnome_session_wanted_sockets, gnome_session_wanted_services),
+     },
+-    install_dir: systemd_userunitdir / 'gnome-session@pantheon.target.d',
+-)
+-
+-install_data(
+-    session_config,
+     install_dir: systemd_userunitdir / 'gnome-session@pantheon-wayland.target.d',
+ )
++
++if get_option('x11')
++    install_data(
++        session_config,
++        install_dir: systemd_userunitdir / 'gnome-session@pantheon.target.d',
++    )
++endif
