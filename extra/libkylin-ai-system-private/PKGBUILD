@@ -2,7 +2,7 @@
 
 pkgname=libkylin-ai-system-private
 pkgver=1.2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Headers and protocol definitions for Kylin AI system interfaces"
 arch=('any')
 license=('Apache-2.0' 'GPL-3.0-or-later')
@@ -13,6 +13,15 @@ optdepends=('glib2-devel: generate D-Bus bindings'
             'protobuf: generate Protocol Buffers bindings')
 source=("git+https://gitee.com/openkylin/libkylin-ai-system-private.git#tag=debian/$pkgver-1")
 sha512sums=('9eb0b2af531abbcbef7092c5bbd4f1377cd5cbddd7cfb9ca99bbf42138d7d90f4239d904846e8cf30396e0245ce7ab2f16a9031059ce482392014889679b2ffa')
+
+prepare() {
+  cd libkylin-ai-system-private
+  # Add the GenAI model/tool methods, request IDs, and protocol versions required by libkysdk-genai.
+  # https://gitee.com/openkylin/libkylin-ai-system-private/commit/1524b610f4856cbf2353685f83d65c620b78b7e7
+  # https://gitee.com/openkylin/libkylin-ai-system-private/commit/62fe238ddeff2cd3e3a17690f1ae3965bbacfaf1
+  git diff 991ae91317fabf0143ec88d2542da21fcb45351a 62fe238ddeff2cd3e3a17690f1ae3965bbacfaf1 -- \
+    ai-proto/protocols/usr/share/kylin-ai/protocols/gdbus/{gennlpservice,genaivisionservice}.xml | git apply
+}
 
 build() {
   cmake -S libkylin-ai-system-private -B build -G Ninja \
