@@ -3,7 +3,7 @@
 # Contributor: Julien Nicoulaud <julien.nicoulaud@gmail.com>
 
 pkgname=zellij
-pkgver=0.45.1
+pkgver=0.46.0
 pkgrel=1
 pkgdesc="A terminal multiplexer"
 arch=('x86_64' 'i686' 'armv6h' 'armv7h')
@@ -17,7 +17,7 @@ makedepends=(cargo
              mandown)
 options=(!lto)
 source=("https://github.com/zellij-org/${pkgname}/archive/refs/tags/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('1fa550fe243d8b18a87ff1983631a9a76eb9dde9d1d2c59f0aa6e1bb8b1a677168c469e143de7cc4fcc9ff3a0799c1dc566553ed74bcadab345282b81c105fc8')
+sha512sums=('1d3302f36426288a32b3ac9db1e670f20c57285b1458113d2889802dacd250b1035096ac1fa23ca08b341796a22aeb2c86988e73ade199bbafd45b6b12e29c2a')
 
 _srcenv() {
   cd "$pkgname-$pkgver"
@@ -50,15 +50,15 @@ package() {
             libgcc_s.so
             libz.so)
   cd "$pkgname-$pkgver"
-  install -Dm755 target/release/zellij -t "${pkgdir}/usr/bin"
-  install -Dm644 GOVERNANCE.md README.md -t "${pkgdir}/usr/share/doc/zellij"
-  install -Dm644 LICENSE.md -t "${pkgdir}/usr/share/licenses/zellij"
+  install -Dm755 -t "${pkgdir}/usr/bin" target/release/zellij
+  install -Dm644 -t "${pkgdir}/usr/share/doc/zellij" GOVERNANCE.md README.md
+  install -Dm644 -t "${pkgdir}/usr/share/licenses/zellij" LICENSE.md
   install -Dm644 target/zellij.bash "${pkgdir}/usr/share/bash-completion/completions/zellij"
   install -Dm644 target/zellij.elv "${pkgdir}/usr/share/elvish/lib/zellij.elv"
   install -Dm644 target/zellij.fish "${pkgdir}/usr/share/fish/vendor_completions.d/zellij.fish"
   install -Dm644 target/zellij.zsh "${pkgdir}/usr/share/zsh/site-functions/_zellij"
   # install -Dm644 assets/zellij.1 "${pkgdir}/usr/share/man/man1/zellij.1"
-  install -Dm644 assets/zellij.desktop "${pkgdir}/usr/share/applications/zellij.desktop"
+  install -Dm644 -t "${pkgdir}/usr/share/applications/" assets/dev.zellij.Zellij.desktop
   install -Dm644 assets/logo.png "${pkgdir}/usr/share/pixmaps/zellij.png"
 }
 
