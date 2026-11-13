@@ -3,7 +3,7 @@
 
 _pyname=fontPens
 pkgname=python-${_pyname,,}
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc='A collection of classes implementing the pen protocol for manipulating glyphs'
 arch=(any)
@@ -17,7 +17,7 @@ checkdepends=(python-fontparts
               python-pytest)
 _archive="${_pyname,,}-$pkgver"
 source=("https://files.pythonhosted.org/packages/source/${_pyname::1}/$_pyname/$_archive.tar.gz")
-sha256sums=('69be9a81087dd59f1b8dee3f1fc8f7cd4693980ab45852feb496cbb28fbd93cb')
+sha256sums=('4987bd820833ac25c1608752de2d95854f7b4247042b9e7e7cd7132ad0f72756')
 
 build() {
 	cd "$_archive"
