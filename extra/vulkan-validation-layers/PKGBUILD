@@ -3,7 +3,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=vulkan-validation-layers
-pkgver=1.4.363.0
+pkgver=1.4.363.1
 pkgrel=1
 pkgdesc="Vulkan Validation Layers"
 url="https://www.vulkan.org/"
@@ -33,7 +33,7 @@ options=(
 )
 groups=(vulkan-devel)
 source=("git+https://github.com/KhronosGroup/Vulkan-ValidationLayers#tag=vulkan-sdk-$pkgver")
-b2sums=('c7425c08f9bed5c06cae1141c6cc4fa3ffaf87cefa88823d7f525014a532e33474b14fbecfe5e8f5393ea83e9d2b32fa80148e079693ef007c06126b2563d605')
+b2sums=('2476608bbae8896ff3d77f93930cf98fceb1111f94eb62e50ad29d51fab96dd104f32677327b79a5321c621c7a9f5f422d01b73693d7ff76865bc5e5f6059afb')
 
 build() {
   local cmake_options=(
