@@ -3,7 +3,7 @@
 # Contributor: Hussam Al-Tayeb <ht990332@gmail.com>
 
 pkgname=xmlsec
-pkgver=1.3.12
+pkgver=1.3.13
 pkgrel=2
 pkgdesc="XML Security Library is a C library based on LibXML2"
 license=(MIT)
@@ -15,16 +15,20 @@ provides=('libxmlsec1.so' 'libxmlsec1-openssl.so' 'libxmlsec1-nss.so' 'libxmlsec
 #source=(https://www.aleksey.com/xmlsec/download/${pkgname}1-${pkgver}.{tar.gz,sig}) # signature file not compatible
 source=(#https://www.aleksey.com/xmlsec/download/${pkgname}1-${pkgver}.tar.gz
         https://github.com/lsh123/xmlsec/releases/download/${pkgver}/${pkgname}1-${pkgver}.tar.gz)
-sha256sums=('24045199af12d93fe5fdbbbf7e386e823e4842071e9432e2b90ac108b889a923')
+sha256sums=('7e500061eed734c55d74c786998e7562e55b1aaa72a2dff8ce3130b4c5b832d5')
 # https://www.aleksey.com/xmlsec/download/aleksey%40aleksey.com.gpg
 #validpgpkeys=('00FDD6A7DFB81C88F34B9BF0E63ECDEF9E1D829E') # "Aleksey Sanin <aleksey@aleksey.com>"
 
 build() {
   cd ${pkgname}1-${pkgver}
+  # required to allow --enable-hardening
+  export CFLAGS="${CFLAGS/_FORTIFY_SOURCE=3/_FORTIFY_SOURCE=2}"
+  
   ./configure --prefix=/usr \
     --disable-static \
     --enable-files \
-    --disable-ripemd160
+    --disable-ripemd160 \
+    --enable-hardening
   sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
