@@ -1,0 +1,38 @@
+# Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
+
+_pyname=angr-data
+pkgname=python-${_pyname}
+pkgver=0.2.0
+pkgrel=1
+pkgdesc='Function and type prototype definitions for angr'
+url='https://github.com/angr/angr-data'
+license=(BSD-2-Clause)
+arch=(any)
+depends=(
+  python
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+source=(
+  "git+${url}.git#commit=v${pkgver}"
+)
+sha512sums=('509d6f741ae6755161926842dc2ca49f8c3c088bdd6c258b49046712e32fdb7672b6227806f7bab704f4efb334440adb640fc581302631b652e14f2bee772d43')
+
+build() {
+  cd ${_pyname}
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd ${_pyname}
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -Dm 644 README.md -t "${pkgdir}/usr/share/doc/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
