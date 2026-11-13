@@ -2,7 +2,7 @@
 
 pkgname=deepin-util-dfm
 epoch=1
-pkgver=1.3.39
+pkgver=1.3.40
 pkgrel=1
 pkgdesc='Utilities of deepin file manager'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('dtk6core' 'glib2' 'glibc' 'libgcc' 'libisoburn' 'libmediainfo' 'libsec
          'libstdc++' 'lucene++' 'qt6-base' 'udisks2' 'util-linux-libs')
 makedepends=('git' 'boost' 'cmake' 'ninja')
 source=("git+https://github.com/linuxdeepin/util-dfm.git#tag=$pkgver")
-sha512sums=('df579cbf013734843e137eee7020be74b416cb697fe3476713d7edc011e30d3bfcc80e4dd8aad73eaa630c2bc872248713b94985ae12bf31a43e5d8823a187a9')
+sha512sums=('0115f4e19e366067c0099df0483707dc0c7c67572db487fb37a69fe2b074c10746be873149dd211462490dc6153a7f2128c48c5f25711a76f88e8e05e3e2c03e')
 
 build() {
   cmake -G Ninja -B build -S util-dfm -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_INSTALL_LIBEXECDIR=lib -DCMAKE_POLICY_VERSION_MINIMUM=3.5
