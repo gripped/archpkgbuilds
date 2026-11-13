@@ -1,0 +1,83 @@
+# Maintainer: RocketDev <ma2014119@outlook.com>
+
+_reponame=xdia
+pkgname=python-pyxdia
+pkgver=0.1.1
+pkgrel=1
+pkgdesc='Utility to extract useful program info from a PDB file in an easily parsed format'
+url="https://github.com/mborgerson/$_reponame"
+license=('MIT AND LGPL-2.1-only')
+arch=(
+  x86_64
+)
+depends=(
+  glibc
+  icu
+  python
+)
+makedepends=(
+  cmake
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+)
+source=(
+  "$url/archive/v$pkgver/$_reponame-$pkgver.tar.gz"
+  "$_reponame-$pkgver.zip::$url/releases/download/v$pkgver/$_reponame.zip"
+  fix-cmake.patch
+  fix-pyproject.patch
+)
+b2sums=('ab8cc7d13b7e731466f7f8eed52288edd1b3341ebf47bc07b6e8680a938aa2cb2d2c4160922bb8af1ba9dab9e8b6dce04498ff43bbd73eeb48e48fe223867d0e'
+        'e91b158482b5f6b1d65c425d378e2de11b56b31f5a7b3596fc6551764960bcbc4ea9d638323e616dc4fea4578988ba27cffb7b89d6b8dcc58685489480e173a9'
+        '68ba07217b9432fe6c0a4721bbe4bdc5efd32b49a0307d6e7f4eb67e8151e5aec2afc55d0e07b658649a8189de5892a6a8c6757f019be15b05e4952d86b3d638'
+        '8f2ad08a700a2755e96850dda3093880a768306fd56c07a4c6924b453a58aaf04c0be6471df14f7a2897bc042476d9e82541238f0a13669656d8dc34b5f552a5')
+
+
+prepare() {
+  cd "$_reponame-$pkgver"
+  patch -p1 -i ../fix-cmake.patch
+  patch -p1 -i ../fix-pyproject.patch
+
+  echo "Moving $_reponame.exe"
+  mkdir -p pyxdia/pyxdia/bin
+  mv ../$_reponame.exe pyxdia/pyxdia/bin
+}
+
+build() {
+  # binary part
+  local cmake_opts=(
+    -B build
+    -S "$_reponame-$pkgver"
+    -DCMAKE_BUILD_TYPE=None
+    -Wno-author
+  )
+  export LDFLAGS="$LDFLAGS -Wl,-z,common-page-size=65536,-z,max-page-size=65536" # from CMakeLists
+  cmake "${cmake_opts[@]}"
+  make -C build
+
+  # python part
+  mv build/src/xdialdr "$_reponame-$pkgver/pyxdia/pyxdia/bin"
+  cd "$_reponame-$pkgver/pyxdia"
+  mv ../lib/msdia140.dll pyxdia/bin
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$_reponame-$pkgver/pyxdia/tests"
+  python -m venv --system-site-packages .venv
+  .venv/bin/python -m installer ../dist/*.whl
+  PDB_TEST_FILES="$srcdir/$_reponame-$pkgver/tests" .venv/bin/python -m pytest .
+}
+
+package() {
+  cd "$_reponame-$pkgver"
+  python -m installer --destdir="$pkgdir" pyxdia/dist/*.whl
+  install -Dm644 pyxdia/LICENSE.txt src/xdia/xdia.LICENSE.txt src/xdia-loader/xdialdr.LICENSE.txt \
+    -t "$pkgdir/usr/share/licenses/$pkgname" 
+}
+
+# vim: ts=2 sw=2 et:
