@@ -1,18 +1,19 @@
 pkgbase = deepin-power-control
 	pkgdesc = Deepin power modes and adaptive Wi-Fi power saving
-	pkgver = 2.0.6
+	pkgver = 2.0.7
 	pkgrel = 1
 	url = https://www.deepin.org
 	arch = x86_64
 	license = GPL-3.0-or-later
 	license = GPL-2.0-or-later
 	license = Apache-2.0
+	makedepends = git
 	makedepends = go
 	depends = glibc
 	depends = iw
 	depends = tlp
 	backup = etc/deepin-power-control/config.yaml
-	source = https://community-packages.deepin.com/deepin/beige/pool/main/d/deepin-power-control/deepin-power-control_2.0.6.tar.xz
-	sha256sums = 0f627fbc22654dea0f43fcb02fe5920fc1f10eae92ca5dd983f89bee331ff66d
+	source = git+https://github.com/linuxdeepin/deepin-power-control.git#commit=0545e1c98a70ab2633ba78e4373e1d3bc059a152
+	sha256sums = eea6183fbac5134e1014694c2afb7a4a4bc4145cd13914f17717f63d80afdd4c
 
 pkgname = deepin-power-control
