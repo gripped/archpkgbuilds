@@ -4,8 +4,8 @@
 # Contributor: Daniel Isenmann <daniel@archlinux.org>
 
 pkgname=gimp
-pkgver=3.2.6
-pkgrel=2
+pkgver=3.2.8
+pkgrel=1
 pkgdesc='GNU Image Manipulation Program'
 url='https://www.gimp.org/'
 arch=('x86_64')
@@ -88,6 +88,7 @@ optdepends=(
   'bash-completion: for bash completion support'
   'cfitsio: for FITS support'
   'ghostscript: for PostScript support'
+  'gimp-help: for offline help support'
   'gjs: for JavaScript scripting support'
   'gutenprint: for sophisticated printing only as gimp has built-in cups print support'
   'gvfs: for HTTP/S support (and many other schemes)'
@@ -97,7 +98,7 @@ source=(
   git+https://gitlab.gnome.org/GNOME/gimp.git#tag=GIMP_${pkgver//./_}
   git+https://gitlab.gnome.org/GNOME/gimp-data.git
 )
-sha256sums=('a6f43eec310dddde776d41e6a572f925d40506c41b8664aed039ec007eab9521'
+sha256sums=('d70f6d304e6376c1ef6fc94ed67f3aca6fe4355bfe57b4931ec81d67b32b5cf6'
             'SKIP')
 
 prepare() {
@@ -118,7 +119,6 @@ build() {
     -Dcheck-update=no
     -Dbug-report-url='https://gitlab.archlinux.org/archlinux/packaging/packages/gimp/-/issues'
     -Dopenexr=enabled
-    -Dilbm=disabled
     -Dheadless-tests=disabled # enabled by default, depends on xorg-server-xvfb
   )
 
