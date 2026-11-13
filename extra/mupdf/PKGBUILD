@@ -8,8 +8,8 @@
 
 pkgbase=mupdf
 pkgname=('libmupdf' 'mupdf' 'mupdf-gl' 'mupdf-tools' 'python-mupdf')
-pkgver=1.28.5
-pkgrel=3
+pkgver=1.28.6
+pkgrel=1
 pkgdesc="Lightweight PDF and XPS viewer"
 url="https://mupdf.com"
 arch=('x86_64')
@@ -28,7 +28,7 @@ source=("git+https://github.com/ArtifexSoftware/mupdf.git#tag=${pkgver}"
         "${pkgbase}-1.28.0-system-cmark-gfm.patch"
         "${pkgbase}-1.28.0-fix-build-with-recent-clang.patch"
         "${pkgbase}-1.28.3-autovenv-system-site-packages.patch")
-sha256sums=('df52f6ff1eb0e177df1eb6679995e9157ef634057bd4d086e928a63a28d87e2a'
+sha256sums=('a3c22e90a2df1b3d16327bbe875ee724fce48de83ff1980a47444df76aad3a6b'
             'SKIP'
             'SKIP'
             'SKIP'
