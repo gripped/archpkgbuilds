@@ -3,7 +3,7 @@
 
 pkgname=e16
 pkgver=1.0.32
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, flexible and extensible window manager (Enlightenment DR16)'
 arch=(x86_64)
 url='https://www.enlightenment.org/e16'
@@ -42,6 +42,12 @@ b2sums=(88f0a5e62ae0e2c48d9ea2659316b888cc4d8344d2f673a718290038d1d6097ace582ced
 
 prepare() {
   cd e16
+
+  # Fixes for e_gen_menu
+  git cherry-pick -n 95cec56e0fbc5ad6b873efaa5b1910b961b39a80 \
+                     d56054f179fd2c0d2ce89fd42272564f302f724b \
+                     5ef0bf5ea6e7f1fe3a7a1f816f9582a0c25ee28d
+
   autoreconf -fiv
 }
 
