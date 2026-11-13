@@ -2,21 +2,20 @@
 
 _hkgname=wuss
 pkgname=haskell-wuss
-pkgver=2.0.1.8
-pkgrel=12
+pkgver=2.0.1.9
+pkgrel=4
 pkgdesc="Secure WebSocket (WSS) clients"
 url="https://github.com/tfausak/wuss"
 license=("MIT")
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-crypton-connection' 'haskell-network' 'haskell-websockets')
+depends=('ghc-libs' 'haskell-crypton-connection' 'haskell-data-default' 'haskell-network' 'haskell-websockets')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('f3b68294968e7fd67d7f0c57a85d02539faa33434251b4fc93befb103221b0dd')
+sha256sums=('49efb68ab49b4fad18d9e2d314fbf448cf83db9f8fc838f76808c720a0c7726c')
 
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
-  uusi -u crypton-connection
 }
 
 build() {
@@ -47,6 +46,6 @@ package() {
   install -D -m744 register.sh "$pkgdir"/usr/share/haskell/register/$pkgname.sh
   install -D -m744 unregister.sh "$pkgdir"/usr/share/haskell/unregister/$pkgname.sh
   runhaskell Setup copy --destdir="$pkgdir"
-  install -D -m644 LICENSE.markdown -t "$pkgdir"/usr/share/licenses/$pkgname/
-  rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE.markdown
+  install -D -m644 LICENSE.txt -t "$pkgdir"/usr/share/licenses/$pkgname/
+  rm -f "$pkgdir"/usr/share/doc/$pkgname/LICENSE.txt
 }
