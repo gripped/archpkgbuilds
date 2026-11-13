@@ -2,8 +2,8 @@
 
 pkgname=bookworm
 pkgver=1.1.2
-_commit=6596bdede3c16bd225122aca851bcfd1a0843c16
-pkgrel=8
+_commit=91755a5cdd14d334f403cb4118e9e89285c126a3
+pkgrel=9
 pkgdesc='A simple user centric eBook reader which displays multiple eBooks formats uniformly'
 url='https://babluboy.github.io/bookworm'
 arch=(x86_64)
@@ -17,7 +17,6 @@ depends=(
   granite
   gtk3
   hicolor-icon-theme
-  libarchive
   libgee
   libxml2
   pango
@@ -36,30 +35,12 @@ makedepends=(
 optdepends=('dictd: Dictionary lookup')
 source=(
   "git+https://github.com/babluboy/bookworm.git#commit=$_commit"
-  bookworm-python3.patch
-  bookworm-webkitgtk4.1.patch
-  bookworm-fix-arguments.patch
-  bookworm-fix-unicode.patch
-  bookworm-fix-epub-cover.patch
-  bookworm-fix-webview-scroll.patch
-  bookworm-no-imghdr.patch
   bookworm-html2text.patch
   bookworm-dict.patch
-  bookworm-bsdtar.patch
 )
-b2sums=(
-  7bd1f14d48a3be89c193ff14b2c33ee3d198c190d558d61542f22fb172ac122ec24fe9d253d05795e5c45f4cf44fb0ab6eb22040ff0f458829c605f15199559c
-  42509641ebb0a02c2451516e18125216fe9f11af521c38717b999d49288372b2a43ddff2f6afcac6d52d38ef45e6f7b9d1d30914dfed4f01b4a6cc09030fb7df
-  30fd9201e29e205e6f1342edfa4d221a60c1bc3152dc7278f022bfee2072d3e66b7e2ecb3cddd017227e5f3db9601b4f985c10ba42711537d877333c66dd45f0
-  7610007c93646487fef1cd96dcafdb1ab4132094f1580bda54e0364978de67bd49339dcdcbd34ac9fa5c93a28a227172a8e5e5d09cfb7d3486a3f179de66edfe
-  22070a647e3bf9fe34f7b9255828e25f507d87c27cb05d42ebba5ececdf2d9b9f4009f91adc04b0b2e68e94c9aa8938acf9f7d0ab3f64a907d953ccca63df4fc
-  65e03b5e440fa343535418ce5f7dcd46f10160440900359d5241630a0b296bb312cdbafa288e2fc032fb58a842b90eb8361888a480d5458718201fd21ea9ab4b
-  8e82ae4c9c1a75145ac6aa15e5e7b25ece4c7ffa1482879108290718a01f66695a804b1a505e013b8247899a00d3effbb6c822517d110a91d6d6549ea30bf708
-  31df61b2a2fbbc598ceebb21bf2bc0e253aea1d341eb96c23946eed63e61eb44db8f784c6019f05abf5bbb625140d3e7d71ccfa1826c777caa4a4249c44b4979
-  50b0f462fbef05d53143236ed0533a2cc9e407d8dab5a0d714ea82c7cdc551ca293399b0860882ae3771bf9fc5006aff55c5b71a413e85566bd8d2e9116c9e43
-  cb176650c14f5e2c0a65d18659849902cdf56db8cf0bb9f18e957a297dcc0efb7e4641a78b31f6ea39a658dcd105686fd8a858849cecc3f7160d2e7f43240248
-  2a69c74fe0b1105f317537758db0a616610c2b2a17109078ea1bf051e9b13dc5aa4efd9cdb220363ff447c15c72a5853b9b95882233782ffff2bf518f65f5131
-)
+b2sums=('3da9bf30290a430378658f00a31a36f211d2ed9400285d7262bc2f2a966a9e1afff5b5fe63929c2d6608a63e8874207c897ef70391dfbe643f4a78c2ac7dd9e7'
+        '50b0f462fbef05d53143236ed0533a2cc9e407d8dab5a0d714ea82c7cdc551ca293399b0860882ae3771bf9fc5006aff55c5b71a413e85566bd8d2e9116c9e43'
+        'cb176650c14f5e2c0a65d18659849902cdf56db8cf0bb9f18e957a297dcc0efb7e4641a78b31f6ea39a658dcd105686fd8a858849cecc3f7160d2e7f43240248')
 
 prepare() {
   cd bookworm
@@ -67,42 +48,11 @@ prepare() {
   # Remove generated python bytecode files
   rm data/scripts/mobi_lib/*.pyc
 
-  # Fix print statements for Python 3 compatibility
-  # https://github.com/babluboy/bookworm/pull/368
-  git apply -3 ../bookworm-python3.patch
-
-  # Switch from webkit2gtk 4.0 to 4.1
-  # https://github.com/babluboy/bookworm/pull/391
-  git apply -3 ../bookworm-webkitgtk4.1.patch
-
-  # Fix book loading and library tracking
-  # https://github.com/babluboy/bookworm/pull/409
-  git apply -3 ../bookworm-fix-arguments.patch
-
-  # Handle invalid UTF-8 in book content
-  # https://github.com/babluboy/bookworm/pull/410
-  git apply -3 ../bookworm-fix-unicode.patch
-
-  # Fix EPUB cover image detection
-  # https://github.com/babluboy/bookworm/pull/411
-  git apply -3 ../bookworm-fix-epub-cover.patch
-
-  # Fix JavaScript result retrieval
-  # https://github.com/babluboy/bookworm/pull/412
-  git apply -3 ../bookworm-fix-webview-scroll.patch
-
-  # Replace deprecated imghdr module
-  # https://github.com/babluboy/bookworm/pull/414
-  git apply -3 ../bookworm-no-imghdr.patch
-
   # python-html2text has no -utf8 parameter
   git apply -3 ../bookworm-html2text.patch
 
   # Use dict for dictionary lookup
   git apply -3 ../bookworm-dict.patch
-
-  # Use bsdtar to extract CBR and CBZ archives
-  git apply -3 ../bookworm-bsdtar.patch
 }
 
 build() {
