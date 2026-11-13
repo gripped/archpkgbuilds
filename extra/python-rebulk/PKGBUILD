@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-rebulk
-pkgver=6.0.1
+pkgver=6.0.2
 pkgrel=1
 pkgdesc='Define simple search patterns in bulk to perform advanced matching on any string'
 arch=(any)
@@ -16,9 +16,20 @@ makedepends=(
   python-uv-build
 )
 checkdepends=(python-pytest)
-source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('5938c996e57819a36f911b64f5736dac905d0f9577d8483c3cdc248103dda8aab2cf57e8005fe47c3bd4e0cda8d2a519e3b22c4f3844f961fbf148b7261d5667')
-b2sums=('2245416cca46c523df39f4e42fc1286b44c172a695baa1f028afec53bf2b07db833ca9e6ad960fea7469e7919c9623c24faa147478d9ee5996884fbdbcc99a72')
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  remove-version-constraint.patch
+)
+sha512sums=('44a6d5062e01350f417974189657474df85f6acd7f035d179f43993f30f615d25cbade79fc71931594116df0789f784422ada0bfa33c9c2e10ded16414bba384'
+            'a23271c27502b1649e235f8a3bd65e5acc20d3cb9e5157b5b8acc9f91063d935e050ee9c627bcc19d7f1048f6e31654ac0eea1e4fd59312a55276713dcca26bd')
+b2sums=('7e6972ec5aaeb79ab699a802c7ef7e33bfd2c6628a35a495ef904bf04fb4d45c85f6d91adf697e3f9ec26239c47cfe808b3b25fc3e25a32fa1b31b501f46dd38'
+        'fba504174c86f905a243345208a3d5517f9d184b81c56e530d37fc26cb7f2958cf0e84c18d6ab8eeaa314416c4ef515ba054a7fd62f715abdca23f17993c5e0d')
+
+prepare() {
+  cd "$pkgname"
+
+  patch -p1 -i "$srcdir/remove-version-constraint.patch"
+}
 
 build() {
   cd "$pkgname"
