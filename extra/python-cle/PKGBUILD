@@ -3,14 +3,42 @@
 
 _pyname=cle
 pkgname=python-${_pyname}
-pkgver=9.2.160
-_testbinaries_ver=9.2.123
-pkgrel=2
+pkgver=10.0.6
+_testbinaries_ver=${pkgver}
+pkgrel=1
 pkgdesc='Loads binaries and their libraries, resolves imports and provides an abstraction of process memory'
 url='https://github.com/angr/cle'
-arch=('any')
-license=('custom:BSD')
-depends=('python' 'python-pyelftools' 'python-cffi' 'python-pyvex' 'python-pefile' 'python-sortedcontainers')
+arch=(any)
+license=(BSD-2-Clause)
+depends=(
+  python
+  python-archinfo
+  python-arpy
+  python-cart
+  python-cffi
+  python-minidump
+  python-pefile
+  python-pyelftools
+  python-pyvex
+  python-pyxbe
+  python-pyxdia
+  python-sortedcontainers
+  python-uefi-firmware
+)
+makedepends=(
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-arpy
+  python-cart
+  python-claripy
+  python-minidump
+  python-pyaxmlparser
+  python-pytest
+)
 optdepends=(
   'python-claripy: symbolic constraints'
   'python-minidump: minidump'
@@ -18,14 +46,14 @@ optdepends=(
   'python-arpy: ar'
   'python-pyaxmlparser: apk'
 )
-makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
-checkdepends=('python-pytest' 'python-minidump' 'python-pyxbe' 'python-arpy' 'python-claripy' 'python-pyaxmlparser' 'python-cart')
-source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "https://github.com/angr/binaries/archive/v${_testbinaries_ver}/angr-binaries-${_testbinaries_ver}.tar.gz")
-sha512sums=('65751ddcf94d1b59acf885f259ea54b8367a2296b1fcdb9b5647910402818adcd90d3ac1ec237dc8c733af160956d32c7a9fdb1527bde22e7773454b5bedb7a0'
-            '5f88c4fb5e811426d83fcb7c75fcb666ecd634abdd32e30d458d2cdf1f4cfabf4a16ec6794129c719e0bdd245363f2693a008ba414bb1bddd0d4c4defda36f89')
-b2sums=('01f69cbdfecf55ed795eb26713f0ecd0864e707c28930a734ae395ca622697dc385cb4764e0c52113b128b3c9efe1c1a33e0460795e50e1beb395ff3fd09e6a3'
-        'd8f2d5287f4c5eb8c06ab2a2429fd951998a3a5a6dcb4a1fa3867598c1076cc32461940e92fe281ae8843ad856fc382cd3343ede9153372ccad724cacccd0b6d')
+source=(
+  "${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
+  "https://github.com/angr/binaries/archive/v${_testbinaries_ver}/angr-binaries-${_testbinaries_ver}.tar.gz"
+)
+sha512sums=('45e6d8f3fb1824411b0597240959137755d5ea4c080acb901c5cca3c064b9dc20cd3f0b5a139d913280efcec0a051d6f31c33310e250cc9943e4951262e77b4a'
+            '2c7621b939cc79cd6221357ce1908e92ebd07ed24ee9a6fb52b88de23240e22c1483a413f280e8aec3238e32f4b08fea1ee26e2f469959096ab1ec7dab51ba5a')
+b2sums=('c7e005a0ef5a8fd87c4b249567df12cd91fdfb14fb69c643505fe5bdbb84d1985ec4d36893b4fd700ef0c7ab152fb4f70c6bf1d16776ece96ccc97846721ec46'
+        '7a8448635d0e9e9c1273145c69beff649f68d677c723f95987918d51492897af02a0330a1b4df0ff8a5f0d8b16d44044291e1a4f08fa23c293386943ce3c9467')
 
 prepare() {
   ln -s binaries-${_testbinaries_ver} binaries
