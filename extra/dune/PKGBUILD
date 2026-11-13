@@ -5,7 +5,7 @@
 # Contributor: Jakob Gahde <j5lx@fmail.co.uk>
 
 pkgname=dune
-pkgver=3.24.2
+pkgver=3.25.0
 pkgrel=1
 pkgdesc="A composable build system for OCaml (formerly jbuilder)"
 arch=(x86_64)
@@ -15,16 +15,14 @@ depends=('glibc' 'ocaml' 'ocaml-csexp' 'ocaml-pp' 'ocaml-re')
 makedepends=('git' 'ocaml-compiler-libs' 'ocaml-findlib')
 optdepends=()
 provides=('dune-configurator')
-source=("https://github.com/ocaml/dune/releases/download/${pkgver}/dune-${pkgver}.tbz")
-sha256sums=('472798691b0216daf538709f0f4703b3617ef24ad0866c9096068baaba4d762a')
+source=("git+https://github.com/ocaml/dune.git#tag=${pkgver}")
+sha256sums=('4af89ce483c6df5d828d09d06dec8cc8f0f9077d1825305dc476f088fcd735c3')
 
 # Packages to install from the dune release
 _dune_release_pkgs=(
     'dune'
-    'dune-action-plugin'
     'dune-build-info'
     'dune-configurator'
-    'dune-glob'
     'dune-private-libs'
     'dune-rpc'
     'dune-site'
@@ -38,8 +36,14 @@ _dune_release_pkgs=(
     'ocamlc-loc'
 )
 
+prepare() {
+    cd "${srcdir}/dune"
+    # Git checkouts lack the release archive's package version metadata.
+    sed -i "/^(name dune)$/a (version ${pkgver})" dune-project
+}
+
 build() {
-    cd "${srcdir}/dune-${pkgver}"
+    cd "${srcdir}/dune"
     local IFS=,
 
     ./configure --prefix=/usr --libdir=/usr/lib/ocaml
@@ -49,12 +53,12 @@ build() {
 
 # Tests require a bunch of (currently) unpackaged dependencies
 #check() {
-#    cd "${srcdir}/dune-${pkgver}"
+#    cd "${srcdir}/dune"
 #    make test
 #}
 
 package() {
-    cd "${srcdir}/dune-${pkgver}"
+    cd "${srcdir}/dune"
     local IFS=,
 
     # Install main dune
@@ -69,6 +73,6 @@ package() {
     mv -v "${pkgdir}"/usr/{man,share/}
 
     # Install license
-    install -Dm644 "${srcdir}/dune-${pkgver}/LICENSE.md" \
+    install -Dm644 "${srcdir}/dune/LICENSE.md" \
         "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
 }
