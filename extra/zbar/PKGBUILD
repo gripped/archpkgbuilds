@@ -6,7 +6,7 @@
 
 pkgname=zbar
 pkgver=0.23.95
-pkgrel=1
+pkgrel=3
 pkgdesc="Application and library for reading bar codes from various sources"
 arch=('x86_64')
 url="https://github.com/mchehab/zbar"
@@ -14,7 +14,6 @@ license=('LGPL-2.1-or-later')
 depends=(
   'dbus'
   'graphicsmagick'
-  'imagemagick'
   'libxv'
   'v4l-utils'
 )
