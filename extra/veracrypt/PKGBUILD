@@ -4,7 +4,7 @@
 
 pkgname=veracrypt
 _pkgname=VeraCrypt
-pkgver=1.26.29
+pkgver=1.26.31
 pkgrel=1
 pkgdesc='Disk encryption with strong security based on TrueCrypt'
 url='https://www.veracrypt.fr/'
@@ -27,9 +27,9 @@ makedepends=(
   pcsclite
   yasm
 )
-source=(https://launchpad.net/veracrypt/trunk/${pkgver}/+download/VeraCrypt_${pkgver}_Source.tar.bz2{,.sig}
+source=(https://github.com/veracrypt/VeraCrypt/releases/download/VeraCrypt_${pkgver}/VeraCrypt_${pkgver}_Source.tar.bz2{,.sig}
         wx-3.2-size-warnings.patch)
-sha512sums=('a4a981da258c5349afd5bf55ca3863342ff4ebe6a0b8b1282c1d879f2eaaa2d040e55caa7c159823c4c91ad45e507f852f39c302b713948019afebf86f2823eb'
+sha512sums=('d35ccec3ed4189d30a1473319b040f7e8fdb2ef630ac554ec266b62015ffeefe8907df1bf107ff66180534349403191aa1756050003f1868db2a9d72afec85fc'
             'SKIP'
             '5ff99e8d8569d36ff0e2e3b9fd85f59f5b3de98e3f5cda7ee85a6688a33a10d4527b0fed08e53812b28ea2b42ed88481455b5f1454870e35940b2e49bf59b5b2')
 validpgpkeys=('5069A233D55A0EEB174A5FC3821ACD02680D16DE') # VeraCrypt Team <veracrypt@idrix.fr>
@@ -50,13 +50,15 @@ build() {
 }
 
 package() {
+  install -Dm 644 Translations/*.xml -t "${pkgdir}/usr/share/${pkgname}/languages"
+
   cd src
   install -Dm 755 Main/${pkgname} "${pkgdir}/usr/bin/${pkgname}"
   install -Dm 644 Setup/Linux/veracrypt.desktop -t "${pkgdir}/usr/share/applications"
   install -Dm 644 Setup/Linux/veracrypt.xml -t "${pkgdir}/usr/share/mime/packages"
 
+  install -Dm644 Resources/Icons/VeraCrypt.svg -t "$pkgdir/usr/share/icons/hicolor/scalable/apps/"
   install -Dm644 Resources/Icons/VeraCrypt-symbolic.svg -t "$pkgdir/usr/share/icons/hicolor/symbolic/apps/"
-  install -Dm644 Resources/Icons/VeraCrypt-256x256.xpm "$pkgdir/usr/share/icons/hicolor/256x256/apps/$pkgname.xpm"
   for res in 16 22 24 32 48 64 128 256 512 1024; do
     install -Dm644 Resources/Icons/VeraCrypt-${res}x${res}.png \
       "$pkgdir/usr/share/icons/hicolor/${res}x${res}/apps/$pkgname.png"
