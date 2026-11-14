@@ -2,7 +2,7 @@
 
 pkgname=libkylin-ai-system-private
 pkgver=1.2.0.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Headers and protocol definitions for Kylin AI system interfaces"
 arch=('any')
 license=('Apache-2.0' 'GPL-3.0-or-later')
@@ -16,6 +16,9 @@ sha512sums=('9eb0b2af531abbcbef7092c5bbd4f1377cd5cbddd7cfb9ca99bbf42138d7d90f423
 
 prepare() {
   cd libkylin-ai-system-private
+  # Add the natural-language search methods required by the data-management client.
+  # https://gitee.com/openkylin/libkylin-ai-system-private/commit/d818e09ad8f49d4d5a37d4de5eba0f8f9083991c
+  git cherry-pick -n d818e09ad8f49d4d5a37d4de5eba0f8f9083991c
   # Add the GenAI model/tool methods, request IDs, and protocol versions required by libkysdk-genai.
   # https://gitee.com/openkylin/libkylin-ai-system-private/commit/1524b610f4856cbf2353685f83d65c620b78b7e7
   # https://gitee.com/openkylin/libkylin-ai-system-private/commit/62fe238ddeff2cd3e3a17690f1ae3965bbacfaf1
