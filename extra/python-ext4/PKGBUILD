@@ -2,7 +2,7 @@
 
 pkgname=python-ext4
 pkgver=1.4.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Library for read-only interaction with EXT4 filesystems'
 arch=(any)
 url='https://github.com/Eeems/python-ext4'
@@ -33,6 +33,9 @@ prepare() {
   cd "$pkgname"
 
   patch -p1 -i "$srcdir/no-nuitka.patch"
+
+  # Allow cachetools 8 instead of requiring exactly 7.1.1.
+  sed -i 's/cachetools==/cachetools>=/' pyproject.toml
 }
 
 build() {
