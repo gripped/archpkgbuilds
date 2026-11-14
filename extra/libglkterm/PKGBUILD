@@ -3,15 +3,15 @@
 
 pkgname=libglkterm
 pkgver=1.0.4
-pkgrel=2
+pkgrel=3
 pkgdesc="An interface standard for interactive fiction."
 arch=('x86_64')
 url="http://eblong.com/zarf/glk/"
 license=('MIT')
-depends=('ncurses')
+depends=('glibc' 'ncurses')
 provides=('glkterm' 'glktermw')
 source=(${pkgname}-${pkgver}.tar.gz::"https://github.com/erkyrath/glkterm/archive/refs/tags/glkterm-${pkgver}-widechar.tar.gz"
-        "https://raw.githubusercontent.com/erkyrath/glkterm/master/LICENSE"
+        "LICENSE-upstream::https://raw.githubusercontent.com/erkyrath/glkterm/master/LICENSE"
         "${pkgname}.patch")
 sha512sums=('96f1ad2391fd377664e47c9bd21a987adee71ae1f2702c187b5e8479b1cc74057e32809ac18c0a47e9315d593519dffc4e5568b4358c1b57d2d01b53842e0656'
             '6fcf9d2dcd966f54cbf45fc0b3ab3bf2be61e78ca008f69e75ba0b500595154f9cdbe902aaa7a68806a98b92994778e29a2880c06561f1e56fb08b3b88a76554'
@@ -41,5 +41,5 @@ package() {
 	ln -vsf /usr/lib/libglkterm.so.${pkgver} "${pkgdir}/usr/lib/libglkterm.so.1"
 	ln -vsf /usr/lib/libglkterm.so.${pkgver} "${pkgdir}/usr/lib/libglkterm.so"
 	# license
-	install -vDm644 ../LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+	install -vDm644 ../LICENSE-upstream "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
