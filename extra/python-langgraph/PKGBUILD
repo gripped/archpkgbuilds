@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langgraph
-pkgver=1.2.20
+pkgver=1.2.21
 pkgrel=1
 pkgdesc="Building stateful, multi-actor applications with LLMs"
 arch=('any')
@@ -37,7 +37,7 @@ checkdepends=(
   'valkey'
 )
 source=("git+https://github.com/langchain-ai/langgraph.git#tag=$pkgver")
-sha512sums=('94542082f3e243498c838b7a653cb994586a8be0b7a0cf727adfaeeab1896b40dec08d8edf861b7d86fc71db62e6ee8074827f96436f11e0d55cbc4947ee987a')
+sha512sums=('404d018d243dc194e1e33c51e3e2074c3a1a7305ada6f3b03b677cfeac4a3663a973d56a539bb91818ced336ef14d12776c930fc055aa1417089646d3c714cda')
 
 prepare() {
   cd langgraph
