@@ -1,14 +1,15 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
+# Maintainer: Hyacinthe Cartiaux <hyacinthe@archlinux.org>
 # Contributor: Ian Taylor <ian at lorf dot orgs>
 
 pkgname=autossh
 pkgver=1.4g
-pkgrel=4
+pkgrel=5
 pkgdesc="Automatically restart SSH sessions and tunnels"
 arch=('x86_64')
 url="https://www.harding.motd.ca/autossh/"
-license=('custom')
-depends=('libnsl' 'openssh')
+license=('LicenseRef-autossh')
+depends=('glibc' 'libnsl' 'openssh')
 source=("https://www.harding.motd.ca/autossh/$pkgname-$pkgver.tgz"
         license-from-upstream)
 sha512sums=('499b560d978736f4e764d5d828282fdaba1cbf94811ae6be0be5434d9c1cdc6ca5513d728b6372aa243843cb1b91e61cfc5fdeb77ddb0b6a7ce027218ba67466'
