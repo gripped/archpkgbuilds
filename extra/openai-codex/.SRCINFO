@@ -1,6 +1,6 @@
 pkgbase = openai-codex
 	pkgdesc = OpenAIs lightweight coding agent that runs in your terminal
-	pkgver = 0.167.2
+	pkgver = 0.168.0
 	pkgrel = 1
 	url = https://github.com/openai/codex
 	arch = x86_64
@@ -25,11 +25,11 @@ pkgbase = openai-codex
 	noextract = librusty_v8-152.2.0.a.gz
 	options = !debug
 	options = !lto
-	source = openai-codex-0.167.2.tar.gz::https://github.com/openai/codex/archive/refs/tags/rust-v0.167.2.tar.gz
+	source = openai-codex-0.168.0.tar.gz::https://github.com/openai/codex/archive/refs/tags/rust-v0.168.0.tar.gz
 	source = librusty_v8-152.2.0.a.gz::https://github.com/openai/codex/releases/download/rusty-v8-v152.2.0/librusty_v8_ptrcomp_sandbox_release_x86_64-unknown-linux-gnu.a.gz
 	source = src_binding-152.2.0.rs::https://github.com/openai/codex/releases/download/rusty-v8-v152.2.0/src_binding_ptrcomp_sandbox_release_x86_64-unknown-linux-gnu.rs
 	source = voice-system-libraries.patch
-	b2sums = 86798b987a461a998b52e116da4e779f794b89dc6c3185fb11cf46305b5c484182eb1bf1aefde6966e64e05699892f437a25797a09f5b708c86988260730658a
+	b2sums = 1b042abb6cf7c27a9f66e141e356c8d3d9b0f24293402846d6a68222b7478ffe47ee991df352d196af843f25da304e3db75157a22a1d6613de964aff55332297
 	b2sums = 95c4f4aef03e09d8103f9b0ae109d03fc40ee2ed913ae7e6887b88d3254e7a68ab20c8a262bf19bb1b0ffc05461fbc512eb22c432f0bc46a551e1f139fe46fe3
 	b2sums = 53c74672990e2044b60bda41f1b53981c85afd1b2b50ab1fe648d7bf7571db19743af2e2b6e5c0fabd44a260b0075fe761afc73f6eb3398e0830391c4b0f841c
 	b2sums = cb7b3b87c46e14199e1c9c89b7b985b241e281bd266f44c0722d72cef4095fa937952525d5f3c71cb5e9a704ef64c24817bf5b634ed02e46432bc0cb705bfc69
@@ -49,4 +49,4 @@ pkgname = openai-codex-voice
 	depends = gst-plugins-good
 	depends = gstreamer
 	depends = libgcc
-	depends = openai-codex=0.167.2-1
+	depends = openai-codex=0.168.0-1
