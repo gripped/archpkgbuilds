@@ -1,0 +1,138 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6674fd6..3d28498 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -16,6 +16,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core DBus Network Gui Widgets Quic
+ 
+ if (QT_VERSION_MAJOR EQUAL 5)
+     find_package(Qt5 COMPONENTS X11Extras REQUIRED)
++elseif (QT_VERSION_MAJOR EQUAL 6)
++    find_package(Qt6 COMPONENTS GuiPrivate REQUIRED)
+ endif()
+ 
+ if (QT_VERSION_MAJOR EQUAL 5)
+@@ -41,11 +43,6 @@ foreach(external_lib IN ITEMS ${UKUI_SNI_PC_PKGS})
+ endforeach()
+ message(STATUS "External libraries found: ${UKUI_SNI_EXTERNAL_LIBS}")
+ 
+-if(BUILD_TEST)
+-    add_compile_options(-fprofile-arcs -ftest-coverage)
+-    add_link_options(-fprofile-arcs -ftest-coverage)
+-endif()
+-
+ add_subdirectory(status-notifier-watcher)
+ add_subdirectory(status-notifier-host)
+ add_subdirectory(ukui-system-tray)
+diff --git a/log-utils.cpp b/log-utils.cpp
+index 4939e4e..877e915 100644
+--- a/log-utils.cpp
++++ b/log-utils.cpp
+@@ -111,10 +111,10 @@ void LogUtils::initLogFile(const QString &fileName)
+ 
+     if (m_logFileId < 0) {
+         m_logFileId = 0;
+-        clearFile(m_logFileName.arg(m_logFileId));
++        clearFile(m_logFileName.arg(m_logFileId.LOAD));
+     }
+ 
+-    qInfo() << "Current log file:" << m_logFileName.arg(m_logFileId);
++    qInfo() << "Current log file:" << m_logFileName.arg(m_logFileId.LOAD);
+ }
+ 
+ void LogUtils::checkLogFile()
+diff --git a/status-notifier-host/CMakeLists.txt b/status-notifier-host/CMakeLists.txt
+index 9291eb5..1968b4b 100644
+--- a/status-notifier-host/CMakeLists.txt
++++ b/status-notifier-host/CMakeLists.txt
+@@ -3,6 +3,7 @@ set(VERSION_MAJOR 1)
+ set(VERSION_MINOR 0)
+ set(VERSION_MICRO 0)
+ set(UKUI_SNI_HOST_VERSION ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_MICRO})
++find_package(Qt${QT_VERSION_MAJOR}Xdg REQUIRED)
+ include_directories(../common)
+ set(ukui-sni-host_LIB_SRCS
+         status-notifier-host.cpp
+@@ -56,6 +57,7 @@ target_link_libraries(${PROJECT_NAME}
+         Qt${QT_VERSION_MAJOR}::DBus
+         Qt${QT_VERSION_MAJOR}::Gui
+         Qt${QT_VERSION_MAJOR}::Widgets
++        Qt${QT_VERSION_MAJOR}Xdg
+         )
+ 
+ if (QT_VERSION_MAJOR EQUAL 5)
+@@ -64,7 +66,7 @@ if (QT_VERSION_MAJOR EQUAL 5)
+         )
+ elseif(QT_VERSION_MAJOR EQUAL 6)
+         target_link_libraries(${PROJECT_NAME} PRIVATE
+-                Qt::GuiPrivate
++                Qt6::GuiPrivate
+         )
+ endif()
+ 
+@@ -81,7 +83,7 @@ configure_package_config_file(
+         INSTALL_DESTINATION  ${CMAKE_CONFIG_INSTALL_DIR})
+ write_basic_package_version_file(
+         ${CMAKE_CURRENT_BINARY_DIR}/ukui-sni-host-config-version.cmake
+-        VERSION ${LIBUKUI_SEARCH_VERSION}
++        VERSION ${UKUI_SNI_HOST_VERSION}
+         COMPATIBILITY SameMajorVersion
+ )
+ configure_package_config_file(
+diff --git a/status-notifier-host/status-notifier-item.cpp b/status-notifier-host/status-notifier-item.cpp
+index ba972d2..7ae9b29 100644
+--- a/status-notifier-host/status-notifier-item.cpp
++++ b/status-notifier-host/status-notifier-item.cpp
+@@ -8,7 +8,7 @@
+ #include "status-notifier-item.h"
+ #include "status-notifier-item-private.h"
+ 
+-#include <qt5xdg/XdgIcon>
++#include <XdgIcon>
+ #include <netinet/in.h>
+ #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+ #include <private/qtx11extras_p.h>
+diff --git a/status-notifier-host/ukui-sni-host-config.cmake.in b/status-notifier-host/ukui-sni-host-config.cmake.in
+index 0a7f3df..e9c6c42 100644
+--- a/status-notifier-host/ukui-sni-host-config.cmake.in
++++ b/status-notifier-host/ukui-sni-host-config.cmake.in
+@@ -2,7 +2,4 @@
+ include(CMakeFindDependencyMacro)
+ find_dependency(Qt@QT_VERSION_MAJOR@Core)
+ find_dependency(Qt@QT_VERSION_MAJOR@Widgets)
+-if(TARGET Qt6::Core)
+-    find_dependency(Qt6Core5Compat)
+-endif()
+ include("${CMAKE_CURRENT_LIST_DIR}/ukui-sni-host-targets.cmake")
+\ No newline at end of file
+diff --git a/status-notifier-host/ukui-sni-host.pc.in b/status-notifier-host/ukui-sni-host.pc.in
+index b637aff..705f183 100644
+--- a/status-notifier-host/ukui-sni-host.pc.in
++++ b/status-notifier-host/ukui-sni-host.pc.in
+@@ -6,6 +6,6 @@ includedir=${prefix}/include/ukui-sni-host
+ Name: ukui-sni-host
+ Description: ukui-sni-host header files
+ URL: https://www.ukui.org/
+-Version: @VERSION@
++Version: @UKUI_SNI_HOST_VERSION@
+ Cflags: -I${includedir}
+ Libs: -L${libdir} -lukui-sni-host
+\ No newline at end of file
+diff --git a/xembed-sni-proxy/CMakeLists.txt b/xembed-sni-proxy/CMakeLists.txt
+index b8ae555..d3807b2 100644
+--- a/xembed-sni-proxy/CMakeLists.txt
++++ b/xembed-sni-proxy/CMakeLists.txt
+@@ -1,4 +1,5 @@
+ set(CMAKE_CXX_STANDARD 20)
++find_package(X11 REQUIRED COMPONENTS Xtst)
+ include(../cmake/find-modules/FindXCB.cmake)
+ set(XCB_LIBS
+         xcb
+@@ -57,7 +58,7 @@ target_link_libraries(xembed-sni-proxy
+ if (QT_VERSION_MAJOR EQUAL 5)
+     target_link_libraries(xembed-sni-proxy Qt5::X11Extras)
+ else()
+-    target_link_libraries(xembed-sni-proxy Qt::GuiPrivate)
++    target_link_libraries(xembed-sni-proxy Qt${QT_VERSION_MAJOR}::GuiPrivate)
+ endif()
+ 
+ install(TARGETS xembed-sni-proxy DESTINATION /usr/bin)

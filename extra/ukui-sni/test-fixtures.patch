@@ -1,0 +1,82 @@
+diff --git a/ukui-system-tray/autotests/CMakeLists.txt b/ukui-system-tray/autotests/CMakeLists.txt
+index 8788d5b..97e2be2 100644
+--- a/ukui-system-tray/autotests/CMakeLists.txt
++++ b/ukui-system-tray/autotests/CMakeLists.txt
+@@ -74,7 +74,11 @@ add_test(NAME systemTrayPluginTest
+     COMMAND ${CMAKE_COMMAND} -E env QT_QPA_PLATFORM=offscreen $<TARGET_FILE:systemTrayPluginTest>)
+ 
+ add_executable(trayItemTest
++    imitates/status-notifier-host.cpp
++    imitates/status-notifier-item.cpp
+     trayItemTest.cpp)
++target_compile_definitions(trayItemTest PRIVATE UKUI_SNI_TEST_NO_DBUS)
++target_include_directories(trayItemTest BEFORE PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/imitates)
+ target_link_libraries(trayItemTest
+     PRIVATE
+     Qt${QT_VERSION_MAJOR}::Core
+diff --git a/ukui-system-tray/autotests/trayItemTest.cpp b/ukui-system-tray/autotests/trayItemTest.cpp
+index efc3dc6..c031129 100644
+--- a/ukui-system-tray/autotests/trayItemTest.cpp
++++ b/ukui-system-tray/autotests/trayItemTest.cpp
+@@ -32,18 +32,28 @@ class trayItem_test : public QObject
+     Q_OBJECT
+ 
+ private slots:
++    void initTestCase();
+     void test_extractIconHelper();
+     void test_basicState();
+     void test_itemSignalsAndInvokables();
+ };
+ 
++void trayItem_test::initTestCase()
++{
++    // The offscreen platform supplies neither an icon theme nor filesystem search paths.
++    QIcon::setThemeSearchPaths({QStringLiteral("/usr/share/icons")});
++    QIcon::setThemeName(QStringLiteral("breeze"));
++}
++
+ void trayItem_test::test_extractIconHelper()
+ {
+     const QIcon fallback = QIcon::fromTheme(QStringLiteral("application-x-executable"));
++    QVERIFY(!fallback.isNull());
+     const QIcon fromNull = extractIcon(QIcon(), fallback);
+     QCOMPARE(fromNull.cacheKey(), fallback.cacheKey());
+ 
+     const QIcon icon = QIcon::fromTheme(QStringLiteral("folder"));
++    QVERIFY(!icon.isNull());
+     const QIcon fromIcon = extractIcon(icon, fallback);
+     QCOMPARE(fromIcon.cacheKey(), icon.cacheKey());
+ }
+diff --git a/ukui-system-tray/autotests/trayItemsModelTest.cpp b/ukui-system-tray/autotests/trayItemsModelTest.cpp
+index 60c7b7d..5abedf8 100644
+--- a/ukui-system-tray/autotests/trayItemsModelTest.cpp
++++ b/ukui-system-tray/autotests/trayItemsModelTest.cpp
+@@ -263,6 +263,10 @@ private:
+ 
+ void trayItemsModel_test::initTestCase()
+ {
++    // The offscreen platform supplies neither an icon theme nor filesystem search paths.
++    QIcon::setThemeSearchPaths({QStringLiteral("/usr/share/icons")});
++    QIcon::setThemeName(QStringLiteral("breeze"));
++
+     qDBusRegisterMetaType<DbusImageStruct>();
+     qDBusRegisterMetaType<DbusImageVector>();
+     qDBusRegisterMetaType<DbusToolTipStruct>();
+@@ -759,11 +763,15 @@ void trayItemsModel_test::test_dataUpdatedAndControlStateChanged()
+ 
+     const int beforeCount = dataChangedSpy.count();
+     m_model->controlStateChanged(true);
+-    QTRY_VERIFY(dataChangedSpy.count() > beforeCount);
++    QVERIFY(dataChangedSpy.count() > beforeCount);
++
++    // The test process has no desktop entry for getDesktop() to resolve.
++    for (TrayItem *item : std::as_const(m_model->m_item)) {
++        item->setDesktop(QStringLiteral("imitate.desktop"));
++    }
+ 
+     const int afterFirstEnableCount = dataChangedSpy.count();
+     m_model->controlStateChanged(true);
+-    QTest::qWait(50);
+     QCOMPARE(dataChangedSpy.count(), afterFirstEnableCount);
+ }
+ 

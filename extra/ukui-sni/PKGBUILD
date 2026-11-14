@@ -1,0 +1,66 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ukui-sni
+pkgver=4.24.0.1
+pkgrel=1
+pkgdesc="Status notifier host, watcher, and system tray widget for UKUI"
+arch=('x86_64')
+license=('GPL-3.0-or-later' 'GPL-2.0-or-later' 'LGPL-2.0-or-later'
+         'LGPL-2.1-or-later' 'BSD-3-Clause')
+url="https://gitee.com/openkylin/ukui-sni"
+groups=('ukui')
+depends=('glibc' 'kwindowsystem' 'libgcc' 'libqtxdg' 'libstdc++' 'libx11' 'libxcb'
+         'libxtst' 'qt6-base' 'qt6-declarative' 'ukui-quick' 'ukui-search'
+         'xcb-util' 'xcb-util-image')
+makedepends=('clang' 'cmake' 'extra-cmake-modules' 'git' 'gsettings-qt6' 'ninja'
+             'qt6-tools')
+checkdepends=('breeze-icons' 'dbus' 'qt6-svg')
+provides=('libukui-sni-host.so')
+source=("git+https://gitee.com/openkylin/ukui-sni.git#tag=upstream/$pkgver"
+        'qt6-build.patch'
+        'test-fixtures.patch')
+sha256sums=('a2f480fa87abb6472faa233c0a5c955305ba8e5e178b739dd986644ad52cbb57'
+            '1341939a649aa3204f11abf494d6f3935596ac39c7cd30d2c16f20701aace111'
+            'f6c4b9765de65deeabc7b155533f99b28b8ef9218dcd0c7539f3eec0ad4f9db7')
+
+prepare() {
+  cd ukui-sni
+
+  # Register XEmbed icons using the D-Bus connection that owns their service.
+  # https://gitee.com/openkylin/ukui-sni/pulls/156
+  git cherry-pick -n cae7daad6958fc50d35c248fe006930e8063461a
+
+  # Fix Qt 6 dependencies and metadata, and keep coverage out of installed binaries.
+  # Private-header setup: https://gitee.com/openkylin/ukui-sni/commit/53f1045fcd36a279c97a550e0b3016adcccb27ab
+  patch -Np1 -i "$srcdir/qt6-build.patch"
+
+  # Supply the tray tests' mock services, icon theme, and desktop-entry fixture.
+  patch -Np1 -i "$srcdir/test-fixtures.patch"
+
+  # Use Arch's flat library layout for libraries, pkg-config, and QML modules.
+  sed -i 's|/${CMAKE_LIBRARY_ARCHITECTURE}||g' \
+    status-notifier-host/CMakeLists.txt ukui-system-tray/CMakeLists.txt
+  sed -i 's|/@CMAKE_LIBRARY_ARCHITECTURE@||g' status-notifier-host/ukui-sni-host.pc.in
+}
+
+build() {
+  cmake -S ukui-sni -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DQT_DEFAULT_MAJOR_VERSION=6 \
+    -DBUILD_TEST=ON
+  cmake --build build
+}
+
+check() {
+  QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software GSETTINGS_BACKEND=memory \
+    dbus-run-session -- ctest --test-dir build --output-on-failure
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 ukui-sni/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm644 ukui-sni/3rd-parties/qtsingleapplication/doc/html/qtsingleapplication-example-trivial.html \
+    "$pkgdir/usr/share/licenses/$pkgname/qt-solutions.html"
+}
