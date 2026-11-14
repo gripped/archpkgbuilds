@@ -2,7 +2,7 @@
 
 pkgname=pantheon-settings-daemon
 pkgver=8.5.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Manage settings and background tasks for Pantheon'
 arch=(x86_64)
 url=https://github.com/elementary/settings-daemon
@@ -28,8 +28,12 @@ makedepends=(
   meson
   vala
 )
-source=(pantheon-settings-daemon::git+https://github.com/elementary/settings-daemon.git#tag=${pkgver})
-b2sums=('e63cac04468851603d1df74c7c2cd206495195c2e92cbb2d1c64f1460b40baccdf8a0892ce712ca3e3a025d052834e74d610369a3b61dcd63474bf295ff806af')
+source=(
+  pantheon-settings-daemon::git+https://github.com/elementary/settings-daemon.git#tag=${pkgver}
+  pantheon-settings-daemon-accent-theme.patch
+)
+b2sums=('e63cac04468851603d1df74c7c2cd206495195c2e92cbb2d1c64f1460b40baccdf8a0892ce712ca3e3a025d052834e74d610369a3b61dcd63474bf295ff806af'
+        'cb0e64d2a855f589b23eb88cc56149855da6a1b048c5536aecb360998ce1ab7fbd99138ab7d58ea02dcf334c6b1dbda8c187f0af4261c703c6647c1d6e188bd3')
 
 prepare() {
   cd pantheon-settings-daemon
@@ -38,6 +42,14 @@ prepare() {
   git cherry-pick -n 145b09b6ff5a1c521453bd862626573586fbfdf9 \
                      40446077c17074150db5a82bdaf7236d254ae137 \
                      ad9c288867c155fa972c04d65b8c2e1598762d02
+
+  # AccentColorManager: add a gsettings key
+  # https://github.com/elementary/settings-daemon/pull/240
+  git cherry-pick -n af331e96bd297dd56f1123b9618c652e8a1a33c3
+
+  # AccentColorManager: respect non-elementary GTK themes
+  # https://github.com/elementary/settings-daemon/pull/254
+  git apply -3 ../pantheon-settings-daemon-accent-theme.patch
 }
 
 build() {

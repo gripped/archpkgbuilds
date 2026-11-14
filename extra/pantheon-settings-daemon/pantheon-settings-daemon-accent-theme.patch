@@ -1,0 +1,31 @@
+From aa6aae725c1641c03dd8018445aa7b9961049a44 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 11 Nov 2026 20:24:17 +0100
+Subject: [PATCH] AccentColorManager: respect non-elementary GTK themes
+
+Avoid overriding the user's GTK theme when using a non-elementary
+theme. Also skip updating the GTK theme if the requested theme is
+already active.
+---
+ src/Backends/AccentColorManager.vala | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/Backends/AccentColorManager.vala b/src/Backends/AccentColorManager.vala
+index dbe8b6a0..33f37789 100644
+--- a/src/Backends/AccentColorManager.vala
++++ b/src/Backends/AccentColorManager.vala
+@@ -104,8 +104,12 @@ public class SettingsDaemon.Backends.AccentColorManager : Object {
+             new_theme = themes[prefers_accent_color - 1];
+         }
+ 
+-        gnome_interface_settings.set_string ("gtk-theme", new_theme.stylesheet);
+-        debug ("New stylesheet: %s", new_theme.stylesheet);
++        var current_theme = gnome_interface_settings.get_string ("gtk-theme");
++
++        if (current_theme.has_prefix ("io.elementary") && current_theme != new_theme.stylesheet) {
++            gnome_interface_settings.set_string ("gtk-theme", new_theme.stylesheet);
++            debug ("New stylesheet: %s", new_theme.stylesheet);
++        }
+ 
+         accounts_service.accent_color = new_theme.index;
+     }

@@ -1,7 +1,7 @@
 pkgbase = pantheon-settings-daemon
 	pkgdesc = Manage settings and background tasks for Pantheon
 	pkgver = 8.5.0
-	pkgrel = 4
+	pkgrel = 5
 	url = https://github.com/elementary/settings-daemon
 	arch = x86_64
 	groups = pantheon
@@ -23,6 +23,8 @@ pkgbase = pantheon-settings-daemon
 	depends = libgexiv2
 	depends = libpackagekit-glib2.so
 	source = pantheon-settings-daemon::git+https://github.com/elementary/settings-daemon.git#tag=8.5.0
+	source = pantheon-settings-daemon-accent-theme.patch
 	b2sums = e63cac04468851603d1df74c7c2cd206495195c2e92cbb2d1c64f1460b40baccdf8a0892ce712ca3e3a025d052834e74d610369a3b61dcd63474bf295ff806af
+	b2sums = cb0e64d2a855f589b23eb88cc56149855da6a1b048c5536aecb360998ce1ab7fbd99138ab7d58ea02dcf334c6b1dbda8c187f0af4261c703c6647c1d6e188bd3
 
 pkgname = pantheon-settings-daemon
