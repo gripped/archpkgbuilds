@@ -1,6 +1,6 @@
 pkgbase = lib32-pipewire
 	pkgdesc = Low-latency audio/video router and processor - 32-bit
-	pkgver = 1.6.10
+	pkgver = 1.6.11
 	pkgrel = 1
 	epoch = 1
 	url = https://pipewire.org
@@ -14,11 +14,11 @@ pkgbase = lib32-pipewire
 	makedepends = lib32-systemd
 	makedepends = meson
 	makedepends = systemd
-	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.6.10
-	b2sums = 3c4645252b9affb46852be4d3103fc94664f76df1a1b64b7a8aee011f26b38f10d5bd189fdef65b239c9e13e016dbd25070b791c7ec4e2870777231aac3a8bbd
+	source = git+https://gitlab.freedesktop.org/pipewire/pipewire.git#tag=1.6.11
+	b2sums = 2359991befdbc6cf5a2e5ad31cde4a3f1904675fe455b9ab719754549e994ba0538b0f070b9954a4d64619067101eff9ed9e03ea3d5dd4674b3d21e9991da5b2
 
 pkgname = lib32-pipewire
-	depends = lib32-libpipewire=1:1.6.10-1
+	depends = lib32-libpipewire=1:1.6.11-1
 	depends = libpipewire-0.3.so
 	depends = lib32-alsa-lib
 	depends = libasound.so
@@ -51,9 +51,9 @@ pkgname = lib32-pipewire-jack
 	license = MIT
 	license = GPL-2.0-only
 	license = LGPL-2.1-or-later
-	depends = lib32-libpipewire=1:1.6.10-1
+	depends = lib32-libpipewire=1:1.6.11-1
 	depends = libpipewire-0.3.so
-	depends = lib32-pipewire=1:1.6.10-1
+	depends = lib32-pipewire=1:1.6.11-1
 	depends = lib32-glibc
 	depends = pipewire-jack
 	provides = lib32-jack
@@ -65,18 +65,18 @@ pkgname = lib32-pipewire-jack
 
 pkgname = lib32-pipewire-netjack2
 	pkgdesc = Low-latency audio/video router and processor - 32-bit - netJACK2 support
-	depends = lib32-libpipewire=1:1.6.10-1
+	depends = lib32-libpipewire=1:1.6.11-1
 	depends = libpipewire-0.3.so
-	depends = lib32-pipewire=1:1.6.10-1
+	depends = lib32-pipewire=1:1.6.11-1
 	depends = lib32-glibc
 	depends = lib32-opus
 	depends = libopus.so
 
 pkgname = lib32-pipewire-v4l2
 	pkgdesc = Low-latency audio/video router and processor - 32-bit - V4L2 interceptor
-	depends = lib32-libpipewire=1:1.6.10-1
+	depends = lib32-libpipewire=1:1.6.11-1
 	depends = libpipewire-0.3.so
-	depends = lib32-pipewire=1:1.6.10-1
+	depends = lib32-pipewire=1:1.6.11-1
 	depends = libpipewire-0.3.so
 	depends = lib32-glibc
 	depends = pipewire-v4l2
