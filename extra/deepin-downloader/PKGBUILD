@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-downloader
-pkgver=6.0.28
+pkgver=6.0.29
 pkgrel=1
 pkgdesc='Deepin download manager'
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('aria2' 'curl' 'dtk6core' 'dtk6gui' 'dtk6widget' 'glibc' 'libgcc' 'libs
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools' 'gtest')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-downloader.git#tag=$pkgver")
-sha512sums=('30cdaab1ecf595937b10ee6419e0dc8f9b6655aaf38ebb4620a37d8ca71daf2593791f76038924d93deb042a43f11a3b9419b809caf12944fe48c52bf0d72387')
+sha512sums=('e1f0fabf6f49070fd9a3f8fa211ddca8d211ef1e76215a104384846e9a17231502f5a9becda3946d2b70a6157e5a072f5811428403853c7aeca7a34ac77fe100')
 
 prepare() {
   cd deepin-downloader
@@ -34,9 +34,6 @@ prepare() {
   sed -i '/DlmApplication a(argc, argv);/a \    Settings::getInstance()->initWidget();' tests/main.cpp
   # Qt 6 QRegularExpression requires braced Unicode code points here.
   sed -i 's|QRegularExpression("\[\\\\x4e00-\\\\x9fa5\]+")|QRegularExpression("[\\\\x{4e00}-\\\\x{9fa5}]+")|' src/src/ui/func.cpp
-  # Fix missing Qt include exposed by current Qt/GCC headers.
-  sed -i '/#include <QMimeDatabase>/a #include <QElapsedTimer>' src/src/ui/createTask/createtaskwidget.cpp
-  sed -i '/#include <QTableWidgetItem>/a #include <QElapsedTimer>' src/src/ui/mainFrame/mainframe.cpp
 }
 
 build() {
