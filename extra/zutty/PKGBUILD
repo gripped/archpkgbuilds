@@ -2,7 +2,7 @@
 # Contributor: Kevin Sopp
 
 pkgname=zutty
-pkgver=0.17
+pkgver=0.18
 pkgrel=1
 pkgdesc='Terminal emulator'
 arch=(x86_64)
@@ -11,7 +11,7 @@ license=(GPL-3.0-or-later)
 depends=(freetype2 hicolor-icon-theme libglvnd libxmu xorg-fonts-misc)
 makedepends=(git python waf)
 source=("git+https://git.hq.sig7.se/zutty.git#tag=$pkgver")
-b2sums=('f1050d3ab0e4881223812e356fcafffba81cb901afbb9d0e225b66307f9e15a9e594e07d5ea8123de83e359c174a25e1408dc0e6b9e70e41460e719cae087031')
+b2sums=('7efaefc3df2e1e71a3c23134773cb1a8caad1090ee96ca6a6f93c10d8a6be9c87fcd96b9d893f23ad293fdd76101df30c602610780b240938a29f5547bf795d8')
 
 prepare() {
   cd $pkgname
