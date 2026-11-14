@@ -10,6 +10,7 @@ pkgname=(
   rust-musl
   rust-src
   rust-wasm
+  rustc-dev
 
   # x86_64 only
   lib32-rust-libs
@@ -19,7 +20,7 @@ pkgname=(
   rust-aarch64-musl
 )
 pkgver=1.99.1
-pkgrel=2
+pkgrel=4
 epoch=1
 pkgdesc="Systems programming language focused on safety, speed and concurrency"
 url=https://www.rust-lang.org/
@@ -41,12 +42,13 @@ depends=(
   libssh2
   libstdc++
   lld
+  llvm # for llvm-objcopy
   llvm-libs
   openssl
   sqlite
   zlib
 )
-_llvmver=23.1.3
+_llvmver=23.1.5
 makedepends=(
   "clang=$_llvmver"
   "llvm=$_llvmver"
@@ -123,7 +125,7 @@ source_riscv64=(bootstrap.riscv64.toml)
 source_x86_64=(bootstrap.x86_64.toml)
 b2sums=('b200e9114673449d5a3d227289e308f1a55450b3e887f7322324f2d9098407e03308eabc15084f90d3798f7af4a8c395da4a7973a23858af05a1f3b1de949cca'
         'SKIP'
-        '1ce328590eb86e5a8d117a1d5c2c4b691d9c1a897f239ba197e14f47b660e927313133e94a518c43ceed163fc081760d5d33e2685a94af1031184a0960ffb5c7'
+        '1e6000c921501053cd59171120c90ae39c901cdb3e667e6598f33a3f07569c811c5c73c9d772ce782a77663ef1cc1328086021bb487b45aac5ebd5d6409e752d'
         '3736aa3f6f891cb94dbe549d5b2c74bc56e9d484a1598c2a446fbfd4db10a90a34f2e371c65743cf01e1266470fd6fe2fc52cbc365564c62ba61e20ea11c8e22'
         'eb57683802be1114452d0864bdabd1f2a42f83c0c45532ff968c693cb98dd5cf61342880bd75e731e91fde318b0f61cc30183374348a56db883ba32c900a4949'
         'd39a31a9260ba1e60e34f2481a4ef19ce18178736539450e57df19b9a3364a35f23b9055eecb36175de0e01a154b04f86c2645cffc7d637aab8b38dbf2eb0832'
@@ -132,10 +134,10 @@ b2sums=('b200e9114673449d5a3d227289e308f1a55450b3e887f7322324f2d9098407e03308eab
         '859806770bed41dca2c48e7ac01f0fe31b9c4811e76eab173a9cac254a8cdfda0c85ae4a01dd7238fa0018d06721bf3bda5d74348e5c296a19ec534c1b8763c9'
         '9e51e3442da85211165afce6c6eef3a89e5ce8d2b026d373a19c533b3ad99efdb7cc60668580536c2e52e8dc58c1a96cd8d2733ffa6f1b438db5df8d495042b6'
         'd5fcda00c46e1e1ea9ed1d269d3ef549d4ad96148d7d0744acd673de802b3bf3747ceec1fa506d3e7c128cdff742410b1e69218d59ef20a5f246755c1bd02694')
-b2sums_aarch64=('994ee25e6b91c074f7a9e44977f22f69e60945322a4fe4d3fcb7c437b8d08edd44be64cb1ecce1adec8197ef76e5524b017b136d8fa6da75271e64b388848c57')
-b2sums_loong64=('e0839d005afd23abc158313037cce97ba3b87822042979b6db44425486a65ef39bf3ae0116c98926878ba3abf8d34fc9a28ddd299abf997a8805c7fc60f409ef')
-b2sums_riscv64=('62391124e4cb3b36b5dbfb46af239f921b3020c1f8f9ee78bf030a57d0581764e65cd6bc7dc3c2ed2ee67b17d8d8982eed0eddc3d3be3b8dd9fb64e7c8415b8d')
-b2sums_x86_64=('06166ad615912e24b714ceecaf30e45b67caae05b81bfcc8933f8193d11b41916fcfa41a5ec9ed45afb5e4bca4f0a464cc9705f4ca9b4994d629d1b75990161d')
+b2sums_aarch64=('51c6b7d0ec61f51aefe065cefb51de864e663920cfc1064ce134c7b805b790af0292be62b5cb1a29fd050433990ebdbfa847e45f9a3503ea93d86b4771931fdc')
+b2sums_loong64=('227fada7cbd86865c94b2997a13386cce21ca2b31e9bd35b5e6a4b2abd3ced1c904370b90f8f158c51051b5658aefb9fadeee3f05f9875f5b6e39b5387ec20a2')
+b2sums_riscv64=('47fb567f304ad349876acc0c0b4047d60d29ffb116daadac66e160c0f0c9ba19f6096b5bfbc5950ef245c8b1f9b41bfbfdca6d1b6e46bed671967a32b1f40fac')
+b2sums_x86_64=('7286f43bcd0403c9af69f5f7c0f65cd85b79bcfc5c1a5e8e4c82794b4c049613a12cf413531fba2a4dc5745f7dda051533df306d850d6ccc2e918d8ef65f170f')
 validpgpkeys=(
   108F66205EAEB0AAA8DD5E1C85AB96E6FA1BE5FE  # Rust Language (Tag and Release Signing Key) <rust-key@rust-lang.org>
 )
@@ -249,7 +251,7 @@ END
   local ldir="usr/share/licenses/rust" f d
   mkdir -p "$ldir"
   for f in usr/share/doc/*/{COPYRIGHT,LICENSE}*; do
-    d="$(dirname "$f")"
+    d="${f%/*}"
     case $f in
       */LICENSE-APACHE) rm -v "$f" ;;
       *) mv -v "$f" "$ldir/${f##*/}.${d##*/}" ;;
@@ -257,19 +259,35 @@ END
     rmdir -p --ignore-fail-on-non-empty "$d"
   done
 
-  # rustbuild always installs copies of the shared libraries to /usr/lib,
-  # overwrite them with symlinks to the per-architecture versions
-  ln -srvft usr/lib usr/lib/rustlib/$host_tuple/lib/*.so
-
   # Symlink the "self-contained" linker to our system lld
   mkdir -pv usr/lib/rustlib/$host_tuple/bin/gcc-ld
   ln -srvf  usr/bin/lld          usr/lib/rustlib/$host_tuple/bin/rust-lld
   ln -srvf  usr/bin/llvm-objcopy usr/lib/rustlib/$host_tuple/bin/rust-objcopy
   ln -srvft usr/lib/rustlib/$host_tuple/bin/gcc-ld usr/bin/{ld.lld,ld64.lld,lld-link,wasm-ld}
 
-  _pick dest-musl usr/lib/rustlib/${host_tuple/gnu/musl}
+  for f in usr/lib/rustlib/$host_tuple/lib/*.so; do
+    if [[ -e usr/lib/${f##*/} || -e ${f%.so}.rlib ]]; then
+      # replace library copies with symlinks
+      ln -srvft usr/lib "$f"
+    else
+      # move unpaired libraries to rustc-dev
+      _pick dest-dev "$f"
+    fi
+  done
+  for f in usr/lib/rustlib/$host_tuple/lib/*.rlib; do
+    if [[ ! -e ${f%.rlib}.rmeta ]]; then
+      _pick dest-dev "$f"
+    fi
+  done
+  for f in usr/lib/rustlib/$host_tuple/lib/*.rmeta; do
+    if [[ ! -e ${f%.rmeta}.rlib ]]; then
+      _pick dest-dev "$f"
+    fi
+  done
+
+  _pick dest-musl usr/lib/rustlib/${host_tuple%-gnu}-musl
   _pick dest-wasm usr/lib/rustlib/wasm32{,v1}-*
-  _pick dest-src  usr/lib/rustlib/src
+  _pick dest-src  usr/lib/rustlib/{src,rustc-src}
 
   case $CARCH in
     x86_64)
@@ -348,6 +366,21 @@ package_rust-wasm() {
   _install_licenses
 }
 
+package_rustc-dev() {
+  pkgdesc="Compiler libraries for Rust"
+  depends=(
+    glibc
+    libgcc
+    rust
+  )
+
+  cp -a dest-dev/* "$pkgdir"
+  _install_licenses
+
+  cd "$pkgdir"
+  ln -srvft usr/lib usr/lib/rustlib/*/lib/*.so
+}
+
 package_lib32-rust-libs() {
   pkgdesc="32-bit target and libraries for Rust"
   arch=(x86_64)
@@ -401,4 +434,4 @@ package_rust-aarch64-musl() {
   _install_licenses
 }
 
-# vim:set ts=2 sw=2 et:
+# vim:set sw=2 sts=-1 et:
