@@ -2,7 +2,7 @@
 # Contributor: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=certbot-dns-google
-pkgver=5.9.0
+pkgver=5.10.0
 pkgrel=1
 pkgdesc='Google Cloud DNS Authenticator plugin for Certbot'
 arch=(any)
@@ -27,8 +27,8 @@ checkdepends=(python-pytest)
 # hundred tarballs.
 _repo='github.com-certbot-certbot'
 source=("$_repo::git+https://github.com/certbot/certbot#tag=v$pkgver")
-sha512sums=('3b363b9828b5afa6423c0e77ae405785bb4ae99473d63e8191007023534ae90c5444f7fbca40c3cf08fec69ca1f3ba7141bcc08dc0e1f490af2be4b1771a314f')
-b2sums=('a599de2ceb13aafaad5649d50b2a01268527b4b32fa6ce05668fed811c43c9c8787008ae10de0c61e5f68a5673afdb08cdb5744422d5cbdd2042cb1db600010d')
+sha512sums=('92eb1fdb590d2f64ac112e1194c5aaa9b2d81d9f29fd9da6a9440f67308375fc8bc08df2256dbb3815126af3990a664475e941aa26a8d4b14717411ae8a567cb')
+b2sums=('6b1fac9634cdfa5f5d975fe566d7967da505590c8568648274b6cd241191ce7d7344fba126c92ca28c7772b8cb50e21de5f848e929e7be96d7552f3bb36ab5f9')
 
 build() {
   cd "$_repo/$pkgname"
