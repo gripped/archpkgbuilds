@@ -3,7 +3,7 @@
 # Contributor: Tobias Kieslich <tobias@justdreams.de>
 
 pkgname=gthumb
-pkgver=3.12.12
+pkgver=4.0.2
 pkgrel=1
 pkgdesc="Image browser and viewer for the GNOME Desktop"
 url="https://wiki.gnome.org/Apps/Gthumb"
@@ -14,47 +14,48 @@ depends=(
   dconf
   exiv2
   gdk-pixbuf2
+  giflib
   glib2
   glibc
+  graphene
   gsettings-desktop-schemas
-  gst-plugin-gtk
-  gst-plugins-base-libs
+  gst-plugin-gtk4 # for gtk4paintablesink
+  gst-plugins-bad-libs # for scaletempo
+  gst-plugins-base-libs # for glsinkbin, playbin
+  gst-plugins-good # for autovideoflip, videoflip
   gstreamer
-  gtk3
+  gtk4
   hicolor-icon-theme
   lcms2
+  libadwaita
   libcolord
   libgcc
   libheif
   libjpeg-turbo
   libjxl
   libpng
-  libstdc++
+  libportal
+  libportal-gtk4
+  libraw
   librsvg
+  libstdc++
   libtiff
   libwebp
-  libx11
   pango
   zlib
 )
 makedepends=(
   appstream
-  brasero
-  docbook-xsl
   git
   glib2-devel
-  libraw
   meson
+  vala
   yelp-tools
-)
-optdepends=(
-  'brasero: burn discs'
-  'libraw: read RAW files'
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/gthumb.git#tag=$pkgver"
 )
-b2sums=('f355bbf01681301ce2d1fd2e2bba25f13d31ca023cf554e29d94795fffa65a23b7b77cd911292b2d379334dc2f07d3b06be1039c872969b670a55a5097aa28df')
+b2sums=('9b5cca007d2a5f7ee39d5b202c256a724f9167dad0ed4e4abdf3e7e6849cffcb928c34a1563bef9977ba8417b39009fc2a54397e2357593ed12a9c37fdd4c929')
 
 prepare() {
   cd gthumb
