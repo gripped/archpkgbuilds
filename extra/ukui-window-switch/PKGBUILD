@@ -1,32 +1,43 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ukui-window-switch
-pkgver=3.0.1
-pkgrel=21
-pkgdesc="Front of the window switcher in UKUI desktop environment"
+pkgver=4.21.1.0
+pkgrel=1
+pkgdesc="Window switcher and multitasking view for the UKUI Wayland desktop"
 arch=('x86_64')
-license=('GPL')
-url="https://github.com/ukui/ukui-window-switch"
+license=('LGPL-2.0-or-later' 'GPL-3.0-or-later' 'GPL-2.0-or-later OR LGPL-3.0-only'
+         'BSD-3-Clause')
+url="https://gitee.com/openkylin/ukui-window-switch"
 groups=('ukui')
-depends=('gsettings-qt' 'kglobalaccel5' 'libwnck3' 'qt5-x11extras' 'ukwm')
-makedepends=('qt5-tools')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/ukui/ukui-window-switch/archive/v$pkgver.tar.gz"
-         no-kwayland.patch)
-sha512sums=('f90a5e554741fe0461483e37205016f64a52d970d580b5f90521cb2ac8f0d66927f57999b059d203e2cec5704de6147feb86bc2a681627d05a4fa372033341bc'
-            'ddf5036ad31c4131053c67f2f0473c67f3735002226a4bb90e6e752b095ad7b2d036a614525b1bc54082928ebda94b8193f738d0ef4184d7aaa08ad0d5a9f395')
+depends=('bash' 'dbus' 'glibc' 'grep' 'gsettings-qt6' 'kglobalaccel'
+         'kylin-wayland-compositor' 'libgcc' 'libglvnd' 'libkysdk-system' 'libkywc'
+         'libqtxdg' 'libstdc++' 'procps-ng' 'qt6-base' 'qt6-declarative' 'qt6-wayland'
+         'ukui-quick' 'ukui-search')
+makedepends=('clang' 'cmake' 'extra-cmake-modules' 'git' 'kconfig' 'kcoreaddons' 'ki18n'
+             'kwindowsystem' 'libdrm' 'ninja' 'qt6-tools')
+source=("git+https://gitee.com/openkylin/ukui-window-switch.git#tag=debian/$pkgver-1")
+sha256sums=('cf463036b65e7f84f2be510d5599a7d398170bf60ffc5a4d1b504fa312a6a51a')
 
 prepare() {
-  cd ukui-window-switch-$pkgver
-  patch -p1 -i ../no-kwayland.patch # Drop unused kwayland dependencies
+  cd ukui-window-switch
+  # Qt 6 takes a byte-array view instead of a pointer and length.
+  sed -i 's/qChecksum(idc.constData(), idc.size())/qChecksum(idc)/' \
+    windowsview/ukui-window-switch-wlcom/qtsingleapplication/src/qtlocalpeer.cpp
 }
 
 build() {
-  cd ukui-window-switch-$pkgver
-  qmake-qt5 PREFIX=/usr
-  make
+  cmake -S ukui-window-switch -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT_DEFAULT_MAJOR_VERSION=6
+  cmake --build build
 }
 
 package() {
-  cd ukui-window-switch-$pkgver
-  make INSTALL_ROOT="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
+  # This release installs the launcher without executable permissions.
+  install -Dm755 ukui-window-switch/windowsview/ukui-window-switch -t "$pkgdir/usr/bin"
+  install -Dm644 ukui-window-switch/man/*.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 ukui-window-switch/COPYING ukui-window-switch/debian/copyright \
+    -t "$pkgdir/usr/share/licenses/$pkgname"
 }

@@ -1,4 +1,7 @@
 [ukui-window-switch]
 source = "git"
-git = "https://github.com/ukui/ukui-window-switch.git"
-prefix = "v"
+git = "https://gitee.com/openkylin/ukui-window-switch.git"
+include_regex = 'debian/\d+(\.\d+)*-\d+'
+prefix = "debian/"
+from_pattern = '-\d+$'
+to_pattern = ''
