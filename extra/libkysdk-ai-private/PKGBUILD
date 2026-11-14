@@ -2,18 +2,23 @@
 
 pkgname=libkysdk-ai-private
 pkgver=1.1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Kylin AI assistant, configuration and data management client libraries"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
 url="https://gitee.com/openkylin/libkysdk-ai-private"
 depends=('bash' 'coreutils' 'glib2' 'glibc' 'jsoncpp' 'libgcc' 'libstdc++' 'pacman')
 makedepends=('cmake' 'git' 'glib2-devel' 'libkylin-ai-system-private' 'ninja' 'nlohmann-json')
-source=("git+https://gitee.com/openkylin/libkysdk-ai-private.git#tag=debian/$pkgver-1")
-sha512sums=('422955202e0b18b9dd3a92293cb908baa45cae00ac1c482eead0e9b6eb9bc84a719f25c7d0f114374326b0cee9ccb25d3505ae173fa52fe553428324fb069580')
+source=("git+https://gitee.com/openkylin/libkysdk-ai-private.git#tag=debian/$pkgver-1"
+        'natural-language-search.patch')
+sha512sums=('422955202e0b18b9dd3a92293cb908baa45cae00ac1c482eead0e9b6eb9bc84a719f25c7d0f114374326b0cee9ccb25d3505ae173fa52fe553428324fb069580'
+            'd6380bf2df09c86cef20c0af892b4bbe16f918a9c55412315b2acabc8798c011900f1ef7a82aad09bec6d053bed46e00dc8d01b662cfd02adc37cc54979b1fad')
 
 prepare() {
   cd libkysdk-ai-private
+  # Add the natural-language search APIs required by ukui-search.
+  # https://gitee.com/openkylin/libkyai-data-management-client/commit/b24e6fa3d059167ed121201c67102b59d8023dff
+  patch -Np1 -i ../natural-language-search.patch
   # Arch installs JsonCpp headers under /usr/include/json.
   sed -i 's|<jsoncpp/json/|<json/|' \
     ai-assistant/{assistantserviceproxy,osassistant}.cpp ai-config/configserviceproxy.cpp

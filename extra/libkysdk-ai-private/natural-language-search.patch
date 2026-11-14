@@ -1,0 +1,258 @@
+Backport natural-language search APIs for ukui-search.
+
+Upstream: https://gitee.com/openkylin/libkyai-data-management-client/commit/b24e6fa3d059167ed121201c67102b59d8023dff
+Parameter error definition: https://gitee.com/openkylin/libkyai-data-management-client/commit/a8d59b80549063b80f09d9eec97c818dc8e0a908
+
+Adapted to the combined repository's directory layout and its direct D-Bus
+calls; the newer test-hook indirection is not needed by this release.
+
+diff --git a/libkyai-data-management-client/include/kylin-ai/business/data-management/datamanagement.h b/libkyai-data-management-client/include/kylin-ai/business/data-management/datamanagement.h
+index 6b6121a..16c4954 100644
+--- a/libkyai-data-management-client/include/kylin-ai/business/data-management/datamanagement.h
++++ b/libkyai-data-management-client/include/kylin-ai/business/data-management/datamanagement.h
+@@ -341,6 +341,87 @@ DataManagementStatus data_management_extract_search_conditions(DataManagementSes
+ DataManagementStatus data_management_get_summarys_of_files(DataManagementSession* session, const char* files,
+                                                            char** result);
+ 
++/**
++ * @brief 从自然语言文本中提取结构化实体
++ * @param [in] session 请求所使用的会话，通过 data_management_create_session 创建
++ * @param [in] request 请求 JSON 字符串，示例：
++ * {
++ *     "text": "昨天的word合同"
++ * }
++ * @param [out] result 返回 JSON 字符串，示例：
++ * {
++ *     "conditions": [
++ *         {
++ *             "type": "modify_time",
++ *             "value": {
++ *                 "start": "2026-05-15 00:00:00",
++ *                 "end": "2026-05-15 23:59:59"
++ *             }
++ *         },
++ *         {
++ *             "type": "formats",
++ *             "value": {
++ *                 "extensions": ["doc", "docx"],
++ *                 "exclude_extensions": []
++ *             }
++ *         },
++ *         {
++ *             "type": "keywords",
++ *             "value": {
++ *                 "terms": ["合同"]
++ *             }
++ *         }
++ *     ],
++ *     "logic_relation": "AND"
++ * }
++ * 调用者需要通过 data_management_destroy_result 释放
++ * @return 成功 DataManagementStatus::success 为 true，失败则会返回对应错误码
++ */
++DataManagementStatus data_management_parse_query_conditions(DataManagementSession* session, const char* request,
++                                                      char** result);
++
++/**
++ * @brief 执行自然语言搜索
++ * @param [in] session 请求所使用的会话，通过 data_management_create_session 创建
++ * @param [in] request 请求 JSON 字符串，示例：
++ * {
++ *     "text": "昨天的word合同",
++ *     "limit": 100
++ * }
++ * @param [out] result 返回 JSON 数组字符串，调用者需要通过 data_management_destroy_result 释放
++ * @return 成功 DataManagementStatus::success 为 true，失败则会返回对应错误码
++ */
++DataManagementStatus data_management_natural_language_search(DataManagementSession* session, const char* request,
++                                                             char** result);
++
++/**
++ * @brief 基于结构化实体信息执行检索
++ * @param [in] session 请求所使用的会话，通过 data_management_create_session 创建
++ * @param [in] request 请求 JSON 字符串，示例：
++ * {
++ *     "conditions": [
++ *         {
++ *             "type": "keywords",
++ *             "value": {
++ *                 "terms": ["合同"]
++ *             }
++ *         },
++ *         {
++ *             "type": "formats",
++ *             "value": {
++ *                 "extensions": ["doc", "docx"],
++ *                 "exclude_extensions": []
++ *             }
++ *         }
++ *     ],
++ *     "logic_relation": "AND",
++ *     "limit": 100
++ * }
++ * @param [out] result 返回 JSON 数组字符串，调用者需要通过 data_management_destroy_result 释放
++ * @return 成功 DataManagementStatus::success 为 true，失败则会返回对应错误码
++ */
++DataManagementStatus data_management_search_by_query_conditions(DataManagementSession* session, const char* request, char** result);
++
+ #ifdef __cplusplus
+ }
+ #endif
+diff --git a/libkyai-data-management-client/src/_datamanagementsession.cpp b/libkyai-data-management-client/src/_datamanagementsession.cpp
+index 158dc94..df95e2b 100644
+--- a/libkyai-data-management-client/src/_datamanagementsession.cpp
++++ b/libkyai-data-management-client/src/_datamanagementsession.cpp
+@@ -228,6 +228,21 @@ DataManagementStatus _DataManagementSession::getSummarysOfFiles(const std::strin
+     return parseResponse(response, summary);
+ }
+ 
++DataManagementStatus _DataManagementSession::parseQueryConditions(const std::string &request, std::string &result) {
++    std::string response = proxy_->parseQueryConditions(request);
++    return parseResponse(response, result);
++}
++
++DataManagementStatus _DataManagementSession::naturalLanguageSearch(const std::string &request, std::string &result) {
++    std::string response = proxy_->naturalLanguageSearch(request);
++    return parseResponse(response, result);
++}
++
++DataManagementStatus _DataManagementSession::searchByQueryConditions(const std::string &request, std::string &result) {
++    std::string response = proxy_->searchByQueryConditions(request);
++    return parseResponse(response, result);
++}
++
+ bool _DataManagementSession::connect() {
+     bool ret = proxy_->connect();
+     if (!ret) {
+diff --git a/libkyai-data-management-client/src/_datamanagementsession.h b/libkyai-data-management-client/src/_datamanagementsession.h
+index aea167a..5799de5 100644
+--- a/libkyai-data-management-client/src/_datamanagementsession.h
++++ b/libkyai-data-management-client/src/_datamanagementsession.h
+@@ -51,6 +51,9 @@ public:
+     DataManagementStatus isFileRelevantToDescription(const std::string& fileInfos, bool& isRelevant);
+     DataManagementStatus extractSearchConditions(const std::string& description, std::string& conditions);
+     DataManagementStatus getSummarysOfFiles(const std::string& files, std::string& summary);
++    DataManagementStatus parseQueryConditions(const std::string& request, std::string& result);
++    DataManagementStatus naturalLanguageSearch(const std::string& request, std::string& result);
++    DataManagementStatus searchByQueryConditions(const std::string& request, std::string& result);
+     bool connect();
+ 
+ private:
+diff --git a/libkyai-data-management-client/src/datamanagement.cpp b/libkyai-data-management-client/src/datamanagement.cpp
+index be87102..25b3646 100644
+--- a/libkyai-data-management-client/src/datamanagement.cpp
++++ b/libkyai-data-management-client/src/datamanagement.cpp
+@@ -24,6 +24,7 @@
+ #include "_datamanagementsession.h"
+ 
+ #define STATUS_SESSION_ERROR (DataManagementStatus){false, ErrorCode::DM_SESSION_ERROR, "Invalit session"}
++#define STATUS_PARAM_ERROR (DataManagementStatus){false, ErrorCode::PARSE_PARAM_FAILED, "Invalid param"}
+ 
+ namespace {
+ bool is_valid_datamanagement_session(void* session) {
+@@ -345,3 +346,71 @@ DataManagementStatus data_management_get_summarys_of_files(DataManagementSession
+ 
+     return status;
+ }
++
++DataManagementStatus data_management_parse_query_conditions(DataManagementSession* session, const char* request,
++                                                      char** result) {
++    auto* dataManagementSession = reinterpret_cast<datamanagement::_DataManagementSession*>(session);
++    if (!dataManagementSession) {
++        return STATUS_SESSION_ERROR;
++    }
++
++    if (!request || !result) {
++        return STATUS_PARAM_ERROR;
++    }
++
++    std::string entitiesResult;
++    DataManagementStatus status = dataManagementSession->parseQueryConditions(request, entitiesResult);
++    if (!status.success) {
++        return status;
++    }
++
++    size_t length = entitiesResult.size() + 1;
++    *result = new char[length];
++    std::strcpy(*result, entitiesResult.c_str());
++    return status;
++}
++
++DataManagementStatus data_management_natural_language_search(DataManagementSession* session, const char* request,
++                                                             char** result) {
++    auto* dataManagementSession = reinterpret_cast<datamanagement::_DataManagementSession*>(session);
++    if (!dataManagementSession) {
++        return STATUS_SESSION_ERROR;
++    }
++
++    if (!request || !result) {
++        return STATUS_PARAM_ERROR;
++    }
++
++    std::string searchResult;
++    DataManagementStatus status = dataManagementSession->naturalLanguageSearch(request, searchResult);
++    if (!status.success) {
++        return status;
++    }
++
++    size_t length = searchResult.size() + 1;
++    *result = new char[length];
++    std::strcpy(*result, searchResult.c_str());
++    return status;
++}
++
++DataManagementStatus data_management_search_by_query_conditions(DataManagementSession* session, const char* request, char** result) {
++    auto* dataManagementSession = reinterpret_cast<datamanagement::_DataManagementSession*>(session);
++    if (!dataManagementSession) {
++        return STATUS_SESSION_ERROR;
++    }
++
++    if (!request || !result) {
++        return STATUS_PARAM_ERROR;
++    }
++
++    std::string searchResult;
++    DataManagementStatus status = dataManagementSession->searchByQueryConditions(request, searchResult);
++    if (!status.success) {
++        return status;
++    }
++
++    size_t length = searchResult.size() + 1;
++    *result = new char[length];
++    std::strcpy(*result, searchResult.c_str());
++    return status;
++}
+diff --git a/libkyai-data-management-client/src/datamanagementserviceproxy.cpp b/libkyai-data-management-client/src/datamanagementserviceproxy.cpp
+index 8c29b7c..c416f84 100644
+--- a/libkyai-data-management-client/src/datamanagementserviceproxy.cpp
++++ b/libkyai-data-management-client/src/datamanagementserviceproxy.cpp
+@@ -193,3 +193,15 @@ std::string DataManagementServiceProxy::extractSearchConditions(const std::strin
+ std::string DataManagementServiceProxy::getSummarysOfFiles(const std::string &input) {
+     return syncFuncCall(input, 600000, ai_business_data_management_call_get_summarys_of_files_sync);
+ }
++
++std::string DataManagementServiceProxy::parseQueryConditions(const std::string &input) {
++    return syncFuncCall(input, 600000, ai_business_data_management_call_parse_query_conditions_sync);
++}
++
++std::string DataManagementServiceProxy::naturalLanguageSearch(const std::string &input) {
++    return syncFuncCall(input, 600000, ai_business_data_management_call_natural_language_search_sync);
++}
++
++std::string DataManagementServiceProxy::searchByQueryConditions(const std::string &input) {
++    return syncFuncCall(input, 600000, ai_business_data_management_call_search_by_query_conditions_sync);
++}
+diff --git a/libkyai-data-management-client/src/datamanagementserviceproxy.h b/libkyai-data-management-client/src/datamanagementserviceproxy.h
+index 7dab081..d681dc6 100644
+--- a/libkyai-data-management-client/src/datamanagementserviceproxy.h
++++ b/libkyai-data-management-client/src/datamanagementserviceproxy.h
+@@ -46,6 +46,9 @@ public:
+     std::string isFileRelevantToDescription(const std::string& input);
+     std::string extractSearchConditions(const std::string& input);
+     std::string getSummarysOfFiles(const std::string& input);
++    std::string parseQueryConditions(const std::string& input);
++    std::string naturalLanguageSearch(const std::string& input);
++    std::string searchByQueryConditions(const std::string& input);
+     bool connect();
+ 
+ private:
