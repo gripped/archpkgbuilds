@@ -2,10 +2,10 @@
 
 pkgname=python-setuptools-git
 pkgver=1.2
-pkgrel=13
+pkgrel=14
 pkgdesc='Setuptools revision control system plugin for Git'
 arch=('any')
-license=('BSD')
+license=('BSD-3-Clause')
 url='https://github.com/msabramo/setuptools-git'
 depends=('python-setuptools' 'git')
 makedepends=('python-build' 'python-installer' 'python-wheel')
