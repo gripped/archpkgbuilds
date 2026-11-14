@@ -1,0 +1,86 @@
+diff --git a/lunarcalendarwidget/calendardatabase.cpp b/lunarcalendarwidget/calendardatabase.cpp
+index 95fcd8f..a7a0b94 100644
+--- a/lunarcalendarwidget/calendardatabase.cpp
++++ b/lunarcalendarwidget/calendardatabase.cpp
+@@ -103,7 +103,8 @@ void CalendarDataBase::processExpiredEvents(const QString& expiredIds)
+             continue;
+         }
+         QStringList parts = line.split('#');
+-        if (parts.size() > 1 && expiredIds.contains(parts.last().trimmed()))
++        if (line.contains("/usr/bin/notify-send -i kylin-calendar ")
++            && parts.size() > 1 && expiredIds.split(' ').contains(parts.last().trimmed()))
+         {
+             continue;
+         }
+@@ -164,9 +165,9 @@ void CalendarDataBase::updateCrontabFromFile(const QString& filename)
+ void CalendarDataBase::add(const MarkInfo &info)
+ {
+     QProcess *c = new QProcess(this);
+-    int code = c->execute("crontab -l");
++    int code = c->execute("crontab", {"-l"});
+     //如果返回的是0，说明用户从来没用过crontab 这个东西，要先把临时文件里面写入原来应该有的注释 再写自己的cron内容
+-    c->start("crontab -l");
++    c->start("crontab", {"-l"});
+     c->waitForFinished();
+     QString tmpFilePath = "/tmp/" + userName + ".tmp";
+ 
+@@ -456,11 +457,6 @@ void CalendarDataBase::refreshCronTab(QString timemodel)
+         m_dbStatus = DB_OP_GET_FAILED;
+         return;
+     }
+-    /*=============================清空=============================*/
+-    QProcess *c = new QProcess(this);
+-    c->execute("crontab -r");
+-    c->start("crontab -r");
+-    c->waitForFinished();
+     /*=============================解析=============================*/
+     while(searchQuery.next())
+     {
+@@ -802,7 +798,8 @@ void CalendarDataBase::refreshCronTab(QString timemodel)
+             info.displayHour = info.hour;
+         }
+ 
+-        add(info);
++        // Replace this calendar reminder without clearing unrelated cron jobs.
++        update(info);
+     }
+ }
+ 
+@@ -814,7 +811,7 @@ void CalendarDataBase::refreshCronTab(QString timemodel)
+ void CalendarDataBase::del(const MarkInfo &info)
+ {
+     QProcess *c = new QProcess(this);
+-    c->start("crontab -l");
++    c->start("crontab", {"-l"});
+     c->waitForFinished();
+     QString cronFilePath = "/var/spool/cron/crontabs/" + userName;
+     QString tmpFilePath = "/tmp/" + userName + ".tmp";
+@@ -839,7 +836,8 @@ void CalendarDataBase::del(const MarkInfo &info)
+ 
+     for (const QString &line : lines) {
+         // 精确匹配：行必须以#id结尾
+-        if (line.trimmed().endsWith(targetId)) {
++        if (line.contains("/usr/bin/notify-send -i kylin-calendar ")
++            && line.trimmed().endsWith(targetId)) {
+             continue; // 跳过匹配行（删除）
+         }
+         out << line << "\n";  // 保留其他行
+@@ -1610,7 +1608,7 @@ int CalendarDataBase::deleteDataSlotfromMarkID(QString markID)
+ int  CalendarDataBase::deleteCrontabfromMarkID(QString markID)
+ {
+     QProcess *c = new QProcess(this);
+-    c->start("crontab -l");
++    c->start("crontab", {"-l"});
+     c->waitForFinished();
+     QString tmpFilePath = "/tmp/" + userName + ".tmp";
+     QString crontabContent = c->readAllStandardOutput();
+@@ -1633,7 +1631,8 @@ int  CalendarDataBase::deleteCrontabfromMarkID(QString markID)
+     //开始遍历
+     for (const QString &line : lines)
+     {
+-        if (!line.contains(targetId) || line.startsWith("#"))   // 排除注释行 并且保留最开始的注释
++        if (!line.contains("/usr/bin/notify-send -i kylin-calendar ")
++            || !line.trimmed().endsWith(targetId) || line.startsWith("#"))
+         {
+             out << line << "\n";
+         }

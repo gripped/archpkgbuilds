@@ -1,0 +1,42 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=kylin-calendar
+pkgver=5.0.0.1
+pkgrel=1
+pkgdesc="Calendar and event reminders for the UKUI desktop"
+arch=('x86_64')
+license=('GPL-3.0-or-later' 'LGPL-2.1-or-later')
+url="https://gitee.com/openkylin/kylin-calendar"
+groups=('ukui')
+depends=('bash' 'coreutils' 'cron' 'glib2' 'glibc' 'gsettings-qt6' 'kwindowsystem'
+         'libgcc' 'libkysdk-applications' 'libkysdk-system' 'libnotify' 'libstdc++'
+         'qt6-base' 'qt6-svg' 'ukui-interface')
+makedepends=('cmake' 'extra-cmake-modules' 'git' 'libqtxdg' 'ninja' 'qt6-tools')
+backup=('etc/xdg/autostart/calendar.desktop'
+        'etc/ukui/ukui-notification/default-app/kylin-calendar.json')
+source=("git+https://gitee.com/openkylin/kylin-calendar.git#tag=debian/$pkgver-1"
+        'fix-crontab.patch')
+sha256sums=('42f3d186b3b807a6b96b862059d5f79b08aceb56d820688868d1a28c9fa1aeb0'
+            'b2eb652b96a0d78141bce725f8c213087e8bbfb86ab8d63768c893ae53b38ca3')
+
+prepare() {
+  cd kylin-calendar
+  # Fix Qt 6 process arguments and preserve unrelated cron jobs when updating reminders.
+  patch -p1 -i ../fix-crontab.patch
+  # Arch's libqtxdg installs its CMake configuration under the lowercase package name.
+  sed -i 's/find_package(Qt6Xdg REQUIRED)/find_package(qt6xdg REQUIRED)/' CMakeLists.txt
+}
+
+build() {
+  cmake -S kylin-calendar -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DQT_DEFAULT_MAJOR_VERSION=6
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 kylin-calendar/man/kylin-calendar.1 -t "$pkgdir/usr/share/man/man1"
+  install -Dm644 kylin-calendar/debian/copyright -t "$pkgdir/usr/share/licenses/$pkgname"
+}
