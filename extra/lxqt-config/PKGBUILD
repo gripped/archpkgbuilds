@@ -2,7 +2,7 @@
 # Contributor: Jerome Leclanche <jerome@leclan.ch>
 
 pkgname=lxqt-config
-pkgver=2.5.0
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="LXQt system configuration."
 arch=("x86_64")
@@ -32,7 +32,7 @@ source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('1d51ef341ce769fbe1283475ea3daf9eb1e9dd2faf218b678853b4236caffdc4'
+sha256sums=('e46d6ec711a928ba1dc202bc5eac58c025decf84fe85ff01a4b2128e17e88917'
             'SKIP')
 validpgpkeys=(
 	"19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # https://github.com/tsujan.gpg
