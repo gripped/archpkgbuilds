@@ -3,9 +3,9 @@
 pkgbase=lua-luautf8
 _rockname=${pkgbase#lua-}
 pkgname=("$pkgbase" "lua51-$_rockname" "lua52-$_rockname" "lua53-$_rockname" "lua54-$_rockname")
-pkgver=0.2.1
+pkgver=0.3.0
 _rockrel=1
-pkgrel=2
+pkgrel=1
 pkgdesc='Add UTF-8 support to Lua, compatible with Lua string module'
 arch=(x86_64)
 url="https://github.com/starwing/$_rockname"
@@ -20,7 +20,7 @@ _archive="$_rockname-$pkgver"
 _rock="$_archive-$_rockrel.linux-$CARCH.rock"
 _rockspec="$_archive-$_rockrel.rockspec"
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('ea52075cd960aed8c37512ab31cdc166aa77a6458504d29f33ae40b93d2d8594')
+sha256sums=('90dfd94fa051978167b36edeb744b0751bedfc53f73d2609fd11124c31a9a1c3')
 
 build() {
 	cd "$_archive"
