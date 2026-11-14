@@ -2,8 +2,8 @@
 # Maintainer: DeepChirp <deepchirp@archlinux.org>
 
 pkgname='mise'
-pkgver=2026.11.5
-pkgrel=2
+pkgver=2026.11.7
+pkgrel=1
 pkgdesc='The front-end to your dev env'
 arch=('x86_64')
 url='https://github.com/jdx/mise'
@@ -40,9 +40,9 @@ options=(
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz"
         "${pkgname}-${pkgver}.tar.gz.sig::${url}/releases/download/v${pkgver}/v${pkgver}.tar.gz.sig")
 validpgpkeys=('24853EC9F655CE80B48E6C3A8B81C9D17413A06D') # mise releases <release@mise.jdx.dev>
-sha512sums=('d8755057a6cc9b2efb748f8eaccb3c2e7897bca0252ad77fc975cd32dd3e58d6f8a7ba64aa4bd75db2ebc8e408850dcb14ccf776ac7426becafe3b366196e4ac'
+sha512sums=('268ddbb8c89b2fb3428696d8067edcd4b770865f76863539fe86debab0398b7ab24e1778189ffc83486ea11ac9e04767b1092d7e0565cac19544702a98ede9b9'
             'SKIP')
-b2sums=('05429db15afdf160652d64de1b3ffb3323868f4a57f6d3c6bb04f59b7366a368ac5e6b1f52d11c64f071a64ff73f751fcc2a8ef51d8bee9253f3b4d859f428e5'
+b2sums=('0c755dc0c05d5ed5b6de1211b526d856f90e9d1a1c35d4e64389a224312a78ac462fdd50c290d44e7befa756d14479febf192b53adc2f8a200ea5d5977773fef'
         'SKIP')
 
 prepare() {
