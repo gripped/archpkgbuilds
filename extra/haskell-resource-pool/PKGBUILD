@@ -3,8 +3,8 @@
 
 _hkgname=resource-pool
 pkgname=haskell-resource-pool
-pkgver=0.4.0.0
-pkgrel=7
+pkgver=0.5.0.0
+pkgrel=2
 pkgdesc="A high-performance striped resource pooling implementation"
 url="https://github.com/scrive/pool"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-hashable' 'haskell-primitive')
 makedepends=('ghc' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('714db44aa41efbe684b589d20242a8fb3ad6112287fa797954e69c19432c83a2bc0c37bbcd9674ad2980a45ce6f38acea5393753caa05de609ac958e53057b92')
+sha512sums=('e42042f5c90639a38cf84784fc75c4d946b59a16ed82dc41cf385e9befa2fa3294bfcd7a754198d38d5466450f350d886e616ac1f4164bfa672ff07db592a685')
 
 prepare() {
     cd $_hkgname-$pkgver
