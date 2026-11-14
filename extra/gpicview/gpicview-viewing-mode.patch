@@ -1,4 +1,4 @@
-From b11319d7b8b87a050728aa71b5523575f89a7edb Mon Sep 17 00:00:00 2001
+From 8780fbd4841ebddfdfd102c193d8c50640dca9f2 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Tue, 14 Oct 2025 17:56:05 +0200
 Subject: [PATCH] Rework most suitable viewing mode
@@ -15,25 +15,28 @@ fit into the screen in it's original size.
 - Enlarge the window only if the window size is not saved, otherwise the
 window become larger and larger every time when the application is opened.
 ---
- src/main-win.c | 43 ++++++++++++++++++++-----------------------
- 1 file changed, 20 insertions(+), 23 deletions(-)
+ src/main-win.c | 50 +++++++++++++++++++++++++++-----------------------
+ 1 file changed, 27 insertions(+), 23 deletions(-)
 
 diff --git a/src/main-win.c b/src/main-win.c
-index ce2bbdd..62e43e2 100644
+index ce2bbdd..d76ce65 100644
 --- a/src/main-win.c
 +++ b/src/main-win.c
-@@ -448,32 +448,29 @@ gboolean main_win_open( MainWin* mw, const char* file_path, ZoomMode zoom )
+@@ -448,32 +448,36 @@ gboolean main_win_open( MainWin* mw, const char* file_path, ZoomMode zoom )
      {
          int w = gdk_pixbuf_get_width( mw->pix );
          int h = gdk_pixbuf_get_height( mw->pix );
 -
 -        GdkRectangle area;
-+        GdkRectangle area, frame, toolbar;
++        GdkRectangle area, frame;
++        GtkAllocation toolbar;
 +        int win_w, win_h;
 +        gtk_window_get_size( (GtkWindow*)mw, &win_w, &win_h );
++        GdkWindow* win = gtk_widget_get_window((GtkWidget*)mw);
 +#if GTK_CHECK_VERSION(3, 4, 0)
-+        GdkScreen *screen = gdk_screen_get_default();
-+        gdk_screen_get_monitor_workarea( screen, gdk_screen_get_primary_monitor(screen), &area );
++        GdkScreen *screen = gtk_widget_get_screen((GtkWidget*)mw);
++        int monitor = gdk_screen_get_monitor_at_window(screen, win);
++        gdk_screen_get_monitor_workarea( screen, monitor, &area );
 +#else
          get_working_area( gtk_widget_get_screen((GtkWidget*)mw), &area );
 -        // g_debug("determine best zoom mode: orig size:  w=%d, h=%d", w, h);
@@ -56,16 +59,20 @@ index ce2bbdd..62e43e2 100644
 -                gtk_main_iteration();
 -            g_usleep(10000);
  #endif
-+        gdk_window_get_frame_extents( gtk_widget_get_window((GtkWidget*)mw), &frame );
++        gdk_window_get_frame_extents( win, &frame );
 +        gtk_widget_get_allocation(gtk_widget_get_parent(mw->nav_bar), &toolbar);
++        if (!gtk_widget_get_visible(gtk_widget_get_parent(mw->nav_bar)))
++            toolbar.height = 0;
 +        int deco_w = MAX(4, frame.width - win_w);
 +        int deco_h = MAX(27, frame.height - win_h);
-+        int req_w = MIN(w, area.width - deco_w);
-+        int req_h = MIN(h + toolbar.height + 4, area.height - deco_h);
++        int max_w = MAX(1, area.width - deco_w);
++        int max_h = MAX(1, area.height - deco_h);
++        int req_w = MIN(w, max_w);
++        int req_h = MIN(h + toolbar.height + 4, max_h);
 +
 +        if(!pref.save_window && (req_w > win_w || req_h > win_h)) {
-+            if( req_w < pref.win_w )   req_w = pref.win_w;
-+            if( req_h < pref.win_h )   req_h = pref.win_h;
++            req_w = MIN(MAX(req_w, pref.win_w), max_w);
++            req_h = MIN(MAX(req_h, pref.win_h), max_h);
 +            gtk_window_resize( (GtkWindow*)mw, req_w, req_h );
          }
 -        else
