@@ -2,7 +2,7 @@
 
 pkgname=ukui-file-metadata
 pkgver=4.24.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="File metadata, text, and thumbnail extraction library for UKUI"
 arch=('x86_64')
 license=('GPL-3.0-or-later' 'LGPL-2.1-or-later' 'LGPL-2.1-only OR LGPL-3.0-only')
@@ -25,6 +25,12 @@ prepare() {
   # Honor Qt 6 selection and export the matching CMake dependencies.
   # https://gitee.com/openkylin/ukui-file-metadata/commit/cce99d1067b6b2561f07a5becf3e7f365fdc93cd
   git cherry-pick -n cce99d1067b6b2561f07a5becf3e7f365fdc93cd
+  # Notify recent-files models when bookmark files disappear or become invalid.
+  # https://gitee.com/openkylin/ukui-file-metadata/pulls/48
+  git cherry-pick -n bce07be7c620938ad25b17f498be23b859f6ad2e
+  # Cover invalid files and deletion/recreation in the bookmark signal tests.
+  # https://gitee.com/openkylin/ukui-file-metadata/pulls/48
+  git cherry-pick -n ae6625c2546895c6780a4d2c58c112b81b87a73c
   # Backport the Qt Test lookup fix without the accompanying ZIP backend migration.
   # https://gitee.com/openkylin/ukui-file-metadata/commit/ec9017f1eedbc71e9d26e529f849ca1b2642529f
   sed -i -e '/find_package(QT NAMES Qt6 Qt5 COMPONENTS Test REQUIRED)/d' \
