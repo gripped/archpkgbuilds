@@ -1,0 +1,43 @@
+# Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
+
+pkgname=lxqt-clip
+pkgver=2.5.0
+pkgrel=1
+pkgdesc="Lightweight clipboard history applet by LXQt for X11 and Wayland"
+arch=("x86_64")
+groups=("lxqt")
+url="https://github.com/lxqt/$pkgname"
+# README.md and src/* specify GPL-2.0-or-later; COPYING contains GPLv2.
+# qmenuview/* headers specify GPL-3.0-or-later and CMakeLists.txt compiles
+# this code into lxqt-clip, so the combined executable is GPL-3.0-or-later.
+# qkeysequencewidget/LICENSE and qxt/* headers specify BSD-3-Clause.
+# qxt/qxtglobal.h also retains a public-domain notice for inherited code.
+license=("GPL-3.0-or-later" "BSD-3-Clause")
+depends=('liblxqt' 'qt6-base' 'kguiaddons' 'libx11' 'libstdc++' 'glibc')
+makedepends=('cmake' 'qt6-tools' 'lxqt-build-tools' 'git')
+source=("git+https://github.com/lxqt/$pkgname.git#tag=$pkgver?signed")
+sha256sums=('SKIP')
+validpgpkeys=(
+  "19DFDF3A579BD509DBB572D8BE793007AD22DF7E"  # Pedram Pourang <tsujan2000@gmail.com>
+)
+
+build() {
+  cmake -B build -S $pkgname \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBEXECDIR=lib
+
+  make -C build
+}
+
+package() {
+  cd build
+
+  make DESTDIR="$pkgdir" install
+
+  install -Dm644 ../$pkgname/qkeysequencewidget/LICENSE \
+    "$pkgdir/usr/share/licenses/$pkgname/LICENSE-QKeySequenceWidget"
+  # Qxt has no separate license file; retain both notices from its header.
+  sed -n '/^\/\*/,/\*\//p' ../$pkgname/qxt/qxtglobal.h \
+    > "$pkgdir/usr/share/licenses/$pkgname/LICENSE-Qxt"
+}
