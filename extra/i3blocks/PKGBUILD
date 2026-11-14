@@ -5,12 +5,12 @@
 
 pkgname=i3blocks
 pkgver=1.5
-pkgrel=4
+pkgrel=5
 pkgdesc='Define blocks for your i3bar status line'
 arch=('x86_64')
 groups=('i3')
 url="https://github.com/vivien/i3blocks"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 makedepends=('git')
 depends=('glibc')
 source=("${pkgname}-${pkgver}::git+https://github.com/vivien/${pkgname}#tag=${pkgver}?signed"
