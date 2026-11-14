@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langgraph
-pkgver=1.2.21
+pkgver=1.2.22
 pkgrel=1
 pkgdesc="Building stateful, multi-actor applications with LLMs"
 arch=('any')
@@ -29,6 +29,8 @@ checkdepends=(
   'python-anyio'
   'python-httpx'
   'python-langgraph-checkpoint-postgres'
+  'python-langgraph-checkpoint-sqlite'
+  'python-pycryptodome'
   'python-pytest'
   'python-pytest-mock'
   'python-pytest-xdist'
@@ -37,26 +39,15 @@ checkdepends=(
   'valkey'
 )
 source=("git+https://github.com/langchain-ai/langgraph.git#tag=$pkgver")
-sha512sums=('404d018d243dc194e1e33c51e3e2074c3a1a7305ada6f3b03b677cfeac4a3663a973d56a539bb91818ced336ef14d12776c930fc055aa1417089646d3c714cda')
+sha512sums=('af27304b33cbe42498f594ac1a651680361f2941b1badd99bad8e6922bafbfc8edfbaaf16f697680aebf5841b90454f6aff03d4e05db293e1c3c7ce2b5d2727e')
 
 prepare() {
   cd langgraph
 
-  # python-langgraph-checkpoint-sqlite is unavailable; keep no-Docker checks on
-  # memory checkpointers and Redis cache coverage through local Valkey.
+  # Keep Redis cache tests enabled with local Valkey in upstream's no-Docker mode.
   sed -i \
-    -e '/from langgraph\.cache\.sqlite import SqliteCache/d' \
-    -e '/^[[:space:]]*_checkpointer_sqlite/d' \
-    -e 's/params=\["sqlite", "memory"\] if NO_DOCKER else \["sqlite", "memory", "redis"\]/params=["memory", "redis"]/' \
-    -e '/if request\.param == "sqlite":/{N;d;}' \
-    -e 's/elif request\.param == "memory":/if request.param == "memory":/' \
-    -e '/^[[:space:]]*"sqlite"/d' \
-    -e '/^[[:space:]]*"sqlite_aes"/d' \
-    -e '/^[[:space:]]*"sqlite_aio"/d' \
-    -e '/elif checkpointer_name == "sqlite":/,/elif checkpointer_name == "postgres":/{/elif checkpointer_name == "postgres"/!d;}' \
-    -e '/elif checkpointer_name == "sqlite_aio":/,/elif checkpointer_name == "postgres_aio":/{/elif checkpointer_name == "postgres_aio"/!d;}' \
+    's/params=\["sqlite", "memory"\] if NO_DOCKER else \["sqlite", "memory", "redis"\]/params=["sqlite", "memory", "redis"]/' \
     libs/langgraph/tests/conftest.py
-  sed -i '/from langgraph\.checkpoint\.sqlite/d' libs/langgraph/tests/conftest_checkpointer.py
 }
 
 build() {

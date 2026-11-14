@@ -1,6 +1,6 @@
 pkgbase = python-langgraph
 	pkgdesc = Building stateful, multi-actor applications with LLMs
-	pkgver = 1.2.21
+	pkgver = 1.2.22
 	pkgrel = 1
 	url = https://github.com/langchain-ai/langgraph/tree/main/libs/langgraph
 	arch = any
@@ -9,6 +9,8 @@ pkgbase = python-langgraph
 	checkdepends = python-anyio
 	checkdepends = python-httpx
 	checkdepends = python-langgraph-checkpoint-postgres
+	checkdepends = python-langgraph-checkpoint-sqlite
+	checkdepends = python-pycryptodome
 	checkdepends = python-pytest
 	checkdepends = python-pytest-mock
 	checkdepends = python-pytest-xdist
@@ -28,7 +30,7 @@ pkgbase = python-langgraph
 	depends = python-pydantic
 	depends = python-typing_extensions
 	depends = python-xxhash
-	source = git+https://github.com/langchain-ai/langgraph.git#tag=1.2.21
-	sha512sums = 404d018d243dc194e1e33c51e3e2074c3a1a7305ada6f3b03b677cfeac4a3663a973d56a539bb91818ced336ef14d12776c930fc055aa1417089646d3c714cda
+	source = git+https://github.com/langchain-ai/langgraph.git#tag=1.2.22
+	sha512sums = af27304b33cbe42498f594ac1a651680361f2941b1badd99bad8e6922bafbfc8edfbaaf16f697680aebf5841b90454f6aff03d4e05db293e1c3c7ce2b5d2727e
 
 pkgname = python-langgraph
