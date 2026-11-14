@@ -2,12 +2,13 @@
 
 pkgname=shy
 pkgver=0.1.10
-pkgrel=3
+pkgrel=4
 pkgdesc="Bare-bones SSH launcher"
 arch=('x86_64')
 url="https://github.com/xvxx/shy"
 license=('MIT')
 depends=(
+  'glibc'
   'libgcc'
 )
 makedepends=('rust')
@@ -21,7 +22,7 @@ build() {
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --release --locked
+  cargo test --release --locked --lib
 }
 
 package() {
