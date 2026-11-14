@@ -2,8 +2,8 @@
 
 pkgname=python-pytest-tap
 _pyname=${pkgname#python-}
-pkgver=3.5
-pkgrel=2
+pkgver=3.6
+pkgrel=1
 pkgdesc="Test Anything Protocol (TAP) reporting plugin for pytest."
 arch=(any)
 url="https://github.com/python-tap/pytest-tap"
@@ -11,7 +11,7 @@ license=('BSD')
 depends=('python-pytest' 'python-tappy')
 makedepends=('python-setuptools' 'python-build' 'python-hatchling' 'python-installer' 'python-wheel')
 source=(${pkgname}-${pkgver}.tar.gz::https://github.com/python-tap/pytest-tap/archive/v${pkgver}.tar.gz)
-sha256sums=('cdae1ed711a4287ab322a2664cedb00a11069553ea3c0a302129bedb0cde9706')
+sha256sums=('7671560b69f116e964bae124452445fa8ffdb2383dd39515beed7c03e1af0929')
 
 prepare() {
 	cd "${srcdir}/${_pyname}-${pkgver}"
