@@ -2,20 +2,23 @@
 # Maintainer: Chih-Hsuan Yen <yan12125@archlinux.org>
 
 pkgname=pavucontrol-qt
-pkgver=2.5.0
+pkgver=2.5.1
 pkgrel=1
 pkgdesc="A Pulseaudio mixer in Qt (port of pavucontrol)"
 arch=("x86_64")
 groups=("lxqt")
 url="https://github.com/lxqt/$pkgname"
-license=("GPL2")
+# LICENSE contains GPLv2; the src/*.cc and src/*.h license headers explicitly
+# allow version 2 or any later version, hence GPL-2.0-or-later.
+# https://github.com/lxqt/pavucontrol-qt/blob/2.5.1/src/pavucontrol.cc#L7-L10
+license=("GPL-2.0-or-later")
 depends=("pulse-native-provider" "qt6-base")
 makedepends=("lxqt-build-tools")
 source=(
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz"
 	"https://github.com/lxqt/$pkgname/releases/download/$pkgver/$pkgname-$pkgver.tar.xz.asc"
 )
-sha256sums=('90f1187cf2601c499ba9414fe742c69ef30d77337c8492d6669fc624d0d1658c'
+sha256sums=('a4c3839571f3d1bb556fe10c8f53316d6cc6374a98af49b1506a6aca2c5b7316'
             'SKIP')
 validpgpkeys=(
 	"169704C6FB490C6892C7F23C37E0AF1FDA48F373"  # Jerome Leclanche <jerome@leclan.ch>
