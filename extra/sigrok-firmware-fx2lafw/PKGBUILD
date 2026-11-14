@@ -2,27 +2,36 @@
 
 pkgname=sigrok-firmware-fx2lafw
 pkgver=0.1.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Firmware for FX2 logic analyzers'
 arch=('any')
 url='http://sigrok.org/wiki/Fx2lafw'
-license=('GPL2' 'LGPL2.1')
-makedepends=('sdcc')
-source=("http://sigrok.org/download/source/$pkgname/$pkgname-$pkgver.tar.gz")
-sha512sums=('e9973980b07cef395637476c6294473e349770be24afe6b03d284bf3057f6b32fe686e25f3baa180b96455397db43e16f191a9feb07bf46e097170fb4d326f8e')
+license=('GPL-2.0-or-later' 'LGPL-2.1-or-later')
+makedepends=('git' 'sdcc')
+source=("git://sigrok.org/sigrok-firmware-fx2lafw#tag=$pkgname-$pkgver")
+sha512sums=('2ebb3a021fec22bdb4c11913739ffdcf15c42a6cac938af5750ad1986f9482258518394912c23d7ca4c09bfb6d0f3b162b751b7407ed429424f333c0b2d6cf58')
+
+prepare() {
+  cd $pkgname
+
+  # fx2lib: Update __interrupt syntax for sdcc>=4.2.3
+  git cherry-pick -n 5aab87d358a4585a10ad89277bb88ad139077abd
+  git cherry-pick -n 3e08500d22f87f69941b65cf8b8c1b85f9b41173
+  git cherry-pick -n 96b0b476522c3f93a47ff8f479ec08105ba6a2a5
+
+  autoreconf -vif
+}
 
 build(){
-    cd $pkgname-$pkgver
+  cd $pkgname
 
-    autoreconf -vif
+  ./configure --prefix=/usr
 
-    ./configure --prefix=/usr
-
-    make
+  make
 }
 
 package(){
-  cd $pkgname-$pkgver
+  cd $pkgname
 
   make DESTDIR="$pkgdir" install
 }
