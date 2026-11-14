@@ -1,7 +1,7 @@
 # Maintainer: Robin Candau <antiz@archlinux.org>
 
 pkgname=incrust
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="A minimal incremental / idle terminal game about compiling stuff"
 url="https://github.com/Antiz96/incrust"
@@ -11,7 +11,7 @@ depends=('glibc' 'libgcc')
 makedepends=('cargo' 'scdoc' 'git')
 optdepends=("genact: for compilation animations")
 source=("git+${url}.git#tag=v${pkgver}?signed")
-sha256sums=('a7610c6f49eb9f7b3e33ed835545df15a994301e8de25b4cf9c3d7b982217b2a')
+sha256sums=('75e9dde4814b53e9c506902c0e6e3260a07cf8883c3cb57aebd91fd6656145ea')
 validpgpkeys=(A67CCEEBF9613C17FDE96E4ED33FAA16B937F3B2) # Robin Candau <robincandau@mailbox.org>
 
 prepare() {
