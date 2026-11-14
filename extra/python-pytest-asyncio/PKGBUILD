@@ -2,7 +2,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=python-pytest-asyncio
-pkgver=1.4.1
+pkgver=1.4.1.post1
 pkgrel=1
 pkgdesc="Pytest support for asyncio."
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python' 'python-pytest')
 makedepends=('git' 'python-build' 'python-installer' 'python-setuptools-scm')
 checkdepends=('python-hypothesis')
 source=("git+https://github.com/pytest-dev/pytest-asyncio.git#tag=v$pkgver")
-b2sums=('8a3031baa2934bbec5fdd3a018af9376a64725df13f4237ee3dfac00c79d5c63d018d97e32710139fc8b02ee64b9dc5e17888ff547c4d0efa6bfdcf65342cac5')
+b2sums=('93ff185afc8510d8d502d4251efb81d0adc66317a5ac984e916cb88a614063e69d15f8bc567c06fc953dec2ef5c75ac4b8944dd9786e4c55e458e60079bc9666')
 
 build() {
   cd pytest-asyncio
