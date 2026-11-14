@@ -3,8 +3,8 @@
 
 pkgname=twitch-tui
 _pkgname=twt
-pkgver=2.6.19
-pkgrel=2
+pkgver=3.0.0
+pkgrel=1
 pkgdesc="Twitch chat in the terminal"
 arch=('x86_64')
 url="https://github.com/Xithrius/twitch-tui"
@@ -15,7 +15,7 @@ depends=(
 )
 makedepends=('cargo')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha512sums=('9e92ca66c68b0e8125dbea8231c9a918e2ea7d34b4b6f384bee53e24b78573f56b9a1a4c5b792bca08a7e01ac3f7963dca11792caf5414c71aafec6bed4480a4')
+sha512sums=('ef6bb9ce7d70fda07c3e17f7edfd6db227b32792f0dd6da4f86f330ec1c54d581f5c245db857b09b4d0b1e7ae14f23804121a6529e390e54b68d81b5f3753caa')
 options=('!lto')
 
 prepare() {
