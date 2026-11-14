@@ -3,7 +3,7 @@
 
 _hkgname=th-abstraction
 pkgname=haskell-th-abstraction
-pkgver=0.7.1.0
+pkgver=0.7.2.0
 pkgrel=1
 pkgdesc="Nicer interface for reified information about data types"
 url="https://github.com/glguy/th-abstraction/"
@@ -12,19 +12,24 @@ arch=('x86_64')
 depends=('ghc-libs')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('72d20f24ba63724e0b50882498910d97722c59a83d1d752d11121d9c67380588b424d724116a1ef4b98c2f41130e23eb7482b893a3381698c668acc2378f63df')
+sha512sums=('efd64e297fb3705c55c4df8f754f91bb90a8a0636eee1f6279f48231b9b390d115ca9ff63c7bf7d7b43d1b955ced078ef16634f1bcb1cbc22327d742f811c56d')
 
 build() {
     cd $_hkgname-$pkgver
     
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
-        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname \
+        --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
     runhaskell Setup unregister --gen-script
     sed -i -r -e "s|ghc-pkg.*update[^ ]* |&'--force' |" register.sh
     sed -i -r -e "s|ghc-pkg.*unregister[^ ]* |&'--force' |" unregister.sh
+}
+
+check() {
+    cd $_hkgname-$pkgver
+    runhaskell Setup test --show-details=direct
 }
 
 package() {
