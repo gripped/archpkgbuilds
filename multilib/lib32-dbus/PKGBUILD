@@ -5,7 +5,7 @@ pkgbase=lib32-dbus
 pkgname=(
   lib32-dbus
 )
-pkgver=1.16.2
+pkgver=1.16.4
 pkgrel=1
 pkgdesc="Freedesktop.org message bus system - 32-bit"
 url="https://www.freedesktop.org/wiki/Software/dbus/"
@@ -27,8 +27,8 @@ source=(
   "git+https://gitlab.freedesktop.org/dbus/dbus.git?signed#tag=dbus-$pkgver"
   0001-Arch-Linux-tweaks-lib32.patch
 )
-b2sums=('669cd4203fbac908db3a20c5b51355d9e84b68c9cc94f8de52e35544a636c6d5d1df8ee2bbdfd6dead53a6bd9865db547aa4af0e913bac697b138c698840d3ce'
-        '709c45086f60fe0cfb153d4dad585a71ac0dbbb6b3d16c0e3a35bd0cfc9b835511309c62cb35f03cebfc6831661fd5cf9bbdf86b0b14ab92065a00f3317299fe')
+b2sums=('16ede293841e85770e8aaca54ac0066b25d0e3bcd18652b302ac3cf13cb7038efca0543ab4021f11c4e2501c0d9a913563eefdb7cbb49b6289fc3c4c56ad25cd'
+        '12f90a951a1f6b23c7bd4b257d3b848c6be9f812344be02fd7113ee977b2eded1434fad920f8f05fe4f9e277e4dd58f38b5ff61dfc36a629d556534a437b6859')
 validpgpkeys=(
   DA98F25C0871C49A59EAFF2C4DE8FF2A63C7CC90  # Simon McVittie <simon.mcvittie@collabora.co.uk>
 )
