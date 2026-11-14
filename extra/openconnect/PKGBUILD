@@ -5,15 +5,15 @@
 
 pkgname=openconnect
 pkgver=9.21
-pkgrel=1
+pkgrel=2
 epoch=1
 pkgdesc='Open client for Cisco AnyConnect VPN'
 url='https://www.infradead.org/openconnect/'
 arch=('x86_64')
-license=('LGPL2.1')
-depends=('libxml2' 'gnutls' 'libproxy' 'vpnc' 'krb5' 'lz4' 'pcsclite'
+license=('LGPL-2.1-only')
+depends=('glibc' 'libxml2' 'gnutls' 'libproxy' 'vpnc' 'krb5' 'lz4' 'pcsclite'
          'stoken' 'tpm2-tss' 'oath-toolkit' 'libproxy' 'libp11-kit'
-         'xdg-utils'
+         'xdg-utils' 'libtasn1'
          libstoken.so libtss2-esys.so libtss2-mu.so libtss2-tctildr.so
          libxml2.so libproxy.so libhogweed.so libp11-kit.so libpskc.so
          libgssapi_krb5.so libpcsclite.so)
