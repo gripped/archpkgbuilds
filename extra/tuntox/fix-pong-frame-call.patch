@@ -1,0 +1,11 @@
+--- a/main.c
++++ b/main.c
+@@ -589,7 +589,7 @@
+             return handle_ping_frame(frame);
+             break;
+         case PACKET_TYPE_PONG:
+-            return handle_pong_frame(frame);
++            return handle_pong_frame();
+             break;
+         case PACKET_TYPE_TCP:
+             if(client_mode)

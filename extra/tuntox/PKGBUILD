@@ -4,24 +4,26 @@
 pkgname=tuntox
 pkgver=0.0.10.1
 _tag=cedf90d610a87d115bcd3d0d9c08fd38c28bb174 # git rev-parse $pkgver
-pkgrel=2
+pkgrel=3
 pkgdesc='Tunnel TCP connections over the Tox protocol'
 arch=('x86_64')
 url='https://github.com/gjedeer/tuntox'
-license=('GPL3')
+license=('GPL-3.0-only')
 depends=('toxcore')
 makedepends=('git' 'libnsl')
-source=("git+https://github.com/gjedeer/tuntox#tag=$_tag?signed")
-sha512sums=('SKIP')
+source=("git+https://github.com/gjedeer/tuntox#tag=$_tag?signed"
+        fix-pong-frame-call.patch)
+sha512sums=('3eac6c3e5eb5fd89ab982b6551d8d2b244df92a2daff10b627f6e48bcb461e3c83021257220e3d6121ac4d82cd20f7ef0a4717834ddb0736d672e89e70c9388b'
+            '8a54c134445e113e371316b98f40af20a1a5b56ad3531a1a4950745ade33701c18693f66821dbb1706856eb4f62a31060dbdd2b1ee3713cb267abd22000011ef')
 validpgpkeys=('11C1B15A5D5DD662E469928AEBDA6B974ED3D2B7')  # GDR!_ <gdr@gdr.name>
 
 prepare() {
   cd $pkgname
+  patch -Np1 -i "$srcdir/fix-pong-frame-call.patch"
   #sed -i "s|DEPS=libsodium toxcore|DEPS=libsodium libtoxcore|" Makefile
   sed -i '/^CFLAGS=/d' Makefile # use CFLAGS from makepkg
   sed -i '/^LDFLAGS=/d' Makefile # use LDFLAGS from makepkg
   sed -i 's/^DSO_LDFLAGS=.*$/DSO_LDFLAGS=$(LDFLAGS)/' Makefile # use LDFLAGS from makepkg
-  cat Makefile
 }
 
 build() {
