@@ -3,8 +3,8 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=mate-system-monitor
-pkgver=1.28.1
-pkgrel=4
+pkgver=1.28.2
+pkgrel=1
 pkgdesc="A system monitor for MATE"
 arch=(x86_64)
 url='https://github.com/mate-desktop/mate-system-monitor'
@@ -36,14 +36,10 @@ makedepends=(
 )
 groups=(mate-extra)
 source=("git+https://github.com/mate-desktop/mate-system-monitor.git#tag=v$pkgver")
-b2sums=(e8dfd26819226c2d184df8919304e48cafdaab42b18eaf6056ce2f05fbcaecd55326f0b282d06125c76e36af4d108e58a9586143a1b961f8630ee2077fe7f410)
+b2sums=(3676b5efa99bba43ef0c08c987edd0aa2ae73d673e47cb8b418988df29ab0436f9f334d3c836288734c24cd1fd8e02c2606e40f10b04b08df28ce0c105a037c0)
 
 prepare() {
   cd $pkgname
-
-  # Fix window size growing with client-side decorations
-  # https://github.com/mate-desktop/mate-system-monitor/pull/276
-  git cherry-pick -n 33e45b5435103a27c954b63fdec2cac014f57b7d
 
   # Remove OnlyShowIn from mate-system-monitor.desktop
   # https://github.com/mate-desktop/mate-system-monitor/pull/277
