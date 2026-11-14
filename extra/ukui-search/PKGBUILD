@@ -1,0 +1,154 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=ukui-search
+pkgver=4.25.0.0
+pkgrel=2
+pkgdesc="Desktop search, file indexing, and search libraries for UKUI"
+arch=('x86_64')
+license=('GPL-3.0-or-later' 'BSD-3-Clause' 'MIT' 'RSA-MD')
+url="https://gitee.com/openkylin/ukui-search"
+groups=('ukui')
+depends=('coreutils' 'dbus' 'glib2' 'glibc' 'gsettings-qt6' 'kysdk-ai-common'
+         'libgcc' 'libkysdk-ai-private' 'libkysdk-applications' 'libkysdk-genai'
+         'libkysdk-system' 'libqtxdg' 'libstdc++' 'qt6-base' 'qt6-declarative'
+         'qt6-remoteobjects' 'sqlite' 'ukui-file-metadata'
+         # 'ukui-control-center'
+         # 'ukui-menu'
+         'ukui-quick' 'ukui-service-manager' 'xapian-core')
+makedepends=('boost' 'cmake' 'git' 'ninja' 'qt6-shadertools' 'qt6-tools')
+checkdepends=('bubblewrap')
+provides=('libchinese-segmentation.so' 'libukui-search.so')
+backup=('etc/ukui/ukui-search/application-dirs.conf')
+source=("git+https://gitee.com/openkylin/ukui-search.git#tag=upstream/$pkgver"
+        'test-fixtures.patch'
+        'session-bus-lifetime.patch')
+sha256sums=('ee7976d4834e43df11250892e6a70252b30b11ca563bc1c3bbbc5c4d9d9fa705'
+            'eadbb101827b1516d372e79003f90ece1ecd09c8059bb7042020edb401518166'
+            '6ff9a230db2b24949fec9dbc5d9192e3619e4a00571831eda62d564ca50793a1')
+
+prepare() {
+  cd ukui-search
+
+  # Fix the data-collection header path for the current Kylin SDK.
+  # https://gitee.com/openkylin/ukui-search/commit/fca614ae7acb1e356265f2187f9324d1b63555e3
+  git cherry-pick -n fca614ae7acb1e356265f2187f9324d1b63555e3
+  # Keep the SDK test stub at the corrected include path.
+  mv libsearch/autotest/data-collecter-stubs/kysdk/{diagnosetest,kysdk-system}
+
+  # Fix empty file-result descriptions and queued AI calls during session destruction.
+  # https://gitee.com/openkylin/ukui-search/pulls/482
+  git cherry-pick -n f2997f35e27ab8660060a857307b4761d537ca67
+  # Supply the QML test D-Bus service and fix stale assertions and asynchronous test races.
+  # https://gitee.com/openkylin/ukui-search/pulls/482
+  git diff b662a01a8a69dcf620141bd99cf4706de2d74555^ \
+           b662a01a8a69dcf620141bd99cf4706de2d74555 -- \
+    tests/dbus-session.conf ukui-search-qml/autotest \
+    libsearch/autotest/application-property-helper-test.cpp \
+    libsearch/autotest/index-database-plugin-whitebox-test.cpp | git apply
+  # Initialize valid schemas before GLib caches them and reset directory-watcher fixtures.
+  patch -p1 -i "$srcdir/test-fixtures.patch"
+
+  # Exit the search services when their session bus disconnects.
+  patch -p1 -i "$srcdir/session-bus-lifetime.patch"
+
+  # Temporarily mask the unused ukui-menu imports until it is packaged.
+  sed -i '/^import org\.ukui\.menu\.starter /d' \
+    ukui-search-qml/widgets/org.ukui.search.{appSearch,webSearch}/widget/ui/main.qml
+  # Temporarily omit the plugin that links to the deferred control-center library.
+  sed -i 's/^add_subdirectory(search-ukcc-plugin)$/# &/' CMakeLists.txt
+
+  # Use Arch's flat library layout, including plugin and pkg-config paths.
+  sed -i 's|/${CMAKE_LIBRARY_ARCHITECTURE}||g' \
+    libsearch/CMakeLists.txt perftools/CMakeLists.txt search-ukcc-plugin/CMakeLists.txt
+  sed -i -e 's|/@CMAKE_LIBRARY_ARCHITECTURE@||g' \
+         -e 's|@VERSION@|@LIBUKUI_SEARCH_VERSION@|' libsearch/ukui-search.pc.in
+  sed -i -e 's|/@CMAKE_LIBRARY_ARCHITECTURE@||g' \
+         -e 's|@VERSION@|@CHINESE_SEGMENTATION_VERSION@|' \
+    libchinese-segmentation/chinese-segmentation.pc.in
+
+  # Qt 6 takes a byte-array view instead of a pointer and length.
+  sed -i 's/qChecksum(idc.constData(), idc.size())/qChecksum(idc)/' \
+    3rd-parties/qtsingleapplication/src/qtlocalpeer.cpp
+  # Single-letter MD5 macros collide with Qt 6 template parameters.
+  sed -i -e 's/\bF\b/LIMONP_MD5_F/g' -e 's/\bG\b/LIMONP_MD5_G/g' \
+         -e 's/\bH\b/LIMONP_MD5_H/g' -e 's/\bI\b/LIMONP_MD5_I/g' \
+    libchinese-segmentation/cppjieba/limonp/Md5.hpp
+  # A .cpp-only inline definition leaves the whitebox test without a linkable symbol.
+  sed -i 's/^inline double DictTrie::GetMinWeight()/double DictTrie::GetMinWeight()/' \
+    libchinese-segmentation/cppjieba/segment-trie/segment-trie.cpp
+  # Export the out-of-line plugin accessors for tests linked to the production library.
+  sed -i 's/inline SearchTaskPluginIface/SearchTaskPluginIface/' \
+    libsearch/pluginmanage/search-task-plugin-manager.{cpp,h}
+  # QString::arg() requires the integer value of QAtomicInt in Qt 6.
+  sed -i 's/arg(m_logFileId)/arg(m_logFileId.LOAD)/g' libsearch/log-utils.cpp
+  # QStringView replaces the removed QString::midRef() API in Qt 6.
+  sed -i -e '/#include <QDir>/a #include <QStringView>' \
+         -e 's/path.midRef(1)/QStringView(path).mid(1)/' \
+    libsearch/searchinterface/searchtasks/file-search-task.cpp
+  # Qt 6's QDataStream header only forward-declares QIODevice.
+  sed -i '/#include <QDataStream>/a #include <QIODevice>' \
+    ukui-search-qml/src/history/search-history-entry.cpp
+  # QLabel::pixmap() returns a value instead of a pointer in Qt 6.
+  sed -i 's/QVERIFY(\(.*\)->pixmap() != nullptr);/QVERIFY(!\1->pixmap().isNull());/' \
+    libsearch/autotest/{app-search-plugin,plugin-keyword-search}-whitebox-test.cpp \
+    frontend/autotest/create-index-ask-dialog-test.cpp
+  # Boost.System is header-only and no longer exports a separate CMake component.
+  sed -i -e 's/Boost 1.70 REQUIRED COMPONENTS system/Boost 1.70 REQUIRED/' \
+         -e 's/Boost::system/Boost::headers/g' \
+    ukui-search-qml/{,autotest/}CMakeLists.txt
+  # Current Boost.Asio timers only provide the no-argument cancel() overload.
+  sed -i -e '/void cancelDeadline()/,/^    }/{/boost::system::error_code ignored;/d;}' \
+         -e 's/m_deadline.cancel(ignored)/m_deadline.cancel()/g' \
+    ukui-search-qml/src/instant-result/kylinbot-gateway-socket-facade.cpp
+  # Match the test dependencies to the Qt 6 libraries used by the application.
+  sed -i -e 's/qt5xdg/qt6xdg/g' -e 's/Qt5Xdg/Qt6Xdg/g' \
+         -e 's/PkgConfig::gsettings-qt\b/PkgConfig::gsettings-qt6/g' \
+    libsearch/autotest/CMakeLists.txt
+  # Building tests must not instrument the installed libraries for coverage.
+  sed -i '/^set(CMAKE_.*_FLAGS .* -fprofile-arcs -ftest-coverage/d' CMakeLists.txt
+  # An uninstrumented build has no coverage data to flush.
+  sed -i '/__gcov_dump/d' libsearch/autotest/libsearch-whitebox-test.cpp
+  # TrivialOnce needs zero-initialized storage or its test can wait on a garbage lock.
+  sed -i 's/tcmalloc::TrivialOnce once;/tcmalloc::TrivialOnce once{};/' \
+    perftools/autotest/perftools-whitebox-test.cpp
+}
+
+build() {
+  cmake -S ukui-search -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DQT_DEFAULT_MAJOR_VERSION=6 \
+    -DBUILD_TEST=ON
+  cmake --build build
+}
+
+check() {
+  # The production library reads its dictionaries from the installed data directory.
+  install -Dm644 ukui-search/libchinese-segmentation/dict/*.{utf8,txt} \
+    ukui-search/libchinese-segmentation/dict/pos_dict/*.utf8 \
+    ukui-search/libchinese-segmentation/pinyin4cpp/dict/*.txt \
+    ukui-search/libchinese-segmentation/Traditional-Chinese-Simplified-conversion/dict/*.txt \
+    -t test-data/chinese-segmentation/res/dict
+  glib-compile-schemas ukui-search/data
+  GSETTINGS_SCHEMA_DIR="$srcdir/ukui-search/data" GSETTINGS_BACKEND=memory \
+    QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software \
+    bwrap --bind / / --dev-bind /dev /dev \
+      --overlay-src "$srcdir/test-data" --overlay-src /usr/share --ro-overlay /usr/share \
+    dbus-run-session -- ctest --test-dir build --output-on-failure
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  cd ukui-search
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+  sed -n '1,25p' libchinese-segmentation/cppjieba/DictTrie.hpp \
+    > "$pkgdir/usr/share/licenses/$pkgname/cppjieba.txt"
+  sed -n '1,30p' libchinese-segmentation/cppjieba/limonp/Md5.hpp \
+    > "$pkgdir/usr/share/licenses/$pkgname/RSA-MD.txt"
+  sed -n '2,30p' perftools/src/tcmalloc.cc \
+    > "$pkgdir/usr/share/licenses/$pkgname/gperftools.txt"
+  install -Dm644 3rd-parties/qtsingleapplication/doc/html/qtsingleapplication-example-trivial.html \
+    "$pkgdir/usr/share/licenses/$pkgname/qt-solutions.html"
+}

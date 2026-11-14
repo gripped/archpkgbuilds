@@ -1,0 +1,144 @@
+diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
+index a58d298a..95b70e33 100644
+--- a/tests/CMakeLists.txt
++++ b/tests/CMakeLists.txt
+@@ -5,8 +5,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ 
+ set(CMAKE_AUTOMOC ON)
+ 
+-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
++find_package(QT NAMES Qt6 Qt5 COMPONENTS Core DBus Test REQUIRED)
++find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core DBus Test REQUIRED)
+ 
+ add_executable(tests
+     file-system-watcher-test.cpp file-system-watcher-test.h
+@@ -29,3 +29,16 @@ target_link_libraries(tests PRIVATE
+     Qt${QT_VERSION_MAJOR}::Core
+     ukui-search
+ )
++
++add_executable(serviceSessionExitTest service-session-exit-test.cpp)
++target_link_libraries(serviceSessionExitTest PRIVATE
++    Qt${QT_VERSION_MAJOR}::Core
++    Qt${QT_VERSION_MAJOR}::DBus
++    Qt${QT_VERSION_MAJOR}::Test)
++target_compile_definitions(serviceSessionExitTest PRIVATE
++    APP_DB_SERVICE="$<TARGET_FILE:ukui-search-app-data-service>"
++    DIR_MANAGER_SERVICE="$<TARGET_FILE:ukui-search-service-dir-manager>")
++add_dependencies(serviceSessionExitTest
++    ukui-search-app-data-service ukui-search-service-dir-manager)
++add_test(NAME serviceSessionExitTest COMMAND serviceSessionExitTest)
++set_tests_properties(serviceSessionExitTest PROPERTIES TIMEOUT 60)
+diff --git a/tests/service-session-exit-test.cpp b/tests/service-session-exit-test.cpp
+new file mode 100644
+index 00000000..48b01536
+--- /dev/null
++++ b/tests/service-session-exit-test.cpp
+@@ -0,0 +1,76 @@
++// SPDX-FileCopyrightText: 2026 Arch Linux contributors
++// SPDX-License-Identifier: GPL-3.0-or-later
++
++#include <QDBusConnection>
++#include <QDBusConnectionInterface>
++#include <QDBusReply>
++#include <QDir>
++#include <QFile>
++#include <QProcess>
++#include <QProcessEnvironment>
++#include <QTemporaryDir>
++#include <QtTest>
++
++class ServiceSessionExitTest : public QObject
++{
++    Q_OBJECT
++
++private slots:
++    void servicesExitWhenBusDisconnects()
++    {
++        QTemporaryDir state;
++        QVERIFY(state.isValid());
++        const QString runtime = state.path() + QStringLiteral("/runtime");
++        QVERIFY(QDir().mkpath(runtime));
++        QVERIFY(QFile::setPermissions(runtime, QFile::ReadOwner | QFile::WriteOwner | QFile::ExeOwner));
++
++        QProcess busDaemon;
++        busDaemon.start(QStringLiteral("dbus-daemon"),
++                        {QStringLiteral("--session"), QStringLiteral("--nofork"),
++                         QStringLiteral("--print-address=1")});
++        QVERIFY(busDaemon.waitForStarted());
++        QTRY_VERIFY_WITH_TIMEOUT(busDaemon.canReadLine(), 5000);
++        const QString address = QString::fromUtf8(busDaemon.readLine()).trimmed();
++        QVERIFY(!address.isEmpty());
++
++        QProcessEnvironment environment = QProcessEnvironment::systemEnvironment();
++        environment.insert(QStringLiteral("DBUS_SESSION_BUS_ADDRESS"), address);
++        environment.insert(QStringLiteral("HOME"), state.path());
++        environment.insert(QStringLiteral("XDG_CONFIG_HOME"), state.path() + QStringLiteral("/config"));
++        environment.insert(QStringLiteral("XDG_CACHE_HOME"), state.path() + QStringLiteral("/cache"));
++        environment.insert(QStringLiteral("XDG_DATA_HOME"), state.path() + QStringLiteral("/data"));
++        environment.insert(QStringLiteral("XDG_RUNTIME_DIR"), runtime);
++
++        const QString connectionName = QStringLiteral("service-session-exit-test");
++        const QDBusConnection bus = QDBusConnection::connectToBus(address, connectionName);
++        QVERIFY(bus.isConnected());
++
++        // Start the built services explicitly so activation cannot select installed copies.
++        QProcess dirManager;
++        dirManager.setProcessEnvironment(environment);
++        dirManager.start(QStringLiteral(DIR_MANAGER_SERVICE), QStringList());
++        QVERIFY(dirManager.waitForStarted());
++        QTRY_VERIFY_WITH_TIMEOUT(bus.interface()->isServiceRegistered(
++                                     QStringLiteral("com.ukui.search.fileindex.service")).value(), 15000);
++
++        QProcess appDb;
++        appDb.setProcessEnvironment(environment);
++        appDb.start(QStringLiteral(APP_DB_SERVICE), QStringList());
++        QVERIFY(appDb.waitForStarted());
++        QTRY_VERIFY_WITH_TIMEOUT(bus.interface()->isServiceRegistered(
++                                     QStringLiteral("com.ukui.search.appdb.service")).value(), 15000);
++
++        busDaemon.terminate();
++        QVERIFY(busDaemon.waitForFinished());
++        QTRY_COMPARE_WITH_TIMEOUT(dirManager.state(), QProcess::NotRunning, 10000);
++        QTRY_COMPARE_WITH_TIMEOUT(appDb.state(), QProcess::NotRunning, 10000);
++        QCOMPARE(dirManager.exitStatus(), QProcess::NormalExit);
++        QCOMPARE(dirManager.exitCode(), 0);
++        QCOMPARE(appDb.exitStatus(), QProcess::NormalExit);
++        QCOMPARE(appDb.exitCode(), 0);
++        QDBusConnection::disconnectFromBus(connectionName);
++    }
++};
++
++QTEST_GUILESS_MAIN(ServiceSessionExitTest)
++#include "service-session-exit-test.moc"
+diff --git a/ukui-search-app-data-service/ukui-search-app-data-service.cpp b/ukui-search-app-data-service/ukui-search-app-data-service.cpp
+index c59f3268..c5c5c3c0 100644
+--- a/ukui-search-app-data-service/ukui-search-app-data-service.cpp
++++ b/ukui-search-app-data-service/ukui-search-app-data-service.cpp
+@@ -46,6 +46,10 @@ UkuiSearchAppDataService::UkuiSearchAppDataService(int &argc, char *argv[], cons
+         AppDBManager::getInstance();
+ 
+         QDBusConnection sessionBus = QDBusConnection::sessionBus();
++        // The service cannot handle requests once its session bus is gone.
++        sessionBus.connect(QString(), QStringLiteral("/org/freedesktop/DBus/Local"),
++                           QStringLiteral("org.freedesktop.DBus.Local"),
++                           QStringLiteral("Disconnected"), this, SLOT(quit()));
+         if(!sessionBus.registerObject("/org/ukui/search/appDataBase/dbManager", AppDBManager::getInstance(), QDBusConnection::ExportAdaptors)) {
+             qCritical() << "ukui-search-app-db-manager dbus register object failed reason:" << sessionBus.lastError();
+         }
+diff --git a/ukui-search-service-dir-manager/ukui-search-dir-manager-dbus.cpp b/ukui-search-service-dir-manager/ukui-search-dir-manager-dbus.cpp
+index 8aba34b2..9e76f0c8 100644
+--- a/ukui-search-service-dir-manager/ukui-search-dir-manager-dbus.cpp
++++ b/ukui-search-service-dir-manager/ukui-search-dir-manager-dbus.cpp
+@@ -67,6 +67,10 @@ UkuiSearchDirManagerDbus::UkuiSearchDirManagerDbus(int &argc, char *argv[], cons
+             m_initializationSucceeded = false;
+             return;
+         }
++        // The service cannot handle requests once its session bus is gone.
++        sessionBus.connect(QString(), QStringLiteral("/org/freedesktop/DBus/Local"),
++                           QStringLiteral("org.freedesktop.DBus.Local"),
++                           QStringLiteral("Disconnected"), this, SLOT(quit()));
+         if(!sessionBus.registerObject("/org/ukui/search/privateDirWatcher", DirWatcher::getDirWatcher(), QDBusConnection::ExportNonScriptableSlots | QDBusConnection::ExportAllSignals)) {
+             qCritical() << "ukui-search-fileindex dbus register object failed reason:" << sessionBus.lastError();
+             m_initializationSucceeded = false;

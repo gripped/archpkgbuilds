@@ -1,0 +1,152 @@
+diff --git a/libsearch/autotest/global-settings-test.cpp b/libsearch/autotest/global-settings-test.cpp
+index efa02acc..2be98e67 100644
+--- a/libsearch/autotest/global-settings-test.cpp
++++ b/libsearch/autotest/global-settings-test.cpp
+@@ -34,32 +34,6 @@ using namespace UkuiSearch;
+ 
+ namespace {
+ 
+-class ScopedEnvVar
+-{
+-public:
+-    ScopedEnvVar(const QByteArray &name, const QByteArray &value)
+-        : m_name(name),
+-          m_hadValue(qEnvironmentVariableIsSet(name.constData())),
+-          m_oldValue(qgetenv(name.constData()))
+-    {
+-        qputenv(m_name, value);
+-    }
+-
+-    ~ScopedEnvVar()
+-    {
+-        if (m_hadValue) {
+-            qputenv(m_name, m_oldValue);
+-        } else {
+-            qunsetenv(m_name);
+-        }
+-    }
+-
+-private:
+-    QByteArray m_name;
+-    bool m_hadValue = false;
+-    QByteArray m_oldValue;
+-};
+-
+ bool writeSchemaFile(const QString &path, const QByteArray &content)
+ {
+     QFile file(path);
+@@ -116,9 +90,8 @@ void GlobalSettingsTest::testSingletonReturnsConfiguredDefaults()
+     QVERIFY(settings.getValue(WINDOW_RADIUS_KEY).isValid());
+ }
+ 
+-void GlobalSettingsTest::testSchemaDrivenUpdatesEmitSignalsAndRefreshCache()
++void GlobalSettingsTest::initTestCase()
+ {
+-    QTemporaryDir schemaDir;
+     QVERIFY(schemaDir.isValid());
+ 
+     const QByteArray personaliseSchema =
+@@ -134,22 +107,22 @@ void GlobalSettingsTest::testSchemaDrivenUpdatesEmitSignalsAndRefreshCache()
+         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+         "<schemalist>"
+         "  <schema id=\"org.ukui.style\" path=\"/org/ukui/style/\">"
+-        "    <key name=\"styleName\" type=\"s\">"
++        "    <key name=\"style-name\" type=\"s\">"
+         "      <default>'ukui-light'</default>"
+         "    </key>"
+-        "    <key name=\"systemFontSize\" type=\"d\">"
++        "    <key name=\"system-font-size\" type=\"d\">"
+         "      <default>11.0</default>"
+         "    </key>"
+-        "    <key name=\"systemFont\" type=\"s\">"
++        "    <key name=\"system-font\" type=\"s\">"
+         "      <default>'Noto Sans CJK SC'</default>"
+         "    </key>"
+-        "    <key name=\"iconThemeName\" type=\"s\">"
++        "    <key name=\"icon-theme-name\" type=\"s\">"
+         "      <default>'default'</default>"
+         "    </key>"
+-        "    <key name=\"windowRadius\" type=\"s\">"
++        "    <key name=\"window-radius\" type=\"s\">"
+         "      <default>'12, 12'</default>"
+         "    </key>"
+-        "    <key name=\"widgetThemeName\" type=\"s\">"
++        "    <key name=\"widget-theme-name\" type=\"s\">"
+         "      <default>'default'</default>"
+         "    </key>"
+         "  </schema>"
+@@ -160,12 +133,16 @@ void GlobalSettingsTest::testSchemaDrivenUpdatesEmitSignalsAndRefreshCache()
+     QVERIFY(writeSchemaFile(schemaDir.filePath(QStringLiteral("org.ukui.style.gschema.xml")),
+                             styleSchema));
+     QCOMPARE(QProcess::execute(QStringLiteral("glib-compile-schemas"),
+-                               QStringList{schemaDir.path()}),
++                               QStringList{QStringLiteral("--strict"), schemaDir.path()}),
+              0);
+ 
+-    ScopedEnvVar schemaEnv("GSETTINGS_SCHEMA_DIR", schemaDir.path().toUtf8());
+-    ScopedEnvVar backendEnv("GSETTINGS_BACKEND", QByteArrayLiteral("memory"));
++    // GLib caches the default schema source on its first lookup.
++    qputenv("GSETTINGS_SCHEMA_DIR", schemaDir.path().toUtf8());
++    qputenv("GSETTINGS_BACKEND", QByteArrayLiteral("memory"));
++}
+ 
++void GlobalSettingsTest::testSchemaDrivenUpdatesEmitSignalsAndRefreshCache()
++{
+     GlobalSettingsPrivate settings;
+     QVERIFY(settings.m_transGsettings != nullptr);
+     QVERIFY(settings.m_themeGsettings != nullptr);
+diff --git a/libsearch/autotest/global-settings-test.h b/libsearch/autotest/global-settings-test.h
+index c276ad34..e86b02ce 100644
+--- a/libsearch/autotest/global-settings-test.h
++++ b/libsearch/autotest/global-settings-test.h
+@@ -21,16 +21,21 @@
+ #define GLOBAL_SETTINGS_TEST_H
+ 
+ #include <QObject>
++#include <QTemporaryDir>
+ 
+ class GlobalSettingsTest : public QObject
+ {
+     Q_OBJECT
+ 
+ private Q_SLOTS:
++    void initTestCase();
+     void testDefaultValuesAndCacheAccess();
+     void testHandleRadiusSetBranches();
+     void testSingletonReturnsConfiguredDefaults();
+     void testSchemaDrivenUpdatesEmitSignalsAndRefreshCache();
++
++private:
++    QTemporaryDir schemaDir;
+ };
+ 
+ #endif // GLOBAL_SETTINGS_TEST_H
+diff --git a/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.cpp b/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.cpp
+index 010edcfc..2f27f0e5 100644
+--- a/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.cpp
++++ b/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.cpp
+@@ -81,6 +81,12 @@ void setRootSearchDirWithBlacklist(const QString &blackListPath)
+ }
+ }
+ 
++void DirWatcherServiceTest::init()
++{
++    // The default indexed HOME can contain the build directory and its fixtures.
++    resetDirManagerState();
++}
++
+ void DirWatcherServiceTest::testSingletonAndAliasMethods()
+ {
+     DirWatcher *watcher = DirWatcher::getDirWatcher();
+diff --git a/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.h b/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.h
+index 08411f40..596c4a7d 100644
+--- a/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.h
++++ b/ukui-search-service-dir-manager/autotest/dir-watcher-service-test.h
+@@ -27,6 +27,7 @@ class DirWatcherServiceTest : public QObject
+     Q_OBJECT
+ 
+ private Q_SLOTS:
++    void init();
+     void testSingletonAndAliasMethods();
+     void testAppendAndRemoveSignalsForTemporaryDirectory();
+     void testBlockDirSignalsAndErrorCodes();
