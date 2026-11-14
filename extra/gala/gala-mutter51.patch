@@ -2460,7 +2460,7 @@ index 000000000..914519b0e
 +mutter-mtk-18.vapi
 \ No newline at end of file
 
-From acd6d7b408c9b6140b838e178e0796aa3e9b31bc Mon Sep 17 00:00:00 2001
+From a45e00b2a5f81b9cfc8bf3127ddbd154ae02fcf3 Mon Sep 17 00:00:00 2001
 From: Denis Garaev <garaevdi@yandex.ru>
 Date: Sun, 12 Jul 2026 15:21:09 +0300
 Subject: [PATCH 3/7] Shaders: use `Cogl.Snippet`
@@ -2754,7 +2754,7 @@ index d43a57d6c..000000000
 -  cogl_color_out = sample * cogl_color_in * res;
 -}
 diff --git a/lib/Effects/BoxBlurManager.vala b/lib/Effects/BoxBlurManager.vala
-index e42d8aaca..19e5c8417 100644
+index e42d8aaca..fb92822e1 100644
 --- a/lib/Effects/BoxBlurManager.vala
 +++ b/lib/Effects/BoxBlurManager.vala
 @@ -36,24 +36,48 @@ public class Gala.BoxBlurManager : Object {
@@ -2829,7 +2829,7 @@ index e42d8aaca..19e5c8417 100644
              if (actor != null) {
                  actor.notify["width"].disconnect (update_pixel_step);
 diff --git a/lib/Effects/RoundedCornersEffect.vala b/lib/Effects/RoundedCornersEffect.vala
-index 641339bf6..d1d62c326 100644
+index 641339bf6..fc7f069aa 100644
 --- a/lib/Effects/RoundedCornersEffect.vala
 +++ b/lib/Effects/RoundedCornersEffect.vala
 @@ -33,12 +33,81 @@ public class Gala.RoundedCornersEffect : Clutter.ShaderEffect {
@@ -2939,7 +2939,7 @@ index 641339bf6..d1d62c326 100644
          if (actor != null) {
              actor.notify["width"].disconnect (update_actor_size);
 diff --git a/src/ColorFilters/ColorblindnessCorrectionEffect.vala b/src/ColorFilters/ColorblindnessCorrectionEffect.vala
-index 4cb5416f4..2a18d2d00 100644
+index 4cb5416f4..056af9912 100644
 --- a/src/ColorFilters/ColorblindnessCorrectionEffect.vala
 +++ b/src/ColorFilters/ColorblindnessCorrectionEffect.vala
 @@ -6,6 +6,110 @@
@@ -3090,7 +3090,7 @@ index 4cb5416f4..2a18d2d00 100644
 +#endif
  }
 diff --git a/src/ColorFilters/MonochromeEffect.vala b/src/ColorFilters/MonochromeEffect.vala
-index c5b8034d7..1fabf106a 100644
+index c5b8034d7..3bd22d72c 100644
 --- a/src/ColorFilters/MonochromeEffect.vala
 +++ b/src/ColorFilters/MonochromeEffect.vala
 @@ -6,6 +6,31 @@
@@ -3161,7 +3161,7 @@ index c5b8034d7..1fabf106a 100644
 +#endif
  }
 
-From b6c7667173210796277690ab4f057fe36e21d507 Mon Sep 17 00:00:00 2001
+From f65fa95c5368fe9561c460bb2f90b5f9f4e0caad Mon Sep 17 00:00:00 2001
 From: Denis Garaev <garaevdi@yandex.ru>
 Date: Sun, 30 Aug 2026 23:10:46 +0300
 Subject: [PATCH 4/7] Canvas: update PixelFormat
@@ -3187,7 +3187,7 @@ index 3e52f083c..da3ae975f 100644
  
          unowned Cogl.Buffer? buffer = bitmap.get_buffer ();
 
-From a9074d8254ddd908690909ca1dcf0efc7f5533ba Mon Sep 17 00:00:00 2001
+From b5de159f2e9d21880b4d0165d312580aa6273459 Mon Sep 17 00:00:00 2001
 From: Denis Garaev <garaevdi@yandex.ru>
 Date: Sun, 30 Aug 2026 23:13:16 +0300
 Subject: [PATCH 5/7] ScreenshotManager: use new Meta.WindowActor API
@@ -3237,7 +3237,7 @@ index 8d7eb19b6..f29bc6ffd 100644
              cairo_context.set_source_surface (
                  transient_image,
 
-From 61af5a8a93a7aaa57f69a0a8ecf1ac84892195ad Mon Sep 17 00:00:00 2001
+From 4ba3b385dfa8dead65aaaf2680b18d7233396e82 Mon Sep 17 00:00:00 2001
 From: Denis Garaev <garaevdi@yandex.ru>
 Date: Sun, 4 Oct 2026 20:46:07 +0300
 Subject: [PATCH 6/7] Background: Load images with Glycin
@@ -3563,7 +3563,7 @@ index 6b941f249..4bfb37239 100644
      'Background/SystemBackground.vala',
      'ColorFilters/ColorblindnessCorrectionEffect.vala',
 
-From d82bd37d575a4f5bb45d8f13768cee1bc49fba59 Mon Sep 17 00:00:00 2001
+From b95b301a18980a25661184d2446d84f65c17eb58 Mon Sep 17 00:00:00 2001
 From: Denis Garaev <garaevdi@yandex.ru>
 Date: Tue, 13 Oct 2026 16:33:57 +0300
 Subject: [PATCH 7/7] CI: Install `glycin-devel` to fedora runner

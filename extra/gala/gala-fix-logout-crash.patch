@@ -1,0 +1,54 @@
+From 1ab91acd113ce1f38084f79732006ecb92b08bca Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 12 Nov 2026 18:35:28 +0100
+Subject: [PATCH] Fix crash when closing with active modal dialogs
+
+When Gala is shutting down with an active modal dialog, destroying
+the Clutter stage can trigger `pop_modal()` through the
+`child-removed` signal.
+
+At this point, Mutter may have already destroyed the compositor,
+causing a crash when `pop_modal()` attempts to re-enable
+unredirect.
+
+Connect to the display's `closing` signal and skip further modal
+cleanup operations during shutdown.
+---
+ src/WindowManager.vala | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/src/WindowManager.vala b/src/WindowManager.vala
+index 62acd9962..52a1fc617 100644
+--- a/src/WindowManager.vala
++++ b/src/WindowManager.vala
+@@ -106,6 +106,8 @@ namespace Gala {
+ 
+         private Gee.Map<Meta.Window, WindowGroup> overridden_window_group = new Gee.HashMap<Meta.Window, WindowGroup> ();
+ 
++        private bool display_closing = false;
++
+         construct {
+             behavior_settings = new GLib.Settings ("io.elementary.desktop.wm.behavior");
+ 
+@@ -114,6 +116,10 @@ namespace Gala {
+         }
+ 
+         public override void start () {
++            get_display ().closing.connect (() => {
++                display_closing = true;
++            });
++
+             input_method = new InputMethod (get_display ());
+ #if HAS_MUTTER47
+             Utils.get_clutter_backend_from_display (get_display ()).set_input_method (input_method);
+@@ -487,6 +493,10 @@ namespace Gala {
+                 return;
+             }
+ 
++            if (display_closing) {
++                return;
++            }
++
+             if (proxy.grab != null) {
+                 proxy.grab.dismiss ();
+             }

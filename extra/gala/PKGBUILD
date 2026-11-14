@@ -2,7 +2,7 @@
 
 pkgname=gala
 pkgver=8.6.2
-pkgrel=3
+pkgrel=4
 pkgdesc='The Pantheon Window Manager'
 arch=(x86_64)
 url=https://github.com/elementary/gala
@@ -40,18 +40,38 @@ provides=(libgala.so)
 source=(
   git+https://github.com/elementary/gala.git#tag=${pkgver}
   gala-mutter51.patch
+  gala-fix-logout-crash.patch
 )
 b2sums=('f73780753e177d227d24042a94d129b8292953f76aec4254911e8125740b61dc8621b482cdcc0be2342684a024f2dec0fb829b514e4412a9b6034ffa737c2a6c'
-        '1952974753aff0edb57008ca9f275e57bda822abd16aad436fd099fc2f697f2f7e3a83c43bbce449f76edc93448b2a4a66841deb83276b2538f63d5842f5f22d')
+        'f1b8d44469f1ac5e5de932db14189fc1ee12599b2a5c8b09a4a6d2c95c7395e0bb5667f544417cf9d479f76bc2b269789200f9f283e59a649d44b55359c05182'
+        '729e40a23fe7b81411c217882457465b8b3a88a605e7584d56c6244bbf887ac456edaa8bcf05a2b2a0a4170025c7cf9f2273df1acdbf33b141993ffe2e1d29a4')
 
 prepare() {
   cd gala
 
+  # Fix modal window focus
+  # https://github.com/elementary/gala/pull/2954
+  git cherry-pick -n 736331b205c8c02b333d4ba6d0310a5b33ff84fe
+
+  # Don't disconnect monitors_changed signal
+  # https://github.com/elementary/gala/pull/2956
+  git cherry-pick -n 8d33bc9cecc19f260957d31618746faf11278921
+
   # Drop GTK3 daemon
+  # https://github.com/elementary/gala/pull/2906
   git cherry-pick -n 89e217eb1b1e17071520fc5d73573e73e6043495
 
   # Remove unavailable experimental-features setting
+  # https://github.com/elementary/gala/pull/2966
   git cherry-pick -n 7aefbba6b7c35cc5b16efc8d5ea24bc2c6e682ea
+
+  # Call EndSessionDialog asynchronously
+  # https://github.com/elementary/gala/pull/2972
+  git cherry-pick -n 0fa3daaa43ac8c832952d45acb558266d96bd3db
+
+  # Fix crash when closing with active modal dialogs
+  # https://github.com/elementary/gala/pull/2973
+  git apply -3 ../gala-fix-logout-crash.patch
 
   # Add support for Mutter 51
   # https://github.com/elementary/gala/pull/2866
