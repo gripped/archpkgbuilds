@@ -2,7 +2,7 @@
 
 pkgname=ukui-quick
 pkgver=4.22.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Qt Quick framework and components for UKUI"
 arch=('x86_64')
 license=('GPL-3.0-or-later' 'GPL-2.0-or-later' 'LGPL-2.0-or-later'
@@ -19,6 +19,16 @@ sha512sums=('2c837d864d18908d0cd70bdfe0054d2e8478383c4f7cb3310e2af91fd375b11cae0
 
 prepare() {
   cd ukui-quick
+  # Add the search host type required by ukui-search.
+  # https://gitee.com/openkylin/ukui-quick/pulls/342
+  git cherry-pick -n 08e04346389e42ed290354a15e5112d062438e6f
+  # Provide the widget feature interfaces and QML bridge used by search plugins.
+  # https://gitee.com/openkylin/ukui-quick/pulls/342
+  git cherry-pick -n db9bf0d9ee5980e3fec9a848750b4f9bb6468273
+  # Let the search window follow its root item's size.
+  # https://gitee.com/openkylin/ukui-quick/pulls/350
+  git cherry-pick -n 89ec40628ae12748fc15a5d4a938908d7b28caab
+
   # Use Arch's flat library and Qt header layout.
   sed -i 's|/\${CMAKE_LIBRARY_ARCHITECTURE}||g' \
     */CMakeLists.txt modules/*/CMakeLists.txt
