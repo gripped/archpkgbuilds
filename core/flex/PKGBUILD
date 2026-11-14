@@ -3,46 +3,45 @@
 # Contributor: judd <jvinet@zeroflux.org>
 
 pkgname=flex
-pkgver=2.6.4
-pkgrel=6
+pkgver=2.6.10
+pkgrel=1
 pkgdesc="A tool for generating text-scanning programs"
 arch=('x86_64')
 url="https://github.com/westes/flex"
 license=('custom:flex')
 depends=('glibc' 'm4' 'sh')
 makedepends=('help2man')
-source=(
-  "https://github.com/westes/flex/releases/download/v$pkgver/flex-$pkgver.tar.gz"{,.sig}
-  "flex-pie.patch"
-)
-sha256sums=('e87aae032bf07c26f85ac0ed3250998c37621d95f8bd748b31f15b33c45ee995'
-            'SKIP'
-            '20f3cce6b0ea6ab67a902a46b89c292b959994dedcbe6ee5d187f9bba1408b0e')
-validpgpkeys=('56C67868E93390AA1039AD1CE4B29C8D64885307') # Will Estes
+checkdepends=('git')
+source=("https://github.com/westes/flex/releases/download/v$pkgver/flex-$pkgver.tar.gz"{,.sig})
+sha256sums=('a20ac08f4b88f7250818cac2b9609cbea29c47d79e42b79c188c23f2236f8145'
+            'SKIP')
+validpgpkeys=('56D664C70CC2364CF5164914B7DFE8BB6C241FED'  # Flex Releases
+              '56C67868E93390AA1039AD1CE4B29C8D64885307') # Will Estes
 
 prepare() {
-  cd "$pkgname-$pkgver"
-  patch -p1 -i "$srcdir"/flex-pie.patch
-  autoreconf -fiv
+	cd "$pkgname-$pkgver"
+	autoreconf -fiv
 }
 
 build() {
-  cd "$pkgname-$pkgver"
-  ./configure --prefix=/usr
-  # prevent excessive overlinking due to libtool
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
-  make
+	cd "$pkgname-$pkgver"
+
+	./configure --prefix=/usr
+	# prevent excessive overlinking due to libtool
+	sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+	make
 }
 
 check() {
-  make -k check -C $pkgname-$pkgver
+	make -k check -C $pkgname-$pkgver
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+	cd "$pkgname-$pkgver"
 
-  make DESTDIR="$pkgdir" install
-  ln -s flex "${pkgdir}/usr/bin/lex"
+	make DESTDIR="$pkgdir" install
+	ln -s flex "${pkgdir}/usr/bin/lex"
 
-  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/license.txt"
+	install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/license.txt"
 }
