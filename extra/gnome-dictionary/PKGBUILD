@@ -3,7 +3,7 @@
 
 pkgname=gnome-dictionary
 pkgver=40.0+r89+g0f14a2e
-pkgrel=1
+pkgrel=2
 pkgdesc="Look up words in dictionary sources"
 url="https://wiki.gnome.org/Apps/Dictionary"
 arch=(x86_64)
@@ -45,6 +45,9 @@ pkgver() {
 
 prepare() {
   cd $pkgname
+
+  # Revert version number to stable to avoid development build
+  git revert -n fd957a34aa35c843780ae0d728a1b9700e837e77
 
   # Fix screenshot URLs
   git apply -3 ../0001-metainfo-Fix-screenshots.patch
