@@ -1,0 +1,21 @@
+diff '--color=auto' -rupN ggml.orig/src/ggml-cuda/common.cuh ggml/src/ggml-cuda/common.cuh
+--- ggml.orig/src/ggml-cuda/common.cuh	2026-11-08 11:25:48.039089535 +0100
++++ ggml/src/ggml-cuda/common.cuh	2026-11-08 12:30:43.948418099 +0100
+@@ -279,7 +279,7 @@ static const char * cu_get_error_str(CUr
+ #define AMD_MFMA_AVAILABLE
+ #endif // defined(GGML_USE_HIP) && defined(CDNA) && !defined(GGML_HIP_NO_MMQ_MFMA)
+ 
+-#if defined(GGML_USE_HIP) && (defined(RDNA4) || defined(RDNA4_M))
++#if defined(GGML_USE_HIP) && (defined(RDNA4) || defined(RDNA4_M)) && !defined(__gfx1250__)
+ #define AMD_WMMA_128B_AVAILABLE
+ #endif // defined(GGML_USE_HIP) && (defined(RDNA4) || defined(RDNA4_M))
+ 
+@@ -768,7 +768,7 @@ static __device__ __forceinline__ void g
+     acc += v.y*u.y;
+ }
+ 
+-#if defined(GGML_USE_HIP) && (defined(RDNA2) || defined(RDNA3) || defined(RDNA4_M) || defined(RDNA4) || defined(__gfx906__) || defined(CDNA))
++#if defined(GGML_USE_HIP) && (defined(RDNA2) || defined(RDNA3) || defined(RDNA4_M) || defined(RDNA4) || defined(__gfx906__) || defined(CDNA)) && !defined(__gfx1250__)
+ #define V_DOT2_F32_F16_AVAILABLE
+ #endif // defined(GGML_USE_HIP) && (defined(RDNA2) || defined(RDNA3) || defined(RDNA4_M) || defined(RDNA4) || defined(__gfx906__) || defined(CDNA))
+ 
