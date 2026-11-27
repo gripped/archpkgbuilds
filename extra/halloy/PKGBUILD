@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=halloy
-pkgver=2026.9
+pkgver=2026.10
 pkgrel=1
 pkgdesc='An open-source IRC client'
 arch=(x86_64)
@@ -23,8 +23,8 @@ makedepends=(
 )
 options=(!lto)
 source=("$pkgname::git+https://github.com/squidowl/halloy#tag=$pkgver")
-sha512sums=('97152a3bfcb59321fdba4572c4de27d91fbf4aa5226dbc6db0804fb3440dba02419739ed4a4039658b6d930bd3c2eb0a73ece15bc65856f327b289c362f2c092')
-b2sums=('d0d7c3234f546ad2b082a0490d8b081870110e8e9f7936b1b369384f84eabf66bd2709edaa2169a1b9aaaeb80b205e6fd93d4d9b935b721ea22341ee12a293ad')
+sha512sums=('591eed6b422ee5bc6fcc80f1f85437d82cb074c1ffcd646279f02223855d503fe143e4f21a7af410c14e76fe2700737a5df6a67a93778cdb48698d9794542196')
+b2sums=('0da59bdb4ae21370eee96e6d1ca783c67c60dccaea2eb78bfc1c0888950272167a088cb48fbcbfadddcbe7cc62b762878611b3a5b339ba4e16afedf92ad058b3')
 
 prepare() {
   cd "$pkgname"
