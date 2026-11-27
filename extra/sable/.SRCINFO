@@ -1,0 +1,37 @@
+pkgbase = sable
+	pkgdesc = A matrix client with quality-of-life features, cosmetics, utilities and sheer usability
+	pkgver = 26.11.4
+	pkgrel = 1
+	url = https://sable.moe
+	arch = x86_64
+	license = AGPL-3.0-or-later
+	makedepends = binaryen
+	makedepends = clang
+	makedepends = cmake
+	makedepends = git
+	makedepends = lld
+	makedepends = llvm
+	makedepends = nodejs
+	makedepends = pnpm
+	makedepends = rust
+	makedepends = rust-wasm
+	makedepends = wasm-bindgen
+	depends = electron44
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = libgcc
+	depends = libpipewire
+	depends = libpulse
+	depends = sqlite
+	depends = bash
+	options = !lto
+	source = sable::git+https://git.sable.moe/SableClient/sable-next#tag=v26.11.4
+	source = sable.sh
+	source = use-wasm-bindgen-0.2.128.patch
+	source = use-system-sqlite.patch
+	sha256sums = 12b1e0d1a654bb19babb252d9df2514bbe8e04a3f31f7de7c19837876b2b8ea4
+	sha256sums = 958a1d2f77605360f915fabd390feec37507f2f4e3486b047774740ef99ade56
+	sha256sums = 617cfa64318c22dc0729be7653de09dd8790f854c46de679d00651ccad34f9d7
+	sha256sums = 7e3ee614642b2e823fe71e8d480b6e99365eb2194317c2fe5bfe3412587196d6
+
+pkgname = sable

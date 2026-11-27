@@ -1,0 +1,88 @@
+# Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
+
+pkgname=sable
+pkgver=26.11.4
+pkgrel=1
+pkgdesc="A matrix client with quality-of-life features, cosmetics, utilities and sheer usability"
+arch=('x86_64')
+url="https://sable.moe"
+license=('AGPL-3.0-or-later')
+_electron=electron44
+depends=(
+	"$_electron" 'glibc' 'hicolor-icon-theme' 'libgcc' 'libpipewire'
+	'libpulse' 'sqlite' 'bash'
+)
+makedepends=(
+	'binaryen' 'clang' 'cmake' 'git' 'lld' 'llvm' 'nodejs' 'pnpm' 'rust'
+	'rust-wasm' 'wasm-bindgen'
+)
+options=('!lto')
+source=(
+	"$pkgname::git+https://git.sable.moe/SableClient/sable-next#tag=v$pkgver"
+	"$pkgname.sh"
+	"use-wasm-bindgen-0.2.128.patch"
+	"use-system-sqlite.patch"
+)
+sha256sums=('12b1e0d1a654bb19babb252d9df2514bbe8e04a3f31f7de7c19837876b2b8ea4'
+            '958a1d2f77605360f915fabd390feec37507f2f4e3486b047774740ef99ade56'
+            '617cfa64318c22dc0729be7653de09dd8790f854c46de679d00651ccad34f9d7'
+            '7e3ee614642b2e823fe71e8d480b6e99365eb2194317c2fe5bfe3412587196d6')
+
+prepare() {
+	sed -i "s/@ELECTRON@/$_electron/" $pkgname.sh
+
+	cd $pkgname
+
+	# The wasm-bindgen version in Cargo.lock must match the package version
+	patch -Np1 -i ../use-wasm-bindgen-0.2.128.patch
+
+	patch -Np1 -i ../use-system-sqlite.patch
+
+	export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+	pnpm install --frozen-lockfile
+	cargo fetch --locked --target host-tuple --target wasm32-unknown-unknown
+}
+
+build() {
+	cd $pkgname
+
+	export ELECTRON_SKIP_BINARY_DOWNLOAD=1
+	export CARGO_NET_OFFLINE=true
+	export SABLE_FOSS=1
+	export SABLE_BUILD_FLAVOR=stable
+	export VITE_APP_VERSION=$pkgver
+
+	# Remove x86-only flags for wasm build
+	local x86_only='@(-march=|-mtune=|-fcf-protection)*([^ ])'
+	CFLAGS="${CFLAGS//$x86_only}" CXXFLAGS="${CXXFLAGS//$x86_only}" pnpm build
+
+	pnpm --dir electron package --linux --dir \
+		-c.electronDist="/usr/lib/$_electron/" \
+		-c.electronVersion="$(cat "/usr/lib/$_electron/version")" \
+		-c.extraMetadata.autoUpdate=false
+}
+
+check() {
+	cd $pkgname
+
+	# The e2e and browser suites need Playwright browsers and a homeserver.
+	pnpm exec svelte-kit sync
+	pnpm exec vitest run --project node --project happy-dom \
+		-t '^(?!.*(matches the generated settings reference|matches the generated config\.json schema|matches the generated /\.well-known/sable schema|opens message actions on right click))'
+}
+
+package() {
+	install -Dm755 $pkgname.sh "$pkgdir/usr/bin/$pkgname"
+
+	cd $pkgname
+
+	install -d "$pkgdir/usr/lib/$pkgname"
+	cp -r --no-preserve=ownership electron/release/linux-unpacked/resources/. "$pkgdir/usr/lib/$pkgname/"
+
+	install -Dm644 packaging/flatpak/moe.sable.client.desktop -t "$pkgdir/usr/share/applications"
+	install -Dm644 packaging/flatpak/moe.sable.client.metainfo.xml -t "$pkgdir/usr/share/metainfo"
+	for size in 32 64 128 256; do
+		install -Dm644 "packaging/flatpak/icons/${size}x${size}.png" \
+			"$pkgdir/usr/share/icons/hicolor/${size}x${size}/apps/moe.sable.client.png"
+	done
+}

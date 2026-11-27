@@ -1,0 +1,199 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index b32e50766..ab052a452 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -3884,7 +3884,7 @@ dependencies = [
+  "js-sys",
+  "log",
+  "wasm-bindgen",
+- "windows-core 0.61.2",
++ "windows-core 0.62.2",
+ ]
+ 
+ [[package]]
+@@ -4435,9 +4435,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "js-sys"
+-version = "0.3.107"
++version = "0.3.105"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8dc09d2154098bbf4ef54eab6b117a3c24cbbffe94046b16ee6d6d4510584d3a"
++checksum = "ce57d20d1ea864ce2ac172ab472d409214f4fd359f0b2a2775abdf522e2af99e"
+ dependencies = [
+  "cfg-if",
+  "futures-util",
+@@ -5911,7 +5911,7 @@ version = "0.7.6"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8"
+ dependencies = [
+- "proc-macro-crate 1.3.1",
++ "proc-macro-crate 3.5.0",
+  "proc-macro2",
+  "quote",
+  "syn 2.0.119",
+@@ -5923,7 +5923,7 @@ version = "5.0.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "51e219e79014df21a225b1860a479e2dcd7cbd9130f4defd4bd0e191ea31d67d"
+ dependencies = [
+- "base64 0.21.7",
++ "base64 0.22.1",
+  "chrono",
+  "getrandom 0.2.17",
+  "http 1.5.0",
+@@ -6420,7 +6420,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "7d8fae84b431384b68627d0f9b3b1245fcf9f46f6c0e3dc902e9dce64edd1967"
+ dependencies = [
+  "libc",
+- "windows-sys 0.45.0",
++ "windows-sys 0.61.2",
+ ]
+ 
+ [[package]]
+@@ -7152,7 +7152,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "b570b25f7617e43d59005d0990ccb79e950a423952cea19671b7a876da390adf"
+ dependencies = [
+  "anyhow",
+- "itertools 0.13.0",
++ "itertools 0.14.0",
+  "proc-macro2",
+  "quote",
+  "syn 2.0.119",
+@@ -10709,9 +10709,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "tracing-web"
+-version = "0.1.4"
++version = "0.1.3"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ad1b385bc34748a00827cfaf5862756937e6738d6df2c9921a1a01ee39fd9bdb"
++checksum = "b9e6a141feebd51f8d91ebfd785af50fca223c570b86852166caa3b141defe7c"
+ dependencies = [
+  "js-sys",
+  "tracing-core",
+@@ -11152,11 +11152,12 @@ dependencies = [
+ 
+ [[package]]
+ name = "wasm-bindgen"
+-version = "0.2.130"
++version = "0.2.128"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a0181c14ddd6c7b8b0b0132a5f1ea2f32be0d893cd3ea97b6e3b28886b8a3d1c"
++checksum = "aecb87a33d3b0c5e3b7aa46336eaf486cffafbd281b195e4c8b80d50df2351bf"
+ dependencies = [
+  "cfg-if",
++ "once_cell",
+  "rustversion",
+  "wasm-bindgen-macro",
+  "wasm-bindgen-shared",
+@@ -11164,20 +11165,19 @@ dependencies = [
+ 
+ [[package]]
+ name = "wasm-bindgen-futures"
+-version = "0.4.80"
++version = "0.4.78"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "5e14e0327cb5368ad60ccb22d04a9827a693c95a926d8d125e9fa39e0baec501"
++checksum = "6ef4c5d3d2cdf5c54f4231181768f5510842e350db025faf1f7163b1030ed928"
+ dependencies = [
+  "js-sys",
+- "tokio",
+  "wasm-bindgen",
+ ]
+ 
+ [[package]]
+ name = "wasm-bindgen-macro"
+-version = "0.2.130"
++version = "0.2.128"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "6e931a02a39abdbf66966fc35902b5ed58344750a70885bed4ebb3d8eaf28ed9"
++checksum = "a690d511e3c1a8b3a55e33511e3c2c00c78415cd23650f32b808627f5696b9ed"
+ dependencies = [
+  "quote",
+  "wasm-bindgen-macro-support",
+@@ -11185,9 +11185,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "wasm-bindgen-macro-support"
+-version = "0.2.130"
++version = "0.2.128"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2ca4b54280e455bd831e33a6b8e734baf432fe63fbc35c42ac14ce67a043a53a"
++checksum = "411e4887f0071ef2d2164a9d5fdf2d20efbef78fccd3a78b0c10a1dc5295e48a"
+ dependencies = [
+  "bumpalo",
+  "proc-macro2",
+@@ -11198,19 +11198,20 @@ dependencies = [
+ 
+ [[package]]
+ name = "wasm-bindgen-shared"
+-version = "0.2.130"
++version = "0.2.128"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "3b1f9c3798725016c6ee5f2f57869ec0831e8bbc0ab0310a86e787e97f41389e"
++checksum = "81941cd78d0c92026c33e5e01312845a4cb1e9af3407f9134b100dd03144103e"
+ dependencies = [
+  "unicode-ident",
+ ]
+ 
+ [[package]]
+ name = "wasm-bindgen-test"
+-version = "0.3.80"
++version = "0.3.78"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "5b4913c0ade07e01ab574b20d2741538f070efa12cb7a1a1e2d5df6ea41cf522"
++checksum = "45863ef0bef521c12124eb39d9a38513c47db75f22e503c06beacd40afeb35db"
+ dependencies = [
++ "async-trait",
+  "cast",
+  "js-sys",
+  "libm",
+@@ -11228,9 +11229,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "wasm-bindgen-test-macro"
+-version = "0.3.80"
++version = "0.3.78"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "238071aa4c5b268e57d21018621a2e2403c29dd11c55dbdf790ed47fdb9241c0"
++checksum = "8c89dcab8b516b6b603baca9d550b7282d68fcc7f367e3956cff7ebf406a3f12"
+ dependencies = [
+  "proc-macro2",
+  "quote",
+@@ -11239,9 +11240,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "wasm-bindgen-test-shared"
+-version = "0.2.130"
++version = "0.2.128"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "9ab365ce29ba0232367502b2894556ae77a9c214d33dbf453fdba7f586905918"
++checksum = "f37b4f992cebe528ef34964ae69681ac0fe7080071e7298e46008f9d380302af"
+ 
+ [[package]]
+ name = "wasm-streams"
+@@ -11346,9 +11347,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "web-sys"
+-version = "0.3.107"
++version = "0.3.105"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "d7d179596ff5ec0f6de4db64d54011bde6289cc49603d3a6e4ce3f329207ab88"
++checksum = "9fbddc4a036f00ec4f18c83445bd3115cb306a91da554919a099d9222fe4a7f8"
+ dependencies = [
+  "js-sys",
+  "wasm-bindgen",
+diff --git a/Cargo.toml b/Cargo.toml
+index 4f1db124c..81c9cb851 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -76,7 +76,7 @@ html5ever = "0.39"
+ linkify = "0.11"
+ tempfile = "3"
+ jiff = { version = "0.2", default-features = false, features = ["std"] }
+-wasm-bindgen = "0.2"
++wasm-bindgen = "=0.2.128"
+ wasm-bindgen-futures = "0.4"
+ js-sys = "0.3"
+ [workspace.lints.rust]
