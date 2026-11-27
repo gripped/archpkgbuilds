@@ -3,8 +3,8 @@
 
 pkgname=python-zope-schema
 _pkgname=zope.schema
-pkgver=8.1
-pkgrel=3
+pkgver=8.2
+pkgrel=1
 pkgdesc="zope.interface extension for defining data schemas"
 arch=('any')
 url="https://github.com/zopefoundation/zope.schema"
@@ -15,6 +15,7 @@ depends=(
   'python-zope-interface'
 )
 makedepends=(
+  'git'
   'python-build'
   'python-installer'
   'python-setuptools'
@@ -25,22 +26,22 @@ checkdepends=(
   'python-zope-testing'
   'python-zope-testrunner'
 )
-source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('5f479938797bfb8d157873006c889f24d08c597cb8c4a90140a03739c9e63251b7519f058ed6aab473d0b41181d001302dcd4a6b82972c57a517ada8e7b69156')
+source=("git+$url.git#tag=$pkgver")
+sha512sums=('b293283149b4c6219066d67b3e4c3f50835b9bf390467574fe9e32e1547b8c714ed9473a4f4445de4072d748a6dbba8105b27a500f2e68ee2bd05b06895fba39')
 
 build() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m build --wheel --no-isolation --skip-dependency-check
 }
 
 check() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m venv --system-site-packages test-env
   test-env/bin/python -m installer dist/*.whl
   test-env/bin/python -m zope.testrunner -vc --test-path src/
 }
 
 package() {
-  cd $_pkgname-$pkgver
+  cd $_pkgname
   python -m installer --destdir="$pkgdir" dist/*.whl
 }
