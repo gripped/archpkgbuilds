@@ -4,19 +4,19 @@
 # Contributor: Douglas Soares de Andrade <dsa@aur.archlinux.org>
 
 pkgname=tellico
-pkgver=4.3
-pkgrel=1
+pkgver=4.3.1
+pkgrel=2
 pkgdesc="A collection manager for KDE"
 arch=('x86_64')
 url="https://tellico-project.org/"
 license=('GPL')
 depends=('exempi' 'hicolor-icon-theme' 'kio' 'libksane' 'libkcddb'
          'libcdio' 'kfilemetadata' 'knewstuff' 'kxmlgui' 'kitemmodels'
-         'perl-text-bibtex' 'python' 'solid' 'yaz' 'taglib' 'poppler-qt6' 'qt6-base' 'qt6-charts' 'qt6-webengine')
+         'btparse' 'python' 'solid' 'yaz' 'taglib' 'poppler-qt6' 'qt6-base' 'qt6-charts' 'qt6-webengine')
 makedepends=('cmake' 'extra-cmake-modules' 'kdoctools')
 changelog=$pkgname.changelog
 source=(https://tellico-project.org/files/$pkgname-$pkgver.tar.xz)
-sha256sums=('e31ce0ef6f6ee559e18cdacecee5b9e3387b1068edb01751ab21114d693d98bb')
+sha256sums=('f02cad1dbdc6d371d9e36356e43ffb088300d98cf4cbd5c5b82a9b56365ac0f6')
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
