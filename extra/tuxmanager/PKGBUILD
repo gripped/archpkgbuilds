@@ -2,7 +2,7 @@
 
 pkgname=tuxmanager
 _srcname=TuxManager
-pkgver=1.0.8
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="A Linux Task Manager alternative built with Qt6"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('GPL-3.0-or-later')
 depends=('glibc' 'hicolor-icon-theme' 'libgcc' 'libstdc++' 'qt6-base')
 makedepends=('qt6-tools')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('63941f73b2e11028f504faccecb561fdbcea4b02a8ef82c4c59bf6faf2f2de75')
+sha256sums=('d4198fd856a87826f665ec5744cf62c2ae18d4490a9d1182ef5045572fab1f49')
 
 build() {
 	cd "${_srcname}-${pkgver}/"
