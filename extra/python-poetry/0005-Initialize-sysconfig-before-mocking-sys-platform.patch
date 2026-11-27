@@ -1,0 +1,30 @@
+diff --git a/tests/installation/test_installer.py b/tests/installation/test_installer.py
+index d241f367..270d061c 100644
+--- a/tests/installation/test_installer.py
++++ b/tests/installation/test_installer.py
+@@ -3,6 +3,7 @@ from __future__ import annotations
+ import json
+ import re
+ import shutil
++import sysconfig
+ 
+ from pathlib import Path
+ from typing import TYPE_CHECKING
+@@ -979,6 +980,8 @@ def test_run_with_optional_and_platform_restricted_dependencies(
+     package: ProjectPackage,
+     mocker: MockerFixture,
+ ) -> None:
++    # Python 3.14.10 derives the sysconfigdata module name from sys.platform.
++    sysconfig.get_config_vars()
+     mocker.patch("sys.platform", "darwin")
+ 
+     package_a = get_package("A", "1.0")
+@@ -2425,6 +2428,8 @@ def test_installer_required_extras_should_not_be_removed_when_updating_single_de
+     config: Config,
+     pypi_repository: PyPiRepository,
+ ) -> None:
++    # Python 3.14.10 derives the sysconfigdata module name from sys.platform.
++    sysconfig.get_config_vars()
+     mocker.patch("sys.platform", "darwin")
+ 
+     pool = RepositoryPool()

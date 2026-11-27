@@ -8,7 +8,7 @@
 _pkgname=poetry
 pkgname=python-poetry
 pkgver=2.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Python dependency management and packaging made easy'
 arch=(any)
 url=https://python-poetry.org
@@ -55,8 +55,23 @@ checkdepends=(python-deepdiff  # not mentioned but required
 optdepends=('python-pip: to use pip with virtual environments')
 provides=(poetry)
 _archive="$_pkgname-$pkgver"
-source=("https://github.com/$pkgname/$_pkgname/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('8bd6b01d549d864877ada791b3fcf299fc64a4d24a3d81463c8d1591f36023a9')
+source=("https://github.com/$pkgname/$_pkgname/archive/$pkgver/$_archive.tar.gz"
+        "0004-Allow-safe-tarfile-path-normalization-in-the-traversal-test.patch"
+        "0005-Initialize-sysconfig-before-mocking-sys-platform.patch")
+sha256sums=('8bd6b01d549d864877ada791b3fcf299fc64a4d24a3d81463c8d1591f36023a9'
+            '5ab79670c77e3ccdbbad2ddaac36a6bf0173f2c550c7f00041851323a9a5ec52'
+            '4d39e3f3c9398f88c14e5441bda7e3f6a190e58d3ecb6e84e59cdcc27f8bd6ff')
+
+prepare() {
+	cd "$_archive"
+	# CacheControl 0.15 keeps the APIs Poetry uses; allow the packaged version.
+	sed -i 's/cachecontrol\[filecache\] (>=0\.14\.0,<0\.15\.0)/cachecontrol[filecache] (>=0.14.0,<0.16.0)/' pyproject.toml
+	# Python 3.14.10 may normalize this safe tar path instead of raising.
+	# https://github.com/python-poetry/poetry/pull/11133
+	patch -Np1 -i ../0004-Allow-safe-tarfile-path-normalization-in-the-traversal-test.patch
+	# Python 3.14.10 derives the sysconfigdata name from sys.platform.
+	patch -Np1 -i ../0005-Initialize-sysconfig-before-mocking-sys-platform.patch
+}
 
 build() {
 	local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")

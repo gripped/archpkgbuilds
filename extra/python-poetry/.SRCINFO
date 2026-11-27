@@ -1,7 +1,7 @@
 pkgbase = python-poetry
 	pkgdesc = Python dependency management and packaging made easy
 	pkgver = 2.5.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://python-poetry.org
 	arch = any
 	license = MIT
@@ -46,6 +46,10 @@ pkgbase = python-poetry
 	optdepends = python-pip: to use pip with virtual environments
 	provides = poetry
 	source = https://github.com/python-poetry/poetry/archive/2.5.1/poetry-2.5.1.tar.gz
+	source = 0004-Allow-safe-tarfile-path-normalization-in-the-traversal-test.patch
+	source = 0005-Initialize-sysconfig-before-mocking-sys-platform.patch
 	sha256sums = 8bd6b01d549d864877ada791b3fcf299fc64a4d24a3d81463c8d1591f36023a9
+	sha256sums = 5ab79670c77e3ccdbbad2ddaac36a6bf0173f2c550c7f00041851323a9a5ec52
+	sha256sums = 4d39e3f3c9398f88c14e5441bda7e3f6a190e58d3ecb6e84e59cdcc27f8bd6ff
 
 pkgname = python-poetry
