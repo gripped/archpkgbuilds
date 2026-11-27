@@ -4,109 +4,86 @@
 # Contributor: Lubosz Sarnecki <lubosz@gmail.com>
 
 pkgname=rocprofiler
-pkgver=7.2.4
-pkgrel=2
+pkgver=10.1
+pkgrel=1
 pkgdesc="ROC profiler library. Profiling with perf-counters and derived metrics."
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocprofiler/en/latest/index.html'
 license=('MIT')
 depends=(
+  'bash'
+  'comgr'
+  'fmt'
+  'glibc'
   'hip-runtime-amd'
   'hsa-amd-aqlprofile'
+  'hsa-rocr'
+  'libelf'
+  'libgcc'
+  'libpciaccess'
+  'libstdc++'
+  'numactl'
   'python'
   'python-lxml'
+  'python-numpy'
   'rocm-core'
-  'fmt'
-  'google-glog'
-  'yaml-cpp'
 )
 makedepends=(
   'cmake'
   'git'
   'gtest'
-  'hsa-rocr'
   'python-barectf'
   'python-cppheaderparser'
   'python-pandas'
   'python-yaml'
   'rocm-dbgapi'
   'rocm-llvm'
+  'rocm-llvm-static'
   'rocm-smi-lib'
-  'rocm-toolchain'
+  # prof_protocol.h
   'roctracer'
-  'pybind11'
-  'ninja'
 )
 _git='https://github.com/ROCm/rocm-systems'
-_dir_name='rocm-systems/projects/rocprofiler'
-_dir_name_sdk='rocm-systems/projects/rocprofiler-sdk/'
-source=("rocm-systems::git+$_git#tag=rocm-$pkgver"
-        "rocm-systems-perfetto::git+https://github.com/google/perfetto")
-sha256sums=('a619465777d59fd484a1e37cb975c738e0122b37804296598130ac3fb6d93314'
+source=("rocm-systems::git+$_git#tag=therock-$pkgver"
+        # Submodule of the perfetto plugin
+        "$pkgname-perfetto::git+https://github.com/google/perfetto")
+sha256sums=('SKIP'
             'SKIP')
 options=(!lto)
+_dirname="rocm-systems/projects/$pkgname"
 
 prepare() {
-  cd "${_dir_name}"
-  git submodule init
-  git config submodule."perfetto".url "${srcdir}/rocm-system-perfetto"
-  git -c protocol.file.allow=always submodule update --init --recursive
+  cd rocm-systems
 
-  # Use system packages for rocprofv3
-  # See https://github.com/ROCm/rocm-systems/pull/2319
-  cd "${srcdir}/rocm-systems"
-  git cherry-pick -n 86ee7b2eb2273adaf1181ef9a6b2091465c6f0c7
-
-  grep -rl "fmt::join" projects/rocprofiler-sdk/source/ | grep -E '\.(cpp|hpp)$' | xargs sed -i '1i #include <fmt/ranges.h>'
-
-  grep -rl "fmt/core.h" projects/rocprofiler-sdk/source/ | grep -E '\.(cpp|hpp)$' | xargs sed -i 's/fmt\/core\.h/fmt\/format.h/g'
-
-  # Add missing <cstdint> include
-  cd "${srcdir}/rocm-systems/projects/rocprofiler-sdk/external/elfio"
-  git cherry-pick -n 34d2c64237bb40f09879e7421db120e50e7e2923
+  # Check out only the submodule of rocprofiler, not the whole monorepo
+  git submodule init projects/rocprofiler/plugin/perfetto/perfetto
+  git config submodule."projects/rocprofiler/perfetto".url "$srcdir/$pkgname-perfetto"
+  git -c protocol.file.allow=always submodule update
 }
 
 build() {
-  # Build deprecated rocprof and rocprofv2
-
-  # Enabling too many targets errors out in GNU make
-  export EXCLUDED_GPU_TARGETS="gfx906:xnack-,gfx908:xnack-,gfx90a:xnack+,gfx90a:xnack-,gfx950"
-
   local cmake_args=(
     -Wno-dev
     -B build
-    -S "$_dir_name"
+    -S "$_dirname"
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
-    -D ROCPROFILER_BUILD_TESTS=OFF
-    -D GPU_TARGETS="$(rocm-supported-gfx -e "${EXCLUDED_GPU_TARGETS}" -d ' ')"
-    -D PROF_API_HEADER_PATH="$srcdir/rocm-systems/projects/roctracer/inc/ext"
+    # Selects only the test kernels, which are not packaged. The tests
+    # always build, and an empty list fails in CMake.
+    -D GPU_TARGETS=gfx1100
+    # Both default to the /opt/rocm/llvm layout
+    -D Clang_DIR=/opt/rocm/lib/llvm/lib/cmake/clang
+    -D HIP_CLANG_PATH=/opt/rocm/lib/llvm/bin
+    # rocprofv2 fetches fmt from git master, use the system package instead
+    -D FETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
+    -D FETCHCONTENT_FULLY_DISCONNECTED=ON
   )
-  HIP_CLANG_PATH=/opt/rocm/llvm/bin \
   cmake "${cmake_args[@]}"
   cmake --build build
-
-  # Build rocprofv3
-  local cmake_args=(
-    -Wno-dev
-    -G Ninja
-    -B build-sdk
-    -S "$_dir_name_sdk"
-    -D CMAKE_BUILD_TYPE=Release
-    -D CMAKE_INSTALL_PREFIX=/opt/rocm
-    # Use system packages
-    -D ROCPROFILER_BUILD_FMT=OFF
-    -D ROCPROFILER_BUILD_GLOG=OFF
-    -D ROCPROFILER_BUILD_PYBIND11=OFF
-    -D ROCPROFILER_BUILD_YAML_CPP=OFF
-    -D GPU_TARGETS="$(rocm-supported-gfx -d ' ')"
-  )
-  cmake "${cmake_args[@]}"
-  cmake --build build-sdk
 }
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  DESTDIR="$pkgdir" cmake --install build-sdk
-  install -Dm644 "$_dir_name/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  rm -r "$pkgdir"/opt/rocm/share/rocprofiler/{tests,tests-v1}
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
