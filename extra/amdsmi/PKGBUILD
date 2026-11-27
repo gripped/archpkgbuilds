@@ -2,14 +2,16 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=amdsmi
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='AMD System Management Interface library'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/amdsmi/en/latest/'
-license=('MIT' 'NCSA')
+license=('MIT' 'NCSA' 'GPL-2.0-only WITH Linux-syscall-note')
 depends=(
-  'rocm-core' 
+  'rocm-core'
+  'libnl'
+  'libmnl'
   'glibc'
   'libgcc'
   'libdrm'
@@ -25,39 +27,38 @@ makedepends=(
   'python-installer'
   'python-wheel'
 )
-_git='https://github.com/ROCm/amdsmi'
+_git='https://github.com/ROCm/rocm-systems'
 _esmi='https://github.com/amd/esmi_ib_library'
-_esmi_ver=4.2
+# Must equal ESMI_GIT_HASH in projects/amdsmi/CMakeLists.txt
+_esmi_commit=d494a3194ceb4cc4dbb2debf9fcbe8773c6d3bef
 source=(
-  "$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz"
-  "$pkgname-esmi-$pkgver.tar.gz::$_esmi/archive/refs/tags/esmi_pkg_ver-$_esmi_ver.tar.gz"
-  "gcc15-missing-include.patch"
-  "https://patch-diff.githubusercontent.com/raw/ROCm/amdsmi/pull/165.patch"
+  "$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz"
+  "$pkgname-esmi-$_esmi_commit.tar.gz::$_esmi/archive/$_esmi_commit.tar.gz"
 )
-sha256sums=('1075067f450860313445edc97026ba430c33e93c18a9c1b1440d71a1f210d1cb'
-            'de19d222d09e2171f47f8bbd6608e5648bd547c82543379bb8fb5ed2e379e141'
-            'af704f2d65613e81719fa109488001ab5b2e5e7a529c18c84e695c002c055bce'
-            '464f520c03b592edd6d3d7e5c241197f0fc4fe27465b5478245c0fc288cda2f0')
+sha256sums=('550ecc98dd7e73f7b70fb0c0eeb66fa3bc9fba19644622e76dfb67f8529e1a70'
+            '8f9cf10922276ca35872ca0bc27e29e717a472ba704a575c5497622b62049e75')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
 _esminame="$(basename "$_esmi")-$(basename "${source[1]}" .tar.gz)"
 
 prepare() {
-  mv "$_esminame" "$_dirname/esmi_ib_library"
+  mv "$_esminame" "$pkgname/esmi_ib_library"
 
-  cd $_dirname
+  cd $pkgname
+
+  if ! grep -q "ESMI_GIT_HASH \"$_esmi_commit\"" CMakeLists.txt; then
+    error "esmi pin changed upstream; update _esmi_commit"
+    return 1
+  fi
 
   # HACK from Fedora's spec: Replace git tag with version of our tar archive
   sed -i "s/NOT latest_esmi_tag/NOT esmi_pkg_ver-$_esmi_ver/" CMakeLists.txt
-
-  patch -Np1 -i "$srcdir"/gcc15-missing-include.patch
-  patch -Np1 -i "$srcdir"/165.patch
 }
 
 build() {
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname"
+    -S $pkgname
     -B build
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_BUILD_TYPE=None
@@ -72,9 +73,11 @@ build() {
 
 package() {
   DESTDIR="$pkgdir" cmake --install build
-  install -Dm644 "$srcdir/$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 "$srcdir/$_dirname/esmi_ib_library/License.txt" "$pkgdir/usr/share/licenses/$pkgname/esmi_ib_LICENSE"
+  install -Dm644 "$srcdir/$pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/$pkgname/esmi_ib_library/License.txt" "$pkgdir/usr/share/licenses/$pkgname/esmi_ib_LICENSE"
 
+  # cmake also installs the module without metadata, the wheel replaces it
+  rm -r "$pkgdir"/usr/lib/python3.*/site-packages/amdsmi
   cd build/py-interface/python_package
   python -m installer --destdir="$pkgdir" dist/*.whl
   # cmake also installs python package under share.
