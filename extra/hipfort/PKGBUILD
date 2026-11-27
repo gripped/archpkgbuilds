@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipfort
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='Fortran interfaces for ROCm libraries'
 arch=('x86_64')
@@ -10,7 +10,6 @@ url='https://rocm.docs.amd.com/projects/hipfort/en/latest/'
 license=('MIT')
 depends=(
     'gcc-fortran'
-    'git'
     'hip-runtime-amd'
     'rocm-core'
 )
@@ -24,6 +23,7 @@ makedepends=(
     'rocblas'
     'rocfft'
     'rocm-cmake'
+    'rocprofiler-sdk'
     'rocrand'
     'rocsolver'
     'rocsparse'
@@ -35,22 +35,29 @@ optdepends=(
     'hipsolver: Fortran bindings'
     'hipsparse: Fortran bindings'
     'rocfft: Fortran bindings'
+    'rocprofiler-sdk: Fortran bindings for roctx'
     'rocrand: Fortran bindings'
     'rocsolver: Fortran bindings'
 )
 _git='https://github.com/ROCm/hipfort'
-source=("hipfort::git+$_git.git#tag=rocm-$pkgver")
-sha256sums=('24b91f534c0cef6088fd7a92b33a28cc1d86662e5fb61be0d38851b7613aaa9b')
-options=(!strip)
+# hipfort is not part of the therock releases
+source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.0.tar.gz")
+sha256sums=('13ab80ea91183f36d37c16ca21a5bf685bec7bfa9912212778e5558ca8a86310')
+_dirname="$pkgname-rocm-$pkgver.0"
+# Slim LTO objects in the static archives lose all code on strip and tie
+# them to one GCC version. The upstream RELEASE flags add -flto.
+options=(!lto)
 
 build() {
     local cmake_args=(
         -Wno-dev
         -B build
-        -S $pkgname
-        -D CMAKE_POLICY_VERSION_MINIMUM=3.5
-        -D CMAKE_BUILD_TYPE=RELEASE
+        -S "$_dirname"
+        -D CMAKE_BUILD_TYPE=None
         -D CMAKE_INSTALL_PREFIX=/opt/rocm
+        # The install subdirectory lib/fortran/<compiler> is the compiler's
+        # file name; CMake would find f95
+        -D CMAKE_Fortran_COMPILER=gfortran
     )
     cmake "${cmake_args[@]}"
     cmake --build build
@@ -59,5 +66,5 @@ build() {
 package() {
     DESTDIR="$pkgdir" cmake --install build
 
-    install -Dm644 "$pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

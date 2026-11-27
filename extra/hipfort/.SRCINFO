@@ -1,6 +1,6 @@
 pkgbase = hipfort
 	pkgdesc = Fortran interfaces for ROCm libraries
-	pkgver = 7.2.4
+	pkgver = 10.1
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipfort/en/latest/
 	arch = x86_64
@@ -14,11 +14,11 @@ pkgbase = hipfort
 	makedepends = rocblas
 	makedepends = rocfft
 	makedepends = rocm-cmake
+	makedepends = rocprofiler-sdk
 	makedepends = rocrand
 	makedepends = rocsolver
 	makedepends = rocsparse
 	depends = gcc-fortran
-	depends = git
 	depends = hip-runtime-amd
 	depends = rocm-core
 	optdepends = hipblas: Fortran bindings
@@ -27,10 +27,11 @@ pkgbase = hipfort
 	optdepends = hipsolver: Fortran bindings
 	optdepends = hipsparse: Fortran bindings
 	optdepends = rocfft: Fortran bindings
+	optdepends = rocprofiler-sdk: Fortran bindings for roctx
 	optdepends = rocrand: Fortran bindings
 	optdepends = rocsolver: Fortran bindings
-	options = !strip
-	source = hipfort::git+https://github.com/ROCm/hipfort.git#tag=rocm-7.2.4
-	sha256sums = 24b91f534c0cef6088fd7a92b33a28cc1d86662e5fb61be0d38851b7613aaa9b
+	options = !lto
+	source = hipfort-10.1.tar.gz::https://github.com/ROCm/hipfort/archive/rocm-10.1.0.tar.gz
+	sha256sums = 13ab80ea91183f36d37c16ca21a5bf685bec7bfa9912212778e5558ca8a86310
 
 pkgname = hipfort
