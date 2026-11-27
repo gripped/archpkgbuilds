@@ -4,8 +4,8 @@
 # Contributor: Patrick Förster <patrick DOT foerster AT outlook DOT de>
 
 pkgname=texlab
-pkgver=5.25.1
-pkgrel=2
+pkgver=5.26.0
+pkgrel=1
 pkgdesc="A cross-platform implementation of the Language Server Protocol for LaTeX."
 arch=('x86_64')
 url="https://github.com/latex-lsp/texlab/"
@@ -16,7 +16,7 @@ depends=(
 )
 makedepends=('cargo' 'npm')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/latex-lsp/texlab/archive/v${pkgver}.tar.gz")
-b2sums=('49d7a352eb86d1952bb3ddbb6da16ae0f72b8e8c097cd1b1a5ff309045b19a845900c490a38d142050d50150731ea89f3de69925ef3186eeafa5ceb807cfe829')
+b2sums=('249e36c45e06165d206ae255f3e0d4e09391061589d771011212cd8b8f49d445e9e02de8874fe23715969bf81bec835a6bb1035c9fcd0a626f3031423b92e160')
 
 prepare() {
   cd "${srcdir}/${pkgname}-${pkgver}"
