@@ -2,8 +2,8 @@
 
 pkgname=python-django-compressor
 _name="${pkgname#python-}"
-pkgver=4.6
-pkgrel=5
+pkgver=4.7
+pkgrel=1
 pkgdesc="Compresses linked and inline javascript or CSS into a single cached file"
 arch=(any)
 url="https://github.com/django-compressor/django-compressor"
@@ -44,8 +44,8 @@ optdepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz
 )
-sha512sums=('326e2a6c2b28e1a93b9897ea19ae959034cef488d40d23eebd8d956f350e8f7c908649ea03c7fc4786bd8af27f825b81774d6a038db347335c7d2e94ead5c1b7')
-b2sums=('e414899110df922d1dde66ebfe16c3e70dcba23fe78054282e82fa277d76465af0ccbc1c0a692e5d1c542a9d6fed31c2ac216d3b0b9ebd608333a1998eba3a3f')
+sha512sums=('2ca0741f9dea0ae2a62d07716bfa432fbaf9522cb6dcc3c298ccf12b107d5f0a381c78289d4da49890a7eeb471683b846ad527059e7821d4149329f4d11234c7')
+b2sums=('e1fdba88d77e3b45af9ef667fc66370ece08c728fd5d79199bd959a2a4f474a57b4e99b5d50a21dbd98acc958eb2b1f0bf124820789e44994651b946ccce0c7d')
 
 build() {
   cd $_name-$pkgver
