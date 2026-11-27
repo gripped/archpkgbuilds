@@ -3,22 +3,24 @@
 # Contributor: Jakub Okoński <jakub@okonski.org>
 
 pkgname=rocrand
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='Pseudo-random and quasi-random number generator on ROCm'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocRAND/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'libgcc')
-makedepends=('rocm-cmake' 'rocm-toolchain' 'rocm-llvm' 'gcc-fortran' 'python' 'git')
-optdepends=('gcc-fortran: Use Fortran wrapper')
-_git='https://github.com/ROCm/rocm-libraries/'
-source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('50a4090b4ad18b34c375f666e5f71816cf55f89bc2175dc3eba9a7b80f65a15d')
-options=(!lto !strip)
-_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
+makedepends=('cmake' 'ninja' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm' 'python')
+_git='https://github.com/ROCm/rocm-libraries'
+source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
+sha256sums=('13e45fa58ab9e06834565719ce3b8545a666d35d621576a2e40fa091763011fc')
+options=(!lto)
 
 build() {
+  # -g also emits DWARF for every GPU target into .hip_fatbin, which strip
+  # does not remove. Keep host debug info only.
+  CXXFLAGS+=" -Xarch_device -g0"
+
   # Export compiler and ROCm path as these are read by the toolchain file,
   # https://github.com/ROCm/rocm-libraries/blob/5b515cf1bca9959fb434c2414cf79b42fe25e93b/projects/rocrand/toolchain-linux.cmake#L19
   export CC=amdclang
@@ -26,8 +28,9 @@ build() {
   export ROCM_PATH=/opt/rocm
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname"
+    -S "$pkgname"
     -B build
+    -G Ninja
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_TOOLCHAIN_FILE=toolchain-linux.cmake
     -D CMAKE_CXX_COMPILER=/opt/rocm/bin/amdclang++
@@ -44,5 +47,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$pkgname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
