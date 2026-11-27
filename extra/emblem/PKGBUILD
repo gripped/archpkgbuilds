@@ -2,7 +2,7 @@
 
 pkgname=emblem
 pkgver=1.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Generate projects avatars for your Matrix rooms and git forges from a symbolic icon'
 arch=(x86_64)
 url='https://apps.gnome.org/Emblem/'
@@ -26,14 +26,24 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://gitlab.gnome.org/World/design/emblem.git#tag=$pkgver")
-b2sums=(6e722dd480c8be9cc8a281578f061f050bba31d6b580b89b856142c89da2477a0fed61d160e5bd66689da985ecc0d68b49d55b1f99974c616159b428aad6d217)
+source=(
+  "git+https://gitlab.gnome.org/World/design/emblem.git#tag=$pkgver"
+  emblem-clear-temp-files.patch
+)
+b2sums=(
+  6e722dd480c8be9cc8a281578f061f050bba31d6b580b89b856142c89da2477a0fed61d160e5bd66689da985ecc0d68b49d55b1f99974c616159b428aad6d217
+  46bf748df85aac0bcac1e33a58fa3c5beef1372d6ad8913770f0c52bcfd0e1555dc99acb0e1f309b52335b770fa5b804cc37587cbcff54e1013fe5cebed281c3
+)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Remove temporary symbolic icon files
+  # https://gitlab.gnome.org/World/design/emblem/-/merge_requests/81
+  git apply -3 ../emblem-clear-temp-files.patch
 }
 
 build() {

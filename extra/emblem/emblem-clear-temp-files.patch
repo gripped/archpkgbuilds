@@ -1,0 +1,95 @@
+From 709bd275aa7fba176aad97c872c82a1833d58931 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 25 Nov 2026 16:05:31 +0100
+Subject: [PATCH] Remove temporary symbolic icon files
+
+Keep track of temporary symbolic icon files and remove them
+when they are no longer needed.
+
+This prevents temporary SVG files from being left behind
+in the system temporary directory after closing the application.
+---
+ src/generate.rs | 11 ++++++++++-
+ src/utils.rs    | 14 ++++++++------
+ 2 files changed, 18 insertions(+), 7 deletions(-)
+
+diff --git a/src/generate.rs b/src/generate.rs
+index 96de1d1..55a31ab 100644
+--- a/src/generate.rs
++++ b/src/generate.rs
+@@ -31,6 +31,7 @@ mod imp {
+         pub gradient: Cell<gdk::RGBA>,
+         #[property(name = "symbolic", get, set = Self::set_symbolic, explicit_notify)]
+         pub symbolic_bytes: RefCell<Option<glib::Bytes>>,
++        pub symbolic_file: RefCell<Option<gio::File>>,
+ 
+         #[property(get, set, default)]
+         pub symbolic_color: Cell<SymbolicColor>,
+@@ -60,6 +61,7 @@ mod imp {
+                 gradient: Cell::new(DEFAULT_COLOR),
+                 last_gradient: Cell::new(DEFAULT_COLOR),
+                 symbolic_bytes: RefCell::default(),
++                symbolic_file: RefCell::default(),
+                 symbolic_color: Cell::default(),
+                 shape: Cell::default(),
+                 child: TemplateChild::default(),
+@@ -129,8 +131,11 @@ mod imp {
+ 
+                     if let Some(bytes) = bytes {
+                         match utils::load_symbolic(bytes).await {
+-                            Ok(paintable) => {
++                            Ok((paintable, file)) => {
+                                 imp.symbolic.set_paintable(Some(&paintable));
++                                if let Some(old_file) = imp.symbolic_file.replace(Some(file)) {
++                                    let _ = old_file.delete(None::<&gio::Cancellable>);
++                                }
+                                 obj.notify_symbolic();
+                             }
+                             Err(err) => {
+@@ -212,6 +217,10 @@ mod imp {
+ 
+         fn dispose(&self) {
+             self.dispose_template();
++
++            if let Some(file) = self.symbolic_file.take() {
++                let _ = file.delete(None::<&gio::Cancellable>);
++            }
+         }
+     }
+     impl WidgetImpl for Generate {}
+diff --git a/src/utils.rs b/src/utils.rs
+index ab126a9..b12dfb2 100644
+--- a/src/utils.rs
++++ b/src/utils.rs
+@@ -33,7 +33,7 @@ fn to_hex(n: f32) -> String {
+     }
+ }
+ 
+-pub async fn load_symbolic(bytes: glib::Bytes) -> anyhow::Result<gtk::IconPaintable> {
++pub async fn load_symbolic(bytes: glib::Bytes) -> anyhow::Result<(gtk::IconPaintable, gio::File)> {
+     let (file, stream) = gio::File::new_tmp_future(
+         Some("emblem-XXXXXX-symbolic.svg"),
+         glib::Priority::default(),
+@@ -52,12 +52,14 @@ pub async fn load_symbolic(bytes: glib::Bytes) -> anyhow::Result<gtk::IconPainta
+             }
+         });
+     let _ = output_stream.close_future(glib::Priority::default()).await;
+-    res?;
++    if let Err(err) = res {
++        let _ = file.delete(None::<&gio::Cancellable>);
++        return Err(err.into());
++    }
+ 
+-    Ok(gtk::IconPaintable::for_file(
+-        &file,
+-        SYMBOLIC_SIZE,
+-        SYMBOLIC_SCALE,
++    Ok((
++        gtk::IconPaintable::for_file(&file, SYMBOLIC_SIZE, SYMBOLIC_SCALE),
++        file,
+     ))
+ }
+ 
+-- 
+GitLab
+
