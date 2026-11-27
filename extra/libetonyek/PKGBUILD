@@ -4,8 +4,8 @@
 
 pkgbase=libetonyek
 pkgname=(libetonyek libetonyek-doc)
-pkgver=0.1.13
-pkgrel=3
+pkgver=0.1.15
+pkgrel=1
 pkgdesc='Library and a set of tools for reading and converting Apple Keynote presentations'
 arch=('x86_64')
 url="https://wiki.documentfoundation.org/DLP/Libraries/libetonyek"
@@ -14,14 +14,11 @@ makedepends=(
   'boost' 'cppunit' 'doxygen' 'glibc' 'glm' 'gperf' 'liblangtag'
   'librevenge' 'libxml2' 'mdds' 'zlib'
 )
-source=(https://dev-www.libreoffice.org/src/$pkgname/$pkgname-$pkgver.tar.xz
-        mdds3.patch)
-sha256sums=('032b71cb597edd92a0b270b916188281bc35be55296b263f6817b29adbcb1709'
-            'cd390fa4280b78fd0d1a7f587ab576d8ef0c4848036c8b0c821b576c6745db17')
+source=(https://dev-www.libreoffice.org/src/$pkgname/$pkgname-$pkgver.tar.xz)
+sha256sums=('ba81a37e1be25dcaf73035c4a3cc4787a1e053b3272b2383ed3dec899c6a884f')
 
 prepare() {
   cd $pkgbase-$pkgver
-  patch -Np0 -i ../mdds3.patch
   autoreconf -vfi
 }
 
