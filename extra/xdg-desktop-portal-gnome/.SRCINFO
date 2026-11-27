@@ -1,7 +1,7 @@
 pkgbase = xdg-desktop-portal-gnome
 	pkgdesc = Backend implementation for xdg-desktop-portal for the GNOME desktop environment
 	pkgver = 51.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome
 	arch = x86_64
 	groups = gnome
@@ -24,11 +24,9 @@ pkgbase = xdg-desktop-portal-gnome
 	depends = nautilus
 	depends = wayland
 	depends = xdg-desktop-portal
-	depends = xdg-desktop-portal-gtk>=1.10.0-2
-	optdepends = evince: Print previews
+	depends = xdg-desktop-portal-gtk
+	optdepends = papers: Print previews
 	provides = xdg-desktop-portal-impl
-	conflicts = xdg-desktop-portal-gtk<1.10.0-2
-	replaces = xdg-desktop-portal-gtk<1.10.0-2
 	source = git+https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome.git?signed#tag=51.0
 	source = git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=df896e3412b749947bc6f62a91a1aac8e6b6d19b
 	validpgpkeys = 8307C0A224BABDA1BABD0EB9A6EEEC9E0136164A
