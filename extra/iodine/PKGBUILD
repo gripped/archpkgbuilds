@@ -4,7 +4,7 @@
 # Contributor: nofxx <x@nofxx.com>
 
 pkgname=iodine
-pkgver=0.9.0
+pkgver=0.9.1
 pkgrel=1
 pkgdesc='Tunnel IPv4 data through a DNS server'
 arch=('x86_64')
@@ -17,12 +17,12 @@ backup=('etc/conf.d/iodined')
 source=("git+https://github.com/yarrick/iodine.git#tag=v$pkgver"
         'iodined.service'
         'iodined.conf.d')
-sha512sums=('5c45de91719f3313838a1b5737c39e7fc39c4c2b91f57e4e4420b5e7a7c1d75f76f6b2f9b608311c8cc79307cd0740c2d1f2c31ad61cf003e1bdbb65f7c7139b'
+sha512sums=('412b908f2e0038417b229533363513de512ae862e46e2cc4e29c1adfb2b62ceeb98b9aa0bac16674e6c8a871d7eea9b83054388e0146d8cbcc1071821d255266'
             '9dcc2540d12b98befab4f2695fd8ff3afe9dc6f52868826ac2997cc078b8152c1c7e8918a4daa3d3035e205a0c27062f5a422c46eb9763ebbc8824ea03a926c5'
             '07c4733b98287672fe98bdb8d666672994aa675d1bbde58d342471e318f1a7b5fc2f66cb8d068a1a4ef5697647608a217eb1949dfbd5b672b4d8982f09e902aa')
 
 build() {
-  arch-meson $pkgname build --sbindir=bin
+  arch-meson $pkgname build --sbindir=bin -Dselinux=disabled
   meson compile -C build
 }
 
