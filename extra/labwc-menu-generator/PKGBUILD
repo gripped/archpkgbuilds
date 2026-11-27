@@ -1,0 +1,40 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+
+pkgname=labwc-menu-generator
+pkgver=0.2.2
+pkgrel=1
+pkgdesc='Menu generator for labwc'
+url="https://github.com/labwc/labwc-menu-generator"
+arch=('x86_64')
+license=('GPL-2.0-only')
+depends=(
+  glib2
+  glibc
+)
+makedepends=(
+  git
+  meson
+  scdoc
+)
+optdepends=(
+  'labwc: compositor the menus are generated for'
+)
+source=("git+https://github.com/labwc/labwc-menu-generator#tag=${pkgver}")
+b2sums=('180f0165dccd008b0b7bfe34d601d68aa8e1041e915aadaf254029c0a279a2808fc0e0892b91278fb5123a8e1781b3168799917bdce2aee50dc84ca3d7e4faec')
+
+build() {
+  cd "$pkgname"
+  arch-meson . build
+  meson compile -C build
+}
+
+check() {
+  cd "$pkgname"
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  cd "$pkgname"
+  meson install -C build --destdir "$pkgdir"
+  install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname/examples" contrib/*.sh
+}
