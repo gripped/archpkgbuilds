@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-qed
-pkgver=3.0.0
+pkgver=3.0.1
 pkgrel=1
 pkgdesc='Quality Ensured Documentation'
 arch=(any)
@@ -21,8 +21,8 @@ checkdepends=(
   ruby-ae
 )
 options=(!emptydirs)
-source=(git+https://github.com/rubyworks/qed.git#tag=v$pkgver)
-sha256sums=('2ed2c4f3e6ec7565c8bba6ca6e83c0fc8ee27801cbc9c49fabb7ad6e457dac8a')
+source=(git+https://github.com/rubyworks/qed.git#tag=$pkgver)
+sha256sums=('ecf32c11960acf13ffaba0c5797e56a72403c5698ee7ff965d2f9b3d3944b649')
 
 build() {
   local _gemdir="$(gem env gemdir)"
