@@ -31,7 +31,7 @@ index 34c1422..b7ded90 100644
 -  file(STRINGS "${PoDoFo_INCLUDE_DIRS}/podofo/base/podofo_config.h" PoDoFo_MAJOR_VER_LINE REGEX "^#define[ \t]+PODOFO_VERSION_MAJOR[ \t]+[0-9]+$")
 -  file(STRINGS "${PoDoFo_INCLUDE_DIRS}/podofo/base/podofo_config.h" PoDoFo_MINOR_VER_LINE REGEX "^#define[ \t]+PODOFO_VERSION_MINOR[ \t]+[0-9]+$")
 -  file(STRINGS "${PoDoFo_INCLUDE_DIRS}/podofo/base/podofo_config.h" PoDoFo_PATCH_VER_LINE REGEX "^#define[ \t]+PODOFO_VERSION_PATCH[ \t]+[0-9]+$")
-+  find_file(PoDoFo_CONFIG podofo_config.h PATHS ${PoDoFo_INCLUDE_DIRS} PATH_SUFFIXES auxiliary base)
++  find_file(PoDoFo_CONFIG podofo_config.h PATHS ${PoDoFo_INCLUDE_DIRS} PATH_SUFFIXES auxiliary base podofo/auxiliary podofo/base)
 +  file(STRINGS "${PoDoFo_CONFIG}" PoDoFo_MAJOR_VER_LINE REGEX "^#define[ \t]+PODOFO_VERSION_MAJOR[ \t]+[0-9]+$")
 +  file(STRINGS "${PoDoFo_CONFIG}" PoDoFo_MINOR_VER_LINE REGEX "^#define[ \t]+PODOFO_VERSION_MINOR[ \t]+[0-9]+$")
 +  file(STRINGS "${PoDoFo_CONFIG}" PoDoFo_PATCH_VER_LINE REGEX "^#define[ \t]+PODOFO_VERSION_PATCH[ \t]+[0-9]+$")
@@ -68,17 +68,17 @@ index 68d34d8..b74e65c 100644
 +        const PdfInfo *info = doc.GetInfo();
 +
 +        if (token == "pdfauthor") {
-+            return info->GetAuthor().has_value() ? QString::fromUtf8(info->GetAuthor()->GetString().c_str()) : QString();
++            return info->GetAuthor().has_value() ? QString::fromUtf8(info->GetAuthor()->GetString().data(), info->GetAuthor()->GetString().size()) : QString();
 +        } else if (token == "pdfcreator") {
-+            return info->GetCreator().has_value() ? QString::fromUtf8(info->GetCreator()->GetString().c_str()) : QString();
++            return info->GetCreator().has_value() ? QString::fromUtf8(info->GetCreator()->GetString().data(), info->GetCreator()->GetString().size()) : QString();
 +        } else if (token == "pdfkeywords") {
-+            return info->GetKeywords().has_value() ? QString::fromUtf8(info->GetKeywords()->GetString().c_str()) : QString();
++            return info->GetKeywords().has_value() ? QString::fromUtf8(info->GetKeywords()->GetString().data(), info->GetKeywords()->GetString().size()) : QString();
 +        } else if (token == "pdfsubject") {
-+            return info->GetSubject().has_value() ? QString::fromUtf8(info->GetSubject()->GetString().c_str()) : QString();
++            return info->GetSubject().has_value() ? QString::fromUtf8(info->GetSubject()->GetString().data(), info->GetSubject()->GetString().size()) : QString();
 +        } else if (token == "pdftitle") {
-+            return info->GetTitle().has_value() ? QString::fromUtf8(info->GetTitle()->GetString().c_str()) : QString();
++            return info->GetTitle().has_value() ? QString::fromUtf8(info->GetTitle()->GetString().data(), info->GetTitle()->GetString().size()) : QString();
 +        } else if (token == "pdfproducer") {
-+            return info->GetProducer().has_value() ? QString::fromUtf8(info->GetProducer()->GetString().c_str()) : QString();
++            return info->GetProducer().has_value() ? QString::fromUtf8(info->GetProducer()->GetString().data(), info->GetProducer()->GetString().size()) : QString();
 +        } else if (token == "pdfpages") {
 +            return QString::number(doc.GetPages().GetCount());
 +        }
