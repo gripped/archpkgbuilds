@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-langchain-tests
-pkgver=1.1.9
-pkgrel=2
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Standard tests for LangChain implementations"
 arch=('any')
 url="https://github.com/langchain-ai/langchain"
@@ -36,9 +36,6 @@ prepare() {
 
   # makepkg's git fragment parser treats "=" inside tag values as separators.
   git checkout -q "langchain-tests==$pkgver"
-
-  # Allow VCR.py 9 (https://github.com/langchain-ai/langchain/pull/41407).
-  sed -i 's/vcrpy>=8.0.0,<9.0.0/vcrpy>=8.2.1/' libs/standard-tests/pyproject.toml
 }
 
 build() {
@@ -48,7 +45,9 @@ build() {
 
 check() {
   cd langchain/libs/standard-tests
-  python -m pytest
+  python -m venv --system-site-packages --without-pip "$srcdir/test-env"
+  "$srcdir/test-env/bin/python" -m installer dist/*.whl
+  "$srcdir/test-env/bin/python" -m pytest
 }
 
 package() {
