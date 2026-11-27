@@ -1,0 +1,30 @@
+--- a/cuda_core/build_hooks.py	2026-11-16 21:44:17.666366491 +0100
++++ b/cuda_core/build_hooks.py	2026-11-16 21:44:40.204126397 +0100
+@@ -429,22 +429,17 @@
+ def _get_cccl_include_dirs() -> list[str]:
+     """Return the include dirs providing the CCCL headers to compile against.
+ 
+-    Always the pinned submodule, never the CTK's CCCL: cuda.core's feature set
+-    must not vary with whatever the build environment happens to ship, so a
+-    missing submodule is a build error rather than a fallback.
+-
+-    Only libcu++ is listed: a CCCL checkout keeps one include root per
+-    component (see the "GitHub" section of CCCL's README) and cuda.core
+-    includes nothing from cub or thrust.
++    Use the system CCCL headers instead of the pinned submodule, which is not
++    available in a plain source checkout.
+     """
+-    libcudacxx_include = _CCCL_SUBMODULE_DIR / "libcudacxx" / "include"
++    libcudacxx_include = Path("/usr/include/cccl")
+ 
+     # <cuda/tma> is where _tensor_map.pyx gets cuda::make_tma_descriptor, and
+     # it postdates the rest of the layout, so it doubles as the version check.
+     if not (libcudacxx_include / "cuda" / "tma").is_file():
+         raise RuntimeError(
+-            f"The CCCL submodule at {_CCCL_SUBMODULE_DIR} is missing or not initialized. Run\n"
+-            "    git submodule update --init cuda_core/third_party/cccl"
++            f"The CCCL headers at {libcudacxx_include} are missing. "
++            "Install the cccl package."
+         )
+ 
+     return [str(libcudacxx_include)]

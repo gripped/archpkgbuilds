@@ -4,7 +4,7 @@
 # but it has different versioning scheme and release frequency
 pkgname=python-cuda-core
 epoch=1
-pkgver=1.2.2
+pkgver=1.3.1
 pkgrel=1
 pkgdesc="Pythonic access to CUDA core functionality"
 arch=(x86_64)
@@ -33,14 +33,18 @@ checkdepends=(
 source=(
   python-cuda::git+https://github.com/NVIDIA/cuda-python#tag=cuda-core-v$pkgver
   pyproject.patch
+  system-cccl.patch
 )
-b2sums=('79ecc34273a3020ea278399b0265065a2227d72976ca67b1bf6258ed60b4cbf9f2e2ef65ab7a6b3491f63920c818509e92444ad16f8661c62313baa2ae8261ac'
-        'bb3e04a5085a15e6a2d03444dc86ad581d9dd990ed13964dbc6de47f65ad297a898c9150ee4a26e8243d18ce70bdea72918cc0e2a3ee247ae932e55939a93b54')
+b2sums=('b04e137f9e90bb8ec1fcc4de12fb83e432c431036133c6571d352779bb7633c23cc4e4b196f32e29847b28dcb6f717b290c113d366f3d3f8908e14869b6110da'
+        '03ac12de54ddf24634a4830b6af327743166603b114bc1d99e806fe74c77988bfd97c49d8c1395a02cac3672eeac89ed16c5b2af1612ce6412037d229b5610e4'
+        '0ea59ad48a8b555477a88e5fb9ce7aadbf7431b521c43529d872d9e380d4c7aa5990104557c6871a29d65d1b2ed7aa87d9ffc193656703d88d2f97b10ba76a74')
 
 prepare() {
   cd python-cuda
   # drop upper bound on cython version
   patch -p1 < ../pyproject.patch
+  # use the system CCCL headers instead of the missing git submodule
+  patch -p1 < ../system-cccl.patch
 }
 
 build() {
