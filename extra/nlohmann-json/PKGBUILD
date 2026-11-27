@@ -3,7 +3,7 @@
 
 pkgname=nlohmann-json
 pkgver=3.12.0
-pkgrel=2
+pkgrel=3
 # tests are tracked in a separate repo
 # https://github.com/nlohmann/json_test_data
 _test_pkgver=3.1.0
@@ -28,6 +28,8 @@ prepare() {
   cd $pkgname
   # Provide fallback for missing char8_t support https://github.com/nlohmann/json/pull/4736
   git cherry-pick --no-commit 34868f90149de02432ea758a29227a6ad74f098c
+  # Fix conversion to std::optional https://github.com/nlohmann/json/pull/4742
+  git cherry-pick --no-commit 96c1b52f1cc4742a00ee02b34e043f61bbffa6ae
 }
 
 build() {
