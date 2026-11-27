@@ -6,7 +6,7 @@
 # Contributer: nightuser <nightuser.android at gmail.com>
 
 pkgname=lxd
-pkgver=6.9
+pkgver=6.10.1
 pkgrel=1
 pkgdesc="Daemon based on liblxc offering a REST API to manage containers"
 arch=('x86_64')
@@ -48,28 +48,34 @@ optdepends=(
     'systemd-libs: unix device hotplug support'
     'apparmor: apparmor support'
 )
-options=('!debug')
-source=("https://github.com/canonical/lxd/releases/download/${pkgname}-${pkgver}/${pkgname}-${pkgver}.tar.gz"{,.asc}
+options=(!debug)
+source=(
+  "$pkgname::git+https://github.com/canonical/lxd#tag=lxd-${pkgver}"
         "lxd.socket"
         "lxd.service"
         "lxd.sysusers")
-validpgpkeys=('602F567663E593BCBD14F338C638974D64792D67'  # Stéphane Graber <stgraber@stgraber.org>
-              'ED1CA1E7A6F80E22E5CB2DA84ACE106615754614') # Thomas Parrott <tomp@tomp.uk>
-sha256sums=('c13dff67aa400d3cc4ef3a20344a500fa691263132ad9de843c5485caffe47dd'
-            'SKIP'
-            'b89a725223ef72b25eab25184084d069af312f8c23612c57fdb75427a510232e'
-            '102d1d54186e0fc606a58f030231d76df6bd662b16dfd8f946e1f48e2b473b54'
-            'd0184d9c4bb485e3aad0d4ac25ea7e85ac0f7ed6ddc96333e74fcd393a5b5ec4')
+sha512sums=('58491d0c7d4822e5abc12703323408440ee0baee38bb05bbff40d0a2612cd46741761be582aac96e8f6120ba3162012efa5550a01c42933114213625b143eb46'
+            '61f61b5457b8d3c0a173553f3278d6926627d54ef9baf1b91726f80c97447f830b18ae49eb321d8306cfb1a77caa8d1e871ab79e510d245510a4103c1779fae9'
+            'fe5e06f80a0d3f8fe9594779fe5b810e34c6d8054aca2135ce7906fae9e609d2b1288a040513b32d8b6c6a24de2a5456964e13f21e7c0df76b783cb1ad7bb42e'
+            '0ebdb84d23fc590a612fed99ceaade6cdc2fc53f28a5d704f7d0956ce6540d2abbab4d6eb8096013f5a924c44f308b326e57f0b1b179af10304a2329ae40c9d7')
+b2sums=('e2a732d79120c200a2d800e2b271465c2c98d95a0038f5cfc20303ee925a3ee8601f0a11291a33b2d58fc5ec732f6beb79238a0f347eaa74c8ef14bc3feb25b5'
+        '61e09d5d2d171d3aa98614bf07bdb1f58f1f8d5d46f67b219f17275a84a92cfb25ede7ef0ceebbfa3f1d9676b0eac30a32cdb954bd201bd17b6c0e50537fa1b6'
+        'c00f1ceb180338d3aa36ab786f31b056eb56fb868af4aa53a07750406d680aca844cdf8b6e771391c107b8a826b6140c1ba1307f168a99301a7ce357aa081a40'
+        '561662b62dce645be024eed8d260653ad8dc7506e3e98fe11ad33ad090f6aa857fdb1a8d6f90e263ac32cecd1508ecdc52e34dd412a0218cbe8ef80456f8b9e8')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
+  # create directory for build output
   mkdir bin
+
+  # verify dependencies
+  export GOPATH="${srcdir}"
   go mod verify
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   export GOFLAGS="-buildmode=pie -trimpath"
   export CGO_LDFLAGS_ALLOW="-Wl,-z,now"
@@ -83,7 +89,7 @@ build() {
 }
 
 package() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgname"
 
   for tool in fuidshift lxc lxd lxd-agent lxd-benchmark lxd-convert lxd-user; do
     install -v -p -Dm755 "bin/$tool" "${pkgdir}/usr/bin/$tool"
