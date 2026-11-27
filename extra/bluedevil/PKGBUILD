@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=bluedevil
-pkgver=6.8.2
+pkgver=6.8.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 epoch=1
@@ -37,10 +37,10 @@ optdepends=('bluez-obex: file transfer'
             'pulseaudio-bluetooth: to connect to A2DP profile')
 groups=(plasma)
 source=(https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz{,.sig})
-sha256sums=('119647ee96619dea9ef10339984246367f44835941cceb725483964e113f75ba'
+sha256sums=('52c3bdbe75f986b796fabf326c4414a07d0fecb5fb066844c5673c0b91fbb36b'
             'SKIP')
 validpgpkeys=('E0A3EB202F8E57528E13E72FD7574483BB57B18D'  # Jonathan Esk-Riddell <jr@jriddell.org>
-              '0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D'  # Bhushan Shah <bshah@kde.org>
+              '58743C0A93487794BC44ECE873C3D7758E7A544A'  # Bhushan Shah <bshah@kde.org>
               'D07BD8662C56CB291B316EB2F5675605C74E02CF'  # David Edmundson <davidedmundson@kde.org>
               '1FA881591C26B276D7A5518EEAAF29B42A678C20') # Marco Martin <notmart@gmail.com>
 
