@@ -3,8 +3,8 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=caja
-pkgver=1.28.0
-pkgrel=6
+pkgver=1.28.1
+pkgrel=1
 pkgdesc="File manager for the MATE desktop"
 arch=(x86_64)
 url='https://github.com/mate-desktop/caja'
@@ -45,7 +45,7 @@ source=(
   git+https://github.com/mate-desktop/mate-submodules.git
 )
 b2sums=(
-  0d45b556f962d9bbfe9803257af5c8114bf8d2ec26d3fb46e05c53ed09c9dd65ef19bd28b290b79e0bba8f21042d1913e1a2451b0eeb7e9e3e62b5b3059e7cce
+  c3a68ef20d4aa46f25c6a59e4456ca010ad6cfb5037a5fa09e56e565230af2af5f9ea898d8078faa2b6fed0a2be17cc47cdaf891f6ce8e8eb04f1e93eb012819
   SKIP
 )
 
@@ -62,8 +62,7 @@ prepare() {
 
   # Ensure desktop window is never decorated
   # https://github.com/mate-desktop/caja/pull/1816
-  git cherry-pick -n 1cc61bef81c28fba1277cd996c32621b441da068 \
-                     2445887b3947eb99bd4d430b4f1dff9ed2467d73
+  git cherry-pick -n 2445887b3947eb99bd4d430b4f1dff9ed2467d73
 
   # Fix desktop window position with client-side decorations
   # https://github.com/mate-desktop/caja/pull/1912
