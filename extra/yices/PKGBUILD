@@ -3,17 +3,17 @@
 # Contributor: Alex J. Malozemoff <amaloz@galois.com>
 
 pkgname=yices
-pkgver=2.7.0
+pkgver=2.8.0
 pkgrel=1
 pkgdesc="A solver for Satisfiability Modulo Theories (SMT) problems"
 arch=('x86_64')
 url="https://yices.csl.sri.com/"
-license=('GPL-3.0-or-later')
+license=('BSD-3-Clause')
 depends=('cudd' 'gmp' 'libpoly')
 makedepends=('git' 'gperf')
 # Since 2.6.3 sources are not published in https://yices.csl.sri.com/releases/ anymore.
 source=("git+https://github.com/SRI-CSL/yices2.git#tag=yices-$pkgver")
-sha512sums=('f371b4760a2214ea2f1a40c9b79e51eb2e721fab03d3449ee6842a72b2ada881eb8a58ee247fe29d9816bc70b64224142bc4152ce0ca1d558bf36debc933a0f0')
+sha512sums=('241a3216e7cb5a0fb359a0fad63a3b9c5507d41bdf5d068f00c0746b0099ba8cf6b94f2f2e5f91a2546a789c5698e7149dc91f654b3b258a162537f4c27fde7a')
 
 build() {
   cd yices2
@@ -29,4 +29,5 @@ check() {
 package() {
   cd yices2
   make DESTDIR="$pkgdir/" install
+  mv "$pkgdir/usr/share/licenses/yices-$pkgver" "$pkgdir/usr/share/licenses/$pkgname"
 }
