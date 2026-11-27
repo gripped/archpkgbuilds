@@ -1,7 +1,9 @@
-set --export --global CUDA_PATH /opt/cuda
-fish_add_path --append --path $CUDA_PATH/bin
+if status --is-login
+    set --export --global CUDA_PATH /opt/cuda
+    fish_add_path --append --path $CUDA_PATH/bin
 
-# Set the default host compiler for nvcc. This will need to be switched back
-# and forth between the latest and previous GCC version, whatever nvcc
-# currently supports.
-set --export --global NVCC_CCBIN /usr/bin/g++
+    # Set the default host compiler for nvcc. This will need to be switched back
+    # and forth between the latest and previous GCC version, whatever nvcc
+    # currently supports.
+    set --export --global NVCC_CCBIN /usr/bin/g++
+end
