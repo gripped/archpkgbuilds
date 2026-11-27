@@ -1,0 +1,41 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=libhipcxx
+pkgver=10.2
+pkgrel=1
+pkgdesc='Header-only C++ standard library for HIP host and device code'
+arch=('any')
+url='https://github.com/ROCm/libhipcxx'
+license=('Apache-2.0 WITH LLVM-exception' 'MIT')
+depends=('rocm-core' 'hip-runtime-amd')
+makedepends=('cmake' 'ninja' 'rocm-cmake')
+source=("$pkgname-$pkgver.tar.gz::$url/archive/therock-$pkgver.tar.gz")
+sha256sums=('3117d217afd1acda79754f97e06f5dbd0066d96ec4659a97f0963c4f45f08992')
+_dirname="$pkgname-therock-$pkgver"
+
+build() {
+  # Header-only: HIP is only needed for the tests
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -G Ninja
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D CMAKE_BUILD_TYPE=None
+    -D LIBCUDACXX_ENABLE_HIP=OFF
+    -D LIBCUDACXX_ENABLE_LIBCUDACXX_TESTS=OFF
+    -D libhipcxx_ENABLE_CMAKE_TESTS=OFF
+    # Same include subdirectory as TheRock
+    -D LIBHIPCXX_INSTALL_INCLUDE_SUBDIR=hipccl
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE.TXT" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$_dirname/NOTICE.txt" "$pkgdir/usr/share/licenses/$pkgname/NOTICE"
+}
