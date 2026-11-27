@@ -5,7 +5,7 @@
 # Contributor: Daniel J Griffiths <ghost1227@archlinux.us>
 
 pkgname=supertux
-pkgver=0.7.0
+pkgver=0.7.0.1
 pkgrel=1
 pkgdesc="A classic 2D jump'n'run sidescroller game in a style similar to the original SuperMario games"
 arch=('x86_64')
@@ -15,7 +15,7 @@ depends=('sdl2_image' 'curl' 'openal' 'libvorbis' 'glew' 'physfs' 'freetype2' 'b
 makedepends=('cmake' 'boost' 'mesa' 'optipng' 'glm')
 options=('!lto')
 source=("https://github.com/SuperTux/supertux/releases/download/v${pkgver}/SuperTux-v${pkgver}-Source.tar.gz")
-sha512sums=('15bc4f84e1453be25ac3fa3496443e4e20d805f8c4d50148235f4dc82d188bef974fc720653cab36350d8b631c74539e4a74c33259fdaac6a516f44f8ed65297')
+sha512sums=('4a20f03c65939d0cb53ca7b31be17ab5c087516e1640783142d14ad8da938b925c190de2c57a4b09715b22289603b845fc11021d385bc5e562f288ad00b9f0ad')
 
 build() {
   cd "SuperTux-v${pkgver}-Source"
