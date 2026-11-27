@@ -1,6 +1,6 @@
 pkgbase = duckdb
 	pkgdesc = An analytical in-process SQL database management system
-	pkgver = 1.5.6
+	pkgver = 2.0.1
 	pkgrel = 1
 	url = https://www.duckdb.org
 	arch = x86_64
@@ -13,15 +13,17 @@ pkgbase = duckdb
 	makedepends = python-installer
 	makedepends = python-setuptools-scm
 	makedepends = python-scikit-build-core
+	makedepends = python-numpy
+	makedepends = nanobind
 	depends = glibc
 	depends = libgcc
 	depends = libstdc++
-	source = duckdb::git+https://github.com/duckdb/duckdb#tag=v1.5.6
-	source = python-duckdb::git+https://github.com/duckdb/duckdb-python#tag=v1.5.6
-	sha512sums = b3098e0f326010bfab806d67843dd320de130184ee97e68b922e00c0aff6bd3bce610d1177ee75f776156eefcb496d0fa2b318b58b2bd893bd680facfcf6d5e2
-	sha512sums = ccee5c5e1aac1cf39193005d9a47ae2c614568c8991d9b35f49788d3dbb94b95264cc6db712dc515544dc3afa0ba21d28dc51da39ccfaa10e380bd5c9223b98a
-	b2sums = 172549d9f6d7c3070b82786f79dd0c3cca43ec602ca1110b3c5cdaac29445580995b87da4308228054aa705001f3ac65185e2a602e7147675dd8cfba5de8bc1e
-	b2sums = 4c773cc9e3df684ba2bfe2b4feea876f3b140002dd7d9b9bd5d3fe88c14fb8be74683e507605bca84af4999f1c5f70ab6a984bd2622fd39b5e7adc55980400d2
+	source = duckdb::git+https://github.com/duckdb/duckdb#tag=v2.0.1
+	source = python-duckdb::git+https://github.com/duckdb/duckdb-python#tag=v2.0.1
+	sha512sums = b9de7faf80d36b52012d670f927f771230a8dfe964dd530dd468859c617d89ad0c2c230d61701c45dafc95b11adc7bdedd0555e9f032a52f78ac2363fceccfcf
+	sha512sums = 90c476596786dff93c9d884049e469b668c0e9ef79b11fb3f7687d92a4e1389a01a4d3cafde3f5f37a64c923c6a97706405d4c4c4117810b165cd69055c735a8
+	b2sums = bef627f387ba3456397fcfc8c7dacc6bb984edd3372944c45e5365f0a1f1c43e2aa89be365ae9c548ef50a1d43161fddadd73d26e416745ae4cc7159de481793
+	b2sums = 3c3b9aa6a23a392323bff0e0f7ec06b1798b3fa92b2dfaa1e8f6b74b118f9327b012913e46128f00aa42bd4ab56e56d1d72b4a44a79710c8fa0b240612bcb418
 
 pkgname = duckdb
 
