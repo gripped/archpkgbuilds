@@ -4,7 +4,7 @@
 pkgbase=python-cuda
 # NOTE: python-cuda-pathfinder and python-cuda-core are packaged separately
 pkgname=(python-cuda python-cuda-bindings)
-pkgver=13.4.4
+pkgver=13.5.0
 pkgrel=1
 pkgdesc="Python interface for CUDA provided by NVIDIA"
 arch=(x86_64)
@@ -32,12 +32,12 @@ options=(!emptydirs)
 source=(
   $pkgbase::git+https://github.com/NVIDIA/cuda-python#tag=v$pkgver
 )
-b2sums=('eb5a2d2c7a488ad2e4fd32ea4222226d012789fc9fdd9e8991518cbb61c0a4ecc1e1b0e65177037ddf52d7ac910df9ec5e86b5e86d24a481cf7e8a46cef02520')
+b2sums=('cd18517330bf62df0cfa80e22c72b9c337ea39cd4fcaad056f8a10c790cb9e4c808dcdf10b6292007f46eba9a1467cbc0cde1bf2250f931a311b9699bbe6807d')
 
 prepare() {
   cd $pkgbase
   # release cython constraints
-  sed -i 's|"cython>=3.2.5,<3.3"|"cython"|' cuda_bindings/pyproject.toml
+  sed -i 's|"cython>=3.2.5,<3.3"|"cython"|' cuda_bindings_${pkgver%%.*}/pyproject.toml
 }
 
 build() {
@@ -49,7 +49,7 @@ build() {
   # set correct version in Python package metadata
   export SETUPTOOLS_SCM_PRETEND_VERSION=$pkgver
 
-  pushd cuda_bindings
+  pushd cuda_bindings_${pkgver%%.*}
   python -m build --wheel --no-isolation
   popd
 
@@ -62,7 +62,7 @@ check() {
   cd $pkgbase
   # cannot run tests in chroot
   #python -m venv --system-site-packages test-env
-  #test-env/bin/python -m installer cuda_bindings/dist/*.whl
+  #test-env/bin/python -m installer cuda_bindings_${pkgver%%.*}/dist/*.whl
   #test-env/bin/python -m installer cuda_python/dist/*.whl
   #test-env/bin/python -m pytest */tests
 }
@@ -77,7 +77,7 @@ package_python-cuda-bindings() {
     python-cuda-pathfinder
   )
 
-  cd $pkgbase/cuda_bindings
+  cd $pkgbase/cuda_bindings_${pkgver%%.*}
 
   python -m installer --destdir="$pkgdir" dist/*.whl
   install -vDm 644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
