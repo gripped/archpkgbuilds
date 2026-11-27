@@ -2,7 +2,7 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
 
 pkgname=python-puremagic
-pkgver=2.2.0
+pkgver=2.3.0
 pkgrel=1
 pkgdesc="A Python module that will identify a file based off it's magic numbers"
 arch=(any)
@@ -19,8 +19,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=$pkgver")
-sha512sums=('e6ee1b512e17e02f074b3fca3ffabf78d66576d979450eaaa7cc7d45b71cc039ef71721ba94389110ed881ce73cc96ecd71a241fa30abf68bccfe8cf727971f2')
-b2sums=('d5041198f9ddc74d82a57476424e2a6838e54dfaa64d9d96eb58fae9cb63008faaf81161c1a96c1b2a1f16735be35c827e71cbe5b2a4c5b02ad20d9391b62675')
+sha512sums=('c6346afa79a68141d61f53520af5acd429e03e46d66b9e63266ba17c5cd1b05da1898d5a8a5ef13abc97f802a111fa9e2c70ecc2029ad74ee0c54120650cbacd')
+b2sums=('e33e286c8bd0d52d9aac32b056596467714ed2e373aa6899e5bf5c2e1c5bf74bafb05e36788af7de35d3898da6717198d9f3c1b94cb7d3adf08c1e0edf293bc6')
 
 build() {
   cd "$pkgname"
