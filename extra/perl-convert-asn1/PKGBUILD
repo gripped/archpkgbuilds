@@ -2,7 +2,7 @@
 # Maintainer: Charles Mauch <cmauch@gmail.com>
 
 pkgname=perl-convert-asn1
-pkgver=0.36
+pkgver=0.37
 pkgrel=1
 pkgdesc="Perl/CPAN Module Convert::ASN1 : Standard endecode of ASN1 structures"
 arch=("any")
@@ -21,4 +21,4 @@ package() {
   cd "$srcdir"/Convert-ASN1-$pkgver
   make pure_install doc_install DESTDIR="$pkgdir"
 }
-sha256sums=('50439aedff4b403f24c9373eefd3c25770e33a9190d93a331e7a744f8b4e7cd3')
+sha256sums=('012b90bbb931e049340a114dbc510f845309d9ca76cc6c4fad751d317b4bf0fa')
