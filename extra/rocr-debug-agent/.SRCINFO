@@ -1,6 +1,6 @@
 pkgbase = rocr-debug-agent
 	pkgdesc = ROCr Debug Agent Library
-	pkgver = 7.2.4
+	pkgver = 10.1
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/rocr_debug_agent/en/latest/
 	arch = x86_64
@@ -9,8 +9,10 @@ pkgbase = rocr-debug-agent
 	depends = rocm-core
 	depends = hip-runtime-amd
 	depends = rocm-dbgapi
-	provides = rocm-debug-agent=7.2.4
-	source = rocr-debug-agent-7.2.4.tar.gz::https://github.com/ROCm/rocr_debug_agent/archive/rocm-7.2.4.tar.gz
-	sha256sums = 3e8c8de1e4aff795fc98521508b0625fb156315a56a894674e035ebb5ac23119
+	depends = hsa-rocr
+	depends = libelf
+	provides = rocm-debug-agent=10.1
+	source = rocr-debug-agent-10.1.tar.gz::https://github.com/ROCm/rocm-systems/releases/download/therock-10.1/rocr-debug-agent.tar.gz
+	sha256sums = 74c6b5a6c1b982c43fcb2c85b36464222b383ea38da22795a06557ba286c015f
 
 pkgname = rocr-debug-agent
