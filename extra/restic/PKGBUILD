@@ -2,7 +2,7 @@
 # Maintainer: Christian Rebischke <chris.rebischke@archlinux.org>
 
 pkgname=restic
-pkgver=0.19.1
+pkgver=0.20.0
 pkgrel=1
 pkgdesc="Fast, secure, efficient backup program"
 arch=('x86_64' 'aarch64')
@@ -13,8 +13,8 @@ makedepends=('go' 'git')
 checkdepends=('fuse2')
 optdepends=('fuse2: mount archive')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/restic/restic/archive/v${pkgver}.tar.gz")
-sha512sums=('f707e085f35026a9c901c851c10190b18804d7c7f161f37933341a89fcc240f199084c8e93b35ce92237c67772d9673da9d78d8ccd0087714b765f9e8b384155')
-b2sums=('ac44c12def4314bb96f6578354c4d407d984ce13cf9ab68b8eb7c63b6337f09b8e482ae0363ca66a6fcdeb1c0200dfb11ace952c477565b0f9d7965c9f19a8ea')
+sha512sums=('e5a8a64fd15216308284d7a698bd588c0803382e818fb04e8f874b8737bcea7549019bf3858bb7927bc89ec3f137ee01c6006f6284421a0a48f760bef37d53cf')
+b2sums=('d055728c24f96dacc673007b90354b727c36f18d9c14b57222d5774b4f08ad194848299b261281e0448a0f0b956041b5e8dfb556a8a90cff87ce152908ba468b')
 
 build(){
   cd "${pkgname}-${pkgver}"
