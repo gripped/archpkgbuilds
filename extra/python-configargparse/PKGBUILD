@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-configargparse
-pkgver=1.9.0
+pkgver=1.10.2
 pkgrel=1
 pkgdesc='A drop-in replacement for argparse that allows options to also be set via config files and/or environment variables'
 arch=('any')
@@ -13,7 +13,7 @@ checkdepends=('python-pytest' 'python-tests' 'python-toml' 'python-yaml')
 optdepends=('python-toml: for writing TOML configuration files'
             'python-yaml: for YAML support')
 source=("git+https://github.com/bw2/ConfigArgParse.git#tag=v$pkgver")
-sha512sums=('fd337bc114abcaec336ee8be9f351a73d91720e86718db86b56508718fa0cd54db431aaa473692b812b039aa86660c6269a4e63035727ac9cdfefd161197eaaa')
+sha512sums=('6abcb270973d4b80b1a02a031f049a4c4626102f25f16de9c853dcc91496454e967e2f5b9d4c3bfb497783ccb22497b19ddfb0e82d14169db0673497130708e0')
 
 build() {
   cd ConfigArgParse
