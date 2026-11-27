@@ -2,9 +2,9 @@
 
 pkgname='opensearch-dashboards-notifications-plugin'
 _pluginname='dashboards-notifications'
-pkgver=3.9.0.0
-_dashboardsver=3.9.0
-pkgrel=2
+pkgver=3.10.0.0
+_dashboardsver=3.10.0
+pkgrel=1
 pkgdesc='OpenSearch Dashboards Notifications Plugin'
 url='https://opensearch.org/docs/latest/notifications-plugin/index/'
 arch=('x86_64')
@@ -16,8 +16,8 @@ source=(
   "git+https://github.com/opensearch-project/${_pluginname}.git#tag=${pkgver}"
   "git+https://github.com/opensearch-project/OpenSearch-Dashboards.git#tag=${_dashboardsver}"
 )
-sha256sums=('ccc99c4d0caf0bad0706e6c64001ad8a613595062f3a561f9170ec588c9868b7'
-            'aab6519436634d2ff41e4e5f415740b36b23d860fbfb7657c4f46211f4c2fbb7')
+sha256sums=('a2534f67fd90308a506fc11f961bce4dfc51df84f319ba4e37de835b4f4af332'
+            '9da9c438fb249eccd58d7d499df792e873e8d46395fb3161af646ed1b72e333d')
 
 prepare() {
   nodeVersion="$(node -v)"
@@ -33,7 +33,7 @@ prepare() {
   done
   cd ../"${_pluginname}";
 
-  # TODO: https://github.com/opensearch-project/dashboards-notifications/issues/128#issuecomment-1971536970
+  # TODO: https://github.com/opensearch-project/dashboards-notifications/issues/128#issuecomment-197153.10.0
 
   sed -i "s/it('renders the component/it.skip('renders the component/" \
     public/pages/Main/__tests__/Main.test.tsx \
