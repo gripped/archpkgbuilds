@@ -1,0 +1,42 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=hipthreads
+pkgver=10.2
+pkgrel=3
+pkgdesc='C++ std::thread-like API to launch and manage GPU threads with HIP'
+arch=('x86_64')
+url='https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipthreads'
+license=('Apache-2.0 WITH LLVM-exception')
+depends=('rocm-core' 'hip-runtime-amd' 'libhipcxx')
+makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm')
+_git='https://github.com/ROCm/rocm-libraries'
+source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
+sha256sums=('1375fdd31b63bf8e414638704d85bcd1fbdb5c23c04f04841c0334776a404f30')
+options=(!lto)
+
+build() {
+  # -fcf-protection is not supported by HIP, see
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  export HIPFLAGS="${CXXFLAGS} -fcf-protection=none"
+  local cmake_args=(
+    -Wno-dev
+    -S "$pkgname"
+    -B build
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_CXX_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++
+    -D CMAKE_HIP_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++
+    # gfx9-generic does not cover gfx908 and gfx90a
+    -D CMAKE_HIP_ARCHITECTURES="$(rocm-supported-gfx);gfx908;gfx90a"
+    -D DISABLE_WERROR=ON
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$pkgname/LICENSE.txt" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

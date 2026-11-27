@@ -1,0 +1,19 @@
+pkgbase = hipthreads
+	pkgdesc = C++ std::thread-like API to launch and manage GPU threads with HIP
+	pkgver = 10.2
+	pkgrel = 3
+	url = https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipthreads
+	arch = x86_64
+	license = Apache-2.0 WITH LLVM-exception
+	makedepends = cmake
+	makedepends = rocm-cmake
+	makedepends = rocm-toolchain
+	makedepends = rocm-llvm
+	depends = rocm-core
+	depends = hip-runtime-amd
+	depends = libhipcxx
+	options = !lto
+	source = hipthreads-10.2.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/therock-10.2/hipthreads.tar.gz
+	sha256sums = 1375fdd31b63bf8e414638704d85bcd1fbdb5c23c04f04841c0334776a404f30
+
+pkgname = hipthreads
