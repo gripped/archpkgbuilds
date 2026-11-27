@@ -7,7 +7,7 @@
 
 pkgname=easytag
 pkgver=2.4.3
-pkgrel=17
+pkgrel=19
 pkgdesc='Simple application for viewing and editing tags in audio files'
 arch=(x86_64)
 url='https://wiki.gnome.org/Apps/EasyTAG'
@@ -41,19 +41,19 @@ makedepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgname-$pkgver"
   easytag-dark-theme.patch
-  easytag-taglib-2.patch
   easytag-scrolled-window.patch
   easytag-playlist-dialog.patch
   easytag-no-appmenu.patch
+  easytag-fix-window-size.patch
   easytag-no-appstream-glib.patch
 )
 b2sums=(
   bc0e51a4d2eca339b122a5f2c65625f0a3d7364a370f4d61a7b22dae8b84a3732fd382c9800eb464562edf352116f149414230ecea670146250bbeccb8c31f66
   3b7bbddc5ee496917d9979c821c0afd73eea815e5f5e394aaa4bd8f099e1abd65d96b3ceadd320022bb593bbc94baeeae3bf3a0a06ddf0c167b5664ffede859f
-  07c8f2f45c13dc2926aaba933534332f6074ba54553ec6489fb2f5b7ff1efe80d1d5ec5bbc29188617dcf62c7edf4db05855257227ba85c6e0c382fd413d26a2
   09115abb801adce0fbfe23a13f1ca0bb7c52c50db17a23e523e75e3dac38d797c5b59dcb9ff3d54e18103ddd71f3e2db311996c7203768a5ebe6bd1f07968646
   6644f14cdbcaa971d774a64fbcde74b49e5aba2078638595f46199626e4fccf564dffafc314fa19293e0dff2992da7217938300a76b673d557315b645e718d0d
   d58363471fa4a159d50b2fe03c07581bb530e158c18fd086d6e3a5714cc3514f62fa3b5002525cf45e825d6e684cb1083bd874e07a65defb1848d352c258f664
+  5475058b563fc52cbb03f5158367e011db0af9ec3bd965f310fbcc98d425500ff48cc2e43834937c8611fc3530efe8ca71dc07d3285a40d7ba0e07be1e07803a
   a2e2c8470683a500ed832db7a8161742a42be30ec50fff1f8bb2b9f937768c75ff7f24d641c83de91422f1942a5d156149bdda03f0883c668bf5d2da79417eb6
 )
 validpgpkeys=(5A863D019DDAAC0741E6C5BAB0E8E0F09308B4E3) # David Christopher King (amigadave) <amigadave@amigadave.com>
@@ -92,11 +92,12 @@ prepare() {
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/17
   git cherry-pick -n cedfd104bd05c9370e0e65ed599487ba21848657
 
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/16
+  git cherry-pick -n 9fb842809c53e0b99ed68b44d5e34f1e08baec64 \
+                     3f753f8e4f7a44c78dc2a629538905109d0220a0
+
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/7
   git apply -3 ../easytag-dark-theme.patch
-
-  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/16
-  git apply -3 ../easytag-taglib-2.patch
 
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/18
   git apply -3 ../easytag-scrolled-window.patch
@@ -106,6 +107,9 @@ prepare() {
 
   # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/21
   git apply -3 ../easytag-no-appmenu.patch
+
+  # https://gitlab.gnome.org/GNOME/easytag/-/merge_requests/27
+  git apply -3 ../easytag-fix-window-size.patch
 
   # Remove dependency on appstream-glib
   git apply -3 ../easytag-no-appstream-glib.patch

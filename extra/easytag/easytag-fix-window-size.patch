@@ -1,0 +1,65 @@
+From a218652f145b3164fdc256609ebfe7da16508673 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 24 Nov 2026 21:35:48 +0100
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Use the size-allocate signal and gtk_window_get_size() to
+save the window dimensions instead of relying on the
+GdkEventConfigure dimensions.
+
+This prevents the window size from increasing each time the
+application is opened with client-side decorations enabled.
+---
+ src/application_window.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
+
+diff --git a/src/application_window.c b/src/application_window.c
+index 794025f..972a1af 100644
+--- a/src/application_window.c
++++ b/src/application_window.c
+@@ -212,26 +212,21 @@ restore_state (EtApplicationWindow *self)
+     g_key_file_free (keyfile);
+ }
+ 
+-static gboolean
+-on_configure_event (GtkWidget *window,
+-                    GdkEvent *event,
+-                    gpointer user_data)
++static void
++on_size_allocate (GtkWidget *window,
++                  GtkAllocation *allocation,
++                  gpointer user_data)
+ {
+     EtApplicationWindow *self;
+     EtApplicationWindowPrivate *priv;
+-    GdkEventConfigure *configure_event;
+ 
+     self = ET_APPLICATION_WINDOW (window);
+     priv = et_application_window_get_instance_private (self);
+-    configure_event = (GdkEventConfigure *)event;
+ 
+     if (!priv->is_maximized)
+     {
+-        priv->width = configure_event->width;
+-        priv->height = configure_event->height;
++        gtk_window_get_size (GTK_WINDOW (window), &priv->width, &priv->height);
+     }
+-
+-    return GDK_EVENT_PROPAGATE;
+ }
+ 
+ static gboolean
+@@ -1642,8 +1637,8 @@ et_application_window_init (EtApplicationWindow *self)
+     gtk_window_set_icon_name (window, "org.gnome.EasyTAG");
+     gtk_window_set_title (window, _(PACKAGE_NAME));
+ 
+-    g_signal_connect (self, "configure-event",
+-                      G_CALLBACK (on_configure_event), NULL);
++    g_signal_connect (self, "size-allocate",
++                      G_CALLBACK (on_size_allocate), NULL);
+     g_signal_connect (self, "delete-event",
+                       G_CALLBACK (on_main_window_delete_event), NULL);
+     g_signal_connect (self, "window-state-event",
+-- 
+GitLab
+
