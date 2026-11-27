@@ -1,5 +1,4 @@
 [postgresql-old-upgrade]
-source = "htmlparser"
-url = "https://www.postgresql.org/support/versioning/"
-xpath = '//h2[text()="Releases"]/following-sibling::table[1]/tbody/tr[2]/td[2]/text()'
-include_regex = '\d+\.\d+'
+source = "regex"
+url = "https://ftp.postgresql.org/pub/source/"
+regex = 'href="v(17(?:\.\d+)*)/"'
