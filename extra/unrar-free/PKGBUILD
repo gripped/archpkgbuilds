@@ -4,7 +4,7 @@
 # Contributor: Chris Mann <cshclm[at]gmail[dot]com>
 
 pkgname=unrar-free
-pkgver=0.3.4
+pkgver=0.7.0
 pkgrel=1
 epoch=1
 pkgdesc="Free utility to extract files from RAR archives"
@@ -13,7 +13,7 @@ arch=('x86_64')
 license=('GPL-2.0-or-later')
 depends=('glibc' 'libarchive')
 source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('c02a07501e38251e42d42395cd35080b36570e16f857f7688f374c20c878c62c')
+sha256sums=('1af104ec2840dc43b233ff1a6124c04fea2e7c01cf1b2d4bdfb5641f1063bf72')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
