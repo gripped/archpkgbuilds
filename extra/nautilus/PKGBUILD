@@ -8,7 +8,7 @@ pkgname=(
   libnautilus-extension
   libnautilus-extension-docs
 )
-pkgver=51.1
+pkgver=51.2
 pkgrel=1
 pkgdesc="Default file manager for GNOME"
 url="https://apps.gnome.org/Nautilus/"
@@ -59,10 +59,10 @@ checkdepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/nautilus.git#tag=${pkgver/[a-z]/.&}"
-  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=df896e3412b749947bc6f62a91a1aac8e6b6d19b"
+  "git+https://gitlab.gnome.org/GNOME/libgxdp.git#commit=528966b82cfb8c276319aa1436d424b949a274e0"
 )
-b2sums=('13d7fde576d576c5903f1906263c8bd47e54bedcd88cd297077c4687b74eaef1519c458242ee1cb88ebad871411a44614404f12d21c9a7859d2b064c7e499dd1'
-        'f5bd238c316a55784f97b1b7c8b498d3dfa727375cf8a1bf61f4771e306232b36752df8f61edb8d8c5da7c5e1a7acd8c0e85a53725af56e9b18b8dd1a6f284e0')
+b2sums=('261d337a8bae32bb6a005f57f874bd075a2644ceecf6de96afc0232ca00861a9e0b64c65b5de5953d9342fde06dec6620151a39aa55281672c3a640e896dcef6'
+        '16c53dd8c0a68a8e85924ac72a651e5c24077b4be561d64807a84e1e94b1e38085cf93bedd7ef9b298d1bd30f3eacafb10c8433a171aae8bc3137fa8199e6edf')
 validpgpkeys=(
   6B211753AC950672287226800538577822AE4B17 # António Fernandes <antoniof@gnome.org>
   550660707A6F40376B9B9F8D504A78811E6160CC # Corey Berla <corey@berla.me>
