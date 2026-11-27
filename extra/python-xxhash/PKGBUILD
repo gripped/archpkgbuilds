@@ -2,7 +2,7 @@
 # Contributor: Konstantin Gizdov <arch at kge dot pw>
 
 pkgname=python-xxhash
-pkgver=4.0.2
+pkgver=4.1.0
 pkgrel=1
 pkgdesc='Python binding for xxHash'
 arch=(x86_64)
@@ -22,12 +22,12 @@ makedepends=(
 )
 source=("$pkgname::git+$url.git#tag=v$pkgver"
         test_interpreters.patch)
-b2sums=('9d4c75c5c140c97e9b5978db8c901237d3ff99336ab1b3ed68be43cb66e0b599386bce21f4b50a010a9a603d19e78f5f1ca72903046a250679a41371b8e1e3a2'
+b2sums=('16ae1e2b66aeae5f27a595c8036ade9927dbffdcab2952ea5913a1e2e50d93f71fad3c29892aeddab8c54f16faa160abb0f7f2c2a6b6df36e44549743ce6e6fc'
         'e0f340fc85ab1726f7b8fca1473dfc2cf576574d90799db7e4f20010df1d24c4d17e47b7dedaf79a3aa5f9ba52f4acebd06cd0755934c1acc1ead5bc55ba459e')
 
 prepare() {
-    # benchmark imports pytest, all other tests rely on the unittest module
-    rm $pkgname/tests/test_benchmark.py
+    # benchmarks import pytest, all other tests rely on the unittest module
+    rm $pkgname/tests/test_benchmark*.py
     # we are not testing typing annotations
     rm $pkgname/tests/test_stubs_pyright.py
 
