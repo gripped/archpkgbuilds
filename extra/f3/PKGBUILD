@@ -1,0 +1,26 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+
+pkgname=f3
+pkgver=10.0
+pkgrel=2
+pkgdesc='Fight Flash Fraud: test the real capacity and performance of flash drives'
+arch=(x86_64)
+url='https://github.com/AltraMayor/f3'
+license=(GPL-3.0-only)
+depends=(glibc parted systemd-libs)
+makedepends=(git)
+source=("git+$url.git#tag=v$pkgver")
+b2sums=('cf8ce889317c5d413128065294c2775df86eeec811011c2a6dd9276380b3040bb164d554573dc825dd1306b4f5b5b430a37e892d01826b74cfecf85f0e7022f1')
+
+build() {
+  cd $pkgname
+  make all extra
+}
+
+package() {
+  cd $pkgname
+  make PREFIX=/usr DESTDIR="$pkgdir" install install-extra
+  install -Dm644 README.rst -t "$pkgdir"/usr/share/doc/$pkgname
+}
+
+# vim:set ts=2 sw=2 et:
