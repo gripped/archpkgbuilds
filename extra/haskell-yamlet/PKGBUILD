@@ -2,8 +2,8 @@
 
 _hkgname=yamlet
 pkgname=haskell-yamlet
-pkgver=1.0.0.1
-pkgrel=2
+pkgver=1.0.0.2
+pkgrel=1
 pkgdesc='A pure, fast and conforming YAML 1.2 library.'
 url='https://github.com/arybczak/yamlet.git'
 license=("BSD-3-Clause")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-integer-logarithms' 'haskell-scientific' 'haskell-text-builder-linear' 'haskell-text-iso8601' 'haskell-uuid-types')
 makedepends=('ghc' 'haskell-aeson' 'haskell-attoparsec' 'haskell-attoparsec-aeson' 'haskell-inspection-testing' 'haskell-tasty' 'haskell-tasty-hunit' 'haskell-tasty-quickcheck' 'haskell-vector' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('615cd15d49adc828d5a509c007a8cf91e9f0b4695e1a2eab7059b1913e29eeea')
+sha256sums=('ac8a0840b3f8b940c2d40dbee13d5c39881c899b8254f1162dbc87787cadf7cf')
 
 prepare() {
   cd $_hkgname-$pkgver
