@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-copr
-pkgver=2.9
+pkgver=2.10
 pkgrel=1
 pkgdesc="Python interface for Copr"
 url="https://github.com/fedora-copr/copr"
@@ -25,7 +25,7 @@ makedepends=(
 )
 checkdepends=('python-pytest')
 source=("git+$url.git#tag=python-copr-$pkgver-1")
-b2sums=('cbc24bc40fadd8f977b8b35b5fa8e71822e39ca0f1bcd697663ae13ad1350796574fc32589d11b2b3149ad5080fb02e0e37a5975ddc8b598a212d8e7ed775317')
+b2sums=('7d100e867df89f415c375a8cadc84cd805b07e7a9a63863b8faee5a965c92f2aca60d5f2a86d52e4b6bc11db62323b650569029ea843ebcf20be2734c5c5fa6e')
 
 build() {
   cd copr/python
