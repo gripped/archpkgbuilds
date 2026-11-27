@@ -1,0 +1,19 @@
+diff --git a/sinatra-4.2.2/lib/sinatra/base.rb b/sinatra-4.2.2/lib/sinatra/base.rb
+index 7b26dd48..a07bfbdc 100644
+--- a/sinatra-4.2.2/lib/sinatra/base.rb
++++ b/sinatra-4.2.2/lib/sinatra/base.rb
+@@ -1813,7 +1813,13 @@ module Sinatra
+       end
+ 
+       def compile(path, route_mustermann_opts = {})
+-        Mustermann.new(path, **mustermann_opts.merge(route_mustermann_opts))
++        options = mustermann_opts.merge(route_mustermann_opts)
++        type = Mustermann[options[:type] || :sinatra]
++        # Mustermann 4.0 skips capture validation in its fast path, so use the
++        # full compiler for Sinatra patterns until the upstream bug is fixed.
++        options = options.merge(capture: {}) if
++          path.is_a?(String) && type == Mustermann::Sinatra && options[:capture].nil?
++        Mustermann.new(path, **options)
+       end
+ 
+       def setup_default_middleware(builder)

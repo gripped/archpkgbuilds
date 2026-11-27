@@ -2,7 +2,7 @@
 # Maintainer: Andreas 'Segaja' Schleifer <segaja at archlinux dot org>
 
 pkgname=(ruby-sinatra ruby-sinatra-contrib ruby-rack-protection)
-pkgver=4.2.1
+pkgver=4.2.2
 pkgrel=1
 arch=('any')
 url='https://sinatrarb.com/'
@@ -40,10 +40,16 @@ checkdepends=(
   ruby-zeitwerk
 )
 options=('!emptydirs')
-source=("https://github.com/sinatra/sinatra/archive/v${pkgver}/sinatra-v${pkgver}.tar.gz")
-sha512sums=('fa3283635f4d66f9c12f315d7c9e9e04e25c65afa4ab4e7a42de4a73b1f17a97aba305335e7c6b6a1522979140936d681a569b24286d656c9a30ac2e4e5fc83a')
+source=("https://github.com/sinatra/sinatra/archive/v${pkgver}/sinatra-v${pkgver}.tar.gz"
+        0001-use-full-mustermann-compiler-for-string-patterns.patch)
+sha512sums=('bbdbe07044612d27115e8a63ba36a771511d264e0786be2a164bd21f7c852b6ce06e0e65c0804f4ecb8481f4e0a19ca4f4aad22e8ce4ee845e867e4028a4e34f'
+            '3e5e5169a6222a1772f669c9384aae08ad023d624d9f10031c556400cf386ee30a2433ccf10fcf7511d06326de4a7d7dbb7ee4909d4acef7ec8ceaf0b20b761a')
 
 prepare() {
+  # Use Mustermann's validating compiler for string routes until the upstream bug is fixed.
+  # https://github.com/sinatra/mustermann/issues/162
+  patch -Np1 -d "$srcdir" -i "$srcdir/0001-use-full-mustermann-compiler-for-string-patterns.patch"
+
   cd "sinatra-${pkgver}"
 
   # update gemspec to allow newer version of the dependencies
