@@ -1,0 +1,79 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit at archlinux dot org>
+
+pkgname=rocjitsu
+pkgver=10.2
+pkgrel=1
+pkgdesc='An emulation toolkit for running AMD GPU applications on simulated or real hardware'
+arch=('x86_64')
+url='https://github.com/ROCm/rocm-systems/tree/develop/emulation/rocjitsu'
+license=('MIT')
+depends=(
+  'flatbuffers'
+  'glibc'
+  'libgcc'
+  'libstdc++'
+  'rocm-core'
+)
+makedepends=(
+  'cmake'
+  'gtest'
+  'ninja'
+  'rocm-llvm'
+)
+checkdepends=(
+  'git'
+  'hip-runtime-amd'
+  'hsa-rocr'
+  'rccl'
+  'rocminfo'
+)
+_git='https://github.com/ROCm/rocm-systems'
+# No per-project release tarball exists. The archive is shared with hsa-rocr.
+source=(
+  "rocm-$pkgver.tar.gz::$_git/archive/therock-$pkgver.tar.gz"
+  'system-deps.cmake'
+)
+sha256sums=('8559e088a7ac9f9c28399c714f6c18afc5fdd443f1da0ba209c6aa195196afb1'
+            '35faf1958e874c1589aa155a21034bd4c566e2427746f81a0db91a965b0b26c1')
+# Breaks symbol tests
+options=(!lto)
+_dirname="rocm-systems-therock-$pkgver/emulation/$pkgname"
+
+build() {
+  local cmake_args=(
+    -Wno-dev
+    -S "$_dirname"
+    -B build
+    -G Ninja
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D ROCM_PATH=/opt/rocm
+    -D CMAKE_PROJECT_rocm_jit_suite_INCLUDE="$srcdir/system-deps.cmake"
+    -D FETCHCONTENT_FULLY_DISCONNECTED=ON
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+check() {
+  # These test fail for unknown reasons.
+  local skip_tests=(
+    'BinaryTranslatorE2E\.TranslateVectorAddCdna4ToCdna3'
+    'BinaryTranslatorE2E\.NoTextPaddingStillMaterializesLocalCaveInText'
+    'HsaDbiNopAsmCdna2Sim\.TrampolineIsActuallyExecutedByGpu'
+    'HsaDbiNopProbeCdna2Sim\.ProbeBodyIsActuallyCalledByGpu'
+    # These tests have hard-coded timeouts and fail on a loaded build host.
+    'LegacyPageTableCacheStateTest\.ConcurrentAdmissionsObserveOnlyPublishedCopies'
+    'VfioGuestRunUnitTest'
+    'GpuDeviceSdma\..*'
+  )
+  local IFS='|'
+  ctest --test-dir build --output-on-failure -E "^(${skip_tests[*]})$"
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
