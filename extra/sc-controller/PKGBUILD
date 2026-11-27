@@ -1,7 +1,7 @@
 # Maintainer: Martin Rys <https://rys.rs/contact>
 
 pkgname=sc-controller
-pkgver=1.0.9
+pkgver=1.1.0
 pkgrel=1
 pkgdesc="User-mode driver, mapper, and GTK 4 based GUI for game controllers, including but not limited to Steam Controller (2015 & 2026)"
 arch=("x86_64") # "aarch64"
@@ -26,9 +26,12 @@ makedepends=(
 	"python-build"
 	"python-installer"
 )
+optdepends=(
+	"python-hidapi: Experimental HIDAPI backend support"
+)
 conflicts=("scc")
 source=("${pkgname}-${pkgver}::git+https://github.com/C0rn3j/sc-controller.git#tag=v${pkgver}")
-sha256sums=('89c0f7af97c2326c99725f780a6d0a9a9f0d569241f9b43cbeb3039cb6ecae8f')
+sha256sums=('af019bdd101bc59c4b262dfc79f17d2fc8d75831226ea475b3550f9fc31e994c')
 
 build() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
