@@ -1,0 +1,231 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 24 Nov 2026 17:55:33 +0100
+Subject: [PATCH] Fix compatibility with newer GEGL versions
+
+Replace gegl_node_link() and gegl_node_link_many() with
+gegl_node_connect_to() throughout the application.
+
+This ensures compatibility with newer GEGL versions and
+fixes image processing effects.
+---
+ src/photos-base-item.c              |  8 ++++----
+ src/photos-gegl.c                   |  7 ++++---
+ src/photos-operation-insta-filter.c |  8 ++++----
+ src/photos-operation-insta-hefe.c   |  6 ++++--
+ src/photos-pipeline.c               | 13 +++++++------
+ src/photos-thumbnailer.c            |  2 +-
+ tests/unit/photos-test-gegl.c       |  6 ++++--
+ 7 files changed, 28 insertions(+), 22 deletions(-)
+
+diff --git a/src/photos-base-item.c b/src/photos-base-item.c
+index ce974771..3eb0816a 100644
+--- a/src/photos-base-item.c
++++ b/src/photos-base-item.c
+@@ -1298,7 +1298,7 @@ photos_base_item_guess_save_sizes_from_buffer (GeglBuffer *buffer,
+                                        "sampling", TRUE,
+                                        NULL);
+ 
+-  gegl_node_link (buffer_source, guess_sizes);
++  gegl_node_connect_to (guess_sizes, "input", buffer_source, "output");
+   gegl_node_process (guess_sizes);
+ 
+   gegl_node_get (guess_sizes, "size", &sizes[0], "size-1", &sizes[1], NULL);
+@@ -1484,7 +1484,7 @@ photos_base_item_load_buffer (PhotosBaseItem *self, GCancellable *cancellable, G
+   load = gegl_node_new_child (graph, "operation", "gegl:load", "path", path, NULL);
+   buffer_sink = gegl_node_new_child (graph, "operation", "gegl:buffer-sink", "buffer", &buffer, NULL);
+ 
+-  gegl_node_link (load, buffer_sink);
++  gegl_node_connect_to (buffer_sink, "input", load, "output");
+ 
+   start = g_get_monotonic_time ();
+ 
+@@ -1802,7 +1802,7 @@ photos_base_item_load_load_pipeline (GObject *source_object, GAsyncResult *res,
+ 
+   priv->buffer_source = gegl_node_new_child (priv->edit_graph, "operation", "gegl:buffer-source", NULL);
+   graph = photos_pipeline_get_graph (pipeline);
+-  gegl_node_link (priv->buffer_source, graph);
++  gegl_node_connect_to (graph, "input", priv->buffer_source, "output");
+ 
+   photos_base_item_load_buffer_async (self, cancellable, photos_base_item_load_load_buffer, g_object_ref (task));
+ 
+@@ -3332,7 +3332,7 @@ photos_base_item_create_preview (PhotosBaseItem *self,
+   gegl_node_set_valist (operation_node, first_property_name, ap);
+   va_end (ap);
+ 
+-  gegl_node_link_many (buffer_source, operation_node, NULL);
++  gegl_node_connect_to (operation_node, "input", buffer_source, "output");
+ 
+   start = g_get_monotonic_time ();
+ 
+diff --git a/src/photos-gegl.c b/src/photos-gegl.c
+index 6cbb5853..eff0a22b 100644
+--- a/src/photos-gegl.c
++++ b/src/photos-gegl.c
+@@ -454,7 +454,8 @@ photos_gegl_buffer_zoom (GeglBuffer *buffer, gdouble zoom, GCancellable *cancell
+   buffer_source = gegl_node_new_child (graph, "operation", "gegl:buffer-source", "buffer", buffer, NULL);
+   scale = gegl_node_new_child (graph, "operation", "gegl:scale-ratio", "x", zoom, "y", zoom, NULL);
+   buffer_sink = gegl_node_new_child (graph, "operation", "gegl:buffer-sink", "buffer", &ret_val, NULL);
+-  gegl_node_link_many (buffer_source, scale, buffer_sink, NULL);
++  gegl_node_connect_to (scale, "input", buffer_source, "output");
++  gegl_node_connect_to (buffer_sink, "input", scale, "output");
+   gegl_node_process (buffer_sink);
+ 
+   return ret_val;
+@@ -663,7 +664,7 @@ photos_gegl_get_buffer_from_node (GeglNode *node, const Babl *format)
+                                      "buffer", &buffer,
+                                      "format", format,
+                                      NULL);
+-  gegl_node_link (node, buffer_sink);
++  gegl_node_connect_to (buffer_sink, "input", node, "output");
+ 
+   start = g_get_monotonic_time ();
+ 
+@@ -880,7 +881,7 @@ photos_gegl_remove_children_from_node (GeglNode *node)
+       last = last2;
+     }
+ 
+-  gegl_node_link (input, output);
++  gegl_node_connect_to (output, "input", input, "output");
+ }
+ 
+ 
+diff --git a/src/photos-operation-insta-filter.c b/src/photos-operation-insta-filter.c
+index 8d7ee116..bf07be32 100644
+--- a/src/photos-operation-insta-filter.c
++++ b/src/photos-operation-insta-filter.c
+@@ -123,25 +123,25 @@ photos_operation_insta_filter_setup (PhotosOperationInstaFilter *self)
+ 
+   if (self->nodes == NULL)
+     {
+-      gegl_node_link (self->input, self->output);
++      gegl_node_connect_to (self->output, "input", self->input, "output");
+     }
+   else
+     {
+       GList *l;
+ 
+       node = GEGL_NODE (self->nodes->data);
+-      gegl_node_link (self->input, node);
++      gegl_node_connect_to (node, "input", self->input, "output");
+ 
+       for (l = self->nodes; l != NULL && l->next != NULL; l = l->next)
+         {
+           GeglNode *sink = GEGL_NODE (l->next->data);
+           GeglNode *source = GEGL_NODE (l->data);
+ 
+-          gegl_node_link (source, sink);
++          gegl_node_connect_to (sink, "input", source, "output");
+         }
+ 
+       node = GEGL_NODE (l->data);
+-      gegl_node_link (node, self->output);
++      gegl_node_connect_to (self->output, "input", node, "output");
+     }
+ }
+ 
+diff --git a/src/photos-operation-insta-hefe.c b/src/photos-operation-insta-hefe.c
+index 4c5b76bc..01b5a020 100644
+--- a/src/photos-operation-insta-hefe.c
++++ b/src/photos-operation-insta-hefe.c
+@@ -64,8 +64,10 @@ photos_operation_insta_hefe_attach (GeglOperation *operation)
+   multiply = gegl_node_new_child (operation->node, "operation", "photos:svg-multiply", "srgb", TRUE, NULL);
+   self->vignette = gegl_node_new_child (operation->node, "operation", "photos:insta-hefe-vignette", NULL);
+ 
+-  gegl_node_connect_to (self->vignette, "output", multiply, "aux");
+-  gegl_node_link_many (self->input, multiply, curve, self->output, NULL);
++  gegl_node_connect_to (multiply, "aux", self->vignette, "output");
++  gegl_node_connect_to (multiply, "input", self->input, "output");
++  gegl_node_connect_to (curve, "input", multiply, "output");
++  gegl_node_connect_to (self->output, "input", curve, "output");
+ }
+ 
+ 
+diff --git a/src/photos-pipeline.c b/src/photos-pipeline.c
+index 61b75cf4..3b304791 100644
+--- a/src/photos-pipeline.c
++++ b/src/photos-pipeline.c
+@@ -70,22 +70,22 @@ photos_pipeline_link_nodes (GeglNode *input, GeglNode *output, GSList *nodes)
+ 
+   if (nodes == NULL)
+     {
+-      gegl_node_link (input, output);
++      gegl_node_connect_to (output, "input", input, "output");
+       return;
+     }
+ 
+   node = GEGL_NODE (nodes->data);
+-  gegl_node_link (input, node);
++  gegl_node_connect_to (node, "input", input, "output");
+ 
+   for (l = nodes; l != NULL && l->next != NULL; l = l->next)
+     {
+       GeglNode *sink = GEGL_NODE (l->next->data);
+       GeglNode *source = GEGL_NODE (l->data);
+-      gegl_node_link (source, sink);
++      gegl_node_connect_to (sink, "input", source, "output");
+     }
+ 
+   node = GEGL_NODE (l->data);
+-  gegl_node_link (node, output);
++  gegl_node_connect_to (output, "input", node, "output");
+ }
+ 
+ 
+@@ -258,7 +258,7 @@ photos_pipeline_constructed (GObject *object)
+ 
+   input = gegl_node_get_input_proxy (self->graph, "input");
+   output = gegl_node_get_output_proxy (self->graph, "output");
+-  gegl_node_link (input, output);
++  gegl_node_connect_to (output, "input", input, "output");
+ }
+ 
+ 
+@@ -542,7 +542,8 @@ photos_pipeline_add_valist (PhotosPipeline *self,
+       last = gegl_node_get_producer (output, "input", NULL);
+       node = gegl_node_new_child (self->graph, "operation", operation, NULL);
+       gegl_node_disconnect (output, "input");
+-      gegl_node_link_many (last, node, output, NULL);
++      gegl_node_connect_to (node, "input", last, "output");
++      gegl_node_connect_to (output, "input", node, "output");
+       g_hash_table_insert (self->hash, g_strdup (operation), g_object_ref (node));
+     }
+   else
+diff --git a/src/photos-thumbnailer.c b/src/photos-thumbnailer.c
+index 8709d829..de734eb9 100644
+--- a/src/photos-thumbnailer.c
++++ b/src/photos-thumbnailer.c
+@@ -384,7 +384,7 @@ photos_thumbnailer_generate_thumbnail_pixbuf (GObject *source_object, GAsyncResu
+ 
+   buffer_source = gegl_node_new_child (data->graph, "operation", "gegl:buffer-source", "buffer", buffer_oriented, NULL);
+   pipeline_node = photos_pipeline_get_graph (data->pipeline);
+-  gegl_node_link (buffer_source, pipeline_node);
++  gegl_node_connect_to (pipeline_node, "input", buffer_source, "output");
+ 
+   processor = gegl_node_new_processor (pipeline_node, NULL);
+   photos_gegl_processor_process_async (processor,
+diff --git a/tests/unit/photos-test-gegl.c b/tests/unit/photos-test-gegl.c
+index a810dc2c..8f3422c1 100644
+--- a/tests/unit/photos-test-gegl.c
++++ b/tests/unit/photos-test-gegl.c
+@@ -62,7 +62,7 @@ photos_test_gegl_buffer_save_to_file (GeglBuffer *buffer, GFile *file)
+   path = g_file_get_path (file);
+   png_save = gegl_node_new_child (graph, "operation", "gegl:png-save", "bitdepth", 8, "path", path, NULL);
+ 
+-  gegl_node_link (buffer_source, png_save);
++  gegl_node_connect_to (png_save, "input", buffer_source, "output");
+   gegl_node_process (png_save);
+ }
+ 
+@@ -186,7 +186,9 @@ photos_test_gegl_setup (PhotosTestGeglFixture *fixture, const Babl *format, gdou
+                                      "format", format,
+                                      NULL);
+ 
+-  gegl_node_link_many (checkerboard, crop, path, buffer_sink, NULL);
++  gegl_node_connect_to (crop, "input", checkerboard, "output");
++  gegl_node_connect_to (path, "input", crop, "output");
++  gegl_node_connect_to (buffer_sink, "input", path, "output");
+   gegl_node_process (buffer_sink);
+ 
+   fixture->buffer = g_object_ref (buffer);
+

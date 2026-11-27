@@ -2,7 +2,7 @@
 
 pkgname=gnome-photos
 pkgver=44.0
-pkgrel=8
+pkgrel=9
 epoch=1
 pkgdesc="Access, organize, and share your photos on GNOME"
 url="https://wiki.gnome.org/Apps/Photos"
@@ -50,13 +50,15 @@ source=(
   0002-Set-default-window-icon.patch
   0003-Fixes-for-the-search-provider.patch
   0004-Don-t-hide-outside-of-GNOME.patch
+  0005-Fix-compatibility-with-newer-GEGL-versions.patch
 )
 b2sums=('a85d6f4f5c8cce703b44d1de1f319db16d71ce2f5bc1fa02017eafafaa0deedc07e6178d7c1c955470e2e88a187a42f5680df0584c1833c548ec32c8d675c64d'
         'SKIP'
         'e25e5588d4370106406de586a1cc6205613ab321f5601417631b0e6c6725949323f379a249cecebff8aa3e456c7ea729b1a0c268eff861b3480d7a9e7a52e3d3'
         '89154808676c39b819b47b37762b4490bf0850c6762ed20ac0901c9becfa83e6548cfe7b4212c15bac188aa044b13b88c96bacfdcbc400c40aa0d618485a087d'
-        'b9c735a42eb03f60366fb6eb00382c8156ad074045b365e17f2d09e4e37c5bf33f02b3d213c7200f5dfae73d83f100b6a9ed2c550637694487214235a369fdf7'
-        'd995691d7e06e1d42c88e28f2fa2ca726e0297e5979c8bcbfc9fef4840410e99a6dc781710bb4685b9517f5fc96b54df913c843aed641376dbac92ee9d9a7ef8')
+        '858e71ff8a5d69ac19419a3edce9f0d8afda5866d0a78f6588305744b0fa0e6901050ec696fa903bddb5bdf10a350b79f32161e5d2792209f804a34bf70828eb'
+        'd995691d7e06e1d42c88e28f2fa2ca726e0297e5979c8bcbfc9fef4840410e99a6dc781710bb4685b9517f5fc96b54df913c843aed641376dbac92ee9d9a7ef8'
+        'c5fcda1f7f433ef740cf5912cb9f07a42e9a9d710298e06a3fe5974b1d133228864192522237ebd6d01873acbb09a9aa7743907fadd2e20e4127b74eb3884922')
 
 prepare() {
   cd $pkgname
@@ -72,6 +74,9 @@ prepare() {
 
   # Don't hide outside of GNOME
   git apply -3 ../0004-Don-t-hide-outside-of-GNOME.patch
+
+  # Fix compatibility with newer GEGL versions
+  git apply -3 ../0005-Fix-compatibility-with-newer-GEGL-versions.patch
 
   git submodule init
   git submodule set-url subprojects/libgd "$srcdir/libgd"
