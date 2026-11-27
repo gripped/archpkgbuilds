@@ -1,27 +1,26 @@
 pkgbase = rccl
 	pkgdesc = ROCm Communication Collectives Library
-	pkgver = 7.2.4
+	pkgver = 10.1
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/rccl/en/latest/index.html
 	arch = x86_64
 	license = BSD-3-Clause
-	makedepends = git
 	makedepends = cmake
+	makedepends = ninja
 	makedepends = rocm-cmake
 	makedepends = rocm-llvm
+	makedepends = rocm-llvm-static
 	makedepends = hipify-clang
 	makedepends = python
+	makedepends = fmt
 	depends = rocm-core
 	depends = glibc
 	depends = libgcc
 	depends = hip-runtime-amd
-	depends = rocm-smi-lib
+	depends = amdsmi
+	depends = roctracer
 	options = !lto
-	source = rccl::git+https://github.com/ROCm/rccl#tag=rocm-7.2.4
-	source = rccl-json::git+https://github.com/nlohmann/json.git
-	source = rccl-mscclpp::git+https://github.com/microsoft/mscclpp.git
-	sha256sums = c47a838050a0188258fc318a82013d400fcaba661a2a58300bff8e51f77e20ec
-	sha256sums = SKIP
-	sha256sums = SKIP
+	source = rccl-10.1.tar.gz::https://github.com/ROCm/rocm-systems/releases/download/therock-10.1/rccl.tar.gz
+	sha256sums = 314d0a54e68217efb12eafd2aacd439d4928f443795c778711d846355d262355
 
 pkgname = rccl
