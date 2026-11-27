@@ -4,7 +4,7 @@
 
 pkgdesc="A module with some convenient utilities not included with the standard Python install"
 pkgname=python-utils
-pkgver=4.2.0
+pkgver=4.2.2
 pkgrel=1
 arch=(any)
 url="https://github.com/WoLpH/python-utils"
@@ -28,8 +28,8 @@ optdepends=('python-loguru: for logging support')
 source=(
   git+$url.git?signed#tag=v$pkgver
 )
-sha512sums=('c5de6b320af7a2ac4b257d8ddfe8f61b7f3afe40c4a68c223e37569ac3f503fb826b307617cdf21d7a1ae9da6f34817f8efb7125ca055ca14e9e379ed11427d4')
-b2sums=('27ba23e018fdb9bef00f1af2d5b48f7239d9277fa52951dc3c14f283897f315d39e046218a21937d797bb0d29c1159c08c4d73a08caeef98969743a58ba78318')
+sha512sums=('405dd068f10e4e6e7e312d60d465925019609b416f766d4834774ead6c7ae8775950af0e30fdf174d1cb9b710537d72cfbb4d40b13fb0704742f1731630a22f5')
+b2sums=('217bb9dcc86f1ddb3bbc681556e616aa958893e0f2dd905ee36425d31446355973472f55b0f05f206f40b2cf4653f202cdf3333a5de8c0d39461e2300d740dce')
 validpgpkeys=('149325FD15904E9C4EB89E95E81444E9CE1F695D') # Rick van Hattem <wolph@wol.ph>
 
 build() {
