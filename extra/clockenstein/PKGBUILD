@@ -1,0 +1,76 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=clockenstein
+pkgver=2.0.5
+pkgrel=1
+pkgdesc='Calendar application for Linux desktops'
+arch=(any)
+url='https://github.com/xapp-project/clockenstein'
+license=(GPL-3.0-only)
+groups=(x-apps)
+depends=(
+  bash
+  dconf
+  glib2
+  gsound
+  gtk3
+  hicolor-icon-theme
+  libgoa
+  libsecret
+  pango
+  python
+  python-babel
+  python-caldav
+  python-gobject
+  python-google-api-python-client
+  python-google-auth
+  python-google-auth-httplib2
+  python-google-auth-oauthlib
+  python-httplib2
+  python-icalendar
+  python-pycurl
+  python-requests
+  python-rich
+  python-setproctitle
+  python-xapp
+)
+makedepends=(
+  git
+  meson
+)
+source=(
+  "git+https://github.com/xapp-project/clockenstein.git#tag=$pkgver"
+  clockenstein-fix-saving-window-size.patch
+  clockenstein-default-window-size.patch
+)
+b2sums=(
+  88417bf49c748070ab8756af67f367ae11c3f4100d5a8ad628a3420167f9ff97845932452abf41ee103b1831e0dafb9f24bded5272f5d8a4437b06f21b7cfc11
+  5c79ba6f1aaf6fbd13a1de8b353269541d5d58ffe4ef7abc3773740f2f596b843decd2acf7152b48b639f3f2681649e4fc4bb4f151c5a6d7d1ecc7b03091c3fb
+  416bac830b80ec37c93ad5de807095b8a7e3af0dab4277a067da61be32f1d5ca438962ae1e17cb4afe1021af5dcc17503124496cd9041b24e68861fd932b51a3
+)
+
+prepare() {
+  cd $pkgname
+
+  # Fix window size not being saved on close
+  # https://github.com/xapp-project/clockenstein/pull/31
+  git apply -3 ../clockenstein-fix-saving-window-size.patch
+
+  # Reduce default window size
+  # https://github.com/xapp-project/clockenstein/pull/32
+  git apply -3 ../clockenstein-default-window-size.patch
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/lib "$pkgdir/usr/lib"
+  python -O -m compileall -d /usr/lib "$pkgdir/usr/lib"
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}

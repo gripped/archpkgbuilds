@@ -1,0 +1,43 @@
+From 08626736d24e7c696f0afb7a4029536efcb9d972 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 18 Nov 2026 17:36:13 +0100
+Subject: [PATCH] Fix window size not being saved on close
+
+Save the window size on the delete-event signal instead of destroy,
+while the window is still available.
+---
+ calendar/main_window.py | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/calendar/main_window.py b/calendar/main_window.py
+index 8fca53f..1f97ef9 100644
+--- a/calendar/main_window.py
++++ b/calendar/main_window.py
+@@ -65,7 +65,7 @@ def __init__(self):
+         self._refresh_pending = False
+         self._daemon_refreshing = False
+         self._service_running = {BUS_NAME: False, AGENT_BUS_NAME: False}
+-        self.connect("destroy", self._save_window_size)
++        self.connect("delete-event", self._save_window_size)
+         self._build_ui()
+         # Keep the monitor alive; otherwise it may be garbage-collected.
+         self.timezone_monitor = watch_timezone_changes(self.timezone_changed)
+@@ -1213,15 +1213,16 @@ def _on_view_toggle(self, button, name):
+         self.stack.set_visible_child_name(name)
+         self._refresh(refresh_remote=False)
+ 
+-    def _save_window_size(self, _window):
++    def _save_window_size(self, _window, _event):
+         window = self.get_window()
+         if not window or window.get_state() & Gdk.WindowState.MAXIMIZED:
+-            return
++            return False
+         width, height = self.get_size()
+         if self.settings.get_int("calendar-window-width") != width:
+             self.settings.set_int("calendar-window-width", width)
+         if self.settings.get_int("calendar-window-height") != height:
+             self.settings.set_int("calendar-window-height", height)
++        return False
+ 
+     def _on_event_activated(self, event):
+         calendars = self._get_editable_calendars(event)

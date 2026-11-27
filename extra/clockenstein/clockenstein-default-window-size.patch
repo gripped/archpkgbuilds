@@ -1,0 +1,29 @@
+From 02b1a9fb4885669bca83dd30c50dd73421089cbf Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 18 Nov 2026 17:49:39 +0100
+Subject: [PATCH] Reduce default window size
+
+The default size of 1100x750 is too large for a standard 1024x768
+display. Use 900x550 as the initial window size instead.
+---
+ data/org.x.clockenstein.gschema.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/data/org.x.clockenstein.gschema.xml b/data/org.x.clockenstein.gschema.xml
+index fd90a6d..a24d270 100644
+--- a/data/org.x.clockenstein.gschema.xml
++++ b/data/org.x.clockenstein.gschema.xml
+@@ -30,11 +30,11 @@
+       <description>Use the system locale, a 12-hour clock, or a 24-hour clock.</description>
+     </key>
+     <key name="calendar-window-width" type="i">
+-      <default>1100</default>
++      <default>900</default>
+       <range min="640" max="32768"/>
+     </key>
+     <key name="calendar-window-height" type="i">
+-      <default>750</default>
++      <default>550</default>
+       <range min="460" max="32768"/>
+     </key>
+     <key name="last-calendar-used" type="s">
