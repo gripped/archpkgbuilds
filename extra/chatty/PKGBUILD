@@ -2,7 +2,7 @@
 
 pkgname=chatty
 pkgver=0.8.9
-pkgrel=9
+pkgrel=10
 pkgdesc='Simple to use SMS and Matrix messaging application'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Chatty'
@@ -67,4 +67,8 @@ check() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
+
+  # Enable systemd user service
+  install -dm755 "$pkgdir/usr/lib/systemd/user/gnome-session.target.wants"
+  ln -s ../sm.puri.Chatty-daemon.service "$pkgdir/usr/lib/systemd/user/gnome-session.target.wants/sm.puri.Chatty-daemon.service"
 }
