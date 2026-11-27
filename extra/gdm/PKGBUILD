@@ -7,7 +7,7 @@ pkgname=(
   gdm
   libgdm
 )
-pkgver=51.1.1
+pkgver=51.2
 pkgrel=1
 pkgdesc="Display manager and login screen"
 url="https://gitlab.gnome.org/GNOME/gdm"
@@ -50,7 +50,7 @@ source=(
   "git+https://gitlab.gnome.org/GNOME/gdm.git#tag=${pkgver/[a-z]/.&}"
   0001-Xsession-Don-t-start-ssh-agent-by-default.patch
 )
-b2sums=('fb9a916e1bf5e871bfe3a88c927054391ca4a0ea13b2d7ec466451814e7e853e46b933c3e1de1c591f8dfdb625c1ee9ab01e207142cf07d54d61b7d5096c9db8'
+b2sums=('3da3625ade536e2c2623dfa5710ba28752e061a322a2c51581761e01f2f0c96e7bf4905a4f1f49564d18c1cd8169694ba8390244f9ea6c390a7a7a0d7cc96dd2'
         'f7e868fdd7cc121433de1572583eb728f4d186cd4f52c6d6c8f2ccf4a3cf781144ff71f704f13571ddb97a1ff4ec55cfa3df25d38737ad19da21e84ddc2d3ee4')
 
 prepare() {
