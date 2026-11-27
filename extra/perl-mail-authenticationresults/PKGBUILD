@@ -3,7 +3,7 @@
 
 pkgname=perl-mail-authenticationresults
 _pkgname=Mail-AuthenticationResults
-pkgver=2.20260216
+pkgver=2.20261029
 pkgrel=1
 pkgdesc='Object Oriented Authentication-Results Headers'
 arch=(any)
@@ -13,8 +13,8 @@ depends=(perl perl-clone perl-json)
 checkdepends=(perl-test-exception)
 options=(!emptydirs)
 source=("$pkgname-$pkgver.tar.gz::https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-AuthenticationResults-$pkgver.tar.gz")
-sha512sums=('960ac7d77a2f65c44a1ea29347e2d5895a90ee12b43c5fb5210dc24fd74ecaad13ced86d19325cbf6b2e43de161907d54822f4b4541e1f6196ac86c4c17f8367')
-b2sums=('5f14b1a8700102381b481c0179da42460c679f053b7c8cb8d6efc00e57c6091e8c9897e52b535abb5fa1da596a1dd8d8395da0c358cdb94d68987fb23ff178c7')
+sha512sums=('0005c819c9f225899a3fb3a3641124b13d7e94905e8efe1834a579dc1cdd2719d28843e866090b3d3af420a52b4128365bfcc512e4e7ce8950b93a4d1871c88b')
+b2sums=('710fd70551367e0c18e90ab666c66e5ca8c0de1f3c7581493e2104af84169f29589f32aa62f7d5a7d232d0be7e854a5f662e6eddee49a239a6418ab5041a209e')
 
 build() {
   cd "$_pkgname-$pkgver"
