@@ -1,0 +1,79 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=winc
+pkgver=0.1.970
+pkgrel=1
+pkgdesc='A lighter, faster desktop code editor'
+arch=('x86_64')
+url='https://winc.si'
+license=('Apache-2.0')
+depends=(
+  'fontconfig'
+  'glibc'
+  'libgcc'
+  'libx11'
+  'libxcb'
+  'libxcursor'
+  'libxi'
+  'libxkbcommon'
+  'libxkbcommon-x11'
+  'libxrandr'
+  'ttf-font'
+  'wayland'
+)
+makedepends=('cargo' 'git')
+# Fontconfig may rasterize emoji sequences repeatedly through fallback fonts.
+checkdepends=('fish' 'noto-fonts-cjk' 'noto-fonts-emoji' 'python' 'ttf-dejavu' 'zsh')
+optdepends=(
+  'git: Git integration'
+  'openssh: SSH remote support'
+  'polkit: run commands with elevated privileges'
+  'xdg-desktop-portal: native file dialogs'
+  'xdg-utils: open links and directories with external applications'
+)
+source=(
+  "git+https://github.com/DEEIX-AI/Winc.git#tag=v$pkgver"
+  '0001-tests-fix-environment-sensitive-fixtures.patch'
+)
+sha256sums=('16853cc8464406c0f434801e247d89a53cc6a28a3c8776f3dcd9c55faf490e55'
+            '74fecc3e60fbf65c4237fda8d1e7661786b10cc6abcec885f5a2ae082aa2be96')
+
+prepare() {
+  cd Winc
+  patch -Np1 -i ../0001-tests-fix-environment-sensitive-fixtures.patch
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd Winc
+  cargo build --frozen --release -p winc -p winc-pty -p winc-server
+  cargo run --frozen --release -p xtask -- icons target/release/bundle/icons
+}
+
+check() {
+  cd Winc
+  cargo test --frozen --workspace --no-fail-fast
+}
+
+package() {
+  cd Winc
+  install -Dm755 target/release/winc target/release/winc-pty -t "$pkgdir/usr/bin"
+  install -Dm755 target/release/winc-server \
+    "$pkgdir/usr/lib/winc/winc-server-Linux-$CARCH"
+  install -Dm644 release/linux/winc.desktop \
+    "$pkgdir/usr/share/applications/winc.desktop"
+  install -Dm644 release/linux/winc-url-handler.desktop \
+    "$pkgdir/usr/share/applications/winc-url-handler.desktop"
+  install -Dm644 target/release/bundle/icons/winc.png \
+    "$pkgdir/usr/share/icons/hicolor/256x256/apps/winc.png"
+  install -Dm644 release/linux/winc.xml \
+    "$pkgdir/usr/share/mime/packages/winc.xml"
+  install -Dm644 crates/winc-app/assets/file-icons/project.svg \
+    "$pkgdir/usr/share/icons/hicolor/scalable/mimetypes/application-x-winc-project.svg"
+  install -Dm644 release/linux/file-manager/winc-open-file.desktop \
+    release/linux/file-manager/winc-open-folder.desktop \
+    -t "$pkgdir/usr/share/kio/servicemenus"
+  install -Dm644 release/linux/file-manager/winc-open-*.nemo_action \
+    -t "$pkgdir/usr/share/nemo/actions"
+  install -Dm644 LICENSE NOTICE -t "$pkgdir/usr/share/licenses/winc"
+}

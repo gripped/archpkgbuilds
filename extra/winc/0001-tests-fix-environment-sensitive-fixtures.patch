@@ -1,0 +1,38 @@
+diff --git a/crates/winc-app/src/app/snapshot/git/commit/compose.rs b/crates/winc-app/src/app/snapshot/git/commit/compose.rs
+index 8555af71..709c5143 100644
+--- a/crates/winc-app/src/app/snapshot/git/commit/compose.rs
++++ b/crates/winc-app/src/app/snapshot/git/commit/compose.rs
+@@ -359 +359,3 @@ fn commit_and_sync_pulls_then_pushes() {
+-    let dir = sample_folder("git-commit-sync");
++    // sync.rs also uses "git-commit-sync"; sample_folder() deletes that shared
++    // directory, so parallel execution makes these tests race.
++    let dir = sample_folder("git-commit-sync-compose");
+diff --git a/crates/winc-app/src/app/snapshot/preview/live.rs b/crates/winc-app/src/app/snapshot/preview/live.rs
+index e06b9bc9..d88c1c45 100644
+--- a/crates/winc-app/src/app/snapshot/preview/live.rs
++++ b/crates/winc-app/src/app/snapshot/preview/live.rs
+@@ -691 +691,3 @@ fn enter_in_an_ordered_list_renumbers_the_items_below() {
+-    let (mut app, dir) = live_doc("md-renumber", text);
++    // "ordered_lists_are_renumbered_after_lines_change" also uses this fixture;
++    // sample_folder() deletes it, so parallel execution makes these tests race.
++    let (mut app, dir) = live_doc("md-renumber-enter", text);
+diff --git a/crates/winc-pty/tests/shells/python.rs b/crates/winc-pty/tests/shells/python.rs
+index a0e3cb4a..2a3f0e54 100644
+--- a/crates/winc-pty/tests/shells/python.rs
++++ b/crates/winc-pty/tests/shells/python.rs
+@@ -18,0 +19,3 @@ fn start(shell: &str, t: &Temp, root: &Path, extra: &[(&str, &str)]) -> Option<S
++    let mut env = env(&t.home(), extra);
++    // Keep GNU coreutils printenv from shell-quoting unsafe values on a PTY.
++    env.push((b"QUOTING_STYLE".to_vec(), b"literal".to_vec()));
+@@ -24 +27 @@ fn start(shell: &str, t: &Temp, root: &Path, extra: &[(&str, &str)]) -> Option<S
+-        env(&t.home(), extra),
++        env,
+diff --git a/crates/winc-server/tests/remote.rs b/crates/winc-server/tests/remote.rs
+index e1850c62..4b89e754 100644
+--- a/crates/winc-server/tests/remote.rs
++++ b/crates/winc-server/tests/remote.rs
+@@ -757 +757,3 @@ fn a_connection_that_cannot_start_the_server_reports_why() {
+-    broken.programs[0].content = b"not a program".to_vec();
++    // /bin/sh interprets plain text. The old "not a program" fixture therefore
++    // invoked LLVM's "not"; use a uniquely named undefined command instead.
++    broken.programs[0].content = b"not_a_program\n".to_vec();
