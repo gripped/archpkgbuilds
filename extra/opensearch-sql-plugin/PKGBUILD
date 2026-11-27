@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-sql-plugin
-pkgver=3.9.0.0
+pkgver=3.10.1.0
 pkgrel=1
-_opensearchver=3.9.0
+_opensearchver=3.10.1
 _jdkver=21
 pkgdesc="OpenSearch SQL Plugin"
 arch=('x86_64')
@@ -14,7 +14,7 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/sql/archive/${pkgver}.tar.gz"
 )
-sha256sums=('8de415a3191b8b1eb293f695df19ec9d74218b1d219fb8e02029226c9168230f')
+sha256sums=('4ceb25a0e992c17bc8b8e3d980676ed0e1af5887ddefcafe53b295f0481f0e3a')
 
 build() {
   cd "sql-${pkgver}"
