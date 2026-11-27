@@ -2,8 +2,8 @@
 # Contributor: justforlxz <justforlxz@gmail.com>
 
 pkgname=deepin-shell
-pkgver=2.0.61.1
-pkgrel=1
+pkgver=6.2.1
+pkgrel=2
 pkgdesc='New DDE shell'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-shell"
@@ -17,14 +17,12 @@ groups=('deepin')
 replaces=('deepin-dock')
 conflicts=('deepin-dock')
 source=("git+https://github.com/linuxdeepin/dde-shell.git#tag=$pkgver")
-sha512sums=('0ad7c7b67c5a1777b4b11fc82bbfbf4f213e4e99b0f710ae2209e62a8b568eac827ada547dc3c1924815cb7f34c074cb431c8930084832b06edf0451b1b71651')
+sha512sums=('cade0aa47d5cc96ab3e07f6d8883a1379ca69d98ead587e4edd90bb1f88263a60b760a51442c2e5a9b9b39c8a8959e6e064a8dbb6086570a83e6505bed73544a')
 
 prepare() {
   cd dde-shell
-  # Qt 6.10 support: https://github.com/linuxdeepin/dde-shell/pull/1735
-  git cherry-pick -n fb18e7a4eca9daf917cf367f903f66d6f8be982a
   # The dock consumes the frame library and must not define its export macro.
-  sed -i '/target_compile_definitions(dde-shell-dock PRIVATE DS_LIB)/d' panels/dock/frame/CMakeLists.txt
+  sed -i '/^[[:space:]]*DS_LIB$/d' panels/dock/frame/CMakeLists.txt
 }
 
 build() {
