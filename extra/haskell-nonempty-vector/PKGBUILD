@@ -2,8 +2,8 @@
 
 _hkgname=nonempty-vector
 pkgname=haskell-nonempty-vector
-pkgver=0.3
-pkgrel=3
+pkgver=1.0
+pkgrel=1
 pkgdesc='Non-empty vectors'
 url='https://github.com/emilypi/nonempty-vector'
 license=("BSD-3-Clause")
@@ -11,7 +11,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck' 'haskell-tasty' 'haskell-tasty-quickcheck' 'uusi')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('bc8a20946a0fe59171f4473c08678108fc2b958471123f2d53f1032030e3369d')
+sha256sums=('40ce654284080dd7dffca5ea3f77a834e5acefc936d523aab09b0cd3d5dd1d40')
 
 prepare() {
   cd $_hkgname-$pkgver
