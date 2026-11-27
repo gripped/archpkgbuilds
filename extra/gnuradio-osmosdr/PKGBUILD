@@ -5,7 +5,7 @@
 pkgname=gnuradio-osmosdr
 _pkgname=gr-osmosdr
 pkgver=0.2.6
-pkgrel=19
+pkgrel=20
 pkgdesc="Source block for Funcube Dongle, RTL-SDR, USRP, OsmoSDR, BladeRF, HackRF and AirSpy devices"
 arch=(x86_64)
 url="https://osmocom.org/projects/gr-osmosdr"
@@ -34,6 +34,7 @@ makedepends=(
   cmake
   git
   pybind11
+  python-six
 )
 optdepends=('python-opengl: for osmocom_fft')
 provides=(libgnuradio-osmosdr.so)
