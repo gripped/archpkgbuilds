@@ -3,8 +3,8 @@
 # Contributor: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=sslscan
-pkgver=2.2.3
-pkgrel=2
+pkgver=2.2.4
+pkgrel=1
 pkgdesc="Fast tool to scan SSL services such as HTTPS to determine supported ciphers"
 url="https://github.com/rbsec/sslscan"
 arch=(x86_64)
@@ -14,8 +14,8 @@ depends=(
   openssl-3
 )
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha512sums=('45818c0b1a3d559ba4eb03156d67f4d3746ca18b072f10ef838b74e20de1cd7ff30ba1bf1c2db73f57d8bbd30ffbbce05076f554168b5f9dc71c5f6874e3a581')
-b2sums=('7caabab3210eb29fa0158b4ac94a0970149d052b9c6e678bb69fa26dbcd557547f95a99d059f5d85d1fa73428220ad2334acd667f2d239f0329526f2c7dd8251')
+sha512sums=('0eaff5b7d4c32a795d92ef882db64139efa906a3bd2e84e0bf1e3a442ae38b03990c985266a924c2a39aa8ba82fb90523e442c75ee6bce2bc000b593cb3ecad7')
+b2sums=('8e433ffe1e88a56c3759535e0061cae60d0ccbca1e14ac7ad29909e7b57d5c6820c4b8d5b0676a1555726c22c732b2c4917094237a7486dd0fff3dfeafab4153')
 
 prepare() {
   cd "$pkgname-$pkgver"
