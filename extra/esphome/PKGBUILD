@@ -2,7 +2,7 @@
 # Contributor: sgar < swhaat at github >
 
 pkgname=esphome
-pkgver=2026.10.2
+pkgver=2026.11.1
 pkgrel=1
 pkgdesc='Solution for your ESP8266/ESP32 projects with Home Assistant'
 url='https://github.com/esphome/ESPHome'
@@ -10,7 +10,7 @@ depends=(
   python
   python-voluptuous
   python-yaml
-  python-paho-mqtt
+  'python-paho-mqtt>=2.1'
   python-tzlocal
   python-tzdata
   python-pyserial
@@ -45,7 +45,7 @@ optdepends=(
 license=('MIT AND GPL-3.0-only')
 arch=(any)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$pkgver.tar.gz")
-b2sums=('eaeba065545fecd852045083790bd736d56a12c207493a91c7784cdae7adc5e78faf7a3ec4a9054271c3d7a46370c01edcfac69488384683fdd5c82718244164')
+b2sums=('9725dd780340c722d50d92239b79c91e5d20a390a5c5425aeb40ffff1dae19e5044367191779e98e3d831e78aff31a764cbfd48b131f19536642f737131e0eb1')
 
 prepare() {
   cd $pkgname-$pkgver
