@@ -1,0 +1,28 @@
+From 14bbc879297535423d7c42e2a3856675f16938f0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 26 Nov 2026 04:06:41 +0000
+Subject: [PATCH] Add KP_Add and KP_Subtract support for zoom
+
+This allows to set the zoom with the + and - buttons from numpad.
+---
+ src/application.rs | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/application.rs b/src/application.rs
+index 26ea651..47f4ea8 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -173,8 +173,8 @@ impl Application {
+         self.set_accels_for_action("win.redo", &["<primary><shift>z"]);
+         self.set_accels_for_action("win.paste", &["<primary>v"]);
+         self.set_accels_for_action("win.copy", &["<primary>c"]);
+-        self.set_accels_for_action("win.zoom_in", &["<primary>plus"]);
+-        self.set_accels_for_action("win.zoom_out", &["<primary>minus"]);
++        self.set_accels_for_action("win.zoom_in", &["<primary>plus", "<primary>KP_Add"]);
++        self.set_accels_for_action("win.zoom_out", &["<primary>minus", "<primary>KP_Subtract"]);
+         self.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
+     }
+ }
+-- 
+GitLab
+
