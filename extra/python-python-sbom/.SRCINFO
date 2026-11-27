@@ -1,0 +1,28 @@
+pkgbase = python-python-sbom
+	pkgdesc = SBOMs for Python distributions: write PEP 770 CycloneDX SBOMs into wheels
+	pkgver = 0.5.0
+	pkgrel = 1
+	url = https://python-sbom.readthedocs.io/
+	arch = any
+	license = MIT
+	makedepends = git
+	makedepends = python-build
+	makedepends = python-hatchling
+	makedepends = python-hatch-vcs
+	makedepends = python-hatch-fancy-pypi-readme
+	depends = python
+	depends = python-installer
+	depends = python-packaging
+	depends = python-packageurl-python
+	depends = python-zipremove
+	optdepends = python-hatchling: python-sbom[hatch] backend
+	optdepends = python-pdm-backend: python-sbom[pdm-backend] backend
+	optdepends = python-setuptools: python-sbom[setuptools] backend
+	optdepends = python-jsonschema-rs: sbom validation
+	optdepends = python-license-expression: sbom validation
+	optdepends = python-spdx-tools: sbom validation
+	source = python-python-sbom::git+https://github.com/tox-dev/python-sbom#tag=0.5.0
+	sha512sums = b8ea311bf7825bf27f3436bbe54f402433b1989f0c4781f0f202f32e39e7838ae8023519c0678edfbac9f33dd5398f14dd76baf4064d1854bfd0b8fc64bdb324
+	b2sums = 8180df98308d726c7e150c9bd857b8dcb2b968cce8bfd6daf5d79acd5448c896860e0a23c84ea6daee4ac777e8c175e9983cf45b529600807f50d59500b7fd39
+
+pkgname = python-python-sbom

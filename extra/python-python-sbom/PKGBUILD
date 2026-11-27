@@ -1,0 +1,49 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-python-sbom
+pkgver=0.5.0
+pkgrel=1
+pkgdesc='SBOMs for Python distributions: write PEP 770 CycloneDX SBOMs into wheels'
+arch=(any)
+url='https://python-sbom.readthedocs.io/'
+license=(MIT)
+depends=(
+  python
+  python-installer
+  python-packaging
+  python-packageurl-python
+  python-zipremove
+)
+makedepends=(
+  git
+  python-build
+  python-hatchling
+  python-hatch-vcs
+  python-hatch-fancy-pypi-readme
+)
+optdepends=(
+  'python-hatchling: python-sbom[hatch] backend'
+  'python-pdm-backend: python-sbom[pdm-backend] backend'
+  'python-setuptools: python-sbom[setuptools] backend'
+  'python-jsonschema-rs: sbom validation'
+  'python-license-expression: sbom validation'
+  'python-spdx-tools: sbom validation'
+)
+source=("$pkgname::git+https://github.com/tox-dev/python-sbom#tag=$pkgver")
+sha512sums=('b8ea311bf7825bf27f3436bbe54f402433b1989f0c4781f0f202f32e39e7838ae8023519c0678edfbac9f33dd5398f14dd76baf4064d1854bfd0b8fc64bdb324')
+b2sums=('8180df98308d726c7e150c9bd857b8dcb2b968cce8bfd6daf5d79acd5448c896860e0a23c84ea6daee4ac777e8c175e9983cf45b529600807f50d59500b7fd39')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
+}
