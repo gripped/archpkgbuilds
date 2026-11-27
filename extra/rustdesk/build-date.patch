@@ -1,0 +1,18 @@
+diff --git a/libs/hbb_common/src/lib.rs b/libs/hbb_common/src/lib.rs
+index 503954535..3b0e1f1a6 100644
+--- a/libs/hbb_common/src/lib.rs
++++ b/libs/hbb_common/src/lib.rs
+@@ -238,7 +238,12 @@ pub fn gen_version() {
+         }
+     }
+     // generate build date
+-    let build_date = format!("{}", chrono::Local::now().format("%Y-%m-%d %H:%M"));
++    let build_date = std::env::var("SOURCE_DATE_EPOCH")
++        .ok()
++        .and_then(|epoch| epoch.parse().ok())
++        .and_then(|secs| chrono::DateTime::from_timestamp(secs, 0))
++        .map(|date| date.format("%Y-%m-%d %H:%M").to_string())
++        .unwrap_or_else(|| chrono::Local::now().format("%Y-%m-%d %H:%M").to_string());
+     file.write_all(
+         format!("#[allow(dead_code)]\npub const BUILD_DATE: &str = \"{build_date}\";\n").as_bytes(),
+     )

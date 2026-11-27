@@ -1,0 +1,142 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+
+pkgname=rustdesk
+pkgver=1.5.3
+pkgrel=2
+# the newest Flutter that upstream's release workflow builds with
+_flutter_ver=3.44.9
+# the version upstream's bridge workflow installs
+_frb_ver=1.80.1
+pkgdesc='Remote desktop application that can be self-hosted'
+arch=(x86_64)
+url='https://rustdesk.com'
+license=(AGPL-3.0-only)
+depends=(aom at-spi2-core cairo dbus ffmpeg fontconfig gdk-pixbuf2 glib2 glibc
+         gst-plugin-pipewire gst-plugins-base gst-plugins-base-libs gstreamer gtk3
+         hicolor-icon-theme libayatana-appindicator libepoxy libgcc libpulse
+         libsodium libstdc++ libvpx libx11 libxcb libxfixes libxkbcommon libxtst
+         libyuv openssl opus pango wayland which xdotool zstd)
+makedepends=(cargo clang cmake fvm git ninja patchelf wayland-protocols)
+optdepends=('fuse3: copy and paste files between machines'
+            'kdialog: file dialogs for the recording directory and screenshots'
+            'sudo: unlock the security settings and run rustdesk.service'
+            'xdg-desktop-portal: screen capture on Wayland'
+            'xorg-xrandr: change the resolution of a controlled X11 display'
+            'zenity: file dialogs for the recording directory and screenshots')
+# rust-lld cannot read the GCC LTO objects that the crates' build scripts compile
+options=(!lto)
+source=("git+https://github.com/rustdesk/rustdesk.git#tag=$pkgver"
+        "git+https://github.com/rustdesk/hbb_common.git"
+        "flutter_rust_bridge_codegen-$_frb_ver.tar.gz::https://static.crates.io/crates/flutter_rust_bridge_codegen/flutter_rust_bridge_codegen-$_frb_ver.crate"
+        pubspec.lock
+        build-date.patch
+        disable-update-check.patch
+        hwcodec-system-ffmpeg.patch)
+b2sums=('6ddeccf3379eb173b9de253245a1b21583d3e0b14834f4026e94dcf163941b3f3dfb649c7156c7d36e7cb434d5c7964582a4f693d930e0f56caaf487cf41459b'
+        'SKIP'
+        '6aa8a0d8179ebb1683a880d982ad84d9167778ce67a96b49681d6c942bf8c28f9be76e972ed5473a0bfbebac8f8d1b2a91a66b79ec86554a5e6ce539239b51d7'
+        '7c541706c17890bc4a0bdcee1211457d9447e4e60d3a221a5be378df1945793845dd9f09c5d637bc449f80a4ed414b00bc2f7461c0d0f86480272e487f0fb2cf'
+        '7b7a80d78f92bf13cbb93dc9867bcc1635abcc71edf95ca949371ad299b53e2cadcb7fc8e52057fd3072126b46b35fc44307f1c151fa1efc8c449c5bf7c738ea'
+        'b23ac76699b375414b4a735ee6c0647affa0bb2fb4a2d9448dca48bfc587f9b77ae41b9678cddf6364432db458457ed60d23c799ebf879f2856b6de3a9f818d5'
+        'adb75dcf12537220856bc644fba52195dc380a07419c0f3726af67e20f28bf7eb7756fc345d0d394625222d7998ec09b43e67188399c7ddfdcaa5ec5e0cec94f')
+
+_env() {
+  export CARGO_HOME="$srcdir/cargo-home"
+  export FVM_CACHE_PATH="$srcdir/fvm"
+  export PUB_CACHE="$srcdir/pub-cache"
+  export PATH="$FVM_CACHE_PATH/versions/$_flutter_ver/bin:$PATH"
+}
+
+prepare() {
+  _env
+  cargo fetch --locked --target host-tuple \
+    --manifest-path flutter_rust_bridge_codegen-$_frb_ver/Cargo.toml
+
+  cd $pkgname
+  git submodule init
+  git config submodule.libs/hbb_common.url "$srcdir/hbb_common"
+  git -c protocol.file.allow=always submodule update
+
+  bash .github/patches/apply_flutter_3.44_source_patches.sh
+  patch -Np1 -i ../build-date.patch
+  # updates come through pacman
+  patch -Np1 -i ../disable-update-check.patch
+  # upstream's release builds drop the other crate types the same way
+  sed -i 's/\["cdylib", "staticlib", "rlib"\]/["cdylib"]/' Cargo.toml
+
+  # the locked openssl-sys refuses OpenSSL 4
+  cargo update -p openssl-sys --precise 0.9.118
+  cargo update -p openssl --precise 0.10.82
+  cargo fetch --locked --target host-tuple
+
+  # hwcodec expects upstream's own static FFmpeg build
+  patch -Np1 -d "$CARGO_HOME"/git/checkouts/hwcodec-*/*/ \
+    -i "$srcdir/hwcodec-system-ffmpeg.patch"
+
+  # the bundled libwebm uses uint64_t without including <cstdint>
+  find "$CARGO_HOME"/git/checkouts -name mkvparser.cc \
+    -exec sed -i '1i #include <cstdint>' {} +
+
+  # libyuv ships no pkg-config file
+  mkdir -p "$srcdir/pkgconfig"
+  printf '%s\n' 'Name: libyuv' 'Description: libyuv' 'Version: 0' 'Libs: -lyuv' \
+    > "$srcdir/pkgconfig/libyuv.pc"
+
+  fvm install $_flutter_ver
+  flutter --disable-analytics
+  flutter precache --linux
+
+  cd flutter
+  # upstream resolves its lockfile for a different Flutter version
+  cp "$srcdir/pubspec.lock" .
+  flutter pub get --enforce-lockfile
+}
+
+build() {
+  _env
+  cargo build --frozen --release \
+    --manifest-path flutter_rust_bridge_codegen-$_frb_ver/Cargo.toml
+
+  cd $pkgname
+  # libclang, as loaded by ffigen, does not find the compiler's own headers
+  CPATH="$(clang -print-resource-dir)/include" \
+    ../flutter_rust_bridge_codegen-$_frb_ver/target/release/flutter_rust_bridge_codegen \
+    --rust-input ./src/flutter_ffi.rs --dart-output ./flutter/lib/generated_bridge.dart
+
+  export PKG_CONFIG_PATH="$srcdir/pkgconfig"
+  # hwcodec's build script unwraps VCPKG_ROOT but nothing is read from it
+  export VCPKG_ROOT=/nonexistent
+  export OPENSSL_NO_VENDOR=1 SODIUM_USE_PKG_CONFIG=1 ZSTD_SYS_USE_PKG_CONFIG=1
+  export CARGO_PROFILE_RELEASE_RPATH=false CARGO_PROFILE_RELEASE_STRIP=false
+  cargo build --frozen --release --lib \
+    --features flutter,hwcodec,linux-pkg-config,unix-file-copy-paste
+
+  cd flutter
+  # prepare() ran pub get; an implicit rerun would not enforce the lockfile
+  flutter build linux --release --no-pub
+}
+
+check() {
+  cd $pkgname
+  [[ $(flutter/build/linux/x64/release/bundle/$pkgname --version) == "$pkgver" ]]
+}
+
+package() {
+  cd $pkgname
+
+  install -d "$pkgdir"/usr/{bin,lib}
+  cp -a flutter/build/linux/x64/release/bundle "$pkgdir"/usr/lib/$pkgname
+  ln -s /usr/lib/$pkgname/$pkgname "$pkgdir"/usr/bin/$pkgname
+  # the plugins carry a RUNPATH into the build directory
+  patchelf --set-rpath '$ORIGIN' "$pkgdir"/usr/lib/$pkgname/lib/lib*_plugin.so
+
+  install -Dm644 res/$pkgname.service -t "$pkgdir"/usr/lib/systemd/system
+  install -Dm644 res/$pkgname.desktop res/$pkgname-link.desktop \
+    -t "$pkgdir"/usr/share/applications
+  install -Dm644 'res/128x128@2x.png' \
+    "$pkgdir"/usr/share/icons/hicolor/256x256/apps/$pkgname.png
+  install -Dm644 res/scalable.svg \
+    "$pkgdir"/usr/share/icons/hicolor/scalable/apps/$pkgname.svg
+}
+
+# vim:set ts=2 sw=2 et:
