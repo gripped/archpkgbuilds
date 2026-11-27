@@ -2,7 +2,7 @@
 # Maintainer: Eli schwartz <eschwartz@archlinux.org>
 
 pkgname=firefox-noscript
-pkgver=13.6.38
+pkgver=13.6.39
 pkgrel=1
 pkgdesc="Extension for firefox which disables javascript"
 arch=('any')
@@ -13,9 +13,9 @@ makedepends=('nodejs' 'git' 'npm')
 groups=('firefox-addons')
 source=("git+https://github.com/hackademix/noscript.git#tag=$pkgver"
 	"nscl.git::git+https://github.com/hackademix/nscl.git")
-sha256sums=('1a973a033016d7c74ad054c313f4161f753215e5792d0320f618114c022550db'
+sha256sums=('c261db2efa3ec1416a92ca4893aa79726bf68f23ed7b2966238e6d8034340a5d'
             'SKIP')
-b2sums=('868cced0ba45818ccf9514cb9bc7adc5251c14eb151d05997f36ff6b3efe3512ef262ada553fbc17330166d383e67617d6fd6156ed46fcb1f8a2bf5dd5e0061d'
+b2sums=('b13101753376955012855bd8fa63becb0ab9cab06023c75902e6db4ed81b42e55bdbb60f85c5a12128b424fcd6c1e22a5860e68fe6fe3afd4a6ebbbfa7119c4e'
         'SKIP')
 
 prepare() {
