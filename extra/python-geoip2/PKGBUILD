@@ -1,24 +1,22 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-geoip2
-pkgver=5.3.0
+pkgver=5.4.0
 pkgrel=1
 pkgdesc="MaxMind GeoIP2 API"
 url="https://github.com/maxmind/GeoIP2-python"
-license=('Apache')
+license=('Apache-2.0')
 arch=('any')
 depends=(
   python
   python-aiohttp
   python-maxminddb
   python-requests
-  python-setuptools
 )
 makedepends=(
   git
   python-build
   python-installer
-  python-setuptools-scm
   python-uv-build
   python-wheel
 )
@@ -30,7 +28,7 @@ source=(
   git+https://github.com/maxmind/GeoIP2-python.git#tag=v$pkgver
   git+https://github.com/maxmind/MaxMind-DB.git
 )
-sha512sums=('d2fd9cd7c053e3342738ead97c21dc4df97498138a338e939e97ff899914284f94f877d8ed9230efa3c1f89ed3439ac2234dad56f143ed0810133377793be7a4'
+sha512sums=('f4a794383f9110d796b2d3db45756823aa907290b173d57a0aa2b8b83910fd315105ed50624d751ef4ad188446a827fc1ad0fc9e2e52247e1863f94a39fd4f70'
             'SKIP')
 
 prepare() {
