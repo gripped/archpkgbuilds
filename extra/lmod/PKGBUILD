@@ -3,7 +3,7 @@
 # Contributor: Christian Krause ("wookietreiber") <christian.krause@mailbox.org>
 
 pkgname=lmod
-pkgver=9.4.5
+pkgver=9.5
 pkgrel=1
 pkgdesc='An environment module system based on Lua, reads TCL modules, supports a software hierarchy'
 arch=('x86_64')
@@ -16,7 +16,7 @@ conflicts=('environment-modules')
 provides=('environment-modules')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/TACC/Lmod/archive/${pkgver}.tar.gz")
 install=lmod.install
-sha256sums=('05292b7a1d9285a869129726f1429f86393fe274bf12d311828e16df27cdaaf3')
+sha256sums=('85472c15590a2f5d89fc5c15cf1446f68c5e1479e2b1c2bd0e46a68ad1c504ac')
 
 build() {
   cd "Lmod-${pkgver}"
