@@ -1,0 +1,36 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgbase=pyqt6-pdf
+pkgname=(python-pyqt6-pdf)
+pkgver=6.140.1
+pkgrel=1
+pkgdesc='Python bindings for QtPdf'
+arch=(x86_64)
+url='https://www.riverbankcomputing.com/software/pyqtpdf/intro'
+license=(GPL-3.0-or-later)
+groups=(pyqt6)
+depends=(glibc
+         libstdc++
+         python
+         python-pyqt6
+         qt6-base
+         qt6-webengine)
+makedepends=(pyqt-builder
+             sip)
+source=(https://pypi.python.org/packages/source/P/PyQt6-Pdf/pyqt6_pdf-$pkgver.tar.gz)
+sha256sums=('5d942e2663d6f7a1c1cc7322ffc9f2339ee3b43ebd1cda4caaf6bb4ce6ac9fe8')
+
+build() {
+  cd pyqt6_pdf-$pkgver
+  sip-build \
+    --no-make \
+    --qmake=/usr/bin/qmake6 \
+    --pep484-pyi
+  cd build
+  make
+}
+
+package_python-pyqt6-pdf() {
+  cd pyqt6_pdf-$pkgver/build
+  make INSTALL_ROOT="$pkgdir" install
+}
