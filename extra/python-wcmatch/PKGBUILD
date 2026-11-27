@@ -1,7 +1,7 @@
 # Maintainer: Frederik Schwan <freswa at archlinux dot org>
 
 pkgname=python-wcmatch
-pkgver=12.0.1
+pkgver=12.0.4
 pkgrel=1
 pkgdesc='Wilcard File Name matching library'
 arch=('any')
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('python-bracex')
 makedepends=('python-build' 'python-hatchling' 'python-installer' 'python-wheel')
 source=("https://github.com/facelessuser/wcmatch/archive/${pkgver}/wcmatch-${pkgver}.tar.gz")
-b2sums=('d30af528ce1df7d13b0a737f3e652bcafc69a976003b0b06628a6bf46d30a5926dd81d0cb579a20e573b20457e54efa3a2213a67276f5cf138073283fca0c37f')
+b2sums=('507cccdb26c91e57a15aa35daf8922ddcd460487c036c7b2439fd5cc4538d954f340ac688e30e4d3f347b5979519638d9d71b7df66245c13926cb0859b2c82ab')
 
 build() {
   cd wcmatch-${pkgver}
