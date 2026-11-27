@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-webengine
-_pkgver=6.11.3
+_pkgver=6.140.0
 pkgver=${_pkgver/-/}
 pkgrel=2
 _chromium=
@@ -79,9 +79,11 @@ makedepends=(cmake
 optdepends=('pipewire: WebRTC desktop sharing under Wayland')
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
-source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
-        git+https://code.qt.io/qt/qtwebengine-chromium)
-sha256sums=('4c8bd3e18536a071b58a8c2218647df08468aa0b38eb85891cb67202aac7e7d7'
+source=(
+  git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
+  git+https://code.qt.io/qt/qtwebengine-chromium
+)
+sha256sums=('d4b34bfd5e6b5a1a75e8a43baba309999afb1d27f4da3eb1b8e9790d2a4a0d39'
             'SKIP')
 
 prepare() {
@@ -93,8 +95,6 @@ prepare() {
   # Bump chromium to head of stable branch
   cd src/3rdparty
   [[ -n $_chromium ]] && git checkout $_chromium || true
-# Block compromised certificates
-  git cherry-pick -n b7849cb032f0c5f760454da257f405cef85ffa7e dfe972d1d0a64f68e06954d7b4023700fff8c4b5
 }
 
 build() {
