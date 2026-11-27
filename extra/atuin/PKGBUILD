@@ -4,7 +4,7 @@
 
 pkgbase=atuin
 pkgname=(atuin atuin-server)
-pkgver=18.24.6
+pkgver=18.24.8
 pkgrel=1
 pkgdesc='Magical shell history'
 arch=('x86_64')
@@ -16,7 +16,7 @@ depends=(glibc # libc.so libm.so
 makedepends=(cargo)
 _archive="$pkgbase-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('fdfcaab891ecc33561372d6763b8c279112a0d10c7ddb3a3b464abe039045423')
+sha256sums=('af0741ac5b7cc7207e794036b0a19db0ad5b9838f80768436664ee3c1c5a1bb2')
 
 _srcenv () {
 	cd "$_archive"
@@ -26,7 +26,8 @@ _srcenv () {
 	export CARGO_PROFILE_RELEASE_LTO=thin
 	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 	export CARGO_PROFILE_RELEASE_OPT_LEVEL=3
-	CFLAGS+=' -ffat-lto-objects'
+	CFLAGS+=' -fno-lto'
+	CXXFLAGS+=' -fno-lto'
 	export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
 }
 
