@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocwmma
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='Library for accelerating mixed precision matrix multiplication'
 arch=('x86_64')
@@ -22,10 +22,9 @@ makedepends=(
     'rocm-llvm'
     'rocm-toolchain'
 )
-_git='https://github.com/ROCmSoftwarePlatform/rocWMMA'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/rocm-$pkgver.tar.gz")
-sha256sums=('5e2cd91647ece7ccdfe4d0f3b801f174a218d2bcb3d4537ea6ab650da09d6096')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" .tar.gz)"
+_git='https://github.com/ROCm/rocm-libraries'
+source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
+sha256sums=('2baf267c60c3cf5d95b70909daaa5180469bd9c41b44a9e4fb2967ee1177d6f4')
 options=(!lto)
 
 build() {
@@ -33,7 +32,7 @@ build() {
         -Wno-dev
         -B build
         -G Ninja
-        -S "$_dirname"
+        -S "$pkgname"
         -D CMAKE_POLICY_VERSION_MINIMUM=3.5
         -D CMAKE_BUILD_TYPE=None
         -D CMAKE_CXX_COMPILER=amdclang++
@@ -52,5 +51,5 @@ build() {
 package() {
     DESTDIR="$pkgdir" cmake --install build
 
-    install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 "$pkgname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
