@@ -2,7 +2,7 @@
 
 pkgname=dhall
 pkgver=1.42.3
-pkgrel=152
+pkgrel=154
 pkgdesc='A configuration language guaranteed to terminate'
 url='https://dhall-lang.org'
 license=('BSD-3-Clause')
@@ -29,8 +29,11 @@ sha512sums=('95e346711c5a1d582c76c131226665e9ce5f8700495b89b51b0fa02192b7fd27857
 build() {
     cd $pkgname-$pkgver
 
+    # test.dhall-lang.org and prelude.dhall-lang.org return HTTP 521,
+    # failing 9 network-only CORS tests; use the suite's local simulation.
     runhaskell Setup configure -O --enable-shared --enable-debug-info --enable-executable-dynamic --disable-library-vanilla \
         --prefix=/usr --docdir=/usr/share/doc/$pkgname --datasubdir=$pkgname --enable-tests \
+        --flags="-network-tests" \
         --dynlibdir=/usr/lib --libsubdir=\$compiler/site-local/\$pkgid
     runhaskell Setup build $MAKEFLAGS
     runhaskell Setup register --gen-script
