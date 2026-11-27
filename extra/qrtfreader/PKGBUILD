@@ -1,0 +1,31 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org> 
+
+pkgname=qrtfreader
+pkgver=1.0.0
+pkgrel=1
+pkgdesc='A library for reading Rtf documents'
+arch=(x86_64)
+url='https://invent.kde.org/libraries/qrtfreader'
+license=(LGPL-2.1-or-later)
+depends=(
+  glibc
+  libstdc++
+  qt6-base
+)
+makedepends=(
+  extra-cmake-modules
+)
+source=(
+  https://download.kde.org/stable/$pkgname/$pkgname-$pkgver.tar.xz
+)
+sha256sums=('274e6fbe882c9ee8eeffac1581b1b4aea7cd26c27b241eec0bea52266fe96f25')
+
+build() { 
+  cmake -B build -S $pkgname-$pkgver \
+    -DBUILD_TESTING=OFF
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
