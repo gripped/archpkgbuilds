@@ -1,0 +1,32 @@
+pkgbase = kontainer
+	pkgdesc = KDE application for Distrobox container management
+	pkgver = 1.6.2
+	pkgrel = 2
+	url = https://github.com/DenysMb/Kontainer
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = cmake
+	makedepends = extra-cmake-modules
+	makedepends = git
+	makedepends = ninja
+	depends = distrobox
+	depends = glibc
+	depends = hicolor-icon-theme
+	depends = kconfig
+	depends = kcoreaddons
+	depends = ki18n
+	depends = kiconthemes
+	depends = kio
+	depends = kirigami
+	depends = kirigami-addons
+	depends = kservice
+	depends = libstdc++
+	depends = qqc2-desktop-style
+	depends = qt6-base
+	depends = qt6-declarative
+	source = git+https://github.com/DenysMb/Kontainer.git#tag=1.6.2
+	source = kontainer-fix-appid.patch
+	b2sums = bd3494b92042f3379fd3a7affd0e8f34fc6ad7e5e218643211d69960494d2f95608b28d4c6b4db89dce73ceeff858fca5fdb977e81bba1b07ce4e2cdd6c03b1e
+	b2sums = 994f32ac9078ed4cf4864d4629b8a7d2eaa38c8a02526e668a6709aa0f3ece27320baf288a6a84d1f7088e4afc43256cbf8ebf066dcef96a295202d61bb19dbc
+
+pkgname = kontainer
