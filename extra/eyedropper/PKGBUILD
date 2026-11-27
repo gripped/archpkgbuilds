@@ -2,7 +2,7 @@
 
 pkgname=eyedropper
 pkgver=2.2.1
-pkgrel=1
+pkgrel=3
 pkgdesc='Color picker and formatter'
 arch=(x86_64)
 url='https://apps.gnome.org/Eyedropper/'
@@ -26,14 +26,43 @@ makedepends=(
   meson
   rust
 )
-source=("git+https://github.com/FineFindus/eyedropper.git#tag=v$pkgver")
-b2sums=(5f7f0b67fd3f7da7b8e81680828575e2b3a0d27cb79649ccf76048a7b8424ef77d8d4fb278ec9c546c33a479dfcdf25c1ffde4e0b7fa6c16658039fc02e32a40)
+source=(
+  "git+https://github.com/FineFindus/eyedropper.git#tag=v$pkgver"
+  eyedropper-register-host-app.patch
+  eyedropper-fix-global-shortcut.patch
+  eyedropper-hold-service.patch
+  eyedropper-optional-service.patch
+)
+b2sums=(
+  5f7f0b67fd3f7da7b8e81680828575e2b3a0d27cb79649ccf76048a7b8424ef77d8d4fb278ec9c546c33a479dfcdf25c1ffde4e0b7fa6c16658039fc02e32a40
+  63e9746843d0b7a1468906a13fb270fe2c2640c11b97e65fd0ae8b9722d66c4b981884729f2f9291c46620cd2f346c9e7c7b38b47128d7c6873c09626c012cbf
+  1c548e423b48a36944ccc01b0556cee7de36016539daf7200172a9496ac3799c005a17530ced7dc7889d323121124848973b70e265679de73cd87cf98b91a90c
+  b2fb55ae6b964ea4321c6fb704ed61b81bf52208429031e75f5ab0d955082d83529b404d8f74f1847c15ba0d4850375508888f8412423d7d27be54785d73d294
+  e44c079534c45a1c3e4226eef84a2ccc437718a04b45df074cace46b2df0e5b324578d462c1232c25ff83614361d69f78d67b324b6b2a3959fecc90e028e6b22
+)
 
 prepare() {
   cd $pkgname
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Handle shortcut requests without active window
+  git cherry-pick -n cd3689beef169b82d08af47d061e9ce0087c0072 \
+                     2814f5b1cb6c3b03f5d1b4cd1cb40e619eb86c61
+
+  # Register host application with desktop portal
+  # https://github.com/FineFindus/eyedropper/pull/255
+  git apply -3 ../eyedropper-register-host-app.patch
+
+  # Fix global shortcut handling in background mode
+  # https://github.com/FineFindus/eyedropper/pull/256
+  git apply -3 ../eyedropper-fix-global-shortcut.patch
+
+  # Keep application running in service mode
+  # https://github.com/FineFindus/eyedropper/pull/257
+  git apply -3 ../eyedropper-hold-service.patch
+  git apply -3 ../eyedropper-optional-service.patch
 }
 
 build() {

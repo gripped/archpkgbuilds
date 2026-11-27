@@ -1,0 +1,44 @@
+From 90f9225932c9dc9243a68ba393887002d0e90098 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 26 Nov 2026 04:04:51 +0100
+Subject: [PATCH] Keep application running in service mode
+
+Keep the application running when launched with
+--gapplication-service by holding an application reference for
+its lifetime.
+
+Without an application hold, GApplication may exit after its
+initial activation timeout if no activation message is received.
+This prevents the background service from terminating before
+global shortcuts can be used.
+---
+ src/application.rs | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/src/application.rs b/src/application.rs
+index f521342..cdebcdb 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -29,7 +29,9 @@ mod imp {
+     use adw::subclass::prelude::AdwApplicationImpl;
+ 
+     #[derive(Default)]
+-    pub struct App {}
++    pub struct App {
++        hold_guard: std::cell::RefCell<Option<gio::ApplicationHoldGuard>>,
++    }
+ 
+     #[glib::object_subclass]
+     impl ObjectSubclass for App {
+@@ -60,6 +62,11 @@ mod imp {
+             gtk::Window::set_default_icon_name(APP_ID);
+ 
+             let app = self.obj();
++
++            if app.flags().contains(gio::ApplicationFlags::IS_SERVICE) {
++                self.hold_guard.replace(Some(app.hold()));
++            }
++
+             let ctx = glib::MainContext::default();
+             ctx.spawn_local(glib::clone!(
+                 #[weak]

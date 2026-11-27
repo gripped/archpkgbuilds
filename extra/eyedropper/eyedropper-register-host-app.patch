@@ -1,0 +1,42 @@
+From bc3a9b1d0f587562dcd967f56f33c4b10af772c7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 26 Nov 2026 02:50:34 +0100
+Subject: [PATCH] Register host application with desktop portal
+
+Register the application with the XDG Desktop Portal before
+requesting background access or setting up global shortcuts.
+
+Recent versions of xdg-desktop-portal require host applications
+to register their application ID before using these interfaces.
+Without this registration, background access requests fail and
+global shortcut registration returns
+"org.freedesktop.portal.Error.NotAllowed: An app id is required".
+
+This fixes background access and global shortcuts when running
+the application outside Flatpak.
+---
+ src/application.rs | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/src/application.rs b/src/application.rs
+index f521342..4d0e6e4 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -65,6 +65,17 @@ mod imp {
+                 #[weak]
+                 app,
+                 async move {
++                    match ashpd::AppID::try_from(config::APP_ID) {
++                        Ok(app_id) => {
++                            if let Err(err) = ashpd::register_host_app(app_id).await {
++                                tracing::error!("Failed to register host application: {err}");
++                            }
++                        }
++                        Err(_) => {
++                            tracing::error!("Invalid application ID: {}", config::APP_ID);
++                        }
++                    }
++
+                     if let Err(err) = app.request_background_access().await {
+                         tracing::error!("Failed to request background access: {err}");
+                     }

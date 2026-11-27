@@ -1,0 +1,123 @@
+From cb222cfd45537edc1e2f914d25be23f4e2b56b52 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 26 Nov 2026 03:12:52 +0100
+Subject: [PATCH] Fix global shortcut handling in background mode
+
+Allow registering global shortcuts without an application window,
+since the background service does not create one during startup.
+
+Create a window when a global shortcut is activated if no
+existing application window is available.
+
+Only present the window after successfully picking a color.
+Previously, cancelling the color picker with Escape also caused
+the application window to appear.
+
+Avoid exporting an invalid Wayland surface when picking a color
+from a hidden window. GTK destroys the surface role when the
+window is hidden, so attempting to export it again results in a
+Wayland protocol error. Only obtain a parent window identifier
+when the window is mapped.
+---
+ src/application.rs | 21 ++++++++++++++-------
+ src/window.rs      | 26 ++++++++++++++++++++------
+ 2 files changed, 34 insertions(+), 13 deletions(-)
+
+diff --git a/src/application.rs b/src/application.rs
+index f521342..a21be8d 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -272,14 +272,15 @@ impl App {
+     /// A global shortcut can be used when the application is not focused.
+     /// Uses the [Global Shortcuts portal](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.GlobalShortcuts.html).
+     async fn setup_global_shortcuts(&self) -> ashpd::Result<()> {
+-        let root = self
++        let identifier = if let Some(root) = self
+             .active_window()
+             .and_downcast::<AppWindow>()
+             .and_then(|window| window.root())
+-            .ok_or(ashpd::Error::ParseError(
+-                "Unable to retrieve application root window",
+-            ))?;
+-        let identifier = ashpd::WindowIdentifier::from_native(&root).await;
++        {
++            ashpd::WindowIdentifier::from_native(&root).await
++        } else {
++            None
++        };
+ 
+         let global_shortcuts = ashpd::desktop::global_shortcuts::GlobalShortcuts::new().await?;
+         let session = global_shortcuts
+@@ -312,8 +313,14 @@ impl App {
+         let mut stream = global_shortcuts.receive_activated().await?;
+         while let Some(shortcut) = stream.next().await {
+             if shortcut.shortcut_id() == SHORTCUT_PICK_COLOR {
+-                self.active_app_window().pick_color().await;
+-                self.active_app_window().present();
++                let window = self
++                    .active_window()
++                    .and_downcast::<AppWindow>()
++                    .unwrap_or_else(|| AppWindow::new(self));
++
++                if window.pick_color_internal().await {
++                    window.present();
++                }
+             }
+         }
+         session.close().await
+diff --git a/src/window.rs b/src/window.rs
+index b2165fd..1c38acc 100644
+--- a/src/window.rs
++++ b/src/window.rs
+@@ -390,22 +390,35 @@ impl AppWindow {
+     /// It will show a toast when failing to pick a color, for example when the user cancels the action.
+     #[template_callback]
+     pub async fn pick_color(&self) {
++        self.pick_color_internal().await;
++    }
++
++    pub async fn pick_color_internal(&self) -> bool {
+         tracing::debug!("Picking a color using the color picker");
+-        let root = self.root().expect("Failed to get window root");
+-        let identifier = ashpd::WindowIdentifier::from_native(&root).await;
++        let identifier = if self.is_mapped() {
++            let root = self.root().expect("Failed to get window root");
++            ashpd::WindowIdentifier::from_native(&root).await
++        } else {
++            None
++        };
+         let request = ashpd::desktop::screenshot::ColorRequest::default()
+             .identifier(identifier)
+             .send()
+             .await;
+ 
+         match request.and_then(|req| req.response()) {
+-            Ok(color) => self.set_color(Color::from(gtk::gdk::RGBA::from(color))),
++            Ok(color) => {
++                self.set_color(Color::from(gtk::gdk::RGBA::from(color)));
++                true
++            }
+             Err(err) => {
+-                tracing::error!("{}", err);
+-                if !matches!(
++                if matches!(
+                     err,
+                     ashpd::Error::Response(ashpd::desktop::ResponseError::Cancelled)
+                 ) {
++                    tracing::debug!("Color picking cancelled");
++                } else {
++                    tracing::error!("{}", err);
+                     self.show_toast(
+                         gettext("Failed to pick a color"),
+                         adw::ToastPriority::Normal,
+@@ -415,8 +428,9 @@ impl AppWindow {
+                     // errors
+                     self.imp().show_portal_error_page();
+                 }
++                false
+             }
+-        };
++        }
+     }
+ 
+     /// Set the current color to the given color.
