@@ -3,7 +3,7 @@
 
 pkgbase=python-polars
 pkgname=($pkgbase $pkgbase-runtime-{32,64,compat})
-pkgver=2.0.0
+pkgver=2.1.0
 pkgrel=1
 pkgdesc="Blazingly fast DataFrames library using Apache Arrow Columnar Format as memory model"
 arch=("x86_64")
@@ -43,7 +43,7 @@ checkdepends=('python-pytest'
 _name=${pkgname#python-}
 _tag="py-$pkgver"
 source=("https://github.com/pola-rs/polars/archive/refs/tags/$_tag.tar.gz")
-b2sums=('245425d225b89f9554e4eb704d0451d3a7ca6054ce6c5f5f88c2d2f9847e32a2b6473b26258f679ca7924dd15c649341903b6a35f88e24b50e18b041f454b5ba')
+b2sums=('32ba67b27c459e14571e660144f8fb057ee131e6c249c6b29589bbc26d9bbf6c3c65d01eeb6a3ff4618edc331fba9f6dd37eef19db4cbed66dcd3b79ab794b90')
 
 prepare() {
     cd polars-$_tag/py-polars
@@ -70,12 +70,9 @@ check() {
     test-env/bin/python -m installer dist/polars_runtime_32*.whl
     test-env/bin/python -m installer dist/polars-*.whl
 
-
     # Ignore several test files as they either use unpackaged dependencies, or
     # contain direct errors
     local _pytest_args=(
-        # Add 'not may_fail_auto' to the default markers because it may in fact fail
-        -m "not slow and not write_disk and not release and not docs and not hypothesis and not benchmark and not ci_only and not may_fail_auto_streaming"
         # Unknown test failure
         --deselect tests/unit/operations/namespaces/array/test_array.py::test_array_idx_size_limit_eval
         # Requires unpackaged python-deltalake
@@ -96,6 +93,12 @@ check() {
         --deselect "tests/unit/io/database/test_read.py::test_read_database_cx_credentials"
         # Deprecation warning, yet to be fixed
         -W ignore::DeprecationWarning
+        # Requires unpackaged dependency pyiceberg
+        --ignore tests/unit/io/test_iceberg_delete.py
+        # Super flaky test
+        --deselect "tests/unit/io/test_order_keeping_pushdown.py::test_top_k_through_order_keeping_projection"
+        # Broken in pytest 9.2.0
+        --deselect "tests/unit/sql/test_cast.py::test_cast"
     )
 
     test-env/bin/python -P -m pytest tests/unit "${_pytest_args[@]}"
