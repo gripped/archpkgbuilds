@@ -8,7 +8,7 @@ pkgname=(
   drumkv1-lv2
   drumkv1-standalone
 )
-pkgver=1.5.0
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="An old-school drum-kit sampler"
 arch=(x86_64)
@@ -28,8 +28,8 @@ makedepends=(
   qt6-tools
 )
 source=(https://download.sourceforge.net/$pkgname/$pkgname-$pkgver.tar.gz)
-sha512sums=('3456dd992476da0f9edf8afbcc08912b74fc6e49206809853b9341e6d5273d469756bc1ac01caa9533cc9b89ce2e0c398a91afcbe6d1291d5eaf63f2d6e98078')
-b2sums=('7631822eeccadb416b001bd33261c64e170b7d0b1b824554a8fa52e8bbb3f90c36351988b7789379107ee566ab196a5b82471d836a02919c19f355b72b81d606')
+sha512sums=('041ae0ba026451f35b48b5805b2a7fcc049aed2f0cd950e7c535f2a9383f8a735ffb79f4b9d79a08378ceea2209caeeaed6191d02f91c33d8b9f87197697de94')
+b2sums=('a77db2162cf0bfe5fba358e85cf1ff80deb7c561859c40b0148c38f0d79f72743c43e67d7664951ec0bc0a56ef05432082bc5666bd865da8f45ecabdcfef0bb9')
 
 _pick() {
   local p="$1" f d; shift
