@@ -3,7 +3,7 @@
 # Contributor: Limao Luo <luolimao+AUR@gmail.com>
 
 pkgname=python-jsonpatch
-pkgver=1.45
+pkgver=1.48
 pkgrel=1
 pkgdesc="An implementation of the JSON Patch format"
 arch=("any")
@@ -13,7 +13,7 @@ depends=("python-jsonpointer")
 makedepends=("git" "python-build" "python-installer" "python-setuptools" "python-wheel")
 checkdepends=("mypy" "python-hypothesis" "python-simplejson")
 source=("git+https://github.com/stefankoegl/python-json-patch.git#tag=v$pkgver")
-sha512sums=('bd09d0f917339d75c65da327d9820fc4463d8b8cdf29b2a16319e9ebd2559f26ba8e10f88c6cb08842d317f60d0449d5193839e5c4b515421f36ae9208435a39')
+sha512sums=('e319eaee77a0f4ededb2e14b968479db9732c79c2e8bc41ff9705e62153b7c7d769c457cf7dcbba7cd03d85172e5a98e952d32d32e4478a510de6eb87f2ee275')
 
 build() {
   cd python-json-patch
