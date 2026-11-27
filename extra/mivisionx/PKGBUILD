@@ -5,7 +5,7 @@
 
 pkgname=mivisionx
 pkgver=7.2.4
-pkgrel=1
+pkgrel=4
 pkgdesc="Set of comprehensive computer vision and machine intelligence libraries"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/MIVisionX/en/latest/"
@@ -15,10 +15,13 @@ depends=(
   'hip-runtime-amd'
   'miopen-hip'
   'opencv'
-  'protobuf'
+  'openssl'
   'rocblas'
   'rocm-core'
   'rpp'
+)
+optdepends=(
+  'python-protobuf: model compiler for Caffe models'
 )
 makedepends=(
   'cmake'
@@ -32,6 +35,29 @@ sha256sums=('2e2c979275651bd848e4d2a9d50ef71a8c435c2c73605896936770d9992edfca')
 options=(!lto)
 _dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
 
+prepare() {
+  cd "$_dirname"
+
+  # Fail if a dependency is missing or has an incompatible version, instead
+  # of silently dropping the extension that uses it. FFmpeg stays QUIET,
+  # because FindFFmpeg.cmake checks the result before it searches.
+  sed -i -E 's/find_package\((rpp [0-9.]+|OpenCV) QUIET\)/find_package(\1 REQUIRED)/' \
+    amd_openvx_extensions/CMakeLists.txt \
+    utilities/runvx/CMakeLists.txt
+
+  # OpenCV 5 support: accept major version 5 and later, and include the
+  # headers of DIST_L1 and BRISK, which OpenCV 5 moved
+  sed -i 's/${OpenCV_VERSION_MAJOR} EQUAL 4/${OpenCV_VERSION_MAJOR} GREATER_EQUAL 4/' \
+    amd_openvx_extensions/CMakeLists.txt \
+    amd_openvx_extensions/amd_opencv/CMakeLists.txt \
+    utilities/runvx/CMakeLists.txt
+  sed -i \
+    -e '\|^#include "opencv2/opencv.hpp"|a #include "opencv2/geometry/2d.hpp"' \
+    -e '\|^#include "opencv2/opencv.hpp"|a #include "opencv2/xfeatures2d.hpp"' \
+    -e '/^using namespace cv;/a using cv::xfeatures2d::BRISK;' \
+    amd_openvx_extensions/amd_opencv/include/internal_opencvTunnel.h
+}
+
 build() {
   # -fcf-protection is not supported by HIP, see
   # https://docs.amd.com/bundle/ROCm-Compiler-Reference-Guide-v5.3/page/Appendix_A.html
@@ -43,6 +69,8 @@ build() {
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_CXX_COMPILER=amdclang++
     -D CMAKE_BUILD_TYPE=None
+    # Upstream turns it on for all systems except Ubuntu 22.04
+    -D MIN_DEPS_MODE=OFF
     # Building migraphx currently fails.
     # TODO: Revisit migraphx package
     -D MIGRAPHX=OFF
