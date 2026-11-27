@@ -1,0 +1,110 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <christian@heusel.eu>
+
+pkgname=rocprofiler-sdk
+pkgver=10.2
+pkgrel=2
+pkgdesc='ROCm profiling and tracing library with the rocprofv3 tool'
+arch=('x86_64')
+url='https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/'
+license=('MIT' 'BSD-3-Clause' 'Apache-2.0' 'LGPL-2.1-only')
+depends=(
+  'comgr'
+  'fmt'
+  'glibc'
+  'hip-runtime-amd'
+  'hsa-rocr'
+  'libdrm'
+  'libelf'
+  'libgcc'
+  'libstdc++'
+  'otf2'
+  'python'
+  'rocm-core'
+  'rocprof-trace-decoder'
+  'sqlite'
+  'yaml-cpp'
+)
+makedepends=(
+  'cmake'
+  'elfio'
+  'git'
+  'ninja'
+  'nlohmann-json'
+  'pybind11'
+  # Headers for API tracing, not linked
+  'rccl'
+  'rocdecode'
+  'rocjpeg'
+)
+# rocprofiler-sdk supersedes the deprecated rocprofiler
+provides=("rocprofiler=$pkgver")
+conflicts=('rocprofiler')
+replaces=('rocprofiler')
+_git='https://github.com/ROCm/rocm-systems'
+source=("rocm-systems::git+$_git#tag=therock-$pkgver"
+        # Submodules without a system package in Arch
+        "$pkgname-ptl::git+https://github.com/jrmadsen/PTL"
+        "$pkgname-cereal::git+https://github.com/jrmadsen/cereal"
+        "$pkgname-perfetto::git+https://github.com/google/perfetto"
+        "$pkgname-gotcha::git+https://github.com/ROCm/GOTCHA"
+        # Each library links a private static copy with hidden symbols.
+        # A shared abseil aborts the second absl::InitializeLog() call:
+        # https://github.com/ROCm/rocm-systems/issues/10959
+        "$pkgname-abseil-cpp::git+https://github.com/abseil/abseil-cpp")
+sha256sums=('cde1c80b729bc6ab16c00967ca049e40fa38a630b8d31fc1d5bc7b9821b7bad3'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
+_dirname='rocm-systems/projects/rocprofiler-sdk'
+
+prepare() {
+  cd rocm-systems
+
+  # Check out only the submodules that are not replaced by system packages
+  local _sub _path
+  for _sub in ptl cereal perfetto gotcha abseil-cpp; do
+    _path="projects/rocprofiler-sdk/external/$_sub"
+    git submodule init "$_path"
+    git config submodule."$_path".url "$srcdir/$pkgname-$_sub"
+  done
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  local cmake_args=(
+    -Wno-dev
+    -G Ninja
+    -B build
+    -S "$_dirname"
+    # rocprofiler-sdk rejects CMAKE_BUILD_TYPE=None
+    -D CMAKE_BUILD_TYPE=Release
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D ROCPROFILER_BUILD_ABSEIL=ON
+    # Use system packages instead of the bundled submodules
+    -D ROCPROFILER_BUILD_ELFIO=OFF
+    -D ROCPROFILER_BUILD_FMT=OFF
+    -D ROCPROFILER_BUILD_GHC_FS=OFF
+    -D ROCPROFILER_BUILD_JSON=OFF
+    -D ROCPROFILER_BUILD_OTF2=OFF
+    -D ROCPROFILER_BUILD_PYBIND11=OFF
+    -D ROCPROFILER_BUILD_SQLITE3=OFF
+    -D ROCPROFILER_BUILD_YAML_CPP=OFF
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  local _licenses="$pkgdir/usr/share/licenses/$pkgname"
+  install -Dm644 "$_dirname/LICENSE.md" "$_licenses/LICENSE"
+  install -Dm644 "$_dirname/external/ptl/LICENSE" "$_licenses/PTL-LICENSE"
+  install -Dm644 "$_dirname/external/cereal/LICENSE" "$_licenses/cereal-LICENSE"
+  install -Dm644 "$_dirname/external/perfetto/LICENSE" "$_licenses/perfetto-LICENSE"
+  install -Dm644 "$_dirname/external/gotcha/COPYRIGHT" "$_licenses/GOTCHA-COPYRIGHT"
+  install -Dm644 "$_dirname/external/abseil-cpp/LICENSE" "$_licenses/abseil-cpp-LICENSE"
+}
