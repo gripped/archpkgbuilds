@@ -6,7 +6,7 @@
 
 pkgname=gnome-calls
 pkgver=51.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Phone dialer and call handler"
 url="https://gitlab.gnome.org/GNOME/calls"
 arch=(x86_64)
@@ -66,6 +66,10 @@ build() {
 
 package() {
   meson install -C build --destdir "$pkgdir"
+
+  # Enable systemd user service
+  install -dm755 "$pkgdir/usr/lib/systemd/user/gnome-session.target.wants"
+  ln -s ../calls-daemon.service "$pkgdir/usr/lib/systemd/user/gnome-session.target.wants/calls-daemon.service"
 }
 
 # vim:set sw=2 sts=-1 et:
