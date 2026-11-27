@@ -9,7 +9,7 @@ pkgbase=gdb
 # of gdb (for arm/avr/...)
 pkgname=(gdb gdb-common)
 pkgver=18.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The GNU Debugger'
 arch=(x86_64)
 url='https://www.gnu.org/software/gdb/'
@@ -32,12 +32,21 @@ makedepends=(
   xz
   zstd
 )
-source=(https://ftp.gnu.org/gnu/gdb/${pkgname}-${pkgver}.tar.xz{,.sig})
+source=(https://ftp.gnu.org/gnu/gdb/${pkgname}-${pkgver}.tar.xz{,.sig}
+        gdb-18.1-fix-crashes.patch)
 sha1sums=('129db232e869bc23c37fef6be54710728e8f7e39'
-          'SKIP')
+          'SKIP'
+          '00a01dd414efe60621506c6b79d7f7f7ec2d67c8')
 b2sums=('9cf68cd96ecd1b2f51235f80f30d4024eadea7e11fe8af1cde0103176c622b770d79fde2205739fad8fe314ffecddd450626976e1897b04899027d0d88f30e1d'
-        'SKIP')
+        'SKIP'
+        'b9bf66a9d1c956c3f490a92f362f0dfa2ce03668417d28f3fb8a54a67c628690d3252fcaf7c17248d9d9791409548b28d89815ba006ec9d3540cb916d129f813')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker
+
+prepare() {
+  cd gdb-$pkgver
+  # fix crashes whenusing debuginfod https://sourceware.org/bugzilla/show_bug.cgi?id=34707
+  patch -p1 -i ../gdb-18.1-fix-crashes.patch
+}
 
 build() {
   cd gdb-$pkgver
