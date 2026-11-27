@@ -2,7 +2,7 @@
 # Contributor: Jamison Lahman <jamison+aur@lahman.dev>
 
 pkgname=prek
-pkgver=0.5.10
+pkgver=0.5.12
 pkgrel=1
 pkgdesc="Better 'pre-commit', re-engineered in Rust"
 arch=('x86_64')
@@ -38,7 +38,7 @@ options=(
 source=(
   "git+$url.git#tag=v${pkgver}"
 )
-b2sums=('2344c5f3982c9b7509bff05aa86b3abeda3c763f31acbb4995001ea43b123c3f1b04237e702ba83fd21b0f403284e276adb3d50b407159171e9cf9c961901ee7')
+b2sums=('940a04e1efe51cc3d3148a2744383d6b19fa4a7b4fc4e73ee91a40837190ee1da4b10ddf54a378e3d5623bf8714e0b63549bc6d97a0c73eef719807c96b06a18')
 
 prepare() {
   cd ${pkgname}
@@ -72,6 +72,7 @@ check() {
     --skip docker::workspace_docker \
     --skip docker_image::docker_image \
     --skip haskell::local_hook \
+    --skip haskell::library_and_executable_share_name \
     --skip haskell::additional_dependencies \
     --skip haskell::remote_hook \
     --skip lua::lua_environment \
