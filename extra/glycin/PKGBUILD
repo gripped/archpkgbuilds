@@ -8,7 +8,7 @@ pkgname=(
   glycin-docs
 )
 pkgver=2.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc="Sandboxed and extendable image decoding"
 arch=(x86_64)
 url="https://gnome.pages.gitlab.gnome.org/glycin/"
