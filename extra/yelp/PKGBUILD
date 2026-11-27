@@ -3,7 +3,7 @@
 
 pkgname=yelp
 pkgver=49.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Get help with GNOME"
 url="https://apps.gnome.org/Yelp"
 license=(GPL-2.0-or-later)
@@ -34,11 +34,17 @@ provides=(libyelp-1.so)
 groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/yelp.git#tag=${pkgver/[a-z]/.&}"
+  yelp-fix-docbook-open.patch
 )
-b2sums=('797f50c2210b88db0d192e0fd2822551e0017b91ebf9c0ad511580a04b453ed30ac095c4b26f7aabca320e000d0c8c67e983264c020dc862bdfb389408f7f3b2')
+b2sums=('797f50c2210b88db0d192e0fd2822551e0017b91ebf9c0ad511580a04b453ed30ac095c4b26f7aabca320e000d0c8c67e983264c020dc862bdfb389408f7f3b2'
+        '762d0dc81b884d29585d6c9d5b35b5107f31c2bfe6585e1585a1685169b24f00ab955bade38141d4e63f08207f708cac33a9b841af1cd1996bd7afe47477f574')
 
 prepare() {
   cd yelp
+
+  # Fix crash when opening DocBook links with fragments
+  # https://gitlab.gnome.org/GNOME/yelp/-/merge_requests/87
+  git apply -3 ../yelp-fix-docbook-open.patch
 }
 
 build() {

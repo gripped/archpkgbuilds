@@ -1,0 +1,26 @@
+From e03d767e673c66409a09f6e2fea79e229e18d940 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 14 Oct 2026 15:00:42 +0200
+Subject: [PATCH] yelp-view: Fix crash when opening DocBook links with
+ fragments
+
+---
+ libyelp/yelp-view.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libyelp/yelp-view.c b/libyelp/yelp-view.c
+index 0c84cdf0..2dc19cf9 100644
+--- a/libyelp/yelp-view.c
++++ b/libyelp/yelp-view.c
+@@ -1809,7 +1809,7 @@ fix_docbook_uri (YelpUri *docbook_uri, YelpDocument* document)
+         gchar *page_id = yelp_uri_get_page_id (docbook_uri);
+         gchar *real_id = yelp_document_get_page_id (document, page_id);
+ 
+-        if (g_str_equal (real_id, fragment)) {
++        if (g_strcmp0 (real_id, fragment) == 0) {
+             GUri *modified;
+ 
+             modified = g_uri_build (g_uri_get_flags (uri),
+-- 
+GitLab
+
