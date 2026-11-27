@@ -3,8 +3,8 @@
 
 pkgname=greetd-tuigreet
 _pkgname=${pkgname#*-}
-pkgver=0.11.1
-pkgrel=2
+pkgver=0.11.2
+pkgrel=1
 pkgdesc='A console UI greeter for greetd'
 url="https://github.com/$_pkgname/$_pkgname"
 license=(GPL-3.0-only)
@@ -25,7 +25,7 @@ backup=(etc/tuigreet/config.toml)
 _archive="$_pkgname-$pkgver"
 source=("$url/archive/$pkgver/$_archive.tar.gz"
         "$_pkgname.tmpfiles")
-sha256sums=('7d643ba224c40c6a63f9462a826630543071aea08e732ccd2e880bcd80d939e8'
+sha256sums=('e8b422ae7b32c3e82b2610664fea549b3148a7e661f4ae3b89b9a36eea1be8a9'
             '8f83aee7874aab5d06981a1d1cd05df906368a79dbca90d157a33a2f023b67d3')
 
 _srcenv() {
