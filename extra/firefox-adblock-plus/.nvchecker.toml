@@ -1,4 +1,4 @@
 [firefox-adblock-plus]
-source = "regex"
-url = "https://addons.mozilla.org/en-US/firefox/addon/adblock-plus/versions/"
-regex = "adblock_plus-(\\d+\\.\\d+\\.\\d+).xpi"
+source = "jq"
+url = "https://addons.mozilla.org/api/v5/addons/addon/adblock-plus/"
+filter = ".current_version.version"

@@ -2,7 +2,7 @@
 
 . PKGBUILD
 
-FILE=$(wget -qO - https://addons.mozilla.org/en-US/firefox/addon/adblock-plus/versions/ | grep -oP "https://addons.mozilla.org/firefox/downloads/file/\d+/adblock_plus-$pkgver.xpi" | cut -d/ -f7)
+FILE=$(wget -qO - https://addons.mozilla.org/api/v5/addons/addon/adblock-plus/ | jq .current_version.file.url | cut -d/ -f7)
 
 sed -i "s|_file=.*|_file=$FILE|" PKGBUILD
 updpkgsums
