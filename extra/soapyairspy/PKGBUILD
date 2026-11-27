@@ -1,18 +1,18 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=soapyairspy
-pkgver=0.2.0
+pkgver=0.2.1
 _pkgname=SoapyAirspy
 _gitver=soapy-airspy-$pkgver
-pkgrel=2
+pkgrel=1
 pkgdesc='Soapy SDR plugin for the the Airspy'
 arch=('x86_64')
 url='https://github.com/pothosware/SoapyAirspy'
-license=('GPL3')
-depends=('soapysdr' 'airspy')
+license=('MIT')
+depends=('glibc' 'libstdc++' 'libgcc' 'soapysdr' 'airspy')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$_gitver.tar.gz")
-sha512sums=('1ba873d093209e42883508dc30b7c605fe1f7bf0b5df613adb4941e976575f8f7f71fe99d57038ff51536c5a7a68a869412e47b4e3e112e633546778b5b0e8d4')
+sha512sums=('7fd44b810550b024281f5375a33f2ed11ddb0b173d2522163949feae3cc83ebbf6aaac0259e1c5d8532851054a22ca147c9efee36ec657ecfd405c48e310d690')
 
 build() {
   mkdir -p $_pkgname-$_gitver/build
@@ -29,5 +29,6 @@ package() {
   cd $_pkgname-$_gitver/build
 
   make DESTDIR="$pkgdir" install
+  install -Dm644 ../LICENSE.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
