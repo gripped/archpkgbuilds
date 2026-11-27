@@ -20,7 +20,7 @@ pkgname=(
 # - nemo-dropbox - depends on proprietary dropbox
 # - nemo-preview - depends on deprecated clutter
 # - nemo-seahorse - depends on deprecated libcryptui
-pkgver=6.8.0
+pkgver=6.8.1
 pkgrel=1
 pkgdesc='Various extensions for Nemo'
 arch=(x86_64)
@@ -29,11 +29,13 @@ makedepends=(
   git
   meson
   nemo
+  python-build
+  python-installer
   python-setuptools
 )
 optdepends=('cinnamon-translations: i18n')
 source=("git+https://github.com/linuxmint/nemo-extensions.git#tag=$pkgver")
-b2sums=('f1f2ad37380e3d0fb90b965c4d25014e99c3bb73a8aaf5a688b5b8beb0f29fee04de6b3d0e1f03dc9c436d73a7ee052885e65d1d5c1dbd7f4637f97aed4e2b9b')
+b2sums=(156be3654102b168b70b40e5e6d75425b1976131fd4339251aa955e6c7238d4f50678f2a195088293caab80ce1f2e02e009d1a7cc95d07c818fbc5fc7961bbc5)
 
 build() {
   cd $pkgbase
@@ -46,11 +48,24 @@ build() {
       meson compile -C build
     fi
     if [[ -f setup.py ]]; then
-      python setup.py build
+      python -m build --wheel --no-isolation
     fi
     popd
   done
 }
+
+_install_wheel_with_data() {
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  local python_site="$(python -c 'import site; print(site.getsitepackages()[0].removeprefix("/usr/"))')"
+  local usrdatafiles="$pkgdir/usr/$python_site/usr"
+
+  if [[ -d "$usrdatafiles" ]]; then
+    cp -aT "$usrdatafiles" "$pkgdir/usr"
+    rm -rf "$usrdatafiles"
+  fi
+}
+
 
 package_nemo-audio-tab(){
   pkgdesc='View audio tag information in Nemo properties tab'
@@ -83,7 +98,7 @@ package_nemo-compare() {
   )
 
   cd $pkgbase/$pkgname
-  python setup.py install --root="$pkgdir" --optimize=1
+  _install_wheel_with_data
 }
 
 package_nemo-emblems(){
@@ -153,7 +168,7 @@ package_nemo-media-columns(){
   )
 
   cd $pkgbase/$pkgname
-  python setup.py install --root="$pkgdir" --optimize=1
+  _install_wheel_with_data
 }
 
 package_nemo-pastebin(){
@@ -173,7 +188,7 @@ package_nemo-pastebin(){
   )
 
   cd $pkgbase/$pkgname
-  python setup.py install --root="$pkgdir" --optimize=1
+  _install_wheel_with_data
 }
 
 package_nemo-python() {
@@ -241,5 +256,5 @@ package_nemo-terminal(){
   )
 
   cd $pkgbase/$pkgname
-  python setup.py install --root="$pkgdir" --optimize=1
+  _install_wheel_with_data
 }
