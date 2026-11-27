@@ -2,7 +2,7 @@
 
 pkgbase=pyqt6-charts
 pkgname=(python-pyqt6-charts)
-pkgver=6.12.0
+pkgver=6.12.1
 pkgrel=1
 pkgdesc='Python bindings for QtChart'
 arch=(x86_64)
@@ -18,7 +18,7 @@ depends=(glibc
 makedepends=(pyqt-builder
              sip)
 source=(https://pypi.python.org/packages/source/P/PyQt6-Charts/pyqt6_charts-$pkgver.tar.gz)
-sha256sums=('856d0c8228fbdcff62bfeb9512f6c884965503c742ced9943f242bd5b67fdcec')
+sha256sums=('ec36de59ef4806d6140ed2f7670c8d769f8cedf88bbcda911753c3accae05216')
 
 build() {
   cd pyqt6_charts-$pkgver
