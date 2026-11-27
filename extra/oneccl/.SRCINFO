@@ -1,5 +1,5 @@
 pkgbase = oneccl
-	pkgver = 2022.0.0
+	pkgver = 2022.2.0
 	pkgrel = 1
 	url = https://uxlfoundation.github.io/oneCCL/index.html
 	arch = x86_64
@@ -18,12 +18,12 @@ pkgbase = oneccl
 	depends = openmpi
 	depends = libdrm
 	options = !lto
-	source = oneccl::git+https://github.com/uxlfoundation/oneCCL#tag=2022.0.0
+	source = oneccl::git+https://github.com/uxlfoundation/oneCCL#tag=2022.2.0
 	source = oneccl-googletest::git+https://github.com/google/googletest.git
 	source = oneccl-ittapi::git+https://github.com/intel/ittapi.git
 	source = oneccl-oneCCL::git+https://github.com/uxlfoundation/oneCCL.git
 	source = fix-legacy-sycl-level-zero-interface.patch
-	sha256sums = 01c30ef874745c9daba6ea84a51dd0da83f87ef9f745242075ec29122622311d
+	sha256sums = 5dfe1dfb63a15357ecb2a010724efd04fd344e9e71596787531ada7e3531cf95
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
@@ -34,10 +34,10 @@ pkgname = oneccl
 
 pkgname = oneccl-arc
 	pkgdesc = oneAPI Collective Communications Library for Intel ARC GPUs
-	provides = oneccl=2022.0.0
+	provides = oneccl=2022.2.0
 	conflicts = oneccl
 
 pkgname = oneccl-bmg
 	pkgdesc = oneAPI Collective Communications Library for Intel BMG GPUs
-	provides = oneccl=2022.0.0
+	provides = oneccl=2022.2.0
 	conflicts = oneccl

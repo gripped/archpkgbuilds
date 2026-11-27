@@ -5,7 +5,7 @@ pkgname=(
 	${pkgbase}-arc
 	${pkgbase}-bmg
 )
-pkgver=2022.0.0
+pkgver=2022.2.0
 pkgrel=1
 _pkgdesc="oneAPI Collective Communications Library"
 arch=("x86_64")
@@ -35,7 +35,7 @@ source=(
   "${pkgname}-oneCCL::git+https://github.com/uxlfoundation/oneCCL.git"
   "fix-legacy-sycl-level-zero-interface.patch"
 )
-sha256sums=('01c30ef874745c9daba6ea84a51dd0da83f87ef9f745242075ec29122622311d'
+sha256sums=('5dfe1dfb63a15357ecb2a010724efd04fd344e9e71596787531ada7e3531cf95'
             'SKIP'
             'SKIP'
             'SKIP'
@@ -54,10 +54,6 @@ prepare() {
 
   # -Werror is too aggressive with the 2026.0+ compiler
   find -name CMakeLists.txt -exec sed -i 's/-Werror//g' {} \;
-
-  # Files not found
-  sed -i '/vars.sh/d' CMakeLists.txt
-  sed -i '/pkgconfig/d' CMakeLists.txt
 
   cd deps/libccl
   patch -Np1 -i "${srcdir}"/fix-legacy-sycl-level-zero-interface.patch
