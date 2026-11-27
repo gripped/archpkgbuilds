@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit at archlinux dot org>
 
 pkgname=rocjitsu
-pkgver=10.2
+pkgver=10.1
 pkgrel=1
 pkgdesc='An emulation toolkit for running AMD GPU applications on simulated or real hardware'
 arch=('x86_64')
@@ -34,7 +34,7 @@ source=(
   "rocm-$pkgver.tar.gz::$_git/archive/therock-$pkgver.tar.gz"
   'system-deps.cmake'
 )
-sha256sums=('8559e088a7ac9f9c28399c714f6c18afc5fdd443f1da0ba209c6aa195196afb1'
+sha256sums=('31dc4296cb15c3eada729743731d236ee4a52e4a2a301b9da9075b94c012be19'
             '35faf1958e874c1589aa155a21034bd4c566e2427746f81a0db91a965b0b26c1')
 # Breaks symbol tests
 options=(!lto)
@@ -63,10 +63,6 @@ check() {
     'BinaryTranslatorE2E\.NoTextPaddingStillMaterializesLocalCaveInText'
     'HsaDbiNopAsmCdna2Sim\.TrampolineIsActuallyExecutedByGpu'
     'HsaDbiNopProbeCdna2Sim\.ProbeBodyIsActuallyCalledByGpu'
-    # These tests have hard-coded timeouts and fail on a loaded build host.
-    'LegacyPageTableCacheStateTest\.ConcurrentAdmissionsObserveOnlyPublishedCopies'
-    'VfioGuestRunUnitTest'
-    'GpuDeviceSdma\..*'
   )
   local IFS='|'
   ctest --test-dir build --output-on-failure -E "^(${skip_tests[*]})$"
