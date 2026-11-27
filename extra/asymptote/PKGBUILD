@@ -4,48 +4,63 @@
 # Contributor: bender02 at gmx dot com
 
 pkgname=asymptote
-pkgver=3.15
+pkgver=3.16
 pkgrel=1
 pkgdesc='A vector graphics language (like metapost)'
 arch=(x86_64)
 url='http://asymptote.sourceforge.net/'
 license=(GPL-3.0-only)
-depends=(curl
-         fftw
-         glfw
-         glibc
-         gsl
-         libgcc
-         libglvnd
-         libsigsegv
-         libstdc++
-         libtirpc
-         ncurses
-         readline
-         texlive-basic
-         zlib)
-makedepends=(boost
-             cmake
-             doxygen
-             ghostscript
-             git
-             glm
-             glu
-             imagemagick
-             python
-             texlive-binextra
-             texlive-fontutils
-             texlive-latexextra
-             texlive-plaingeneric
-             vulkan-headers)
-optdepends=('pyside6: for the xasy GUI'
-            'python-cson: for the xasy GUI'
-            'ghostscript: PDF output')
-source=(git+https://github.com/vectorgraphics/asymptote#tag=$pkgver)
-sha256sums=('f1d019d9b8da7c15cdd29dd6c0b4562497c9d0a70039a7af4b9c861879d8ffd3')
+depends=(
+  curl
+  fftw
+  glfw
+  glibc
+  gsl
+  libgcc
+  libglvnd
+  libsigsegv
+  libstdc++
+  libtirpc
+  ncurses
+  readline
+  texlive-basic
+  zlib
+)
+makedepends=(
+  boost
+  cmake
+  doxygen
+  ghostscript
+  git
+  glm
+  glslang
+  glu
+  imagemagick
+  python
+  texlive-binextra
+  texlive-fontutils
+  texlive-latexextra
+  texlive-plaingeneric
+  vulkan-headers
+  vulkan-icd-loader
+)
+optdepends=(
+  'ghostscript: PDF output'
+  'glslang: Vulkan backend'
+  'pyside6: for the xasy GUI'
+  'python-cson: for the xasy GUI'
+  'vulkan-icd-loader: Vulkan backend'
+)
+source=(
+  git+https://github.com/vectorgraphics/asymptote#tag=$pkgver
+  flex-2.6.10.patch
+)
+sha256sums=('13ecd605b5b2dd2d2266dddf966e69d14e516129c26ee489868ea62224323dd0'
+            '66cd04bf54a38e8cc8983ea763d830fcd10b03f17dd3615120d747bf23016bcc')
 
 prepare() {
   cd $pkgname
+  patch -p1 -i ../flex-2.6.10.patch # Fix build with flex 2.6.10
   ./autogen.sh
 }
 

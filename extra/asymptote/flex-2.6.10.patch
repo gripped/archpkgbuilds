@@ -1,0 +1,27 @@
+diff --git a/camp.l b/camp.l
+index e6469ad5a..8a6b0bb1d 100644
+--- a/camp.l
++++ b/camp.l
+@@ -31,9 +31,6 @@ using mem::string;
+ 
+ #define register
+ 
+-static void yyunput(int, char *);
+-void (*unused)(int,char *) = yyunput;
+-
+ fileinfo* fi;
+ Int tokPos;
+ Int charPos;
+diff --git a/interact.h b/interact.h
+index b6588e7d2..836601881 100644
+--- a/interact.h
++++ b/interact.h
+@@ -66,8 +66,6 @@ public:
+ 
+ void setCompleter(completer *c);
+ 
+-#define YY_READ_BUF_SIZE YY_BUF_SIZE
+-
+ void init_readline(bool tabcompletion);
+ }
+ 
