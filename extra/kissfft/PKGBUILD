@@ -2,7 +2,7 @@
 
 pkgname=kissfft
 pkgver=131.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc='A Fast Fourier Transform (FFT) library that tries to Keep it Simple, Stupid'
 arch=('x86_64') # 'aarch64'
 url='https://github.com/mborgerding/kissfft'
@@ -19,8 +19,6 @@ makedepends=(
 	'libpng'
 	'python'
 )
-conflicts=('kissfft')
-provides=('kissfft')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mborgerding/kissfft/archive/${pkgver}.tar.gz")
 sha256sums=('205a8f6a448ef12b091f8ac6a514b5091bb5f6b0b543431ed75f673116cf5cbf')
 
@@ -68,7 +66,7 @@ build() {
 package() {
 	cd "${pkgname}-${pkgver}"
 	install -dm755 "${pkgdir}/usr/include/kissfft/"
-	install -m644 ./*.h "${pkgdir}/usr/include/kissfft/"
+	install -m644 ./*.{h,hh} "${pkgdir}/usr/include/kissfft/"
 
 	install -dm755 "${pkgdir}/usr/lib/kissfft/"
 	install -m644 ./*.c "${pkgdir}/usr/lib/kissfft/"
