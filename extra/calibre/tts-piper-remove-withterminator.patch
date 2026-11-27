@@ -1,4 +1,4 @@
-From 10556faa239a0b39cccb99d13b45a6c8fd65fde8 Mon Sep 17 00:00:00 2001
+From ad470db8d04c7c36d8fdbde91507dc368e979f5c Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Jonathan=20Grotel=C3=BCschen?= <tippfehlr@tippfehlr.eu>
 Date: Sat, 8 Aug 2026 11:20:46 +0200
 Subject: [PATCH] espeak-ng headers do not provide
@@ -9,19 +9,19 @@ Subject: [PATCH] espeak-ng headers do not provide
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/calibre/utils/tts/piper.cpp b/src/calibre/utils/tts/piper.cpp
-index b4bdb8b9a8..0040ee354b 100644
+index 3986b4cec5..613835810b 100644
 --- a/src/calibre/utils/tts/piper.cpp
 +++ b/src/calibre/utils/tts/piper.cpp
-@@ -205,7 +205,7 @@ phonemize(PyObject *self, PyObject *pytext) {
+@@ -412,7 +412,7 @@ phonemize(PyObject *self, PyObject *args) {
          int terminator = 0;
          const char *phonemes;
          Py_BEGIN_ALLOW_THREADS;
--        phonemes = espeak_TextToPhonemesWithTerminator((const void **)&text, espeakCHARS_UTF8, espeakPHONEMES_IPA, &terminator);
-+        phonemes = espeak_TextToPhonemes((const void **)&text, espeakCHARS_UTF8, espeakPHONEMES_IPA);
+-        phonemes = espeak_TextToPhonemesWithTerminator((const void **)&text, espeakCHARS_UTF8, phoneme_mode, &terminator);
++        phonemes = espeak_TextToPhonemes((const void **)&text, espeakCHARS_UTF8, phoneme_mode);
          Py_END_ALLOW_THREADS;
          // Categorize terminator
          const char *terminator_str = categorize_terminator(terminator);
-@@ -339,7 +339,7 @@ start(PyObject *self, PyObject *args) {
+@@ -564,7 +564,7 @@ start(PyObject *self, PyObject *args) {
      const void *text_ptr = text;
      while (text_ptr != nullptr) {
          int terminator = 0;
@@ -31,5 +31,5 @@ index b4bdb8b9a8..0040ee354b 100644
          const char *terminator_str = categorize_terminator(terminator);
          sentence_phonemes[current_idx] += terminator_str;
 -- 
-2.55.0
+2.56.0
 

@@ -9,8 +9,8 @@
 # Contributor: Larry Hajali <larryhaja@gmail.com>
 
 pkgname=calibre
-pkgver=9.14.0
-pkgrel=6
+pkgver=9.19.0
+pkgrel=3
 pkgdesc='Ebook management application'
 arch=(x86_64)
 url=https://calibre-ebook.com
@@ -56,10 +56,12 @@ depends=(espeak-ng
          hyphen
          icu
          jxrlib
+         libjxl
          libmtp
          libstdc++
          libstemmer
          libusb
+         libwebp-utils
          libwmf
 #        mathjax
          mtdev
@@ -86,12 +88,14 @@ makedepends=(cmake
              sip
              xdg-utils)
 checkdepends=(python-fonttools
+              python-langtool
               python-pyzstd
               python-sgmllib3k
               speech-dispatcher
               tk)
 optdepends=('onnxruntime: required for text-to-speech'
             'python-fonttools: required for font subset feature in epub editor'
+            'python-langtool: required for grammar checking'
             'speech-dispatcher: TTS support in the viewer')
 conflicts=(calibre-common
            calibre-python3)
@@ -100,9 +104,9 @@ _archive="$pkgname-$pkgver"
 source=("https://download.calibre-ebook.com/$pkgver/$_archive.tar.xz"
         "$url/signatures/$_archive.tar.xz.sig"
         "tts-piper-remove-withterminator.patch")
-sha256sums=('d1bc24024b0942429c627e9c5d0b25d51df9c1af1e1d8dca3e572f03b194c561'
+sha256sums=('15e4e4e30e16fed0c2aae8a59dd536cb90648b37789f50011bab1d1897796fff'
             'SKIP'
-            'e4c2a5a3885e0476b13b40afd2fa3bceaa08465d900295d5a53111797d12b815')
+            'b30616fb5183cbe5934f4b66797d9c04bc34d68865553a78f5618f62dcba6145')
 validpgpkeys=('3CE1780F78DD88DF45194FD706BC317B515ACE7C') # Kovid Goyal (New longer key) <kovid@kovidgoyal.net>
 
 prepare(){
@@ -138,7 +142,10 @@ build() {
 check() {
 	cd "$_archive"
 	export LANG='en_US.UTF-8'
-	python setup.py test --under-sanitize --exclude-test-name test_piper
+	# test_piper, test_kokoro_espeak: need espeak_TextToPhonemesWithTerminator (patched out)
+	python setup.py test --under-sanitize \
+		--exclude-test-name test_piper \
+		--exclude-test-name test_kokoro_espeak
 	python setup.py test_rs
 }
 
