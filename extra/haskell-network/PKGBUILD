@@ -3,8 +3,8 @@
 
 _hkgname=network
 pkgname=haskell-network
-pkgver=3.2.1.0
-pkgrel=3
+pkgver=3.2.2.0
+pkgrel=1
 pkgdesc="Low-level networking interface"
 url="https://hackage.haskell.org/package/${_hkgname}"
 license=('BSD-3-Clause')
@@ -14,7 +14,7 @@ makedepends=('ghc')
 checkdepends=('haskell-doctest' 'haskell-hspec' 'haskell-hunit' 'haskell-quickcheck'
               'haskell-temporary')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('07f1496ddb3a6d43a8b7858f70e1936e826f9ff84c473132d6d1ef801d67a35826ea5de0e01d5c976210dd40e04ec29942a4e4c4ec8d6fd08f29347fc49a01f0')
+sha512sums=('6d98ac43a3135e48870392970568b123884b1821eb08c8a685e4dbf60ab264511e0b5f9df0e329cd43fdf6d79f0620f3d4d48fa10a7c0ec7e00145a2eaca69ae')
 
 build() {
     cd $_hkgname-$pkgver
