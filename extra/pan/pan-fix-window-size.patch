@@ -1,0 +1,35 @@
+From 2e7a75204c64c90f90dd2cc38e13ea634a934151 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 25 Nov 2026 04:32:15 +0000
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Use gtk_window_get_size() instead of the allocated size to
+retrieve the window dimensions.
+
+This prevents the window size from increasing each time the
+application is opened with client-side decorations enabled.
+---
+ pan/gui/prefs.cc | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/pan/gui/prefs.cc b/pan/gui/prefs.cc
+index 4e5c91e5..587f531d 100644
+--- a/pan/gui/prefs.cc
++++ b/pan/gui/prefs.cc
+@@ -250,8 +250,12 @@ Prefs :: window_size_allocated_cb (GtkWidget      * widget,
+   if (!maximized)
+   {
+     int x(0), y(0);
++    int width(0), height(0);
++
+     gtk_window_get_position (GTK_WINDOW(widget), &x, &y);
+-    static_cast<Prefs*>(pointer)->set_geometry (key, x, y, alloc->width, alloc->height);
++    gtk_window_get_size (GTK_WINDOW(widget), &width, &height);
++
++    static_cast<Prefs*>(pointer)->set_geometry (key, x, y, width, height);
+   }
+ }
+ 
+-- 
+GitLab
+

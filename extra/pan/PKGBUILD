@@ -4,7 +4,7 @@
 
 pkgname=pan
 pkgver=0.165
-pkgrel=1
+pkgrel=2
 pkgdesc='Powerful Usenet newsreader'
 arch=(x86_64)
 url='http://pan.rebelbase.com/'
@@ -34,9 +34,23 @@ makedepends=(
   itstool
   ninja
 )
-source=("git+https://gitlab.gnome.org/GNOME/pan.git?signed#tag=v$pkgver")
-b2sums=(c2e3c1ed1711374e84b9ebe3d0b983ff445f217a88f56b809103022cfb154fae784523af21ce4ea0d7eaa1b748116f5f35f0134aebb7ba6ee3e427518c9850df)
+source=(
+  "git+https://gitlab.gnome.org/GNOME/pan.git?signed#tag=v$pkgver"
+  pan-fix-window-size.patch
+)
+b2sums=(
+  c2e3c1ed1711374e84b9ebe3d0b983ff445f217a88f56b809103022cfb154fae784523af21ce4ea0d7eaa1b748116f5f35f0134aebb7ba6ee3e427518c9850df
+  c42b8cbcc0ee8f39c09f812c1c11705feaabbda6ccebaeba7a832c35dbded1020041f6a84eb803feb9243fc76bbff711246de6ab4bb2d96c7b7aac005b3650cf
+)
 validpgpkeys=(9F7239FCB664F10B33E9DC03C31F4FD949AB2B6C) # Dominique Dumont <domi.dumont@free.fr>
+
+prepare() {
+  cd $pkgname
+
+  # Fix window size growing with client-side decorations
+  # https://gitlab.gnome.org/GNOME/pan/-/merge_requests/59
+  git apply -3 ../pan-fix-window-size.patch
+}
 
 build() {
   cmake -S $pkgname -B build -G Ninja \
