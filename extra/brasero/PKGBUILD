@@ -5,7 +5,7 @@
 
 pkgname=brasero
 pkgver=3.12.4
-pkgrel=1
+pkgrel=2
 pkgdesc="CD/DVD mastering tool"
 url="https://wiki.gnome.org/Apps/Brasero"
 arch=(x86_64)
@@ -51,11 +51,17 @@ optdepends=(
 )
 source=(
   "git+https://gitlab.gnome.org/GNOME/brasero.git#tag=$pkgver"
+  0001-Fix-window-size-growing-with-client-side-decorations.patch
 )
-b2sums=('9091ba100dd9ef18df5f120e3b0c4dbc4370de80635e86031ea201216aaaa9f0cae442da8f5e7d9b9800a9c7196977afada63b9e082f71c590ec7e7d2dbc2681')
+b2sums=('9091ba100dd9ef18df5f120e3b0c4dbc4370de80635e86031ea201216aaaa9f0cae442da8f5e7d9b9800a9c7196977afada63b9e082f71c590ec7e7d2dbc2681'
+        '14367a489d9cabfe1c005b54c1d24f5852befc1a93eee314e0bfeabb99e27edafeade4a2514948255a8232e1ac528cdae4db6ed52e6ead9733396545587f093c')
 
 prepare() {
   cd brasero
+
+  # Fix window size growing with client-side decorations
+  # https://gitlab.gnome.org/GNOME/brasero/-/merge_requests/77
+  git apply -3 ../0001-Fix-window-size-growing-with-client-side-decorations.patch
 }
 
 build() {

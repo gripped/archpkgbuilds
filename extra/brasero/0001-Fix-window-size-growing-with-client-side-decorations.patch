@@ -1,0 +1,81 @@
+From ecf7c1f3d864e7ebd90b101dc1c811f79d1562a8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 25 Nov 2026 03:05:55 +0100
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Use the size-allocate signal and gtk_window_get_size() to
+save the window dimensions instead of relying on the
+GdkEventConfigure dimensions.
+
+This prevents the window size from increasing each time the
+application is opened with client-side decorations enabled.
+---
+ src/brasero-app.c | 27 +++++++++++++++------------
+ 1 file changed, 15 insertions(+), 12 deletions(-)
+
+diff --git a/src/brasero-app.c b/src/brasero-app.c
+index 7f8f8b9a..d5183197 100644
+--- a/src/brasero-app.c
++++ b/src/brasero-app.c
+@@ -1279,25 +1279,27 @@ on_window_state_changed_cb (GtkWidget *widget,
+ 	return FALSE;
+ }
+ 
+-static gboolean
+-on_configure_event_cb (GtkWidget *widget,
+-		       GdkEventConfigure *event,
+-		       BraseroApp *app)
++static void
++on_size_allocate_cb (GtkWidget *widget,
++                     GtkAllocation *allocation,
++                     BraseroApp *app)
+ {
+ 	BraseroAppPrivate *priv;
++	gint width;
++	gint height;
+ 
+ 	priv = BRASERO_APP_PRIVATE (app);
+ 
+ 	if (!priv->is_maximized) {
++		gtk_window_get_size (GTK_WINDOW (widget), &width, &height);
++
+ 		brasero_setting_set_value (brasero_setting_get_default (),
+ 		                           BRASERO_SETTING_WIN_WIDTH,
+-		                           GINT_TO_POINTER (event->width));
++		                           GINT_TO_POINTER (width));
+ 		brasero_setting_set_value (brasero_setting_get_default (),
+ 		                           BRASERO_SETTING_WIN_HEIGHT,
+-		                           GINT_TO_POINTER (event->height));
++		                           GINT_TO_POINTER (height));
+ 	}
+-
+-	return FALSE;
+ }
+ 
+ gboolean
+@@ -1980,10 +1982,6 @@ brasero_app_create_mainwin (BraseroApp *app)
+ 			  "window-state-event",
+ 			  G_CALLBACK (on_window_state_changed_cb),
+ 			  app);
+-	g_signal_connect (priv->mainwin,
+-			  "configure-event",
+-			  G_CALLBACK (on_configure_event_cb),
+-			  app);
+ 
+ 	gtk_widget_realize (GTK_WIDGET (priv->mainwin));
+ 
+@@ -1993,6 +1991,11 @@ brasero_app_create_mainwin (BraseroApp *app)
+ 	}
+ 
+ 	brasero_app_load_window_state (app);
++
++	g_signal_connect (priv->mainwin,
++			  "size-allocate",
++			  G_CALLBACK (on_size_allocate_cb),
++			  app);
+ }
+ 
+ static void
+-- 
+2.56.1
+
