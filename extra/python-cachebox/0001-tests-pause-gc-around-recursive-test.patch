@@ -1,0 +1,27 @@
+diff --git a/tests/test_utils.py b/tests/test_utils.py
+index f266f50..cbeda64 100644
+--- a/tests/test_utils.py
++++ b/tests/test_utils.py
+@@ -1,4 +1,5 @@
+ import asyncio
++import gc
+ import platform
+ import threading
+ import time
+@@ -647,7 +648,15 @@ async def test_async_recursive_cached_issue_54(
+     async def without_lock(key):
+         return await without_lock(key)
+ 
+-    await _run_recursive_cached_func_with_asyncio(without_lock, "same-key")
++    # Keep unrelated finalizers from breaking pytest's RecursionError reporting.
++    was_enabled = gc.isenabled()
++    gc.collect()
++    gc.disable()
++    try:
++        await _run_recursive_cached_func_with_asyncio(without_lock, "same-key")
++    finally:
++        if was_enabled:
++            gc.enable()
+ 
+ 
+ def test_recursive_cached(random_cache_impl: type[cachebox.BaseCacheImpl]):
