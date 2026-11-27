@@ -2,7 +2,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=xorg-xmag
-pkgver=1.0.8
+pkgver=1.0.9
 pkgrel=1
 pkgdesc="Magnify parts of the screen"
 arch=('x86_64')
@@ -11,9 +11,9 @@ license=('MIT-open-group' 'X11')
 depends=('libxaw' 'libxmu' 'libxt' 'libx11' 'glibc')
 makedepends=('xorg-util-macros')
 source=(https://xorg.freedesktop.org/archive/individual/app/xmag-${pkgver}.tar.xz{,.sig})
-sha512sums=('d4dbf6bf60a5a3ac88309cdc8f07284a20bd3b044795cd54e002ee5956fa317a09e5f21a9469a6fd9a786f109d8592d8b8e5128ac86850391a6445ccc1f7a11c'
+sha512sums=('778109a2b146a94ab1908cbb12c36a8eeb561128587bb3bc05396d2906d53a1b3e0886b42eef103c45089d43882792839d830ecdb0747edfcf06fd2948aed539'
             'SKIP')
-validpgpkeys=('4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E') # Alan Coopersmith <alan.coopersmith@oracle.com>
+validpgpkeys=('3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2') # Alan Coopersmith <alan.coopersmith@oracle.com>
 
 build() {
   cd xmag-${pkgver}
