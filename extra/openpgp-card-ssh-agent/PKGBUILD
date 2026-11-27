@@ -2,7 +2,7 @@
 
 pkgname=openpgp-card-ssh-agent
 _name="${pkgname#openpgp-card-}"
-pkgver=0.3.7
+pkgver=0.3.9
 pkgrel=1
 pkgdesc="A simple ssh-agent backed by OpenPGP card authentication keys"
 arch=(x86_64)
@@ -19,8 +19,8 @@ makedepends=(
   rust
 )
 source=($pkgname-$pkgver.tar.gz::${url}archive/v${pkgver}.tar.gz)
-sha512sums=('3f03d0eb874ddb00ff6c5db6a29934c540988a33e6a961ff857801f3444e00daf5d0bef590bf95caeb370a3e8c835ae66f7398658e2ed901dab0567697804a30')
-b2sums=('620d7284d948d19da693a22a83785a9730995562d6d2ee82877c5f3a2575021896bc05a38e90afe9b1738e282ede2f31938cea395453176ce0cfef4d4e088378')
+sha512sums=('a54d6a70ce040dcb85a41323f3e3455ff794a929ccd0d650c834ac94db0e32538c50059bdb6b4902f7a53a76285c6b3cbe92e00f85d9fe7d7e88fd151bf4dc5f')
+b2sums=('88837be775f18dfd7af0cb0ccdc4dc46ec2f99a71f6688a3defd1add1e61de70aff211b4af2c0f0abcf72709ad2abeef6e22f93ae8e40f21a451776c4cab4388')
 
 prepare() {
   cd $_name
