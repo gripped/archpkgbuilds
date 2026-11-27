@@ -6,7 +6,7 @@
 # Contributor: Brenton Horne
 
 pkgname=hugo
-pkgver=0.169.0
+pkgver=0.170.1
 pkgrel=1
 pkgdesc="Fast and Flexible Static Site Generator in Go"
 arch=('x86_64')
@@ -19,7 +19,7 @@ optdepends=('git: required to use the Hugo modules feature'
             'dart-sass: required to transpile Sass to CSS'
             'python-docutils: required for reStructuredText support')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gohugoio/${pkgname}/archive/v${pkgver}.tar.gz")
-sha512sums=('3caad2777b929d4afef694dbf2bca32ad897c623c9775da5f907a413ce942043727652ac2fe2cdec70c001888590be8e9cb144e34beaecda934ab40356b88c75')
+sha512sums=('61abda0e5b1afdb56c3ac518d04cb2d3560de4a5afdbc9fd88774fe819e58b9374c6d08a4b74205db4fbc5fe1486e08487eedc52e3b1a18246dd4e636c4085e2')
 
 build() {
   cd "${pkgname}-${pkgver}"
@@ -28,7 +28,7 @@ build() {
   export CGO_CXXFLAGS="${CXXFLAGS}"
   export CGO_LDFLAGS="${LDFLAGS}"
   export GOFLAGS="-buildmode=pie -trimpath -mod=readonly -modcacherw"
-  go build -ldflags="-s -w -linkmode=external -buildid=''" -tags extended,withdeploy
+  go build -ldflags="-s -w -linkmode=external -buildid=''" -tags withdeploy
 
   ./hugo gen man
   ./hugo completion bash > "${pkgname}.bash-completion"
