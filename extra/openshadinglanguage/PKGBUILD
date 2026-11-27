@@ -1,7 +1,7 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 pkgname=openshadinglanguage
-pkgver=1.15.7.0
-pkgrel=2
+pkgver=1.15.8.0
+pkgrel=1
 pkgdesc="Advanced shading language for production GI renderers"
 arch=('x86_64')
 url="https://github.com/imageworks/OpenShadingLanguage"
@@ -11,7 +11,7 @@ depends=('openimageio' 'imath' 'freetype2' 'libpng' 'libtiff' 'zlib' 'pugixml'
 makedepends=('cmake' 'python' 'llvm' 'ninja' 'git' 'pybind11')
 optdepends=('python: the Python module')
 source=($pkgname-$pkgver.tar.gz::https://github.com/AcademySoftwareFoundation/OpenShadingLanguage/archive/refs/tags/v${pkgver}.tar.gz)
-sha512sums=('38f75b9ee90b90cead708642f47a494aadd4bc1d776385e91a495cd28d26ff5d867a29ae2559baa5268c9e7f9ef27a514d37f1609124f8ef3cca36b37caa2d8f')
+sha512sums=('f8e466765db8d1313ead5a950c93504532cbb97415e9ff7cda69dcf675358d39e9e8ae5c3bb07bc678a7b21d96e4b75bda0bfdd2c288e3a7c30bc50bc76babf9')
 
 build() {
   cd OpenShadingLanguage-$pkgver
