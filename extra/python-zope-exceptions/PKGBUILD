@@ -3,8 +3,8 @@
 
 pkgname=python-zope-exceptions
 _pkgname=zope.exceptions
-pkgver=6.0
-pkgrel=3
+pkgver=6.1
+pkgrel=1
 pkgdesc="Generic exceptions and implementations for Zope"
 arch=('any')
 url="https://github.com/zopefoundation/zope.exceptions"
@@ -22,7 +22,7 @@ makedepends=(
 )
 checkdepends=('python-zope-testrunner')
 source=("git+$url.git#tag=$pkgver")
-sha512sums=('48e1154fc367d20b159b4f22720b99a2108386d8af03229c0d5f60efe754c673598816b6188457f77d49d5245cb953362dc3afbf447d5cda81e30352545608a2')
+sha512sums=('d84a427eb039bc046bde09ab115a9d5e3e96c8c5dcd8af5562a56632ea9c4dcab701b4eaae447bd28f027c3d5ebb4ee13075036b840fbe65052588d41634f29f')
 
 build() {
   cd "$_pkgname"
