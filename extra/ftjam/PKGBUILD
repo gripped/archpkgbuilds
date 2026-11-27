@@ -3,20 +3,25 @@
 
 pkgname=ftjam
 pkgver=2.5.3rc2
-pkgrel=6
+pkgrel=7
 pkgdesc="FT Jam - an enhanced version of the Jam build tool"
 arch=('x86_64')
 url="https://freetype.org/jam/"
-license=('custom')
+license=('Jam')
 depends=('glibc')
 provides=('jam')
 #source=("https://downloads.sourceforge.net/freetype/${pkgname}-${pkgver}.tar.bz2"
-source=("http://david.freetype.org/jam/${pkgname}-${pkgver}.tar.bz2"
+source=("https://sources.archlinux.org/other/packages/ftjam/${pkgname}-${pkgver}.tar.bz2"
         'license.txt')
 md5sums=('911cc4191b3e7213905d107962b4529b'
          'ef8ff7da77fe60e25d1e3e740600f1f0')
 sha256sums=('a9f8a274049893a4d1f1ad82f7b04f3ebc2554635dd606185e20ba97cb4d64ec'
             '78a6448f2e349e807741fa0abec0724bd35fd63cde0a4f6a46fee4b3ce4568fa')
+
+prepare() {
+  cd ${pkgname}-${pkgver}
+  sed -i '1i #include <unistd.h>' make1.c
+}
 
 build() {
   cd ${pkgname}-${pkgver}
