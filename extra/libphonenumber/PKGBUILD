@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=libphonenumber
-pkgver=9.0.43
+pkgver=9.0.44
 pkgrel=1
 epoch=1
 pkgdesc="Google's common library for parsing, formatting, and validating international phone numbers"
@@ -25,13 +25,11 @@ makedepends=(
 source=(
   "git+$url#tag=v$pkgver"
   0001-Use-find_package-for-protobuf.patch
-  0002-Remove-Werror.patch
-  0003-Fix-BUILD_STATIC_LIB-OFF.patch
+  0002-Fix-BUILD_STATIC_LIB-OFF.patch
 )
-b2sums=('b5d45e3541457f122f94b6dd12901499ab4bc110288d556136cf5ad7cc1adc2d4b1812e02363e25cfa6b826e46d7192280e057d14915db14593261a5bcf037d5'
-        '44be662cd62d87f4f0ceedc7c98cf4dedd1428bc5792288a4a861022e31a03a231b513bde125a95437871e69d3f7aba08db17b601dd6806b502cfe03bfda2f4b'
-        '24854002196053b9758705b251a6dc2763fa6db5055c2b8ee0c7bd6a0adcb64eecab7f03ebec4fade42c4f19671e85ee4ca6450c13a9581118705c983f5d3a00'
-        '190e9f1d452542fe11ae3800747dd786cb1481a728531f41b5605084fe378584f2df46438c9e24042d0e9effa09eface4e28f8d6e75b66692629fa353f318eeb')
+b2sums=('7ea9bb48a9c198081b7b5b66f15dd4434c4f2aa3bd0d32f710cbba95e12e56cf7892a22156d31389a6705bd5bdd46835675697619e241e899bd4cbcefb74527c'
+        '5cee7329e96900534a0267b5e2abb4edc6a4211ca7d103fecffaf83ddd191f5a0df6f111ec429354d3ec74648d40638ad7f205de4e505ccdefa1fb6eeeb0a23d'
+        '55d7a0fa4ce5bcfc79f4989f8bd5290033c691a72910da29c188f5ea72c8f2f6a9e3353a426228ef274a0ef836dd827434cb0e32a45c9c81e64e17b93451b1c5')
 
 prepare() {
   cd $pkgname
@@ -40,11 +38,8 @@ prepare() {
   # custom one, fixes build with protobuf 23
   git apply -3 ../0001-Use-find_package-for-protobuf.patch
 
-  # Don't use -Werror; fixes build with GCC 15
-  git apply -3 ../0002-Remove-Werror.patch
-
   # Fix building test with BUILD_STATIC_LIB=OFF
-  git apply -3 ../0003-Fix-BUILD_STATIC_LIB-OFF.patch
+  git apply -3 ../0002-Fix-BUILD_STATIC_LIB-OFF.patch
 }
 
 build() {
