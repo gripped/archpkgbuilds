@@ -2,7 +2,7 @@
 
 pkgname=kylin-scanner
 pkgver=1.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="SANE scanning utility with image processing and OCR for UKUI"
 arch=('x86_64')
 license=('GPL-3.0-or-later')
@@ -13,10 +13,12 @@ depends=('glib2' 'glibc' 'hicolor-icon-theme' 'leptonica' 'libgcc' 'libstdc++' '
 makedepends=('git' 'qt6-tools')
 source=("git+https://gitee.com/openkylin/kylin-scanner.git#tag=debian/$pkgver-1"
         'qt6.patch'
-        'remove-software-center.patch')
+        'remove-software-center.patch'
+        'opencv-5.1.patch')
 sha512sums=('27eb7f56fc6aaf725f7be06a2ab193d2c17f5bc53e15186d6dc7e8f63d07314f8cb2cc7e6ade70e71c2b21992e16541092bd1362a40d9b60c756bc7509d4e0b2'
             '4c4d9a986cf459274ce749a289a7249f88f7549268a54504af1514515dbe01f136210eae600cc87b926927774100e16f5adffc09b33596d89ebe1de394ebdf79'
-            'c5dc48a8af61d3383a87dbe20d6cc78c6c502bac750eca4e396fc6e81db696f60c27a7faeac17604dc238bfd8dae7bc4231c2342e7c4cb7277875f6bce25fd0c')
+            'c5dc48a8af61d3383a87dbe20d6cc78c6c502bac750eca4e396fc6e81db696f60c27a7faeac17604dc238bfd8dae7bc4231c2342e7c4cb7277875f6bce25fd0c'
+            '383c3988eb3e82958f219dc005bb3bd61a0ae0ff63bc479c45178e9c2c582655d28aadbce132cbf4735cd3175374df087d71af2c9adaf4e9c7569fd00251f210')
 
 prepare() {
   cd kylin-scanner
@@ -24,6 +26,8 @@ prepare() {
   patch -Np1 -i ../qt6.patch
   # The Ubuntu Kylin software center is unavailable on Arch.
   patch -Np1 -i ../remove-software-center.patch
+  # Fix build with openCV 5.1
+  patch -p1 -i ../opencv-5.1.patch
 
   # Use standard library paths and an application-specific icon name.
   sed -i -e 's|-L\$\$PWD/../../../usr/lib/x86_64-linux-gnu/ ||' \
