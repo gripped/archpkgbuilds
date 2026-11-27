@@ -2,7 +2,7 @@
 # contributor: Daniele Basso <d dot bass05 at proton dot me>
 
 pkgname=rustic
-pkgver=0.11.4
+pkgver=0.12.0
 pkgrel=1
 pkgdesc='Fast, encrypted, deduplicated backups powered by Rust (reads and writes restic repos)'
 arch=(x86_64)
@@ -16,7 +16,7 @@ replaces=(rustic-rs
 options=(!lto)
 _archive="$pkgname-$pkgver"
 source=("$url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('ea1796a66c22e2cd0232ee4d3e18cf95c7eb8608a465481023a6422f4720d2c3')
+sha256sums=('41c496bee7dcfad0922d4d9e760be19f713ffaaa55fe92716943ca3ecc62d26e')
 
 _srcenv() {
 	cd "$_archive"
