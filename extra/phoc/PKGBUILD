@@ -2,8 +2,8 @@
 # Contributor: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=phoc
-pkgver=0.57.0
-pkgrel=2
+pkgver=0.59.0
+pkgrel=1
 pkgdesc='Display compositor designed for phones'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/phoc'
@@ -11,48 +11,73 @@ license=(GPL-3.0-or-later)
 depends=(
   cairo
   dconf
-  libgcc
   glib2
   glibc
   gnome-desktop
   gsettings-desktop-schemas
   hicolor-icon-theme
+  lcms2
+  libdisplay-info
+  libdrm
+  libgcc
+  libglvnd
+  libglvnd
   libgmobile
   libinput
+  libliftoff
   libxcb
   libxkbcommon
+  mesa
   mutter
   pango
   pixman
+  seatd
   systemd-libs
+  vulkan-icd-loader
   wayland
-  wlroots0.20
+  xcb-util-errors
+  xcb-util-renderutil
+  xcb-util-wm
   xorg-xwayland
 )
 makedepends=(
   git
   glib2-devel
+  glslang
   meson
   python-docutils
+  vulkan-headers
   wayland-protocols
 )
 checkdepends=(xorg-server-xvfb)
 source=(
   "git+https://gitlab.gnome.org/World/Phosh/phoc.git?signed#tag=v$pkgver"
   git+https://gitlab.gnome.org/GNOME/gvdb.git
+  git+https://gitlab.freedesktop.org/wlroots/wlroots.git
 )
-b2sums=('ddfd0cd92fd49df2227c2deb3b180ef3ea7ec0b921536c7a3aedf17aec680214114e00f406fefdc28dbbf0bee00d5b6d8191e6d84e830f7d3e76a75c6d41f84f'
-        'SKIP')
+b2sums=(
+  ff74bce854d0439787ba0fdfa7adbbae87c8e0a7e1cc637f0595750d3b70f8d05bc8055212df34c110ca85c273bdc68c75d2822473f130e04697bc01b3e4b291
+  SKIP
+  SKIP
+)
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
   ln -s "$srcdir/gvdb" "$pkgname/subprojects/gvdb"
+  ln -s "$srcdir/wlroots" "$pkgname/subprojects/wlroots-0.20.x"
   meson subprojects checkout --sourcedir $pkgname
+
+  cd "$srcdir/wlroots"
+  patch -Np1 -i "$srcdir/$pkgname/subprojects/packagefiles/wlroots/text-input-v2/0001-text-input-v3-Introduce-version.patch"
+  patch -Np1 -i "$srcdir/$pkgname/subprojects/packagefiles/wlroots/text-input-v2/0002-text-input-Add-version-2-events.patch"
+  patch -Np1 -i "$srcdir/$pkgname/subprojects/packagefiles/wlroots/text-input-v2/0003-text-input-v3-Add-version-2-requests.patch"
+  patch -Np1 -i "$srcdir/$pkgname/subprojects/packagefiles/wlroots/text-input-v2/0004-text-input-v3-Bump-protocol-version-to-2.patch"
+  patch -Np1 -i "$srcdir/$pkgname/subprojects/packagefiles/wlroots/0001-Revert-layer-shell-error-on-0-dimension-without-anch.patch"
 }
 
 build() {
   arch-meson $pkgname build \
-    -D embed-wlroots=disabled \
+    -D wlroots:default_library=static \
     -D man=true
   meson compile -C build
 }
@@ -62,5 +87,5 @@ check() {
 }
 
 package() {
-  meson install -C build --destdir "$pkgdir"
+  meson install -C build --destdir "$pkgdir" --skip-subprojects wlroots
 }
