@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-quickcontrols-nemo
-pkgver=6.5
+pkgver=6.5.1
 pkgrel=1
 pkgdesc="Qt 6 QML components for Nemomobile"
 arch=('x86_64')
@@ -11,12 +11,10 @@ depends=('mlite' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'ttf-opensans')
 makedepends=('cmake' 'git' 'qt6-shadertools' 'qt6-tools')
 checkdepends=('nemo-theme-glacier' 'xorg-server-xvfb')
 source=("git+https://github.com/nemomobile-ux/qtquickcontrols-nemo.git#tag=$pkgver")
-sha512sums=('2cbfcab8b35c51858744b65de27ed9c0b372998023f6727719bd14a59c1db2e7f0f724bc394ea33e7dd9cc8eddadc63d331bd1136601ba53e8d06759c2e5d91e')
+sha512sums=('6b062711fdd1f1bdd602bcfe59ee0e44b13cac0b62a2e7338c8df745caec5d46fb62fd4f6922b314a32a7309433a32e97dad33c5b8a7b0c7e5b9787c9dd99c55')
 
 prepare() {
   cd qtquickcontrols-nemo
-  # Build the translations added in 6.5; upstream fixed this in 6.5.1.
-  git cherry-pick -n ad564867bdbffd1d2faaedde8f0e5925416d32e2
   # Load the controls module so GlacierRoller can resolve InverseMouseArea.
   sed -i '/^import Nemo$/a import Nemo.Controls' src/controls/qml/GlacierRoller.qml
   # Register HeaderToolsIndicator as part of the QML module.
