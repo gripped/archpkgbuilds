@@ -1,7 +1,7 @@
 # Maintainer: Daurnimator <daurnimator@archlinux.org>
 
 pkgname=argocd
-pkgver=3.6.1
+pkgver=3.6.2
 pkgrel=1
 pkgdesc="Declarative continuous deployment for Kubernetes"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=('glibc')
 provides=('argocd-cli')
 replaces=('argocd-cli')
 source=("argo-cd-${pkgver}.tar.gz::https://github.com/argoproj/argo-cd/archive/v${pkgver}.tar.gz")
-sha512sums=('0ea4d4c3b7b9db4dbb77cdd6539d33bd4ad87bf82365b58ee1c0b1f82925a6a59204a3f15e20b193cfc813c1596439bb57fb8e5054134e83f11dfa8fea0d47ed')
+sha512sums=('e0da683df627733c43a8fc3eba7b54a2aa72a776c6d014b22bf87377ed7dd6e7e417befe88d9b7a5e035d0002a4385d720a1ed4dc9d82c1ec6b7b5da9cd53925')
 
 prepare() {
   cd "argo-cd-$pkgver"
