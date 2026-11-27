@@ -3,7 +3,7 @@
 # Contributor: Nate Simon <aurpkg (at natesimon.net)>
 
 pkgname=xed
-pkgver=3.9.0
+pkgver=3.9.2
 pkgrel=1
 pkgdesc='A small and lightweight text editor'
 arch=(x86_64)
@@ -34,11 +34,10 @@ makedepends=(
   gobject-introspection
   intltool
   itstool
-  libgirepository
   meson
 )
 source=("git+https://github.com/linuxmint/xed.git#tag=$pkgver")
-b2sums=(8570b23a85e58a7d80cf8ac754a22a38e6cfb2276016d9ded65ee8fd3ace5f9b5ac18888b47b9751ac93e73da23240c146833f64549dc3bbc1758c10d9d5869e)
+b2sums=(8ddce5b501c9034c38005314d19c203001e6654bc8cb60e6c72da5adf067d70f09069f98ccd69d463c3fae938ef1386e177c088219f2a62a8a21f99ace78e83e)
 
 prepare() {
   cd $pkgname
