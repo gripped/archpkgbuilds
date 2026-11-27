@@ -5,8 +5,8 @@
 # Contributor: MatejSpindler <spindler.matej@gmail.com>
 
 pkgname=esptool
-pkgver=5.6.0
-pkgrel=2
+pkgver=5.7.0
+pkgrel=1
 pkgdesc='Espressif SoC serial bootloader utility'
 arch=(any)
 url='https://github.com/espressif/esptool'
@@ -30,7 +30,7 @@ optdepends=(
 )
 source=("git+$url.git#tag=v$pkgver"
         "pyserial-LICENSE.txt::https://raw.githubusercontent.com/pyserial/pyserial/v3.5/LICENSE.txt")
-b2sums=('091f2b49b8f4db75cb602bae1b766c912eded8ab55bd41cd6c69b69246e5afd5d02e7eb9ff30d22c8d00018a664330bdc9ed7e678fdda24e065ca33a9372afdf'
+b2sums=('42fa33087cd7da15b4dacf2c6219221a8f200fbcb85a8aa881b48d3fd7a462b9df7a90c8afc276ead0a0628e8576c2d1ed65afa0f0485fe96cc616ddba2e1af4'
         '40dabd96de3160b6754146e97774d8f545410486ad1350c9a4d42248c2aea1f79df7e4bde681aa32926009707827dc6e438968d7a02bf86126561db46cb26f44')
 
 build() {
