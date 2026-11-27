@@ -2,7 +2,7 @@
 
 pkgname=python-pdm
 _name=${pkgname#python-}
-pkgver=2.29.5
+pkgver=2.29.7
 pkgrel=1
 pkgdesc="A modern Python package and dependency manager supporting the latest PEP standards"
 arch=(any)
@@ -10,8 +10,8 @@ url="https://github.com/pdm-project/pdm"
 license=(MIT)
 depends=(
   python
-  python-anyio  # required by python-hishel's 'httpx' feature
-  python-anysqlite  # required by python-hishel's 'httpx' feature
+  python-anyio  # required by python-hishel's 'httpx2' feature
+  python-anysqlite  # required by python-hishel's 'httpx2' feature
   python-argcomplete
   python-blinker
   python-certifi
@@ -21,7 +21,7 @@ depends=(
   python-findpython
   python-hishel
   python-httpcore
-  python-httpx
+  python-httpx2
   python-id
   python-installer
   python-msgpack
@@ -32,7 +32,7 @@ depends=(
   python-resolvelib
   python-rich
   python-shellingham
-  python-socksio  # required via python-httpx 'socks' feature
+  python-socksio  # required via python-httpx2 'socks' feature
   python-tomlkit
   python-truststore
   python-unearth
@@ -45,6 +45,7 @@ makedepends=(
   python-wheel
 )
 checkdepends=(
+  dash
   git
   python-pytest
   python-pytest-httpserver
@@ -64,8 +65,8 @@ optdepends=(
   'python-uv: use uv as installer and resolver'
 )
 source=($_name-$pkgver.tar.gz::$url/archive/refs/tags/$pkgver.tar.gz)
-sha512sums=('cf4a193d9abe1f7042101d6b21ab003e2738752b88b97b20b4b05e6bce7db379283ac47ea6c13dd19523b4e5c374ac4c58d0262b8e3f03444dbb24b5487a3892')
-b2sums=('901deca6a47976650fc4c44aba194f1cc123db73d6204c65f8c3614e2a920532e9bb14bd11d91a8dde5bc45d91021c8f533fceeda780087271cd56e9adc05bd6')
+sha512sums=('1b45c95d09e11a036abeb9287df51953e07a7def958b4756738cf54206cd11f66efbf47a5d7ee39069f43b7d7c99197b04208c9c46994e364076ff151c0ebd8f')
+b2sums=('d6cfc174bd03ae31d6ae78a092bbf4e822600e270e6a701d0d765777c2c2507e6e91c13dfaa215ec52afcb6ffe211b7bfeab090a7f9a44923e7176f00dbe390e')
 
 build() {
   cd $_name-$pkgver
@@ -82,6 +83,8 @@ check() {
     --deselect tests/cli/test_build.py::test_build_with_no_isolation
     # downloads the internet
     --deselect tests/cli/test_others.py::test_search_package
+    # Tests fail with dash: https://github.com/pdm-project/pdm/issues/4007
+    --deselect tests/cli/test_pep582_preservation.py::test_pep582_setup_preserves_literals_order_and_repeated_exports
   )
   local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
 
