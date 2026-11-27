@@ -1,9 +1,9 @@
 # Maintainer: Justin Kromlinger <hashworks@archlinux.org>
 
 pkgname=opensearch-geospatial-plugin
-pkgver=3.9.0.0
+pkgver=3.10.1.0
 pkgrel=1
-_opensearchver=3.9.0
+_opensearchver=3.10.1
 _jdkver=21
 pkgdesc="OpenSearch Geospatial Plugin"
 arch=('x86_64')
@@ -14,11 +14,11 @@ makedepends=("java-environment=${_jdkver}" 'unzip')
 source=(
   "${pkgname}-${pkgver}.tar.gz::https://github.com/opensearch-project/geospatial/archive/${pkgver}.tar.gz"
 )
-sha256sums=('4d132972b6c5bcf35b4c4cb0e2b80ba8b706c16df77a2428ce85a7d68a6d5db9')
+sha256sums=('ae6a3ce5c247769ba3300eb2f9499a9690232a02b838e3e86ac56f2025532cc2')
 
 prepare() {
   cd "geospatial-${pkgver}"
-  # log4j-core 2.25.5 wants jspecify 1.0.0, OpenSearch 3.9.0 brings 1.0.1
+  # log4j-core 2.25.5 wants jspecify 1.0.0, OpenSearch 3.10.1 brings 1.0.1
   sed -e '/force("com.google.errorprone:error_prone_annotations/a\        force("org.jspecify:jspecify:1.0.1")' \
     -i build.gradle
 }
