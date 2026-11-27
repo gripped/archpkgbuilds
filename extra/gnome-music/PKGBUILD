@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=gnome-music
-pkgver=50.0
+pkgver=51.0
 pkgrel=1
 epoch=1
 pkgdesc="Music player and management application"
@@ -12,8 +12,9 @@ arch=(any)
 license=(GPL-2.0-or-later)
 depends=(
   dconf
-  gdk-pixbuf2
   glib2
+  glycin
+  glycin-gtk4
   graphene
   grilo
   grilo-plugins
@@ -34,6 +35,7 @@ depends=(
 )
 makedepends=(
   appstream
+  blueprint-compiler
   git
   gobject-introspection
   meson
@@ -48,7 +50,7 @@ groups=(gnome)
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-music.git#tag=${pkgver/[a-z]/.&}"
 )
-b2sums=('8aba3ed22b235d29660e8849787f8349ddac82ff1cb1785e7fc2a1301ab674fb49711efdc9040c569335dd3305d2f9c278a08721f169f2c6a56f45b749ee23a7')
+b2sums=('32f81412ada42ef52d4ed6761a2dd961e713a320f6a57994a38c601d04e83784b18a8bfce223e4c1653cd2dc785d502576764d27e7c95f92240a45bfcf0d1d99')
 
 prepare() {
   cd $pkgname
