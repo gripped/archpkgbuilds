@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocm-openmp
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='Radeon Open Compute - OpenMP host runtime and GPU target offloading'
 arch=('x86_64')
@@ -10,9 +10,11 @@ url='https://rocm.docs.amd.com/en/latest/reference/rocmcc.html'
 license=('Apache-2.0 WITH LLVM-exception')
 depends=('rocm-core' 'rocm-llvm' 'rocm-device-libs' 'hsa-rocr'
          'glibc' 'gcc-libs' 'zlib' 'zstd' 'libffi' 'libxml2' 'ncurses')
-makedepends=('git' 'cmake' 'ninja' 'python' 'perl' 'rocm-cmake')
-source=("$pkgname::git+https://github.com/ROCm/llvm-project#tag=rocm-$pkgver")
-sha256sums=('SKIP')
+makedepends=('git' 'cmake' 'ninja' 'python' 'perl' 'rocm-cmake'
+             'rocm-flang' 'rocm-llvm-static' 'rocm-llvm-headers')
+optdepends=('rocm-flang: Fortran GPU offloading')
+source=("$pkgname::git+https://github.com/ROCm/llvm-project#tag=therock-$pkgver")
+sha256sums=('58e44c323502ea44bf61ce4de031b0f9218a28d097d38422376b0e0b7572d407')
 options=(staticlibs !lto)
 
 _prefix=/opt/rocm/lib/llvm
@@ -34,14 +36,12 @@ build() {
     _clang_major=$(basename "$("$_prefix/bin/clang" -print-resource-dir)")
 
     # PluginCommon/EmissaryFortrt.cpp calls the Fortran I/O runtime so that
-    # Fortran code can print from inside a target region, so libomptarget needs
-    # to link flang_rt.runtime. The plugin CMakeLists only adds
-    # -L$CMAKE_INSTALL_PREFIX/lib, but in an installed rocm-llvm the library
-    # lives under the clang resource directory, so point the linker at it.
-    local _flangrt_dir
-    _flangrt_dir=$(dirname "$("$_prefix/bin/clang" -print-file-name=libflang_rt.runtime.a)")
-    LDFLAGS+=" -L$_flangrt_dir"
-    export LDFLAGS
+    # Fortran code can print from inside a target region. The plugin CMakeLists
+    # searches flang_rt.runtime in the resource directory below LLVM_BINARY_DIR,
+    # which is the build directory here, and silently drops EmissaryFortrt.cpp
+    # when it is not found. Pass the library of the installed rocm-llvm.
+    local _flangrt
+    _flangrt=$("$_prefix/bin/clang" -print-file-name=libflang_rt.runtime.a)
 
     # The runtimes have to be built by the matching ROCm compiler, not by gcc:
     # the device runtime is emitted as bitcode that is later linked into user
@@ -68,10 +68,7 @@ build() {
         # already-installed libomp via find_library(... REQUIRED) rather than
         # using the omp target built alongside it.
         -D CLANG_VERSION_MAJOR="$_clang_major"
-        # Gates target_link_libraries(PluginCommon PRIVATE flang_rt.runtime) in
-        # offload/plugins-nextgen/common/CMakeLists.txt, without which
-        # libomptarget.so fails to link on undefined _FortranAio* symbols.
-        -D LIBOMPTARGET_BUILD_DEVICE_FORTRT=ON
+        -D LIBFLANG_RT="$_flangrt"
         # Only the AMDGPU plugin is useful here; cuda would drag in the NVIDIA
         # toolchain and host is only a fallback for testing.
         -D LIBOMPTARGET_PLUGINS_TO_BUILD='amdgpu'
@@ -83,11 +80,15 @@ build() {
     # stubs in the ROCm fork are not used.
     # LIBOMP_FORTRAN_MODULES builds omp_lib.mod, without which `use omp_lib`
     # does not resolve and no Fortran program can use OpenMP at all.
+    # The Fortran modules go to <resource dir>/finclude/flang/<triple>. Use the
+    # triple of the installed flang, which searches only its own triple.
     cmake "${cmake_args[@]}" \
         -B build \
+        -D LLVM_DEFAULT_TARGET_TRIPLE="$("$_prefix/bin/clang" -print-target-triple)" \
         -D LLVM_ENABLE_RUNTIMES='openmp;offload' \
         -D OPENMP_INSTALL_LIBDIR=lib \
         -D LIBOMP_FORTRAN_MODULES=ON \
+        -D LIBOMP_FORTRAN_MODULES_COMPILER="$_prefix/bin/flang" \
         -D CMAKE_Fortran_COMPILER="$_prefix/bin/flang"
     cmake --build build
 
@@ -111,16 +112,6 @@ build() {
 package() {
     DESTDIR="$pkgdir" cmake --install build
     DESTDIR="$pkgdir" cmake --install build-device
-
-    # The runtimes build drops the Fortran modules in $prefix/include, which is
-    # not searched by flang. Its intrinsic module directory is $prefix/include/flang
-    # (that is where rocm-llvm puts its own .mod files), so `use omp_lib` only
-    # resolves without -I once they live there.
-    local _mod
-    for _mod in omp_lib.mod omp_lib_kinds.mod; do
-        install -Dm644 "$pkgdir$_prefix/include/$_mod" "$pkgdir$_prefix/include/flang/$_mod"
-        rm "$pkgdir$_prefix/include/$_mod"
-    done
 
     cd "$pkgname"
     install -Dm644 openmp/LICENSE.TXT "$pkgdir/usr/share/licenses/$pkgname/openmp-LICENSE"
