@@ -4,7 +4,7 @@
 pkgbase=ghostty
 pkgname=(ghostty ghostty-shell-integration ghostty-terminfo ghostty-nautilus)
 pkgver=1.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Fast, native, feature-rich terminal emulator pushing modern features'
 arch=(x86_64 aarch64 i686)
 url="https://github.com/ghostty-org/$pkgbase"
@@ -75,6 +75,8 @@ package_ghostty() {
 	rm -r "$pkgdir"/usr/share/terminfo
 	rm -r "$pkgdir"/usr/share/ghostty/shell-integration
 	rm -r "$pkgdir"/usr/share/nautilus-python/
+	# provided by libghostty-vt
+	rm -r "$pkgdir"/usr/{include,lib/libghostty-vt.*}
 }
 
 package_ghostty-shell-integration() {
