@@ -1,14 +1,14 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgbase=intel-pti
-# TODO Package other performance and profile tools
+# TODO Package samples
 pkgname=(
 	intel-pti
-	# intel-pti-tools
+	intel-pti-tools
 	# intel-pti-samples
 )
-pkgver=0.17.0
-pkgrel=1
+pkgver=1.2.0
+pkgrel=2
 _pkgdesc="Profiling Tools Interfaces for Intel GPUs"
 arch=('x86_64')
 url="https://intel.github.io/pti-gpu/"
@@ -25,12 +25,14 @@ depends=(
 makedepends=(
 	cmake
 	ninja
+	git
 	procps-ng
 	libdrm
 	python
 	openmpi
 	onedpl
 	oneccl
+	opencl-headers
 	intel-oneapi-dpcpp-cpp
 	intel-oneapi-mkl
 	intel-oneapi-mkl-sycl
@@ -42,17 +44,11 @@ makedepends=(
 	intel-metrics-library
 	gtpin
 )
-_git=https://github.com/intel/pti-gpu
-source=("${pkgname}-${pkgver}.tar.gz::${_git}/archive/refs/tags/pti-${pkgver}.tar.gz")
-sha256sums=('9c29c17ed4cf2da48b00df8de8a28ae3e117635e52ce6b53a0e7a7c190075ea9')
+# The build fetches ittapi, Level Zero and compute-runtime headers, protobuf and
+# the Perfetto proto at the versions upstream pins
+source=("git+https://github.com/intel/pti-gpu#tag=pti-${pkgver}")
+sha256sums=('aee18bd9fd7f668496d231acf8ccb1f4622bec367df1130ca6a06ffa226c75f4')
 options=(!lto)
-
-prepare() {
-	cd pti-gpu-pti-${pkgver}
-
-	# uses deprecated and eventually removed header
-	sed -i '\|add_subdirectory(samples/itt_ccl)|d' sdk/CMakeLists.txt
-}
 
 build() {
 	source /opt/intel/oneapi/setvars.sh
@@ -64,15 +60,17 @@ build() {
 	local cmake_args=(
 		-Wno-dev
 		-G Ninja
-		-B build-sdk
-		-S pti-gpu-pti-${pkgver}/sdk
+		# unitrace --version reports git rev-parse HEAD of the build directory
+		-B pti-gpu/build
+		-S pti-gpu
 		-D CMAKE_INSTALL_PREFIX=/usr
+		-D CMAKE_INSTALL_SYSCONFDIR=/etc
 		-D CMAKE_BUILD_TYPE=None
-		-D CMAKE_TOOLCHAIN_FILE="$srcdir"/pti-gpu-pti-${pkgver}/sdk/cmake/toolchains/icpx_toolchain.cmake
-		-D GPTIN_PATH=/opt/intel/Profilers
+		-D CMAKE_TOOLCHAIN_FILE="$srcdir"/pti-gpu/sdk/cmake/toolchains/icpx_toolchain.cmake
+		-D BUILD_TESTING=OFF
 	)
 	cmake "${cmake_args[@]}"
-    cmake --build build-sdk
+	cmake --build pti-gpu/build
 }
 
 package_intel-pti() {
@@ -81,6 +79,32 @@ package_intel-pti() {
 		level-zero-loader
 		intel-oneapi-dpcpp-cpp
 	)
-    DESTDIR="${pkgdir}" cmake --install build-sdk
-    install -Dm644 pti-gpu-pti-${pkgver}/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+	local component
+	for component in Pti_Runtime Pti_Development Pti_Doc; do
+		DESTDIR="${pkgdir}" cmake --install pti-gpu/build --component ${component}
+	done
+	install -Dm644 pti-gpu/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+package_intel-pti-tools() {
+	pkgdesc="$_pkgdesc (unitrace)"
+	# Static ittnotify
+	license+=('BSD-3-Clause')
+	depends+=(
+		python
+		openmpi
+		opencl-icd-loader
+		intel-oneapi-compiler-shared-runtime
+		intel-oneapi-openmp
+	)
+	optdepends=(
+		'python-pandas: trace analysis scripts'
+		'python-matplotlib: trace analysis scripts'
+	)
+	local component
+	for component in Unitrace_Runtime Unitrace_Scripts Unitrace_Config; do
+		DESTDIR="${pkgdir}" cmake --install pti-gpu/build --component ${component}
+	done
+	install -Dm644 pti-gpu/LICENSE -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+	install -Dm644 pti-gpu/build/ittapi/LICENSES/BSD-3-Clause.txt -t "${pkgdir}"/usr/share/licenses/${pkgname}/
 }
