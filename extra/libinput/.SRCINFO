@@ -1,11 +1,12 @@
 pkgbase = libinput
 	pkgdesc = Input device management and event handling library
 	pkgver = 1.32.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://wayland.freedesktop.org/libinput/doc/latest/
 	arch = x86_64
 	license = MIT
 	checkdepends = python-pytest
+	checkdepends = valgrind
 	makedepends = cairo
 	makedepends = check
 	makedepends = git
@@ -23,7 +24,7 @@ pkgbase = libinput
 	depends = libevdev
 	depends = libgcc
 	depends = libwacom
-	depends = lua54
+	depends = lua
 	depends = mtdev
 	depends = systemd-libs
 	source = git+https://gitlab.freedesktop.org/libinput/libinput.git?signed#tag=1.32.0

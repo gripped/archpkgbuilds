@@ -7,7 +7,7 @@ pkgname=(
   libinput-tools
 )
 pkgver=1.32.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Input device management and event handling library"
 url="https://wayland.freedesktop.org/libinput/doc/latest/"
 arch=(x86_64)
@@ -17,7 +17,7 @@ depends=(
   libevdev
   libgcc
   libwacom
-  lua54
+  lua
   mtdev
   systemd-libs
 )
@@ -36,7 +36,10 @@ makedepends=(
   wayland
   wayland-protocols
 )
-checkdepends=(python-pytest)
+checkdepends=(
+  python-pytest
+  valgrind
+)
 source=(
   "git+https://gitlab.freedesktop.org/libinput/libinput.git?signed#tag=$pkgver"
 )
