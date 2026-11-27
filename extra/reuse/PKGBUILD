@@ -3,8 +3,8 @@
 # Contributor: Max Mehl <aur at mehl dot mx>
 
 pkgname=reuse
-pkgver=6.2.0
-pkgrel=2
+pkgver=6.3.0
+pkgrel=1
 pkgdesc='Helper tool for providing and confirming copyright and licensing information'
 arch=(any)
 url='https://reuse.software/'
@@ -36,14 +36,18 @@ makedepends=(
   python-myst-parser
   python-sphinx-furo
 )
-checkdepends=(python-pytest python-freezegun)
+checkdepends=(
+  python-freezegun
+  python-pytest
+  python-pytest-lazy-fixtures
+)
 optdepends=(
   'git: git repository support'
   'mercurial: mercurial repository support'
 )
 source=("$pkgname::git+https://github.com/fsfe/reuse-tool#tag=v$pkgver")
-sha512sums=('ac46904579ab918ab97ee9b89229b298ef81dc76c88a175e1ef097a24b1a25c4470b2adbfd8aa83e0bef154fee84eef6cccbe417d0be7c5a7d457d3992c7766e')
-b2sums=('2129ae04524ad1f376e27446ab98877dcf5475aa40ed42a4f60444ac760251816a98eded345c8cfc2cd7e33fc2b1f99c5c20216c1bc1a143b5000250a7cf8e3f')
+sha512sums=('fb75e55cb607ae26c3696d94bff7ad9c644f37c20cf3871c667ade628d3e0407ef8d3d5d60216a0bcc384fe1a935a4bfdf894e4d2a2ce7b5c76d665cab7e53be')
+b2sums=('89ca0977f1ff2c7acb6e17e835177b74b58096640ae090445ee5d921deb643e616c1793fc8853e0ceff8f0de2ab9110b4a5b92eed5d143c0eb0326ff6c8b6091')
 
 prepare() {
   cd "$pkgname"
