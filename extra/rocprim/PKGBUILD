@@ -3,18 +3,17 @@
 # Contributor: Markus Näther <naetherm@informatik.uni-freiburg.de>
 
 pkgname=rocprim
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='Header-only library providing HIP parallel primitives'
 arch=('any')
 url='https://rocm.docs.amd.com/projects/rocPRIM/en/latest/index.html'
 license=('MIT')
 depends=('rocm-core' 'hip-runtime-amd')
-makedepends=('cmake' 'git' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm')
+makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm')
 _git='https://github.com/ROCm/rocm-libraries'
-source=("rocm-libraries-$pkgver.tar.gz::https://github.com/ROCm/rocm-libraries/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('50a4090b4ad18b34c375f666e5f71816cf55f89bc2175dc3eba9a7b80f65a15d')
-_dirname="rocm-libraries-rocm-$pkgver/projects/$pkgname"
+source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
+sha256sums=('feea175561e6c251837e506af93d4567f4793dd2b083ab302bf8edfb295e41bf')
 
 build() {
   # -fcf-protection is not supported by HIP, see
@@ -24,11 +23,11 @@ build() {
   CXXFLAGS+=" -fcf-protection=none"
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname"
+    -S "$pkgname"
     -B build
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
     -D CMAKE_BUILD_TYPE=None
-    -D CMAKE_TOOLCHAIN_FILE="$srcdir/$_dirname"/toolchain-linux.cmake
+    -D CMAKE_TOOLCHAIN_FILE="$srcdir/$pkgname"/toolchain-linux.cmake
     -D AMDGPU_TARGETS=$(rocm-supported-gfx)
   )
   cmake "${cmake_args[@]}"
@@ -38,5 +37,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$_dirname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$pkgname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
