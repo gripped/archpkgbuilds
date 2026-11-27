@@ -12,26 +12,14 @@ index b05b63c..bde2591 100644
  option(DOAPP "option for test app" OFF)
  set(DOAPP ON)
  
-diff --git a/application/CMakeLists.txt b/application/CMakeLists.txt
-index f92fc91..cb240cd 100644
---- a/application/CMakeLists.txt
-+++ b/application/CMakeLists.txt
-@@ -36,6 +36,7 @@ set(LINK_LIBS
- 
- # Qt6 has WidgetsPrivate module, Qt5 does not (use private target differently)
- if (QT_VERSION_MAJOR MATCHES 6)
-+    find_package(Qt6 REQUIRED COMPONENTS WidgetsPrivate)
-     list(APPEND LINK_LIBS Qt${QT_VERSION_MAJOR}::WidgetsPrivate)
- endif()
- 
 diff --git a/application/widgets/customcontrol/dmtreeview.cpp b/application/widgets/customcontrol/dmtreeview.cpp
-index 30a19ab..91687e0 100644
+index fc70630..8eaa9cb 100644
 --- a/application/widgets/customcontrol/dmtreeview.cpp
 +++ b/application/widgets/customcontrol/dmtreeview.cpp
-@@ -295,7 +295,7 @@ void DmTreeview::setRefreshItem(int devicenum, int num) //设置刷新后默认
+@@ -296,7 +296,7 @@ void DmTreeview::setRefreshItem(int devicenum, int num) //设置刷新后默认
      } else {
  #if QT_VERSION_MAJOR > 5
-         qDebug() << "QT_VERSION_MAJOR > 5, setting current index with devicenum and num";
+         qCDebug(appLog) << "QT_VERSION_MAJOR > 5, setting current index with devicenum and num";
 -        setCurrentIndex(model()->index(devicenum, 0).model()->index(num, 0));
 +        setCurrentIndex(model()->index(num, 0, model()->index(devicenum, 0)));
  #else
@@ -80,7 +68,7 @@ index bd6ce45..60e0375 100755
     exit 0
  fi
 diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
-index 6193d5a..caa2333 100644
+index 6193d5a..e787db5 100644
 --- a/tests/CMakeLists.txt
 +++ b/tests/CMakeLists.txt
 @@ -8,8 +8,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -102,14 +90,17 @@ index 6193d5a..caa2333 100644
  file(GLOB ALL_HEADERS "../application/*.h" "../application/widgets/*.h" "../application/widgets/customcontrol/*.h" "../application/partedproxy/*.h")
  file(GLOB ALL_SOURCES "../application/*.cpp" "../application/widgets/*.cpp" "../application/widgets/customcontrol/*.cpp" "../application/partedproxy/*.cpp")
  file(GLOB ALL_QRCS "../application/assets/appicons.qrc")
-@@ -61,6 +62,7 @@ set(LINK_LIBS
+@@ -49,6 +50,10 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS
+     DBus
+     REQUIRED)
  
- # Qt6 has WidgetsPrivate module, Qt5 does not
- if (QT_VERSION_MAJOR MATCHES 6)
-+    find_package(Qt6 REQUIRED COMPONENTS WidgetsPrivate)
-     list(APPEND LINK_LIBS Qt${QT_VERSION_MAJOR}::WidgetsPrivate)
- endif()
- 
++if (QT_VERSION_MAJOR MATCHES 6 AND Qt6_VERSION VERSION_GREATER_EQUAL 6.10)
++    find_package(Qt6 REQUIRED COMPONENTS WidgetsPrivate GuiPrivate)
++endif()
++
+ set(LINK_LIBS
+     Qt${QT_VERSION_MAJOR}::Core
+     Qt${QT_VERSION_MAJOR}::DBus
 diff --git a/tests/ut_application/ut_application.cpp b/tests/ut_application/ut_application.cpp
 index c291e3d..22e8955 100644
 --- a/tests/ut_application/ut_application.cpp
