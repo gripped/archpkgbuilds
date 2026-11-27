@@ -3,7 +3,9 @@
 
 pkgname=rpp
 pkgver=7.2.4
-pkgrel=2
+pkgrel=3
+# rpp 10.0 (librpp.so.3) breaks mivisionx and rocal, keep the rocm-7.2 series
+epoch=1
 pkgdesc="AMD ROCm Performance Primitives"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/rpp/en/latest/"
