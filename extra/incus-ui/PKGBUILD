@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=incus-ui
-pkgver=0.22.1
+pkgver=0.23.1.0
 pkgrel=1
 pkgdesc='incus web interface'
 arch=(x86_64)
@@ -9,8 +9,8 @@ url='https://github.com/zabbly/incus-ui-canonical'
 license=(GPL-3.0-only)
 makedepends=(git yarn npm)
 source=("$pkgname::git+https://github.com/zabbly/incus-ui-canonical.git#tag=incus-${pkgver}")
-sha512sums=('6834184283733e2525c4a2d3f50abc025068cb5fdd88c4af1f9c9c2447b0e96515cb8f729f64711fb3aa2119e82a43fd751f8b957de72b8a713c30ea901c6282')
-b2sums=('f79321025743aec2e0d11b54b7d965b829ebfe5d87714f576807e861dd79487d080945d7f1edb13338cb39558dcae8671ce4518ef103d8f0a287850334ce92dc')
+sha512sums=('fa2e2eadfcf420396b25b47982c44d417a7bc77b51b095068ae05f1d8f834e9fc1b4bc0f911e19baab9546f627bdf5d2e4d233bb9c271c5353ee9cccf3e0b882')
+b2sums=('7e38a23aabe5803f382e8b0e4d1abd219aff222cb4f3e003ff5a44b9d4985ac4384c78f1c208f5fc56645e8377a4bc1c87251c5ef88388588a7abce5f1bcd633')
 
 prepare() {
   cd "$pkgname"
