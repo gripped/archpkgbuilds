@@ -4,7 +4,7 @@
 _hkgname=hslua-repl
 pkgname=haskell-hslua-repl
 pkgver=0.1.2
-pkgrel=215
+pkgrel=216
 pkgdesc="Isocline-based Lua REPL"
 url="https://hslua.org/"
 license=("MIT")
@@ -17,6 +17,7 @@ sha256sums=('8244cd3ab875d922b59c77c5cf818997d3eaec492dda4a91d70914a03711c602')
 prepare() {
   cd $_hkgname-$pkgver
   gen-setup
+  uusi -u isocline
 }
 
 build() {
