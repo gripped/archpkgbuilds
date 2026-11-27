@@ -1,11 +1,12 @@
 pkgbase = cairo-dock-plug-ins
 	pkgdesc = Plugins for Cairo-Dock
 	pkgver = 3.6.2
-	pkgrel = 3
+	pkgrel = 4
 	url = https://github.com/Cairo-Dock/cairo-dock-plug-ins
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = cmake
+	makedepends = git
 	makedepends = vala
 	depends = cairo-dock
 	depends = python
@@ -44,9 +45,7 @@ pkgbase = cairo-dock-plug-ins
 	depends = fftw
 	depends = json-c
 	replaces = cairo-dock-plugins
-	source = cairo-dock-plug-ins-3.6.2.tar.gz::https://github.com/Cairo-Dock/cairo-dock-plug-ins/archive/3.6.2.tar.gz
-	source = libical-4.patch
-	sha256sums = a93700e9633d7562f34af83b5f0a0a97b24915dd2ae908c2e627acec2e4b295e
-	sha256sums = dc306f7995e8668cac82419af73c361a286911e097d487cfa70e6e61f257fa90
+	source = git+https://github.com/Cairo-Dock/cairo-dock-plug-ins.git#tag=3.6.2
+	sha256sums = c453c446293660aa0ffe19af679cca0c5eff31afb3247228605927e5be6a7a68
 
 pkgname = cairo-dock-plug-ins
