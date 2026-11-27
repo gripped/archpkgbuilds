@@ -1,16 +1,16 @@
 # Maintainer: Alexander F. Rødseth <xyproto@archlinux.org>
 
 pkgname=setconf
-pkgver=0.7.7
-pkgrel=4
+pkgver=0.7.8
+pkgrel=1
 pkgdesc='Utility for easily changing settings in configuration files'
 arch=(any)
-url='https://setconf.roboticoverlords.org/'
-license=(GPL2)
+url='https://setconf.roboticoverlords.org'
+license=(GPL-2.0-or-later)
 depends=(python)
-validpgpkeys=('962855F072C7A01846405864FCF3C8CB5CF9C8D4')
+validpgpkeys=('8A9BC5819C54FEB3DC2A9B48C32217F6F13FF192')
 source=("$url/$pkgname-$pkgver.tar.xz"{,.asc})
-b2sums=('6f771b29d77aac4eb8b2c1fde14f1c99d6d57c00fb90b7b35023e469dd0a52c6b65f02975d8dbf36fbad9083499fda0abf6e87991e336559d4198dca760c6d5c'
+b2sums=('98e179a74476c8a70350b22e69726831808684fd596ffa5d19f64aea677da56a178f593bded267f6b1d36e1e0173bede4c7ea84dda61e7c01b5db7356d08e628'
         'SKIP')
 
 package() {
