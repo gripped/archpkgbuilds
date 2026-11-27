@@ -5,13 +5,14 @@
 
 pkgname=pstoedit
 pkgver=4.3
-pkgrel=1
+pkgrel=2
 pkgdesc='Translates PostScript and PDF graphics into other vector formats'
 arch=(x86_64)
 url='https://www.pstoedit.com'
 _url="https://github.com/woglu/$pkgname"
 license=(GPL-2.0-only)
 depends=(
+         glibc
          libgcc
          libstdc++
          gd
