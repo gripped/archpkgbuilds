@@ -6,7 +6,7 @@
 
 pkgbase=libseccomp
 pkgname=(libseccomp python-libseccomp)
-pkgver=2.6.0
+pkgver=2.6.2
 pkgrel=1
 pkgdesc='Enhanced seccomp library'
 arch=(x86_64)
@@ -26,8 +26,8 @@ makedepends=(
   python-wheel
 )
 source=(git+https://github.com/seccomp/libseccomp.git#tag=v${pkgver}?signed)
-sha256sums=('2aa9a02d102753f4c4f23ff201dec3fbc4cf33d46dd64a0f2aaf5a5341227a93')
-b2sums=('76fa0801936a970b0bdff3d3cbc9e8e65f0afbfa1d1e13bd4319a6fee4aa520234a2a5273354ed87671666abb1f961cf9c678d1b38c3afd594f9c8d7694630d2')
+sha256sums=('d50fd20cecea0e8bb4b0cb3bd5c485c86886bbc3cbc8bd60a38ed3870e3b3b85')
+b2sums=('9aa7ae359863b9874b19e904f1c0d32f910a4a70cab852d153222e995745a02797af456b8bc12b28925d58a34a5b531ef472834a88a19e1d5d873abc15ae2185')
 validpgpkeys=(
   '7100AADFAE6E6E940D2E0AD655E45A5AE8CA7C8A' # Paul Moore <paul@paul-moore.com>
   '47A68FCE37C7D7024FD65E11356CE62C2B524099' # Tom Hromatka <tom.hromatka@oracle.com>
@@ -35,9 +35,6 @@ validpgpkeys=(
 
 prepare() {
   cd ${pkgbase}
-  # Fix test failures with gcc 15 and LTO
-  # hash: fix strict aliasing UB in MurMur hash implementation
-  git cherry-pick -n 614530bc8b3c9f49aa59d7eaef4863b746504c23
   autoreconf -fiv
 }
 
