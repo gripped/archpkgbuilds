@@ -3,7 +3,7 @@
 
 pkgname=openimagedenoise
 pkgver=2.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Intel(R) Open Image Denoise library'
 arch=('x86_64')
 url='https://openimagedenoise.github.io'
@@ -24,6 +24,7 @@ build() {
     -DCMAKE_INSTALL_PREFIX=/usr \
     -DOIDN_DEVICE_CUDA=ON \
     -DOIDN_DEVICE_HIP=ON \
+    -DOIDN_DEVICE_HIP_COMPILER=/opt/rocm/lib/llvm/bin/clang++ \
     -DCMAKE_BUILD_TYPE=Release
   ninja -C build
 }
