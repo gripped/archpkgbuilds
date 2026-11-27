@@ -1,7 +1,7 @@
 # Maintainer : Rémy Oudompheng <remy@archlinux.org>
 
 pkgname=pyalpm
-pkgver=0.12.0
+pkgver=0.12.1
 pkgrel=1
 pkgdesc="Python bindings for libalpm"
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('git' 'meson-python' 'python-build' 'python-installer' 'python-whee
 checkdepends=('python-pytest' 'python-pytest-pacman')
 source=("git+https://gitlab.archlinux.org/archlinux/pyalpm.git#tag=$pkgver")
 validpgpkeys=('E499C79F53C96A54E572FEE1C06086337C50773E')
-sha512sums=('4e6e652049379f5c2ee9d569883c697ad04817097ea9f19879ba69310c0344dc2f1a8517e271e9586e1ec40c2dfab0311b8ee7ff0f324f23f1677f464c6ee851')
+sha512sums=('251e42dda7245477a8dd1f45b69f293d366c66d179632c433eb7e12c935fa334d95af2724498a3e439dc7cdb7e4d872b7c516f6698d0ead983267902c80b1899')
 
 prepare() {
   cd "${pkgname}"
