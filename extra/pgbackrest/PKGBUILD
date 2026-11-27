@@ -3,8 +3,8 @@
 # Contributor: xiretza <xiretza+aur@xiretza.xyz>
 
 pkgname=pgbackrest
-pkgver=2.60.0
-pkgrel=2
+pkgver=2.60.1
+pkgrel=1
 pkgdesc='Reliable PostgreSQL backup and restore'
 arch=(x86_64)
 url="https://github.com/pgbackrest/pgbackrest"
@@ -12,7 +12,7 @@ license=(MIT)
 depends=(bzip2 glibc libbacktrace libssh2 libxml2 lz4 openssl postgresql-libs python-yaml zlib zstd)
 makedepends=(git libyaml meson)
 source=("git+$url#tag=release/$pkgver")
-b2sums=('e20c36a39882f1ae2c18b18117c0748455cab9bc61f452d350fa6cfc6db85e9bcc1a1ff578b76d159af0403205d88e61794dcdbc9feae486e3d67b92c23d6915')
+b2sums=('9765909f84d2a1cc043efcd2016d0207aea4fd681ad2ed80a40cd07bc7c7aa8538447e9c37da7f9164dc56c8195426c9416e4a834cf93045c78229db69b17c98')
 backup=(etc/$pkgname/$pkgname.conf)
 
 prepare() {
