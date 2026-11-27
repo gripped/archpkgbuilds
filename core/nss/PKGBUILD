@@ -6,7 +6,7 @@ pkgname=(
   nss
   ca-certificates-mozilla
 )
-pkgver=3.133
+pkgver=3.134
 pkgrel=1
 pkgdesc="Network Security Services"
 url="https://firefox-source-docs.mozilla.org/security/nss/index.html"
@@ -14,11 +14,12 @@ arch=(x86_64)
 license=(MPL-2.0)
 depends=(
   glibc
+  libgcc
+  libstdc++
   nspr
   p11-kit
   sh
   sqlite
-  zlib
 )
 makedepends=(
   gyp
@@ -31,7 +32,7 @@ source=(
   bundle.sh
   certdata2pem.py
 )
-b2sums=('d9f969fd5379a16fc99c6dd8b0e34e5a8a84a02ecb8a86a3c8b394c7090c68b51174f363b652383653f074368f0657066f036a0b54086f6ecee8aa14eff869c0'
+b2sums=('83a82d2ddb3275859e32128c085ef12a94c1de28b293ca38961c8e68fdbc1df82abc5a22ab45b7d29e4bf30c29d3f5c5cbed2c4de46cfe795c270c8cc2ce7bff'
         '4be5dd836c844fdd7b63302a6994d62149082c3bc81eef70f373f416fed80a61a923960e4390d1c391b81ab01b409370d788818a30ffdd3a4ed467b670f990f6'
         '6bb59dcc9289916dcbf8fb6d73db0c0cd7582dc12a3aa4e8be19ec62c9ede65fdd9470a2d92ec5a114506b78d2d21b8ae0a1b45a17dc1f90f7d75434a93da510')
 
@@ -93,12 +94,12 @@ package_nss() {
     install -D /dev/stdin "$pkgdir/usr/bin/nss-config"
 
   install -Dt "$pkgdir/usr/bin" \
-    dist/Release/bin/{*util,shlibsign,signtool,signver,ssltap}
+    dist/Release/bin/{*util,nss,shlibsign,signver,ssltap}
 
   install -Dt "$pkgdir$includedir" -m644 dist/public/nss/*.h
 
   install -Dt "$pkgdir/usr/share/man/man1" -m644 \
-    nss/doc/nroff/{*util,signtool,signver,ssltap}.1
+    nss/doc/nroff/{*util,signver,ssltap}.1
 
   # Replace built-in trust with p11-kit connection
   ln -sf pkcs11/p11-kit-trust.so "$pkgdir$libdir/libnssckbi.so"
