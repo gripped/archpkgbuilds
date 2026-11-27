@@ -3,7 +3,7 @@
 
 pkgname=hyprlock
 pkgver=0.9.7
-pkgrel=2
+pkgrel=4
 pkgdesc='hyprland’s GPU-accelerated screen locking utility'
 arch=(x86_64 aarch64)
 url="https://github.com/hyprwm/$pkgname"
@@ -12,16 +12,17 @@ depends=(cairo # libcairo.so
          libgcc # libgcc_s.so
          'libstdc++' # libstdc++.so
          glibc # libc.so libm.so
-         hyprgraphics libhyprgraphics.so
-         hyprlang libhyprlang.so
-         hyprutils libhyprutils.so
+         hyprgraphics # libhyprgraphics.so
+         hyprlang # libhyprlang.so
+         hyprutils # libhyprutils.so
          libdrm # libdrm.so
-         libglvnd libEGL.so
-         libxkbcommon libxkbcommon.so
+         libglvnd # libEGL.so
+         libxkbcommon # libxkbcommon.so
          mesa # libgbm.so
-         pam libpam.so
-         sdbus-cpp libsdbus-c++.so
-         wayland libwayland-client.so libwayland-egl.so
+         pam # libpam.so
+         pango # libpango-1.0.so libpangocairo-1.0.so
+         sdbus-cpp # libsdbus-c++.so
+         wayland # libwayland-client.so libwayland-egl.so
          wayland-protocols)
 makedepends=(cmake
              hyprwayland-scanner)
@@ -39,6 +40,14 @@ build() {
 }
 
 package() {
+	depends+=(libhyprgraphics.so
+	          libhyprlang.so
+	          libhyprutils.so
+	          libEGL.so
+	          libxkbcommon.so
+	          libpam.so
+	          libsdbus-c++.so
+	          libwayland-client.so libwayland-egl.so)
 	cd "$_archive"
 	DESTDIR="$pkgdir" cmake --install build
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
