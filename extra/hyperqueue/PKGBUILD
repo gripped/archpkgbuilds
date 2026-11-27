@@ -2,7 +2,7 @@
 
 pkgbase=hyperqueue
 pkgname=(hyperqueue python-hyperqueue)
-pkgver=0.26.2
+pkgver=0.27.0
 pkgrel=1
 pkgdesc="Scheduler for sub-node tasks for HPC systems with batch scheduling"
 arch=(x86_64)
@@ -10,6 +10,9 @@ url="https://github.com/It4innovations/hyperqueue/"
 license=(MIT)
 makedepends=(
   cargo
+  clang
+  git
+  highs
   maturin
   python-installer
   python-cloudpickle
@@ -30,13 +33,15 @@ checkdepends=(
   python-typing_extensions
   python-ruff
 )
-source=($pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-b2sums=('673ccb5ff81cbd97f5eb66ee2e092aefc706fbc140c68dc48bdc2637784859f0a9f9d78c261d3245248925b27074ea133ed6d84bda4b33f904b6c655a65d0cf9')
+source=($pkgbase-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz
+        $pkgbase-highs-system.patch::https://github.com/It4innovations/hyperqueue/commit/12d8e059d80c073c2e82509400fe7f3111d5ead1.patch)
+b2sums=('3c0c573ec040c7bf46779ce034a2fa13384ee443d1baa864f29dc10779096767795915e03816c192a25fc8ec7d79c70ae0b7da96591a121e89f368544012f147'
+        '437d28d14f4ffba749d58b7626b9883fb12a5b349d350295ceaf92977d7db99907eb0865a805ae2d720a4d23805800b3f02d17d9b35a0be0f36cd1bb4bf2c7ee')
 
-# deselect highs from default features
-# https://github.com/It4innovations/hyperqueue/issues/1066#issuecomment-3968989734
-_cargo_features_flags=(--no-default-features --features dashboard,jemalloc,microlp)
-_maturin_features_flags=(--no-default-features --features microlp)
+# select highs-system instead of default highs
+# https://github.com/It4innovations/hyperqueue/commit/12d8e059d80c073c2e82509400fe7f3111d5ead1
+_cargo_features_flags=(--no-default-features --features dashboard,jemalloc,highs-system)
+_maturin_features_flags=(--no-default-features --features highs-system)
 
 prepare() {
   cd $pkgbase-$pkgver
@@ -44,6 +49,9 @@ prepare() {
 
   # run Python tests with the release binary
   sed -i 's|"target", directory, "hq"|"target", "release", "hq"|' tests/conftest.py
+
+  # backport feature "highs-system" https://github.com/It4innovations/hyperqueue/pull/1160
+  git apply --exclude=CHANGELOG.md -p1 < ../$pkgbase-highs-system.patch
 }
 
 build() {
@@ -57,8 +65,9 @@ build() {
   cargo build --frozen --release "${_cargo_features_flags[@]}"
 
   # build Python bindings
+  # (`--auditwheel skip` prevents bundling libhighs.so in the wheel)
   cd crates/pyhq
-  maturin build --locked --release --target "$(rustc --print host-tuple)" --strip "${_maturin_features_flags[@]}"
+  maturin build --locked --release --target "$(rustc --print host-tuple)" --strip "${_maturin_features_flags[@]}" --auditwheel skip
 }
 
 check() {
@@ -84,6 +93,7 @@ check() {
 package_hyperqueue() {
   depends=(
     glibc
+    highs
     libgcc
   )
 
@@ -105,6 +115,7 @@ package_python-hyperqueue() {
   pkgdesc+=" - Python bindings"
   depends=(
     glibc
+    highs
     hyperqueue
     libgcc
     # https://github.com/It4innovations/hyperqueue/blob/main/crates/pyhq/pyproject.toml
