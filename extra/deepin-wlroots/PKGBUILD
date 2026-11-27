@@ -1,0 +1,37 @@
+# Maintainer: Felix Yan <felixonmars@archlinux.org>
+
+pkgname=deepin-wlroots
+pkgver=0.20.2.1
+pkgrel=1
+pkgdesc='Shared wlroots library for Deepin Treeland'
+arch=('x86_64')
+url='https://github.com/linuxdeepin/dde-wlroots'
+license=('MIT')
+depends=('wayland' 'libdrm' 'libxkbcommon' 'pixman' 'systemd-libs' 'seatd'
+         'libdisplay-info' 'libliftoff' 'libinput' 'libxcb' 'xcb-util-renderutil'
+         'xcb-util-wm' 'xcb-util-errors' 'libglvnd' 'mesa' 'vulkan-headers'
+         'vulkan-icd-loader' 'lcms2' 'xorg-xwayland')
+makedepends=('cmake' 'git' 'glslang' 'hwdata' 'ninja' 'pkgconf' 'wayland-protocols')
+source=("git+https://github.com/linuxdeepin/dde-wlroots.git#tag=$pkgver"
+        "dde-wlroots-shared.patch")
+sha256sums=('7c42cd2184deaae717c9fc52fada1c0e06da0725c4e06e7518570beb5c73c530'
+            '7176ee7572400af67226f8153e367574231b8d15e7a8d3692140e18361bcc985')
+
+prepare() {
+  cd dde-wlroots
+  patch -Np1 -i ../dde-wlroots-shared.patch
+}
+
+build() {
+  cmake -S dde-wlroots -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_INCLUDEDIR=include/deepin-wlroots \
+    -DCMAKE_INSTALL_LIBDIR=lib
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 dde-wlroots/LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}

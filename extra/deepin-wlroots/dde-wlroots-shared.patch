@@ -1,0 +1,39 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bca966ed..c6700535 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -4,5 +4,4 @@
+-# CMake build for dde-wlroots 0.20.2: a statically linked wlroots built from
+-# the upstream sources at the root of this repository (history preserved by a
+-# git subtree split out of treeland, so `git blame` still shows upstream
+-# authors). Consumers use the installed dde-wlroots.pc; nothing links it at
+-# runtime.
++# CMake build for dde-wlroots 0.20.2: a wlroots fork built from the upstream
++# sources at the root of this repository (history preserved by a git subtree
++# split out of treeland, so `git blame` still shows upstream authors).
++# Consumers use the installed dde-wlroots.pc.
+@@ -441,3 +440,2 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/WlrootsSources.cmake")
+-# Static only: consumers (waylib-server, treeland) link it into their own
+-# shared objects and therefore have no runtime dependency on this package.
+-add_library(dde-wlroots STATIC)
++# Consumers (waylib-server, treeland) link against the shared library.
++add_library(dde-wlroots SHARED)
+@@ -447,0 +446,2 @@ set_target_properties(dde-wlroots PROPERTIES
++    VERSION ${WLROOTS_VERSION}
++    SOVERSION ${WLROOTS_VERSION_MAJOR}
+@@ -545,3 +545,2 @@ endif()
+-# Install: development files only (static archive, headers and pkg-config
+-# metadata). There is no runtime package. Protocol XMLs and documentation are
+-# deliberately not installed.
++# Install: shared library, headers and pkg-config metadata. Protocol XMLs and
++# documentation are deliberately not installed.
+@@ -551 +550 @@ if(NOT DDE_WLROOTS_AS_SUBPROJECT)
+-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
++        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+diff --git a/cmake/dde-wlroots.pc.in b/cmake/dde-wlroots.pc.in
+index 77b5c5fe..247e45e0 100644
+--- a/cmake/dde-wlroots.pc.in
++++ b/cmake/dde-wlroots.pc.in
+@@ -9 +9 @@ Name: dde-wlroots
+-Description: Static wlroots build for treeland (dde-wlroots)
++Description: Shared wlroots library for treeland (dde-wlroots)
