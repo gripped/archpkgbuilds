@@ -5,7 +5,7 @@
 
 pkgname=python-pkginfo
 _pkgname="${pkgname#python-}"
-pkgver=1.13.3
+pkgver=2.0
 pkgrel=1
 pkgdesc='Query metadata from sdists / bdists / installed packages'
 arch=(any)
@@ -23,20 +23,9 @@ checkdepends=(
   python-packaging
   python-wheel
 )
-source=(
-  "$pkgname-$pkgver.tar.gz::https://pypi.io/packages/source/p/pkginfo/pkginfo-$pkgver.tar.gz"
-  remove-pkg_resources.patch
-)
-sha512sums=('38390a841a8576c2b2a68eb9ed87d9d54d9c696f7f3dfe8d5d91d6e751d4655cdc6dc7f353b2d5eb72abffd00d4f0b17a32773720b651556feb08218d7c4942d'
-            'b568f86ed50c02f6f6c08b5f79327d9729278a4677d117a2b1f255951c281e0348d24eeb23bde87b9a40e60d684620bec95c404f013e6756c8cee89aec575f8f')
-b2sums=('0f5e14c9715b7ccbc22c6a3ce189b25db511b8498513514c4f5dfd108a15a68d12e2a30376845a66d5a3168d98b3d743b761e65a76420e5466bef57b1b17f7c8'
-        'e7ef432acb7db3f16dc9f6b011a713dfe4ac281ff5a895d18d7b287360cd4281e18650a0b3a153e7aa58a3d05c874fe8a8e26b6b12a83df012d0e915c675dbf3')
-
-prepare() {
-  cd "$_pkgname-$pkgver"
-
-  patch -p1 -i "$srcdir/remove-pkg_resources.patch"
-}
+source=("$pkgname-$pkgver.tar.gz::https://pypi.io/packages/source/p/pkginfo/pkginfo-$pkgver.tar.gz")
+sha512sums=('d70329f5039d78ccf984bf7f556925046cf07852aac1d183f0d925878fc3ed3872283df61aeaf0ca1b9e4b90ba9eba012fd9b57edb547b43b7b08929d2dbeeec')
+b2sums=('daaf508c9b90cc6c71d8fce86f728065e811f368a9642f184abe7d2374162658f1c3856b6338b1255c785c3aa8c8a0fe2792a9c6e7a9cc6470e50306daeb1eca')
 
 build() {
   cd "$_pkgname-$pkgver"
@@ -46,6 +35,11 @@ build() {
 
 check() {
   cd "$_pkgname-$pkgver"
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
 
   local pytest_options=(
     -vv
