@@ -2,7 +2,7 @@
 # Maintainer: Maxime Gauduin <alucryd@archlinux.org>
 
 pkgname=llama-cpp
-pkgver=0.9.0
+pkgver=1.0.0
 pkgrel=1
 pkgdesc='LLM inference in C/C++'
 arch=(x86_64)
@@ -30,13 +30,13 @@ makedepends=(
 source=(git+https://github.com/ggml-org/llama.cpp.git#tag=v${pkgver}
         llama-server-system.service
         llama-server-user.service)
-b2sums=('e60bdec5b61c829f85e2e4f5fe93444dad129373f4f3e537fcf0d699d777e2c5abfc7a36cbd4b216e667605d3932ddea8457f33f4bb44ae9d86e02b03976b824'
+b2sums=('8e4ba14aa94e7b8fdcf8b5927a171d475cc0ab0ccb72bd6224fdf1e29b9178c08a7f871a661fc4ffa6c2bc442b24c09ccf931ddf671de943ba8ad71d26e87a24'
         'd9bada4b57b8d748030617465946841dfd966caee8e20b25af072de51e223ceacc6a3aca2dbfab7d513a03b2e70674a3b115885796f9feb8d3676bd1585df40d'
         '0d9f7e1e645eda76683f6da67a4ddcb43e8fc7d0b892c548783239525e635f8f168d758024060e32fcf816892875311bf53342ad33038917c0139281a1f6fef6')
 
 build() {
   pushd "./llama.cpp/tools/ui"
-  npm ci --ignore-scripts
+  NPM_CONFIG_ALLOW_REMOTE=root npm ci --ignore-scripts
   npm run build
   popd
 
