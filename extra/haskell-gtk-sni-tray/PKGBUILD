@@ -2,11 +2,11 @@
 
 _hkgname=gtk-sni-tray
 pkgname=haskell-gtk-sni-tray
-pkgver=0.2.1.4
-pkgrel=43
+pkgver=0.2.1.5
+pkgrel=8
 pkgdesc="A standalone StatusNotifierItem/AppIndicator tray"
 url="https://github.com/IvanMalison/gtk-sni-tray#readme"
-license=("BSD")
+license=('BSD-3-Clause')
 arch=('x86_64')
 depends=('ghc-libs' 'haskell-dbus' 'haskell-dbus-hslogger' 'haskell-enclosed-exceptions'
          'haskell-gi-cairo' 'haskell-gi-cairo-connector' 'haskell-gi-cairo-render'
@@ -14,14 +14,14 @@ depends=('ghc-libs' 'haskell-dbus' 'haskell-dbus-hslogger' 'haskell-enclosed-exc
          'haskell-gi-gtk3' 'haskell-gtk-strut' 'haskell-gi' 'haskell-gi-base' 'haskell-hslogger'
          'haskell-optparse-applicative' 'haskell-status-notifier-item' 'haskell-transformers-base'
          'haskell-dbus-menu' 'haskell-gi-gtk-layer-shell' 'haskell-gtk-scaling-image'
-         'haskell-hspec' 'gtk3')
-makedepends=('ghc')
+         'gtk3')
+makedepends=('ghc' 'uusi' 'haskell-hspec')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
-sha256sums=('e6911c2e333c69366115e57c03ce6614ecb3f76dc61542faeef872f153654ea4')
+sha256sums=('27db9b26d9b4e1cd9bc133062784759b5736327143e49a2652f611206b5cfe66')
 
 prepare() {
   cd $_hkgname-$pkgver
-  printf 'import Distribution.Simple\nmain = defaultMain\n' > Setup.hs
+  gen-setup
 }
 
 build() {
