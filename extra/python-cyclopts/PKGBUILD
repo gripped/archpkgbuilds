@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-cyclopts
-pkgver=5.4.2
+pkgver=5.5.3
 pkgrel=1
 pkgdesc="Command-line interfaces based on type hints"
 arch=('any')
@@ -35,7 +35,7 @@ optdepends=(
   'python-yaml: YAML configuration files'
 )
 source=("git+https://github.com/BrianPugh/cyclopts.git#tag=v$pkgver")
-sha512sums=('567bae678182342772a19d5c6c3ccfdd329fe75731e38ba4d5f8f1edaca04d828acefd9dbd9df251ea285a53692cae0a7cffbc39b144f65827fc8293ac48c97e')
+sha512sums=('4879de428fbe57e1002ab118fc78304d2fd29f01196b89b115a025464b8080303b4716bd55e8b577c9139f98efbc232586a512897515ba3d9f46c649ffc611c4')
 
 build() {
   cd cyclopts
