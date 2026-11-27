@@ -3,7 +3,7 @@
 _name=ucc
 pkgname=openucc
 pkgver=1.9.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Unified Collective Communication Library"
 arch=(x86_64)
 url="https://github.com/openucx/ucc"
@@ -38,11 +38,16 @@ source=(
   "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
 )
 b2sums=('5459f1e64ea27bea8e89932eb90509fe39719bd4adc82ecf3172971da6d2f9510dc8e2e5160130ac31163f9ae383168952183107ac04d0d954c0b5923ae233e1')
+source_aarch64=("$pkgname-aarch64-hip-target.patch")
+b2sums_aarch64=('726b3c5e60ac6d0202c305afe0ee239f7198b9d314d4b066efcba88efdfe59de105e7bcdba2c60b67da2ac94e0bc12c7bc069ab80f09ee9c09465e4706f81b92')
 
 prepare() {
   cd $_name-$pkgver
   # fix building with gcc 15 (yes ucx bundles its old version of gtest...)
   sed -i '1i\#include <cstdint>' test/gtest/common/gtest-all.cc
+  if [[ $CARCH == aarch64 ]]; then
+    patch -Np1 --no-backup-if-mismatch -i "$srcdir/$pkgname-aarch64-hip-target.patch"
+  fi
 }
 
 build() {
