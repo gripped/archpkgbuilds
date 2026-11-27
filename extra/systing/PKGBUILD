@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=systing
-pkgver=1.31.8
+pkgver=1.31.14
 pkgrel=1
 pkgdesc="A libbpf based tracer to help figure out what an application is doing"
 arch=(x86_64)
@@ -28,8 +28,8 @@ license=(MIT)
 source=(
   "${pkgname}::git+https://github.com/josefbacik/systing.git#tag=v$pkgver"
 )
-sha512sums=('1ecce34137df0d7e8b9f39404a6e662ec58dbd543f66087089a4191ea8c94aaf73cc051fa89367e1d2b4f7c3afdf63713b67818cef244c8bc08bc8c8d55b9d5c')
-b2sums=('33f4f8bfb87aa752350364fb628a8a676f087dc9facb27bac298121248805672905d43987cad6f0e35ffa8816ab535f582849304b16e778938de8e07916a44bb')
+sha512sums=('4581095690c1fcd909131b6520009343341b93b7c160ca1e800d3b290a04bf00b2e580d9658ca239d2b433605c66b00c5fe3479c680dcfc06072ad708677929e')
+b2sums=('afb0b40eb8ac5a738e7d292eb6ce9060c86ad23b02db7209cdf6241d756f55b06b629179f07763ac0acd621ec4ca76747bc519f41d2a765cccc71ca87ccf93f2')
 
 # needed to workaround linking error with BPF lib
 options=(!lto)
