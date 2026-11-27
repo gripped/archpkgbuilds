@@ -5,7 +5,7 @@
 
 pkgname=libhx
 _srcname=libHX
-pkgver=5.5
+pkgver=5.6
 pkgrel=1
 pkgdesc='A library providing queue, tree, I/O and utility functions'
 arch=(x86_64)
@@ -14,7 +14,7 @@ license=(GPL-3.0-only LGPL-2.1-or-later)
 depends=(glibc)
 provides=(libHX.so)
 source=(https://inai.de/files/${pkgname}/${_srcname}-${pkgver}.tar.{zst,asc})
-sha256sums=('822e51adde09238b29f907ddcd0157b1c0eb34d104ecc1e7ac8f3bccc4fd9a42'
+sha256sums=('0e86fedea7552f61cfdc8281f51fa696f4978ee35011780521b9cfd8130b40c8'
             'SKIP')
 validpgpkeys=('2BDA563E9DDE46AF71CC171DAEB6941A2F9C9944')
 
