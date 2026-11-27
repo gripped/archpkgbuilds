@@ -1,0 +1,43 @@
+# Maintainer: Antonio Rojas <arojas@archlinux,org>
+
+pkgname=dragon-media-backend
+pkgver=0.90.1
+pkgrel=1
+pkgdesc='Qt C++ library intended for desktop music players'
+arch=(x86_64)
+url='https://invent.kde.org/libraries/dragon-media-backend'
+license=(LGPL-2.1-only LGPL-3.0-only)
+depends=(
+  ffmpeg
+  glibc
+  kcoreaddons
+  ki18n
+  kio
+  libgcc
+  libpulse
+  libstdc++
+  qt6-base
+  qt6-declarative
+  sdl3
+)
+makedepends=(
+  extra-cmake-modules
+  git
+  kissfft
+  qcoro
+)
+source=(
+  git+https://invent.kde.org/libraries/dragon-media-backend#tag=v$pkgver
+)
+sha256sums=('3d9c48150879d7b8be986783066998c57914df5d999fadb48494a770fc632aa9')
+
+build() {
+  cmake -B build -S $pkgname \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_BUILD_TYPE=None
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
