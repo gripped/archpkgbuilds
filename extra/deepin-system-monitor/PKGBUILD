@@ -3,13 +3,13 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-system-monitor
-pkgver=6.5.49
+pkgver=6.5.50
 pkgrel=1
 pkgdesc='A more user-friendly system monitor'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-system-monitor"
 license=('CC-BY-4.0' 'CC0-1.0' 'GPL-2.0-or-later' 'GPL-3.0-or-later' 'LGPL-3.0-or-later')
-depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-svg' 'icu' 'dconf' 'glib2' 'libxcb' 'xcb-util-wm'
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'dtk6declarative' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'icu' 'dconf' 'glib2' 'libxcb' 'xcb-util-wm'
          'glibc' 'libgcc' 'libstdc++' 'libnl' 'libcap' 'libpcap' 'polkit-qt6' 'libxext'
          'systemd-libs' 'deepin-service-manager')
 makedepends=('git' 'cmake' 'deepin-gettext-tools' 'ninja' 'qt6-tools' 'deepin-tray-loader')
@@ -17,7 +17,7 @@ optdepends=('deepin-application-manager: group Linglong application processes an
 groups=('deepin')
 install=deepin-system-monitor.install
 source=("git+https://github.com/linuxdeepin/deepin-system-monitor.git#tag=$pkgver")
-sha512sums=('085091701c1ad9fd90946254efb4c17626dcdcb8ffb9cec0983d4a610d6219eafda717e49228ac0b9a1194625e11cc78c4240bcb9a8289ef675763b0272666f5')
+sha512sums=('2671aa8ecd3ccbd6d2da7ef6c57e298cd9e137a5b33aef16c93a57b287ff1fbc07e5a162b097a88fad28a03bb3eeafbb4cfa70a469bd38ed249ef309e15dc220')
 
 build() {
   cd deepin-system-monitor
