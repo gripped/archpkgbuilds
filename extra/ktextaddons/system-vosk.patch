@@ -1,0 +1,94 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0e09c160e..b0f4d3539 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -225,6 +225,8 @@ add_feature_info(
+     "Vosk speak to text plugin (local text to speak)"
+ )
+ 
++option(USE_SYSTEM_VOSK "Compile vosk speak to text plugin with system vosk" OFF)
++
+ option(DISABLE_AUTOTEST_BROKEN_CI "Disable autotest broken on CI (work locally)" OFF)
+ 
+ add_definitions(-DQT_NO_CONTEXTLESS_CONNECT)
+diff --git a/cmake/FindVosk.cmake b/cmake/FindVosk.cmake
+index bac3aec69..4c67c0831 100644
+--- a/cmake/FindVosk.cmake
++++ b/cmake/FindVosk.cmake
+@@ -4,29 +4,38 @@ if(TARGET Vosk)
+     return()
+ endif()
+ 
+-include(Dirs)
+-
+-isfileempty(${VOSK_ZIP} __voskZipIsEmpty)
+-
+-if(${__voskZipIsEmpty})
+-    include(DownloadVosk)
+-    download_vosk_if_needed()
+-endif()
+-
+-if(CMAKE_CROSSCOMPILING)
+-    set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
++if(USE_SYSTEM_VOSK)
++    find_library(
++        VOSK_LIBRARY
++        NAMES
++            vosk
++            libvosk
++    )
++else()
++    include(Dirs)
++
++    isfileempty(${VOSK_ZIP} __voskZipIsEmpty)
++
++    if(${__voskZipIsEmpty})
++        include(DownloadVosk)
++        download_vosk_if_needed()
++    endif()
++
++    if(CMAKE_CROSSCOMPILING)
++        set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY BOTH)
++    endif()
++
++    find_library(
++        VOSK_LIBRARY
++        NAMES
++            vosk
++            libvosk
++        PATHS
++            ${VOSK_DIR}
++        NO_DEFAULT_PATH
++    )
+ endif()
+ 
+-find_library(
+-    VOSK_LIBRARY
+-    NAMES
+-        vosk
+-        libvosk
+-    PATHS
+-        ${VOSK_DIR}
+-    NO_DEFAULT_PATH
+-)
+-
+ if(VOSK_LIBRARY STREQUAL "VOSK_LIBRARY-NOTFOUND")
+     set(Vosk_FOUND OFF)
+     return()
+diff --git a/textspeechtotext/speechtotext/plugins/vosk/CMakeLists.txt b/textspeechtotext/speechtotext/plugins/vosk/CMakeLists.txt
+index b360627b6..d22b4e252 100644
+--- a/textspeechtotext/speechtotext/plugins/vosk/CMakeLists.txt
++++ b/textspeechtotext/speechtotext/plugins/vosk/CMakeLists.txt
+@@ -75,8 +75,10 @@ install(
+         NAMELINK_SKIP
+ )
+ 
+-# Improve it. We need to fix on windows too.
+-install(FILES "${CMAKE_BINARY_DIR}/vosk/libvosk.so" DESTINATION ${KDE_INSTALL_LIBDIR})
++if(NOT USE_SYSTEM_VOSK)
++    # Improve it. We need to fix on windows too.
++    install(FILES "${CMAKE_BINARY_DIR}/vosk/libvosk.so" DESTINATION ${KDE_INSTALL_LIBDIR})
++endif()
+ 
+ add_library(speechtotext_vosk MODULE)
+ 
