@@ -2,8 +2,8 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-email-validator
-pkgver=2.3.0
-pkgrel=2
+pkgver=2.4.0
+pkgrel=1
 pkgdesc="A robust email address syntax and deliverability validation library"
 arch=(any)
 url="https://github.com/JoshData/python-email-validator"
@@ -21,8 +21,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz)
-sha512sums=('bb5f33d14f69bfdf51b967778471fc261eabfd9187981e9488db7918dafc18a3e0f0528d6c394720f8222150f9ff8d2f6cc968caca9804f220dfdb7199fa15ce')
-b2sums=('d5afe29661f8d23efee48f78460f63fadce90abb7e93f1cd00f871d69faaf9df54f16b6163d4f609d9a793fae78d6f45dcc374fd151c5f7d632c0edb304d6a69')
+sha512sums=('24dd68e0f4342ffa216244a0670f3f517c138f7c808f85e70e1ca60300d69987c3911a8988241846aaa1b824986ec14362fe389a50dc86a6e01b70975941ccfe')
+b2sums=('ce3514392f870983b6cf8ccd4086e3b6e80688054ff600e2c775eb1b0f34230b27946a6b251a4cce7506b0a37e76b311ee978ae6ca8d8ec4f7dcb3d779447814')
 
 build() {
   cd $pkgname-$pkgver
