@@ -5,7 +5,7 @@ pkgname=(
   python-dateparser
   python-dateparser-docs
 )
-pkgver=1.5.0
+pkgver=1.5.1
 pkgrel=1
 pkgdesc='Python parser for human readable dates'
 arch=(any)
@@ -31,7 +31,7 @@ checkdepends=(
   python-pytest
 )
 source=("git+https://github.com/scrapinghub/dateparser.git#tag=v$pkgver")
-b2sums=('3245696e16533c7ec0443cee21a43df09697421ccdb145dcf2b1e25ef85a501dae27ecb978f3bb6f7d59fa7ff48b7eb372e11e370796b57175276c9b444e7138')
+b2sums=(e75d05d8cb27fc274bab3419565735e1669314b1c03e5612e4cb62dc376616f74ed5fd622d81ca3baafb55815371be5f476d0d82705e5a76d0c0e38869a31d00)
 
 build() {
   cd dateparser
