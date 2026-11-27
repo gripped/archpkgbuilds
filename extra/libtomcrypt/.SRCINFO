@@ -1,10 +1,12 @@
 pkgbase = libtomcrypt
 	pkgdesc = A fairly comprehensive, modular and portable cryptographic toolkit
 	pkgver = 1.18.2
-	pkgrel = 1
+	pkgrel = 2
 	url = https://www.libtom.net/LibTomCrypt/
 	arch = x86_64
-	license = custom:PublicDomain
+	license = LicenseRef-Public-Domain
+	license = WTFPL
+	depends = glibc
 	depends = libtommath
 	depends = gmp
 	source = https://github.com/libtom/libtomcrypt/releases/download/v1.18.2/crypt-1.18.2.tar.xz
