@@ -3,7 +3,7 @@
 
 _name=google-auth
 pkgname=python-google-auth
-pkgver=2.62.2
+pkgver=2.63.1
 pkgrel=1
 pkgdesc="Google Authentication Library"
 url="https://github.com/googleapis/google-cloud-python"
@@ -23,6 +23,7 @@ makedepends=(
 checkdepends=(
   'python-aiohttp'
   'python-aioresponses'
+  'python-certifi'
   'python-flask'
   'python-freezegun'
   'python-grpcio'
@@ -38,6 +39,7 @@ checkdepends=(
 )
 optdepends=(
   'python-aiohttp: for async HTTP support'
+  'python-certifi: for system CA store with urllib3 and mutual TLS support'
   'python-packaging: for HTTP support'
   'python-pyjwt: for JSON Web Key support'
   'python-pyopenssl: for TLS support'
@@ -47,7 +49,7 @@ optdepends=(
   'python-urllib3: for HTTP support'
 )
 source=("${url}/archive/refs/tags/${_name}-v${pkgver}.tar.gz")
-sha512sums=('f8f18f9398a71d2b3d3a56d7513cccd93bf04e20e5eb8fd38aedce4cbcaad93597e1f344e6bf1a06b825526a45ea685a7377068b4a3efb82c74ffd5a31761af3')
+sha512sums=('d86ee051c2aed29501ff352e98f05671706cb9149c6aeaca477ad7610e297a30fdcc6baa3dd20c506bdd8e9ffcb567fd4dc70b211b0c72607738cd4d266e9b74')
 
 build() {
   	cd "google-cloud-python-${_name}-v${pkgver}/packages/${_name}"
