@@ -1,54 +1,36 @@
 # Maintainer: Sergej Pupykin <arch+pub@sergej.pp.ru>
 
 pkgname=psi-plugins
-pkgver=1.5
-pkgrel=3
+pkgver=1.6
+_psiver=1.6_b1
+pkgrel=2
 pkgdesc="Additional features for Psi"
 arch=('x86_64')
 url="https://psi-im.org"
 license=('GPL2')
-depends=('psi')
-makedepends=('libotr' 'tidy')
+depends=('psi' 'qca-qt6')
+makedepends=('libotr' 'tidy' 'cmake' 'git')
 optdepends=('libotr: OTR plugin'
             'tidy: OTR plugin')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/psi-im/plugins/archive/$pkgver.tar.gz"
-        'psiplugin.pri')
-sha256sums=('1857b9dc89ef0d548697207b3a56283f2d67c0de75cc66bf863936a58150401e'
-            '2edc9f76e032e25044f0d16376194127c07b3372195482236901222ebec11a75')
-
-prepare() {
-    cp -v psiplugin.pri plugins-$pkgver/
-
-    cd plugins-$pkgver
-    patch -p1 <<EOP
-diff -wbBur plugins-1.5/generic/screenshotplugin/screenshot.cpp plugins-1.5.q/generic/screenshotplugin/screenshot.cpp
---- plugins-1.5/generic/screenshotplugin/screenshot.cpp	2018-11-05 10:55:49.000000000 +0300
-+++ plugins-1.5.q/generic/screenshotplugin/screenshot.cpp	2021-10-07 22:47:29.239540853 +0300
-@@ -32,6 +32,7 @@
- #include <QCloseEvent>
- #include <QDesktopServices>
- #include <QClipboard>
-+#include <QtGui/QPainterPath>
- 
- 
- #include "screenshot.h"
-EOP
-}
+source=("git+https://github.com/psi-im/plugins.git#tag=$pkgver"
+	"git+https://github.com/psi-im/psi.git#tag=${_psiver}")
+sha256sums=('70a9ccf8b8057fc76e9476957f0029f10e70c12ff30a86fa403368434e42d04c'
+            'eb25695f5e1d30b36f97bdcb6f6facc07358e0fadcc4649c1ddebdd8a54cccd7')
 
 build() {
-    cd plugins-$pkgver
-    for plugin in generic/* unix/*; do
-        if [ -d "$plugin" ]; then
-            (cd "$plugin" && qmake-qt5 PREFIX="/usr" QMAKE_STRIP= && make)
-        fi
-    done
+  cd plugins
+  mkdir -p build
+  cd build
+  cmake .. \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DQT_DEFAULT_MAJOR_VERSION=6 \
+    -DBUILD_PLUGINS="-otrplugin"
+  make
 }
 
 package() {
-    cd plugins-$pkgver
-    for plugin in generic/* unix/*; do
-        if [ -d "$plugin" ]; then
-            (cd "$plugin" && make INSTALL_ROOT="$pkgdir" install)
-        fi
-    done
+  cd plugins/build
+  make install DESTDIR="$pkgdir"
 }
