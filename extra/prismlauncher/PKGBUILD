@@ -10,7 +10,7 @@
 
 pkgname=prismlauncher
 pkgver=11.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Minecraft launcher with ability to manage multiple instances"
 arch=(x86_64)
 url='https://prismlauncher.org'
@@ -41,6 +41,7 @@ makedepends=(
   ninja
   scdoc
   gamemode
+  strip-nondeterminism
   vulkan-headers
 )
 optdepends=(
@@ -71,6 +72,8 @@ build() {
     -W no-dev
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_INSTALL_PREFIX=/usr
+    # upstream embeds CMAKE_SYSTEM_VERSION, which defaults to the build host's uname -r
+    -D CMAKE_SYSTEM_VERSION=
   )
 
   cmake "${cmake_options[@]}"
@@ -88,6 +91,9 @@ package() {
   install -Dm644 mdi.license -t "$pkgdir"/usr/share/licenses/$pkgname/
 
   DESTDIR="$pkgdir" cmake --install build
+
+  # jar(1) stamps entries with the build time
+  /usr/bin/vendor_perl/strip-nondeterminism -T "$SOURCE_DATE_EPOCH" "$pkgdir"/usr/share/PrismLauncher/*.jar
 }
 
 # vim:set ts=2 sw=2 et:
