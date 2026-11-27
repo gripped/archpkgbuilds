@@ -1,0 +1,17 @@
+diff --git a/src/engraving/CMakeLists.txt b/src/engraving/CMakeLists.txt
+--- a/src/engraving/CMakeLists.txt
++++ b/src/engraving/CMakeLists.txt
+@@ -44,5 +44,13 @@ muse_module_add_qrc(engraving BIG_RESOURCES
+     data/fonts/fonts_FinaleBroadway.qrc
+     data/fonts/fonts_Tabulature.qrc
+ )
++
++# qt_add_big_resources (rcc --pass 2) patches the ELF data section directly and
++# fails with slim LTO objects ("No data signature found").
++foreach(_font Bravura Campania Edwin FreeSans FreeSerif Gootville Leland MScore MuseJazz Petaluma FinaleMaestro FinaleBroadway Tabulature)
++    if(TARGET rcc_object_fonts_${_font})
++        set_target_properties(rcc_object_fonts_${_font} PROPERTIES INTERPROCEDURAL_OPTIMIZATION OFF)
++    endif()
++endforeach()
+ 
+ include(dom/dom.cmake)
