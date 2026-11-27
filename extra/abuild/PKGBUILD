@@ -3,7 +3,7 @@
 # Contributor: Clar Fon <them@lightdark.xyz>
 
 pkgname=abuild
-pkgver=3.17.0
+pkgver=3.18.0
 pkgrel=2
 pkgdesc="Alpine build tools"
 url="https://gitlab.alpinelinux.org/alpine/abuild"
@@ -21,12 +21,8 @@ optdepends=('perl: for cpan resolver'
             'ruby-augeas: for gem resolver')
 backup=("etc/${pkgname}.conf")
 install="${pkgname}.install"
-source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz"
-        "${pkgname}.sysusers"
-        "${pkgname}.tmpfiles")
-sha512sums=('9112b64fa9ecb51c7dd34da08cae77c2334a2cc1e84a16c2071731b0688c6c6c2d584481ea8d516c3355c7d6ed4febd8109444ca1a3d3a0a410f3d3c4593933f'
-            'b6099d7dd0ce1128e1e5263c2fc95bfb8d0e26e02b4f7255f066f65ce405c19bf519fce90420e796a510b51c228a515415bdb021d32814271b11f9306b1ff62b'
-            'f070f0dfb0b4c0ba443851f7e1115e42f76b0d1c6f866101df9dd3dda5ba2280065e50d459e7eda6262a42d10c2460f2ad0f88f02faf69a2188c02773bbbe423')
+source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('7c2919874659ce94d98431db9149a59ea4373eb7dc6001c45fa235779a304a817c2c9e5be283cb57b9d3e5d03f7dae6ba0f581bc369536bc1f6f726d18c65fd2')
 
 prepare() {
 	cd "${pkgname}-${pkgver}"
@@ -47,6 +43,14 @@ package() {
 	cd "${pkgname}-${pkgver}"
 	make install VERSION="${pkgver}" DESTDIR="${pkgdir}"
 	install -Dm 644 "${pkgname}.conf" "${pkgdir}/etc/${pkgname}.conf"
-	install -Dm 644 "${srcdir}/${pkgname}.sysusers" "${pkgdir}/usr/lib/sysusers.d/${pkgname}.conf"
-	install -Dm 644 "${srcdir}/${pkgname}.tmpfiles" "${pkgdir}/usr/lib/tmpfiles.d/${pkgname}.conf"
+
+	# The `rootbld` subcommand and its default cache location do not
+	# require `abuild-sudo` (and the abuild group) anymore, so we can safely get rid of it.
+	# See https://gitlab.alpinelinux.org/alpine/abuild/-/commit/4c4c11131f4e5bc9c5877373cc266308648b1671
+	rm -fv "${pkgdir}/usr/bin/abuild-sudo"
+
+	# These are symlinks pointing to `abuild-sudo` (which we get rid of in the above command),
+	# but `abuild` now fallbacks to `$SUDO` / `doas` / `sudo` if they are not found, so we can safely get rid of these as well.
+	# See https://gitlab.alpinelinux.org/sertonix/abuild/-/commit/dff6fc6251a0060373e9e0097d8dda97cb0d8371
+	rm -fv "${pkgdir}/usr/bin/abuild-"{apk,adduser,addgroup}
 }
