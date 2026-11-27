@@ -3,7 +3,7 @@
 
 pkgbase='packagekit'
 pkgname=('packagekit' 'libpackagekit-glib')
-pkgver=1.4.0
+pkgver=1.4.1
 pkgrel=1
 pkgdesc='A system designed to make installation and updates of packages easier'
 arch=('x86_64')
@@ -24,7 +24,7 @@ validpgpkeys=('163EB50119225DB3DF8F49EA17ACBA8DFA970E17'  # Richard Hughes <rich
               'EC60AABDF42AAE8FB062640480858FA38F62AF74'  # Kalev Lember <klember@redhat.com>
               'D33A3F0CA16B0ACC51A60738494C8A5FBF4DECEB') # Matthias Klumpp <matthias@tenstral.net>
 source=("git+https://github.com/PackageKit/PackageKit.git?signed#tag=v${pkgver}")
-sha256sums=('526b51bb50141f6f9b77e787d12662fb1aa602d07256e644bfd7b234b6dd54c0')
+sha256sums=('d37c868df6a007e1d31a7996df771d276187afe15fa9f3b06d8f880d23f28f90')
 
 build() {
         local _meson_options=(
