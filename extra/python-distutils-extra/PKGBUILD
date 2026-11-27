@@ -3,12 +3,12 @@
 
 pkgname=python-distutils-extra
 pkgver=2.39
-pkgrel=15
+pkgrel=16
 pkgdesc='Enhancements to the Python build system'
 arch=('any')
 license=('GPL')
 url='https://launchpad.net/python-distutils-extra'
-depends=('intltool' 'python' 'python-setuptools')
+depends=('intltool' 'python' 'python-build' 'python-installer' 'python-setuptools')
 makedepends=('intltool')
 source=(https://launchpad.net/$pkgname/trunk/$pkgver/+download/$pkgname-$pkgver.tar.gz{,.asc})
 # https://launchpad.net/python-distutils-extra/trunk/2.39/+download/python-distutils-extra-2.39.tar.gz.asc
@@ -17,7 +17,12 @@ validpgpkeys=('3DB46B55EFA59D40E6232148D14EF15DAFE11347')
 sha256sums=('723f24f4d65fc8d99b33a002fbbb3771d4cc9d664c97085bf37f3997ae8063af'
             'SKIP')
 
+build() {
+  cd $pkgname-$pkgver
+  python -m build --wheel --no-isolation
+}
+
 package() {
-  cd "${srcdir}/$pkgname-$pkgver"
-  python3 setup.py install --root="${pkgdir}"
+  cd $pkgname-$pkgver
+  python -m installer --destdir="$pkgdir" dist/*.whl
 }
