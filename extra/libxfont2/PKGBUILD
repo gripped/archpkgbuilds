@@ -2,7 +2,7 @@
 # Contributor: Laurent Carlier <lordheavym@gmail.com>
 
 pkgname=libxfont2
-pkgver=2.0.9
+pkgver=2.0.10
 pkgrel=1
 pkgdesc="X11 font rasterisation library"
 arch=(x86_64)
@@ -16,7 +16,7 @@ license=('BSD-2-Clause'
 depends=('freetype2' 'libfontenc' 'xorgproto' 'zlib' 'glibc')
 makedepends=('git' 'xorg-util-macros' 'xtrans')
 source=(git+https://gitlab.freedesktop.org/xorg/lib/libxfont.git?signed#tag=libXfont2-${pkgver})
-sha512sums=('169d9a62b6706d40991b14221b13777852fcef9f56692a1bfc9638b168d7b3f0438524cbfd85b36dc24ceec1a04626a2470c73f34d5570a7ecb70791db3ee332')
+sha512sums=('f7d7cf05063649f9da880fc41dc765594a7f9968e0caf5f5bca8e837eca21d5ef3dd0f9f4e01abf6697ca82e390d998614d231faea1d9ad1eac60f9d68caceff')
 #validpgpkeys=('C383B778255613DFDB409D91DB221A6900000011') # Keith Packard <keithp@keithp.com>
 #validpgpkeys+=('995ED5C8A6138EB0961F18474C09DD83CAAA50B2') # "Adam Jackson <ajax@nwnk.net>"
 #validpgpkeys+=('C41C985FDCF1E5364576638B687393EE37D128F8') # "Matthieu Herrb <matthieu.herrb@laas.fr>"
