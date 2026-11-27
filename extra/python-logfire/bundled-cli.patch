@@ -1,0 +1,49 @@
+diff --git a/logfire/pyproject.toml b/logfire/pyproject.toml
+index 76916a7e..b43db8e6 100644
+--- a/logfire/pyproject.toml
++++ b/logfire/pyproject.toml
+@@ -45,13 +45,11 @@ classifiers = [
+     "Framework :: OpenTelemetry :: Exporters",
+     "Framework :: OpenTelemetry :: Instrumentations",
+ ]
+-dependencies = ["logfire-sdk==6.0.1", "logfire-cli>=0.1.20"]
++dependencies = ["logfire-sdk==6.0.1"]
+ 
+-# This package owns the `logfire` command; logfire-cli 0.1.20+ installs only `logfire-cli`.
+-# Pip uninstalls monolithic logfire v5, which also owned `logfire`, immediately before
+-# installing this package, so the launcher is restored during the upgrade.
++# Arch uses the Python CLI bundled with logfire-sdk.
+ [project.scripts]
+-logfire = "logfire_cli:main"
++logfire = "logfire.cli:main"
+ 
+ [project.optional-dependencies]
+ gateway = ["logfire-sdk[gateway]==6.0.1"]
+diff --git a/tests/test_distribution_metadata.py b/tests/test_distribution_metadata.py
+index e5166547..984eba68 100644
+--- a/tests/test_distribution_metadata.py
++++ b/tests/test_distribution_metadata.py
+@@ -44,7 +44,7 @@ def test_distribution_versions_and_dependencies_stay_in_sync() -> None:
+     requirements = [Requirement(item) for item in meta['dependencies']]
+     dependencies = {requirement.name: requirement for requirement in requirements}
+     assert str(dependencies['logfire-sdk'].specifier) == f'=={sdk["version"]}'
+-    assert set(dependencies) == {'logfire-sdk', 'logfire-cli'}
++    assert set(dependencies) == {'logfire-sdk'}
+ 
+     sdk_requirements = {requirement.name: requirement for requirement in map(Requirement, sdk['dependencies'])}
+     assert str(sdk_requirements['requests'].specifier) == '>=2.31.0'
+@@ -69,12 +69,12 @@ def test_meta_package_forwards_every_sdk_extra() -> None:
+ 
+ 
+ def test_sdk_does_not_own_the_logfire_executable() -> None:
+-    """Let the compatibility package own the `logfire` command for the standalone CLI."""
++    """Let the compatibility package own the `logfire` command for the SDK's Python CLI."""
+     sdk = load_pyproject(ROOT / 'logfire-sdk' / 'pyproject.toml')['project']
+     meta = load_pyproject(ROOT / 'logfire' / 'pyproject.toml')['project']
+ 
+     assert 'scripts' not in sdk
+-    assert meta['scripts'] == {'logfire': 'logfire_cli:main'}
++    assert meta['scripts'] == {'logfire': 'logfire.cli:main'}
+ 
+ 
+ def test_editable_sdk_uses_the_source_tree() -> None:

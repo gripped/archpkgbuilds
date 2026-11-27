@@ -2,7 +2,7 @@
 
 pkgbase=python-logfire
 pkgname=('python-logfire' 'python-logfire-api' 'python-logfire-sdk')
-pkgver=5.6.0
+pkgver=6.0.1
 pkgrel=1
 pkgdesc='Pydantic Logfire Python SDK and command-line interface'
 arch=('any')
@@ -104,17 +104,22 @@ checkdepends=(
   'uvicorn'
 )
 source=("git+https://github.com/pydantic/logfire.git#tag=v$pkgver"
+        bundled-cli.patch
         sqlalchemy-tests.patch
         openai-tests.patch)
-sha512sums=('8e0e27614af6bdc8ea74ee0f45f7fd2f572a54d863e67a398b33a9e86a8222aef3f76f650ad1295bc894981b46cea43bbfae79cbd235901058c39f065074a536'
+sha512sums=('e240f4c065ff7988341ee369a49f278e7aff1886a945e90c458f566567e484d5afb322fed457ead015915bb33e92dcdeda133cbe3abfb2cd19439849ff6b802b'
+            '9262d656557ebc2acd858c10ae0e7961cfa4b73bbc542b01ea9440e164939efbfa218a258703f2b226a7b5fc87aca35eef883ecf94f60785a27141374d6095e9'
             'a0878ce73bcce449cbaa759efa8ba6a0e4d780853a9837a13c37accac08270e5467d06e235b5428182f43817076464f97a6e2062d781521efc428bb42aa73d62'
-            '9e2434655e372bca3daf73d635b96f23cb9a7c93bc36a2d6984431617fb09f605cffe5c7c71b912158794784dcd6da0a93e46020136e66e1e271d99cba1ccf6c')
+            'cefa490e2d4230a1d0d734fb448c567cf56472c07e7b4d5f3ba9dda3814aaaca3700b22b759f3326359fff9e2d1167aa6985ed7ff4e854cc93054a63bdbeecd2')
 
 prepare() {
   cd logfire
+  # logfire-cli is published only as binary wheels with no source; use the Python CLI bundled in logfire-sdk.
+  # https://github.com/pydantic/logfire/issues/2874
+  patch -p1 -i "$srcdir/bundled-cli.patch"
   # Close async SQLite connections before test teardown.
   patch -p1 -i "$srcdir/sqlalchemy-tests.patch"
-  # Account for OpenAI's added text/image token fields in serialized usage.
+  # Account for OpenAI's newer usage fields in serialized snapshots.
   # https://github.com/openai/openai-python/pull/3617
   patch -p1 -i "$srcdir/openai-tests.patch"
 }
