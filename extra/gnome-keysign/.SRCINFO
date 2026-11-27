@@ -1,7 +1,7 @@
 pkgbase = gnome-keysign
 	pkgdesc = Tool for signing OpenPGP keys
 	pkgver = 1.9.8
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/gnome-keysign/gnome-keysign
 	arch = any
 	license = GPL-3.0-or-later
@@ -34,6 +34,10 @@ pkgbase = gnome-keysign
 	depends = python-requests
 	depends = python-twisted
 	source = git+https://github.com/gnome-keysign/gnome-keysign.git#tag=1.9.8
+	source = gnome-keysign-fix-single-instance.patch
+	source = gnome-keysign-dbus-activatable.patch
 	b2sums = d3ad78d8079248844636618190b6a3a51ecc777c9f39289ed809fb6080d3fe395b5c307c88febf3785855c01480477bf72848d8ccff904c71f19d9b2ace55f1a
+	b2sums = c21c0e1c1c09f1642555d201312433c02a7fabfaad30e48e3664bdca046bfff48d6a71cf131841824c620c6fdb5c7e8160405876157985ac516e72089d0d5b6d
+	b2sums = 16840b84eb6faf923a501be7ea4b76f898ebabe2fd08263ef18a60a0bdb25a60142aff9354bcc51b38858fe7de255d9fa4ce13e241120812e6701d6034213d43
 
 pkgname = gnome-keysign

@@ -1,0 +1,47 @@
+From 100c574b9489c54781c7dcb8698c193bad18430f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 21 Nov 2026 02:01:48 +0100
+Subject: [PATCH] Add D-Bus activation support
+
+Register a D-Bus service for GNOME Keysign and mark the desktop
+entry as D-Bus activatable.
+
+This allows the application to be launched through D-Bus
+activation instead of spawning a new process.
+---
+ data/org.gnome.Keysign.raw.desktop | 1 +
+ data/org.gnome.Keysign.service     | 3 +++
+ pyproject.toml                     | 1 +
+ 3 files changed, 5 insertions(+)
+ create mode 100644 data/org.gnome.Keysign.service
+
+diff --git a/data/org.gnome.Keysign.raw.desktop b/data/org.gnome.Keysign.raw.desktop
+index 2e10d537..bb6889bb 100644
+--- a/data/org.gnome.Keysign.raw.desktop
++++ b/data/org.gnome.Keysign.raw.desktop
+@@ -7,3 +7,4 @@ Exec=python3 -m keysign
+ Icon=org.gnome.Keysign
+ Categories=GTK;GNOME;Utility;
+ StartupNotify=true
++DBusActivatable=true
+diff --git a/data/org.gnome.Keysign.service b/data/org.gnome.Keysign.service
+new file mode 100644
+index 00000000..9c5220fb
+--- /dev/null
++++ b/data/org.gnome.Keysign.service
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=org.gnome.Keysign
++Exec=/usr/bin/gnome-keysign --gapplication-service
+diff --git a/pyproject.toml b/pyproject.toml
+index 011d2dd2..a33f1cf1 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -69,6 +69,7 @@ keysign = ["*.ui", "locale/*/*/*.mo"]
+ version = {attr = "keysign._version.__version__"}
+ 
+ [tool.setuptools.data-files]
++"share/dbus-1/services" = ["data/org.gnome.Keysign.service"]
+ "share/applications" = ["data/org.gnome.Keysign.desktop"]
+ "share/metainfo" = ["data/org.gnome.Keysign.appdata.xml"]
+ "share/icons/hicolor/scalable/apps" = ["data/org.gnome.Keysign.svg"]
