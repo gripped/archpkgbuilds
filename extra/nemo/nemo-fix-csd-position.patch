@@ -1,0 +1,57 @@
+From 41e1a332caf4a6337170e6d44e3bebd199f95e92 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 18 Nov 2026 09:01:16 +0100
+Subject: [PATCH] desktop: Fix desktop window position with client-side
+ decorations
+
+Update the desktop window geometry after disabling decorations to ensure
+the window is correctly positioned when GTK client-side decorations are
+enabled.
+
+This fixes the desktop window being positioned at negative coordinates
+on X11 when GTK_CSD=1 is used.
+---
+ src/nemo-blank-desktop-window.c | 4 ++--
+ src/nemo-desktop-window.c       | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/nemo-blank-desktop-window.c b/src/nemo-blank-desktop-window.c
+index 1a48506a3..f1b7a07da 100644
+--- a/src/nemo-blank-desktop-window.c
++++ b/src/nemo-blank-desktop-window.c
+@@ -338,13 +338,13 @@ nemo_blank_desktop_window_constructed (GObject *obj)
+                                                                         window);
+     }
+ 
+-    nemo_blank_desktop_window_update_geometry (window);
+-
+     gtk_window_set_resizable (GTK_WINDOW (window),
+                   FALSE);
+     gtk_window_set_decorated (GTK_WINDOW (window),
+                   FALSE);
+ 
++    nemo_blank_desktop_window_update_geometry (window);
++
+     window->details->event_box = gtk_event_box_new ();
+     gtk_event_box_set_visible_window (GTK_EVENT_BOX (window->details->event_box), FALSE);
+     gtk_container_add (GTK_CONTAINER (window), window->details->event_box);
+diff --git a/src/nemo-desktop-window.c b/src/nemo-desktop-window.c
+index e0e16778a..48919c7f7 100644
+--- a/src/nemo-desktop-window.c
++++ b/src/nemo-desktop-window.c
+@@ -128,13 +128,13 @@ nemo_desktop_window_constructed (GObject *obj)
+ 		atk_object_set_name (accessible, _("Desktop"));
+ 	}
+ 
+-    nemo_desktop_window_update_geometry (window);
+-
+     gtk_window_set_resizable (GTK_WINDOW (window),
+                   FALSE);
+     gtk_window_set_decorated (GTK_WINDOW (window),
+                   FALSE);
+ 
++    nemo_desktop_window_update_geometry (window);
++
+     gtk_widget_show (GTK_WIDGET (window));
+ }
+ 
