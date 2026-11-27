@@ -4,7 +4,7 @@
 # Contributor: Simon Legner <Simon.Legner@gmail.com>
 
 pkgname=bazel
-pkgver=9.3.2
+pkgver=9.3.3
 pkgrel=1
 pkgdesc='Correct, reproducible, and fast builds for everyone'
 arch=('x86_64')
@@ -16,7 +16,7 @@ options=('!debug' '!strip')
 source=(
   "https://github.com/bazelbuild/bazel/releases/download/${pkgver}/bazel-${pkgver}-dist.zip"{,.sig}
 )
-b2sums=('f42da5a6ea9c7ddbd7daf80c6e9ee3555e0ffc91b737095a25a8092f3ac71371d5c78f48beb59cb20c71ccd1f05f9550aa825ec4b8ccb0f16a6d9d95ddb9b790'
+b2sums=('7e9b1ce5dc76475d3b397289eee611b2f6f2c0bdb0c8fdcbc61518188ec660065fe199c67eaa034f359b9244e45304c6f28187ace4fe0e6e86821428689b876b'
         'SKIP')
 validpgpkeys=('71A1D0EFCFEB6281FD0437C93D5919B448457EE0')
 
