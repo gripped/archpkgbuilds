@@ -1,0 +1,22 @@
+From 07075faa72513eab59399acda547274f695fdfbb Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 18 Nov 2026 18:44:36 +0100
+Subject: [PATCH] Set icon for the window
+
+This is commonly used by desktop environments on X11.
+---
+ xepub/window.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/xepub/window.py b/xepub/window.py
+index f43595a..6983fda 100644
+--- a/xepub/window.py
++++ b/xepub/window.py
+@@ -43,6 +43,7 @@ def __init__(self, application):
+         height = self.settings.get_int("window-height")
+         self.set_default_size(width, height)
+         self.set_position(Gtk.WindowPosition.CENTER)
++        self.set_icon_name("xepub")
+         if self.settings.get_boolean("window-maximized"):
+             self.maximize()
+         self.book = None

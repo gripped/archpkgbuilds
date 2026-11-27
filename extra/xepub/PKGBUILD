@@ -1,0 +1,69 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=xepub
+pkgver=1.0.6
+pkgrel=1
+pkgdesc='EPUB reader for Linux desktops'
+arch=(any)
+url='https://github.com/xapp-project/xepub'
+license=(GPL-3.0-or-later)
+groups=(x-apps)
+depends=(
+  bash
+  dconf
+  glib2
+  gtk3
+  hicolor-icon-theme
+  libsoup3
+  pango
+  python
+  python-gobject
+  python-setproctitle
+  python-xapp
+  webkit2gtk-4.1
+  xapp
+)
+makedepends=(
+  git
+  meson
+)
+source=(
+  "git+https://github.com/xapp-project/xepub.git#tag=$pkgver"
+  xepub-window-size.patch
+  xepub-window-icon.patch
+  xepub-prgname.patch
+)
+b2sums=(
+  7f11d391779b6c5353f9d73df1cd2317f72699fdcc9889d368a78bddcbd6bb6a4325edfd4559d9f58fd0a64a1ea81e1e848e6fa9dde5d6646f8b672fa625a180
+  57aa271f0e13f87114050ded8d5ab3a130aff3b07c9d479b48b3650d0ad751187bacfab970595915e66929ae22ece1e7b5a64cca73bafa2c7aa8cf8fc30556d2
+  3da0e8581ccec687c70eaaf59427351759d0e578000960768fcea03939d86e307a526456f5fc3849999f6a2180e33a056d404fdaa8a883817dbfb48299308323
+  aa5c8229f5fc772e5eeb6dcdd77b60c80b5545640542470d6ce06dcb959dd0e5049915f43492b2002304f664d7bc060477cc12bffa6a0b0cf9bb6fdab4d9713c
+)
+
+prepare() {
+  cd $pkgname
+
+  # Reduce default window size
+  # https://github.com/xapp-project/xepub/pull/13
+  git apply -3 ../xepub-window-size.patch
+
+  # Set icon for the window
+  # https://github.com/xapp-project/xepub/pull/14
+  git apply -3 ../xepub-window-icon.patch
+
+  # Set prgname to match with the desktop file
+  # https://github.com/xapp-project/xepub/pull/15
+  git apply -3 ../xepub-prgname.patch
+}
+
+build() {
+  arch-meson $pkgname build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+
+  python -m compileall -d /usr/share "$pkgdir/usr/share"
+  python -O -m compileall -d /usr/share "$pkgdir/usr/share"
+}

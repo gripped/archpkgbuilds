@@ -1,0 +1,24 @@
+From 33fcdb8ec31beb5242af72adb9059901f54f31f6 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 18 Nov 2026 18:51:33 +0100
+Subject: [PATCH] Set prgname to match with the desktop file
+
+This is needed for Wayland compositors to match the
+window with the desktop file.
+---
+ xepub/main.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/xepub/main.py b/xepub/main.py
+index 118e1d0..49e0f36 100644
+--- a/xepub/main.py
++++ b/xepub/main.py
+@@ -19,7 +19,7 @@ def __init__(self):
+         super().__init__(application_id=APP_ID, flags=Gio.ApplicationFlags.HANDLES_OPEN)
+         self.windows_by_path = {}
+         setproctitle("xepub")
+-        GLib.set_prgname(APP_ID)
++        GLib.set_prgname("xepub")
+         GLib.set_application_name(_("Book Reader"))
+ 
+     def do_startup(self):

@@ -1,0 +1,25 @@
+From 98d4ff87e0628145cd04fa366bdeb44a269c20c8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 18 Nov 2026 18:26:49 +0100
+Subject: [PATCH] Reduce default window size
+
+The default size of 1080x760 is too large for a standard 1024x768 display. Use 880x560 as the initial window size instead.
+---
+ data/org.x.xepub.gschema.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/data/org.x.xepub.gschema.xml b/data/org.x.xepub.gschema.xml
+index 5aa0193..fe6a08b 100644
+--- a/data/org.x.xepub.gschema.xml
++++ b/data/org.x.xepub.gschema.xml
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <schemalist>
+   <schema id="org.x.xepub" path="/org/x/xepub/">
+-    <key name="window-width" type="i"><default>1080</default><range min="600" max="32768"/></key>
+-    <key name="window-height" type="i"><default>760</default><range min="420" max="32768"/></key>
++    <key name="window-width" type="i"><default>880</default><range min="600" max="32768"/></key>
++    <key name="window-height" type="i"><default>560</default><range min="420" max="32768"/></key>
+     <key name="window-maximized" type="b"><default>false</default></key>
+     <key name="sidebar-page" type="s">
+       <choices>
