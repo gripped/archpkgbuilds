@@ -1,10 +1,12 @@
 diff --git a/python/tests/conftest.py b/python/tests/conftest.py
-index c6d805c..2dc51d7 100644
+index 4b51bdf..deb5eea 100644
 --- a/python/tests/conftest.py
 +++ b/python/tests/conftest.py
-@@ -5,10 +5,10 @@ import inspect
+@@ -3,12 +3,11 @@ from __future__ import annotations
+ import asyncio
+ import inspect
  import logging
- import os
+-import os
  import socket
 -import sys
 +import subprocess
@@ -15,7 +17,7 @@ index c6d805c..2dc51d7 100644
  from unittest.mock import AsyncMock
  from uuid import uuid4
  
-@@ -23,7 +23,9 @@ from tests._container import (
+@@ -23,7 +22,9 @@ from tests._container import (
      BASE_VERSION,
      CLUSTER_ENABLED,
      PROVIDER_ENABLED,
@@ -25,7 +27,7 @@ index c6d805c..2dc51d7 100644
  )
  from tests._key_leak_checker import KeyCountChecker
  from tests._rotating_provider import RotatingProvider
-@@ -108,22 +110,6 @@ async def wait_for_event(
+@@ -108,22 +109,6 @@ async def wait_for_event(
      )
  
  
@@ -48,13 +50,13 @@ index c6d805c..2dc51d7 100644
  @pytest.fixture(scope="session")
  def acl_credentials(worker_id: str) -> ACLCredentials:
      """Session-scoped ACL credentials for consistent test isolation."""
-@@ -181,90 +167,39 @@ def now() -> Callable[[], datetime]:
+@@ -181,89 +166,43 @@ def now() -> Callable[[], datetime]:
  
  
  @pytest.fixture(scope="session")
 -def redis_server(
 -    worker_id: str,
-+def redis_port(
++def redis_ports(
 +    tmp_path_factory: pytest.TempPathFactory,
      acl_credentials: ACLCredentials,
 -) -> Generator[Container | None, None, None]:
@@ -63,10 +65,13 @@ index c6d805c..2dc51d7 100644
 -    This eliminates cross-worker coordination complexity and allows using
 -    FLUSHALL between tests since each worker owns its Redis instance.
 -    """
--    if BASE_VERSION == "memory":
++) -> Generator[tuple[int, ...], None, None]:
++    """Each xdist worker owns a local Valkey server, so FLUSHALL stays isolated."""
+     if BASE_VERSION == "memory":
 -        yield None
--        return
--
++        yield (0,)
+         return
+ 
 -    docker_client = DockerClient.from_env()
 -
 -    # Clean up stale containers from previous runs
@@ -120,8 +125,6 @@ index c6d805c..2dc51d7 100644
 -        if ACL_ENABLED:
 -            setup_acl(redis_port, acl_credentials)
 -
-+) -> Generator[int, None, None]:
-+    """Each xdist worker owns a local Valkey server, so FLUSHALL stays isolated."""
 +    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 +        s.bind(("127.0.0.1", 0))
 +        port = s.getsockname()[1]
@@ -147,25 +150,24 @@ index c6d805c..2dc51d7 100644
 +        wait_for_redis(port)
 +        if ACL_ENABLED:
 +            setup_acl(port, acl_credentials)
-+        yield port
++        yield (port,)
      finally:
 -        container.stop()
 -
 -
 -@pytest.fixture(scope="session")
--def redis_port(redis_server: Container | None) -> int:
+-def redis_ports(redis_server: Container | None) -> tuple[int, ...]:
+-    """The data port of each node of the test Redis: the one port of a
+-    standalone server, or the port of each of the cluster's three primaries."""
 -    if redis_server is None:
--        return 0
+-        return (0,)
 -    if CLUSTER_ENABLED:
--        env_list = redis_server.attrs["Config"]["Env"]
--        for env in env_list:
--            if env.startswith("CLUSTER_PORT_0="):
--                return int(env.split("=")[1])
--        raise RuntimeError("CLUSTER_PORT_0 not found in container environment")
+-        env = dict(entry.split("=", 1) for entry in redis_server.attrs["Config"]["Env"])
+-        return tuple(int(env[f"CLUSTER_PORT_{i}"]) for i in range(3))
 -    port_bindings = redis_server.attrs["HostConfig"]["PortBindings"]["6379/tcp"]
--    return int(port_bindings[0]["HostPort"])
+-    return (int(port_bindings[0]["HostPort"]),)
 +        process.terminate()
 +        process.wait(timeout=10)
  
  
- @pytest.fixture
+ @pytest.fixture(scope="session")
