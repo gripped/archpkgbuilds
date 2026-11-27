@@ -4,7 +4,7 @@
 # Contributor: ccorn
 
 pkgname=git-delta
-pkgver=0.20.1
+pkgver=0.22.0
 pkgrel=1
 pkgdesc='Syntax-highlighting pager for git and diff output'
 arch=(x86_64)
@@ -22,8 +22,8 @@ makedepends=(
   rust
 )
 source=("$pkgname::git+$_url#tag=$pkgver")
-sha512sums=('5672b4d8f97eee1e9dffede6f71646285c88329fc677f5790157752ef6bbeae0b0d687cf6917af5727922f4b971ce1536a0ec67e0e1a81d73ce4622c05c26589')
-b2sums=('d9edfcdb80f9bba696874d97096a543cd65658346f72ac1a43f7197ca8ed2bbb38a31ef3b050e81b8e31f9950deb7a02e58e80d06ac56d20fcae718e56363886')
+sha512sums=('57a87b09694cc1bf0f36dbe50530c089c74eff36d12401b6e6ff7b03481353964383a61fd68078211ce99ba176bc3ece48a3f361a755aadd0b6b02da5af1e998')
+b2sums=('514f934ac2b7fdca1128383a71e7f15af98fb9c6c437814e9faa9b81ad1f99bbc35048d5fd5ace6aea165d027763abc58bd7c7975bada909fc463474373cdfce')
 
 prepare() {
   cd "$pkgname"
@@ -84,6 +84,9 @@ package() {
     "$pkgdir/usr/share/fish/vendor_completions.d/delta.fish"
   install -vDm644 zsh-completion \
     "$pkgdir/usr/share/zsh/site-functions/_delta"
+
+  # themes
+  install -vDm644 -t "$pkgdir/usr/share/$pkgname" themes.gitconfig
 
   # documentation
   install -vDm644 -t "$pkgdir/usr/share/doc/$pkgname" README.md
