@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-url-normalize
-pkgver=3.1.0
+pkgver=4.0.0
 pkgrel=1
 pkgdesc='URL normalization for Python'
 arch=(any)
@@ -15,15 +15,18 @@ makedepends=(
   python-setuptools
   python-wheel
 )
-checkdepends=(python-pytest)
+checkdepends=(
+  python-pytest
+  python-hypothesis
+)
 source=(
   "$pkgname::git+$url#tag=v$pkgver"
   remove-pytest-args.patch
 )
-sha512sums=('35b8062327da9102e52030385c082b7c3d92e1007bf7bbb0b421024de2e9596b4ff6dff25dc715fe18a8bc4cbd8bdc133505d1a8d4caf0d709bc06c65553c70e'
-            '4f45961c8c9a029e9b14e9276a6110f42bfa2f3bbe5681b5a145efcbb2097bc0858dbb18b1188bfdd8f453ff1616902a9481d5c5db5262f46bd1ef2a17b7951d')
-b2sums=('f0e7ff73e4aee614f888616105afb148a5ad9fcb2eb12bdb44c1958b58e7190dc26d94b014e83c692af77fbb9197aae047a31b8eb11723f5855c24f435bcafc8'
-        'd94bd1031013a98ae6690cfb65ad9d5a064dcce8938c4a8f3f16aceda03b3d1f822caea03bd11cc23c3004414686e07f9c3b85e9889f236508649c7cbee9e340')
+sha512sums=('fcc800a73877887ab37174fd51825f583100d98e55940001e6448be1145cc895b8d080779634322bbe252966f1f8095e5c14cbff0e008e1f734f624d333dad32'
+            '4d57fc75de868a125d369770b83f84e07d368bf0db601a0c73a911a2b22f75c7952addcc7c774e784d3b0c1b05e1f1657e95a3926c0a763f747c3b27325bc1fe')
+b2sums=('2767d990ad77b324be88a0b5bcd5c2d496fa6a266d546ca2a66f234ee2205bd8965bd5f7007e76caa3c0cbb9a914c59bc1b09177dedb561ef8670659275d1387'
+        '269c7afbcee7fe12d247fa7a0105a07e43796327cfa1c925308868404f75616353480ae397eb8b1cec3f07400f4570c408de237dc62ec1d7bdc094fd2482b2f4')
 
 prepare() {
   cd "$pkgname"
