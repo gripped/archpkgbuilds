@@ -35,6 +35,11 @@ pre_upgrade() {
     _stop_user_unit_for_logged_in_users "$default_service"
     _compare_config_notice
   fi
+
+  if (( "$(vercmp "$2" '1:8.0.0-1')" < 0 )); then
+    printf 'NOTE: Major changes introduced for resync and unsync!\n'
+    _stop_user_unit_for_logged_in_users "$default_service"
+  fi
 }
 
 pre_remove() {
