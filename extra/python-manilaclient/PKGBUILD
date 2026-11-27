@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-manilaclient
-pkgver=6.3.0
+pkgver=6.4.0
 pkgrel=1
 pkgdesc="Client library for OpenStack Shared File System Storage"
 arch=('any')
@@ -15,7 +15,7 @@ makedepends=('git' 'python-build' 'python-installer' 'python-setuptools' 'python
 checkdepends=('python-ddt' 'python-fixtures' 'python-requests-mock' 'python-stestr'
               'python-tempest' 'python-testtools')
 source=("git+https://opendev.org/openstack/python-manilaclient.git#tag=$pkgver")
-sha512sums=('ee9035ca4b55b8cdff5d192b3dba9b19c1a9e57297cf2a65635d98b3ca1129bfaf5f603fb518633d42afac1c3e99136ced5a894f88bb66e1e9f75267064552dc')
+sha512sums=('911b99cc301eb70b05d742ba732448d691e0637323d8faf4a2a2a9c5cf3a385f74e6e817d27af0cddcdc2e5d786d5b3b0d77ace607c882728fd1ae4853f774ec')
 
 build() {
   cd python-manilaclient
