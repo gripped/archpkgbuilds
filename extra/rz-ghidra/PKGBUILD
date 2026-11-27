@@ -1,7 +1,7 @@
 # Maintainer: Levente Polyak <anthraxx[at]archlinux[dot]org>
 
 pkgname=rz-ghidra
-pkgver=0.8.0
+pkgver=0.9.0
 pkgrel=1
 pkgdesc='Deep ghidra decompiler integration for rizin and rz-cutter'
 url='https://github.com/rizinorg/rz-ghidra'
@@ -12,14 +12,9 @@ makedepends=('git' 'cmake' 'rz-cutter')
 source=("git+${url}#tag=v${pkgver}"
         rizin-ghidra::git+https://github.com/rizinorg/ghidra.git
         git+https://github.com/zeux/pugixml.git)
-sha512sums=('fe857a56d3fab5150f61cf247b1d006381b37efba469630449300a20e28399efc6b5b589f38b2fe756451cd37f2b5e949cc395ec0255df9086d65eec5498e9e5'
+sha512sums=('db568f4bb8f4c684110b970a6efb2b2fb5fcafd97a4ac209a7aa2e1093e2b497c0b6d7569395c885af8ead4ebfc1025a654e50c514113bd1dcb1b768410a1f4d'
             'SKIP'
             'SKIP')
-
-pkgver() {
-  cd ${pkgname}
-  git describe --tags --match 'rz-*' | sed 's/^rz-//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
 
 prepare() {
   cd ${pkgname}
