@@ -3,7 +3,7 @@
 
 _name=svelte-language-tools
 pkgname=svelte-language-server
-pkgver=0.18.4
+pkgver=0.18.6
 pkgrel=1
 pkgdesc='Language server for Svelte'
 arch=(any)
@@ -22,7 +22,7 @@ options=(!emptydirs)
 source=(
 	"$_name::git+https://github.com/sveltejs/language-tools.git#tag=svelte-language-server@$pkgver"
 )
-b2sums=('d2bf4dab57354d64ab9e5db704c72b8cf954366aff604191b221823766439e57c9427c8551c051ca7399a21b15e2510c6a1a1b3822603e4ce98a4c649963d75b')
+b2sums=('e5dbf601730b9aa53ed62e63c8df6481d999e980ce0dd6c921471bdff777baaf43134fdfb752a6041eece95994d578dee387cc9758421745dc2336e35a604441')
 
 prepare() {
   cd $_name
@@ -38,7 +38,7 @@ build() {
 
 check() {
   cd $_name/packages/language-server
-  pnpm run test --no-experimental-strip-types
+  pnpm run test --timeout 60000
 }
 
 package() {
@@ -55,8 +55,7 @@ package() {
   cp package.json{,.bak}
   sed -i 's/workspace:./*/' package.json
   rm -r node_modules
-  npm install --omit=dev
-  rm -r node_modules/{.bin/{tsc,tsserver},typescript}
+  npm install --omit=dev --legacy-peer-deps
   mv package.json{.bak,}
 
   cp -r bin dist node_modules package.json "$pkgdir"/$mod_dir
