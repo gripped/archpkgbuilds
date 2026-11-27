@@ -1,0 +1,40 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+
+pkgname=gke-gcloud-auth-plugin
+pkgver=37.2.10
+pkgrel=3
+pkgdesc='Kubernetes client-go credential plugin for Google Kubernetes Engine'
+arch=(x86_64)
+url='https://github.com/kubernetes/cloud-provider-gcp'
+license=(Apache-2.0)
+depends=(glibc)
+makedepends=(git go)
+optdepends=('google-cloud-cli: obtain tokens through gcloud (default mode)')
+source=("git+$url.git#tag=$pkgname/v$pkgver")
+b2sums=('27a461f3dbe430757a17975f401f3443473b0c0662f518a7eb84eab760a898cbd00a837e2eb10b5e5933399f7ed0480d9a02a4654aec64fe51b8d4536938f605')
+
+build() {
+  cd cloud-provider-gcp
+
+  export CGO_CPPFLAGS="${CPPFLAGS}"
+  export CGO_CFLAGS="${CFLAGS}"
+  export CGO_CXXFLAGS="${CXXFLAGS}"
+  export CGO_LDFLAGS="${LDFLAGS}"
+  go build \
+    -buildmode=pie \
+    -mod=vendor \
+    -ldflags "-compressdwarf=false -linkmode external -X k8s.io/component-base/version.gitVersion=v$pkgver -X k8s.io/component-base/version.gitCommit=$(git rev-parse HEAD) -X k8s.io/component-base/version.buildDate=$(date -u -d "@$SOURCE_DATE_EPOCH" +%Y-%m-%dT%H:%M:%SZ) -buildid=''" \
+    -o $pkgname \
+    ./cmd/$pkgname
+}
+
+check() {
+  cd cloud-provider-gcp
+  go test -mod=vendor ./cmd/$pkgname/...
+}
+
+package() {
+  install -Dm755 cloud-provider-gcp/$pkgname -t "$pkgdir"/usr/bin
+}
+
+# vim:set ts=2 sw=2 et:

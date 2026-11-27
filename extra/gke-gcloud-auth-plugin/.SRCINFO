@@ -1,0 +1,15 @@
+pkgbase = gke-gcloud-auth-plugin
+	pkgdesc = Kubernetes client-go credential plugin for Google Kubernetes Engine
+	pkgver = 37.2.10
+	pkgrel = 3
+	url = https://github.com/kubernetes/cloud-provider-gcp
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = git
+	makedepends = go
+	depends = glibc
+	optdepends = google-cloud-cli: obtain tokens through gcloud (default mode)
+	source = git+https://github.com/kubernetes/cloud-provider-gcp.git#tag=gke-gcloud-auth-plugin/v37.2.10
+	b2sums = 27a461f3dbe430757a17975f401f3443473b0c0662f518a7eb84eab760a898cbd00a837e2eb10b5e5933399f7ed0480d9a02a4654aec64fe51b8d4536938f605
+
+pkgname = gke-gcloud-auth-plugin
