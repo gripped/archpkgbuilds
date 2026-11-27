@@ -5,8 +5,8 @@
 
 pkgname=python-autobahn
 # https://github.com/crossbario/autobahn-python/blob/master/docs/changelog.rst
-pkgver=26.7.1
-pkgrel=2
+pkgver=26.11.2
+pkgrel=1
 pkgdesc='Real-time framework for Web, Mobile & Internet of Things'
 arch=(x86_64)
 url='https://github.com/crossbario/autobahn-python/'
@@ -41,15 +41,17 @@ optdepends=(
 
 source=("git+https://github.com/crossbario/autobahn-python.git#tag=v$pkgver"
         'remove-march-flags-for-safe-builds.patch'
-        'fix-max-message-size-test.patch')
-sha256sums=('6b21f854f40496cf2ab328c7ecf8dfa6f3c346e4ca5f9b1fbaf6f460a45ccc22'
+        'fix-lazy-import-parent-binding.patch')
+sha256sums=('5a9993ca16d0442dfb7247e31a2d0602023466a5d4affaffffbd92aff2cf68cc'
             'a27e5bb67aee427a2bd038a9d1bc0d2d2d34a90521fed1a5288a3cec5bfc9f7c'
-            '62f54753720289c14055822067d4b08fe37450572e0d3dd723a9e0bf42409405')
+            'b942bb00c7a6b8152e7c6bf4ad0f17319106cb503d20c336da1e484cda88330d')
 
 prepare() {
   cd "$srcdir/autobahn-python"
+
   patch -Np1 -i ../remove-march-flags-for-safe-builds.patch
-  patch -Np1 -i ../fix-max-message-size-test.patch
+  patch -Np1 -i ../fix-lazy-import-parent-binding.patch
+
   sed -i '/flatc/d' pyproject.toml
 }
 

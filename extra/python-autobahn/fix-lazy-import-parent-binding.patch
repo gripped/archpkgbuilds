@@ -1,0 +1,15 @@
+diff --git a/src/autobahn/wamp/message.py b/src/autobahn/wamp/message.py
+index bb817cb..2357d6b 100644
+--- a/src/autobahn/wamp/message.py
++++ b/src/autobahn/wamp/message.py
+@@ -53,6 +53,10 @@ def _lazy_import(name):
+     module = importlib.util.module_from_spec(spec)
+     sys.modules[name] = module
+     spec.loader.exec_module(module)
++    # bind the submodule on its parent package, as a regular import would
++    parent, _, child = name.rpartition(".")
++    if parent:
++        setattr(sys.modules[parent], child, module)
+     return module
+ 
+ 
