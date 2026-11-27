@@ -1,7 +1,7 @@
 pkgbase = migraphx
 	pkgdesc = AMD's graph optimization engine
-	pkgver = 7.2.3
-	pkgrel = 7
+	pkgver = 10.1
+	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/AMDMIGraphX/en/latest/
 	arch = x86_64
 	license = MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
@@ -11,8 +11,9 @@ pkgbase = migraphx
 	makedepends = rocm-cmake
 	makedepends = rocm-toolchain
 	makedepends = rocm-llvm
-	makedepends = half
+	makedepends = eigen
 	makedepends = nlohmann-json
+	makedepends = pybind11
 	depends = rocm-core
 	depends = miopen-hip
 	depends = rocblas
@@ -21,11 +22,11 @@ pkgbase = migraphx
 	depends = msgpack-cxx
 	depends = sqlite
 	options = !lto
-	source = migraphx::git+https://github.com/ROCm/AMDMIGraphX#tag=rocm-7.2.3
-	source = migraphx-rocmlir::git+https://github.com/ROCm/rocMLIR#commit=6671a1ee31d44e1f2f7743a26a71ffc4ce9169bf
+	source = migraphx::git+https://github.com/ROCm/AMDMIGraphX#tag=rocm-10.1
+	source = migraphx-rocmlir::git+https://github.com/ROCm/rocmlirTriton#commit=f347064fea12aa0ab325e1244b65766652a2530c
 	source = 0001-migraphx-check-if-use_hipblaslt-before-call-gfx_defa.patch
-	sha256sums = 2c30c6185c141291e041b80f3ee90b1459c731aa9f86cbc496fd32dcb253a887
-	sha256sums = 674cf03c6d5d0fb65e7b57c71cb0671cc29e1672446f4abb39c13cd9296aa9ef
+	sha256sums = 27964daeb30384701e2b3f6d0fc561d5ef80cf50e875bf73631219f647acfee5
+	sha256sums = d9efa5218d5b1282dcd78389a938beb0e244408a249fe0ee91731dff19047781
 	sha256sums = d1ef55d9b38e923567b8195d8e577ff59c3c939cbdf2451e27472d03ee5a851b
 
 pkgname = migraphx

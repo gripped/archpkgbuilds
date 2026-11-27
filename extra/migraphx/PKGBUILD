@@ -2,8 +2,8 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=migraphx
-pkgver=7.2.3
-pkgrel=7
+pkgver=10.1
+pkgrel=1
 pkgdesc="AMD's graph optimization engine"
 arch=('x86_64')
 url="https://rocm.docs.amd.com/projects/AMDMIGraphX/en/latest/"
@@ -24,26 +24,32 @@ makedepends=(
   rocm-cmake
   rocm-toolchain
   rocm-llvm
-  half
+  eigen
   nlohmann-json
+  pybind11
 )
 _git='https://github.com/ROCm/AMDMIGraphX'
-_mlir="https://github.com/ROCm/rocMLIR"
-# HACK Commit stored in https://github.com/ROCm/AMDMIGraphX/blob/rocm-7.2.3/requirements.txt
-_mlir_commit=6671a1ee31d44e1f2f7743a26a71ffc4ce9169bf
+_mlir="https://github.com/ROCm/rocmlirTriton"
+# HACK https://github.com/ROCm/AMDMIGraphX/blob/rocm-10.1/requirements.txt
+# names the branch release/rocm-rel-10.1. Pin its head.
+_mlir_commit=f347064fea12aa0ab325e1244b65766652a2530c
 source=(
   "$pkgname::git+$_git#tag=rocm-$pkgver"
   "$pkgname-rocmlir::git+$_mlir#commit=$_mlir_commit"
   "0001-migraphx-check-if-use_hipblaslt-before-call-gfx_defa.patch"
 )
-sha256sums=('2c30c6185c141291e041b80f3ee90b1459c731aa9f86cbc496fd32dcb253a887'
-            '674cf03c6d5d0fb65e7b57c71cb0671cc29e1672446f4abb39c13cd9296aa9ef'
+sha256sums=('27964daeb30384701e2b3f6d0fc561d5ef80cf50e875bf73631219f647acfee5'
+            'd9efa5218d5b1282dcd78389a938beb0e244408a249fe0ee91731dff19047781'
             'd1ef55d9b38e923567b8195d8e577ff59c3c939cbdf2451e27472d03ee5a851b')
 options=(!lto)
 
 prepare() {
   cd $pkgname
   patch -p1 -i "$srcdir"/0001-migraphx-check-if-use_hipblaslt-before-call-gfx_defa.patch
+  # rocm-cmake 10.1 lacks rocm_add_version_resource, which only adds a
+  # Windows version resource
+  sed -i '/^include(ROCMSetupVersion)$/a function(rocm_add_version_resource)\nendfunction()' \
+    CMakeLists.txt
 }
 
 build() {
@@ -61,6 +67,11 @@ build() {
     -D CMAKE_CXX_COMPILER=amdclang++
     -D BUILD_FAT_LIBROCKCOMPILER=ON
     -D BUILD_SHARED_LIBS=OFF
+    # Options from requirements.txt.
+    -D LLVM_INCLUDE_TESTS=OFF
+    -D MLIR_ENABLE_ROCM_RUNNER=OFF
+    -D MLIR_INCLUDE_TESTS=OFF
+    -D LLVM_TARGETS_TO_BUILD="host;AMDGPU"
   )
   echo "Build MLIR"
   cmake "${mlir_args[@]}"
@@ -91,6 +102,6 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
   install -Dm644 "$pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 "$pkgname-rocmlir"/LICENSE.TXT "$pkgdir/usr/share/licenses/$pkgname/LICENSE.rocMLIR"
+  install -Dm644 "$pkgname-rocmlir"/LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE.rocMLIR"
   install -Dm644 "$pkgname-rocmlir"/external/llvm-project/LICENSE.TXT "$pkgdir/usr/share/licenses/$pkgname/LICENSE.llvm-project"
 }
