@@ -1,0 +1,67 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=rocshmem
+pkgver=10.2
+pkgrel=1
+pkgdesc='ROCm OpenSHMEM, GPU-centric networking from inside HIP kernels'
+arch=('x86_64')
+url='https://rocm.docs.amd.com/projects/rocSHMEM/en/latest/'
+license=('MIT')
+depends=(
+  'glibc'
+  'hip-runtime-amd'
+  'hsa-rocr'
+  'libgcc'
+  'libstdc++'
+  'rocm-core'
+  'rocprofiler-register'
+)
+makedepends=(
+  'amdsmi'
+  'cmake'
+  'ninja'
+  'rocm-cmake'
+  'rocm-llvm'
+)
+optdepends=(
+  'openmpi: reverse offload backend and MPI bootstrap'
+  'amdsmi: detection of GPU fabric (pod) topology'
+)
+_git='https://github.com/ROCm/rocm-systems'
+source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
+sha256sums=('af1cbf1b4cd16f7d5b7cb082a6c27ecb23a2a57fdd9ac8954c200e74e9b63b7c')
+options=(!lto)
+
+build() {
+  # -fcf-protection is not supported by HIP, see
+  # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
+  CXXFLAGS+=" -fcf-protection=none -Xarch_device -g0"
+  local cmake_args=(
+    -Wno-dev
+    -S "$pkgname"
+    -G Ninja
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_CXX_COMPILER=amdclang++
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D CMAKE_POSITION_INDEPENDENT_CODE=ON
+    # DeviceBitcode.cmake searches ${ROCM_PATH}/llvm/bin first, then this root
+    -D THEROCK_TOOLCHAIN_ROOT=/opt/rocm
+    # Upstream device code supports these targets only
+    -D GPU_TARGETS='gfx90a;gfx942;gfx950;gfx1100;gfx1201;gfx1250'
+    -D USE_IPC=ON
+    -D USE_RO=ON
+    # Load Open MPI with dlopen at run time, as TheRock does
+    -D USE_EXTERNAL_MPI=OFF
+    -D BUILD_CTESTS=OFF
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+
+  install -Dm644 "$pkgname/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

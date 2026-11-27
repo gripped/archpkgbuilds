@@ -1,0 +1,26 @@
+pkgbase = rocshmem
+	pkgdesc = ROCm OpenSHMEM, GPU-centric networking from inside HIP kernels
+	pkgver = 10.2
+	pkgrel = 1
+	url = https://rocm.docs.amd.com/projects/rocSHMEM/en/latest/
+	arch = x86_64
+	license = MIT
+	makedepends = amdsmi
+	makedepends = cmake
+	makedepends = ninja
+	makedepends = rocm-cmake
+	makedepends = rocm-llvm
+	depends = glibc
+	depends = hip-runtime-amd
+	depends = hsa-rocr
+	depends = libgcc
+	depends = libstdc++
+	depends = rocm-core
+	depends = rocprofiler-register
+	optdepends = openmpi: reverse offload backend and MPI bootstrap
+	optdepends = amdsmi: detection of GPU fabric (pod) topology
+	options = !lto
+	source = rocshmem-10.2.tar.gz::https://github.com/ROCm/rocm-systems/releases/download/therock-10.2/rocshmem.tar.gz
+	sha256sums = af1cbf1b4cd16f7d5b7cb082a6c27ecb23a2a57fdd9ac8954c200e74e9b63b7c
+
+pkgname = rocshmem
