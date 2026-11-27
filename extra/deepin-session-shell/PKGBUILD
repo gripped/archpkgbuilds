@@ -3,12 +3,12 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-session-shell
-pkgver=6.0.58
+pkgver=6.0.65
 pkgrel=1
 pkgdesc='Deepin desktop-environment - session-shell module'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/dde-session-shell-snipe"
-license=('GPL-3.0-or-later')
+license=('GPL-3.0-or-later' 'LGPL-3.0-or-later')
 # deepin-daemon: org.deepin.dde.Display1
 # deepin-session: org.deepin.dde.Session1
 depends=('bash' 'deepin-daemon' 'deepin-network-core' 'deepin-qt6integration' 'deepin-wallpapers'
@@ -22,7 +22,7 @@ provides=('lightdm-deepin-greeter')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/dde-session-shell-snipe.git#tag=$pkgver"
         "fix-lightdm-qt6-visibility.patch")
-sha512sums=('a9cf80c7ba8aeaf67e4b05e8e890467fe76e5bcdb43494a7a1fd71c28712de99476077f100207eaa8cd117f32cb5dc2fb9d730cce528326d54095d4595c796a5'
+sha512sums=('14f26a1c7e9181f5c4329bc1b7ec0760e534161cef87354c91a5450a913add5a62d4b820fc1cdacf15550b7ae0a45311910df20b6939b41c9d7dca8bdb75cc6c'
             '3c7a7f4444b584ea4112d5a72325015e0f87e94426014b62db1debd5478b6404c319f04645688743ecd2f117e39cc607ad8fd76f3fb991898c7c6839094f2040')
 
 prepare() {
