@@ -1,6 +1,6 @@
 pkgbase = python-tensile
 	pkgdesc = benchmark-driven backend libraries for general matrix-matrix multiplications
-	pkgver = 7.2.4
+	pkgver = 10.1
 	pkgrel = 2
 	url = https://rocm.docs.amd.com/projects/Tensile/en/latest/
 	arch = any
@@ -15,7 +15,19 @@ pkgbase = python-tensile
 	depends = python-msgpack
 	depends = python-pyaml
 	depends = python-joblib
-	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.2.4
-	sha256sums = b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623
+	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=therock-10.1
+	source = tensile-asm-caps-warning.patch::https://github.com/ROCm/rocm-libraries/commit/2e2aeb071a42901c336c7351dc1c1cab5ca078b4.patch
+	source = tensile-generic-fallback-name.patch::https://github.com/ROCm/rocm-libraries/commit/06848607940ac5a3a90c92fae3270c034f1a8d97.patch
+	source = tensile-generic-solution-index.patch::https://github.com/ROCm/rocm-libraries/commit/12b510b561fa2e198b51715ac2677e20cb7e6b6c.patch
+	source = 0002-add-generic-gpu-targets.patch
+	source = 0001-tensile-add-gfx1170.patch
+	source = tensile-fallback-generic-codeobject-lookup.patch
+	sha256sums = 2fe2463c0b4344e30f563eb3ee4a94d9426c54d8747d76df15a4ae8018abd6f2
+	sha256sums = be3bfe4c21ef3df4b05c3789c5b4894f63ce1d925f0525f85f402ed28bf007cc
+	sha256sums = e11b5a8133e470ed7fb8a152db70f8ce7b39f9b72c0aa21c616203119f4827f5
+	sha256sums = 7908c1fe38e433da2eade3e47db587104c5bef9f8671a5738d9781a893c04699
+	sha256sums = 58756dc67e2611c117951a52dbb7174d865ecbdbb123bb09da5a05398fb288d0
+	sha256sums = 65475c238c957193c07684900e689604c7116a048dff52fc7b0ec715c85ada39
+	sha256sums = 370172a3e8ebb75256523af742125f1670a02b7acbc773fa7aac5eeb8321ed3b
 
 pkgname = python-tensile

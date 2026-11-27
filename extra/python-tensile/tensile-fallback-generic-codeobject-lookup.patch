@@ -1,0 +1,205 @@
+From: Talha Can Havadar <havadartalha@gmail.com>
+Date: Mon, 13 Jul 2026 15:00:00 +0200
+Subject: tensile: fall back to generic-family code object when the arch-specific
+ hsaco is not present
+
+The existing add-tensile-generics-support patch lets rocBLAS pick a generic
+top-level Tensile library (e.g. TensileLibrary_lazy_gfx11-generic.dat) on
+hardware whose specific arch (e.g. gfx1152) has no tuned library shipped,
+and it lets initializeLazyLoading find Kernels.so-000-gfx11-generic.hsaco.
+But per-solution fallback kernels are still resolved through
+Tensile/PlaceholderLibrary.hpp::getCodeObjectFileName(), which builds the
+filename from the runtime Hardware::archName() - always the *device* arch
+(gfx1152), never the *loaded code object* arch (gfx11-generic). The
+resulting name (e.g. TensileLibrary_Type_SS_..._fallback_gfx1152.hsaco)
+does not exist in the package and hipModuleGetFunction later fails with
+hipErrorNotFound, surfacing as HIPBLAS_STATUS_INTERNAL_ERROR (=6) on
+every Sgemm/Dgemm call.
+
+Fix the load-time fallback in HipSolutionAdapter so that, when none of
+the xnack variants of the arch-specific hsaco can be loaded, we also try
+the generic-family variant of the same filename. The mapping covers all
+six generic families exposed by AMDGPU LLVM (gfx9, gfx9-4, gfx10-1,
+gfx10-3, gfx11, gfx12); anything else falls through unchanged, preserving
+the existing behaviour on architectures that don't have a generic parent.
+This makes a rocBLAS build that ships only generic ISA targets fully
+usable on any hardware HIP maps to one of those generics at runtime,
+without any HSA_OVERRIDE_GFX_VERSION workaround.
+
+The same fallback is added to initializeLazyLoading for symmetry - the
+existing generic-library-discovery patch already makes the primary
+Kernels.so lookup succeed via the generic arch, but the defensive
+fallback here means the code still does the right thing if someone
+strips all native targets from the build in the future.
+
+The map is deliberately duplicated from
+rocblas_internal_get_generic_arch_name() in rocblas_auxiliary.cpp
+rather than plumbed through: Tensile is upstream of rocBLAS, cannot
+depend on rocBLAS internals, and the arch->generic mapping is stable
+metadata that changes only when a new AMDGPU LLVM generic family is
+introduced.
+
+Bug: https://github.com/ROCm/rocm-libraries/issues/214
+Forwarded: no
+Last-Update: 2026-07-13
+---
+--- a/tensile/Tensile/Source/lib/source/hip/HipSolutionAdapter.cpp
++++ b/tensile/Tensile/Source/lib/source/hip/HipSolutionAdapter.cpp
+@@ -29,6 +29,7 @@
+ 
+ #include <cstddef>
+ #include <fstream>
++#include <unordered_map>
+ 
+ #include <Tensile/Debug.hpp>
+ #include <Tensile/EmbeddedData.hpp>
+@@ -74,6 +75,67 @@
+             return coFilename;
+         }
+ 
++        // Map a specific AMDGPU architecture name (e.g. "gfx1152") to its
++        // generic-family name (e.g. "gfx11-generic"), or return an empty
++        // string if no generic family exists for the given arch.
++        //
++        // The set of generic families here matches AMDGPU LLVM's
++        // --offload-arch=<family>-generic targets: gfx9-generic,
++        // gfx9-4-generic, gfx10-1-generic, gfx10-3-generic, gfx11-generic
++        // and gfx12-generic. See
++        // https://llvm.org/docs/AMDGPUUsage.html#processors.
++        // Kept in sync with rocblas_internal_get_generic_arch_name() in
++        // library/src/rocblas_auxiliary.cpp.
++        static std::string genericFamilyFor(std::string const& arch)
++        {
++            static const std::unordered_map<std::string, std::string> kArchToGeneric = {
++                {"gfx900",  "gfx9-generic"},    {"gfx902",  "gfx9-generic"},
++                {"gfx904",  "gfx9-generic"},    {"gfx906",  "gfx9-generic"},
++                {"gfx908",  "gfx9-generic"},    {"gfx909",  "gfx9-generic"},
++                {"gfx90a",  "gfx9-generic"},    {"gfx90c",  "gfx9-generic"},
++                {"gfx940",  "gfx9-4-generic"},  {"gfx941",  "gfx9-4-generic"},
++                {"gfx942",  "gfx9-4-generic"},  {"gfx950",  "gfx9-4-generic"},
++                {"gfx1010", "gfx10-1-generic"}, {"gfx1011", "gfx10-1-generic"},
++                {"gfx1012", "gfx10-1-generic"}, {"gfx1013", "gfx10-1-generic"},
++                {"gfx1030", "gfx10-3-generic"}, {"gfx1031", "gfx10-3-generic"},
++                {"gfx1032", "gfx10-3-generic"}, {"gfx1033", "gfx10-3-generic"},
++                {"gfx1034", "gfx10-3-generic"}, {"gfx1035", "gfx10-3-generic"},
++                {"gfx1036", "gfx10-3-generic"}, {"gfx1037", "gfx10-3-generic"},
++                {"gfx1100", "gfx11-generic"},   {"gfx1101", "gfx11-generic"},
++                {"gfx1102", "gfx11-generic"},   {"gfx1103", "gfx11-generic"},
++                {"gfx1150", "gfx11-generic"},   {"gfx1151", "gfx11-generic"},
++                {"gfx1152", "gfx11-generic"},   {"gfx1153", "gfx11-generic"},
++                {"gfx1200", "gfx12-generic"},   {"gfx1201", "gfx12-generic"},
++                {"gfx1250", "gfx12-generic"},
++            };
++            auto it = kArchToGeneric.find(arch);
++            return it == kArchToGeneric.end() ? std::string() : it->second;
++        }
++
++        // Given a code-object filename of the form
++        //   <basename>_fallback_<arch>[<xnack>].hsaco  (per-solution kernels)
++        // or
++        //   Kernels.so-000-<arch>[<xnack>].hsaco       (initializeLazyLoading)
++        // return the same filename with <arch> replaced by its generic
++        // family, or an empty string if <arch> has no generic family or the
++        // filename doesn't match one of these shapes. archMarker selects the
++        // shape by naming the substring that immediately precedes <arch>.
++        static std::string coFilenameForGenericFamily(std::string const& coFile,
++                                                      std::string const& archMarker)
++        {
++            auto archPos = coFile.rfind(archMarker);
++            if(archPos == std::string::npos)
++                return {};
++            archPos += archMarker.length();
++            auto archEnd = coFile.find_first_of(".-", archPos);
++            if(archEnd == std::string::npos)
++                return {};
++            std::string generic = genericFamilyFor(coFile.substr(archPos, archEnd - archPos));
++            if(generic.empty())
++                return {};
++            return coFile.substr(0, archPos) + generic + coFile.substr(archEnd);
++        }
++
+         hipError_t SolutionAdapter::loadCodeObjectFile(std::string const& path)
+         {
+             hipModule_t             module;
+@@ -257,7 +319,7 @@
+ 
+             if(!loaded)
+             {
+-                hipError_t err;
++                hipError_t err = hipErrorFileNotFound;
+                 //Try xnack variations
+                 for(auto ver : {"", "-xnack-", "-xnack+"})
+                 {
+@@ -268,6 +330,26 @@
+                         return err;
+                 }
+ 
++                // If no arch-specific helper hsaco is present, fall back to the
++                // generic-family helper (e.g. gfx1152 -> gfx11-generic). This
++                // makes builds that ship only generic ISA targets usable on any
++                // hardware HIP resolves to that generic code object at runtime.
++                std::string genericHelper
++                    = coFilenameForGenericFamily(helperKernelName + ".hsaco", "Kernels.so-000-");
++                if(!genericHelper.empty())
++                {
++                    size_t gloc = genericHelper.rfind('.');
++                    for(auto ver : {"", "-xnack-", "-xnack+"})
++                    {
++                        std::string modifiedCOName = genericHelper;
++                        modifiedCOName.insert(gloc, ver);
++                        err = loadCodeObjectFile(codeObjectDir + modifiedCOName);
++
++                        if(err == hipSuccess)
++                            return err;
++                    }
++                }
++
+                 return err;
+             }
+ 
+@@ -297,7 +379,7 @@
+                 {
+                     //Try other xnack versions
+                     size_t     loc = kernel.codeObjectFile.rfind('.');
+-                    hipError_t err;
++                    hipError_t err = hipErrorFileNotFound;
+ 
+                     for(auto ver : {"", "-xnack-", "-xnack+"})
+                     {
+@@ -308,6 +390,36 @@
+                         if(err == hipSuccess)
+                             break;
+                     }
++
++                    // If none of the xnack variants of the arch-specific
++                    // fallback code object are present, retry the load with
++                    // the generic-family variant of the same filename. This
++                    // is the load-time counterpart of the top-level generic
++                    // library discovery in tensile_host.cpp: without it, a
++                    // build that ships only e.g. gfx11-generic (and no native
++                    // gfx1100/1101/1150-1153) fails every Sgemm/Dgemm call on
++                    // gfx1152 hardware with HIPBLAS_STATUS_INTERNAL_ERROR
++                    // because Tensile constructs the fallback filename from
++                    // the runtime device arch (gfx1152) rather than the arch
++                    // of the code object HIP actually loaded (gfx11-generic).
++                    if(err != hipSuccess)
++                    {
++                        std::string genericCOFile
++                            = coFilenameForGenericFamily(kernel.codeObjectFile, "_fallback_");
++                        if(!genericCOFile.empty())
++                        {
++                            size_t gloc = genericCOFile.rfind('.');
++                            for(auto ver : {"", "-xnack-", "-xnack+"})
++                            {
++                                std::string modifiedCOName = genericCOFile;
++                                modifiedCOName.insert(gloc, ver);
++                                err = loadCodeObjectFile(codeObjectDir + modifiedCOName);
++
++                                if(err == hipSuccess)
++                                    break;
++                            }
++                        }
++                    }
+                 }
+             }
+ 

@@ -1,0 +1,167 @@
+From dafe373398717cef82a1b0b5e414674029941291 Mon Sep 17 00:00:00 2001
+From: Tom Rix <Tom.Rix@amd.com>
+Date: Mon, 5 Oct 2026 16:20:55 -0700
+Subject: [PATCH] tensile add gfx1170
+
+---
+ shared/tensile/Tensile/AsmCaps.py             | 44 +++++++++++++++++++
+ shared/tensile/Tensile/Common.py              |  6 +--
+ .../cmake/TensileSupportedArchitectures.cmake |  1 +
+ .../Source/lib/include/Tensile/AMDGPU.hpp     |  7 +++
+ .../include/Tensile/PlaceholderLibrary.hpp    |  3 ++
+ 5 files changed, 58 insertions(+), 3 deletions(-)
+
+diff --git a/shared/tensile/Tensile/AsmCaps.py b/shared/tensile/Tensile/AsmCaps.py
+index 11ef6ca942bd..8e10efd414ac 100644
+--- a/shared/tensile/Tensile/AsmCaps.py
++++ b/shared/tensile/Tensile/AsmCaps.py
+@@ -1445,6 +1445,50 @@ def getCapabilitiesCache(rocmVersion: NamedTuple) -> dict:
+                   'v_mov_b64': False,
+                   'v_pk_fma_f16': True,
+                   'v_pk_fmac_f16': False},
++     (11, 7, 0): {'HasAddLshl': True,
++                  'HasAtomicAdd': True,
++                  'HasDirectToLdsDest': False,
++                  'HasDirectToLdsNoDest': False,
++                  'HasExplicitCO': True,
++                  'HasExplicitNC': True,
++                  'HasGLCModifier': True,
++                  'HasNTModifier': False,
++                  'HasLshlOr': True,
++                  'HasMFMA': False,
++                  'HasMFMA_b8': False,
++                  'HasMFMA_bf16_1k': False,
++                  'HasMFMA_bf16_original': False,
++                  'HasMFMA_constSrc': False,
++                  'HasMFMA_f64': False,
++                  'HasMFMA_f8': False,
++                  'HasMFMA_i8_908': False,
++                  'HasMFMA_i8_940': False,
++                  'HasMFMA_vgpr': False,
++                  'HasMFMA_xf32': False,
++                  'HasSMulHi': True,
++                  'HasWMMA': True,
++                  'KernargPreloading': False,
++                  'MaxLgkmcnt': 15,
++                  'MaxVmcnt': 63,
++                  'SupportedISA': True,
++                  'SupportedSource': True,
++                  'VOP3v_dot4_i32_i8': False,
++                  'v_dot2_f32_f16': True,
++                  'v_dot2c_f32_f16': True,
++                  'v_dot4_i32_i8': False,
++                  'v_dot4c_i32_i8': False,
++                  'v_fma_f16': True,
++                  'v_fma_f32': True,
++                  'v_fma_f64': True,
++                  'v_fma_mix_f32': True,
++                  'v_fmac_f16': False,
++                  'v_fmac_f32': True,
++                  'v_mac_f16': False,
++                  'v_mac_f32': False,
++                  'v_mad_mix_f32': False,
++                  'v_mov_b64': False,
++                  'v_pk_fma_f16': True,
++                  'v_pk_fmac_f16': False},
+      (12, 0, 0): {'HasAddLshl': True,
+                   'HasAtomicAdd': False,
+                   'HasDirectToLdsDest': False,
+diff --git a/shared/tensile/Tensile/Common.py b/shared/tensile/Tensile/Common.py
+index fac32931fee0..d812e3e70fd5 100644
+--- a/shared/tensile/Tensile/Common.py
++++ b/shared/tensile/Tensile/Common.py
+@@ -253,7 +253,7 @@ globalParameters["SupportedISA"] = [(8,0,3),
+                                     (9,4,2), (9,4,-1), (9,5,0),
+                                     (10,1,0), (10,1,1), (10,1,2), (10,1,-1), (10,3,0), (10,3,1), (10,3,2), (10,3,3), (10,3,4), (10,3,5), (10,3,6), (10,3,-1),
+                                     (11,0,0), (11,0,1), (11,0,2), (11,0,3), (11,0,-1),
+-                                    (11,5,0), (11,5,1), (11,5,2), (11,5,3),
++                                    (11,5,0), (11,5,1), (11,5,2), (11,5,3), (11,7,0),
+                                     (12,0,0), (12,0,1), (12,5,0), (12,0,-1)] # assembly kernels writer supports these architectures
+ 
+ globalParameters["KeepBuildTmp"] = True                           # Do not remove build artifacts during the build process or build_tmp after build completes
+@@ -329,7 +329,7 @@ architectureMap = {
+   'gfx1010':'navi10', 'gfx1011':'navi12', 'gfx1012':'navi14', 'gfx10-1-generic':'gfx10-1-generic',
+   'gfx1030':'navi21', 'gfx1031':'navi22', 'gfx1032':'navi23', 'gfx1033':'van gogh', 'gfx1034':'navi24', 'gfx1035':'rembrandt', 'gfx1036':'raphael', 'gfx10-3-generic':'gfx10-3-generic',
+   'gfx1100':'navi31', 'gfx1101':'navi32', 'gfx1102':'navi33', 'gfx1103':'gfx1103', 'gfx11-generic':'gfx11-generic',
+-  'gfx1150':'strixpoint', 'gfx1151':'strixhalo', 'gfx1152':'gfx1152', 'gfx1153':'gfx1153',
++  'gfx1150':'strixpoint', 'gfx1151':'strixhalo', 'gfx1152':'gfx1152', 'gfx1153':'gfx1153', 'gfx1170':'gfx1170',
+   'gfx1200':'gfx1200',
+   'gfx1201':'gfx1201', 'gfx12-generic':'gfx12-generic',
+   'gfx1250':'gfx1250'
+@@ -2519,7 +2519,7 @@ def assignGlobalParameters( config, capabilitiesCache: Optional[dict] = None, *,
+     if os.name == "nt":
+       globalParameters["CurrentISA"] = (9,0,6)
+       printWarning("Failed to detect ISA so forcing (gfx906) on windows")
+-  isasWithDisabledHWMonitor = ((9,0,-1), (9,4,2), (9,4,-1), (9,5,0), (10,1,-1), (10,3,-1), (11,0,0), (11,0,1), (11,0,2), (11,0,3), (11,5,0), (11,5,1), (11,5,2), (11,5,3), (11,0,-1), (12,0,0), (12,0,1), (12,0,-1))
++  isasWithDisabledHWMonitor = ((9,0,-1), (9,4,2), (9,4,-1), (9,5,0), (10,1,-1), (10,3,-1), (11,0,0), (11,0,1), (11,0,2), (11,0,3), (11,5,0), (11,5,1), (11,5,2), (11,5,3), (11,7,0), (11,0,-1), (12,0,0), (12,0,1), (12,0,-1))
+   if globalParameters["CurrentISA"] in isasWithDisabledHWMonitor:
+     isaString = ', '.join(map(gfxName, isasWithDisabledHWMonitor))
+     printWarning(f"HardwareMonitor currently disabled for {isaString}")
+diff --git a/shared/tensile/Tensile/Source/cmake/TensileSupportedArchitectures.cmake b/shared/tensile/Tensile/Source/cmake/TensileSupportedArchitectures.cmake
+index 2139617551c4..71782fe5aecb 100644
+--- a/shared/tensile/Tensile/Source/cmake/TensileSupportedArchitectures.cmake
++++ b/shared/tensile/Tensile/Source/cmake/TensileSupportedArchitectures.cmake
+@@ -60,6 +60,7 @@ if(NOT BUILD_ADDRESS_SANITIZER)
+         "gfx1151"
+         "gfx1152"
+         "gfx1153"
++	"gfx1170"
+         "gfx11-generic"
+         "gfx1200"
+         "gfx1201"
+diff --git a/shared/tensile/Tensile/Source/lib/include/Tensile/AMDGPU.hpp b/shared/tensile/Tensile/Source/lib/include/Tensile/AMDGPU.hpp
+index 4b71db91f814..0bdbac8726d5 100644
+--- a/shared/tensile/Tensile/Source/lib/include/Tensile/AMDGPU.hpp
++++ b/shared/tensile/Tensile/Source/lib/include/Tensile/AMDGPU.hpp
+@@ -81,6 +81,7 @@ namespace Tensile
+             gfx1151 = 1151,
+             gfx1152 = 1152,
+             gfx1153 = 1153,
++            gfx1170 = 1170,
+             gfx1200 = 1200,
+             gfx1201 = 1201,
+             gfx1250 = 1250,
+@@ -148,6 +149,8 @@ namespace Tensile
+                 return "gfx1152";
+             case AMDGPU::Processor::gfx1153:
+                 return "gfx1153";
++            case AMDGPU::Processor::gfx1170:
++                return "gfx1170";
+             case AMDGPU::Processor::gfx1200:
+                 return "gfx1200";
+             case AMDGPU::Processor::gfx1201:
+@@ -276,6 +279,10 @@ namespace Tensile
+             {
+                 return AMDGPU::Processor::gfx1153;
+             }
++            else if(deviceString.find("gfx11700") != std::string::npos)
++            {
++                return AMDGPU::Processor::gfx1170;
++            }
+             else if(deviceString.find("gfx1200") != std::string::npos)
+             {
+                 return AMDGPU::Processor::gfx1200;
+diff --git a/shared/tensile/Tensile/Source/lib/include/Tensile/PlaceholderLibrary.hpp b/shared/tensile/Tensile/Source/lib/include/Tensile/PlaceholderLibrary.hpp
+index 421b21c5f7dd..9e082e3fa9a3 100644
+--- a/shared/tensile/Tensile/Source/lib/include/Tensile/PlaceholderLibrary.hpp
++++ b/shared/tensile/Tensile/Source/lib/include/Tensile/PlaceholderLibrary.hpp
+@@ -65,6 +65,7 @@ namespace Tensile
+         gfx1151,
+         gfx1152,
+         gfx1153,
++	gfx1170,
+         gfx1200,
+         gfx1201,
+         gfx1250,
+@@ -136,6 +137,8 @@ namespace Tensile
+             return "TensileLibrary_*_gfx1152";
+         case LazyLoadingInit::gfx1153:
+             return "TensileLibrary_*_gfx1153";
++        case LazyLoadingInit::gfx1170:
++            return "TensileLibrary_*_gfx1170";
+         case LazyLoadingInit::gfx1200:
+             return "TensileLibrary_*_gfx1200";
+         case LazyLoadingInit::gfx1201:
+-- 
+2.55.0
+
