@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=libxlsxwriter
-pkgver=1.2.4
+pkgver=1.2.5
 pkgrel=1
 pkgdesc='C library for creating Excel XLSX files'
 arch=('x86_64')
@@ -12,7 +12,7 @@ makedepends=('git')
 checkdepends=('python-pytest')
 provides=('libxlsxwriter.so')
 source=("git+https://github.com/jmcnamara/libxlsxwriter.git#tag=v$pkgver")
-sha256sums=('d820fa995f3c01d59248f8c93dab78428bce3f36a9670e02c023254ba8b3b765')
+sha256sums=('7012e5976079f2ff29574e69dc5e3b580318ac91e8c046f4d70e0c68a2074f61')
 
 prepare() {
   # Installed headers must also use system minizip without consumer-side defines.
