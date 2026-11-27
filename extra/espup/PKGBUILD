@@ -1,8 +1,8 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=espup
-pkgver=0.18.0
-pkgrel=2
+pkgver=0.19.0
+pkgrel=1
 pkgdesc="Tool for installing and maintaining ESP Rust ecosystem"
 url='https://github.com/esp-rs/espup'
 arch=('x86_64')
@@ -23,8 +23,8 @@ options=(!lto)
 source=(
   https://github.com/esp-rs/${pkgname}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz
 )
-sha256sums=('29bf7261c2eacb467889c28eab6a803747147d75391d66ca3b84391403fc7019')
-b2sums=('0aaeb331070f116c872bdf00b1bc4a84fd005f8ba9c85d5d6ac653319d2d5b38d8bb2c8bf1ca1140f5a4433685dfa060adcee25e2cb09c54802819bc369a61d1')
+sha256sums=('7cee1ffeb01e3c95340b9ca5cc82615a71a94aeb1afaff24102779fc914f6c6d')
+b2sums=('5f19dc1bb4d771c7c9884c5822e6a2342635d39324258758ed3d197d75cea12cc162ab5d46506cce28829a24f839904b097e2497fb199f0543066a3771b16ec6')
 
 prepare() {
   cd "${pkgname}-${pkgver}"
