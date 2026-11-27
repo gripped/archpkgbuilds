@@ -1,4 +1,5 @@
 [recoll]
-source = "regex"
-url="https://www.recoll.org/"
-regex="The current .strong.Recoll..strong. version is .a href=.pages/download.html..(\\d+\\.\\d+\\.\\d+)..a"
+source = "git"
+git = "https://framagit.org/medoc92/recoll.git"
+prefix = "recoll-v"
+include_regex = ".*recoll-v.*"
