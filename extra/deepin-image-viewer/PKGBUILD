@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-image-viewer
-pkgver=6.0.45
+pkgver=6.1.4
 pkgrel=1
 pkgdesc='An image viewing tool with fashion interface and smooth performance'
 arch=('x86_64')
@@ -10,7 +10,7 @@ license=('GPL-3.0-or-later')
 depends=('deepin-qt6integration' 'qt6-base' 'qt6-declarative' 'qt6-5compat'
          'qt6-imageformats' 'qt6-svg' 'dtk6core' 'dtk6gui' 'dtk6widget'
          'dtk6declarative' 'glibc' 'libgcc' 'libstdc++'
-         'libgl' 'libraw' 'hicolor-icon-theme')
+         'libgl' 'libraw' 'hicolor-icon-theme' 'opencv')
 makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
 optdepends=('deepin-manual: for help manual'
             'deepin-shortcut-viewer: for shortcut display'
@@ -19,17 +19,15 @@ groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-image-viewer.git#tag=$pkgver"
         "$pkgname-6.0.1-fix-missing-qt-includes.patch"
         "$pkgname-6.0.0-disable-ocr-plugin-manager.patch")
-sha512sums=('9a2a1e74c0abdf5693c3c1c41000a035cbb6cf92b565e1452a99a30655f7fa0ef2076c32e9b5bae80bd60f3affe2eb6800966af3d1b8f6b4c7c09cc726ab9916'
+sha512sums=('a55c76c539b6273c8c1b143d8ee95ed52957758023eba775aa5bdf2c344e125f94049148c19f1d441e9d8162a1cf61d1ca316ff3e3380d3c1a7718539143ca5e'
             'b327d66c0324be7f69d433e5a294f85917553a325161a1d19763b9e2c19af62b0c5c92d18d4d7982198fc33b1654a82e5e35a856660f8b11f9567af8b7208224'
-            'ea941119ea8528c54f2b46b5271c4a7342f4ab3af1fce66c61cd88a64d1a1b66b9ea713ce3490422f04b8ba205f58d153140595455133e5ceb61bc0edcd4c9fd')
+            '817eff06aa0dfcc7ca2a74f3faf6aef13f41cb0172c05f7b263d8dbe6a65e5946824a4ce951703db11d08d42a12b3567c49535470b1263233a9169a777161de2')
 
 prepare() {
   cd deepin-image-viewer
   # Fix missing Qt includes for QMimeData and QJson classes.
   git apply ../$pkgname-6.0.1-fix-missing-qt-includes.patch
-  # GCC 16 requires the QStandardPaths declaration to be included directly.
-  sed -i '/#include <QMimeData>/a #include <QStandardPaths>' src/src/filecontrol.cpp
-  # deepin-ocr-plugin-manager is not packaged, so disable OCR integration and UI.
+  # deepin-ocr-plugin-manager is not packaged; use system OpenCV without live-text analysis.
   git apply ../$pkgname-6.0.0-disable-ocr-plugin-manager.patch
 }
 
