@@ -5,12 +5,12 @@
 
 pkgname=festival
 pkgver=2.5.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A general multi-lingual speech synthesis system"
 arch=(x86_64)
 url="http://festvox.org/festival/"
-license=(BSD GPL custom)
-depends=(perl alsa-lib)
+license=(MIT-Festival)
+depends=(alsa-lib bash glibc libgcc libgomp libstdc++ ncurses perl)
 options=('!makeflags')
 source=(http://festvox.org/packed/festival/${pkgver%.*}/festival-$pkgver-release.tar.gz
         http://festvox.org/packed/festival/${pkgver%.*}/speech_tools-$pkgver-release.tar.gz
@@ -20,7 +20,8 @@ source=(http://festvox.org/packed/festival/${pkgver%.*}/festival-$pkgver-release
         speechconfig.patch
         festconfig.patch
         festival-shared-build.patch
-        festival-2.5.0-compile.patch)
+        festival-2.5.0-compile.patch
+        festival-configure-implicit-int.patch)
 sha512sums=('529ec3a1780a861074b6070567f3e11cfcc839081f61e078978a491f11eb424bc4d6adf599f073d5571e20f66871b7045df9f9b175a1083d10e8bb02342639b1'
             '013540a5252efb57633f442143a51bc87aac719dfb46c8f47e750322d19dac9b504f55125462a2ee74a6b0bd2661a63a1fc73a8c3c6d2886e38b136a80447fd7'
             'c293344020fd3337193303cd5dfb7e2b0a1012770a484d8bccaae921b0c61b75699204bec45fee0db754506d6f1558fd616866cc94e76afcbb85a4dcbcf9542b'
@@ -29,7 +30,8 @@ sha512sums=('529ec3a1780a861074b6070567f3e11cfcc839081f61e078978a491f11eb424bc4d
             'd48f899826914a94efcf4005d0e029cebd577ad2c4feb3e1af2e094259e9ca5a5829a6b5c08f22900049c6032ade926af159200d55613cc8d4f3d17e579edd3a'
             'a3d92ae83bf4b55e9bc83469b85eb1540675c3ed06b9bffa8f99a8a0c4fbdb0cb3fc1abe8c8a4fa5b2c22c77d84bbca36b6b2db3ae0e5ef2d7ddfa214a049372'
             'cd14a06e7eaef8755be08635a6354380c0cd67e533d1ec908413f4096b271c5594c054499d016ec4d255180288a68b55d24b891e06e5d04595e3004f2bb62d49'
-            '1e00f531710eb7bb4d7fcfd48f53a485023d37a068cfc87323df1fcfd8c358ca3dce21e261dfc73c5a9d724da64f60ea4fca46656215e1cc5055d4f038110567')
+            '1e00f531710eb7bb4d7fcfd48f53a485023d37a068cfc87323df1fcfd8c358ca3dce21e261dfc73c5a9d724da64f60ea4fca46656215e1cc5055d4f038110567'
+            '24dc93d4966d6081cc2ce0e9c917078be5aa2eab3c96f43be57e22f29ee50a68cdd6c46567be4dfa714fe3b64c26e6bd8ee3dd1e116c61e91b78670f37c6e9c9')
 
 prepare() {
   patch -Np0 -i speechconfig.patch
@@ -42,10 +44,15 @@ prepare() {
 
   # Avoid make failure on making scripts and docs
   sed -i "s|examples bin doc|examples|" festival/Makefile
+
+  # Fix implicit int
+  patch -Np0 -i festival-configure-implicit-int.patch
 }
 
 build() {
   CFLAGS+=' -fcommon' # https://wiki.gentoo.org/wiki/Gcc_10_porting_notes/fno_common
+  CFLAGS+=' -std=gnu17'
+  CXXFLAGS+=' -std=gnu++17'
 
   # Build Speech Tools first
   cd speech_tools
