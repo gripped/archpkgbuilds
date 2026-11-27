@@ -3,7 +3,7 @@
 # Contributor: Jan de Groot <jgc@archlinux.org>
 
 pkgname=file-roller
-pkgver=44.7
+pkgver=44.8
 pkgrel=1
 pkgdesc="Create and modify archives"
 url="https://wiki.gnome.org/Apps/FileRoller"
@@ -63,7 +63,7 @@ optdepends=(
 )
 groups=(gnome-extra)
 source=("git+https://gitlab.gnome.org/GNOME/file-roller.git#tag=$pkgver")
-b2sums=('6f3a05d08c3f0f96e54b04e725e7cb90518e25614463017fdd53e816299ecb832aaa51de606975b650af30bd4a7021fd5dd111895de5a0634b733a8a60a8219a')
+b2sums=('1adeabc18a5b11d93f6a5836c292bff43cdcd24ec78cd986b868cd44e7bd6138cbb3d611191c31f5884491dafd2c99346394510ebc42daf32eb19865076e8fb8')
 
 prepare() {
   cd $pkgname
