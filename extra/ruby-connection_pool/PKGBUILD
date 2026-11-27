@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-connection_pool
-pkgver=3.0.2
+pkgver=3.0.3
 pkgrel=1
 pkgdesc='Generic connection pool for Ruby'
 arch=(any)
@@ -17,10 +17,11 @@ makedepends=(
 checkdepends=(
   ruby-bundler
   ruby-maxitest
+  ruby-minitest-mock
 )
 options=(!emptydirs)
 source=("git+https://github.com/mperham/connection_pool.git#tag=v$pkgver")
-sha256sums=('36c44f2bff9ed4251e1cda1b5efbc214a5de5d6c2235f887d98942b5f51b3780')
+sha256sums=('85e69d4f092c2b917d4a90a22848b5f5cdd20dd011f832d8c519cfc8d56082fb')
 
 prepare() {
   cd connection_pool
