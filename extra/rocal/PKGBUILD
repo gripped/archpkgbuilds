@@ -3,7 +3,7 @@
 
 pkgname=rocal
 pkgver=7.2.4
-pkgrel=7
+pkgrel=9
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocAL/en/latest/'
@@ -13,14 +13,13 @@ depends=(
   'glibc'
   'hip-runtime-amd'
   'libgcc'
-  'libva'
+  'libjpeg-turbo'
+  'libsndfile'
   'lmdb'
-  'mesa'
   'mivisionx'
-  'opencv'
   'openmp'
   'protobuf'
-  'python-setuptools'
+  'python-numpy'
   'rocdecode'
   'rocjpeg'
   'rocm-core'
@@ -31,6 +30,7 @@ makedepends=(
   'git'
   'half'
   'pybind11'
+  'python-setuptools'
   'rocm-cmake'
   'rocm-llvm'
 )
@@ -44,6 +44,7 @@ source=("$pkgname::git+$_git.git#tag=rocm-${pkgver}"
 sha256sums=('5dd920f5110c6f60dfc35c3709dc30b203a2792ae8085156bbb1ff49e764f0f6'
             '2d2601a82d2d3b7e143a3c8d43ef616671391034bc46891a9816b79cf2d3e7a8'
             'd2685182aa423ac2657f2a263bba964b1857bd7d2f53a61455b68efcb01a5098')
+options=(!lto)
 _dirname="$pkgname"
 _rapidjsondir="$(basename "$_rapidjson")-$(basename "${source[1]}" ".tar.gz")"
 
