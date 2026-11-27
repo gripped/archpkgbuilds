@@ -1,39 +1,42 @@
 # Maintainer: Sergej Pupykin <arch+pub@sergej.pp.ru>
 
 pkgname='psi'
-pkgver=1.5
-pkgrel=5
+pkgver=1.6_b1
+pkgrel=2
 pkgdesc="Powerful XMPP (Jabber) client (Qt, C++) designed for power users"
 url="https://psi-im.org"
-license=('GPL2')
+license=('GPL-2.0-only')
 arch=('x86_64')
-depends=('hunspell' 'minizip' 'qca-qt5' 'qt5-svg' 'qt5-x11extras' 'libidn')
-makedepends=('cmake' 'qt5-multimedia')
+depends=('zlib' 'openssl' 'hunspell' 'minizip'
+	 'libomemo-c' 'libusrsctp' 'libx11' 'libxss'
+	 'qt6-multimedia' 'qt6-webengine' 'qca-qt6' 'qt6-svg' 'qtkeychain-qt6')
+makedepends=('cmake' 'git')
 provides=("psi-nowebengine=$pkgver")
 conflicts=('psi-nowebengine')
 replaces=('psi-nowebengine')
-source=("https://download.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.xz"
-        "no-qca-qt4.patch")
-sha256sums=('3167350fd43fab4dc948cb5179ca10159a7aa318472d1a8a7617e41f5aa8b5b7'
-            'a6ea9a62100b6990b8a6c8590a6d0e9df095b99b6527bb5490a7fd3f6929ac23')
+source=("git+https://github.com/psi-im/psi.git#tag=$pkgver")
+sha256sums=('eb25695f5e1d30b36f97bdcb6f6facc07358e0fadcc4649c1ddebdd8a54cccd7')
 
 prepare() {
-  cd $pkgname-$pkgver
-  patch -p1 <"$srcdir"/no-qca-qt4.patch
+  cd psi
+  git submodule update --init
 }
 
 build() {
-  cd $pkgname-$pkgver
   mkdir -p build
-  cd build
-  cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DENABLE_WEBKIT=OFF ..
-  make
+
+  cmake -B build -S psi \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DQT_DEFAULT_MAJOR_VERSION=6 \
+    -DCHAT_TYPE=WEBENGINE
+  cmake --build build -j1
 }
 
 package_psi() {
-  cd "$srcdir"/psi-$pkgver/build
-  make DESTDIR="$pkgdir" install
+  DESTDIR="$pkgdir" cmake --install build
   install -dm755 "$pkgdir/usr/include/psi/plugins"
-  install -m644 ../src/plugins/include/*.h "$pkgdir/usr/include/psi/plugins"
-  install -Dm644 ../$pkgname.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
+  install -m644 psi/plugins/include/*.h "$pkgdir/usr/include/psi/plugins"
+  install -Dm644 psi/linux/psi.appdata.xml "$pkgdir/usr/share/metainfo/$pkgname.appdata.xml"
 }
