@@ -1,0 +1,43 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+# Maintainer: Christian Heusel <gromit@archlinux.org>
+
+pkgname=rocprof-trace-decoder
+pkgver=10.2
+pkgrel=1
+pkgdesc='Decoder for AMD GPU thread traces recorded with rocprofiler-sdk'
+arch=('x86_64')
+url='https://github.com/ROCm/rocm-systems/tree/develop/projects/rocprof-trace-decoder'
+license=('MIT')
+depends=(
+  'comgr'
+  'glibc'
+  'libgcc'
+  'libstdc++'
+  'python'
+  'python-pyelftools'
+  'rocm-core'
+)
+makedepends=('cmake' 'ninja')
+_git='https://github.com/ROCm/rocm-systems'
+source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
+sha256sums=('4917013dd60292841eade503a1485803a442c6cab9bc35f90e77fbb90c4f1fa2')
+
+build() {
+  local cmake_args=(
+    -Wno-dev
+    -G Ninja
+    -S "$pkgname"
+    -B build
+    -D CMAKE_BUILD_TYPE=None
+    -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    -D BUILD_PYTHON=ON
+    -D ROCPROF_TRACE_DECODER_PYTHON_INSTALL_DIR="$(python -c 'import site; print(site.getsitepackages()[0])')"
+  )
+  cmake "${cmake_args[@]}"
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+  install -Dm644 "$pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
