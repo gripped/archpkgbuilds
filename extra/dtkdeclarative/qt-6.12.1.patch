@@ -1,0 +1,32 @@
+diff --git a/src/private/dquickiconimage.cpp b/src/private/dquickiconimage.cpp
+index a49fc55..6030c9b 100644
+--- a/src/private/dquickiconimage.cpp
++++ b/src/private/dquickiconimage.cpp
+@@ -14,7 +14,11 @@
+ DGUI_USE_NAMESPACE
+ DQUICK_BEGIN_NAMESPACE
+ 
++#if QT_VERSION < QT_VERSION_CHECK(6, 12, 1)
+ bool DQuickIconImagePrivate::updateDevicePixelRatio(qreal targetDevicePixelRatio)
++#else
++bool DQuickIconImagePrivate::updateDevicePixelRatio(qreal targetDevicePixelRatio, bool scalable)
++#endif
+ {
+ #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+     if (!qApp->testAttribute(Qt::AA_UseHighDpiPixmaps)) {
+diff --git a/src/private/dquickiconimage_p_p.h b/src/private/dquickiconimage_p_p.h
+index 847775a..ebc488d 100644
+--- a/src/private/dquickiconimage_p_p.h
++++ b/src/private/dquickiconimage_p_p.h
+@@ -28,7 +28,11 @@ public:
+     DQuickIconImage::Mode getIconMode() const;
+ 
+     qreal calculateDevicePixelRatio() const;
++#if QT_VERSION < QT_VERSION_CHECK(6, 12, 1)
+     bool updateDevicePixelRatio(qreal targetDevicePixelRatio) override;
++#else
++    bool updateDevicePixelRatio(qreal targetDevicePixelRatio, bool scalable = true) override;
++#endif
+ 
+     void updateBase64Image();
+ 
