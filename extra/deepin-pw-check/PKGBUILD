@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-pw-check
-pkgver=6.0.12
+pkgver=6.0.13
 pkgrel=1
 pkgdesc='Tool to verify the validity of the password'
 arch=('x86_64')
@@ -9,9 +9,10 @@ url="https://github.com/linuxdeepin/deepin-pw-check"
 license=('GPL-3.0-or-later')
 depends=('cracklib' 'gtk3' 'iniparser')
 makedepends=('deepin-gettext-tools' 'git' 'go')
+checkdepends=('gtest')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-pw-check.git#tag=$pkgver")
-sha512sums=('fadad015e59362876020fc85f8a6559ed477ccb79c2b65d5bd572e98ea019c70737447096af88fc6300f8b1507a5e20639cb62e6af1c9bf2c51edb98240fe919')
+sha512sums=('d7095a77f1d52d6efbd9f16e53a21c3f9173da5f00f80021bdeb603c588b8033fd77ee38a1e9eb0f36b406a53879441d1465d28e9e236cebedf270005d699106')
 
 prepare() {
   cd deepin-pw-check
@@ -29,6 +30,11 @@ build() {
 
   cd deepin-pw-check
   make
+}
+
+check() {
+  cd deepin-pw-check
+  make test
 }
 
 package() {
