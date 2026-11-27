@@ -3,7 +3,7 @@
 # Contributor: Francois Charette <firmicus@gmx.net>
 
 pkgname=perl-mail-dkim
-pkgver=1.20261105
+pkgver=1.20261116
 pkgrel=1
 pkgdesc='Signs/verifies Internet mail with DKIM/DomainKey signatures'
 arch=(any)
@@ -15,8 +15,8 @@ checkdepends=('perl>=5.6' perl-net-dns perl-net-dns-resolver-mock
               perl-test-requiresinternet perl-yaml-libyaml)
 url=https://metacpan.org/release/Mail-DKIM
 source=("https://cpan.metacpan.org/authors/id/M/MB/MBRADSHAW/Mail-DKIM-$pkgver.tar.gz")
-md5sums=('603874332fc2fa35ae5930cdd95cc2fa')
-sha512sums=('b7890fdf24feca92c49bd4af53bd4abd758013b98ef4f826dbe1ce3de1bb02548cedc39fa4a121433bccf032f0f06938088b976a8335438bdc7299597d058185')
+md5sums=('c10d65d3629c997f5c568476fc4ebd0c')
+sha512sums=('2598fd1da814e02fca1e4ba74bc873dd8b3ca337937ecfc72a91d8adfa8dd1006a6bbfedce931eba8728be780d05550e586943a9354c8799609f4a4d32ac2565')
 _ddir="Mail-DKIM-$pkgver"
 
 build()
