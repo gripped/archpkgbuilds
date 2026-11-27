@@ -2,15 +2,22 @@
 # Contributor: katt <magunasu.b97@gmail.com>
 
 pkgname=libjodycode
-pkgver=4.2
+pkgver=4.3
 pkgrel=1
 pkgdesc='Shared code used by several utilities written by Jody Bruchon'
 arch=('x86_64')
 url="https://codeberg.org/jbruchon/${pkgname}"
 license=('MIT')
 depends=('glibc')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('eeb54fc50b9ebec4e43c954704e69f56c104fede67aaee9f375fbecbb87933b0')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+        "0001-size_suffix_funcs.c-include-errno.h-for-EINVAL.patch")
+sha256sums=('9192b3aab3410e95189615fe146efd893e2b5700d6e97fab12e3557929a7d6ad'
+            '8c493133576663e382c682f16811b2afd3a36ea231b42a06f316e67e1edb7922')
+
+prepare() {
+    cd "${pkgname}"
+    patch -Np1 -i "${srcdir}/0001-size_suffix_funcs.c-include-errno.h-for-EINVAL.patch"
+}
 
 build() {
     cd "${pkgname}"

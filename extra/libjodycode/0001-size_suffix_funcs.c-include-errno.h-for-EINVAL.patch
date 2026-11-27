@@ -1,0 +1,29 @@
+From 43322ba54cd5d8d2e5f8f376219753070704d944 Mon Sep 17 00:00:00 2001
+From: DeepChirp <DeepChirp@outlook.com>
+Date: Tue, 24 Nov 2026 10:53:54 +0800
+Subject: [PATCH] size_suffix_funcs.c: include <errno.h> for EINVAL
+
+Fixes compilation failure ('EINVAL' undeclared) on systems where
+<errno.h> is not transitively included by other standard headers.
+Follow-up to 074f6b70fa.
+
+Signed-off-by: DeepChirp <DeepChirp@outlook.com>
+---
+ size_suffix_funcs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/size_suffix_funcs.c b/size_suffix_funcs.c
+index d4ef0e9..c8e6cd3 100644
+--- a/size_suffix_funcs.c
++++ b/size_suffix_funcs.c
+@@ -4,6 +4,7 @@
+  * Released under The MIT License
+  */
+ 
++#include <errno.h>
+ #include <stddef.h>
+ #include <stdint.h>
+ #include <inttypes.h>
+-- 
+2.56.1
+
