@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-openstackdocstheme
-pkgver=3.6.0
+pkgver=3.7.1
 pkgrel=1
 pkgdesc="Open Infrastructure Projects Sphinx Themes"
 arch=('any')
@@ -12,7 +12,7 @@ depends=('python-pbr' 'python-dulwich' 'python-sphinx')
 makedepends=('git' 'python-build' 'python-installer' 'python-wheel')
 options=('!emptydirs')
 source=("git+https://github.com/openstack/openstackdocstheme.git#tag=$pkgver")
-sha512sums=('ba7f8678eaa1e0317263788299c1c1907e3a4b3b447e8a1a5571f14bafb6b1d6d923fd22977527d615f3e5b938bc1fe07731e39f36b3793fb595b5680c8fab01')
+sha512sums=('353c109da111a501914b08d94f1789a50f96408aa754ad09e6209a23df13e936301e70c4053e23b128b15060b823918b83dc2da8a218ffd7cf1c0f152467e07c')
 
 build() {
   cd openstackdocstheme
