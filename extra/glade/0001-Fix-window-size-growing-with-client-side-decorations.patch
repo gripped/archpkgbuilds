@@ -1,0 +1,75 @@
+From 809377970b46902bcc482ba1d2737ca40774400e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 25 Nov 2026 05:42:24 +0100
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Use the size-allocate virtual method and gtk_window_get_size()
+instead of the GdkEventConfigure dimensions to retrieve the
+window size.
+
+This prevents the window size from increasing each time the
+application is opened with client-side decorations enabled.
+---
+ src/glade-window.c | 26 ++++++++++----------------
+ 1 file changed, 10 insertions(+), 16 deletions(-)
+
+diff --git a/src/glade-window.c b/src/glade-window.c
+index b54beb21..7b6caa90 100644
+--- a/src/glade-window.c
++++ b/src/glade-window.c
+@@ -1792,34 +1792,28 @@ glade_window_finalize (GObject *object)
+ }
+ 
+ 
+-static gboolean
+-glade_window_configure_event (GtkWidget *widget, GdkEventConfigure *event)
++static void
++glade_window_size_allocate (GtkWidget *widget, GtkAllocation *allocation)
+ {
+   GladeWindow *window = GLADE_WINDOW (widget);
+-  gboolean retval;
+-
+   gboolean is_maximized;
+   GdkWindow *gdk_window = gtk_widget_get_window (GTK_WIDGET (window));
+-  is_maximized = gdk_window_get_state (gdk_window) & GDK_WINDOW_STATE_MAXIMIZED;
+ 
+-  if (!is_maximized)
+-    {
+-      window->priv->position.width = event->width;
+-      window->priv->position.height = event->height;
+-    }
++  GTK_WIDGET_CLASS (glade_window_parent_class)->size_allocate (widget,
++                                                               allocation);
+ 
+-  retval =
+-      GTK_WIDGET_CLASS (glade_window_parent_class)->configure_event (widget,
+-                                                                     event);
++  is_maximized = gdk_window != NULL &&
++                 (gdk_window_get_state (gdk_window) & GDK_WINDOW_STATE_MAXIMIZED);
+ 
+   if (!is_maximized)
+     {
++      gtk_window_get_size (GTK_WINDOW (widget),
++                           &window->priv->position.width,
++                           &window->priv->position.height);
+       gtk_window_get_position (GTK_WINDOW (widget),
+                                &window->priv->position.x,
+                                &window->priv->position.y);
+     }
+-
+-  return retval;
+ }
+ 
+ static void
+@@ -2426,7 +2420,7 @@ glade_window_class_init (GladeWindowClass *klass)
+   object_class->dispose = glade_window_dispose;
+   object_class->finalize = glade_window_finalize;
+ 
+-  widget_class->configure_event = glade_window_configure_event;
++  widget_class->size_allocate = glade_window_size_allocate;
+ 
+   DEFINE_ACTION_SIGNAL (klass, "glade-action", glade_window_action_handler, 1, G_TYPE_STRING);
+   DEFINE_ACTION_SIGNAL (klass, "glade-switch", glade_window_switch_handler, 1, G_TYPE_INT);
+-- 
+2.56.1
+
