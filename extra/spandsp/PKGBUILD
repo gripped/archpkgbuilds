@@ -6,43 +6,44 @@ pkgname=(
   spandsp
   spandsp-docs
 )
-pkgver=0.0.6
-pkgrel=7
+pkgver=3.1.1
+pkgrel=1
 pkgdesc='Low-level signal processing library that modulates and demodulates signals commonly used in telephony'
 arch=(x86_64)
-url='https://www.soft-switch.org/'
+url='https://github.com/freeswitch/spandsp'
 license=(LGPL-2.1-only)
 depends=(
   glibc
+  libjpeg-turbo
   libtiff
 )
 makedepends=(
   docbook-xsl
   doxygen
+  git
 )
-source=("https://www.soft-switch.org/downloads/$pkgbase/$pkgbase-$pkgver.tar.gz")
-b2sums=('6ee95501473d5758c9ff96580bb51222f49a230dc6a5f52f5a852781cbb70079bb07f9d7224f5c7ea91c0dd617fa543a37518f68875c76a44b3be1415aece696')
+source=("git+https://github.com/freeswitch/spandsp#tag=v$pkgver")
+b2sums=(ec185e4a60bb64b1ce59ac9af66f80bed878d4c20bc31de12960abc085a8059a985f5ea2c40852e7896bd11e3fb55f42ed51a4c6c567b364932116797c4a0c08)
 
 prepare() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   autoreconf -fiv
 }
 
 build() {
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   ./configure \
     --prefix=/usr \
     --sysconfdir=/etc \
     --localstatedir=/var \
     --enable-doc
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
 
 package_spandsp() {
   provides=(libspandsp.so)
 
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   make DESTDIR="$pkgdir" install
 }
 
@@ -50,7 +51,7 @@ package_spandsp-docs() {
   pkgdesc='Developer documentation for spandsp'
   depends=()
 
-  cd $pkgbase-$pkgver
+  cd $pkgbase
   install -dm755 "$pkgdir/usr/share/doc/$pkgbase"
   cp -r doc/api/html "$pkgdir/usr/share/doc/$pkgbase/"
 }
