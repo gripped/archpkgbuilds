@@ -1,7 +1,7 @@
 pkgbase = sugar
 	pkgdesc = Sugar GTK shell
 	pkgver = 0.122
-	pkgrel = 1
+	pkgrel = 3
 	url = https://github.com/sugarlabs/sugar
 	arch = any
 	license = GPL-3.0-or-later
@@ -41,8 +41,10 @@ pkgbase = sugar
 	depends = webkit2gtk-4.1
 	depends = xdg-user-dirs
 	source = git+https://github.com/sugarlabs/sugar.git#tag=v0.122
-	source = dont-overwrite-settings.patch
+	source = sugar-reset-cursor.patch
+	source = sugar-downloader-libsoup3.patch
 	b2sums = 706d2769cf9f946abd68ab3560bbc50dadfa6b11dbe5a6bb40fdffa671a733a97d0deff84cfcd4de5c4d7e8496d3392a052983ba9369d30965576c7b4a561788
-	b2sums = aaf88f96a69d0c53b551b2e8e81bf5ed30e41a5711212fd7f80b08f0722eaa8528dc6d236cfc382b8457a90fb48d10c995694bebe797260e7fdfe4a1daba6166
+	b2sums = e25f410dcfaeee496db1acd56d32a2430c51343729e3467daa71c081fd51e97a6e2a21dc80949f3496cd29dcaffe6dd21711a27877ea32c550a318ab6aa36688
+	b2sums = 2c32ada4faf2de9a7babbcf51911cd593b9b7a043b4ee3670c1711878eadcbe5e3b1c0e085696987fc6b6ef109be220928a7be478d4a91299e589a61ffcff6f3
 
 pkgname = sugar

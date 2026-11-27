@@ -1,0 +1,40 @@
+From 1567f5c5546efa9beeb362f0ca57abf5f2bb3ecc Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sat, 14 Nov 2026 13:18:38 +0100
+Subject: [PATCH] Restore default cursor theme
+
+Preserve the original user value state of the cursor-theme setting
+when temporarily changing it to "sugar".
+
+Restore the original value if a user setting existed, or reset the
+setting otherwise to allow the schema default to take effect.
+---
+ src/jarabe/main.py | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/src/jarabe/main.py b/src/jarabe/main.py
+index adeed46e8..15214829f 100755
+--- a/src/jarabe/main.py
++++ b/src/jarabe/main.py
+@@ -199,7 +199,7 @@ def _start_window_manager():
+     global _cursor_theme_settings, _cursor_theme
+ 
+     _cursor_theme_settings = Gio.Settings.new('org.gnome.desktop.interface')
+-    _cursor_theme = _cursor_theme_settings.get_string('cursor-theme')
++    _cursor_theme = _cursor_theme_settings.get_user_value('cursor-theme')
+     _cursor_theme_settings.set_string('cursor-theme', 'sugar')
+ 
+     _restart_window_manager()
+@@ -211,7 +211,11 @@ def _start_window_manager():
+ 
+ 
+ def _stop_window_manager():
+-    _cursor_theme_settings.set_string('cursor-theme', _cursor_theme)
++    if _cursor_theme is not None:
++        _cursor_theme_settings.set_value('cursor-theme', _cursor_theme)
++    else:
++        _cursor_theme_settings.reset('cursor-theme')
++
+     _metacity_process.terminate()
+ 
+ 
