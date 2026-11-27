@@ -1,0 +1,59 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+
+pkgname=kwi
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Modern and fast terminal for KDE Plasma and other desktops'
+arch=(x86_64)
+url='https://apps.kde.org/kwi/'
+license=(GPL-2.0-only GPL-3.0-only)
+depends=(
+  glibc
+  kcolorscheme
+  kconfig
+  kconfigwidgets
+  kcoreaddons
+  kdbusaddons
+  kguiaddons
+  ki18n
+  kiconthemes
+  kio
+  kirigami
+  kirigami-addons
+  kirigami-app-components
+  knotifications
+  kparts
+  kpty
+  kwidgetsaddons
+  kwindowsystem
+  kxmlgui
+  libghostty-vt
+  libstdc++
+  qqc2-desktop-style
+  qt6-base
+  qt6-declarative
+)
+makedepends=(
+  extra-cmake-modules
+  qt6-shadertools
+)
+source=(
+  https://download.kde.org/stable/$pkgname/$pkgver/$pkgname-$pkgver.tar.xz{,.sig}
+)
+sha256sums=('64296e3eff3b51b1c0fdcd0d25b2441b205372a17330f3ade7a7e613b49806a7'
+            'SKIP')
+validpgpkeys=(B3DDDB9F432544A89CF89C573E7B50C5FC57EE47) # Eike Hein <hein@kde.org>
+
+prepare() {
+# Workaround broken ghostty pc file
+  sed -e 's|Ghostty 1.0.1|Ghostty|' -i $pkgname-$pkgver/CMakeLists.txt
+}
+
+build() {
+  cmake -B build -S $pkgname-$pkgver
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
