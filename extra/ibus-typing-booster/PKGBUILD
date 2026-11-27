@@ -1,7 +1,7 @@
 # Maintainer: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
 
 pkgname=ibus-typing-booster
-pkgver=2.31.4
+pkgver=2.31.5
 pkgrel=1
 pkgdesc="Predictive input method for the IBus platform"
 url="https://mike-fabian.github.io/ibus-typing-booster/"
@@ -44,7 +44,7 @@ makedepends=(
   git
 )
 source=("git+https://github.com/mike-fabian/ibus-typing-booster#tag=$pkgver")
-b2sums=('47eee95c02f6768ce74d678b474317da1c39aeab2417f541a1a7be75e49b4d06df53a735b9e7e07326a3a8e3dd5d37987ba78d08b3b358f48d9a8b2b59245364')
+b2sums=('06d24972c8f2d7ac65a9c60edb44a5853d6a7b9469cb6790b56f731fa006ffeb1f76a3cffc2d8f2d3d8d60d4d0379ea4e57d465eb0dd7d93001559054111be6c')
 
 prepare() {
   cd $pkgname
