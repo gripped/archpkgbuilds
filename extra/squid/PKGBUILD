@@ -5,15 +5,15 @@
 
 pkgname=squid
 pkgver=7.8
-pkgrel=1
+pkgrel=2
 pkgdesc='Full-featured Web proxy cache server'
 arch=('x86_64')
 url='http://www.squid-cache.org'
-depends=('openssl' 'pam' 'perl' 'libltdl' 'libcap' 'nettle3' 'gnutls' 'libnsl' 'libxml2'
+depends=('openssl' 'pam' 'perl' 'libltdl' 'libcap' 'nettle' 'gnutls' 'libnsl' 'libxml2'
 	'tdb' 'systemd-libs')
 makedepends=('krb5' 'libldap' 'systemd')
 optdepends=('libldap')
-license=('GPL')
+license=('GPL-2.0-only')
 options=('emptydirs')
 backup=('etc/squid/squid.conf'
 	'etc/squid/cachemgr.conf'
@@ -29,7 +29,8 @@ source=("https://github.com/squid-cache/squid/releases/download/SQUID_${pkgver/.
         'squid.sysusers'
         'squid-rotate.service'
         'squid-rotate.timer'
-        'squid-7.7-openssl-4.patch::https://github.com/squid-cache/squid/commit/144a59fec3d7a4bd7f0c3e71934156e1a56ebabc.patch')
+        'squid-7.7-openssl-4.patch::https://github.com/squid-cache/squid/commit/144a59fec3d7a4bd7f0c3e71934156e1a56ebabc.patch'
+        'squid-7.7-nettle-4.patch')
 sha256sums=('52cd716f568faccbd3e237d77fd3518cbfe1548dfa2ebd8871b5a112e8ab0063'
             'SKIP'
             '11fb388f8679fd6461e0de006810ea608a3686fffda16904b0ed71f412be499c'
@@ -37,13 +38,17 @@ sha256sums=('52cd716f568faccbd3e237d77fd3518cbfe1548dfa2ebd8871b5a112e8ab0063'
             'b13c6c17ba8d24fa9414ba3c0aa92863dccce720930a0dd53acc1c0e32041e5a'
             '3a97aa6bf6dcdc427e73bb2f36afdeaaf2bbf7dd2c0bbb7f1a948850198a8b7c'
             '8bc77fa1f653a17a4956feac042be9577ba30a8a43480b443fbd67640ae711ee'
-            '01fa935cabe668d2cc367df4c05e60f9bcb307b38ebb49faf287427997d71079')
+            '01fa935cabe668d2cc367df4c05e60f9bcb307b38ebb49faf287427997d71079'
+            '098d862ca537f23c6aca53ee0413d4ba6e8159917aba4aa155f07d3018915286')
 
 prepare() {
   cd "$srcdir/$pkgname-$pkgver"
   sed -i 's|/var/run/|/run/|g' tools/systemd/squid.service
   # Fix OpenSSL 4 compatibility: https://github.com/squid-cache/squid/pull/2501
   patch -p1 -i ../squid-7.7-openssl-4.patch
+
+  # nettle >= 4 treats base64_decode_update()'s length as the destination capacity
+  patch -p1 -i ../squid-7.7-nettle-4.patch
   # ASN1_STRING_set() copies the DER buffers; release the originals.
   sed -i '/ASN1_STRING_set(.*ext_der, ext_len);/s/^\([[:space:]]*\).*/&\n\1OPENSSL_free(ext_der);/' src/ssl/gadgets.cc
 }
@@ -51,7 +56,6 @@ prepare() {
 build() {
   cd "$srcdir/$pkgname-$pkgver"
 
-  export PKG_CONFIG_PATH=/usr/lib/nettle3/pkgconfig
 
   ./configure \
     --prefix=/usr \

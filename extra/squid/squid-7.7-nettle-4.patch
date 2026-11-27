@@ -1,0 +1,55 @@
+--- a/src/auth/basic/Config.cc
++++ b/src/auth/basic/Config.cc
+@@ -170,7 +170,7 @@
+     struct base64_decode_ctx ctx;
+     base64_decode_init(&ctx);
+ 
+-    size_t dstLen = 0;
++    size_t dstLen = BASE64_DECODE_LENGTH(srcLen) + 1;
+     if (base64_decode_update(&ctx, &dstLen, reinterpret_cast<uint8_t*>(cleartext), srcLen, eek) && base64_decode_final(&ctx)) {
+         cleartext[dstLen] = '\0';
+ 
+--- a/src/HttpHeader.cc
++++ b/src/HttpHeader.cc
+@@ -1302,7 +1302,7 @@
+     char *decodedAuthToken = result.rawAppendStart(BASE64_DECODE_LENGTH(fieldLen));
+     struct base64_decode_ctx ctx;
+     base64_decode_init(&ctx);
+-    size_t decodedLen = 0;
++    size_t decodedLen = BASE64_DECODE_LENGTH(fieldLen);
+     if (!base64_decode_update(&ctx, &decodedLen, reinterpret_cast<uint8_t*>(decodedAuthToken), fieldLen, field) ||
+             !base64_decode_final(&ctx)) {
+         return nil;
+--- a/src/auth/negotiate/kerberos/negotiate_kerberos_auth.cc
++++ b/src/auth/negotiate/kerberos/negotiate_kerberos_auth.cc
+@@ -679,7 +679,7 @@
+ 
+         struct base64_decode_ctx ctx;
+         base64_decode_init(&ctx);
+-        size_t dstLen = 0;
++        size_t dstLen = input_token.length;
+         if (!base64_decode_update(&ctx, &dstLen, static_cast<uint8_t*>(input_token.value), srcLen, b64Token) ||
+                 !base64_decode_final(&ctx)) {
+             debug((char *) "%s| %s: ERROR: Invalid base64 token [%s]\n", LogTime(), PROGRAM, b64Token);
+--- a/src/auth/negotiate/wrapper/negotiate_wrapper.cc
++++ b/src/auth/negotiate/wrapper/negotiate_wrapper.cc
+@@ -193,7 +193,7 @@
+ 
+         struct base64_decode_ctx ctx;
+         base64_decode_init(&ctx);
+-        size_t dstLen = 0;
++        size_t dstLen = length + 1;
+         if (!base64_decode_update(&ctx, &dstLen, token, strlen(buf+3), buf+3) ||
+                 !base64_decode_final(&ctx)) {
+             if (debug_enabled)
+--- a/src/auth/ntlm/fake/ntlm_fake_auth.cc
++++ b/src/auth/ntlm/fake/ntlm_fake_auth.cc
+@@ -163,7 +163,7 @@
+         ntlmhdr *packet;
+         struct base64_decode_ctx ctx;
+         base64_decode_init(&ctx);
+-        size_t dstLen = 0;
++        size_t dstLen = sizeof(decodedBuf);
+         if (buflen > 3 &&
+                 base64_decode_update(&ctx, &dstLen, decodedBuf, buflen-3, buf+3) &&
+                 base64_decode_final(&ctx)) {
