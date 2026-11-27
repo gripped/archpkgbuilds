@@ -1,0 +1,119 @@
+diff --git a/libs/checkpoint-sqlite/langgraph/store/sqlite/aio.py b/libs/checkpoint-sqlite/langgraph/store/sqlite/aio.py
+index 5ea5672f1..42268fd71 100644
+--- a/libs/checkpoint-sqlite/langgraph/store/sqlite/aio.py
++++ b/libs/checkpoint-sqlite/langgraph/store/sqlite/aio.py
+@@ -10,7 +10,6 @@ from typing import Any, cast
+ 
+ import aiosqlite
+ import orjson
+-import sqlite_vec  # type: ignore[import-untyped]
+ from langgraph.store.base import (
+     GetOp,
+     ListNamespacesOp,
+@@ -187,6 +186,8 @@ class AsyncSqliteStore(AsyncBatchedBaseStore, BaseSqliteStore):
+ 
+             # Apply vector migrations if index config is provided
+             if self.index_config:
++                import sqlite_vec
++
+                 # Create vector migrations table if it doesn't exist
+                 await self.conn.enable_load_extension(True)
+                 await self.conn.load_extension(sqlite_vec.loadable_path())
+@@ -476,6 +477,8 @@ class AsyncSqliteStore(AsyncBatchedBaseStore, BaseSqliteStore):
+         """
+         queries, embedding_request = self._prepare_batch_PUT_queries(put_ops)
+         if embedding_request:
++            import sqlite_vec
++
+             if self.embeddings is None:
+                 # Should not get here since the embedding config is required
+                 # to return an embedding_request above
+@@ -522,6 +525,8 @@ class AsyncSqliteStore(AsyncBatchedBaseStore, BaseSqliteStore):
+ 
+         # Setup dot_product function if it doesn't exist
+         if embedding_requests and self.embeddings:
++            import sqlite_vec
++
+             vectors = await self.embeddings.aembed_documents(
+                 [query for _, query in embedding_requests]
+             )
+diff --git a/libs/checkpoint-sqlite/langgraph/store/sqlite/base.py b/libs/checkpoint-sqlite/langgraph/store/sqlite/base.py
+index c4f8f6d18..7d483c812 100644
+--- a/libs/checkpoint-sqlite/langgraph/store/sqlite/base.py
++++ b/libs/checkpoint-sqlite/langgraph/store/sqlite/base.py
+@@ -12,7 +12,6 @@ from contextlib import contextmanager
+ from typing import Any, Literal, NamedTuple, cast
+ 
+ import orjson
+-import sqlite_vec  # type: ignore[import-untyped]
+ from langgraph.store.base import (
+     BaseStore,
+     GetOp,
+@@ -1095,6 +1094,8 @@ class SqliteStore(BaseSqliteStore, BaseStore):
+ 
+             # Apply vector migrations if index config is provided
+             if self.index_config:
++                import sqlite_vec
++
+                 # Create vector migrations table if it doesn't exist
+                 self.conn.enable_load_extension(True)
+                 sqlite_vec.load(self.conn)
+@@ -1339,6 +1340,8 @@ class SqliteStore(BaseSqliteStore, BaseStore):
+     ) -> None:
+         queries, embedding_request = self._prepare_batch_PUT_queries(put_ops)
+         if embedding_request:
++            import sqlite_vec
++
+             if self.embeddings is None:
+                 # Should not get here since the embedding config is required
+                 # to return an embedding_request above
+@@ -1377,6 +1380,8 @@ class SqliteStore(BaseSqliteStore, BaseStore):
+ 
+         # Setup similarity functions if they don't exist
+         if embedding_requests and self.embeddings:
++            import sqlite_vec
++
+             # Generate embeddings for search queries
+             embeddings = self.embeddings.embed_documents(
+                 [query for _, query in embedding_requests]
+diff --git a/libs/checkpoint-sqlite/pyproject.toml b/libs/checkpoint-sqlite/pyproject.toml
+index 7eff2a596..f7228e52d 100644
+--- a/libs/checkpoint-sqlite/pyproject.toml
++++ b/libs/checkpoint-sqlite/pyproject.toml
+@@ -14,9 +14,11 @@ license-files = ['LICENSE']
+ dependencies = [
+     "langgraph-checkpoint>=4.3.1,<5.0.0",
+     "aiosqlite>=0.20",
+-    "sqlite-vec>=0.1.6",
+ ]
+ 
++[project.optional-dependencies]
++vector = ["sqlite-vec>=0.1.6"]
++
+ [project.urls]
+ Source = "https://github.com/langchain-ai/langgraph/tree/main/libs/checkpoint-sqlite"
+ Twitter = "https://x.com/langchain_oss"
+diff --git a/libs/checkpoint-sqlite/tests/test_async_store.py b/libs/checkpoint-sqlite/tests/test_async_store.py
+index 4af125c9f..4af4887d1 100644
+--- a/libs/checkpoint-sqlite/tests/test_async_store.py
++++ b/libs/checkpoint-sqlite/tests/test_async_store.py
+@@ -55,6 +55,7 @@ async def create_vector_store(
+     text_fields: list[str] | None = None,
+ ) -> AsyncIterator[AsyncSqliteStore]:
+     """Create an AsyncSqliteStore with vector search capabilities."""
++    pytest.importorskip("sqlite_vec", reason="Vector search requires sqlite-vec")
+     index_config: SqliteIndexConfig = {
+         "dims": fake_embeddings.dims,
+         "embed": fake_embeddings,
+diff --git a/libs/checkpoint-sqlite/tests/test_store.py b/libs/checkpoint-sqlite/tests/test_store.py
+index 7991ca704..10c8dfd99 100644
+--- a/libs/checkpoint-sqlite/tests/test_store.py
++++ b/libs/checkpoint-sqlite/tests/test_store.py
+@@ -118,6 +118,7 @@ def create_vector_store(
+     conn_type: Literal["memory", "file"] = "memory",
+ ) -> Generator[SqliteStore, None, None]:
+     """Create a SqliteStore with vector search enabled."""
++    pytest.importorskip("sqlite_vec", reason="Vector search requires sqlite-vec")
+     index_config: SqliteIndexConfig = {
+         "dims": fake_embeddings.dims,
+         "embed": fake_embeddings,
