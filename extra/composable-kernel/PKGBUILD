@@ -2,20 +2,20 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=composable-kernel
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc="High Performance Composable Kernel for AMD GPUs"
 arch=('x86_64')
-url="https://github.com/ROCm/composable_kernel"
+url="https://github.com/ROCm/rocm-libraries"
 license=('MIT')
 depends=('rocm-core' 'glibc' 'libgcc' 'libstdc++' 'hip-runtime-amd')
 makedepends=('git' 'cmake' 'ninja' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm' 'openmp')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/rocm-$pkgver.tar.gz")
-sha256sums=('728265875d58f1f690f80fcfcdbab8d7b5b9f904338819d47cea55bd82e2ce0c')
+source=("$pkgname-$pkgver.tar.gz::$url/releases/download/therock-$pkgver/composablekernel.tar.gz")
+sha256sums=('e481f91609691b71eb6c8506116fc470124efb8e199d31c7cfdaf6467f4f952d')
 # Build without default flags as they cause the final linking step to fail
 # https://github.com/ROCmSoftwarePlatform/composable_kernel/issues/736
 options=(!lto !buildflags)
-_dirname="$(basename "$url")-$(basename "${source[0]}" .tar.gz)"
+_dirname=composablekernel
 
 prepare() {
     # Remove tests as they require a supported AMD GPU to run
@@ -31,11 +31,17 @@ build() {
     -D CMAKE_CXX_COMPILER=amdclang++
     -D CMAKE_BUILD_TYPE=Release
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
-    # CK doesn't support all targets
-    # -D GPU_ARCHS="$(rocm-supported-gfx)"
-    -D GPU_ARCHS="gfx908;gfx90a;gfx942;gfx1030;gfx1100;gfx1101;gfx1102;gfx1200;gfx1201"
+    # include/ck/ck.hpp has no architecture macros for gfx9-generic and
+    # gfx1170. gfx101x only gets DL kernels and miopen-hip excludes it.
+    # gfx9-generic does not cover gfx908 and gfx90a.
+    # With gfx1250, CK_USE_GFX1250 changes the instances for all targets and
+    # gfx11 kernels exceed the LDS limit. Fixed upstream in
+    # https://github.com/ROCm/rocm-libraries/pull/13079
+    -D GPU_ARCHS="$(rocm-supported-gfx -e gfx9-generic,gfx1010,gfx1012,gfx1170,gfx1250);gfx908;gfx90a"
     -D BUILD_DEV=OFF
-    -D INSTANCES_ONLY=ON
+    # Build only the instance libraries that miopen-hip and hiptensor use
+    -D MIOPEN_REQ_LIBS_ONLY=ON
+    -D HIPTENSOR_REQ_LIBS_ONLY=ON
   )
   cmake "${_cmake_args[@]}"
   cmake --build build
