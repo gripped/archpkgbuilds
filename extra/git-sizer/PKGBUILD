@@ -2,8 +2,8 @@
 # Contributor: AUR[ogarcia]
 
 pkgname=git-sizer
-pkgver=1.5.0
-pkgrel=3
+pkgver=1.6.0
+pkgrel=1
 pkgdesc='Compute various size metrics for a Git repository'
 arch=(x86_64 i686 armv6h armv7h aarch64)
 url="https://github.com/github/$pkgname"
@@ -12,7 +12,7 @@ depends=(git)
 makedepends=(go)
 _archive="$pkgname-$pkgver"
 source=("$_archive.tar.gz::$url/archive/v$pkgver.tar.gz")
-sha256sums=('07a5ac5f30401a17d164a6be8d52d3d474ee9c3fb7f60fd83a617af9f7e902bb')
+sha256sums=('2c6355a9ccdaa6bbe03fa309e087483961afefcfbf354491a419e1d5e6c1bbd1')
 
 build() {
 	cd "$_archive"
