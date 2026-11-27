@@ -1,0 +1,123 @@
+# Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
+
+_pkgname=FlyDSL
+pkgname=python-flydsl
+pkgver=0.3.1
+pkgrel=4
+pkgdesc="Python DSL and MLIR compiler for ROCm GPU kernels"
+arch=(x86_64)
+url="https://github.com/ROCm/FlyDSL"
+# Bundled: static MLIR libraries (Apache-2.0 WITH LLVM-exception), nanobind
+# (BSD-3-Clause) with robin-map (MIT)
+license=('Apache-2.0' 'Apache-2.0 WITH LLVM-exception' 'BSD-3-Clause' 'MIT')
+depends=(
+	glibc
+	hip-runtime-amd
+	libgcc
+	libstdc++
+	python
+	python-numpy
+	# The JIT links kernels with /opt/rocm/llvm/bin/ld.lld
+	rocm-llvm
+	rocm-llvm-libs
+	rocm-mlir-libs
+)
+makedepends=(
+	cmake
+	dlpack
+	git
+	ninja
+	patchelf
+	python-build
+	python-installer
+	python-setuptools
+	python-wheel
+	robin-map
+	# MLIR and its Python binding sources
+	rocm-llvm-static
+)
+# The compiler imports torch only for dtypes and tensor arguments
+optdepends=('python-pytorch-rocm: JIT compilation with torch tensors')
+# The MLIR of rocm-llvm rejects nanobind 3
+_nanobind=2.12.0
+source=("git+${url}#tag=v${pkgver}"
+	"git+https://github.com/wjakob/nanobind#tag=v${_nanobind}"
+	"${pkgname}-launch-func.patch::${url}/commit/7c924f15e1b3c02cbe864ee07c363565d04d454b.patch?full_index=1"
+	${pkgname}-llvm-dylib.patch
+	# From https://github.com/ROCm/FlyDSL/pull/1431
+	"${pkgname}-enum-attr-format.patch::${url}/commit/25a699ca26751e84a5c0ff19ecc95dbb7103c92f.patch?full_index=1"
+	"${pkgname}-rocdl-enum-syntax.patch::${url}/commit/4c9c16318d1a0ae792f467dd4659ba31fcafaa59.patch?full_index=1")
+sha256sums=('eaa5e15a4accf7003a7d83dcd20b159f2df1c89c52af7e88d77ab80e9d6ee4c0'
+            'f986a5660f144bb6642b7a9419885b38f6b17d75b55bb52df2384859b92b32b1'
+            'a90aec76e4cc1bd841dd8e41d09cf3f7ed38236ab3453f8f1b09e22fe2c979b2'
+            '3df8a5e95511ecf05c3f78a9456b381d9c3d88f2786598ba555b86403ba3313f'
+            '06bbc066576b330d4c1839391b6479f90428ac73ccd7b60a064768b8dcc401a5'
+            '3af1e7bbb6f7e1e86c325209d2cc52c1e34ec22f79bd057c7c68b8cf4583b71d')
+
+prepare() {
+	# The MLIR of rocm-llvm has the unified gpu::LaunchFuncOp builder; the rest
+	# of the LLVM bump commit does not apply to this release
+	git -C ${_pkgname} apply --include=lib/Conversion/FlyToROCDL/FlyToROCDL.cpp \
+		"${srcdir}"/${pkgname}-launch-func.patch
+
+	# A static LLVMSupport copy has its own cl::opt registry, which lacks the
+	# libLLVM.so codegen options that the kernels set
+	git -C ${_pkgname} apply "${srcdir}"/${pkgname}-llvm-dylib.patch
+
+	# Keep the bare Fly enum attribute syntax that the Python lookups match
+	git -C ${_pkgname} apply --include=include/flydsl/Dialect/Fly/IR/FlyDialect.td \
+		"${srcdir}"/${pkgname}-enum-attr-format.patch
+	# Parse the ROCDL enum attributes in the new syntax
+	git -C ${_pkgname} apply "${srcdir}"/${pkgname}-rocdl-enum-syntax.patch
+
+	# The system dlpack replaces the submodule; scripts/build.sh checks for this header
+	mkdir -p ${_pkgname}/thirdparty/dlpack/include
+	ln -s /usr/include/dlpack ${_pkgname}/thirdparty/dlpack/include/dlpack
+}
+
+build() {
+	# The nanobind install provides the Python module with nanobind-config-version.cmake,
+	# which MLIR needs; robin-map replaces the submodule
+	cmake -S nanobind -B nanobind-build \
+		-D CMAKE_INSTALL_PREFIX="${srcdir}"/nanobind-install \
+		-D NB_USE_SUBMODULE_DEPS=OFF \
+		-D NB_TEST=OFF
+	cmake --install nanobind-build
+
+	# scripts/build.sh finds nanobind through import
+	local -x PYTHONPATH="${srcdir}/nanobind-install"
+
+	cd ${_pkgname}
+	MLIR_PATH=/opt/rocm/lib/llvm \
+	FLY_BUILD_DIR=build-fly \
+	FLY_REBUILD=1 \
+	FLYDSL_RELEASE_TYPE=release \
+	python -m build --wheel --no-isolation --skip-dependency-check
+}
+
+package() {
+	cd ${_pkgname}
+	python -m installer --destdir="${pkgdir}" dist/*.whl
+
+	local mlir_libs=("${pkgdir}"/usr/lib/python3*/site-packages/flydsl/_mlir/_mlir_libs)
+	local lib
+
+	# Replace the build tree RUNPATHs. The Python modules load their sibling
+	# libraries; libLLVM is outside the linker path; libamdhip64 is inside
+	patchelf --debug --set-rpath '$ORIGIN' \
+		"${mlir_libs[0]}"/_mlir*.so "${mlir_libs[0]}"/libMLIRPythonSupport-mlir.so
+	patchelf --debug --set-rpath /opt/rocm/lib/llvm/lib "${mlir_libs[0]}"/libFlyPythonCAPI.so.*
+	patchelf --debug --remove-rpath "${mlir_libs[0]}"/lib{fly_jit_runtime,nanobind-mlir}.so
+
+	# The build copies these MLIR runtime libraries from rocm-mlir-libs
+	for lib in "${mlir_libs[0]}"/libmlir_{c_runner,float16}_utils.so*; do
+		ln -sfv /opt/rocm/lib/llvm/lib/"${lib##*/}" "${lib}"
+	done
+
+	install -Dm644 /usr/share/licenses/rocm-mlir-libs/LICENSE \
+		"${pkgdir}"/usr/share/licenses/${pkgname}/mlir-LICENSE
+	install -Dm644 "${srcdir}"/nanobind/LICENSE \
+		"${pkgdir}"/usr/share/licenses/${pkgname}/nanobind-LICENSE
+	install -Dm644 /usr/share/licenses/robin-map/LICENSE \
+		"${pkgdir}"/usr/share/licenses/${pkgname}/robin-map-LICENSE
+}

@@ -1,0 +1,45 @@
+pkgbase = python-flydsl
+	pkgdesc = Python DSL and MLIR compiler for ROCm GPU kernels
+	pkgver = 0.3.1
+	pkgrel = 4
+	url = https://github.com/ROCm/FlyDSL
+	arch = x86_64
+	license = Apache-2.0
+	license = Apache-2.0 WITH LLVM-exception
+	license = BSD-3-Clause
+	license = MIT
+	makedepends = cmake
+	makedepends = dlpack
+	makedepends = git
+	makedepends = ninja
+	makedepends = patchelf
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	makedepends = robin-map
+	makedepends = rocm-llvm-static
+	depends = glibc
+	depends = hip-runtime-amd
+	depends = libgcc
+	depends = libstdc++
+	depends = python
+	depends = python-numpy
+	depends = rocm-llvm
+	depends = rocm-llvm-libs
+	depends = rocm-mlir-libs
+	optdepends = python-pytorch-rocm: JIT compilation with torch tensors
+	source = git+https://github.com/ROCm/FlyDSL#tag=v0.3.1
+	source = git+https://github.com/wjakob/nanobind#tag=v2.12.0
+	source = python-flydsl-launch-func.patch::https://github.com/ROCm/FlyDSL/commit/7c924f15e1b3c02cbe864ee07c363565d04d454b.patch?full_index=1
+	source = python-flydsl-llvm-dylib.patch
+	source = python-flydsl-enum-attr-format.patch::https://github.com/ROCm/FlyDSL/commit/25a699ca26751e84a5c0ff19ecc95dbb7103c92f.patch?full_index=1
+	source = python-flydsl-rocdl-enum-syntax.patch::https://github.com/ROCm/FlyDSL/commit/4c9c16318d1a0ae792f467dd4659ba31fcafaa59.patch?full_index=1
+	sha256sums = eaa5e15a4accf7003a7d83dcd20b159f2df1c89c52af7e88d77ab80e9d6ee4c0
+	sha256sums = f986a5660f144bb6642b7a9419885b38f6b17d75b55bb52df2384859b92b32b1
+	sha256sums = a90aec76e4cc1bd841dd8e41d09cf3f7ed38236ab3453f8f1b09e22fe2c979b2
+	sha256sums = 3df8a5e95511ecf05c3f78a9456b381d9c3d88f2786598ba555b86403ba3313f
+	sha256sums = 06bbc066576b330d4c1839391b6479f90428ac73ccd7b60a064768b8dcc401a5
+	sha256sums = 3af1e7bbb6f7e1e86c325209d2cc52c1e34ec22f79bd057c7c68b8cf4583b71d
+
+pkgname = python-flydsl
