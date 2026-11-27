@@ -3,7 +3,7 @@
 _hkgname=warp-quic
 pkgname=haskell-warp-quic
 pkgver=0.0.0
-pkgrel=571
+pkgrel=581
 pkgdesc="Warp based on QUIC"
 url="https://github.com/kazu-yamamoto/warp-quic"
 license=("BSD")
@@ -12,6 +12,15 @@ depends=('ghc-libs' 'haskell-http3' 'haskell-quic' 'haskell-tls' 'haskell-wai' '
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz")
 sha256sums=('579b52242d195b78b7ac596042ad55fbda05e3b07578c10b83be2874b5ce8907')
+
+prepare() {
+  cd $_hkgname-$pkgver
+
+  # Pass the thread label required by warp 3.4.4.
+  # https://github.com/yesodweb/wai/commit/e9014142d5ce84638ee6926732fb2a399a964be8
+  sed -i 's|http2server settings|http2server (if "h3" `BS.isPrefixOf` appProto then "Warp HTTP/3" else "Warp HQ") settings|' \
+    Network/Wai/Handler/WarpQUIC.hs
+}
 
 build() {
   cd $_hkgname-$pkgver
