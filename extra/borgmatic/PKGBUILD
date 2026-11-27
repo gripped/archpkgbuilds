@@ -7,7 +7,7 @@
 # Contributor: stef204 <https://aur.archlinux.org/account/stef204>
 
 pkgname=borgmatic
-pkgver=2.1.10
+pkgver=2.2.0
 pkgrel=1
 pkgdesc='Simple, configuration-driven backup software for servers and workstations'
 arch=(any)
@@ -43,11 +43,14 @@ optdepends=(
   'python-pyfuse3: for mount action'
 )
 source=("git+https://projects.torsion.org/borgmatic-collective/borgmatic.git#tag=$pkgver")
-b2sums=('fbe8323466c99a782215668dcac1cbe927ced38312abab9352ba42ab0bb344f0c9af8aff4fc2113bad5ef7caaca4ba8dd7be7531c64e34451b2f6ccf9edd3b1c')
+b2sums=('6fc4173ec932ace915f5c464750b318eae831ee47e5577a248a3de970be48af851b8acca11792c9c75c1fb4fb6919c90e38b88685cfc9c09d65bce9050bd1264')
 
 prepare() {
   cd $pkgname
   sed -i 's,root/.local,usr,' sample/systemd/borgmatic{,-user}.service
+
+  # https://projects.torsion.org/borgmatic-collective/borgmatic/issues/1382
+  git cherry-pick -n 49be696c426c1b973dc07591e5bb4ea90b4c2518
 }
 
 build() {
