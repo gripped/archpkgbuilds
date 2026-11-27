@@ -1,6 +1,6 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 pkgname=onedpl
-pkgver=2022.12.0
+pkgver=2022.14.0
 pkgrel=1
 pkgdesc="oneAPI DPC++ Library"
 arch=("any")
@@ -28,7 +28,7 @@ source=(
 	"$pkgname::git+https://github.com/uxlfoundation/oneDPL#tag=oneDPL-release-$pkgver"
 	fix-install-destdir.patch
 )
-sha256sums=('1a0ba10fbae4145635affc6a641aabbd3a118bf34171e828e9d7d5e6e36d9656'
+sha256sums=('f944a38c38d188b5e6ba17a6a16deb72acd2252fe69b73d923692d227ea8fe7f'
             '6db42540e47cbc19d2568b401ca624f15842f5deed33848b576a181ae4c2a73a')
 
 prepare() {
