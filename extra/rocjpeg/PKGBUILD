@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <christian@heusel.eu>
 
 pkgname=rocjpeg
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='A high-performance jpeg decode library for AMD’s GPUs'
 arch=('x86_64')
@@ -11,6 +11,7 @@ license=('MIT')
 depends=(
   'glibc'
   'hip-runtime-amd'
+  'libdrm'
   'libgcc'
   'libstdc++'
   'libva'
@@ -23,31 +24,28 @@ makedepends=(
   'rocm-cmake'
   'rocm-llvm'
 )
-_git='https://github.com/ROCm/rocJPEG'
-source=("$pkgname-$pkgver.tar.gz::$_git/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('be739859bcbb0d678b22af4b4bee4aad37cbee8c838198bbe71b49cf43640ccf')
-_dirname="$(basename "$_git")-$(basename "${source[0]}" ".tar.gz")"
-
-prepare() {
-  cd "$_dirname"
-  # https://src.fedoraproject.org/rpms/rocjpeg/blob/rawhide/f/rocjpeg.spec
-  sed -i "s|\(llvm/bin/clang++\)|\1 CACHE STRING \"ROCm Compiler path\"|" CMakeLists.txt
-  sed -i "s|/opt/amdgpu/include NO_DEFAULT_PATH|/usr/include|" cmake/FindLibva.cmake
-  sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY} -ldrm_amdgpu@' CMakeLists.txt
-}
+_git='https://github.com/ROCm/rocm-systems'
+source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
+sha256sums=('a02a45dc769bb7163ddc98b4ec363e592f04050d8e8c1f4e334681cb6032c780')
 
 build() {
   # -fcf-protection is not supported by HIP, see
   # https://rocm.docs.amd.com/projects/llvm-project/en/latest/reference/rocmcc.html#support-status-of-other-clang-options
   local cmake_args=(
     -Wno-dev
-    -S "$_dirname"
+    -S "$pkgname"
     -B build
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_C_COMPILER=amdclang
     -D CMAKE_CXX_COMPILER=amdclang++
     -D CMAKE_CXX_FLAGS="${CXXFLAGS} -fcf-protection=none"
     -D CMAKE_INSTALL_PREFIX=/opt/rocm
+    # The find modules search only in TheRock's $ROCM_PATH/lib/rocm_sysdeps
+    -D LIBVA_LIBRARY=/usr/lib/libva.so
+    -D LIBVA_DRM_LIBRARY=/usr/lib/libva-drm.so
+    -D LIBVA_INCLUDE_DIR=/usr/include
+    -D LIBDRM_AMDGPU_LIBRARY=/usr/lib/libdrm_amdgpu.so
+    -D LIBDRM_AMDGPU_INCLUDE_DIR=/usr/include
   )
   cmake "${cmake_args[@]}"
   cmake --build build
@@ -56,5 +54,5 @@ build() {
 package() {
   DESTDIR="$pkgdir" cmake --install build
 
-  install -Dm644 "$_dirname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$pkgname/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
