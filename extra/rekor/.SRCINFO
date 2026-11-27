@@ -1,6 +1,6 @@
 pkgbase = rekor
 	pkgdesc = Signature Transparency Log -- Sigstore client and server tools
-	pkgver = 1.5.4
+	pkgver = 1.6.5
 	pkgrel = 1
 	url = https://github.com/sigstore/rekor
 	arch = x86_64
@@ -9,9 +9,10 @@ pkgbase = rekor
 	makedepends = git
 	makedepends = go
 	depends = glibc
+	depends = zstd
 	options = !lto
-	source = rekor-1.5.4.tar.gz::https://github.com/sigstore/rekor/archive/v1.5.4.tar.gz
-	sha256sums = 1624472d50b8002a7d97f62b2585d11a79f0ae776b56e7f89dad1d5c663033eb
-	b2sums = dc3eb98cf59d6a7fbd30bcea4f2c66ab7c5cda30173aee37ceed5348fb782eb335fca4d76b55db633de23f617f0d3614dbc6e89dc1f6786ef7d8bf5fd047cdd6
+	source = rekor-1.6.5.tar.gz::https://github.com/sigstore/rekor/archive/v1.6.5.tar.gz
+	sha256sums = a2a3addc454ddc07c1a5d43d104377c2928b0c9b2415a5db7b4fa1b9fd16c7ad
+	b2sums = 88499eb8034abe70085c17e664d7b218e8bb15df52e35fb6c9b5dcd857367614f25b3b287815260f33a8db5775556cbeaf33fad22a5cad33226e5ec4a9a91618
 
 pkgname = rekor
