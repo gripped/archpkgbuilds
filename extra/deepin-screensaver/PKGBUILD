@@ -1,24 +1,27 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=deepin-screensaver
-pkgver=6.5.11
-pkgrel=2
+pkgver=6.5.13
+pkgrel=1
 pkgdesc='Deepin screensaver viewer and tools'
 arch=('x86_64')
 url="https://github.com/linuxdeepin/deepin-screensaver"
 license=('GPL-3.0-or-later')
-depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-declarative' 'qt6-5compat'
-         'libx11' 'libxcb' 'libxss' 'libxext' 'xscreensaver'
+depends=('dtk6core' 'dtk6gui' 'dtk6widget' 'qt6-base' 'qt6-declarative' 'qt6-5compat' 'qt6-wayland'
+         'libx11' 'libxcb' 'libxss' 'libxext' 'wayland' 'xscreensaver'
          'glibc' 'libgcc' 'libstdc++')
-makedepends=('git' 'cmake' 'ninja' 'qt6-tools')
+makedepends=('git' 'cmake' 'ninja' 'libxkbcommon' 'qt6-tools' 'wayland-protocols')
 groups=('deepin')
 source=("git+https://github.com/linuxdeepin/deepin-screensaver.git#tag=$pkgver")
-sha512sums=('993626e78f5570c82dc26e9845c340c07bbbf0730cd479d5b5fea836c3cb6101b7eec0630aa76fe11d3460cb765dfee25143ec9e811df4626eeddfc163722640')
+sha512sums=('cb11d3e2d61fe07f3834e880aea8f0a02cf42e90bb29d774eaec00f94ddac598be00120f0ca74a9b4052c434f2ec84fe0fed064da86ea5ed064d87ddaa235aa0')
 
 prepare() {
   cd deepin-screensaver
-
-  sed -i 's|#     list(APPEND qt_required_components GuiPrivate)|    list(APPEND qt_required_components GuiPrivate)|' src/CMakeLists.txt
+  # Qt 6.10+ does not import WaylandClientPrivate through WaylandClient.
+  sed -i 's/find_package(Qt6 REQUIRED COMPONENTS GuiPrivate)/find_package(Qt6 REQUIRED COMPONENTS GuiPrivate WaylandClientPrivate)/' src/CMakeLists.txt
+  # Qt 6.10 removed QWaylandWindow::sendRecursiveExposeEvent(); notify the window directly.
+  sed -i '/#include <QWindow>/a #include <qpa/qwindowsysteminterface.h>' src/sessionlock.cpp
+  sed -i 's/platform->sendRecursiveExposeEvent();/QWindowSystemInterface::handleExposeEvent(window, QRegion(QRect(QPoint(), size)));/' src/sessionlock.cpp
 }
 
 build() {
