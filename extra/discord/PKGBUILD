@@ -6,8 +6,8 @@
 
 pkgname=discord
 _pkgname=Discord
-pkgver=1.0.169
-pkgrel=1
+pkgver=1.0.171
+pkgrel=2
 epoch=1
 pkgdesc="All-in-one voice and text chat for gamers"
 arch=('x86_64')
@@ -20,9 +20,9 @@ optdepends=('libpulse: PulseAudio support'
 source=("https://dl.discordapp.net/apps/linux/$pkgver/$pkgname-$pkgver.tar.gz"
         "LICENSE-$pkgver.html::https://discordapp.com/terms"
         "OSS-LICENSES-$pkgver.html::https://discordapp.com/licenses")
-sha512sums=('a731e6fd7eefb190b458d0f1cc58a7802be072332829e57f915c8601d6c2f2ca8ed3c886636ccc255c06198e1b717afb20c6586b12baffe7148ed865d5c78e9c'
-            '1d6d5ec174907a645f2a572bb987eafe3efb6f31b8ca397f69efffed2b585c552361199002ef49bb2ada642e87e0cec8d18a04274bbf7cc12a6272912899284c'
-            '61b32038eb767561b12407ee133ff88c2d41dfb44365f9b82b9eef3787094024ae0a4df401a6135f9bd85a04246f832bd3765f7831e5f97a9eec8eca93c3a1d2')
+sha512sums=('e63ed2216913d9ceddf45cfce36e403e883e5b22209a54c4e1cd01acc850676ea8e2d40f8f940c0c9b23c6d7790c42c4cc4f9f521c88731dbcb3ef7ec99d9708'
+            '7d07e90bee88b3dcb04988a1267ba937e7afc8c0fc4d35ad7c7351d51471992521fad8a5c6f4eab74299dece9b3d5060297963daeac18fd7f5da36cd1bb9da3f'
+            'a77f558ecb837e4fb3e26695d03f916d96f3e45757fef7fa27ddecc35c0fbf071ebcbae1bf3b611752488e8b85c84cd02453b2d3efc9458adae9349bd0360e37')
 
 # Skip license hashes as they are unstable (discord#2)
 # Since "updpkgsums"/"pkgctl version upgrade" overwrite the checksum array with
@@ -35,7 +35,11 @@ sha512sums[2]='SKIP'
 package() {
   cd $_pkgname
 
-  install -Dm755 $pkgname "$pkgdir"/usr/bin/$pkgname
+  # The launcher expects launcher.conf next to its resolved executable path
+  install -Dm755 $pkgname "$pkgdir"/usr/share/$pkgname/$pkgname
+  install -Dm644 launcher.conf "$pkgdir"/usr/share/$pkgname/launcher.conf
+  install -d "$pkgdir"/usr/bin
+  ln -s /usr/share/$pkgname/$pkgname "$pkgdir"/usr/bin/$pkgname
   install -Dm755 updater_bootstrap "$pkgdir"/usr/share/$pkgname/updater_bootstrap
   install -Dm644 $pkgname.desktop "$pkgdir"/usr/share/applications/$pkgname.desktop
   install -Dm644 $pkgname.png "$pkgdir"/usr/share/icons/hicolor/256x256/apps/$pkgname.png
