@@ -2,7 +2,7 @@
 # Contributor: Daniel Wallace <danielwallace at gtmanfred dot com>
 
 pkgname=python-oslo-log
-pkgver=8.3.2
+pkgver=8.4.0
 pkgrel=1
 pkgdesc="Oslo Logging Library"
 arch=('any')
@@ -12,9 +12,9 @@ depends=('python-pbr' 'python-oslo-config' 'python-oslo-context' 'python-oslo-i1
          'python-oslo-utils' 'python-oslo-serialization' 'python-debtcollector'
          'python-dateutil')
 makedepends=('git' 'python-build' 'python-installer')
-checkdepends=('python-stestr' 'python-testtools' 'python-oslotest' 'python-eventlet')
+checkdepends=('python-stestr' 'python-testtools' 'python-oslotest')
 source=("git+https://github.com/openstack/oslo.log.git#tag=$pkgver")
-sha512sums=('42219da7221e5ee9f5674739b2a5ebbdbfbd5a952b16a331cd23c9e928d3247416de1e1dd58726c3679de3d4056095bf90376a250dca18d097991f31939bcb14')
+sha512sums=('50f23ea33bc90f70a5967e66194598a5b40d1e068f814a6e6b94661c3c38be89fea287dca72fe69b546f479d7b670d4f7851998cde8d159c4590cb5f7116082a')
 
 build() {
   cd oslo.log
@@ -23,6 +23,10 @@ build() {
 
 check() {
   cd oslo.log
+  # python-eventlet is removed: drop its test module (module-level
+  # import). Runtime only touches eventlet behind a sys.modules
+  # guard in _fix_eventlet_logging().
+  rm -f oslo_log/tests/unit/test_pipe_mutex.py
   stestr run
 }
 
