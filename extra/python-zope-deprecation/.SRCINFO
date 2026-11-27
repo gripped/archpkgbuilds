@@ -1,17 +1,18 @@
 pkgbase = python-zope-deprecation
 	pkgdesc = Zope Deprecation Infrastructure
-	pkgver = 6.0
-	pkgrel = 3
+	pkgver = 6.1
+	pkgrel = 1
 	url = https://github.com/zopefoundation/zope.deprecation
 	arch = any
 	license = ZPL-2.1
 	checkdepends = python-zope-testrunner
+	makedepends = git
 	makedepends = python-build
 	makedepends = python-installer
 	makedepends = python-setuptools
 	makedepends = python-wheel
 	depends = python
-	source = python-zope-deprecation-6.0.tar.gz::https://github.com/zopefoundation/zope.deprecation/archive/6.0.tar.gz
-	sha512sums = 8f332c4ecb42d78a0965d7fc9984d03efffc7add1309aec9c4db59dd39da84b255f35aa39aebe159b9ae612e54e1cbe8c5c515099b59d38c980940b4971627c8
+	source = git+https://github.com/zopefoundation/zope.deprecation.git#tag=6.1
+	sha512sums = d787fc361ec38680ad0c530a64ad41453e5a5a29b5f2d2b5a9af3075689c68805dc3dc7456d1130c8274415293c7f2b7610b3cc1aa220169abf389faa8407fea
 
 pkgname = python-zope-deprecation
