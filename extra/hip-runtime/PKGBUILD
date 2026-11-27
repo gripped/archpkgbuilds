@@ -4,27 +4,44 @@
 
 pkgbase=hip-runtime
 pkgname=(hip-runtime-amd hip-runtime-nvidia)
-pkgver=7.2.4
-pkgrel=1
+pkgver=10.1
+pkgrel=2
 _pkgdesc="Heterogeneous Interface for Portability"
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/HIP/en/latest/'
 license=('MIT')
 _amd_depends=('rocm-core' 'bash' 'perl' 'glibc' 'libgcc' 'numactl'
-         'mesa' 'comgr' 'rocminfo' 'rocm-llvm' 'libelf' 'rocprofiler-register')
+         'comgr' 'rocminfo' 'rocm-llvm' 'libelf' 'rocprofiler-register')
 _nvidia_depends=('cuda')
-makedepends=('git' 'cmake' 'python' 'python-cppheaderparser'
+makedepends=('git' 'cmake' 'python' 'python-cppheaderparser' 'rocm-llvm-static' 'mesa'
              "${_amd_depends[@]}" "${_nvidia_depends[@]}")
-_tag="tag=rocm-$pkgver"
+_tag="tag=therock-$pkgver"
+_release="https://github.com/ROCm/rocm-systems/releases/download/therock-$pkgver"
 # HIPCC compiler wrapper
 _hipcc='https://github.com/ROCm/llvm-project'
-source=("rocm-$pkgver.tar.gz::https://github.com/ROCm/rocm-systems/archive/refs/tags/rocm-$pkgver.tar.gz"
-        "$pkgbase-hipcc::git+$_hipcc#$_tag")
-sha256sums=('817f9c136125b8d162757a18cdc25b18b1efeb8ef36a948c85e4a672fd149de5'
-            'cda215d04dfb6ede38c542d4604711d4a4623267df0f3d678491cd9fbcc32fd9')
-_projectBaseDir="rocm-systems-rocm-$pkgver/projects"
+source=("$pkgbase-clr-$pkgver.tar.gz::$_release/clr.tar.gz"
+        "$pkgbase-hip-$pkgver.tar.gz::$_release/hip.tar.gz"
+        "$pkgbase-hipother-$pkgver.tar.gz::$_release/hipother.tar.gz"
+        "$pkgbase-hipcc::git+$_hipcc#$_tag"
+        # https://github.com/ROCm/rocm-systems/pull/12596
+        "$pkgbase-no-host-noinline.patch::https://github.com/ROCm/rocm-systems/commit/5d7969b1005b2c688057097a46a0a63860d7367c.patch"
+        # https://github.com/ROCm/rocm-systems/pull/13277
+        "$pkgbase-stripped-symtab.patch::https://github.com/ROCm/rocm-systems/commit/e9f923eadedbe0a9b7e969940114cd00aade7ebd.patch")
+sha256sums=('1809eda411c9156ca0b66e79acbfc198fd443aa77077fc113d334e545e8880b4'
+            '777eef65d8fcf38baf17401097396dbdf5e9d07ba7f9d24268e8f8fa73f6688d'
+            'b3abc044a3eeb1950a1fa7a6404e4e85c550629741b28952454ca519dbd7d5f3'
+            '58e44c323502ea44bf61ce4de031b0f9218a28d097d38422376b0e0b7572d407'
+            'eebeb2ae0ec4c33627b2a445eb97832d737f4ec77d4cd74c55d4b9348bded591'
+            'b64cfd84a80cf08b4cf13f827b26068a758bfbbff0d3703add2b446675a30c70')
 
 options=(!lto)
+
+prepare() {
+  # clr installed include dir in bulk, so we need to exclude the *.orig file
+  patch -Np2 --no-backup-if-mismatch -i "$srcdir/$pkgbase-no-host-noinline.patch"
+  # The ROCr part goes to hsa-rocr
+  git apply -p2 --include='clr/*' "$srcdir/$pkgbase-stripped-symtab.patch"
+}
 
 build() {
   local hipcc_common_args=(
@@ -43,14 +60,16 @@ build() {
 
   local hip_amd_args=(
     -Wno-dev
-    -S "$srcdir/$_projectBaseDir/clr"
+    -S "$srcdir/clr"
     -B build-amd
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/opt/rocm/
     -DHIP_PLATFORM=amd
-    -DHIP_COMMON_DIR="$srcdir/$_projectBaseDir/hip"
+    -DLLVM_ROOT=/opt/rocm/lib/llvm
+    -DClang_ROOT=/opt/rocm/lib/llvm
+    -DHIP_COMMON_DIR="$srcdir/hip"
     -DHIPCC_BIN_DIR="$srcdir/build-amd-hipcc"
-    -DHIPNV_DIR="$srcdir/$_projectBaseDir/hipother/hipnv"
+    -DHIPNV_DIR="$srcdir/hipother/hipnv"
     -DHIP_CATCH_TEST=0
     -DCLR_BUILD_HIP=ON
     -DCLR_BUILD_OCL=OFF
@@ -68,14 +87,14 @@ build() {
 
   local hip_nvidia_args=(
     -Wno-dev
-    -S "$srcdir/$_projectBaseDir/clr"
+    -S "$srcdir/clr"
     -B build-nvidia
     -DCMAKE_BUILD_TYPE=None
     -DCMAKE_INSTALL_PREFIX=/usr
     -DHIP_PLATFORM=nvidia
-    -DHIP_COMMON_DIR="$srcdir/$_projectBaseDir/hip"
+    -DHIP_COMMON_DIR="$srcdir/hip"
     -DHIPCC_BIN_DIR="$srcdir/build-nvidia-hipcc"
-    -DHIPNV_DIR="$srcdir/$_projectBaseDir/hipother/hipnv"
+    -DHIPNV_DIR="$srcdir/hipother/hipnv"
     -DHIP_CATCH_TEST=0
     -DCLR_BUILD_HIP=ON
     -DCLR_BUILD_OCL=OFF
@@ -87,17 +106,19 @@ build() {
 package_hip-runtime-amd() {
   pkgdesc="$_pkgdesc (AMD runtime)"
   depends=("${_amd_depends[@]}")
+  # libamdhip64 loads libGL with dlopen for OpenGL interop
   optdepends=('inetutils: Print hostname in hipconfig'
-              'cuda: Cross compile for nvidia')
+              'cuda: Cross compile for nvidia'
+              'mesa: OpenGL interop')
   replaces=("hip")
   provides=("hip=${pkgver}")
   DESTDIR="$pkgdir" cmake --install build-amd
-  install -Dm644 "$srcdir/$_projectBaseDir/hip/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/hip/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
 
 package_hip-runtime-nvidia() {
   pkgdesc="$_pkgdesc (Nvidia runtime)"
   depends=("${_nvidia_depends[@]}")
   DESTDIR="$pkgdir" cmake --install build-nvidia
-  install -Dm644 "$srcdir/$_projectBaseDir/hip/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 "$srcdir/hip/LICENSE.md" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
