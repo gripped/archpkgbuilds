@@ -2,24 +2,18 @@
 
 pkgname=sound-theme-elementary
 pkgver=1.1.0
-pkgrel=4
-pkgdesc='A bespoke sound for your theme'
+pkgrel=5
+pkgdesc='A set of system sounds for elementary OS'
 arch=(any)
 url=https://github.com/elementary/sound-theme
-license=(GPL3)
+license=(Unlicense)
 groups=(pantheon)
 makedepends=(
   git
   meson
 )
-_tag=88cb3a325995fcd5fe123f189062e3efb69972ca
-source=(sound-theme-elementary::git+https://github.com/elementary/sound-theme.git#tag=${_tag})
-sha256sums=('45c8a6d0adf9cc74ce73b01bb5632e022dac3e18cb754edfb49d1686914ddc12')
-
-pkgver() {
-  cd sound-theme-elementary
-  git describe --tags
-}
+source=(sound-theme-elementary::git+https://github.com/elementary/sound-theme.git#tag=${pkgver})
+b2sums=('fa890c6d87d46ed6f2d8f27088a3b142fa02d2bbf56019c5b18f107d0a3e6f5fecd624c189905d6adba39e52bda4805b4f86437b889df4cc840cfe5938d10638')
 
 build() {
   arch-meson sound-theme-elementary build
