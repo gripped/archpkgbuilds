@@ -4,16 +4,16 @@
 
 pkgname=python-rstr
 _pkgname=rstr
-pkgver=3.2.2
-pkgrel=4
+pkgver=4.0.0
+pkgrel=1
 pkgdesc="Generate random strings in Python"
 arch=('any')
 url="https://github.com/leapfrogonline/rstr"
-license=('BSD')
+license=('BSD-3-Clause')
 depends=('python')
 makedepends=(python-setuptools python-setuptools-scm python-build python-installer python-wheel)
 source=("https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz")
-sha256sums=('c4a564d4dfb4472d931d145c43d1cf1ad78c24592142e7755b8866179eeac012')
+sha256sums=('1a1e7f304b0291edbc12955a9cb4093bfe1c7c1d48e0797e752bb3bf2a24574a')
 
 prepare() {
   cd $_pkgname-$pkgver
