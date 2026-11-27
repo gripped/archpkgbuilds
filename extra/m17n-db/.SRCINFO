@@ -1,14 +1,15 @@
 pkgbase = m17n-db
 	pkgdesc = Multilingual text processing library (database)
-	pkgver = 1.8.17
+	pkgver = 1.8.19
 	pkgrel = 1
 	url = https://www.nongnu.org/m17n/
 	arch = any
 	license = LGPL-2.1-or-later
 	license = GPL-2.0-or-later
 	license = MIT
+	makedepends = git
 	depends = glibc
-	source = https://download.savannah.gnu.org/releases/m17n/m17n-db-1.8.17.tar.gz
-	sha256sums = 1c6259860c04c451296110802b1b6a22b7372309304c531dd0af32b33cf37406
+	source = m17n-db::git+git://git.savannah.gnu.org/m17n/m17n-db.git#tag=REL-1-8-19
+	sha256sums = 548a1abd0690921083ce1c9a06d549835c158188ba3a90542b1f53878e50bc21
 
 pkgname = m17n-db
