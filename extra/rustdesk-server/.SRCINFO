@@ -1,0 +1,31 @@
+pkgbase = rustdesk-server
+	pkgdesc = Self-hosted ID and relay server for RustDesk
+	pkgver = 1.1.16
+	pkgrel = 2
+	url = https://github.com/rustdesk/rustdesk-server
+	arch = x86_64
+	license = AGPL-3.0-only
+	makedepends = cargo
+	makedepends = git
+	makedepends = zstd
+	depends = glibc
+	depends = libgcc
+	depends = libsodium
+	options = !lto
+	backup = etc/conf.d/rustdesk-server
+	source = git+https://github.com/rustdesk/rustdesk-server.git#tag=1.1.16
+	source = git+https://github.com/rustdesk/hbb_common.git
+	source = disable-update-check.patch
+	source = rustdesk-hbbr.service
+	source = rustdesk-hbbs.service
+	source = rustdesk-server.conf
+	source = rustdesk-server.sysusers
+	b2sums = f2bde6269ca20d93985779da8a665da3ded540e8683453060bba1880b093b8457a6965f11fcb0b996af8b1c1597bd6aaf8ef0a9139b3a83f119ada25349bc48d
+	b2sums = SKIP
+	b2sums = c8205db9a4e613b2297f155b0a802e3cf96d984b812c187bfd567148f858aeebcb3d41f277160c7f9cf56d9a332bda65b158b01c806986ddec083315caded2fe
+	b2sums = fe23368b5743c499705d456aed960555eb1aa109a9d85ce9184cf0c36bb65655cc26ffc035c0f09fe4122b6c8616b007e580bacd4b547998c1f94061f8e7b9e3
+	b2sums = f16452b2a25c44b1684071f7b703b24c5c37dc0c4628b979518c601f0d8dd3683fefe47fb93d065a06fb44d577056ce2e4070b631a8e41135e871391cba98c3b
+	b2sums = 7dcdbffdb92dba7313bf63eff6d0e7107bbb92ce043eeb7cd5823d71b4858218a477b9982047f8e70ac16c270529172662dc39583e59f879c27fde599a4fe498
+	b2sums = 084eef699be708a10e675272191d9686419a4a913d25fabc270320de62613e46b374ba029340c654b7b20c1916c7b9eae8acc4931b1f51e411d5a2680c116783
+
+pkgname = rustdesk-server

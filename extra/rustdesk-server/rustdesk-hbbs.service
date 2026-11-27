@@ -1,0 +1,42 @@
+[Unit]
+Description=RustDesk ID/Rendezvous Server
+Documentation=https://rustdesk.com/docs/en/self-host/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=rustdesk-server
+StateDirectory=rustdesk-server
+StateDirectoryMode=0750
+WorkingDirectory=/var/lib/rustdesk-server
+UMask=0077
+EnvironmentFile=-/etc/conf.d/rustdesk-server
+ExecStart=/usr/bin/hbbs $HBBS_ARGS
+Restart=always
+RestartSec=10
+LimitNOFILE=1000000
+
+CapabilityBoundingSet=
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectHome=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectSystem=strict
+RestrictAddressFamilies=AF_INET AF_INET6 AF_NETLINK AF_UNIX
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged
+
+[Install]
+WantedBy=multi-user.target

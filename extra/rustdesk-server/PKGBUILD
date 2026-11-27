@@ -1,0 +1,65 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+
+pkgname=rustdesk-server
+pkgver=1.1.16
+pkgrel=2
+pkgdesc='Self-hosted ID and relay server for RustDesk'
+arch=(x86_64)
+url='https://github.com/rustdesk/rustdesk-server'
+license=(AGPL-3.0-only)
+depends=(glibc libgcc libsodium)
+makedepends=(cargo git zstd)
+backup=(etc/conf.d/rustdesk-server)
+# rust-lld cannot read the GCC LTO objects that the crates' build scripts compile
+options=(!lto)
+source=("git+https://github.com/rustdesk/rustdesk-server.git#tag=$pkgver"
+        "git+https://github.com/rustdesk/hbb_common.git"
+        disable-update-check.patch
+        rustdesk-hbbr.service
+        rustdesk-hbbs.service
+        rustdesk-server.conf
+        rustdesk-server.sysusers)
+b2sums=('f2bde6269ca20d93985779da8a665da3ded540e8683453060bba1880b093b8457a6965f11fcb0b996af8b1c1597bd6aaf8ef0a9139b3a83f119ada25349bc48d'
+        'SKIP'
+        'c8205db9a4e613b2297f155b0a802e3cf96d984b812c187bfd567148f858aeebcb3d41f277160c7f9cf56d9a332bda65b158b01c806986ddec083315caded2fe'
+        'fe23368b5743c499705d456aed960555eb1aa109a9d85ce9184cf0c36bb65655cc26ffc035c0f09fe4122b6c8616b007e580bacd4b547998c1f94061f8e7b9e3'
+        'f16452b2a25c44b1684071f7b703b24c5c37dc0c4628b979518c601f0d8dd3683fefe47fb93d065a06fb44d577056ce2e4070b631a8e41135e871391cba98c3b'
+        '7dcdbffdb92dba7313bf63eff6d0e7107bbb92ce043eeb7cd5823d71b4858218a477b9982047f8e70ac16c270529172662dc39583e59f879c27fde599a4fe498'
+        '084eef699be708a10e675272191d9686419a4a913d25fabc270320de62613e46b374ba029340c654b7b20c1916c7b9eae8acc4931b1f51e411d5a2680c116783')
+
+prepare() {
+  cd $pkgname
+  git submodule init
+  git config submodule.libs/hbb_common.url "$srcdir/hbb_common"
+  git -c protocol.file.allow=always submodule update
+
+  # the rest of the fix for https://github.com/rustdesk/rustdesk-server/issues/670
+  git cherry-pick -n 109d9a235136c883f544cb3ea0f11a58f1cedd58
+  # updates come through pacman
+  patch -Np1 -i ../disable-update-check.patch
+
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd $pkgname
+  export SODIUM_USE_PKG_CONFIG=1 ZSTD_SYS_USE_PKG_CONFIG=1
+  export CARGO_PROFILE_RELEASE_STRIP=false
+  cargo build --frozen --release
+}
+
+check() {
+  cd $pkgname
+  cargo test --frozen
+}
+
+package() {
+  cd $pkgname
+  install -Dm755 -t "$pkgdir"/usr/bin target/release/{hbbr,hbbs,rustdesk-utils}
+  install -Dm644 -t "$pkgdir"/usr/lib/systemd/system ../rustdesk-hbb{r,s}.service
+  # the file may hold the server's private key
+  install -Dm600 ../$pkgname.conf "$pkgdir"/etc/conf.d/$pkgname
+  install -Dm644 ../$pkgname.sysusers "$pkgdir"/usr/lib/sysusers.d/$pkgname.conf
+}
+
+# vim:set ts=2 sw=2 et:
