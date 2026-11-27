@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=python-zope-testrunner
-pkgver=8.3
+pkgver=8.4
 pkgrel=1
 pkgdesc="Zope testrunner script"
 arch=('any')
@@ -24,7 +24,7 @@ makedepends=(
 # package.
 checkdepends=('python-zope-testing')
 source=("$pkgname::git+$url.git#tag=$pkgver")
-b2sums=('1e87cb410b3bfe2d5ec871916e3203adfbc7cb3148d77c09601971d686fee5e12d3319fecb3ca7640ff7f0a9ef166cad5c84836b0226904d0e8acae89add22d5')
+b2sums=('6c6ba3ece70d9cbedc2f61c9ed430cf48c2cd4c7435b1a45caf1155cdb8a5712b17826c6cf7cc4401159a3a57f8b516b746ad86bb9036763035544751104d530')
 
 prepare() {
   cd $pkgname
