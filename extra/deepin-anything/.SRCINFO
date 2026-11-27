@@ -1,6 +1,6 @@
 pkgbase = deepin-anything
 	pkgdesc = Deepin Anything file search tool
-	pkgver = 7.0.11
+	pkgver = 7.0.13
 	pkgrel = 1
 	url = https://github.com/linuxdeepin/deepin-anything
 	arch = x86_64
@@ -14,14 +14,15 @@ pkgbase = deepin-anything
 	makedepends = boost
 	makedepends = spdlog
 	makedepends = glib2
-	source = git+https://github.com/linuxdeepin/deepin-anything.git#tag=7.0.11
+	source = git+https://github.com/linuxdeepin/deepin-anything.git#tag=7.0.13
 	source = 0001-fix-Rename-init_mnt_ns-to-avoid-symbol-clash-with-ke.patch
-	sha512sums = 0da6ff0dfa7c50831fa29dd88317a25668e112587102fc42a1582126797ca695f75cf5ece6adb49ce790df4edc84812880c5bbe149b6d2dbef807999f4694c31
+	sha512sums = ea2a4f17a831ed0463ad749bfdd395fbbcde2d70545f8377d31cf401ff3fe75fff4c992a27754fad7228c04457acc09d88675dead31b9be56e31504132556207
 	sha512sums = 4d41abba018d90f186a6c5f5af24dd4f1f43858c5ce977eba98c20f6c86df86382ed26c13fc04d8b93350a202ceb58946cc316eb8364fd6d6c0f4241eee0c3cd
 
 pkgname = deepin-anything
 	groups = deepin
 	depends = DEEPIN-ANYTHING-MODULE
+	depends = deepin-app-services
 	depends = qt6-base
 	depends = libnl
 	depends = lucene++
