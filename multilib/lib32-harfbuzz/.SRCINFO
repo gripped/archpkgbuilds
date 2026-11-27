@@ -1,6 +1,6 @@
 pkgbase = lib32-harfbuzz
 	pkgdesc = OpenType text shaping engine - 32-bit
-	pkgver = 15.1.0
+	pkgver = 15.2.0
 	pkgrel = 1
 	url = https://harfbuzz.github.io/
 	arch = x86_64
@@ -12,7 +12,6 @@ pkgbase = lib32-harfbuzz
 	makedepends = harfbuzz
 	makedepends = lib32-cairo
 	makedepends = lib32-freetype2
-	makedepends = lib32-gcc-libs
 	makedepends = lib32-glib2
 	makedepends = lib32-glibc
 	makedepends = lib32-icu
@@ -21,18 +20,17 @@ pkgbase = lib32-harfbuzz
 	makedepends = meson
 	makedepends = python
 	makedepends = ragel
-	source = git+https://github.com/harfbuzz/harfbuzz?signed#tag=15.1.0
+	source = git+https://github.com/harfbuzz/harfbuzz?signed#tag=15.2.0
 	validpgpkeys = 053D20F17CCCA9651B2C6FCB9AB24930C0B997A2
 	validpgpkeys = 9F377DDB6D3153A48EB3EB1E63CC496475267693
 	validpgpkeys = 2277650A4E8BDFE4B7F6BE419FEE04E5D3531115
 	validpgpkeys = EACF64F53455E2771BA661A4803B21859F015E4E
-	b2sums = 3bd5a5eb272ea7b1df3d436a22ff42a281493beeb426759dcb61ea44b4acdb59ed880548b09535d559f3027628bc8a950264e133af5c7f408ce12332073acec7
+	b2sums = 21cab6154cf3c6c8c0c4dc8efe6b40b7124de98efec7adcf0c4926f2cd40708dfc3e5fcc375389abfda3cc26277c4b5e583786bc366e8fd7abd312239c791fdb
 
 pkgname = lib32-harfbuzz
 	depends = harfbuzz
 	depends = lib32-freetype2
 	depends = libfreetype.so
-	depends = lib32-gcc-libs
 	depends = lib32-glib2
 	depends = libglib-2.0.so
 	depends = libgobject-2.0.so
