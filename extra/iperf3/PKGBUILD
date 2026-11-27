@@ -6,8 +6,8 @@
 # Contributor: goll <adrian.goll+aur[at]gmail>
 
 pkgname=iperf3
-pkgver=3.22
-pkgrel=2
+pkgver=3.22.1
+pkgrel=1
 pkgdesc='TCP, UDP, and SCTP network bandwidth measurement tool'
 url='https://github.com/esnet/iperf'
 arch=(x86_64)
@@ -21,8 +21,8 @@ provides=(
   libiperf.so
 )
 source=("${url}/archive/refs/tags/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('6b798e6740a41f5b0a14a9da7bc9a8bab5e4fb477f494ef8296b5b222b0890cb8a2d93eb37be243988f536ed177ee1b2b28622ea701f3f5c22b56a86cf9aaef1')
-b2sums=('1d867fc313f361e6a81d282632a31674e89a4e00ad115739ea66d502e1d7bd86307fb03e081a0edc606553ddb5be5aedb9a744a3fc71ae2cc23c8d913aa9a761')
+sha512sums=('4143e4090f7c8da068ca62f2a0993f3aa4e7a5898e1e2fa582f00185ee73bffbb212bb7d357727ec4b622968303def35214c0e51d32eb425fe61976f8d1b3491')
+b2sums=('3c03fd19863fd0b35d48ed934b68168a0494fbe3c1f60bae3bbc133fff8d2ce64043662f40a4170d6f115f537966eb55d62e6f306c660c90a9156b8e83310546')
 
 build() {
   cd iperf-${pkgver}
