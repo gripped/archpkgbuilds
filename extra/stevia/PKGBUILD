@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=stevia
-pkgver=0.58.0
+pkgver=0.59.0
 pkgrel=1
 pkgdesc='A user friendly on screen keyboard for Phosh'
 arch=(x86_64)
@@ -14,11 +14,14 @@ depends=(
   glib2
   glibc
   gnome-desktop
+  gst-plugins-base-libs
+  gstreamer
   gtk3
   hunspell
   json-glib
   libgcc
   libhandy
+  libsoup3
   pango
   systemd-libs
   wayland
@@ -33,7 +36,7 @@ checkdepends=(xorg-server-xvfb)
 conflicts=(squeekboard)
 provides=(phosh-osk-provider)
 source=("git+https://gitlab.gnome.org/World/Phosh/stevia.git?signed#tag=v$pkgver")
-b2sums=(a5755c80dface29f5cd2dccabb009b51c8ec405c3919463eaab00347159af3820fa918c0d58f0c4b70c567afc47ce20a13266b65ac3ee5cebd6e8f7bbe157543)
+b2sums=(c304c5b40530e889a0bf16545fb45673acfccbdb2f70b40c495c9b0fd7604d9b163fe965627d506445e785ef9ec131e4303a73aa96598811f65e6aa9e0081d87)
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
@@ -41,7 +44,9 @@ prepare() {
 }
 
 build() {
-  arch-meson $pkgname build
+  arch-meson $pkgname build \
+    -D uim=disabled \
+    -D govarnam=disabled
   meson compile -C build
 }
 
