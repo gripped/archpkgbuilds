@@ -3,43 +3,43 @@
 # Maintainer: Sébastien Luttringer <seblu@aur.archlinux.org
 
 pkgname=par2cmdline
-pkgver=1.4.0
+pkgver=2.0.0
 pkgrel=1
 pkgdesc='A PAR 2.0 compatible file verification and repair tool'
 url='https://github.com/BlackIkeEagle/par2cmdline'
 license=('GPL-2.0-or-later')
 arch=('x86_64')
+makedepends=('tar' 'cmake' 'ninja' 'cxxopts')
 depends=(
   'libgcc'
-  'libgomp'
   'libstdc++'
 )
 source=("https://github.com/Parchive/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz"
         "https://github.com/Parchive/$pkgname/releases/download/v$pkgver/$pkgname-$pkgver.tar.gz.sig")
-sha512sums=('3f455c088622698f0ad233497b3c96849880f9a1f1212f24aaaa52394df361665b4d25b604a0b4e95c04a3516915c35469581917b768f0d7dc364bb9c9b23991'
+sha512sums=('9ed2395ea2bd2a9d1520bc5641cb3223d545949c487576087cc4a180e8059f3bab86529c9b2199f05ffe26aac91415e5dd3b6c73bbf48ae88b61c7cd0bc73728'
             'SKIP')
 
 validpgpkeys=(
   'DB2277BCD500AA3825610BDDDB323392796CA067'
 )
 
-prepare() {
-  cd "$pkgname-$pkgver"
-  autoreconf -fiv
-}
-
 build() {
-  cd "$pkgname-$pkgver"
-  ./configure --prefix=/usr
-  make
+    cmake \
+        -S "$pkgname-$pkgver" \
+        -B build \
+        -G Ninja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DPAR2_KEEP_ASSERTS=ON \
+        -DPAR2_SYSTEM_CXXOPTS=ON
+    cmake --build build
 }
 
 check() {
-  cd "$pkgname-$pkgver"
-  make -j1 check
+    ctest --test-dir build
 }
 
 package() {
-  cd "$pkgname-$pkgver"
-  make DESTDIR="$pkgdir" install
+    DESTDIR=$pkgdir cmake \
+        --install build \
+        --prefix /usr
 }
