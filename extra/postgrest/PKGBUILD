@@ -3,7 +3,7 @@
 
 pkgname=postgrest
 pkgver=10.1.0
-pkgrel=185
+pkgrel=202
 pkgdesc="REST API for any Postgres database"
 url="https://github.com/begriffs/postgrest"
 license=("MIT")
@@ -29,9 +29,17 @@ sha512sums=('d642cfc23e3f11d166f4304beccc4f2b93f4d5f9b8c28ea684e45bf9181bf237edd
 
 prepare() {
     cd $pkgname-$pkgver
-    uusi -u Ranged-sets -u aeson -u auto-update -u cookie -u hasql-transaction -u hspec -u hspec-wai -u hspec-wai-json -u HTTP -u jose -u lens -u lens-aeson -u network -u optparse-applicative -u swagger2 -u warp
+    uusi -u Ranged-sets -u aeson -u auto-update -u cookie -u hasql-pool -u hasql-transaction -u hspec -u hspec-wai -u hspec-wai-json -u HTTP -u jose -u lens -u lens-aeson -u network -u optparse-applicative -u swagger2 -u warp
     # GHC 9.4+
     uusi -u base -u mtl -u text -u time
+    # hasql-pool 0.9 requires explicit acquisition and connection lifetimes.
+    # https://github.com/PostgREST/postgrest/issues/2638
+    sed -i \
+        -e 's/SQL\.acquire configDbPoolSize timeoutMilliseconds \$ toUtf8 configDbUri/SQL.acquire configDbPoolSize acquisitionTimeout 1800 $ toUtf8 configDbUri/' \
+        -e 's/timeoutMilliseconds = (\* oneSecond) <\$> configDbPoolAcquisitionTimeout/acquisitionTimeout = fromIntegral $ fromMaybe defaultAcquisitionTimeout configDbPoolAcquisitionTimeout/' \
+        -e 's/oneSecond = 1000000/defaultAcquisitionTimeout = 10/' \
+        -e 's/P\.acquire 3 Nothing /P.acquire 3 10 60 /' \
+        src/PostgREST/AppState.hs test/spec/Main.hs test/spec/QueryCost.hs
     # jose 0.12 generalizes JWT headers, so select the standard signed JWT type.
     # https://github.com/frasertweedale/hs-jose/blob/v0.12/CHANGELOG.md
     sed -i -e '/{-# LANGUAGE RecordWildCards #-}/a {-# LANGUAGE TypeApplications #-}' \
