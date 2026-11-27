@@ -156,3 +156,16 @@ index 529577b..9f5d4fa 100644
  }
  
  void OpsLogExport::exportUosSteLogs()
+diff --git a/tests/src/ut_opslogexport.cpp b/tests/src/ut_opslogexport.cpp
+index 31d5841..8af05e6 100644
+--- a/tests/src/ut_opslogexport.cpp
++++ b/tests/src/ut_opslogexport.cpp
+@@ -312,7 +312,7 @@ TEST(OpsLogExport_CreateDirStruct_UT, OpsLogExport_CreateDirStruct_UT_001)
+     EXPECT_TRUE(base.exists("app/deepin-calculator"));
+     EXPECT_TRUE(base.exists("dde/dde-file-manager"));
+     EXPECT_TRUE(base.exists("system/pulseaudio"));
+-    EXPECT_TRUE(base.exists("apt"));
++    EXPECT_FALSE(base.exists("apt"));
+     EXPECT_TRUE(base.exists("uos-ste"));
+     EXPECT_TRUE(base.exists("uosste_logs"));
+ }

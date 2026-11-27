@@ -143,6 +143,79 @@ index 3a10766..3c66573 100644
 -#endif // LOGALLEXPORTTHREAD_H
 \ No newline at end of file
 +#endif // LOGALLEXPORTTHREAD_H
+diff --git a/application/logapplicationhelper.cpp b/application/logapplicationhelper.cpp
+index 1ffb9f8..f6bc013 100644
+--- a/application/logapplicationhelper.cpp
++++ b/application/logapplicationhelper.cpp
+@@ -481,6 +481,11 @@ QString LogApplicationHelper::getLogFile(const QString &path)
+ QString LogApplicationHelper::getLogFile(const QString &path)
+ {
+     qCDebug(logApp) << "LogApplicationHelper::getLogFile called with path:" << path;
+     QString ret;
++    if (path.isEmpty()) {
++        qCWarning(logApp) << "Log directory path is empty";
++        return ret;
++    }
++
+     QDir subdir(path);
+     if (!subdir.exists()) {
+@@ -877,7 +882,9 @@ QDateTime LogApplicationHelper::getLastReportTime()
+     QVariant time;
+ 
+ #ifdef DTKCORE_CLASS_DConfigFile
+-    time = m_pDConfig->value(COREDUMP_REPORT_TIME);
++    if (m_pDConfig) {
++        time = m_pDConfig->value(COREDUMP_REPORT_TIME);
++    }
+ #else
+ #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+     if (m_pGSettings) {
+@@ -901,7 +908,9 @@ void LogApplicationHelper::saveLastRerportTime(const QDateTime &date)
+     qCDebug(logApp) << "Saving last report time:" << str;
+ 
+ #ifdef DTKCORE_CLASS_DConfigFile
+-    m_pDConfig->setValue(COREDUMP_REPORT_TIME, str);
++    if (m_pDConfig) {
++        m_pDConfig->setValue(COREDUMP_REPORT_TIME, str);
++    }
+ #else
+ #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+     if (m_pGSettings)
+@@ -916,7 +925,9 @@ int LogApplicationHelper::getMaxReportCoredump()
+     QVariant value(MAX_COREDUMP_REPORT);
+ 
+ #ifdef DTKCORE_CLASS_DConfigFile
+-    value = m_pDConfig->value(COREDUMP_REPORT_MAX);
++    if (m_pDConfig) {
++        value = m_pDConfig->value(COREDUMP_REPORT_MAX);
++    }
+ #else
+ #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+     if (m_pGSettings) {
+diff --git a/application/logsegementexportthread.cpp b/application/logsegementexportthread.cpp
+index ced022c..32965ad 100644
+--- a/application/logsegementexportthread.cpp
++++ b/application/logsegementexportthread.cpp
+@@ -121,12 +121,17 @@ void LogSegementExportThread::initXls()
+ QString LogSegementExportThread::getDocTemplatePath()
+ {
+     qCDebug(logApp) << "Getting DOC template path for flag:" << m_flag;
++    QString templateDir = QStringLiteral("/usr/share/deepin-log-viewer/DocxTemplate");
++#ifdef DEEPIN_LOG_VIEWER_DOCX_TEMPLATE_DIR
++    templateDir = QString::fromUtf8(DEEPIN_LOG_VIEWER_DOCX_TEMPLATE_DIR);
++#endif
++
+     QString tempdir("");
+     if (m_flag == KERN) {
+-        tempdir = "/usr/share/deepin-log-viewer/DocxTemplate/4column.dfw";
++        tempdir = templateDir + "/4column.dfw";
+         qCDebug(logApp) << "Using KERN template path";
+     } else if (m_flag == Kwin) {
+-        tempdir = "/usr/share/deepin-log-viewer/DocxTemplate/1column.dfw";
++        tempdir = templateDir + "/1column.dfw";
+         qCDebug(logApp) << "Using Kwin template path";
+     } else {
+         qCWarning(logApp) << "exportToDoc type is Wrong!";
 diff --git a/application/logsegementexportthread.h b/application/logsegementexportthread.h
 index 5bcffca..b828eec 100644
 --- a/application/logsegementexportthread.h
@@ -288,10 +361,10 @@ index 1ceab68..d7d601d 100644
  LogViewerPlugin::LogViewerPlugin()
  {
 diff --git a/tests/CMakeLists.txt b/tests/CMakeLists.txt
-index ba6b70f..d2f512d 100755
+index 09a1520..503272d 100755
 --- a/tests/CMakeLists.txt
 +++ b/tests/CMakeLists.txt
-@@ -62,6 +62,8 @@ find_package(XercesC)
+@@ -62,11 +62,13 @@ find_package(XercesC)
  find_package(ZLIB)
  find_package(PolkitQt${QT_DESIRED_VERSION}-1)
  pkg_check_modules(Gio REQUIRED gio-qt${DTK_VERSION_MAJOR})
@@ -300,6 +373,12 @@ index ba6b70f..d2f512d 100755
  
  set(qt_required_components Core DBus Gui Concurrent Test Xml Widgets)
  
+ if (QT_DESIRED_VERSION MATCHES 6)
+-    list(APPEND qt_required_components Core5Compat)
++    list(APPEND qt_required_components Core5Compat GuiPrivate)
+ else()
+     pkg_check_modules(Gsetting REQUIRED gsettings-qt)
+ endif()
 @@ -87,6 +89,8 @@ set(LINK_LIBS
      Dtk${DTK_VERSION_MAJOR}::Gui
      PolkitQt${QT_DESIRED_VERSION}-1::Agent
@@ -309,7 +388,7 @@ index ba6b70f..d2f512d 100755
  )
  
  if (QT_DESIRED_VERSION MATCHES 6)
-@@ -97,7 +101,6 @@ else()
+@@ -98,7 +102,6 @@ else()
  endif()
  
  include_directories(${Gio_INCLUDE_DIRS})
@@ -317,7 +396,7 @@ index ba6b70f..d2f512d 100755
  
  FILE(GLOB allSource
       ../application/filtercontent.cpp
-@@ -179,20 +182,6 @@ endfunction()
+@@ -183,20 +186,6 @@ endfunction()
  find_library(ICUIL18N_LIB icui18n)
  find_library(ICUUC_LIB icuuc)
  
@@ -338,7 +417,7 @@ index ba6b70f..d2f512d 100755
  #---------------DOCXFACTORY源码引入----------------------
  file(GLOB_RECURSE DOCXFAC_SOURCES  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.cpp" )
  file(GLOB_RECURSE DOCXFAC_SOURCES_C  "${PROJECT_SOURCE_DIR}/3rdparty/DocxFactory/src/*.c" )
-@@ -251,11 +240,7 @@ file(GLOB_RECURSE LVP_HEADERS
+@@ -255,11 +244,7 @@ file(GLOB_RECURSE LVP_HEADERS
      )
  #---------------------------------------------
  
@@ -350,42 +429,274 @@ index ba6b70f..d2f512d 100755
  include_directories(${CMAKE_CURRENT_SOURCE_DIR})
  include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../application")
  include_sub_directories_recursively("${CMAKE_CURRENT_SOURCE_DIR}/../liblogviewerplugin")
-@@ -269,9 +254,9 @@ include_directories(${GTEST_INCLUDE_DIRS})
+@@ -275,9 +260,12 @@ include_directories(${GTEST_INCLUDE_DIRS})
  
  include_directories(src)
  
--add_executable (${PROJECT_NAME_TEST} ${allSource} ${APP_QRC_FILES} ${qrcFiles}   ${allTestSource} ${MINIZIP_SOURCES} ${LXW_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${TMPFILE_SOURCES} ${MD5SOURCES})
-+add_executable (${PROJECT_NAME_TEST} ${allSource} ${APP_QRC_FILES} ${qrcFiles}   ${allTestSource} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C})
+-add_executable (${PROJECT_NAME_TEST} ${allSource} ../application/configs/json/org_deepin_log_viewer.hpp ${APP_QRC_FILES} ${qrcFiles}   ${allTestSource} ${MINIZIP_SOURCES} ${LXW_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${TMPFILE_SOURCES} ${MD5SOURCES})
++add_executable (${PROJECT_NAME_TEST} ${allSource} ../application/configs/json/org_deepin_log_viewer.hpp ${APP_QRC_FILES} ${qrcFiles} ${allTestSource} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C})
++target_compile_definitions(${PROJECT_NAME_TEST} PRIVATE
++    DEEPIN_LOG_VIEWER_DOCX_TEMPLATE_DIR="${PROJECT_SOURCE_DIR}/application/assets/doc_template"
++    DEEPIN_LOG_VIEWER_TEST_USE_LOG_APPLICATION)
  #添加插件单元测试进程
 -add_executable (${PROJECT_NAME_PLUGIN_TEST} ${allPluginTestSource} ${LVP_HEADERS} ${LVP_SOURCES} ${MINIZIP_SOURCES} ${LXW_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C} ${TMPFILE_SOURCES} ${MD5SOURCES})
 +add_executable (${PROJECT_NAME_PLUGIN_TEST} ${allPluginTestSource} ${LVP_HEADERS} ${LVP_SOURCES} ${DOCXFAC_SOURCES} ${DOCXFAC_SOURCES_C})
  
  target_link_libraries(${PROJECT_NAME_TEST} ${LINK_LIBS} -lsystemd -licui18n -licuuc ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread -ldl -fPIC)
  #当binutils>=2.22时，对于链接的静态库链接的静态库，cmake并不会递归链接，所以需要手动链接libxlsxwriter需要的lzlib
-diff --git a/tests/src/ut_logoocfileparsethread.cpp b/tests/src/ut_logoocfileparsethread.cpp
-index 7bf6bb2..0f6fc98 100644
---- a/tests/src/ut_logoocfileparsethread.cpp
-+++ b/tests/src/ut_logoocfileparsethread.cpp
-@@ -23,6 +23,12 @@ QStringList stub_getOtherFileInfo(const QString &flag)
-     return QStringList() << "test";
+diff --git a/tests/src/ut_logapplication.cpp b/tests/src/ut_logapplication.cpp
+index c3f7954..fa1480d 100644
+--- a/tests/src/ut_logapplication.cpp
++++ b/tests/src/ut_logapplication.cpp
+@@ -10,6 +10,7 @@
+ #include "ut_stubpublic.h"
+ #include <stub.h>
+ 
++#include <QCoreApplication>
+ #include <QDebug>
+ #include <QKeyEvent>
+ 
+@@ -17,20 +18,14 @@
+ 
+ TEST(LogApplication_Constructor_UT, LogApplication_Constructor_UT)
+ {
+-    int argc = 0;
+-    char **argv;
+-    LogApplication *p = new LogApplication(argc, argv);
+-    EXPECT_NE(p, nullptr);
+-    // QApplication 常驻不复位：deleteLater 被后续用例泵事件处理掉后，
+-    // 其他建 QWidget 的用例会 qFatal，故有意保留实例（测试进程生命周期内泄漏）
++    LogApplication *p = dynamic_cast<LogApplication *>(QCoreApplication::instance());
++    ASSERT_NE(p, nullptr);
+ }
+ void stub_beginPointLinux(const QString &point, const QString &status)
+ {
+ }
+ TEST(LogApplication_setMainWindow_UT, LogApplication_setMainWindow_UT)
+ {
+-    int argc = 0;
+-    char **argv;
+     Stub stub;
+     stub.set(ADDR(DebugTimeManager, beginPointLinux), stub_beginPointLinux);
+     stub.set(ADDR(LogFileParser, parseByJournal), LogFileParser_parseByJournal);
+@@ -43,12 +38,12 @@ TEST(LogApplication_setMainWindow_UT, LogApplication_setMainWindow_UT)
+     stub.set(ADDR(LogFileParser, parseByNormal), LogFileParser_parseByNormal);
+     stub.set(ADDR(LogFileParser, parseByKwin), LogFileParser_parseByKwin);
+     stub.set(ADDR(LogApplicationHelper, getCustomLogList), LogApplicationHelper_getCustomLogList);
+-    LogApplication *p = new LogApplication(argc, argv);
+-    EXPECT_NE(p, nullptr);
++    LogApplication *p = dynamic_cast<LogApplication *>(QCoreApplication::instance());
++    ASSERT_NE(p, nullptr);
+     LogCollectorMain *m = new LogCollectorMain(nullptr);
+     p->setMainWindow(m);
+     EXPECT_EQ(m, p->m_mainWindow);
+-    // 主窗口同步删除（异步刷新链挂在其子对象上）；QApplication 常驻不删除
++    p->setMainWindow(nullptr);
+     delete m;
  }
  
-+bool stub_ooc_checkAuthentication_true(const QString &path)
-+{
-+    Q_UNUSED(path);
-+    return true;
-+}
-+
- class LogOOCFileParseThread_UT : public testing::Test
+@@ -87,8 +82,6 @@ bool LogApplication_notify_mainWindow_handleApplicationTabEventNotify_result_Fun
+ 
+ TEST_P(LogApplication_notify_UT, LogApplication_notify_UT)
  {
- public:
-@@ -77,6 +83,9 @@ TEST_F(LogOOCFileParseThread_UT, UT_DoWork_001)
+-    int argc = 0;
+-    char **argv;
      Stub stub;
-     stub.set(ADDR(DLDBusHandler, readLog), stub_ooc_readLog);
-     stub.set(ADDR(DLDBusHandler, getOtherFileInfo), stub_getOtherFileInfo);
-+    // pkexec fails in headless CI env (exit 127); stub checkAuthentication
-+    // so doWork proceeds to call the stubbed readLog
-+    stub.set(ADDR(LogOOCFileParseThread, checkAuthentication), stub_ooc_checkAuthentication_true);
-     QString path("test");
-     m_logThread->setParam(path);
-     m_logThread->doWork();
+     stub.set(ADDR(LogFileParser, parseByJournal), LogFileParser_parseByJournal);
+     stub.set(ADDR(LogFileParser, parseByJournalBoot), LogFileParser_parseByJournalBoot);
+@@ -102,8 +95,8 @@ TEST_P(LogApplication_notify_UT, LogApplication_notify_UT)
+     stub.set(ADDR(DebugTimeManager, beginPointLinux), stub_beginPointLinux);
+     stub.set(ADDR(LogCollectorMain, handleApplicationTabEventNotify), LogApplication_notify_mainWindow_handleApplicationTabEventNotify_result_Func);
+ 
+-    LogApplication *p = new LogApplication(argc, argv);
+-    EXPECT_NE(p, nullptr);
++    LogApplication *p = dynamic_cast<LogApplication *>(QCoreApplication::instance());
++    ASSERT_NE(p, nullptr);
+     LogApplication_notify_UT_Param param = GetParam();
+ 
+     // 真正构造一个 LogCollectorMain 并赋给 m_mainWindow，确保 notify 中
+@@ -112,7 +105,7 @@ TEST_P(LogApplication_notify_UT, LogApplication_notify_UT)
+     if (param.isMainWindow) {
+         mainWindow = new LogCollectorMain(nullptr);
+     }
+-    p->m_mainWindow = mainWindow;
++    p->setMainWindow(mainWindow);
+ 
+     if (param.isKeyPress) {
+         int key = param.isKeyTab ? Qt::Key_Tab : Qt::Key_Left;
+@@ -125,8 +118,8 @@ TEST_P(LogApplication_notify_UT, LogApplication_notify_UT)
+         delete e;
+     }
+ 
++    p->setMainWindow(nullptr);
+     if (mainWindow) {
+         delete mainWindow;
+     }
+-    // QApplication 常驻：删除后后续建 QWidget 的用例会 qFatal
+ }
+diff --git a/tests/src/ut_logapplicationparsethread.cpp b/tests/src/ut_logapplicationparsethread.cpp
+index fee8b78..49ca924 100644
+--- a/tests/src/ut_logapplicationparsethread.cpp
++++ b/tests/src/ut_logapplicationparsethread.cpp
+@@ -139,7 +139,7 @@ TEST_F(LogApplicationParseThread_UT, stopProcess_UT)
+ 
+ TEST_F(LogApplicationParseThread_UT, UT_GetIndex_001){
+     int index= m_logAppThread->getIndex();
+-    EXPECT_EQ(index, 6);
++    EXPECT_EQ(index, LogApplicationParseThread::thread_count);
+ }
+ 
+ // ==================== Stubs for sd_journal functions ====================
+diff --git a/tests/src/ut_logauththread.cpp b/tests/src/ut_logauththread.cpp
+index a4f2fad..e2ec158 100644
+--- a/tests/src/ut_logauththread.cpp
++++ b/tests/src/ut_logauththread.cpp
+@@ -249,6 +249,8 @@ public:
+     }
+     void TearDown() //TEST跑完之后会执行TearDown
+     {
++        delete m_logAuthThread;
++        m_logAuthThread = nullptr;
+     }
+     LogAuthThread *m_logAuthThread;
+ };
+@@ -302,7 +304,7 @@ public:
+ 
+ TEST_F(LogAuthThread_UT, UT_GetIndex_001){
+      int index=m_logAuthThread->getIndex();
+-     EXPECT_EQ(index,1);
++     EXPECT_EQ(index, LogAuthThread::thread_count);
+ }
+ 
+ TEST_F(LogAuthThread_UT, UT_FormatDateTime_001){
+diff --git a/tests/src/ut_main.cpp b/tests/src/ut_main.cpp
+index cb1fad0..ad12a56 100644
+--- a/tests/src/ut_main.cpp
++++ b/tests/src/ut_main.cpp
+@@ -2,8 +2,13 @@
+ //
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ 
+-#include <gtest/gtest.h>
++#ifdef DEEPIN_LOG_VIEWER_TEST_USE_LOG_APPLICATION
++#include "logapplication.h"
++#else
+ #include <QApplication>
++#endif
++
++#include <gtest/gtest.h>
+ #include <QLoggingCategory>
+ #if defined(CMAKE_SAFETYTEST_ARG_ON)
+ #include <sanitizer/asan_interface.h>
+@@ -15,7 +20,11 @@ Q_LOGGING_CATEGORY(logApp, "org.deepin.log.viewer.main")
+ int main(int argc, char *argv[])
+ {
+     qputenv("QT_QPA_PLATFORM", "offscreen");
++#ifdef DEEPIN_LOG_VIEWER_TEST_USE_LOG_APPLICATION
++    LogApplication a(argc, argv);
++#else
+     QApplication a(argc, argv);
++#endif
+ 
+     testing::InitGoogleTest(&argc, argv);
+     int ret = RUN_ALL_TESTS();
+diff --git a/tests/src/ut_viewapplication.cpp b/tests/src/ut_viewapplication.cpp
+index 8b3994e..b2f5740 100644
+--- a/tests/src/ut_viewapplication.cpp
++++ b/tests/src/ut_viewapplication.cpp
+@@ -23,15 +23,11 @@
+ #include <cstdlib>
+ 
+ // ---------------------------------------------------------------------------
+-// ViewApplication extends QCoreApplication, so constructing one replaces the
+-// global QCoreApplication::self (which the test main created as a QApplication).
+-// If we leave it pointing at the destroyed ViewApplication, later QWidget-based
+-// tests crash ("QWidget: Cannot create a QWidget without QApplication").
+-//
+-// QCoreApplication::self is a *protected static* member, but the test build
+-// uses -fno-access-control, so we can save/restore it directly.  We also use
+-// synchronous `delete` (not deleteLater) so the destructor actually executes,
+-// which is required for 100% lcov function coverage of ~ViewApplication.
++// ViewApplication replaces Qt's process-wide application singleton. Qt 6 keeps
++// QCoreApplication::self and its internal qApp pointer separately; destroying
++// ViewApplication clears both and leaves no supported way to re-register the
++// QApplication owned by the test process. Keep these test instances alive so
++// later QWidget and QPixmap tests continue to see a valid application.
+ // ---------------------------------------------------------------------------
+ 
+ // ---------------------------------------------------------------------------
+@@ -149,20 +145,10 @@ static void makeArgs(const QStringList &tokens, int &argc, char **&argv)
+     argv = argvStorage;
+ }
+ 
+-// Construct a ViewApplication, run the supplied test body, then synchronously
+-// delete it while restoring the global QCoreApplication::self around the
+-// destruction so the original QApplication (qApp) survives intact.
+-//
+-// ViewApplication extends QCoreApplication.  Its destructor calls
+-// cleanupThreadData() which nullifies the main-thread's eventDispatcher
+-// pointer (but does NOT delete the object — QThreadData for the main thread
+-// is still alive).  Without restoring the original dispatcher, later
+-// QWidget-based tests fail because the freshly-created replacement lacks the
+-// original's registered timers and glib sources.
+-//
+-// Fix: save the original dispatcher before constructing ViewApplication,
+-// then restore it after delete.  The object is still alive; only the thread
+-// data's pointer was cleared.
++// Construct a ViewApplication, run the supplied test body, then restore the
++// singleton fields used by Qt and QWidget. The instance intentionally remains
++// alive because QCoreApplication's destructor also clears Qt 6's internal qApp
++// pointer, which cannot be restored through the public API.
+ template <typename Body>
+ static void withViewApplication(const QStringList &tokens, Stub &stub, Body body)
+ {
+@@ -178,22 +164,19 @@ static void withViewApplication(const QStringList &tokens, Stub &stub, Body body
+     ViewApplication *app = new ViewApplication(argc, argv);
+     body(app);
+     QCoreApplication::self = savedSelf;
+-    delete app;
+-    QCoreApplication::self = savedSelf;
+     QCoreApplicationPrivate::eventDispatcher = savedDisp;
+     QCoreApplicationPrivate::is_app_closing = savedIsAppClosing;
+     QCoreApplicationPrivate::is_app_running = savedIsAppRunning;
+-    if (!QCoreApplication::eventDispatcher())
++    if (!QCoreApplication::eventDispatcher()) {
+         QCoreApplication::setEventDispatcher(savedDisp);
++    }
+ }
+ 
+ // ===========================================================================
+-// Smoke test — verifies that constructing and destroying a ViewApplication
+-// (which extends QCoreApplication) does not corrupt the main-thread event
+-// dispatcher state.  withViewApplication saves/restores the dispatcher for
+-// every test, so this case simply exercises the construct→destroy cycle once.
++// Smoke test: constructing a ViewApplication must not corrupt the main-thread
++// event dispatcher or leave Qt without an application instance.
+ // ===========================================================================
+-TEST(ViewApplication_Inoculation_UT, ConstructAndDestroy_UT)
++TEST(ViewApplication_Inoculation_UT, ConstructAndContain_UT)
+ {
+     Stub stub;
+     installConstructorStubs(stub);
+@@ -397,10 +380,9 @@ TEST(ViewApplication_ReleaseMemery_UT, ViewApplication_ReleaseMemery_NullPointer
+ }
+ 
+ // ===========================================================================
+-// Destructor test (explicit — withViewApplication already deletes every app,
+-// but this case documents the ~ViewApplication -> releaseMemery chain).
++// Regression test for Qt 6's internal qApp pointer after repeated construction.
+ // ===========================================================================
+-TEST(ViewApplication_Destructor_UT, ViewApplication_Destructor_UT)
++TEST(ViewApplication_Lifetime_UT, RestoresQApp_UT)
+ {
+     Stub stub;
+     installConstructorStubs(stub);
+@@ -408,5 +390,5 @@ TEST(ViewApplication_Destructor_UT, ViewApplication_Destructor_UT)
+     withViewApplication(QStringList() << "testapp" << "dmesg" << "shmkey-dtor", stub, [](ViewApplication *app) {
+         EXPECT_NE(app, nullptr);
+     });
+-    SUCCEED();
++    EXPECT_TRUE(QCoreApplication::instanceExists());
+ }
+ 
+ // ===========================================================================
