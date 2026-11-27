@@ -5,8 +5,8 @@
 # Contributor: Ner0
 
 pkgname=muffin
-pkgver=6.8.1
-pkgrel=1
+pkgver=6.8.4
+pkgrel=2
 pkgdesc='Cinnamon window manager based on Mutter'
 arch=(x86_64)
 url='https://github.com/linuxmint/muffin'
@@ -19,7 +19,6 @@ depends=(
   dconf
   fontconfig
   fribidi
-  libgcc
   gdk-pixbuf2
   glib2
   glibc
@@ -28,6 +27,7 @@ depends=(
   json-glib
   libcanberra
   libdrm
+  libgcc
   libglvnd
   libgudev
   libice
@@ -53,11 +53,12 @@ depends=(
   mesa
   pango
   pipewire
+  python
   startup-notification
   systemd-libs
   wayland
+  xenity
   xorg-xwayland
-  zenity
 )
 makedepends=(
   egl-wayland
@@ -70,22 +71,17 @@ makedepends=(
 source=(
   "git+https://github.com/linuxmint/muffin.git#tag=$pkgver"
   muffin-menu-icon.patch
-  muffin-wayland-wm-capabilities.patch
 )
-b2sums=('c737707bd852ee94b8ee31962868d93a66e1b547ef8b7d71a814cb8d2d456944cbbbda65794bfe081428bf9e934a63286afc152f6b3313bf496f8100a6940b31'
-        '3e511043e740ecc08ca611ec67b4e50d5a13bd4b3e0bb0f300d4ada57a7f4346afa303493bcfa43242f6715c7dc50fb7005a54a9def0079505da1846f8bb4f7c'
-        '90e1dde17c970cc1e87e0517c8fcef3f6f53e20969bec34437aa99a042cc7d27eaf8ed08e722f534c758adf80548055948d6ed3efb06489d30559b3243372034')
+b2sums=(
+  e97d05dc9cbd51e5b4034d4a7039ee34d3a56e9a3b5a65a9a2d301b1e4b93b4a9f8c2ad6289d10c9a57171be7188909a72d8dc216f504b6f442161b76924fd2b
+  dd631406237397be00b1a2d6f7c169be4dadf2644f1319a629225b85f1913f204516ee8c2166008c13ae168f98acfebf6db6d15c5130a6f0479fa457b77373e4
+)
 
 prepare() {
   cd $pkgname
 
   # Use window icon for the menu button if available
-  # https://github.com/linuxmint/muffin/pull/778
   git apply -3 ../muffin-menu-icon.patch
-
-  # Implement support for xdg_toplevel.wm_capabilities
-  # https://github.com/linuxmint/muffin/pull/780
-  git apply -3 ../muffin-wayland-wm-capabilities.patch
 }
 
 build() {
