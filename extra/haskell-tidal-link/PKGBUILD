@@ -2,8 +2,8 @@
 
 _hkgname=tidal-link
 pkgname=haskell-tidal-link
-pkgver=1.2.1
-pkgrel=5
+pkgver=1.2.2
+pkgrel=2
 pkgdesc="Ableton Link integration for Tidal"
 url="http://tidalcycles.org/"
 license=(GPL-3.0-only)
@@ -27,8 +27,8 @@ optdepends=(
   'numactl: for linktest'
 )
 source=(https://hackage.haskell.org/packages/archive/$_hkgname/$pkgver/$_hkgname-$pkgver.tar.gz)
-sha512sums=('2d269af7211c0ee1de1440d6bcf084c1d46ba4d76c603d10ae3b9eca970655af0eaf94fa2b75332fa97cd4a9f8bd019cd01f4bc59aed68a541577a582d8ce4eb')
-b2sums=('2199d26eeccc0e44bf6c6b825a78c8f9e0c88bfde85e0ddf1ca22d27858b2778839d67ba472cfc622cff5b02ed20404b2ab73bdd252c4cbcc4c0c40b543aaedf')
+sha512sums=('0e26d13e2605fb48b320a708e57cc725272057c6edf58b96b569c3e14dbdb7e18f6c23587c091c4d4c6475f8b1389846ad89ba68d0ffe17a5419e883aa883ded')
+b2sums=('6896398fe79ecfb791f9d0a12b30fcd768ba14a63355423b05c37020b38c1051317de4aa1928b4c61b06e28e5e0f067b8ad5d9dbcd23d4d21b59f05c1338f079')
 
 prepare() {
   cd $_hkgname-$pkgver
