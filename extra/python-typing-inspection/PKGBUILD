@@ -2,7 +2,7 @@
 
 _name=typing-inspection
 pkgname=python-typing-inspection
-pkgver=0.4.4
+pkgver=0.4.5
 pkgrel=1
 pkgdesc="Runtime typing introspection tools"
 arch=(any)
@@ -25,8 +25,8 @@ checkdepends=(
     python-pytest
 )
 source=("git+https://github.com/pydantic/typing-inspection#tag=v${pkgver}")
-sha512sums=('96a4b5ab2fd7f208b5ad6de3dd187a2d9e9338551b9e6efcf51389cb2f173f60736c3bb7d9dd98f230fda7464bc4822e164eb4a72a277a3889a713cc1a16e004')
-b2sums=('764428bc994fed4630193476d2e352ba9a0838cd2b516a26acff1eaca5ac99b3c9377ce67bf258238e8a904bb4fb9d543a635a1f996dfdefd1a00cc4b2b98e4b')
+sha512sums=('c1cf0261ced5eab72daab6beeff5d19dcedaeed1bd6ad9631a94d65c77a9a68849359fa0ef4c3afbfc351953a0bb3b92a2238021e77b7ecf0ba49707753a2927')
+b2sums=('98c60d4dea318481ecb915391530dcb922a67d7033a57a8248da4c8654a6456521d0973c1cf61b8b37a36fe24990c2664b5181c895950da0ca37f61361facc82')
 
 build() {
   cd $_name
