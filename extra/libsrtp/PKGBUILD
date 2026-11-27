@@ -8,7 +8,7 @@ pkgname=(
   libsrtp
   libsrtp-docs
 )
-pkgver=2.8.1
+pkgver=2.8.2
 pkgrel=1
 epoch=1
 pkgdesc="Library for SRTP (Secure Realtime Transport Protocol)"
@@ -28,7 +28,7 @@ makedepends=(
 )
 checkdepends=(procps-ng)
 source=("git+https://github.com/cisco/libsrtp#tag=v$pkgver")
-b2sums=('851f9819e298063ba708eb7967a184829a9189befa2420e539efbc453441113ebda6d2da119ecc1652273c2232c88ea3666608e4ea00e1f4c0ad37c26fa775c6')
+b2sums=('c09d28980474d1f0bd1b0c5b92668712a0492bddf208151722195ae82858ebc2b9a1af35b9eb4d05b4c5577f483ee26dcd219b373001a220736b765ed88a7bd8')
 
 prepare() {
   cd libsrtp
