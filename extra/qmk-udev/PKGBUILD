@@ -1,0 +1,32 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=qmk-udev
+pkgver=0.1.23
+pkgrel=1
+pkgdesc='A small program that udev uses to identify QMK keyboards, allowing user access to select endpoints'
+arch=(x86_64)
+url='https://github.com/qmk/qmk_udev'
+license=(
+  'LGPL-2.1-only OR MIT'
+  'GPL-2.0-or-later'
+)
+#depends=()
+makedepends=(git)
+#checkdepends=()
+#optdepends=()
+#options=(!lto)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('26e368bfa12bdfb6497ac72c6e9f6abdf2b7d84909ee8cc091e129f94b689a3f6be444801225d7b9c16e9f0681161f07eda9f51a66fa585ce05d98486b801798')
+b2sums=('1c439590c9ed6eadf59a25d0d7697b95a6cc2b6edd057278fe2c513af86be1f7e498e8643e3cfa4e20369d19ac85d98d3f87a883cb6ac49c0f50c8610cf725a2')
+
+build() {
+  cd "$pkgname"
+
+  make PREFIX=/usr
+}
+
+package() {
+  cd "$pkgname"
+
+  make PREFIX=/usr DESTDIR="$pkgdir" install
+}
