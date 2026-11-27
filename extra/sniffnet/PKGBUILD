@@ -3,7 +3,7 @@
 # Contributor: qubidt <qubidt at gmail dot com>
 
 pkgname=sniffnet
-pkgver=1.5.1
+pkgver=1.6.0
 pkgrel=1
 pkgdesc="Application to comfortably monitor your network traffic"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=('alsa-lib' 'fontconfig' 'libpcap' 'freetype2' 'glibc' 'zenity' 'xdg-des
 makedepends=('cargo')
 install=$pkgname.install
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('e9ffbf84fe0b1cd130ba91cea646564b288d0a138b16b677c03c69ca09ba6c143d3090553f7de8611a8bcd5ca3d570a9f25ee2599647c5e3f9c524cc5bb39223')
+sha512sums=('2cf0b19974dd3259ef1569818983cc44e6038633b9937ed82671dae8f93b1b7828ca6ab94f76e3fa197c658302c060d34a01048233b54b38c56b79bdc4d67211')
 options=('!lto')
 
 prepare() {
