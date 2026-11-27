@@ -2,7 +2,7 @@
 # Contributor: Eli Schwartz <eschwartz@archlinux.org>
 
 pkgname=python-css-parser
-pkgver=1.1.1
+pkgver=1.1.2
 pkgrel=1
 pkgdesc='CSS related utilities for Python'
 arch=(any)
@@ -18,8 +18,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("$pkgname::git+$url#tag=v$pkgver")
-sha512sums=('1fb42aa5e6995f2f6f1ff1a167e8254878f6bff23647bf3b96f48b1aa265546aa9e5594ac77ebe8c08d4572e4cbc5d2b726ff967d6530adcda262f8a939db61f')
-b2sums=('611bb527b0a2418cc3b724e1900e28d7468fd4a92eb1585376fa448430ad2f4fa309f87f0058aca75721ea9db506583c79603b366e26cc527d4a715849951b9e')
+sha512sums=('13a6d6dd98a592200ed51039581081d8c641417472f840c96676629e4204586f87f510d46fa0dcd9ba62266e4fd540bf81a00616e04c8c7c813bc5d083d2f67c')
+b2sums=('45106f7b3875c869a2408ca64647d5b9de975a14f30bed8e0085e6fa4006633f17abb8c0d4470f4db1859f9e981c328c85eefd4b9cbf680bfe2c9e61b77e6d2b')
 
 build() {
   cd "$pkgname"
