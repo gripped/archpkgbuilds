@@ -1,0 +1,45 @@
+# Maintainer: Balló György <ballogyor+arch at gmail dot com>
+
+pkgname=python-calendaring-config
+pkgver=0.5.0
+pkgrel=1
+pkgdesc='Shared configuration file of caldav, calendaring and calendaring-jmap'
+arch=(any)
+url='https://github.com/python-caldav/caldav'
+license=('Apache-2.0 OR GPL-3.0-or-later')
+depends=(
+  python
+  python-yaml
+)
+makedepends=(
+  git
+  python-build
+  python-hatch-vcs
+  python-hatchling
+  python-installer
+  python-wheel
+)
+checkdepends=(
+  python-keyring
+  python-pytest
+)
+optdepends=('python-keyring: Look secrets up in the system keyring')
+source=("git+https://github.com/PyCalendar/calendaring-config.git?signed#tag=v$pkgver")
+b2sums=(29aba9876c1019d0e9556706c4f2a18c89f4a59f037ec5938a42c7f6a70a7c821506faf20f389f0ae619d99bf461f79b9eb70949ac15c67d3633a641120ad8cf)
+validpgpkeys=(CC67B0D4A21A344811DD5B54A8591F23C40DEF4E) # Tobias Brox <tobias@redpill-linpro.com>
+
+build() {
+  cd calendaring-config
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd calendaring-config
+  PYTHONPATH="$PWD/dist/calendaring_config-$pkgver-py3-none-any.whl" \
+    pytest
+}
+
+package() {
+  cd calendaring-config
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
