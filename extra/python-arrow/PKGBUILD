@@ -3,7 +3,7 @@
 
 pkgname=python-arrow
 pkgver=1.4.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Better dates and times for Python'
 arch=(any)
 url=https://arrow.readthedocs.io
@@ -11,7 +11,6 @@ license=(Apache-2.0)
 depends=(
   python
   python-dateutil
-  python-types-python-dateutil
 )
 makedepends=(
   git
@@ -25,13 +24,13 @@ checkdepends=(
   python-pytz
   python-simplejson
 )
-_tag=2c1f5185ad66bf3b1cf8c0812f4b4fe65ac46656
-source=(git+https://github.com/arrow-py/arrow.git#tag=${_tag})
+source=(git+https://github.com/arrow-py/arrow.git#tag=$pkgver)
 b2sums=('53a5d9a7f966fe7d3cd1b188e4f46d30faffa1951967f1e60c423ae149ef9dfbe49d9425bf1b090f90dfa03e7d9aeb506c148e9d4c17ec1fa5f5bb1904be34aa')
 
-pkgver() {
+prepare() {
   cd arrow
-  git describe --tags
+  # Remove upper bound on flit-core allowing version 4
+  sed -i 's/,<4//' pyproject.toml
 }
 
 build() {
