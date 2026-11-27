@@ -2,17 +2,17 @@
 
 pkgname=soapyremote
 _pkgname=SoapyRemote
-pkgver=0.5.2
+pkgver=0.5.4
 _gitver=soapy-remote-$pkgver
-pkgrel=3
+pkgrel=1
 pkgdesc='Use any Soapy SDR remotely'
 arch=('x86_64')
 url='https://github.com/pothosware/SoapyRemote'
-license=('custom:Boost')
-depends=('soapysdr' 'avahi')
+license=('BSL-1.0')
+depends=('glibc' 'libstdc++' 'libgcc' 'soapysdr' 'avahi')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$_gitver.tar.gz")
-sha512sums=('55841f248c796a870a81a508cec85962ed821c2abd40438eaee07135cb6dde0bd93e84a3ff709dfeaf26f7f79717197c80c3aad378d62b3e4b232f60c46b0151')
+sha512sums=('bf5bc042486ab215aea071c392ece0c36efd9c000d62940c82fd6591f7d8604c526f2c09176f2bbc7cc8a3b53c832565282decf04f2856700eba95e7864bb655')
 
 build() {
   mkdir -p $_pkgname-$_gitver/build
@@ -20,7 +20,6 @@ build() {
 
   cmake .. \
     -DCMAKE_INSTALL_PREFIX=/usr \
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
     -DCMAKE_BUILD_TYPE=Release
 
   make
