@@ -1,0 +1,62 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-packageurl-python
+pkgver=0.17.6
+pkgrel=1
+pkgdesc='Python implementation of the Package URL specification'
+arch=(any)
+url='https://github.com/package-url/packageurl-python'
+license=(MIT)
+depends=(python)
+makedepends=(
+  git
+  python-build
+  python-installer
+  python-setuptools
+  python-wheel
+)
+checkdepends=(
+  python-pytest
+  python-pydantic
+)
+source=(
+  "$pkgname::git+$url#tag=v$pkgver"
+  'github.com-package-url-purl-spec::git+https://github.com/package-url/purl-spec.git'
+  )
+sha512sums=('01975c79b91abd7e24fb42f07b812e639588f9eb5ade7bed1b5068387f9e5d9fea178cad7b9ab7fee602c3d05a5f8a19da26743bea8235b34b1dc358870ad2d1'
+            'SKIP')
+b2sums=('d699210662c8cf44e7e0417b547f6f3cb6ad2ffa7e9efd897b4c216ba32cb492ba3012cf2f3234a59e73b9e6f1eb99eba010107def1fe9c64b194e41722de6b7'
+        'SKIP')
+
+prepare() {
+  cd "$pkgname"
+
+# setup git submodules
+  git submodule init spec
+  git config submodule.spec.url "$srcdir/github.com-package-url-purl-spec"
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  local pytest_options=(
+    -vv
+  )
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+  # license
+  install -vDm644 -t "$pkgdir/usr/share/licenses/$pkgname" mit.LICENSE
+}
