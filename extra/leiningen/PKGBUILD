@@ -2,7 +2,7 @@
 # Contributor: Marcel Campello <tucho@prafrentex.com.br>
 
 pkgname=leiningen
-pkgver=2.13.0
+pkgver=2.13.1
 pkgrel=1
 pkgdesc='Automate Clojure projects'
 arch=(any)
@@ -13,7 +13,7 @@ makedepends=(git leiningen)
 optdepends=('rlwrap: for readline support')
 noextract=("$pkgname-$pkgver-standalone.jar")
 source=("git+$url#tag=$pkgver")
-b2sums=('c76bd542d75d8fef60ff52a95b5af450a5a75175274cdf50929353de90c14c812df095004472e4c45e6132f2d58fd4e0a65af0b0f82b4e33e94494f2af2fa136')
+b2sums=('fbdb6f2bf17938cf04260813e49ba69d6cda4bdb37b5190e65ea9b8382128d4ddb7112e8f5f3b5fae51f0dca43eda288627ffdf55f1809dad89946e671edeeed')
 
 prepare() {
   cd $pkgname/$pkgname-core
