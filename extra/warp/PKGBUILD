@@ -2,7 +2,7 @@
 
 pkgname=warp
 pkgver=1.0.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Securely send files to each other via the internet or local network by exchanging a word-based code'
 arch=(x86_64)
 url='https://apps.gnome.org/Warp/'
@@ -42,6 +42,10 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Fix metainfo.xml path
+  # https://gitlab.gnome.org/World/warp/-/merge_requests/116
+  git cherry-pick -n 2785775eb9040acbe515553909feef1d49abbc15
 }
 
 build() {
