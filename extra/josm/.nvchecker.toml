@@ -1,6 +1,4 @@
 [josm]
-source = "htmlparser"
-url = "https://josm.openstreetmap.de/wiki/Changelog"
-xpath = '//h2[@class="section"]/text()[1]'
-from_pattern = '.*(\d{5,}).*'
-to_pattern = '\1'
+source = "regex"
+url = "https://josm.openstreetmap.de/wiki/Download"
+regex = '\(tested version (\d+)\)'
