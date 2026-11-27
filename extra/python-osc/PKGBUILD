@@ -1,7 +1,7 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=python-osc
-pkgver=1.10.2
+pkgver=1.10.3
 pkgrel=1
 pkgdesc='Open Sound Control server and client implementations in pure Python'
 arch=(any)
@@ -15,8 +15,8 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=($url/archive/v$pkgver/$pkgname-v$pkgver.tar.gz)
-sha512sums=('e3232cacb6987f5c024f9a8d03a4be94783b5b4b49875047e5e4acc466f6ccdedb92d2a73343935f93fa924dbdf17652e8b01a858f664bb3d4ef739f4cf241f3')
-b2sums=('e4d8e24b123146ca4703e2305d378430085ae16bc0ed621a1e9bdc5e3ac9d26461cd56905fef18bae0282bb525eb5245e790712dca90b01d4c3a16f79cfefda8')
+sha512sums=('689935506495b161d536d323502847411c71cdddf8a9b48b2e54da1a3ec34a711801d866345a1f09fc70888b36514b8f6289a1c65cb9556d6f83158f2b788819')
+b2sums=('ed0d6658870ba45e9f9e7e1141689cdb29733a4a9e05aa9bc2f2ce99144abf82ae7ae0dda978c03a82490d64e616c8c9067dda29d0da94d06cdd69f8fe5581a8')
 
 build() {
   cd $pkgname-$pkgver
