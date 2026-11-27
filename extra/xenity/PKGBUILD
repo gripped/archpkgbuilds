@@ -1,0 +1,33 @@
+# Contributor: Jan Alexander Steffens (heftig) <heftig@archlinux.org>
+# Contributor: Jan de Groot <jgc@archlinux.org>
+
+pkgname=xenity
+pkgver=3.44.6
+pkgrel=1
+pkgdesc='Display graphical dialog boxes from shell scripts'
+url='https://github.com/xapp-project/xenity'
+arch=(x86_64)
+license=(LGPL-2.1-or-later)
+depends=(
+  gdk-pixbuf2
+  glib2
+  glibc
+  gtk3
+  libx11
+  pango
+)
+makedepends=(
+  git
+  meson
+)
+source=("git+https://github.com/xapp-project/xenity.git#tag=$pkgver")
+b2sums=(02573b7814a269d050a98dcdedc8f9c468090595b27775e61e4cb0aab1a7ae7e3e8aeba2e9ab51d2d8b2aba651006d0de6554cab13ae8d7674cc0301ed8044c6)
+
+build() {
+  arch-meson xenity build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}
