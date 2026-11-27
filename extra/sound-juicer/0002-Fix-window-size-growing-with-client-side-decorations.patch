@@ -1,0 +1,61 @@
+From 73e0637d8d803dc819046870cb4f454612464d23 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Tue, 24 Nov 2026 21:59:25 +0100
+Subject: [PATCH] Fix window size growing with client-side decorations
+
+Use the size-allocate signal and gtk_window_get_size() to
+save the window dimensions instead of relying on the
+GdkEventConfigure dimensions.
+
+This prevents the window size from increasing each time the
+application is opened with client-side decorations enabled.
+---
+ src/sj-window-state.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
+
+diff --git a/src/sj-window-state.c b/src/sj-window-state.c
+index 4ccfbc3e..3576d94c 100644
+--- a/src/sj-window-state.c
++++ b/src/sj-window-state.c
+@@ -161,22 +161,16 @@ apply_window_state (GtkWindow     *window,
+     gtk_window_maximize (window);
+ }
+ 
+-static gboolean
+-configure_event_cb (GtkWidget *widget,
+-                    GdkEvent  *event,
+-                    gpointer   user_data)
++static void
++size_allocate_cb (GtkWidget     *widget,
++                  GtkAllocation *allocation,
++                  gpointer       user_data)
+ {
+   SjWindowState *state = user_data;
+ 
+-  g_return_val_if_fail (event->type == GDK_CONFIGURE, FALSE);
+-
+   if (state->state == SJ_WINDOW_STATE_NORMAL) {
+-    GdkEventConfigure *e = (GdkEventConfigure*) event;
+-    state->width = e->width;
+-    state->height = e->height;
++    gtk_window_get_size (GTK_WINDOW (widget), &state->width, &state->height);
+   }
+-
+-  return FALSE;
+ }
+ 
+ static gboolean
+@@ -214,8 +208,8 @@ sj_main_window_init (GtkWindow* window)
+ {
+   SjWindowState *state = load_window_state ();
+   apply_window_state (window, state);
+-  g_signal_connect (window, "configure-event",
+-                    G_CALLBACK (configure_event_cb), state);
++  g_signal_connect (window, "size-allocate",
++                    G_CALLBACK (size_allocate_cb), state);
+   g_signal_connect (window, "window-state-event",
+                     G_CALLBACK (window_state_event_cb), state);
+   g_signal_connect (window, "destroy",
+-- 
+2.56.1
+
