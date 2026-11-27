@@ -1,7 +1,7 @@
 pkgbase = deepin-kwin
 	pkgdesc = DDE window manager forked from KWin
-	pkgver = 6.0.8
-	pkgrel = 12
+	pkgver = 6.1.61
+	pkgrel = 2
 	url = https://github.com/linuxdeepin/deepin-kwin
 	arch = x86_64
 	license = GPL-2.0-or-later
@@ -28,14 +28,12 @@ pkgbase = deepin-kwin
 	depends = kitemmodels
 	depends = kitemviews
 	depends = knotifications
-	depends = kcrash
 	depends = kpackage
 	depends = libepoxy
 	depends = kwidgetsaddons
 	depends = kwindowsystem
 	depends = kcmutils
 	depends = knewstuff
-	depends = krunner
 	depends = kservice
 	depends = kwayland
 	depends = ktextwidgets
@@ -77,17 +75,15 @@ pkgbase = deepin-kwin
 	depends = milou
 	conflicts = kwin
 	conflicts = kwin-x11
-	source = git+https://github.com/linuxdeepin/deepin-kwin.git#tag=6.0.8
-	source = git+https://github.com/linuxdeepin/dde-kwin.git#tag=6.0.8
-	source = qt-6.10.patch
-	source = qt-6.10.2.patch
+	source = git+https://github.com/linuxdeepin/deepin-kwin.git#tag=6.1.61
+	source = git+https://github.com/linuxdeepin/dde-kwin.git#tag=6.0.10
+	source = kscreenlocker-6.8.patch
 	source = disable-kglobalaccel.patch
 	source = gcc-16.patch
-	sha512sums = 295451187c76e690af0bf3ae87ad1a03cc323efbf9971ba76c9fbaf9ec5590a0bbcdeed4331f106462c5c44519a8a44ed3272ed3bf63fecb1e6042275b557f4d
-	sha512sums = 96f034c2c1a8a83fc643bfd1dd7a5ffde9325895e3adad5f49aed3a90bd4aa59b02e7482d4af08818873beb8424c3a3c9a0c29d14dfae001681b1ae9a8821429
-	sha512sums = e2d18def480dc62cdd7d0a0e2d6b313501701616a01983ad2f7fe092ad044b1882e9cd39f7bb47564743e6b2b63fee2585369b319e41021db2f3aa0e1f7466c8
-	sha512sums = a561fed7fe5922128cc85f0014034555ffd12a56b6edf55ed8e2f10d6bc64cc93fdd2b36d95d3dbb726fba3bbdfdd3addb72a141e8488be26a0cc1d79aa55bd9
-	sha512sums = 18f4ef2cce61fe8e6b6a0ec35fd942ad631e37cfbf2688ef9dbc7767d93a27d27603fcd5b2df4383b2a3a7449402a933751f7b2ebe90edb3ae7110c849e766fa
+	sha512sums = 0e02d4b6e81a4cfdba266ba3e687f73184628fdde5c50a508a85f2e4636c19b1022d5060ddc244e0ac4888a0855f414431a52b28c01c8f87c4fbf6c879ec7f27
+	sha512sums = 229e55b798199e9f9e4bc40690a7e2b7d55939cc25e1eeaaf6f6dea9bd76eba004a07595d955938a2653703443396d698ec22937d5ae13d8b590f51dd3156b59
+	sha512sums = 933f19eeb787db0fec48ae4c1e324b6e8b0bfd4d453c9be9d24a27e2d7432dd5d6404cfc751e914c9d274826064c0299cec6afa5bf350719ec5db71c54730c6a
+	sha512sums = 233f4bc9c108b0b66f779e03ecbde4552f2c71220fbcdb4801620db363ef4d26909a825dbd732e1c65afdf94d45c4d1e5718e1b2eed1159d0b196f6621eb87ce
 	sha512sums = 84da5bdb4f84540e68fd4fc042f5e0c458abdebdfeb545d03febd744e7155bfc381577ba50f2833ab43b7d0187778fd065e5de7820ca05325ce227f6a0f8499f
 
 pkgname = deepin-kwin

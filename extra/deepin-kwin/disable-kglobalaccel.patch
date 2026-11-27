@@ -1,61 +1,75 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 214feadb6..d49457e53 100644
+index bc3193c..c9b9165 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -22,6 +22,10 @@ else()
- endif()
- 
- option(BUILD_TESTING "Build the testing tree" OFF)
+@@ -23,0 +24,4 @@ option(BUILD_TESTING "Build the testing tree" OFF)
 +option(ENABLE_KGLOBALACCEL "Enable kglobalaccel support" ON)
 +if (ENABLE_KGLOBALACCEL)
 +    add_definitions(-DWITH_KGLOBALACCEL)
 +endif()
- 
- if (BUILD_ON_V25)
-   set(QT_MAJOR_VERSION "6")
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index c106593cd..7d95bd017 100644
+index 87c0bd5..891474c 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -434,10 +434,14 @@ add_subdirectory(plugins)
- 
- target_link_libraries(kwin_wayland
-     KWinQpaPlugin
+@@ -298 +298,3 @@ else()
+-    find_package(KGlobalAccelD REQUIRED)
++    if (ENABLE_KGLOBALACCEL)
++        find_package(KGlobalAccelD REQUIRED)
++    endif()
+@@ -301 +302,0 @@ else()
+-        K::KGlobalAccelD
+@@ -304,0 +306,3 @@ else()
++    if (ENABLE_KGLOBALACCEL)
++        target_link_libraries(kwin K::KGlobalAccelD)
++    endif()
+@@ -462 +465,0 @@ target_link_libraries(kwin_wayland
 -    KF${KF_MAJOR_VERSION}GlobalAccelKWinPlugin
-     KF${KF_MAJOR_VERSION}WindowSystemKWinPlugin
-     KF${KF_MAJOR_VERSION}IdleTimeKWinPlugin
- )
+@@ -465,0 +469,3 @@ target_link_libraries(kwin_wayland
 +if (ENABLE_KGLOBALACCEL)
-+    target_link_libraries(kwin_wayland
-+        KF${KF_MAJOR_VERSION}GlobalAccelKWinPlugin
-+    )
++    target_link_libraries(kwin_wayland KF${KF_MAJOR_VERSION}GlobalAccelKWinPlugin)
 +endif()
- 
- add_custom_target(
-     KWinDBusInterfaces
+diff --git a/src/globalshortcuts.cpp b/src/globalshortcuts.cpp
+index 8f2ec2d..7236a3f 100644
+--- a/src/globalshortcuts.cpp
++++ b/src/globalshortcuts.cpp
+@@ -18,0 +19 @@
++#ifdef WITH_KGLOBALACCEL
+@@ -25,0 +27 @@
++#endif
+@@ -124,0 +127 @@ void GlobalShortcutsManager::init()
++#ifdef WITH_KGLOBALACCEL
+@@ -134,0 +138 @@ void GlobalShortcutsManager::init()
++#endif
+@@ -218,0 +223 @@ bool GlobalShortcutsManager::processKey(Qt::KeyboardModifiers mods, int keyQt)
++#ifdef WITH_KGLOBALACCEL
+@@ -249,0 +255 @@ bool GlobalShortcutsManager::processKey(Qt::KeyboardModifiers mods, int keyQt)
++#endif
+@@ -254,0 +261 @@ bool GlobalShortcutsManager::processKeyRelease(Qt::KeyboardModifiers mods, int k
++#ifdef WITH_KGLOBALACCEL
+@@ -260,0 +268 @@ bool GlobalShortcutsManager::processKeyRelease(Qt::KeyboardModifiers mods, int k
++#endif
+diff --git a/src/globalshortcuts.h b/src/globalshortcuts.h
+index 51a8dec..43a797f 100644
+--- a/src/globalshortcuts.h
++++ b/src/globalshortcuts.h
+@@ -125,0 +126 @@ private:
++#ifdef WITH_KGLOBALACCEL
+@@ -126,0 +128 @@ private:
++#endif
 diff --git a/src/main_wayland.cpp b/src/main_wayland.cpp
-index 190137f69..43172cd84 100644
+index c3d922d..36891f7 100644
 --- a/src/main_wayland.cpp
 +++ b/src/main_wayland.cpp
-@@ -62,7 +62,9 @@
- #endif
- 
- Q_IMPORT_PLUGIN(KWinIntegrationPlugin)
+@@ -65,0 +66 @@ Q_IMPORT_PLUGIN(KWinIntegrationPlugin)
 +#ifdef WITH_KGLOBALACCEL
- Q_IMPORT_PLUGIN(KGlobalAccelImpl)
+@@ -66,0 +68 @@ Q_IMPORT_PLUGIN(KGlobalAccelImpl)
 +#endif
- Q_IMPORT_PLUGIN(KWindowSystemKWinPlugin)
- Q_IMPORT_PLUGIN(KWinIdleTimePoller)
- #if PipeWire_FOUND
 diff --git a/src/plugins/CMakeLists.txt b/src/plugins/CMakeLists.txt
-index bb89cefd0..e80bbed77 100644
+index 0e9f53b..b150eea 100644
 --- a/src/plugins/CMakeLists.txt
 +++ b/src/plugins/CMakeLists.txt
-@@ -1,4 +1,6 @@
+@@ -1 +1,3 @@
 -add_subdirectory(kglobalaccel)
 +if (ENABLE_KGLOBALACCEL)
 +    add_subdirectory(kglobalaccel)
 +endif()
- add_subdirectory(qpa)
- add_subdirectory(idletime)
- add_subdirectory(windowsystem)
