@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 pkgname=rocprofiler-register
-pkgver=7.2.4
+pkgver=10.1
 pkgrel=1
 pkgdesc='Helper library for the ROCprofiler (v2) library'
 arch=('x86_64')
@@ -9,9 +9,9 @@ url='https://github.com/ROCm/rocm-systems'
 license=('MIT')
 depends=('rocm-core' 'glibc' 'libgcc' 'fmt' 'google-glog')
 makedepends=('cmake' 'rocm-cmake')
-source=("rocm-$pkgver.tar.gz::$url/archive/refs/tags/rocm-$pkgver.tar.gz")
-sha256sums=('817f9c136125b8d162757a18cdc25b18b1efeb8ef36a948c85e4a672fd149de5')
-_dirname="rocm-systems-rocm-$pkgver/projects/$pkgname"
+source=("rocm-$pkgver.tar.gz::$url/archive/refs/tags/therock-$pkgver.tar.gz")
+sha256sums=('31dc4296cb15c3eada729743731d236ee4a52e4a2a301b9da9075b94c012be19')
+_dirname="rocm-systems-therock-$pkgver/projects/$pkgname"
 
 prepare() {
   # Remove cpack packaging
