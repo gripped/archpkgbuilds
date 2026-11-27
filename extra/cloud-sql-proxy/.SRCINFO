@@ -1,0 +1,16 @@
+pkgbase = cloud-sql-proxy
+	pkgdesc = Proxy that authorizes and encrypts connections to Google Cloud SQL instances
+	pkgver = 2.28.1
+	pkgrel = 1
+	url = https://github.com/GoogleCloudPlatform/cloud-sql-proxy
+	arch = x86_64
+	license = Apache-2.0
+	checkdepends = fuse2
+	makedepends = git
+	makedepends = go
+	depends = glibc
+	optdepends = fuse2: mount a directory of instance sockets with --fuse
+	source = git+https://github.com/GoogleCloudPlatform/cloud-sql-proxy.git#tag=v2.28.1
+	b2sums = a05684c408288521a47f716d686dcd6b8afff81f4a5d91fc8b847343111afd162191a5406b2aedc1ff769139ec27f5821de07e6f1e701f26fe5b06cc7f3417ae
+
+pkgname = cloud-sql-proxy
