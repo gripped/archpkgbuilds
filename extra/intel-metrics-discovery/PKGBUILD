@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler@archlinux.org>
 
 pkgname=intel-metrics-discovery
-pkgver=1.14.186
+pkgver=1.16.199
 pkgrel=1
 pkgdesc="User mode library providing access to Intel GPU performance data (MDAPI)"
 arch=('x86_64')
@@ -18,7 +18,7 @@ makedepends=(
 	ninja
 )
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha256sums=('4d1875c2061e92fd2136022edc774a838f71b4a6ce507734b826507ca6441c60')
+sha256sums=('9122a6bd9cb730ba781688be8c2488d0cdf18bfdfecb79b65f3ed5a30492bf46')
 
 prepare() {
 	cd metrics-discovery-${pkgver}
