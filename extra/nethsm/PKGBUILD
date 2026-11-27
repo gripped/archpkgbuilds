@@ -1,0 +1,59 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=nethsm
+_name=signstar
+pkgver=0.12.2
+pkgrel=1
+pkgdesc="A command line interface (CLI) for the Nitrokey NetHSM"
+arch=(x86_64)
+url="https://signstar.archlinux.page/nethsm"
+_url="https://gitlab.archlinux.org/archlinux/signstar"
+license=('Apache-2.0 OR MIT')
+depends=(
+  glibc
+  libgcc
+)
+makedepends=(
+  git
+  just
+  mold
+  rust
+  rust-script
+)
+conflicts=(nethsm-cli)
+replaces=(nethsm-cli)
+source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
+sha512sums=('bbf09b8d99e552bf2a02217af94fbb6ab057bc92c7e6520e1c2c89d15836abc05a3e1cb6ed808ab30b3bbba6d61ea48e06a0990815881152693cce85e4d350ec')
+b2sums=('3ba949e657ad53335183eaa9f3ae2bf703b77c1454ad0360c77b8c3b20ee4634dcb5cd0609df50a7772fe68ac32253badc130144b43017bc223c85aca9a03c36')
+validpgpkeys=(
+  991F6E3F0765CF6295888586139B09DA5BF0D338  # David Runge <dvzrv@archlinux.org>
+  653909A2F0E37C106F5FAF546C8857E0D8E8F074  # Wiktor Kwapisiewicz <wiktor@metacode.biz>
+)
+
+prepare() {
+  cd $_name
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd $_name
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --frozen --release --features cli --package $pkgname
+  just generate shell_completions $pkgname
+  just generate manpages $pkgname
+}
+
+check() {
+  cd $_name
+  cargo test --frozen --features cli --package $pkgname
+}
+
+package() {
+  install -vDm 755 $_name/target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $_name/LICENSES/MIT.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_name/output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 $_name/output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm 644 $_name/output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 $_name/output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+}
