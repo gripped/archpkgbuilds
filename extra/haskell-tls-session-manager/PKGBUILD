@@ -3,17 +3,17 @@
 
 _hkgname=tls-session-manager
 pkgname=haskell-tls-session-manager
-pkgver=0.0.7
-pkgrel=7
+pkgver=0.0.9
+pkgrel=1
 pkgdesc="In-memory TLS session DB and session ticket"
 url="https://hackage.haskell.org/package/tls-session-manager"
 license=('BSD-3-Clause')
 arch=('x86_64')
-depends=('ghc-libs' 'haskell-auto-update' 'haskell-basement' 'haskell-clock' 'haskell-crypto-token'
-         'haskell-memory' 'haskell-psqueues' 'haskell-serialise' 'haskell-tls')
+depends=('ghc-libs' 'haskell-auto-update' 'haskell-clock' 'haskell-crypto-token' 'haskell-memory'
+         'haskell-psqueues' 'haskell-serialise' 'haskell-tls')
 makedepends=('ghc')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('256c804e4ddfe079e38deeebf461aa1995ca1c991dfa8b4e452f4596ec03f886288ef02a5f0ed61397958b212eccc27641c5c7a8c407533963b49ee3aa1b01b5')
+sha512sums=('56c191c430be19b0da29b4787cf1e0803cf5d292f5f5531c45571b0bbfcebd43c70582de0b402264b0e398a86434d575ceb855de34ad7c3d5ab7fa3f94971d56')
 
 build() {
     cd $_hkgname-$pkgver
