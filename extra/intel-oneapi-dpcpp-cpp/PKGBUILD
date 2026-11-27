@@ -1,7 +1,7 @@
 # Maintainer: Torsten Keßler <tpkessler at archlinux dot org>
 
 pkgname="intel-oneapi-dpcpp-cpp"
-pkgver=2026.0.0_947
+pkgver=2026.2.0_863
 _pkgver=$(echo $pkgver | sed 's/_/-/')
 _majmin=$(echo $pkgver | cut -d. -f1,2)
 pkgrel=1
@@ -10,7 +10,7 @@ arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=("LicenseRef-Intel-EULA-Developer-Tools")
 source=("https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-${_majmin}-${_pkgver}_amd64.deb")
-b2sums=('a4307b1ba59fce43483755eb9d1070ebf1a4b86cb21bba084a65f711b1b2b76315141ab03c4b288d1626ccf8a75a87a985b07ccce4bd694836b2eabc12e96b0b')
+b2sums=('b6595aec0c51eda758c3740fc7880b5d9ea73915e67f9db6e9985bab18fdb77eed043bd645c64b4f93576246c562bc30650a615e19fe278d9f0e9ae9479e2e40')
 noextract=(
     "${pkgname}-${_majmin}-${_pkgver}_amd64.deb"
 )
@@ -19,6 +19,7 @@ depends=(
   'intel-oneapi-compiler-dpcpp-cpp-runtime'
   'intel-oneapi-compiler-shared-runtime'
   'intel-oneapi-compiler-shared'
+  'intel-oneapi-openmp-offload'
   'intel-oneapi-tbb'
   'intel-oneapi-dev-utilities'
   'intel-oneapi-common'
@@ -34,13 +35,6 @@ package() {
     ar x "${srcdir}/${pkgname}-${_majmin}-${_pkgver}_amd64.deb"
     tar xvf data.tar.xz -C "${pkgdir}"
     rm data.tar.xz
-
-    # allow libs to be found
-    local _lib_path='/opt/intel/oneapi/compiler'
-    local _ldso_conf="${pkgdir}"/etc/ld.so.conf.d
-    install -d "${_ldso_conf}"
-    echo "${_lib_path}/latest/linux/lib" > "${_ldso_conf}/${pkgname}.conf"
-    echo "${_lib_path}/latest/linux/lib/x64" >> "${_ldso_conf}/${pkgname}.conf"
 
     install -d "${pkgdir}"/usr/share/licenses/"${pkgname}"
     ln -s /usr/share/licenses/intel-oneapi "${pkgdir}"/usr/share/licenses/"${pkgname}"/oneapi
