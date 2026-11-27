@@ -1,16 +1,18 @@
 pkgbase = readest
 	pkgdesc = Modern, feature-rich ebook reader
-	pkgver = 0.12.16
-	pkgrel = 3
+	pkgver = 0.12.26
+	pkgrel = 1
 	url = https://github.com/readest/readest
 	arch = x86_64
 	license = AGPL-3.0-or-later
+	makedepends = clang
 	makedepends = git
 	makedepends = librsvg
 	makedepends = pnpm
 	makedepends = npm
 	makedepends = nodejs
 	makedepends = rust
+	depends = alsa-lib
 	depends = cairo
 	depends = libgcc
 	depends = fontconfig
@@ -21,9 +23,9 @@ pkgbase = readest
 	depends = hicolor-icon-theme
 	depends = pango
 	options = !lto
-	source = git+https://github.com/readest/readest.git#tag=v0.12.16
+	source = git+https://github.com/readest/readest.git#tag=v0.12.26
 	source = readest.sh
-	sha256sums = 01c3c22c5dbc2eab32208ad134f401655eb6a2f0518de2fe22b60b4a95eb51ba
+	sha256sums = e3c6b5406b631545aaf4f092b3fe0357ab4d4275762a113fb7b00b21c3de0851
 	sha256sums = 4be824107dbbe6c3d18d1f3ef4c93de5101ba8ae060061f29df82bc1e1b9a590
 
 pkgname = readest
