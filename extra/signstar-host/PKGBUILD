@@ -1,0 +1,80 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=signstar-host
+_name=signstar
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="Executables for Signstar hosts"
+arch=(x86_64)
+url="https://signstar.archlinux.page/signstar-host"
+_url="https://gitlab.archlinux.org/archlinux/signstar"
+license=('Apache-2.0 OR MIT')
+depends=(
+  glibc
+  libgcc
+  libusb
+)
+makedepends=(
+  git
+  just
+  lowdown
+  rust
+  rust-script
+)
+conflicts=(
+  signstar-configure
+  signstar-configure-build
+  signstar-download-key-certificates
+  signstar-sign
+)
+replaces=(
+  signstar-configure
+  signstar-configure-build
+  signstar-download-key-certificates
+  signstar-sign
+)
+source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
+sha512sums=('9b47885b33db83f09082a310f9a23affecc357e887f32a29dbe0877cd03c44724dab36f4ebbe6aa8b82344a3353b7f393429a387eac21f0aa4bd3acd0955f5bb')
+b2sums=('c60bb9eac3e6023008adc2727109902060537b3a78a9b03de37033234bb8cb4dc7365480e71c1c343be77a6b76303cdd428c56a0769aa08ae89b3c1fcaf2462b')
+validpgpkeys=(
+  991F6E3F0765CF6295888586139B09DA5BF0D338  # David Runge <dvzrv@archlinux.org>
+  653909A2F0E37C106F5FAF546C8857E0D8E8F074  # Wiktor Kwapisiewicz <wiktor@metacode.biz>
+)
+
+prepare() {
+  cd $_name
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd $_name
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --frozen --release --package $pkgname
+  just generate shell_completions $pkgname
+  just generate manpages $pkgname
+  just generate specifications signstar-config
+}
+
+package() {
+  local executable
+  local executables=(
+    signstar-configure
+    signstar-configure-build
+    signstar-download-key-certificates
+    signstar-sign
+  )
+
+  for executable in "${executables[@]}"; do
+    install -vDm 755 $_name/target/release/$executable -t "$pkgdir/usr/bin/"
+    install -vDm 644 $_name/output/shell_completions/$executable.bash "$pkgdir/usr/share/bash-completion/completions/$executable"
+    install -vDm 644 $_name/output/shell_completions/_$executable -t "$pkgdir/usr/share/zsh/site-functions/"
+    install -vDm 644 $_name/output/shell_completions/$executable.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+  done
+
+  install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $_name/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_name/output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 $_name/output/man/*.5 -t "$pkgdir/usr/share/man/man5/"
+  install -vDm 644 $_name/$pkgname/resources/systemd/*.{service,timer} -t "$pkgdir/usr/lib/systemd/system/"
+}
+

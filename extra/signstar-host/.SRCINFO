@@ -1,0 +1,30 @@
+pkgbase = signstar-host
+	pkgdesc = Executables for Signstar hosts
+	pkgver = 0.1.1
+	pkgrel = 1
+	url = https://signstar.archlinux.page/signstar-host
+	arch = x86_64
+	license = Apache-2.0 OR MIT
+	makedepends = git
+	makedepends = just
+	makedepends = lowdown
+	makedepends = rust
+	makedepends = rust-script
+	depends = glibc
+	depends = libgcc
+	depends = libusb
+	conflicts = signstar-configure
+	conflicts = signstar-configure-build
+	conflicts = signstar-download-key-certificates
+	conflicts = signstar-sign
+	replaces = signstar-configure
+	replaces = signstar-configure-build
+	replaces = signstar-download-key-certificates
+	replaces = signstar-sign
+	source = signstar::git+https://gitlab.archlinux.org/archlinux/signstar.git?signed#tag=signstar-host/0.1.1
+	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
+	validpgpkeys = 653909A2F0E37C106F5FAF546C8857E0D8E8F074
+	sha512sums = 9b47885b33db83f09082a310f9a23affecc357e887f32a29dbe0877cd03c44724dab36f4ebbe6aa8b82344a3353b7f393429a387eac21f0aa4bd3acd0955f5bb
+	b2sums = c60bb9eac3e6023008adc2727109902060537b3a78a9b03de37033234bb8cb4dc7365480e71c1c343be77a6b76303cdd428c56a0769aa08ae89b3c1fcaf2462b
+
+pkgname = signstar-host
