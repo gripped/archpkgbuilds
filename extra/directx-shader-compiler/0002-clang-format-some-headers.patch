@@ -1,0 +1,74 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Thu, 26 Nov 2026 04:22:17 +0100
+Subject: [PATCH] clang-format some headers
+
+The build verifies that regenerated headers are identical to shipped
+ones.
+---
+ include/dxc/DXIL/DxilConstants.h | 41 +++++++++++++-------------------
+ 1 file changed, 17 insertions(+), 24 deletions(-)
+
+diff --git a/include/dxc/DXIL/DxilConstants.h b/include/dxc/DXIL/DxilConstants.h
+index 4705b90c5505..c134e141dfa8 100644
+--- a/include/dxc/DXIL/DxilConstants.h
++++ b/include/dxc/DXIL/DxilConstants.h
+@@ -2086,41 +2086,34 @@ enum class NodeIOFlags : uint32_t {
+ enum class NodeIOKind : uint32_t {
+   Invalid = 0,
+ 
+-  EmptyInput =
+-      (uint32_t)NodeIOFlags::EmptyRecord | (uint32_t)NodeIOFlags::Input,
++  EmptyInput = (uint32_t)NodeIOFlags::EmptyRecord |
++      (uint32_t)NodeIOFlags::Input,
+   NodeOutput = (uint32_t)NodeIOFlags::ReadWrite | (uint32_t)NodeIOFlags::Output,
+   NodeOutputArray = (uint32_t)NodeIOFlags::ReadWrite |
+-                    (uint32_t)NodeIOFlags::Output |
+-                    (uint32_t)NodeIOFlags::NodeArray,
+-  EmptyOutput =
+-      (uint32_t)NodeIOFlags::EmptyRecord | (uint32_t)NodeIOFlags::Output,
++      (uint32_t)NodeIOFlags::Output | (uint32_t)NodeIOFlags::NodeArray,
++  EmptyOutput = (uint32_t)NodeIOFlags::EmptyRecord |
++      (uint32_t)NodeIOFlags::Output,
+   EmptyOutputArray = (uint32_t)NodeIOFlags::EmptyRecord |
+-                     (uint32_t)NodeIOFlags::Output |
+-                     (uint32_t)NodeIOFlags::NodeArray,
++      (uint32_t)NodeIOFlags::Output | (uint32_t)NodeIOFlags::NodeArray,
+ 
+-  DispatchNodeInputRecord =
+-      (uint32_t)NodeIOFlags::Input | (uint32_t)NodeIOFlags::DispatchRecord,
+-  GroupNodeInputRecords =
+-      (uint32_t)NodeIOFlags::Input | (uint32_t)NodeIOFlags::GroupRecord,
+-  ThreadNodeInputRecord =
+-      (uint32_t)NodeIOFlags::Input | (uint32_t)NodeIOFlags::ThreadRecord,
++  DispatchNodeInputRecord = (uint32_t)NodeIOFlags::Input |
++      (uint32_t)NodeIOFlags::DispatchRecord,
++  GroupNodeInputRecords = (uint32_t)NodeIOFlags::Input |
++      (uint32_t)NodeIOFlags::GroupRecord,
++  ThreadNodeInputRecord = (uint32_t)NodeIOFlags::Input |
++      (uint32_t)NodeIOFlags::ThreadRecord,
+ 
+   RWDispatchNodeInputRecord = (uint32_t)NodeIOFlags::ReadWrite |
+-                              (uint32_t)NodeIOFlags::Input |
+-                              (uint32_t)NodeIOFlags::DispatchRecord,
++      (uint32_t)NodeIOFlags::Input | (uint32_t)NodeIOFlags::DispatchRecord,
+   RWGroupNodeInputRecords = (uint32_t)NodeIOFlags::ReadWrite |
+-                            (uint32_t)NodeIOFlags::Input |
+-                            (uint32_t)NodeIOFlags::GroupRecord,
++      (uint32_t)NodeIOFlags::Input | (uint32_t)NodeIOFlags::GroupRecord,
+   RWThreadNodeInputRecord = (uint32_t)NodeIOFlags::ReadWrite |
+-                            (uint32_t)NodeIOFlags::Input |
+-                            (uint32_t)NodeIOFlags::ThreadRecord,
++      (uint32_t)NodeIOFlags::Input | (uint32_t)NodeIOFlags::ThreadRecord,
+ 
+   GroupNodeOutputRecords = (uint32_t)NodeIOFlags::ReadWrite |
+-                           (uint32_t)NodeIOFlags::Output |
+-                           (uint32_t)NodeIOFlags::GroupRecord,
++      (uint32_t)NodeIOFlags::Output | (uint32_t)NodeIOFlags::GroupRecord,
+   ThreadNodeOutputRecords = (uint32_t)NodeIOFlags::ReadWrite |
+-                            (uint32_t)NodeIOFlags::Output |
+-                            (uint32_t)NodeIOFlags::ThreadRecord,
++      (uint32_t)NodeIOFlags::Output | (uint32_t)NodeIOFlags::ThreadRecord,
+ };
+ 
+ // Kind of quad-level operation

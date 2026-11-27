@@ -3,7 +3,7 @@
 
 pkgname=directx-shader-compiler
 pkgver=1.10.2605.37
-pkgrel=1
+pkgrel=2
 pkgdesc="Compiler for HLSL to DXIL (DirectX Intermediate Language)"
 url="https://github.com/microsoft/DirectXShaderCompiler"
 arch=(x86_64)
@@ -24,18 +24,24 @@ makedepends=(
   ninja
   python
 )
+options=(
+  # https://gitlab.archlinux.org/archlinux/packaging/packages/directx-shader-compiler/-/work_items/1
+  !lto
+)
 source=(
   "$pkgname::git+$url#tag=v${pkgver}"
   "directx-headers::git+https://github.com/microsoft/DirectX-Headers"
   "git+https://github.com/KhronosGroup/SPIRV-Headers"
   "git+https://github.com/KhronosGroup/SPIRV-Tools"
   0001-Install-more-components.patch
+  0002-clang-format-some-headers.patch
 )
 b2sums=('f7577fce2433b9b2d6c24cc31bf950b87009acf473391ea50b3a66baaba27a09f5309c8033c5bcfdce3af1f63d0620e63e91087a3d07c2be57f19878049b7b53'
         'SKIP'
         'SKIP'
         'SKIP'
-        '22c47f50daaff773357104b46740aa9d81851351a2dafac66ff10e2604374f9e922d361e63478ce82e0610c79f875f928f21bb9706efe0c1469f67b6204c46d4')
+        '22c47f50daaff773357104b46740aa9d81851351a2dafac66ff10e2604374f9e922d361e63478ce82e0610c79f875f928f21bb9706efe0c1469f67b6204c46d4'
+        '1516294afb185dcca0f27bbbc609697ff6335cebccc6b222510600826488d5c57ec89ad7e9c205be4b5ef34b95717d6a6126210648b9477efc722c98aa42cefc')
 
 prepare() {
   cd $pkgname
@@ -43,6 +49,9 @@ prepare() {
   # Install more components
   # https://gitlab.archlinux.org/archlinux/packaging/packages/directx-shader-compiler/-/issues/2
   git apply -3 ../0001-Install-more-components.patch
+
+  # Fix build
+  git apply -3 ../0002-clang-format-some-headers.patch
 
   git submodule init
   git submodule set-url external/DirectX-Headers "$srcdir/directx-headers"
@@ -61,6 +70,7 @@ build() {
     -D HLSL_INCLUDE_TESTS=OFF
     -D HLSL_OFFICIAL_BUILD=ON
     -D LLVM_BUILD_TOOLS=OFF
+    -D LLVM_ENABLE_LTO=OFF
     -D LLVM_INCLUDE_TESTS=OFF
   )
 
