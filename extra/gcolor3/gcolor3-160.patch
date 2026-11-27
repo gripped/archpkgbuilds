@@ -1,18 +1,18 @@
-From bce73e8d7aeffc7be8090789a0ec841479e9c33e Mon Sep 17 00:00:00 2001
+From 6966ac51e4780a01ce32d3b085407d43e371a1a4 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Sun, 23 Jun 2024 10:41:03 +0200
-Subject: [PATCH] color-selection: Fallback to X11
+Subject: [PATCH] color-selection: Fall back to X11
 
-This adds back support for grabbing color natively on X11 when Portal
-support is unavailable.
+This restores native X11 color picking as a fallback when portal-based
+color picking fails.
 
-Partially reverts commit f68055ce3f91001503a31753b03836b6cf86b3dd
+Partially reverts commit f68055ce3f91001503a31753b03836b6cf86b3dd.
 ---
- src/gcolor3-color-selection.c | 234 +++++++++++++++++++++++++++++++++-
- 1 file changed, 233 insertions(+), 1 deletion(-)
+ src/gcolor3-color-selection.c | 262 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 253 insertions(+), 9 deletions(-)
 
 diff --git a/src/gcolor3-color-selection.c b/src/gcolor3-color-selection.c
-index 5df9d54..4e1a252 100644
+index 5df9d54..b4d7ab5 100644
 --- a/src/gcolor3-color-selection.c
 +++ b/src/gcolor3-color-selection.c
 @@ -37,6 +37,9 @@
@@ -35,37 +35,43 @@ index 5df9d54..4e1a252 100644
  
    // FIXME: these can be replaced with a GdkRGBA
    gdouble color[COLORSEL_NUM_CHANNELS];
-@@ -153,6 +158,13 @@ struct _Gcolor3ColorSelectionPrivate
+@@ -153,6 +158,12 @@ struct _Gcolor3ColorSelectionPrivate
    GtkWidget *cur_sample;
    GtkWidget *colorsel;
  
 +#ifdef GDK_WINDOWING_X11
 +  /* Window for grabbing on */
 +  GtkWidget *dropper_grab_widget;
-+  GdkDevice *keyboard_device;
 +  GdkDevice *pointer_device;
 +#endif
 +
    GCancellable *cancellable;
  
    /* Connection to settings */
-@@ -176,6 +188,11 @@ static void     gcolor3_color_selection_realize     (GtkWidget          *widget)
+@@ -176,6 +187,12 @@ static void     gcolor3_color_selection_realize     (GtkWidget          *widget)
  static void     gcolor3_color_selection_unrealize   (GtkWidget          *widget);
  static void     gcolor3_color_selection_show_all    (GtkWidget          *widget);
  
 +#ifdef GDK_WINDOWING_X11
 +static gboolean gcolor3_color_selection_grab_broken (GtkWidget          *widget,
-+                                                     GdkEventGrabBroken *event);
++                                                     GdkEventGrabBroken *event,
++                                                     gpointer            data);
 +#endif
 +
  static void     gcolor3_color_selection_set_palette_color   (Gcolor3ColorSelection *colorsel,
                                                               gint                   index,
                                                               GdkRGBA               *color);
-@@ -226,19 +243,69 @@ static void     set_selected_palette                        (Gcolor3ColorSelecti
+@@ -226,19 +243,75 @@ static void     set_selected_palette                        (Gcolor3ColorSelecti
  static void     set_focus_line_attributes                   (GtkWidget             *drawing_area,
                                                               cairo_t               *cr,
                                                               gint                  *focus_width);
 +#ifdef GDK_WINDOWING_X11
++static void     mouse_motion                                (GtkWidget             *invisible,
++                                                             GdkEventMotion        *event,
++                                                             gpointer               data);
++static gboolean mouse_release                               (GtkWidget             *invisible,
++                                                             GdkEventButton        *event,
++                                                             gpointer               data);
  static gboolean mouse_press                                 (GtkWidget             *invisible,
                                                               GdkEventButton        *event,
                                                               gpointer               data);
@@ -131,23 +137,14 @@ index 5df9d54..4e1a252 100644
  G_DEFINE_TYPE_WITH_PRIVATE (Gcolor3ColorSelection, gcolor3_color_selection, GTK_TYPE_BOX)
  
  static void
-@@ -257,6 +324,9 @@ gcolor3_color_selection_class_init (Gcolor3ColorSelectionClass *klass)
-   widget_class->realize = gcolor3_color_selection_realize;
-   widget_class->unrealize = gcolor3_color_selection_unrealize;
-   widget_class->show_all = gcolor3_color_selection_show_all;
-+#ifdef GDK_WINDOWING_X11
-+  widget_class->grab_broken_event = gcolor3_color_selection_grab_broken;
-+#endif
- 
-   g_object_class_install_property (gobject_class,
-                                    PROP_HAS_OPACITY_CONTROL,
-@@ -598,6 +668,14 @@ gcolor3_color_selection_destroy (GtkWidget *widget)
+@@ -598,6 +671,15 @@ gcolor3_color_selection_destroy (GtkWidget *widget)
  
    g_cancellable_cancel (priv->cancellable);
  
 +#ifdef GDK_WINDOWING_X11
 +  if (priv->dropper_grab_widget)
 +    {
++      shutdown_eyedropper (widget);
 +      gtk_widget_destroy (priv->dropper_grab_widget);
 +      priv->dropper_grab_widget = NULL;
 +    }
@@ -156,16 +153,24 @@ index 5df9d54..4e1a252 100644
    GTK_WIDGET_CLASS (gcolor3_color_selection_parent_class)->destroy (widget);
  }
  
-@@ -639,6 +717,17 @@ gcolor3_color_selection_show_all (GtkWidget *widget)
+@@ -639,6 +721,25 @@ gcolor3_color_selection_show_all (GtkWidget *widget)
    gtk_widget_show (widget);
  }
  
 +#ifdef GDK_WINDOWING_X11
 +static gboolean
 +gcolor3_color_selection_grab_broken (GtkWidget                 *widget,
-+                                     UNUSED GdkEventGrabBroken *event)
++                                     UNUSED GdkEventGrabBroken *event,
++                                     gpointer                   data)
 +{
-+  shutdown_eyedropper (widget);
++  shutdown_eyedropper (GTK_WIDGET (data));
++
++  g_signal_handlers_disconnect_by_func (widget,
++                                        mouse_motion,
++                                        data);
++  g_signal_handlers_disconnect_by_func (widget,
++                                        mouse_release,
++                                        data);
 +
 +  return TRUE;
 +}
@@ -174,7 +179,7 @@ index 5df9d54..4e1a252 100644
  /*
   *
   * The Sample Color
-@@ -1560,6 +1649,35 @@ palette_new (Gcolor3ColorSelection *colorsel)
+@@ -1560,6 +1661,37 @@ palette_new (Gcolor3ColorSelection *colorsel)
  
  /* The actual Gcolor3ColorSelection widget */
  
@@ -197,11 +202,13 @@ index 5df9d54..4e1a252 100644
 +                                         DROPPER_STRIDE,
 +                                         NULL, NULL);
 +
-+      cursor = gdk_cursor_new_from_pixbuf (gdk_screen_get_display (screen),
-+                                           pixbuf,
-+                                           DROPPER_X_HOT, DROPPER_Y_HOT);
-+
-+      g_object_unref (pixbuf);
++      if (pixbuf)
++        {
++          cursor = gdk_cursor_new_from_pixbuf (gdk_screen_get_display (screen),
++                                               pixbuf,
++                                               DROPPER_X_HOT, DROPPER_Y_HOT);
++          g_object_unref (pixbuf);
++        }
 +    }
 +
 +  return cursor;
@@ -210,7 +217,7 @@ index 5df9d54..4e1a252 100644
  static void
  grab_color_at_pointer (GdkScreen *screen,
                         GdkDevice *device,
-@@ -1606,6 +1724,27 @@ grab_color_at_pointer (GdkScreen *screen,
+@@ -1606,6 +1738,25 @@ grab_color_at_pointer (GdkScreen *screen,
    update_color (colorsel);
  }
  
@@ -225,12 +232,10 @@ index 5df9d54..4e1a252 100644
 +
 +  if (priv->has_grab)
 +    {
-+      gdk_seat_ungrab (gdk_device_get_seat (priv->keyboard_device));
-+      gdk_seat_ungrab (gdk_device_get_seat(priv->pointer_device));
++      gdk_seat_ungrab (gdk_device_get_seat (priv->pointer_device));
 +      gtk_device_grab_remove (priv->dropper_grab_widget, priv->pointer_device);
 +
 +      priv->has_grab = FALSE;
-+      priv->keyboard_device = NULL;
 +      priv->pointer_device = NULL;
 +    }
 +}
@@ -238,7 +243,7 @@ index 5df9d54..4e1a252 100644
  static void
  mouse_motion (UNUSED GtkWidget      *invisible,
                GdkEventMotion        *event,
-@@ -1630,6 +1769,8 @@ mouse_release (GtkWidget      *invisible,
+@@ -1630,6 +1781,8 @@ mouse_release (GtkWidget      *invisible,
                           gdk_event_get_device ((GdkEvent *) event),
                           event->x_root, event->y_root, data);
  
@@ -247,16 +252,35 @@ index 5df9d54..4e1a252 100644
    g_signal_handlers_disconnect_by_func (invisible,
                                          mouse_motion,
                                          data);
-@@ -1671,6 +1812,8 @@ key_press (GtkWidget   *invisible,
+@@ -1671,11 +1824,13 @@ key_press (GtkWidget   *invisible,
        /* fall through */
  
      case GDK_KEY_Escape:
 +      shutdown_eyedropper (data);
 +
        g_signal_handlers_disconnect_by_func (invisible,
-                                             mouse_press,
+-                                            mouse_press,
++                                            mouse_motion,
                                              data);
-@@ -1733,6 +1876,84 @@ mouse_press (GtkWidget      *invisible,
+       g_signal_handlers_disconnect_by_func (invisible,
+-                                            key_press,
++                                            mouse_release,
+                                             data);
+ 
+       return TRUE;
+@@ -1721,18 +1876,92 @@ mouse_press (GtkWidget      *invisible,
+                         G_CALLBACK (mouse_motion), data);
+       g_signal_connect (invisible, "button-release-event",
+                         G_CALLBACK (mouse_release), data);
+-      g_signal_handlers_disconnect_by_func (invisible,
+-                                            mouse_press,
+-                                            data);
+-      g_signal_handlers_disconnect_by_func (invisible,
+-                                            key_press,
+-                                            data);
+       return TRUE;
+     }
+ 
    return FALSE;
  }
  
@@ -265,7 +289,7 @@ index 5df9d54..4e1a252 100644
 +{
 +  Gcolor3ColorSelectionPrivate *priv = colorsel->private_data;
 +  GdkScreen *screen = gtk_widget_get_screen (GTK_WIDGET (colorsel));
-+  GdkDevice *keyb_device, *pointer_device;
++  GdkDevice *pointer_device;
 +  GdkSeat *seat;
 +  GdkCursor *picker_cursor;
 +  GdkGrabStatus grab_status;
@@ -273,8 +297,12 @@ index 5df9d54..4e1a252 100644
 +  GtkWidget *grab_widget, *toplevel;
 +
 +  seat = gdk_display_get_default_seat (gdk_screen_get_display (screen));
-+  keyb_device = gdk_seat_get_keyboard(seat);
-+  pointer_device = gdk_seat_get_pointer(seat);
++  if (!seat)
++    return;
++
++  pointer_device = gdk_seat_get_pointer (seat);
++  if (!pointer_device)
++    return;
 +
 +  if (priv->dropper_grab_widget == NULL)
 +    {
@@ -282,10 +310,23 @@ index 5df9d54..4e1a252 100644
 +      gtk_window_set_screen (GTK_WINDOW (grab_widget), screen);
 +      gtk_window_resize (GTK_WINDOW (grab_widget), 1, 1);
 +      gtk_window_move (GTK_WINDOW (grab_widget), -100, -100);
-+      gtk_widget_show (grab_widget);
 +
 +      gtk_widget_add_events (grab_widget,
-+                             GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_PRESS_MASK | GDK_POINTER_MOTION_MASK);
++                             GDK_BUTTON_RELEASE_MASK |
++                             GDK_BUTTON_PRESS_MASK |
++                             GDK_POINTER_MOTION_MASK |
++                             GDK_KEY_PRESS_MASK);
++
++      g_signal_connect (grab_widget, "grab-broken-event",
++                        G_CALLBACK (gcolor3_color_selection_grab_broken),
++                        colorsel);
++
++      g_signal_connect (grab_widget, "button-press-event",
++                        G_CALLBACK (mouse_press), colorsel);
++      g_signal_connect (grab_widget, "key-press-event",
++                        G_CALLBACK (key_press), colorsel);
++
++      gtk_widget_show (grab_widget);
 +
 +      toplevel = gtk_widget_get_toplevel (GTK_WIDGET (colorsel));
 +
@@ -301,13 +342,6 @@ index 5df9d54..4e1a252 100644
 +
 +  window = gtk_widget_get_window (priv->dropper_grab_widget);
 +
-+  if (gdk_seat_grab (seat,
-+                     window,
-+                     GDK_SEAT_CAPABILITY_ALL, FALSE,
-+                     NULL,
-+                     NULL, NULL, NULL) != GDK_GRAB_SUCCESS)
-+    return;
-+
 +  picker_cursor = make_picker_cursor (screen);
 +  grab_status = gdk_seat_grab (seat,
 +                               window,
@@ -315,44 +349,40 @@ index 5df9d54..4e1a252 100644
 +                               picker_cursor,
 +                               NULL, NULL, NULL);
 +
-+  g_object_unref (picker_cursor);
++  if (picker_cursor)
++    g_object_unref (picker_cursor);
 +
 +  if (grab_status != GDK_GRAB_SUCCESS)
-+    {
-+      gdk_seat_ungrab (seat);
-+      return;
-+    }
++    return;
 +
 +  gtk_device_grab_add (priv->dropper_grab_widget,
 +                       pointer_device,
 +                       TRUE);
 +
 +  priv->has_grab = TRUE;
-+  priv->keyboard_device = keyb_device;
 +  priv->pointer_device = pointer_device;
-+
-+  g_signal_connect (priv->dropper_grab_widget, "button-press-event",
-+                    G_CALLBACK (mouse_press), colorsel);
-+  g_signal_connect (priv->dropper_grab_widget, "key-press-event",
-+                    G_CALLBACK (key_press), colorsel);
 +}
 +#endif
 +
  /* when the button is clicked */
  static void
  get_screen_color (GtkWidget *button)
-@@ -1762,18 +1983,29 @@ pick_color_cb (GObject      *source_object,
+@@ -1762,18 +1991,33 @@ pick_color_cb (GObject      *source_object,
  {
    Gcolor3ColorSelection *colorsel;
    Gcolor3ColorSelectionPrivate *priv;
++#ifdef GDK_WINDOWING_X11
 +  GdkScreen *screen;
++#endif
    GdkRGBA color;
    GVariant *variant;
    GError *error = NULL;
  
    colorsel = GCOLOR3_COLOR_SELECTION (user_data);
    priv = colorsel->private_data;
++#ifdef GDK_WINDOWING_X11
 +  screen = gtk_widget_get_screen (GTK_WIDGET (colorsel));
++#endif
  
    variant = xdp_portal_pick_color_finish (XDP_PORTAL (source_object), result, &error);
    if (!variant)
