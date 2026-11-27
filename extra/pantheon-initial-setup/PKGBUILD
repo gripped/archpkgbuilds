@@ -1,0 +1,43 @@
+# Maintainer: Maxime Gauduin <alucryd@archlinux.org>
+
+pkgname=pantheon-initial-setup
+pkgver=8.0.1
+pkgrel=2
+pkgdesc='New user setup app designed for Pantheon'
+arch=(x86_64)
+url=https://github.com/elementary/initial-setup
+license=(GPL-3.0-or-later)
+groups=(pantheon)
+depends=(
+  accountsservice
+  glib2
+  glibc
+  gnome-settings-daemon
+  granite7
+  gtk4
+  hicolor-icon-theme
+  json-glib
+  libadwaita
+  libgee
+  libpwquality
+  libx11
+  libxkbcommon
+  pantheon-wayland
+  polkit
+)
+makedepends=(
+  meson
+  git
+  vala
+)
+source=(pantheon-initial-setup::git+https://github.com/elementary/initial-setup.git#tag=$pkgver)
+b2sums=('63027a07fe1b29e69f20a9d8db12abe7159b68d1e1b7f2acaa7d6b833e1b7932e4c913cd47ff0a299d3ebd2f0226656a6bc19728645a45d052bb971330d5c128')
+
+build() {
+  arch-meson pantheon-initial-setup build
+  meson compile -C build
+}
+
+package() {
+  meson install -C build --destdir "$pkgdir"
+}

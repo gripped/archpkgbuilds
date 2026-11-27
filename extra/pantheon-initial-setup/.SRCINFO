@@ -1,0 +1,30 @@
+pkgbase = pantheon-initial-setup
+	pkgdesc = New user setup app designed for Pantheon
+	pkgver = 8.0.1
+	pkgrel = 2
+	url = https://github.com/elementary/initial-setup
+	arch = x86_64
+	groups = pantheon
+	license = GPL-3.0-or-later
+	makedepends = meson
+	makedepends = git
+	makedepends = vala
+	depends = accountsservice
+	depends = glib2
+	depends = glibc
+	depends = gnome-settings-daemon
+	depends = granite7
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = json-glib
+	depends = libadwaita
+	depends = libgee
+	depends = libpwquality
+	depends = libx11
+	depends = libxkbcommon
+	depends = pantheon-wayland
+	depends = polkit
+	source = pantheon-initial-setup::git+https://github.com/elementary/initial-setup.git#tag=8.0.1
+	b2sums = 63027a07fe1b29e69f20a9d8db12abe7159b68d1e1b7f2acaa7d6b833e1b7932e4c913cd47ff0a299d3ebd2f0226656a6bc19728645a45d052bb971330d5c128
+
+pkgname = pantheon-initial-setup
