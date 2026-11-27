@@ -1,7 +1,7 @@
 # Maintainer: Jakub Klinkovský <lahwaacz at archlinux dot org>
 
 pkgname=rdkit
-pkgver=2026.09.1
+pkgver=2026.09.2
 pkgrel=1
 pkgdesc="Open-source toolkit for cheminformatics"
 arch=(x86_64)
@@ -32,7 +32,7 @@ makedepends=(
 source=(
   $pkgname-$pkgver.tar.gz::$url/archive/refs/tags/Release_${pkgver//./_}.tar.gz
 )
-b2sums=('783c38524ce9c16d5e164149d4846fca698401b3ab12a4987739f74df5fd1a6a4d39b5063356e8a931dfbaa1697b7a24097cc3a17ffa7335cfd3e032316499e7')
+b2sums=('6d5bf585ec8219b6869ad39a87c7791e39ea8836cefd9dd94f03e1b828f408756934843f09b62c271a2757cdd0fe458c3bf5327590a746b1b529d40fdee7225f')
 
 prepare() {
   # Fix finding Eigen3 https://github.com/rdkit/rdkit/issues/8896
