@@ -3,7 +3,7 @@
 
 pkgname=perl-cgi
 pkgver=5.02
-pkgrel=2
+pkgrel=3
 pkgdesc='Handle Common Gateway Interface requests and responses'
 arch=('any')
 url='https://metacpan.org/dist/CGI'
