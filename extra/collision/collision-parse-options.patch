@@ -1,0 +1,83 @@
+From 307fb960982479c2a39adfe82430af5154b805d3 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 27 Nov 2026 00:59:37 +0100
+Subject: [PATCH] Use GApplication to handle command-line options
+
+Register command-line options with GApplication instead of manually
+filtering ARGV.
+---
+ src/collision.cr | 39 +++++++++++++++++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 8 deletions(-)
+
+diff --git a/src/collision.cr b/src/collision.cr
+index 8ad7e2c..ccb80df 100644
+--- a/src/collision.cr
++++ b/src/collision.cr
+@@ -44,19 +44,26 @@ module Collision
+   libadwaita: #{Adw.major_version}.#{Adw.minor_version}.#{Adw.micro_version} (#{Adw::MAJOR_VERSION}.#{Adw::MINOR_VERSION}.#{Adw::MICRO_VERSION})
+   DEBUG
+ 
+-  if {{ flag?(:debug) || !flag?(:release) }} || ARGV[0]? == "--debug"
+-    TROUBLESHOOTING << "\n\n"
++  def self.setup_logging(debug : Bool)
++    if debug
++      TROUBLESHOOTING << "\n\n"
++    end
+ 
+     Log.setup do |c|
+       backend = Log::IOBackend.new
+ 
+-      c.bind "Collision", :debug, backend
+-      c.bind "Collision", :debug, Log::IOBackend.new(TROUBLESHOOTING)
++      if debug
++        c.bind "Collision", :debug, backend
++        c.bind "Collision", :debug, Log::IOBackend.new(TROUBLESHOOTING)
++      end
++
+       c.bind "Collision", :warn, backend
+     end
++
++    LOGGER.level = debug ? Log::Severity::Debug : Log::Severity::Warn
+   end
+ 
+-  LOGGER = Log.for("Collision", ({{ flag?(:debug) || !flag?(:release) }} || ARGV[0]? == "--debug") ? Log::Severity::Debug : Log::Severity::Warn)
++  LOGGER = Log.for("Collision")
+ 
+   # We want to __not__ load settings on dev/debug mode or when -Ddisable_gschema is passed or when
+   # -Denable_gschema is __not__ passed.
+@@ -171,13 +178,29 @@ def startup(app : Adw::Application)
+   app.set_accels_for_action("window.close", {"<Ctrl>W"})
+ end
+ 
+-# ARGV but without flags, passed to Application.
++# Setup and run the application.
+ gtk = Fiber::ExecutionContext::Isolated.new("Gtk") do
+   app = Adw::Application.new("dev.geopjr.Collision", Gio::ApplicationFlags::HandlesOpen)
+-  clean_argv = [PROGRAM_NAME].concat(ARGV.reject { |x| x.starts_with?('-') })
++
++  app.add_main_option(
++    "debug",
++    0,
++    GLib::OptionFlags::None,
++    GLib::OptionArg::None,
++    "Enable debug logging",
++    nil
++  )
++
++  app.handle_local_options_signal.connect do |options|
++    Collision.setup_logging(
++      {{ flag?(:debug) || !flag?(:release) }} || options.contains("debug")
++    )
++    -1
++  end
++
+   app.startup_signal.connect(->startup(Adw::Application))
+   app.activate_signal.connect(->activate(Adw::Application))
+   app.open_signal.connect(->open_with(Adw::Application, Enumerable(Gio::File), String))
+-  app.run(clean_argv)
++  app.run([PROGRAM_NAME] + ARGV)
+ end
+ gtk.wait
+-- 
+2.56.1
+

@@ -2,7 +2,7 @@
 
 pkgname=collision
 pkgver=3.14.1
-pkgrel=2
+pkgrel=3
 pkgdesc='GUI tool to generate, compare and verify MD5, SHA-1, SHA-256, SHA-512, Blake3, CRC32 and Adler32 hashes'
 arch=(x86_64)
 url='https://apps.gnome.org/Collision/'
@@ -27,16 +27,30 @@ makedepends=(
   gobject-introspection
   shards
 )
-checkdepends=(
-  appstream
-)
+checkdepends=(appstream)
 optdepends=('nautilus-python: Nautilus context menu extension')
-source=("git+https://github.com/GeopJr/Collision.git#tag=v$pkgver")
-b2sums=('b8414275fba6dab99a69b4e7a3c0c0c1abc88f199a8ecc2fee0c685187b426448a23afae86a793ee1902105c903bc3e73a4fce32c88f226d97e83ef1632ecb04')
+source=(
+  "git+https://github.com/GeopJr/Collision.git#tag=v$pkgver"
+  collision-parse-options.patch
+  collision-dbus-activatable.patch
+)
+b2sums=(
+  b8414275fba6dab99a69b4e7a3c0c0c1abc88f199a8ecc2fee0c685187b426448a23afae86a793ee1902105c903bc3e73a4fce32c88f226d97e83ef1632ecb04
+  83d036d71547b65a7ae6f783e64dc139499bda472d25942525a4aaf6e923ef16b96ba12ed0c82416ef29bc79ed8d8d2e75d2fe236de066e4aa88f329c87def42
+  e0d09b618aa4b87fb55ebc868004bc230ab1b048399dc9799b47f5f0b07a2b7cc030c19e875a28596636c4e1671d751ae3c18463e603d7c3646f7ef9bd0656f8
+)
 
 prepare() {
   cd Collision
   shards install
+
+  # Use GApplication to handle command-line options
+  # https://codeberg.org/GeopJr/Collision/pulls/254
+  git apply -3 ../collision-parse-options.patch
+
+  # Add D-Bus service file
+  # https://codeberg.org/GeopJr/Collision/pulls/255s
+  git apply -3 ../collision-dbus-activatable.patch
 
   sed -i -e '/gtk-update-icon-cache/d' -e '/glib-compile-schemas/d' Makefile
 }
@@ -44,7 +58,6 @@ prepare() {
 build() {
   cd Collision
   make -j1
-  make metainfo
 }
 
 check() {
@@ -55,8 +68,7 @@ check() {
 
 package() {
   cd Collision
-  make PREFIX="$pkgdir/usr" install
+  make DESTDIR="$pkgdir" install
   install -Dm644 -t "$pkgdir/usr/share/nautilus-python/extensions/" nautilus-extension/collision-extension.py
-  install -Dm644 -t "$pkgdir/usr/share/metainfo/" data/dev.geopjr.Collision.metainfo.xml
   install -Dm644 -t "$pkgdir/usr/share/licenses/$pkgname/" LICENSE
 }

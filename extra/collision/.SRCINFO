@@ -1,7 +1,7 @@
 pkgbase = collision
 	pkgdesc = GUI tool to generate, compare and verify MD5, SHA-1, SHA-256, SHA-512, Blake3, CRC32 and Adler32 hashes
 	pkgver = 3.14.1
-	pkgrel = 2
+	pkgrel = 3
 	url = https://apps.gnome.org/Collision/
 	arch = x86_64
 	groups = gnome-circle
@@ -24,6 +24,10 @@ pkgbase = collision
 	depends = zlib
 	optdepends = nautilus-python: Nautilus context menu extension
 	source = git+https://github.com/GeopJr/Collision.git#tag=v3.14.1
+	source = collision-parse-options.patch
+	source = collision-dbus-activatable.patch
 	b2sums = b8414275fba6dab99a69b4e7a3c0c0c1abc88f199a8ecc2fee0c685187b426448a23afae86a793ee1902105c903bc3e73a4fce32c88f226d97e83ef1632ecb04
+	b2sums = 83d036d71547b65a7ae6f783e64dc139499bda472d25942525a4aaf6e923ef16b96ba12ed0c82416ef29bc79ed8d8d2e75d2fe236de066e4aa88f329c87def42
+	b2sums = e0d09b618aa4b87fb55ebc868004bc230ab1b048399dc9799b47f5f0b07a2b7cc030c19e875a28596636c4e1671d751ae3c18463e603d7c3646f7ef9bd0656f8
 
 pkgname = collision
