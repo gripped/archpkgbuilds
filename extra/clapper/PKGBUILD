@@ -8,7 +8,7 @@ pkgname=(
   libclapper
 )
 pkgver=0.10.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Modern and user-friendly media player"
 arch=(x86_64)
 url="https://rafostar.github.io/clapper"
@@ -39,11 +39,23 @@ makedepends=(
   meson
   vala
 )
-source=("git+https://github.com/Rafostar/clapper.git?signed#tag=$pkgver")
-b2sums=('ebb0811e9d4cf775284fea05549a4cfd5372023aba1ad6b22bb61e11f7ca96cdcfcb8d03b82b116b5cdfdd7fad397a53d41695854136be15c962a51c67322cb5')
+source=(
+  "git+https://github.com/Rafostar/clapper.git?signed#tag=$pkgver"
+  clapper-gl-check.patch
+)
+b2sums=('ebb0811e9d4cf775284fea05549a4cfd5372023aba1ad6b22bb61e11f7ca96cdcfcb8d03b82b116b5cdfdd7fad397a53d41695854136be15c962a51c67322cb5'
+        '211710a4142881799c74b3f93d4e4da6e6bd106548c3be49ca06df5d0c8affd8a46833d59353cf31144342b1edfe06eeb9cd3f55052c7604fc70493e69e10b2e')
 validpgpkeys=(
   '0E0DC8F450DBFADF5BA08B117D6F9EA15BAE2562'    # Rafał Dzięgiel <rafostar.github@gmail.com>
 )
+
+prepare() {
+  cd clapper
+
+  # Check GL availability before using glsinkbin
+  # https://github.com/Rafostar/clapper/pull/637
+  git apply -3 ../clapper-gl-check.patch
+}
 
 build() {
   local meson_options=(
