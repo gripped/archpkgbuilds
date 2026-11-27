@@ -5,8 +5,8 @@
 _upstream=deltachat-core-rust
 _name=core
 pkgname=deltachat-rpc-server
-pkgver=2.65.0
-pkgrel=2
+pkgver=2.69.0
+pkgrel=1
 pkgdesc="A JSON-RPC 2.0 interface to DeltaChat over standard I/O"
 arch=(x86_64)
 url="https://github.com/deltachat/deltachat-core-rust/tree/main/deltachat-rpc-server"
@@ -22,8 +22,8 @@ makedepends=(
   rust
 )
 source=("$_url/archive/v$pkgver/$_upstream-$pkgver.tar.gz")
-sha512sums=('c4aa8020353630a140ba504b9bcc473a236d58f2cd763907e0769870edf729311ec3154c2a7ce03f65a1ab3e0e4e17695e151da32180318bf1e6854e1f2defb6')
-b2sums=('debebb9aec95889744f4af49adf02134f686cb712212e598b0bb09f84168aa6fc2a5b46a8936af785cd1f5829eb520dd8a3f68635bd4b3ff98e18abccb1a6819')
+sha512sums=('99e24b4b35e50dd7902f103a62e32f026b2e25d82e4657760ba97c1d8c495c5638a2b67c3d510b5f18a1ae1af076fcc0f2444c1be5c4eff7ddf7c9e55113d683')
+b2sums=('42426c96b4cd2ecff4b247ffee4b7959ac901e96dc0598fcb3b31b8ea8782e71a6ea216f2f11b0c8ab2ea869d9e98144e4b2125378d6fed5df3356e9dac29e95')
 
 prepare() {
   cd $_name-$pkgver
