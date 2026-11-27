@@ -1,10 +1,14 @@
 --- a/psycopg_c/pyproject.toml
 +++ b/psycopg_c/pyproject.toml
-@@ -5,7 +5,7 @@ requires = [
-     #   `[tool.setuptools.ext-modules]` in `pyproject.toml` is still
-     #   *experimental* and likely to change in future releases
-     #
--    "setuptools == 83.0.0",
+@@ -1,11 +1,6 @@
+ [build-system]
+ requires = [
+-    # Note: pinning this version strictly because of the setuptools warning:
+-    #
+-    #   `[tool.setuptools.ext-modules]` in `pyproject.toml` is still
+-    #   *experimental* and likely to change in future releases
+-    #
+-    "setuptools == 84.1.0",
 +    "setuptools",
      "wheel >= 0.37",
      "tomli >= 2.0.1; python_version < '3.11'",
