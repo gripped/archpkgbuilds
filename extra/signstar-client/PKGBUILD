@@ -1,0 +1,58 @@
+# Maintainer: David Runge <dvzrv@archlinux.org>
+
+pkgname=signstar-client
+_name=signstar
+pkgver=0.1.2
+pkgrel=1
+pkgdesc="Executable for interacting with Signstar hosts"
+arch=(x86_64)
+url="https://signstar.archlinux.page/signstar-client"
+_url="https://gitlab.archlinux.org/archlinux/signstar"
+license=('Apache-2.0 OR MIT')
+depends=(
+  glibc
+  libgcc
+)
+makedepends=(
+  git
+  just
+  rust
+  rust-script
+)
+checkdepends=(cargo-nextest)
+replaces=(signstar-request-signature)
+source=($_name::git+$_url.git?signed#tag=$pkgname/$pkgver)
+sha512sums=('b1df7da4c28e9f9f73cc0fc88deee670fd31573819ed931ec5b8f72f6ab730028cc53bebfbc87e81e51dd7a035a707c42ee894fbf282eea2ca9ca4279a1ad82e')
+b2sums=('e1415c0aea9e9ec9b1e9037d9203ddd54f75b3d615aa812604b27ceaade2aad22e9c9fed5efee284361df3a8458141e1f5dd0ba2bed32308933deb6898520e3b')
+validpgpkeys=(
+  991F6E3F0765CF6295888586139B09DA5BF0D338  # David Runge <dvzrv@archlinux.org>
+  653909A2F0E37C106F5FAF546C8857E0D8E8F074  # Wiktor Kwapisiewicz <wiktor@metacode.biz>
+)
+
+prepare() {
+  cd $_name
+  cargo fetch --locked --target host-tuple
+}
+
+build() {
+  cd $_name
+  CFLAGS+=' -ffat-lto-objects'
+  cargo build --frozen --release --package $pkgname
+  just generate shell_completions $pkgname
+  just generate manpages $pkgname
+}
+
+check() {
+  cd $_name
+  cargo nextest run --locked --package $pkgname
+}
+
+package() {
+  install -vDm 755 $_name/target/release/$pkgname -t "$pkgdir/usr/bin/"
+  install -vDm 644 $_name/$pkgname/{CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 $_name/LICENSES/*.txt -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -vDm 644 $_name/output/manpages/*.1 -t "$pkgdir/usr/share/man/man1/"
+  install -vDm 644 $_name/output/shell_completions/$pkgname.bash "$pkgdir/usr/share/bash-completion/completions/$pkgname"
+  install -vDm 644 $_name/output/shell_completions/_$pkgname -t "$pkgdir/usr/share/zsh/site-functions/"
+  install -vDm 644 $_name/output/shell_completions/$pkgname.fish -t "$pkgdir/usr/share/fish/vendor_completions.d/"
+}

@@ -1,0 +1,22 @@
+pkgbase = signstar-client
+	pkgdesc = Executable for interacting with Signstar hosts
+	pkgver = 0.1.2
+	pkgrel = 1
+	url = https://signstar.archlinux.page/signstar-client
+	arch = x86_64
+	license = Apache-2.0 OR MIT
+	checkdepends = cargo-nextest
+	makedepends = git
+	makedepends = just
+	makedepends = rust
+	makedepends = rust-script
+	depends = glibc
+	depends = libgcc
+	replaces = signstar-request-signature
+	source = signstar::git+https://gitlab.archlinux.org/archlinux/signstar.git?signed#tag=signstar-client/0.1.2
+	validpgpkeys = 991F6E3F0765CF6295888586139B09DA5BF0D338
+	validpgpkeys = 653909A2F0E37C106F5FAF546C8857E0D8E8F074
+	sha512sums = b1df7da4c28e9f9f73cc0fc88deee670fd31573819ed931ec5b8f72f6ab730028cc53bebfbc87e81e51dd7a035a707c42ee894fbf282eea2ca9ca4279a1ad82e
+	b2sums = e1415c0aea9e9ec9b1e9037d9203ddd54f75b3d615aa812604b27ceaade2aad22e9c9fed5efee284361df3a8458141e1f5dd0ba2bed32308933deb6898520e3b
+
+pkgname = signstar-client
