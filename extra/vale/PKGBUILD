@@ -4,17 +4,17 @@
 # Contributor: Achilleas Pipinellis <axilleas at archlinux dot gr>
 
 pkgname=vale
-pkgver=3.26.0
+pkgver=3.28.1
 pkgrel=1
 pkgdesc="A markup-aware linter for prose built with speed and extensibility in mind"
 url="https://vale.sh"
 arch=('x86_64')
 license=('MIT')
 depends=('glibc' 'libgcc' 'libstdc++')
-makedepends=('go')
-options=(!lto)
+makedepends=('go' 'zig')
+options=('!lto')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/errata-ai/vale/archive/v${pkgver}.tar.gz")
-sha256sums=('c63c9c9b415d55616c112c04ddd98fba5e94bec0e266bc576e36da6aa7d6b53e')
+sha256sums=('8ccc68482a36a9123c078267ccbaca6e0be678ef2a1991ef935191cbe9bed8cd')
 
 prepare(){
 	cd "${pkgname}-${pkgver}"
@@ -30,6 +30,9 @@ build() {
 	export GOPATH="${srcdir}"
 	export GOFLAGS="-buildmode=pie -mod=readonly -modcacherw"
 	go build -ldflags="-compressdwarf=false -linkmode external -s -w -X main.version=${pkgver}" -o build ./cmd/...
+
+	# Build grammar source modules (needed for tests, requires zig)
+	./grammars/build.sh
 }
 
 check() {
