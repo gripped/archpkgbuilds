@@ -1,12 +1,13 @@
 pkgbase = ponyc
 	pkgdesc = An actor model, capabilities, high performance programming language
-	pkgver = 0.76.0
+	pkgver = 0.78.2
 	pkgrel = 1
 	url = https://ponylang.org/
 	arch = x86_64
 	license = BSD-2-Clause
 	makedepends = cmake
 	makedepends = git
+	makedepends = patchelf
 	makedepends = python
 	depends = glibc
 	depends = libatomic
@@ -14,11 +15,11 @@ pkgbase = ponyc
 	depends = openssl-3
 	depends = zlib
 	options = !lto
-	source = git+https://github.com/ponylang/ponyc.git#tag=0.76.0
+	source = git+https://github.com/ponylang/ponyc.git#tag=0.78.2
 	source = git+https://github.com/llvm/llvm-project.git
 	source = ponyc-remove-usr-local-refs.patch
-	b2sums = bd0c77b811fff2a6d5cc1c9af9fb98620e85876e35f23a77db1ec594320f0d5c08e66cfa6ec59b9af5695e77e811626afac2cac371674c8d7e80d132ac2895a9
+	b2sums = 3b6d4473a2c28422e306bdddd6aacf8ecd06d736af6c017a31f08aab8b340ddd7e33d327365456731c094643ac89e9255d4aae88c0b7877806a2cf99001e7272
 	b2sums = SKIP
-	b2sums = 42844af44b7728b0f1cb7886113e52e6a40bb4863215d3637141e26c23e519b16776e692ed8cc437336778fcb5c093ae978bd41f28c41c11b188dec72d47cfe1
+	b2sums = 20f1a316e5e4e8e91f348dbb71cdb6660c11bc5c8281d04abe1729cfad2c30860e323a00a09c57558a703bb41b8c591924d5d35732574f54c6eba2e6d4143509
 
 pkgname = ponyc

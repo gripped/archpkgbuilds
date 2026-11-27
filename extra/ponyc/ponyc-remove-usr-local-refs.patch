@@ -1,9 +1,9 @@
 diff --git a/src/libponyc/pkg/package.c b/src/libponyc/pkg/package.c
-index 2ee105ac0..d438cce05 100644
+index 003e2351b..7705234d1 100644
 --- a/src/libponyc/pkg/package.c
 +++ b/src/libponyc/pkg/package.c
-@@ -854,10 +854,6 @@ bool package_init(pass_opt_t* opt)
-   package_add_paths(getenv("PONYPATH"), opt);
+@@ -875,10 +875,6 @@ bool module_init(pass_opt_t* opt)
+   module_add_paths(getenv("PONYPATH"), opt);
  
    // Finally we add OS specific paths.
 -#ifdef PLATFORM_IS_POSIX_BASED
@@ -14,10 +14,10 @@ index 2ee105ac0..d438cce05 100644
    add_path("/usr/local/cxx_atomics", opt);
  #endif
 diff --git a/src/libponyrt/CMakeLists.txt b/src/libponyrt/CMakeLists.txt
-index f8f13fd10..78b8d9ca4 100644
+index b33c45944..b9c5adc2a 100644
 --- a/src/libponyrt/CMakeLists.txt
 +++ b/src/libponyrt/CMakeLists.txt
-@@ -174,9 +174,6 @@ if (MSVC)
+@@ -94,9 +94,6 @@ if (MSVC)
          COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:libponyrt> ${PONY_OUTPUT_DIR}/libponyrt.lib
      )
  else()

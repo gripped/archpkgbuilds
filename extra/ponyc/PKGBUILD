@@ -2,7 +2,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=ponyc
-pkgver=0.76.0
+pkgver=0.78.2
 pkgrel=1
 pkgdesc='An actor model, capabilities, high performance programming language'
 arch=('x86_64')
@@ -18,6 +18,7 @@ depends=(
 makedepends=(
   'cmake'
   'git'
+  'patchelf'
   'python'
 )
 options=('!lto')
@@ -26,9 +27,9 @@ source=(
   "git+https://github.com/llvm/llvm-project.git"
   "ponyc-remove-usr-local-refs.patch"
 )
-b2sums=('bd0c77b811fff2a6d5cc1c9af9fb98620e85876e35f23a77db1ec594320f0d5c08e66cfa6ec59b9af5695e77e811626afac2cac371674c8d7e80d132ac2895a9'
+b2sums=('3b6d4473a2c28422e306bdddd6aacf8ecd06d736af6c017a31f08aab8b340ddd7e33d327365456731c094643ac89e9255d4aae88c0b7877806a2cf99001e7272'
         'SKIP'
-        '42844af44b7728b0f1cb7886113e52e6a40bb4863215d3637141e26c23e519b16776e692ed8cc437336778fcb5c093ae978bd41f28c41c11b188dec72d47cfe1')
+        '20f1a316e5e4e8e91f348dbb71cdb6660c11bc5c8281d04abe1729cfad2c30860e323a00a09c57558a703bb41b8c591924d5d35732574f54c6eba2e6d4143509')
 
 prepare() {
   cd $pkgname
@@ -37,7 +38,12 @@ prepare() {
   git -c protocol.file.allow=always submodule update \
     lib/llvm/src
 
+  # Ignore package paths outside Arch's filesystem layout.
   patch -Np1 < ../ponyc-remove-usr-local-refs.patch
+
+  # Enable bind-now for dynamic binaries linked by ponyc to get full RELRO.
+  sed -i '/^  args.push_back("relro");$/,/^  }$/{ /^  if(c->opt->staticbin)$/d; /^  {$/d; /^  }$/d; s/^    /  /; }' \
+    src/libponyc/codegen/genexe.cc
 
   # PONYPATH is searched after /usr/lib; prefer the selected OpenSSL libraries.
   sed -i 's/${PONY_SSL_FLAG}/& --lib-path "${PONY_SSL_LIB_DIR}"/' cmake/PonyBinary.cmake
@@ -68,7 +74,7 @@ build() {
   cmake -B build/build_libs -S lib \
     "${cmake_options[@]}" \
     -DCMAKE_INSTALL_PREFIX="$PWD/build/libs" \
-    -DLLVM_TARGETS_TO_BUILD="Native" \
+    -DLLVM_TARGETS_TO_BUILD="X86;ARM;AArch64;WebAssembly;RISCV" \
     -DGIT_SUBMODULE=OFF
   cmake --build build/build_libs --target install
 
@@ -106,12 +112,18 @@ check() {
   # Use upstream's SSL flags and certificate fixtures for networking tests.
   PONY_STDLIB_TEST_EXCLUDES='--exclude=net/Broadcast' \
     ctest --test-dir ../build_release --output-on-failure \
-      --tests-regex '^(stdlib|examples)$'
+      --tests-regex '^(stdlib|examples|tracing-tests)$'
 }
 
 package() {
   cd $pkgname
   DESTDIR="$pkgdir" cmake --install build/build_release
+
+  # The embedded linker stamps build paths into the self-hosted tools' RUNPATH.
+  local _tool
+  for _tool in pony-agent-server pony-dep pony-doc pony-lint pony-lsp; do
+    patchelf --remove-rpath "$pkgdir/usr/lib/pony/$pkgver/bin/$_tool"
+  done
 
   install -vdm755 "$pkgdir/usr/bin"
   ln -vs -t "$pkgdir/usr/bin" /usr/lib/pony/$pkgver/bin/ponyc
