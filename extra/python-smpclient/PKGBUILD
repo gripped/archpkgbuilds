@@ -2,7 +2,7 @@
 
 pkgname=python-smpclient
 _name=${pkgname#python-}
-pkgver=7.3.0
+pkgver=7.4.0
 pkgrel=1
 pkgdesc='Simple Management Protocol (SMP) client for remotely managing MCU firmware'
 arch=(any)
@@ -34,7 +34,7 @@ optdepends=(
   'python-pyserial: serial transport'
 )
 source=("git+$url.git#tag=$pkgver")
-b2sums=('7cd51250be9dcf1987ea9d64258903fbc7c94ea834a30f237087ffdaa51f779f29f64829904bdbc961a03f3d3ceec4ac09aaa90b183f39179d596c502b4579ae')
+b2sums=('218c1665ca34dccd8eec06ec78230656ecf88676c03bda9ecf8f28060af8381b391acaa3ffc15d5c3ba6750b3ed7b59fe2acf68d80d94df91e095f4a52325a88')
 
 build() {
   cd $_name
