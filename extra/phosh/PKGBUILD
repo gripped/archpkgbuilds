@@ -4,14 +4,15 @@
 # Contributor: Philip Goto <philip.goto@gmail.com>
 
 pkgname=phosh
-pkgver=0.57.0
-pkgrel=2
+pkgver=0.59.0
+pkgrel=1
 pkgdesc='A Wayland shell for GNOME on mobile devices'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Phosh/phosh'
 license=(GPL-3.0-or-later)
 depends=(
   appstream
+  at-spi2-core
   bash
   cairo
   callaudiod
@@ -33,6 +34,7 @@ depends=(
   gtk4
   hicolor-icon-theme
   iio-sensor-proxy
+  json-glib
   libadwaita
   libgcc
   libgmobile
@@ -41,6 +43,7 @@ depends=(
   libical
   libmm-glib
   libnm
+  libpipewire
   libpulse
   libsecret
   libsoup3
@@ -73,20 +76,19 @@ source=(
   git+https://gitlab.gnome.org/World/Phosh/libcall-ui.git
   guidog-gvc::git+https://gitlab.gnome.org/guidog/libgnome-volume-control.git
   phosh.pam
-  libical-4.patch
 )
-b2sums=('3c309da3d5a5b23ab49c77a80f990ccf06fa5a67af2b6064e436d9522587b523b52938be88935148a36a78ecb1a8ea852dceb4a2d5217bf374ef5dc212fdfe7c'
-        'SKIP'
-        'SKIP'
-        'd89e16605e2e8e29834f9537bd09ef3f76f1cf6420cdd99346a760cab8c7217f86898be66c24b206b464239fc8b5277150abd19bae81af72187a435bd8c2f869'
-        '1e852c5f5d26689d0deebade2aa1ee59a92625c159829f185d132967a95b8e00481eebeffeab61c435053d4e152ea616fca7178d68bb72e0dbc8a61a854f0b98')
+b2sums=(
+  7489d3abb39cbca748ed7691a5d67de1238f206786bcfbc19c2c31e0aae9a5f0fc5379958dcbcc3198a7d663b2d9347c9d6aceec982119a6868869629b22e009
+  SKIP
+  SKIP
+  d89e16605e2e8e29834f9537bd09ef3f76f1cf6420cdd99346a760cab8c7217f86898be66c24b206b464239fc8b5277150abd19bae81af72187a435bd8c2f869
+)
 validpgpkeys=(0DB3932762F78E592F6522AFBB5A2C77584122D3) # Guido Günther <guido@xcpu.ch>
 
 prepare() {
   ln -s "$srcdir/libcall-ui" "$pkgname/subprojects/libcall-ui"
   ln -s "$srcdir/guidog-gvc" "$pkgname/subprojects/gvc"
   meson subprojects checkout --sourcedir $pkgname
-  patch -d $pkgname -p1 < libical-4.patch # Fix build with libical 4
 }
 
 build() {
