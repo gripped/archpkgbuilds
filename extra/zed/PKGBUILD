@@ -1,8 +1,9 @@
 # Maintainer: Caleb Maclennan <caleb@alerque.com>
+# Maintainer: DeepChirp <deepchirp@archlinux.org>
 # Contributor: Marcell Pardavi <marcell.pardavi@gmail.com>
 
 pkgname=zed
-pkgver=1.28.1
+pkgver=1.30.2
 pkgrel=1
 pkgdesc='A high-performance, multiplayer code editor from the creators of Atom and Tree-sitter'
 arch=(x86_64)
@@ -21,7 +22,6 @@ depends=(alsa-lib
          libx11 # libX11-xcb.so
          libxkbcommon
          libxkbcommon-x11
-         netcat
          'nodejs>=18'
          npm
          sqlite
@@ -41,7 +41,7 @@ optdepends=('org.freedesktop.secrets: to keep you logged into your Zed account')
 replaces=(zed-editor)
 _archive="$pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz")
-sha256sums=('2baab0ae5fdbbdd64cf69afbc4fd3f4427dc86b9a8a4dfd2335a949097741226')
+sha256sums=('4278dd5692451d7a6227439cb353edf261803f3a45716f794eec0bf36f3928c4')
 
 _binname=zeditor
 _appid=dev.zed.Zed
