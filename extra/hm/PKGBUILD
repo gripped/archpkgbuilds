@@ -1,8 +1,8 @@
 # Maintainer: Daniel Bermond <dbermond@archlinux.org>
 
 pkgname=hm
-pkgver=18.0
-pkgrel=3
+pkgver=20.0
+pkgrel=1
 pkgdesc='HEVC Test Model - the reference software for HEVC'
 arch=('x86_64')
 url='https://hevc.hhi.fraunhofer.de/'
@@ -17,8 +17,8 @@ makedepends=(
     'openmp')
 source=("https://vcgit.hhi.fraunhofer.de/jct-vc/HM/-/archive/HM-${pkgver}/HM-HM-${pkgver}.tar.bz2"
         '010-hm-disable-werror.patch')
-sha256sums=('799d5f937cb1df3a3294fe8c04e0628fc7208a636d1afea3b6bb05a9af46a83a'
-            '26ed4fb40812ecfce04b1301dc159fb2a575ece22a3532fe991f72e0f4e9488a')
+sha256sums=('23af951c7460b0ba264de2438c7bc1709c41da92126c761e51d1649d477bc128'
+            'dd021f359e9793dcfe72eca3df457dff3fd64bff3db8ea6f59ad0a28805603d7')
 
 prepare() {
     patch -d "HM-HM-${pkgver}" -Np1 -i "${srcdir}/010-hm-disable-werror.patch"
@@ -32,7 +32,7 @@ build() {
     local -a _common_opts=(
         '-DCMAKE_BUILD_TYPE:STRING=Release'
         '-DCMAKE_INSTALL_PREFIX:PATH=/usr'
-        '-Wno-dev')
+        '-Wno-author')
     
     cmake -B build -S "HM-HM-${pkgver}" "$_common_opts" -DHIGH_BITDEPTH:BOOL='OFF'
     cmake --build build
