@@ -1,23 +1,26 @@
 pkgbase = python-openai
 	pkgdesc = Python client library for the OpenAI API
-	pkgver = 3.3.1
+	pkgver = 3.10.0
 	pkgrel = 1
 	url = https://github.com/openai/openai-python
 	arch = any
 	license = Apache-2.0
 	license = BSD-3-Clause
+	checkdepends = curl
 	checkdepends = nodejs-lts-krypton
-	checkdepends = npm
 	checkdepends = procps-ng
 	checkdepends = python-dirty-equals
 	checkdepends = python-aiohttp
 	checkdepends = python-inline-snapshot
 	checkdepends = python-nest-asyncio
+	checkdepends = python-packaging
 	checkdepends = python-pytest
 	checkdepends = python-pytest-asyncio
 	checkdepends = python-pytest-xdist
 	checkdepends = python-rich
 	checkdepends = python-botocore
+	checkdepends = python-websockets
+	checkdepends = unzip
 	makedepends = git
 	makedepends = python-build
 	makedepends = python-hatchling
@@ -38,7 +41,7 @@ pkgbase = python-openai
 	optdepends = python-pandas: Datalib support
 	optdepends = python-websockets: Realtime support
 	optdepends = python-botocore: AWS Bedrock OpenAI-compatible API support
-	source = git+https://github.com/openai/openai-python.git#tag=v3.3.1
-	b2sums = 6700bfe1673e119e2bbc118930a3f077dbbea460389805584deed208a3e022df44adb780c60c514de39b734c931fa72b717a341d8b35f767416f8e1b74d4feb4
+	source = git+https://github.com/openai/openai-python.git#tag=v3.10.0
+	b2sums = 92c2806474b6058032cb5b41251cd48c6375837df480833ac481eb9a53d4ce1ea80324379ca0a531deb200cf021ce6c1a069ad54385944165c58cb88f0641718
 
 pkgname = python-openai
