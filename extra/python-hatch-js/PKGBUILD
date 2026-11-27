@@ -1,0 +1,53 @@
+# Maintainer: George Rawlinson <grawlinson@archlinux.org>
+
+pkgname=python-hatch-js
+pkgver=0.1.4
+pkgrel=1
+pkgdesc='Hatch plugin for Javascript builds'
+arch=(any)
+url='https://github.com/python-project-templates/hatch-js'
+license=(Apache-2.0)
+depends=(
+  python
+  python-pydantic
+  python-hatchling
+)
+makedepends=(
+  git
+  python-build
+  python-installer
+)
+checkdepends=(
+  python-pytest
+  pnpm
+  nodejs
+)
+source=("$pkgname::git+$url#tag=v$pkgver")
+sha512sums=('57e645841cb10205df427930ce6e28c38ae0ca4c1a5ea343d9a9efed09a018013b3d68763e26846e6a1c08e66b88ce182ee99e8c6d15c5fea865eebfef618d4c')
+b2sums=('15976b97971ce74248f56b04eec151e1b64c38d43945f6e4fdf699c99675b6e3188c77ecb4786700bda9313637d45b78691411bfb68b54203609a32f225c0264')
+
+build() {
+  cd "$pkgname"
+
+  python -m build --wheel --no-isolation
+}
+
+check() {
+  cd "$pkgname"
+
+  # temporary install
+  python -m installer --destdir="$(pwd)/tmp" dist/*.whl
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+  export PYTHONPATH="$(pwd)/tmp/$site_packages"
+
+  local pytest_options=(
+    -vv
+  )
+  pytest "${pytest_options[@]}"
+}
+
+package() {
+  cd "$pkgname"
+
+  python -m installer --destdir="$pkgdir" dist/*.whl
+}
