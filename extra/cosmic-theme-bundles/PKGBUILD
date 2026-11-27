@@ -1,0 +1,52 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+
+pkgname=cosmic-theme-bundles
+pkgver=0.r4.g792870f
+pkgrel=1
+pkgdesc='Built-in theme bundles for the COSMIC desktop environment'
+arch=(any)
+url=https://github.com/pop-os/cosmic-theme-bundles
+license=(
+  CC-BY-SA-4.0
+  GPL-3.0-only
+)
+groups=(cosmic)
+depends=(cosmic-icon-theme)
+makedepends=(
+  git
+  git-lfs
+  just
+)
+optdepends=(
+  'noto-fonts: Noto Sans Mono font used by the theme bundles'
+  'ttf-opensans: Open Sans font used by the theme bundles'
+)
+options=(!strip)
+_commit=792870f4adbe13eb5c178f530f7e5b7aedfc6bb6
+source=(git+https://github.com/pop-os/cosmic-theme-bundles.git#commit=${_commit})
+b2sums=('93850e8c44641abaef6626169cd780704265c96e103ff45913af2ddc4f79c150d341092eb785f1aa5a6b5488bd67e03e501e28730bc715a78ef3ef21e726b02a')
+
+prepare() {
+  cd cosmic-theme-bundles
+  git lfs install --local
+  git remote add network-origin ${url}
+  git lfs fetch network-origin
+  git lfs checkout
+}
+
+pkgver() {
+  cd cosmic-theme-bundles
+  if git describe --tags --abbrev=0 &>/dev/null; then
+    git describe --tags | sed -E 's/^[^0-9]*//;s/-([0-9]+)-g/.r\1.g/;s/-/./g'
+  else
+    printf '0.r%s.g%s' "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+  fi
+}
+
+package() {
+  cd cosmic-theme-bundles
+  just rootdir="${pkgdir}" install
+  install -Dm644 COPYING -t "${pkgdir}"/usr/share/licenses/${pkgname}/
+}
+
+# vim: ts=2 sw=2 et:
