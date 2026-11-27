@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-markdownify
-pkgver=1.2.3
+pkgver=1.2.4
 pkgrel=1
 pkgdesc='Convert HTML to Markdown'
 arch=(any)
@@ -20,20 +20,9 @@ makedepends=(
   python-wheel
 )
 checkdepends=(python-pytest)
-source=(
-  "$pkgname::git+$url#tag=$pkgver"
-  yeet-six.patch
-)
-sha512sums=('d13a8d82ea3e3a8ae3af45a1cac166e6ca066351e7ea62d02852386e1a5d3e719d9b6142dbdcc4ebc8db72da3a4415876edabbd746dfcb200346ff985220daae'
-            '4c050fdf6aa8305f4f7eded04313a38e5452a8002fbc2028c469b46c5076806fa7cef3033df5d7df597d16a6def809bcc1ea50e424acb554b1829723977cec93')
-b2sums=('a1ea500ebeed50f290d65ddef5829d421f0ff9848812c67ef63b159bc10b69b8f8e11cb013723a52af39ab592c0eef7110b6f41baf481dc21ba2823be5af5ccc'
-        '8c2438d1febdb7dc4683e6ece059429a8253d63d2f06c002c372b71a2281c42fadd98a89e8a8e019296e96db7789c5752af6090a66ad7a53b70c7875f8022904')
-
-prepare() {
-  cd "$pkgname"
-
-  patch -p1 -i "$srcdir/yeet-six.patch"
-}
+source=("$pkgname::git+$url#tag=$pkgver")
+sha512sums=('5555066348f992b5e0ba97aded8c49646586f954aebde3e1c9dc807083d17dbf0ea5322b7a5772765954d10db13a3929d5743f67bb6d38ea9d2d8f626c28aabc')
+b2sums=('695ac2dccc282aa9a82271915e52ceffddd0a0814aaaee7cd058c754a0b0cf60822f9ad036e7a4c68d195c424628f085d5ce63e9e3ad2514f5152ac10eba6a16')
 
 build() {
   cd "$pkgname"
