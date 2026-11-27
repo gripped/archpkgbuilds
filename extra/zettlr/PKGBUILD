@@ -4,14 +4,14 @@
 
 pkgname=zettlr
 _pkgname=${pkgname^}
-pkgver=4.9.0
+pkgver=4.10.0
 pkgrel=1
 pkgdesc='A Markdown Editor for the 21st century'
 arch=(x86_64)
 url=https://www.zettlr.com
 _url="https://github.com/$_pkgname/$_pkgname"
 license=(GPL-3.0-only)
-_electron=electron43
+_electron=electron44
 depends=(crimson-font
          "$_electron"
          pandoc-cli
@@ -29,7 +29,7 @@ _archive="$_pkgname-$pkgver"
 source=("$_url/archive/v$pkgver/$_archive.tar.gz"
         "$pkgname.sh"
         "$pkgname.xml")
-sha256sums=('76b424cce37925aeff670ac893082692238903408f436f01211b9e86826142e1'
+sha256sums=('eed7039b6214408eecc7cc332abecc4e0db4a97883bf243586e640523839217f'
             'e300f2cac217f98ab5c365dccc7581410bc296f2842d52f7f1520dd6679d20cf'
             'c3ecbb490a1d4fa5bc42f7166cc375e5629a452d25bb1d4facb5541938681292')
 
