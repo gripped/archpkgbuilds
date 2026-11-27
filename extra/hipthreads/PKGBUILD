@@ -2,8 +2,8 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=hipthreads
-pkgver=10.2
-pkgrel=3
+pkgver=10.1
+pkgrel=1
 pkgdesc='C++ std::thread-like API to launch and manage GPU threads with HIP'
 arch=('x86_64')
 url='https://github.com/ROCm/rocm-libraries/tree/develop/projects/hipthreads'
@@ -12,7 +12,7 @@ depends=('rocm-core' 'hip-runtime-amd' 'libhipcxx')
 makedepends=('cmake' 'rocm-cmake' 'rocm-toolchain' 'rocm-llvm')
 _git='https://github.com/ROCm/rocm-libraries'
 source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
-sha256sums=('1375fdd31b63bf8e414638704d85bcd1fbdb5c23c04f04841c0334776a404f30')
+sha256sums=('0ed525ec84da4db6bc24c8d7f6c54a7cf8db6d7eef5622313196ed84e26c9fcc')
 options=(!lto)
 
 build() {
@@ -27,8 +27,7 @@ build() {
     -D CMAKE_BUILD_TYPE=None
     -D CMAKE_CXX_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++
     -D CMAKE_HIP_COMPILER=/opt/rocm/lib/llvm/bin/amdclang++
-    # gfx9-generic does not cover gfx908 and gfx90a
-    -D CMAKE_HIP_ARCHITECTURES="$(rocm-supported-gfx);gfx908;gfx90a"
+    -D CMAKE_HIP_ARCHITECTURES="$(rocm-supported-gfx)"
     -D DISABLE_WERROR=ON
   )
   cmake "${cmake_args[@]}"
