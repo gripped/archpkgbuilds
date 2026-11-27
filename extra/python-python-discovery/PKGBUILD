@@ -1,7 +1,7 @@
 # Maintainer: George Rawlinson <grawlinson@archlinux.org>
 
 pkgname=python-python-discovery
-pkgver=1.9.3
+pkgver=1.9.7
 pkgrel=1
 pkgdesc='Python interpreter discovery'
 arch=(any)
@@ -18,6 +18,7 @@ makedepends=(
   python-hatchling
   python-hatch-vcs
   python-hatch-fancy-pypi-readme
+  python-python-sbom
 )
 checkdepends=(
   python-pytest
@@ -28,10 +29,10 @@ source=(
   "$pkgname::git+https://github.com/tox-dev/python-discovery#tag=$pkgver"
   no-vermin.patch
 )
-sha512sums=('e30b57c17dffe1a0abc3827c0983b85c076d383ccc4a49d8a9461bdb27f2955c70e412447d4c9b22e1a4c63d2aa6307fd965aa366d7d126e8a18ba806ea2ad14'
-            'c9057e2e74dde6819b2f43cf6f29c6f0903da9f12784fc1e84fc24b972a8d114fb55c60630f65106cee1e2c02e043ddfff08f5729c98d3e35a32c0b83ec184cd')
-b2sums=('039a39d21ae50e6726aaf1eb49f803c5a7ac121f9c41c1a807c439fed84e76def12ac4de11f8d9d7403d6a4e9fea6ab3d8270ccbc59911a6fda502bdacc9473e'
-        'e23fac44ff0fe6dc0eb4f19da9bef5410c0e4d03b2992d2f79eba45a4b69c81173c11feb13e84d8d440938b67aa65f3ada6fe6583f627f828a83fa70863ec507')
+sha512sums=('c390ccea9496e9b9f21af050ddc85fa29376bbb2911e695bf6412417bcaf4454659af88635a8b28df69bb1dd409ca54703d7e49d2e356cf621d090a540bcc37e'
+            '068c7ae0cd754733fbfa2dc79c418bd53e8260e029e59d399ad5751466efa091aee81c74bb6802fc39574f49c65002bd9dca8b30f825e23fb47479043d386152')
+b2sums=('baf20870de4ea9ed45e840353301c8b19749371248a739df1e99ed2c94c08fdb0ba9da56937365bedc1678a185badaa71fcc1524320851186051f1bcbbe96008'
+        '629feb031a435c2e80047ba3c42cdec099f2b446810d4bab99867a0b017828730b78bdc4341eb70407cbbf30aaa7d1cabb6dbbbb399b9488827c7b1904ae2573')
 
 prepare() {
   cd "$pkgname"
