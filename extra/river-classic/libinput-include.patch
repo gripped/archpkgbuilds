@@ -1,0 +1,10 @@
+--- river-classic/build.zig	2026-11-10 18:59:43.000000000 +0100
++++ river-classic/build.zig.new	2026-11-10 19:03:10.784301464 +0100
+@@ -158,6 +158,7 @@
+             .{ .name = "libevdev" },
+             .{ .name = "libinput" },
+         },
++        .extra_args = &.{"-I/usr/include"},
+     });
+ 
+     {

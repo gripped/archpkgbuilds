@@ -2,8 +2,8 @@
 # Contributor: Andrea Feletto <andrea@andreafeletto.com>
 
 pkgname=river-classic
-pkgver=0.3.17
-pkgrel=2
+pkgver=0.3.18
+pkgrel=1
 pkgdesc="A dynamic tiling wayland compositor"
 arch=('x86_64')
 url="https://codeberg.org/river/river-classic"
@@ -21,57 +21,62 @@ depends=('glibc'
 makedepends=('git'
              'scdoc'
              'wayland-protocols'
-             'zig'
-             # https://codeberg.org/ziglang/zig/issues/31272
-             'clang')
+             'zig')
 optdepends=('polkit: access seat through systemd-logind')
 provides=('wayland-compositor')
 conflicts=('river')
-source=(git+https://codeberg.org/river/river-classic.git#tag=v${pkgver}?signed)
-#
-# disable source caching for now: https://codeberg.org/ziglang/zig/issues/31866
-#
-# PACKAGING.md -> build.zig.zon
-# source+=(zig-pixman-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
-         # zig-wayland-v0.6.0.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.6.0.tar.gz
-         # zig-wlroots-v0.20.1.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.20.1.tar.gz
-         # zig-xkbcommon-v0.3.0.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.3.0.tar.gz
-         # translate_c::git+https://codeberg.org/ziglang/translate-c.git#commit=7a1a9fdc4ab00835748a6657ecbb835e3d5d45f7)
-noextract=("${source[@]:1}")
-validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
-sha256sums=('af6f536e0c1d049316e17f46941d07b92b035632cfbf38ae6ac6182917d8da13'
-            # 'cd7fe3415d4d58685a94fdedd308e9994a37f012828940cfb603461de7f2c6ad'
-            # '67fdecba19a5c1b7c2cd98321745fe6cf26a7fdfd5f71140db43c6469b523cc9'
-            # '6c960f1805aa187b3217809dab3f9f6e079312c93ab14e3fed5bf948ef4e400f'
-            # '1e185423e6b23ed9729614e66751ab7522db4487df4e0dcc7a2b06375aacda23'
-            # 'SKIP')
+
+# From build.zig.zon
+_zig_deps+=(
+  pixman-0.3.0-LClMnz2VAAAs7QSCGwLimV5VUYx0JFnX5xWU6HwtMuDX.tar.gz::https://codeberg.org/ifreund/zig-pixman/archive/v0.3.0.tar.gz
+  wayland-0.7.0-lQa1kuP8AQD5dW7_o-VKLVD_QbqXe7Zob78r2su7Pyex.tar.gz::https://codeberg.org/ifreund/zig-wayland/archive/v0.7.0.tar.gz
+  wlroots-0.20.3-jmOlcsh0BACce9rpfvzUI4V3AalGg9GE0QQkvRFoHo1c.tar.gz::https://codeberg.org/ifreund/zig-wlroots/archive/v0.20.3.tar.gz
+  xkbcommon-0.5.0-VDqIe8y3AgDU-cGL02xZplwABH3WbpTimrrgbgTgD_3g.tar.gz::https://codeberg.org/ifreund/zig-xkbcommon/archive/v0.4.0.tar.gz
+  # translate_c-2.0.2-Q_BUWvBNBwDnyehSiuAJmdFcMYHYGA-Jc3KiYdrV2Dqx.tar.gz::https://codeberg.org/ziglang/translate-c?ref=zig-0.17.x#cfac21f3199b2b02ce3fd7db652aa456421fe4ab
 )
 
-# prepare() {
-    # zig fetch --global-cache-dir ./zig-global-cache "./${source[1]%%::*}"
-    # zig fetch --global-cache-dir ./zig-global-cache "./${source[2]%%::*}"
-    # zig fetch --global-cache-dir ./zig-global-cache "./${source[3]%%::*}"
-    # zig fetch --global-cache-dir ./zig-global-cache "./${source[4]%%::*}"
-    # zig fetch --global-cache-dir ./zig-global-cache "./${source[5]%%::*}"
-# }
+source=(git+https://codeberg.org/river/river-classic.git#tag=v${pkgver}?signed
+
+    # Patch for translate c not finding libraries for included headers
+    libinput-include.patch
+
+    "${_zig_deps[@]}"
+
+)
+noextract=("${_zig_deps[@]}")
+validpgpkeys=('5FBDF84DD2278DB2B8AD8A5286DED400DDFD7A11') # Isaac Freund <mail@isaacfreund.com>
+sha256sums=('293277d712c7e29fa937123e8d1c471125254d1d6a6fa0d7f1a067e707dce9f0'
+            'fd61e0aef9f45c489d94022bd64f23b2b519a23b0b5c6c5740241b0789d93462'
+            '4b0b57ce37f7bb3a2c2fc76eec93d060830d2c92155bf2a6baa43d61ad05499e'
+            '6eb33184b52f4b8f834c90f539dfb2fc0ec7ce5931896fadb4c3eab720b8c9b8'
+            'd87f720c7a979ad45af7a2006f932d22b03c1d48996f67453e4fca7e308be02d'
+            'cc1f8835ad6e50d5cd4da82a5d1741203f3d7b47c744418167ba602e75b8b5c7'
+            # 'efe8d937528107a983220b87237a2ca0d81214d9ff20e6e4e2d81ef8a6fd58d4'
+)
+              
+prepare() {
+  for file in "${_zig_deps[@]%%::*}"; do
+    mkdir -p "zig-packages/${file%%.tar.gz}"
+    tar -f "$file" -C "zig-packages/${file%%.tar.gz}" -x --strip-components=1
+  done
+
+  cd "$pkgname"
+  patch -Np1 -i ../libinput-include.patch
+}
 
 build() {
   cd $pkgname
   
-  DESTDIR="build" zig build \
+  DESTDIR="out" zig build \
     -Dllvm --summary all \
     --prefix /usr \
     --search-prefix /usr \
     --build-id=sha1 \
-    -Dtarget=native-linux.6.6-gnu.2.40 \
+    -Dtarget=native-linux.6.12-gnu.2.42 \
     -Dcpu=baseline \
     -Dpie \
-    --build-id=none \
     -Doptimize=ReleaseSafe \
     -Dxwayland
-
-    # --system ../zig-global-cache/p \
-    # --global-cache-dir ../zig-global-cache \
 }
 
 check() {
@@ -81,21 +86,17 @@ check() {
     --prefix /usr \
     --search-prefix /usr \
     --build-id=sha1 \
-    -Dtarget=native-linux.6.6-gnu.2.40 \
+    -Dtarget=native-linux.6.12-gnu.2.42 \
     -Dcpu=baseline \
     -Dpie \
-    --build-id=none \
     -Doptimize=ReleaseSafe \
     -Dxwayland
-
-    # --global-cache-dir ../zig-global-cache \
-    # --system ../zig-global-cache/p \
 }
 
 package() {
   cd $pkgname
 
-  cp -a build/* "$pkgdir"
+  cp -a out/* "$pkgdir"
 
   install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
   install -Dm644 contrib/river.desktop -t "$pkgdir/usr/share/wayland-sessions"
