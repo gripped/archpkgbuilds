@@ -2,7 +2,7 @@
 # Contributor: Devin Lin <devin@kde.org>
 
 pkgname=plasma-mobile
-pkgver=6.8.2
+pkgver=6.8.3
 _dirver=$(echo $pkgver | cut -d. -f1-3)
 pkgrel=1
 pkgdesc='Plasma shell for mobile devices'
@@ -70,11 +70,11 @@ optdepends=(
   'plasma-settings: System settings'
 )
 source=("https://download.kde.org/stable/plasma/$_dirver/$pkgname-$pkgver.tar.xz"{,.sig})
-sha256sums=('3b7abedd90131d3a79917c494a7443432b2619f495a8b1ae2acfac14a9f0121a'
+sha256sums=('d66ef609aaefef6bbe8d6b4b58a98d7322fd2d29b0eabd3539e3066ab770b60c'
             'SKIP')
 validpgpkeys=(
   E0A3EB202F8E57528E13E72FD7574483BB57B18D # Jonathan Esk-Riddell <jr@jriddell.org>
-  0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D # Bhushan Shah <bshah@kde.org>
+  58743C0A93487794BC44ECE873C3D7758E7A544A # Bhushan Shah <bshah@kde.org>
   D07BD8662C56CB291B316EB2F5675605C74E02CF # David Edmundson <davidedmundson@kde.org>
   1FA881591C26B276D7A5518EEAAF29B42A678C20 # Marco Martin <notmart@gmail.com>
 )
