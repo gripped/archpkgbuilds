@@ -6,7 +6,7 @@
 # Contributor: samuellittley <supersam.littley@gmail.com>
 
 pkgname=xprintidle
-pkgver=0.3.0
+pkgver=0.4.0
 pkgrel=1
 pkgdesc='Print the X server user idle time'
 arch=('x86_64')
@@ -20,7 +20,7 @@ depends=(
 makedepends=(
     'meson')
 source=("https://github.com/g0hl1n/xprintidle/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('6bddd464c396530e1de4c1725c3c2935135cf9a5079e5805ae139f00f0c0316b')
+sha256sums=('5fa302ea94553d43e4a6df4db5a246bc0aeea8e4f210a9cd752a710c6fbb926e')
 
 build() {
     arch-meson build "${pkgname}-${pkgver}"
