@@ -2,8 +2,8 @@
 # Contributor: A. Klitzing <aklitzing@gmail.com>
 
 pkgname=ausweisapp
-pkgver=2.6.2
-pkgrel=1
+pkgver=2.6.3
+pkgrel=2
 pkgdesc="official client for using the German electronic ID card (eID)"
 arch=('x86_64')
 license=('EUPL-1.2')
@@ -20,10 +20,19 @@ optdepends=(
 )
 source=(
 	"https://github.com/Governikus/AusweisApp2/releases/download/${pkgver}/AusweisApp-${pkgver}.tar.gz"{,.asc}
+	"vendor.patch"
 )
 validpgpkeys=('699BF3055B0A49224EFDE7C72D7479A531451088') # Governikus (AusweisApp2) <ausweisapp2@governikus.de>
-sha256sums=('8907defc59ddfe4cc65d7ac71fb1d92ef55d0df881763b96e90d283a9a87cb34'
-            'SKIP')
+sha256sums=('87a9a0546ee82aac2d21efa62eb5d42dd1538e93bf748d7ae230f590d528bde8'
+            'SKIP'
+            '5275ea107a9cca2a37918a37027d26278f8aba1a71ea3ed6099c01a451202753')
+
+prepare() {
+	cd AusweisApp-$pkgver
+
+	# Fix build on 2.6.3
+	patch -Np1 -i ../vendor.patch
+}
 
 build() {
 	local cmake_options=(
