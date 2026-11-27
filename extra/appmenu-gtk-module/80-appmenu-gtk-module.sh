@@ -1,14 +1,9 @@
 #!/bin/sh
 
-if [ -n "$GTK_MODULES" ]; then
-    GTK_MODULES="${GTK_MODULES}:appmenu-gtk-module"
-else
-    GTK_MODULES="appmenu-gtk-module"
-fi
+case ":$GTK_MODULES:" in
+    *:appmenu-gtk-module:*) echo "GTK_MODULES=$GTK_MODULES" ;;
+    *) echo "GTK_MODULES=${GTK_MODULES:+$GTK_MODULES:}appmenu-gtk-module" ;;
+esac
 
-if [ -z "$UBUNTU_MENUPROXY" ]; then
-    UBUNTU_MENUPROXY=1
-fi
-
-export GTK_MODULES
-export UBUNTU_MENUPROXY
+[ -z "$UBUNTU_MENUPROXY" ] && echo "UBUNTU_MENUPROXY=1"
+exit 0
