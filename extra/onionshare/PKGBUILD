@@ -3,7 +3,7 @@
 # Contributor: Ye Shu <shuye02 at outlook.com>
 
 pkgname=onionshare
-pkgver=2.6.5
+pkgver=2.7.3
 pkgrel=1
 pkgdesc='Share a file over Tor Hidden Services anonymously and securely'
 url='https://github.com/onionshare/onionshare'
@@ -49,8 +49,8 @@ checkdepends=(
   'python-pytest'
 )
 source=("${url}/archive/v${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('7dcee3152f5fb59a119bf6d15f26100008edcdfb5b8dc7c720f7e52c855e30addc3907683113145a73100e4d953af9f48eb83f74ce89ab2bcd5bb0526195c89c')
-b2sums=('0aba5d59e4f25fa6b9cb33245bedce4e7126351a05d8a089b247d718f864f0bea47b68176c65824c4489f7b4bd03bd8a4042a37d75a8e68ca6bd71208c401da4')
+sha512sums=('5734c5191d1c08f6af1ba663bed229467b6c2df80bb1b3a3ed7b2ac0296aeed17831a39072a2d9ba5c9e9304bb75a80760f4c1371dffce4e2ee37659a5d4dfed')
+b2sums=('5b6bd94178f0a6663fac7a5580044b240ad1bc5475df2c1b1865509faf6dd2b66e030df1203496e6719741f5f51ce375b1ab99bcf9a214f183e9b765e01aa2c1')
 
 build() {
   cd ${pkgname}-${pkgver}/cli
@@ -60,9 +60,12 @@ build() {
 }
 
 check() {
+  local _site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
   cd ${pkgname}-${pkgver}
   pushd cli
-  PYTHONPATH=".:${PYTHONPATH}" pytest tests/
+  python -m installer --destdir=test_dir dist/*.whl
+  PYTHONPATH="test_dir/$_site_packages:$PYTHONPATH" pytest tests/
   popd
   pushd desktop
   #PYTHONPATH="src:../cli:${PYTHONPATH}" pytest tests/
@@ -71,6 +74,7 @@ check() {
 package() {
   cd ${pkgname}-${pkgver}
   python -m installer --destdir="${pkgdir}" cli/dist/*.whl
+  rm "${pkgdir}/usr/bin/onionshare-cli"
   python -m installer --destdir="${pkgdir}" desktop/dist/*.whl
 
   install -Dm 644 desktop/org.onionshare.OnionShare.desktop -t "${pkgdir}/usr/share/applications/"
