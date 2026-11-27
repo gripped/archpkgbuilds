@@ -4,7 +4,7 @@
 # Contributor: Julie Shapiro <jshapiro at nvidia dot com>
 
 pkgname=nvidia-container-toolkit
-pkgver=1.20.1
+pkgver=1.20.2
 pkgrel=1
 pkgdesc="NVIDIA container toolkit"
 arch=(x86_64)
@@ -20,7 +20,7 @@ install=nvidia-container-toolkit.install
 # we cannot use LTO as otherwise we do not get reproducible package with full RELRO
 options=('!lto')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
-b2sums=('aa9d66374d1caea72dcd0f59291c81ba26e110367c02fd00acf8ec272e491c36b0e486238d9ce7a5312d1f3cdedefb09ca85ed5f60aa5fa173deba17d17af233')
+b2sums=('50b92fec822177722864eb9394e4686c08e7d536d598b221d557fa645e5b82721e82889ff3b05fa97bef9f3efebb9b0c451ef3782f2c6bcb6163896d9430f1e9')
 
 prepare() {
   cd "$pkgname-$pkgver"
