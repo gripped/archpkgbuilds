@@ -2,7 +2,7 @@
 # Contributor: Daniel Bershatsky <bepshatsky@yandex.ru>
 
 pkgname='python-ml-dtypes'
-pkgver=0.6.0
+pkgver=0.7.0
 pkgrel=1
 pkgdesc='A stand-alone implementation of several NumPy dtype extensions used in ML'
 arch=('x86_64')
@@ -13,7 +13,7 @@ makedepends=('python-absl' 'python-build' 'python-installer' 'python-pytest' 'gi
              'python-scikit-build-core')
 source=("git+https://github.com/jax-ml/ml_dtypes#tag=v$pkgver"
         "${pkgname}-eigen::git+https://gitlab.com/libeigen/eigen.git")
-sha256sums=('95ca6f53f138f6923deaaad93af384ff0459daad1225ab0f6a7db1c6087d2ba6'
+sha256sums=('163b0188a36316a72c70bad21e65be36849fac98096a364adb1bb0e5946df317'
             'SKIP')
 
 prepare() {
