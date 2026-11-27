@@ -1,0 +1,152 @@
+# Maintainer: Jonathan Grotelüschen <tippfehlr@archlinux.org>
+# Contributor: Aaron Keesing <agkphysics at gmail dot com>
+# Contributor: Matthias Kurz <m dot kurz at irregular dot at>
+
+pkgname=zotero
+pkgver=10.0.9
+pkgrel=2
+# GECKO_VERSION_LINUX in app/config.sh
+_firefox_ver=140.17.0esr
+pkgdesc="A free, easy-to-use tool to help you collect, organize, cite, and share your research sources."
+arch=('x86_64')
+url="https://www.zotero.org/"
+license=('AGPL-3.0-or-later')
+depends=(
+	'alsa-lib' 'at-spi2-core' 'bash' 'cairo' 'dbus' 'fontconfig'
+	'freetype2' 'gdk-pixbuf2' 'glib2' 'glibc' 'gtk3' 'hicolor-icon-theme'
+	'libgcc' 'libstdc++' 'libx11' 'libxcb' 'libxcomposite' 'libxcursor'
+	'libxdamage' 'libxext' 'libxfixes' 'libxi' 'libxrandr' 'libxrender'
+	'pango'
+)
+makedepends=('curl' 'git' 'nodejs' 'npm' 'perl' 'python' 'rsync' 'unzip' 'zip')
+source=(
+	"zotero.desktop"
+	"zotero-client::git+https://github.com/zotero/zotero.git#tag=$pkgver"
+	"zotero-translators::git+https://github.com/zotero/translators.git"
+	"zotero-styles::git+https://github.com/zotero/bundled-styles.git"
+	"zotero-document-worker::git+https://github.com/zotero/document-worker.git"
+	"zotero-note-editor::git+https://github.com/zotero/note-editor.git"
+	"zotero-reader::git+https://github.com/zotero/reader.git"
+	"zotero-schema::git+https://github.com/zotero/zotero-schema.git"
+	"zotero-SingleFile::git+https://github.com/gildas-lormeau/SingleFile.git"
+	"zotero-utilities::git+https://github.com/zotero/utilities.git"
+	"zotero-translate::git+https://github.com/zotero/translate.git"
+	"zotero-csl::git+https://github.com/citation-style-language/locales.git"
+	"zotero-libreoffice-integration::git+https://github.com/zotero/zotero-libreoffice-integration.git"
+	"zotero-pdf-js::git+https://github.com/zotero/pdf.js.git"
+	"zotero-epub-js::git+https://github.com/zotero/epub.js.git"
+	"zotero-structured-document-text::git+https://github.com/zotero/structured-document-text.git"
+	"https://ftp.mozilla.org/pub/firefox/releases/$_firefox_ver/linux-$CARCH/en-US/firefox-$_firefox_ver.tar.xz"{,.asc}
+	"close-shell-when-launching.patch"
+	"disable-updater.patch"
+	"release-channel.patch"
+	"no-prebuilt-modules.patch"
+)
+noextract=("firefox-$_firefox_ver.tar.xz")
+validpgpkeys=(
+	'14F26682D0916CDD81E37B6D61B7B526D98F0353' # Mozilla Software Releases <release@mozilla.com>
+)
+sha256sums=('7345737efecae655c0469b8c820f2c5142a61c7cc0573ca9596e1ff0894ca954'
+            '0ad2b468712c61a752a5c21d5711d008c254ce9b1bc8ccd017d4dce052ef1ac5'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            '86d049070ad80b74d8e674793e22d28923b4a7a1da06b4d65402f91c67a10314'
+            'SKIP'
+            'fa202694b513d122bf1a952a395eebea94981dbf747ced4e70a6c5a82da5aa3b'
+            '136a01b8f3547531c5a3ba7842b0ebe9e5f8fdd894de0e75fdceb70d86c23352'
+            'ac6ab93784d78c9f3766896b6642382dc339fedec0e632dc8d4f58ad76e01606'
+            'f3f1fab32f3f4d0187c292f04521dd0b60f27cda3f67f65bdd47ec35836f5a7a')
+
+prepare() {
+	cd zotero-client
+
+	# Close shell when launching
+	patch -Np1 -i ../close-shell-when-launching.patch
+
+	patch -Np1 -i ../disable-updater.patch
+
+	# mark as release build
+	patch -Np1 -i ../release-channel.patch
+
+	# Build reader, document-worker and note-editor from source: make the download
+	# of prebuilt CI artifacts fail so they are built from source instead.
+	patch -Np1 -i ../no-prebuilt-modules.patch
+
+	# Use the verified Firefox tarball instead of letting fetch_xulrunner download it.
+	# Abort if upstream's Gecko version differs, as it would be downloaded otherwise
+	grep -Fxq "GECKO_VERSION_LINUX=\"$_firefox_ver\"" app/config.sh
+	install -Dm644 "$srcdir/firefox-$_firefox_ver.tar.xz" "app/xulrunner/firefox-$_firefox_ver-$CARCH.tar.xz"
+
+	npm ci
+
+	git submodule init
+	git submodule deinit --force app/modules/zotero-word-for-mac-integration app/modules/zotero-word-for-windows-integration
+	git config submodule.translators.url "$srcdir/zotero-translators"
+	git config submodule.styles.url "$srcdir/zotero-styles"
+	git config submodule.pdf-worker.url "$srcdir/zotero-document-worker"
+	git config submodule.note-editor.url "$srcdir/zotero-note-editor"
+	git config submodule.pdf-reader.url "$srcdir/zotero-reader"
+	git config submodule.resource/schema/global.url "$srcdir/zotero-schema"
+	git config submodule.resource/SingleFile.url "$srcdir/zotero-SingleFile"
+	git config submodule.chrome/content/zotero/xpcom/utilities.url "$srcdir/zotero-utilities"
+	git config submodule.chrome/content/zotero/xpcom/translate.url "$srcdir/zotero-translate"
+	git config submodule.chrome/content/zotero/locale/csl.url "$srcdir/zotero-csl"
+	git config submodule.app/modules/zotero-libreoffice-integration.url "$srcdir/zotero-libreoffice-integration"
+	git -c protocol.file.allow=always submodule update
+
+	cd "$srcdir/zotero-client/chrome/content/zotero/xpcom/utilities"
+	git config submodule.resource/schema/global.url "$srcdir/zotero-schema"
+	git -c protocol.file.allow=always submodule update
+
+	cd "$srcdir/zotero-client/reader"
+	git submodule init
+	git config submodule.pdfjs/pdf.js.url "$srcdir/zotero-pdf-js"
+	git config submodule.epubjs/epub.js.url "$srcdir/zotero-epub-js"
+	git config submodule.structured-document-text.url "$srcdir/zotero-structured-document-text"
+	git -c protocol.file.allow=always submodule update
+
+	cd "$srcdir/zotero-client/document-worker"
+	git submodule init
+	git config submodule.pdf.js.url "$srcdir/zotero-pdf-js"
+	git config submodule.structured-document-text.url "$srcdir/zotero-structured-document-text"
+	git -c protocol.file.allow=always submodule update
+}
+
+build() {
+	cd zotero-client
+
+	NODE_OPTIONS="--openssl-legacy-provider --no-experimental-webstorage" npm run --allow-git=root build
+	app/scripts/dir_build -p l
+
+	if [[ "$CARCH" == "aarch64" ]]; then
+		mv app/staging/Zotero_linux-{arm64,aarch64}
+	fi
+}
+
+package() {
+	install -Dm644 zotero.desktop -t "$pkgdir/usr/share/applications/"
+
+	cd zotero-client
+
+	install -d "$pkgdir"/usr/{bin,lib/zotero}
+	cp -r app/staging/Zotero_linux-$CARCH/* "$pkgdir/usr/lib/zotero/"
+	ln -s /usr/lib/zotero/zotero "$pkgdir/usr/bin/zotero"
+
+	# Copy zotero icons to a standard location
+	install -Dm644 "$pkgdir/usr/lib/zotero/icons/icon32.png" "$pkgdir/usr/share/icons/hicolor/32x32/apps/zotero.png"
+	install -Dm644 "$pkgdir/usr/lib/zotero/icons/icon64.png" "$pkgdir/usr/share/icons/hicolor/64x64/apps/zotero.png"
+	install -Dm644 "$pkgdir/usr/lib/zotero/icons/icon128.png" "$pkgdir/usr/share/icons/hicolor/128x128/apps/zotero.png"
+	install -Dm644 "$pkgdir/usr/lib/zotero/icons/symbolic.svg" "$pkgdir/usr/share/icons/hicolor/symbolic/apps/zotero-symbolic.svg"
+}

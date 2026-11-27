@@ -1,0 +1,58 @@
+diff --git a/app/assets/prefs.js b/app/assets/prefs.js
+index 72fc9c0..20cca00 100644
+--- a/app/assets/prefs.js
++++ b/app/assets/prefs.js
+@@ -106,7 +106,7 @@ pref("extensions.experiments.enabled", true);
+ 
+ // Not set on Windows in Firefox anymore since it's a per-installation pref,
+ // but we override that in fetch_xulrunner
+-pref("app.update.auto", true);
++pref("app.update.auto", false);
+ 
+ // URL user can browse to manually if for some reason all update installation
+ // attempts fail.
+diff --git a/app/build.sh b/app/build.sh
+index 32affdc..72ffd1d 100755
+--- a/app/build.sh
++++ b/app/build.sh
+@@ -1154,11 +1154,6 @@ if [ $BUILD_LINUX == 1 ]; then
+ 		cp "$CALLDIR/linux/zotero.desktop" "$APPDIR"
+ 		cp "$CALLDIR/linux/set_launcher_icon" "$APPDIR"
+ 		
+-		# Use our own updater, because Mozilla's requires updates signed by Mozilla
+-		check_lfs_file "$CALLDIR/linux/updater.tar.xz"
+-		tar xf "$CALLDIR/linux/updater.tar.xz" --to-stdout updater-$arch > "$APPDIR/updater"
+-		chmod 755 "$APPDIR/updater"
+-
+ 		# Copy app files
+ 		rsync -a "$base_dir/" "$APPDIR/"
+ 		
+diff --git a/app/scripts/fetch_xulrunner b/app/scripts/fetch_xulrunner
+index 73c6d35..faa2e72 100755
+--- a/app/scripts/fetch_xulrunner
++++ b/app/scripts/fetch_xulrunner
+@@ -155,6 +155,9 @@ function modify_omni {
+ 	# Continue using app.update.auto in prefs.js on Windows
+ 	replace_line 'PER_INSTALLATION_PREFS_PLATFORMS = \["win"\]' 'PER_INSTALLATION_PREFS_PLATFORMS = []' modules/UpdateUtils.sys.mjs
+ 	
++	# Updates are handled by the system package manager
++	replace_line 'get updateDisabled\(\) \{' 'get updateDisabled() { return true;' modules/UpdateServiceStub.sys.mjs
++	
+ 	# Prompt if major update is available instead of installing automatically on restart
+ 	replace_line 'if \(!updateAuto\) \{' 'if (update.type == "major") {
+       LOG("UpdateService:_selectAndInstallUpdate - prompting because it is a major update");
+diff --git a/chrome/content/zotero/zoteroPane.xhtml b/chrome/content/zotero/zoteroPane.xhtml
+index 99b8cf2..a8e2526 100644
+--- a/chrome/content/zotero/zoteroPane.xhtml
++++ b/chrome/content/zotero/zoteroPane.xhtml
+@@ -847,10 +847,6 @@
+ 									data-l10n-id="restart-in-troubleshooting-mode-menuitem"
+ 									oncommand="ZoteroStandalone.promptForRestartInTroubleshootingMode();"/>
+ 							<menuseparator/>
+-							<menuitem id="checkForUpdates"
+-									  accesskey="&helpCheckForUpdates.accesskey;"
+-									  label="&helpCheckForUpdates.label;"
+-									  oncommand="Zotero.openCheckForUpdatesWindow();"/>
+ 							<menuitem id="aboutName"
+ 									  accesskey="&aboutProduct.accesskey;"
+ 									  label="&aboutProduct.label;"

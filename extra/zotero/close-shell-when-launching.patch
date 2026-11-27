@@ -1,0 +1,10 @@
+diff --git a/app/linux/zotero b/app/linux/zotero
+index fbaa031..b5743fb 100755
+--- a/app/linux/zotero
++++ b/app/linux/zotero
+@@ -17,4 +17,4 @@ export MOZ_LEGACY_PROFILES=1
+ export MOZ_ENABLE_WAYLAND=1
+ 
+ CALLDIR="$(dirname "$(readlink -f "$0")")"
+-"$CALLDIR/zotero-bin" -app "$CALLDIR/app/application.ini" "$@"
++exec "$CALLDIR/zotero-bin" -app "$CALLDIR/app/application.ini" "$@"
