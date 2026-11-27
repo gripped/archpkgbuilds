@@ -3,13 +3,13 @@
 
 pkgname=python-spake2
 pkgver=0.9
-pkgrel=2
+pkgrel=3
 pkgdesc="Pure-python implementation of the SPAKE2 Password-Authenticated Key"
 arch=('any')
 url="https://github.com/warner/python-spake2"
 license=('MIT')
-depends=('python' 'python-hkdf' 'python-cryptography')
-makedepends=('python-setuptools' 'python-versioneer')
+depends=('python' 'python-cryptography')
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-versioneer')
 checkdepends=('python-pytest')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/warner/python-spake2/archive/refs/tags/v${pkgver}.tar.gz")
 sha512sums=('557b17b8e28214b9c2cd0362c991ac0f61996812fd747e66397c48fdbbb314eb4e9acba9670ca41d0924f4b688931f2b32a7e9ba947ee1db3df00e9e9670d497')
@@ -22,7 +22,7 @@ prepare() {
 
 build() {
 	cd "${pkgname}-${pkgver}"
-	python setup.py build
+	python -m build --wheel --no-isolation
 }
 
 check() {
@@ -32,6 +32,6 @@ check() {
 
 package() {
 	cd "${pkgname}-${pkgver}"
-	python setup.py install --root="$pkgdir/" --optimize=1 --skip-build
+	python -m installer --destdir="$pkgdir" dist/*.whl
 	install -vDm 644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
