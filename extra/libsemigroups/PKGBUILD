@@ -1,7 +1,7 @@
 # Maintainer: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=libsemigroups
-pkgver=3.6.2
+pkgver=3.6.3
 pkgrel=1
 pkgdesc='C++ library for semigroups and monoids'
 url='https://libsemigroups.github.io'
@@ -14,7 +14,7 @@ depends=(fmt
 makedepends=(eigen
              git)
 source=(git+https://github.com/libsemigroups/libsemigroups#tag=v$pkgver)
-sha256sums=('af5af3c037594556ffe04f9f81451253e3b18cafb3f260c831d6d03931eb0154')
+sha256sums=('9fb4f057a128537f73bed9129f45cb6454aca2ac4e86aa2b6e80df93bed2356b')
 
 prepare() {
   cd $pkgname
