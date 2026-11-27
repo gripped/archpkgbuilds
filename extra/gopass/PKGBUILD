@@ -4,7 +4,7 @@
 # Maintainer: Carl Smedstad <carsme@archlinux.org>
 
 pkgname=gopass
-pkgver=1.17.4
+pkgver=1.17.5
 pkgrel=1
 pkgdesc="The slightly more awesome standard unix password manager for teams."
 arch=('x86_64')
@@ -18,7 +18,7 @@ optdepends=('xdotool: for typing passwords selected by dmenu'
             'wl-clipboard: clipboard support (wayland)')
 options=("!lto")
 source=("git+${url}.git#tag=v${pkgver}?signed")
-sha512sums=('c9d028f7c986a3850cb3b0fb43efa6cde3eb51f9eb94692a0f63b170e2c0017ab90af8fd2dfaf0b751c16eddd48a89790fa3c5425460d795b9363932f1869325')
+sha512sums=('7e86538e2b36e2adfe8a084a1d52205c69e8d4f5b204b8e1f8e4b8b809eea46aba3543085cabedc738fbf0bd4bfd5f352316e0335347e016b75a8a8dbdbb28b1')
 validpgpkeys=('7BCE61F400F3CD911EF86EF1D31FA054C85AEFAC') # Dominik Schulz <dominik.schulz@gmail.com>
 
 prepare() {
