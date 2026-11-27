@@ -1,0 +1,87 @@
+From e0c49835480134a9f122d375f2d6861851db513c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 23 Nov 2026 18:48:09 +0100
+Subject: [PATCH] Don't spawn ibus-daemon
+
+IBus provides a systemd user service for GNOME sessions,
+which is started after gnome-session-initialized.target.
+However, GNOME Flashback spawns ibus-daemon during
+initialization, before the systemd service is started.
+
+As a result, the systemd service fails to start because an
+IBus daemon is already running, causing the user session
+to enter a degraded state.
+
+Let the systemd user service manage the IBus daemon instead
+of launching it from the input source manager.
+---
+ .../libinput-sources/gf-ibus-manager.c        | 25 -------------------
+ 1 file changed, 25 deletions(-)
+
+diff --git a/gnome-flashback/libinput-sources/gf-ibus-manager.c b/gnome-flashback/libinput-sources/gf-ibus-manager.c
+index 6032a26..dd67e75 100644
+--- a/gnome-flashback/libinput-sources/gf-ibus-manager.c
++++ b/gnome-flashback/libinput-sources/gf-ibus-manager.c
+@@ -33,8 +33,6 @@ struct _GfIBusManager
+   GfCandidatePopup *candidate_popup;
+   IBusBus          *ibus;
+ 
+-  GSubprocess      *subprocess;
+-
+   GHashTable       *engines;
+ 
+   IBusPanelService *panel_service;
+@@ -62,24 +60,6 @@ static guint signals[LAST_SIGNAL] = { 0 };
+ 
+ G_DEFINE_TYPE (GfIBusManager, gf_ibus_manager, G_TYPE_OBJECT)
+ 
+-static void
+-spawn (GfIBusManager *manager)
+-{
+-  GError *error;
+-
+-  error = NULL;
+-  manager->subprocess = g_subprocess_new (G_SUBPROCESS_FLAGS_STDOUT_SILENCE |
+-                                          G_SUBPROCESS_FLAGS_STDERR_SILENCE,
+-                                          &error, "ibus-daemon", "--xim",
+-                                          "--panel", "disable", NULL);
+-
+-  if (error != NULL)
+-    {
+-      g_warning ("Failed to launch ibus-daemon: %s", error->message);
+-      g_error_free (error);
+-    }
+-}
+-
+ static void
+ clear (GfIBusManager *manager)
+ {
+@@ -100,8 +80,6 @@ clear (GfIBusManager *manager)
+   manager->register_properties_id = 0;
+ 
+   g_signal_emit (manager, signals[SIGNAL_READY], 0, FALSE);
+-
+-  spawn (manager);
+ }
+ 
+ static void
+@@ -395,7 +373,6 @@ gf_ibus_manager_dispose (GObject *object)
+     }
+ 
+   g_clear_object (&manager->ibus);
+-  g_clear_object (&manager->subprocess);
+ 
+   if (manager->engines != NULL)
+     {
+@@ -481,8 +458,6 @@ gf_ibus_manager_init (GfIBusManager *manager)
+ 
+   g_signal_connect (manager->ibus, "global-engine-changed",
+                     G_CALLBACK (global_engine_changed_cb), manager);
+-
+-  spawn (manager);
+ }
+ 
+ GfIBusManager *
+-- 
+GitLab
+

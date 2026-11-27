@@ -2,7 +2,7 @@
 
 pkgname=gnome-flashback
 pkgver=3.58.0
-pkgrel=5
+pkgrel=7
 pkgdesc='GNOME Flashback session'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/GnomeFlashback'
@@ -58,7 +58,7 @@ optdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/$pkgname.git?signed#tag=$pkgver"
   git+https://gitlab.gnome.org/GNOME/libgnome-volume-control.git
-  gnome-flashback-69.patch
+  gnome-flashback-no-ibus-launch.patch
   gnome-flashback.pam
   gnome-flashback.theme
   gnome-flashback-portals.conf
@@ -66,7 +66,7 @@ source=(
 b2sums=(
   ae22c2a4fb1d836a126e10922e0325454615e73928540b11b5f3d06c8cc5794364cece69545e421c157ce794942313eade99e04d2c43bfcdc5834828dc16852b
   SKIP
-  16980e5d792458a75a3cf47b39ec67542669561c35f8e0978e97dbab07536cd2e75947a4784ab736ed5ca23082289b8c6a2778a5238850434a01e163d947b9b5
+  03a26fe1e7c01a910ef81b5512302c33710afc4ca0b159f3f9bc9256ee2cd46cf9a4a4b339e5ce60981657eec0b742eaafd8c42432bb4600a4b964514c149081
   214a01d01d3bee526bf3d856758f56fc51e77dacc8feaefee27221924abacdb3828d4269e5fa6773abec728a563478588d705996da6afbd0693d456631f01eb5
   ca447c74896fc89ce0b4cce8bf3771214a0bf292ffc9136147bb4c7247ff20d19894b4e29dcb60ba4d8865b21b7dca74ecc7c93053d7738bb9373af0740b1ba9
   ab0f388ee846b7a60655bc2d0a2103d58c6b468c5919fc652fd489282ca8700b89f0afd8a116c830b7b5793396b067a8b30c6fe4998140b17f467948ee979d63
@@ -88,12 +88,19 @@ prepare() {
   # https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/71
   git cherry-pick -n d2e06c31a11fb31df9c572dc65b17f2f3dd0689e
 
+  # Don't spawn ibus-daemon
+  # https://gitlab.gnome.org/GNOME/gnome-flashback/-/merge_requests/83
+  git apply -3 ../gnome-flashback-no-ibus-launch.patch
+
   # Use the desktop background for the lock screen
   sed -i 's/org.gnome.desktop.screensaver/org.gnome.desktop.background/' gnome-flashback/libscreensaver/gf-manager.c
 
   # Customize style
   sed -i '/gf-unlock-dialog frame border {/{n;s/border-radius: [0-9]\+px;/border-radius: 30px;/}
           /gf-popup-window {/{n;s/border-radius: [0-9]\+px;/border-radius: 15px;/}' data/theme/common.css
+
+  # Rename Xsession
+  sed -i '/^Name=/ s/ (Metacity)//' data/xsessions/gnome-flashback-metacity.desktop.in.in
 
   # Set default icon theme to GnomeFlashback
   sed -i '1i [org.gnome.desktop.interface:GNOME-Flashback]\nicon-theme='\''GnomeFlashback'\''\n' data/schemas/00_gnome-flashback.gschema.override
