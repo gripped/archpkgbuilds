@@ -4,20 +4,20 @@
 
 pkgname=hyprpaper
 pkgver=0.8.5
-pkgrel=3
+pkgrel=5
 pkgdesc='a blazing fast wayland wallpaper utility with IPC controls'
 arch=(x86_64)
 url="https://github.com/hyprwm/$pkgname"
 license=(BSD-3-Clause)
-depends=(file libmagic.so
+depends=(file # libmagic.so
          glibc # libc.so libm.so
-         libgcc libgcc_s.so
-         libstdc++ libstdc++.so
-         hyprlang libhyprlang.so
-         hyprtoolkit libhyprtoolkit.so
-         hyprutils libhyprutils.so
-         hyprwire libhyprwire.so
-         libglvnd libGLESv2.so
+         libgcc # libgcc_s.so
+         libstdc++ # libstdc++.so
+         hyprlang # libhyprlang.so
+         hyprtoolkit # libhyprtoolkit.so
+         hyprutils # libhyprutils.so
+         hyprwire # libhyprwire.so
+         libglvnd # libGLESv2.so
          wayland) # libwayland-cursor.so libwayland-client.so
 makedepends=(cmake
              hyprwayland-scanner
@@ -37,6 +37,14 @@ build() {
 }
 
 package() {
+	depends+=(libmagic.so
+	          libgcc_s.so
+	          libstdc++.so
+	          libhyprlang.so
+	          libhyprtoolkit.so
+	          libhyprutils.so
+	          libhyprwire.so
+	          libGLESv2.so)
 	cd "$_archive"
 	DESTDIR="$pkgdir" cmake --install build
 	install -Dm0644 -t "$pkgdir/usr/share/licenses/$pkgname" LICENSE
