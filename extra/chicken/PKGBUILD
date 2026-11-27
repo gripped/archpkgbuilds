@@ -3,7 +3,7 @@
 # Contributor: David <david@pako.st>
 
 pkgname=chicken
-pkgver=6.0.0
+pkgver=6.1.0
 pkgrel=1
 pkgdesc='Feature rich R5RS Scheme compiler and interpreter'
 arch=(x86_64)
@@ -13,7 +13,7 @@ makedepends=(chicken)
 optdepends=('tk: for the tcl/tk egg')
 options=(staticlibs)
 source=("https://code.call-cc.org/releases/$pkgver/$pkgname-$pkgver.tar.gz")
-b2sums=('7d17b549443cc39d7b2d0bacbd82a60914f7d72ed7c259fe39f409aed0adc578df2d661cee57f61159b8146f29311c9e7378cf26463f59ec123c3d361a857eed')
+b2sums=('4f3b91c86b72d46ed83c0a589a1ef88870fb399c58c5c4dd85cacbee50f4a6b4cb8e2510fb8878d650e4109584aadd82f740a035f4f8124d71cf9622933c4dfa')
 
 build() {
   make -C $pkgname-$pkgver \
