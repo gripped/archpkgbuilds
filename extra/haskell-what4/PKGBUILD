@@ -2,8 +2,8 @@
 
 _hkgname=what4
 pkgname=haskell-what4
-pkgver=1.7
-pkgrel=9
+pkgver=1.7.1.0
+pkgrel=3
 pkgdesc="Solver-agnostic symbolic values support for issuing queries"
 url="https://github.com/GaloisInc/what4"
 license=('BSD-3-Clause')
@@ -14,16 +14,16 @@ depends=('ghc-libs' 'haskell-async' 'haskell-attoparsec' 'haskell-bimap' 'haskel
          'haskell-hedgehog' 'haskell-io-streams' 'haskell-lens' 'haskell-libbf' 'haskell-megaparsec'
          'haskell-ordered-containers' 'haskell-panic' 'haskell-parameterized-utils'
          'haskell-prettyprinter' 'haskell-s-cargot' 'haskell-scientific' 'haskell-tasty'
-         'haskell-tasty-hedgehog' 'haskell-tasty-hunit' 'haskell-temporary' 'haskell-th-lift'
+         'haskell-tasty-hedgehog' 'haskell-tasty-hunit' 'haskell-th-lift'
          'haskell-th-lift-instances' 'haskell-unliftio' 'haskell-unordered-containers'
-         'haskell-utf8-string' 'haskell-vector' 'haskell-versions' 'haskell-zenc')
+         'haskell-vector' 'haskell-versions' 'haskell-zenc')
 makedepends=('ghc' 'uusi' 'haskell-contravariant' 'haskell-lumberjack' 'haskell-quickcheck'
              'haskell-tasty-checklist' 'haskell-tasty-expected-failure' 'haskell-tasty-quickcheck'
-             'haskell-tasty-sugar')
+             'haskell-tasty-sugar' 'haskell-temporary')
 checkdepends=('cvc4' 'yices' 'z3')
 optdepends=('cvc4' 'yices' 'z3')
 source=(https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz)
-sha512sums=('00e5bf996f48f6a6b5b61a26e33870a5ffca98d54eeade89a6b4ec57d4177bb657c20eb53403fd621c84fe4ef0ae96ba1d42c53597fd26434489186e216a804b')
+sha512sums=('d99eface1e3c7206f88308f854bf532209e70ecd59fac2f09a9a71090b2d944c994ec2401eef39269b59ccffb1565133edcd0fa7d5f0d3e684f6942d50a9d37d')
 
 prepare() {
     cd $_hkgname-$pkgver
