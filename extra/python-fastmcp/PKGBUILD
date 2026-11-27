@@ -1,8 +1,8 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgbase=python-fastmcp
-pkgname=('python-fastmcp' 'python-fastmcp-slim' 'python-fastmcp-tasks' 'python-fastmcp-remote')
-pkgver=4.1.8
+pkgname=('python-fastmcp' 'python-fastmcp-slim' 'python-fastmcp-tasks' 'python-fastmcp-remote' 'python-fastmcp-events')
+pkgver=4.2.6
 pkgrel=1
 pkgdesc="The fast, Pythonic way to build MCP servers and clients"
 arch=('any')
@@ -12,7 +12,6 @@ depends=(
   'python'
   'python-aiofile'
   'python-anyio'
-  'python-authlib'
   'python-cachetools'
   'python-certifi'
   'python-cyclopts'
@@ -54,12 +53,15 @@ makedepends=(
   'python-wheel'
 )
 checkdepends=(
+  'jq'
   'npm'
   'python-anthropic'
+  'python-coverage'
   'python-cryptography'
   'python-dirty-equals'
   'python-fastapi'
   'python-google-genai'
+  'python-hypothesis'
   'python-httpx'
   'python-inline-snapshot'
   'python-openai'
@@ -80,6 +82,7 @@ checkdepends=(
 )
 optdepends=(
   'python-anthropic: Anthropic sampling handler'
+  'python-fastmcp-events: event streaming support'
   'python-fastmcp-tasks: background task execution'
   'python-google-genai: Google GenAI sampling handler'
   'python-openai: OpenAI sampling handler'
@@ -89,21 +92,18 @@ optdepends=(
 )
 source=("git+https://github.com/PrefectHQ/fastmcp.git#tag=v$pkgver"
         "git+https://github.com/APIs-guru/openapi-directory.git#commit=f7207cf0a5c56081d275ebae4cf615249323385d")
-sha512sums=('d2fb10f1be055334dd522b80c357251d4331694e84d7ca1911a141fa5cf584927d10c3bf6bb222f27d8b305d992951a60ff8d8faa2c0df7ac31b068bcc5d4dda'
+sha512sums=('53e34e0846a41ee82f613fa26893c76f4f6eb3932e106094d6b003b5ca6de5f12997cc27f8a1fa959f1fd38c637ba05440caef5bf80afa53c790b63d47d39478'
             'a5638323be06c50c953b886ffbc40884fdf45dd3aaa73f83b9ce421ba9e7c699a9e1fb9a7da0ef0a18b546f454794ed414d77a8f5998b72ed6e77a8325247a4a')
 
 prepare() {
   cd fastmcp
-  # Mock OpenAPI test requests to avoid api.example.com DNS timeouts.
-  # https://github.com/PrefectHQ/fastmcp/pull/6249
-  git cherry-pick -n cd88f8c04d4f9f246ba1a2dd89821a82d0816f00
   # Anthropic 2.x defines MessageParam as a union, so construct plain dictionaries.
   sed -i 's/MessageParam(/dict(/g' fastmcp_slim/fastmcp/client/sampling/handlers/anthropic.py
   # The dictionary payloads also support Anthropic 2.x.
   sed -i 's/anthropic>=0.48.0,<2/anthropic>=0.48.0,<3/' fastmcp_slim/pyproject.toml
   # The packaged redis-py backports the 8.1.0 reconnection fix.
   # https://github.com/redis/redis-py/pull/4260
-  sed -i 's/redis!=8.1.0/redis/' fastmcp_tasks/pyproject.toml
+  sed -i 's/redis!=8.1.0/redis/' fastmcp_tasks/pyproject.toml fastmcp_events/pyproject.toml
 }
 
 build() {
@@ -112,6 +112,7 @@ build() {
   python -m build --wheel --no-isolation fastmcp_slim
   python -m build --wheel --no-isolation fastmcp_tasks
   python -m build --wheel --no-isolation fastmcp_remote
+  python -m build --wheel --no-isolation fastmcp_events
 }
 
 check() {
@@ -121,13 +122,16 @@ check() {
   test-env/bin/python -m installer fastmcp_slim/dist/*.whl
   test-env/bin/python -m installer fastmcp_tasks/dist/*.whl
   test-env/bin/python -m installer fastmcp_remote/dist/*.whl
+  test-env/bin/python -m installer fastmcp_events/dist/*.whl
 
-  # Local GitHub OAuth tests use dummy app credentials; remote MCP needs a real token.
-  FASTMCP_TEST_AUTH_GITHUB_CLIENT_ID=test-client \
+  # Avoid PyPI update checks; build workers can take over 5s to start subprocesses.
+  FASTMCP_CHECK_FOR_UPDATES=off \
+    FASTMCP_TEST_AUTH_GITHUB_CLIENT_ID=test-client \
     FASTMCP_TEST_AUTH_GITHUB_CLIENT_SECRET=test-secret \
     OPENAPI_DIRECTORY_PATH="$srcdir/openapi-directory" \
     RUN_REAL_WORLD_SCHEMA_TEST=1 \
     PATH="$PWD/test-env/bin:$PATH" test-env/bin/python -m pytest \
+    --timeout=30 \
     --ignore=tests/integration_tests/test_github_mcp_remote.py
 }
 
@@ -185,5 +189,21 @@ package_python-fastmcp-remote() {
 
   cd fastmcp
   python -m installer --destdir="$pkgdir" fastmcp_remote/dist/*.whl
+  install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+package_python-fastmcp-events() {
+  pkgdesc="Events for FastMCP servers and clients"
+  depends=(
+    'python'
+    'python-fastmcp'
+  )
+  optdepends=(
+    'python-pydocket: Redis-backed event log'
+    'python-redis: Redis client for persistent event logs'
+  )
+
+  cd fastmcp
+  python -m installer --destdir="$pkgdir" fastmcp_events/dist/*.whl
   install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
