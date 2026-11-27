@@ -4,7 +4,7 @@
 # Contributor: Bruno Pagani <archange@archlinux.org>
 
 pkgname=tpm2-tss
-pkgver=4.2.1
+pkgver=4.2.2s
 pkgrel=2
 pkgdesc='Implementation of the TCG Trusted Platform Module 2.0 Software Stack (TSS2)'
 arch=(x86_64)
@@ -58,11 +58,9 @@ options=(
 )
 source=(
   git+https://github.com/tpm2-software/tpm2-tss?signed#tag=${pkgver}
-  0001-dist-Fully-lock-the-tss-system-user.patch
   $pkgname.tmpfiles
 )
-b2sums=('30a682504466ea4a1e966f6eb5a675cb93af87df59f82b7a30bdf21ea328eefbac7bee39e66814cd355c7e55fbf094d435c09cc8427918f44d8c36ec2b83bcfe'
-        '62553b08cae6c90b3ce2244b2440e51228ce31104fd22f84f1e784b170e184745933994a678057afc1834fa48c4bab00b07299d7ff060469e6a7f0458a5a5efa'
+b2sums=('9ce285e042a533330284f6e4af949fefaded9f1709687666b71696054a6044cd5f813aeadb901e2105756c329c612d62c6e87a903b91f0980694432e95e64b3d'
         '5615dc60cbed1a2b4b8c6fbb103aa33a81a73bb910c2afca8eaf84ed96fac4a78ae6767b97f93548326cb0366d5475605f547f28c21a06b739c33264c3cf2492')
 validpgpkeys=(
   'D533275B0123D0A679F51FF48F4F9A45D7FFEE74' # Andreas Fuchs <andreas.fuchs@infineon.com
@@ -72,13 +70,10 @@ validpgpkeys=(
 )
 
 prepare() {
-  # Fully lock `tss` system user. Backport of https://github.com/tpm2-software/tpm2-tss/pull/3133
-  patch -Np1 -d $pkgname -i ../0001-dist-Fully-lock-the-tss-system-user.patch
-
   cd "$pkgname"
   # NOTE: Set the VERSION file manually, so that configure.ac uses a release version and does not add `-Werror`
   sed '/VERSION/d' -i bootstrap
-  printf '%s\n' "$pkgver" > VERSION
+  printf '%s\n' "$pkgver" | sed 's/[^0-9.]//' > VERSION
   ./bootstrap
 }
 
