@@ -1,14 +1,17 @@
 pkgbase = soapyhackrf
 	pkgdesc = Soapy SDR plugin for the HackRF
-	pkgver = 0.3.4
+	pkgver = 0.3.6
 	pkgrel = 2
 	url = https://github.com/pothosware/SoapyHackRF
 	arch = x86_64
-	license = GPL3
+	license = MIT
 	makedepends = cmake
+	depends = glibc
+	depends = libstdc++
+	depends = libgcc
 	depends = soapysdr
 	depends = hackrf
-	source = soapyhackrf-0.3.4.tar.gz::https://github.com/pothosware/SoapyHackRF/archive/soapy-hackrf-0.3.4.tar.gz
-	sha512sums = 950fc0d2d9b1a5946605d0f7f934a3d92facb6878251e8d9a673384db85e1b776ab27fd3499db11d482d599f78e705b9394b5e1238935d297252ab5acc8fb935
+	source = soapyhackrf-0.3.6.tar.gz::https://github.com/pothosware/SoapyHackRF/archive/soapy-hackrf-0.3.6.tar.gz
+	sha512sums = bc32e713fa2c54a1ac1a7f21ee964227518c2f5b1f24e8028f6e91c074d55a12d5fff016762072cd07b8fb5d3d608c2049025afe4898c40929171903a11ffa8d
 
 pkgname = soapyhackrf

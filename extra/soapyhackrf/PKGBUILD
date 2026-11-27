@@ -1,18 +1,18 @@
 # Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
 
 pkgname=soapyhackrf
-pkgver=0.3.4
+pkgver=0.3.6
 _pkgname=SoapyHackRF
 _gitver=soapy-hackrf-$pkgver
 pkgrel=2
 pkgdesc='Soapy SDR plugin for the HackRF'
 arch=('x86_64')
 url='https://github.com/pothosware/SoapyHackRF'
-license=('GPL3')
-depends=('soapysdr' 'hackrf')
+license=('MIT')
+depends=('glibc' 'libstdc++' 'libgcc' 'soapysdr' 'hackrf')
 makedepends=('cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/$_gitver.tar.gz")
-sha512sums=('950fc0d2d9b1a5946605d0f7f934a3d92facb6878251e8d9a673384db85e1b776ab27fd3499db11d482d599f78e705b9394b5e1238935d297252ab5acc8fb935')
+sha512sums=('bc32e713fa2c54a1ac1a7f21ee964227518c2f5b1f24e8028f6e91c074d55a12d5fff016762072cd07b8fb5d3d608c2049025afe4898c40929171903a11ffa8d')
 
 build() {
   mkdir -p $_pkgname-$_gitver/build
@@ -29,5 +29,6 @@ package() {
   cd $_pkgname-$_gitver/build
 
   make DESTDIR="$pkgdir" install
+  install -Dm644 ../LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
 
