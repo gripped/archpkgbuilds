@@ -3,7 +3,7 @@
 
 pkgname=metacity
 pkgver=3.58.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Window manager of GNOME Flashback'
 arch=(x86_64)
 url='https://wiki.gnome.org/Projects/Metacity'
@@ -53,6 +53,11 @@ validpgpkeys=(7B44FD78E49334EC10B3B288A3D013EC303E1894) # Alberts Muktupāvels <
 prepare() {
   cd $pkgname
 
+  # Make compositor command-line options temporary overrides
+  # https://gitlab.gnome.org/GNOME/metacity/-/merge_requests/43
+  git cherry-pick -n e52a245546bc10c32ad3d4ff79be702636e96e9e
+
+  # Add fallback window icon
   # https://gitlab.gnome.org/GNOME/metacity/-/merge_requests/38
   git apply -3 ../metacity-38.patch
 
@@ -69,7 +74,6 @@ build() {
     --disable-debug \
     --enable-compile-warnings \
     --disable-vulkan
-  sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
   make
 }
 
