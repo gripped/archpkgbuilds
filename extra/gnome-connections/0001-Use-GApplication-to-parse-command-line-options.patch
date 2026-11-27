@@ -6,24 +6,25 @@ Subject: [PATCH] Use GApplication to parse command line options
 It already supports adding and parsing option entries, so it's not
 necessary to parse them manually.
 ---
- src/application.vala | 46 ++++++++++++++++++--------------------------
+ src/application.vala | 46 +++++++++++++++++++++-----------------------
  src/main.vala        |  1 +
- 2 files changed, 20 insertions(+), 27 deletions(-)
+ 2 files changed, 23 insertions(+), 24 deletions(-)
 
 diff --git a/src/application.vala b/src/application.vala
-index 9fe2c2aa7874..5855e2e4200d 100644
+index 70c2e24..c350c29 100644
 --- a/src/application.vala
 +++ b/src/application.vala
-@@ -44,11 +44,24 @@ namespace Connections {
+@@ -44,11 +44,25 @@ namespace Connections {
              model = new GLib.ListStore (typeof (Connections.Connection));
          }
  
 +        static bool opt_fullscreen;
 +        static string[] opt_uris;
 +        static string opt_file_import_uri;
++
 +        const OptionEntry[] options = {
 +            { "file", 'F', 0, GLib.OptionArg.FILENAME, null, N_ ("Open .vnc or .rdp file at the given PATH"), N_ ("PATH") },
-+            { "fullscreen", 'f', 0, GLib.OptionArg.NONE, null, N_("Open in full screen"), null },
++            { "fullscreen", 'f', 0, GLib.OptionArg.NONE, null, N_ ("Open in full screen"), null },
 +            { null }
 +        };
 +
@@ -39,7 +40,7 @@ index 9fe2c2aa7874..5855e2e4200d 100644
              settings = new GLib.Settings ("org.gnome.Connections");
  
              var action = new GLib.SimpleAction ("help", null);
-@@ -229,42 +242,21 @@ namespace Connections {
+@@ -235,42 +249,26 @@ namespace Connections {
              quit ();
          }
  
@@ -53,18 +54,17 @@ index 9fe2c2aa7874..5855e2e4200d 100644
 -            { null }
 -        };
          public override int command_line (GLib.ApplicationCommandLine cmdline) {
--            opt_uris = null;
--            opt_file_import_uri = null;
--            opt_fullscreen = false;
 +            var options = cmdline.get_options_dict ();
++
++            opt_fullscreen = false;
+             opt_uris = null;
+             opt_file_import_uri = null;
+-            opt_fullscreen = false;
  
 -            var parameter_string = _("A remote desktop client for the GNOME desktop environment");
 -            var opt_context = new OptionContext ("— " + parameter_string);
 -            opt_context.add_main_entries (options, null);
-+            options.lookup ("file", "^ay", out opt_file_import_uri);
-+            options.lookup ("fullscreen", "b", out opt_fullscreen);
-+            opt_uris = cmdline.get_arguments ()[1:];
- 
+-
 -            try {
 -                string[] args1 = cmdline.get_arguments ();
 -                unowned string[] args2 = args1;
@@ -74,22 +74,25 @@ index 9fe2c2aa7874..5855e2e4200d 100644
 -
 -                return 1;
 -            }
--
--            if (opt_uris != null && opt_uris.length > 1) {
-+            if (opt_uris.length > 1) {
++            options.lookup ("file", "^&ay", out opt_file_import_uri);
++            options.lookup ("fullscreen", "b", out opt_fullscreen);
++            opt_uris = cmdline.get_arguments ()[1:];
+ 
+             if (opt_uris != null && opt_uris.length > 1) {
                  cmdline.printerr (_("Too many command-line arguments specified.\n"));
  
                  return 1;
              }
++
              activate ();
  
 -            if (opt_uris != null) {
-+            if (opt_uris[0] != null) {
++            if (opt_uris != null && opt_uris.length > 0) {
                  var uri = opt_uris[0];
  
                  // TODO: throw a notification if this fails.
 diff --git a/src/main.vala b/src/main.vala
-index 227ce02d1be9..963e21a694ed 100644
+index 227ce02..963e21a 100644
 --- a/src/main.vala
 +++ b/src/main.vala
 @@ -22,6 +22,7 @@
