@@ -1,0 +1,73 @@
+# Maintainer: Giovanni Harting <anonfunc@archlinux.org>
+
+pkgname=google-cloud-cli
+pkgver=594.0.1
+pkgrel=2
+pkgdesc='Command line tools for Google Cloud: gcloud and bq'
+arch=(x86_64)
+url='https://cloud.google.com/cli'
+license=(Apache-2.0)
+depends=(bash python)
+optdepends=('cloud-sql-proxy: gcloud sql connect'
+            'gke-gcloud-auth-plugin: authenticate kubectl against GKE clusters'
+            'openssh: gcloud compute ssh and scp')
+backup=(opt/$pkgname/properties)
+options=(!debug !strip)
+source=("https://dl.google.com/dl/cloudsdk/release/downloads/for_packagers/linux/${pkgname}_$pkgver.orig_amd64.tar.gz")
+b2sums=('c0cc578740c78ef0a16f0601e4182dd5dda2b31d523dabec49db9d45a849d992988862f908cfa7b17a2ff417696dedad23d2e294e755d73409fccab363cb1257')
+
+prepare() {
+  cd google-cloud-sdk
+
+  # gcloud runs on the system Python, and gsutil only supports a new Python
+  # release months after gcloud does
+  rm -r platform/{bundledpythonunix,gsutil} bin/gsutil data/cli/gsutil.json \
+    .install/{bundled-python3-unix,gsutil}*
+
+  # make "gcloud components" suggest pacman and the repo package names
+  sed -E \
+    -e 's/^(cloud-sql-proxy|gke-gcloud-auth-plugin|minikube|skaffold): .*/\1: \1/' \
+    -e 's/^istioctl: .*/istioctl: istio/' \
+    -e 's/^gsutil: .*/gsutil: unavailable/' \
+    -e 's/: google-cloud-cli-.+/: unavailable/' \
+    deb/mapping/component_mapping.yaml > .install/component_mapping.yaml
+  printf '%s\n' \
+    'update: pacman -S {package}' \
+    'remove: pacman -R {package}' \
+    'update-all: pacman -Syu' > .install/command_mapping.yaml
+  rm -r deb rpm
+}
+
+build() {
+  # the excluded paths hold Python 2 code that does not compile
+  python -m compileall -q -d /opt/$pkgname \
+    -x '/python2/|/lib/third_party/yaml/|/bq/third_party/gflags/|/ext-runtime/nodejs/test/' \
+    google-cloud-sdk
+}
+
+check() {
+  cd google-cloud-sdk
+  export CLOUDSDK_CONFIG="$srcdir"/config PYTHONDONTWRITEBYTECODE=1
+  bin/gcloud version
+  bin/bq version
+  bin/gcloud storage hash LICENSE
+}
+
+package() {
+  install -d "$pkgdir"/{opt,usr/bin}
+  cp -a google-cloud-sdk "$pkgdir"/opt/$pkgname
+  ln -s /opt/$pkgname/bin/{gcloud,bq,gcloud-crc32c,docker-credential-gcloud,git-credential-gcloud.sh} \
+    -t "$pkgdir"/usr/bin
+
+  install -d "$pkgdir"/usr/share/{bash-completion/completions,zsh/site-functions}
+  ln -s /opt/$pkgname/completion.bash.inc "$pkgdir"/usr/share/bash-completion/completions/gcloud
+  ln -s gcloud "$pkgdir"/usr/share/bash-completion/completions/bq
+  # completion.zsh.inc is written to be sourced from .zshrc. On the first TAB
+  # this stub sources it, replacing itself in _comps, then runs the new entry.
+  printf '%s\n' \
+    '#compdef gcloud bq' \
+    "source /opt/$pkgname/completion.zsh.inc" \
+    '${=_comps[$service]}' > "$pkgdir"/usr/share/zsh/site-functions/_gcloud
+}
+
+# vim:set ts=2 sw=2 et:

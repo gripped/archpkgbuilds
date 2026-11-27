@@ -1,0 +1,19 @@
+pkgbase = google-cloud-cli
+	pkgdesc = Command line tools for Google Cloud: gcloud and bq
+	pkgver = 594.0.1
+	pkgrel = 2
+	url = https://cloud.google.com/cli
+	arch = x86_64
+	license = Apache-2.0
+	depends = bash
+	depends = python
+	optdepends = cloud-sql-proxy: gcloud sql connect
+	optdepends = gke-gcloud-auth-plugin: authenticate kubectl against GKE clusters
+	optdepends = openssh: gcloud compute ssh and scp
+	options = !debug
+	options = !strip
+	backup = opt/google-cloud-cli/properties
+	source = https://dl.google.com/dl/cloudsdk/release/downloads/for_packagers/linux/google-cloud-cli_594.0.1.orig_amd64.tar.gz
+	b2sums = c0cc578740c78ef0a16f0601e4182dd5dda2b31d523dabec49db9d45a849d992988862f908cfa7b17a2ff417696dedad23d2e294e755d73409fccab363cb1257
+
+pkgname = google-cloud-cli
