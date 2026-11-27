@@ -1,18 +1,30 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pytest-mypy
-pkgver=1.0.1
-_commit=62c03db621543896ff6166dddd9e9e4f7c78ad7a
-pkgrel=2
+pkgver=1.1.0
+pkgrel=1
 pkgdesc='Mypy static type checker plugin for Pytest'
 arch=('any')
 license=('MIT')
 url='https://github.com/dbader/pytest-mypy'
-depends=('python-attrs' 'python-filelock' 'python-pytest' 'mypy')
+depends=('python-filelock' 'python-pytest' 'mypy')
 makedepends=('git' 'python-setuptools-scm' 'python-setuptools' 'python-build' 'python-installer' 'python-wheel')
-checkdepends=('python-pytest-xdist' 'python-pexpect')
-source=("git+https://github.com/dbader/pytest-mypy.git#commit=$_commit")
-sha512sums=('9294a2c3bace6f298443a5d9e25004acbd3f5d24186931d4878c067fe0a21d9a65a618167124936289317aa7e1d37b40e305125078f2cf619eae5ae972e31e85')
+checkdepends=('python-pytest-xdist' 'python-pexpect' 'python-packaging')
+source=("git+https://github.com/dbader/pytest-mypy.git#tag=v$pkgver")
+sha512sums=('00c4a3d51aa117379215850e12da268b8b0b8e227e2f6787c7d24c839f856b89e1be35ebd65aaa2bc7da393948b4f1716be8ebc7f8d2858105eade7e86893bff')
+
+prepare() {
+  cd pytest-mypy
+
+  # Arch's pure-Python mypy 2.4 emits three EncodingWarnings instead of one.
+  sed -i 's/expected_warnings -= 1/expected_warnings += 1/' tests/test_pytest_mypy.py
+
+  # Match the summary literally so its parentheses do not become regex groups.
+  sed -i 's/child.expect("Found 1 error/child.expect_exact("Found 1 error/' tests/test_pytest_mypy.py
+
+  # Build hosts can exceed the test's 60-second loop-on-fail timeout.
+  sed -i 's/expect_timeout=60\.0/expect_timeout=180.0/' tests/test_pytest_mypy.py
+}
 
 build() {
   cd pytest-mypy
