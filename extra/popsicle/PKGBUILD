@@ -1,0 +1,49 @@
+# Maintainer: Peter Jung <ptr1337@archlinux.org>
+
+pkgname=popsicle
+pkgver=1.12.0
+pkgrel=1
+pkgdesc='USB flasher for the COSMIC desktop environment'
+arch=(x86_64)
+url=https://github.com/pop-os/popsicle
+license=(
+  GPL-2.0-only
+  MIT
+)
+groups=(cosmic)
+depends=(
+  libgcc
+  glibc
+  hicolor-icon-theme
+  libxkbcommon
+  udisks2
+  wayland
+)
+makedepends=(
+  cargo
+  git
+  help2man
+  just
+  lld
+)
+source=(git+https://github.com/pop-os/popsicle.git#tag=${pkgver})
+b2sums=('90f80678db8118e3c03e18f46db21bb5ad3db4e75ffe39fff4e82789330caa824c98ac88ff88d6f4c6e46c8fa1e5a2d95a0228730407e076b63c77240aa865cc')
+
+prepare() {
+  cd "$pkgname"
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
+
+build() {
+  cd "$pkgname"
+  RUSTFLAGS+=" -C link-arg=-fuse-ld=lld"
+  just build-release --frozen
+}
+
+package() {
+  cd "$pkgname"
+  just prefix=/usr rootdir="$pkgdir" install
+  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname"
+}
+
+# vim: ts=2 sw=2 et:
