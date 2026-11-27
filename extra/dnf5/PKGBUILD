@@ -1,8 +1,8 @@
 # Maintainer: Jelle van der Waa <jelle@archlinux.org>
 
 pkgname=dnf5
-pkgver=5.4.6.0
-pkgrel=2
+pkgver=5.4.8.0
+pkgrel=1
 pkgdesc="Next-generation RPM package management system"
 arch=('x86_64')
 url="https://github.com/rpm-software-management/$pkgname"
@@ -11,20 +11,18 @@ depends=('curl' 'fmt' 'glib2' 'json-c'
          'libmodulemd' 'librepo' 'libsolv' 'libxml2'
          'rpm-tools' 'sdbus-cpp' 'sqlite' 'systemd-libs'
          'util-linux-libs' 'zlib' 'libpkgmanifest')
-makedepends=('appstream' 'bash-completion' 'cmake' 'doxygen' 'gettext' 'perl'
+makedepends=('bash-completion' 'cmake' 'doxygen' 'gettext' 'perl'
              'python' 'python-breathe' 'python-sphinx' 'python-sphinx-autoapi'
 	     'python-sphinx_rtd_theme' 'toml11' 'swig' 'systemd')
 checkdepends=('cppunit' 'createrepo_c' 'perl-test-exception')
-optdepends=('appstream: dnf appstream plugin support')
 backup=('etc/dnf/dnf.conf'
         'etc/dnf/libdnf5-plugins/actions.conf'
-        'etc/dnf/libdnf5-plugins/appstream.conf'
         'etc/dnf/libdnf5-plugins/expired-pgp-keys.conf')
 options=('!emptydirs')
 conflicts=(dnf)
 replaces=(dnf)
 source=("$url/archive/$pkgver/$pkgname-$pkgver.tar.gz")
-sha256sums=('242f0e775bc8e1017a5bfec841c776beafa7ea6b5bd2e4d7bc0ff9d7c57998f3')
+sha256sums=('09f279af798d01073873affb61d7d0ed999f0297e6491b7ffb84c6d755680292')
 
 prepare() {
   cd "$pkgname-$pkgver"
@@ -39,6 +37,7 @@ build() {
       -DCMAKE_INSTALL_PREFIX='/usr' \
       -DCMAKE_INSTALL_SBINDIR='bin' \
       -DWITH_DNF5_OBSOLETES_DNF='OFF' \
+      -DWITH_PLUGIN_APPSTREAM='OFF' \
       -DWITH_RUBY='OFF'  # https://github.com/rpm-software-management/dnf5/issues/562
 
   cmake --build build
