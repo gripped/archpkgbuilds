@@ -2,7 +2,7 @@
 # Contributor: cubercsl <2014cais01 at gmail dot com>
 
 pkgname=dae
-pkgver=2.1.1
+pkgver=2.1.3
 pkgrel=1
 pkgdesc="A high-performance transparent proxy solution based on eBPF"
 arch=('x86_64')
@@ -13,14 +13,11 @@ makedepends=('clang' 'go')
 backup=("etc/${pkgname}/config.${pkgname}")
 source=("${pkgname}-${pkgver}.tar.xz::${url}/releases/download/v${pkgver}/${pkgname}-full-src.tar.xz")
 install="${pkgname}.install"
-sha256sums=('7c91494a999a24e91869e8e20e26ed8171dd4eedbcb847d1b04d15a6aeb54f44')
+sha256sums=('36c5ec1c05c229cf5735d1368eec4940890f830e5b757b046140c7bc9abd077c')
 options=('!lto')
 
 prepare() {
 	sed -i '/^BUILD_ARGS :=/d' Makefile
-
-	export GOPATH="${srcdir}"
-	go mod download -modcacherw -x
 }
 
 build() {
