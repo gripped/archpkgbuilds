@@ -1,15 +1,15 @@
 # Maintainer: David Runge <dvzrv@archlinux.org>
 
 pkgname=nitrokey-udev-rules
-pkgver=1.1.0
+pkgver=1.1.1
 pkgrel=1
 pkgdesc="Udev rules for Nitrokey devices"
 arch=(any)
 url="https://github.com/Nitrokey/nitrokey-udev-rules"
 license=(CC0-1.0)
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha512sums=('6b4e985d00ae29fa68a5e1ada8401d6df3956e6e228ec50b27c4ca1ae70ec16d161f8533106d1fb88ffc5ac115175bc3fbdabef664510f8df20ba220c9bf1cdc')
-b2sums=('7df2b8e3d51f1d2db8480807568c54065e85fb7b222e8d62e13fc1cbcb30bd9d87f31e02e786ea2e7fd170c062a20ce5da1a1ed52b43c467bf5e676c87aabe9f')
+sha512sums=('8d2cbf405a0f0cc31861b884bcf6675d8d9c87feb610c9fcb3bd9e8536e9924e095bd1f4f95cf675d28718867d643cc39a8f6cc5b0486aa096e8ff61b68c9a34')
+b2sums=('8f4d3701a0fbdc409819950e3b6e7ac7f642248a3a4af54fcfe6d7f5e18686cfeef9a3d8d9d809fbe7fa6f2e38c939ae410cc4eda7820cabe5d86a1f9887106f')
 
 package() {
   install -vDm 644 $pkgname-$pkgver/41-nitrokey.rules -t "$pkgdir/usr/lib/udev/rules.d/"
