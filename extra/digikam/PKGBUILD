@@ -5,7 +5,7 @@
 
 pkgname=digikam
 pkgver=9.1.0
-pkgrel=7
+pkgrel=9
 pkgdesc='An advanced digital photo management application'
 arch=(x86_64)
 license=(GPL-2.0-or-later)
@@ -74,14 +74,20 @@ optdepends=('darktable: RAW import'
             'qt6-imageformats: support for additional image formats (WEBP, TIFF)'
             'rawtherapee: RAW import')
 source=(https://download.kde.org/stable/$pkgname/${pkgver%-*}/digiKam-$pkgver.tar.xz{,.sig}
-        opencv-5.patch)
+        opencv-5.patch
+        https://invent.kde.org/graphics/digikam/-/commit/17614e3fd6db5999cb14830192d5265cf8be6e27.patch
+        disable-aesthetic-detector.patch)
 sha256sums=('a7309191e9a4787853cb3ac4136e4f8d7c044b40338dc42c7e422c37625b72e1'
             'SKIP'
-            'bdf108388e667f26877aeb48a1e021fdb55472cb37d077787e227e45c1cebb9a')
+            'bdf108388e667f26877aeb48a1e021fdb55472cb37d077787e227e45c1cebb9a'
+            'f8d85951db4429cf6c6fb3819598fdcd79bc8303cb7c9e735e5aea0dc3503467'
+            'f0d44d1d238fb47e940f0c72b938e9625999ce733b531b7775ce6ed27cd7dda3')
 validpgpkeys=(D1CF2444A7858C5F2FB095B74A77747BC2386E50) # digiKam.org (digiKam project) <digikamdeveloper@gmail.com>
 
 prepare() {
   patch -d $pkgname-$pkgver -p1 < opencv-5.patch
+  patch -d $pkgname-$pkgver -p1 < 17614e3fd6db5999cb14830192d5265cf8be6e27.patch # Fix build with openCV 5.1
+  patch -d $pkgname-$pkgver -p1 < disable-aesthetic-detector.patch # Tensorflow models are not supported on openCV 5.1
 }
 
 build() {
