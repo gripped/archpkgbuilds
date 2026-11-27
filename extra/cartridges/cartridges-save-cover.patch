@@ -72,9 +72,9 @@ index 46dd6740c..c6f3759c4 100644
 +        self.pixbuf = pixbuf
 +
 +        if pixbuf:
-+             self.texture = Gdk.Texture.new_for_pixbuf(pixbuf)
-+             self.set_texture(self.texture)
-+             return
++            self.texture = Gdk.Texture.new_for_pixbuf(pixbuf)
++            self.set_texture(self.texture)
++            return
  
          if path:
              if path.suffix == ".gif":
@@ -95,14 +95,18 @@ diff --git a/cartridges/utils/save_cover.py b/cartridges/utils/save_cover.py
 index d5ad44ff6..38c414bae 100644
 --- a/cartridges/utils/save_cover.py
 +++ b/cartridges/utils/save_cover.py
-@@ -30,7 +30,6 @@
+@@ -30,10 +30,9 @@
  
  def convert_cover(
      cover_path: Optional[Path] = None,
 -    pixbuf: Optional[GdkPixbuf.Pixbuf] = None,
      resize: bool = True,
  ) -> Optional[Path]:
-     if not cover_path and not pixbuf:
+-    if not cover_path and not pixbuf:
++    if not cover_path:
+         return None
+ 
+     pixbuf_extensions = set()
 @@ -44,10 +43,6 @@ def convert_cover(
      if not resize and cover_path and cover_path.suffix.lower()[1:] in pixbuf_extensions:
          return cover_path
