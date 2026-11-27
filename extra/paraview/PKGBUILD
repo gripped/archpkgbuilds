@@ -5,7 +5,7 @@
 # Contributor: <xantares09@hotmail.com>
 
 pkgname=paraview
-pkgver=6.2.0
+pkgver=6.2.1
 pkgrel=1
 pkgdesc="Parallel Visualization application using VTK"
 arch=(x86_64)
@@ -76,7 +76,7 @@ makedepends=(
 source=(
   $url/files/v${pkgver%.*}/ParaView-v${pkgver/R/-R}.tar.xz
 )
-b2sums=('c22d3a8bcde53d068dcf0cbb2792f0f23a81a838c8d67d9212b398cadc25482084012fbdabb9000afa2d4643ae20dc704d46f473f6d07431bde5d6771163ba09')
+b2sums=('fa793552ca14bc7df34697b19aaf14135d5e9678b7da3d02bb32ace0c4efa6596c5c28c006195ada2617222de30334b76e2c25e3c24c1d0e264b02cb6564c5ee')
 
 build() {
   export CFLAGS+=" -ffat-lto-objects"
