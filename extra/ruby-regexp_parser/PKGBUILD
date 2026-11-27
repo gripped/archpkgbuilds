@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-regexp_parser
-pkgver=2.13.1
+pkgver=2.13.4
 pkgrel=1
 pkgdesc='A library for tokenizing, lexing, and parsing Ruby regular expressions'
 arch=(any)
@@ -22,10 +22,11 @@ checkdepends=(
   ruby-ice_nine
   ruby-leto
   ruby-regexp_property_values
+  ruby-warning
 )
 options=(!emptydirs)
 source=(git+https://github.com/ammar/regexp_parser.git#tag=v$pkgver)
-sha256sums=('6bed4cb074ec86624484cc2efd4839ffbbfd1a7fda7af34750f06fbd3516e267')
+sha256sums=('253895105f7f64ec8ec9cb03201e3bee5e7278e2a952c30fb83e6e99fca7af2c')
 
 prepare() {
   cd regexp_parser
