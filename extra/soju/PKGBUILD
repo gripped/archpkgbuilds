@@ -2,7 +2,7 @@
 
 pkgname=soju
 pkgver=0.11.1
-pkgrel=1
+pkgrel=2
 pkgdesc='A user-friendly IRC bouncer'
 arch=(x86_64)
 url='https://soju.im'
@@ -78,6 +78,7 @@ build() {
   # rename binaries to prevent file conflicts
   mv build/{migrate-db,/soju-migrate-db}
   mv build/{migrate-logs,/soju-migrate-logs}
+  mv build/{quassel-import,soju-quassel-import}
   mv build/{znc-import,soju-znc-import}
 
   # man pages
@@ -108,7 +109,7 @@ package() {
   install -vDm644 "$srcdir/tmpfiles.conf" "$pkgdir/usr/lib/tmpfiles.d/$pkgname.conf"
 
   # binaries
-  install -vDm755 -t "$pkgdir/usr/bin" build/soju{,db,ctl,-migrate-db,-migrate-logs,-znc-import}
+  install -vDm755 -t "$pkgdir/usr/bin" build/soju{,db,ctl,-migrate-db,-migrate-logs,-quassel-import,-znc-import}
   install -vDm755 contrib/casemap-logs.sh "$pkgdir/usr/bin/soju-casemap-logs"
 
   # man pages
