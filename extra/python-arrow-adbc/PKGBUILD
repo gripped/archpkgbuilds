@@ -7,7 +7,7 @@ pkgname=(
   python-arrow-adbc-driver-postgresql
   python-arrow-adbc-driver-sqlite
 )
-pkgver=24
+pkgver=25
 pkgrel=1
 pkgdesc='Database connectivity API for Apache Arrow'
 arch=(x86_64)
@@ -26,8 +26,8 @@ makedepends=(
   postgresql-libs
 )
 source=("$pkgbase::git+https://github.com/apache/arrow-adbc#tag=apache-arrow-adbc-$pkgver")
-sha512sums=('a733afbf6c85a4562662dfd90ad03ab7f19f05af6650b83d591f61a869b4855a8d6ef4f251715456f876d8deaaf46eb332b9c54f6dc1a8bb45eab36dbe5a01ce')
-b2sums=('7f77e0b76d641cdc667b7b41cd4ef7b8a62280da60a6da69d44a89ec1b7e8ad7f8f024d381c824767fa8b855b5baaa767bfe841dcc1d39481f745db2212bdf5d')
+sha512sums=('a44d0540ae39c9b421baf8e9280b75f79044b42ddd485d1cedd8dbb8f8ba057656755554cd4c463628a9d5b46420edd0493583cd204c6eb0dc40a093b35e2078')
+b2sums=('524e237a6143bdfa691426fe9a9d32247d24388c2c8e54add0e536bc5b3a0a1ef624530163a62d6daa119d320f2b61374c80953d86198ba4c9938f779a6915a9')
 
 build() {
   local cmake_options=(
