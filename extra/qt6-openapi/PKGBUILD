@@ -2,7 +2,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=qt6-openapi
-_pkgver=6.12.0
+_pkgver=6.12.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -25,7 +25,7 @@ makedepends=(cmake
 groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver)
-sha256sums=('fe20e55a007b2b9646a10d23568c7cd233b2c595f1ca7b45927f2823fd571149')
+sha256sums=('f1e1cfbe5bd82da6681c41edff92803f2caf5198b41e3064b0f92825892286eb')
 
 prepare() {
   cd $_pkgfn
