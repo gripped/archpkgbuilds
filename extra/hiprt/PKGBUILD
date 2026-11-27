@@ -2,21 +2,30 @@
 # Contributor: HurricanePootis <hurricanepootis@protonmail.com>
 
 pkgname=hiprt
-pkgver=3.1.0.cb09c56
+pkgver=3.2.0.ceba893
 # For the calculation of the HIPRT_VERSION, see
-# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/blob/8602b8c475255fb922c2792654aae0a6bcdeb0af/CMakeLists.txt#L262
+# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/blob/0629d08568fff39f9a36bf9ee800fc7bac5bb096/CMakeLists.txt#L262
 # For zero padding, see
-# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/blob/8602b8c475255fb922c2792654aae0a6bcdeb0af/CMakeLists.txt#L265-L266
+# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/blob/0629d08568fff39f9a36bf9ee800fc7bac5bb096/CMakeLists.txt#L265-L266
 _libver=$(awk -F "." '{printf "%05d\n", $1 * 1000 + $2}' <<< $pkgver)
-pkgrel=3
+pkgrel=2
 pkgdesc="Ray Tracing Library for HIP"
 arch=('x86_64')
 url="https://gpuopen.com/hiprt/"
 license=('MIT')
-depends=('rocm-core' 'hip-runtime-amd' 'glibc' 'libgcc' 'libstdc++')
-makedepends=('git' 'python' 'cmake')
+# rocm-core adds /opt/rocm/lib to the linker path.
+# libhiprt loads libamdhip64 and libhiprtc with dlopen.
+depends=('rocm-core' 'glibc' 'libgcc' 'libstdc++')
+makedepends=('git' 'python' 'cmake' 'hip-runtime-amd')
+optdepends=('hip-runtime-amd: run on AMD GPUs')
 source=("$pkgname-$pkgver::git+https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT#tag=$pkgver")
-sha256sums=('6c60046f8d9406807063a1c5accc6ce85b03b694d818cc56f8d79f3b700bc27a')
+sha256sums=('f88bdce2bd963d1e3dfd9098f3063744e6fce027e0e14ff5d4940afba6ae942d')
+
+prepare() {
+	# Without a shebang, CMake's execute_process fails with "exec format error"
+	# and does not generate the baked kernel headers.
+	sed -i '1i #!/bin/sh' "$pkgname-$pkgver"/tools/bakeKernel.sh
+}
 
 build() {
 	local cmake_args=(
@@ -40,15 +49,8 @@ build() {
 package() {
 	DESTDIR="$pkgdir" cmake --install build
 
-	# GPU files are generated at build time by python scripts and put into the
-	# source folder. Move them to the package folder
-	local file
-	for file in "$pkgname-$pkgver"/scripts/bitcodes/*.{bc,hipfb}; do
-		install -v -Dm644 "$file" "$pkgdir"/opt/rocm/lib/"$(basename "$file")"
-	done
-
-	# HIPRT library is installed to the bin folder,
-	# so we have to move it manually.
+	# HIPRT library and GPU kernel files are installed to the bin folder,
+	# so we have to move them manually.
 	install -dm755 "$pkgdir"/opt/rocm/lib
 	mv -v "$pkgdir"/opt/rocm/bin/* "$pkgdir"/opt/rocm/lib
 	rmdir "$pkgdir"/opt/rocm/bin
