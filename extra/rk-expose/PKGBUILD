@@ -1,7 +1,7 @@
 # Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
 
 pkgname=rk-expose
-pkgver=0.2.0
+pkgver=0.3.3
 pkgrel=1
 pkgdesc="Expose Linux rootkits"
 url='https://codeberg.org/hillu/rk-expose'
@@ -9,15 +9,17 @@ arch=('x86_64')
 license=('GPL-3.0-or-later')
 makedepends=(
   'cargo'
+  'git'
   'musl'
   'rust-musl'
 )
-source=(${pkgname}-${pkgver}.tar.gz::https://codeberg.org/hillu/${pkgname}/archive/v${pkgver}.tar.gz)
-sha256sums=('203e2c61452385d8ec55bf732329247851d7d56298d079e2a64118d6e17949a3')
-b2sums=('06d7b5d2478621755b88bd46b6c585468fe551ef2773d659a48a37365b8861affa619130e6cad1c12ead945a4b82c358105f3feb7d5a53fd6536477367219813')
+source=("git+https://codeberg.org/hillu/${pkgname}#tag=v${pkgver}")
+sha256sums=('630ecf1975662b1101647a13abd9175a99df69c466047c239a286170fb2008bb')
+b2sums=('89c98bac1a28f8b58480420867944154c84b14058ac751359a0f49b459c9738e6db44e8df5fd6a226bb5b2cdef2065024513141a03fd96031be4831c93cf425f')
 
 prepare() {
   cd "${pkgname}"
+  git cherry-pick bbb702bfc2689b02a75cb19d0855a1c5f440428c
   cargo fetch --locked --target host-tuple
 }
 
