@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-granian
-pkgver=2.8.8
+pkgver=2.8.9
 pkgrel=1
 pkgdesc='Rust HTTP server for Python applications'
 arch=('x86_64')
@@ -20,7 +20,7 @@ optdepends=(
 # https://github.com/rust-lang/rust/issues/138681
 options=('!lto')
 source=("git+https://github.com/emmett-framework/granian.git#tag=v$pkgver")
-sha512sums=('7d6e5a9a8b6a87b78f7de1a4986db2d7142eb58818f1f3e093a3b86132292ae18323db95ba7a0bcde42ff2d273668e1886e87d4785604ff40e18460e3e348fca')
+sha512sums=('1c0dd1589ddcd9a69c4f6773c2defaeded2f5fd0bef2bfb9f3d812c9ebbd771fb270664c6cbc261c8b71568a0dee02d32168ff6623ab13693a685dd693f10a83')
 
 prepare() {
   cd granian
