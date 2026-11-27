@@ -4,7 +4,7 @@
 
 pkgname=sox
 pkgver=14.8.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc='The Swiss Army knife of sound processing tools'
 arch=(x86_64)
 url='https://codeberg.org/sox_ng/sox_ng/'
