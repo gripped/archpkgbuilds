@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=ruby-cucumber-query
-pkgver=16.2.0
+pkgver=16.4.0
 pkgrel=1
 pkgdesc="Cucumber Query - query messages"
 arch=(any)
@@ -20,8 +20,8 @@ checkdepends=(
 )
 options=(!emptydirs)
 source=(git+https://github.com/cucumber/query.git#tag=v$pkgver)
-sha512sums=('e4f60d0dd52a666ef2e87cf8393c386b15e0214179fbde84b6674b1e3d2b235066725b30d3ac5034e31a4cb8cf1bce92955647a57d55455e89391d47a1499827')
-b2sums=('39e116a1bd28c1569dcbc50c5fae932ba447fc2eea4fe1df5778b3154dfc0cfe6bcf844e0f3b6e146b5d9f5f27a0b33b946ae9915620ad987866cbf29a2790ec')
+sha512sums=('16fa432936ad6d2072b29831d9c1a5e66fe7a77a5413008622f4302f124b753d7001aa0891322c2f2e7774dc3c0d826243a2fa16926e3a9972a2a77d945017a7')
+b2sums=('c14fa55429fd0fbf15ad9ef1f7c8b053c35d6d1a214f5b96cb102805f37d840efff9a2c7342b559a9da7e1f09980c11851499f1b982a4e4fa5dd06ff88eef69f')
 
 build() {
   local _gemdir="$(gem env gemdir)"
