@@ -3,7 +3,7 @@
 # Contributor: Xu Fasheng <fasheng.xu[AT]gmail.com>
 
 pkgname=deepin-screen-recorder
-pkgver=6.6.10
+pkgver=6.6.15
 pkgrel=1
 pkgdesc='Deepin Screen Recorder'
 arch=('x86_64')
@@ -11,7 +11,7 @@ url="https://github.com/linuxdeepin/deepin-screen-recorder"
 license=('GPL-3.0-or-later')
 depends=('deepin-qt6integration' 'deepin-tray-loader' 'dtk6core' 'dtk6gui' 'dtk6widget'
          'qt6-base' 'qt6-multimedia' 'qt6-svg' 'qt6-wayland' 'deepin-turbo' 'ffmpeg4.4' 'ffmpegthumbnailer' 'libxtst' 'opencv'
-         'dconf' 'libprocps' 'libxext' 'libx11' 'libxfixes' 'libxinerama' 'portaudio'
+         'dconf' 'libdrm' 'libprocps' 'libxext' 'libx11' 'libxfixes' 'libxinerama' 'mesa' 'portaudio'
          'glibc' 'libgcc' 'libstdc++' 'wayland' 'hicolor-icon-theme')
 makedepends=('git' 'qt6-tools')
 optdepends=('deepin-shortcut-viewer: for shortcut display')
@@ -20,7 +20,7 @@ conflicts=('deepin-screenshot')
 groups=('deepin-extra')
 source=("git+https://github.com/linuxdeepin/deepin-screen-recorder.git#tag=$pkgver"
          libv4l-1.30.patch)
-sha512sums=('5a34d564f348765c249e4918b95f359f8e3a56b8653b4e768c8f1de719b771f023c002d293b20b3a40d2713200d31c8cca2b35445596cdc86b47c510167b39ce'
+sha512sums=('02f34c7bdf2da612df5f3a6cfba2b3f3e0d4e5dfcbdc5f467822bf88f504967eeae29841035a318f57ce768f6d701c7d308b867a518aaa22e5c56aea87ab6580'
             'b8527bbf18b78b530507ed7725218db88f3ae4ed6abb700f6430903421e188456d7f0695f680461376d403c9227bc0234578d909f29399a4072a13a042d524cb')
 
 prepare() {
