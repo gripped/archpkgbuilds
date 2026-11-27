@@ -4,7 +4,7 @@
 # Contributor: Ossama Hjaji <ossama-hjaji@live.fr>
 
 pkgname=onefetch
-pkgver=3.2.0
+pkgver=3.3.0
 pkgrel=1
 pkgdesc="Git repository summary on your terminal"
 url="https://github.com/o2sh/onefetch"
@@ -13,7 +13,7 @@ arch=('x86_64')
 depends=('libgcc' 'zstd')
 makedepends=('cargo' 'cmake' 'git')
 source=("git+$url.git#tag=$pkgver")
-sha256sums=('7d87aeadac895d9ef12a74fa54d331226517aa72299907ffbbaad591dd68b1ca')
+sha256sums=('b67a92c8959a426ae244449e0ff446d2a47e8d39b5f67646d7665205366ba955')
 
 prepare() {
   cd "$pkgname"
