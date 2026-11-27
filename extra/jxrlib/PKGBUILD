@@ -3,7 +3,7 @@
 # Contributor: Antonio Rojas <arojas@archlinux.org>
 
 pkgname=jxrlib
-pkgver=1.4.6
+pkgver=1.4.7
 pkgrel=1
 pkgdesc="Open source implementation of jpegxr"
 arch=('x86_64')
@@ -13,7 +13,7 @@ depends=(glibc)
 makedepends=(cmake
              git)
 source=(git+https://github.com/mircomir/jxrlib#tag=$pkgver)
-sha256sums=('684c8579e49ec727c238e71290a4c795c1101c0c208c4966164ddab0889d32e8')
+sha256sums=('3786acfb9f99c57adc310a94e999f1044ae205d4d9555917383d55c05c2e02fa')
 
 prepare() {
   cd $pkgname
