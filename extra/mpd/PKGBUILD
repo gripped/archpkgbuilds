@@ -8,7 +8,7 @@
 # Contributor: Ben <ben@benmazer.net>
 
 pkgname=mpd
-pkgver=0.24.19
+pkgver=0.25
 pkgrel=1
 pkgdesc="Flexible, powerful, server-side application for playing music"
 arch=(x86_64)
@@ -28,7 +28,6 @@ depends=(
   libgcc
   libgme
   libmad
-  libmms
   libmodplug
   libmpcdec
   libnfs
@@ -92,12 +91,12 @@ source=(
   $pkgname.tmpfiles
   $pkgname.service.override
 )
-sha512sums=('bcb41e2c16f6b1206d869304c2e2067487dabca6a4090731e89ef725925dc6e90476c30a10d59abc5befa0e0ef6ba6151520d41db6715a434fc314700988ea17'
+sha512sums=('7aa1c8e3b99b3dcd4eb22627bb9076db6d9f91ddcb2416237f9f07a6cce0ab41da6cacae94ca57d485c8d25bc0a565fac0089c4ddddc106c31be7b8d8129bdce'
             '25a823740d92da8e186916701413114142eb6ad91a172c592e68b569c8e4f50fa99580e555ccf6cd31fc4f55a09bfe0278efa46e4e76ee0fe02846292fadf3c1'
             'd66c1d771160ee1781a05e57f383acc466babb29924c07d83ac0e763c14380dd1f279ba7b4aec508dc70245370d9732b4bc6287df1a2e06a920f3b73551d3032'
             'db473db27cd68994c3ee26e78e0fb34d13126301d8861563dcc12a22d62ecb14c4ffb1e0798c6aaccdff34e73bae3fbeeff7b42606c901a2d35e278865cdf35d'
             'c1782b82f9db1d30aece43a07230c5d57370f2494a16e108af03815d83968805472f10f53ea5495cf0e08ff8f245430c3c3bc44025af43aaf9ecd12fcd6afc6c')
-b2sums=('d0b3cc88780299842b8814e40502dbe817736ec15a2004763e1150fb4d4104cf372dd58b4817ed221b2673396aa50f411cac96175146dad3b14f64ab04f223da'
+b2sums=('65492957bb69ff1c33e49e176df860b1fbc2e192695a984d17a174120c68173f3e1fb85f6d305b10bc6bea37dc74cf6ff13b85af1d35cbf398966489ee3ff911'
         '0969a3c477b6a3f34b44e067e515d7f306414dd14e0163584417b9d071e3cc825898219f7ff66ead7905b15429b8411304052d3b2b14a72e560bfabf9bf0adcf'
         '814c2314de6040e895657a8c8d62f11bc38c224a3c0ef5cbf280c0e141c80f04b0ac5026be06fd5dc4a4b764f3d91ab46f365da0a7bd466abc3aed02b0612165'
         'd7b587c25dd5830c27af475a8fdd8102139d7c8fdd6f04fe23b36be030e4411582e289f575c299255ff8183096f7d47247327276f9a24641cbd032d9675b837a'
@@ -110,9 +109,12 @@ build() {
     -D adplug=disabled
     -D audiofile=disabled
     -D io_uring=disabled  # liburing support broken: https://github.com/MusicPlayerDaemon/MPD/issues/2241
+    -D psgplay=disabled
     -D sndio=disabled
     -D shine=disabled
+    -D tinyalsa=disabled
     -D tremor=disabled
+    -D vgmstream=disabled
     -D b_ndebug=true
     -D test=true
   )
