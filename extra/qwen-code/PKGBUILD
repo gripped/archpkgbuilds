@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.24.1
+pkgver=0.24.6
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -20,9 +20,11 @@ depends=(
   ripgrep
 )
 makedepends=(
+  corepack
   git
   jq
   npm
+  pnpm
 )
 optdepends=(
   'alsa-utils: voice dictation recording via arecord'
@@ -31,9 +33,9 @@ optdepends=(
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}"
         'feishu-media-test.patch')
-sha256sums=('fec1625205b46acd20b7ab1c0b5cc67f3d2b1357c93657f11f9e0c575d17308e'
+sha256sums=('6d2e349a468bd56899ccf1cf445a51feda708167d521d97c400ffca1f83a1097'
             '3af81e8d4e27c7b7d10ea5615cd1c469df730aaf1e2f6b5dae5ad2fbf6d0280d')
-b2sums=('4c1c9992c222d2001a6754fa0f898d458d54bb1c26254e8343fe8b1ee705b3c7c8f3ab9003b5805a6992ca7f44c100b7fdc7a82683d45e0e556a6f5831fa4068'
+b2sums=('d9f7f5879d9e7d009a86d0b6d2c1dd4328cd2446c344bd2aa0dca90b81ba40ff4f9598d1a7821987df7dbf38ca58c3b257c2c215414534269b797167faeae3d7'
         '76344e9fd770a54ee0578bc0c66b51dde50aa5dfee0374dcad9860c86608d08c5969785eaf1a04ff371f89aa45e4020027ca8b04f5b318977a4a29c92e360ef8')
 
 prepare() {
@@ -45,6 +47,31 @@ prepare() {
   # https://github.com/npm/cli/pull/9247
   sed -i 's/const packs = JSON\.parse(stdout)/const packs = Object.values(JSON.parse(stdout))/' \
     integrations/external-context/src/provider-extension-local.test.ts
+  # The cumulative-deadline test races its own abort on loaded builders.
+  # https://github.com/QwenLM/qwen-code/pull/17342
+  git cherry-pick -n 468fa3cade0a26e25f3cfa7eab2c044a66a071dc
+  # Mounted replay fixtures leak setImmediate updates into later tests.
+  # https://github.com/QwenLM/qwen-code/pull/14293
+  git cherry-pick -n 3066a0e12aa112d428e48f8d925c2b4e49fdbfe1
+  # Arch's npm pins globalconfig to /etc/npmrc, so this prefix-relocation test
+  # cannot exercise the redaction fallback.
+  sed -i "/resolves it with real npm when npm refuses to print the path/ s/^  it(/  it.skip(/" \
+    packages/cli/src/utils/managed-npm-update.test.ts
+  # Synchronous CLI tests can starve Vitest's worker RPC replies.
+  # https://github.com/QwenLM/qwen-code/pull/14293
+  sed -i "/^import '.\/src\/test-utils\/customMatchers.js';$/i\\
+import { beforeEach } from 'vitest';" packages/cli/test-setup.ts
+  sed -i "/^import '.\/src\/test-utils\/customMatchers.js';$/a\\
+\\
+// Capture the real timer so sync-heavy suites can drain worker RPC replies.\\
+const realSetTimeout = setTimeout;\\
+beforeEach(() => new Promise<void>((resolve) => realSetTimeout(resolve, 0)));" \
+    packages/cli/test-setup.ts
+  # Node 26 can stringify input that structuredClone cannot copy; reject it
+  # before journaling.
+  sed -i '/inputJson = JSON.stringify(input);/a\
+      structuredClone(input);' \
+    packages/cli/src/serve/managed-runtime-tool-executor.ts
   # Node 26.8 fixes ANSI stripping, preserving printable 'b' in this fixture.
   # https://github.com/nodejs/node/pull/64319
   # https://nodejs.org/en/blog/release/v26.8.0
@@ -77,13 +104,7 @@ prepare() {
   # https://github.com/nodejs/node/issues/64549
   sed -i "s/it('retains the original write error/it.skip('retains the original write error/" \
     packages/cli/src/acp-integration/acp-output.test.ts
-  # Upstream's ranged override currently resolves newer than package-lock.json.
-  npm pkg set 'overrides.@types/react=19.2.10'
-  npm clean-install \
-    --registry=https://registry.npmjs.org \
-    --replace-registry-host=always \
-    --include=optional \
-    --ignore-scripts
+  pnpm install --frozen-lockfile --ignore-scripts
   # Upstream postinstall applies dependency patches; install scripts are disabled above.
   ./node_modules/.bin/patch-package
 }
@@ -126,7 +147,9 @@ check() {
   # mobilewright's older Playwright CLI cannot run the newer @playwright/test.
   # https://github.com/QwenLM/qwen-code/pull/11371
   npm pkg set 'scripts.test=c8 node ../../node_modules/@playwright/test/cli.js test' --workspace=@qwen-code/mobile-mcp
-  npm run test --workspace=@qwen-code/mobile-mcp
+  # pnpm hoists mobilecli to the workspace root, while the source test only checks the package-local path.
+  MOBILECLI_PATH="$PWD/node_modules/mobilecli/bin/mobilecli-linux-amd64" \
+    npm run test --workspace=@qwen-code/mobile-mcp
   # mobile-mcp uses Playwright; run it above without passing Vitest-only flags.
   npm pkg set 'workspaces[]=!packages/mobile-mcp'
   # NODE_OPTIONS gives Node's Web Storage one shared backing file; keep Vitest

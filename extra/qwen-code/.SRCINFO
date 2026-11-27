@@ -1,13 +1,15 @@
 pkgbase = qwen-code
 	pkgdesc = Open-source AI agent for the terminal, optimized for Qwen-Coder
-	pkgver = 0.24.1
+	pkgver = 0.24.6
 	pkgrel = 1
 	url = https://github.com/QwenLM/qwen-code
 	arch = x86_64
 	license = Apache-2.0
+	makedepends = corepack
 	makedepends = git
 	makedepends = jq
 	makedepends = npm
+	makedepends = pnpm
 	depends = libgcc
 	depends = libstdc++
 	depends = glibc
@@ -17,11 +19,11 @@ pkgbase = qwen-code
 	optdepends = alsa-utils: voice dictation recording via arecord
 	optdepends = npm: optional computer-use tools via npx
 	optdepends = sox: voice dictation recording
-	source = git+https://github.com/QwenLM/qwen-code.git#tag=v0.24.1
+	source = git+https://github.com/QwenLM/qwen-code.git#tag=v0.24.6
 	source = feishu-media-test.patch
-	sha256sums = fec1625205b46acd20b7ab1c0b5cc67f3d2b1357c93657f11f9e0c575d17308e
+	sha256sums = 6d2e349a468bd56899ccf1cf445a51feda708167d521d97c400ffca1f83a1097
 	sha256sums = 3af81e8d4e27c7b7d10ea5615cd1c469df730aaf1e2f6b5dae5ad2fbf6d0280d
-	b2sums = 4c1c9992c222d2001a6754fa0f898d458d54bb1c26254e8343fe8b1ee705b3c7c8f3ab9003b5805a6992ca7f44c100b7fdc7a82683d45e0e556a6f5831fa4068
+	b2sums = d9f7f5879d9e7d009a86d0b6d2c1dd4328cd2446c344bd2aa0dca90b81ba40ff4f9598d1a7821987df7dbf38ca58c3b257c2c215414534269b797167faeae3d7
 	b2sums = 76344e9fd770a54ee0578bc0c66b51dde50aa5dfee0374dcad9860c86608d08c5969785eaf1a04ff371f89aa45e4020027ca8b04f5b318977a4a29c92e360ef8
 
 pkgname = qwen-code
