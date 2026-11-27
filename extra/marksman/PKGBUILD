@@ -2,16 +2,22 @@
 
 pkgname=marksman
 pkgver=20260208
-pkgrel=3
+pkgrel=4
 pkgdesc="Write Markdown with code assist and intelligence in the comfort of your favourite editor."
 arch=('x86_64')
 url="https://github.com/artempyanykh/marksman"
 license=('MIT')
-makedepends=('dotnet-sdk-9.0' 'git')
-depends=('dotnet-runtime-9.0')
+makedepends=('dotnet-sdk-10.0' 'git')
+depends=('dotnet-runtime-10.0')
 options=('!strip')
-source=("$pkgname"::git+https://github.com/artempyanykh/marksman.git#tag="${pkgver:0:4}-${pkgver:4:2}-${pkgver:6:2}")
-b2sums=('c237ee8837b184735496335302889fe54c1a8618b1fec9427f5a69af6b01be958e8e948e3b47c8764a8b4c5b1dfc8da847d8e92247d2de467c500b35628e9724')
+source=("$pkgname"::git+https://github.com/artempyanykh/marksman.git#tag="${pkgver:0:4}-${pkgver:4:2}-${pkgver:6:2}" "build-with-dotnet-10.patch")
+b2sums=('c237ee8837b184735496335302889fe54c1a8618b1fec9427f5a69af6b01be958e8e948e3b47c8764a8b4c5b1dfc8da847d8e92247d2de467c500b35628e9724'
+        'bc67266b5d94bc3ce05587010b66efb01ad1a443a4cdfed65ca324d899da02ae80c7a217ac58a9196e5efb932539c9aa03874829d818e2c8ce746a2073179bd4')
+
+prepare() {
+  cd "marksman"
+  patch -Np1 -i ${srcdir}/build-with-dotnet-10.patch
+}
 
 build() {
   cd "marksman"
