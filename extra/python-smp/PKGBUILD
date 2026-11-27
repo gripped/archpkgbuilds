@@ -2,7 +2,7 @@
 
 pkgname=python-smp
 _name=${pkgname#python-}
-pkgver=4.2.0
+pkgver=4.3.0
 pkgrel=1
 pkgdesc='Simple Management Protocol (SMP) for remotely managing MCU firmware'
 arch=(any)
@@ -23,7 +23,7 @@ makedepends=(
 )
 checkdepends=(python-pytest)
 source=("git+$url.git#tag=$pkgver")
-b2sums=('5f34a2455b6f274768a3280e62123a6cfa16f599613fdc4fc811452b48766c67bc897c9101443ad95418a943c8714e7a4059ef2358f468bfa139964df1cdcce1')
+b2sums=('a868b14df342216b240443a5d1ba3f64414560ddcfe786d600e831ab29796013bedef61a9c8e538b3f8d04879e82e04fa30d320aecbf0b1dc94bb43eea6c955c')
 
 build() {
   cd $_name
