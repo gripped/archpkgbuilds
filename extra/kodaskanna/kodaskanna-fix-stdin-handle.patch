@@ -1,0 +1,37 @@
+From e6dc732b02f23a6dc88e525d4ccc52256d5df15f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Sun, 22 Nov 2026 19:41:12 +0000
+Subject: [PATCH] Fix stdin handling when launched from desktop
+
+Previously, Kodaskanna attempted to read from stdin whenever it
+was not connected to a terminal. This also affected normal desktop
+launches, where stdin is typically /dev/null.
+
+Only read from stdin when explicitly requested with "-".
+---
+ src/app/main.cpp | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/app/main.cpp b/src/app/main.cpp
+index 4b0de17..b286880 100644
+--- a/src/app/main.cpp
++++ b/src/app/main.cpp
+@@ -55,11 +55,11 @@ int main(int argc, char **argv)
+     QUrl sourceFileUrl;
+     const QStringList positionalArguments = parser.positionalArguments();
+     if (positionalArguments.size() > 0) {
+-        const QString currentPath = QDir::currentPath();
+-        sourceFileUrl = QUrl::fromUserInput(positionalArguments.first(), currentPath, QUrl::AssumeLocalFile);
+-    } else {
+-        if (!isatty(STDIN_FILENO)) {
++        if (positionalArguments.first() == QLatin1String("-")) {
+             sourceFileUrl = QUrl(QStringLiteral("stdin:/"));
++        } else {
++            const QString currentPath = QDir::currentPath();
++            sourceFileUrl = QUrl::fromUserInput(positionalArguments.first(), currentPath, QUrl::AssumeLocalFile);
+         }
+     }
+     const bool isOneScanMode = parser.isSet(oneScanOption);
+-- 
+GitLab
+
