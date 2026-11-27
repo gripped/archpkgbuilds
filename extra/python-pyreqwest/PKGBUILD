@@ -1,7 +1,7 @@
 # Maintainer: Felix Yan <felixonmars@archlinux.org>
 
 pkgname=python-pyreqwest
-pkgver=0.15.1
+pkgver=0.15.2
 pkgrel=1
 pkgdesc='Rust-based HTTP client for Python'
 arch=('x86_64')
@@ -33,7 +33,7 @@ optdepends=(
 # https://github.com/rust-lang/rust/issues/138681
 options=('!lto')
 source=("git+https://github.com/MarkusSintonen/pyreqwest.git#tag=v$pkgver")
-sha512sums=('b06e0aac9e5bcf0fbe8e9b050b90ada764f9ab9faef0132214a42c9a37261839d9a8f32ee675e5e01ba908e53e079cb0d26ddb93458ff955c115652b67ed4d2a')
+sha512sums=('05f0134a8c8f8c75bf30bccadfc8b360a3c00b6934032dac3b78fc0aec2a6fc47276954d8a988c1789d432b27c6375938bc671137969344f7f91a0415b36a20e')
 
 prepare() {
   cd pyreqwest
