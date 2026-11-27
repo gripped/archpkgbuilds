@@ -1,14 +1,17 @@
 pkgbase = soapybladerf
 	pkgdesc = Soapy SDR plugin for the BladeRF
-	pkgver = 0.4.1
-	pkgrel = 5
+	pkgver = 0.4.4
+	pkgrel = 1
 	url = https://github.com/pothosware/SoapyBladeRF
 	arch = x86_64
-	license = GPL3
+	license = LGPL-2.1-or-later
 	makedepends = cmake
+	depends = glibc
+	depends = libstdc++
+	depends = libgcc
 	depends = soapysdr
 	depends = bladerf
-	source = soapybladerf-0.4.1.tar.gz::https://github.com/pothosware/SoapyBladeRF/archive/soapy-bladerf-0.4.1.tar.gz
-	sha512sums = 73cd5c56b6f2faa37fb8eb8aca359061fd2da94fb081c1eb60f61894385f5f0175c9e3955835dc38478e513b0fd5a15fd100123be89e4ad62a0b7134557ab73e
+	source = soapybladerf-0.4.4.tar.gz::https://github.com/pothosware/SoapyBladeRF/archive/soapy-bladerf-0.4.4.tar.gz
+	sha512sums = ec3d3bc72700827d153b6eaaf13aad21173dfc4fe2fca89684e6f1aeea15e93e82b4869184227f15e53973456a71487583de9b38dcb81baa812ddbeb264db2ae
 
 pkgname = soapybladerf
