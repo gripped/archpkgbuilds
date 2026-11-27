@@ -1,7 +1,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=amd-container-toolkit
-pkgver=1.3.0
+pkgver=1.4.0
 pkgrel=1
 pkgdesc="Tools that streamline the use of AMD GPUs with containers."
 arch=('x86_64')
@@ -11,7 +11,7 @@ depends=('glibc')
 makedepends=('go' 'git')
 options=("!lto")
 source=("$pkgname::git+${url}.git#tag=v${pkgver}")
-sha512sums=('42fa79781165719977453f00036bcabdeb5c4feac632836f92d5e05fc299872a5d5833ec08c6e326c8f9fec6f19df7fae9dcdbf24e97771d9cfab231fb819ae7')
+sha512sums=('bbf81d6e6f1425fc74b0a427023bb486d617d582f277b332d8b8420be61aab29d03d5e83a9a8e6dbbfd159eaeb93ed5c307c092ace0141bdf104c70dc5d8b2fe')
 
 prepare() {
   cd ${pkgname}
