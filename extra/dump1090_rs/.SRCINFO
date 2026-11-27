@@ -1,12 +1,14 @@
 pkgbase = dump1090_rs
 	pkgdesc = Demodulate ADS-B signal from a SDR device
 	pkgver = 0.8.1
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/rsadsb/dump1090_rs
 	arch = x86_64
 	license = GPL-2.0-only
 	makedepends = cargo
 	makedepends = clang
+	depends = glibc
+	depends = libgcc
 	depends = soapysdr
 	optdepends = soapyrtlsdr: RTL-SDR support
 	options = !lto

@@ -2,12 +2,12 @@
 
 pkgname=dump1090_rs
 pkgver=0.8.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Demodulate ADS-B signal from a SDR device"
 arch=('x86_64')
 url="https://github.com/rsadsb/dump1090_rs"
 license=('GPL-2.0-only')
-depends=('soapysdr')
+depends=('glibc' 'libgcc' 'soapysdr')
 makedepends=('cargo' 'clang')
 optdepends=('soapyrtlsdr: RTL-SDR support')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
