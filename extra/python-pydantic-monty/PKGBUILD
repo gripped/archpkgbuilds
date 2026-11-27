@@ -2,7 +2,7 @@
 
 pkgbase=python-pydantic-monty
 pkgname=('python-pydantic-monty' 'python-pydantic-monty-client' 'python-pydantic-monty-runtime')
-pkgver=1.6.0
+pkgver=1.7.0
 pkgrel=1
 pkgdesc="A Python sandbox written in Rust"
 arch=('x86_64')
@@ -13,16 +13,15 @@ makedepends=('cmake' 'git' 'maturin' 'python-build' 'python-hatchling' 'python-i
 checkdepends=('python-anyio' 'python-dirty-equals' 'python-grpcio' 'python-inline-snapshot'
               'python-opentelemetry-sdk' 'python-pytest' 'python-pytest-examples')
 source=("git+https://github.com/pydantic/monty.git#tag=v$pkgver")
-sha512sums=('3e465be82c7ef344c872dbc425495149c0b3e4d9e1419d366732f754221111fa5a9f8c8f809e3367865898b072c1fcfbed99f08da30b5f8a9fc0af9d7f579e2b')
+sha512sums=('e83ee4855498049450ce95f94decaa61497aa77bbf8d7d37796792a40b0ff6288bdd10e42968229e1014f883e8fbc23124ae89941e5f76f15c14d5e51749154b')
 
 prepare() {
   cd monty
   # pytest 9.1 deprecates generators passed to parametrize.
   sed -i 's/find_examples(\*paths)/list(find_examples(*paths))/' \
     crates/monty-python/tests/test_readme_examples.py
-  # Examples include syntax rejected by Ruff even though it is under test.
-  # https://github.com/astral-sh/ruff/pull/27035
-  sed -i "s/'FA102'/'B018', 'FA102', 'PLC3002', 'RUF018', 'SIM117'/" \
+  # Arch's newer Ruff reports extra style rules in the documentation examples.
+  sed -i "s/eval_example.config.target_version = 'py311'/eval_example.set_config(target_version='py311', ruff_ignore=['PLC3002', 'RUF018', 'SIM117'])/" \
     crates/monty-python/tests/test_readme_examples.py
   cargo fetch --locked
 }
@@ -83,9 +82,10 @@ package_python-pydantic-monty-client() {
 
 package_python-pydantic-monty-runtime() {
   pkgdesc="Monty sandbox runtime and command-line interface"
+  license=('MIT' 'Python-2.0.1' 'Apache-2.0')
   depends=('glibc' 'libgcc' 'python')
 
   cd monty
   python -m installer --destdir="$pkgdir" target/wheels/pydantic_monty_runtime-*.whl
-  install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+  install -Dm644 crates/monty-runtime/LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
