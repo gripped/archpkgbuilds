@@ -2,8 +2,8 @@
 
 pkgname=python-torrentool
 _name="${pkgname#python-}"
-pkgver=1.2.0
-pkgrel=4
+pkgver=1.3.0
+pkgrel=1
 pkgdesc="The tool to work with torrent files"
 arch=(any)
 url="https://github.com/idlesign/torrentool"
@@ -11,22 +11,23 @@ license=(BSD-3-Clause)
 depends=(python)
 makedepends=(
   python-build
+  python-hatchling
   python-installer
-  python-setuptools
-  python-wheel
 )
 checkdepends=(
+  python-click
   python-pytest
   python-pytest-datafixtures
   python-pytest-responsemock
+  python-requests
 )
 optdepends=(
   'python-click: for torrentool'
   'python-requests: for some torrentool subcommands'
 )
 source=($pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz)
-sha512sums=('9f90b9c899befd829e489260e8c62814c8a0e9a9933394d780a80c6cb501a084dfba529a0daa8a028ec2f79f0b3c16127e71fc4f5fd750ee334751eef80b3872')
-b2sums=('d50fb009e54731774a012d6d3ec39e431c67ff82c2adbe178b14ebd1d22ab242d6b11b69a014c160e255eca0c4cb7a8617a313655bf0d28042e493c2efebc4c9')
+sha512sums=('af1dbbb3991cf2bcf05d12fb49c64264a9f6a11506b81df98143df077a478a4d7b06e1b9b3bbd7d32cc65d9d5b63b58f6fc5e74012fe929e39702490d612c344')
+b2sums=('33063a5ca64dcfa0c174105c4da29b94cea93ef2d78ab09412b7ae0390c21fca87d6bb40fe52a2e14461edeb729e01674cf3e919f4ed147f33eceac2f1adcd00')
 
 build() {
   cd $_name-$pkgver
@@ -49,6 +50,6 @@ check() {
 package() {
   cd $_name-$pkgver
   python -m installer --destdir="$pkgdir" dist/*.whl
-  install -vDm 644 {AUTHORS,CHANGELOG,README.rst} -t "$pkgdir/usr/share/doc/$pkgname/"
+  install -vDm 644 {AUTHORS,CHANGELOG,README}.md -t "$pkgdir/usr/share/doc/$pkgname/"
   install -vDm 644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
 }
