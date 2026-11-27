@@ -3,7 +3,7 @@
 # Contributor: Andrea Scarpino <andrea@archlinux.org>
 
 pkgname=qt6-tools
-_pkgver=6.12.0
+_pkgver=6.12.1
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=(x86_64)
@@ -32,7 +32,7 @@ groups=(qt6)
 _pkgfn=${pkgname/6-/}
 source=(git+https://code.qt.io/qt/$_pkgfn#tag=v$_pkgver
         git+https://code.qt.io/playground/qlitehtml)
-sha256sums=('3a444970b514ccf63ff5f67595fad30320447f1580828a7d16e37ed3f3e6ddd2'
+sha256sums=('9501ccd061fe7835df675048ea55219da37f864118627acc6bfb2d97bbe4a426'
             'SKIP')
 
 prepare() {
