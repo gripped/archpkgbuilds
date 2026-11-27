@@ -1,6 +1,6 @@
 pkgbase = hipblas
 	pkgdesc = ROCm BLAS marshalling library
-	pkgver = 7.2.4
+	pkgver = 10.1
 	pkgrel = 1
 	url = https://rocm.docs.amd.com/projects/hipBLAS/en/latest/index.html
 	arch = x86_64
@@ -9,6 +9,7 @@ pkgbase = hipblas
 	makedepends = git
 	makedepends = cmake
 	makedepends = gcc-fortran
+	makedepends = python
 	depends = glibc
 	depends = hip-runtime-amd
 	depends = hipblas-common
@@ -16,7 +17,7 @@ pkgbase = hipblas
 	depends = rocblas
 	depends = rocm-core
 	depends = rocsolver
-	source = rocm-libraries::git+https://github.com/ROCm/rocm-libraries.git#tag=rocm-7.2.4
-	sha256sums = b476acbcd0f4017c800e4b05533e6dfb875bde32242729c8df557d4624379623
+	source = hipblas-10.1.tar.gz::https://github.com/ROCm/rocm-libraries/releases/download/therock-10.1/hipblas.tar.gz
+	sha256sums = 453fa4099c8d5419fc2e2f03fd17c4b69b7d67a39259fa1841719189024d9fe0
 
 pkgname = hipblas
