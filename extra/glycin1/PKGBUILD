@@ -7,7 +7,7 @@ pkgname=(
   glycin1-gtk4
 )
 pkgver=1.2.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Sandboxed and extendable image decoding (legacy version)"
 arch=(x86_64)
 url="https://gitlab.gnome.org/GNOME/glycin"
