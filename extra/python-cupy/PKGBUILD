@@ -5,7 +5,7 @@
 pkgbase=python-cupy
 pkgname=(python-cupy python-cupy-rocm-gfx9 python-cupy-rocm-gfx10 python-cupy-rocm-gfx11 python-cupy-rocm-gfx12)
 pkgver=14.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="NumPy/SciPy-compatible array library for GPU-accelerated computing with Python"
 arch=(x86_64)
 url="https://github.com/cupy/cupy"
@@ -129,7 +129,7 @@ build() {
   export CUPY_NUM_NVCC_THREADS="$(nproc)"
 
   cd "$srcdir"/$pkgbase
-  LDFLAGS="$LDFLAGS -L/opt/cuda/targets/x86_64-linux/lib/stubs" \
+  LDFLAGS="$LDFLAGS -L/opt/cuda/lib/stubs" \
   python -m build --wheel --no-isolation
 
   # ROCm build
