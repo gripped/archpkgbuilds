@@ -3,45 +3,40 @@
 
 pkgname=lightdm-pantheon-greeter
 pkgver=8.1.2
-pkgrel=2
+pkgrel=3
 pkgdesc='Pantheon greeter for LightDM'
 arch=(x86_64)
 url=https://github.com/elementary/greeter
-license=(GPL-2.0-or-later)
+license=(GPL-3.0-or-later)
 groups=(pantheon)
 depends=(
   accountsservice
-  cairo
   dconf
   gdk-pixbuf2
   glib2
   glibc
-  gnome-desktop
-  granite
-  graphene
-  gtk3
+  granite7
+  gtk4
   hicolor-icon-theme
+  libadwaita
   libgee
-  libgl
-  libhandy
   lightdm
-  libx11
-  mutter49
+  pantheon-session
   wayland
 )
 makedepends=(
-  cmake
   meson
   git
-  libglvnd
   vala
 )
 source=(lightdm-pantheon-greeter::git+https://github.com/elementary/greeter.git#tag=$pkgver)
 b2sums=('2be21ec468c54c183fa22380f1f1d44aa826efd39572c0870aa5b48edf07c18c864d5c16e882f45567419f8c532e0a0f7ce0437b4e8da0a92a5670746bedda1b')
 
-pkgver() {
+prepare() {
   cd lightdm-pantheon-greeter
-  git describe --tags | sed 's/-/.r/; s/-g/./'
+
+  # Update to git snapshot for GTK4 and Wayland port
+  git cherry-pick -n 8.1.2..22e1b9a55af314d75bad54154c1a7a66763e2f2f
 }
 
 build() {
@@ -50,16 +45,6 @@ build() {
 }
 
 package() {
-  depends+=(
-    libgdk-3.so
-    libgtk-3.so
-    libgio-2.0.so
-    libglib-2.0.so
-    libgobject-2.0.so
-    libgranite.so
-    libhandy-1.so
-  )
-
   meson install -C build --destdir "$pkgdir"
 }
 
