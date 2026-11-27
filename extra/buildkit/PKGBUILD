@@ -3,7 +3,7 @@
 # Contributor: Kenneth Endfinger <kaendfinger@gmail.com>
 
 pkgname=buildkit
-pkgver=0.35.0
+pkgver=0.35.1
 pkgrel=1
 pkgdesc='A toolkit for converting source code to build artifacts in a repeatable manner'
 arch=(x86_64)
@@ -19,8 +19,8 @@ makedepends=(
 )
 optdepends=('containerd: containerd worker')
 source=("$pkgname::git+$url.git#tag=v$pkgver")
-sha512sums=('34248c958ad52925bdd148e5ce5f8da44c85be76ed7c35cd89acd51044192d669eaff2306ee1327646770eec34d46b7baa0059936f282cce9f5fd89c94ca7cdc')
-b2sums=('21b24edadf33458ed413d4f1417965bcf1d930c9d7cd5433bc14e09e814efe3b8761c34d4cea56a9ffa13dfada4863a27bc21170133c338a496c5314545047fc')
+sha512sums=('bd725f357d6654d5d7bf4b65cb206fda445693a50a2a253f62decb1ec0f8b6b987384e7fc9a3a56524d98802cf5e62d5fa739e0ed3ff4adbc3ab89b6fd2e99ee')
+b2sums=('9419a6a294c8709851e109e7852d57b049bc5dc73b38cb8e785a96c85dab1c1584a2b13094d4c92a9434f209669f5ff464acc4aa94083873afc1893d001f6198')
 
 prepare() {
   cd "$pkgname"
