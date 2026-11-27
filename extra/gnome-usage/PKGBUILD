@@ -3,7 +3,7 @@
 
 pkgname=gnome-usage
 pkgver=48.0
-pkgrel=1
+pkgrel=2
 pkgdesc="View information about use of system resources"
 url="https://wiki.gnome.org/Apps/Usage"
 arch=(x86_64)
@@ -38,9 +38,11 @@ optdepends=(
 source=(
   "git+https://gitlab.gnome.org/GNOME/gnome-usage.git#tag=${pkgver/[a-z]/.&}"
   0001-Add-D-Bus-service-file.patch
+  gnome-usage-fix-sanitize.patch
 )
 b2sums=('e52ebf855515a26a171cac84dfcc0a9fc2fe8850c820b7d403d606eb1e98c85794d70f1f76931b2f9d2fa0f1c377841972795c9d2e3c2972861b8324b4d73cdb'
-        '34066b9a090b5466bfbb215a726e566a3268e7036075e712db580c2cb6e5d83ec1eaee5f5f71737ac383939d1183aff05ab284e75ddb15f59e3c577bb16ee155')
+        '34066b9a090b5466bfbb215a726e566a3268e7036075e712db580c2cb6e5d83ec1eaee5f5f71737ac383939d1183aff05ab284e75ddb15f59e3c577bb16ee155'
+        'cee9ad1c406305bb4b49932ee69fc6e5dd79ff949c2fb1c45128eafbf1bb83717675d72bcae88030f96c4477bd9d19acbd45e8953abad3d7d4630eba7d74be0c')
 
 prepare() {
   cd $pkgname
@@ -48,6 +50,10 @@ prepare() {
   # Add D-Bus service file
   # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/167
   git apply -3 ../0001-Add-D-Bus-service-file.patch
+
+  # Skip applications without a command line
+  # https://gitlab.gnome.org/GNOME/gnome-usage/-/merge_requests/174
+  git apply -3 ../gnome-usage-fix-sanitize.patch
 }
 
 build() {

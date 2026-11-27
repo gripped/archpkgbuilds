@@ -1,0 +1,28 @@
+From 5c95f4a154e9a5a0e5e25502c135f55f92b1d373 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Mon, 23 Nov 2026 05:27:37 +0100
+Subject: [PATCH] Skip applications without a command line
+
+Skip application entries with an empty command line to avoid
+passing an empty string to Process.first_component(), which
+can return NULL.
+---
+ src/app-item.vala | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/app-item.vala b/src/app-item.vala
+index 73760b0a..6a6db0ad 100644
+--- a/src/app-item.vala
++++ b/src/app-item.vala
+@@ -100,7 +100,7 @@ public class Usage.AppItem : Object {
+ 
+             string? cmd = info.get_commandline ();
+ 
+-            if (cmd == null)
++            if (cmd == null || cmd == "")
+                 continue;
+ 
+             sanitize_cmd (ref cmd);
+-- 
+GitLab
+
