@@ -1,0 +1,62 @@
+From 556a15378c555c12efb2bbd50940087202f53186 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 25 Nov 2026 13:41:20 +0100
+Subject: [PATCH] fix: Clean up temporary Google Fonts files
+
+Delete downloaded Google Fonts files when the application shuts
+down instead of leaving them in the temporary directory.
+---
+ webfontkitgenerator/google.py |  1 +
+ webfontkitgenerator/main.py   | 12 ++++++++++++
+ webfontkitgenerator/window.py |  3 +++
+ 3 files changed, 16 insertions(+)
+
+diff --git a/webfontkitgenerator/google.py b/webfontkitgenerator/google.py
+index ee27c05..1ba4101 100644
+--- a/webfontkitgenerator/google.py
++++ b/webfontkitgenerator/google.py
+@@ -289,6 +289,7 @@ def terminate_dialog(self, cancel=False):
+         if not cancel:
+             # Load downloaded files
+             if self.files:
++                self.window.temp_files.extend(self.files)
+                 self.window.load_fonts(self.files)
+ 
+             # Show found errors
+diff --git a/webfontkitgenerator/main.py b/webfontkitgenerator/main.py
+index 3610054..7bbb78f 100644
+--- a/webfontkitgenerator/main.py
++++ b/webfontkitgenerator/main.py
+@@ -44,6 +44,18 @@ def __init__(self, version: str):
+     def do_startup(self):
+         Adw.Application.do_startup(self)
+ 
++    def do_shutdown(self):
++        if self.window:
++            for file in self.window.temp_files:
++                try:
++                    file.delete(None)
++                except GLib.Error:
++                    pass
++
++            self.window.temp_files.clear()
++
++        Adw.Application.do_shutdown(self)
++
+     def do_activate(self):
+         self.window = self.props.active_window  # type: ignore
+         if not self.window:
+diff --git a/webfontkitgenerator/window.py b/webfontkitgenerator/window.py
+index d6d702e..0fd52db 100644
+--- a/webfontkitgenerator/window.py
++++ b/webfontkitgenerator/window.py
+@@ -55,6 +55,9 @@ def __init__(self, **kwargs):
+ 
+         self.setup_actions()
+ 
++        # Temporary files downloaded from Google Fonts
++        self.temp_files: list[Gio.File] = []
++
+         # Out directory chooser
+         self.out_dir: Gio.File | None = None  # Store selected dir
+         self.out_dir_chooser = Gtk.FileDialog()
