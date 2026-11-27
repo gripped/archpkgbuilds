@@ -5,20 +5,24 @@
 
 pkgname=copyq
 pkgver=17.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Clipboard manager with searchable and editable history"
 url="https://github.com/hluk/${pkgname}"
 depends=('hicolor-icon-theme' 'qt6-svg' 'knotifications' 'kstatusnotifieritem' 'kguiaddons' 'libxtst' 'qca-qt6' 'qtkeychain-qt6' 'miniaudio')
 makedepends=('extra-cmake-modules' 'qt6-tools' 'vulkan-headers')
 license=('GPL-3.0-or-later')
 arch=('x86_64')
-source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz")
-sha256sums=('78c73c6213fe4cf0c91e462c9372228af17c72448a1a69c9e4b0d28c79ff5fbc')
+source=(
+    "${pkgname}-${pkgver}.tar.gz::${url}/archive/v${pkgver}.tar.gz"
+    '0001-only-use-setWindowRole-for-X11-on-the-mainwindow.patch'
+)
+sha256sums=('78c73c6213fe4cf0c91e462c9372228af17c72448a1a69c9e4b0d28c79ff5fbc'
+            'a2c4372f8bb96c336db112712b05b208888aafff5c09d321946716dd6d190f64')
 
-#prepare() {
-    #cd CopyQ-$pkgver
-    #patch -p1 -i "$srcdir/3268.patch"
-#}
+prepare() {
+    cd CopyQ-$pkgver
+    patch -p1 -i "$srcdir/0001-only-use-setWindowRole-for-X11-on-the-mainwindow.patch"
+}
 
 build() {
     cmake -B build -S CopyQ-$pkgver \

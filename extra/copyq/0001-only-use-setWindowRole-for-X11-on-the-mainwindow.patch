@@ -1,0 +1,36 @@
+From e12eb32b48d3bb186aa9690ada5702a50c422d03 Mon Sep 17 00:00:00 2001
+From: BlackEagle <ike.devolder@gmail.com>
+Date: Sat, 21 Nov 2026 13:45:07 +0100
+Subject: [PATCH] only use setWindowRole for X11 on the mainwindow
+
+As stated in the docs setWindowRole it only usefull to do on X11.
+
+Since Qt6.12 it was added as a Known issue on Linux, from the bug it
+seems it is not entirely clear who should fix it.
+
+See: https://doc.qt.io/qt-6/qwidget.html#setWindowRole
+See: https://wiki.qt.io/Qt_6.12_Known_Issues
+Closes: #3768
+Signed-off-by: BlackEagle <ike.devolder@gmail.com>
+---
+ src/gui/mainwindow.cpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/gui/mainwindow.cpp b/src/gui/mainwindow.cpp
+index d43fa634..5768fa6d 100644
+--- a/src/gui/mainwindow.cpp
++++ b/src/gui/mainwindow.cpp
+@@ -772,7 +772,9 @@ MainWindow::MainWindow(const ClipboardBrowserSharedPtr &sharedData, QWidget *par
+     m_sharedData->passwordPrompt = new PasswordPrompt(this);
+     m_sharedData->menuItems = menuItems();
+ 
+-    setWindowRole(QStringLiteral("main"));
++    // Window role is only usefull on X11 (https://doc.qt.io/qt-6/qwidget.html#setWindowRole)
++    if ( QGuiApplication::platformName() == QLatin1String("xcb") )
++        setWindowRole(QStringLiteral("main"));
+ 
+     menuBar()->setObjectName("menu_bar");
+     createMenu();
+-- 
+2.56.1
+
