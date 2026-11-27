@@ -2,7 +2,7 @@
 # Contributor: peeweep <peeweep at 0x0 dot ee>
 
 pkgname=neovide
-pkgver=0.17.2
+pkgver=0.17.4
 pkgrel=1
 pkgdesc='No Nonsense Neovim Client in Rust'
 arch=(x86_64)
@@ -38,7 +38,7 @@ optdepends=('vulkan-intel: vulkan support for intel'
 options=(!lto)
 _archive=("$pkgname-$pkgver")
 source=("$url/archive/$pkgver/$_archive.tar.gz")
-sha256sums=('7c3fcc0977e35818d64a4b004c55125d9ccceaf5b61c97b0b4a53628f8fc58e2')
+sha256sums=('ac9bcfcc510da39ac861cbba468296df0f1270fdcd82846a5820c33a73d7da98')
 
 prepare() {
 	cd "$_archive"
