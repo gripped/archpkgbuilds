@@ -2,7 +2,7 @@
 # Contributor: Danct12 <danct12@disroot.org>
 
 pkgname=libgbinder
-pkgver=1.1.55
+pkgver=1.1.56
 pkgrel=1
 pkgdesc="GLib-style interface to binder"
 arch=('x86_64')
@@ -11,7 +11,7 @@ license=('BSD-3-Clause')
 depends=('libglibutil' 'glib2' 'glibc')
 provides=('libgbinder.so')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz")
-sha512sums=('e1c950f2717c2e44f64d6769b29243f055a6436b38500b4980aaca80127a92799e59d60bea9bfabf52753d4302f78f57891bb515ea81f46bc887a19e91f44afc')
+sha512sums=('93105f8c8ddcaf76a55845d84e25b5d52f60fb198b82ff5dc3b7f70a22d4cbfa910838024635b3c5534a2b72ec6cffa54d51506b78960f205b41ba8bc61423bc')
 
 build() {
 	KEEP_SYMBOLS=1 make -C "${pkgname}-${pkgver}" release pkgconfig
