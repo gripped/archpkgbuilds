@@ -3,7 +3,7 @@
 # Contributor: dalto <dalto at fastmail.com>
 
 pkgname=btrfs-assistant
-pkgver=3.0.0
+pkgver=3.1.0
 pkgrel=1
 pkgdesc="An application for managing BTRFS subvolumes and Snapper snapshots"
 arch=('x86_64')
@@ -25,7 +25,7 @@ optdepends=('snapper: Snapper support'
 makedepends=('cmake' 'qt6-declarative' 'qt6-tools')
 backup=("etc/${pkgname}.conf")
 source=("${url}/-/archive/${pkgver}/${pkgname}-${pkgver}.tar.gz")
-sha256sums=('cb33a9a616fc0f4196b3311ce8ae1ed3f4b24994546713e0dfb958407c8a86ff')
+sha256sums=('8723febbebe3910b439ab70ac534ea0bec76f889880f3bd3a03b676354e2ecc9')
 
 build() {
 	cmake -B build \
