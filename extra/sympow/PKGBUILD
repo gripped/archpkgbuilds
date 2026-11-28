@@ -2,7 +2,7 @@
 
 pkgname=sympow
 pkgver=2.023.7
-pkgrel=1
+pkgrel=2
 pkgdesc="A package to compute special values of symmetric power elliptic curve L-functions"
 arch=(x86_64)
 url="http://www.sagemath.org"
@@ -13,7 +13,7 @@ depends=(glibc
 makedepends=(git
              help2man)
 source=(git+https://gitlab.com/rezozer/forks/sympow#tag=v$pkgver)
-sha256sums=('7a6c1fb752baffbc0093331426b09cfd4d575541b8ef66f965479ea6852ac891')
+sha256sums=('d925f363af380db88344e04106f0318ff44b428366ba30a745990aa61e5a05cf')
 
 prepare() {
   cd $pkgname
