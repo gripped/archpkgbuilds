@@ -1,14 +1,14 @@
 # Maintainer: Sven-Hendrik Haase <svenstaro@archlinux.org>
 # Contributor: Anas Elgarhy <anas.elgarhy.dev@gmail.com>
 pkgname=smolvm
-pkgver=1.37.5
+pkgver=1.37.7
 pkgrel=1
 pkgdesc='Tool to build & run portable, lightweight, self-contained virtual machines'
 arch=('x86_64')
 url='https://github.com/smol-machines/smolvm'
 license=('Apache-2.0')
 depends=('seatd' 'crun' 'jq' 'e2fsprogs' 'util-linux' 'libcap' 'gzip' 'tar' 'libgcc' 'zlib' 'oniguruma' 'sqlite' 'zstd')
-makedepends=('git' 'rust' 'musl' 'rust-musl' 'cargo-make' 'bc' 'python-pyelftools' 'libepoxy' 'virglrenderer'
+makedepends=('git' 'git-lfs' 'rust' 'musl' 'rust-musl' 'cargo-make' 'bc' 'python-pyelftools' 'libepoxy' 'virglrenderer'
               'clang' 'lld' 'go')
 provides=('smolvm')
 source=("git+https://github.com/smol-machines/smolvm#tag=v${pkgver}"
@@ -16,11 +16,22 @@ source=("git+https://github.com/smol-machines/smolvm#tag=v${pkgver}"
         "git+https://github.com/smol-machines/libkrunfw"
         "git+https://github.com/smol-machines/smolvm-sdk"
         'smolvm-build-fixes.patch')
-sha256sums=('0008bb4c7445214294b3590df154d2c86c72f8fc1cbeaf3c71d782e8281f769f'
+sha256sums=('3d0d2154a08172e17ca8a4bc5639e56231104ba6699cdb5dc4737a2b284870d9'
             'SKIP'
             'SKIP'
             'SKIP'
             'ace64d0f406db5d1bd902059a909f219ad44655c8b9d0cc70072114fabdab011')
+
+case "$CARCH" in
+  aarch64)
+    _musl_target='aarch64-unknown-linux-musl'
+    _musl_rustflags_var='CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_RUSTFLAGS'
+    ;;
+  *)
+    _musl_target='x86_64-unknown-linux-musl'
+    _musl_rustflags_var='CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS'
+    ;;
+esac
 
 prepare() {
   cd "$pkgname"
@@ -33,7 +44,14 @@ prepare() {
   git config submodule.smolvm-sdk.url "${srcdir}/smolvm-sdk"
   git -c protocol.file.allow=always submodule update
 
+  git lfs install --local
+  git remote add network-origin ${url}
+  git lfs pull network-origin
+
   patch -p1 < ../smolvm-build-fixes.patch
+
+  # Upstream hardcodes the x86_64 musl triple in Makefile.toml; retarget it for $CARCH.
+  sed -i "s|x86_64-unknown-linux-musl|$_musl_target|g" Makefile.toml
 
   cargo fetch --locked --target host-tuple
 }
@@ -44,7 +62,7 @@ build() {
   export LIBSQLITE3_SYS_USE_PKG_CONFIG=1
   export ZSTD_SYS_USE_PKG_CONFIG=1
   # Use lld for the musl target as --icf=safe is not supported by GNU ld.
-  export CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_RUSTFLAGS='-Clink-arg=-fuse-ld=lld'
+  export "$_musl_rustflags_var=-Clink-arg=-fuse-ld=lld"
 
   cargo make build-libkrunfw
   cargo make build-libkrun
