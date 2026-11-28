@@ -1,0 +1,21 @@
+pkgbase = libcrypto-awslc
+	pkgdesc = General-purpose cryptographic library maintained by the AWS Cryptography team
+	pkgver = 5.15.0
+	pkgrel = 1
+	url = https://github.com/aws/aws-lc
+	arch = x86_64
+	license = Apache-2.0 OR ISC
+	makedepends = cmake
+	makedepends = go
+	makedepends = libunwind
+	makedepends = ninja
+	makedepends = perl
+	makedepends = rust-bindgen
+	depends = glibc
+	provides = aws-lc
+	provides = libcrypto-awslc.so
+	source = aws-lc-5.15.0.tar.gz::https://github.com/aws/aws-lc/archive/refs/tags/v5.15.0.tar.gz
+	sha256sums = 66e7132566cf2356b16ae79a9b57ea7a75ad6d65a41408753b08569c7db02921
+	b2sums = ced83a01655d64b65e41183e0c48a94845fa708d20aba0725ea3b3241338d33437cf1348ae1909322a6f801a469e1ff22b9d4392f0004d3e804108300725a6c5
+
+pkgname = libcrypto-awslc

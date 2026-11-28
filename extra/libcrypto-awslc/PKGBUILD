@@ -1,0 +1,66 @@
+# Maintainer: kpcyrd <kpcyrd[at]archlinux[dot]org>
+
+pkgname=libcrypto-awslc
+_pkgname=aws-lc
+pkgver=5.15.0
+pkgrel=1
+pkgdesc='General-purpose cryptographic library maintained by the AWS Cryptography team'
+url='https://github.com/aws/aws-lc'
+arch=('x86_64')
+license=('Apache-2.0 OR ISC')
+depends=(
+  'glibc'
+)
+makedepends=(
+  'cmake'
+  'go'
+  'libunwind'
+  'ninja'
+  'perl'
+  'rust-bindgen'
+)
+provides=(
+  'aws-lc'
+  'libcrypto-awslc.so'
+)
+source=("${_pkgname}-${pkgver}.tar.gz::https://github.com/aws/aws-lc/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('66e7132566cf2356b16ae79a9b57ea7a75ad6d65a41408753b08569c7db02921')
+b2sums=('ced83a01655d64b65e41183e0c48a94845fa708d20aba0725ea3b3241338d33437cf1348ae1909322a6f801a469e1ff22b9d4392f0004d3e804108300725a6c5')
+
+prepare() {
+  cd "${_pkgname}-${pkgver}"
+  cmake -GNinja -B build \
+    -DCMAKE_BUILD_TYPE=None \
+    -DBUILD_SHARED_LIBS=ON \
+    -DGENERATE_RUST_BINDINGS=ON \
+    -DENABLE_DIST_PKG=ON \
+    -DENABLE_DIST_PKG_OPENSSL_SHIM=OFF \
+    -DBUILD_LIBSSL=OFF \
+    -DBUILD_TOOL=OFF \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_SHARED_LINKER_FLAGS="${LDFLAGS}"
+}
+
+build() {
+  cd "${_pkgname}-${pkgver}"
+  ninja -C build
+}
+
+package() {
+  cd "${_pkgname}-${pkgver}"
+  DESTDIR="${pkgdir}" ninja -C build install
+
+  # This is a workaround for aws-lc-sys incorrectly using -lcrypto,
+  # regardless of what pkg-config says
+  # https://github.com/aws/aws-lc-rs/issues/1327
+  install -d "${pkgdir}/usr/lib/aws-lc/"
+  for lib in libcrypto{,-awslc}.so; do
+    ln -s ../libcrypto-awslc.so "${pkgdir}/usr/lib/aws-lc/${lib}"
+  done
+  sed -i 's|^libdir=${prefix}/lib$|libdir=${prefix}/lib/aws-lc|' \
+    "${pkgdir}/usr/lib/pkgconfig"/*.pc
+
+  install -Dm 644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
+
+# vim: ts=2 sw=2 et:
