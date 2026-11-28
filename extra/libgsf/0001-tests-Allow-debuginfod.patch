@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Jan Alexander Steffens (heftig)" <heftig@archlinux.org>
+Date: Fri, 27 Nov 2026 08:16:49 +0100
+Subject: [PATCH] tests: Allow debuginfod
+
+Otherwise Valgrind doesn't work, as it cannot obtain debug symbols for
+ld-linux-x86-64.so.2.
+---
+ tests/LibGsfTest.pm | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/tests/LibGsfTest.pm b/tests/LibGsfTest.pm
+index cf5c43770221..cf69617c737c 100644
+--- a/tests/LibGsfTest.pm
++++ b/tests/LibGsfTest.pm
+@@ -42,8 +42,6 @@ if (-d "../tests") {
+ # multi-minute stalls on symbol lookups, and the gvfs D-Bus module
+ # produces fd-not-closed and thread-pool reports that are not libgsf's
+ # doing.
+-delete $ENV{'DEBUGINFOD_URLS'};
+-$ENV{'DEBUGINFOD_URLS'} = '';
+ $ENV{'GIO_USE_VFS'} = 'local';
+ 
+ $gsf = "$top_builddir/tools/gsf";

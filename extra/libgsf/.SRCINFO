@@ -1,12 +1,13 @@
 pkgbase = libgsf
 	pkgdesc = Extensible I/O abstraction library for dealing with structured file formats
-	pkgver = 1.14.60
+	pkgver = 1.14.61
 	pkgrel = 1
 	url = https://gitlab.gnome.org/GNOME/libgsf
 	arch = x86_64
 	license = LGPL-2.1-only
 	checkdepends = perl-xml-parser
 	checkdepends = unzip
+	checkdepends = valgrind
 	makedepends = autoconf-archive
 	makedepends = git
 	makedepends = gobject-introspection
@@ -17,8 +18,10 @@ pkgbase = libgsf
 	depends = glibc
 	depends = libxml2
 	depends = zlib
-	source = git+https://gitlab.gnome.org/GNOME/libgsf.git#tag=LIBGSF_1_14_60
-	b2sums = 614b0818bcd0c1016394aef3a6dd46773a37dd6b0e45c84636ca61a16c606d5aa2a5ebfcde42293033b77499c0f0f148d0f8f5ddddc4ee61dac7828f139b9b9a
+	source = git+https://gitlab.gnome.org/GNOME/libgsf.git#tag=LIBGSF_1_14_61
+	source = 0001-tests-Allow-debuginfod.patch
+	b2sums = e3c61b0533ffe6f690140b4050d6c0d0a193bbeba3ece054336eceb89f86c7dba44a9152ca9eea27ddf29d5ccc1f7e0f95a0c40d9c191e667795694c60c5fab6
+	b2sums = 8e0a73f7ff2f8f29c1f8e34280b034d9ba42ab7487d332c501a01be904cc3fcd4d2767cd52062d1864b806ba6640ee297b4a8e919b319671c8a1f23890587e26
 
 pkgname = libgsf
 	provides = libgsf-1.so

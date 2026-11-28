@@ -7,7 +7,7 @@ pkgname=(
   libgsf
   libgsf-docs
 )
-pkgver=1.14.60
+pkgver=1.14.61
 pkgrel=1
 pkgdesc="Extensible I/O abstraction library for dealing with structured file formats"
 url="https://gitlab.gnome.org/GNOME/libgsf"
@@ -30,12 +30,21 @@ makedepends=(
 checkdepends=(
   perl-xml-parser
   unzip
+  valgrind
 )
-source=("git+$url.git#tag=LIBGSF_${pkgver//./_}")
-b2sums=('614b0818bcd0c1016394aef3a6dd46773a37dd6b0e45c84636ca61a16c606d5aa2a5ebfcde42293033b77499c0f0f148d0f8f5ddddc4ee61dac7828f139b9b9a')
+source=(
+  "git+$url.git#tag=LIBGSF_${pkgver//./_}"
+  0001-tests-Allow-debuginfod.patch
+)
+b2sums=('e3c61b0533ffe6f690140b4050d6c0d0a193bbeba3ece054336eceb89f86c7dba44a9152ca9eea27ddf29d5ccc1f7e0f95a0c40d9c191e667795694c60c5fab6'
+        '8e0a73f7ff2f8f29c1f8e34280b034d9ba42ab7487d332c501a01be904cc3fcd4d2767cd52062d1864b806ba6640ee297b4a8e919b319671c8a1f23890587e26')
 
 prepare() {
   cd libgsf
+
+  # Make tests pass
+  git apply -3 ../0001-tests-Allow-debuginfod.patch
+
   NOCONFIGURE=1 ./autogen.sh
 }
 
