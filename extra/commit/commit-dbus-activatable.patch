@@ -1,0 +1,258 @@
+From b464656598315d6e2ecb2ae5191e085fb8343cf8 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 27 Nov 2026 03:26:49 +0100
+Subject: [PATCH] Support D-Bus activation and multiple windows
+
+Allow the application to be launched through D-Bus activation and
+support opening multiple editor windows within a single instance.
+
+Fix window-specific actions and ensure that closing an editor window
+does not quit the entire application. Also fix shared text tag usage
+and disconnect the style manager signal handler when the editor is
+destroyed.
+---
+ data/meson.build             | 10 ++++++++++
+ data/re.sonny.Commit.desktop |  1 +
+ data/re.sonny.Commit.service |  3 +++
+ src/CommitEditor.js          |  8 +++++++-
+ src/application.js           | 17 +++++++++++++----
+ src/editor.js                | 12 ++++++------
+ src/welcome.js               |  8 +++++++-
+ src/window.blp               |  2 +-
+ src/window.js                | 25 ++++++++++++++++++++-----
+ 9 files changed, 68 insertions(+), 18 deletions(-)
+ create mode 100644 data/re.sonny.Commit.service
+
+diff --git a/data/meson.build b/data/meson.build
+index 3d5bbc9..e4b0f02 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -45,3 +45,13 @@ endif
+ 
+ install_data('icons/re.sonny.Commit.svg', install_dir: join_paths(get_option('datadir'), 'icons/hicolor/scalable/apps'))
+ install_data('icons/re.sonny.Commit-symbolic.svg', install_dir: join_paths(get_option('datadir'), 'icons/hicolor/symbolic/apps'))
++
++service_conf = configuration_data()
++service_conf.set('bindir', join_paths(get_option('prefix'), get_option('bindir')))
++
++configure_file(
++  input: 're.sonny.Commit.service',
++  output: 're.sonny.Commit.service',
++  configuration: service_conf,
++  install_dir: join_paths(get_option('datadir'), 'dbus-1/services'),
++)
+diff --git a/data/re.sonny.Commit.desktop b/data/re.sonny.Commit.desktop
+index d32d211..ebc4b8a 100644
+--- a/data/re.sonny.Commit.desktop
++++ b/data/re.sonny.Commit.desktop
+@@ -7,6 +7,7 @@ Terminal=false
+ Type=Application
+ Categories=Development;Utility;RevisionControl;TextEditor;GNOME;GTK;
+ StartupNotify=true
++DBusActivatable=true
+ Icon=re.sonny.Commit
+ # TRANSLATORS: Don't translate
+ Keywords=git;mercurial;hg;scm;gnomit;komet;comet;
+diff --git a/data/re.sonny.Commit.service b/data/re.sonny.Commit.service
+new file mode 100644
+index 0000000..44e9165
+--- /dev/null
++++ b/data/re.sonny.Commit.service
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=re.sonny.Commit
++Exec=@bindir@/re.sonny.Commit --gapplication-service
+diff --git a/src/CommitEditor.js b/src/CommitEditor.js
+index b738b92..5261ec4 100644
+--- a/src/CommitEditor.js
++++ b/src/CommitEditor.js
+@@ -56,7 +56,13 @@ export default GObject.registerClass(
+ 
+       this.style_manager = Adw.StyleManager.get_default();
+       this.update_style();
+-      this.style_manager.connect("notify::dark", this.update_style.bind(this));
++      this._style_manager_handler = this.style_manager.connect(
++        "notify::dark",
++        this.update_style.bind(this),
++      );
++      this.connect("destroy", () => {
++        this.style_manager.disconnect(this._style_manager_handler);
++      });
+ 
+       const checker = Spelling.Checker.get_default();
+       const adapter = Spelling.TextBufferAdapter.new(this.buffer, checker);
+diff --git a/src/application.js b/src/application.js
+index c0aeac1..aa88db6 100644
+--- a/src/application.js
++++ b/src/application.js
+@@ -12,15 +12,14 @@ import "./style.css";
+ import { settings } from "./settings.js";
+ 
+ const textDecoder = new TextDecoder();
++let welcome_window = null;
+ 
+ export default function Application() {
+   const application = new Adw.Application({
+     application_id: "re.sonny.Commit",
+     flags:
+       /* We handle file opens. */
+-      Gio.ApplicationFlags.HANDLES_OPEN |
+-      /* We can have more than one instance active at once. */
+-      Gio.ApplicationFlags.NON_UNIQUE,
++      Gio.ApplicationFlags.HANDLES_OPEN,
+   });
+ 
+   let readonly = false;
+@@ -98,7 +97,17 @@ export default function Application() {
+ }
+ 
+ function openWelcome({ application }) {
+-  Welcome({ application });
++  if (welcome_window) {
++    welcome_window.present();
++    return;
++  }
++
++  const { window } = Welcome({ application });
++  welcome_window = window;
++  window.connect("close-request", () => {
++    welcome_window = null;
++    return false;
++  });
+ 
+   const quit = new Gio.SimpleAction({
+     name: "quit",
+diff --git a/src/editor.js b/src/editor.js
+index 7c62236..8423f64 100644
+--- a/src/editor.js
++++ b/src/editor.js
+@@ -12,10 +12,6 @@ import {
+   TITLE_LENGTH_HINT,
+ } from "./settings.js";
+ 
+-const tag_title_too_long = new Gtk.TextTag({
+-  foreground: "#e01b24",
+-});
+-
+ export default function editor({ overlay, button_save, parsed }) {
+   const {
+     body,
+@@ -33,6 +29,10 @@ export default function editor({ overlay, button_save, parsed }) {
+ 
+   source_view.set_show_right_margin(is_message);
+ 
++  const tag_title_too_long = new Gtk.TextTag({
++    foreground: "#e01b24",
++  });
++
+   const buffer = source_view.get_buffer();
+   buffer.tag_table.add(tag_title_too_long);
+ 
+@@ -216,9 +216,9 @@ function unicodeLength(str) {
+   return [...str].length;
+ }
+ 
+-const readonlyTag = Gtk.TextTag.new("readonly");
+-readonlyTag.editable = false;
+ function markCommentReadonly({ buffer, read_only_index }) {
++  const readonlyTag = Gtk.TextTag.new("readonly");
++  readonlyTag.editable = false;
+   buffer.tag_table.add(readonlyTag);
+ 
+   const endOfText = buffer.get_end_iter();
+diff --git a/src/welcome.js b/src/welcome.js
+index 1f7edbd..e1507d3 100644
+--- a/src/welcome.js
++++ b/src/welcome.js
+@@ -21,8 +21,14 @@ export default function Welcome({ application }) {
+ 
+   const objects = { spin_hint, spin_wrap, switch_capitalize_title };
+   setupRows({ ...objects, config });
+-  application.connect("shutdown", () => {
++  const save = () => {
+     saveConfig({ ...objects, config });
++  };
++  const shutdown_handler = application.connect("shutdown", save);
++  window.connect("close-request", () => {
++    save();
++    application.disconnect(shutdown_handler);
++    return false;
+   });
+ 
+   window.set_application(application);
+diff --git a/src/window.blp b/src/window.blp
+index 81c090e..7b97e7a 100644
+--- a/src/window.blp
++++ b/src/window.blp
+@@ -64,7 +64,7 @@ menu app-menu {
+ 
+     item {
+       label: _("Preferences");
+-      action: "app.preferences";
++      action: "win.preferences";
+     }
+   }
+ 
+diff --git a/src/window.js b/src/window.js
+index d5e5d36..adeba60 100644
+--- a/src/window.js
++++ b/src/window.js
+@@ -18,6 +18,7 @@ Gio._promisify(Adw.AlertDialog.prototype, "choose", "choose_finish");
+ export default function Window({ application, file, text, type, readonly }) {
+   const { window, menu_button, button_save, overlay } = build(resource);
+ 
++  let preferences_window = null;
+   let parsed = {};
+   try {
+     parsed = parse(text, type);
+@@ -99,7 +100,7 @@ export default function Window({ application, file, text, type, readonly }) {
+       value,
+       readonly,
+     });
+-    application.quit();
++    window.close();
+   });
+   window.add_action(action_save);
+ 
+@@ -108,9 +109,23 @@ export default function Window({ application, file, text, type, readonly }) {
+     parameter_type: null,
+   });
+   action_preferences.connect("activate", () => {
+-    Preferences({ update });
++    if (preferences_window) {
++      preferences_window.present();
++      return;
++    }
++
++    const { window: preferences } = Preferences({ update });
++    preferences_window = preferences;
++    preferences.connect("closed", () => {
++      preferences_window = null;
++    });
++  });
++  window.add_action(action_preferences);
++
++  window.connect("close-request", () => {
++    preferences_window?.close();
++    return false;
+   });
+-  application.add_action(action_preferences);
+ 
+   // https://github.com/sonnyp/Commit/issues/33
+   window.set_focus(source_view);
+@@ -132,13 +147,13 @@ async function abort({
+   has_changes,
+ }) {
+   if (!shouldSaveOnAbort({ type })) {
+-    application.quit();
++    window.close();
+     return;
+   }
+ 
+   if (await confirmDiscard({ type, value, window, has_changes })) {
+     save({ file, value: "", readonly });
+-    application.quit();
++    window.close();
+   }
+ }
+ 
