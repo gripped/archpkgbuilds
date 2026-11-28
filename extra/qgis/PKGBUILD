@@ -10,8 +10,8 @@
 # Contributor: Eric Forgeot < http://esclinux.tk >
 
 pkgname=qgis
-pkgver=4.2.3
-pkgrel=4
+pkgver=4.4.0
+pkgrel=1
 pkgdesc='Geographic Information System (GIS) that supports vector, raster & database formats'
 arch=(x86_64)
 url='https://qgis.org/'
@@ -74,20 +74,20 @@ makedepends=(
   opencl-clhpp
   pyqt-builder
   sip
+  wayland-protocols
 )
 optdepends=(
   'fcgi: Map server'
   'gpsbabel: GPS Tools plugin'
 )
 source=("https://qgis.org/downloads/$pkgname-$pkgver.tar.bz2"
-        https://github.com/qgis/QGIS/commit/47ab0643e3c158476dd01dee13e7dff8eab59274.patch)
-sha256sums=('b044889d895c07d9355512cba76973822830153f6f15feb0d5e00077d3d76e59'
-            'ace68c93daf2616913bd34e7a9c17f4969d8dfd97ab94b1280f3246e70226ec8')
+         pyqt-6.12.patch)
+sha256sums=('1080c2c27e90c77d149ed3fee4f7098847ce4ecb37aec599ed296cd549bda454'
+            '24ff5aebde9d277612d9a79fb727dfe91eb2fac2fb054c80553ccd23b8f35696')
 
 prepare() {
   cd $pkgname-$pkgver
-# Fix build with Qt 6.12
-  patch -p1 -i ../47ab0643e3c158476dd01dee13e7dff8eab59274.patch
+  patch -p1 -i ../pyqt-6.12.patch
 }
 
 build() {
