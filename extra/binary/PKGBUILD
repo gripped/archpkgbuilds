@@ -2,7 +2,7 @@
 
 pkgname=binary
 pkgver=5.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Simple app to convert between different hexadecimal and binary numbers'
 arch=(any)
 url='https://apps.gnome.org/Binary/'
@@ -25,6 +25,14 @@ makedepends=(
 )
 source=("git+https://github.com/fizzyizzy05/binary.git#tag=$pkgver")
 b2sums=(e8433e99b8bcc3c167d2061ea7990da7a409bef5ac4d05c9ee272259781303001a956a44aba27dc6d44f2c104b5d30d047c5693ee65e802d97798ac12a1a56be)
+
+prepare() {
+  cd $pkgname
+
+  # Fix path for AboutDialog metainfo XML
+  # https://github.com/fizzyizzy05/binary/pull/46
+  sed -i 's|"io/github|"/io/github|' src/main.py
+}
 
 build() {
   arch-meson $pkgname build
