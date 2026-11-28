@@ -1,7 +1,7 @@
 pkgbase = rocprofiler-sdk
 	pkgdesc = ROCm profiling and tracing library with the rocprofv3 tool
-	pkgver = 10.2
-	pkgrel = 2
+	pkgver = 10.1
+	pkgrel = 3
 	url = https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/
 	arch = x86_64
 	license = MIT
@@ -32,16 +32,14 @@ pkgbase = rocprofiler-sdk
 	depends = rocprof-trace-decoder
 	depends = sqlite
 	depends = yaml-cpp
-	provides = rocprofiler=10.2
-	conflicts = rocprofiler
-	replaces = rocprofiler
-	source = rocm-systems::git+https://github.com/ROCm/rocm-systems#tag=therock-10.2
+	conflicts = rocprofiler<10.0
+	source = rocm-systems::git+https://github.com/ROCm/rocm-systems#tag=therock-10.1
 	source = rocprofiler-sdk-ptl::git+https://github.com/jrmadsen/PTL
 	source = rocprofiler-sdk-cereal::git+https://github.com/jrmadsen/cereal
 	source = rocprofiler-sdk-perfetto::git+https://github.com/google/perfetto
 	source = rocprofiler-sdk-gotcha::git+https://github.com/ROCm/GOTCHA
 	source = rocprofiler-sdk-abseil-cpp::git+https://github.com/abseil/abseil-cpp
-	sha256sums = cde1c80b729bc6ab16c00967ca049e40fa38a630b8d31fc1d5bc7b9821b7bad3
+	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP
 	sha256sums = SKIP

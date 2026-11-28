@@ -2,8 +2,8 @@
 # Maintainer: Christian Heusel <christian@heusel.eu>
 
 pkgname=rocprofiler-sdk
-pkgver=10.2
-pkgrel=2
+pkgver=10.1
+pkgrel=3
 pkgdesc='ROCm profiling and tracing library with the rocprofv3 tool'
 arch=('x86_64')
 url='https://rocm.docs.amd.com/projects/rocprofiler-sdk/en/latest/'
@@ -37,10 +37,8 @@ makedepends=(
   'rocdecode'
   'rocjpeg'
 )
-# rocprofiler-sdk supersedes the deprecated rocprofiler
-provides=("rocprofiler=$pkgver")
-conflicts=('rocprofiler')
-replaces=('rocprofiler')
+# rocprofiler < 10.0 shipped rocprofiler-sdk in the same package
+conflicts=('rocprofiler<10.0')
 _git='https://github.com/ROCm/rocm-systems'
 source=("rocm-systems::git+$_git#tag=therock-$pkgver"
         # Submodules without a system package in Arch
@@ -52,7 +50,7 @@ source=("rocm-systems::git+$_git#tag=therock-$pkgver"
         # A shared abseil aborts the second absl::InitializeLog() call:
         # https://github.com/ROCm/rocm-systems/issues/10959
         "$pkgname-abseil-cpp::git+https://github.com/abseil/abseil-cpp")
-sha256sums=('cde1c80b729bc6ab16c00967ca049e40fa38a630b8d31fc1d5bc7b9821b7bad3'
+sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP'
