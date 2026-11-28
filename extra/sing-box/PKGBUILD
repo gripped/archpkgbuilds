@@ -3,11 +3,11 @@
 # Contributor: everyx <lunt.luo#gmail.com>
 
 pkgname=sing-box
-pkgver=1.14.4
+pkgver=1.14.5
 # Check the hash in `.github/CRONET_GO_VERSION`, then visit the
 # `go` branch of `SagerNet/cronet-go` to get the commit hash
-_cronet_commit_hash=049f2909701ca088c9569f6b303bba5376a2b2ff
-pkgrel=4
+_cronet_commit_hash=e265295f7be0bc2209ec36078028667e6b9c217e
+pkgrel=1
 pkgdesc='The universal proxy platform'
 arch=('x86_64')
 url='https://sing-box.sagernet.org/'
@@ -18,20 +18,12 @@ source=(
     "git+https://github.com/SagerNet/naiveproxy.git#branch=cronet-go"
     "0001-build-use-the-system-toolchain.patch"
     "0002-build-unbundle-system-simdutf.patch"
-    "0003-let-the-dialer-resolve-the-server-address.patch"
-    "0004-fix-uninitialized-c-header-allocation.patch"
-    "0005-fix-process-path-of-replaced-executables-on-linux.patch"
-    "https://github.com/chromium/chromium/raw/refs/tags/150.0.7871.63/tools/generate_shim_headers/generate_shim_headers.py"
 )
-sha256sums=('0958ccd23b1ea9a141d715d15478b1e040fd04bcca19d8ff5529636b1b753e18'
-            '2feebadf58de91f9c357c8963dacea68d44ce41089f4377f98c0d0d80148d360'
+sha256sums=('d7d5a6f64c213958cb2a11b82cfaa6c7acc0a877a28033193c8b3949a45c3646'
+            'b6d2bf43947a34b22b5e67a622bb3874e52c667bb7cf936f4f05d0a85db58af7'
             'SKIP'
-            '58c83e0ab0587a8bb020d98ee5cd787e32f692041824b2ae6b78812ec912c5a0'
-            '45ee3bbaf2eaa31b254015b53501ce653848e64c3571cd75389cc9a1dbef2e9f'
-            '72ed96d5daa75cacdfb81be6f89aa876a17852553a75e777a385eaea10572306'
-            '227827d31c086bbf1c5343cb01fe6de90f1ff9531a2e45511b59410260ccf46d'
-            '8ade5f09784f478d928ea279e05624c8da2cd1ff3826546ca932a0b16ecbd71c'
-            'b64f3bc06e74955d1027e3720a2ef14b6203722a5e7fe4c777a6b1051b9744dd')
+            '792d9e91bd36993156676d93b42c6951c9842a6d46b26278e7db2dd35e56d7fa'
+            '45ee3bbaf2eaa31b254015b53501ce653848e64c3571cd75389cc9a1dbef2e9f')
 depends=(
     'glibc'
     'libgcc'
@@ -55,6 +47,7 @@ optdepends=(
     'wpa_supplicant: Wi-Fi SSID/BSSID routing rule support via wpa_supplicant'
     'connman: Wi-Fi SSID/BSSID routing rule support via ConnMan'
 )
+options=('!lto') # Chromium adds its own flags for ThinLTO
 backup=("etc/${pkgname}/config.json")
 
 declare -gA _system_libs=(
@@ -77,11 +70,6 @@ prepare() {
     patch -Np1 -i "${srcdir}/0001-build-use-the-system-toolchain.patch"
     patch -Np1 -i "${srcdir}/0002-build-unbundle-system-simdutf.patch" -d naiveproxy
 
-    # https://github.com/SagerNet/cronet-go/commit/fa319c4f3b554bd7c647c6e0f18a7195ac1497a6
-    patch -Np1 -i "${srcdir}/0003-let-the-dialer-resolve-the-server-address.patch"
-
-    patch -Np1 -i "${srcdir}/0004-fix-uninitialized-c-header-allocation.patch"
-
     # `optimize_for_size=true` is actually the `-Os` flag for gcc, which does
     # not conform to the official requirement of `-O2`
     sed -i \
@@ -97,8 +85,10 @@ prepare() {
     local _clang_target="$(clang -dumpmachine)"
     sed -i "s/--target=${CARCH}-unknown-linux-gnu/--target=${_clang_target}/g" build/config/compiler_cpu_abi.gn
 
+    # Increase _FORTIFY_SOURCE level to match Arch's default flags
+    sed -i 's/fortify_level = "2"/fortify_level = "3"/' build/config/compiler/BUILD.gn
+
     # Remove bundled libraries
-    install -Dm644 "${srcdir}/generate_shim_headers.py" "tools/generate_shim_headers/generate_shim_headers.py"
     sed -i 's/defined(OFFICIAL_BUILD)/defined(NEVER_DEFINED_OFFICIAL_BUILD)/g' tools/generate_shim_headers/generate_shim_headers.py
     local _lib
     for _lib in "${_unwanted_bundled_libs[@]}"; do
@@ -119,8 +109,6 @@ prepare() {
     popd
 
     cd "${srcdir}/${pkgname}-${pkgver}"
-    # https://github.com/SagerNet/sing-box/commit/f5e92e18b272041a8da54d4401d3a6b3cb9b5d50
-    patch -Np1 -i "${srcdir}/0005-fix-process-path-of-replaced-executables-on-linux.patch"
     go mod download -modcacherw
 }
 
@@ -129,12 +117,32 @@ build() {
     export CGO_CFLAGS="${CFLAGS}"
     export CGO_CXXFLAGS="${CXXFLAGS}"
     export CGO_LDFLAGS="${LDFLAGS} -fuse-ld=lld"
-    export CGO_LDFLAGS_ALLOW='-l:libcronet\.a' # https://github.com/golang/go/issues/82572
     export CGO_ENABLED=1
     export GOFLAGS="-buildmode=pie -mod=readonly -modcacherw"
     export GOPATH="${srcdir}"
     export CC=clang
     export CXX=clang++
+    export AR=ar
+    export NM=nm
+
+    # Do not warn about unknown warning options
+    CFLAGS+='   -Wno-unknown-warning-option'
+    CXXFLAGS+=' -Wno-unknown-warning-option'
+
+    # Let Chromium set its own symbol level
+    CFLAGS=${CFLAGS/-g }
+    CXXFLAGS=${CXXFLAGS/-g }
+
+    # https://github.com/ungoogled-software/ungoogled-chromium-archlinux/issues/123
+    CFLAGS=${CFLAGS/-fexceptions}
+    CFLAGS=${CFLAGS/-fcf-protection}
+    CXXFLAGS=${CXXFLAGS/-fexceptions}
+    CXXFLAGS=${CXXFLAGS/-fcf-protection}
+
+    # This appears to cause random segfaults when combined with ThinLTO
+    # https://bugs.archlinux.org/task/73518
+    CFLAGS=${CFLAGS/-fstack-clash-protection}
+    CXXFLAGS=${CXXFLAGS/-fstack-clash-protection}
 
     declare -A _goarch_map=(
         [x86_64]=amd64

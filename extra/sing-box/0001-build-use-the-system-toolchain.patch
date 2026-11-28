@@ -9,10 +9,10 @@ See: https://github.com/NixOS/nixpkgs/blob/4a182c458bf7e47b0b2cc0d769b33c05e166f
  1 file changed, 4 insertions(+), 7 deletions(-)
 
 diff --git a/cmd/build-naive/cmd_build.go b/cmd/build-naive/cmd_build.go
-index 4f34d22..8de0ab5 100644
+index 4f34d22..9077304 100644
 --- a/cmd/build-naive/cmd_build.go
 +++ b/cmd/build-naive/cmd_build.go
-@@ -228,14 +228,14 @@ func runGetClang(t Target) {
+@@ -228,14 +228,16 @@ func runGetClang(t Target) {
  }
  
  func buildTarget(t Target) {
@@ -21,6 +21,8 @@ index 4f34d22..8de0ab5 100644
  	outputDirectory := getOutputDirectory(t)
  
  	args := []string{
++		"custom_toolchain=\"//build/toolchain/linux/unbundle:default\"",
++		"host_toolchain=\"//build/toolchain/linux/unbundle:default\"",
  		"is_official_build=true",
  		"is_debug=false",
  		"is_clang=true",
