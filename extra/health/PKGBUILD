@@ -2,7 +2,7 @@
 
 pkgname=health
 pkgver=0.95.0
-pkgrel=6
+pkgrel=7
 pkgdesc='Health tracking app for the GNOME desktop'
 arch=(x86_64)
 url='https://gitlab.gnome.org/World/Health'
@@ -33,10 +33,12 @@ options=(!lto)
 source=(
   "git+https://gitlab.gnome.org/World/Health.git#tag=$pkgver"
   health-disable-plugin.patch
+  health-fix-notifications-setup.patch
 )
 b2sums=(
   7cae069263f1fb0da21f42cbf96f21ac5c810f156666e6ff23f5269d64f895caaa5355a0ccc555249a26f8d42c69218d3213182b96a36ec2f2c9be35f64269ad
   63704226756ce80f21fe007231e87ef3a7d104faf44c9a54ab5ae07b696bc414a0099c34de2d778e68efb9ed895103139b937736507e24d463b1ca4562dd4a40
+  779b8308a9e2245cf3b85531c7e3af5eaec562f180f0545e13f6e08c4908eaee761a35ec66e44689c07eb7da01aa2b5451ec80eab969fc84a8a1309c08fc01b9
 )
 
 prepare() {
@@ -57,6 +59,10 @@ prepare() {
   # Remove broken 'Disable Current Plugin' menu item
   # https://gitlab.gnome.org/World/Health/-/issues/187
   git apply -3 ../health-disable-plugin.patch
+
+  # Initialize notifications outside service mode
+  # https://gitlab.gnome.org/World/Health/-/merge_requests/226
+  git apply -3 ../health-fix-notifications-setup.patch
 }
 
 build() {

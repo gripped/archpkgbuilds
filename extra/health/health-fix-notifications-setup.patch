@@ -1,0 +1,40 @@
+From a868c99f5ea6a6c98885c6087b4862b4fcd13fc0 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 26 Nov 2026 22:45:13 +0000
+Subject: [PATCH] app: initialize notifications outside service mode
+
+Initialize notifications in normal application mode as well, so
+changes to notification settings are handled correctly.
+
+Keep the application hold restricted to service mode.
+---
+ src/core/application.rs | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/src/core/application.rs b/src/core/application.rs
+index ecf555b..a0b6b90 100644
+--- a/src/core/application.rs
++++ b/src/core/application.rs
+@@ -128,13 +128,13 @@ mod imp {
+             obj.setup_actions();
+             obj.setup_accels();
+ 
+-            if obj.flags().contains(gio::ApplicationFlags::IS_SERVICE) {
+-                if self.settings.active_user_id() > 0 {
+-                    gtk_macros::spawn!(glib::clone!(@weak obj => async move {
+-                        obj.setup_notifications().await;
+-                    }));
+-                }
++            if self.settings.active_user_id() > 0 {
++                gtk_macros::spawn!(glib::clone!(@weak obj => async move {
++                    obj.setup_notifications().await;
++                }));
++            }
+ 
++            if obj.flags().contains(gio::ApplicationFlags::IS_SERVICE) {
+                 // Hold onto this application to send notifications
+                 self.hold_guard.replace(Some(obj.hold()));
+             }
+-- 
+GitLab
+
