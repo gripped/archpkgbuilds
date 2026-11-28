@@ -5,7 +5,7 @@
 # shellcheck shell=bash disable=SC2034,SC2154
 
 pkgname=qwen-code
-pkgver=0.24.6
+pkgver=0.24.7
 pkgrel=1
 pkgdesc='Open-source AI agent for the terminal, optimized for Qwen-Coder'
 url='https://github.com/QwenLM/qwen-code'
@@ -15,7 +15,7 @@ depends=(
   libgcc
   libstdc++
   glibc
-  nodejs
+  nodejs-lts-krypton
   procps-ng
   ripgrep
 )
@@ -33,9 +33,9 @@ optdepends=(
 )
 source=("git+https://github.com/QwenLM/qwen-code.git#tag=v${pkgver}"
         'feishu-media-test.patch')
-sha256sums=('6d2e349a468bd56899ccf1cf445a51feda708167d521d97c400ffca1f83a1097'
+sha256sums=('e0dfad19f5abc36e312377dc77de4624e71e105ecaf82ee6e8e70a36d5212b80'
             '3af81e8d4e27c7b7d10ea5615cd1c469df730aaf1e2f6b5dae5ad2fbf6d0280d')
-b2sums=('d9f7f5879d9e7d009a86d0b6d2c1dd4328cd2446c344bd2aa0dca90b81ba40ff4f9598d1a7821987df7dbf38ca58c3b257c2c215414534269b797167faeae3d7'
+b2sums=('2cb51b10cb43e974a0654393ab2a2a80abe6d16f94369245a25b1f8233ffaf7c208796335347fc8253b9f2baea350aa47c563b792ee6968916e4ec3be32d47d4'
         '76344e9fd770a54ee0578bc0c66b51dde50aa5dfee0374dcad9860c86608d08c5969785eaf1a04ff371f89aa45e4020027ca8b04f5b318977a4a29c92e360ef8')
 
 prepare() {
@@ -53,6 +53,9 @@ prepare() {
   # Mounted replay fixtures leak setImmediate updates into later tests.
   # https://github.com/QwenLM/qwen-code/pull/14293
   git cherry-pick -n 3066a0e12aa112d428e48f8d925c2b4e49fdbfe1
+  # Wait for the branch picker's autofocus timer before checking focus.
+  # https://github.com/QwenLM/qwen-code/pull/14842
+  git cherry-pick -n 9f96954843e1151aa88a5a19df8bf0e4c95bcd6c
   # Arch's npm pins globalconfig to /etc/npmrc, so this prefix-relocation test
   # cannot exercise the redaction fallback.
   sed -i "/resolves it with real npm when npm refuses to print the path/ s/^  it(/  it.skip(/" \
@@ -67,22 +70,10 @@ import { beforeEach } from 'vitest';" packages/cli/test-setup.ts
 const realSetTimeout = setTimeout;\\
 beforeEach(() => new Promise<void>((resolve) => realSetTimeout(resolve, 0)));" \
     packages/cli/test-setup.ts
-  # Node 26 can stringify input that structuredClone cannot copy; reject it
-  # before journaling.
-  sed -i '/inputJson = JSON.stringify(input);/a\
-      structuredClone(input);' \
-    packages/cli/src/serve/managed-runtime-tool-executor.ts
-  # Node 26.8 fixes ANSI stripping, preserving printable 'b' in this fixture.
+  # Node 24 preserves printable text adjacent to this ANSI/BEL fixture.
   # https://github.com/nodejs/node/pull/64319
-  # https://nodejs.org/en/blog/release/v26.8.0
   sed -i "/stripVTControlCharacters matches/,+2d; s/toBe('a[.]md')/toBe('ab.md')/" \
     packages/core/src/memory/memoryDiscovery.test.ts
-  # Expect Node 26's Proxy(...) wrappers in the REPL serialization fixture.
-  # https://github.com/nodejs/node/pull/61029
-  sed -i \
-    -e "s/'\[Function (anonymous)\]'/'Proxy([Function (anonymous)])'/" \
-    -e "s/'{}'/'Proxy({})'/" \
-    packages/node-repl/src/kernel-manager.test.ts
   # Finish the interrupted journal clear so its test releases the directory handle.
   sed -i '/rejects journal directory replacement while clearing phases/,/^  });/ {
     /openMock.mockImplementation(originalOpen);/a\
@@ -90,17 +81,7 @@ beforeEach(() => new Promise<void>((resolve) => realSetTimeout(resolve, 0)));" \
       await fs.rename(originalDirectory, journalDirectory);\
       await journal.clear(SESSION_ID, root);
   }' packages/cli/src/serve/conversations/standalone-deletion-journal.test.ts
-  # Use DNS SNI for TLS fixtures while preserving their IP Host/Origin assertions.
-  # https://github.com/nodejs/node/pull/58533
-  sed -i \
-    -e 's/{ createServer as createHttpsServer }/{ Agent, createServer as createHttpsServer }/' \
-    -e "/describe('remote same-origin over TLS'/,\$s/\.post('\/probe')/&.agent(new Agent({ servername: 'localhost' }))/" \
-    packages/cli/src/serve/server/self-origin.test.ts
-  # Vitest retains Node 26's localStorage alongside jsdom's separate Storage class.
-  sed -i 's/Storage\.prototype/Object.getPrototypeOf(window.localStorage)/' \
-    packages/web-shell/client/main.test.tsx \
-    packages/web-shell/client/utils/assistantFeedback.test.ts
-  # Node 26's Writable.toWeb() settles writes before native callback errors.
+  # Node 24's Writable.toWeb() settles writes before native callback errors.
   # https://github.com/nodejs/node/issues/64549
   sed -i "s/it('retains the original write error/it.skip('retains the original write error/" \
     packages/cli/src/acp-integration/acp-output.test.ts
@@ -126,24 +107,11 @@ build() {
 
 check() {
   cd $pkgname
-  # Node 26 exposes Web Storage only when localStorage has a backing file.
-  export NODE_OPTIONS="${NODE_OPTIONS:+$NODE_OPTIONS }--localstorage-file=$PWD/.node-localstorage"
   # Skip remaining clean-chroot failures; no narrow upstream fixes are available.
   # Keep one glob because sdk-typescript's Vitest rejects repeated --exclude.
   local test_exclude='**/{qwenConnectionHandler,useAtCompletion,'
   test_exclude+='serve/acp-http/transport,i18n/index,ui/auth/AuthDialog,'
-  test_exclude+='ui/utils/clipboardUtils,'
-  # mock-fs fails at import time on Node 26.8+:
-  # https://github.com/tschaub/mock-fs/issues/447
-  test_exclude+='services/FileCommandLoader,services/FileCommandLoader-extension,'
-  test_exclude+='lsp/LspConfigLoader,utils/pathReader}.test.*'
-  # yargs 17.7.3 fixes c8's require('yargs/yargs') on Node 26.
-  # https://github.com/yargs/yargs/pull/2514
-  cp node_modules/yargs/yargs node_modules/yargs/yargs.cjs
-  jq '.exports["./yargs"][0].require = "./yargs.cjs" |
-      .exports["./yargs"][1] = "./yargs.cjs"' \
-    node_modules/yargs/package.json > yargs-package.json
-  mv yargs-package.json node_modules/yargs/package.json
+  test_exclude+='ui/utils/clipboardUtils}.test.*'
   # mobilewright's older Playwright CLI cannot run the newer @playwright/test.
   # https://github.com/QwenLM/qwen-code/pull/11371
   npm pkg set 'scripts.test=c8 node ../../node_modules/@playwright/test/cli.js test' --workspace=@qwen-code/mobile-mcp
@@ -152,9 +120,13 @@ check() {
     npm run test --workspace=@qwen-code/mobile-mcp
   # mobile-mcp uses Playwright; run it above without passing Vitest-only flags.
   npm pkg set 'workspaces[]=!packages/mobile-mcp'
-  # NODE_OPTIONS gives Node's Web Storage one shared backing file; keep Vitest
-  # files serial so another jsdom test cannot clear draft storage mid-test.
-  npm run test --workspaces --if-present -- --testTimeout=30000 --no-file-parallelism --exclude="$test_exclude"
+  # Coverage instrumentation distorts the suite's wall-clock latency gates.
+  # Parallel files also exhaust worker deadlines on shared builders.
+  # Retry timing-sensitive tests as upstream release lanes do.
+  # https://github.com/QwenLM/qwen-code/pull/10842
+  npm run test --workspaces --if-present -- --testTimeout=30000 \
+    --coverage.enabled=false --no-file-parallelism --retry=2 \
+    --exclude="$test_exclude"
 }
 
 package() {
