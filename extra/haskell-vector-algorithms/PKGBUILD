@@ -3,8 +3,8 @@
 
 _hkgname=vector-algorithms
 pkgname=haskell-vector-algorithms
-pkgver=0.9.1.0
-pkgrel=216
+pkgver=0.9.1.1
+pkgrel=1
 pkgdesc="Efficient algorithms for vector arrays"
 url="https://github.com/erikd/vector-algorithms/"
 license=('BSD-3-Clause')
@@ -12,7 +12,7 @@ arch=('x86_64')
 depends=('ghc-libs' 'haskell-bitvec' 'haskell-primitive' 'haskell-vector')
 makedepends=('ghc' 'haskell-quickcheck')
 source=("https://hackage.haskell.org/packages/archive/${_hkgname}/${pkgver}/${_hkgname}-${pkgver}.tar.gz")
-sha512sums=('65dbb196419d79f532acd57997cc4278f8011e375e75c794c1602fab742b11066d04c7b6469504b599fb814dabde232ea0f9c5b8aa4300117f366128d106c4aa')
+sha512sums=('871118ed8ba92185f271cbb0f6d49668e7597190f63550071ed1d2b753b4983dc03b585bc83f4e7a78e7d7fee4799d7d38e0f1d97aa7cee65805237c61a577cb')
 
 build() {
     cd $_hkgname-$pkgver
