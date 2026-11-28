@@ -1,7 +1,7 @@
 # Maintainer: Balló György <ballogyor+arch at gmail dot com>
 
 pkgname=gaphor
-pkgver=3.3.2
+pkgver=3.4.0
 pkgrel=1
 pkgdesc='Simple UML and SysML modeling tool'
 arch=(any)
@@ -10,8 +10,8 @@ license=(Apache-2.0)
 groups=(gnome-circle)
 depends=(
   dconf
-  gdk-pixbuf2
   glib2
+  graphene
   gtk4
   gtksourceview5
   hicolor-icon-theme
@@ -19,7 +19,6 @@ depends=(
   pango
   python
   python-babel
-  python-better-exceptions
   python-cairo
   python-defusedxml
   python-dulwich
@@ -40,7 +39,7 @@ makedepends=(
   python-wheel
 )
 source=("git+https://github.com/gaphor/gaphor.git#tag=$pkgver")
-b2sums=('9677c539dd9a3ba4930a14c53a108f72b92009952587b0e309582fe2dfa6ff2f667beb2ec9e96aaf88368b06a594f491aab4a9e0a8c402000ff2fac621d540d8')
+b2sums=(b004e4bfd3c2904aa9c85e625329d0585ef9ac49794cb6a4e0d0a254c54fc8edf977407d676601bf1dab2639485f1f68458e7b1c0f6d27824499ab8881995c8f)
 
 build() {
   cd $pkgname
