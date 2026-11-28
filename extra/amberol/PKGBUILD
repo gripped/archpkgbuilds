@@ -2,7 +2,7 @@
 
 pkgname=amberol
 pkgver=2026.1
-pkgrel=1
+pkgrel=2
 pkgdesc='Small and simple sound and music player that is well integrated with GNOME'
 arch=(x86_64)
 url='https://apps.gnome.org/Amberol/'
@@ -37,8 +37,14 @@ optdepends=(
   'gst-plugins-bad: Extra media codecs'
   'gst-plugins-ugly: Extra media codecs'
 )
-source=("git+https://gitlab.gnome.org/World/amberol.git?signed#tag=$pkgver")
-b2sums=(dd48b1140ecd38b95d19f46c9ff98a10f374ff084b680b9676999202a435e69cde3386e3b110ca2dc7cd773bd3d16bd6874e08b891b8d08886c4547ea4a1b6d5)
+source=(
+  "git+https://gitlab.gnome.org/World/amberol.git?signed#tag=$pkgver"
+  amberol-no-sandbox.patch
+)
+b2sums=(
+  dd48b1140ecd38b95d19f46c9ff98a10f374ff084b680b9676999202a435e69cde3386e3b110ca2dc7cd773bd3d16bd6874e08b891b8d08886c4547ea4a1b6d5
+  59a9423e6682c8e535a63aa4e10efc1011afa67189eb8b07a2892f8ec614d28b1722267dfd3847f2664db723fa7a0872c19a29e9dec58dea50017193a7abb5a7
+)
 validpgpkeys=(53EF3DC3B63E2899271BD26322E8091EEA11BBB7) # Emmanuele Bassi (GNOME) <ebassi@gnome.org>
 
 prepare() {
@@ -46,6 +52,10 @@ prepare() {
 
   CARGO_HOME="$srcdir/build/cargo-home" \
     cargo fetch --locked --target "$(rustc --print host-tuple)"
+
+  # Allow background playback outside sandbox
+  # https://gitlab.gnome.org/World/amberol/-/merge_requests/200
+  git apply -3 ../amberol-no-sandbox.patch
 }
 
 build() {

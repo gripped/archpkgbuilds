@@ -1,0 +1,32 @@
+From 532a084e3d922636c5148b20b8bba10bb5f451d2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Thu, 26 Nov 2026 20:08:26 +0100
+Subject: [PATCH] Allow background playback outside sandbox
+
+Skip the Background portal request when running outside a sandbox,
+since native applications do not need portal permission to continue
+playing music in the background.
+---
+ src/application.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/application.rs b/src/application.rs
+index 5520696..6f24c34 100644
+--- a/src/application.rs
++++ b/src/application.rs
+@@ -248,6 +248,12 @@ impl Application {
+ 
+     #[cfg(any(target_os = "linux", target_os = "freebsd"))]
+     async fn portal_request_background(&self) {
++        if !ashpd::is_sandboxed().await {
++            debug!("Application is not sandboxed, allowing background playback.");
++            self.imp().background_hold.replace(Some(self.hold()));
++            return;
++        }
++
+         if let Some(window) = self.active_window() {
+             let root = window.native().unwrap();
+             let identifier = WindowIdentifier::from_native(&root).await;
+-- 
+GitLab
+
