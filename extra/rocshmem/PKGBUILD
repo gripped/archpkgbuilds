@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=rocshmem
-pkgver=10.2
+pkgver=10.1
 pkgrel=1
 pkgdesc='ROCm OpenSHMEM, GPU-centric networking from inside HIP kernels'
 arch=('x86_64')
@@ -30,7 +30,7 @@ optdepends=(
 )
 _git='https://github.com/ROCm/rocm-systems'
 source=("$pkgname-$pkgver.tar.gz::$_git/releases/download/therock-$pkgver/$pkgname.tar.gz")
-sha256sums=('af1cbf1b4cd16f7d5b7cb082a6c27ecb23a2a57fdd9ac8954c200e74e9b63b7c')
+sha256sums=('25b8b59a35e1760979631cd293d16c6ff813c83e59bd1a6c3d3da98d0cb7f544')
 options=(!lto)
 
 build() {
