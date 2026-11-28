@@ -1,4 +1,4 @@
-From bb4616a8dab02d30200b3e0206d987504aab46f7 Mon Sep 17 00:00:00 2001
+From ec95d29f4530a4c218f35b649b123d5f62e3b6d5 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
 Date: Thu, 26 Nov 2026 13:21:04 +0100
 Subject: [PATCH] Add a setting to control background operation
@@ -14,16 +14,16 @@ configured, and closing the window exits the application.
 Also keep the application running in service mode only when
 background operation is enabled.
 ---
- ...ithub.finefindus.eyedropper.gschema.xml.in |  5 +++++
- data/resources/ui/preferences.blp             |  9 +++++++++
+ ...ithub.finefindus.eyedropper.gschema.xml.in |  5 ++
+ data/resources/ui/preferences.blp             |  9 +++
  data/resources/ui/window.blp                  |  1 -
- src/application.rs                            | 19 ++++++++++++++-----
- src/widgets/preferences/preferences_window.rs |  7 +++++++
- src/window.rs                                 |  2 ++
- 6 files changed, 37 insertions(+), 6 deletions(-)
+ src/application.rs                            | 69 +++++++++++++++++--
+ src/widgets/preferences/preferences_window.rs |  7 ++
+ src/window.rs                                 |  4 ++
+ 6 files changed, 88 insertions(+), 7 deletions(-)
 
 diff --git a/data/com.github.finefindus.eyedropper.gschema.xml.in b/data/com.github.finefindus.eyedropper.gschema.xml.in
-index f16bfeac..8501b02c 100644
+index f16bfeac..25ddb865 100644
 --- a/data/com.github.finefindus.eyedropper.gschema.xml.in
 +++ b/data/com.github.finefindus.eyedropper.gschema.xml.in
 @@ -1,6 +1,11 @@
@@ -31,7 +31,7 @@ index f16bfeac..8501b02c 100644
  <schemalist>
    <schema path="/com/github/finefindus/eyedropper/" id="@app-id@" gettext-domain="@gettext-package@">
 +    <key name="run-in-background" type="b">
-+      <default>true</default>
++      <default>false</default>
 +      <summary>Run in the Background</summary>
 +      <description>Keep the application running after closing its window and enable global keyboard shortcuts.</description>
 +    </key>
@@ -71,39 +71,95 @@ index 8d2c40a7..4dbdff02 100644
      child: Adw.BottomSheet edit_sheet {
        content: Adw.ToolbarView {
 diff --git a/src/application.rs b/src/application.rs
-index cdebcdbd..9dca7930 100644
+index cdebcdbd..36a49c11 100644
 --- a/src/application.rs
 +++ b/src/application.rs
-@@ -63,7 +63,10 @@ mod imp {
+@@ -31,6 +31,8 @@ mod imp {
+     #[derive(Default)]
+     pub struct App {
+         hold_guard: std::cell::RefCell<Option<gio::ApplicationHoldGuard>>,
++        settings: std::cell::OnceCell<gio::Settings>,
++        shortcuts_started: std::cell::Cell<bool>,
+     }
+ 
+     #[glib::object_subclass]
+@@ -62,9 +64,57 @@ mod imp {
+             gtk::Window::set_default_icon_name(APP_ID);
  
              let app = self.obj();
- 
--            if app.flags().contains(gio::ApplicationFlags::IS_SERVICE) {
 +            let settings = gio::Settings::new(APP_ID);
-+            let run_in_background = settings.get::<bool>("run-in-background");
++            let _ = self.settings.set(settings.clone());
++            let run_in_background = settings.boolean("run-in-background");
 +
-+            if run_in_background && app.flags().contains(gio::ApplicationFlags::IS_SERVICE) {
-                 self.hold_guard.replace(Some(app.hold()));
++            settings.connect_changed(
++                Some("run-in-background"),
++                glib::clone!(
++                    #[weak]
++                    app,
++                    move |settings, _key| {
++                        let run_in_background = settings.boolean("run-in-background");
++                        let app = app.clone();
++
++                        if app.flags().contains(gio::ApplicationFlags::IS_SERVICE) {
++                            let imp = app.imp();
++
++                            if run_in_background {
++                                if imp.hold_guard.borrow().is_none() {
++                                    imp.hold_guard.replace(Some(app.hold()));
++                                }
++                            } else {
++                                imp.hold_guard.borrow_mut().take();
++                            }
++                        }
++
++                        glib::MainContext::default().spawn_local(async move {
++                            if let Err(err) = app.request_background_access(run_in_background).await
++                            {
++                                tracing::error!("Failed to update background access: {err}");
++                            }
++                            if run_in_background && !app.imp().shortcuts_started.get() {
++                                app.imp().shortcuts_started.set(true);
++
++                                if let Err(err) = app.setup_global_shortcuts().await {
++                                    app.imp().shortcuts_started.set(false);
++                                    tracing::error!("Failed to request global shortcuts: {err}");
++                                }
++                            }
++                        });
++                    }
++                ),
++            );
+ 
+             if app.flags().contains(gio::ApplicationFlags::IS_SERVICE) {
+-                self.hold_guard.replace(Some(app.hold()));
++                if run_in_background {
++                    if self.hold_guard.borrow().is_none() {
++                        self.hold_guard.replace(Some(app.hold()));
++                    }
++                } else {
++                    self.hold_guard.borrow_mut().take();
++                }
              }
  
-@@ -72,14 +75,20 @@ mod imp {
+             let ctx = glib::MainContext::default();
+@@ -72,14 +122,21 @@ mod imp {
                          }
                      }
  
 -                    if let Err(err) = app.request_background_access().await {
--                        tracing::error!("Failed to request background access: {err}");
-+                    if run_in_background {
-+                        if let Err(err) = app.request_background_access().await {
-+                            tracing::error!("Failed to request background access: {err}");
-+                        }
++                    if let Err(err) = app.request_background_access(run_in_background).await {
+                         tracing::error!("Failed to request background access: {err}");
                      }
                      // spawn indefinitely running task
                      futures::future::join(
                          async {
 -                            if let Err(err) = app.setup_global_shortcuts().await {
 -                                tracing::error!("Failed to request global shortcuts: {err}");
-+                            if run_in_background {
++                            if run_in_background && !app.imp().shortcuts_started.get() {
++                                app.imp().shortcuts_started.set(true);
++
 +                                if let Err(err) = app.setup_global_shortcuts().await {
++                                    app.imp().shortcuts_started.set(false);
 +                                    tracing::error!("Failed to request global shortcuts: {err}");
 +                                }
 +                            } else {
@@ -111,6 +167,22 @@ index cdebcdbd..9dca7930 100644
                              }
                          },
                          async {
+@@ -245,13 +302,13 @@ impl App {
+     /// Requests the system to allow the application to run in the background.
+     ///
+     /// This is used for receiving global shortcuts, while the app is not opened.
+-    async fn request_background_access(&self) -> ashpd::Result<()> {
++    async fn request_background_access(&self, auto_start: bool) -> ashpd::Result<()> {
+         let response = ashpd::desktop::background::Background::request()
+             .reason(&*gettext(
+                 "Allow color selection while the application runs in the background",
+             ))
+             .command(["eyedropper", "--gapplication-service"])
+-            .auto_start(true)
++            .auto_start(auto_start)
+             .dbus_activatable(false)
+             .send()
+             .await?
 diff --git a/src/widgets/preferences/preferences_window.rs b/src/widgets/preferences/preferences_window.rs
 index d3e062c5..fa9e03a0 100644
 --- a/src/widgets/preferences/preferences_window.rs
@@ -144,14 +216,16 @@ index d3e062c5..fa9e03a0 100644
                  .bind("alpha-position", &*self.alpha_pos_box, "selected")
                  .build();
 diff --git a/src/window.rs b/src/window.rs
-index b2165fd4..a39f4eb6 100644
+index b2165fd4..bc6e7b26 100644
 --- a/src/window.rs
 +++ b/src/window.rs
-@@ -165,6 +165,8 @@ mod imp {
+@@ -165,6 +165,10 @@ mod imp {
              self.parent_constructed();
              let obj = self.obj();
  
-+            obj.set_hide_on_close(self.settings.get::<bool>("run-in-background"));
++            self.settings
++                .bind("run-in-background", &*obj, "hide-on-close")
++                .build();
 +
              // Devel Profile
              if PROFILE == "Devel" {
