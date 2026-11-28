@@ -1,0 +1,51 @@
+From f1b4099f601345c0f01e8fa81736c11d540f039e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Fri, 27 Nov 2026 00:18:38 +0100
+Subject: [PATCH] Add D-Bus service file
+
+And mark the application as D-Bus activatable. This allows application
+launchers to activate it via D-Bus.
+---
+ data/com.cassidyjames.clairvoyant.service.in | 3 +++
+ data/launcher.desktop.in                     | 1 +
+ data/meson.build                             | 9 +++++++++
+ 3 files changed, 13 insertions(+)
+ create mode 100644 data/com.cassidyjames.clairvoyant.service.in
+
+diff --git a/data/com.cassidyjames.clairvoyant.service.in b/data/com.cassidyjames.clairvoyant.service.in
+new file mode 100644
+index 00000000..e5e738b5
+--- /dev/null
++++ b/data/com.cassidyjames.clairvoyant.service.in
+@@ -0,0 +1,3 @@
++[D-BUS Service]
++Name=com.cassidyjames.clairvoyant
++Exec=@bindir@/com.cassidyjames.clairvoyant --gapplication-service
+diff --git a/data/launcher.desktop.in b/data/launcher.desktop.in
+index 6f70f29b..ce5eafea 100644
+--- a/data/launcher.desktop.in
++++ b/data/launcher.desktop.in
+@@ -7,5 +7,6 @@ Exec=com.cassidyjames.clairvoyant
+ Icon=com.cassidyjames.clairvoyant
+ Terminal=false
+ Type=Application
++DBusActivatable=true
+ Keywords=magic;eight;ball;8;crystal;🔮;medium;🎱;
+ 
+diff --git a/data/meson.build b/data/meson.build
+index b0e9d9b6..6e8bade3 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -45,3 +45,12 @@ if (appstreamcli.found())
+     workdir: meson.current_build_dir()
+   )
+ endif
++
++dbus_service_file = configure_file(
++  input: 'com.cassidyjames.clairvoyant.service.in',
++  output: 'com.cassidyjames.clairvoyant.service',
++  configuration: {
++    'bindir': get_option('prefix') / get_option('bindir')
++  },
++  install_dir: join_paths(get_option('datadir'), 'dbus-1', 'services')
++)
