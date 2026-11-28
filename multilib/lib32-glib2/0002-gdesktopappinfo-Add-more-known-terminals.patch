@@ -9,10 +9,10 @@ Subject: [PATCH] gdesktopappinfo: Add more known terminals
  2 files changed, 12 insertions(+)
 
 diff --git a/gio/gdesktopappinfo.c b/gio/gdesktopappinfo.c
-index 608de9c73b56..6ade6cac76b8 100644
+index 72b0febc7fcb..113dbed1bc9f 100644
 --- a/gio/gdesktopappinfo.c
 +++ b/gio/gdesktopappinfo.c
-@@ -2764,6 +2764,9 @@ prepend_terminal_to_vector (int          *argc,
+@@ -2860,6 +2860,9 @@ prepend_terminal_to_vector (int          *argc,
      const char *exec_arg;
    } known_terminals[] = {
      { "xdg-terminal-exec", NULL },
@@ -23,10 +23,10 @@ index 608de9c73b56..6ade6cac76b8 100644
      { "gnome-terminal", "--" },
      { "mate-terminal", "-x" },
 diff --git a/gio/tests/desktop-app-info.c b/gio/tests/desktop-app-info.c
-index 8f602ecfef66..0823bc82e11e 100644
+index d04cf66d869d..3a11338920ee 100644
 --- a/gio/tests/desktop-app-info.c
 +++ b/gio/tests/desktop-app-info.c
-@@ -1522,6 +1522,12 @@ get_terminal_divider (const char *terminal_name)
+@@ -1745,6 +1745,12 @@ get_terminal_divider (const char *terminal_name)
  {
    if (g_str_equal (terminal_name, "xdg-terminal-exec"))
      return NULL;
@@ -39,7 +39,7 @@ index 8f602ecfef66..0823bc82e11e 100644
    if (g_str_equal (terminal_name, "kgx"))
      return "-e";
    if (g_str_equal (terminal_name, "gnome-terminal"))
-@@ -2127,6 +2133,9 @@ main (int   argc,
+@@ -2350,6 +2356,9 @@ main (int   argc,
    guint i;
    const gchar *supported_terminals[] = {
      "xdg-terminal-exec",
