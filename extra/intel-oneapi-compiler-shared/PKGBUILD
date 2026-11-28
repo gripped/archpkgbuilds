@@ -2,7 +2,7 @@
 # Contributor: Konstantin Gizdov <arch at kge dot pw>
 
 pkgname=intel-oneapi-compiler-shared
-pkgver=2026.2.0_863
+pkgver=2026.2.1_990
 _pkgver=$(echo $pkgver | sed 's/_/-/')
 _majmin=$(echo $pkgver | cut -d. -f1,2)
 pkgrel=1
@@ -11,7 +11,7 @@ arch=('x86_64')
 url='https://software.intel.com/content/www/us/en/develop/tools/oneapi.html'
 license=("LicenseRef-Intel-EULA-Developer-Tools")
 source=("https://apt.repos.intel.com/oneapi/pool/main/${pkgname}-${_majmin}-${_pkgver}_amd64.deb")
-sha256sums=('6d8b93fd075bb0956862d0a52620c8b08bb32179aac85225a3078399c94a41ca')
+sha256sums=('6cf46bc2a1ea6acc70fa54e0afdc39d5f05a60e6347f6f3b99f98527eb0a96ee')
 depends=(
   'intel-oneapi-compiler-shared-runtime'
   'intel-oneapi-dpcpp-debugger'
