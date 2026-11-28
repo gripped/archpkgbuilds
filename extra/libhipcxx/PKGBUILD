@@ -2,7 +2,7 @@
 # Maintainer: Christian Heusel <gromit@archlinux.org>
 
 pkgname=libhipcxx
-pkgver=10.2
+pkgver=10.1
 pkgrel=1
 pkgdesc='Header-only C++ standard library for HIP host and device code'
 arch=('any')
@@ -11,7 +11,7 @@ license=('Apache-2.0 WITH LLVM-exception' 'MIT')
 depends=('rocm-core' 'hip-runtime-amd')
 makedepends=('cmake' 'ninja' 'rocm-cmake')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/therock-$pkgver.tar.gz")
-sha256sums=('3117d217afd1acda79754f97e06f5dbd0066d96ec4659a97f0963c4f45f08992')
+sha256sums=('d6268c6d99c60bfc88771d7d92b440cb34c3e32f343e6d685b5b138d7a4363e7')
 _dirname="$pkgname-therock-$pkgver"
 
 build() {
